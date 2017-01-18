@@ -1372,10 +1372,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Gain 1 Mana Crystal this turn only.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CounterfeitCoin_CFM_630()
 		{
-			// TODO CounterfeitCoin_CFM_630 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1384,10 +1383,10 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Counterfeit Coin"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Counterfeit Coin"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.RemainingMana);
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [CFM_690] Jade Shuriken - COST:2 

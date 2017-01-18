@@ -35,10 +35,8 @@ namespace SimpleTest
             //Cards.Statistics();
 
             //BasicHealthAuraTest();
-            var ttlist = Cards.All.Where(c => c.Collectible && c.Type == CardType.HERO && Cards.StandardSets.Contains(c.Set)).ToList();
-            ttlist.ForEach(p => Log.Info($" found !!! {p.Name}"));
 
-            //CardsTest();
+            CardsTest();
             
             
             //Secretkeeper();
@@ -62,14 +60,12 @@ namespace SimpleTest
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.ROGUE,
-                Player2HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.ROGUE,
                 FillDecks = true
             });
             game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Counterfeit Coin"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

@@ -1073,12 +1073,11 @@ namespace SabberStone.CardSets
 			// Text: Gain 1 Mana Crystal this turn only.
 			// --------------------------------------------------------
 			cards.Add("CFM_630", new List<Enchantment> {
-				// TODO [CFM_630] Counterfeit Coin && Test: Counterfeit Coin_CFM_630
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new TempManaTask(1)
+                }
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
