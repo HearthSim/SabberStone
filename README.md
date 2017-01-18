@@ -2,6 +2,23 @@
 
 A Hearthstone simulator and implementation, written in C#.
 
+### Project Structure ###
+
+* SabberStone
+Core simulator engine, all the functions needed for the simulator are in here.
+
+* SabberStoneUnitTest
+UnitTest for the simulator, there is a generated test for each card in the current game.
+
+* SimpleTest
+A test project to run simple codeline based games to test outcome.
+
+* SimpleAi
+A test project to run A.I. simulations with predefinied decks and strategys. 
+
+* SimpleUi
+A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at.
+
 ### Cards Implementation
 
 **Basic & Classic**
