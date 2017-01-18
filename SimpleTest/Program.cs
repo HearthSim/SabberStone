@@ -23,7 +23,7 @@ namespace SimpleTest
 
         private static void Main(string[] args)
         {
-            Log.Info("Starting test setup!");
+            Log.Info("Starting test setup.");
 
             //int t = Cards.Count;
 
