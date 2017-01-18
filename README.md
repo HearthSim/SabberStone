@@ -1,3 +1,4 @@
+
 # SabberStone
 
 A Hearthstone simulator and implementation, written in C#.
@@ -11,7 +12,8 @@ A Hearthstone simulator and implementation, written in C#.
 * tbd
 
 ### Documentation
-tbd
+
+* tbd
 
 ### License
 
@@ -21,6 +23,8 @@ SabberStone is licensed under the terms of the
 [Affero GPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html) or any later version.
 
 ### Community
+
 SabberStone is beeing devloped by darkfriend77 (darkfriend@swissonline.ch)
+
 SabberStone is a [HearthSim](http://hearthsim.info) project. All development
 happens on our IRC channel `#hearthsim` on [Freenode](https://freenode.net).
