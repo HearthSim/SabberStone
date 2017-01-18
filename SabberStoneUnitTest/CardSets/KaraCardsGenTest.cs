@@ -348,21 +348,27 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void NightbaneTemplar_KAR_010()
 		{
-			// TODO NightbaneTemplar_KAR_010 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Azure Drake"),
+                },
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nightbane Templar"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nightbane Templar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
 		}
 
 		// --------------------------------------- MINION - PALADIN

@@ -271,11 +271,12 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_010", new List<Enchantment> {
-				// TODO [KAR_010] Nightbane Templar && Test: Nightbane Templar_KAR_010
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, new EnqueueTask(2, new SummonTask("KAR_010a")))),
 				},
 			});
 
