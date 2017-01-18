@@ -317,10 +317,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SilvermoonPortal_KAR_077()
 		{
-			// TODO SilvermoonPortal_KAR_077 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -331,8 +330,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silvermoon Portal"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silvermoon Portal"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion).Health);
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3] 

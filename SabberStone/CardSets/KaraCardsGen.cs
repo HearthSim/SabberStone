@@ -235,162 +235,6 @@ namespace SabberStone.CardSets
 
 		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_05] Archmage's Insight (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Your spells cost (0) this turn.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_05", new List<Enchantment> {
-				// TODO [KARA_00_05] Archmage's Insight && Test: Archmage's Insight_KARA_00_05
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_06] Arcane Power (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: You have <b>Spell Damage</b> +5 this turn.
-			// --------------------------------------------------------
-			// RefTag:
-			// - SPELLPOWER = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_00_06", new List<Enchantment> {
-				// TODO [KARA_00_06] Arcane Power && Test: Arcane Power_KARA_00_06
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_07] Astral Portal (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random <b>Legendary</b> minion.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_00_07", new List<Enchantment> {
-				// TODO [KARA_00_07] Astral Portal && Test: Astral Portal_KARA_00_07
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_09] Mage Armor (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Gain 10 Armor.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_09", new List<Enchantment> {
-				// TODO [KARA_00_09] Mage Armor && Test: Mage Armor_KARA_00_09
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_10] Mysterious Rune (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Put 5 random Mage <b>Secrets</b> into the battlefield.
-			// --------------------------------------------------------
-			// Entourage: EX1_294, FP1_018, AT_002, EX1_287, tt_010, EX1_295, EX1_289, EX1_594
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_SECRET_CAP_FOR_NON_SECRET = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_00_10", new List<Enchantment> {
-				// TODO [KARA_00_10] Mysterious Rune && Test: Mysterious Rune_KARA_00_10
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_11] Evocation (*) - COST:0 
-			// - Fac: neutral, Set: kara, 
-			// --------------------------------------------------------
-			// Text: Gain 5 Mana Crystals this turn only.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_11", new List<Enchantment> {
-				// TODO [KARA_00_11] Evocation && Test: Evocation_KARA_00_11
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_12_03] Flame Wreath (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When an enemy attacks, deal $5 damage to all other enemies. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// - ImmuneToSpellpower = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_03", new List<Enchantment> {
-				// TODO [KARA_12_03] Flame Wreath && Test: Flame Wreath_KARA_12_03
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_12_03H] Flame Wreath (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When an enemy attacks, deal $10 damage to all other enemies. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// - ImmuneToSpellpower = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_03H", new List<Enchantment> {
-				// TODO [KARA_12_03H] Flame Wreath && Test: Flame Wreath_KARA_12_03H
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------ MINION - MAGE
-			// [KARA_00_08] Archmage's Apprentice (*) - COST:2 [ATK:2/HP:4] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Whenever you cast a spell, shuffle a copy of it into your deck.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_08", new List<Enchantment> {
-				// TODO [KARA_00_08] Archmage's Apprentice && Test: Archmage's Apprentice_KARA_00_08
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
 
 		}
 
@@ -408,11 +252,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("KAR_077", new List<Enchantment> {
-				// TODO [KAR_077] Silvermoon Portal && Test: Silvermoon Portal_KAR_077
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET),
+                        ComplexTask.SummonRandomMinion(GameTag.COST, 2)),
 				},
 			});
 
