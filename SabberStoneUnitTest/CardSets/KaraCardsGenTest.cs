@@ -451,10 +451,9 @@ namespace SabberStoneUnitTest.CardSets
 		// Text: Whenever you cast a spell, restore 3 Health to
 		//       your hero.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PriestOfTheFeast_KAR_035()
 		{
-			// TODO PriestOfTheFeast_KAR_035 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -465,8 +464,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Priest of the Feast"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    game.CurrentPlayer.Hero.Damage = 3;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Priest of the Feast"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(27, game.CurrentPlayer.Hero.Health);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(30, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 

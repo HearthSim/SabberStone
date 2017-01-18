@@ -349,13 +349,18 @@ namespace SabberStone.CardSets
 			//       your hero.
 			// --------------------------------------------------------
 			cards.Add("KAR_035", new List<Enchantment> {
-				// TODO [KAR_035] Priest of the Feast && Test: Priest of the Feast_KAR_035
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new HealTask(3, EntityType.HERO))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 
