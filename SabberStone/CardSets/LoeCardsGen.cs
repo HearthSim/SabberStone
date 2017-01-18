@@ -482,11 +482,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_012", new List<Enchantment> {
-				// TODO [LOE_012] Tomb Pillager && Test: Tomb Pillager_LOE_012
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("GAME_005", EntityType.HAND),
 				},
 			});
 

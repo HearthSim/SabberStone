@@ -183,6 +183,7 @@
     <Content Include="Loader\Data\CARD.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\HearthDb.dll" />
     <None Include="Loader\Data\cardDataJson.txt" />
     <Content Include="Loader\Data\CardDefs.xml" />
     <None Include="Resources\cardDataJson.txt" />

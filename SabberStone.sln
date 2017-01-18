@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26009.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTest", "SimpleTest\SimpleTest.csproj", "{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStone", "SabberStone\SabberStone.csproj", "{B6B98F04-AEBA-4161-837E-A1C8A59593DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneUnitTest", "SabberStoneUnitTest\SabberStoneUnitTest.csproj", "{508ADF57-77EC-4308-8D9C-33D151869D0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{F5DF7FAD-8623-43B7-BE83-9EFAA57DF7DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,26 +69,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://decojects.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = SimpleTest\\SimpleTest.csproj
-		SccProjectName1 = SimpleTest
-		SccLocalPath1 = SimpleTest
-		SccProjectUniqueName2 = SimpleAi\\SimpleAi.csproj
-		SccProjectName2 = SimpleAi
-		SccLocalPath2 = SimpleAi
-		SccProjectUniqueName3 = SimpleUi\\SimpleUi.csproj
-		SccProjectName3 = SimpleUi
-		SccLocalPath3 = SimpleUi
-		SccProjectUniqueName4 = SabberStone\\SabberStone.csproj
-		SccProjectName4 = SabberStone
-		SccLocalPath4 = SabberStone
-		SccProjectUniqueName5 = SabberStoneUnitTest\\SabberStoneUnitTest.csproj
-		SccProjectName5 = SabberStoneUnitTest
-		SccLocalPath5 = SabberStoneUnitTest
 	EndGlobalSection
 EndGlobal

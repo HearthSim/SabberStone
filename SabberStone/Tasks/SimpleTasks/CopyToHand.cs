@@ -6,7 +6,7 @@ namespace SabberStone.Tasks.SimpleTasks
     {
         public override TaskState Process()
         {
-            bool success = Playables.TrueForAll(p => Generic.AddHandPhase.Invoke(Controller, p));
+            var success = Playables.TrueForAll(p => Generic.AddHandPhase.Invoke(Controller, p));
             return TaskState.COMPLETE;
         }
 
