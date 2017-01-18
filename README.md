@@ -7,6 +7,7 @@ You're welcome!
 
 darkfriend77
 
+
 ### Project Structure ###
 
 * SabberStone
@@ -28,6 +29,7 @@ darkfriend77
 * SimpleUi
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys.
+  ![alt tag](/Readme/simpleui.PNG)
 
 ### Cards Implementation
 
