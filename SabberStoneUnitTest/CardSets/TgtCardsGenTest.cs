@@ -3625,10 +3625,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CrowdFavorite_AT_121()
 		{
-			// TODO CrowdFavorite_AT_121 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3639,8 +3638,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Crowd Favorite"));
-		}
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Crowd Favorite"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+            Assert.AreEqual(4, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(4, ((Minion)minion1).Health);
+
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion3));
+
+            Assert.AreEqual(5, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(5, ((Minion)minion1).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_122] Gormok the Impaler - COST:4 [ATK:4/HP:4] 

@@ -2837,13 +2837,18 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_121", new List<Enchantment> {
-				// TODO [AT_121] Crowd Favorite && Test: Crowd Favorite_AT_121
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.HasTargetTagValue(GameTag.BATTLECRY, 1))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_122] Gormok the Impaler - COST:4 [ATK:4/HP:4] 
