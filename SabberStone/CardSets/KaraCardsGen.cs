@@ -332,11 +332,12 @@ namespace SabberStone.CardSets
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_013", new List<Enchantment> {
-				// TODO [KAR_013] Purify && Test: Purify_KAR_013
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SilenceTask(EntityType.TARGET),
+                        new DrawTask()),
 				},
 			});
 

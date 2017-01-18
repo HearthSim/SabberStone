@@ -421,10 +421,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - SILENCE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Purify_KAR_013()
 		{
-			// TODO Purify_KAR_013 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -435,8 +434,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Purify"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Purify"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(true, ((Minion)minion).HasDeathrattle);
+            Assert.AreEqual(3, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(false, ((Minion)minion).HasDeathrattle);
+            Assert.AreEqual(4, game.CurrentPlayer.NumCardsDrawnThisTurn);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6] 
