@@ -1065,7 +1065,6 @@ namespace SabberStone.CardSets
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new RandomMinionTask(GameTag.COST, EntityType.TARGET),
-                            new LogTask(),
                             new SummonTask()))
                         .Build()
                 }

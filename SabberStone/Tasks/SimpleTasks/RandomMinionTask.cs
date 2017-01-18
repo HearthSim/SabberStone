@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using HearthDb.Enums;
 using log4net;
-using SabberStone.Actions;
 using SabberStone.Model;
 
 namespace SabberStone.Tasks.SimpleTasks
