@@ -5,6 +5,10 @@ using SabberStone.Model;
 
 namespace SabberStone.Conditions
 {
+    public enum RelaSign
+    {
+        EQ, GEQ
+    }
     public class RelaCondition
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -26,10 +30,13 @@ namespace SabberStone.Conditions
         public static RelaCondition IsOtherSpell { get; } = new RelaCondition((me, other) => other is Spell);
         public static RelaCondition IsOtherTotem { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).Race == Race.TOTEM);
         public static RelaCondition IsSpellDmgOnHero { get; } = new RelaCondition((me, other) => me.Controller.Hero.SpellPower > 0);
+        public static RelaCondition IsOtherMinion { get; } = new RelaCondition((me, other) => other is Minion);
 
-        public static RelaCondition HasTargetTagValue(GameTag tag, int value)
+        public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
         {
-            return new RelaCondition((me, other) => other[tag] == value);
+            return new RelaCondition((me, other) => 
+             relaSign == RelaSign.EQ  && other[tag] == value 
+          || relaSign == RelaSign.GEQ && other[tag] >= value);
         }
 
         public RelaCondition(Func<IPlayable, IPlayable, bool> function)

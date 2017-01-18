@@ -27,11 +27,6 @@ namespace SabberStone.Actions
                     return false;
                 }
 
-                if (!RemoveFromZone.Invoke(c, source))
-                {
-                    return false;
-                }
-
                 c.NumCardsPlayedThisTurn++;
 
                 c.LastCardPlayed = source.Id;
@@ -42,10 +37,26 @@ namespace SabberStone.Actions
                 }
                 else if (source is Weapon)
                 {
+                    // - OnPlay Phase --> OnPlay Trigger (Illidan)
+                    //   (death processing, aura updates)
+                    OnPlayTrigger.Invoke(c, (Weapon)source);
+
+                    if (!RemoveFromZone.Invoke(c, source))
+                        return false;
+
                     PlayWeapon.Invoke(c, (Weapon)source);
                 }
                 else if (source is Spell)
                 {
+
+                    // - OnPlay Phase --> OnPlay Trigger (Illidan)
+                    //   (death processing, aura updates)
+                    OnPlayTrigger.Invoke(c, (Spell)source);
+
+                    // remove from hand zone
+                    if (!RemoveFromZone.Invoke(c, source))
+                        return false;
+
                     PlaySpell.Invoke(c, (Spell)source, target);
                 }
 
@@ -129,10 +140,14 @@ namespace SabberStone.Actions
                 return true;
             };
 
-        public static Action<Controller, Minion, ICharacter, int> PlayMinion
+        public static Func<Controller, Minion, ICharacter, int, bool> PlayMinion
             => delegate(Controller c, Minion minion, ICharacter target, int zonePosition)
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+                // remove from hand zone
+                if (!RemoveFromZone.Invoke(c, minion))
+                    return false;
 
                 if (!minion.HasCharge)
                     minion.IsExhausted = true;
@@ -163,19 +178,17 @@ namespace SabberStone.Actions
                 AfterSummonTrigger.Invoke(c, minion);
 
                 c.NumMinionsPlayedThisTurn++;
+
+                return true;
             };
 
-        public static Action<Controller, Spell, ICharacter> PlaySpell
+        public static Func<Controller, Spell, ICharacter, bool> PlaySpell
             => delegate(Controller c, Spell spell, ICharacter target)
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
                 log.Info($"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
                 c.Game.PlayTaskLog.AppendLine($"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
-
-                // - OnPlay Phase --> OnPlay Trigger (Illidan)
-                //   (death processing, aura updates)
-                OnPlayTrigger.Invoke(c, spell);
 
                 // trigger Spellbender  Phase
                 log.Debug($"# After Spellbender Phase ### (not implemented)");
@@ -201,9 +214,11 @@ namespace SabberStone.Actions
                 c.Game.PlayTaskLog.AppendLine($"# After Play Phase ###");
                 spell.JustPlayed = false;
                 c.Game.DeathProcessingAndAuraUpdate();
+
+                return true;
             };
 
-        public static Action<Controller, Weapon> PlayWeapon
+        public static Func<Controller, Weapon, bool> PlayWeapon
             => delegate(Controller c, Weapon weapon)
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -216,6 +231,8 @@ namespace SabberStone.Actions
                 // activate battlecry
                 weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, HearthDb.Enums.Zone.PLAY);
                 weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, HearthDb.Enums.Zone.PLAY);
+
+                return true;
             };
 
         private static Action<Controller, IPlayable> OnPlayTrigger

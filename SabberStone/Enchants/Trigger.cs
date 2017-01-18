@@ -89,28 +89,30 @@ namespace SabberStone.Enchants
 
             var target = entity as IPlayable;
 
+            Log.Info($"{entity} {gameTag} {oldValue} {newValue}");
+
             if (!Effects.ContainsKey(gameTag))
             {
-                Log.Debug($"GameTag {gameTag} not concerned by this enchanting(change) ...");
+                Log.Info($"GameTag {gameTag} not concerned by this enchanting(change) ...");
                 return;
             }
 
             if (!IsEnabled())
             {
-                Log.Debug($"Trigger isn't enabled!");
+                Log.Info($"Trigger isn't enabled!");
                 return;
             }
 
             if (!IsApplying(target))
             {
-                Log.Debug($"Trigger conditions not meet.");
+                Log.Info($"Trigger conditions not meet.");
                 return;
             }
 
             if (Effects[gameTag] > 0 && oldValue >= newValue
              || Effects[gameTag] < 0 && oldValue <= newValue)
             {
-                Log.Debug($"Enchant(change) conditions not meet positiv or negativ.");
+                Log.Info($"Enchant(change) conditions not meet positiv or negativ.");
                 return;
             }
 

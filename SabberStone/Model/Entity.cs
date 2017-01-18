@@ -148,7 +148,7 @@ namespace SabberStone.Model
                     result = new Spell(controller, zone, card, tags, id > 0 ? id : controller.Game.NextId);
                     break;
                 case CardType.WEAPON:
-                    result = new Weapon(controller, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new Weapon(controller, zone, card, tags, id > 0 ? id : controller.Game.NextId);
                     break;
                 case CardType.HERO:
                     result = new Hero(controller, card, tags, id > 0 ? id : controller.Game.NextId);

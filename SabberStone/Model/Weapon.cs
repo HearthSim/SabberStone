@@ -8,8 +8,8 @@ namespace SabberStone.Model
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Weapon(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, null, card, tags, id)
+        public Weapon(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
+            : base(controller, zone, card, tags, id)
         {
             Log.Debug($"Weapon {this} ({Card.Class}) was created.");
         }

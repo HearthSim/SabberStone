@@ -3376,10 +3376,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - OVERLOAD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void UnboundElemental_EX1_258()
 		{
-			// TODO UnboundElemental_EX1_258 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3390,8 +3389,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Unbound Elemental"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Unbound Elemental"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancestral Knowledge"));
+
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+            Assert.AreEqual(2, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(4, ((Minion)minion1).Health);
+
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+
+            Assert.AreEqual(3, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(5, ((Minion)minion1).Health);
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3] 
@@ -5403,10 +5415,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you play a card, gain +1/+1.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void QuestingAdventurer_EX1_044()
 		{
-			// TODO QuestingAdventurer_EX1_044 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5417,8 +5428,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Questing Adventurer"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Questing Adventurer"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+            Assert.AreEqual(3, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion1).Health);
+
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+
+            Assert.AreEqual(4, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(4, ((Minion)minion1).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5] 

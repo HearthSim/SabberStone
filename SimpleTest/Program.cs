@@ -59,13 +59,19 @@ namespace SimpleTest
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.ROGUE,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Counterfeit Coin"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Questing Adventurer"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

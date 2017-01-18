@@ -43,7 +43,8 @@ namespace SabberStone.Enchants
 
         CONTROLLER,
         OP_CONTROLLER,
-        SECRET
+        SECRET,
+        HAND_AND_BOARD
     }
 
     public class Enchantment
@@ -89,6 +90,12 @@ namespace SabberStone.Enchants
                         Enchant?.Activate(source.Card.Id, target.Enchants, target);
                         Trigger?.Activate(source.Card.Id, target.Triggers, target);
                     }
+                    break;
+                case EnchantmentArea.HAND_AND_BOARD:
+                    Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
+                    Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
                     break;
                 case EnchantmentArea.BOARD:
                     Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);

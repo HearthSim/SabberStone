@@ -2858,12 +2858,17 @@ namespace SabberStone.CardSets
             // - OVERLOAD = 1
             // --------------------------------------------------------
             cards.Add("EX1_258", new List<Enchantment> {
-				// TODO [EX1_258] Unbound Elemental && Test: Unbound Elemental_EX1_258
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.HasTargetTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -4351,12 +4356,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever you play a card, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("EX1_044", new List<Enchantment> {
-				// TODO [EX1_044] Questing Adventurer && Test: Questing Adventurer_EX1_044
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1),EntityType.SOURCE))
+                        .Build()
+                }
 			});
 
             // --------------------------------------- MINION - NEUTRAL
@@ -5434,7 +5444,7 @@ namespace SabberStone.CardSets
 			cards.Add("EX1_614", new List<Enchantment> {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
+                    Area = EnchantmentArea.HAND_AND_BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
