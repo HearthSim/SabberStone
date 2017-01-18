@@ -995,10 +995,9 @@ namespace SabberStoneUnitTest.CardSets
 		// Text: Whenever you cast a spell, give this minion
 		//       +1 Health.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ArcaneAnomaly_KAR_036()
 		{
-			// TODO ArcaneAnomaly_KAR_036 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1009,8 +1008,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcane Anomaly"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Anomaly"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(2, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 

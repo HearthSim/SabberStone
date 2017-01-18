@@ -826,13 +826,18 @@ namespace SabberStone.CardSets
 			//       +1 Health.
 			// --------------------------------------------------------
 			cards.Add("KAR_036", new List<Enchantment> {
-				// TODO [KAR_036] Arcane Anomaly && Test: Arcane Anomaly_KAR_036
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 
