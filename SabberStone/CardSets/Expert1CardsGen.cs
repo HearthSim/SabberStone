@@ -1409,13 +1409,18 @@ namespace SabberStone.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_559", new List<Enchantment> {
-				// TODO [EX1_559] Archmage Antonidas && Test: Archmage Antonidas_EX1_559
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// ------------------------------------------ MINION - MAGE
 			// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2] 

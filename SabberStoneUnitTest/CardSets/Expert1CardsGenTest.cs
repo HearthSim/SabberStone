@@ -1505,10 +1505,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ArchmageAntonidas_EX1_559()
 		{
-			// TODO ArchmageAntonidas_EX1_559 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1519,8 +1518,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Archmage Antonidas"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Archmage Antonidas"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual("CS2_029", game.CurrentPlayer.Hand[5].Card.Id);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2] 
