@@ -5,18 +5,20 @@ A Hearthstone simulator and implementation, written in C#.
 ### Cards Implementation
 
 Basic & Classic
-* Basic => 97% from 142 Cards
-* Classic => 56% from 245 Cards
+* 97% Basic (142 Cards)
+* 56% Classic (245 Cards)
 
 Adventures
-* Blackrock Mountain => 16% from 31 Cards
-* One Night in Karazhan => 31% from 45 Cards
-* The League of Explorers => 6% from 45 Cards
+* 16% Blackrock Mountain (31 Cards)
+* 31% One Night in Karazhan (45 Cards)
+*  6% The League of Explorers (45 Cards)
 
 Expensions
-* The Grand Tournament => 18% from 132 Cards
-* Whispers of the Old Gods => 3% from 134 Cards
-* Mean Streets of Gadgetzan => 31% from 132 Cards
+* 18% The Grand Tournament (132 Cards)
+*  3% Whispers of the Old Gods (134 Cards)
+* 31% Mean Streets of Gadgetzan (132 Cards)
+
+(Curse of Naxxrams not on focus, because not in Standard.)
 
 ### Requirements
 
