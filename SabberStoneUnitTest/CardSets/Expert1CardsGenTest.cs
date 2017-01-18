@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using HearthDb.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStone.Config;
@@ -6025,10 +6026,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, draw a card.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GadgetzanAuctioneer_EX1_095()
 		{
-			// TODO GadgetzanAuctioneer_EX1_095 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6037,10 +6037,17 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gadgetzan Auctioneer"));
-		}
+			game.Player1.BaseMana = 8;
+			game.Player2.BaseMana = 8;
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gadgetzan Auctioneer"));
+            Assert.AreEqual(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(4, game.CurrentPlayer.RemainingMana);
+            Assert.AreEqual(3, game.CurrentPlayer.NumCardsDrawnThisTurn);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1] 

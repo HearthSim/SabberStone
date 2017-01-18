@@ -4713,13 +4713,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, draw a card.
 			// --------------------------------------------------------
 			cards.Add("EX1_095", new List<Enchantment> {
-				// TODO [EX1_095] Gadgetzan Auctioneer && Test: Gadgetzan Auctioneer_EX1_095
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1] 

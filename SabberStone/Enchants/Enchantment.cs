@@ -91,6 +91,10 @@ namespace SabberStone.Enchants
                         Trigger?.Activate(source.Card.Id, target.Triggers, target);
                     }
                     break;
+                case EnchantmentArea.HAND:
+                    Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
+                    break;
                 case EnchantmentArea.HAND_AND_BOARD:
                     Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
                     Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
