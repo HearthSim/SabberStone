@@ -120,20 +120,7 @@ namespace SabberStone.Tasks
         public static ISimpleTask SummonRandomMinion(GameTag tag, int value)
         {
             return Create(
-                new IncludeTask(EntityType.SOURCE),
-                new FuncTask(list =>
-                {
-                    var controller = list[0].Controller;
-                    var formatType = controller.Game.FormatType;
-                    var cards = formatType == FormatType.FT_STANDARD ? controller.Standard : controller.Wild;
-                    return new List<IPlayable>()
-                    {
-                        Entity.FromCard(controller,
-                            Util<Card>.Choose(cards.Where(p =>
-                                p.Type == CardType.MINION
-                                && p[tag] == value).ToList()))
-                    };
-                }),
+                new RandomMinionTask(tag, value),
                 new SummonTask());
         }
 

@@ -1055,13 +1055,21 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, summon a random minion of the same Cost.
 			// --------------------------------------------------------
 			cards.Add("LOE_086", new List<Enchantment> {
-				// TODO [LOE_086] Summoning Stone && Test: Summoning Stone_LOE_086
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomMinionTask(GameTag.COST, EntityType.TARGET),
+                            new LogTask(),
+                            new SummonTask()))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6] 

@@ -66,12 +66,14 @@ namespace SimpleTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Questing Adventurer"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
-            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Summoning Stone"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sorcerer's Apprentice"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

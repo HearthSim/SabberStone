@@ -78,6 +78,8 @@ namespace SabberStone.Model
             Log.Debug("AllStandard:");
             AllStandard = All.Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList();
 
+            Log.Debug("AllWild:");
+            AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList();
         }
 
         public static int Count => Data.Cards.Count;
@@ -104,7 +106,9 @@ namespace SabberStone.Model
         public static Dictionary<CardClass, List<Card>> Standard { get; } = new Dictionary<CardClass, List<Card>>();
 
         public static IEnumerable<Card> AllStandard { get; }
-        
+
+        public static IEnumerable<Card> AllWild { get; }
+
         public static void Statistics()
         {
             var standard = All.Where(c => c.Collectible && StandardSets.Contains(c.Set));

@@ -2807,10 +2807,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, summon a random minion of the same Cost.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SummoningStone_LOE_086()
 		{
-			// TODO SummoningStone_LOE_086 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2821,8 +2820,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Summoning Stone"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Summoning Stone"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(spell1.Card.Cost, game.CurrentPlayer.Board[1].Card.Cost);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sorcerer's Apprentice"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Board[3].Card.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6] 
