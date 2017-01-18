@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B6B98F04-AEBA-4161-837E-A1C8A59593DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SabberStone</RootNamespace>
+    <AssemblyName>SabberStone</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HearthDb">
+      <HintPath>..\..\..\HearthDb\trunk\HearthDb\bin\Debug\HearthDb.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Choose.cs" />
+    <Compile Include="Actions\HeroPower.cs" />
+    <Compile Include="CardSets\Expert1CardsGen.cs" />
+    <Compile Include="CardSets\Fp2CardsGen.cs" />
+    <Compile Include="CardSets\GangsCardsGen.cs" />
+    <Compile Include="CardSets\KaraCardsGen.cs" />
+    <Compile Include="CardSets\LoeCardsGen.cs" />
+    <Compile Include="CardSets\OgCardsGen.cs" />
+    <Compile Include="CardSets\TgtCardsGen.cs" />
+    <Compile Include="Config\GameConfig.cs" />
+    <Compile Include="Enchants\Auras.cs" />
+    <Compile Include="Enchants\Buffs.cs" />
+    <Compile Include="Enchants\Trigger.cs" />
+    <Compile Include="Conditions\SelfCondition.cs" />
+    <Compile Include="Model\TaskQueue.cs" />
+    <Compile Include="Actions\Attack.cs" />
+    <Compile Include="Actions\Draw.cs" />
+    <Compile Include="Actions\PlayCard.cs" />
+    <Compile Include="Actions\Summon.cs" />
+    <Compile Include="Enchants\Triggers.cs" />
+    <Compile Include="Loader\Generate.cs" />
+    <Compile Include="CardSets\CoreCardsGen.cs" />
+    <Compile Include="Model\Choice.cs" />
+    <Compile Include="Model\TaskStack.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Actions\Generic.cs" />
+    <Compile Include="Splits\SplitNode.cs" />
+    <Compile Include="Tasks\StateTaskList.cs" />
+    <Compile Include="Tasks\SimpleTasks\BuffAttackHealthNumberTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DamageNumberTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DiscoverTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DeathrattleTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DrawOpTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DrawStackTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\EnqueueNumberTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\GetControllerManaTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\GetGameTagControllerTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\GetGameTagTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\RemoveFromDeck.cs" />
+    <Compile Include="Tasks\SimpleTasks\ReplaceHeroPower.cs" />
+    <Compile Include="Tasks\SimpleTasks\ReplaceWeaponTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\RevealTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\MoveTo.cs" />
+    <Compile Include="Tasks\SimpleTasks\AddCardTo.cs" />
+    <Compile Include="Tasks\SimpleTasks\ReplaceHeroTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\MathTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\AuraTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\HealthRetentionTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\FilterTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\EnqueueTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\SetGameTagNumberTask.cs" />
+    <Compile Include="Tasks\SpecificTask.cs" />
+    <Compile Include="Tasks\ComplexTasks.cs" />
+    <Compile Include="Enchants\Enchantments.cs" />
+    <Compile Include="Enchants\Enchantment.cs" />
+    <Compile Include="Tasks\PlayerTasks\ChooseTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\ConcedeTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\EndTurnTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\HeroAttackTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\HeroPowerTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\MinionAttackTask.cs" />
+    <Compile Include="Tasks\PlayerTasks\PlayCardTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ArmorTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\CopyTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\CountTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ReturnHandTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\CopyToHand.cs" />
+    <Compile Include="Tasks\SimpleTasks\FlagTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ClearStackTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ControlTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\SetGameTagTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\BuffTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\TransformTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\WeaponTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\SelfConditionTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DamageTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DestroyTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DiscardTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\DrawTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\FuncTask.cs" />
+    <Compile Include="Loader\CardLoader.cs" />
+    <Compile Include="Loader\PlayerReqDesc.cs" />
+    <Compile Include="Model\Cards.cs" />
+    <Compile Include="Model\Character.cs" />
+    <Compile Include="Conditions\RelaCondition.cs" />
+    <Compile Include="Model\Controller.cs" />
+    <Compile Include="Model\Deck.cs" />
+    <Compile Include="Enchants\Enchant.cs" />
+    <Compile Include="Model\EntityData.cs" />
+    <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\Card.cs" />
+    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\Hand.cs" />
+    <Compile Include="Model\Hero.cs" />
+    <Compile Include="Model\HeroPower.cs" />
+    <Compile Include="Model\Minion.cs" />
+    <Compile Include="Model\Playable.cs" />
+    <Compile Include="Model\Spell.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\TagValue.cs" />
+    <Compile Include="Model\Targeting.cs" />
+    <Compile Include="Model\GameEventManager.cs" />
+    <Compile Include="Model\Utils.cs" />
+    <Compile Include="Model\Weapon.cs" />
+    <Compile Include="Model\Zone.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
+    <Compile Include="Model\Zones.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\SimpleTasks\HealTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\IncludeTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\LogTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ManaCrystalTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\RandomTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\SilenceTask.cs" />
+    <Compile Include="Tasks\SimpleTask.cs" />
+    <Compile Include="Tasks\SimpleTaskList.cs" />
+    <Compile Include="Tasks\SimpleTasks\SummonTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\TempManaTask.cs" />
+    <Compile Include="Visualizer\CardAscii.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Loader\configure.bat" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Loader\Data\CARD.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Loader\Data\cardDataJson.txt" />
+    <Content Include="Loader\Data\CardDefs.xml" />
+    <None Include="Resources\cardDataJson.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Tasks\SplitTasks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

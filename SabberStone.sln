@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26009.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTest", "SimpleTest\SimpleTest.csproj", "{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleAi", "SimpleAi\SimpleAi.csproj", "{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleUi", "SimpleUi\SimpleUi.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStone", "SabberStone\SabberStone.csproj", "{B6B98F04-AEBA-4161-837E-A1C8A59593DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneUnitTest", "SabberStoneUnitTest\SabberStoneUnitTest.csproj", "{508ADF57-77EC-4308-8D9C-33D151869D0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Debug|x86.Build.0 = Debug|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Release|x86.ActiveCfg = Release|Any CPU
+		{08E3DC3B-9C59-4AB5-BD7D-7280533F1E6F}.Release|x86.Build.0 = Release|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Debug|x86.Build.0 = Debug|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A0EBB3F2-EA2C-4490-A477-3ECE2B3A6E5E}.Release|x86.Build.0 = Release|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Debug|x86.Build.0 = Debug|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.ActiveCfg = Release|Any CPU
+		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.Build.0 = Release|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6B98F04-AEBA-4161-837E-A1C8A59593DC}.Release|x86.Build.0 = Release|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Debug|x86.Build.0 = Debug|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Release|x86.ActiveCfg = Release|Any CPU
+		{508ADF57-77EC-4308-8D9C-33D151869D0E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://decojects.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SimpleTest\\SimpleTest.csproj
+		SccProjectName1 = SimpleTest
+		SccLocalPath1 = SimpleTest
+		SccProjectUniqueName2 = SimpleAi\\SimpleAi.csproj
+		SccProjectName2 = SimpleAi
+		SccLocalPath2 = SimpleAi
+		SccProjectUniqueName3 = SimpleUi\\SimpleUi.csproj
+		SccProjectName3 = SimpleUi
+		SccLocalPath3 = SimpleUi
+		SccProjectUniqueName4 = SabberStone\\SabberStone.csproj
+		SccProjectName4 = SabberStone
+		SccLocalPath4 = SabberStone
+		SccProjectUniqueName5 = SabberStoneUnitTest\\SabberStoneUnitTest.csproj
+		SccProjectName5 = SabberStoneUnitTest
+		SccLocalPath5 = SabberStoneUnitTest
+	EndGlobalSection
+EndGlobal
