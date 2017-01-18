@@ -5639,10 +5639,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, gain +2 Attack this turn.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ManaAddict_EX1_055()
 		{
-			// TODO ManaAddict_EX1_055 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5653,8 +5652,16 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Addict"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mana Addict"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4] 

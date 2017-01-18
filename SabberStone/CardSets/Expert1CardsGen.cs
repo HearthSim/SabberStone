@@ -4485,13 +4485,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, gain +2 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("EX1_055", new List<Enchantment> {
-				// TODO [EX1_055] Mana Addict && Test: Mana Addict_EX1_055
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackTurn(2), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4] 
