@@ -33,6 +33,8 @@ namespace SabberStone.Tasks.SimpleTasks
         OP_WEAPON,
         STACK,
         ALLMINIONS,
+
+        INVALID
     }
 
     public class IncludeTask : SimpleTask

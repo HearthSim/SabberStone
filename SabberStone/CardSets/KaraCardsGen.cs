@@ -201,7 +201,9 @@ namespace SabberStone.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.DrawRandomCard(CardType.SPELL, CardClass.MAGE)
+					SingleTask = ComplexTask.Create(
+                        new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+                        new CopyToHand())
 				},
 			});
 
@@ -540,12 +542,13 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_069", new List<Enchantment> {
-				// TODO [KAR_069] Swashburglar && Test: Swashburglar_KAR_069
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new RandomCardTask(EntityType.OP_HERO),
+                        new CopyToHand())
+                },
 			});
 
 			// ----------------------------------------- MINION - ROGUE

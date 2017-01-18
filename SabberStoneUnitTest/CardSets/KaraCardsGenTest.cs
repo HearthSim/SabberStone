@@ -491,22 +491,26 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Swashburglar_KAR_069()
 		{
-			// TODO Swashburglar_KAR_069 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Swashburglar"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(CardClass.MAGE, game.CurrentPlayer.Hand[4].Card.Class);
+            Assert.AreEqual(CardClass.MAGE, game.CurrentPlayer.Hand[5].Card.Class);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6] 

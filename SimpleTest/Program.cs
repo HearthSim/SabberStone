@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using HearthDb;
 using HearthDb.Enums;
@@ -34,7 +35,12 @@ namespace SimpleTest
             //Cards.Statistics();
 
             //BasicHealthAuraTest();
-            CardsTest();
+            var ttlist = Cards.All.Where(c => c.Collectible && c.Type == CardType.HERO && Cards.StandardSets.Contains(c.Set)).ToList();
+            ttlist.ForEach(p => Log.Info($" found !!! {p.Name}"));
+
+            //CardsTest();
+            
+            
             //Secretkeeper();
             //CardsTest();
             //CloneSameSame();
@@ -55,21 +61,15 @@ namespace SimpleTest
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Azure Drake")
-                },
+                Player1HeroClass = CardClass.ROGUE,
                 Player2HeroClass = CardClass.MAGE,
-                FillDecks = false,
-                Splitting = true
+                FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

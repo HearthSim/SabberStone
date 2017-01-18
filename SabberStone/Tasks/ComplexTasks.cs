@@ -146,24 +146,6 @@ namespace SabberStone.Tasks
                 new DrawStackTask());
         }
 
-        public static ISimpleTask DrawRandomCard(CardType cardType, CardClass cardClass)
-        {
-            return Create(
-                new IncludeTask(EntityType.SOURCE),
-                new FuncTask(list =>
-                {
-                    var controller = list[0].Controller;
-                    var formatType = controller.Game.FormatType;
-                    var cards = formatType == FormatType.FT_STANDARD ? controller.Standard : controller.Wild;
-                    return new List<IPlayable>
-                    {
-                        Entity.FromCard(controller, Util<Card>.Choose(cards.Where(p =>
-                                p.Type == cardType && p.Class == cardClass).ToList()))
-                    };
-                }),
-                new CopyToHand());
-        }
-
         public static ISimpleTask SummonJadeGolem()
         {
             return Create(
