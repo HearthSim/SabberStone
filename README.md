@@ -1,7 +1,22 @@
-
 # SabberStone
 
 A Hearthstone simulator and implementation, written in C#.
+
+### Cards Implementation
+
+Basic & Classic
+* Basic => 97% from 142 Cards
+* Classic => 56% from 245 Cards
+
+Adventures
+* Blackrock Mountain => 16% from 31 Cards
+* One Night in Karazhan => 31% from 45 Cards
+* The League of Explorers => 6% from 45 Cards
+
+Expensions
+* The Grand Tournament => 18% from 132 Cards
+* Whispers of the Old Gods => 3% from 134 Cards
+* Mean Streets of Gadgetzan => 31% from 132 Cards
 
 ### Requirements
 
