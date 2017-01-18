@@ -6,25 +6,36 @@ A Hearthstone simulator and implementation, written in C#.
 
 * SabberStone
 
-Core simulator engine, all the functions needed for the simulator are in here.
+  Core simulator engine, all the functions needed for the simulator are in here.
 
 * SabberStoneUnitTest
 
-UnitTest for the simulator, there is a generated test for each card in the current game.
+  UnitTest for the simulator, there is a generated test for each card in the current game.
 
 * SimpleTest
 
-A test project to run simple codeline based games to test outcome.
+  A test project to run simple codeline based games to test outcome.
 
 * SimpleAi
 
-A test project to run A.I. simulations with predefinied decks and strategys. 
+  A test project to run A.I. simulations with predefinied decks and strategys. 
 
 * SimpleUi
 
-A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at.
+  A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys.
 
 ### Cards Implementation
+
+- [x] Aura, Enchantment & Trigger
+- [x] Hero, Hero Power & Weapon
+- [x] Battlecry & Deathrattle
+- [x] Choose One & Combo
+- [x] Inspire, Joust & Discover
+- [x] Jade Golems (Jade Lotus)
+- [x] Buffing Hand (Grimy Goons)
+- [ ] Potions (Kabal)
+- [ ] Freeze
+- [ ] Excess Mana
 
 **Basic & Classic**
 * 97% Basic (142 Cards)
@@ -41,6 +52,11 @@ A test project that shows off a visual implementation of the SimpleAi project. T
 * 31% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
+
+### ToDo List ###
+
+- [x] Move SabberStone to Github
+- [ ] Wiki for SabberStone
 
 ### Requirements
 
