@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using HearthDb.Enums;
 using SabberStone.Conditions;
 using SabberStone.Enchants;
+using SabberStone.Model;
 using SabberStone.Tasks;
 using SabberStone.Tasks.SimpleTasks;
 
@@ -489,13 +491,33 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, summon a random basic_Totem.
 			// --------------------------------------------------------
 			cards.Add("KAR_021", new List<Enchantment> {
-				// TODO [KAR_021] Wicked Witchdoctor && Test: Wicked Witchdoctor_KAR_021
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.SOURCE),
+                            new FuncTask(list =>
+                            {
+                                var controller = list[0].Controller;
+                                var basicTotem = new List<string>
+                                {
+                                    "CS2_050","CS2_051","CS2_052","NEW1_009"
+                                };
+                                return new List<IPlayable>
+                                {
+                                    Entity.FromCard(controller, Cards.FromId(Util<string>.Choose(basicTotem)))
+                                };
+                            }),
+                            new SummonTask()
+                            ))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [KAR_063] Spirit Claws - COST:1 [ATK:1/HP:0] 

@@ -646,10 +646,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, summon a random basic_Totem.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WickedWitchdoctor_KAR_021()
 		{
-			// TODO WickedWitchdoctor_KAR_021 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -660,8 +659,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wicked Witchdoctor"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Witchdoctor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+		    Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(Race.TOTEM, game.CurrentPlayer.Board[1].Card.Race);
+        }
 
 		// ---------------------------------------- WEAPON - SHAMAN
 		// [KAR_063] Spirit Claws - COST:1 [ATK:1/HP:0] 
