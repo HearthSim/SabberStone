@@ -1468,13 +1468,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_012", new List<Enchantment> {
-				// TODO [NEW1_012] Mana Wyrm && Test: Mana Wyrm_NEW1_012
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 		}
 
