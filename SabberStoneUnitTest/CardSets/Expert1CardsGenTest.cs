@@ -7454,10 +7454,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VioletTeacher_NEW1_026()
 		{
-			// TODO VioletTeacher_NEW1_026 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7468,8 +7467,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Violet Teacher"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Violet Teacher"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual("NEW1_026t", game.CurrentPlayer.Board[1].Card.Id);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3] 

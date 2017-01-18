@@ -5683,13 +5683,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
 			// --------------------------------------------------------
 			cards.Add("NEW1_026", new List<Enchantment> {
-				// TODO [NEW1_026] Violet Teacher && Test: Violet Teacher_NEW1_026
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new SummonTask("NEW1_026t"))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3] 
