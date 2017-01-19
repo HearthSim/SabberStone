@@ -2162,11 +2162,14 @@ namespace SabberStone.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_017", new List<Enchantment> {
-				// TODO [AT_017] Twilight Guardian && Test: Twilight Guardian_AT_017
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, ComplexTask.Create(
+                            new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
+                            ComplexTask.Taunt(EntityType.SOURCE)))),
 				},
 			});
 

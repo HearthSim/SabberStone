@@ -109,7 +109,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Acidic Swamp Ooze"),
             //Cards.FromName("Dirty Rat"),
             Cards.FromName("Doomsayer"),
-            //Cards.FromName("Netherspite Historian"),
+            Cards.FromName("Netherspite Historian"),
             //Cards.FromName("Brann Bronzebeard"),
             //Cards.FromName("Kabal Courier"),
             //Cards.FromName("Kazakus"),
@@ -120,7 +120,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Book Wyrm"),
             Cards.FromName("Reno Jackson"),
             Cards.FromName("Chillmaw"),
-            //Cards.FromName("Ysera")
+            Cards.FromName("Ysera")
         };
 
         /// <summary>

@@ -2588,22 +2588,30 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TwilightGuardian_AT_017()
 		{
-			// TODO TwilightGuardian_AT_017 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Twilight Guardian")
+                },
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Guardian"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Guardian"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, ((Minion)testCard).HasTaunt);
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_070] Skycap'n Kragg - COST:7 [ATK:4/HP:6] 
