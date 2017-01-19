@@ -2888,13 +2888,17 @@ namespace SabberStone.CardSets
 			// Text: At the end of your turn, draw a card.
 			// --------------------------------------------------------
 			cards.Add("EX1_575", new List<Enchantment> {
-				// TODO [EX1_575] Mana Tide Totem && Test: Mana Tide Totem_EX1_575
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 

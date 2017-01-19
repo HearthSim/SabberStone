@@ -3422,10 +3422,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, draw a card.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ManaTideTotem_EX1_575()
 		{
-			// TODO ManaTideTotem_EX1_575 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3436,8 +3435,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Tide Totem"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Tide Totem"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, game.CurrentOpponent.NumCardsDrawnThisTurn);
+
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
