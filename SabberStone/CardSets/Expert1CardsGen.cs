@@ -5787,13 +5787,19 @@ namespace SabberStone.CardSets
 			// Text: At the end of your turn, give another random friendly minion +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_037", new List<Enchantment> {
-				// TODO [NEW1_037] Master Swordsmith && Test: Master Swordsmith_NEW1_037
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomTask(1, EntityType.MINIONS_NOSOURCE),
+                            new BuffTask(Buffs.Attack(1), EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [NEW1_038] Gruul - COST:8 [ATK:7/HP:7] 

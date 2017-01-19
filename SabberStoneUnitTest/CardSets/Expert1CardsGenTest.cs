@@ -7649,10 +7649,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, give another random friendly minion +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MasterSwordsmith_NEW1_037()
 		{
-			// TODO MasterSwordsmith_NEW1_037 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7663,7 +7662,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Master Swordsmith"));
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Master Swordsmith"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3, ((Minion)testCard2).AttackDamage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
