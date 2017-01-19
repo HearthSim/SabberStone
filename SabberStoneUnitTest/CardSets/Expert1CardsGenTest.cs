@@ -7613,10 +7613,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Deathwing_NEW1_030()
 		{
-			// TODO Deathwing_NEW1_030 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7627,8 +7626,18 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(0, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3] 

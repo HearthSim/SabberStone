@@ -5767,11 +5767,12 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_030", new List<Enchantment> {
-				// TODO [NEW1_030] Deathwing && Test: Deathwing_NEW1_030
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.ALL),
+                        new DiscardTask(EntityType.HAND)),
 				},
 			});
 

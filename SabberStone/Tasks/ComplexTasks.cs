@@ -46,7 +46,7 @@ namespace SabberStone.Tasks
         public static ISimpleTask DiscardRandomCard(int amount)
             => Create(
                 new RandomTask(amount, EntityType.HAND),
-                new DiscardTask());
+                new DiscardTask(EntityType.STACK));
 
         public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
             => Create(
