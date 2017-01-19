@@ -7768,10 +7768,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a minion dies, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FlesheatingGhoul_tt_004()
 		{
-			// TODO FlesheatingGhoul_tt_004 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7782,8 +7781,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flesheating Ghoul"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flesheating Ghoul"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+        }
 
 	}
 

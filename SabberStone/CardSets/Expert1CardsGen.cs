@@ -5876,13 +5876,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever a minion dies, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("tt_004", new List<Enchantment> {
-				// TODO [tt_004] Flesheating Ghoul && Test: Flesheating Ghoul_tt_004
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                                .Build()
+                }
+            });
 
 		}
 
