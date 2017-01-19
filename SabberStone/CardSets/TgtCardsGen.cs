@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using HearthDb.Enums;
 using SabberStone.Conditions;
 using SabberStone.Enchants;
+using SabberStone.Model;
 using SabberStone.Tasks;
+using SabberStone.Tasks.PlayerTasks;
 using SabberStone.Tasks.SimpleTasks;
 
 namespace SabberStone.CardSets
@@ -22,12 +24,11 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_050t", new List<Enchantment> {
-				// TODO [AT_050t] Lightning Jolt && Test: Lightning Jolt_AT_050t
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.TARGET, false)
+                }
 			});
 
 			// ------------------------------------- HERO_POWER - DRUID
@@ -38,13 +39,14 @@ namespace SabberStone.CardSets
 			//       Gain 2 Armor and +2 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("AT_132_DRUID", new List<Enchantment> {
-				// TODO [AT_132_DRUID] Dire Shapeshift && Test: Dire Shapeshift_AT_132_DRUID
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new ArmorTask(2),
+                        new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
+                }
+            });
 
 			// ------------------------------------ HERO_POWER - HUNTER
 			// [AT_132_HUNTER] Ballista Shot (*) - COST:2 
@@ -58,13 +60,12 @@ namespace SabberStone.CardSets
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_HUNTER", new List<Enchantment> {
-				// TODO [AT_132_HUNTER] Ballista Shot && Test: Ballista Shot_AT_132_HUNTER
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+              new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(3, EntityType.OP_HERO, false)
+                }
+            });
 
 			// -------------------------------------- HERO_POWER - MAGE
 			// [AT_132_MAGE] Fireblast Rank 2 (*) - COST:2 
@@ -77,13 +78,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_MAGE", new List<Enchantment> {
-				// TODO [AT_132_MAGE] Fireblast Rank 2 && Test: Fireblast Rank 2_AT_132_MAGE
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.TARGET, false)
+                }
+            });
 
 			// ----------------------------------- HERO_POWER - PALADIN
 			// [AT_132_PALADIN] The Silver Hand (*) - COST:2 
@@ -96,13 +96,12 @@ namespace SabberStone.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132_PALADIN", new List<Enchantment> {
-				// TODO [AT_132_PALADIN] The Silver Hand && Test: The Silver Hand_AT_132_PALADIN
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(2, new SummonTask("CS2_101t"))
+                }
+            });
 
 			// ------------------------------------ HERO_POWER - PRIEST
 			// [AT_132_PRIEST] Heal (*) - COST:2 
@@ -115,13 +114,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_PRIEST", new List<Enchantment> {
-				// TODO [AT_132_PRIEST] Heal && Test: Heal_AT_132_PRIEST
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new HealTask(4, EntityType.TARGET)
+                }
+            });
 
 			// ------------------------------------- HERO_POWER - ROGUE
 			// [AT_132_ROGUE] Poisoned Daggers (*) - COST:2 
@@ -131,13 +129,12 @@ namespace SabberStone.CardSets
 			//       Equip a 2/2 Weapon.
 			// --------------------------------------------------------
 			cards.Add("AT_132_ROGUE", new List<Enchantment> {
-				// TODO [AT_132_ROGUE] Poisoned Daggers && Test: Poisoned Daggers_AT_132_ROGUE
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "AT_132_ROGUEt")
+                }
+            });
 
 			// ------------------------------------ HERO_POWER - SHAMAN
 			// [AT_132_SHAMAN] Totemic Slam (*) - COST:2 
@@ -166,13 +163,12 @@ namespace SabberStone.CardSets
 			//       Draw a card.
 			// --------------------------------------------------------
 			cards.Add("AT_132_WARLOCK", new List<Enchantment> {
-				// TODO [AT_132_WARLOCK] Soul Tap && Test: Soul Tap_AT_132_WARLOCK
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DrawTask()
+                }
+            });
 
 			// ----------------------------------- HERO_POWER - WARRIOR
 			// [AT_132_WARRIOR] Tank Up! (*) - COST:2 
@@ -182,13 +178,12 @@ namespace SabberStone.CardSets
 			//       Gain 4 Armor.
 			// --------------------------------------------------------
 			cards.Add("AT_132_WARRIOR", new List<Enchantment> {
-				// TODO [AT_132_WARRIOR] Tank Up! && Test: Tank Up!_AT_132_WARRIOR
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new ArmorTask(4)
+                }
+            });
 
 		}
 
@@ -685,13 +680,17 @@ namespace SabberStone.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_063t", new List<Enchantment> {
-				// TODO [AT_063t] Dreadscale && Test: Dreadscale_AT_063t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE))
+                        .Build()
+                }
+            });
 
 		}
 
@@ -883,11 +882,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_009", new List<Enchantment> {
-				// TODO [AT_009] Rhonin && Test: Rhonin_AT_009
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3, new AddCardTo("EX1_277", EntityType.HAND)),
 				},
 			});
 
@@ -940,11 +938,12 @@ namespace SabberStone.CardSets
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("AT_074", new List<Enchantment> {
-				// TODO [AT_074] Seal of Champions && Test: Seal of Champions_AT_074
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.Attack(3), EntityType.TARGET),
+                        ComplexTask.DivineShield(EntityType.TARGET))
 				},
 			});
 
@@ -1173,11 +1172,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_055", new List<Enchantment> {
-				// TODO [AT_055] Flash Heal && Test: Flash Heal_AT_055
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new HealTask(5, EntityType.TARGET),
 				},
 			});
 
@@ -1206,12 +1204,14 @@ namespace SabberStone.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_012", new List<Enchantment> {
-				// TODO [AT_012] Spawn of Shadows && Test: Spawn of Shadows_AT_012
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				{
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.Create(
+                        new DamageTask(4, EntityType.HERO),
+                        new DamageTask(4, EntityType.OP_HERO)))
+                }
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1261,11 +1261,14 @@ namespace SabberStone.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_116", new List<Enchantment> {
-				// TODO [AT_116] Wyrmrest Agent && Test: Wyrmrest Agent_AT_116
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, ComplexTask.Create(
+                            ComplexTask.Taunt(EntityType.SOURCE),
+                            new BuffTask(Buffs.Attack(1), EntityType.SOURCE)))),
 				},
 			});
 
@@ -1577,13 +1580,27 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_046", new List<Enchantment> {
-				// TODO [AT_046] Tuskarr Totemic && Test: Tuskarr Totemic_AT_046
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                            new IncludeTask(EntityType.SOURCE),
+                            new FuncTask(list =>
+                            {
+                                var controller = list[0].Controller;
+                                var basicTotem = new List<string>
+                                {
+                                    "CS2_050","CS2_051","CS2_052","NEW1_009"
+                                };
+                                return new List<IPlayable>
+                                {
+                                    Entity.FromCard(controller, Cards.FromId(Util<string>.Choose(basicTotem)))
+                                };
+                            }),
+                            new SummonTask()
+                            )
+                }
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:4] 
@@ -1663,16 +1680,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_050", new List<Enchantment> {
-				// TODO [AT_050] Charged Hammer && Test: Charged Hammer_AT_050
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new ReplaceHeroPower(Cards.FromId("AT_050t"))
 				},
 			});
 
@@ -1715,14 +1726,7 @@ namespace SabberStone.CardSets
 			// [AT_132_SHAMANb] Searing Totem (*) - COST:0 [ATK:1/HP:1] 
 			// - Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANb", new List<Enchantment> {
-				// TODO [AT_132_SHAMANb] Searing Totem && Test: Searing Totem_AT_132_SHAMANb
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("AT_132_SHAMANb", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANc] Stoneclaw Totem (*) - COST:0 [ATK:0/HP:2] 
@@ -1730,14 +1734,7 @@ namespace SabberStone.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANc", new List<Enchantment> {
-				// TODO [AT_132_SHAMANc] Stoneclaw Totem && Test: Stoneclaw Totem_AT_132_SHAMANc
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("AT_132_SHAMANc", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANd] Wrath of Air Totem (*) - COST:0 [ATK:0/HP:2] 
@@ -1938,11 +1935,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_064", new List<Enchantment> {
-				// TODO [AT_064] Bash && Test: Bash_AT_064
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.TARGET),
+                        new ArmorTask(3))
 				},
 			});
 
@@ -2015,11 +2013,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("AT_069", new List<Enchantment> {
-				// TODO [AT_069] Sparring Partner && Test: Sparring Partner_AT_069
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
 				},
 			});
 
@@ -2036,11 +2033,14 @@ namespace SabberStone.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_071", new List<Enchantment> {
-				// TODO [AT_071] Alexstrasza's Champion && Test: Alexstrasza's Champion_AT_071
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, ComplexTask.Create(
+                            new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
+                            ComplexTask.Charge(EntityType.SOURCE)))),
 				},
 			});
 
