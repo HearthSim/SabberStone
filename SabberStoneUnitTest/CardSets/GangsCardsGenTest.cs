@@ -3416,10 +3416,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your opponent casts a spell, add a Coin to your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BurglyBully_CFM_669()
 		{
-			// TODO BurglyBully_CFM_669 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3430,8 +3429,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Burgly Bully"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Burgly Bully"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual("GAME_005", game.CurrentOpponent.Hand[4].Card.Id);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_670] Mayor Noggenfogger - COST:9 [ATK:5/HP:4] 

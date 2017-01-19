@@ -61,18 +61,23 @@ namespace SimpleTest
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.MAGE,
+                DeckPlayer2 = new List<Card>()
+                {
+                    Cards.FromName("Azure Drake")
+                },
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stampeding Kodo"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillmaw"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

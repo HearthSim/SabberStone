@@ -3711,7 +3711,8 @@ namespace SabberStoneUnitTest.CardSets
                 {
                     Cards.FromName("Azure Drake")
                 },
-                FillDecks = true
+                FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;

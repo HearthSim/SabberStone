@@ -1415,7 +1415,7 @@ namespace SabberStone.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
                         .Build()

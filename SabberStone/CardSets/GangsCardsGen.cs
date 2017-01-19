@@ -2496,13 +2496,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever your opponent casts a spell, add a Coin to your hand.
 			// --------------------------------------------------------
 			cards.Add("CFM_669", new List<Enchantment> {
-				// TODO [CFM_669] Burgly Bully && Test: Burgly Bully_CFM_669
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new AddCardTo("GAME_005", EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_670] Mayor Noggenfogger - COST:9 [ATK:5/HP:4] 
