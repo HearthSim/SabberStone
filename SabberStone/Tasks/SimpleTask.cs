@@ -15,6 +15,7 @@ namespace SabberStone.Tasks
         IEntity Target { get; set; }
 
         List<IPlayable> Playables { get; set; }
+        List<string> CardIds { get; set; }
         bool Flag { get; set; }
         int Number { get; set; }
        
@@ -62,6 +63,11 @@ namespace SabberStone.Tasks
             get { return Game.TaskStack.Playables; }
             set { Game.TaskStack.Playables = value; }
         }
+        public List<string> CardIds
+        {
+            get { return Game.TaskStack.CardIds; }
+            set { Game.TaskStack.CardIds = value; }
+        }
         //public bool Flag { get; set; }
         public bool Flag
         {
@@ -95,6 +101,7 @@ namespace SabberStone.Tasks
             Target = task.Target;
 
             Playables = task.Playables;
+            CardIds = task.CardIds;
             Flag = task.Flag;
             Number = task.Number;
 
@@ -105,6 +112,7 @@ namespace SabberStone.Tasks
         public void Reset()
         {
             Playables = new List<IPlayable>();
+            CardIds = new List<string>();
             Flag = false;
             Number = 0;
 
@@ -144,6 +152,7 @@ namespace SabberStone.Tasks
             set { _targetId = value?.Id ?? -1; }
         }
         public List<IPlayable> Playables { get; set; }
+        public List<string> CardIds { get; set; }
         public bool Flag { get; set; } = false;
         public int Number { get; set; } = 0;
 
@@ -175,6 +184,7 @@ namespace SabberStone.Tasks
         public void Reset()
         {
             Playables = new List<IPlayable>();
+            CardIds = new List<string>();
             Flag = false;
             Number = 0;
 

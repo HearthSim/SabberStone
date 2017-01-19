@@ -810,12 +810,13 @@ namespace SabberStone.CardSets
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("KAR_033", new List<Enchantment> {
-				// TODO [KAR_033] Book Wyrm && Test: Book Wyrm_KAR_033
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, new DestroyTask(EntityType.TARGET)))
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

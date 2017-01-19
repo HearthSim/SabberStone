@@ -47,6 +47,11 @@ namespace SabberStone.Tasks
             get { return Game.TaskStack.Playables; }
             set { Game.TaskStack.Playables = value; }
         }
+        public List<string> CardIds
+        {
+            get { return Game.TaskStack.CardIds; }
+            set { Game.TaskStack.CardIds = value; }
+        }
         public bool Flag
         {
             get { return Game.TaskStack.Flag; }
@@ -62,7 +67,10 @@ namespace SabberStone.Tasks
         {
             // at the start move over initial parameters ...
             if (State == TaskState.READY)
+            {
                 Playables = Playables ?? new List<IPlayable>();
+                CardIds = CardIds ?? new List<string>();
+            }
 
             State = TaskState.RUNNING;
             for (_position = 0; _position < Count && State == TaskState.RUNNING; _position++)
@@ -124,6 +132,7 @@ namespace SabberStone.Tasks
                 Target = task.Target;
 
                 Playables = task.Playables;
+                CardIds = task.CardIds;
                 Flag = task.Flag;
                 Number = task.Number;
             }
@@ -135,6 +144,7 @@ namespace SabberStone.Tasks
         public void Reset()
         {
             Playables = new List<IPlayable>();
+            CardIds = new List<string>();
             Flag = false;
             Number = 0;
 

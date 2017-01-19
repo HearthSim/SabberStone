@@ -971,22 +971,34 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BookWyrm_KAR_033()
 		{
-			// TODO BookWyrm_KAR_033 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>()
+                {
+                    Cards.FromName("Azure Drake")
+                },
+                FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Book Wyrm"));
-		}
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book Wyrm"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(true, minion.ToBeDestroyed);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1] 

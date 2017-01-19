@@ -17,11 +17,13 @@
             {
                 return TaskState.COMPLETE;
             }
+
             TaskToDo.Game = Game;
             TaskToDo.Controller = Controller;
             TaskToDo.Source = Source;
             TaskToDo.Target = Target;
             TaskToDo.Playables = Playables;
+            TaskToDo.CardIds = CardIds;
             TaskToDo.Flag = Flag;
             TaskToDo.Number = Number;
             return TaskToDo.Process();

@@ -3740,11 +3740,10 @@ namespace SabberStone.CardSets
 			// Text: Deal $5 damage to all characters except Ysera. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("DREAM_02", new List<Enchantment> {
-				// TODO [DREAM_02] Ysera Awakens && Test: Ysera Awakens_DREAM_02
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(5, EntityType.ALL_NOSOURCE, true),
 				},
 			});
 
@@ -3759,11 +3758,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("DREAM_04", new List<Enchantment> {
-				// TODO [DREAM_04] Dream && Test: Dream_DREAM_04
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ReturnHandTask(),
 				},
 			});
 
@@ -3778,12 +3776,26 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("DREAM_05", new List<Enchantment> {
-				// TODO [DREAM_05] Nightmare && Test: Nightmare_DREAM_05
 				new Enchantment
 				{
+                    Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new BuffTask(Buffs.AttackHealth(5), EntityType.TARGET),
+					Enchant = new Enchant
+                    {
+                        TurnsActive = 1,
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsNotSilenced,
+                            SelfCondition.IsInPlayZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.NUM_TURNS_IN_PLAY] = 0
+                        },
+                        SingleTask = new DestroyTask(EntityType.TARGET)
+                    }
+                },
 			});
 
 			// ----------------------------------------- MINION - DREAM
@@ -3796,27 +3808,13 @@ namespace SabberStone.CardSets
 			// - CANT_BE_TARGETED_BY_ABILITIES = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("DREAM_01", new List<Enchantment> {
-				// TODO [DREAM_01] Laughing Sister && Test: Laughing Sister_DREAM_01
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("DREAM_01", null);
 
 			// ----------------------------------------- MINION - DREAM
 			// [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6] 
 			// - Race: dragon, Set: expert1, 
 			// --------------------------------------------------------
-			cards.Add("DREAM_03", new List<Enchantment> {
-				// TODO [DREAM_03] Emerald Drake && Test: Emerald Drake_DREAM_03
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("DREAM_03", null);
 
 		}
 
@@ -5313,12 +5311,18 @@ namespace SabberStone.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_572", new List<Enchantment> {
-				// TODO [EX1_572] Ysera && Test: Ysera_EX1_572
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomEntourageTask(),
+                            new CopyToHand()))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

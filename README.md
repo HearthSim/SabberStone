@@ -1,17 +1,16 @@
 <img align="left" src="/Readme/sabberstone.png">
 # SabberStone
 
-SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SimpleUi](/SimpleUi)). By now this is a one man show, but there is still a lot of work to do, so any help is apreciated. 
+SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SimpleUi](/SimpleUi)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
-You're welcome!
+By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of ([Brimstone](https://github.com/HearthSim/Brimstone/tree/master/Brimstone)) was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** & **@Katy** for helping on hearthstone super science problems ^^ You're welcome!
 
-darkfriend77
 
 ### Project Structure ###
 
 * SabberStone
 
-  Core simulator engine, all the functions needed for the simulator are in here.
+  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
 * SabberStoneUnitTest
 
@@ -28,6 +27,7 @@ darkfriend77
 * SimpleUi
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys.
+  ![alt tag](/Readme/simpleui.PNG)
 
 ### Cards Implementation
 
@@ -44,17 +44,17 @@ darkfriend77
 
 **Basic & Classic**
 * 97% Basic (142 Cards)
-* 56% Classic (245 Cards)
+* 60% Classic (245 Cards)
 
 **Adventures**
 * 16% Blackrock Mountain (31 Cards)
-* 31% One Night in Karazhan (45 Cards)
-*  6% The League of Explorers (45 Cards)
+* 48% One Night in Karazhan (45 Cards)
+* 11% The League of Explorers (45 Cards)
 
 **Expensions**
-* 18% The Grand Tournament (132 Cards)
+* 21% The Grand Tournament (132 Cards)
 *  3% Whispers of the Old Gods (134 Cards)
-* 31% Mean Streets of Gadgetzan (132 Cards)
+* 32% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 

@@ -23,6 +23,7 @@ namespace SabberStone.Tasks.SimpleTasks
             TaskToDo.Source = Source;
             TaskToDo.Target = Target;
             TaskToDo.Playables = Playables;
+            TaskToDo.CardIds = CardIds;
             TaskToDo.Flag = Flag;
             TaskToDo.Number = Number;
             return TaskToDo.Process();

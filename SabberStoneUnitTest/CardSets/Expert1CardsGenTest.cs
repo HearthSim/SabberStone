@@ -6899,10 +6899,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Ysera_EX1_572()
 		{
-			// TODO Ysera_EX1_572 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6913,8 +6912,28 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ysera"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ysera"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(true, game.CurrentOpponent.Hand[4].Card.Id.StartsWith("DREAM"));
+            var dreamcard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DREAM_05"));
+            var dreamcard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DREAM_04"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, dreamcard1, testCard));
+            Assert.AreEqual(9, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(17, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(false, testCard.ToBeDestroyed);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(true, testCard.ToBeDestroyed);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(Zone.PLAY, minion.Zone.Type);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, dreamcard2, minion));
+            Assert.AreEqual(Zone.HAND, minion.Zone.Type);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_577] The Beast - COST:6 [ATK:9/HP:7] 
@@ -7393,10 +7412,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - CANT_BE_TARGETED_BY_ABILITIES = 1
 		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FaerieDragon_NEW1_023()
 		{
-			// TODO FaerieDragon_NEW1_023 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7407,8 +7425,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faerie Dragon"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faerie Dragon"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, ((Minion)testCard).Health);
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(2, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4] 
