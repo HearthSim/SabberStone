@@ -7581,10 +7581,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MillhouseManastorm_NEW1_029()
 		{
-			// TODO MillhouseManastorm_NEW1_029 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7595,8 +7594,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Millhouse Manastorm"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Millhouse Manastorm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            Assert.AreEqual(0, spell.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, spell.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12] 

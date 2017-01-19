@@ -5749,12 +5749,11 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_029", new List<Enchantment> {
-				// TODO [NEW1_029] Millhouse Manastorm && Test: Millhouse Manastorm_NEW1_029
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = new AuraTask(Auras.CostTurn(-99, RelaCondition.IsOtherSpell), AuraArea.OP_HAND)
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
