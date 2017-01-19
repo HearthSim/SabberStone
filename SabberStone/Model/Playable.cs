@@ -170,6 +170,7 @@ namespace SabberStone.Model
                         case PlayReq.REQ_MUST_TARGET_TAUNTER:
                         case PlayReq.REQ_TARGET_MIN_ATTACK:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                        case PlayReq.REQ_NONSELF_TARGET:
                             break;
 
                         // already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
