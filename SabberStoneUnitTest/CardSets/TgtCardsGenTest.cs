@@ -1589,21 +1589,28 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WyrmrestAgent_AT_116()
 		{
-			// TODO WyrmrestAgent_AT_116 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wyrmrest Agent"));
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Twilight Guardian")
+                },
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true,
+                Shuffle = false
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wyrmrest Agent"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, ((Minion)testCard).HasTaunt);
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
 		}
 
 	}

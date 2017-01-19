@@ -1244,7 +1244,8 @@ namespace SabberStone.CardSets
 				new Enchantment
 				(
 					//Activation = null,
-					//SingleTask = null,
+					//SingleTask = null,twilight
+
 				)
 			});
 
@@ -1261,12 +1262,15 @@ namespace SabberStone.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_116", new List<Enchantment> {
-				// TODO [AT_116] Wyrmrest Agent && Test: Wyrmrest Agent_AT_116
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, ComplexTask.Create(
+                            new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
+                            ComplexTask.Taunt(EntityType.SOURCE)))),
+                },
 			});
 
 		}
