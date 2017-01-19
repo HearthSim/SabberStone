@@ -3247,10 +3247,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a friendly minion dies, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BackroomBouncer_CFM_658()
 		{
-			// TODO BackroomBouncer_CFM_658 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3261,8 +3260,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Backroom Bouncer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Backroom Bouncer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2] 

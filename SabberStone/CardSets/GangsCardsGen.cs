@@ -2392,13 +2392,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever a friendly minion dies, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("CFM_658", new List<Enchantment> {
-				// TODO [CFM_658] Backroom Bouncer && Test: Backroom Bouncer_CFM_658
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                                .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2] 
