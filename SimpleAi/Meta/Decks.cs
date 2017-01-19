@@ -100,7 +100,7 @@ namespace SimpleAi.Meta
             //Cards.FromName("Kabal Talonpriest"),
             Cards.FromName("Shadow Word: Death"),
             Cards.FromName("Priest of the Feast"),
-            Cards.FromName("Drakonid Operative"),
+            //Cards.FromName("Drakonid Operative"),
             Cards.FromName("Holy Nova"),
             //Cards.FromName("Raza the Chained"),
             //Cards.FromName("Cabal Shadow Priest"),
