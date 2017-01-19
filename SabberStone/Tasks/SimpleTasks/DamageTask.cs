@@ -46,7 +46,6 @@ namespace SabberStone.Tasks.SimpleTasks
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
                     Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
                         SpellDmg ? Controller.Hero.SpellPower : 0));
-
             return TaskState.COMPLETE;
         }
 

@@ -619,10 +619,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Shoot three missiles at random enemies that deal $3 damage each. *spelldmg
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GreaterArcaneMissiles_CFM_623()
 		{
-			// TODO GreaterArcaneMissiles_CFM_623 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -633,8 +632,34 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Greater Arcane Missiles"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironfur Grizzly"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironfur Grizzly"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).Health;
+            Assert.AreEqual(36, totHealth);
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+            totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
+            Assert.AreEqual(27, totHealth);
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, (ICharacter)minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
+            // Spellpower check
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.AreEqual(15, totHealth);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [CFM_066] Kabal Lackey - COST:1 [ATK:2/HP:1] 

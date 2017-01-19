@@ -533,12 +533,11 @@ namespace SabberStone.CardSets
 			// Text: Shoot three missiles at random enemies that deal $3 damage each. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("CFM_623", new List<Enchantment> {
-				// TODO [CFM_623] Greater Arcane Missiles && Test: Greater Arcane Missiles_CFM_623
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 3), true)
+                },
 			});
 
 			// ------------------------------------------ MINION - MAGE

@@ -51,6 +51,7 @@ namespace SabberStone.Tasks
         public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
             => Create(
                 new RandomTask(targets, type),
+                new LogTask(),
                 new DamageTask(amount, EntityType.STACK, spellDmg));
 
         public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
