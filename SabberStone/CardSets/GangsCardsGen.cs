@@ -2629,11 +2629,13 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_790", new List<Enchantment> {
-				// TODO [CFM_790] Dirty Rat && Test: Dirty Rat_CFM_790
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.OP_HAND),
+                        new RemoveFromHand(EntityType.STACK),
+                        new SummonOpTask())
 				},
 			});
 

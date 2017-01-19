@@ -3599,10 +3599,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DirtyRat_CFM_790()
 		{
-			// TODO DirtyRat_CFM_790 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3613,7 +3612,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
