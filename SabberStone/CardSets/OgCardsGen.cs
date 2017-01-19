@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using HearthDb.Enums;
 using SabberStone.Conditions;
 using SabberStone.Enchants;
+using SabberStone.Model;
 using SabberStone.Tasks;
 using SabberStone.Tasks.SimpleTasks;
 
@@ -22,12 +23,11 @@ namespace SabberStone.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("OG_006b", new List<Enchantment> {
-				// TODO [OG_006b] The Tidal Hand && Test: The Tidal Hand_OG_006b
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new SummonTask("OG_006a")
+                }
 			});
 
 		}
@@ -872,17 +872,16 @@ namespace SabberStone.CardSets
 			// [OG_006] Vilefin Inquisitor - COST:1 [ATK:1/HP:3] 
 			// - Race: murloc, Set: og, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Your Hero Power becomes 'Summon a   1/1 Murloc.'
+			// Text: <b>Battlecry:</b> Your Hero Power becomes 'Summon a 1/1 Murloc.'
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_006", new List<Enchantment> {
-				// TODO [OG_006] Vilefin Inquisitor && Test: Vilefin Inquisitor_OG_006
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new ReplaceHeroPower(Cards.FromId("OG_006b")),
 				},
 			});
 
@@ -980,27 +979,13 @@ namespace SabberStone.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_222e", new List<Enchantment> {
-				// TODO [OG_222e] Rally && Test: Rally_OG_222e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_222e", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [OG_006a] Silver Hand Murloc (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: murloc, Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_006a", new List<Enchantment> {
-				// TODO [OG_006a] Silver Hand Murloc && Test: Silver Hand Murloc_OG_006a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_006a", null);
 
 		}
 
@@ -1017,11 +1002,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_094", new List<Enchantment> {
-				// TODO [OG_094] Power Word: Tentacles && Test: Power Word: Tentacles_OG_094
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2,6), EntityType.TARGET)
 				},
 			});
 
@@ -1103,11 +1087,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("OG_234", new List<Enchantment> {
-				// TODO [OG_234] Darkshire Alchemist && Test: Darkshire Alchemist_OG_234
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new HealTask(5, EntityType.TARGET),
 				},
 			});
 
@@ -1159,11 +1142,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_335", new List<Enchantment> {
-				// TODO [OG_335] Shifting Shade && Test: Shifting Shade_OG_335
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.RandomCardCopyToHandFrom(EntityType.OP_DECK)
 				},
 			});
 
@@ -1177,14 +1159,7 @@ namespace SabberStone.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+6
 			// --------------------------------------------------------
-			cards.Add("OG_094e", new List<Enchantment> {
-				// TODO [OG_094e] Tentacles && Test: Tentacles_OG_094e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_094e", null);
 
 		}
 
@@ -1238,11 +1213,10 @@ namespace SabberStone.CardSets
 			// - REQ_UNDAMAGED_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_176", new List<Enchantment> {
-				// TODO [OG_176] Shadow Strike && Test: Shadow Strike_OG_176
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(5, EntityType.TARGET, true)
 				},
 			});
 
@@ -1256,13 +1230,13 @@ namespace SabberStone.CardSets
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("OG_070", new List<Enchantment> {
-				// TODO [OG_070] Bladed Cultist && Test: Bladed Cultist_OG_070
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                // Combo
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)
+                }
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [OG_080] Xaril, Poisoned Mind - COST:4 [ATK:3/HP:2] 
@@ -1301,11 +1275,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_267", new List<Enchantment> {
-				// TODO [OG_267] Southsea Squidface && Test: Southsea Squidface_OG_267
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.WeaponAtk(2), EntityType.WEAPON)
 				},
 			});
 
