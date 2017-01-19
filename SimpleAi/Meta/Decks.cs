@@ -324,7 +324,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Babbling Book"),
             Cards.FromName("Frostbolt"),
             Cards.FromName("Arcane Intellect"),
-            //Cards.FromName("Forgotten Torch"),
+            Cards.FromName("Forgotten Torch"),
             //Cards.FromName("Ice Barrier"),
             //Cards.FromName("Ice Block"),
             //Cards.FromName("Manic Soulcaster"),

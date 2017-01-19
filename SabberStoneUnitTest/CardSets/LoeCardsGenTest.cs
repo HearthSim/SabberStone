@@ -1821,10 +1821,9 @@ namespace SabberStoneUnitTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForgottenTorch_LOE_002()
 		{
-			// TODO ForgottenTorch_LOE_002 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1835,7 +1834,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forgotten Torch"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forgotten Torch"));
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(27, game.CurrentOpponent.Hero.Health);
+		    Assert.AreEqual(27, game.CurrentPlayer.Deck.Count);
+
+
 		}
 
 		// ------------------------------------------ MINION - MAGE
