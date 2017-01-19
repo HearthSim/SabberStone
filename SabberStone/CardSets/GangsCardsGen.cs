@@ -2460,17 +2460,16 @@ namespace SabberStone.CardSets
             // - REQ_TARGET_IF_AVAILABLE = 0
             // --------------------------------------------------------
             cards.Add("CFM_667", new List<Enchantment> {
-				// TODO [CFM_667] Bomb Squad && Test: Bomb Squad_CFM_667
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(5, EntityType.TARGET)
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+					SingleTask =  new DamageTask(5, EntityType.HERO)
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
