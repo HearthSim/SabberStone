@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Actions\Generic.cs" />
     <Compile Include="Splits\SplitNode.cs" />
+    <Compile Include="Tasks\SimpleTasks\RandomEntourageCardTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomMinionTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomCardTask.cs" />
     <Compile Include="Tasks\StateTaskList.cs" />

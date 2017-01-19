@@ -3702,7 +3702,6 @@ namespace SabberStoneUnitTest.CardSets
 		[TestMethod]
 		public void Chillmaw_AT_123()
 		{
-			// TODO Chillmaw_AT_123 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
