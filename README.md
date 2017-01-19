@@ -10,7 +10,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * SabberStone
 
-  Core simulator engine, all the functions needed for the simulator are in here.
+  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
 * SabberStoneUnitTest
 
