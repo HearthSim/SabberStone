@@ -6639,10 +6639,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you summon a Murloc, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MurlocTidecaller_EX1_509()
 		{
-			// TODO MurlocTidecaller_EX1_509 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6653,8 +6652,16 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Tidecaller"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Tidecaller"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3] 

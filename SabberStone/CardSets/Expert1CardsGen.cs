@@ -5121,12 +5121,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_509", new List<Enchantment> {
-				// TODO [EX1_509] Murloc Tidecaller && Test: Murloc Tidecaller_EX1_509
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
+                        .TriggerEffect(GameTag.ZONE, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
