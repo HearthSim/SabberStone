@@ -5858,11 +5858,14 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_041", new List<Enchantment> {
-				// TODO [NEW1_041] Stampeding Kodo && Test: Stampeding Kodo_NEW1_041
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.HasTargetTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
+                        new RandomTask(1, EntityType.STACK),
+                        new DestroyTask(EntityType.STACK)),
 				},
 			});
 

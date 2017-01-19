@@ -7,7 +7,7 @@ namespace SabberStone.Conditions
 {
     public enum RelaSign
     {
-        EQ, GEQ
+        EQ, GEQ, LEQ
     }
     public class RelaCondition
     {
@@ -36,7 +36,8 @@ namespace SabberStone.Conditions
         {
             return new RelaCondition((me, other) => 
              relaSign == RelaSign.EQ  && other[tag] == value 
-          || relaSign == RelaSign.GEQ && other[tag] >= value);
+          || relaSign == RelaSign.GEQ && other[tag] >= value
+          || relaSign == RelaSign.LEQ && other[tag] <= value);
         }
 
         public RelaCondition(Func<IPlayable, IPlayable, bool> function)
