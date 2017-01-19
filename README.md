@@ -52,9 +52,9 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 * 13% The League of Explorers (45 Cards)
 
 **Expensions**
-* 20% The Grand Tournament (132 Cards)
+* 29% The Grand Tournament (132 Cards)
 *  3% Whispers of the Old Gods (134 Cards)
-* 36% Mean Streets of Gadgetzan (132 Cards)
+* 37% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 
