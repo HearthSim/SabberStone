@@ -173,6 +173,26 @@ namespace SabberStone.Enchants
             };
         }
 
+        public static Enchant CostTurn(int amount, params RelaCondition[] list)
+        {
+            var relaConditions = new List<RelaCondition>();
+            relaConditions.AddRange(list);
+            return new Enchant
+            {
+                TurnsActive = 1,
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsNotSilenced
+                },
+                ApplyConditions = relaConditions,
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.COST] = amount
+                }
+            };
+        }
+
         public static Enchant WeaponAttack(int amount, params RelaCondition[] list)
         {
             var result = new Enchant

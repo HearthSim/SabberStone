@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using HearthDb.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStone.Config;
@@ -596,10 +597,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PotionOfPolymorph_CFM_620()
 		{
-			// TODO PotionOfPolymorph_CFM_620 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -610,8 +610,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Potion of Polymorph"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Potion of Polymorph"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+            Assert.AreEqual("CFM_621_m5", game.CurrentPlayer.Board[0].Card.Id);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [CFM_623] Greater Arcane Missiles - COST:7 
@@ -619,10 +626,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Shoot three missiles at random enemies that deal $3 damage each. *spelldmg
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GreaterArcaneMissiles_CFM_623()
 		{
-			// TODO GreaterArcaneMissiles_CFM_623 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -633,8 +639,34 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Greater Arcane Missiles"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironfur Grizzly"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironfur Grizzly"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).Health;
+            Assert.AreEqual(36, totHealth);
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+            totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
+            Assert.AreEqual(27, totHealth);
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, (ICharacter)minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            totHealth = game.CurrentOpponent.Hero.Health;
+            totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
+            totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
+            // Spellpower check
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.AreEqual(15, totHealth);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [CFM_066] Kabal Lackey - COST:1 [ATK:2/HP:1] 
@@ -3224,10 +3256,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a friendly minion dies, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BackroomBouncer_CFM_658()
 		{
-			// TODO BackroomBouncer_CFM_658 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3238,8 +3269,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Backroom Bouncer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Backroom Bouncer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2] 
@@ -3385,10 +3425,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your opponent casts a spell, add a Coin to your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BurglyBully_CFM_669()
 		{
-			// TODO BurglyBully_CFM_669 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3399,8 +3438,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Burgly Bully"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Burgly Bully"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual("GAME_005", game.CurrentOpponent.Hand[4].Card.Id);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_670] Mayor Noggenfogger - COST:9 [ATK:5/HP:4] 
@@ -3563,10 +3608,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DirtyRat_CFM_790()
 		{
-			// TODO DirtyRat_CFM_790 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3577,7 +3621,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

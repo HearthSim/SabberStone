@@ -4,15 +4,23 @@ namespace SabberStone.Tasks.SimpleTasks
 {
     public class DiscardTask : SimpleTask
     {
-        public override TaskState Process()
+        public DiscardTask(EntityType entityType)
         {
-            var success = Playables.TrueForAll(p => Generic.DiscardBlock.Invoke(Controller, p));
+            Type = entityType;
+        }
+
+        public EntityType Type { get; set; }
+
+    public override TaskState Process()
+        {
+            var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+            entities.ForEach(p => Generic.DiscardBlock.Invoke(Controller, p));
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new DiscardTask();
+            var clone = new DiscardTask(Type);
             clone.Copy(this);
             return clone;
         }

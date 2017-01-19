@@ -145,6 +145,9 @@ namespace SabberStone.Actions
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+                // - PreSummon Phase --> PreSummon Trigger (TideCaller)
+                //   (death processing, aura updates)
+
                 // remove from hand zone
                 if (!RemoveFromZone.Invoke(c, minion))
                     return false;
@@ -157,7 +160,10 @@ namespace SabberStone.Actions
                 c.Game.PlayTaskLog.AppendLine($"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
                          $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
+                // - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
+                //   (death processing, aura updates)
                 c.Board.Add(minion, zonePosition);
+                c.Game.DeathProcessingAndAuraUpdate();
 
                 // - OnPlay Phase --> OnPlay Trigger (Illidan)
                 //   (death processing, aura updates)

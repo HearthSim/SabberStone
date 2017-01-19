@@ -32,11 +32,11 @@ namespace SimpleTest
             //IronBreakOwl();
 
             //Log.Info(Cards.Count);
-            //Cards.Statistics();
+            Cards.Statistics();
 
             //BasicHealthAuraTest();
 
-            CardsTest();
+            //CardsTest();
             
             
             //Secretkeeper();
@@ -66,15 +66,8 @@ namespace SimpleTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ysera"));
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var dreamcard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DREAM_05"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, dreamcard1, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

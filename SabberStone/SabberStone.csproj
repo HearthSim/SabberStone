@@ -85,6 +85,8 @@
     <Compile Include="Tasks\SimpleTasks\RandomEntourageCardTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomMinionTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomCardTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\RemoveFromHand.cs" />
+    <Compile Include="Tasks\SimpleTasks\SummonOpTask.cs" />
     <Compile Include="Tasks\StateTaskList.cs" />
     <Compile Include="Tasks\SimpleTasks\BuffAttackHealthNumberTask.cs" />
     <Compile Include="Tasks\SimpleTasks\DamageNumberTask.cs" />

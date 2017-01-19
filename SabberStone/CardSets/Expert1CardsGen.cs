@@ -1415,7 +1415,7 @@ namespace SabberStone.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
                         .Build()
@@ -2888,13 +2888,17 @@ namespace SabberStone.CardSets
 			// Text: At the end of your turn, draw a card.
 			// --------------------------------------------------------
 			cards.Add("EX1_575", new List<Enchantment> {
-				// TODO [EX1_575] Mana Tide Totem && Test: Mana Tide Totem_EX1_575
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
@@ -5121,12 +5125,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_509", new List<Enchantment> {
-				// TODO [EX1_509] Murloc Tidecaller && Test: Murloc Tidecaller_EX1_509
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
+                        .TriggerEffect(GameTag.ZONE, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5744,12 +5753,11 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_029", new List<Enchantment> {
-				// TODO [NEW1_029] Millhouse Manastorm && Test: Millhouse Manastorm_NEW1_029
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = new AuraTask(Auras.CostTurn(-99, RelaCondition.IsOtherSpell), AuraArea.OP_HAND)
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5763,11 +5771,12 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_030", new List<Enchantment> {
-				// TODO [NEW1_030] Deathwing && Test: Deathwing_NEW1_030
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.ALL),
+                        new DiscardTask(EntityType.HAND)),
 				},
 			});
 
@@ -5778,13 +5787,19 @@ namespace SabberStone.CardSets
 			// Text: At the end of your turn, give another random friendly minion +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_037", new List<Enchantment> {
-				// TODO [NEW1_037] Master Swordsmith && Test: Master Swordsmith_NEW1_037
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomTask(1, EntityType.MINIONS_NOSOURCE),
+                            new BuffTask(Buffs.Attack(1), EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [NEW1_038] Gruul - COST:8 [ATK:7/HP:7] 
@@ -5796,13 +5811,17 @@ namespace SabberStone.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_038", new List<Enchantment> {
-				// TODO [NEW1_038] Gruul && Test: Gruul_NEW1_038
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4] 
@@ -5839,11 +5858,14 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_041", new List<Enchantment> {
-				// TODO [NEW1_041] Stampeding Kodo && Test: Stampeding Kodo_NEW1_041
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.HasTargetTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
+                        new RandomTask(1, EntityType.STACK),
+                        new DestroyTask(EntityType.STACK)),
 				},
 			});
 
@@ -5854,13 +5876,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever a minion dies, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("tt_004", new List<Enchantment> {
-				// TODO [tt_004] Flesheating Ghoul && Test: Flesheating Ghoul_tt_004
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                                .Build()
+                }
+            });
 
 		}
 

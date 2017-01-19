@@ -10,7 +10,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * SabberStone
 
-  Core simulator engine, all the functions needed for the simulator are in here.
+  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
 * SabberStoneUnitTest
 
@@ -44,17 +44,17 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 **Basic & Classic**
 * 97% Basic (142 Cards)
-* 56% Classic (245 Cards)
+* 62% Classic (245 Cards)
 
 **Adventures**
 * 16% Blackrock Mountain (31 Cards)
-* 31% One Night in Karazhan (45 Cards)
-*  6% The League of Explorers (45 Cards)
+* 51% One Night in Karazhan (45 Cards)
+* 13% The League of Explorers (45 Cards)
 
 **Expensions**
-* 18% The Grand Tournament (132 Cards)
+* 20% The Grand Tournament (132 Cards)
 *  3% Whispers of the Old Gods (134 Cards)
-* 31% Mean Streets of Gadgetzan (132 Cards)
+* 36% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 

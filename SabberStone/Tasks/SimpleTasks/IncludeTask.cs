@@ -34,7 +34,8 @@ namespace SabberStone.Tasks.SimpleTasks
         STACK,
         ALLMINIONS,
 
-        INVALID
+        INVALID,
+        ALLMINIONS_NOSOURCE
     }
 
     public class IncludeTask : SimpleTask
@@ -226,6 +227,18 @@ namespace SabberStone.Tasks.SimpleTasks
                     {
                         result.AddRange(controller.Board.GetAll);
                     }
+                    break;
+
+                case EntityType.ALLMINIONS_NOSOURCE:
+                    if (controller.Opponent.Board.Count > 0)
+                    {
+                        result.AddRange(controller.Opponent.Board.GetAll);
+                    }
+                    if (controller.Board.Count > 0)
+                    {
+                        result.AddRange(controller.Board.GetAll);
+                    }
+                    result.Remove(source as IPlayable);
                     break;
 
                 default:

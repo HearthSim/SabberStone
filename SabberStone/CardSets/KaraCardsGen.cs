@@ -182,11 +182,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("KAR_076", new List<Enchantment> {
-				// TODO [KAR_076] Firelands Portal && Test: Firelands Portal_KAR_076
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(5, EntityType.TARGET),
+                        ComplexTask.SummonRandomMinion(GameTag.COST, 5)),
 				},
 			});
 

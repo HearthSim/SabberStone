@@ -518,13 +518,18 @@ namespace SabberStone.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_620", new List<Enchantment> {
-				// TODO [CFM_620] Potion of Polymorph && Test: Potion of Polymorph_CFM_620
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
+                        .SingleTask(ComplexTask.Secret(
+                            new TransformTask("CFM_621_m5", EntityType.TARGET)))
+                        .Build()
+                },
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_623] Greater Arcane Missiles - COST:7 
@@ -533,12 +538,11 @@ namespace SabberStone.CardSets
 			// Text: Shoot three missiles at random enemies that deal $3 damage each. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("CFM_623", new List<Enchantment> {
-				// TODO [CFM_623] Greater Arcane Missiles && Test: Greater Arcane Missiles_CFM_623
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 3), true)
+                },
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -2389,13 +2393,17 @@ namespace SabberStone.CardSets
 			// Text: Whenever a friendly minion dies, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("CFM_658", new List<Enchantment> {
-				// TODO [CFM_658] Backroom Bouncer && Test: Backroom Bouncer_CFM_658
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                                .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2] 
@@ -2453,17 +2461,16 @@ namespace SabberStone.CardSets
             // - REQ_TARGET_IF_AVAILABLE = 0
             // --------------------------------------------------------
             cards.Add("CFM_667", new List<Enchantment> {
-				// TODO [CFM_667] Bomb Squad && Test: Bomb Squad_CFM_667
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(5, EntityType.TARGET)
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+					SingleTask =  new DamageTask(5, EntityType.HERO)
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2490,13 +2497,18 @@ namespace SabberStone.CardSets
 			// Text: Whenever your opponent casts a spell, add a Coin to your hand.
 			// --------------------------------------------------------
 			cards.Add("CFM_669", new List<Enchantment> {
-				// TODO [CFM_669] Burgly Bully && Test: Burgly Bully_CFM_669
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new AddCardTo("GAME_005", EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_670] Mayor Noggenfogger - COST:9 [ATK:5/HP:4] 
@@ -2618,11 +2630,13 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_790", new List<Enchantment> {
-				// TODO [CFM_790] Dirty Rat && Test: Dirty Rat_CFM_790
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.OP_HAND),
+                        new RemoveFromHand(EntityType.STACK),
+                        new SummonOpTask())
 				},
 			});
 

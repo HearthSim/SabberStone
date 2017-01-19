@@ -43,8 +43,8 @@ namespace SimpleAi.Meta
             Cards.FromName("Azure Drake"),
             Cards.FromName("Azure Drake"),
             Cards.FromName("Leeroy Jenkins"),
-            //Cards.FromName("Gadgetzan Auctioneer"),
-            //Cards.FromName("Gadgetzan Auctioneer")
+            Cards.FromName("Gadgetzan Auctioneer"),
+            Cards.FromName("Gadgetzan Auctioneer")
         };
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Dragonfire Potion"),
             //Cards.FromName("Entomb"),
             Cards.FromName("Acidic Swamp Ooze"),
-            //Cards.FromName("Dirty Rat"),
+            Cards.FromName("Dirty Rat"),
             Cards.FromName("Doomsayer"),
             Cards.FromName("Netherspite Historian"),
             //Cards.FromName("Brann Bronzebeard"),
@@ -179,7 +179,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Truesilver Champion"),
             Cards.FromName("Grimestreet Enforcer"),
             Cards.FromName("Grimestreet Enforcer"),
-            //Cards.FromName("Tirion Fordring"),
+            Cards.FromName("Tirion Fordring"),
             Cards.FromName("Sir Finley Mrrgglton"),
             Cards.FromName("Worgen Infiltrator"),
             Cards.FromName("Worgen Infiltrator"),
@@ -324,7 +324,7 @@ namespace SimpleAi.Meta
             Cards.FromName("Babbling Book"),
             Cards.FromName("Frostbolt"),
             Cards.FromName("Arcane Intellect"),
-            //Cards.FromName("Forgotten Torch"),
+            Cards.FromName("Forgotten Torch"),
             //Cards.FromName("Ice Barrier"),
             //Cards.FromName("Ice Block"),
             //Cards.FromName("Manic Soulcaster"),
@@ -334,11 +334,11 @@ namespace SimpleAi.Meta
             //Cards.FromName("Water Elemental"),
             //Cards.FromName("Cabalist's Tome"),
             Cards.FromName("Blizzard"),
-            //Cards.FromName("Firelands Portal"),
+            Cards.FromName("Firelands Portal"),
             Cards.FromName("Flamestrike"),
             Cards.FromName("Acidic Swamp Ooze"),
             Cards.FromName("Bloodmage Thalnos"),
-            //Cards.FromName("Dirty Rat"),
+            Cards.FromName("Dirty Rat"),
             Cards.FromName("Doomsayer"),
             //Cards.FromName("Brann Bronzebeard"),
             //Cards.FromName("Kabal Courier"),

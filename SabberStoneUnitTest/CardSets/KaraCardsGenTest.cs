@@ -220,10 +220,9 @@ namespace SabberStoneUnitTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FirelandsPortal_KAR_076()
 		{
-			// TODO FirelandsPortal_KAR_076 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -234,8 +233,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Firelands Portal"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Firelands Portal"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(25, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(5, game.CurrentPlayer.Board[0].Card.Cost);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1] 

@@ -243,11 +243,12 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("LOE_002", new List<Enchantment> {
-				// TODO [LOE_002] Forgotten Torch && Test: Forgotten Torch_LOE_002
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.TARGET, true),
+                        new AddCardTo("LOE_002t", EntityType.DECK)),
 				},
 			});
 
@@ -301,11 +302,10 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("LOE_002t", new List<Enchantment> {
-				// TODO [LOE_002t] Roaring Torch && Test: Roaring Torch_LOE_002t
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(6, EntityType.TARGET, true),
 				},
 			});
 

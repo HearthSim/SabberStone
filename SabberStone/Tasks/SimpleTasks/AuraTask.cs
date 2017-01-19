@@ -10,7 +10,8 @@ namespace SabberStone.Tasks.SimpleTasks
         HAND,
         GAME,
         HERO,
-        SELF
+        SELF,
+        OP_HAND
     }
 
     public class AuraTask : SimpleTask
@@ -39,6 +40,10 @@ namespace SabberStone.Tasks.SimpleTasks
             else if (Area == AuraArea.HAND)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Hand.Enchants, source);
+            }
+            else if (Area == AuraArea.OP_HAND)
+            {
+                Aura.Activate(source.Card.Id, source.Controller.Opponent.Hand.Enchants, source);
             }
             else if (Area == AuraArea.GAME)
             {

@@ -3422,10 +3422,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, draw a card.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ManaTideTotem_EX1_575()
 		{
-			// TODO ManaTideTotem_EX1_575 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3436,8 +3435,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Tide Totem"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Tide Totem"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, game.CurrentOpponent.NumCardsDrawnThisTurn);
+
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
@@ -6639,10 +6643,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you summon a Murloc, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MurlocTidecaller_EX1_509()
 		{
-			// TODO MurlocTidecaller_EX1_509 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6653,8 +6656,16 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Tidecaller"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Tidecaller"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3] 
@@ -7574,10 +7585,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MillhouseManastorm_NEW1_029()
 		{
-			// TODO MillhouseManastorm_NEW1_029 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7588,8 +7598,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Millhouse Manastorm"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Millhouse Manastorm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            Assert.AreEqual(0, spell.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, spell.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12] 
@@ -7601,10 +7617,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Deathwing_NEW1_030()
 		{
-			// TODO Deathwing_NEW1_030 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7615,8 +7630,18 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(0, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3] 
@@ -7624,10 +7649,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, give another random friendly minion +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MasterSwordsmith_NEW1_037()
 		{
-			// TODO MasterSwordsmith_NEW1_037 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7638,7 +7662,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Master Swordsmith"));
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Master Swordsmith"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3, ((Minion)testCard2).AttackDamage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -7650,10 +7679,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Gruul_NEW1_038()
 		{
-			// TODO Gruul_NEW1_038 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7664,8 +7692,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gruul"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gruul"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    Assert.AreEqual(8, ((Minion) testCard).AttackDamage);
+            Assert.AreEqual(8, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4] 
@@ -7707,10 +7739,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void StampedingKodo_NEW1_041()
 		{
-			// TODO StampedingKodo_NEW1_041 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7721,8 +7752,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stampeding Kodo"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stampeding Kodo"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3] 
@@ -7730,10 +7768,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a minion dies, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FlesheatingGhoul_tt_004()
 		{
-			// TODO FlesheatingGhoul_tt_004 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7744,8 +7781,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flesheating Ghoul"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flesheating Ghoul"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+        }
 
 	}
 
