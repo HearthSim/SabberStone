@@ -2017,22 +2017,28 @@ namespace SabberStoneUnitTest.CardSets
 		// - DIVINE_SHIELD = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TirionFordring_EX1_383()
 		{
-			// TODO TirionFordring_EX1_383 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tirion Fordring"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tirion Fordring"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(true, testCard.ToBeDestroyed);
+            Assert.AreEqual(true, game.CurrentOpponent.Hero.Weapon != null);
+        }
 
 		// --------------------------------------- WEAPON - PALADIN
 		// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 

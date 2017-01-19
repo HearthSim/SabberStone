@@ -1821,11 +1821,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_383", new List<Enchantment> {
-				// TODO [EX1_383] Tirion Fordring && Test: Tirion Fordring_EX1_383
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "EX1_383t")
 				},
 			});
 
@@ -1926,14 +1925,7 @@ namespace SabberStone.CardSets
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("EX1_383t", new List<Enchantment> {
-				// TODO [EX1_383t] Ashbringer && Test: Ashbringer_EX1_383t
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+			cards.Add("EX1_383t", null);
 
 		}
 
