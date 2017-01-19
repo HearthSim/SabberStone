@@ -166,6 +166,10 @@ namespace SabberStone.Tasks.SimpleTasks
                     result.AddRange(controller.Opponent.Hand.GetAll);
                     break;
 
+                case EntityType.OP_DECK:
+                    result.AddRange(controller.Opponent.Deck.GetAll);
+                    break;
+
                 case EntityType.OP_MINIONS:
                     if (controller.Opponent.Board.Count > 0)
                     {

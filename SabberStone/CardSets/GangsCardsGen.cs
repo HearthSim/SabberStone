@@ -961,12 +961,13 @@ namespace SabberStone.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_605", new List<Enchantment> {
-				// TODO [CFM_605] Drakonid Operative && Test: Drakonid Operative_CFM_605
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.OP_DECK)))
+                },
 			});
 
 			// ---------------------------------------- MINION - PRIEST

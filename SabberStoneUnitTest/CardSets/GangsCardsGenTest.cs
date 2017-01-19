@@ -1256,22 +1256,31 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DrakonidOperative_CFM_605()
 		{
-			// TODO DrakonidOperative_CFM_605 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Drakonid Operative"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Twilight Guardian")
+                },
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true,
+                Shuffle = false
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Drakonid Operative"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(true, game.CurrentOpponent.Deck.Any(p => p.Card.Id == choice.Id));
+
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [CFM_606] Mana Geode - COST:2 [ATK:2/HP:3] 

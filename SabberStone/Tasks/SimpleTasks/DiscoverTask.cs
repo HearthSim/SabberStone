@@ -12,7 +12,8 @@ namespace SabberStone.Tasks.SimpleTasks
     public enum DiscoverType
     {
         BASIC_HEROPOWERS,
-        DRAGON
+        DRAGON,
+        OP_DECK
     }
     public class DiscoverTask : SimpleTask
     {
@@ -93,6 +94,9 @@ namespace SabberStone.Tasks.SimpleTasks
 
                 case DiscoverType.DRAGON:                  
                     return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+
+                case DiscoverType.OP_DECK:
+                    return new [] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() } ;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
