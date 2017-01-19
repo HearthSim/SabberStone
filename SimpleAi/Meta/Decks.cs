@@ -117,9 +117,9 @@ namespace SimpleAi.Meta
             //Cards.FromName("Twilight Guardian"),
             Cards.FromName("Azure Drake"),
             Cards.FromName("Blackwing Corruptor"),
-            //Cards.FromName("Book Wyrm"),
+            Cards.FromName("Book Wyrm"),
             Cards.FromName("Reno Jackson"),
-            //Cards.FromName("Chillmaw"),
+            Cards.FromName("Chillmaw"),
             //Cards.FromName("Ysera")
         };
 

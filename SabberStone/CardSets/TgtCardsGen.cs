@@ -2887,12 +2887,13 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_123", new List<Enchantment> {
-				// TODO [AT_123] Chillmaw && Test: Chillmaw_AT_123
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new FlagTask(true, new DamageTask(3, EntityType.ALLMINIONS)))
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
