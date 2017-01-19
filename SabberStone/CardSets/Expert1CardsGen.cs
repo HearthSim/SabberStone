@@ -5811,13 +5811,17 @@ namespace SabberStone.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_038", new List<Enchantment> {
-				// TODO [NEW1_038] Gruul && Test: Gruul_NEW1_038
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4] 

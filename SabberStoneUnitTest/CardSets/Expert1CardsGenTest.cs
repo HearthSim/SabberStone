@@ -7679,10 +7679,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Gruul_NEW1_038()
 		{
-			// TODO Gruul_NEW1_038 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7693,8 +7692,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gruul"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gruul"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    Assert.AreEqual(8, ((Minion) testCard).AttackDamage);
+            Assert.AreEqual(8, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4] 
