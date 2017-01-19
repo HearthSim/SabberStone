@@ -518,13 +518,18 @@ namespace SabberStone.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_620", new List<Enchantment> {
-				// TODO [CFM_620] Potion of Polymorph && Test: Potion of Polymorph_CFM_620
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
+                        .SingleTask(ComplexTask.Secret(
+                            new TransformTask("CFM_621_m5", EntityType.TARGET)))
+                        .Build()
+                },
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_623] Greater Arcane Missiles - COST:7 

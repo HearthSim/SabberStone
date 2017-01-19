@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using HearthDb.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStone.Config;
@@ -596,10 +597,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PotionOfPolymorph_CFM_620()
 		{
-			// TODO PotionOfPolymorph_CFM_620 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -610,8 +610,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Potion of Polymorph"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Potion of Polymorph"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+            Assert.AreEqual("CFM_621_m5", game.CurrentPlayer.Board[0].Card.Id);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [CFM_623] Greater Arcane Missiles - COST:7 

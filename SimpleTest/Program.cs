@@ -36,12 +36,12 @@ namespace SimpleTest
 
             //BasicHealthAuraTest();
 
-            //CardsTest();
+            CardsTest();
             
             
             //Secretkeeper();
             //CardsTest();
-            CloneSameSame();
+            //CloneSameSame();
             //FarSightBug();
             //LoatHoorderMadBomberSplit();
 
@@ -66,33 +66,11 @@ namespace SimpleTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sen'jin Shieldmasta"));
-            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion1));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sen'jin Shieldmasta"));
-            game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion2));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Polymorph"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var totHealth = game.CurrentOpponent.Hero.Health;
-            totHealth += ((ICharacter)minion1).Health;
-            totHealth += ((ICharacter)minion2).Health;
-            //Assert.AreEqual(40, totHealth);
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
-            totHealth = game.CurrentOpponent.Hero.Health;
-            totHealth += ((ICharacter)minion1).Health;
-            totHealth += ((ICharacter)minion2).Health;
-            //Assert.AreEqual(31, totHealth);
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, (ICharacter)minion3));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Greater Arcane Missiles"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
-            totHealth = game.CurrentOpponent.Hero.Health;
-            totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
-            totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
-            // Spellpower check
-            //Assert.AreEqual(1, game.CurrentPlayer.Hero.SpellPower);
-           // Assert.AreEqual(19, totHealth);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");
