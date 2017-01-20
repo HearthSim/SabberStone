@@ -8,23 +8,23 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### Project Structure ###
 
-* SabberStone
+* **SabberStone**
 
   Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
-* SabberStoneUnitTest
+* **SabberStoneUnitTest**
 
   UnitTest for the simulator, there is a generated test for each card in the current game.
 
-* SimpleTest
+* **SimpleTest**
 
   A test project to run simple codeline based games to test outcome.
 
-* SimpleAi
+* **SimpleAi**
 
-  A test project to run A.I. simulations with predefinied decks and strategys. 
+  A test project to run A.I. simulations with predefinied decks and strategys.
 
-* SimpleUi
+* **SimpleUi**
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys.
   ![alt tag](/Readme/simpleui.PNG)
@@ -35,12 +35,13 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Hero, Hero Power & Weapon
 - [x] Battlecry & Deathrattle
 - [x] Choose One & Combo
+- [x] Spell Power
 - [x] Inspire, Joust & Discover
 - [x] Jade Golems (Jade Lotus)
 - [x] Buffing Hand (Grimy Goons)
-- [ ] Potions (Kabal)
+- [x] Excess Mana
 - [ ] Freeze
-- [ ] Excess Mana
+- [ ] Potions (Kabal)
 
 **Basic & Classic**
 * 97% Basic (142 Cards)
@@ -61,19 +62,24 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 ### ToDo List ###
 
 - [x] Move SabberStone to Github
-- [ ] Wiki for SabberStone
+- [x] Start Wiki for SabberStone
+- [ ] Fill Wiki for SabberStone
 
 ### Requirements
 
-* tbd
+* Windows
+  tbd
 
 ### Installation
 
-* tbd
+* Windows
+  tbd
 
 ### Documentation
 
-* tbd
+* Wiki [Link](https://github.com/HearthSim/SabberStone/wiki)
+* SimpleAi [Link](https://github.com/HearthSim/SabberStone/tree/master/SimpleAi)
+* SimpleUi [Link](https://github.com/HearthSim/SabberStone/tree/master/SimpleUi)
 
 ### License
 
