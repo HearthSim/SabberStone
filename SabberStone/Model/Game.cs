@@ -281,8 +281,25 @@ namespace SabberStone.Model
             CurrentPlayer.NumTurnsLeft = 0;
             CurrentOpponent.NumTurnsLeft = 1;
 
+            // After a player ends their turn (just before the next player's Start of
+            // Turn Phase), un-Freeze all characters they control that are Frozen, 
+            // don't have summoning sickness (or do have Charge) and have not attacked
+            // that turn.
+            CurrentPlayer.Board.GetAll.ForEach(p =>
+            {
+                var minion = p as Minion;
+                if (minion != null && minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
+                {
+                    minion.IsFrozen = false;
+                }
+            });
+            if (CurrentPlayer.Hero.IsFrozen && CurrentPlayer.Hero.NumAttacksThisTurn == 0)
+            {
+                CurrentPlayer.Hero.IsFrozen = false;
+            }
+
             // set player for next turn ...
-            CurrentPlayer = CurrentOpponent;
+                CurrentPlayer = CurrentOpponent;
 
             // count next turn
             Turn++;

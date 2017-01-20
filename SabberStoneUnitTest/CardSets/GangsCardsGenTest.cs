@@ -3629,9 +3629,10 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
             Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            var nominion = game.CurrentOpponent.Hand.GetAll.TrueForAll(p => !(p is Minion));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
-            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+		    Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(nominion? 5: 4, game.CurrentOpponent.Hand.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

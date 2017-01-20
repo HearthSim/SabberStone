@@ -22,6 +22,9 @@ namespace SabberStone.Tasks.SimpleTasks
             if (Controller.Opponent.Board.IsFull)
                 return TaskState.STOP;
 
+            if (Card == null && Playables.Count < 1)
+                return TaskState.STOP;
+
             var summonEntity = Card != null ?
                 Entity.FromCard(Controller.Opponent, Card) as Minion :
                 Playables[0] as Minion;

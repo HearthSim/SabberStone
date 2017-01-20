@@ -2637,6 +2637,7 @@ namespace SabberStone.CardSets
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new RandomTask(1, EntityType.OP_HAND),
+                        new FilterStackTask(SelfCondition.IsMinion),
                         new RemoveFromHand(EntityType.STACK),
                         new SummonOpTask())
 				},

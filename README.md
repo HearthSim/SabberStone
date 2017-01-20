@@ -89,8 +89,6 @@ SabberStone is licensed under the terms of the
 [Affero GPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html) or any later version.
 
 ### Community
-
-SabberStone is beeing devloped by darkfriend77 (darkfriend@swissonline.ch)
-
-SabberStone is a [HearthSim](http://hearthsim.info) project. All development
-happens on our IRC channel `#hearthsim` on [Freenode](https://freenode.net).
+SabberStone is beeing developed by darkfriend77 (darkfriend@swissonline.ch)
+* SabberStone on [Reddit](https://redd.it/5p0ar8)
+* SabberStone is a [HearthSim](http://hearthsim.info) project.
