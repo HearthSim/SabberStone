@@ -28,7 +28,8 @@ namespace SabberStone.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-            var cardsToDiscover = Discovery(DiscoverType);
+            var choiceAction = ChoiceAction.INVALID;
+            var cardsToDiscover = Discovery(DiscoverType, out choiceAction);
 
             var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
             if (cardsToDiscover.Length > 1)
@@ -53,15 +54,15 @@ namespace SabberStone.Tasks.SimpleTasks
             // TODO work on it ...
             if (Game.Splitting)
             {
-                ProcessSplit(cardsToDiscover);
+                ProcessSplit(cardsToDiscover, choiceAction);
             }
 
-            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, cardsDiscovered.ToList());
+            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, cardsDiscovered.ToList());
 
             return TaskState.COMPLETE;
         }
 
-        private void ProcessSplit(List<Card>[] cardsToDiscover)
+        private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
         {
             var neutralCnt = cardsToDiscover[0].Count;
             var classCnt = 0;
@@ -79,23 +80,26 @@ namespace SabberStone.Tasks.SimpleTasks
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerById(Controller.Id);
-                var success = Generic.CreateChoice.Invoke(cloneController, ChoiceType.GENERAL, p.ToList());
+                var success = Generic.CreateChoice.Invoke(cloneController, ChoiceType.GENERAL, choiceAction, p.ToList());
                 cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
             });
 
         }
 
-        private List<Card>[] Discovery(DiscoverType discoverType)
+        private List<Card>[] Discovery(DiscoverType discoverType, out ChoiceAction choiceAction)
         {
             switch (discoverType)
             {
                 case DiscoverType.BASIC_HEROPOWERS:
+                    choiceAction = ChoiceAction.HEROPOWER;
                     return new [] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.SHOWN_HERO_POWER])).ToList()};
 
-                case DiscoverType.DRAGON:                  
+                case DiscoverType.DRAGON:
+                    choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
 
                 case DiscoverType.OP_DECK:
+                    choiceAction = ChoiceAction.HAND;
                     return new [] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() } ;
 
                 default:

@@ -83,8 +83,8 @@ namespace SabberStone.Actions
                 return true;
             };
 
-        public static Func<Controller, ChoiceType, List<Card>, bool> CreateChoice
-            => delegate (Controller c, ChoiceType type, List<Card> choices)
+        public static Func<Controller, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoice
+            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<Card> choices)
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
                 if (c.Choice != null)
@@ -96,6 +96,7 @@ namespace SabberStone.Actions
                 c.Choice = new Choice(c)
                 {
                     ChoiceType = type,
+                    ChoiceAction = action,
                     Choices = choices
                 };
                 return true;
