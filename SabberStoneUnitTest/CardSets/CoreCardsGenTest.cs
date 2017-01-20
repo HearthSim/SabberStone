@@ -855,6 +855,29 @@ namespace SabberStoneUnitTest.CardSets
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             Assert.AreEqual(4, game.CurrentPlayer.RemainingMana);
+            game.CurrentPlayer.BaseMana = 10;
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
+
+            Assert.AreEqual(7, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, spell2));
+            Assert.AreEqual(7, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual("CS2_013t", game.CurrentPlayer.Hand[6].Card.Id);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            game.CurrentPlayer.BaseMana = 8;
+            var spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Innervate"));
+            Assert.AreEqual(9, game.CurrentPlayer.Hand.Count);
+            var spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
+            Assert.AreEqual(10, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, spell3));
+            Assert.AreEqual(9, game.CurrentPlayer.Hand.Count);
+            spell4.Cost = 0;
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, spell4));
+            Assert.AreEqual(10, game.CurrentPlayer.RemainingMana);
+            Assert.AreEqual(9, game.CurrentPlayer.Hand.Count);
+
         }
 
         // ------------------------------------------ SPELL - DRUID

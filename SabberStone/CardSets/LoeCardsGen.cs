@@ -823,7 +823,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsNoDupeInDeck, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
                         new FlagTask(true, new HealFullTask(EntityType.HERO)))
 				},
 			});

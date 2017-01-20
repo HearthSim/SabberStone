@@ -71,10 +71,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Gain an empty Mana Crystal for each friendly minion.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PilferedPower_CFM_616()
 		{
-			// TODO PilferedPower_CFM_616 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -83,10 +82,17 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pilfered Power"));
-		}
+			game.Player1.BaseMana = 5;
+			game.Player2.BaseMana = 5;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pilfered Power"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(7, game.CurrentPlayer.BaseMana);
+
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [CFM_713] Jade Blossom - COST:3 

@@ -55,12 +55,14 @@ namespace SabberStone.CardSets
 			// Text: Gain an empty Mana Crystal for each friendly minion.
 			// --------------------------------------------------------
 			cards.Add("CFM_616", new List<Enchantment> {
-				// TODO [CFM_616] Pilfered Power && Test: Pilfered Power_CFM_616
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        ComplexTask.ExcessManaCheck,
+                        new CountTask(EntityType.MINIONS),
+                        new ManaCrystalTask())
+                },
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -969,7 +971,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DiscoverTask(DiscoverType.OP_DECK)))
                 },
 			});
@@ -2104,7 +2106,7 @@ namespace SabberStone.CardSets
                                 if (target != null)
                                    result.Add(target);
                                 return result; }),
-                            new SelfConditionTask(SelfCondition.IsDead, EntityType.STACK),
+                            new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
                             ComplexTask.True(new EnqueueTask(2,
                                 ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace)))))
                         .Build()

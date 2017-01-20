@@ -62,12 +62,12 @@ namespace SabberStone.Tasks
 
         public static ISimpleTask IfComboElse(ISimpleTask combo)
             => Create(
-                new SelfConditionTask(SelfCondition.IsComboActive, EntityType.SOURCE),
+                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo));
 
         public static ISimpleTask IfComboElse(ISimpleTask combo, ISimpleTask noCombo)
             => Create(
-                new SelfConditionTask(SelfCondition.IsComboActive, EntityType.SOURCE),
+                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo),
                 new FlagTask(false, noCombo));
 
@@ -88,6 +88,16 @@ namespace SabberStone.Tasks
                 new GetGameTagTask(tag, type),
                 new MathSubstractionTask(amount),
                 new SetGameTagNumberTask(tag, type));
+
+        public static ISimpleTask ExcessManaCheck
+            => Create(
+                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+                new LogTask(),
+                new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)),
+                new FlagTask(false, Create(
+                    new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsRemaningManaFull),
+                    new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND))))
+                );
 
         public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
         {
@@ -113,7 +123,7 @@ namespace SabberStone.Tasks
                 new IncludeTask(type),
                 new FilterStackTask(EntityType.SOURCE, list),
                 new RandomTask(1, EntityType.STACK),
-                new SelfConditionTask(SelfCondition.IsNotBoardFull, EntityType.SOURCE),
+                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
                 new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
                 new FlagTask(true, new SummonTask()));
         }

@@ -70,7 +70,7 @@ namespace SabberStone.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET),
-                        new SelfConditionTask(SelfCondition.IsRace(Race.BEAST), EntityType.TARGET),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.BEAST)),
                         new FlagTask(true, new DrawTask())),
 				},
 			});
@@ -2054,7 +2054,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsControlingPirate, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingPirate),
                         ComplexTask.True(new BuffTask(Buffs.WeaponAtkDura(1,1), EntityType.WEAPON))),
 				},
 			});

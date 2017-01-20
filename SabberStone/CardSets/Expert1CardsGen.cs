@@ -1214,7 +1214,7 @@ namespace SabberStone.CardSets
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsFrozen, EntityType.TARGET),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
                         ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
                         ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
                 }
@@ -2080,7 +2080,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsHeroPower("EX1_625t"), EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPower("EX1_625t")),
                         ComplexTask.True(new ReplaceHeroPower(Cards.FromId("EX1_625t2"))),
                         ComplexTask.False(new ReplaceHeroPower(Cards.FromId("EX1_625t"))))
 				},
@@ -3449,7 +3449,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsAnyWeaponEquiped, EntityType.HERO),
+                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
                         ComplexTask.True(new BuffTask(Buffs.WeaponAtkDura(1,1), EntityType.WEAPON)),
                         ComplexTask.False(new ReplaceWeaponTask("EX1_409t"))
                         ),
@@ -4679,7 +4679,7 @@ namespace SabberStone.CardSets
                         new IncludeTask(EntityType.OP_MINIONS),
                         new FuncTask(p => p.Count > 3 ? p : new List<IPlayable>()),
                         new RandomTask(1, EntityType.STACK),
-                        new SelfConditionTask(SelfCondition.IsBoardFull, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
                         new FlagTask(false, new ControlTask(EntityType.STACK)),
                         new FlagTask(true, new DestroyTask(EntityType.STACK)))
 				},
@@ -5442,7 +5442,7 @@ namespace SabberStone.CardSets
                                 .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
                                 .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
                                 .SingleTask(ComplexTask.Create(
-                                    new SelfConditionTask(SelfCondition.IsNotDead, EntityType.SOURCE),
+                                    new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
                                     ComplexTask.True(new DrawTask())))
                                 .Build()
                 }

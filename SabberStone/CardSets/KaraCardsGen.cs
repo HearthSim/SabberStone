@@ -278,7 +278,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new EnqueueTask(2, new SummonTask("KAR_010a")))),
 				},
 			});
@@ -815,7 +815,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DestroyTask(EntityType.TARGET)))
                 },
 			});
@@ -951,7 +951,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DiscoverTask(DiscoverType.DRAGON)))
 				},
 			});
@@ -1031,7 +1031,7 @@ namespace SabberStone.CardSets
                             new IncludeTask(EntityType.DECK),
                             new FilterStackTask(SelfCondition.IsMinion),
                             new RandomTask(1, EntityType.STACK),
-                            new SelfConditionTask(SelfCondition.IsNotBoardFull, EntityType.SOURCE),
+                            new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
                             new FlagTask(true, ComplexTask.Create(
                                 new RemoveFromDeck(EntityType.STACK),
                                 new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),

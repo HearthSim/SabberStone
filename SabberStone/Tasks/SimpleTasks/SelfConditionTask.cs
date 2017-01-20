@@ -1,16 +1,17 @@
-﻿using SabberStone.Conditions;
+﻿using System.Linq;
+using SabberStone.Conditions;
 
 namespace SabberStone.Tasks.SimpleTasks
 {
     public class SelfConditionTask : SimpleTask
     {
-        public SelfConditionTask(SelfCondition condition, EntityType entityType)
+        public SelfConditionTask(EntityType entityType, params SelfCondition[] conditions)
         {
-            Condition = condition;
+            Conditions = conditions;
             Type = entityType;
         }
 
-        public SelfCondition Condition { get; set; }
+        public SelfCondition[] Conditions { get; set; }
         public EntityType Type { get; set; }
 
         public override TaskState Process()
@@ -22,17 +23,14 @@ namespace SabberStone.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            var flag = true;
+            Flag = entities.TrueForAll(p => Conditions.ToList().TrueForAll(c => c.Eval(p)));
 
-            entities.ForEach(p => { flag &= Condition.Eval(p); });
-
-            Flag = flag;
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new SelfConditionTask(Condition, Type);
+            var clone = new SelfConditionTask(Type, Conditions);
             clone.Copy(this);
             return clone;
         }

@@ -32,11 +32,11 @@ namespace SimpleTest
             //IronBreakOwl();
 
             //Log.Info(Cards.Count);
-            Cards.Statistics();
+            //Cards.Statistics();
 
             //BasicHealthAuraTest();
 
-            //CardsTest();
+            CardsTest();
             
             
             //Secretkeeper();
@@ -59,15 +59,19 @@ namespace SimpleTest
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Player1.BaseMana = 5;
+            game.Player2.BaseMana = 5;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pilfered Power"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 
             Log.Info($"{game.Player2.FullPrint()}");
             Log.Info($"{game.Player2.Hand.FullPrint()}");

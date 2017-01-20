@@ -376,7 +376,9 @@ namespace SabberStone.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ManaCrystalTask(1)
+                    SingleTask = ComplexTask.Create(
+                        ComplexTask.ExcessManaCheck,
+                        new ManaCrystalTask(1))
                 }
             });
 
@@ -436,11 +438,10 @@ namespace SabberStone.CardSets
             // Text: Draw a card. <i>(You can only have 10 Mana in your tray.)</i>
             // --------------------------------------------------------
             cards.Add("CS2_013t", new List<Enchantment> {
-				// TODO [CS2_013t] Excess Mana && Test: Excess Mana_CS2_013t
-				new Enchantment
+	            new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DrawTask(),
                 },
             });
 
@@ -571,7 +572,7 @@ namespace SabberStone.CardSets
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsControlingBeast, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingBeast),
                         ComplexTask.True(new DamageTask(5, EntityType.TARGET, true)),
                         ComplexTask.False(new DamageTask(3, EntityType.TARGET, true)))
                 }
@@ -2008,7 +2009,7 @@ namespace SabberStone.CardSets
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DamageTask(1, EntityType.TARGET, true),
-                        new SelfConditionTask(SelfCondition.IsDead, EntityType.TARGET),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDead),
                         ComplexTask.True(new DrawTask()))
                 }
             });

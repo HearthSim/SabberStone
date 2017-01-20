@@ -178,7 +178,7 @@ namespace SabberStone.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new DamageTask(3, EntityType.TARGET, true),
-                        new SelfConditionTask(SelfCondition.IsHandEmpty, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
                         new FlagTask(true, new DrawTask()))
 				},
 			});
@@ -351,7 +351,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new BuffTask(Buffs.Health(2), EntityType.SOURCE)))
 				},
 			});
@@ -773,7 +773,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)))
                 },
 			});
@@ -795,7 +795,7 @@ namespace SabberStone.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(SelfCondition.IsDragonInHand, EntityType.SOURCE),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DamageTask(3, EntityType.TARGET)))
                 },
 			});
