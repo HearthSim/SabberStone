@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Actions\Generic.cs" />
     <Compile Include="Splits\SplitNode.cs" />
+    <Compile Include="Tasks\SimpleTasks\ManaCrystalFullTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomEntourageCardTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomMinionTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomCardTask.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="Tasks\SimpleTasks\HealTask.cs" />
     <Compile Include="Tasks\SimpleTasks\IncludeTask.cs" />
     <Compile Include="Tasks\SimpleTasks\LogTask.cs" />
-    <Compile Include="Tasks\SimpleTasks\ManaCrystalTask.cs" />
+    <Compile Include="Tasks\SimpleTasks\ManaCrystalEmptyTask.cs" />
     <Compile Include="Tasks\SimpleTasks\RandomTask.cs" />
     <Compile Include="Tasks\SimpleTasks\SilenceTask.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />

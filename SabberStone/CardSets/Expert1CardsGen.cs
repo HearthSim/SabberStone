@@ -468,7 +468,7 @@ namespace SabberStone.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ManaCrystalTask(2)
+                    SingleTask = new ManaCrystalEmptyTask(2)
                 }
             });
 
@@ -4698,7 +4698,7 @@ namespace SabberStone.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ManaCrystalTask(1, true)
+					SingleTask = new ManaCrystalEmptyTask(1, true)
 				},
 			});
 

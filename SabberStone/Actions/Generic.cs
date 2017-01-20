@@ -20,8 +20,8 @@ namespace SabberStone.Actions
                 return true;
             };
 
-        public static Func<Controller, int, bool> ChangeManaCrystal
-            => delegate(Controller c, int amount)
+        public static Func<Controller, int, bool, bool> ChangeManaCrystal
+            => delegate(Controller c, int amount, bool fill)
             {
                 var log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -43,6 +43,12 @@ namespace SabberStone.Actions
                     c.BaseMana += amount;
                     c.UsedMana += amount;
                 }
+
+                if (fill)
+                {
+                    c.UsedMana = 0;
+                }
+
                 return true;
             };
 

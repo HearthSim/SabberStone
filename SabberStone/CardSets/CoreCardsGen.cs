@@ -378,7 +378,7 @@ namespace SabberStone.CardSets
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         ComplexTask.ExcessManaCheck,
-                        new ManaCrystalTask(1))
+                        new ManaCrystalEmptyTask(1))
                 }
             });
 

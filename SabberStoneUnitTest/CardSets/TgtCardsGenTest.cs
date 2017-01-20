@@ -314,10 +314,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Gain 10 Mana Crystals. Discard your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AstralCommunion_AT_043()
 		{
-			// TODO AstralCommunion_AT_043 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -326,10 +325,21 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Astral Communion"));
-		}
+			game.Player1.BaseMana = 9;
+			game.Player2.BaseMana = 9;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Astral Communion"));
+		    game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(10, game.CurrentPlayer.BaseMana);
+            Assert.AreEqual(10, game.CurrentPlayer.RemainingMana);
+            Assert.AreEqual(0, game.CurrentPlayer.Hand.Count);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Astral Communion"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(10, game.CurrentPlayer.BaseMana);
+            Assert.AreEqual(10, game.CurrentPlayer.RemainingMana);
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Count);
+
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [AT_044] Mulch - COST:3 

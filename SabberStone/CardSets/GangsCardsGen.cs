@@ -61,7 +61,7 @@ namespace SabberStone.CardSets
                     SingleTask = ComplexTask.Create(
                         ComplexTask.ExcessManaCheck,
                         new CountTask(EntityType.MINIONS),
-                        new ManaCrystalTask())
+                        new ManaCrystalEmptyTask())
                 },
 			});
 

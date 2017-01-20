@@ -228,7 +228,7 @@ namespace SabberStone.Model
         public void BeginTurnRessources()
         {
             // adding manacrystal to next player
-            Generic.ChangeManaCrystal.Invoke(CurrentPlayer, 1);
+            Generic.ChangeManaCrystal.Invoke(CurrentPlayer, 1, false);
 
             // clear used mana
             CurrentPlayer.UsedMana = 0;

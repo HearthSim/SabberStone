@@ -2,16 +2,16 @@
 
 namespace SabberStone.Tasks.SimpleTasks
 {
-    public class ManaCrystalTask : SimpleTask
+    public class ManaCrystalEmptyTask : SimpleTask
     {
-        public ManaCrystalTask(int amount, bool opponent = false, bool useNumber = false)
+        public ManaCrystalEmptyTask(int amount, bool opponent = false, bool useNumber = false)
         {
             Amount = amount;
             Opponent = opponent;
             UseNumber = useNumber;
         }
 
-        public ManaCrystalTask()
+        public ManaCrystalEmptyTask()
         {
             UseNumber = true;
             Amount = 0;
@@ -29,16 +29,15 @@ namespace SabberStone.Tasks.SimpleTasks
                 Amount = Number;
             }
 
-            var success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount);
+            var success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new ManaCrystalTask(Amount, Opponent, UseNumber);
+            var clone = new ManaCrystalEmptyTask(Amount, Opponent, UseNumber);
             clone.Copy(this);
             return clone;
         }
     }
-
 }

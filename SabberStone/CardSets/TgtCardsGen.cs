@@ -212,11 +212,13 @@ namespace SabberStone.CardSets
             // Text: Gain 10 Mana Crystals. Discard your hand.
             // --------------------------------------------------------
             cards.Add("AT_043", new List<Enchantment> {
-				// TODO [AT_043] Astral Communion && Test: Astral Communion_AT_043
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DiscardTask(EntityType.HAND),
+                        ComplexTask.ExcessManaCheck,
+                        new ManaCrystalFullTask(10))
 				},
 			});
 
@@ -255,12 +257,12 @@ namespace SabberStone.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ManaCrystalTask(1)
+					SingleTask = new ManaCrystalEmptyTask(1)
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new ManaCrystalTask(-1)
+                    SingleTask = new ManaCrystalEmptyTask(-1)
                 },
 			});
 
