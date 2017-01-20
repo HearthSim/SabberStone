@@ -40,7 +40,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Jade Golems (Jade Lotus)
 - [x] Buffing Hand (Grimy Goons)
 - [x] Excess Mana
-- [ ] Freeze
+- [x] Freeze & Stealth
 - [ ] Potions (Kabal)
 
 **Basic & Classic**

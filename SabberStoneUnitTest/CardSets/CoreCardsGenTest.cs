@@ -1837,21 +1837,37 @@ namespace SabberStoneUnitTest.CardSets
         // GameTag:
         // - FREEZE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void WaterElemental_CS2_033()
         {
-            // TODO WaterElemental_CS2_033 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Water Elemental"));
+            var water = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Water Elemental"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, water));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, water));
+            Assert.AreEqual(true, game.Player2.Hero.IsFrozen);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sen'jin Shieldmasta"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(true, game.Player2.Hero.IsFrozen);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, water, minion2));
+            Assert.AreEqual(true, ((Minion)minion2).IsFrozen);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(true, game.Player2.Hero.IsFrozen);
+            Assert.AreEqual(true, ((Minion)minion2).IsFrozen);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(false, game.Player2.Hero.IsFrozen);
+            Assert.AreEqual(false, ((Minion)minion2).IsFrozen);
         }
 
     }

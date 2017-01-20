@@ -930,14 +930,7 @@ namespace SabberStone.CardSets
             // GameTag:
             // - FREEZE = 1
             // --------------------------------------------------------
-            cards.Add("CS2_033", new List<Enchantment> {
-				// TODO [CS2_033] Water Elemental && Test: Water Elemental_CS2_033
-				new Enchantment
-                (
-					//Activation = null,
-					//SingleTask = null,
-				)
-            });
+            cards.Add("CS2_033", null);
 
         }
 

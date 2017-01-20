@@ -77,8 +77,8 @@ namespace SabberStone.Actions
                 var target = c.Game.IdEntityDic[source.ProposedDefender] as ICharacter;
                 if (target == null)
                 {
-                    log.Info($"[AttackPhase] target wasn't found by proposeddefender call.");
-                    c.Game.PlayTaskLog.AppendLine($"[AttackPhase] target wasn't found by proposeddefender call.");
+                    log.Info($"[AttackPhase] target wasn't found by proposed defender call.");
+                    c.Game.PlayTaskLog.AppendLine($"[AttackPhase] target wasn't found by proposed defender call.");
                     return false;
                 }
                 c.Game.Step = Step.MAIN_COMBAT;
@@ -90,10 +90,19 @@ namespace SabberStone.Actions
 
                 var targetDamaged = target.TakeDamage(source, sourceAttack);
 
+                // freeze target if attacker is freezer
+                if (targetDamaged && minion != null && minion.Freeze)
+                    target.IsFrozen = true;
+
                 // ignore damage from defenders with 0 attack
                 if (targetAttack > 0)
                 {
                     var sourceDamaged = source.TakeDamage(target, targetAttack);
+
+                    // freeze source if defender is freezer
+                    var targetMinion = target as Minion;
+                    if (sourceDamaged && targetMinion != null && targetMinion.Freeze)
+                        source.IsFrozen = true;
                 }
 
                 if (minion != null && minion.HasStealth)

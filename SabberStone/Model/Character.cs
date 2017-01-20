@@ -68,7 +68,7 @@ namespace SabberStone.Model
             var hero = this as Hero;
             var minion = this as Minion;
 
-            var fatigue = (hero != null) && (this == source);
+            var fatigue = hero != null && this == source;
 
             if (fatigue)
             {

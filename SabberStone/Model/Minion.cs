@@ -100,5 +100,11 @@ namespace SabberStone.Model
             get { return this[GameTag.IMMUNE] == 1; }
             set { this[GameTag.IMMUNE] = value ? 1 : 0; }
         }
+
+        public bool Freeze
+        {
+            get { return this[GameTag.FREEZE] == 1; }
+            set { this[GameTag.FREEZE] = value ? 1 : 0; }
+        }
     }
 }
