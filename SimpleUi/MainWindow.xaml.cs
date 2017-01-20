@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using HearthDb.Enums;
+using Newtonsoft.Json;
 using SabberStone.Config;
 using SabberStone.Model;
 using SabberStone.Splits;
@@ -15,6 +19,7 @@ using SimpleAi.Meta;
 using SimpleAi.Nodes;
 using SimpleAi.Score;
 using SimpleUi.AsciiVisual;
+using SimpleUi.Deck;
 
 namespace SimpleUi
 {
@@ -27,6 +32,26 @@ namespace SimpleUi
 
         public List<PlayerTask> CurrentSolution;
 
+        public List<Card> CurrentDeck = new List<Card>();
+
+
+        private static string _path { get; set; }
+
+        public static string Path
+        {
+            get
+            {
+                if (_path == null)
+                {
+                    var fullPath = Assembly.GetExecutingAssembly().Location;
+                    _path = fullPath?.Substring(0, fullPath.IndexOf(@"SabberStone", StringComparison.Ordinal));
+                }
+
+                return _path;
+            }
+        }
+
+
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             var worker = sender as BackgroundWorker;
@@ -36,7 +61,10 @@ namespace SimpleUi
             var maxWidth = (int) parameters[1];
             var scoring = (IScore) parameters[2];
 
-            var depthNodes = new Dictionary<string, OptionNode> { ["root"] = new OptionNode(null, CurrentGame, CurrentGame.CurrentPlayer.Id, null, scoring) };
+            var depthNodes = new Dictionary<string, OptionNode>
+            {
+                ["root"] = new OptionNode(null, CurrentGame, CurrentGame.CurrentPlayer.Id, null, scoring)
+            };
             var endTurnNodes = new List<OptionNode>();
             for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
             {
@@ -58,8 +86,8 @@ namespace SimpleUi
                     .Take(maxWidth)
                     .ToDictionary(p => p.Key, p => p.Value);
 
-                worker?.ReportProgress(i + 1, $"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
-
+                worker?.ReportProgress(i + 1,
+                    $"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
             }
 
             //var btween = new List<PlayerTask>();
@@ -76,9 +104,9 @@ namespace SimpleUi
             e.Result = endTurnNodes;
         }
 
-        private List<OptionNode> GetOpTurn(string playerTag, int maxDepth, int maxWidth, BackgroundWorker worker, List<OptionNode> endTurnNodes)
+        private List<OptionNode> GetOpTurn(string playerTag, int maxDepth, int maxWidth, BackgroundWorker worker,
+            List<OptionNode> endTurnNodes)
         {
-
             var opDepthNodes = new Dictionary<string, OptionNode>();
             endTurnNodes.ForEach(p =>
             {
@@ -86,7 +114,6 @@ namespace SimpleUi
                 {
                     p.Switch();
                     opDepthNodes.Add(p.Hash, p);
-
                 }
             });
 
@@ -111,8 +138,8 @@ namespace SimpleUi
                     .Take(maxWidth)
                     .ToDictionary(p => p.Key, p => p.Value);
 
-                worker?.ReportProgress(i + 1, $"{playerTag}: {i + 1} --> {opDepthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{opEndTurnNodes.Count}]");
-
+                worker?.ReportProgress(i + 1,
+                    $"{playerTag}: {i + 1} --> {opDepthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{opEndTurnNodes.Count}]");
             }
 
             return opEndTurnNodes;
@@ -124,9 +151,9 @@ namespace SimpleUi
 
             if (e.UserState is int)
             {
-                PgrBarDepth.Value = (double) test * 100 / (int)e.UserState;
-
-            } else if (e.UserState != null)
+                PgrBarDepth.Value = (double) test * 100 / (int) e.UserState;
+            }
+            else if (e.UserState != null)
             {
                 TxtPlayer1.AppendText(e.UserState.ToString() + Environment.NewLine);
             }
@@ -146,6 +173,23 @@ namespace SimpleUi
         public MainWindow()
         {
             InitializeComponent();
+
+            CbxFormat.ItemsSource = Enum.GetValues(typeof(FormatType)).Cast<FormatType>()
+                .Where(e => e != FormatType.FT_UNKNOWN);
+            CbxFormat.SelectedIndex = 1;
+            CbxClassCard.ItemsSource = Enum.GetValues(typeof(CardClass)).Cast<CardClass>()
+                .Where(e =>
+                    e != CardClass.INVALID &&
+                    e != CardClass.DEATHKNIGHT &&
+                    e != CardClass.DREAM &&
+                    e != CardClass.NEUTRAL);
+            CbxClassCard.SelectedIndex = 1;
+            CbxDeckStrategy.ItemsSource = Enum.GetValues(typeof(Strategy)).Cast<Strategy>();
+            CbxDeckStrategy.SelectedIndex = 1;
+
+            DtDeckFiles.ItemsSource = new DirectoryInfo(Path + @"SabberStone\SimpleUi\Files\").GetFiles();
+
+
             CboxDeck1.ItemsSource = Enum.GetValues(typeof(DeckTypes)).Cast<DeckTypes>();
             CboxDeck1.SelectedIndex = 0;
             CboxDeck2.ItemsSource = Enum.GetValues(typeof(DeckTypes)).Cast<DeckTypes>();
@@ -178,7 +222,6 @@ namespace SimpleUi
                 help[15] + Environment.NewLine +
                 help[16] + Environment.NewLine +
                 help[17] + Environment.NewLine;
-
         }
 
         public void Actualize()
@@ -190,13 +233,17 @@ namespace SimpleUi
             if (CurrentGame.State == State.RUNNING && !BtnStart.IsEnabled)
             {
                 TxtPlayer1.Text = $"* Calculating solutions *** {CurrentGame.CurrentPlayer} ***" + Environment.NewLine;
-                TxtPlayer1.AppendText($"... with depth: {(int)SlidMaxDepth.Value} and width: {(int)SlidMaxWidth.Value} ..." + Environment.NewLine);
+                TxtPlayer1.AppendText(
+                    $"... with depth: {(int) SlidMaxDepth.Value} and width: {(int) SlidMaxWidth.Value} ..." +
+                    Environment.NewLine);
                 var worker = new BackgroundWorker {WorkerReportsProgress = true};
                 worker.DoWork += worker_DoWork;
                 worker.ProgressChanged += worker_ProgressChanged;
                 worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-                var scoring = CurrentGame.CurrentPlayer == CurrentGame.Player1 ? GetScoring((Strategy) CboxAi1.SelectedValue) : GetScoring((Strategy)CboxAi2.SelectedValue);
-                worker.RunWorkerAsync(new List<object> {(int)SlidMaxDepth.Value, (int)SlidMaxWidth.Value, scoring});
+                var scoring = CurrentGame.CurrentPlayer == CurrentGame.Player1
+                    ? GetScoring((Strategy) CboxAi1.SelectedValue)
+                    : GetScoring((Strategy) CboxAi2.SelectedValue);
+                worker.RunWorkerAsync(new List<object> {(int) SlidMaxDepth.Value, (int) SlidMaxWidth.Value, scoring});
                 BtnStart.Content = $"{CurrentGame.CurrentPlayer} Move!";
             }
             else if (CurrentGame.State == State.COMPLETE)
@@ -217,7 +264,8 @@ namespace SimpleUi
         private void ShowCurrentSolution()
         {
             TxtPlayer1.Text = $"* Best Moves *** {CurrentGame.CurrentPlayer.Name} ***" + Environment.NewLine;
-            CurrentSolution.ForEach(p => TxtPlayer1.AppendText(CurrentSolution.IndexOf(p) + ") " + p.FullPrint() + Environment.NewLine));
+            CurrentSolution.ForEach(
+                p => TxtPlayer1.AppendText(CurrentSolution.IndexOf(p) + ") " + p.FullPrint() + Environment.NewLine));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -332,5 +380,122 @@ namespace SimpleUi
             }
         }
 
+        private void CbxFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BuildCardList();
+        }
+
+        private void CbxClassCard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BuildCardList();
+        }
+
+        private void BuildCardList()
+        {
+            if (CbxFormat.SelectedItem == null || CbxClassCard.SelectedItem == null)
+                return;
+
+            var formatType = (FormatType) CbxFormat.SelectedItem;
+            var cardClass = (CardClass) CbxClassCard.SelectedItem;
+
+            List<Card> cards;
+            switch (formatType)
+            {
+                case FormatType.FT_STANDARD:
+                    cards = Cards.Standard[cardClass];
+                    break;
+                case FormatType.FT_WILD:
+                    cards = Cards.Wild[cardClass];
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            DtGrTest.ItemsSource = cards.OrderBy(p => p.Class).ThenBy(c => c.Cost);
+        }
+
+        private void HandleImage(Image image, Uri webUri)
+        {
+            var bDecoder = BitmapDecoder.Create(webUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+
+            if (bDecoder != null && bDecoder.Frames.Count > 0)
+                image.Source = bDecoder.Frames[0];
+        }
+
+        private void DtGrTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var card = (Card) DtGrTest.SelectedItem;
+            if (card != null)
+                HandleImage(ImgCard,
+                    new Uri("http://media.services.zam.com/v1/media/byName/hs/cards/enus/" + card.Id + ".png"));
+        }
+
+        private void BtnAddCard_Click(object sender, RoutedEventArgs e)
+        {
+            var card = (Card) DtGrTest.SelectedItem;
+            if (CurrentDeck.Count < 30 && CurrentDeck.Count(p => p == card) < card.MaxAllowedInDeck)
+            {
+                CurrentDeck.Add(card);
+                LbCardCountValue.Content = CurrentDeck.Count;
+                DtGrDeck.ItemsSource = CurrentDeck.OrderBy(p => p.Class).ThenBy(c => c.Cost);
+            }
+        }
+
+        private void BtnRemoveCard_Click(object sender, RoutedEventArgs e)
+        {
+            var card = (Card) DtGrDeck.SelectedItem;
+            CurrentDeck.Remove(card);
+            LbCardCountValue.Content = CurrentDeck.Count;
+            DtGrDeck.ItemsSource = CurrentDeck.OrderBy(p => p.Class).ThenBy(c => c.Cost);
+        }
+
+        private void DtGrDeck_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var card = (Card) DtGrDeck.SelectedItem;
+            if (card != null)
+                HandleImage(ImgCard,
+                    new Uri("http://media.services.zam.com/v1/media/byName/hs/cards/enus/" + card.Id + ".png"));
+        }
+
+        private void BtSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentDeck.Count != 30)
+            {
+                var result = MessageBox.Show("MetaDeck isn't legit!", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
+            var deck = new Deck.MetaDeck
+            {
+                Name = TxDeckname.Text,
+                Description = TxDescription.Text,
+                Link = TxDeckLink.Text,
+                FormatType = (FormatType) CbxFormat.SelectedItem,
+                HeroClass = (CardClass) CbxClassCard.SelectedItem,
+                Strategy = (Strategy) CbxDeckStrategy.SelectedItem,
+                CardIds = CurrentDeck.Select(p => p.Id).ToList()
+            };
+
+            File.WriteAllText(Path + @"SabberStone\SimpleUi\Files\" + deck.Name + ".deck",
+                JsonConvert.SerializeObject(deck, Formatting.Indented));
+            DtDeckFiles.ItemsSource = new DirectoryInfo(Path + @"SabberStone\SimpleUi\Files\").GetFiles();
+        }
+
+        private void BtnLoadDeck_Click(object sender, RoutedEventArgs e)
+        {
+            var file = (FileInfo) DtDeckFiles.SelectedItem;
+
+            var deck = JsonConvert.DeserializeObject<MetaDeck>(File.ReadAllText(file.FullName));
+
+            TxDeckname.Text = deck.Name;
+            TxDescription.Text = deck.Description;
+            TxDeckLink.Text = deck.Link;
+            CbxFormat.SelectedItem = Enum.GetName(typeof(FormatType), deck.FormatType);
+            CbxClassCard.SelectedItem = Enum.GetName(typeof(CardClass), deck.HeroClass);
+            CbxDeckStrategy.SelectedItem = Enum.GetName(typeof(Strategy), deck.Strategy);
+            CurrentDeck = deck.CardIds.Select(Cards.FromId).ToList();
+            LbCardCountValue.Content = CurrentDeck.Count;
+            DtGrDeck.ItemsSource = CurrentDeck.OrderBy(p => p.Class).ThenBy(c => c.Cost);
+        }
     }
 }

@@ -5,59 +5,153 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleUi"
         mc:Ignorable="d"
-        Title="SabberStone 0.0.1v by darkfriend77" Height="660" Width="1200" BorderThickness="0">
+        Title="SabberStone 0.0.1v by darkfriend77" Height="700" Width="1200" BorderThickness="0">
     <Grid Background="#FFFFF3D2">
-        <TextBox x:Name="ViewBox" HorizontalAlignment="Left" Height="610" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" FontFamily="Consolas" BorderThickness="0" Cursor="None" Foreground="Black" Focusable="False">
-            <TextBox.Background>
+        <TabControl>
+            <TabControl.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFF0F7AD" Offset="0"/>
                     <GradientStop Color="#FFFFCEBC" Offset="1"/>
                 </LinearGradientBrush>
-            </TextBox.Background>
-        </TextBox>
-        <TextBox x:Name="TxtPlayer1" HorizontalAlignment="Stretch" Height="200" Margin="630,10,0,0" VerticalAlignment="Top" Width="540" FontSize="10" FontFamily="Consolas" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"/>
-        <Button x:Name="BtnStart" Content="Start Game" HorizontalAlignment="Left" Margin="817,360,0,0" VerticalAlignment="Top" Width="169" Height="45" Click="Button_Click"/>
-        <TextBox x:Name="TxtPlayLog" HorizontalAlignment="Stretch" Height="200" Margin="630,410,0,0" VerticalAlignment="Top" Width="540" FontSize="9" FontFamily="Consolas" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Foreground="#FF17FF00" Background="Black"/>
+            </TabControl.Background>
+            <TabItem Header="Game">
+                <Grid>
+                    <TextBox x:Name="ViewBox" HorizontalAlignment="Left" Height="610" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" FontFamily="Consolas" BorderThickness="0" Cursor="None" Foreground="Black" Focusable="False">
+                        <TextBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF0F7AD" Offset="0"/>
+                                <GradientStop Color="#FFFFCEBC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.Background>
+                    </TextBox>
+                    <TextBox x:Name="TxtPlayer1" HorizontalAlignment="Stretch" Height="200" Margin="630,10,0,0" VerticalAlignment="Top" Width="540" FontSize="10" FontFamily="Consolas" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"/>
+                    <Button x:Name="BtnStart" Content="Start Game" HorizontalAlignment="Left" Margin="817,360,0,0" VerticalAlignment="Top" Width="169" Height="45" Click="Button_Click"/>
+                    <TextBox x:Name="TxtPlayLog" HorizontalAlignment="Stretch" Height="200" Margin="630,410,0,0" VerticalAlignment="Top" Width="540" FontSize="9" FontFamily="Consolas" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Foreground="#FF17FF00" Background="Black"/>
 
-        <GroupBox x:Name="GroupBox" Header="Game Configuration" HorizontalAlignment="Left" Height="140" Margin="641,215,0,0" VerticalAlignment="Top" Width="345" Background="#FFFFFFE9">
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="181*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="LbPlayer1" Content="Player 1" HorizontalAlignment="Left" Margin="35,5,0,0" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
-                <Label x:Name="LbPlayer2" Content="Player 2" HorizontalAlignment="Left" Margin="171,5,0,0" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
-                <Label x:Name="lblDeck" Content="Deck" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"
+                    <GroupBox x:Name="GroupBox" Header="Game Configuration" HorizontalAlignment="Left" Height="140" Margin="641,215,0,0" VerticalAlignment="Top" Width="345" Background="#FFFFFFE9">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition Width="181*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="LbPlayer1" Content="Player 1" HorizontalAlignment="Left" Margin="35,5,0,0" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                            <Label x:Name="LbPlayer2" Content="Player 2" HorizontalAlignment="Left" Margin="171,5,0,0" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                            <Label x:Name="lblDeck" Content="MetaDeck" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"
                        Grid.Column="0" />
-                <ComboBox x:Name="CboxDeck1" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
-                <ComboBox x:Name="CboxDeck2" HorizontalAlignment="Left" Margin="175,35,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
-                <Label x:Name="lblStrat" Content="Strategy" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"
+                            <ComboBox x:Name="CboxDeck1" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
+                            <ComboBox x:Name="CboxDeck2" HorizontalAlignment="Left" Margin="175,35,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
+                            <Label x:Name="lblStrat" Content="Strategy" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"
                        Grid.Column="0" />
-                <ComboBox x:Name="CboxAi1" HorizontalAlignment="Left" Margin="40,65,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
-                <ComboBox x:Name="CboxAi2" HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Tree Node Behaviour" HorizontalAlignment="Left" Margin="991,215,0,0" VerticalAlignment="Top" Height="190" Width="177" Background="#FFFFFFE9">
-            <Grid Margin="0,0,-2,-12" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="149*"/>
-                    <ColumnDefinition Width="27*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Slider x:Name="SlidMaxDepth" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2" Maximum="20" Minimum="1" IsSnapToTickEnabled="True" Value="10"/>
-                <Slider x:Name="SlidMaxWidth" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2"
+                            <ComboBox x:Name="CboxAi1" HorizontalAlignment="Left" Margin="40,65,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
+                            <ComboBox x:Name="CboxAi2" HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" FontSize="10" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Tree Node Behaviour" HorizontalAlignment="Left" Margin="991,215,0,0" VerticalAlignment="Top" Height="190" Width="177" Background="#FFFFFFE9">
+                        <Grid Margin="0,0,-2,-12" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="149*"/>
+                                <ColumnDefinition Width="27*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider x:Name="SlidMaxDepth" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2" Maximum="20" Minimum="1" IsSnapToTickEnabled="True" Value="10"/>
+                            <Slider x:Name="SlidMaxWidth" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2"
                         Grid.Column="0" Maximum="10000" Minimum="100" IsSnapToTickEnabled="True" Value="500"/>
-                <Label Grid.Column="0" x:Name="LblConfB" Content="Clone Depth" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="79" Margin="10,0,0,0"/>
-                <Label Grid.Column="0" x:Name="LblConfA" Content="Clone Width" HorizontalAlignment="Left" Height="26" Margin="10,54,0,0" VerticalAlignment="Top" Width="79"/>
+                            <Label Grid.Column="0" x:Name="LblConfB" Content="Clone Depth" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="79" Margin="10,0,0,0"/>
+                            <Label Grid.Column="0" x:Name="LblConfA" Content="Clone Width" HorizontalAlignment="Left" Height="26" Margin="10,54,0,0" VerticalAlignment="Top" Width="79"/>
 
-                <Label Grid.Column="0" x:Name="LblInfo" Content="Actual Depth Progress" HorizontalAlignment="Left" Height="26" Margin="10,108,0,0" VerticalAlignment="Top" Width="132"/>
-                <ProgressBar x:Name="PgrBarDepth" HorizontalAlignment="Left" Height="27" Margin="10,134,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2"
+                            <Label Grid.Column="0" x:Name="LblInfo" Content="Actual Depth Progress" HorizontalAlignment="Left" Height="26" Margin="10,108,0,0" VerticalAlignment="Top" Width="132"/>
+                            <ProgressBar x:Name="PgrBarDepth" HorizontalAlignment="Left" Height="27" Margin="10,134,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2"
                              Grid.Column="0" />
-                <Label x:Name="LblCloneWidth" Content="{Binding Value, ElementName=SlidMaxDepth}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="94,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.816,0.115" Grid.ColumnSpan="2"
+                            <Label x:Name="LblCloneWidth" Content="{Binding Value, ElementName=SlidMaxDepth}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="94,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.816,0.115" Grid.ColumnSpan="2"
                        Grid.Column="0" Width="63"/>
-                <Label x:Name="LblCloneDepth" Content="{Binding Value, ElementName=SlidMaxWidth}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="94,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.816,0.115" Grid.ColumnSpan="2"
+                            <Label x:Name="LblCloneDepth" Content="{Binding Value, ElementName=SlidMaxWidth}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="94,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.816,0.115" Grid.ColumnSpan="2"
                        Grid.Column="0" Width="63"/>
-            </Grid>
-        </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="MetaDeck">
+                <Grid>
+                    <ComboBox x:Name="CbxClassCard" HorizontalAlignment="Left" Margin="564,376,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxClassCard_SelectionChanged"/>
+                    <ComboBox x:Name="CbxFormat" HorizontalAlignment="Left" Margin="564,349,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxFormat_SelectionChanged"/>
+                    <DataGrid x:Name="DtGrTest" ItemsSource="{Binding Source=Card}" Margin="10,10,700,10" AutoGenerateColumns="False" SelectionChanged="DtGrTest_SelectionChanged" FontSize="10.667">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Implemented}" Value="True">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <Setter Property="Background" Value="#FFD5F5D0"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Implemented}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"></Setter>
+                                        <Setter Property="Background" Value="#FFF5D0D0"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id"   Width="50" Binding="{Binding Path=Id}"/>
+                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=Type}"/>
+                            <DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=Cost}"/>
+                            <DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=Class}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="BtnAddCard" Click="BtnAddCard_Click">ADD</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid x:Name="DtGrDeck" ItemsSource="{Binding Source=Card}" Margin="748,280,10,10" AutoGenerateColumns="False" FontSize="10.667" SelectionChanged="DtGrDeck_SelectionChanged" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=Type}"/>
+                            <DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=Cost}"/>
+                            <DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=Class}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="BtnRemoveCard" Click="BtnRemoveCard_Click">REMOVE</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Image x:Name="ImgCard" Margin="491,-34,0,0" Height="378" Width="236" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <DataGrid x:Name="DtDeckFiles" HorizontalAlignment="Left" Height="265" Margin="899,10,0,0" VerticalAlignment="Top" Width="277" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Binding="{Binding}" Header="Name"  Width="200"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="BtnLoadDeck" Click="BtnLoadDeck_Click">LOAD</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="BtSave" Content="Save MetaDeck" HorizontalAlignment="Left" Margin="669,611,0,0" VerticalAlignment="Top" Width="74" Click="BtSave_Click"/>
+                    <TextBox x:Name="TxDeckname" HorizontalAlignment="Left" Height="45" Margin="574,443,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="169" RenderTransformOrigin="0.358,0.087"/>
+                    <TextBox x:Name="TxDeckLink" HorizontalAlignment="Left" Height="23" Margin="574,543,0,0" Text="" VerticalAlignment="Top" Width="169"/>
+                    <Label x:Name="LbDeckName" Content="Name" Height="23" HorizontalAlignment="Left" Margin="491,443,0,0" VerticalAlignment="Top" Width="78" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="LbDeckLink" Content="Link" Height="23" HorizontalAlignment="Left" Margin="491,543,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.052,0.538" HorizontalContentAlignment="Right" Width="78"/>
+                    <ComboBox x:Name="CbxDeckStrategy" HorizontalAlignment="Left" Margin="623,584,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="LbDeckStrategy" Content="Strategy" Height="30" HorizontalAlignment="Left" Margin="550,584,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.052,0.538" HorizontalContentAlignment="Right" Width="68"/>
+                    <GroupBox x:Name="DeckInfo" Header="Deck Info" HorizontalAlignment="Left" Height="138" Margin="748,137,0,0" VerticalAlignment="Top" Width="146">
+                        <Grid>
+                            <Label x:Name="LbCardCount" Content="Cards:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.769"/>
+                            <Label x:Name="LbCardCountValue" Content="0" HorizontalAlignment="Left" Margin="66,10,0,0" VerticalAlignment="Top" Width="24"/>
+                        </Grid>
+                    </GroupBox>
+                    <Label x:Name="LbDescription" Content="Description" HorizontalAlignment="Left" Margin="491,493,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.346" Width="78" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="TxDescription" HorizontalAlignment="Left" Height="45" Margin="574,493,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="169"/>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
     </Grid>
 </Window>
