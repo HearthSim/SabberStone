@@ -5148,11 +5148,10 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_556", new List<Enchantment> {
-				// TODO [EX1_556] Harvest Golem && Test: Harvest Golem_EX1_556
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("skele21")
 				},
 			});
 

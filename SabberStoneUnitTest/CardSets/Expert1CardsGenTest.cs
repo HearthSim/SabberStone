@@ -6676,10 +6676,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void HarvestGolem_EX1_556()
 		{
-			// TODO HarvestGolem_EX1_556 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6690,19 +6689,25 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Harvest Golem"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Harvest Golem"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual("skele21", game.CurrentOpponent.Board[0].Card.Id);
+        }
 
-		// --------------------------------------- MINION - NEUTRAL
-		// [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4] 
-		// - Fac: neutral, Set: expert1, Rarity: legendary
-		// --------------------------------------------------------
-		// Text: At the start of your turn, you have a 50% chance to draw an extra card.
-		// --------------------------------------------------------
-		// GameTag:
-		// - ELITE = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+        // --------------------------------------- MINION - NEUTRAL
+        // [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4] 
+        // - Fac: neutral, Set: expert1, Rarity: legendary
+        // --------------------------------------------------------
+        // Text: At the start of your turn, you have a 50% chance to draw an extra card.
+        // --------------------------------------------------------
+        // GameTag:
+        // - ELITE = 1
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void NatPagle_EX1_557()
 		{
 			// TODO NatPagle_EX1_557 test
