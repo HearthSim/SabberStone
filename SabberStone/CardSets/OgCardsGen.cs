@@ -2171,13 +2171,13 @@ namespace SabberStone.CardSets
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
 			cards.Add("OG_082", new List<Enchantment> {
-				// TODO [OG_082] Evolved Kobold && Test: Evolved Kobold_OG_082
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(2)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_102] Darkspeaker - COST:5 [ATK:3/HP:6] 
