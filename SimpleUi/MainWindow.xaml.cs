@@ -166,9 +166,16 @@ namespace SimpleUi
             CbxClassCard.SelectedIndex = 1;
             CbxDeckStrategy.ItemsSource = GuiHelper.StrategyTypes;
             CbxDeckStrategy.SelectedIndex = 1;
+            if (File.Exists(Environment.CurrentDirectory + @"\allDecks.json"))
+            {
+                var json = File.ReadAllText(Environment.CurrentDirectory + @"\allDecks.json");
+                AllDecks = JsonConvert.DeserializeObject<List<MetaDeck>>(json);
+            }
+            else
+            {
+                AllDecks = new List<MetaDeck>();
+            }
 
-            var json = File.ReadAllText(Environment.CurrentDirectory + @"\allDecks.json");
-            AllDecks = JsonConvert.DeserializeObject<List<MetaDeck>>(json);
             DtDeckFiles.ItemsSource = AllDecks;
 
             CboxAi1.ItemsSource = GuiHelper.StrategyTypes;
