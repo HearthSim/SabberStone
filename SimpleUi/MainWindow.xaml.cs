@@ -19,7 +19,9 @@ using SimpleAi.Meta;
 using SimpleAi.Nodes;
 using SimpleAi.Score;
 using SimpleUi.AsciiVisual;
+using SimpleUi.Core;
 using SimpleUi.Deck;
+using SimpleUi.Properties;
 
 namespace SimpleUi
 {
@@ -34,23 +36,7 @@ namespace SimpleUi
 
         public List<Card> CurrentDeck = new List<Card>();
 
-
-        private static string _path { get; set; }
-
-        public static string Path
-        {
-            get
-            {
-                if (_path == null)
-                {
-                    var fullPath = Assembly.GetExecutingAssembly().Location;
-                    _path = fullPath?.Substring(0, fullPath.IndexOf(@"SabberStone", StringComparison.Ordinal));
-                }
-
-                return _path;
-            }
-        }
-
+        public List<MetaDeck> AllDecks;
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -174,34 +160,28 @@ namespace SimpleUi
         {
             InitializeComponent();
 
-            CbxFormat.ItemsSource = Enum.GetValues(typeof(FormatType)).Cast<FormatType>()
-                .Where(e => e != FormatType.FT_UNKNOWN);
+            CbxFormat.ItemsSource = GuiHelper.FormatTypes;
             CbxFormat.SelectedIndex = 1;
-            CbxClassCard.ItemsSource = Enum.GetValues(typeof(CardClass)).Cast<CardClass>()
-                .Where(e =>
-                    e != CardClass.INVALID &&
-                    e != CardClass.DEATHKNIGHT &&
-                    e != CardClass.DREAM &&
-                    e != CardClass.NEUTRAL);
+            CbxClassCard.ItemsSource = GuiHelper.ClassTypes;
             CbxClassCard.SelectedIndex = 1;
-            CbxDeckStrategy.ItemsSource = Enum.GetValues(typeof(Strategy)).Cast<Strategy>();
+            CbxDeckStrategy.ItemsSource = GuiHelper.StrategyTypes;
             CbxDeckStrategy.SelectedIndex = 1;
 
-            DtDeckFiles.ItemsSource = new DirectoryInfo(Path + @"SabberStone\SimpleUi\Files\").GetFiles();
+            var json = File.ReadAllText(Environment.CurrentDirectory + @"\allDecks.json");
+            AllDecks = JsonConvert.DeserializeObject<List<MetaDeck>>(json);
+            DtDeckFiles.ItemsSource = AllDecks;
 
+            CboxAi1.ItemsSource = GuiHelper.StrategyTypes;
+            CboxAi2.ItemsSource = GuiHelper.StrategyTypes;
 
-            CboxDeck1.ItemsSource = Enum.GetValues(typeof(DeckTypes)).Cast<DeckTypes>();
-            CboxDeck1.SelectedIndex = 0;
-            CboxDeck2.ItemsSource = Enum.GetValues(typeof(DeckTypes)).Cast<DeckTypes>();
-            CboxDeck2.SelectedIndex = 2;
-            CboxAi1.ItemsSource = Enum.GetValues(typeof(Strategy)).Cast<Strategy>();
-            CboxAi1.SelectedIndex = 0;
-            CboxAi2.ItemsSource = Enum.GetValues(typeof(Strategy)).Cast<Strategy>();
-            CboxAi2.SelectedIndex = 1;
+            CboxDeck1.ItemsSource = AllDecks;
+            CboxDeck1.SelectedIndex = 1;
+            CboxDeck2.ItemsSource = AllDecks;
+            CboxDeck2.SelectedIndex = 1;
+
 
             var help = CardAsciiBuilder.PrintHelp();
-
-            ViewBox.Text =
+            ViewBox.Text = 
                 help[0] + Environment.NewLine +
                 help[1] + Environment.NewLine +
                 help[2] + Environment.NewLine +
@@ -241,8 +221,8 @@ namespace SimpleUi
                 worker.ProgressChanged += worker_ProgressChanged;
                 worker.RunWorkerCompleted += worker_RunWorkerCompleted;
                 var scoring = CurrentGame.CurrentPlayer == CurrentGame.Player1
-                    ? GetScoring((Strategy) CboxAi1.SelectedValue)
-                    : GetScoring((Strategy) CboxAi2.SelectedValue);
+                    ? GuiHelper.GetScoring((Strategy) CboxAi1.SelectedValue)
+                    : GuiHelper.GetScoring((Strategy) CboxAi2.SelectedValue);
                 worker.RunWorkerAsync(new List<object> {(int) SlidMaxDepth.Value, (int) SlidMaxWidth.Value, scoring});
                 BtnStart.Content = $"{CurrentGame.CurrentPlayer} Move!";
             }
@@ -288,7 +268,7 @@ namespace SimpleUi
             {
                 TxtPlayer1.Text = "* Starting a new Game .... ***";
 
-                CurrentGame = new Game(CreateGameConfig());
+                CurrentGame = new Game(GuiHelper.CreateGameConfig((MetaDeck)CboxDeck1.SelectedItem, (MetaDeck)CboxDeck2.SelectedItem));
                 CurrentGame.StartGame();
                 CboxDeck1.IsEnabled = false;
                 CboxDeck2.IsEnabled = false;
@@ -300,84 +280,6 @@ namespace SimpleUi
             }
 
             Actualize();
-        }
-
-        private GameConfig CreateGameConfig()
-        {
-            CardClass heroClass1;
-            CardClass heroClass2;
-            var deck1 = GetDeck(((DeckTypes) CboxDeck1.SelectedItem), out heroClass1);
-            var deck2 = GetDeck(((DeckTypes) CboxDeck2.SelectedItem), out heroClass2);
-
-            return new GameConfig()
-            {
-                StartPlayer = 1,
-                Player1Name = "FitzVonGerald",
-                Player1HeroClass = heroClass1,
-                DeckPlayer1 = deck1,
-                Player2Name = "RehHausZuckFuchs",
-                Player2HeroClass = heroClass2,
-                DeckPlayer2 = deck2,
-                FillDecks = false,
-                Shuffle = true
-            };
-        }
-
-        private IScore GetScoring(Strategy s)
-        {
-            switch (s)
-            {
-                case Strategy.Aggro:
-                    return new AggroScore();
-                case Strategy.Midrange:
-                    return new MidRangeScore();
-                case Strategy.Control:
-                    return new ControlScore();
-                case Strategy.Ramp:
-                    return new RampScore();
-                case Strategy.Fatigue:
-                    return new FatigueScore();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(s), s, null);
-            }
-        }
-
-        private List<Card> GetDeck(DeckTypes s, out CardClass heroClass)
-        {
-            switch (s)
-            {
-                case DeckTypes.AggroPirateWarrior:
-                    heroClass = CardClass.WARRIOR;
-                    return Decks.AggroPirateWarrior;
-                case DeckTypes.MurlocDruid:
-                    heroClass = CardClass.DRUID;
-                    return Decks.MurlocDruid;
-                case DeckTypes.MidrangeBuffPaladin:
-                    heroClass = CardClass.PALADIN;
-                    return Decks.MidrangeBuffPaladin;
-                case DeckTypes.MidrangeJadeShaman:
-                    heroClass = CardClass.SHAMAN;
-                    return Decks.MidrangeJadeShaman;
-                case DeckTypes.MidrangeSecretHunter:
-                    heroClass = CardClass.HUNTER;
-                    return Decks.MidrangeSecretHunter;
-                case DeckTypes.MiraclePirateRogue:
-                    heroClass = CardClass.ROGUE;
-                    return Decks.MiraclePirateRogue;
-                case DeckTypes.RenoKazakusDragonPriest:
-                    heroClass = CardClass.PRIEST;
-                    return Decks.RenoKazakusDragonPriest;
-                case DeckTypes.RenoKazakusMage:
-                    heroClass = CardClass.MAGE;
-                    return Decks.RenoKazakusMage;
-                case DeckTypes.ZooDiscardWarlock:
-                    heroClass = CardClass.WARLOCK;
-                    return Decks.ZooDiscardWarlock;
-                default:
-                    LblInfo.Content = s + " not implemented ...";
-                    heroClass = CardClass.INVALID;
-                    return null;
-            }
         }
 
         private void CbxFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -414,20 +316,11 @@ namespace SimpleUi
             DtGrTest.ItemsSource = cards.OrderBy(p => p.Class).ThenBy(c => c.Cost);
         }
 
-        private void HandleImage(Image image, Uri webUri)
-        {
-            var bDecoder = BitmapDecoder.Create(webUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
-
-            if (bDecoder != null && bDecoder.Frames.Count > 0)
-                image.Source = bDecoder.Frames[0];
-        }
-
         private void DtGrTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var card = (Card) DtGrTest.SelectedItem;
-            if (card != null)
-                HandleImage(ImgCard,
-                    new Uri("http://media.services.zam.com/v1/media/byName/hs/cards/enus/" + card.Id + ".png"));
+                if (card != null)
+                    UpdatedImage(card.Id);
         }
 
         private void BtnAddCard_Click(object sender, RoutedEventArgs e)
@@ -453,19 +346,26 @@ namespace SimpleUi
         {
             var card = (Card) DtGrDeck.SelectedItem;
             if (card != null)
-                HandleImage(ImgCard,
-                    new Uri("http://media.services.zam.com/v1/media/byName/hs/cards/enus/" + card.Id + ".png"));
+                UpdatedImage(card.Id);
+        }
+
+        private void UpdatedImage(string cardid)
+        {
+            var bDecoder = BitmapDecoder.Create(new Uri("http://media.services.zam.com/v1/media/byName/hs/cards/enus/" + cardid + ".png"),
+                BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+
+            if (bDecoder.Frames.Count > 0)
+                ImgCard.Source = bDecoder.Frames[0];
         }
 
         private void BtSave_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentDeck.Count != 30)
             {
-                var result = MessageBox.Show("MetaDeck isn't legit!", "Warning", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show("MetaDeck isn't legit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            var deck = new Deck.MetaDeck
+            var deck = new MetaDeck
             {
                 Name = TxDeckname.Text,
                 Description = TxDescription.Text,
@@ -476,26 +376,62 @@ namespace SimpleUi
                 CardIds = CurrentDeck.Select(p => p.Id).ToList()
             };
 
-            File.WriteAllText(Path + @"SabberStone\SimpleUi\Files\" + deck.Name + ".deck",
-                JsonConvert.SerializeObject(deck, Formatting.Indented));
-            DtDeckFiles.ItemsSource = new DirectoryInfo(Path + @"SabberStone\SimpleUi\Files\").GetFiles();
+            if (AllDecks == null)
+                AllDecks = new List<MetaDeck> { deck };
+            else 
+                AllDecks.Add(deck);
+
+            WriteAllDecks();
         }
 
         private void BtnLoadDeck_Click(object sender, RoutedEventArgs e)
         {
-            var file = (FileInfo) DtDeckFiles.SelectedItem;
+            var file = (MetaDeck) DtDeckFiles.SelectedItem;
 
-            var deck = JsonConvert.DeserializeObject<MetaDeck>(File.ReadAllText(file.FullName));
-
-            TxDeckname.Text = deck.Name;
-            TxDescription.Text = deck.Description;
-            TxDeckLink.Text = deck.Link;
-            CbxFormat.SelectedItem = Enum.GetName(typeof(FormatType), deck.FormatType);
-            CbxClassCard.SelectedItem = Enum.GetName(typeof(CardClass), deck.HeroClass);
-            CbxDeckStrategy.SelectedItem = Enum.GetName(typeof(Strategy), deck.Strategy);
-            CurrentDeck = deck.CardIds.Select(Cards.FromId).ToList();
+            TxDeckname.Text = file.Name;
+            TxDescription.Text = file.Description;
+            TxDeckLink.Text = file.Link;
+            CbxFormat.SelectedItem = file.FormatType;
+            CbxClassCard.SelectedItem = file.HeroClass;
+            CbxDeckStrategy.SelectedItem = file.Strategy;
+            CurrentDeck = file.CardIds.Select(Cards.FromId).ToList();
             LbCardCountValue.Content = CurrentDeck.Count;
             DtGrDeck.ItemsSource = CurrentDeck.OrderBy(p => p.Class).ThenBy(c => c.Cost);
+        }
+
+        private void WriteAllDecks()
+        {
+            File.WriteAllText(Environment.CurrentDirectory + @"\allDecks.json", JsonConvert.SerializeObject(AllDecks, Formatting.Indented));
+            DtDeckFiles.ItemsSource = AllDecks.OrderBy(p => p.Name);
+        }
+
+        private void BtnDeleteDeck_Click(object sender, RoutedEventArgs e)
+        {
+            var deck = (MetaDeck) DtDeckFiles.SelectedItem;
+            AllDecks.Remove(deck);
+            WriteAllDecks();
+        }
+
+        private void CboxDeck1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var metaDeck = CboxDeck1.SelectedItem as MetaDeck;
+            if (metaDeck != null)
+            {
+                LblClass1.Content = metaDeck.HeroClass.ToString();
+                CboxAi1.SelectedItem = metaDeck.Strategy;
+
+            }
+        }
+
+        private void CboxDeck2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var metaDeck = CboxDeck2.SelectedItem as MetaDeck;
+            if (metaDeck != null)
+            {
+                LblClass2.Content = metaDeck.HeroClass.ToString();
+                CboxAi2.SelectedItem = metaDeck.Strategy;
+
+            }
         }
     }
 }

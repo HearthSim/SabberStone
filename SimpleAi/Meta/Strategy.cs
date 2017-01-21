@@ -5,8 +5,8 @@ namespace SimpleAi.Meta
         Aggro,
         Midrange,
         Control,
-        Tempo,
         Ramp,
-        Fatigue
+        Fatigue,
+        None
     }
 }

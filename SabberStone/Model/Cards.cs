@@ -53,11 +53,11 @@ namespace SabberStone.Model
                 c.Collectible &&
                     (c.Class == heroClass ||
                      c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-                     c.MultiClassGroup == 1 && (c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-                     c.MultiClassGroup == 2 && (c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-                     c.MultiClassGroup == 3 && (c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
+                     c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
+                     c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
+                     c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
                      c.Type != CardType.HERO).ToList());
-                Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count()} cards.");
+                Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
             }
 
             Log.Debug("Standard:");
@@ -67,12 +67,12 @@ namespace SabberStone.Model
                     c.Collectible && 
                     (c.Class == heroClass || 
                      c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-                     c.MultiClassGroup == 1 && (c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-                     c.MultiClassGroup == 2 && (c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-                     c.MultiClassGroup == 3 && (c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) && 
+                     c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
+                     c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
+                     c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) && 
                      c.Type != CardType.HERO && StandardSets.Contains(c.Set)
                 ).ToList());
-                Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count()} cards.");
+                Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
             }
 
             Log.Debug("AllStandard:");
@@ -112,19 +112,18 @@ namespace SabberStone.Model
         public static void Statistics()
         {
             var standard = All.Where(c => c.Collectible && StandardSets.Contains(c.Set));
-            var noench = standard.Where(p => p.Enchantments == null).GroupBy(p => p.Set).Select(t => new {Key = t.Key, Count = t.Count()});
-            var noImpl = standard.Where(p => p.Enchantments != null && (
-                p.Enchantments[0].Activation == EnchantmentActivation.NONE 
-             || (p.Enchantments[0].SingleTask == null && p.Enchantments[0].Enchant == null && p.Enchantments[0].Trigger == null))).GroupBy(p => p.Set).Select(t => new { Key = t.Key, Count = t.Count() });
-            var okench = standard.Where(p => p.Enchantments != null).GroupBy(p => p.Set).Select(t => new { Key = t.Key, Count = t.Count() });
+            var implemented = standard.Where(p => p.Implemented)
+                .GroupBy(p => p.Set)
+                .Select(t => new {Key = t.Key, Count = t.Count()});
+            var all = standard
+                .GroupBy(p => p.Set)
+                .Select(t => new {Key = t.Key, Count = t.Count()});
 
             foreach (var set in StandardSets)
             {
-                var noenchCnt = noench.FirstOrDefault(p => p.Key == set) == null ? 0 : noench.FirstOrDefault(p => p.Key == set).Count;
-                var noimplCnt = noImpl.FirstOrDefault(p => p.Key == set).Count;
-                var totcolCnt = okench.FirstOrDefault(p => p.Key == set).Count;
-                var implCnt = totcolCnt - noimplCnt;
-                Log.Info($"{set} => {((implCnt + noenchCnt) * 100 / (totcolCnt + noenchCnt))}% from {totcolCnt + noenchCnt} Cards");
+                var impl = implemented.FirstOrDefault(p => p.Key == set).Count;
+                var tot = all.FirstOrDefault(p => p.Key == set).Count;
+                Log.Info($"{set} => {impl * 100 / tot}% from {tot} Cards");
             }
         }
     }
@@ -155,6 +154,9 @@ namespace SabberStone.Model
                 if (Enchantments.Instance.Get().TryGetValue(c.Id, out list))
                 {
                     c.Enchantments = list;
+                    c.Implemented = list == null || c.Enchantments[0].Activation != EnchantmentActivation.NONE &&
+                                    (c.Enchantments[0].SingleTask != null || c.Enchantments[0].Enchant != null ||
+                                     c.Enchantments[0].Trigger != null);
                 }
 
             }

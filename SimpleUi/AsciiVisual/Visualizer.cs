@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
 using HearthDb.Enums;
 using SabberStone.Model;
 using SabberStone.Visualizer;
@@ -131,7 +133,7 @@ namespace SimpleUi.AsciiVisual
                     cardAscii = new CardAsciiBuilder().Create()
                         .Name(spell.Card.AbbrieviatedName(7))
                         .Cost(spell.Cost)
-                        .SpellText(spell.Card.Text)
+                        .SpellText(Regex.Replace(spell.Card.Text, @"<[^>]*>", "").Replace(Environment.NewLine, ""))
                         .Type(CardType.SPELL)
                         .Build();
 

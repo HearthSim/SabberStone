@@ -59,6 +59,8 @@ namespace SabberStone.Model
 
         public int MaxAllowedInDeck => Rarity == Rarity.LEGENDARY ? 1 : 2;
 
+        public bool Implemented { get; set; }
+
         public string AbbrieviatedName(int size)
         {
             if (Name.Length <= size)

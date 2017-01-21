@@ -32,11 +32,11 @@ namespace SimpleTest
             //IronBreakOwl();
 
             //Log.Info(Cards.Count);
-            //Cards.Statistics();
+            Cards.Statistics();
 
             //BasicHealthAuraTest();
 
-            CardsTest();
+            //CardsTest();
             
             
             //Secretkeeper();
