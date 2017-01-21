@@ -1740,14 +1740,7 @@ namespace SabberStone.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_06e", new List<Enchantment> {
-				// TODO [KARA_00_06e] Arcanely Powerful && Test: Arcanely Powerful_KARA_00_06e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("KARA_00_06e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KARA_05_01e] Trembling Before the Wolf (*) - COST:0 

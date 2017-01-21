@@ -1746,13 +1746,13 @@ namespace SabberStone.CardSets
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
 			cards.Add("AT_132_SHAMANd", new List<Enchantment> {
-				// TODO [AT_132_SHAMANd] Wrath of Air Totem && Test: Wrath of Air Totem_AT_132_SHAMANd
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(1)
+                },
+            });
 
 		}
 
@@ -2411,13 +2411,13 @@ namespace SabberStone.CardSets
             // - SPELLPOWER = 1
             // --------------------------------------------------------
             cards.Add("AT_093", new List<Enchantment> {
-				// TODO [AT_093] Frigid Snobold && Test: Frigid Snobold_AT_093
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(1)
+                },
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_094] Flame Juggler - COST:2 [ATK:2/HP:3] 

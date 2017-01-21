@@ -1703,10 +1703,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SPELLPOWER = 2
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JungleMoonkin_LOE_051()
 		{
-			// TODO JungleMoonkin_LOE_051 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1717,10 +1716,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jungle Moonkin"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jungle Moonkin"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+		    game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+		    Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+        }
 
-	}
+    }
 
 	[TestClass]
 	public class HunterLoeTest

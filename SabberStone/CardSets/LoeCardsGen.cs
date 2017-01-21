@@ -70,13 +70,13 @@ namespace SabberStone.CardSets
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
 			cards.Add("LOE_051", new List<Enchantment> {
-				// TODO [LOE_051] Jungle Moonkin && Test: Jungle Moonkin_LOE_051
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HEROES,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(2)
+                },
+            });
 
 		}
 

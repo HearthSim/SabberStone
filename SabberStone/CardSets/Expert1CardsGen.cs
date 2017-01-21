@@ -5276,13 +5276,13 @@ namespace SabberStone.CardSets
 			// - SPELLPOWER = 5
 			// --------------------------------------------------------
 			cards.Add("EX1_563", new List<Enchantment> {
-				// TODO [EX1_563] Malygos && Test: Malygos_EX1_563
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(5)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3] 
