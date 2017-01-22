@@ -375,11 +375,10 @@ namespace SabberStone.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_204", new List<Enchantment> {
-				// TODO [KAR_204] Onyx Bishop && Test: Onyx Bishop_KAR_204
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinionThatDied()
 				},
 			});
 

@@ -69,15 +69,16 @@ namespace SimpleTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Resurrect"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
         }
 
         public static void CardsTest()

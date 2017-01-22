@@ -485,22 +485,35 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void OnyxBishop_KAR_204()
 		{
-			// TODO OnyxBishop_KAR_204 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Onyx Bishop"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(minion.Card.Id, game.CurrentPlayer.Board[2].Card.Id);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Board[2]).Health);
+        }
 
 	}
 
