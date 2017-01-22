@@ -2277,12 +2277,15 @@ namespace SabberStone.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_133", new List<Enchantment> {
-				// TODO [OG_133] N'Zoth, the Corruptor && Test: N'Zoth, the Corruptor_OG_133
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.GRAVEYARD),
+                        new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+                        new CopyTask(EntityType.STACK, 1),
+                        new SummonStackTask())
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

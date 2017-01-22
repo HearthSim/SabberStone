@@ -2497,10 +2497,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void NzothTheCorruptor_OG_133()
 		{
-			// TODO NzothTheCorruptor_OG_133 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2511,8 +2510,20 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("N'Zoth, the Corruptor"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("N'Zoth, the Corruptor"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leper Gnome"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_134] Yogg-Saron, Hope's End - COST:10 [ATK:7/HP:5] 
