@@ -2891,11 +2891,10 @@ namespace SabberStone.CardSets
             // - TAG_SCRIPT_DATA_NUM_1 = 2
             // --------------------------------------------------------
             cards.Add("CFM_621t10", new List<Enchantment> {
-				// TODO [CFM_621t10] Netherbloom && Test: Netherbloom_CFM_621t10
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SummonTask("CFM_621_m4"),
 				},
 			});
 
@@ -2908,14 +2907,7 @@ namespace SabberStone.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1087
 			// --------------------------------------------------------
-			cards.Add("CFM_621t11", new List<Enchantment> {
-				// TODO [CFM_621t11] Lesser Potion && Test: Lesser Potion_CFM_621t11
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t11", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t12] Greater Potion (*) - COST:5 
@@ -2926,14 +2918,7 @@ namespace SabberStone.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1088
 			// --------------------------------------------------------
-			cards.Add("CFM_621t12", new List<Enchantment> {
-				// TODO [CFM_621t12] Greater Potion && Test: Greater Potion_CFM_621t12
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t12", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t13] Superior Potion (*) - COST:10 
@@ -2944,14 +2929,7 @@ namespace SabberStone.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1089
 			// --------------------------------------------------------
-			cards.Add("CFM_621t13", new List<Enchantment> {
-				// TODO [CFM_621t13] Superior Potion && Test: Superior Potion_CFM_621t13
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t13", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t14] Kazakus Potion (*) - COST:5 
@@ -2985,12 +2963,11 @@ namespace SabberStone.CardSets
             // - REQ_TARGET_TO_PLAY = 0
             // --------------------------------------------------------
             cards.Add("CFM_621t16", new List<Enchantment> {
-				// TODO [CFM_621t16] Heart of Fire && Test: Heart of Fire_CFM_621t16
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new DamageTask(5, EntityType.TARGET, true),
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3021,12 +2998,11 @@ namespace SabberStone.CardSets
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t18", new List<Enchantment> {
-				// TODO [CFM_621t18] Felbloom && Test: Felbloom_CFM_621t18
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new DamageTask(4, EntityType.ALLMINIONS, true)
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3039,12 +3015,13 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 8
 			// --------------------------------------------------------
 			cards.Add("CFM_621t19", new List<Enchantment> {
-				// TODO [CFM_621t19] Icecap && Test: Icecap_CFM_621t19
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(2, EntityType.ENEMIES),
+                        ComplexTask.Freeze(EntityType.STACK))
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3061,12 +3038,11 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_621t2", new List<Enchantment> {
-				// TODO [CFM_621t2] Heart of Fire && Test: Heart of Fire_CFM_621t2
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new DamageTask(3, EntityType.TARGET, true),
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3079,19 +3055,18 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
 			cards.Add("CFM_621t20", new List<Enchantment> {
-				// TODO [CFM_621t20] Netherbloom && Test: Netherbloom_CFM_621t20
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new SummonTask("CFM_621_m2"),
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t21] Mystic Wool (*) - COST:5 
 			// - Set: gangs, 
 			// --------------------------------------------------------
-			// Text: Transform a random enemy minion into a 1/1 Sheep.@Polymorph a random enemy minion.
+			// Text: Transform a random enemy minion into a 1/1 Sheep.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
@@ -3100,12 +3075,13 @@ namespace SabberStone.CardSets
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t21", new List<Enchantment> {
-				// TODO [CFM_621t21] Mystic Wool && Test: Mystic Wool_CFM_621t21
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.OP_MINIONS),
+                        new TransformTask("CFM_621_m5", EntityType.STACK))
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3118,12 +3094,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
 			cards.Add("CFM_621t22", new List<Enchantment> {
-				// TODO [CFM_621t22] Kingsblood && Test: Kingsblood_CFM_621t22
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new EnqueueTask(2, new DrawTask())
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3136,11 +3111,12 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 10
 			// --------------------------------------------------------
 			cards.Add("CFM_621t23", new List<Enchantment> {
-				// TODO [CFM_621t23] Shadow Oil && Test: Shadow Oil_CFM_621t23
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
+                        new CopyToHand()))
 				},
 			});
 
@@ -3154,12 +3130,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 7
 			// --------------------------------------------------------
 			cards.Add("CFM_621t24", new List<Enchantment> {
-				// TODO [CFM_621t24] Goldthorn && Test: Goldthorn_CFM_621t24
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new BuffTask(Buffs.Health(4), EntityType.MINIONS)
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3176,12 +3151,11 @@ namespace SabberStone.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_621t25", new List<Enchantment> {
-				// TODO [CFM_621t25] Heart of Fire && Test: Heart of Fire_CFM_621t25
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new DamageTask(8, EntityType.TARGET, true),
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3214,12 +3188,13 @@ namespace SabberStone.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t27", new List<Enchantment> {
-				// TODO [CFM_621t27] Icecap && Test: Icecap_CFM_621t27
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new RandomTask(3, EntityType.ENEMIES),
+                        ComplexTask.Freeze(EntityType.STACK))
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3232,12 +3207,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
 			cards.Add("CFM_621t28", new List<Enchantment> {
-				// TODO [CFM_621t28] Netherbloom && Test: Netherbloom_CFM_621t28
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new SummonTask("CFM_621_m3"),
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3250,12 +3224,12 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t29", new List<Enchantment> {
-				// TODO [CFM_621t29] Mystic Wool && Test: Mystic Wool_CFM_621t29
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new TransformTask("CFM_621_m5", EntityType.ALLMINIONS))
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3285,12 +3259,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
 			cards.Add("CFM_621t30", new List<Enchantment> {
-				// TODO [CFM_621t30] Kingsblood && Test: Kingsblood_CFM_621t30
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new EnqueueTask(3, new DrawTask()),
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3303,12 +3276,13 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 10
 			// --------------------------------------------------------
 			cards.Add("CFM_621t31", new List<Enchantment> {
-				// TODO [CFM_621t31] Shadow Oil && Test: Shadow Oil_CFM_621t31
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new EnqueueTask(3, ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
+                        new CopyToHand()))
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3321,12 +3295,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 7
 			// --------------------------------------------------------
 			cards.Add("CFM_621t32", new List<Enchantment> {
-				// TODO [CFM_621t32] Goldthorn && Test: Goldthorn_CFM_621t32
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new BuffTask(Buffs.Health(6), EntityType.MINIONS)
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3340,12 +3313,11 @@ namespace SabberStone.CardSets
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t33", new List<Enchantment> {
-				// TODO [CFM_621t33] Felbloom && Test: Felbloom_CFM_621t33
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new DamageTask(6, EntityType.ALLMINIONS, true)
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3358,12 +3330,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
 			cards.Add("CFM_621t37", new List<Enchantment> {
-				// TODO [CFM_621t37] Ichor of Undeath && Test: Ichor of Undeath_CFM_621t37
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.SummonRandomMinionThatDied()
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3376,12 +3347,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 4
 			// --------------------------------------------------------
 			cards.Add("CFM_621t38", new List<Enchantment> {
-				// TODO [CFM_621t38] Ichor of Undeath && Test: Ichor of Undeath_CFM_621t38
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinionThatDied())
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3394,12 +3364,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 4
 			// --------------------------------------------------------
 			cards.Add("CFM_621t39", new List<Enchantment> {
-				// TODO [CFM_621t39] Ichor of Undeath && Test: Ichor of Undeath_CFM_621t39
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new EnqueueTask(3, ComplexTask.SummonRandomMinionThatDied())
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3413,12 +3382,11 @@ namespace SabberStone.CardSets
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t4", new List<Enchantment> {
-				// TODO [CFM_621t4] Felbloom && Test: Felbloom_CFM_621t4
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new DamageTask(2, EntityType.ALLMINIONS, true)
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3434,12 +3402,13 @@ namespace SabberStone.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621t5", new List<Enchantment> {
-				// TODO [CFM_621t5] Icecap && Test: Icecap_CFM_621t5
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.ENEMIES),
+                        ComplexTask.Freeze(EntityType.STACK))
+                }
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3452,12 +3421,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
 			cards.Add("CFM_621t6", new List<Enchantment> {
-				// TODO [CFM_621t6] Goldthorn && Test: Goldthorn_CFM_621t6
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new BuffTask(Buffs.Health(2), EntityType.MINIONS)
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3470,12 +3438,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 8
 			// --------------------------------------------------------
 			cards.Add("CFM_621t8", new List<Enchantment> {
-				// TODO [CFM_621t8] Kingsblood && Test: Kingsblood_CFM_621t8
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new DrawTask(),
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3488,12 +3455,13 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
 			cards.Add("CFM_621t9", new List<Enchantment> {
-				// TODO [CFM_621t9] Shadow Oil && Test: Shadow Oil_CFM_621t9
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
+                        new CopyToHand())
+                }
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

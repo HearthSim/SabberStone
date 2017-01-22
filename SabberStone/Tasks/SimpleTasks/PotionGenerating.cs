@@ -5,6 +5,7 @@ using System.Reflection;
 using HearthDb.Enums;
 using log4net;
 using SabberStone.Actions;
+using SabberStone.Enchants;
 using SabberStone.Model;
 
 namespace SabberStone.Tasks.SimpleTasks
@@ -63,8 +64,19 @@ namespace SabberStone.Tasks.SimpleTasks
             var spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
             var spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
             baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
+            baseCard.Enchantments = new List<Enchantment>();
             baseCard.Enchantments.AddRange(spell1.Enchantments);
+            spell1.Requirements.ToList().ForEach(p =>
+            {
+                if (!baseCard.Requirements.ContainsKey(p.Key))
+                    baseCard.Requirements.Add(p.Key, p.Value);
+            });
             baseCard.Enchantments.AddRange(spell2.Enchantments);
+            spell2.Requirements.ToList().ForEach(p =>
+            {
+                if (!baseCard.Requirements.ContainsKey(p.Key))
+                    baseCard.Requirements.Add(p.Key, p.Value);
+            });
 
             var task = new AddCardTo(baseCard, EntityType.HAND)
             {
