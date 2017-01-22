@@ -5,7 +5,6 @@ namespace SabberStone.Tasks.SimpleTasks
 {
     public class SummonStackTask : SimpleTask
     {
-
         public override TaskState Process()
         {
             if (Controller.Board.IsFull)

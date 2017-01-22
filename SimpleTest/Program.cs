@@ -39,9 +39,8 @@ namespace SimpleTest
 
             //BasicHealthAuraTest();
 
-            //CardsTest();
+            CardsTest();
 
-            Resurrect();
             //Secretkeeper();
             //CardsTest();
             //CloneSameSame();
@@ -55,32 +54,6 @@ namespace SimpleTest
             //Log.Info(Cards.FromName("Nerubian Egg").FullPrint(true, true));
 
             Console.ReadLine();
-        }
-
-        public static void Resurrect()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("N'Zoth, the Corruptor"));
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leper Gnome"));
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
         }
 
         public static void CardsTest()
