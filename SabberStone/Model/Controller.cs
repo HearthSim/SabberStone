@@ -87,7 +87,7 @@ namespace SabberStone.Model
 
         public Zone<Spell> Secrets => Zones[HearthDb.Enums.Zone.SECRET] as Zone<Spell>;
 
-        public Zone<Minion> Setaside => Zones[HearthDb.Enums.Zone.SETASIDE] as Zone<Minion>;
+        public Zone<IPlayable> Setaside => Zones[HearthDb.Enums.Zone.SETASIDE] as Zone<IPlayable>;
 
         public Hero Hero { get; set; }
 

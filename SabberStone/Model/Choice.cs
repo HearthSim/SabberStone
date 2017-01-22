@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using HearthDb.Enums;
 using log4net;
 
@@ -6,7 +7,7 @@ namespace SabberStone.Model
 {
     public enum ChoiceAction
     {
-        HAND, SUMMON, HEROPOWER, POTION, INVALID
+        HAND, SUMMON, HEROPOWER, KAZAKUS, INVALID
     }
 
     public class Choice
@@ -31,6 +32,14 @@ namespace SabberStone.Model
             ChoiceType = choice.ChoiceType;
             ChoiceAction = choice.ChoiceAction;
             Choices = new List<Card>(choice.Choices);
+        }
+
+        public string FullPrint()
+        {
+            var str = new StringBuilder();
+            str.Append($"{Controller.Name}[ChoiceType:{ChoiceType}][ChoiceAction:{ChoiceAction}][");
+            Choices.ForEach(p => str.Append($"{p.Id}({p.Cost})"));
+            return str.ToString();
         }
     }
 }

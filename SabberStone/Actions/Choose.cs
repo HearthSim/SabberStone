@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using HearthDb.Enums;
 using log4net;
@@ -31,28 +33,48 @@ namespace SabberStone.Actions
 
                 var playable = Entity.FromCard(c, choice);
 
-                if (choice.Type == CardType.HERO_POWER)
+                log.Info($"{c.Name} Picks {playable} as choice!");
+                c.Game.PlayTaskLog.AppendLine($"{c.Name} Picks {playable} as choice!");
+
+                switch (c.Choice.ChoiceAction)
                 {
-                    playable[GameTag.CREATOR] = c.Hero.Id;
-                    var task = new ReplaceHeroPower(playable as HeroPower)
-                    {
-                        Game = c.Game,
-                        Controller = c,
-                        Source = playable,
-                        Target = playable
-                    };
-                    c.Game.TaskQueue.Enqueue(task);
-                }
-                else
-                {
-                    var task = new AddCardTo(playable, EntityType.HAND)
-                    {
-                        Game = c.Game,
-                        Controller = c,
-                        Source = playable,
-                        Target = playable
-                    };
-                    c.Game.TaskQueue.Enqueue(task);
+                    case ChoiceAction.HEROPOWER:
+                        playable[GameTag.CREATOR] = c.Hero.Id;
+                        c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                        {
+                            Game = c.Game,
+                            Controller = c,
+                            Source = playable,
+                            Target = playable
+                        });
+                        break;
+                    case ChoiceAction.HAND:
+                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                        {
+                            Game = c.Game,
+                            Controller = c,
+                            Source = playable,
+                            Target = playable
+                        });
+                        break;
+                    case ChoiceAction.KAZAKUS:
+                        c.Setaside.Add(playable);
+                        var kazakusPotions =
+                            c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+                                .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
+                                .ToList();
+                        if (kazakusPotions.Any())
+                        {
+                            c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+
+                        break;
                 }
 
                 // reset choice it's done

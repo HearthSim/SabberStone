@@ -2167,11 +2167,12 @@ namespace SabberStone.CardSets
 			// - KABAL = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_621", new List<Enchantment> {
-				// TODO [CFM_621] Kazakus && Test: Kazakus_CFM_621
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new FlagTask(true, new PotionGenerating()))
 				},
 			});
 
@@ -2878,25 +2879,18 @@ namespace SabberStone.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t", new List<Enchantment> {
-				// TODO [CFM_621t] Kazakus Potion && Test: Kazakus Potion_CFM_621t
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t", null);
 
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [CFM_621t10] Netherbloom (*) - COST:1 
-			// - Set: gangs, 
-			// --------------------------------------------------------
-			// Text: Summon a 2/2 Demon.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAG_SCRIPT_DATA_NUM_1 = 2
-			// --------------------------------------------------------
-			cards.Add("CFM_621t10", new List<Enchantment> {
+            // ---------------------------------------- SPELL - NEUTRAL
+            // [CFM_621t10] Netherbloom (*) - COST:1 
+            // - Set: gangs, 
+            // --------------------------------------------------------
+            // Text: Summon a 2/2 Demon.
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAG_SCRIPT_DATA_NUM_1 = 2
+            // --------------------------------------------------------
+            cards.Add("CFM_621t10", new List<Enchantment> {
 				// TODO [CFM_621t10] Netherbloom && Test: Netherbloom_CFM_621t10
 				new Enchantment
 				{
@@ -2966,14 +2960,7 @@ namespace SabberStone.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t14", new List<Enchantment> {
-				// TODO [CFM_621t14] Kazakus Potion && Test: Kazakus Potion_CFM_621t14
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t14", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t15] Kazakus Potion (*) - COST:10 
@@ -2982,29 +2969,22 @@ namespace SabberStone.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t15", new List<Enchantment> {
-				// TODO [CFM_621t15] Kazakus Potion && Test: Kazakus Potion_CFM_621t15
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_621t15", null);
 
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [CFM_621t16] Heart of Fire (*) - COST:5 
-			// - Set: gangs, 
-			// --------------------------------------------------------
-			// Text: Deal $5 damage. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAG_SCRIPT_DATA_NUM_1 = 5
-			// - AFFECTED_BY_SPELL_POWER = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("CFM_621t16", new List<Enchantment> {
+            // ---------------------------------------- SPELL - NEUTRAL
+            // [CFM_621t16] Heart of Fire (*) - COST:5 
+            // - Set: gangs, 
+            // --------------------------------------------------------
+            // Text: Deal $5 damage. *spelldmg
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAG_SCRIPT_DATA_NUM_1 = 5
+            // - AFFECTED_BY_SPELL_POWER = 1
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_TARGET_TO_PLAY = 0
+            // --------------------------------------------------------
+            cards.Add("CFM_621t16", new List<Enchantment> {
 				// TODO [CFM_621t16] Heart of Fire && Test: Heart of Fire_CFM_621t16
 				new Enchantment
 				{
@@ -3023,13 +3003,12 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
 			cards.Add("CFM_621t17", new List<Enchantment> {
-				// TODO [CFM_621t17] Stonescale Oil && Test: Stonescale Oil_CFM_621t17
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new ArmorTask(7)
+                }
+            });
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t18] Felbloom (*) - COST:5 
@@ -3215,12 +3194,11 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
 			cards.Add("CFM_621t26", new List<Enchantment> {
-				// TODO [CFM_621t26] Stonescale Oil && Test: Stonescale Oil_CFM_621t26
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new ArmorTask(10)
+				}
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -3290,13 +3268,12 @@ namespace SabberStone.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 5
 			// --------------------------------------------------------
 			cards.Add("CFM_621t3", new List<Enchantment> {
-				// TODO [CFM_621t3] Stonescale Oil && Test: Stonescale Oil_CFM_621t3
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new ArmorTask(4)
+                }
+            });
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t30] Kingsblood (*) - COST:10 

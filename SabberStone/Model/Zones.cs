@@ -80,7 +80,7 @@ namespace SabberStone.Model
                     case Zone.REMOVEDFROMGAME:
                         break;
                     case Zone.SETASIDE:
-                        result = new Zone<Minion>(Game, Controller, zone);
+                        result = new Zone<IPlayable>(Game, Controller, zone);
                         break;
                     case Zone.SECRET:
                         result = new Zone<Spell>(Game, Controller, zone);

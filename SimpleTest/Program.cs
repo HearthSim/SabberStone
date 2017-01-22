@@ -32,13 +32,16 @@ namespace SimpleTest
             //IronBreakOwl();
 
             //Log.Info(Cards.Count);
-            Cards.Statistics();
+            //Cards.Statistics();
+
+            //CloneStampTest();
+            //OptionsTest();
 
             //BasicHealthAuraTest();
 
-            //CardsTest();
-            
-            
+            CardsTest();
+
+
             //Secretkeeper();
             //CardsTest();
             //CloneSameSame();
@@ -60,27 +63,32 @@ namespace SimpleTest
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.DRUID,
+                DeckPlayer1 = new List<Card>() { },
                 Player2HeroClass = CardClass.DRUID,
-                FillDecks = true
+                DeckPlayer2 = new List<Card>() { },
+                FillDecks = false
             });
             game.StartGame();
-            game.Player1.BaseMana = 5;
-            game.Player2.BaseMana = 5;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pilfered Power"));
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kazakus"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Log.Info($"{game.CurrentPlayer.Choice.FullPrint()}");
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Log.Info($"{game.CurrentPlayer.Choice.FullPrint()}");
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Log.Info($"{game.CurrentPlayer.Choice.FullPrint()}");
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Log.Info($"{game.CurrentPlayer.Hand[0].Card.Text}");
 
-            Log.Info($"{game.Player2.FullPrint()}");
-            Log.Info($"{game.Player2.Hand.FullPrint()}");
-            Log.Info($"{game.Player2.Hero.FullPrint()}");
-            Log.Info($"{game.Player2.Board.FullPrint()}");
-            Log.Info($"{game.Player1.Board.FullPrint()}");
-            Log.Info($"{game.Player1.Hero.FullPrint()}");
-            Log.Info($"{game.Player1.Hand.FullPrint()}");
-            Log.Info($"{game.Player1.FullPrint()}");
+            //Log.Info($"{game.Player2.FullPrint()}");
+            //Log.Info($"{game.Player2.Hand.FullPrint()}");
+            //Log.Info($"{game.Player2.Hero.FullPrint()}");
+            //Log.Info($"{game.Player2.Board.FullPrint()}");
+            //Log.Info($"{game.Player1.Board.FullPrint()}");
+            //Log.Info($"{game.Player1.Hero.FullPrint()}");
+            //Log.Info($"{game.Player1.Hand.FullPrint()}");
+            //Log.Info($"{game.Player1.FullPrint()}");
         }
 
         public static void Secretkeeper()
@@ -394,8 +402,10 @@ namespace SimpleTest
 
         public static void OptionsTest()
         {
-            const int total = 100;
+            const int total = 1000;
             var watch = Stopwatch.StartNew();
+
+            Util.LogOn(false);
 
             var turns = 0;
             var wins = new[] {0, 0};
@@ -424,6 +434,7 @@ namespace SimpleTest
 
             }
             watch.Stop();
+            Util.LogOn(true);
             Log.Info($"{total} games with {turns} turns took {watch.ElapsedMilliseconds} ms => " +
                      $"Avg. {watch.ElapsedMilliseconds/total} per game " +
                      $"and {watch.ElapsedMilliseconds / (total * turns)} per turn!");

@@ -331,7 +331,7 @@ namespace SimpleAi.Meta
             //Cards.FromName("Volcanic Potion"),
             Cards.FromName("Fireball"),
             Cards.FromName("Polymorph"),
-            //Cards.FromName("Water Elemental"),
+            Cards.FromName("Water Elemental"),
             //Cards.FromName("Cabalist's Tome"),
             Cards.FromName("Blizzard"),
             Cards.FromName("Firelands Portal"),
