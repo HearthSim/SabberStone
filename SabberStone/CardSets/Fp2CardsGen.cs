@@ -329,11 +329,10 @@ namespace SabberStone.CardSets
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_017", new List<Enchantment> {
-				// TODO [BRM_017] Resurrect && Test: Resurrect_BRM_017
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(),
 				},
 			});
 

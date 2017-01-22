@@ -203,6 +203,7 @@ namespace SabberStone.Model
                         break;
                     // implemented in playable ... 
                     case PlayReq.REQ_NUM_MINION_SLOTS:
+                    case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
                         break;
 
                     // already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
@@ -226,7 +227,7 @@ namespace SabberStone.Model
                     case PlayReq.REQ_SUBCARD_IS_PLAYABLE:
                     case PlayReq.REQ_CAN_BE_TARGETED_BY_BATTLECRIES:
                     case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_TURN:
-                    case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+                    
                     case PlayReq.REQ_ENEMY_WEAPON_EQUIPPED:
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:

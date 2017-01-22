@@ -39,9 +39,9 @@ namespace SimpleTest
 
             //BasicHealthAuraTest();
 
-            CardsTest();
+            //CardsTest();
 
-
+            Resurrect();
             //Secretkeeper();
             //CardsTest();
             //CloneSameSame();
@@ -55,6 +55,29 @@ namespace SimpleTest
             //Log.Info(Cards.FromName("Nerubian Egg").FullPrint(true, true));
 
             Console.ReadLine();
+        }
+
+        public static void Resurrect()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Resurrect"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
         }
 
         public static void CardsTest()

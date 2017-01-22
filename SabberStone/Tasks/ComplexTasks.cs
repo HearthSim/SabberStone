@@ -128,6 +128,16 @@ namespace SabberStone.Tasks
                 new FlagTask(true, new SummonTask()));
         }
 
+        public static ISimpleTask SummonRandomMinionThatDied()
+        {
+            return Create(
+                new IncludeTask(EntityType.GRAVEYARD),
+                new FilterStackTask(SelfCondition.IsMinion),
+                new RandomTask(1, EntityType.STACK),
+                new CopyTask(EntityType.STACK, 1),
+                new SummonTask());
+        }
+
         public static ISimpleTask SummonRandomMinion(GameTag tag, int value)
         {
             return Create(

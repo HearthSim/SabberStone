@@ -35,7 +35,8 @@ namespace SabberStone.Tasks.SimpleTasks
         ALLMINIONS,
 
         INVALID,
-        ALLMINIONS_NOSOURCE
+        ALLMINIONS_NOSOURCE,
+        GRAVEYARD
     }
 
     public class IncludeTask : SimpleTask
@@ -142,6 +143,13 @@ namespace SabberStone.Tasks.SimpleTasks
                         result.AddRange(controller.Board.GetAll);
                     }
                     result.Remove(source as IPlayable);
+                    break;
+
+                case EntityType.GRAVEYARD:
+                    if (controller.Graveyard.Count > 0)
+                    {
+                        result.AddRange(controller.Graveyard.GetAll);
+                    }
                     break;
 
                 case EntityType.FRIENDS:

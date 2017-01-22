@@ -354,21 +354,35 @@ namespace SabberStoneUnitTest.CardSets
             // - REQ_NUM_MINION_SLOTS = 1
             // - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void Resurrect_BRM_017()
             {
-                // TODO Resurrect_BRM_017 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
                     Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.PRIEST,
+                    Player2HeroClass = CardClass.MAGE,
                     FillDecks = true
                 });
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Resurrect"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Resurrect"));
+                Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+                game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+                Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+                var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+                Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+                Assert.AreEqual(0, game.CurrentOpponent.Board.Count);
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+                Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+                Assert.AreEqual(minion.Card.Id, game.CurrentPlayer.Board[0].Card.Id);
+                Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Board[0]).Health);
             }
 
             // ---------------------------------------- MINION - PRIEST

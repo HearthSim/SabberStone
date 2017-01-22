@@ -158,6 +158,15 @@ namespace SabberStone.Model
                                 return false;
                             }
                             break;
+
+                        case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+                            if (!Controller.Graveyard.GetAll.Exists(p => p is Minion))
+                            {
+                                Log.Info($"No friendly minions died this game.");
+                                return false;
+                            }
+                            break;
+
                         // implemented in Targeting
                         case PlayReq.REQ_MINION_OR_ENEMY_HERO:
                         case PlayReq.REQ_TARGET_MAX_ATTACK:
