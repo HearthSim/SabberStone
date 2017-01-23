@@ -71,7 +71,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### Requirements
 
-* Windows
+* Windows, OS X or Linux
   tbd
 
 ### Installation
