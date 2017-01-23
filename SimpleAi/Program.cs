@@ -33,7 +33,8 @@ namespace SimpleAi
         {
             Log.Info("Starting test setup.");
 
-            OneTurn();
+            //OneTurn();
+            FullGame();
 
             Log.Info("Test end!");
             Console.ReadLine();
