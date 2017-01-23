@@ -1,0 +1,170 @@
+
+// [CFM_621t4] Felbloom (*) - COST:1 
+// Text: Deal $2 damage to all minions. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 1
+
+// [CFM_621t10] Netherbloom (*) - COST:1 
+// Text: Summon a 2/2 Demon.
+// - TAG_SCRIPT_DATA_NUM_1 = 2
+
+// [CFM_621t2] Heart of Fire (*) - COST:1 
+// Text: Deal $3 damage. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 4
+
+// [CFM_621t3] Stonescale Oil (*) - COST:1 
+// Text: Gain 4 Armor.
+// - TAG_SCRIPT_DATA_NUM_1 = 5
+
+// [CFM_621t5] Icecap (*) - COST:1 
+// Text: <b>Freeze</b> a random enemy minion.
+// - TAG_SCRIPT_DATA_NUM_1 = 7
+
+// [CFM_621t37] Ichor of Undeath (*) - COST:1 
+// Text: Summon a friendly minion that died this game.
+// - TAG_SCRIPT_DATA_NUM_1 = 3
+
+// [CFM_621t8] Kingsblood (*) - COST:1 
+// Text: Draw a card.
+// - TAG_SCRIPT_DATA_NUM_1 = 8
+
+// [CFM_621t9] Shadow Oil (*) - COST:1 
+// Text: Add a random Demon to your hand.
+// - TAG_SCRIPT_DATA_NUM_1 = 9
+
+// [CFM_621t6] Goldthorn (*) - COST:1 
+// Text: Give your minions +2 Health.
+// - TAG_SCRIPT_DATA_NUM_1 = 6
+
+
+
+
+
+
+
+
+// [CFM_621t18] Felbloom (*) - COST:5 
+// Text: Deal $4 damage to all minions. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 2
+
+// [CFM_621t20] Netherbloom (*) - COST:5 
+// Text: Summon a 5/5 Demon.
+// - TAG_SCRIPT_DATA_NUM_1 = 3
+
+// [CFM_621t16] Heart of Fire (*) - COST:5 
+// Text: Deal $5 damage. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 5
+
+// [CFM_621t17] Stonescale Oil (*) - COST:5 
+// Text: Gain 7 Armor.
+// - TAG_SCRIPT_DATA_NUM_1 = 6
+
+// [CFM_621t19] Icecap (*) - COST:5 
+// Text: <b>Freeze</b> 2 random enemy minions.
+// - TAG_SCRIPT_DATA_NUM_1 = 8
+
+// [CFM_621t38] Ichor of Undeath (*) - COST:5 
+// Text: Summon 2 friendly minions that died this game.
+// - TAG_SCRIPT_DATA_NUM_1 = 4
+
+// [CFM_621t21] Mystic Wool (*) - COST:5 
+// Text: Transform a random enemy minion into a 1/1 Sheep.
+// - TAG_SCRIPT_DATA_NUM_1 = 1
+
+// [CFM_621t22] Kingsblood (*) - COST:5 
+// Text: Draw 2 cards.
+// - TAG_SCRIPT_DATA_NUM_1 = 9
+
+// [CFM_621t23] Shadow Oil (*) - COST:5 
+// Text: Add 2 random Demons to your hand.
+// - TAG_SCRIPT_DATA_NUM_1 = 10
+
+// [CFM_621t24] Goldthorn (*) - COST:5 
+// Text: Give your minions +4 Health.
+// - TAG_SCRIPT_DATA_NUM_1 = 7
+
+
+
+
+
+
+// [CFM_621t33] Felbloom (*) - COST:10 
+// Text: Deal $6 damage to all minions. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 2
+
+// [CFM_621t28] Netherbloom (*) - COST:10 
+// Text: Summon an 8/8 Demon.
+// - TAG_SCRIPT_DATA_NUM_1 = 3
+
+// [CFM_621t25] Heart of Fire (*) - COST:10 
+// Text: Deal $8 damage. *spelldmg
+// - TAG_SCRIPT_DATA_NUM_1 = 5
+
+// [CFM_621t26] Stonescale Oil (*) - COST:10 
+// Text: Gain 10 Armor.
+// - TAG_SCRIPT_DATA_NUM_1 = 6
+
+// [CFM_621t27] Icecap (*) - COST:10 
+// Text: <b>Freeze</b> 3 random enemy minions.
+// - TAG_SCRIPT_DATA_NUM_1 = 8
+
+// [CFM_621t39] Ichor of Undeath (*) - COST:10 
+// Text: Summon 3 friendly minions that died this game.
+// - TAG_SCRIPT_DATA_NUM_1 = 4
+
+// [CFM_621t29] Mystic Wool (*) - COST:10 
+// Text: Transform all minions into 1/1 Sheep.
+// - TAG_SCRIPT_DATA_NUM_1 = 1
+
+// [CFM_621t30] Kingsblood (*) - COST:10 
+// Text: Draw 3 cards.
+// - TAG_SCRIPT_DATA_NUM_1 = 9
+
+// [CFM_621t31] Shadow Oil (*) - COST:10 
+// Text: Add 3 random Demons to your hand.
+// - TAG_SCRIPT_DATA_NUM_1 = 10
+
+// [CFM_621t32] Goldthorn (*) - COST:10 
+// Text: Give your minions +6 Health.
+// - TAG_SCRIPT_DATA_NUM_1 = 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

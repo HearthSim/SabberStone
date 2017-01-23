@@ -2918,23 +2918,26 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kazakus"));
-		}
 
-		// --------------------------------------- MINION - NEUTRAL
-		// [CFM_637] Patches the Pirate - COST:1 [ATK:1/HP:1] 
-		// - Race: pirate, Set: gangs, Rarity: legendary
-		// --------------------------------------------------------
-		// Text: [x]<b>Charge</b>
-		//       After you play a Pirate,
-		//       summon this minion
-		//       from your deck.
-		// --------------------------------------------------------
-		// GameTag:
-		// - ELITE = 1
-		// - CHARGE = 1
-		// --------------------------------------------------------
-		[TestMethod]
+            // Polymorph > AoE         > Freeze    > Resurrect > Demon          > Damage           > Armor            > Health Buff > Draw Cards > Draw Demons
+            //             Felbloom[2] > Icecap[8]               Netherbloom[2] > Heart of Fire[5] > Stonescale Oil[6]
+            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kazakus"));
+        }
+
+        // --------------------------------------- MINION - NEUTRAL
+        // [CFM_637] Patches the Pirate - COST:1 [ATK:1/HP:1] 
+        // - Race: pirate, Set: gangs, Rarity: legendary
+        // --------------------------------------------------------
+        // Text: [x]<b>Charge</b>
+        //       After you play a Pirate,
+        //       summon this minion
+        //       from your deck.
+        // --------------------------------------------------------
+        // GameTag:
+        // - ELITE = 1
+        // - CHARGE = 1
+        // --------------------------------------------------------
+        [TestMethod]
 		public void PatchesThePirate_CFM_637()
 		{
 			var game = new Game(new GameConfig
