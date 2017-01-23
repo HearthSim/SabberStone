@@ -14,6 +14,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Start Test!");
+
         CardsTest();
 
         //CloneStampTest();
@@ -43,8 +44,7 @@ class Program
         game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
         game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 
-        Console.WriteLine(game.Logs.Count);
-        game.Logs.ForEach(p => Console.WriteLine($"{p.TimeStamp} - {p.Level} [{p.BlockType}] - {p.Location}: {p.Text}"));
+        ShowLog(game, LogLevel.VERBOSE);
     }
 
     public static void CloneSameSame()
@@ -160,5 +160,15 @@ class Program
                  $"Avg. {watch.ElapsedMilliseconds / total} per game " +
                  $"and {watch.ElapsedMilliseconds / (total * turns)} per turn!");
         Console.WriteLine($"playerA {wins[0] * 100 / total}% vs. playerB {wins[1] * 100 / total}%!");
+    }
+
+    private static void ShowLog(Game game, LogLevel level)
+    {
+        while (game.Logs.Count > 0)
+        {
+            var logEntry = game.Logs.Dequeue();
+            if (logEntry.Level <= level)
+                Console.WriteLine($"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+        }
     }
 }

@@ -58,13 +58,13 @@ namespace SabberStoneCore.Model
 
         public Queue<ILazyRemove> LazyRemoves { get; set; } = new Queue<ILazyRemove>();
 
-        public List<LogEntry> Logs { get; set; } = new List<LogEntry>();
+        public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>();
         public void Log(LogLevel level, BlockType block, string location, string text)
         {
             if (!_gameConfig.Logging)
                 return;
 
-            Logs.Add(new LogEntry()
+            Logs.Enqueue(new LogEntry()
             {
                 TimeStamp = DateTime.Now,
                 Level = level,

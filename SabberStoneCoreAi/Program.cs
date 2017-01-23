@@ -2,14 +2,14 @@
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCoreAi.Meta;
-using SabberStoneCoreAi.Nodes;
-using SabberStoneCoreAi.Score;
+using SabberStoneCoreGui.Meta;
+using SabberStoneCoreGui.Nodes;
+using SabberStoneCoreGui.Score;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SabberStoneCoreAi
+namespace SabberStoneCoreGui
 {
     internal class Program
     {

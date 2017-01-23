@@ -1,4 +1,4 @@
-﻿namespace SabberStoneCoreAi.Meta
+﻿namespace SabberStoneCoreGui.Meta
 {
     public enum DeckTypes
     {

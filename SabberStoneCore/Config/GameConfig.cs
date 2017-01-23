@@ -30,7 +30,7 @@ namespace SabberStoneCore.Config
 
         public bool Splitting { get; set; } = false;
 
-        public bool Logging { get; set; } = false;
+        public bool Logging { get; set; } = true;
 
         public GameConfig Clone()
         {
