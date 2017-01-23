@@ -1,7 +1,7 @@
 <img align="left" src="/Readme/sabberstone.png">
 # SabberStone
 
-SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SimpleUi](/SimpleUi)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
+SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
 By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of ([Brimstone](https://github.com/HearthSim/Brimstone/tree/master/Brimstone)) was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** & **@Katy** for helping on hearthstone super science problems ^^ You're welcome!
 
@@ -10,7 +10,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * **SabberStoneCore** *(.NET Core)*
 
-  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
+  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStoneCore/wiki) for informations about the core and how to use it.
 
 * **SabberStoneCoreTest** *(.NET Core)*
 
@@ -26,7 +26,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * **SabberStoneGui** *(.NET Framework)*
 
-  A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link] (https://github.com/HearthSim/SabberStone/wiki/SimpleUi) for informations about the use of SimpleUi.
+  A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link] (https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
   ![alt tag](/Readme/simpleui.PNG)
   ![alt tag](/Readme/deckcreator.PNG)
   
