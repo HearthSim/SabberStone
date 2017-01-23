@@ -8,23 +8,23 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### Project Structure ###
 
-* **SabberStone**
+* **SabberStoneCore** *(.NET Core)*
 
   Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
-* **SabberStoneUnitTest**
+* **SabberStoneCoreTest** *(.NET Core)*
 
   UnitTest for the simulator, there is a generated test for each card in the current game.
 
-* **SimpleTest**
+* **SabberStoneCoreConsole** *(.NET Core)*
 
   A test project to run simple codeline based games to test outcome.
 
-* **SimpleAi**
+* **SabberStoneCoreAi** *(.NET Core)*
 
   A test project to run A.I. simulations with predefinied decks and strategys.
 
-* **SimpleUi**
+* **SabberStoneGui** *(.NET Framework)*
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link] (https://github.com/HearthSim/SabberStone/wiki/SimpleUi) for informations about the use of SimpleUi.
   ![alt tag](/Readme/simpleui.PNG)
@@ -42,7 +42,9 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Buffing Hand (Grimy Goons)
 - [x] Excess Mana
 - [x] Freeze & Stealth
-- [ ] Potions (Kabal)
+- [x] Potions (Kabal) ex. Kazakus
+- [ ] Spell Bender Phase
+- [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
 * 97% Basic (142 Cards)
@@ -64,6 +66,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 - [x] Move SabberStone to Github
 - [x] Start Wiki for SabberStone
+- [x] Moved from .NET Framework to .NET Core
 - [ ] Fill Wiki for SabberStone
 
 ### Requirements
@@ -73,8 +76,30 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### Installation
 
-* Windows
-  tbd
+**Most important part to have it run right now is that you change the path to your current folder**
+
+ex. C:\Users\admin\Source\Repos\SabberStone\ --> C:\Users\admin\Source\Repos\
+
+```csharp
+namespace SabberStoneCore.Loader
+{
+    internal class CardLoader : ICardLoader
+    {
+        private static string _path { get; set; }
+
+        public static string Path {
+            get
+            {
+                if (_path == null)
+                {
+                    _path = @"C:\Users\admin\Source\Repos\"; // <--- CHANGE TO YOUR FOLDER ... WHERE SABBERSTONE IS
+                }
+
+                return _path;
+            }
+        } 
+```
+
 
 ### Documentation
 
