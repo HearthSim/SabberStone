@@ -708,13 +708,20 @@ namespace SabberStoneCore.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_085", new List<Enchantment> {
-				// TODO [OG_085] Demented Frostcaller && Test: Demented Frostcaller_OG_085
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                                    new RandomTask(2, EntityType.ENEMIES),
+                                    ComplexTask.Freeze(EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// ------------------------------------------ MINION - MAGE
 			// [OG_087] Servant of Yogg-Saron - COST:5 [ATK:5/HP:4] 

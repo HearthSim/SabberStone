@@ -675,10 +675,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DementedFrostcaller_OG_085()
 		{
-			// TODO DementedFrostcaller_OG_085 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -689,8 +688,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demented Frostcaller"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demented Frostcaller"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(false, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(true, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [OG_087] Servant of Yogg-Saron - COST:5 [ATK:5/HP:4] 
