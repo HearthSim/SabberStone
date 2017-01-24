@@ -416,10 +416,9 @@ namespace SabberStoneUnitTest.CardSets
             // - REQ_MINION_TARGET = 0
             // - REQ_TARGET_TO_PLAY = 0
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void GangUp_BRM_007()
             {
-                // TODO GangUp_BRM_007 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
@@ -430,7 +429,12 @@ namespace SabberStoneUnitTest.CardSets
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gang Up"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gang Up"));
+                var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+                Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+                Assert.AreEqual(29, game.CurrentPlayer.Deck.Count);
             }
 
             // ----------------------------------------- MINION - ROGUE

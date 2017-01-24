@@ -383,11 +383,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_007", new List<Enchantment> {
-				// TODO [BRM_007] Gang Up && Test: Gang Up_BRM_007
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 3),
+                        new LogTask(),
+                        new AddStackTo(EntityType.DECK))
 				},
 			});
 

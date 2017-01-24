@@ -1422,7 +1422,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new AddCardTo(Cards.FromId("CFM_324t"), EntityType.DECK)
+					SingleTask = new AddCardTo("CFM_324t", EntityType.DECK)
 				},
 			});
 

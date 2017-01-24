@@ -20,6 +20,8 @@ class Program
         //CloneStampTest();
         //OptionsTest();
 
+        //Console.WriteLine(Cards.Statistics());
+
         Console.WriteLine("Finished! Press key now.");
         Console.ReadKey();
     }
@@ -29,18 +31,17 @@ class Program
         var game = new Game(new GameConfig
         {
             StartPlayer = 1,
-            Player1HeroClass = CardClass.MAGE,
-            Player2HeroClass = CardClass.PRIEST,
+            Player1HeroClass = CardClass.ROGUE,
+            Player2HeroClass = CardClass.ROGUE,
             FillDecks = true
         });
         game.StartGame();
         game.Player1.BaseMana = 10;
         game.Player2.BaseMana = 10;
-        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Majordomo Executus"));
-        game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-        game.Process(EndTurnTask.Any(game.CurrentPlayer));
-        var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
-        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gang Up"));
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
 
         ShowLog(game, LogLevel.VERBOSE);
     }
