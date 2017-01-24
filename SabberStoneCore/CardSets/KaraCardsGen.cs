@@ -97,7 +97,7 @@ namespace SabberStoneCore.CardSets
             });
 
             // ---------------------------------------- MINION - HUNTER
-            // [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 
+            // [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1]
             // - Race: beast, Set: kara, Rarity: common
             // --------------------------------------------------------
             // Text: <b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.
@@ -106,11 +106,10 @@ namespace SabberStoneCore.CardSets
             // - DEATHRATTLE = 1
             // --------------------------------------------------------
             cards.Add("KAR_005", new List<Enchantment> {
-				// TODO [KAR_005] Kindly Grandmother && Test: Kindly Grandmother_KAR_005
-				new Enchantment
+                new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new SummonTask("KAR_005a"),
                 },
             });
 

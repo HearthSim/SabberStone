@@ -152,10 +152,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KindlyGrandmother_KAR_005()
 		{
-			// TODO KindlyGrandmother_KAR_005 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -166,8 +165,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kindly Grandmother"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kindly Grandmother"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual("KAR_005a", game.CurrentOpponent.Board[0].Card.Id);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4] 
