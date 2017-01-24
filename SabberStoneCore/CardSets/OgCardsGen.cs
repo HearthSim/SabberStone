@@ -2542,7 +2542,9 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RitualTask(new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)),
+                        new DamageTask(2, EntityType.TARGET))
 				},
 			});
 
@@ -3089,7 +3091,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = null
 				},
 			});
 
@@ -3106,16 +3108,9 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_ABILITIES = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("OG_340", new List<Enchantment> {
-				// TODO [OG_340] Soggoth the Slitherer && Test: Soggoth the Slitherer_OG_340
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_340", null);
 
-		}
+        }
 
 		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -3125,351 +3120,190 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("OG_023t", new List<Enchantment> {
-				// TODO [OG_023t] Primally Infused && Test: Primally Infused_OG_023t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_023t", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_080ae] Bloodthistle (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Costs (2) less.
-			// --------------------------------------------------------
-			cards.Add("OG_080ae", new List<Enchantment> {
-				// TODO [OG_080ae] Bloodthistle && Test: Bloodthistle_OG_080ae
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_080ae] Bloodthistle (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Costs (2) less.
+            // --------------------------------------------------------
+            cards.Add("OG_080ae", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_080de] Fadeleaf (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Stealthed until your next turn.
-			// --------------------------------------------------------
-			cards.Add("OG_080de", new List<Enchantment> {
-				// TODO [OG_080de] Fadeleaf && Test: Fadeleaf_OG_080de
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_080de] Fadeleaf (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Stealthed until your next turn.
+            // --------------------------------------------------------
+            cards.Add("OG_080de", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_080ee] Briarthorn (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +3 Attack.
-			// --------------------------------------------------------
-			cards.Add("OG_080ee", new List<Enchantment> {
-				// TODO [OG_080ee] Briarthorn && Test: Briarthorn_OG_080ee
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_080ee] Briarthorn (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +3 Attack.
+            // --------------------------------------------------------
+            cards.Add("OG_080ee", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_102e] Power Transfer (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Swapped stats.
-			// --------------------------------------------------------
-			cards.Add("OG_102e", new List<Enchantment> {
-				// TODO [OG_102e] Power Transfer && Test: Power Transfer_OG_102e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_102e] Power Transfer (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Swapped stats.
+            // --------------------------------------------------------
+            cards.Add("OG_102e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_104e] Embracing the Shadow (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Your healing effects are dealing damage.
-			// --------------------------------------------------------
-			// GameTag:
-			// - OneTurnEffect = 1
-			// --------------------------------------------------------
-			cards.Add("OG_104e", new List<Enchantment> {
-				// TODO [OG_104e] Embracing the Shadow && Test: Embracing the Shadow_OG_104e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_104e] Embracing the Shadow (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Your healing effects are dealing damage.
+            // --------------------------------------------------------
+            // GameTag:
+            // - OneTurnEffect = 1
+            // --------------------------------------------------------
+            cards.Add("OG_104e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_118e] Renounce Darkness Deck Ench (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_118e", new List<Enchantment> {
-				// TODO [OG_118e] Renounce Darkness Deck Ench && Test: Renounce Darkness Deck Ench_OG_118e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_118e] Renounce Darkness Deck Ench (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_118e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_118f] New Calling (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Cost reduced.
-			// --------------------------------------------------------
-			cards.Add("OG_118f", new List<Enchantment> {
-				// TODO [OG_118f] New Calling && Test: New Calling_OG_118f
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_118f] New Calling (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Cost reduced.
+            // --------------------------------------------------------
+            cards.Add("OG_118f", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_121e] Dark Power (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Your next spell costs Health instead of Mana.
-			// --------------------------------------------------------
-			cards.Add("OG_121e", new List<Enchantment> {
-				// TODO [OG_121e] Dark Power && Test: Dark Power_OG_121e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_121e] Dark Power (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Your next spell costs Health instead of Mana.
+            // --------------------------------------------------------
+            cards.Add("OG_121e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_123e] Shifting (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Transforming into random minions.
-			// --------------------------------------------------------
-			cards.Add("OG_123e", new List<Enchantment> {
-				// TODO [OG_123e] Shifting && Test: Shifting_OG_123e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_123e] Shifting (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Transforming into random minions.
+            // --------------------------------------------------------
+            cards.Add("OG_123e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_138e] Will of the Vizier (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Reduced Cost.
-			// --------------------------------------------------------
-			cards.Add("OG_138e", new List<Enchantment> {
-				// TODO [OG_138e] Will of the Vizier && Test: Will of the Vizier_OG_138e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_138e] Will of the Vizier (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Reduced Cost.
+            // --------------------------------------------------------
+            cards.Add("OG_138e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_150e] Enraged (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +2 Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ENRAGED = 1
-			// --------------------------------------------------------
-			cards.Add("OG_150e", new List<Enchantment> {
-				// TODO [OG_150e] Enraged && Test: Enraged_OG_150e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_150e] Enraged (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +2 Attack.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ENRAGED = 1
+            // --------------------------------------------------------
+            cards.Add("OG_150e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_158e] Secrets of the Cult (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_158e", new List<Enchantment> {
-				// TODO [OG_158e] Secrets of the Cult && Test: Secrets of the Cult_OG_158e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_158e] Secrets of the Cult (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_158e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_174e] Faceless (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Copying stats.
-			// --------------------------------------------------------
-			cards.Add("OG_174e", new List<Enchantment> {
-				// TODO [OG_174e] Faceless && Test: Faceless_OG_174e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_174e] Faceless (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Copying stats.
+            // --------------------------------------------------------
+            cards.Add("OG_174e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_188e] Amber Carapace (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +5 Health.
-			// --------------------------------------------------------
-			cards.Add("OG_188e", new List<Enchantment> {
-				// TODO [OG_188e] Amber Carapace && Test: Amber Carapace_OG_188e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_188e] Amber Carapace (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +5 Health.
+            // --------------------------------------------------------
+            cards.Add("OG_188e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_195e] Enormous (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("OG_195e", new List<Enchantment> {
-				// TODO [OG_195e] Enormous && Test: Enormous_OG_195e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_195e] Enormous (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("OG_195e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_200e] Doom Free (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Attack set to 7.
-			// --------------------------------------------------------
-			cards.Add("OG_200e", new List<Enchantment> {
-				// TODO [OG_200e] Doom Free && Test: Doom Free_OG_200e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_200e] Doom Free (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Attack set to 7.
+            // --------------------------------------------------------
+            cards.Add("OG_200e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_218e] Enraged (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +3 Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ENRAGED = 1
-			// --------------------------------------------------------
-			cards.Add("OG_218e", new List<Enchantment> {
-				// TODO [OG_218e] Enraged && Test: Enraged_OG_218e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_218e] Enraged (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +3 Attack.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ENRAGED = 1
+            // --------------------------------------------------------
+            cards.Add("OG_218e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_223e] Optimism (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+2.
-			// --------------------------------------------------------
-			cards.Add("OG_223e", new List<Enchantment> {
-				// TODO [OG_223e] Optimism && Test: Optimism_OG_223e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_223e] Optimism (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+2.
+            // --------------------------------------------------------
+            cards.Add("OG_223e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_254e] Secretly Sated (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased stats.
-			// --------------------------------------------------------
-			cards.Add("OG_254e", new List<Enchantment> {
-				// TODO [OG_254e] Secretly Sated && Test: Secretly Sated_OG_254e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_254e] Secretly Sated (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased stats.
+            // --------------------------------------------------------
+            cards.Add("OG_254e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_256e] Slimed (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_256e", new List<Enchantment> {
-				// TODO [OG_256e] Slimed && Test: Slimed_OG_256e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_256e] Slimed (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_256e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_271e] Terrifying Visage (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Attack increased.
-			// --------------------------------------------------------
-			cards.Add("OG_271e", new List<Enchantment> {
-				// TODO [OG_271e] Terrifying Visage && Test: Terrifying Visage_OG_271e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_271e] Terrifying Visage (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Attack increased.
+            // --------------------------------------------------------
+            cards.Add("OG_271e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_281e] Fanatic Devotion (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased Stats.
-			// --------------------------------------------------------
-			cards.Add("OG_281e", new List<Enchantment> {
-				// TODO [OG_281e] Fanatic Devotion && Test: Fanatic Devotion_OG_281e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_281e] Fanatic Devotion (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased Stats.
+            // --------------------------------------------------------
+            cards.Add("OG_281e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_282e] Devotion of the Blade (*) - COST:0 
@@ -3480,350 +3314,189 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_282e", new List<Enchantment> {
-				// TODO [OG_282e] Devotion of the Blade && Test: Devotion of the Blade_OG_282e
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+		    cards.Add("OG_282e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_284e] Geomancy (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Has <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("OG_284e", new List<Enchantment> {
-				// TODO [OG_284e] Geomancy && Test: Geomancy_OG_284e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_284e] Geomancy (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Has <b>Taunt</b>.
+            // --------------------------------------------------------
+		    cards.Add("OG_284e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_290e] Caller Devotion (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_290e", new List<Enchantment> {
-				// TODO [OG_290e] Caller Devotion && Test: Caller Devotion_OG_290e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_290e] Caller Devotion (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_290e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_291e] Flickering Darkness (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Shadowcaster made this 1/1.
-			// --------------------------------------------------------
-			cards.Add("OG_291e", new List<Enchantment> {
-				// TODO [OG_291e] Flickering Darkness && Test: Flickering Darkness_OG_291e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_291e] Flickering Darkness (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Shadowcaster made this 1/1.
+            // --------------------------------------------------------
+            cards.Add("OG_291e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_292e] Night's Devotion (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_292e", new List<Enchantment> {
-				// TODO [OG_292e] Night's Devotion && Test: Night's Devotion_OG_292e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_292e] Night's Devotion (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_292e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_293e] Arrakoa Devotion (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +5/+5.
-			// --------------------------------------------------------
-			cards.Add("OG_293e", new List<Enchantment> {
-				// TODO [OG_293e] Arrakoa Devotion && Test: Arrakoa Devotion_OG_293e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_293e] Arrakoa Devotion (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +5/+5.
+            // --------------------------------------------------------
+            cards.Add("OG_293e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_293f] Dark Guardian (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased Stats.
-			// --------------------------------------------------------
-			cards.Add("OG_293f", new List<Enchantment> {
-				// TODO [OG_293f] Dark Guardian && Test: Dark Guardian_OG_293f
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_293f] Dark Guardian (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased Stats.
+            // --------------------------------------------------------
+            cards.Add("OG_293f", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_300e] Tasty! (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased stats.
-			// --------------------------------------------------------
-			cards.Add("OG_300e", new List<Enchantment> {
-				// TODO [OG_300e] Tasty! && Test: Tasty!_OG_300e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_300e] Tasty! (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased stats.
+            // --------------------------------------------------------
+            cards.Add("OG_300e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_302e] Soul Power (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased Attack.
-			// --------------------------------------------------------
-			cards.Add("OG_302e", new List<Enchantment> {
-				// TODO [OG_302e] Soul Power && Test: Soul Power_OG_302e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_302e] Soul Power (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased Attack.
+            // --------------------------------------------------------
+            cards.Add("OG_302e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_303e] Sorcerous Devotion (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_303e", new List<Enchantment> {
-				// TODO [OG_303e] Sorcerous Devotion && Test: Sorcerous Devotion_OG_303e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_303e] Sorcerous Devotion (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_303e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_311e] Beacon of Hope (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_311e", new List<Enchantment> {
-				// TODO [OG_311e] Beacon of Hope && Test: Beacon of Hope_OG_311e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_311e] Beacon of Hope (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_311e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_313e] Addled (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_313e", new List<Enchantment> {
-				// TODO [OG_313e] Addled && Test: Addled_OG_313e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_313e] Addled (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_313e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_315e] Reforged (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_315e", new List<Enchantment> {
-				// TODO [OG_315e] Reforged && Test: Reforged_OG_315e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_315e] Reforged (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_315e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_316k] Shadowy (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: 1/1.
-			// --------------------------------------------------------
-			cards.Add("OG_316k", new List<Enchantment> {
-				// TODO [OG_316k] Shadowy && Test: Shadowy_OG_316k
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_316k] Shadowy (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: 1/1.
+            // --------------------------------------------------------
+            cards.Add("OG_316k", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_320e] Hour of Corruption (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased Attack.
-			// --------------------------------------------------------
-			cards.Add("OG_320e", new List<Enchantment> {
-				// TODO [OG_320e] Hour of Corruption && Test: Hour of Corruption_OG_320e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_320e] Hour of Corruption (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased Attack.
+            // --------------------------------------------------------
+            cards.Add("OG_320e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_321e] Power of Faith (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("OG_321e", new List<Enchantment> {
-				// TODO [OG_321e] Power of Faith && Test: Power of Faith_OG_321e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_321e] Power of Faith (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("OG_321e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_337e] Eve of Destruction (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Stats increased.
-			// --------------------------------------------------------
-			cards.Add("OG_337e", new List<Enchantment> {
-				// TODO [OG_337e] Eve of Destruction && Test: Eve of Destruction_OG_337e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_337e] Eve of Destruction (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Stats increased.
+            // --------------------------------------------------------
+            cards.Add("OG_337e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_339e] Vassal's Subservience (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("OG_339e", new List<Enchantment> {
-				// TODO [OG_339e] Vassal's Subservience && Test: Vassal's Subservience_OG_339e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [OG_339e] Vassal's Subservience (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("OG_339e", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_156a] Ooze (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("OG_156a", new List<Enchantment> {
-				// TODO [OG_156a] Ooze && Test: Ooze_OG_156a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_156a] Ooze (*) - COST:1 [ATK:1/HP:1] 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("OG_156a", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_173a] The Ancient One (*) - COST:9 [ATK:30/HP:30] 
-			// - Set: og, Rarity: epic
-			// --------------------------------------------------------
-			cards.Add("OG_173a", new List<Enchantment> {
-				// TODO [OG_173a] The Ancient One && Test: The Ancient One_OG_173a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_173a] The Ancient One (*) - COST:9 [ATK:30/HP:30] 
+            // - Set: og, Rarity: epic
+            // --------------------------------------------------------
+            cards.Add("OG_173a", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_249a] Slime (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_249a", new List<Enchantment> {
-				// TODO [OG_249a] Slime && Test: Slime_OG_249a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_249a] Slime (*) - COST:2 [ATK:2/HP:2] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_249a", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_270a] Nerubian Soldier (*) - COST:8 [ATK:7/HP:7] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_270a", new List<Enchantment> {
-				// TODO [OG_270a] Nerubian Soldier && Test: Nerubian Soldier_OG_270a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_270a] Nerubian Soldier (*) - COST:8 [ATK:7/HP:7] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_270a", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_272t] Faceless Destroyer (*) - COST:4 [ATK:5/HP:5] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_272t", new List<Enchantment> {
-				// TODO [OG_272t] Faceless Destroyer && Test: Faceless Destroyer_OG_272t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_272t] Faceless Destroyer (*) - COST:4 [ATK:5/HP:5] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_272t", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_279] C'Thun (*) - COST:10 [ATK:6/HP:6] 
-			// - Set: og, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal damage equal to this minion's Attack randomly split among all enemies.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// --------------------------------------------------------
-			cards.Add("OG_279", new List<Enchantment> {
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_279] C'Thun (*) - COST:10 [ATK:6/HP:6] 
+            // - Set: og, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: <b>Battlecry:</b> Deal damage equal to this minion's Attack randomly split among all enemies.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // --------------------------------------------------------
+            cards.Add("OG_279", new List<Enchantment> {
 				// TODO [OG_279] C'Thun && Test: C'Thun_OG_279
 				new Enchantment
 				(
@@ -3841,35 +3514,21 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_318t", new List<Enchantment> {
-				// TODO [OG_318t] Gnoll && Test: Gnoll_OG_318t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_318t", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_319] Twin Emperor Vek'nilash (*) - COST:7 [ATK:4/HP:6] 
-			// - Set: og, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("OG_319", new List<Enchantment> {
-				// TODO [OG_319] Twin Emperor Vek'nilash && Test: Twin Emperor Vek'nilash_OG_319
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_319] Twin Emperor Vek'nilash (*) - COST:7 [ATK:4/HP:6] 
+            // - Set: og, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("OG_319", null);
 
-		}
+        }
 
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
 		{

@@ -357,5 +357,17 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.LAST_CARD_PLAYED]; }
             set { this[GameTag.LAST_CARD_PLAYED] = value; }
         }
+
+        public bool SeenCthun
+        {
+            get { return this[GameTag.SEEN_CTHUN] == 1; }
+            set { this[GameTag.SEEN_CTHUN] = value ? 1 : 0; }
+        }
+
+        public int ProxyCthun
+        {
+            get { return this[GameTag.PROXY_CTHUN]; }
+            set { this[GameTag.PROXY_CTHUN] = value; }
+        }
     }
 }
