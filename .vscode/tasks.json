@@ -3,15 +3,19 @@
     "command": "dotnet",
     "isShellCommand": true,
     "args": [],
-    "options": {
-        "cwd": "${workspaceRoot}/SabberStoneCoreConsole"
-    },
     "tasks": [
         {
             "taskName": "build",
-            "args": [ ],
+            "args": [ "SabberStoneCoreConsole"],
             "isBuildCommand": true,
             "showOutput": "silent",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "test",
+            "args": ["SabberStoneCoreTest" ],
+            "isBuildCommand": true,
+            "showOutput": "always",
             "problemMatcher": "$msCompile"
         }
     ]

@@ -13,14 +13,14 @@ class Program
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Start Test!");
+        Console.WriteLine("Starting SabberStone Console");
 
         CardsTest();
 
         //CloneStampTest();
         //OptionsTest();
-        Console.WriteLine("Tests are fininshed, press any key to finish");
-        Console.ReadKey();
+        Console.WriteLine("Tests are fininshed");
+        //Console.ReadKey();
     }
 
 
