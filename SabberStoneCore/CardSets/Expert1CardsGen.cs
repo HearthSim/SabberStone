@@ -5592,12 +5592,17 @@ namespace SabberStoneCore.CardSets
 			// Text: After you cast a spell, deal 1 damage to ALL minions.
 			// --------------------------------------------------------
 			cards.Add("NEW1_020", new List<Enchantment> {
-				// TODO [NEW1_020] Wild Pyromancer && Test: Wild Pyromancer_NEW1_020
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new DamageTask(1, EntityType.ALLMINIONS))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

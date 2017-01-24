@@ -7330,10 +7330,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you cast a spell, deal 1 damage to ALL minions.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WildPyromancer_NEW1_020()
 		{
-			// TODO WildPyromancer_NEW1_020 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7344,8 +7343,26 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wild Pyromancer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wild Pyromancer"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(false, ((Minion)minion1).IsDead);
+            Assert.AreEqual(false, ((Minion)minion2).IsDead);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(true, ((Minion)minion1).IsDead);
+            Assert.AreEqual(true, ((Minion)minion2).IsDead);
+            Assert.AreEqual(1, ((Minion)testCard).Health);
+
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7] 

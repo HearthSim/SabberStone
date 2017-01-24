@@ -100,7 +100,7 @@ namespace SabberStoneCore.Model
 
             Damage += damage;
 
-            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {damage}.");
+            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {damage}. {(fatigue?"(fatigue)":"")}");
             return true;
         }
 

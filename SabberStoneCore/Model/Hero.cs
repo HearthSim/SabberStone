@@ -12,7 +12,7 @@ namespace SabberStoneCore.Model
 
         public Hero(Controller controller, Card card, Dictionary<GameTag, int> tags, int id) : base(controller, null, card, tags, id)
         {
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Hero {card.Name} ({card.Class}) was created.");
+            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", $"{card.Name} ({card.Class}) was created.");
         }
 
         public int TotalAttackDamage => AttackDamage + (Weapon?.AttackDamage ?? 0);

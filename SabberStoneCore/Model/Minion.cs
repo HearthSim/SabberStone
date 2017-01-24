@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model
         public Minion(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
             : base(controller, zone, card, tags, id)
         {
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
+            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
         }
 
         public override bool CanAttack => AttackDamage > 0 && ChargeBuffed() && base.CanAttack;
