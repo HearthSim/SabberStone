@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/SabberStoneCoreConsole/bin/Debug/netcoreapp1.1/SabberStoneCoreConsole.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/SabberStoneCoreConsole",
+            "stopAtEntry": false,
+            "externalConsole": false
+        }
+    ]
+}

@@ -19,7 +19,7 @@ class Program
 
         //CloneStampTest();
         //OptionsTest();
-
+        Console.WriteLine("Tests are fininshed, press any key to finish");
         Console.ReadKey();
     }
 

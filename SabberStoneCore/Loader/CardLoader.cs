@@ -22,7 +22,7 @@ namespace SabberStoneCore.Loader
             {
                 if (_path == null)
                 {
-                    _path = @"C:\Users\admin\Source\Repos\";
+                    _path = @"/Users/ifeherva/workspace/SabberStone";
                 }
 
                 return _path;
@@ -79,9 +79,9 @@ namespace SabberStoneCore.Loader
 
         public List<Card> Load()
         {
-            // Get XML definitions from assembly embedded resource
-            var cardDefsXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
-            var cardXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CARD.xml");
+            // Get XML definitions from assembly embedded resource, TODO: add try catch as path might be invalid
+            var cardDefsXml = XDocument.Load(@Path + @"/SabberStoneCore/Loader/Data/CardDefs.xml");
+            var cardXml = XDocument.Load(@Path + @"/SabberStoneCore/Loader/Data/CARD.xml");
             // Parse XML
             var cardDefs = (from r in cardDefsXml.Descendants("Entity")
                          select new
