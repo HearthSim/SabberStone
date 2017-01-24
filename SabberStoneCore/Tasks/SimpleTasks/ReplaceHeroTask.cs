@@ -10,6 +10,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             WeaponCard = cardWeapon;
             PowerCard = cardPower;
         }
+        public ReplaceHeroTask(string cardIdHero, string cardIdPower)
+        {
+            HeroCard = Cards.FromId(cardIdHero);
+            PowerCard = Cards.FromId(cardIdPower);
+        }
         public ReplaceHeroTask(string cardIdHero, string cardIdWeapon, string cardIdPower)
         {
             HeroCard = Cards.FromId(cardIdHero);
@@ -31,7 +36,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             source.Controller.Setaside.Add(source.Zone.Remove(source));
             Controller.AddHeroAndPower(HeroCard, PowerCard);
-            Controller.Hero.AddWeapon(Entity.FromCard(Controller, WeaponCard) as Weapon);
+            if (WeaponCard != null)
+                Controller.Hero.AddWeapon(Entity.FromCard(Controller, WeaponCard) as Weapon);
             return TaskState.COMPLETE;
         }
 

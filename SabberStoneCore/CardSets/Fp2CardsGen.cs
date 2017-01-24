@@ -18,14 +18,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OVERKILL = 2319
 			// --------------------------------------------------------
-			cards.Add("BRM_027h", new List<Enchantment> {
-				// TODO [BRM_027h] Ragnaros the Firelord && Test: Ragnaros the Firelord_BRM_027h
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("BRM_027h", null);
 
 		}
 
@@ -39,12 +32,11 @@ namespace SabberStoneCore.CardSets
 			//       Deal $8 damage to a random enemy. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("BRM_027p", new List<Enchantment> {
-				// TODO [BRM_027p] DIE, INSECT! && Test: DIE, INSECT!_BRM_027p
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -55,13 +47,12 @@ namespace SabberStoneCore.CardSets
 			//       Deal $8 damage to a random enemy. TWICE. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("BRM_027pH", new List<Enchantment> {
-				// TODO [BRM_027pH] DIE, INSECTS! && Test: DIE, INSECTS!_BRM_027pH
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
+                }
+            });
 
 		}
 
@@ -677,11 +668,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_027", new List<Enchantment> {
-				// TODO [BRM_027] Majordomo Executus && Test: Majordomo Executus_BRM_027
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
 				},
 			});
 

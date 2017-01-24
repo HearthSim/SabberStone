@@ -20,11 +20,32 @@ class Program
         //CloneStampTest();
         //OptionsTest();
 
+        Console.WriteLine("Finished! Press key now.");
         Console.ReadKey();
     }
 
-
     public static void CardsTest()
+    {
+        var game = new Game(new GameConfig
+        {
+            StartPlayer = 1,
+            Player1HeroClass = CardClass.MAGE,
+            Player2HeroClass = CardClass.PRIEST,
+            FillDecks = true
+        });
+        game.StartGame();
+        game.Player1.BaseMana = 10;
+        game.Player2.BaseMana = 10;
+        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Majordomo Executus"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+        var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+
+        ShowLog(game, LogLevel.VERBOSE);
+    }
+
+    public static void Kazakus()
     {
         var game = new Game(new GameConfig
         {

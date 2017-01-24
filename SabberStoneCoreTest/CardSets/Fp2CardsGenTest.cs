@@ -11,57 +11,10 @@ namespace SabberStoneUnitTest.CardSets
     [TestClass]
     public class HeroesFp2Test
     {
-        // ----------------------------------------- HERO - NEUTRAL
-        // [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8] 
-        // - Set: fp2, 
-        // --------------------------------------------------------
-        // GameTag:
-        // - OVERKILL = 2319
-        // --------------------------------------------------------
-        [TestMethod, Ignore]
-        public void RagnarosTheFirelord_BRM_027h()
-        {
-            // TODO RagnarosTheFirelord_BRM_027h test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ragnaros the Firelord"));
-        }
 
         [TestClass]
         public class HeroPowersFp2Test
         {
-            // ----------------------------------- HERO_POWER - NEUTRAL
-            // [BRM_027p] DIE, INSECT! (*) - COST:2 
-            // - Set: fp2, 
-            // --------------------------------------------------------
-            // Text: <b>Hero Power</b>
-            //       Deal $8 damage to a random enemy. *spelldmg
-            // --------------------------------------------------------
-            [TestMethod, Ignore]
-            public void DieInsect_BRM_027p()
-            {
-                // TODO DieInsect_BRM_027p test
-                var game = new Game(new GameConfig
-                {
-                    StartPlayer = 1,
-                    Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.MAGE,
-                    FillDecks = true
-                });
-                game.StartGame();
-                game.Player1.BaseMana = 10;
-                game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("DIE, INSECT!"));
-            }
-
             // ----------------------------------- HERO_POWER - NEUTRAL
             // [BRM_027pH] DIE, INSECTS! (*) - COST:2 
             // - Set: fp2, 
@@ -69,21 +22,28 @@ namespace SabberStoneUnitTest.CardSets
             // Text: <b>Hero Power</b>
             //       Deal $8 damage to a random enemy. TWICE. *spelldmg
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void DieInsects_BRM_027pH()
             {
-                // TODO DieInsects_BRM_027pH test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
                     Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player2HeroClass = CardClass.PRIEST,
                     FillDecks = true
                 });
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("DIE, INSECTS!"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Majordomo Executus"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+                Assert.AreEqual(8, game.CurrentOpponent.Hero.Health);
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+                Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
             }
         }
 
@@ -815,21 +775,28 @@ namespace SabberStoneUnitTest.CardSets
             // - ELITE = 1
             // - DEATHRATTLE = 1
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void MajordomoExecutus_BRM_027()
             {
-                // TODO MajordomoExecutus_BRM_027 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
                     Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player2HeroClass = CardClass.PRIEST,
                     FillDecks = true
                 });
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Majordomo Executus"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Majordomo Executus"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+                Assert.AreEqual(8, game.CurrentOpponent.Hero.Health);
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+                Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
             }
 
             // --------------------------------------- MINION - NEUTRAL
