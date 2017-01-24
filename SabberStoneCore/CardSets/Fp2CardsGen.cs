@@ -243,13 +243,18 @@ namespace SabberStoneCore.CardSets
 			// Text: After you cast a spell, deal 2 damage randomly split among all enemies.
 			// --------------------------------------------------------
 			cards.Add("BRM_002", new List<Enchantment> {
-				// TODO [BRM_002] Flamewaker && Test: Flamewaker_BRM_002
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)))
+                        .Build()
+                }
+            });
 
 		}
 

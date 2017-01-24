@@ -270,10 +270,9 @@ namespace SabberStoneUnitTest.CardSets
             // --------------------------------------------------------
             // Text: After you cast a spell, deal 2 damage randomly split among all enemies.
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void Flamewaker_BRM_002()
             {
-                // TODO Flamewaker_BRM_002 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
@@ -284,7 +283,22 @@ namespace SabberStoneUnitTest.CardSets
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flamewaker"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flamewaker"));
+                game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+                var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                Assert.AreEqual(33, ((Minion)minion1).Health + ((Minion)minion2).Health + game.CurrentOpponent.Hero.Health);
+                var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+                Assert.AreEqual(25, 
+                    (((Minion)minion1).IsDead ? 0 : ((Minion)minion1).Health) +
+                    (((Minion)minion2).IsDead ? 0 : ((Minion)minion2).Health) + 
+                    game.CurrentOpponent.Hero.Health);
+
             }
         }
 
