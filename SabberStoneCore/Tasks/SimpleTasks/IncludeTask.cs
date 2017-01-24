@@ -12,6 +12,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         SOURCE,
 
         HERO,
+        HERO_POWER,
         HAND,
         HAND_NOSOURCE,
         DECK,
@@ -105,6 +106,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case EntityType.HERO:
                     result.Add(controller.Hero);
+                    break;
+
+                case EntityType.HERO_POWER:
+                    result.Add(controller.Hero.Power);
                     break;
 
                 case EntityType.WEAPON:
