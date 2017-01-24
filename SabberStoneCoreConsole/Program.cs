@@ -168,7 +168,38 @@ class Program
         {
             var logEntry = game.Logs.Dequeue();
             if (logEntry.Level <= level)
-                Console.WriteLine($"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+            {
+                var foreground = ConsoleColor.White;
+                switch (logEntry.Level)
+                {
+                    case LogLevel.ERROR:
+                        foreground = ConsoleColor.Red;
+                        break;
+                    case LogLevel.WARNING:
+                        foreground = ConsoleColor.DarkRed;
+                        break;
+                    case LogLevel.INFO:
+                        foreground = logEntry.Location.Equals("Game") ? 
+                            ConsoleColor.Yellow : 
+                            ConsoleColor.Green;
+                        break;
+                    case LogLevel.VERBOSE:
+                        foreground = ConsoleColor.DarkGreen;
+                        break;
+                    case LogLevel.DEBUG:
+                        foreground = ConsoleColor.DarkGray;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                Console.ForegroundColor = foreground;
+
+                Console.WriteLine(
+                    $"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+            }
         }
+        Console.ResetColor();
     }
+
 }
