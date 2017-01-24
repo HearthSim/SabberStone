@@ -10,6 +10,7 @@
     <Content Include="Loader\Data\CARD.xml" />
     <Content Include="Loader\Data\cardDataJson.txt" />
     <Content Include="Loader\Data\CardDefs.xml" />
+    <Content Include="Loader\Data\PlayErrors.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="1.6" />
