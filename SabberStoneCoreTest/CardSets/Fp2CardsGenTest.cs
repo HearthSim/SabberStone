@@ -177,21 +177,28 @@ namespace SabberStoneUnitTest.CardSets
             // GameTag:
             // - BATTLECRY = 1
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void CoreRager_BRM_014()
             {
-                // TODO CoreRager_BRM_014 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
                     Player1HeroClass = CardClass.HUNTER,
+                    DeckPlayer1 = new List<Card>() { },
                     Player2HeroClass = CardClass.HUNTER,
-                    FillDecks = true
+                    FillDecks = false
                 });
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Core Rager"));
+                var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Core Rager"));
+                var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Core Rager"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+                Assert.AreEqual(4, ((Minion)testCard1).Health);
+                Assert.AreEqual(4, ((Minion)testCard1).AttackDamage);
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+                Assert.AreEqual(7, ((Minion)testCard2).Health);
+                Assert.AreEqual(7, ((Minion)testCard2).AttackDamage);
             }
         }
 

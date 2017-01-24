@@ -185,11 +185,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_014", new List<Enchantment> {
-				// TODO [BRM_014] Core Rager && Test: Core Rager_BRM_014
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE)))
 				},
 			});
 
