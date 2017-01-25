@@ -3577,22 +3577,25 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Your weapons cost (2) less.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BlackwaterPirate_OG_322()
 		{
-			// TODO BlackwaterPirate_OG_322 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blackwater Pirate"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blackwater Pirate"));
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, weapon.Cost);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_323] Polluted Hoarder - COST:4 [ATK:4/HP:2] 

@@ -2989,13 +2989,12 @@ namespace SabberStoneCore.CardSets
 			// Text: Your weapons cost (2) less.
 			// --------------------------------------------------------
 			cards.Add("OG_322", new List<Enchantment> {
-				// TODO [OG_322] Blackwater Pirate && Test: Blackwater Pirate_OG_322
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.Cost(-2, RelaCondition.IsOtherWeapon), AuraArea.HAND)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_323] Polluted Hoarder - COST:4 [ATK:4/HP:2] 

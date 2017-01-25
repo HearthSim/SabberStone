@@ -25,6 +25,7 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsSameRace { get; } = new RelaCondition((me, other) => me is ICharacter && other is ICharacter && ((ICharacter)me).Race == ((ICharacter)other).Race);
 
         public static RelaCondition IsOtherSpell { get; } = new RelaCondition((me, other) => other is Spell);
+        public static RelaCondition IsOtherWeapon { get; } = new RelaCondition((me, other) => other is Weapon);
         public static RelaCondition IsOtherTotem { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).Race == Race.TOTEM);
         public static RelaCondition IsSpellDmgOnHero { get; } = new RelaCondition((me, other) => me.Controller.Hero.SpellPower > 0);
         public static RelaCondition IsOtherMinion { get; } = new RelaCondition((me, other) => other is Minion);
