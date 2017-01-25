@@ -1805,41 +1805,40 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.SetAttack(1, EntityType.TARGET),
+                    SingleTask = new SetAttackTask(1, EntityType.TARGET)
                 }
             });
 
-			// --------------------------------------- MINION - PALADIN
-			// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - TAUNT = 1
-			// - DIVINE_SHIELD = 1
-			// - DEATHRATTLE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_383", new List<Enchantment> {
-				// TODO [EX1_383] Tirion Fordring && Test: Tirion Fordring_EX1_383
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
-			});
+            // --------------------------------------- MINION - PALADIN
+            // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
+            // - Fac: neutral, Set: expert1, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - TAUNT = 1
+            // - DIVINE_SHIELD = 1
+            // - DEATHRATTLE = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_383", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "EX1_383t")
+                },
+            });
 
-			// --------------------------------------- WEAPON - PALADIN
-			// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: After you summon a minion, give it +1/+1 and this loses 1_Durability.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DURABILITY = 5
-			// --------------------------------------------------------
-			cards.Add("EX1_366", new List<Enchantment> {
+            // --------------------------------------- WEAPON - PALADIN
+            // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
+            // - Fac: neutral, Set: expert1, Rarity: epic
+            // --------------------------------------------------------
+            // Text: After you summon a minion, give it +1/+1 and this loses 1_Durability.
+            // --------------------------------------------------------
+            // GameTag:
+            // - DURABILITY = 5
+            // --------------------------------------------------------
+            cards.Add("EX1_366", new List<Enchantment> {
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
@@ -3490,11 +3489,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_607", new List<Enchantment> {
-				// TODO [EX1_607] Inner Rage && Test: Inner Rage_EX1_607
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET),
+                        new BuffTask(Buffs.Attack(2), EntityType.TARGET))
 				},
 			});
 
