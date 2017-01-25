@@ -3006,11 +3006,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_323", new List<Enchantment> {
-				// TODO [OG_323] Polluted Hoarder && Test: Polluted Hoarder_OG_323
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DrawTask()
 				},
 			});
 
