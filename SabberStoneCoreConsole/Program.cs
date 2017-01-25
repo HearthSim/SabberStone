@@ -57,42 +57,28 @@ class Program
         var game = new Game(new GameConfig
         {
             StartPlayer = 1,
+            Player1HeroClass = CardClass.MAGE,
+            Player2HeroClass = CardClass.MAGE,
             FillDecks = true
         });
         game.StartGame();
         game.Player1.BaseMana = 10;
+        game.Player2.BaseMana = 10;
+        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
 
-        var minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
-        var minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
-        var spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "28 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).Health", ((Minion)game.CurrentPlayer.Setaside[0]).Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage", ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage.ToString());
 
-        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "3 = ((ICharacter)minion1).Health", ((ICharacter)minion1).Health.ToString());
+        game.Player1.UsedMana = 0;
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 
-        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "20 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)minion).Health", ((Minion)minion).Health.ToString());
 
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "1 = ((ICharacter)minion1).Health", ((ICharacter)minion1).Health.ToString());
-
-        game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-        game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-        var minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
-        var minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
-        var spell2 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
-
-        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion3));
-
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "4 = ((ICharacter)minion1).Health", ((ICharacter)minion3).Health.ToString());
-
-        ((Minion)minion3).Damage = 3;
-
-        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion3));
-
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "1 = ((ICharacter)minion1).Health", ((ICharacter)minion3).Health.ToString());
 
         ShowLog(game, LogLevel.VERBOSE);
     }

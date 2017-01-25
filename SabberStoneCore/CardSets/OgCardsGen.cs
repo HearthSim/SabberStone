@@ -2756,6 +2756,11 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_280", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.HAND,
+                    SingleTask = new CopyCthun(),
+                },
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
@@ -3496,19 +3501,7 @@ namespace SabberStoneCore.CardSets
             // GameTag:
             // - ELITE = 1
             // --------------------------------------------------------
-            cards.Add("OG_279", new List<Enchantment> {
-				new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.SETASIDE,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.SETASIDE))
-                        .ApplyConditions(RelaCondition.IsOtherCthun)
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(new CopyCthun())
-                        .Build()
-                }
-			});
+		    cards.Add("OG_279", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_318t] Gnoll (*) - COST:2 [ATK:2/HP:2] 

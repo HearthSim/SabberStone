@@ -9,15 +9,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     {
         public override TaskState Process()
         {
-            var target = Target as IPlayable;
-            if (target == null)
+            var source = Source as IPlayable;
+            if (source == null)
             {
                 return TaskState.STOP;
             }
 
-            Source.Enchants.ForEach(p =>
+            Game.IdEntityDic[Controller.ProxyCthun].Enchants.ForEach(p =>
             {
-                p.Activate(p.SourceId, target.Enchants, target);
+                p.Activate(p.SourceId, source.Enchants, source);
             });
  
             return TaskState.COMPLETE;

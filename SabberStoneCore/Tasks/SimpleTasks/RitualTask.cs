@@ -36,6 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             var entities = new List<IPlayable> {Game.IdEntityDic[Controller.ProxyCthun]};
             entities.AddRange(Controller.Board.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
+            entities.AddRange(Controller.Hand.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 
             // activate enchants on the sources
             entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.Enchants, p));
