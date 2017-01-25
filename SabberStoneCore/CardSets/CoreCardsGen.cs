@@ -2039,12 +2039,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("NEW1_003", new List<Enchantment> {
-				// TODO [NEW1_003] Sacrificial Pact && Test: Sacrificial Pact_NEW1_003
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new HealTask(5, EntityType.HERO))
+				}
 			});
 
 			// --------------------------------------- MINION - WARLOCK

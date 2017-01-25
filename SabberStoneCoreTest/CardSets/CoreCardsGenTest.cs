@@ -3775,10 +3775,9 @@ namespace SabberStoneUnitTest.CardSets
         // - REQ_TARGET_WITH_RACE = 15
         // - REQ_TARGET_TO_PLAY = 0
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void SacrificialPact_NEW1_003()
         {
-            // TODO SacrificialPact_NEW1_003 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -3789,7 +3788,49 @@ namespace SabberStoneUnitTest.CardSets
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sacrificial Pact"));
+            game.Player2.Hero.Damage = 10;
+
+            // Player 1 plays Northshire Cleric (not demon) and Imp Gang Boss (demon)
+            var cleric = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Northshire Cleric"));
+            var impgangboss = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Imp Gang Boss"));
+            Generic.PlayCard(game.CurrentPlayer, cleric);
+            Generic.PlayCard(game.CurrentPlayer, impgangboss);
+            Assert.AreEqual(2, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
+
+            // end turn
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sacrificial Pact"));
+            // this should fail as target is not demon
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, spell, cleric));
+            Assert.AreEqual(0, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
+
+            // now kill the Imp Gang Boss
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, spell, impgangboss));
+            Assert.AreEqual(1, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
+
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(1, game.CurrentPlayer.Graveyard.Count);
+            Assert.AreEqual(1, game.CurrentPlayer.Opponent.Graveyard.Count);
+            Assert.AreEqual(25, game.CurrentPlayer.Hero.Health);
+
+            // end turn
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // player 1 plays Lord Jaraxxus
+            var jaraxxus = Generic.DrawCard(game.CurrentPlayer,Cards.FromId("EX1_323"));
+            Generic.PlayCard(game.CurrentPlayer, jaraxxus);
+            Assert.AreEqual(1, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
+
+            // end turn
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // player 2 kills opponent with Sacrificial Pact
+            spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sacrificial Pact"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Opponent.Hero));
+
+            Assert.AreEqual(1, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
+            Assert.AreEqual(game.State, State.COMPLETE);
         }
 
         // --------------------------------------- MINION - WARLOCK

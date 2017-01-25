@@ -1,5 +1,4 @@
-﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
