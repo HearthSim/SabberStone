@@ -47,18 +47,18 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
-* 97% Basic (142 Cards)
-* 62% Classic (245 Cards)
+* 98% Basic (142 Cards)
+* 64% Classic (245 Cards)
 
 **Adventures**
-* 16% Blackrock Mountain (31 Cards)
-* 51% One Night in Karazhan (45 Cards)
-* 13% The League of Explorers (45 Cards)
+* 32% Blackrock Mountain (31 Cards)
+* 55% One Night in Karazhan (45 Cards)
+* 15% The League of Explorers (45 Cards)
 
 **Expensions**
-* 29% The Grand Tournament (132 Cards)
-*  8% Whispers of the Old Gods (134 Cards)
-* 37% Mean Streets of Gadgetzan (132 Cards)
+* 31% The Grand Tournament (132 Cards)
+* 24% Whispers of the Old Gods (134 Cards)
+* 39% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 
