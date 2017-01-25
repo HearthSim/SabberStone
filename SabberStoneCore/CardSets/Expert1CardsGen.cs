@@ -4358,7 +4358,9 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = SpecificTask.HourOfTwilight
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.HAND_NOSOURCE),
+                        new BuffHealthNumberTask(EntityType.SOURCE))
                 }
             });
 

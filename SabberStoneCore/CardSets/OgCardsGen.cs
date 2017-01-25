@@ -5,6 +5,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.SimpleTasks.Tasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -2959,7 +2960,9 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = SpecificTask.HourOfCorruption
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.HAND_NOSOURCE),
+                        new BuffAttackNumberTask(EntityType.SOURCE))
                 }
             });
 
@@ -3017,14 +3020,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_326] Duskboar - COST:2 [ATK:4/HP:1] 
 			// - Race: beast, Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_326", new List<Enchantment> {
-				// TODO [OG_326] Duskboar && Test: Duskboar_OG_326
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_326", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_327] Squirming Tentacle - COST:3 [ATK:2/HP:4] 
@@ -3035,33 +3031,27 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_327", new List<Enchantment> {
-				// TODO [OG_327] Squirming Tentacle && Test: Squirming Tentacle_OG_327
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_327", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [OG_337] Cyclopian Horror - COST:4 [ATK:3/HP:3] 
-			// - Set: og, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>. <b>Battlecry:</b> Gain      +1 Health for each enemy minion.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("OG_337", new List<Enchantment> {
-				// TODO [OG_337] Cyclopian Horror && Test: Cyclopian Horror_OG_337
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+            // --------------------------------------- MINION - NEUTRAL
+            // [OG_337] Cyclopian Horror - COST:4 [ATK:3/HP:3] 
+            // - Set: og, Rarity: epic
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>. <b>Battlecry:</b> Gain      +1 Health for each enemy minion.
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // - BATTLECRY = 1
+            // --------------------------------------------------------
+            cards.Add("OG_337", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.OP_MINIONS),
+                        new BuffHealthNumberTask(EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_338] Nat, the Darkfisher - COST:2 [ATK:2/HP:4] 

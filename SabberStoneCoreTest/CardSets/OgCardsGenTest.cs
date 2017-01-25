@@ -3680,10 +3680,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CyclopianHorror_OG_337()
 		{
-			// TODO CyclopianHorror_OG_337 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3694,8 +3693,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cyclopian Horror"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cyclopian Horror"));
+            game.Process(EndTurnTask.Any((game.CurrentPlayer)));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any((game.CurrentPlayer)));
+            Assert.AreEqual(3, ((Minion)testCard).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_338] Nat, the Darkfisher - COST:2 [ATK:2/HP:4] 

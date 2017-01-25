@@ -22,18 +22,6 @@ namespace SabberStoneCore.Tasks
                 new BuffAttackHealthNumberTask(EntityType.SOURCE)
             );
 
-        public static ISimpleTask HourOfTwilight
-            => ComplexTask.Create(
-                new CountTask(EntityType.HAND_NOSOURCE),
-                new BuffHealthNumberTask(EntityType.SOURCE)
-            );
-
-        public static ISimpleTask HourOfCorruption
-            => ComplexTask.Create(
-                new CountTask(EntityType.HAND_NOSOURCE),
-                new BuffAttackNumberTask(EntityType.SOURCE)
-            );
-
         public static ISimpleTask AnimalCompanion
             => ComplexTask.Create(
                 new IncludeTask(EntityType.SOURCE),
