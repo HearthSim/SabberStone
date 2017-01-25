@@ -3197,10 +3197,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Cthun_OG_280()
 		{
-			// TODO Cthun_OG_280 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3211,7 +3210,9 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(24, game.CurrentOpponent.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
