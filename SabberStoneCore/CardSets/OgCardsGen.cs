@@ -1051,7 +1051,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_096] Twilight Darkmender - COST:5 [ATK:6/HP:5] 
 			// - Set: og, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> If your C'Thun  has at least 10 Attack, restore 10 Health to your hero.
+			// Text: <b>Battlecry:</b> If your C'Thun has at least 10 Attack, restore 10 Health to your hero.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
