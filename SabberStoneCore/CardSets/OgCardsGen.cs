@@ -2783,13 +2783,12 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_281", new List<Enchantment> {
-				// TODO [OG_281] Beckoner of Evil && Test: Beckoner of Evil_OG_281
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_283] C'Thun's Chosen - COST:4 [ATK:4/HP:2] 
