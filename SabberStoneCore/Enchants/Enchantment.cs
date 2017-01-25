@@ -15,6 +15,7 @@ namespace SabberStoneCore.Enchants
         SECRET,
         SPELL,
         WEAPON,
+        SETASIDE,
         NONE
     }
 

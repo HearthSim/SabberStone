@@ -3497,12 +3497,17 @@ namespace SabberStoneCore.CardSets
             // - ELITE = 1
             // --------------------------------------------------------
             cards.Add("OG_279", new List<Enchantment> {
-				// TODO [OG_279] C'Thun && Test: C'Thun_OG_279
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.SETASIDE,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.SETASIDE))
+                        .ApplyConditions(RelaCondition.IsOtherCthun)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new CopyCthun())
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

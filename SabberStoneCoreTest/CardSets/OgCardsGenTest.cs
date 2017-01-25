@@ -3721,4 +3721,41 @@ namespace SabberStoneUnitTest.CardSets
 
 	}
 
+    [TestClass]
+    public class NeutralNonCollectOgTest
+    {
+        // --------------------------------------- MINION - NEUTRAL
+        // [OG_279] C'Thun (*) - COST:10 [ATK:6/HP:6] 
+        // - Set: og, Rarity: legendary
+        // --------------------------------------------------------
+        // Text: <b>Battlecry:</b> Deal damage equal to this minion's Attack randomly split among all enemies.
+        // --------------------------------------------------------
+        // GameTag:
+        // - ELITE = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void Cthun_OG_279()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            game.Player1.UsedMana = 0;
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(20, game.CurrentOpponent.Hero.Health);
+        }
+    }
+
 }
