@@ -2804,13 +2804,12 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_283", new List<Enchantment> {
-				// TODO [OG_283] C'Thun's Chosen && Test: C'Thun's Chosen_OG_283
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_284] Twilight Geomancer - COST:2 [ATK:1/HP:4] 

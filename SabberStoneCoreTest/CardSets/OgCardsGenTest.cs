@@ -3275,10 +3275,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CthunsChosen_OG_283()
 		{
-			// TODO CthunsChosen_OG_283 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3289,8 +3288,20 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun's Chosen"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun's Chosen"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(8, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(8, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)testCard).HasDivineShield);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_284] Twilight Geomancer - COST:2 [ATK:1/HP:4] 
