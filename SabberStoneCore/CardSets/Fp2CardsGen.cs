@@ -3,6 +3,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.CardSets
 {
