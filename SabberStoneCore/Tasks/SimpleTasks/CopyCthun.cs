@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -15,11 +16,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            Game.IdEntityDic[Controller.ProxyCthun].Enchants.ForEach(p =>
-            {
-                p.Activate(p.SourceId, source.Enchants, source);
-            });
- 
+            var proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
+
+            proxyCthun.Enchants.ForEach(p => p.Activate(p.SourceId, source.Enchants, source));
+
+            source[GameTag.TAUNT] = proxyCthun[GameTag.TAUNT];
+
             return TaskState.COMPLETE;
         }
 

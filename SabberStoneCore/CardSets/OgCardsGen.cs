@@ -2825,13 +2825,12 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_284", new List<Enchantment> {
-				// TODO [OG_284] Twilight Geomancer && Test: Twilight Geomancer_OG_284
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new RitualTask(null, true)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_286] Twilight Elder - COST:3 [ATK:3/HP:4] 

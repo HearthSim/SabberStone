@@ -3316,10 +3316,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TwilightGeomancer_OG_284()
 		{
-			// TODO TwilightGeomancer_OG_284 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3330,8 +3329,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Geomancer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Geomancer"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)minion).HasTaunt);
+            Assert.AreEqual(true, ((Minion)testCard).HasTaunt);
+            Assert.AreEqual(6, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(6, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Setaside[0]).HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_286] Twilight Elder - COST:3 [ATK:3/HP:4] 
