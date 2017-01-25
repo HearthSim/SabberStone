@@ -2538,12 +2538,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("OG_162", new List<Enchantment> {
-				// TODO [OG_162] Disciple of C'Thun && Test: Disciple of C'Thun_OG_162
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new RitualTask(new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)),
+                        new RitualTask(Buffs.CthunAttackHealth(2)),
                         new DamageTask(2, EntityType.TARGET))
 				},
 			});

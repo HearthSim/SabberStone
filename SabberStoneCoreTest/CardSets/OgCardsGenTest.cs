@@ -2881,10 +2881,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_NONSELF_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DiscipleOfCthun_OG_162()
 		{
-			// TODO DiscipleOfCthun_OG_162 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2895,8 +2894,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Disciple of C'Thun"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_173] Blood of The Ancient One - COST:9 [ATK:9/HP:9] 

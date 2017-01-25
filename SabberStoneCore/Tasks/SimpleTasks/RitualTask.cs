@@ -1,19 +1,29 @@
-﻿using SabberStoneCore.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RitualTask : SimpleTask
     {
-        public RitualTask(ISimpleTask task)
+        public RitualTask(Enchant enchant)
         {
-            Task = task;
+            Enchant = enchant;
         }
 
-        public ISimpleTask Task { get; set; }
+        public Enchant Enchant { get; set; }
 
         public override TaskState Process()
         {
+            //[irc] Patashu @darkfriend77 yeah, that's the general idea. 
+            // there's two kinds of triggers, one when a c'thun is summoned or 
+            // generated in hand or moved to hand that copies the ritual buffs 
+            // on the proxy to that c'thun, one when a new c'thun buff is made 
+            // (or maybe it's a card effect not a trigger? or even an aura style 
+            // effect ??) that copies the additional effect to c'thuns in your 
+            // hand and board that aren't silenced
 
             if (!Controller.SeenCthun)
             {
@@ -24,20 +34,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Controller.SeenCthun = true;
             }
 
-            var clone = Task.Clone();
-            clone.Game = Controller.Game;
-            clone.Controller = Controller;
-            clone.Source = Source as IPlayable;
-            clone.Target = Target as IPlayable;
+            var entities = new List<IPlayable> {Game.IdEntityDic[Controller.ProxyCthun]};
+            entities.AddRange(Controller.Board.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 
-            Controller.Game.TaskQueue.Enqueue(clone);
+            // activate enchants on the sources
+            entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.Enchants, p));
 
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new RitualTask(Task);
+            var clone = new RitualTask(Enchant);
             clone.Copy(this);
             return clone;
         }

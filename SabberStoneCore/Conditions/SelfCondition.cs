@@ -24,6 +24,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsInPlayZone => IsInZone(Zone.PLAY);
         public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
         public static SelfCondition IsInHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
+        public static SelfCondition IsInSetasideOrHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.SETASIDE || me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
+
         public static SelfCondition IsInDeckZone => IsInZone(Zone.DECK);
         public static SelfCondition IsInZone(Zone zone) => new SelfCondition(me => me.Zone.Type == zone);
         public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
