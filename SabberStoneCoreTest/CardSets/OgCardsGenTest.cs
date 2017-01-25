@@ -3355,10 +3355,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TwilightElder_OG_286()
 		{
-			// TODO TwilightElder_OG_286 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3369,8 +3368,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Elder"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Elder"));
+		    var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(7, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(7, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_290] Ancient Harbinger - COST:6 [ATK:4/HP:6] 
