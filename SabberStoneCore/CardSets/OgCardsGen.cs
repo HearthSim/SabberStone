@@ -161,34 +161,28 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_202", new List<Enchantment> {
-				// TODO [OG_202] Mire Keeper && Test: Mire Keeper_OG_202
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_202",
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [OG_293] Dark Arakkoa - COST:6 [ATK:5/HP:7] 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: [x]<b>Taunt</b>
-			//       <b>Battlecry:</b> Give your C'Thun
-			//       +3/+3 <i>(wherever it is).</i>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// - BATTLECRY = 1
-			// - RITUAL = 1
-			// --------------------------------------------------------
-			cards.Add("OG_293", new List<Enchantment> {
-				// TODO [OG_293] Dark Arakkoa && Test: Dark Arakkoa_OG_293
+            // ----------------------------------------- MINION - DRUID
+            // [OG_293] Dark Arakkoa - COST:6 [ATK:5/HP:7] 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: [x]<b>Taunt</b>
+            //       <b>Battlecry:</b> Give your C'Thun
+            //       +3/+3 <i>(wherever it is).</i>
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // - BATTLECRY = 1
+            // - RITUAL = 1
+            // --------------------------------------------------------
+            cards.Add("OG_293", new List<Enchantment> {
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RitualTask(Buffs.CthunAttackHealth(3))
 				},
 			});
 
@@ -278,11 +272,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon a 2/2 Slime.
 			// --------------------------------------------------------
 			cards.Add("OG_202a", new List<Enchantment> {
-				// TODO [OG_202a] Y'Shaarj's Strength && Test: Y'Shaarj's Strength_OG_202a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_202c"),
 				},
 			});
 
@@ -293,11 +286,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Gain an empty Mana Crystal.
 			// --------------------------------------------------------
 			cards.Add("OG_202b", new List<Enchantment> {
-				// TODO [OG_202b] Yogg-Saron's Magic && Test: Yogg-Saron's Magic_OG_202b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ManaCrystalEmptyTask(1)
 				},
 			});
 
@@ -307,14 +299,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Get a Beast when this dies.
 			// --------------------------------------------------------
-			cards.Add("OG_045a", new List<Enchantment> {
-				// TODO [OG_045a] Nerubian Spores && Test: Nerubian Spores_OG_045a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_045a", null);
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [OG_047e] Spines (*) - COST:0 
@@ -3082,12 +3067,11 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_339", new List<Enchantment> {
-				// TODO [OG_339] Skeram Cultist && Test: Skeram Cultist_OG_339
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null
-				},
+					SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

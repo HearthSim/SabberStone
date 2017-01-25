@@ -262,10 +262,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DarkArakkoa_OG_293()
 		{
-			// TODO DarkArakkoa_OG_293 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -276,8 +275,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dark Arakkoa"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_313] Addled Grizzly - COST:3 [ATK:2/HP:2] 
