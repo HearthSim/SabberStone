@@ -2686,13 +2686,15 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_255", new List<Enchantment> {
-				// TODO [OG_255] Doomcaller && Test: Doomcaller_OG_255
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new RitualTask(Buffs.CthunAttackHealth(2)),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunDead),
+                        new FlagTask(true, new AddCardTo("OG_280", EntityType.DECK)))
+                },
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_256] Spawn of N'Zoth - COST:3 [ATK:2/HP:2] 

@@ -3095,10 +3095,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Doomcaller_OG_255()
 		{
-			// TODO Doomcaller_OG_255 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3109,8 +3108,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomcaller"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomcaller"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(25, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_256] Spawn of N'Zoth - COST:3 [ATK:2/HP:2] 

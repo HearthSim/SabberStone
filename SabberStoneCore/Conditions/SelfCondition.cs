@@ -2,6 +2,7 @@
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Conditions
 {
@@ -25,6 +26,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
         public static SelfCondition IsInHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
         public static SelfCondition IsInSetasideOrHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.SETASIDE || me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
+        public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.Graveyard.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
 
         public static SelfCondition IsInDeckZone => IsInZone(Zone.DECK);
         public static SelfCondition IsInZone(Zone zone) => new SelfCondition(me => me.Zone.Type == zone);
@@ -42,6 +44,7 @@ namespace SabberStoneCore.Conditions
 
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+
 
         private readonly Func<IPlayable, bool> _function;
 
