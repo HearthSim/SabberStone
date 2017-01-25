@@ -3525,10 +3525,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MidnightDrake_OG_320()
 		{
-			// TODO MidnightDrake_OG_320 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3539,8 +3538,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Midnight Drake"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Midnight Drake"));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_321] Crazed Worshipper - COST:5 [ATK:3/HP:6] 

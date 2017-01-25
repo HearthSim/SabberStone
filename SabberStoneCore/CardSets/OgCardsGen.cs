@@ -2956,13 +2956,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_320", new List<Enchantment> {
-				// TODO [OG_320] Midnight Drake && Test: Midnight Drake_OG_320
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = SpecificTask.HourOfCorruption
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_321] Crazed Worshipper - COST:5 [ATK:3/HP:6] 
