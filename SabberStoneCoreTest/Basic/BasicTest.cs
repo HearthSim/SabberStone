@@ -333,6 +333,33 @@ namespace SabberStoneCoreTest.Basic
         }
 
         [TestMethod]
+        public void BasicHealthBuffTest1()
+        {
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.PRIEST,
+                    Player2HeroClass = CardClass.HUNTER,
+                    FillDecks = true
+                });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            game.StartGame();
+
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
+            Assert.AreEqual(4, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
+            Assert.AreEqual(1, ((Minion)minion).Health);
+
+        }
+
+        [TestMethod]
         public void BasicHealthAuraTest1()
         {
             var game =

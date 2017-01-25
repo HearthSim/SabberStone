@@ -213,6 +213,7 @@ namespace SabberStoneCore.Model
                 {
                     ToBeDestroyed = true;
                 }
+
                 this[GameTag.HEALTH] = value;
                 this[GameTag.DAMAGE] = 0;
             }
@@ -293,7 +294,7 @@ namespace SabberStoneCore.Model
         public int BaseHealth
         {
             get { return Card[GameTag.HEALTH]; }
-            set { this[GameTag.HEALTH] = (int)value; }
+            set { this[GameTag.HEALTH] = value; }
         }
     }
 }

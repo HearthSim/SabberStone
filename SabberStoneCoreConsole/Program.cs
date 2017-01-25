@@ -15,8 +15,8 @@ class Program
     {
         Console.WriteLine("Start Test!");
 
+        //BasicBuffTest();
         CardsTest();
-
         //CloneStampTest();
         //OptionsTest();
 
@@ -26,22 +26,73 @@ class Program
         Console.ReadKey();
     }
 
+    public static void BasicBuffTest()
+    {
+        var game =
+            new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true
+            });
+
+        game.Player1.BaseMana = 10;
+        game.Player2.BaseMana = 10;
+        game.StartGame();
+
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+        var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+        var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
+
+        ShowLog(game, LogLevel.VERBOSE);
+    }
+
     public static void CardsTest()
     {
         var game = new Game(new GameConfig
         {
             StartPlayer = 1,
-            Player1HeroClass = CardClass.ROGUE,
-            Player2HeroClass = CardClass.ROGUE,
             FillDecks = true
         });
         game.StartGame();
         game.Player1.BaseMana = 10;
-        game.Player2.BaseMana = 10;
-        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gang Up"));
-        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+
+        var minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
+        var minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
+        var spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "3 = ((ICharacter)minion1).Health", ((ICharacter)minion1).Health.ToString());
+
+        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "1 = ((ICharacter)minion1).Health", ((ICharacter)minion1).Health.ToString());
+
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+        var minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
+        var minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
+        var spell2 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion3));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "4 = ((ICharacter)minion1).Health", ((ICharacter)minion3).Health.ToString());
+
+        ((Minion)minion3).Damage = 3;
+
+        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion3));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "1 = ((ICharacter)minion1).Health", ((ICharacter)minion3).Health.ToString());
 
         ShowLog(game, LogLevel.VERBOSE);
     }

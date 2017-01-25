@@ -51,9 +51,9 @@ namespace SabberStoneCore.Enchants
                 SourceId = sourceId,
                 EnableConditions = EnableConditions,
                 ApplyConditions = ApplyConditions,
-                SingleTask = SingleTask,
-                RemovalTask = RemovalTask,
-                Effects = Effects,
+                SingleTask = SingleTask?.Clone(),
+                RemovalTask = RemovalTask?.Clone(),
+                Effects = new Dictionary<GameTag, int>(Effects),
                 ValueFunc = ValueFunc,
                 TurnsActive = TurnsActive
             };
