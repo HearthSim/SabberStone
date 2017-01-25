@@ -4,7 +4,6 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets

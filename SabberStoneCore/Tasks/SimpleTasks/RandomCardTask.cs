@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
