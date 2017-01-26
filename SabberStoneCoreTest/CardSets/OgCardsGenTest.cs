@@ -51,10 +51,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FeralRage_OG_047()
 		{
-			// TODO FeralRage_OG_047 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -65,8 +64,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Feral Rage"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Feral Rage"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(4, game.CurrentPlayer.Hero.AttackDamage);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Feral Rage"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(8, game.CurrentPlayer.Hero.Armor);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [OG_048] Mark of Y'Shaarj - COST:2 

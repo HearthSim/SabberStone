@@ -44,28 +44,23 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_047", new List<Enchantment> {
-				// TODO [OG_047] Feral Rage && Test: Feral Rage_OG_047
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("OG_047",
+                //CHOOSE_ONE
+                null);
 
-			// ------------------------------------------ SPELL - DRUID
-			// [OG_048] Mark of Y'Shaarj - COST:2 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a minion +2/+2.
-			//       If it's a Beast, draw
-			//       a card.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("OG_048", new List<Enchantment> {
+            // ------------------------------------------ SPELL - DRUID
+            // [OG_048] Mark of Y'Shaarj - COST:2 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: Give a minion +2/+2.
+            //       If it's a Beast, draw
+            //       a card.
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_MINION_TARGET = 0
+            // - REQ_TARGET_TO_PLAY = 0
+            // --------------------------------------------------------
+            cards.Add("OG_048", new List<Enchantment> {
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
@@ -212,11 +207,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your hero +4 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("OG_047a", new List<Enchantment> {
-				// TODO [OG_047a] Evolve Spines && Test: Evolve Spines_OG_047a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackTurn(4), EntityType.HERO)
 				},
 			});
 
@@ -227,11 +221,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Gain 8 Armor.
 			// --------------------------------------------------------
 			cards.Add("OG_047b", new List<Enchantment> {
-				// TODO [OG_047b] Evolve Scales && Test: Evolve Scales_OG_047b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ArmorTask(8),
 				},
 			});
 
