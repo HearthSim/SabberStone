@@ -2,7 +2,6 @@
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Conditions
 {
