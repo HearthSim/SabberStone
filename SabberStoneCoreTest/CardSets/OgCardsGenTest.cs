@@ -128,10 +128,9 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - CHOOSE_ONE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
 		public void WispsOfTheOldGods_OG_195()
 		{
-			// TODO WispsOfTheOldGods_OG_195 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -142,8 +141,17 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wisps of the Old Gods"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wisps of the Old Gods"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(7, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(1, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(1, ((Minion)game.CurrentPlayer.Board[0]).Health);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisps of the Old Gods"));
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[0]).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 

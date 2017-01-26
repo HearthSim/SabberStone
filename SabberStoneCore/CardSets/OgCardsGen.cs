@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.SimpleTasks.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -80,26 +81,21 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_195", new List<Enchantment> {
-				// TODO [OG_195] Wisps of the Old Gods && Test: Wisps of the Old Gods_OG_195
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("OG_195",
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
-			// - Set: og, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Your <b>Choose One</b> cards have both effects combined.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("OG_044", new List<Enchantment> {
+            // ----------------------------------------- MINION - DRUID
+            // [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
+            // - Set: og, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: Your <b>Choose One</b> cards have both effects combined.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - AURA = 1
+            // --------------------------------------------------------
+            cards.Add("OG_044", new List<Enchantment> {
 				// TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
 				new Enchantment
 				(
@@ -235,11 +231,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon seven 1/1 Wisps.
 			// --------------------------------------------------------
 			cards.Add("OG_195a", new List<Enchantment> {
-				// TODO [OG_195a] Many Wisps && Test: Many Wisps_OG_195a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(7, new SummonTask("OG_195c"))
 				},
 			});
 
@@ -250,11 +245,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your minions +2/+2.
 			// --------------------------------------------------------
 			cards.Add("OG_195b", new List<Enchantment> {
-				// TODO [OG_195b] Big Wisps && Test: Big Wisps_OG_195b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS)
 				},
 			});
 
