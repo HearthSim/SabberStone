@@ -189,10 +189,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForbiddenAncient_OG_051()
 		{
-			// TODO ForbiddenAncient_OG_051 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -203,8 +202,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ancient"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ancient"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(10, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(10, ((Minion)testCard).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_188] Klaxxi Amber-Weaver - COST:4 [ATK:4/HP:5] 
@@ -610,7 +612,6 @@ namespace SabberStoneCoreTest.CardSets
 		[TestMethod]
 		public void ForbiddenFlame_OG_086()
 		{
-			// TODO ForbiddenFlame_OG_086 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

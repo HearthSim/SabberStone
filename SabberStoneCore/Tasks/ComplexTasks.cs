@@ -89,6 +89,26 @@ namespace SabberStoneCore.Tasks
                     new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND))))
                 );
 
+        public static ISimpleTask SpendAllManaTask(ISimpleTask task)
+        {
+            return Create(
+                new GetControllerManaTask(),
+                task,
+                new IncludeTask(EntityType.SOURCE),
+                new FuncTask(p =>
+                {
+                    var controller = p[0].Controller;
+                    if (controller != null)
+                    {
+                        controller.UsedMana =
+                            controller.BaseMana
+                            + controller.TemporaryMana
+                            - controller.OverloadLocked;
+                    }
+                    return null;
+                }));
+        }
+
         public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
         {
             return Create(

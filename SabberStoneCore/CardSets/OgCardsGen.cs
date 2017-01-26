@@ -114,12 +114,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_051", new List<Enchantment> {
-				// TODO [OG_051] Forbidden Ancient && Test: Forbidden Ancient_OG_051
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.SpendAllManaTask(
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE))
+				}
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -592,21 +592,23 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-                        new GetControllerManaTask(),
-                        new DamageNumberTask(EntityType.TARGET, true),
-                        new IncludeTask(EntityType.SOURCE),
-                        new FuncTask(p =>
-                        {
-                            var controller = p[0].Controller;
-                            if (controller != null)
-                            {
-                                controller.UsedMana =  controller.BaseMana 
-                                + controller.TemporaryMana 
-                                - controller.OverloadLocked;
-                            }
-                            return null;
-                        }))
+					SingleTask = ComplexTask.SpendAllManaTask(
+                        new DamageNumberTask(EntityType.TARGET, true))
+                    //Create(
+                    //    new GetControllerManaTask(),
+                    //    new DamageNumberTask(EntityType.TARGET, true),
+                    //    new IncludeTask(EntityType.SOURCE),
+                    //    new FuncTask(p =>
+                    //    {
+                    //        var controller = p[0].Controller;
+                    //        if (controller != null)
+                    //        {
+                    //            controller.UsedMana =  controller.BaseMana 
+                    //            + controller.TemporaryMana 
+                    //            - controller.OverloadLocked;
+                    //        }
+                    //        return null;
+                    //    }))
 				},
 			});
 
