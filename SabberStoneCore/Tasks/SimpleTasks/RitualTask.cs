@@ -9,7 +9,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class RitualTask : SimpleTask
     {
 
-        public RitualTask(Enchant enchant, bool taunt = false)
+        public RitualTask(Enchant enchant = null, bool taunt = false)
         {
             Enchant = enchant;
             Taunt = taunt;

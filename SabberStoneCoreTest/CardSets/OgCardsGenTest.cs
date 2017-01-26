@@ -218,10 +218,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KlaxxiAmberWeaver_OG_188()
 		{
-			// TODO KlaxxiAmberWeaver_OG_188 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -232,8 +231,24 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Klaxxi Amber-Weaver"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Klaxxi Amber-Weaver"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Klaxxi Amber-Weaver"));
+            var buffer1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer1));
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(5, ((Minion)testCard1).Health);
+            game.CurrentPlayer.UsedMana = 0;
+            var buffer2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer2));
+            Assert.AreEqual(12, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(12, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(10, ((Minion)testCard2).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_202] Mire Keeper - COST:4 [ATK:3/HP:3] 

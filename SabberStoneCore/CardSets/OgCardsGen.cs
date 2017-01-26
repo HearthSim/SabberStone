@@ -133,11 +133,13 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_188", new List<Enchantment> {
-				// TODO [OG_188] Klaxxi Amber-Weaver && Test: Klaxxi Amber-Weaver_OG_188
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RitualTask(),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.Health(5), EntityType.SOURCE)))
 				},
 			});
 
