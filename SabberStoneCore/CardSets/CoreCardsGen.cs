@@ -674,7 +674,6 @@ namespace SabberStoneCore.CardSets
             // - CHARGE = 1
             // --------------------------------------------------------
             cards.Add("DS1_178", new List<Enchantment> {
-                // TODO check if we need to change charge buf fimlementation
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
@@ -1534,12 +1533,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Return all minions to their owner's hand.
 			// --------------------------------------------------------
 			cards.Add("NEW1_004", new List<Enchantment> {
-				// TODO [NEW1_004] Vanish && Test: Vanish_NEW1_004
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new ReturnHandTask(EntityType.OP_MINIONS),
+                },
 			});
 
             // ----------------------------------------- WEAPON - ROGUE
