@@ -396,10 +396,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Savagery_EX1_578()
 		{
-			// TODO Savagery_EX1_578 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -410,7 +409,26 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Savagery"));
+
+			Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+
+			// player 1 draws and plays Enchanted Raven (1 mana)
+			var minion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Enchanted Raven"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+
+			Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+
+			// player 1 plays claw to get hero attack (1 mana, +2 attack)
+			var clawSpell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Claw"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, clawSpell));
+
+			Assert.AreEqual(2, game.CurrentPlayer.Hero.Armor);
+
+			// casts Savagery on its own minion (1 mana)
+			var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Savagery"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+
+			Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID

@@ -237,11 +237,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_578", new List<Enchantment> {
-				// TODO [EX1_578] Savagery && Test: Savagery_EX1_578
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.HERO),
+                        new DamageNumberTask(EntityType.TARGET)),
 				},
 			});
 
