@@ -1604,67 +1604,39 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("KAR_036e", new List<Enchantment> {
-				// TODO [KAR_036e] Eating && Test: Eating_KAR_036e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("KAR_036e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KAR_037t] Secrets of Karazhan (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +1/+1 and <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("KAR_037t", new List<Enchantment> {
-				// TODO [KAR_037t] Secrets of Karazhan && Test: Secrets of Karazhan_KAR_037t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KAR_037t] Secrets of Karazhan (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: +1/+1 and <b>Taunt</b>.
+            // --------------------------------------------------------
+            cards.Add("KAR_037t", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KAR_077e] Silver Might (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("KAR_077e", new List<Enchantment> {
-				// TODO [KAR_077e] Silver Might && Test: Silver Might_KAR_077e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KAR_077e] Silver Might (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("KAR_077e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KAR_095e] Well Fed (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +1/+1.
-			// --------------------------------------------------------
-			cards.Add("KAR_095e", new List<Enchantment> {
-				// TODO [KAR_095e] Well Fed && Test: Well Fed_KAR_095e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KAR_095e] Well Fed (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: +1/+1.
+            // --------------------------------------------------------
+            cards.Add("KAR_095e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KAR_114e] Incredible Impression (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Attack and Health set to 1.
-			// --------------------------------------------------------
-			cards.Add("KAR_114e", null);
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KAR_114e] Incredible Impression (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Attack and Health set to 1.
+            // --------------------------------------------------------
+            cards.Add("KAR_114e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [KAR_702e] A Simple Trick (*) - COST:0 
@@ -1745,138 +1717,75 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Shrunk to a 1/1.
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01e", new List<Enchantment> {
-				// TODO [KARA_05_01e] Trembling Before the Wolf && Test: Trembling Before the Wolf_KARA_05_01e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("KARA_05_01e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_06_01e] Death-Marked Love (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Julianne is <b>immune</b>.
-			// --------------------------------------------------------
-			cards.Add("KARA_06_01e", new List<Enchantment> {
-				// TODO [KARA_06_01e] Death-Marked Love && Test: Death-Marked Love_KARA_06_01e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_06_01e] Death-Marked Love (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Julianne is <b>immune</b>.
+            // --------------------------------------------------------
+            cards.Add("KARA_06_01e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_07_02e] Protecting the Gallery (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			cards.Add("KARA_07_02e", new List<Enchantment> {
-				// TODO [KARA_07_02e] Protecting the Gallery && Test: Protecting the Gallery_KARA_07_02e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_07_02e] Protecting the Gallery (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            cards.Add("KARA_07_02e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_02e] Nether Rage (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +3 Attack.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02e", new List<Enchantment> {
-				// TODO [KARA_08_02e] Nether Rage && Test: Nether Rage_KARA_08_02e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_08_02e] Nether Rage (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: +3 Attack.
+            // --------------------------------------------------------
+            cards.Add("KARA_08_02e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_02eH] Nether Rage (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +8 Attack.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02eH", new List<Enchantment> {
-				// TODO [KARA_08_02eH] Nether Rage && Test: Nether Rage_KARA_08_02eH
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_08_02eH] Nether Rage (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: +8 Attack.
+            // --------------------------------------------------------
+            cards.Add("KARA_08_02eH", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_03e] Nether Breath (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Health changed to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_03e", new List<Enchantment> {
-				// TODO [KARA_08_03e] Nether Breath && Test: Nether Breath_KARA_08_03e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_08_03e] Nether Breath (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Health changed to 1.
+            // --------------------------------------------------------
+            cards.Add("KARA_08_03e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_06e2] Blue Beam (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Only take 1 damage at a time.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_06e2", new List<Enchantment> {
-				// TODO [KARA_08_06e2] Blue Beam && Test: Blue Beam_KARA_08_06e2
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_08_06e2] Blue Beam (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Only take 1 damage at a time.
+            // --------------------------------------------------------
+            cards.Add("KARA_08_06e2", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_08e2] Red Beam (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Has <b>Windfury</b>.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_08e2", new List<Enchantment> {
-				// TODO [KARA_08_08e2] Red Beam && Test: Red Beam_KARA_08_08e2
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_08_08e2] Red Beam (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Has <b>Windfury</b>.
+            // --------------------------------------------------------
+            cards.Add("KARA_08_08e2", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_13_11e] Enfeeble (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Health changed to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_11e", new List<Enchantment> {
-				// TODO [KARA_13_11e] Enfeeble && Test: Enfeeble_KARA_13_11e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [KARA_13_11e] Enfeeble (*) - COST:0 
+            // - Set: kara, 
+            // --------------------------------------------------------
+            // Text: Health changed to 1.
+            // --------------------------------------------------------
+            cards.Add("KARA_13_11e", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3] 
-			// - Race: beast, Set: kara, 
-			// --------------------------------------------------------
-			cards.Add("KAR_030", null);
+            // --------------------------------------- MINION - NEUTRAL
+            // [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3] 
+            // - Race: beast, Set: kara, 
+            // --------------------------------------------------------
+            cards.Add("KAR_030", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_044a] Steward (*) - COST:1 [ATK:1/HP:1] 

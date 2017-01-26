@@ -185,25 +185,18 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1. <b>Deathrattle:</b> Add an Explorer's Hat to your hand.
 			// --------------------------------------------------------
-			cards.Add("LOE_105e", new List<Enchantment> {
-				// TODO [LOE_105e] Explorer's Hat && Test: Explorer's Hat_LOE_105e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_105e", null);
 
-			// ---------------------------------------- MINION - HUNTER
-			// [LOEA02_10a] Leokk (*) - COST:0 [ATK:2/HP:4] 
-			// - Race: beast, Set: loe, 
-			// --------------------------------------------------------
-			// Text: Your minions have +1 Attack.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("LOEA02_10a", new List<Enchantment> {
+            // ---------------------------------------- MINION - HUNTER
+            // [LOEA02_10a] Leokk (*) - COST:0 [ATK:2/HP:4] 
+            // - Race: beast, Set: loe, 
+            // --------------------------------------------------------
+            // Text: Your minions have +1 Attack.
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_NUM_MINION_SLOTS = 1
+            // --------------------------------------------------------
+            cards.Add("LOEA02_10a", new List<Enchantment> {
 				// TODO [LOEA02_10a] Leokk && Test: Leokk_LOEA02_10a
 				new Enchantment
 				(
@@ -379,16 +372,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
-			cards.Add("LOE_017e", new List<Enchantment> {
-				// TODO [LOE_017e] Watched && Test: Watched_LOE_017e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_017e", null);
 
-		}
+        }
 
 		private static void Priest(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -524,16 +510,9 @@ namespace SabberStoneCore.CardSets
 			// [LOE_019e] Unearthed Raptor (*) - COST:0 
 			// - Set: loe, 
 			// --------------------------------------------------------
-			cards.Add("LOE_019e", new List<Enchantment> {
-				// TODO [LOE_019e] Unearthed Raptor && Test: Unearthed Raptor_LOE_019e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_019e", null);
 
-		}
+        }
 
 		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -603,16 +582,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("LOE_018e", new List<Enchantment> {
-				// TODO [LOE_018e] Trogg No Stupid && Test: Trogg No Stupid_LOE_018e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_018e", null);
 
-		}
+        }
 
 		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -701,16 +673,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4/+4.
 			// --------------------------------------------------------
-			cards.Add("LOE_009e", new List<Enchantment> {
-				// TODO [LOE_009e] Sinister Power && Test: Sinister Power_LOE_009e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_009e", null);
 
-		}
+        }
 
 		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -778,25 +743,18 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Double all damage dealt to your hero.
 			// --------------------------------------------------------
-			cards.Add("LOE_118e", new List<Enchantment> {
-				// TODO [LOE_118e] Cursed Blade && Test: Cursed Blade_LOE_118e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_118e", null);
 
-			// --------------------------------------- MINION - WARRIOR
-			// [LOE_009t] Scarab (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: loe, 
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("LOE_009t", new List<Enchantment> {
+            // --------------------------------------- MINION - WARRIOR
+            // [LOE_009t] Scarab (*) - COST:1 [ATK:1/HP:1] 
+            // - Race: beast, Set: loe, 
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("LOE_009t", new List<Enchantment> {
 				// TODO [LOE_009t] Scarab && Test: Scarab_LOE_009t
 				new Enchantment
 				(
@@ -1994,283 +1952,157 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats copied.
 			// --------------------------------------------------------
-			cards.Add("LOE_030e", new List<Enchantment> {
-				// TODO [LOE_030e] Hollow && Test: Hollow_LOE_030e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_030e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOE_061e] Power of the Titans (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +3/+3.
-			// --------------------------------------------------------
-			cards.Add("LOE_061e", new List<Enchantment> {
-				// TODO [LOE_061e] Power of the Titans && Test: Power of the Titans_LOE_061e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOE_061e] Power of the Titans (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +3/+3.
+            // --------------------------------------------------------
+            cards.Add("LOE_061e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOE_073e] Fossilized (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: Has <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("LOE_073e", new List<Enchantment> {
-				// TODO [LOE_073e] Fossilized && Test: Fossilized_LOE_073e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOE_073e] Fossilized (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: Has <b>Taunt</b>.
+            // --------------------------------------------------------
+            cards.Add("LOE_073e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOE_113e] Mrglllraawrrrglrur! (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("LOE_113e", new List<Enchantment> {
-				// TODO [LOE_113e] Mrglllraawrrrglrur! && Test: Mrglllraawrrrglrur!_LOE_113e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOE_113e] Mrglllraawrrrglrur! (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("LOE_113e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA01_11he] Heroic Mode (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +3/+3 if Phaerix controls the Rod.
-			// --------------------------------------------------------
-			cards.Add("LOEA01_11he", new List<Enchantment> {
-				// TODO [LOEA01_11he] Heroic Mode && Test: Heroic Mode_LOEA01_11he
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA01_11he] Heroic Mode (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +3/+3 if Phaerix controls the Rod.
+            // --------------------------------------------------------
+            cards.Add("LOEA01_11he", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA04_01e] Temple Escape Enchant (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			cards.Add("LOEA04_01e", new List<Enchantment> {
-				// TODO [LOEA04_01e] Temple Escape Enchant && Test: Temple Escape Enchant_LOEA04_01e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA04_01e] Temple Escape Enchant (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            cards.Add("LOEA04_01e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA04_01eh] Temple Escape Enchant (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			cards.Add("LOEA04_01eh", new List<Enchantment> {
-				// TODO [LOEA04_01eh] Temple Escape Enchant && Test: Temple Escape Enchant_LOEA04_01eh
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA04_01eh] Temple Escape Enchant (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            cards.Add("LOEA04_01eh", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA06_03e] Animated (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +1/+1 and <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("LOEA06_03e", new List<Enchantment> {
-				// TODO [LOEA06_03e] Animated && Test: Animated_LOEA06_03e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA06_03e] Animated (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +1/+1 and <b>Taunt</b>.
+            // --------------------------------------------------------
+            cards.Add("LOEA06_03e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA06_03eh] Animated (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +3/+3 and <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("LOEA06_03eh", new List<Enchantment> {
-				// TODO [LOEA06_03eh] Animated && Test: Animated_LOEA06_03eh
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA06_03eh] Animated (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +3/+3 and <b>Taunt</b>.
+            // --------------------------------------------------------
+            cards.Add("LOEA06_03eh", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_2e] Enraged (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +2 Attack
-			// --------------------------------------------------------
-			// GameTag:
-			// - OneTurnEffect = 1
-			// --------------------------------------------------------
-			cards.Add("LOEA09_2e", new List<Enchantment> {
-				// TODO [LOEA09_2e] Enraged && Test: Enraged_LOEA09_2e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA09_2e] Enraged (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +2 Attack
+            // --------------------------------------------------------
+            // GameTag:
+            // - OneTurnEffect = 1
+            // --------------------------------------------------------
+            cards.Add("LOEA09_2e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_2eH] Enraged (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +5 Attack
-			// --------------------------------------------------------
-			// GameTag:
-			// - OneTurnEffect = 1
-			// --------------------------------------------------------
-			cards.Add("LOEA09_2eH", new List<Enchantment> {
-				// TODO [LOEA09_2eH] Enraged && Test: Enraged_LOEA09_2eH
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA09_2eH] Enraged (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +5 Attack
+            // --------------------------------------------------------
+            // GameTag:
+            // - OneTurnEffect = 1
+            // --------------------------------------------------------
+            cards.Add("LOEA09_2eH", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_3a] Famished (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: Quite Hungry.
-			// --------------------------------------------------------
-			cards.Add("LOEA09_3a", new List<Enchantment> {
-				// TODO [LOEA09_3a] Famished && Test: Famished_LOEA09_3a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA09_3a] Famished (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: Quite Hungry.
+            // --------------------------------------------------------
+            cards.Add("LOEA09_3a", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_3aH] Famished (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: Quite Hungry.
-			// --------------------------------------------------------
-			cards.Add("LOEA09_3aH", new List<Enchantment> {
-				// TODO [LOEA09_3aH] Famished && Test: Famished_LOEA09_3aH
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA09_3aH] Famished (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: Quite Hungry.
+            // --------------------------------------------------------
+            cards.Add("LOEA09_3aH", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_7e] Cauldron (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			cards.Add("LOEA09_7e", new List<Enchantment> {
-				// TODO [LOEA09_7e] Cauldron && Test: Cauldron_LOEA09_7e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA09_7e] Cauldron (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            cards.Add("LOEA09_7e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_20e] Blessed (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: <b>Immune</b> this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - OneTurnEffect = 1
-			// --------------------------------------------------------
-			cards.Add("LOEA16_20e", new List<Enchantment> {
-				// TODO [LOEA16_20e] Blessed && Test: Blessed_LOEA16_20e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA16_20e] Blessed (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: <b>Immune</b> this turn.
+            // --------------------------------------------------------
+            // GameTag:
+            // - OneTurnEffect = 1
+            // --------------------------------------------------------
+            cards.Add("LOEA16_20e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_20H] Blessing of the Sun (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: <b>Immune</b>.
-			// --------------------------------------------------------
-			cards.Add("LOEA16_20H", new List<Enchantment> {
-				// TODO [LOEA16_20H] Blessing of the Sun && Test: Blessing of the Sun_LOEA16_20H
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA16_20H] Blessing of the Sun (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: <b>Immune</b>.
+            // --------------------------------------------------------
+            cards.Add("LOEA16_20H", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_3e] Lantern of Power (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: +10/+10.
-			// --------------------------------------------------------
-			cards.Add("LOEA16_3e", new List<Enchantment> {
-				// TODO [LOEA16_3e] Lantern of Power && Test: Lantern of Power_LOEA16_3e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA16_3e] Lantern of Power (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: +10/+10.
+            // --------------------------------------------------------
+            cards.Add("LOEA16_3e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_8a] Putressed (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: Attack and Health swapped.
-			// --------------------------------------------------------
-			cards.Add("LOEA16_8a", new List<Enchantment> {
-				// TODO [LOEA16_8a] Putressed && Test: Putressed_LOEA16_8a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOEA16_8a] Putressed (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: Attack and Health swapped.
+            // --------------------------------------------------------
+            cards.Add("LOEA16_8a", null);
 
-			// --------------------------------------- MINION - NEUTRAL
-			// [LOE_016t] Rock (*) - COST:1 [ATK:0/HP:6] 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("LOE_016t", new List<Enchantment> {
+            // --------------------------------------- MINION - NEUTRAL
+            // [LOE_016t] Rock (*) - COST:1 [ATK:0/HP:6] 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("LOE_016t", new List<Enchantment> {
 				// TODO [LOE_016t] Rock && Test: Rock_LOE_016t
 				new Enchantment
 				(

@@ -310,65 +310,37 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OneTurnEffect = 1
 			// --------------------------------------------------------
-			cards.Add("OG_047e", new List<Enchantment> {
-				// TODO [OG_047e] Spines && Test: Spines_OG_047e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_047e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_048e] Mark of Y'Shaarj (*) - COST:0 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("OG_048e", new List<Enchantment> {
-				// TODO [OG_048e] Mark of Y'Shaarj && Test: Mark of Y'Shaarj_OG_048e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_048e] Mark of Y'Shaarj (*) - COST:0 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("OG_048e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_051e] Forbidden Power (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased stats.
-			// --------------------------------------------------------
-			cards.Add("OG_051e", new List<Enchantment> {
-				// TODO [OG_051e] Forbidden Power && Test: Forbidden Power_OG_051e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_051e] Forbidden Power (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased stats.
+            // --------------------------------------------------------
+            cards.Add("OG_051e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_202ae] Y'Shaarj's Strength (*) - COST:0 
-			// - Set: og, Rarity: rare
-			// --------------------------------------------------------
-			// Text: +3/+3.
-			// --------------------------------------------------------
-			cards.Add("OG_202ae", new List<Enchantment> {
-				// TODO [OG_202ae] Y'Shaarj's Strength && Test: Y'Shaarj's Strength_OG_202ae
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_202ae] Y'Shaarj's Strength (*) - COST:0 
+            // - Set: og, Rarity: rare
+            // --------------------------------------------------------
+            // Text: +3/+3.
+            // --------------------------------------------------------
+            cards.Add("OG_202ae", null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			cards.Add("OG_195c", new List<Enchantment> {
+            // ----------------------------------------- MINION - DRUID
+            // [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            cards.Add("OG_195c", new List<Enchantment> {
 				// TODO [OG_195c] Wisp && Test: Wisp_OG_195c
 				new Enchantment
 				(
@@ -1451,14 +1423,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_070e", new List<Enchantment> {
-				// TODO [OG_070e] Thirsty Blades && Test: Thirsty Blades_OG_070e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_070e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [OG_267e] Squid Oil Sheen (*) - COST:0 
@@ -1466,16 +1431,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack
 			// --------------------------------------------------------
-			cards.Add("OG_267e", new List<Enchantment> {
-				// TODO [OG_267e] Squid Oil Sheen && Test: Squid Oil Sheen_OG_267e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_267e", null);
 
-		}
+        }
 
 		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -1873,20 +1831,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("OG_113e", new List<Enchantment> {
-				// TODO [OG_113e] Power of the People && Test: Power of the People_OG_113e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_113e", null);
 
-			// --------------------------------------- MINION - WARLOCK
-			// [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_114a", new List<Enchantment> {
+            // --------------------------------------- MINION - WARLOCK
+            // [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_114a", new List<Enchantment> {
 				// TODO [OG_114a] Icky Tentacle && Test: Icky Tentacle_OG_114a
 				new Enchantment
 				(
@@ -2092,20 +2043,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Durability.
 			// --------------------------------------------------------
-			cards.Add("OG_312e", new List<Enchantment> {
-				// TODO [OG_312e] Upgraded && Test: Upgraded_OG_312e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_312e", null);
 
-			// --------------------------------------- MINION - WARRIOR
-			// [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_314b", new List<Enchantment> {
+            // --------------------------------------- MINION - WARRIOR
+            // [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_314b", new List<Enchantment> {
 				// TODO [OG_314b] Slime && Test: Slime_OG_314b
 				new Enchantment
 				(
