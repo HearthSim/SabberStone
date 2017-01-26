@@ -150,6 +150,23 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant StealthTurn(int attackedThisTurn)
+        {
+            return new Enchant
+            {
+                TurnsActive = 1,
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsNotAttackingThisTurn(attackedThisTurn)
+                },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.STEALTH] = 1
+                }
+            };
+        }
+
         //public static Enchant Stealth()
         //{
         //    return new Enchant

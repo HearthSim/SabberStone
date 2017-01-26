@@ -16,11 +16,11 @@ class Program
         Console.WriteLine("Start Test!");
 
         //BasicBuffTest();
-        //CardsTest();
+        CardsTest();
         //CloneStampTest();
         //OptionsTest();
 
-        Console.WriteLine(Cards.Statistics());
+        //Console.WriteLine(Cards.Statistics());
 
         Console.WriteLine("Finished! Press key now.");
         Console.ReadKey();
@@ -57,28 +57,25 @@ class Program
         var game = new Game(new GameConfig
         {
             StartPlayer = 1,
-            Player1HeroClass = CardClass.MAGE,
-            Player2HeroClass = CardClass.MAGE,
+            Player1HeroClass = CardClass.ROGUE,
+            Player2HeroClass = CardClass.ROGUE,
             FillDecks = true
         });
         game.StartGame();
         game.Player1.BaseMana = 10;
         game.Player2.BaseMana = 10;
-        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
-        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
-
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "28 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).Health", ((Minion)game.CurrentPlayer.Setaside[0]).Health.ToString());
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage", ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage.ToString());
-
-
-        game.Player1.UsedMana = 0;
-        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Xaril, Poisoned Mind"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+        var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
         game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "20 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
-        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)minion).Health", ((Minion)minion).Health.ToString());
-
+        var testSpell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("OG_080e"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testSpell1, minion));
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(true, ((Minion)minion).HasStealth)", ((Minion)minion).HasStealth.ToString());
+        game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(false, ((Minion)minion).HasStealth)", ((Minion)minion).HasStealth.ToString());
 
         ShowLog(game, LogLevel.VERBOSE);
     }

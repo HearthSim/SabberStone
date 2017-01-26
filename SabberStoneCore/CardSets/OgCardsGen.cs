@@ -1251,17 +1251,20 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080", new List<Enchantment> {
-				// TODO [OG_080] Xaril, Poisoned Mind && Test: Xaril, Poisoned Mind_OG_080
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                            new RandomEntourageTask(),
+                            new CopyToHand())
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                            new RandomEntourageTask(),
+                            new CopyToHand())
+                },
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1356,11 +1359,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw a card.
 			// --------------------------------------------------------
 			cards.Add("OG_080b", new List<Enchantment> {
-				// TODO [OG_080b] Kingsblood Toxin && Test: Kingsblood Toxin_OG_080b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DrawTask(),
 				},
 			});
 
@@ -1377,11 +1379,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080c", new List<Enchantment> {
-				// TODO [OG_080c] Bloodthistle Toxin && Test: Bloodthistle Toxin_OG_080c
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ReturnHandTask(EntityType.TARGET),
+                        new BuffTask(Buffs.Cost(-2), EntityType.TARGET))
 				},
 			});
 
@@ -1396,11 +1399,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080d", new List<Enchantment> {
-				// TODO [OG_080d] Briarthorn Toxin && Test: Briarthorn Toxin_OG_080d
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
 				},
 			});
 
@@ -1419,11 +1421,10 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080e", new List<Enchantment> {
-				// TODO [OG_080e] Fadeleaf Toxin && Test: Fadeleaf Toxin_OG_080e
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffStealthTask(EntityType.TARGET)
 				},
 			});
 
@@ -1437,11 +1438,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080f", new List<Enchantment> {
-				// TODO [OG_080f] Firebloom Toxin && Test: Firebloom Toxin_OG_080f
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.TARGET, true),
 				},
 			});
 

@@ -13,7 +13,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
           
-
             var randomCard = Entity.FromCard(Controller, Cards.FromId(Util<string>.Choose(source.Card.Entourage)));
             Playables.Add(randomCard);
 

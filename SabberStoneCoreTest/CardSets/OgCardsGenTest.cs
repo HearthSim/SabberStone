@@ -1426,10 +1426,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - DEATHRATTLE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void XarilPoisonedMind_OG_080()
 		{
-			// TODO XarilPoisonedMind_OG_080 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1440,8 +1439,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Xaril, Poisoned Mind"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Xaril, Poisoned Mind"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var testSpell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("OG_080e"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testSpell1, minion));
+            Assert.AreEqual(true, ((Minion)minion).HasStealth);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(false, ((Minion)minion).HasStealth);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [OG_267] Southsea Squidface - COST:4 [ATK:4/HP:4] 
