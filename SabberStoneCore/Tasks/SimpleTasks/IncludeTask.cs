@@ -35,7 +35,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         INVALID,
         ALLMINIONS_NOSOURCE,
-        GRAVEYARD
+        GRAVEYARD,
+        OP_SECRETS
     }
 
     public class IncludeTask : SimpleTask
@@ -184,6 +185,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     if (controller.Opponent.Board.Count > 0)
                     {
                         result.AddRange(controller.Opponent.Board.GetAll);
+                    }
+                    break;
+
+                case EntityType.OP_SECRETS:
+                    if (controller.Opponent.Secrets.Count > 0)
+                    {
+                        result.AddRange(controller.Opponent.Secrets.GetAll);
                     }
                     break;
 

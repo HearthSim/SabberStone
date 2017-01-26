@@ -775,10 +775,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - STEALTH = 1
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Flare_EX1_544()
 		{
-			// TODO Flare_EX1_544 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -789,8 +788,20 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flare"));
-		}
+            var trap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, trap));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.Triggers.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var flare = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flare"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, flare));
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+            Assert.AreEqual(0, game.CurrentOpponent.Hero.Triggers.Count);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [EX1_549] Bestial Wrath - COST:1 

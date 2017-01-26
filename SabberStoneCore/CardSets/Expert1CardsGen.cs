@@ -876,8 +876,12 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        //new RevealStealthTask(EntityType.OP_MINIONS),
+                        new EnqueueTask(1, new MoveToGraveYard(EntityType.OP_SECRETS)),
+                        new DrawTask())
+
+                },
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
