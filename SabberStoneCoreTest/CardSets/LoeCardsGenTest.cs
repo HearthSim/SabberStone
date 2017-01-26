@@ -7,7 +7,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets
 {
 	[TestClass]
 	public class HeroesLoeTest
