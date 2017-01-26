@@ -67,12 +67,6 @@ namespace SabberStoneCore.Tasks
                 new FlagTask(true, combo),
                 new FlagTask(false, noCombo));
 
-        public static ISimpleTask SetHealth(int amount, EntityType target)
-            => new SetGameTagTask(GameTag.HEALTH, amount, target);
-
-        public static ISimpleTask SetAttack(int amount, EntityType target)
-            => new SetGameTagTask(GameTag.ATK, amount, target);
-
         public static ISimpleTask True(ISimpleTask task)
             => new FlagTask(true, task);
 

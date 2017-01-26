@@ -3674,10 +3674,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AuctionmasterBeardo_CFM_807()
 		{
-			// TODO AuctionmasterBeardo_CFM_807 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3688,8 +3687,18 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Auctionmaster Beardo"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Auctionmaster Beardo"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(25, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_808] Genzo, the Shark - COST:4 [ATK:5/HP:4] 

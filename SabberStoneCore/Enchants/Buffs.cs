@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
@@ -161,5 +162,24 @@ namespace SabberStoneCore.Enchants
         //        },
         //    };
         //}
+        public static Enchant CthunAttackHealth(int amount)
+        {
+            return new Enchant
+            {
+                TurnsActive = -1,
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsInSetasideOrHandOrPlayZone,
+                    SelfCondition.IsNotSilenced,
+                },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.ATK] = amount,
+                    [GameTag.HEALTH] = amount
+                },
+                // Health Retention task ... 
+                RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+            };
+        }
     }
 }

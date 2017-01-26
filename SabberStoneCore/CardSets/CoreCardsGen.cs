@@ -505,7 +505,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.SetHealth(1, EntityType.TARGET)
+                    SingleTask = new SetHealthTask(1, EntityType.TARGET)
                 }
             });
 
@@ -1064,7 +1064,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.SetAttack(1, EntityType.TARGET)
+                    SingleTask = new SetAttackTask(1, EntityType.TARGET)
                 }
             });
 

@@ -131,6 +131,7 @@ namespace SabberStoneCore.Model
             Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity[GameTag.ZONE_POSITION]}'.");
 
             // activate all zone changing enchantments
+            entity.ApplyEnchantments(EnchantmentActivation.SETASIDE, Zone.SETASIDE);
             entity.ApplyEnchantments(EnchantmentActivation.BOARD, Zone.PLAY);
             entity.ApplyEnchantments(EnchantmentActivation.HAND, Zone.HAND);
             entity.ApplyEnchantments(EnchantmentActivation.DECK, Zone.DECK);

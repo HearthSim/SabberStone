@@ -262,10 +262,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DarkArakkoa_OG_293()
 		{
-			// TODO DarkArakkoa_OG_293 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -276,8 +275,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dark Arakkoa"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_313] Addled Grizzly - COST:3 [ATK:2/HP:2] 
@@ -675,10 +677,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DementedFrostcaller_OG_085()
 		{
-			// TODO DementedFrostcaller_OG_085 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -689,8 +690,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demented Frostcaller"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demented Frostcaller"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(false, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(true, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [OG_087] Servant of Yogg-Saron - COST:5 [ATK:5/HP:4] 
@@ -1241,22 +1253,28 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void HoodedAcolyte_OG_334()
 		{
-			// TODO HoodedAcolyte_OG_334 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hooded Acolyte"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hooded Acolyte"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [OG_335] Shifting Shade - COST:4 [ATK:4/HP:3] 
@@ -2871,10 +2889,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_NONSELF_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DiscipleOfCthun_OG_162()
 		{
-			// TODO DiscipleOfCthun_OG_162 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2885,8 +2902,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Disciple of C'Thun"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_173] Blood of The Ancient One - COST:9 [ATK:9/HP:9] 
@@ -3082,10 +3103,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Doomcaller_OG_255()
 		{
-			// TODO Doomcaller_OG_255 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3096,8 +3116,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomcaller"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomcaller"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(25, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_256] Spawn of N'Zoth - COST:3 [ATK:2/HP:2] 
@@ -3184,10 +3215,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Cthun_OG_280()
 		{
-			// TODO Cthun_OG_280 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3198,7 +3228,9 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(24, game.CurrentOpponent.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3211,10 +3243,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BeckonerOfEvil_OG_281()
 		{
-			// TODO BeckonerOfEvil_OG_281 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3225,8 +3256,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Beckoner of Evil"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Beckoner of Evil"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(8, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(8, ((Minion)minion).Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_283] C'Thun's Chosen - COST:4 [ATK:4/HP:2] 
@@ -3241,10 +3283,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CthunsChosen_OG_283()
 		{
-			// TODO CthunsChosen_OG_283 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3255,8 +3296,20 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun's Chosen"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("C'Thun's Chosen"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(8, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(8, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)testCard).HasDivineShield);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_284] Twilight Geomancer - COST:2 [ATK:1/HP:4] 
@@ -3271,10 +3324,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TwilightGeomancer_OG_284()
 		{
-			// TODO TwilightGeomancer_OG_284 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3285,8 +3337,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Geomancer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Geomancer"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)minion).HasTaunt);
+            Assert.AreEqual(true, ((Minion)testCard).HasTaunt);
+            Assert.AreEqual(6, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(6, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Setaside[0]).HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_286] Twilight Elder - COST:3 [ATK:3/HP:4] 
@@ -3297,10 +3363,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TwilightElder_OG_286()
 		{
-			// TODO TwilightElder_OG_286 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3311,8 +3376,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Elder"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twilight Elder"));
+		    var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(7, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(7, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_290] Ancient Harbinger - COST:6 [ATK:4/HP:6] 
@@ -3455,10 +3533,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MidnightDrake_OG_320()
 		{
-			// TODO MidnightDrake_OG_320 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3469,8 +3546,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Midnight Drake"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Midnight Drake"));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_321] Crazed Worshipper - COST:5 [ATK:3/HP:6] 
@@ -3505,22 +3585,25 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Your weapons cost (2) less.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BlackwaterPirate_OG_322()
 		{
-			// TODO BlackwaterPirate_OG_322 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blackwater Pirate"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blackwater Pirate"));
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, weapon.Cost);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_323] Polluted Hoarder - COST:4 [ATK:4/HP:2] 
@@ -3605,10 +3688,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CyclopianHorror_OG_337()
 		{
-			// TODO CyclopianHorror_OG_337 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3619,8 +3701,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cyclopian Horror"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cyclopian Horror"));
+            game.Process(EndTurnTask.Any((game.CurrentPlayer)));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any((game.CurrentPlayer)));
+            Assert.AreEqual(3, ((Minion)testCard).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_338] Nat, the Darkfisher - COST:2 [ATK:2/HP:4] 
@@ -3706,5 +3797,42 @@ namespace SabberStoneUnitTest.CardSets
 		}
 
 	}
+
+    [TestClass]
+    public class NeutralNonCollectOgTest
+    {
+        // --------------------------------------- MINION - NEUTRAL
+        // [OG_279] C'Thun (*) - COST:10 [ATK:6/HP:6] 
+        // - Set: og, Rarity: legendary
+        // --------------------------------------------------------
+        // Text: <b>Battlecry:</b> Deal damage equal to this minion's Attack randomly split among all enemies.
+        // --------------------------------------------------------
+        // GameTag:
+        // - ELITE = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void Cthun_OG_279()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            game.Player1.UsedMana = 0;
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(20, game.CurrentOpponent.Hero.Health);
+        }
+    }
 
 }

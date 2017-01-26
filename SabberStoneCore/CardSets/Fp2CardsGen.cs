@@ -3,6 +3,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.CardSets
 {
@@ -17,14 +18,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OVERKILL = 2319
 			// --------------------------------------------------------
-			cards.Add("BRM_027h", new List<Enchantment> {
-				// TODO [BRM_027h] Ragnaros the Firelord && Test: Ragnaros the Firelord_BRM_027h
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("BRM_027h", null);
 
 		}
 
@@ -38,12 +32,11 @@ namespace SabberStoneCore.CardSets
 			//       Deal $8 damage to a random enemy. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("BRM_027p", new List<Enchantment> {
-				// TODO [BRM_027p] DIE, INSECT! && Test: DIE, INSECT!_BRM_027p
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -54,13 +47,12 @@ namespace SabberStoneCore.CardSets
 			//       Deal $8 damage to a random enemy. TWICE. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("BRM_027pH", new List<Enchantment> {
-				// TODO [BRM_027pH] DIE, INSECTS! && Test: DIE, INSECTS!_BRM_027pH
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
+                }
+            });
 
 		}
 
@@ -193,11 +185,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_014", new List<Enchantment> {
-				// TODO [BRM_014] Core Rager && Test: Core Rager_BRM_014
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE)))
 				},
 			});
 
@@ -242,13 +235,18 @@ namespace SabberStoneCore.CardSets
 			// Text: After you cast a spell, deal 2 damage randomly split among all enemies.
 			// --------------------------------------------------------
 			cards.Add("BRM_002", new List<Enchantment> {
-				// TODO [BRM_002] Flamewaker && Test: Flamewaker_BRM_002
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)))
+                        .Build()
+                }
+            });
 
 		}
 
@@ -385,11 +383,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_007", new List<Enchantment> {
-				// TODO [BRM_007] Gang Up && Test: Gang Up_BRM_007
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 3),
+                        new LogTask(),
+                        new AddStackTo(EntityType.DECK))
 				},
 			});
 
@@ -671,11 +671,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_027", new List<Enchantment> {
-				// TODO [BRM_027] Majordomo Executus && Test: Majordomo Executus_BRM_027
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
 				},
 			});
 

@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model
         public HeroPower(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
             : base(controller, null, card, tags, id)
         {
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "HeroHeroPower", $"{this} ({ Card.Class}) was created.");
+            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
         }
 
         public override bool TargetingRequirements(ICharacter target)

@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model
         public IPlayable Destroy()
         {
             ToBeDestroyed = true;
-            Game.Log(LogLevel.WARNING, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
+            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
             return this;
         }
 

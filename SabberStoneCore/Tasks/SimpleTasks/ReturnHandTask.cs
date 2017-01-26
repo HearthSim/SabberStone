@@ -5,11 +5,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ReturnHandTask : SimpleTask
     {
-        public ReturnHandTask(EntityType entityType)
+        public ReturnHandTask(EntityType type)
         {
-            Type = entityType;
+            Type = type;
         }
+
         public EntityType Type { get; set; }
+
         public override TaskState Process()
         {
             var success = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).TrueForAll(p =>

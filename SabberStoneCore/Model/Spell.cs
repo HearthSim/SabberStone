@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model
         public Spell(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
             : base(controller, zone, card, tags, id)
         {
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Spell", $"Spell  {card.Name} ({card.Class}) was created.");
+            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Spell", $"{card.Name} ({card.Class}) was created.");
         }
 
         public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;

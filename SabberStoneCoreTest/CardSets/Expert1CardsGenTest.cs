@@ -1987,10 +1987,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_ENEMY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AldorPeacekeeper_EX1_382()
 		{
-			// TODO AldorPeacekeeper_EX1_382 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2001,48 +2000,60 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Aldor Peacekeeper"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Aldor Peacekeeper"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tirion Fordring"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(1, ((Minion)minion).AttackDamage);
+        }
 
-		// --------------------------------------- MINION - PALADIN
-		// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
-		// - Fac: neutral, Set: expert1, Rarity: legendary
-		// --------------------------------------------------------
-		// Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
-		// --------------------------------------------------------
-		// GameTag:
-		// - ELITE = 1
-		// - TAUNT = 1
-		// - DIVINE_SHIELD = 1
-		// - DEATHRATTLE = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void TirionFordring_EX1_383()
-		{
-			// TODO TirionFordring_EX1_383 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tirion Fordring"));
-		}
+        // --------------------------------------- MINION - PALADIN
+        // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
+        // - Fac: neutral, Set: expert1, Rarity: legendary
+        // --------------------------------------------------------
+        // Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
+        // --------------------------------------------------------
+        // GameTag:
+        // - ELITE = 1
+        // - TAUNT = 1
+        // - DIVINE_SHIELD = 1
+        // - DEATHRATTLE = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void TirionFordring_EX1_383()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PALADIN,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tirion Fordring"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(true, testCard.ToBeDestroyed);
+            Assert.AreEqual(true, game.CurrentOpponent.Hero.Weapon != null);
+        }
 
-		// --------------------------------------- WEAPON - PALADIN
-		// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
-		// - Fac: neutral, Set: expert1, Rarity: epic
-		// --------------------------------------------------------
-		// Text: After you summon a minion, give it +1/+1 and this loses 1_Durability.
-		// --------------------------------------------------------
-		// GameTag:
-		// - DURABILITY = 5
-		// --------------------------------------------------------
-		[TestMethod]
+        // --------------------------------------- WEAPON - PALADIN
+        // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
+        // - Fac: neutral, Set: expert1, Rarity: epic
+        // --------------------------------------------------------
+        // Text: After you summon a minion, give it +1/+1 and this loses 1_Durability.
+        // --------------------------------------------------------
+        // GameTag:
+        // - DURABILITY = 5
+        // --------------------------------------------------------
+        [TestMethod]
 		public void SwordOfJustice_EX1_366()
 		{
             var game =
@@ -4171,10 +4182,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void InnerRage_EX1_607()
 		{
-			// TODO InnerRage_EX1_607 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4185,8 +4195,16 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Inner Rage"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Inner Rage"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aldor Peacekeeper"));
+		    game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion).Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(5, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(2, ((Minion)minion).Health);
+
+        }
 
 		// ---------------------------------------- SPELL - WARRIOR
 		// [NEW1_036] Commanding Shout - COST:2 
@@ -7329,10 +7347,9 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you cast a spell, deal 1 damage to ALL minions.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WildPyromancer_NEW1_020()
 		{
-			// TODO WildPyromancer_NEW1_020 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7343,8 +7360,26 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wild Pyromancer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wild Pyromancer"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(false, ((Minion)minion1).IsDead);
+            Assert.AreEqual(false, ((Minion)minion2).IsDead);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(true, ((Minion)minion1).IsDead);
+            Assert.AreEqual(true, ((Minion)minion2).IsDead);
+            Assert.AreEqual(1, ((Minion)testCard).Health);
+
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7] 

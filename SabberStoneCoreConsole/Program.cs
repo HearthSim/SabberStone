@@ -13,18 +13,77 @@ class Program
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting SabberStone Console");
+        Console.WriteLine("Start Test!");
 
+        //BasicBuffTest();
         CardsTest();
-
         //CloneStampTest();
         //OptionsTest();
-        Console.WriteLine("Tests are fininshed");
-        //Console.ReadKey();
+
+        //Console.WriteLine(Cards.Statistics());
+
+        Console.WriteLine("Finished! Press key now.");
+        Console.ReadKey();
     }
 
+    public static void BasicBuffTest()
+    {
+        var game =
+            new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true
+            });
+
+        game.Player1.BaseMana = 10;
+        game.Player2.BaseMana = 10;
+        game.StartGame();
+
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+        var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
+        game.Process(EndTurnTask.Any(game.CurrentPlayer));
+        var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+        game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
+
+        ShowLog(game, LogLevel.VERBOSE);
+    }
 
     public static void CardsTest()
+    {
+        var game = new Game(new GameConfig
+        {
+            StartPlayer = 1,
+            Player1HeroClass = CardClass.MAGE,
+            Player2HeroClass = CardClass.MAGE,
+            FillDecks = true
+        });
+        game.StartGame();
+        game.Player1.BaseMana = 10;
+        game.Player2.BaseMana = 10;
+        var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+        game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "28 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).Health", ((Minion)game.CurrentPlayer.Setaside[0]).Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage", ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage.ToString());
+
+
+        game.Player1.UsedMana = 0;
+        var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+        game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "20 = game.CurrentOpponent.Hero.Health", game.CurrentOpponent.Hero.Health.ToString());
+        game.Log(LogLevel.ERROR, BlockType.SCRIPT, "8 = ((Minion)minion).Health", ((Minion)minion).Health.ToString());
+
+
+        ShowLog(game, LogLevel.VERBOSE);
+    }
+
+    public static void Kazakus()
     {
         var game = new Game(new GameConfig
         {
@@ -168,7 +227,38 @@ class Program
         {
             var logEntry = game.Logs.Dequeue();
             if (logEntry.Level <= level)
-                Console.WriteLine($"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+            {
+                var foreground = ConsoleColor.White;
+                switch (logEntry.Level)
+                {
+                    case LogLevel.ERROR:
+                        foreground = ConsoleColor.Red;
+                        break;
+                    case LogLevel.WARNING:
+                        foreground = ConsoleColor.DarkRed;
+                        break;
+                    case LogLevel.INFO:
+                        foreground = logEntry.Location.Equals("Game") ? 
+                            ConsoleColor.Yellow : 
+                            ConsoleColor.Green;
+                        break;
+                    case LogLevel.VERBOSE:
+                        foreground = ConsoleColor.DarkGreen;
+                        break;
+                    case LogLevel.DEBUG:
+                        foreground = ConsoleColor.DarkGray;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                Console.ForegroundColor = foreground;
+
+                Console.WriteLine(
+                    $"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+            }
         }
+        Console.ResetColor();
     }
+
 }

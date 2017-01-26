@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -21,7 +22,7 @@ namespace SabberStoneCore.Loader
             {
                 if (_path == null)
                 {
-                    _path = @"/Users/ifeherva/workspace/SabberStone";
+                    _path = @"C:\Users\admin\Source\Repos\";
                 }
 
                 return _path;
@@ -78,9 +79,9 @@ namespace SabberStoneCore.Loader
 
         public List<Card> Load()
         {
-            // Get XML definitions from assembly embedded resource, TODO: add try catch as path might be invalid
-            var cardDefsXml = XDocument.Load(@Path + @"/SabberStoneCore/Loader/Data/CardDefs.xml");
-            var cardXml = XDocument.Load(@Path + @"/SabberStoneCore/Loader/Data/CARD.xml");
+            // Get XML definitions from assembly embedded resource
+            var cardDefsXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
+            var cardXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CARD.xml");
             // Parse XML
             var cardDefs = (from r in cardDefsXml.Descendants("Entity")
                          select new
