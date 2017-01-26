@@ -1534,7 +1534,6 @@ namespace SabberStoneCore.CardSets
 			// Text: Return all minions to their owner's hand.
 			// --------------------------------------------------------
 			cards.Add("NEW1_004", new List<Enchantment> {
-				// TODO [NEW1_004] Vanish && Test: Vanish_NEW1_004
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
