@@ -2999,10 +2999,9 @@ namespace SabberStoneUnitTest.CardSets
         // --------------------------------------------------------
         // Text: Return all minions to their owner's hand.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void Vanish_NEW1_004()
         {
-            // TODO Vanish_NEW1_004 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -3013,7 +3012,29 @@ namespace SabberStoneUnitTest.CardSets
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Vanish"));
+
+            var player1HandCount = game.CurrentPlayer.Hand.Count;
+
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+
+            // player 1 plays 7 minions
+            for (int i =0; i< 7; i++)
+            {
+                var minion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wisp"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            }
+            
+            Assert.AreEqual(7, game.CurrentPlayer.Board.Count);
+
+            // end turn
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // player 2 plays vanish
+            var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Vanish"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+
+            Assert.AreEqual(0, game.CurrentPlayer.Opponent.Board.Count);
+            Assert.AreEqual(10, game.CurrentPlayer.Opponent.Hand.Count);
         }
 
         // ----------------------------------------- WEAPON - ROGUE

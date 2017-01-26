@@ -2422,7 +2422,7 @@ namespace SabberStoneCore.CardSets
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new ReturnHandTask(),
+                        new ReturnHandTask(EntityType.TARGET),
                         new BuffTask(Buffs.Cost(-2), EntityType.TARGET))
                 }
             });
@@ -3766,7 +3766,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ReturnHandTask(),
+					SingleTask = new ReturnHandTask(EntityType.TARGET),
 				},
 			});
 
@@ -4458,7 +4458,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new ReturnHandTask()
+                    SingleTask = new ReturnHandTask(EntityType.TARGET)
                 }
             });
 

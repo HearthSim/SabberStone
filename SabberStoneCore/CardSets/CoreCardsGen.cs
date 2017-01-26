@@ -674,7 +674,7 @@ namespace SabberStoneCore.CardSets
             // - CHARGE = 1
             // --------------------------------------------------------
             cards.Add("DS1_178", new List<Enchantment> {
-                // TODO check if we need to change charge buf fimlementation
+                // TODO check if we need to change charge buff implementation
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
@@ -1523,7 +1523,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ReturnHandTask()
+                    SingleTask = new ReturnHandTask(EntityType.TARGET)
                 }
             });
 
@@ -1538,7 +1538,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ReturnHandTask(EntityType.OP_MINIONS),
 				},
 			});
 

@@ -1202,7 +1202,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new ReturnHandTask()
+                    SingleTask = new ReturnHandTask(EntityType.TARGET)
                 }
             });
 
