@@ -669,11 +669,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_120", new List<Enchantment> {
-				// TODO [OG_120] Anomalus && Test: Anomalus_OG_120
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(8, EntityType.ALLMINIONS),
 				},
 			});
 
