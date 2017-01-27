@@ -405,11 +405,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon all three Animal Companions.
 			// --------------------------------------------------------
 			cards.Add("OG_211", new List<Enchantment> {
-				// TODO [OG_211] Call of the Wild && Test: Call of the Wild_OG_211
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new EnqueueTask(1, new SummonTask("NEW1_034")),
+                        new EnqueueTask(1, new SummonTask("NEW1_033")),
+                        new EnqueueTask(1, new SummonTask("NEW1_032")))
 				},
 			});
 

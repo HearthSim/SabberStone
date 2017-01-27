@@ -415,10 +415,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon all three Animal Companions.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CallOfTheWild_OG_211()
 		{
-			// TODO CallOfTheWild_OG_211 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -429,8 +428,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Call of the Wild"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Call of the Wild"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual("Huffer", game.CurrentPlayer.Board[0].Card.Name);
+            Assert.AreEqual("Leokk", game.CurrentPlayer.Board[1].Card.Name);
+            Assert.AreEqual("Misha", game.CurrentPlayer.Board[2].Card.Name);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_179] Fiery Bat - COST:1 [ATK:2/HP:1] 
