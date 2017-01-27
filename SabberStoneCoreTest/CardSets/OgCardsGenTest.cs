@@ -316,10 +316,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you summon a minion, give it +1/+1.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AddledGrizzly_OG_313()
 		{
-			// TODO AddledGrizzly_OG_313 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -330,8 +329,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Addled Grizzly"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Addled Grizzly"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(1, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(1, ((Minion)minion).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(2, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(2, ((Minion)minion).Health);
+        }
 
 	}
 

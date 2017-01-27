@@ -195,13 +195,17 @@ namespace SabberStoneCore.CardSets
 			// Text: After you summon a minion, give it +1/+1.
 			// --------------------------------------------------------
 			cards.Add("OG_313", new List<Enchantment> {
-				// TODO [OG_313] Addled Grizzly && Test: Addled Grizzly_OG_313
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET))
+                        .Build()
+                }
+            });
 
 		}
 
@@ -338,27 +342,13 @@ namespace SabberStoneCore.CardSets
             // [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
             // - Set: og, Rarity: common
             // --------------------------------------------------------
-            cards.Add("OG_195c", new List<Enchantment> {
-				// TODO [OG_195c] Wisp && Test: Wisp_OG_195c
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_195c", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [OG_202c] Slime (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_202c", new List<Enchantment> {
-				// TODO [OG_202c] Slime && Test: Slime_OG_202c
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_202c", null);
 
 		}
 

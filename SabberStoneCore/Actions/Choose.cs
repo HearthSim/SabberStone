@@ -96,7 +96,6 @@ namespace SabberStoneCore.Actions
                 {
                     case ChoiceAction.HAND:
 
-
                         choices.ForEach(p =>
                         {
                             var mulliganCard = c.Hand.First(t => t.Card == p);
