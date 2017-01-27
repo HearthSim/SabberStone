@@ -925,10 +925,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon five 1/1 Silver Hand Recruits.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void StandAgainstDarkness_OG_273()
 		{
-			// TODO StandAgainstDarkness_OG_273 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -939,7 +938,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stand Against Darkness"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stand Against Darkness"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Board.Count);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN

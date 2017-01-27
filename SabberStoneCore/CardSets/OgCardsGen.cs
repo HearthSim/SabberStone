@@ -763,11 +763,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon five 1/1 Silver Hand Recruits.
 			// --------------------------------------------------------
 			cards.Add("OG_273", new List<Enchantment> {
-				// TODO [OG_273] Stand Against Darkness && Test: Stand Against Darkness_OG_273
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(5, new SummonTask("CS2_101t"))
 				},
 			});
 
