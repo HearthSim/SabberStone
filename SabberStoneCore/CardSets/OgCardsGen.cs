@@ -686,11 +686,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_207", new List<Enchantment> {
-				// TODO [OG_207] Faceless Summoner && Test: Faceless Summoner_OG_207
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinion(GameTag.COST, 3)
 				},
 			});
 

@@ -812,10 +812,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FacelessSummoner_OG_207()
 		{
-			// TODO FacelessSummoner_OG_207 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -826,8 +825,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Summoner"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Summoner"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(3, game.CurrentPlayer.Board[1].Card.Cost);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [OG_303] Cult Sorcerer - COST:2 [ATK:3/HP:2] 
