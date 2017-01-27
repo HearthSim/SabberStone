@@ -425,11 +425,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_179", new List<Enchantment> {
-				// TODO [OG_179] Fiery Bat && Test: Fiery Bat_OG_179
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)
 				},
 			});
 

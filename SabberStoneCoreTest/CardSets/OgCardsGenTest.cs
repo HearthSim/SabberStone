@@ -445,22 +445,25 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FieryBat_OG_179()
 		{
-			// TODO FieryBat_OG_179 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fiery Bat"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fiery Bat"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(29, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_216] Infested Wolf - COST:4 [ATK:3/HP:3] 
