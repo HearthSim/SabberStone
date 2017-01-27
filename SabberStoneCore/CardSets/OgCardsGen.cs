@@ -554,11 +554,10 @@ namespace SabberStoneCore.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_081", new List<Enchantment> {
-				// TODO [OG_081] Shatter && Test: Shatter_OG_081
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.TARGET)
 				},
 			});
 

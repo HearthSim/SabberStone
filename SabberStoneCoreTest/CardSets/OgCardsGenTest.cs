@@ -582,28 +582,6 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Princess Huhuran"));
 		}
-
-		// ---------------------------------------- MINION - HUNTER
-		// [OG_325] Carrion Grub - COST:3 [ATK:2/HP:5] 
-		// - Race: beast, Set: og, Rarity: common
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void CarrionGrub_OG_325()
-		{
-			// TODO CarrionGrub_OG_325 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Carrion Grub"));
-		}
-
 	}
 
 	[TestClass]
@@ -623,10 +601,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Shatter_OG_081()
 		{
-			// TODO Shatter_OG_081 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -637,8 +614,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shatter"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shatter"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Boulderfist Ogre"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            Assert.AreEqual(4, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)minion).IsFrozen);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [OG_086] Forbidden Flame - COST:0 
