@@ -793,10 +793,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - STEALTH = 1
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Flare_EX1_544()
 		{
-			// TODO Flare_EX1_544 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -807,7 +806,32 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flare"));
+
+			// player 1 draws and plays explosive Trap
+			var explosiveTrap = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Explosive Trap"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, explosiveTrap));
+			Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+
+			// player 1 draws and plays WorgenInfiltrator_EX1_010 (stealth)
+			var minion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Worgen Infiltrator"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+			Assert.AreEqual(true, ((Minion)minion).HasStealth);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			
+			// player 2 draws and plays Flare
+			var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Flare"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+
+			Assert.AreEqual(false, ((Minion)minion).HasStealth);
+			Assert.AreEqual(0, game.CurrentPlayer.Opponent.Secrets.Count);
+
+			// play a charge minion to test deactivated Secret
+			var chargeMinion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, chargeMinion));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, chargeMinion, game.CurrentOpponent.Hero));
+			Assert.AreEqual(29, game.CurrentPlayer.Opponent.Hero.Health);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

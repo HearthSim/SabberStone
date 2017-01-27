@@ -15,6 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         HAND,
         HAND_NOSOURCE,
         DECK,
+        SECRETS,
         MINIONS,
         MINIONS_NOSOURCE,
         FRIENDS,
@@ -22,6 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         OP_HERO,
         OP_HAND,
         OP_DECK,
+        OP_SECRETS,
         OP_MINIONS,
         ENEMIES,
         ENEMIES_NOTARGET,
@@ -131,6 +133,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     result.AddRange(controller.Deck.GetAll);
                     break;
 
+                case EntityType.SECRETS:
+                    result.AddRange(controller.Secrets.GetAll);
+                    break;
+
                 case EntityType.MINIONS:
                     if (controller.Board.Count > 0)
                     {
@@ -178,6 +184,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case EntityType.OP_DECK:
                     result.AddRange(controller.Opponent.Deck.GetAll);
+                    break;
+                
+                case EntityType.OP_SECRETS:
+                    result.AddRange(controller.Opponent.Secrets.GetAll);
                     break;
 
                 case EntityType.OP_MINIONS:

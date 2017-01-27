@@ -39,6 +39,11 @@ namespace SabberStoneCore.Model
 
             Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
         }
+
+        public void RemoveStealth()
+        {
+            HasStealth = false;
+        }
     }
 
     public partial class Minion

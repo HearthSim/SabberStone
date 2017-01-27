@@ -873,11 +873,14 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_544", new List<Enchantment> {
-				// TODO [EX1_544] Flare && Test: Flare_EX1_544
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RevealStealthTask(EntityType.OP_MINIONS),
+						new EnqueueTask(1, new MoveToGraveYard(EntityType.OP_SECRETS)),
+						new DrawTask()
+					),
 				},
 			});
 
