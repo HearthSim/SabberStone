@@ -20,6 +20,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsMinion => new SelfCondition(me => me is Minion);
+        public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is Minion && ((Minion)me).NumAttacksThisTurn == number);
         public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
         public static SelfCondition IsInPlayZone => IsInZone(Zone.PLAY);
         public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
@@ -44,6 +45,18 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
 
+        public static SelfCondition IsCthunGameTag(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
+        {
+            return new SelfCondition(me =>
+            {
+                if (!me.Controller.SeenCthun)
+                    return false;
+                var proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
+                return relaSign == RelaSign.EQ && proxyCthun[tag] == value
+                    || relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
+                    || relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;
+            });
+        }
 
         private readonly Func<IPlayable, bool> _function;
 
@@ -56,7 +69,6 @@ namespace SabberStoneCore.Conditions
         {
             return _function(owner);
         }
-
     }
 
 }

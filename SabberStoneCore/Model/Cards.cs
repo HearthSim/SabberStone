@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using SabberStoneCore.Enums;
 //using Newtonsoft.Json;
 using SabberStoneCore.Enchants;
@@ -31,7 +32,6 @@ namespace SabberStoneCore.Model
             var cardLoader = new CardLoader();
             var cards = cardLoader.Load();
 
-            
             //string json = File.ReadAllText(CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Data\cardData.json");
             //string json = File.ReadAllText(Environment.CurrentDirectory + @"\cardData.json");
             //var cards = JsonConvert.DeserializeObject<IEnumerable<Card>>(Resources.cardDataJson);

@@ -5,7 +5,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets
 {
 	[TestClass]
 	public class HeroPowersOgTest
@@ -51,10 +51,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FeralRage_OG_047()
 		{
-			// TODO FeralRage_OG_047 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -65,8 +64,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Feral Rage"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Feral Rage"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(4, game.CurrentPlayer.Hero.AttackDamage);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Feral Rage"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(8, game.CurrentPlayer.Hero.Armor);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [OG_048] Mark of Y'Shaarj - COST:2 
@@ -124,10 +128,9 @@ namespace SabberStoneUnitTest.CardSets
         // GameTag:
         // - CHOOSE_ONE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
 		public void WispsOfTheOldGods_OG_195()
 		{
-			// TODO WispsOfTheOldGods_OG_195 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -138,8 +141,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wisps of the Old Gods"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wisps of the Old Gods"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(7, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(1, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(1, ((Minion)game.CurrentPlayer.Board[0]).Health);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisps of the Old Gods"));
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[0]).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
@@ -177,10 +189,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForbiddenAncient_OG_051()
 		{
-			// TODO ForbiddenAncient_OG_051 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -191,8 +202,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ancient"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ancient"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(10, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(10, ((Minion)testCard).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_188] Klaxxi Amber-Weaver - COST:4 [ATK:4/HP:5] 
@@ -204,10 +218,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KlaxxiAmberWeaver_OG_188()
 		{
-			// TODO KlaxxiAmberWeaver_OG_188 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -218,8 +231,24 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Klaxxi Amber-Weaver"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Klaxxi Amber-Weaver"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Klaxxi Amber-Weaver"));
+            var buffer1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer1));
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(5, ((Minion)testCard1).Health);
+            game.CurrentPlayer.UsedMana = 0;
+            var buffer2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer2));
+            Assert.AreEqual(12, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(12, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(10, ((Minion)testCard2).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [OG_202] Mire Keeper - COST:4 [ATK:3/HP:3] 
@@ -598,7 +627,6 @@ namespace SabberStoneUnitTest.CardSets
 		[TestMethod]
 		public void ForbiddenFlame_OG_086()
 		{
-			// TODO ForbiddenFlame_OG_086 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1426,10 +1454,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - DEATHRATTLE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void XarilPoisonedMind_OG_080()
 		{
-			// TODO XarilPoisonedMind_OG_080 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1440,8 +1467,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Xaril, Poisoned Mind"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Xaril, Poisoned Mind"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var testSpell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("OG_080e"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testSpell1, minion));
+            Assert.AreEqual(true, ((Minion)minion).HasStealth);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(false, ((Minion)minion).HasStealth);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [OG_267] Southsea Squidface - COST:4 [ATK:4/HP:4] 

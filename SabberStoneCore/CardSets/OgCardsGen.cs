@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.SimpleTasks.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -44,28 +45,23 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_047", new List<Enchantment> {
-				// TODO [OG_047] Feral Rage && Test: Feral Rage_OG_047
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("OG_047",
+                //CHOOSE_ONE
+                null);
 
-			// ------------------------------------------ SPELL - DRUID
-			// [OG_048] Mark of Y'Shaarj - COST:2 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a minion +2/+2.
-			//       If it's a Beast, draw
-			//       a card.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("OG_048", new List<Enchantment> {
+            // ------------------------------------------ SPELL - DRUID
+            // [OG_048] Mark of Y'Shaarj - COST:2 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: Give a minion +2/+2.
+            //       If it's a Beast, draw
+            //       a card.
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_MINION_TARGET = 0
+            // - REQ_TARGET_TO_PLAY = 0
+            // --------------------------------------------------------
+            cards.Add("OG_048", new List<Enchantment> {
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
@@ -85,26 +81,21 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_195", new List<Enchantment> {
-				// TODO [OG_195] Wisps of the Old Gods && Test: Wisps of the Old Gods_OG_195
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("OG_195",
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
-			// - Set: og, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Your <b>Choose One</b> cards have both effects combined.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("OG_044", new List<Enchantment> {
+            // ----------------------------------------- MINION - DRUID
+            // [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
+            // - Set: og, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: Your <b>Choose One</b> cards have both effects combined.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - AURA = 1
+            // --------------------------------------------------------
+            cards.Add("OG_044", new List<Enchantment> {
 				// TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
 				new Enchantment
 				(
@@ -123,12 +114,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_051", new List<Enchantment> {
-				// TODO [OG_051] Forbidden Ancient && Test: Forbidden Ancient_OG_051
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.SpendAllManaTask(
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE))
+				}
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -142,11 +133,13 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_188", new List<Enchantment> {
-				// TODO [OG_188] Klaxxi Amber-Weaver && Test: Klaxxi Amber-Weaver_OG_188
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RitualTask(),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.Health(5), EntityType.SOURCE)))
 				},
 			});
 
@@ -212,11 +205,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your hero +4 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("OG_047a", new List<Enchantment> {
-				// TODO [OG_047a] Evolve Spines && Test: Evolve Spines_OG_047a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackTurn(4), EntityType.HERO)
 				},
 			});
 
@@ -227,11 +219,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Gain 8 Armor.
 			// --------------------------------------------------------
 			cards.Add("OG_047b", new List<Enchantment> {
-				// TODO [OG_047b] Evolve Scales && Test: Evolve Scales_OG_047b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ArmorTask(8),
 				},
 			});
 
@@ -242,11 +233,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon seven 1/1 Wisps.
 			// --------------------------------------------------------
 			cards.Add("OG_195a", new List<Enchantment> {
-				// TODO [OG_195a] Many Wisps && Test: Many Wisps_OG_195a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(7, new SummonTask("OG_195c"))
 				},
 			});
 
@@ -257,11 +247,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your minions +2/+2.
 			// --------------------------------------------------------
 			cards.Add("OG_195b", new List<Enchantment> {
-				// TODO [OG_195b] Big Wisps && Test: Big Wisps_OG_195b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS)
 				},
 			});
 
@@ -310,65 +299,37 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OneTurnEffect = 1
 			// --------------------------------------------------------
-			cards.Add("OG_047e", new List<Enchantment> {
-				// TODO [OG_047e] Spines && Test: Spines_OG_047e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_047e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_048e] Mark of Y'Shaarj (*) - COST:0 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			// Text: +2/+2.
-			// --------------------------------------------------------
-			cards.Add("OG_048e", new List<Enchantment> {
-				// TODO [OG_048e] Mark of Y'Shaarj && Test: Mark of Y'Shaarj_OG_048e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_048e] Mark of Y'Shaarj (*) - COST:0 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            // Text: +2/+2.
+            // --------------------------------------------------------
+            cards.Add("OG_048e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_051e] Forbidden Power (*) - COST:0 
-			// - Set: og, 
-			// --------------------------------------------------------
-			// Text: Increased stats.
-			// --------------------------------------------------------
-			cards.Add("OG_051e", new List<Enchantment> {
-				// TODO [OG_051e] Forbidden Power && Test: Forbidden Power_OG_051e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_051e] Forbidden Power (*) - COST:0 
+            // - Set: og, 
+            // --------------------------------------------------------
+            // Text: Increased stats.
+            // --------------------------------------------------------
+            cards.Add("OG_051e", null);
 
-			// ------------------------------------ ENCHANTMENT - DRUID
-			// [OG_202ae] Y'Shaarj's Strength (*) - COST:0 
-			// - Set: og, Rarity: rare
-			// --------------------------------------------------------
-			// Text: +3/+3.
-			// --------------------------------------------------------
-			cards.Add("OG_202ae", new List<Enchantment> {
-				// TODO [OG_202ae] Y'Shaarj's Strength && Test: Y'Shaarj's Strength_OG_202ae
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            // ------------------------------------ ENCHANTMENT - DRUID
+            // [OG_202ae] Y'Shaarj's Strength (*) - COST:0 
+            // - Set: og, Rarity: rare
+            // --------------------------------------------------------
+            // Text: +3/+3.
+            // --------------------------------------------------------
+            cards.Add("OG_202ae", null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
-			// - Set: og, Rarity: common
-			// --------------------------------------------------------
-			cards.Add("OG_195c", new List<Enchantment> {
+            // ----------------------------------------- MINION - DRUID
+            // [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
+            // - Set: og, Rarity: common
+            // --------------------------------------------------------
+            cards.Add("OG_195c", new List<Enchantment> {
 				// TODO [OG_195c] Wisp && Test: Wisp_OG_195c
 				new Enchantment
 				(
@@ -633,21 +594,23 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-                        new GetControllerManaTask(),
-                        new DamageNumberTask(EntityType.TARGET, true),
-                        new IncludeTask(EntityType.SOURCE),
-                        new FuncTask(p =>
-                        {
-                            var controller = p[0].Controller;
-                            if (controller != null)
-                            {
-                                controller.UsedMana =  controller.BaseMana 
-                                + controller.TemporaryMana 
-                                - controller.OverloadLocked;
-                            }
-                            return null;
-                        }))
+					SingleTask = ComplexTask.SpendAllManaTask(
+                        new DamageNumberTask(EntityType.TARGET, true))
+                    //Create(
+                    //    new GetControllerManaTask(),
+                    //    new DamageNumberTask(EntityType.TARGET, true),
+                    //    new IncludeTask(EntityType.SOURCE),
+                    //    new FuncTask(p =>
+                    //    {
+                    //        var controller = p[0].Controller;
+                    //        if (controller != null)
+                    //        {
+                    //            controller.UsedMana =  controller.BaseMana 
+                    //            + controller.TemporaryMana 
+                    //            - controller.OverloadLocked;
+                    //        }
+                    //        return null;
+                    //    }))
 				},
 			});
 
@@ -1251,17 +1214,20 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080", new List<Enchantment> {
-				// TODO [OG_080] Xaril, Poisoned Mind && Test: Xaril, Poisoned Mind_OG_080
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                            new RandomEntourageTask(),
+                            new CopyToHand())
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                            new RandomEntourageTask(),
+                            new CopyToHand())
+                },
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1356,11 +1322,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw a card.
 			// --------------------------------------------------------
 			cards.Add("OG_080b", new List<Enchantment> {
-				// TODO [OG_080b] Kingsblood Toxin && Test: Kingsblood Toxin_OG_080b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DrawTask(),
 				},
 			});
 
@@ -1377,11 +1342,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080c", new List<Enchantment> {
-				// TODO [OG_080c] Bloodthistle Toxin && Test: Bloodthistle Toxin_OG_080c
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ReturnHandTask(EntityType.TARGET),
+                        new BuffTask(Buffs.Cost(-2), EntityType.TARGET))
 				},
 			});
 
@@ -1396,11 +1362,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080d", new List<Enchantment> {
-				// TODO [OG_080d] Briarthorn Toxin && Test: Briarthorn Toxin_OG_080d
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
 				},
 			});
 
@@ -1419,11 +1384,10 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080e", new List<Enchantment> {
-				// TODO [OG_080e] Fadeleaf Toxin && Test: Fadeleaf Toxin_OG_080e
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffStealthTask(EntityType.TARGET)
 				},
 			});
 
@@ -1437,11 +1401,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080f", new List<Enchantment> {
-				// TODO [OG_080f] Firebloom Toxin && Test: Firebloom Toxin_OG_080f
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.TARGET, true),
 				},
 			});
 
@@ -1451,14 +1414,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_070e", new List<Enchantment> {
-				// TODO [OG_070e] Thirsty Blades && Test: Thirsty Blades_OG_070e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_070e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [OG_267e] Squid Oil Sheen (*) - COST:0 
@@ -1466,16 +1422,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack
 			// --------------------------------------------------------
-			cards.Add("OG_267e", new List<Enchantment> {
-				// TODO [OG_267e] Squid Oil Sheen && Test: Squid Oil Sheen_OG_267e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_267e", null);
 
-		}
+        }
 
 		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -1873,20 +1822,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("OG_113e", new List<Enchantment> {
-				// TODO [OG_113e] Power of the People && Test: Power of the People_OG_113e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_113e", null);
 
-			// --------------------------------------- MINION - WARLOCK
-			// [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_114a", new List<Enchantment> {
+            // --------------------------------------- MINION - WARLOCK
+            // [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_114a", new List<Enchantment> {
 				// TODO [OG_114a] Icky Tentacle && Test: Icky Tentacle_OG_114a
 				new Enchantment
 				(
@@ -2092,20 +2034,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Durability.
 			// --------------------------------------------------------
-			cards.Add("OG_312e", new List<Enchantment> {
-				// TODO [OG_312e] Upgraded && Test: Upgraded_OG_312e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_312e", null);
 
-			// --------------------------------------- MINION - WARRIOR
-			// [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: og, 
-			// --------------------------------------------------------
-			cards.Add("OG_314b", new List<Enchantment> {
+            // --------------------------------------- MINION - WARRIOR
+            // [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
+            // - Set: og, 
+            // --------------------------------------------------------
+            cards.Add("OG_314b", new List<Enchantment> {
 				// TODO [OG_314b] Slime && Test: Slime_OG_314b
 				new Enchantment
 				(

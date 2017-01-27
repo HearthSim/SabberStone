@@ -674,7 +674,6 @@ namespace SabberStoneCore.CardSets
             // - CHARGE = 1
             // --------------------------------------------------------
             cards.Add("DS1_178", new List<Enchantment> {
-                // TODO check if we need to change charge buff implementation
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,

@@ -1,12 +1,12 @@
 using System.Linq;
-using SabberStoneCore.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets
 {
     [TestClass]
     public class HeroesCoreTest

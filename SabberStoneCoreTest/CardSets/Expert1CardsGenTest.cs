@@ -6,7 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets
 {
 	[TestClass]
 	public class HeroesExpert1Test
@@ -431,20 +431,20 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
 		}
 
-		// ------------------------------------------ SPELL - DRUID
-		// [NEW1_007] Starfall - COST:5 
-		// - Set: expert1, Rarity: rare
-		// --------------------------------------------------------
-		// Text: <b>Choose One -</b> Deal $5 damage to a minion; or $2 damage to all enemy minions. *spelldmg
-		// --------------------------------------------------------
-		// GameTag:
-		// - CHOOSE_ONE = 1
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_MINION_TARGET = 0
-		// - REQ_TARGET_IF_AVAILABLE = 0
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+        // ------------------------------------------ SPELL - DRUID
+        // [NEW1_007] Starfall - COST:5 
+        // - Set: expert1, Rarity: rare
+        // --------------------------------------------------------
+        // Text: <b>Choose One -</b> Deal $5 damage to a minion; or $2 damage to all enemy minions. *spelldmg
+        // --------------------------------------------------------
+        // GameTag:
+        // - CHOOSE_ONE = 1
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_MINION_TARGET = 0
+        // - REQ_TARGET_IF_AVAILABLE = 0
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void Starfall_NEW1_007()
 		{
 			// TODO Starfall_NEW1_007 test
