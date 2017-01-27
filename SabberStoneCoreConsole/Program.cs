@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Enums;
 using System.Diagnostics;
+using System.Linq;
 
 class Program
 {
@@ -16,14 +17,40 @@ class Program
         Console.WriteLine("Start Test!");
 
         //BasicBuffTest();
-        CardsTest();
+        //CardsTest();
         //CloneStampTest();
         //OptionsTest();
-
+        GameMulliganTest();
         //Console.WriteLine(Cards.Statistics());
 
         Console.WriteLine("Finished! Press key now.");
         Console.ReadKey();
+    }
+
+    public static void GameMulliganTest()
+    {
+        var game =
+            new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true,
+                SkipMulligan = false
+            });
+        game.StartGame();
+
+        game.Process(ChooseTask.Mulligan(game.Player1, 
+            game.Player1.Choice.Choices.Where(p => p.Cost > 3).ToList()));
+        game.Process(ChooseTask.Mulligan(game.Player2,
+            game.Player2.Choice.Choices.Where(p => p.Cost > 3).ToList()));
+
+        game.MainBegin();
+
+        ShowLog(game, LogLevel.VERBOSE);
+
+        Console.WriteLine(game.Player1.Choice?.FullPrint());
+        Console.WriteLine(game.Player2.Choice?.FullPrint());
     }
 
     public static void BasicBuffTest()

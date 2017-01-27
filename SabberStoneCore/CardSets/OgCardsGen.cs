@@ -96,8 +96,17 @@ namespace SabberStoneCore.CardSets
             // - AURA = 1
             // --------------------------------------------------------
             cards.Add("OG_044", new List<Enchantment> {
-				// TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
-				new Enchantment
+                // TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
+                //[irc] NightKev there's no "choose one" card where you can meet one but not the other playreq
+                //[irc] NightKev no wait
+                //[irc] NightKev there is an extremely niche case
+                //[irc] NightKev you have two uh...
+                //[irc] NightKev !card wee spellstopper
+                //[irc] boombot7 Wee Spellstopper  [GVG_122 GVG][Mage Minion][4  mana, 2 / 5]:  Adjacent minions can't be targeted by spells or Hero Powers.   Bane of spellcasters and spelling bees everywhere.
+                //[irc] NightKev yeah that one
+                //[irc] NightKev you have two of those next to each other and place fandral on either end of the board and there are zero other minions on the board
+                //[irc] NightKev then you would be unable to play starfall because it has no targets
+                new Enchantment
 				(
 					//Activation = null,
 					//SingleTask = null,
