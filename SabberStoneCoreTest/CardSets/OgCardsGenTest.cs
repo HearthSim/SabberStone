@@ -353,22 +353,32 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Infest_OG_045()
 		{
-			// TODO Infest_OG_045 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infest"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infest"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(Race.BEAST, game.CurrentOpponent.Hand[4].Card.Race);
+
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [OG_061] On the Hunt - COST:1 

@@ -364,12 +364,18 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_045", new List<Enchantment> {
-				// TODO [OG_045] Infest && Test: Infest_OG_045
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DeathrattleTask(EntityType.MINIONS,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = ComplexTask.Create(
+                                new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+                                new AddStackTo(EntityType.HAND))
+                        })
+                }
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -510,14 +516,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_325] Carrion Grub - COST:3 [ATK:2/HP:5] 
 			// - Race: beast, Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_325", new List<Enchantment> {
-				// TODO [OG_325] Carrion Grub && Test: Carrion Grub_OG_325
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_325", null);
 
 		}
 
@@ -527,27 +526,13 @@ namespace SabberStoneCore.CardSets
 			// [OG_061t] Mastiff (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_061t", new List<Enchantment> {
-				// TODO [OG_061t] Mastiff && Test: Mastiff_OG_061t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_061t", null);
 
 			// ---------------------------------------- MINION - HUNTER
 			// [OG_216a] Spider (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_216a", new List<Enchantment> {
-				// TODO [OG_216a] Spider && Test: Spider_OG_216a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_216a", null);
 
 		}
 
