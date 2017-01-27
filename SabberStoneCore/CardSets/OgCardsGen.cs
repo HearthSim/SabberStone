@@ -442,11 +442,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_216", new List<Enchantment> {
-				// TODO [OG_216] Infested Wolf && Test: Infested Wolf_OG_216
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new SummonTask("OG_216a"))
 				},
 			});
 

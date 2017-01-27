@@ -474,10 +474,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void InfestedWolf_OG_216()
 		{
-			// TODO InfestedWolf_OG_216 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -488,8 +487,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infested Wolf"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infested Wolf"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_292] Forlorn Stalker - COST:3 [ATK:4/HP:2] 
