@@ -95,10 +95,18 @@ namespace SabberStoneCore.Actions
                 switch (c.Choice.ChoiceAction)
                 {
                     case ChoiceAction.HAND:
-                        choices.ForEach(p => Generic.ShuffleIntoDeck.Invoke(c, c.Hand.First(t => t.Card == p)));
+
+
+                        choices.ForEach(p =>
+                        {
+                            var mulliganCard = c.Hand.First(t => t.Card == p);
+                            RemoveFromZone(c, mulliganCard);
+                            ShuffleIntoDeck.Invoke(c, mulliganCard);
+                        });
+
                         for (var i = 0; i < choices.Count; i++)
                         {
-                           Generic.Draw(c);
+                           Draw(c);
                         }
                         
                         // reset choice it's done

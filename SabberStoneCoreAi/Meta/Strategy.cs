@@ -1,4 +1,4 @@
-namespace SabberStoneCoreGui.Meta
+namespace SabberStoneCoreAi.Meta
 {
     public enum Strategy
     {

@@ -1,15 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Model;
 
-namespace SabberStoneCoreGui.Score
+namespace SabberStoneCoreAi.Score
 {
     public interface IScore
     {
         Controller Controller { get; set; }
+        Func<List<Card>, List<Card>> MulliganRule();
         int Rate();
     }
 
-    public class Score : IScore
+    public abstract class Score : IScore
     {
         public Controller Controller { get; set; }
 
@@ -54,5 +57,9 @@ namespace SabberStoneCoreGui.Score
             return 0;
         }
 
+        public virtual Func<List<Card>, List<Card>> MulliganRule()
+        {
+            return p => new List<Card>();
+        }
     }
 }

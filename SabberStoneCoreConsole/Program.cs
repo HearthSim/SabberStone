@@ -42,6 +42,7 @@ class Program
 
         game.Process(ChooseTask.Mulligan(game.Player1, 
             game.Player1.Choice.Choices.Where(p => p.Cost > 3).ToList()));
+
         game.Process(ChooseTask.Mulligan(game.Player2,
             game.Player2.Choice.Choices.Where(p => p.Cost > 3).ToList()));
 

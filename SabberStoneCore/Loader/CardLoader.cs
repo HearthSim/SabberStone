@@ -22,7 +22,7 @@ namespace SabberStoneCore.Loader
             {
                 if (_path == null)
                 {
-                    _path = @"C:\Users\cedri\Source\Workspaces\";
+                    _path = @"C:\Users\admin\Source\Repos\";
                 }
 
                 return _path;

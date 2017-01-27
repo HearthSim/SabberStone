@@ -1,6 +1,11 @@
-namespace SabberStoneCoreGui.Score
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Model;
+
+namespace SabberStoneCoreAi.Score
 {
-    public class FatigueScore : Score
+    public class FatigueScore : SabberStoneCoreAi.Score.Score
     {
         public override int Rate()
         {
@@ -32,6 +37,11 @@ namespace SabberStoneCoreGui.Score
             result += (HeroHp - OpHeroHp) * 5;
 
             return result;
+        }
+
+        public override Func<List<Card>, List<Card>> MulliganRule()
+        {
+            return p => p.Where(t => t.Cost > 3).ToList();
         }
     }
 }

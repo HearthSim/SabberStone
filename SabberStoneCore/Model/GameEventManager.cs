@@ -23,13 +23,6 @@ namespace SabberStoneCore.Model
             {
                 NextStepEvent(game, (Step) newValue);
             }
-
-            if (game != null && t == GameTag.MULLIGAN_STATE)
-            {
-                if (game.Player1.MulliganState == Mulligan.DONE
-                 || game.Player2.MulliganState == Mulligan.DONE)
-                NextStepEvent(game, Step.MAIN_BEGIN);
-            }
         }
 
         public void NextStepEvent(Game game, Step step)
