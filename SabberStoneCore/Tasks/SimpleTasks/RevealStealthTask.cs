@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new SilenceTask(Type);
+            var clone = new RevealStealthTask(Type);
             clone.Copy(this);
             return clone;
         }
