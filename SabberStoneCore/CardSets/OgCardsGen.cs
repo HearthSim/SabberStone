@@ -6,7 +6,6 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.SimpleTasks.Tasks;
-using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.CardSets
 {
