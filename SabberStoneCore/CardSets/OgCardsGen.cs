@@ -1604,14 +1604,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_031a] Twilight Elemental (*) - COST:3 [ATK:4/HP:2] 
 			// - Set: og, Rarity: epic
 			// --------------------------------------------------------
-			cards.Add("OG_031a", new List<Enchantment> {
-				// TODO [OG_031a] Twilight Elemental && Test: Twilight Elemental_OG_031a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_031a", null);
 
 		}
 
@@ -1793,27 +1786,13 @@ namespace SabberStoneCore.CardSets
             // [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
             // - Set: og, 
             // --------------------------------------------------------
-            cards.Add("OG_114a", new List<Enchantment> {
-				// TODO [OG_114a] Icky Tentacle && Test: Icky Tentacle_OG_114a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_114a", null);
 
 			// --------------------------------------- MINION - WARLOCK
 			// [OG_241a] Shadowbeast (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_241a", new List<Enchantment> {
-				// TODO [OG_241a] Shadowbeast && Test: Shadowbeast_OG_241a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_241a", null);
 
 		}
 
@@ -2005,14 +1984,7 @@ namespace SabberStoneCore.CardSets
             // [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
             // - Set: og, 
             // --------------------------------------------------------
-            cards.Add("OG_314b", new List<Enchantment> {
-				// TODO [OG_314b] Slime && Test: Slime_OG_314b
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_314b", null);
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [OG_058] Rusty Hook (*) - COST:1 [ATK:1/HP:0] 
