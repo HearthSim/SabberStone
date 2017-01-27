@@ -580,21 +580,6 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.SpendAllManaTask(
                         new DamageNumberTask(EntityType.TARGET, true))
-                    //Create(
-                    //    new GetControllerManaTask(),
-                    //    new DamageNumberTask(EntityType.TARGET, true),
-                    //    new IncludeTask(EntityType.SOURCE),
-                    //    new FuncTask(p =>
-                    //    {
-                    //        var controller = p[0].Controller;
-                    //        if (controller != null)
-                    //        {
-                    //            controller.UsedMana =  controller.BaseMana 
-                    //            + controller.TemporaryMana 
-                    //            - controller.OverloadLocked;
-                    //        }
-                    //        return null;
-                    //    }))
 				},
 			});
 
@@ -623,11 +608,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_083", new List<Enchantment> {
-				// TODO [OG_083] Twilight Flamecaller && Test: Twilight Flamecaller_OG_083
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.OP_MINIONS)
 				},
 			});
 
