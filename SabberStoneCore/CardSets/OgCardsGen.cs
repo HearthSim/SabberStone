@@ -389,11 +389,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_061", new List<Enchantment> {
-				// TODO [OG_061] On the Hunt && Test: On the Hunt_OG_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET, true),
+                        new SummonTask("OG_061t"))
 				},
 			});
 

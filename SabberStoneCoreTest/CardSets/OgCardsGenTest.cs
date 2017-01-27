@@ -390,10 +390,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void OnTheHunt_OG_061()
 		{
-			// TODO OnTheHunt_OG_061 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -404,8 +403,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("On the Hunt"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("On the Hunt"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [OG_211] Call of the Wild - COST:9 
