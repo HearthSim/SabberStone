@@ -2394,13 +2394,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_091", new List<Enchantment> {
-				// TODO [AT_091] Tournament Medic && Test: Tournament Medic_AT_091
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new HealTask(2, EntityType.HERO))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_092] Ice Rager - COST:3 [ATK:5/HP:2] 
@@ -2519,13 +2519,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_099", new List<Enchantment> {
-				// TODO [AT_099] Kodorider && Test: Kodorider_AT_099
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new SummonTask("AT_099t"))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_100] Silver Hand Regent - COST:3 [ATK:3/HP:3] 
