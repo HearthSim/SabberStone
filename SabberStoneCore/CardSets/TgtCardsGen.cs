@@ -2242,13 +2242,13 @@ namespace SabberStoneCore.CardSets
 			// - WINDFURY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_083", new List<Enchantment> {
-				// TODO [AT_083] Dragonhawk Rider && Test: Dragonhawk Rider_AT_083
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new BuffTask(Buffs.WindFuryTurn(), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_084] Lance Carrier - COST:2 [ATK:1/HP:2] 

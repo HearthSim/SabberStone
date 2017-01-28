@@ -73,6 +73,18 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant WindFuryTurn()
+        {
+            return new Enchant
+            {
+                TurnsActive = 0,
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.WINDFURY] = 1
+                }
+            };
+        }
+
         public static Enchant ImmuneTurn()
         {
             return new Enchant
@@ -198,5 +210,6 @@ namespace SabberStoneCore.Enchants
                 RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
             };
         }
+
     }
 }

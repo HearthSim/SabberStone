@@ -2732,22 +2732,27 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - WINDFURY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DragonhawkRider_AT_083()
 		{
-			// TODO DragonhawkRider_AT_083 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragonhawk Rider"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragonhawk Rider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(false, ((Minion)testCard).HasWindfury);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(true, ((Minion)testCard).HasWindfury);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(false, ((Minion)testCard).HasWindfury);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_084] Lance Carrier - COST:2 [ATK:1/HP:2] 
