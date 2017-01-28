@@ -997,10 +997,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FreezingTrap_EX1_611()
 		{
-			// TODO FreezingTrap_EX1_611 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1011,7 +1010,22 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Freezing Trap"));
+			
+			var trap = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Freezing Trap"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, trap));
+			Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Triggers.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var minion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+
+			var cardsInHand = game.CurrentPlayer.Hand.Count;
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+			Assert.AreEqual(cardsInHand+1, game.CurrentPlayer.Hand.Count);
+			Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

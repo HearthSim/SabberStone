@@ -987,11 +987,16 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_611", new List<Enchantment> {
-				// TODO [EX1_611] Freezing Trap && Test: Freezing Trap_EX1_611
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new ReturnHandTask(EntityType.TARGET)))
+                        .Build()
 				},
 			});
 
