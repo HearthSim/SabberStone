@@ -5,6 +5,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomTask : SimpleTask
     {
+        /// <summary>  
+        ///  Selects the given number of random entities of the given type and places them on the stack.  
+        /// </summary> 
         public RandomTask(int amount, EntityType type)
         {
             Amount = amount;

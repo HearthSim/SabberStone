@@ -5,6 +5,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SetAttackTask : SimpleTask
     {
+        /// <summary>
+        ///  Changes the attack attribute of the given entity.
+        /// </summary>
         public SetAttackTask(int amount, EntityType entityType)
         {
             Amount = amount;
