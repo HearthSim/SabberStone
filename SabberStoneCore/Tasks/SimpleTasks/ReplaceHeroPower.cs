@@ -11,6 +11,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             PowerCard = cardPower;
         }
 
+        public ReplaceHeroPower()
+        {
+            Power = null;
+            PowerCard = null;
+        }
+
         public ReplaceHeroPower(HeroPower power)
         {
             Power = power;
@@ -32,6 +38,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (Controller == null)
             {
                 return TaskState.STOP;
+            }
+
+            if (PowerCard == null && Power == null)
+            {
+                if (Playables.Count != 1 || !(Playables[0] is HeroPower))
+                {
+                    return TaskState.STOP;
+                }
+
+                Power = (HeroPower) Playables[0];
             }
 
             if (PowerCard != null)

@@ -4,6 +4,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
@@ -146,12 +147,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132_SHAMAN", new List<Enchantment> {
-				// TODO [AT_132_SHAMAN] Totemic Slam && Test: Totemic Slam_AT_132_SHAMAN
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DiscoverTask(DiscoverType.BASIC_TOTEM)
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARLOCK
@@ -1716,13 +1716,17 @@ namespace SabberStoneCore.CardSets
             // Text: At the end of your turn, restore 1 Health to all friendly minions.
             // --------------------------------------------------------
             cards.Add("AT_132_SHAMANa", new List<Enchantment> {
-				// TODO [AT_132_SHAMANa] Healing Totem && Test: Healing Totem_AT_132_SHAMANa
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new HealTask(1, EntityType.MINIONS))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANb] Searing Totem (*) - COST:0 [ATK:1/HP:1] 
@@ -2688,7 +2692,6 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_111", new List<Enchantment> {
-				// TODO [AT_111] Refreshment Vendor && Test: Refreshment Vendor_AT_111
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
@@ -2728,13 +2731,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_113", new List<Enchantment> {
-				// TODO [AT_113] Recruiter && Test: Recruiter_AT_113
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new AddCardTo("CS2_152", EntityType.HAND))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_114] Evil Heckler - COST:4 [ATK:5/HP:4] 
@@ -2814,13 +2817,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_119", new List<Enchantment> {
-				// TODO [AT_119] Kvaldir Raider && Test: Kvaldir Raider_AT_119
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_120] Frost Giant - COST:10 [ATK:8/HP:8] 
@@ -3032,11 +3035,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132", new List<Enchantment> {
-				// TODO [AT_132] Justicar Trueheart && Test: Justicar Trueheart_AT_132
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = SpecificTask.JusticarTrueheart,
 				},
 			});
 

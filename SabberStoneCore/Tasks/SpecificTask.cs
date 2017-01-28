@@ -65,5 +65,37 @@ namespace SabberStoneCore.Tasks
                 new IncludeTask(EntityType.OP_MINIONS),
                 new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
                 new DamageNumberTask(EntityType.STACK));
+
+        public static ISimpleTask JusticarTrueheart
+            => ComplexTask.Create(
+                new IncludeTask(EntityType.SOURCE),
+                new FuncTask(p =>
+                {
+                    var controller = p[0].Controller;
+                    switch (controller.Hero.Power.Card.Id)
+                    {
+                        case "CS1h_001":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_PRIEST"))};
+                        case "CS2_017":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_DRUID"))};
+                        case "CS2_034":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_MAGE"))};
+                        case "CS2_049":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_SHAMAN"))};
+                        case "CS2_056":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_WARLOCK"))};
+                        case "CS2_083b":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_ROGUE"))};
+                        case "CS2_101":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_PALADIN"))};
+                        case "CS2_102":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_WARRIOR"))};
+                        case "DS1h_292":
+                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_HUNTER"))};
+                    }
+                    return new List<IPlayable>();
+                }),
+                new ReplaceHeroPower()
+                );
     }
 }

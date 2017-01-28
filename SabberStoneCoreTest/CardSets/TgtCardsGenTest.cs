@@ -3973,10 +3973,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JusticarTrueheart_AT_132()
 		{
-			// TODO JusticarTrueheart_AT_132 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3987,7 +3986,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Justicar Trueheart"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Justicar Trueheart"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Hero.Power.Card.Id.StartsWith("AT_132"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
