@@ -2699,22 +2699,25 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LowlySquire_AT_082()
 		{
-			// TODO LowlySquire_AT_082 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lowly Squire"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lowly Squire"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_083] Dragonhawk Rider - COST:3 [ATK:3/HP:3] 
