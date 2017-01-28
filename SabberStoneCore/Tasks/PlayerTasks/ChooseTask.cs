@@ -33,12 +33,14 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             {
                 case ChoiceType.MULLIGAN:
                     Generic.ChoiceMulligan.Invoke(Controller, Choices);
-                    Controller.MulliganState = SabberStoneCore.Enums.Mulligan.WAITING;
+                    Controller.MulliganState = Enums.Mulligan.WAITING;
                     return TaskState.COMPLETE;
+
                 case ChoiceType.GENERAL:
                     Generic.ChoicePick.Invoke(Controller, Choices[0]);
                     Controller.Game.NextStep = Step.MAIN_CLEANUP;
                     return TaskState.COMPLETE;
+
                 case ChoiceType.INVALID:
                     throw new NotImplementedException();
             }
@@ -47,7 +49,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         public override string FullPrint()
         {
-            return $"ChooseTask => [{Controller.Name}] choosed {string.Join(", ", Choices.Select(p => p.ToString()).ToList())}) " +
+            return $"ChooseTask => [{Controller.Name}] choosed {string.Join(", ", Choices.Select(p => p.ToString()).ToList())} " +
                    $"to {(Controller.Choice?.ChoiceType == ChoiceType.MULLIGAN ? "mulligan" : "pick")}";
         }
     }

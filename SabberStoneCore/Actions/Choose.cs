@@ -65,8 +65,10 @@ namespace SabberStoneCore.Actions
                                 Target = playable
                             });
                         }
-
                         break;
+
+                    default:
+                        throw new NotImplementedException();
                 }
 
                 // reset choice it's done
@@ -89,6 +91,34 @@ namespace SabberStoneCore.Actions
                     c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan a card that doesn't exist in this choice!");
                     return false;
                 }
+
+                switch (c.Choice.ChoiceAction)
+                {
+                    case ChoiceAction.HAND:
+
+                        choices.ForEach(p =>
+                        {
+                            var mulliganCard = c.Hand.First(t => t.Card == p);
+                            RemoveFromZone(c, mulliganCard);
+                            ShuffleIntoDeck.Invoke(c, mulliganCard);
+                        });
+
+                        for (var i = 0; i < choices.Count; i++)
+                        {
+                           Draw(c);
+                        }
+                        
+                        // reset choice it's done
+                        c.Choice = null;
+
+                        c.MulliganState = Mulligan.DONE;
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+
+
 
                 return true;
             };

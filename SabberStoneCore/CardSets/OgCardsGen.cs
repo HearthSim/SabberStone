@@ -95,8 +95,17 @@ namespace SabberStoneCore.CardSets
             // - AURA = 1
             // --------------------------------------------------------
             cards.Add("OG_044", new List<Enchantment> {
-				// TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
-				new Enchantment
+                // TODO [OG_044] Fandral Staghelm && Test: Fandral Staghelm_OG_044
+                //[irc] NightKev there's no "choose one" card where you can meet one but not the other playreq
+                //[irc] NightKev no wait
+                //[irc] NightKev there is an extremely niche case
+                //[irc] NightKev you have two uh...
+                //[irc] NightKev !card wee spellstopper
+                //[irc] boombot7 Wee Spellstopper  [GVG_122 GVG][Mage Minion][4  mana, 2 / 5]:  Adjacent minions can't be targeted by spells or Hero Powers.   Bane of spellcasters and spelling bees everywhere.
+                //[irc] NightKev yeah that one
+                //[irc] NightKev you have two of those next to each other and place fandral on either end of the board and there are zero other minions on the board
+                //[irc] NightKev then you would be unable to play starfall because it has no targets
+                new Enchantment
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -185,13 +194,17 @@ namespace SabberStoneCore.CardSets
 			// Text: After you summon a minion, give it +1/+1.
 			// --------------------------------------------------------
 			cards.Add("OG_313", new List<Enchantment> {
-				// TODO [OG_313] Addled Grizzly && Test: Addled Grizzly_OG_313
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET))
+                        .Build()
+                }
+            });
 
 		}
 
@@ -328,27 +341,13 @@ namespace SabberStoneCore.CardSets
             // [OG_195c] Wisp (*) - COST:0 [ATK:1/HP:1] 
             // - Set: og, Rarity: common
             // --------------------------------------------------------
-            cards.Add("OG_195c", new List<Enchantment> {
-				// TODO [OG_195c] Wisp && Test: Wisp_OG_195c
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_195c", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [OG_202c] Slime (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_202c", new List<Enchantment> {
-				// TODO [OG_202c] Slime && Test: Slime_OG_202c
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_202c", null);
 
 		}
 
@@ -364,12 +363,18 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_045", new List<Enchantment> {
-				// TODO [OG_045] Infest && Test: Infest_OG_045
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DeathrattleTask(EntityType.MINIONS,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = ComplexTask.Create(
+                                new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+                                new AddStackTo(EntityType.HAND))
+                        })
+                }
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -383,11 +388,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_061", new List<Enchantment> {
-				// TODO [OG_061] On the Hunt && Test: On the Hunt_OG_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET, true),
+                        new SummonTask("OG_061t"))
 				},
 			});
 
@@ -398,11 +404,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon all three Animal Companions.
 			// --------------------------------------------------------
 			cards.Add("OG_211", new List<Enchantment> {
-				// TODO [OG_211] Call of the Wild && Test: Call of the Wild_OG_211
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new EnqueueTask(1, new SummonTask("NEW1_034")),
+                        new EnqueueTask(1, new SummonTask("NEW1_033")),
+                        new EnqueueTask(1, new SummonTask("NEW1_032")))
 				},
 			});
 
@@ -416,11 +424,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_179", new List<Enchantment> {
-				// TODO [OG_179] Fiery Bat && Test: Fiery Bat_OG_179
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)
 				},
 			});
 
@@ -434,11 +441,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_216", new List<Enchantment> {
-				// TODO [OG_216] Infested Wolf && Test: Infested Wolf_OG_216
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new SummonTask("OG_216a"))
 				},
 			});
 
@@ -510,14 +516,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_325] Carrion Grub - COST:3 [ATK:2/HP:5] 
 			// - Race: beast, Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_325", new List<Enchantment> {
-				// TODO [OG_325] Carrion Grub && Test: Carrion Grub_OG_325
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_325", null);
 
 		}
 
@@ -527,27 +526,13 @@ namespace SabberStoneCore.CardSets
 			// [OG_061t] Mastiff (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_061t", new List<Enchantment> {
-				// TODO [OG_061t] Mastiff && Test: Mastiff_OG_061t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_061t", null);
 
 			// ---------------------------------------- MINION - HUNTER
 			// [OG_216a] Spider (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_216a", new List<Enchantment> {
-				// TODO [OG_216a] Spider && Test: Spider_OG_216a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_216a", null);
 
 		}
 

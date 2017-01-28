@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         }
         public override TaskState Process()
         {
-            Controller.Game.EndTurnPlayer();
+            Controller.Game.MainEnd();
             throw new NotImplementedException();
         }
     }

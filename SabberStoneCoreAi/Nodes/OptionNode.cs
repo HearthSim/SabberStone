@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCoreGui.Score;
-using System;
+using SabberStoneCoreAi.Score;
 
-namespace SabberStoneCoreGui.Nodes
+namespace SabberStoneCoreAi.Nodes
 {
     public class OptionNode
     {

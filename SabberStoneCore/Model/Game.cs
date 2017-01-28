@@ -153,12 +153,16 @@ namespace SabberStoneCore.Model
 
         public void BeginFirst()
         {
+            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin First.");
+
             // set next step
             NextStep = Step.BEGIN_SHUFFLE;
         }
 
         public void BeginShuffle()
         {
+            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Shuffle.");
+
             if (_gameConfig.Shuffle)
             {
                 Player1.Deck.Shuffle();
@@ -171,6 +175,8 @@ namespace SabberStoneCore.Model
 
         public void BeginDraw()
         {
+            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Draw.");
+
             _players.ToList().ForEach(p =>
             {
 
@@ -182,20 +188,37 @@ namespace SabberStoneCore.Model
                 {
                     // 4th card for second player
                     Generic.Draw(p);
-
-                    // and a coin
-                    Generic.DrawCard(p, Cards.FromId("GAME_005"));
                 }
 
                 p.NumTurnsLeft = 1;
             });
 
-            // set next step
+            NextStep = _gameConfig.SkipMulligan ? Step.MAIN_BEGIN : Step.BEGIN_MULLIGAN;
+        }
+
+        public void BeginMulligan()
+        {
+            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
+
+            Generic.CreateChoice.Invoke(Player1, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Card).ToList());
+            Generic.CreateChoice.Invoke(Player2, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Card).ToList());
+
+            Player1.MulliganState = Mulligan.INPUT;
+            Player2.MulliganState = Mulligan.INPUT;
+        }
+
+        public void MainBegin()
+        {
+            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Main Begin.");
+
+            // and a coin
+            Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
+
             NextStep = Step.MAIN_READY;
         }
 
         // Runs when STEP = MAIN_READY
-        public void BeginTurn()
+        public void MainReady()
         {
             Characters.ForEach(p =>
             {
@@ -223,12 +246,18 @@ namespace SabberStoneCore.Model
             // De-activate combo buff
             CurrentPlayer.IsComboActive = false;
 
+            CurrentPlayer.NumMinionsPlayerKilledThisTurn = 0;
+            CurrentOpponent.NumMinionsPlayerKilledThisTurn = 0;
+            CurrentPlayer.NumFriendlyMinionsThatAttackedThisTurn = 0;
+            NumMinionsKilledThisTurn = 0;
+            CurrentPlayer.HeroPowerActivationsThisTurn = 0;
+
             // set next step
             NextStep = Step.MAIN_START_TRIGGERS;
         }
 
         // Runs when STEP = MAIN_START_TRIGGERS
-        public void BeginTurnTriggers()
+        public void MainStartTriggers()
         {
             CurrentPlayer.TurnStart = true;
 
@@ -236,7 +265,7 @@ namespace SabberStoneCore.Model
             NextStep = Step.MAIN_RESOURCE;
         }
 
-        public void BeginTurnRessources()
+        public void MainRessources()
         {
             // adding manacrystal to next player
             Generic.ChangeManaCrystal.Invoke(CurrentPlayer, 1, false);
@@ -252,20 +281,21 @@ namespace SabberStoneCore.Model
             CurrentPlayer.OverloadOwed = 0;
 
             // set next step
+            NextStep = Step.MAIN_DRAW;
+        }
+
+        public void MainDraw()
+        {
+            Generic.Draw(CurrentPlayer);
+
+            // set next step
             NextStep = Step.MAIN_START;
         }
 
         // Runs when STEP = MAIN_START
-        public void BeginTurnPlayer()
+        public void MainStart()
         {
-            CurrentPlayer.NumMinionsPlayerKilledThisTurn = 0;
-            CurrentOpponent.NumMinionsPlayerKilledThisTurn = 0;
-            CurrentPlayer.NumFriendlyMinionsThatAttackedThisTurn = 0;
-            NumMinionsKilledThisTurn = 0;
-            CurrentPlayer.HeroPowerActivationsThisTurn = 0;
 
-            Generic.Draw(CurrentPlayer);
-            
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
                      $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
@@ -274,7 +304,7 @@ namespace SabberStoneCore.Model
         }
 
         // Runs when STEP = MAIN_END
-        public void EndTurnPlayer()
+        public void MainEnd()
         {
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
             
@@ -285,7 +315,7 @@ namespace SabberStoneCore.Model
         }
 
         // Runs when STEP = MAIN_NEXT
-        public void EndTurn()
+        public void MainNext()
         {
             CurrentPlayer.NumTurnsLeft = 0;
             CurrentOpponent.NumTurnsLeft = 1;
@@ -317,6 +347,40 @@ namespace SabberStoneCore.Model
 
             // set next step
             NextStep = Step.MAIN_READY;
+        }
+
+        public void MainCleanUp()
+        {
+            DeathProcessingAndAuraUpdate();
+
+            // move forward if game isn't won by any player now!
+            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
+                ? Step.MAIN_ACTION
+                : Step.FINAL_WRAPUP;
+        }
+
+        public void FinalWrapUp()
+        {
+            Heroes.ForEach(p =>
+            {
+                if (p.Controller.PlayState == PlayState.LOSING)
+                {
+                    p.Controller.PlayState = PlayState.LOST;
+                    p.Controller.Opponent.PlayState = PlayState.WON;
+                }
+            });
+
+            // set next step
+            NextStep = Step.FINAL_GAMEOVER;
+        }
+
+        public void FinalGameOver()
+        {
+            State = State.COMPLETE;
+            _players.ToList().ForEach(p =>
+            {
+                Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
+            });
         }
 
         public void GraveYard()
@@ -396,40 +460,6 @@ namespace SabberStoneCore.Model
 
                 AuraUpdate();
             }
-        }
-
-        public void CleanUp()
-        {
-            DeathProcessingAndAuraUpdate();
-
-            // move forward if game isn't won by any player now!
-            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
-                ? Step.MAIN_ACTION
-                : Step.FINAL_WRAPUP;
-        }
-
-        public void WrapUp()
-        {
-            Heroes.ForEach(p =>
-            {
-                if (p.Controller.PlayState == PlayState.LOSING)
-                {
-                    p.Controller.PlayState = PlayState.LOST;
-                    p.Controller.Opponent.PlayState = PlayState.WON;
-                }
-            });
-
-            // set next step
-            NextStep = Step.FINAL_GAMEOVER;
-        }
-
-        public void GameOver()
-        {
-            State = State.COMPLETE;
-            _players.ToList().ForEach(p =>
-            {
-                Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
-            });
         }
 
         public void Process(PlayerTask gameTask)

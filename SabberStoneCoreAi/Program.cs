@@ -1,15 +1,16 @@
-﻿using SabberStoneCore.Config;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCoreGui.Meta;
-using SabberStoneCoreGui.Nodes;
-using SabberStoneCoreGui.Score;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCoreAi.Meta;
+using SabberStoneCoreAi.Nodes;
+using SabberStoneCoreAi.Score;
 
-namespace SabberStoneCoreGui
+namespace SabberStoneCoreAi
 {
     internal class Program
     {
@@ -39,16 +40,26 @@ namespace SabberStoneCoreGui
                     Player2HeroClass = CardClass.SHAMAN,
                     DeckPlayer2 = Decks.MidrangeJadeShaman,
                     FillDecks = false,
-                    Shuffle = false
+                    Shuffle = false,
+                    SkipMulligan = false
                 });
             game.Player1.BaseMana = 10;
             game.StartGame();
+
+
+            var aiPlayer1 = new AggroScore();
+            var aiPlayer2 = new AggroScore();
+
+            game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices)));
+            game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices)));
+
+            game.MainBegin();
 
             while (game.CurrentPlayer == game.Player1)
             {
                 Console.WriteLine($"* Calculating solutions *** Player 1 ***");
 
-                var solutions = OptionNode.GetSolutions(game, game.Player1.Id, new AggroScore(), 10, 500);
+                var solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
 
                 var solution = new List<PlayerTask>();
                 solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
@@ -80,20 +91,36 @@ namespace SabberStoneCoreGui
                     Player2HeroClass = CardClass.SHAMAN,
                     DeckPlayer2 = Decks.MidrangeJadeShaman,
                     FillDecks = false,
-                    Shuffle = true
+                    Shuffle = true,
+                    SkipMulligan = false
                 });
             game.StartGame();
+
+            var aiPlayer1 = new AggroScore();
+            var aiPlayer2 = new MidRangeScore();
+
+            var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices);
+            var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices);
+
+            Console.WriteLine($"Player1: Mulligan {string.Join(",", mulligan1)}");
+            Console.WriteLine($"Player2: Mulligan {string.Join(",", mulligan2)}");
+
+            game.Process(ChooseTask.Mulligan(game.Player1, mulligan1));
+            game.Process(ChooseTask.Mulligan(game.Player2, mulligan2));
+
+            game.MainBegin();
+
             while (game.State != State.COMPLETE)
             {
                 Console.WriteLine("");
                 Console.WriteLine($"Player1: {game.Player1.PlayState} / Player2: {game.Player2.PlayState} - " +
-                         $"ROUND {(game.Turn + 1) / 2} - {game.CurrentPlayer.Name}");
+                                  $"ROUND {(game.Turn + 1) / 2} - {game.CurrentPlayer.Name}");
                 Console.WriteLine($"Hero[P1]: {game.Player1.Hero.Health} / Hero[P2]: {game.Player2.Hero.Health}");
                 Console.WriteLine("");
                 while (game.State == State.RUNNING && game.CurrentPlayer == game.Player1)
                 {
                     Console.WriteLine($"* Calculating solutions *** Player 1 ***");
-                    var solutions = OptionNode.GetSolutions(game, game.Player1.Id, new AggroScore(), 10, 500);
+                    var solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
                     var solution = new List<PlayerTask>();
                     solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
                     Console.WriteLine($"- Player 1 - <{game.CurrentPlayer.Name}> ---------------------------");
@@ -118,7 +145,7 @@ namespace SabberStoneCoreGui
                     //Log.Info($"[{option.FullPrint()}]");
                     //game.Process(option);
                     Console.WriteLine($"* Calculating solutions *** Player 2 ***");
-                    var solutions = OptionNode.GetSolutions(game, game.Player2.Id, new MidRangeScore(), 10, 500);
+                    var solutions = OptionNode.GetSolutions(game, game.Player2.Id, aiPlayer2, 10, 500);
                     var solution = new List<PlayerTask>();
                     solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
                     Console.WriteLine($"- Player 2 - <{game.CurrentPlayer.Name}> ---------------------------");

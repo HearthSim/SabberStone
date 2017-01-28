@@ -1,6 +1,11 @@
-namespace SabberStoneCoreGui.Score
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Model;
+
+namespace SabberStoneCoreAi.Score
 {
-    public class MidRangeScore : Score
+    public class MidRangeScore : SabberStoneCoreAi.Score.Score
     {
         public override int Rate()
         {
@@ -29,6 +34,11 @@ namespace SabberStoneCoreGui.Score
             result += (MinionTotAtk - OpMinionTotAtk) * 10;
 
             return result;
+        }
+
+        public override Func<List<Card>, List<Card>> MulliganRule()
+        {
+            return p => p.Where(t => t.Cost > 3).ToList();
         }
     }
 }

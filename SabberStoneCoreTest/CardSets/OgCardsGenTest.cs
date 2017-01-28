@@ -316,10 +316,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you summon a minion, give it +1/+1.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AddledGrizzly_OG_313()
 		{
-			// TODO AddledGrizzly_OG_313 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -330,8 +329,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Addled Grizzly"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Addled Grizzly"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(1, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(1, ((Minion)minion).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(2, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(2, ((Minion)minion).Health);
+        }
 
 	}
 
@@ -347,22 +353,32 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Infest_OG_045()
 		{
-			// TODO Infest_OG_045 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infest"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infest"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(Race.BEAST, game.CurrentOpponent.Hand[4].Card.Race);
+
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [OG_061] On the Hunt - COST:1 
@@ -374,10 +390,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void OnTheHunt_OG_061()
 		{
-			// TODO OnTheHunt_OG_061 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -388,8 +403,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("On the Hunt"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("On the Hunt"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [OG_211] Call of the Wild - COST:9 
@@ -397,10 +415,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon all three Animal Companions.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CallOfTheWild_OG_211()
 		{
-			// TODO CallOfTheWild_OG_211 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -411,8 +428,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Call of the Wild"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Call of the Wild"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual("Huffer", game.CurrentPlayer.Board[0].Card.Name);
+            Assert.AreEqual("Leokk", game.CurrentPlayer.Board[1].Card.Name);
+            Assert.AreEqual("Misha", game.CurrentPlayer.Board[2].Card.Name);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_179] Fiery Bat - COST:1 [ATK:2/HP:1] 
@@ -423,22 +445,25 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FieryBat_OG_179()
 		{
-			// TODO FieryBat_OG_179 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fiery Bat"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fiery Bat"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(29, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_216] Infested Wolf - COST:4 [ATK:3/HP:3] 
@@ -449,10 +474,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void InfestedWolf_OG_216()
 		{
-			// TODO InfestedWolf_OG_216 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -463,8 +487,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infested Wolf"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Infested Wolf"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_292] Forlorn Stalker - COST:3 [ATK:4/HP:2] 

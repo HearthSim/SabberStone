@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -11,6 +13,27 @@ namespace SabberStoneCoreTest.Basic
     [TestClass]
     public class BasicTest
     {
+        [TestMethod]
+        public void UtilTest()
+        {
+            var enumarable = new List<string>() { "A", "B", "C" };
+            var dict = new Dictionary<string, int>();
+            for (var i = 0; i < 1000; i++)
+            {
+                var str = Util.RandomElement(enumarable);
+                if (dict.ContainsKey(str))
+                {
+                    dict[str] = dict[str] + 1;
+                }
+                else
+                {
+                    dict[str] = 1;
+                }
+            }
+            Assert.AreEqual(true, dict["A"] > 300);
+            Assert.AreEqual(true, dict["B"] > 300);
+            Assert.AreEqual(true, dict["C"] > 300);
+        }
 
         [TestMethod]
         public void GameTest()
@@ -20,12 +43,12 @@ namespace SabberStoneCoreTest.Basic
 
             if (game.CurrentPlayer == game.Player1)
             {
-                game.EndTurnPlayer();
+                game.MainEnd();
                 Assert.AreEqual(game.CurrentPlayer, game.Player2, "Current Player not working in the end turn function.");
             }
             else if (game.CurrentPlayer == game.Player2)
             {
-                game.EndTurnPlayer();
+                game.MainEnd();
                 Assert.AreEqual(game.CurrentPlayer, game.Player1, "Current Player not working in the end turn function.");
             }
         }
