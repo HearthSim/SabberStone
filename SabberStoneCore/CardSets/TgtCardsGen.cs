@@ -2537,13 +2537,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_100", new List<Enchantment> {
-				// TODO [AT_100] Silver Hand Regent && Test: Silver Hand Regent_AT_100
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new SummonTask("CS2_101t"))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_101] Pit Fighter - COST:5 [ATK:5/HP:6] 
@@ -2570,11 +2570,10 @@ namespace SabberStoneCore.CardSets
             // - REQ_TARGET_TO_PLAY = 0
             // --------------------------------------------------------
             cards.Add("AT_103", new List<Enchantment> {
-				// TODO [AT_103] North Sea Kraken && Test: North Sea Kraken_AT_103
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(3, EntityType.TARGET)
 				},
 			});
 
@@ -2588,13 +2587,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_105", new List<Enchantment> {
-				// TODO [AT_105] Injured Kvaldir && Test: Injured Kvaldir_AT_105
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(3, EntityType.SOURCE)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_106] Light's Champion - COST:3 [ATK:4/HP:3] 
@@ -2635,11 +2633,10 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_108", new List<Enchantment> {
-				// TODO [AT_108] Armored Warhorse && Test: Armored Warhorse_AT_108
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealTask(new BuffTask(Buffs.Simple(GameTag.CHARGE, 1), EntityType.SOURCE))
 				},
 			});
 
