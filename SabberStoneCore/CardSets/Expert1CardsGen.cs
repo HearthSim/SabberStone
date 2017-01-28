@@ -809,13 +809,23 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_533", new List<Enchantment> {
-				// TODO [EX1_533] Misdirection && Test: Misdirection_EX1_533
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD_AND_OP_HERO,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsOtherAttackingHero, RelaCondition.IsAnyNotImmune)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .FastExecution(true)
+                        .SingleTask(ComplexTask.Secret(
+                            new IncludeTask(EntityType.ALL),
+                            new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
+                            new RandomTask(1, EntityType.STACK),
+                            new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [EX1_537] Explosive Shot - COST:5 

@@ -9,6 +9,7 @@ namespace SabberStoneCore.Conditions
     public class SelfCondition
     {
         public static SelfCondition IsDead => new SelfCondition(me => me is ICharacter && me.ToBeDestroyed);
+        public static SelfCondition IsNotImmune => new SelfCondition(me => me is ICharacter && !((ICharacter)me).IsImmune);
         public static SelfCondition IsSilenced => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsSilenced);
         public static SelfCondition IsBoardFull => new SelfCondition(me => me.Controller.Board.IsFull);
         public static SelfCondition IsHandEmpty => new SelfCondition(me => me.Controller.Hand.IsEmpty);

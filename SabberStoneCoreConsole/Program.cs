@@ -94,15 +94,19 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gladiator's Longbow"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Misdirection"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
-            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(30, game.CurrentPlayer.Hero.Health)", game.CurrentPlayer.Hero.Health.ToString());
-            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(1, game.CurrentPlayer.Hero.Enchants.Count)", game.CurrentPlayer.Hero.Enchants.Count.ToString());
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
 
             ShowLog(game, LogLevel.VERBOSE);
         }

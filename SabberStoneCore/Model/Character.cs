@@ -141,6 +141,7 @@ namespace SabberStoneCore.Model
         bool IsExhausted { get; set; }
         bool IsFrozen { get; set; }
         bool IsSilenced { get; set; }
+        bool IsImmune { get; set; }
         bool HasTaunt { get; set; }
         bool HasWindfury { get; set; }
         int NumAttacksThisTurn { get; set; }
