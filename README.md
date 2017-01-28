@@ -47,8 +47,8 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
-* 98% Basic (142 Cards)
-* 64% Classic (245 Cards)
+* 99% Basic (142 Cards)
+* 65% Classic (245 Cards)
 
 **Adventures**
 * 32% Blackrock Mountain (31 Cards)
@@ -57,7 +57,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 **Expensions**
 * 31% The Grand Tournament (132 Cards)
-* 24% Whispers of the Old Gods (134 Cards)
+* 37% Whispers of the Old Gods (134 Cards)
 * 39% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
