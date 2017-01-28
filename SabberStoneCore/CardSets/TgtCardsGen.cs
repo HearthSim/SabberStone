@@ -2265,11 +2265,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("AT_084", new List<Enchantment> {
-				// TODO [AT_084] Lance Carrier && Test: Lance Carrier_AT_084
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.Attack(2), EntityType.TARGET)
 				},
 			});
 

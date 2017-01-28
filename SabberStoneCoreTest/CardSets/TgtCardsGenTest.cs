@@ -2768,10 +2768,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LanceCarrier_AT_084()
 		{
-			// TODO LanceCarrier_AT_084 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2782,8 +2781,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lance Carrier"));
-		}
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lance Carrier"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_085] Maiden of the Lake - COST:4 [ATK:2/HP:6] 
