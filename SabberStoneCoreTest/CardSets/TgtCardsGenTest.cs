@@ -2401,10 +2401,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void OrgrimmarAspirant_AT_066()
 		{
-			// TODO OrgrimmarAspirant_AT_066 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2415,8 +2414,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Orgrimmar Aspirant"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Orgrimmar Aspirant"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(0, game.CurrentPlayer.Hero.TotalAttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, weapon));
+            Assert.AreEqual(3, game.CurrentPlayer.Hero.TotalAttackDamage);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, game.CurrentPlayer.Hero.TotalAttackDamage);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [AT_067] Magnataur Alpha - COST:4 [ATK:5/HP:3] 

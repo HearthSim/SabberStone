@@ -1974,13 +1974,13 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_066", new List<Enchantment> {
-				// TODO [AT_066] Orgrimmar Aspirant && Test: Orgrimmar Aspirant_AT_066
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [AT_067] Magnataur Alpha - COST:4 [ATK:5/HP:3] 
