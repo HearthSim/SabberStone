@@ -2857,10 +2857,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - FORGETFUL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MogorsChampion_AT_088()
 		{
-			// TODO MogorsChampion_AT_088 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2871,8 +2870,32 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mogor's Champion"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mogor's Champion"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    var ttMin = game.CurrentOpponent.Board[0];
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+            var right1 = ((Minion)ttMin).IsDead;
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            ttMin = game.CurrentOpponent.Board[0];
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+            var right2 = ((Minion)ttMin).IsDead;
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            ttMin = game.CurrentOpponent.Board[0];
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+            var right3 = ((Minion)ttMin).IsDead;
+            Assert.AreEqual(true, game.CurrentOpponent.Hero.Health < 30 || !right1 || !right2 || !right3);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_089] Boneguard Lieutenant - COST:2 [ATK:3/HP:2] 

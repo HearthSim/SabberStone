@@ -33,6 +33,7 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsOtherAttacking { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).IsAttacking);
         public static RelaCondition IsOtherAttackingHero { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).ProposedDefender == me.Controller.Hero.Id);
         public static RelaCondition IsAnyNotImmune { get; } = new RelaCondition((me, other) => me.Game.Characters.Exists(p => !p.IsImmune));
+        //public static RelaCondition Is50PercChance { get; } = new RelaCondition((me, other) => Util.Random.Next(0,2) == 0);
 
         public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
         {

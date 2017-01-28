@@ -2332,12 +2332,21 @@ namespace SabberStoneCore.CardSets
 			// - FORGETFUL = 1
 			// --------------------------------------------------------
 			cards.Add("AT_088", new List<Enchantment> {
-				// TODO [AT_088] Mogor's Champion && Test: Mogor's Champion_AT_088
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .FastExecution(true)
+                        .SingleTask(ComplexTask.Create(
+                            new HalfHalfChanceTask(),
+                            new IncludeTask(EntityType.ENEMIES, new [] {EntityType.TARGET}),
+                            new RandomTask(1, EntityType.STACK),
+                            new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
