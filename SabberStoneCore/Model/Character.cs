@@ -76,7 +76,7 @@ namespace SabberStoneCore.Model
                 return false;
             }
 
-            if (minion != null && minion.IsImmune)
+            if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
             {
                 Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
                 return false;
@@ -177,7 +177,6 @@ namespace SabberStoneCore.Model
             set { this[GameTag.LAST_AFFECTED_BY] = value; }
         }
 
-
         public int AttackDamage
         {
             get { return this[GameTag.ATK]; }
@@ -241,6 +240,12 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.PROPOSED_DEFENDER]; }
             set { this[GameTag.PROPOSED_DEFENDER] = value; }
+        }
+
+        public bool IsImmune
+        {
+            get { return this[GameTag.IMMUNE] == 1; }
+            set { this[GameTag.IMMUNE] = value ? 1 : 0; }
         }
 
         public bool IsFrozen

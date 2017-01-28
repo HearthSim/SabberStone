@@ -1138,10 +1138,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - IMMUNE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GladiatorsLongbow_DS1_188()
 		{
-			// TODO GladiatorsLongbow_DS1_188 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1152,8 +1151,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gladiator's Longbow"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gladiator's Longbow"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Weapon.Durability);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
+            Assert.AreEqual(30, game.CurrentPlayer.Hero.Health);
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.Enchants.Count);
+        }
 
 		// ---------------------------------------- WEAPON - HUNTER
 		// [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0] 

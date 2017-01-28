@@ -1077,11 +1077,10 @@ namespace SabberStoneCore.CardSets
             // - IMMUNE = 1
             // --------------------------------------------------------
             cards.Add("DS1_188", new List<Enchantment> {
-				// TODO [DS1_188] Gladiator's Longbow && Test: Gladiator's Longbow_DS1_188
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
+					SingleTask = new AuraTask(Auras.Immune(RelaCondition.IsOtherAttacking), AuraArea.HERO),
 				},
 			});
 

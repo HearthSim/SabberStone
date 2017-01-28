@@ -209,5 +209,22 @@ namespace SabberStoneCore.Enchants
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));
             return result;
         }
+
+        public static Enchant Immune(params RelaCondition[] list)
+        {
+            var result = new Enchant
+            {
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsThisWeaponEquiped
+                },
+                Effects = new Dictionary<GameTag, int>()
+                {
+                    [GameTag.IMMUNE] = 1
+                }
+            };
+            list.ToList().ForEach(p => result.ApplyConditions.Add(p));
+            return result;
+        }
     }
 }

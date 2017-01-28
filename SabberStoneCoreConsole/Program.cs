@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,25 +87,22 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.ROGUE,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.HUNTER,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Xaril, Poisoned Mind"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gladiator's Longbow"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            var testSpell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("OG_080e"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testSpell1, minion));
-            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(true, ((Minion)minion).HasStealth)", ((Minion)minion).HasStealth.ToString());
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
-            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(false, ((Minion)minion).HasStealth)", ((Minion)minion).HasStealth.ToString());
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
+            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(30, game.CurrentPlayer.Hero.Health)", game.CurrentPlayer.Hero.Health.ToString());
+            game.Log(LogLevel.ERROR, BlockType.SCRIPT, "Assert.AreEqual(1, game.CurrentPlayer.Hero.Enchants.Count)", game.CurrentPlayer.Hero.Enchants.Count.ToString());
 
             ShowLog(game, LogLevel.VERBOSE);
         }
