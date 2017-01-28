@@ -819,7 +819,7 @@ namespace SabberStoneCore.CardSets
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
                         .SingleTask(ComplexTask.Secret(
-                            new IncludeTask(EntityType.ALL),
+                            new IncludeTask(EntityType.ALL, new []{EntityType.TARGET, EntityType.OP_HERO}),
                             new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
                             new RandomTask(1, EntityType.STACK),
                             new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
