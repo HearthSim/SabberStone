@@ -2359,12 +2359,12 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_089", new List<Enchantment> {
-				// TODO [AT_089] Boneguard Lieutenant && Test: Boneguard Lieutenant_AT_089
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -2906,21 +2906,23 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BoneguardLieutenant_AT_089()
 		{
-			// TODO BoneguardLieutenant_AT_089 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Boneguard Lieutenant"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Boneguard Lieutenant"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3,((Minion)testCard).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
