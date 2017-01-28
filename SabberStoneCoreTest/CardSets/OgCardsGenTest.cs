@@ -582,28 +582,6 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Princess Huhuran"));
 		}
-
-		// ---------------------------------------- MINION - HUNTER
-		// [OG_325] Carrion Grub - COST:3 [ATK:2/HP:5] 
-		// - Race: beast, Set: og, Rarity: common
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void CarrionGrub_OG_325()
-		{
-			// TODO CarrionGrub_OG_325 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Carrion Grub"));
-		}
-
 	}
 
 	[TestClass]
@@ -623,10 +601,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Shatter_OG_081()
 		{
-			// TODO Shatter_OG_081 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -637,8 +614,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shatter"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shatter"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Boulderfist Ogre"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            Assert.AreEqual(4, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)minion).IsFrozen);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [OG_086] Forbidden Flame - COST:0 
@@ -823,10 +812,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FacelessSummoner_OG_207()
 		{
-			// TODO FacelessSummoner_OG_207 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -837,8 +825,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Summoner"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Summoner"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(3, game.CurrentPlayer.Board[1].Card.Cost);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [OG_303] Cult Sorcerer - COST:2 [ATK:3/HP:2] 
@@ -934,10 +925,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon five 1/1 Silver Hand Recruits.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void StandAgainstDarkness_OG_273()
 		{
-			// TODO StandAgainstDarkness_OG_273 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -948,7 +938,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stand Against Darkness"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stand Against Darkness"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Board.Count);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN

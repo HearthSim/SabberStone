@@ -30,6 +30,7 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsSpellDmgOnHero { get; } = new RelaCondition((me, other) => me.Controller.Hero.SpellPower > 0);
         public static RelaCondition IsOtherMinion { get; } = new RelaCondition((me, other) => other is Minion);
         public static RelaCondition IsOtherCthun { get; } = new RelaCondition((me, other) => other.Card.Id.Equals("OG_280"));
+        public static RelaCondition IsOtherAttacking { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).IsAttacking);
 
         public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
         {

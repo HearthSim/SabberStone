@@ -96,12 +96,6 @@ namespace SabberStoneCore.Model
             set { this[GameTag.ENRAGED] = value ? 1 : 0; }
         }
 
-        public bool IsImmune
-        {
-            get { return this[GameTag.IMMUNE] == 1; }
-            set { this[GameTag.IMMUNE] = value ? 1 : 0; }
-        }
-
         public bool Freeze
         {
             get { return this[GameTag.FREEZE] == 1; }

@@ -553,11 +553,10 @@ namespace SabberStoneCore.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_081", new List<Enchantment> {
-				// TODO [OG_081] Shatter && Test: Shatter_OG_081
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.TARGET)
 				},
 			});
 
@@ -580,21 +579,6 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.SpendAllManaTask(
                         new DamageNumberTask(EntityType.TARGET, true))
-                    //Create(
-                    //    new GetControllerManaTask(),
-                    //    new DamageNumberTask(EntityType.TARGET, true),
-                    //    new IncludeTask(EntityType.SOURCE),
-                    //    new FuncTask(p =>
-                    //    {
-                    //        var controller = p[0].Controller;
-                    //        if (controller != null)
-                    //        {
-                    //            controller.UsedMana =  controller.BaseMana 
-                    //            + controller.TemporaryMana 
-                    //            - controller.OverloadLocked;
-                    //        }
-                    //        return null;
-                    //    }))
 				},
 			});
 
@@ -623,11 +607,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_083", new List<Enchantment> {
-				// TODO [OG_083] Twilight Flamecaller && Test: Twilight Flamecaller_OG_083
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.OP_MINIONS)
 				},
 			});
 
@@ -685,11 +668,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_120", new List<Enchantment> {
-				// TODO [OG_120] Anomalus && Test: Anomalus_OG_120
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(8, EntityType.ALLMINIONS),
 				},
 			});
 
@@ -703,11 +685,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_207", new List<Enchantment> {
-				// TODO [OG_207] Faceless Summoner && Test: Faceless Summoner_OG_207
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinion(GameTag.COST, 3)
 				},
 			});
 
@@ -781,11 +762,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon five 1/1 Silver Hand Recruits.
 			// --------------------------------------------------------
 			cards.Add("OG_273", new List<Enchantment> {
-				// TODO [OG_273] Stand Against Darkness && Test: Stand Against Darkness_OG_273
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(5, new SummonTask("CS2_101t"))
 				},
 			});
 
@@ -1623,14 +1603,7 @@ namespace SabberStoneCore.CardSets
 			// [OG_031a] Twilight Elemental (*) - COST:3 [ATK:4/HP:2] 
 			// - Set: og, Rarity: epic
 			// --------------------------------------------------------
-			cards.Add("OG_031a", new List<Enchantment> {
-				// TODO [OG_031a] Twilight Elemental && Test: Twilight Elemental_OG_031a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_031a", null);
 
 		}
 
@@ -1812,27 +1785,13 @@ namespace SabberStoneCore.CardSets
             // [OG_114a] Icky Tentacle (*) - COST:1 [ATK:1/HP:1] 
             // - Set: og, 
             // --------------------------------------------------------
-            cards.Add("OG_114a", new List<Enchantment> {
-				// TODO [OG_114a] Icky Tentacle && Test: Icky Tentacle_OG_114a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_114a", null);
 
 			// --------------------------------------- MINION - WARLOCK
 			// [OG_241a] Shadowbeast (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: og, 
 			// --------------------------------------------------------
-			cards.Add("OG_241a", new List<Enchantment> {
-				// TODO [OG_241a] Shadowbeast && Test: Shadowbeast_OG_241a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_241a", null);
 
 		}
 
@@ -2024,14 +1983,7 @@ namespace SabberStoneCore.CardSets
             // [OG_314b] Slime (*) - COST:2 [ATK:2/HP:2] 
             // - Set: og, 
             // --------------------------------------------------------
-            cards.Add("OG_314b", new List<Enchantment> {
-				// TODO [OG_314b] Slime && Test: Slime_OG_314b
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_314b", null);
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [OG_058] Rusty Hook (*) - COST:1 [ATK:1/HP:0] 
