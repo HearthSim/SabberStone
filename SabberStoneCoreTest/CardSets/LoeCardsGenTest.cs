@@ -497,10 +497,9 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: Deal $3 damage to all minions.
 		//       Shuffle this card into your opponent's deck. *spelldmg
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ExcavatedEvil_LOE_111()
 		{
-			// TODO ExcavatedEvil_LOE_111 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -511,8 +510,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Excavated Evil"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Excavated Evil"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(25, game.CurrentOpponent.Deck.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(26, game.CurrentOpponent.Deck.Count);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [LOE_006] Museum Curator - COST:2 [ATK:1/HP:2] 

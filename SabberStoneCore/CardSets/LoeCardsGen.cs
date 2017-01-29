@@ -382,11 +382,12 @@ namespace SabberStoneCore.CardSets
 			//       Shuffle this card into your opponent's deck. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("LOE_111", new List<Enchantment> {
-				// TODO [LOE_111] Excavated Evil && Test: Excavated Evil_LOE_111
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.ALLMINIONS, true),
+                        new AddCardTo("LOE_111", EntityType.OP_DECK)),
 				},
 			});
 
