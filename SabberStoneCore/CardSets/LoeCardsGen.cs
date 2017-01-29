@@ -902,11 +902,12 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_073", new List<Enchantment> {
-				// TODO [LOE_073] Fossilized Devilsaur && Test: Fossilized Devilsaur_LOE_073
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingBeast),
+                        new FlagTask(true, ComplexTask.Taunt(EntityType.SOURCE)))
 				},
 			});
 
