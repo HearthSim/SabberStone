@@ -752,10 +752,9 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: Give your opponent a 'Cursed!' card.
 		//       While they hold it, they take 2 damage on their turn.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CurseOfRafaam_LOE_007()
 		{
-			// TODO CurseOfRafaam_LOE_007 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -766,7 +765,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Curse of Rafaam"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Curse of Rafaam"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(28, game.CurrentPlayer.Hero.Health);
+
+
 		}
 
 		// --------------------------------------- MINION - WARLOCK

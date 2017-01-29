@@ -576,11 +576,10 @@ namespace SabberStoneCore.CardSets
 			//       While they hold it, they take 2 damage on their turn.
 			// --------------------------------------------------------
 			cards.Add("LOE_007", new List<Enchantment> {
-				// TODO [LOE_007] Curse of Rafaam && Test: Curse of Rafaam_LOE_007
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new AddCardTo("LOE_007t", EntityType.OP_HAND)
 				},
 			});
 
@@ -639,13 +638,17 @@ namespace SabberStoneCore.CardSets
 			// - EVIL_GLOW = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_007t", new List<Enchantment> {
-				// TODO [LOE_007t] Cursed! && Test: Cursed!_LOE_007t
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.HAND,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInHandZone)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new DamageTask(2, EntityType.HERO))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [LOE_009e] Sinister Power (*) - COST:0 
