@@ -350,22 +350,44 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon 7 Murlocs that died this game.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AnyfinCanHappen_LOE_026()
 		{
-			// TODO AnyfinCanHappen_LOE_026 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Anyfin Can Happen"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Warleader"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimscale Oracle"));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Anyfin Can Happen"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Anyfin Can Happen"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(7, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [LOE_027] Sacred Trial - COST:1 

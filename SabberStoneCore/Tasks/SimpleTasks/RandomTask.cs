@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             else
             {
                 Playables = new List<IPlayable>();
-                for (var i = 0; i < Amount; i++)
+                for (var i = 0; i < Amount && entities.Count > 0; i++)
                 {
                     var randPlayable = Util<IPlayable>.Choose(entities);
                     entities.Remove(randPlayable);

@@ -286,12 +286,15 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon 7 Murlocs that died this game.
 			// --------------------------------------------------------
 			cards.Add("LOE_026", new List<Enchantment> {
-				// TODO [LOE_026] Anyfin Can Happen && Test: Anyfin Can Happen_LOE_026
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.GRAVEYARD),
+                        new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsRace(Race.MURLOC)),
+                        new RandomTask(7, EntityType.STACK),
+                        new CopyTask(EntityType.STACK, 1),
+                        new SummonStackTask())}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
