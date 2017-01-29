@@ -592,7 +592,6 @@ namespace SabberStoneCore.CardSets
 			// Text: Add 3 random Mage spells to your hand.
 			// --------------------------------------------------------
 			cards.Add("OG_090", new List<Enchantment> {
-				// TODO [OG_090] Cabalist's Tome && Test: Cabalist's Tome_OG_090
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
@@ -709,13 +708,24 @@ namespace SabberStoneCore.CardSets
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_303", new List<Enchantment> {
-				// TODO [OG_303] Cult Sorcerer && Test: Cult Sorcerer_OG_303
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellDamage(1)
+                },
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
+                        .Build()
+                }
+            });
 
 		}
 

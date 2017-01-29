@@ -856,10 +856,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - SPELLPOWER = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CultSorcerer_OG_303()
 		{
-			// TODO CultSorcerer_OG_303 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -870,8 +869,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cult Sorcerer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cult Sorcerer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Hero));
+            Assert.AreEqual(23, game.CurrentPlayer.Hero.Health);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
+            Assert.AreEqual(7, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+        }
 
 	}
 
