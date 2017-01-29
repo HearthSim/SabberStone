@@ -132,10 +132,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DartTrap_LOE_021()
 		{
-			// TODO DartTrap_LOE_021 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -146,8 +145,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dart Trap"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dart Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(30, game.CurrentPlayer.Hero.Health);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(25, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [LOE_105] Explorer's Hat - COST:2 

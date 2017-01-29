@@ -119,13 +119,18 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_021", new List<Enchantment> {
-				// TODO [LOE_021] Dart Trap && Test: Dart Trap_LOE_021
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_CONTROLLER,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 5, true)))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [LOE_105] Explorer's Hat - COST:2 
