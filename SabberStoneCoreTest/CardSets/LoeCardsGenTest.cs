@@ -428,10 +428,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KeeperOfUldaman_LOE_017()
 		{
-			// TODO KeeperOfUldaman_LOE_017 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -442,8 +441,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Keeper of Uldaman"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Keeper of Uldaman"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion).Health);
+        }
 
 	}
 

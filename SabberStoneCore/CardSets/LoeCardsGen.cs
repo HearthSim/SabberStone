@@ -329,11 +329,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("LOE_017", new List<Enchantment> {
-				// TODO [LOE_017] Keeper of Uldaman && Test: Keeper of Uldaman_LOE_017
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SetAttackTask(3, EntityType.TARGET),
+                        new SetHealthTask(3, EntityType.TARGET))
 				},
 			});
 
