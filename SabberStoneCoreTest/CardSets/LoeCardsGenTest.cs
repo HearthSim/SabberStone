@@ -201,22 +201,49 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DesertCamel_LOE_020()
 		{
-			// TODO DesertCamel_LOE_020 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Wolfrider"),
+                    Cards.FromName("Wolfrider"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Elven Archer")
+                },
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>()
+                {
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Wolfrider"),
+                    Cards.FromName("Wolfrider"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Elven Archer")
+                },
+                FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Desert Camel"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Desert Camel"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+        }
 
 	}
 

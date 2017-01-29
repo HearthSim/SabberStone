@@ -134,9 +134,20 @@ namespace SabberStoneCore.Tasks
                 new IncludeTask(type),
                 new FilterStackTask(EntityType.SOURCE, list),
                 new RandomTask(1, EntityType.STACK),
-                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+                new SelfConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
                 new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
                 new FlagTask(true, new SummonTask()));
+        }
+
+        public static ISimpleTask SummonOpRandomMinion(EntityType type, params RelaCondition[] list)
+        {
+            return Create(
+                new IncludeTask(type),
+                new FilterStackTask(EntityType.SOURCE, list),
+                new RandomTask(1, EntityType.STACK),
+                new SelfConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
+                new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
+                new FlagTask(true, new SummonOpTask()));
         }
 
         public static ISimpleTask SummonRandomMinionThatDied()

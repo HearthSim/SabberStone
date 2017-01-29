@@ -169,11 +169,14 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_020", new List<Enchantment> {
-				// TODO [LOE_020] Desert Camel && Test: Desert Camel_LOE_020
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsOtherMinion, 
+                            RelaCondition.HasTargetTagValue(GameTag.COST, 1)),
+                        ComplexTask.SummonOpRandomMinion(EntityType.OP_DECK, RelaCondition.IsOtherMinion,
+                            RelaCondition.HasTargetTagValue(GameTag.COST, 1))),
 				},
 			});
 
