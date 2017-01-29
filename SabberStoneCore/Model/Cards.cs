@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using SabberStoneCore.Enums;
 //using Newtonsoft.Json;
 using SabberStoneCore.Enchants;
@@ -117,12 +118,18 @@ namespace SabberStoneCore.Model
                 .GroupBy(p => p.Set)
                 .Select(t => new {Key = t.Key, Count = t.Count()});
             var str = string.Empty;
+            var totImpl = 0;
+            var totCards = 0;
             foreach (var set in StandardSets)
             {
                 var impl = implemented.FirstOrDefault(p => p.Key == set).Count;
+                totImpl += impl;
                 var tot = all.FirstOrDefault(p => p.Key == set).Count;
                 str += $"{set} => {impl * 100 / tot}% from {tot} Cards\n";
+                totCards += tot;
             }
+
+            str += $"Total => {totImpl * 100 / totCards}% from {totCards} Cards\n";
 
             return str;
         }

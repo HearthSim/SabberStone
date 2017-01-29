@@ -12,7 +12,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         BASIC_HEROPOWERS,
         DRAGON,
         OP_DECK,
-        BASIC_TOTEM
+        BASIC_TOTEM,
+        MINION,
+        SPELL
     }
     public class DiscoverTask : SimpleTask
     {
@@ -94,6 +96,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.DRAGON:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+
+                case DiscoverType.MINION:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Type == CardType.MINION));
+
+                case DiscoverType.SPELL:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
 
                 case DiscoverType.BASIC_TOTEM:
                     choiceAction = ChoiceAction.SUMMON;

@@ -33,25 +33,20 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TREASURE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_115", new List<Enchantment> {
-				// TODO [LOE_115] Raven Idol && Test: Raven Idol_LOE_115
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("LOE_115",
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2] 
-			// - Race: beast, Set: loe, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Summon a random 1-Cost minion.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DEATHRATTLE = 1
-			// --------------------------------------------------------
-			cards.Add("LOE_050", new List<Enchantment> {
+            // ----------------------------------------- MINION - DRUID
+            // [LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2] 
+            // - Race: beast, Set: loe, Rarity: common
+            // --------------------------------------------------------
+            // Text: <b>Deathrattle:</b> Summon a random 1-Cost minion.
+            // --------------------------------------------------------
+            // GameTag:
+            // - DEATHRATTLE = 1
+            // --------------------------------------------------------
+            cards.Add("LOE_050", new List<Enchantment> {
 				// TODO [LOE_050] Mounted Raptor && Test: Mounted Raptor_LOE_050
 				new Enchantment
 				{
@@ -90,12 +85,11 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Discover</b> a minion.
 			// --------------------------------------------------------
 			cards.Add("LOE_115a", new List<Enchantment> {
-				// TODO [LOE_115a] Raven Idol && Test: Raven Idol_LOE_115a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new DiscoverTask(DiscoverType.MINION),
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -105,13 +99,12 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Discover</b> a spell.
 			// --------------------------------------------------------
 			cards.Add("LOE_115b", new List<Enchantment> {
-				// TODO [LOE_115b] Raven Idol && Test: Raven Idol_LOE_115b
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL),
+                }
+            });
 
 		}
 

@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            //Console.WriteLine(Cards.Statistics());
+            Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
