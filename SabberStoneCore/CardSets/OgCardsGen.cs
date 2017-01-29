@@ -1631,13 +1631,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Spend all your Mana. Summon that many 1/1 Tentacles.
 			// --------------------------------------------------------
 			cards.Add("OG_114", new List<Enchantment> {
-				// TODO [OG_114] Forbidden Ritual && Test: Forbidden Ritual_OG_114
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.SpendAllManaTask(
+                        new EnqueueNumberTask(new SummonTask("OG_114a")))
+                },
+            });
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [OG_116] Spreading Madness - COST:3 

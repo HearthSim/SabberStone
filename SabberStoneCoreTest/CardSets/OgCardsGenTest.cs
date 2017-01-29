@@ -1914,10 +1914,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Spend all your Mana. Summon that many 1/1 Tentacles.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForbiddenRitual_OG_114()
 		{
-			// TODO ForbiddenRitual_OG_114 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1928,7 +1927,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ritual"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Ritual"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Board.IsFull);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
