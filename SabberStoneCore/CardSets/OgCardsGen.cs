@@ -1649,11 +1649,10 @@ namespace SabberStoneCore.CardSets
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
 			cards.Add("OG_116", new List<Enchantment> {
-				// TODO [OG_116] Spreading Madness && Test: Spreading Madness_OG_116
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(9, ComplexTask.DamageRandomTargets(1, EntityType.ALL, 1), true)
 				},
 			});
 
