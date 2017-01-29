@@ -466,10 +466,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Entomb_LOE_104()
 		{
-			// TODO Entomb_LOE_104 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -480,8 +479,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Entomb"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Entomb"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(25, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(0, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [LOE_111] Excavated Evil - COST:5 

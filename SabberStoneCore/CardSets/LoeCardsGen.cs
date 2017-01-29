@@ -367,11 +367,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("LOE_104", new List<Enchantment> {
-				// TODO [LOE_104] Entomb && Test: Entomb_LOE_104
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new MoveToDeck(EntityType.TARGET)
 				},
 			});
 
