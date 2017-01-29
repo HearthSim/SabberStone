@@ -1188,10 +1188,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Spend all your Mana. Summon a random minion that costs that much.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForbiddenShaping_OG_101()
 		{
-			// TODO ForbiddenShaping_OG_101 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1202,7 +1201,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Shaping"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Shaping"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(10, game.CurrentPlayer.Board[0].Cost);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST

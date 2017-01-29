@@ -966,13 +966,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Spend all your Mana. Summon a random minion that costs that much.
 			// --------------------------------------------------------
 			cards.Add("OG_101", new List<Enchantment> {
-				// TODO [OG_101] Forbidden Shaping && Test: Forbidden Shaping_OG_101
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.SpendAllManaTask(
+                        ComplexTask.SummonRandomMinionNumberTag(GameTag.COST))
+                },
+            });
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [OG_104] Embrace the Shadow - COST:2 

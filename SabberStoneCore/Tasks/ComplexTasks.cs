@@ -228,5 +228,12 @@ namespace SabberStoneCore.Tasks
                 new RandomCardTask(cardType, cardClass),
                 new CopyToHand());
         }
+
+        public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
+        {
+            return Create(
+                new RandomMinionNumberTask(tag),
+                new SummonTask());
+        }
     }
 }
