@@ -663,13 +663,17 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_009", new List<Enchantment> {
-				// TODO [LOE_009] Obsidian Destroyer && Test: Obsidian Destroyer_LOE_009
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new SummonTask("LOE_009t"))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [LOE_022] Fierce Monkey - COST:3 [ATK:3/HP:4] 
@@ -728,14 +732,7 @@ namespace SabberStoneCore.CardSets
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("LOE_009t", new List<Enchantment> {
-				// TODO [LOE_009t] Scarab && Test: Scarab_LOE_009t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("LOE_009t", null);
 
 		}
 
