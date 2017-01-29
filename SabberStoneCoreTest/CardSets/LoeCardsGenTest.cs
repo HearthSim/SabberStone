@@ -1339,10 +1339,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WobblingRunts_LOE_089()
 		{
-			// TODO WobblingRunts_LOE_089 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1353,8 +1352,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wobbling Runts"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wobbling Runts"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(4, game.CurrentOpponent.Board.Count);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8] 

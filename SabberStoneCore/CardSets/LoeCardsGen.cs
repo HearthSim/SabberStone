@@ -1008,11 +1008,13 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_089", new List<Enchantment> {
-				// TODO [LOE_089] Wobbling Runts && Test: Wobbling Runts_LOE_089
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                            new SummonTask("LOE_089t"),
+                            new SummonTask("LOE_089t2"),
+                            new SummonTask("LOE_089t3"))
 				},
 			});
 
