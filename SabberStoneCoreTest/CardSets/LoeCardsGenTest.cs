@@ -885,10 +885,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CursedBlade_LOE_118()
 		{
-			// TODO CursedBlade_LOE_118 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -899,9 +898,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cursed Blade"));
-		}
-
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cursed Blade"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.Triggers.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(18, game.CurrentOpponent.Hero.Health);
+        }
 	}
 
 	[TestClass]

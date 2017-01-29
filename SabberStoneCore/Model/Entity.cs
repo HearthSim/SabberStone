@@ -113,8 +113,8 @@ namespace SabberStoneCore.Model
                 Game.OnEntityChanged(this, t, oldValue, value);
 
 
-                // don't trigger on explicit turned off heals ....
-                if (t == GameTag.DAMAGE && IsIgnoreDamage)
+                // don't trigger on explicit turned off heals or predamage changes ....
+                if ((t == GameTag.DAMAGE || t == GameTag.PREDAMAGE) && IsIgnoreDamage)
                 {
                     return;
                 }

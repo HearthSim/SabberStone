@@ -684,14 +684,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_022", new List<Enchantment> {
-				// TODO [LOE_022] Fierce Monkey && Test: Fierce Monkey_LOE_022
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_022", null);
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [LOE_118] Cursed Blade - COST:1 [ATK:2/HP:0] 
@@ -703,13 +696,22 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("LOE_118", new List<Enchantment> {
-				// TODO [LOE_118] Cursed Blade && Test: Cursed Blade_LOE_118
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.WEAPON,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.PREDAMAGE, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new GetGameTagTask(GameTag.PREDAMAGE, EntityType.HERO),
+                            new MathMultiplyTask(2),
+                            new LogTask(),
+                            new SetGameTagNumberTask(GameTag.PREDAMAGE, EntityType.HERO, true)))
+                        .Build()
+                }
+            });
 
 		}
 
