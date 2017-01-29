@@ -774,11 +774,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_029", new List<Enchantment> {
-				// TODO [LOE_029] Jeweled Scarab && Test: Jeweled Scarab_LOE_029
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.THREE_COST),
 				},
 			});
 
