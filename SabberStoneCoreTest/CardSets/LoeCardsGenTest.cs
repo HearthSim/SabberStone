@@ -166,22 +166,31 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ExplorersHat_LOE_105()
 		{
-			// TODO ExplorersHat_LOE_105 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Explorer's Hat"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Explorer's Hat"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(2, ((Minion)minion).Health);
+            Assert.AreEqual(2, ((Minion)minion).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [LOE_020] Desert Camel - COST:3 [ATK:2/HP:4] 

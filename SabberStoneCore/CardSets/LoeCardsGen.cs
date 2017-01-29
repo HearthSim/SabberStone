@@ -146,11 +146,16 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_105", new List<Enchantment> {
-				// TODO [LOE_105] Explorer's Hat && Test: Explorer's Hat_LOE_105
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET),
+                        new DeathrattleTask(EntityType.TARGET, new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = new AddCardTo("LOE_105", EntityType.HAND)
+                        }))
 				},
 			});
 
