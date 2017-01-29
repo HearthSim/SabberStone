@@ -244,7 +244,6 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
             Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
         }
-
 	}
 
 	[TestClass]
@@ -277,8 +276,6 @@ namespace SabberStoneCoreTest.CardSets
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
             Assert.AreEqual(27, game.CurrentOpponent.Hero.Health);
 		    Assert.AreEqual(27, game.CurrentPlayer.Deck.Count);
-
-
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -320,10 +317,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Your hero can only take 1 damage at a time.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AnimatedArmor_LOE_119()
 		{
-			// TODO AnimatedArmor_LOE_119 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -334,8 +330,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Animated Armor"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Animated Armor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.Triggers.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+        }
 
 	}
 

@@ -97,9 +97,17 @@ namespace SabberStoneCore.Model
                 }
             }
 
-            Damage += damage;
+            // added pre damage to be able to interact
+            PreDamage = damage;
 
-            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {damage}. {(fatigue?"(fatigue)":"")}");
+            // final damage is beeing accumulated
+            Damage += PreDamage;
+
+            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue?"(fatigue)":"")}");
+
+            // reset predamage
+            PreDamage = 0;
+
             return true;
         }
 

@@ -241,12 +241,17 @@ namespace SabberStoneCore.CardSets
 			// Text: Your hero can only take 1 damage at a time.
 			// --------------------------------------------------------
 			cards.Add("LOE_119", new List<Enchantment> {
-				// TODO [LOE_119] Animated Armor && Test: Animated Armor_LOE_119
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.BOARD,
+					Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.PREDAMAGE, 1)
+                        .SingleTask(new SetGameTagTask(GameTag.PREDAMAGE, 1, EntityType.HERO))
+                        .Build()
+				}
 			});
 
 		}
