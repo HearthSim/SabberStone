@@ -1041,11 +1041,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_092", new List<Enchantment> {
-				// TODO [LOE_092] Arch-Thief Rafaam && Test: Arch-Thief Rafaam_LOE_092
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.ARTIFACT)
 				},
 			});
 
@@ -1133,13 +1132,66 @@ namespace SabberStoneCore.CardSets
 				},
 			});
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOE_030e] Hollow (*) - COST:0 
-			// - Set: loe, 
-			// --------------------------------------------------------
-			// Text: Stats copied.
-			// --------------------------------------------------------
-			cards.Add("LOE_030e", null);
+            // ---------------------------------------- SPELL - NEUTRAL		
+			// [LOEA16_3] Lantern of Power (*) - COST:10 		
+			// - Set: loe, 		
+			// --------------------------------------------------------		
+			// Text: Give a minion +10/+10.		
+			// --------------------------------------------------------		
+			// PlayReq:		
+			// - REQ_MINION_TARGET = 0		
+			// - REQ_TARGET_TO_PLAY = 0		
+			// --------------------------------------------------------		
+            cards.Add("LOEA16_3", new List<Enchantment> {
+               new Enchantment
+               {
+                   Activation = EnchantmentActivation.SPELL,
+                   SingleTask = new BuffTask(Buffs.AttackHealth(10), EntityType.TARGET)
+               },
+            });
+
+            // ---------------------------------------- SPELL - NEUTRAL		
+ 			// [LOEA16_4] Timepiece of Horror (*) - COST:10 		
+ 			// - Set: loe, 		
+ 			// --------------------------------------------------------		
+ 			// Text: Deal $10 damage randomly split among all enemies. *spelldmg		
+ 			// --------------------------------------------------------		
+ 			// GameTag:		
+ 			// - ImmuneToSpellpower = 1		
+ 			// --------------------------------------------------------		
+            cards.Add("LOEA16_4", new List<Enchantment> {
+               new Enchantment
+               {
+                   Activation = EnchantmentActivation.SPELL,
+                   SingleTask = new EnqueueTask(10, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1), true)
+               },
+            });
+
+            // ---------------------------------------- SPELL - NEUTRAL		
+ 			// [LOEA16_5] Mirror of Doom (*) - COST:10 		
+ 			// - Set: loe, 		
+ 			// --------------------------------------------------------		
+ 			// Text: Fill your board with 3/3 Mummy Zombies.		
+ 			// --------------------------------------------------------		
+ 			// PlayReq:		
+ 			// - REQ_NUM_MINION_SLOTS = 1		
+ 			// --------------------------------------------------------		
+            cards.Add("LOEA16_5", new List<Enchantment> {
+
+               new Enchantment
+               {
+                   Activation = EnchantmentActivation.SPELL,
+                   SingleTask = new EnqueueTask(7, new SummonTask("LOEA16_5t"))
+               },
+            });
+
+            // ---------------------------------- ENCHANTMENT - NEUTRAL
+            // [LOE_030e] Hollow (*) - COST:0 
+            // - Set: loe, 
+            // --------------------------------------------------------
+            // Text: Stats copied.
+            // --------------------------------------------------------
+            cards.Add("LOE_030e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [LOE_061e] Power of the Titans (*) - COST:0 
@@ -1202,7 +1254,13 @@ namespace SabberStoneCore.CardSets
 			// - Set: loe, 
 			// --------------------------------------------------------
 			cards.Add("LOE_089t3", null);
-		}
+
+            // --------------------------------------- MINION - NEUTRAL		
+ 			// [LOEA16_5t] Mummy Zombie (*) - COST:3 [ATK:3/HP:3] 		
+ 			// - Set: loe, 		
+ 			// --------------------------------------------------------		
+            cards.Add("LOEA16_5t", null);
+        }
 
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
 		{

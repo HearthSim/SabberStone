@@ -19,7 +19,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         ONE_COST,
         THREE_COST,
         BEAST,
-        MECHANICAL
+        MECHANICAL,
+        ARTIFACT
     }
     public class DiscoverTask : SimpleTask
     {
@@ -109,6 +110,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.MECHANICAL:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.MECHANICAL));
+
+                case DiscoverType.ARTIFACT:
+                    choiceAction = ChoiceAction.HAND; 
+                    return new[]
+                    {
+                        new List<Card>
+                        {
+                            Cards.FromId("LOEA16_3"),
+                            Cards.FromId("LOEA16_4"),
+                            Cards.FromId("LOEA16_5")
+                        }
+                    };
 
                 case DiscoverType.MINION:
                     choiceAction = ChoiceAction.HAND;
