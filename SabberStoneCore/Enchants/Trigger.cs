@@ -85,7 +85,7 @@ namespace SabberStoneCore.Enchants
 
             var target = entity as IPlayable;
 
-            //Log.Info($"{entity} {gameTag} {oldValue} {newValue}");
+            //Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger", $"{entity} {gameTag} {oldValue} {newValue}");
 
             if (!Effects.ContainsKey(gameTag))
             {

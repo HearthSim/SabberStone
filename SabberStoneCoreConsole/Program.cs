@@ -87,27 +87,20 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PALADIN,
+                Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Warleader"));
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimscale Oracle"));
-            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Counterspell"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Anyfin Can Happen"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Animal Companion"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
             ShowLog(game, LogLevel.VERBOSE);
         }

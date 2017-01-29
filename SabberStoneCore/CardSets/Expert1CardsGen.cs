@@ -1291,13 +1291,20 @@ namespace SabberStoneCore.CardSets
 			// - COUNTER = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_287", new List<Enchantment> {
-				// TODO [EX1_287] Counterspell && Test: Counterspell_EX1_287
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+            new Enchantment
+                {
+                    Area = EnchantmentArea.OP_HAND,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new SetGameTagTask(GameTag.COUNTER, 1, EntityType.TARGET)))
+                        .Build()
+                },
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [EX1_289] Ice Barrier - COST:3 

@@ -1391,35 +1391,47 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - COUNTER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void Counterspell_EX1_287()
-		{
-			// TODO Counterspell_EX1_287 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Counterspell"));
-		}
+		[TestMethod]
+        public void Counterspell_EX1_287()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-		// ------------------------------------------- SPELL - MAGE
-		// [EX1_289] Ice Barrier - COST:3 
-		// - Fac: neutral, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: <b>Secret:</b> When your
-		//       hero is attacked,
-		//       gain 8 Armor.
-		// --------------------------------------------------------
-		// GameTag:
-		// - SECRET = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Counterspell"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Hand.Triggers.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Animal Companion"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(0, game.CurrentOpponent.Hero.Triggers.Count);
+
+        }
+
+        // ------------------------------------------- SPELL - MAGE
+        // [EX1_289] Ice Barrier - COST:3 
+        // - Fac: neutral, Set: expert1, Rarity: common
+        // --------------------------------------------------------
+        // Text: <b>Secret:</b> When your
+        //       hero is attacked,
+        //       gain 8 Armor.
+        // --------------------------------------------------------
+        // GameTag:
+        // - SECRET = 1
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void IceBarrier_EX1_289()
 		{
 			// TODO IceBarrier_EX1_289 test
