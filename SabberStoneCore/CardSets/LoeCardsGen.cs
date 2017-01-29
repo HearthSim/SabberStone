@@ -969,11 +969,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOE_079", new List<Enchantment> {
-				// TODO [LOE_079] Elise Starseeker && Test: Elise Starseeker_LOE_079
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new AddCardTo("LOE_019t", EntityType.DECK),
 				},
 			});
 

@@ -1277,10 +1277,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_FRIENDLY_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EliseStarseeker_LOE_079()
 		{
-			// TODO EliseStarseeker_LOE_079 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1291,8 +1290,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Elise Starseeker"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Elise Starseeker"));
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(27, game.CurrentPlayer.Deck.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6] 
