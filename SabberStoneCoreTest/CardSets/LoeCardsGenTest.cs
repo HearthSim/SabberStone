@@ -293,10 +293,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EtherealConjurer_LOE_003()
 		{
-			// TODO EtherealConjurer_LOE_003 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -307,8 +306,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Conjurer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Conjurer"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(CardType.SPELL, game.CurrentPlayer.Choice.Choices[0].Type);
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [LOE_119] Animated Armor - COST:4 [ATK:4/HP:4] 
