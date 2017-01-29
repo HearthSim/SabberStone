@@ -47,11 +47,10 @@ namespace SabberStoneCore.CardSets
             // - DEATHRATTLE = 1
             // --------------------------------------------------------
             cards.Add("LOE_050", new List<Enchantment> {
-				// TODO [LOE_050] Mounted Raptor && Test: Mounted Raptor_LOE_050
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinion(GameTag.COST, 1)
 				},
 			});
 
