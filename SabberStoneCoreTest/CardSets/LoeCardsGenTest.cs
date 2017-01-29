@@ -685,10 +685,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void RumblingElemental_LOE_016()
 		{
-			// TODO RumblingElemental_LOE_016 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -699,8 +698,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Rumbling Elemental"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Rumbling Elemental"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [LOE_018] Tunnel Trogg - COST:1 [ATK:1/HP:3] 

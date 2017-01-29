@@ -517,13 +517,18 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_016", new List<Enchantment> {
-				// TODO [LOE_016] Rumbling Elemental && Test: Rumbling Elemental_LOE_016
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.DEATHRATTLE, 1))
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 2))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [LOE_018] Tunnel Trogg - COST:1 [ATK:1/HP:3] 
