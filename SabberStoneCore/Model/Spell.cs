@@ -14,5 +14,11 @@ namespace SabberStoneCore.Model
         public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 
         public bool IsSecret => this[GameTag.SECRET] == 1;
+
+        public bool IsCountered
+        {
+            get { return this[GameTag.COUNTER] == 1; }
+            set { this[GameTag.COUNTER] = value ? 1 : 0; }
+        }
     }
 }

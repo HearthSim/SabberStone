@@ -187,7 +187,13 @@ namespace SabberStoneCore.Actions
 
                 // trigger SpellText Phase
                 c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger SpellText Phase (not implemented)");
-                if (spell.IsSecret)
+
+                if (spell.IsCountered)
+                {
+                    c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
+                    c.Graveyard.Add(spell);
+                }
+                else if (spell.IsSecret)
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SECRET, Zone.PLAY);
                     c.Secrets.Add(spell);
