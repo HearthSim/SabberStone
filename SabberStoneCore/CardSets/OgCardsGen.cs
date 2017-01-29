@@ -462,11 +462,13 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_292", new List<Enchantment> {
-				// TODO [OG_292] Forlorn Stalker && Test: Forlorn Stalker_OG_292
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK))
 				},
 			});
 

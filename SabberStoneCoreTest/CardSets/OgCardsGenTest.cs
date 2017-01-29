@@ -507,10 +507,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForlornStalker_OG_292()
 		{
-			// TODO ForlornStalker_OG_292 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -521,8 +520,19 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forlorn Stalker"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forlorn Stalker"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Infested Wolf"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(3, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion1).Health);
+            Assert.AreEqual(1, ((Minion)minion2).AttackDamage);
+            Assert.AreEqual(1, ((Minion)minion2).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(4, ((Minion)minion1).Health);
+            Assert.AreEqual(1, ((Minion)minion2).AttackDamage);
+            Assert.AreEqual(1, ((Minion)minion2).Health);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_308] Giant Sand Worm - COST:8 [ATK:8/HP:8] 
