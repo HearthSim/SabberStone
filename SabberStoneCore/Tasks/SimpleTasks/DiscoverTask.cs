@@ -14,7 +14,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         OP_DECK,
         BASIC_TOTEM,
         MINION,
-        SPELL
+        SPELL,
+        DEATHRATTLE
     }
     public class DiscoverTask : SimpleTask
     {
@@ -100,6 +101,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.MINION:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Type == CardType.MINION));
+
+                case DiscoverType.DEATHRATTLE:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
 
                 case DiscoverType.SPELL:
                     choiceAction = ChoiceAction.HAND;

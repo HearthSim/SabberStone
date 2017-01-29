@@ -405,11 +405,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_006", new List<Enchantment> {
-				// TODO [LOE_006] Museum Curator && Test: Museum Curator_LOE_006
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DEATHRATTLE)
 				},
 			});
 
