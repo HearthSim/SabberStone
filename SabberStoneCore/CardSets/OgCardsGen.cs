@@ -409,9 +409,9 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new EnqueueTask(1, new SummonTask("NEW1_034")),
-                        new EnqueueTask(1, new SummonTask("NEW1_033")),
-                        new EnqueueTask(1, new SummonTask("NEW1_032")))
+                        new SummonTask("NEW1_034"),
+                        new SummonTask("NEW1_033"),
+                        new SummonTask("NEW1_032"))
 				},
 			});
 

@@ -888,9 +888,8 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new RevealStealthTask(EntityType.OP_MINIONS),
-                        new EnqueueTask(1, new MoveToGraveYard(EntityType.OP_SECRETS)),
+                        new MoveToGraveYard(EntityType.OP_SECRETS),
                         new DrawTask())
-
                 },
 			});
 
@@ -2343,7 +2342,6 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
-                        new LogTask(),
                         new DamageNumberTask(EntityType.OP_MINIONS, true),
                         new DestroyTask(EntityType.WEAPON)),
                 }

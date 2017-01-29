@@ -707,7 +707,6 @@ namespace SabberStoneCore.CardSets
                         .SingleTask(ComplexTask.Create(
                             new GetGameTagTask(GameTag.PREDAMAGE, EntityType.HERO),
                             new MathMultiplyTask(2),
-                            new LogTask(),
                             new SetGameTagNumberTask(GameTag.PREDAMAGE, EntityType.HERO, true)))
                         .Build()
                 }

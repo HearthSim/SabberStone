@@ -388,7 +388,6 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new CopyTask(EntityType.TARGET, 3),
-                        new LogTask(),
                         new AddStackTo(EntityType.DECK))
 				},
 			});

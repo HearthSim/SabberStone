@@ -48,7 +48,6 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
             => Create(
                 new RandomTask(targets, type),
-                new LogTask(),
                 new DamageTask(amount, EntityType.STACK, spellDmg));
 
         public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
@@ -83,7 +82,6 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask ExcessManaCheck
             => Create(
                 new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
-                new LogTask(),
                 new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)),
                 new FlagTask(false, Create(
                     new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsRemaningManaFull),
