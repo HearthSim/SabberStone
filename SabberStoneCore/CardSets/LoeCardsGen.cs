@@ -830,12 +830,11 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_046", new List<Enchantment> {
-				// TODO [LOE_046] Huge Toad && Test: Huge Toad_LOE_046
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
