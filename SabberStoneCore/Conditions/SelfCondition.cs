@@ -57,10 +57,18 @@ namespace SabberStoneCore.Conditions
                 if (!me.Controller.SeenCthun)
                     return false;
                 var proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
-                return relaSign == RelaSign.EQ && proxyCthun[tag] == value
+                return relaSign == RelaSign.EQ  && proxyCthun[tag] == value
                     || relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
                     || relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;
             });
+        }
+
+
+        public static SelfCondition IsBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
+        {
+            return new SelfCondition(me => relaSign == RelaSign.EQ  && me.Controller.Board.Count == value
+                                        || relaSign == RelaSign.GEQ && me.Controller.Board.Count >= value
+                                        || relaSign == RelaSign.LEQ && me.Controller.Board.Count <= value);
         }
 
         private readonly Func<IPlayable, bool> _function;

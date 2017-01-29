@@ -615,12 +615,13 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_116", new List<Enchantment> {
-				// TODO [LOE_116] Reliquary Seeker && Test: Reliquary Seeker_LOE_116
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(7)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(4), EntityType.SOURCE)))
+				}
 			});
 
 		}

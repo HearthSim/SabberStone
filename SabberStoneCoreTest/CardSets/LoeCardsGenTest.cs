@@ -808,22 +808,40 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ReliquarySeeker_LOE_116()
 		{
-			// TODO ReliquarySeeker_LOE_116 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+                DeckPlayer1 = new List<Card>() { },
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Reliquary Seeker"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Reliquary Seeker"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Reliquary Seeker"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+		    var minion5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion5));
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(1, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(1, ((Minion)testCard1).Health);
+            Assert.AreEqual(5, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(5, ((Minion)testCard2).Health);
+        }
 
 	}
 
