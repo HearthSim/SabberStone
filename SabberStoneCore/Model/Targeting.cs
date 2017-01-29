@@ -114,7 +114,7 @@ namespace SabberStoneCore.Model
                         }
                         break;
                     case PlayReq.REQ_CHARGE_TARGET: // Target must have charge.
-                        if ((minion != null) && minion.HasCharge)
+                        if (minion != null && minion.HasCharge)
                         {
                             return false;
                         }
@@ -138,7 +138,7 @@ namespace SabberStoneCore.Model
                         }
                         break;
                     case PlayReq.REQ_MUST_TARGET_TAUNTER: // Must ALWAYS target taunters.
-                        if ((minion == null) || !minion.HasTaunt)
+                        if (minion == null || !minion.HasTaunt)
                         {
                             return false;
                         }
@@ -156,13 +156,13 @@ namespace SabberStoneCore.Model
                         }
                         break;
                     case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-                        if ((minion == null) || !minion.HasDeathrattle)
+                        if (minion == null || !minion.HasDeathrattle)
                         {
                             return false;
                         }
                         break;
                     case PlayReq.REQ_TARGET_WITH_BATTLECRY:
-                        if ((minion == null) || !minion.HasBattleCry)
+                        if (minion == null || !minion.HasBattleCry)
                         {
                             return false;
                         }

@@ -955,13 +955,13 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_077", new List<Enchantment> {
-				// TODO [LOE_077] Brann Bronzebeard && Test: Brann Bronzebeard_LOE_077
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(GameTag.BATTLECRY, 1)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5] 

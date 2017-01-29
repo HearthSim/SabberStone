@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model
 
         public bool HasBattleCry
         {
-            get { return this[GameTag.BATTLECRY] == 1; }
+            get { return this[GameTag.BATTLECRY] != 0; }
             set { this[GameTag.BATTLECRY] = value ? 1 : 0; }
         }
 

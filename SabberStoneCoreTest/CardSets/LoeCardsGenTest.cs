@@ -1278,10 +1278,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BrannBronzebeard_LOE_077()
 		{
-			// TODO BrannBronzebeard_LOE_077 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1292,8 +1291,19 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Brann Bronzebeard"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Brann Bronzebeard"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Azure Drake"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+		    game.CurrentPlayer.UsedMana = 0;
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
+            Assert.AreEqual(6, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion1).Health);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5] 

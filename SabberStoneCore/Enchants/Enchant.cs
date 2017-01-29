@@ -143,6 +143,12 @@ namespace SabberStoneCore.Enchants
                 return (value + effect) == 0 ? 0 : 1;
             }
 
+            // TODO this is really bad practice
+            if (gameTag == GameTag.BATTLECRY)
+            {
+                return value != 0 ? (value + effect) : 0;
+            }
+
             var result = value + effect;
 
             // TODO don't allow negative values for those tags ... for all???
