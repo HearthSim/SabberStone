@@ -796,59 +796,72 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[2]).CanAttack);
         }
 
-		// ----------------------------------------- SPELL - HUNTER
-		// [EX1_544] Flare - COST:2 
-		// - Fac: neutral, Set: expert1, Rarity: rare
-		// --------------------------------------------------------
-		// Text: All minions lose <b>Stealth</b>. Destroy all enemy <b>Secrets</b>. Draw a card.
-		// --------------------------------------------------------
-		// RefTag:
-		// - STEALTH = 1
-		// - SECRET = 1
-		// --------------------------------------------------------
-		[TestMethod]
-		public void Flare_EX1_544()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-            var trap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, trap));
+        // ----------------------------------------- SPELL - HUNTER
+        // [EX1_544] Flare - COST:2 
+        // - Fac: neutral, Set: expert1, Rarity: rare
+        // --------------------------------------------------------
+        // Text: All minions lose <b>Stealth</b>. Destroy all enemy <b>Secrets</b>. Draw a card.
+        // --------------------------------------------------------
+        // RefTag:
+        // - STEALTH = 1
+        // - SECRET = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void Flare_EX1_544()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            // player 1 draws and plays explosive Trap
+            var explosiveTrap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, explosiveTrap));
             Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
-            Assert.AreEqual(1, game.CurrentPlayer.Hero.Triggers.Count);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var flare = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flare"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, flare));
-            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
-            Assert.AreEqual(0, game.CurrentOpponent.Hero.Triggers.Count);
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+
+            // player 1 draws and plays WorgenInfiltrator_EX1_010 (stealth)
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
-            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)minion).HasStealth);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // player 2 draws and plays Flare
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flare"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+
+            Assert.AreEqual(false, ((Minion)minion).HasStealth);
+            Assert.AreEqual(0, game.CurrentPlayer.Opponent.Secrets.Count);
+
+            // play a charge minion to test deactivated Secret
+            var chargeMinion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, chargeMinion));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, chargeMinion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(29, game.CurrentPlayer.Opponent.Hero.Health);
         }
 
-		// ----------------------------------------- SPELL - HUNTER
-		// [EX1_549] Bestial Wrath - COST:1 
-		// - Fac: neutral, Set: expert1, Rarity: epic
-		// --------------------------------------------------------
-		// Text: Give a friendly Beast +2 Attack and <b>Immune</b> this turn.
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_TARGET_WITH_RACE = 20
-		// - REQ_TARGET_TO_PLAY = 0
-		// - REQ_FRIENDLY_TARGET = 0
-		// --------------------------------------------------------
-		// RefTag:
-		// - IMMUNE = 1
-		// --------------------------------------------------------
-		[TestMethod]
+        // ----------------------------------------- SPELL - HUNTER
+        // [EX1_549] Bestial Wrath - COST:1 
+        // - Fac: neutral, Set: expert1, Rarity: epic
+        // --------------------------------------------------------
+        // Text: Give a friendly Beast +2 Attack and <b>Immune</b> this turn.
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_TARGET_WITH_RACE = 20
+        // - REQ_TARGET_TO_PLAY = 0
+        // - REQ_FRIENDLY_TARGET = 0
+        // --------------------------------------------------------
+        // RefTag:
+        // - IMMUNE = 1
+        // --------------------------------------------------------
+        [TestMethod]
 		public void BestialWrath_EX1_549()
 		{
 			// TODO BestialWrath_EX1_549 test
@@ -988,42 +1001,56 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(28, game.CurrentPlayer.Hero.Health);
         }
 
-		// ----------------------------------------- SPELL - HUNTER
-		// [EX1_611] Freezing Trap - COST:2 
-		// - Fac: neutral, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: <b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (2) more.
-		// --------------------------------------------------------
-		// GameTag:
-		// - SECRET = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void FreezingTrap_EX1_611()
-		{
-			// TODO FreezingTrap_EX1_611 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Freezing Trap"));
-		}
+        // ----------------------------------------- SPELL - HUNTER
+        // [EX1_611] Freezing Trap - COST:2 
+        // - Fac: neutral, Set: expert1, Rarity: common
+        // --------------------------------------------------------
+        // Text: <b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (2) more.
+        // --------------------------------------------------------
+        // GameTag:
+        // - SECRET = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void FreezingTrap_EX1_611()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-		// ----------------------------------------- SPELL - HUNTER
-		// [EX1_617] Deadly Shot - COST:3 
-		// - Fac: neutral, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: Destroy a random enemy minion.
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_MINIMUM_ENEMY_MINIONS = 1
-		// --------------------------------------------------------
-		[TestMethod]
+            var trap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Freezing Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, trap));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Triggers.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+
+            var cardsInHand = game.CurrentPlayer.Hand.Count;
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(cardsInHand + 1, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+        }
+
+        // ----------------------------------------- SPELL - HUNTER
+        // [EX1_617] Deadly Shot - COST:3 
+        // - Fac: neutral, Set: expert1, Rarity: common
+        // --------------------------------------------------------
+        // Text: Destroy a random enemy minion.
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_MINIMUM_ENEMY_MINIONS = 1
+        // --------------------------------------------------------
+        [TestMethod]
 		public void DeadlyShot_EX1_617()
 		{
 			var game = new Game(new GameConfig

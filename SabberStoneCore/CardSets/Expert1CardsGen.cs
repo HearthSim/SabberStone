@@ -883,12 +883,11 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_544", new List<Enchantment> {
-				// TODO [EX1_544] Flare && Test: Flare_EX1_544
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        //new RevealStealthTask(EntityType.OP_MINIONS),
+                        new RevealStealthTask(EntityType.OP_MINIONS),
                         new EnqueueTask(1, new MoveToGraveYard(EntityType.OP_SECRETS)),
                         new DrawTask())
 
@@ -998,13 +997,18 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_611", new List<Enchantment> {
-				// TODO [EX1_611] Freezing Trap && Test: Freezing Trap_EX1_611
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                    .EnableConditions(SelfCondition.IsSecretActive)
+                    .TriggerEffect(GameTag.ATTACKING, 1)
+                    .SingleTask(ComplexTask.Secret(
+                        new ReturnHandTask(EntityType.TARGET)))
+                        .Build()
+                },
+            });
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [EX1_617] Deadly Shot - COST:3 

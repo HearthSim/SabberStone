@@ -5,6 +5,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
+using System;
 
 namespace SabberStoneCore.Tasks
 {
@@ -219,6 +220,13 @@ namespace SabberStoneCore.Tasks
             secretList.Add(new EnqueueTask(1, new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE)));
             secretList.Add(new EnqueueTask(1, new MoveToGraveYard(EntityType.SOURCE)));
             return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
+        }
+
+        public static ISimpleTask RandomCardToHand(CardType cardType, CardClass cardClass)
+        {
+            return ComplexTask.Create(
+                new RandomCardTask(cardType, cardClass),
+                new CopyToHand());
         }
     }
 }

@@ -681,10 +681,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Add 3 random Mage spells to your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CabalistsTome_OG_090()
 		{
-			// TODO CabalistsTome_OG_090 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -695,7 +694,10 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cabalist's Tome"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cabalist's Tome"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(7, game.CurrentPlayer.Hand.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE

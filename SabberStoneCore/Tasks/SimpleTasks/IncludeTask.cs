@@ -7,36 +7,115 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public enum EntityType
     {
+        /// <summary>
+        ///  The target
+        /// </summary>
         TARGET,
+        /// <summary>
+        ///  The source
+        /// </summary>
         SOURCE,
-
+        /// <summary>
+        ///  Player's hero
+        /// </summary>
         HERO,
+        /// <summary>
+        ///  Player's hero power
+        /// </summary>
         HERO_POWER,
+        /// <summary>
+        ///  All cards in the player's hand
+        /// </summary>
         HAND,
+        /// <summary>
+        ///  All cards in the player's hand except the source
+        /// </summary>
         HAND_NOSOURCE,
+        /// <summary>
+        ///  All cards in the player's deck
+        /// </summary>
         DECK,
+        /// <summary>
+        ///  Player's secrets
+        /// </summary>
+        SECRETS,
+        /// <summary>
+        ///  All minions
+        /// </summary>
         MINIONS,
+        /// <summary>
+        ///  All minions except the source
+        /// </summary>
         MINIONS_NOSOURCE,
+        /// <summary>
+        ///  All friends characters
+        /// </summary>
         FRIENDS,
-
+        /// <summary>
+        ///  Opponent's Hero
+        /// </summary>
         OP_HERO,
+        /// <summary>
+        ///  All cards in the opponent's hand
+        /// </summary>
         OP_HAND,
+        /// <summary>
+        ///  All cards in the opponent's deck
+        /// </summary>
         OP_DECK,
+        /// <summary>
+        ///  All opponent secret
+        /// </summary>
+        OP_SECRETS,
+        /// <summary>
+        ///  All opponent minion
+        /// </summary>
         OP_MINIONS,
+        /// <summary>
+        ///  All opponent character
+        /// </summary>
         ENEMIES,
+        /// <summary>
+        ///  All opponent character except the source
+        /// </summary>
         ENEMIES_NOTARGET,
+
+        /// <summary>
+        ///  All characters
+        /// </summary>
         ALL,
+        /// <summary>
+        ///  All characters except the source
+        /// </summary>
         ALL_NOSOURCE,
-
+        /// <summary>
+        ///  Player's weapon
+        /// </summary>
         WEAPON,
+        /// <summary>
+        ///  Opponent's weapon
+        /// </summary>
         OP_WEAPON,
+        /// <summary>
+        ///  All cards on the stack
+        /// </summary>
         STACK,
+        /// <summary>
+        ///  All minions
+        /// </summary>
         ALLMINIONS,
-
+        /// <summary>
+        ///  Invalid
+        /// </summary>
         INVALID,
+        /// <summary>
+        ///  All minions except the source
+        /// </summary>
         ALLMINIONS_NOSOURCE,
-        GRAVEYARD,
-        OP_SECRETS
+        /// <summary>
+        ///  All cards in the graveyard
+        /// </summary>
+        GRAVEYARD
     }
 
     public class IncludeTask : SimpleTask

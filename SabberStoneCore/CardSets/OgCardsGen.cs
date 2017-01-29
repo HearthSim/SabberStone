@@ -596,8 +596,8 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new EnqueueTask(3, ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.MAGE))
+                },
 			});
 
 			// ------------------------------------------ MINION - MAGE
