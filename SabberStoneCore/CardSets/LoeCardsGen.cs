@@ -1073,11 +1073,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_110", new List<Enchantment> {
-				// TODO [LOE_110] Ancient Shade && Test: Ancient Shade_LOE_110
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new AddCardTo("LOE_110t", EntityType.OP_DECK)
 				},
 			});
 
@@ -1124,11 +1123,13 @@ namespace SabberStoneCore.CardSets
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_110t", new List<Enchantment> {
-				// TODO [LOE_110t] Ancient Curse && Test: Ancient Curse_LOE_110t
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Activation = EnchantmentActivation.HAND,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(7, EntityType.HERO),
+                        new MoveToGraveYard(EntityType.SOURCE),
+                        new DrawTask())
 				},
 			});
 

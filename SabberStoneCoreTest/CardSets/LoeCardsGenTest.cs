@@ -1467,22 +1467,32 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AncientShade_LOE_110()
 		{
-			// TODO AncientShade_LOE_110 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>()
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Bloodfen Raptor")
+                },
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient Shade"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient Shade"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(22, game.CurrentPlayer.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
