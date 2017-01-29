@@ -892,10 +892,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ForbiddenHealing_OG_198()
 		{
-			// TODO ForbiddenHealing_OG_198 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -906,7 +905,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Healing"));
+		    game.CurrentPlayer.Hero.Damage = 20;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Forbidden Healing"));
+            Assert.AreEqual(10, game.CurrentPlayer.Hero.Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.Hero));
+            Assert.AreEqual(30, game.CurrentPlayer.Hero.Health);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN

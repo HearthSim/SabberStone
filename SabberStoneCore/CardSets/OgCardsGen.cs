@@ -741,12 +741,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_198", new List<Enchantment> {
-				// TODO [OG_198] Forbidden Healing && Test: Forbidden Healing_OG_198
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.SpendAllManaTask(
+                        ComplexTask.Create(
+                            new MathMultiplyTask(2),
+                            new HealNumberTask(EntityType.TARGET)))
+                },
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
