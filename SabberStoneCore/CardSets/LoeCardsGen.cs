@@ -593,11 +593,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_023", new List<Enchantment> {
-				// TODO [LOE_023] Dark Peddler && Test: Dark Peddler_LOE_023
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.ONE_COST),
 				},
 			});
 
