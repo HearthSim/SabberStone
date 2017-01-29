@@ -1678,11 +1678,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Destroy all minions. Draw a card for each.
 			// --------------------------------------------------------
 			cards.Add("OG_239", new List<Enchantment> {
-				// TODO [OG_239] DOOM! && Test: DOOM!_OG_239
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.ALLMINIONS),
+                        new DestroyTask(EntityType.ALLMINIONS),
+                        new EnqueueNumberTask(new DrawTask()))
 				},
 			});
 

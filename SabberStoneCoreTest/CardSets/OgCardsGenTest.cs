@@ -1987,10 +1987,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Destroy all minions. Draw a card for each.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Doom_OG_239()
 		{
-			// TODO Doom_OG_239 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2001,8 +2000,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("DOOM!"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("DOOM!"));
+		    game.CurrentPlayer.UsedMana = 0;
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, game.Minions.Count);
+            Assert.AreEqual(7, game.CurrentPlayer.Hand.Count);
+
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [OG_109] Darkshire Librarian - COST:2 [ATK:3/HP:2] 
