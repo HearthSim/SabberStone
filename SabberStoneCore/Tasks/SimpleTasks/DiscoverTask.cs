@@ -17,7 +17,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         SPELL,
         DEATHRATTLE,
         ONE_COST,
-        THREE_COST
+        THREE_COST,
+        BEAST
     }
     public class DiscoverTask : SimpleTask
     {
@@ -99,6 +100,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.DRAGON:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+
+                case DiscoverType.BEAST:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == Race.BEAST));
 
                 case DiscoverType.MINION:
                     choiceAction = ChoiceAction.HAND;

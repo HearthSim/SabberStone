@@ -850,11 +850,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_047", new List<Enchantment> {
-				// TODO [LOE_047] Tomb Spider && Test: Tomb Spider_LOE_047
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.BEAST)
 				},
 			});
 
@@ -883,12 +882,11 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_061", new List<Enchantment> {
-				// TODO [LOE_061] Anubisath Sentinel && Test: Anubisath Sentinel_LOE_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.BuffRandomMinion(EntityType.MINIONS, Buffs.AttackHealth(3), new SelfCondition[] {})
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
