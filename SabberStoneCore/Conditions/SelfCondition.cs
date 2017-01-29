@@ -16,8 +16,11 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.Combo);
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
         public static SelfCondition IsThisWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon == me);
-        public static SelfCondition IsControlingBeast => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.BEAST));
-        public static SelfCondition IsControlingPirate => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.PIRATE));
+
+        public static SelfCondition IsControlingRace(Race race) => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == race));
+        public static SelfCondition IsControlingBeast => IsControlingRace(Race.BEAST);
+        public static SelfCondition IsControlingPirate => IsControlingRace(Race.PIRATE);
+
         public static SelfCondition IsDragonInHand => new SelfCondition(me => me.Controller.Hand.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
         public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
@@ -71,6 +74,7 @@ namespace SabberStoneCore.Conditions
         {
             return _function(owner);
         }
+
     }
 
 }

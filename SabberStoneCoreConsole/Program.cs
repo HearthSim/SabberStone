@@ -91,20 +91,16 @@ namespace SabberStoneCoreConsole
                 Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
-
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wobbling Runts"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorillabot A-3"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            
 
             ShowLog(game, LogLevel.VERBOSE);
+
+            Console.WriteLine(game.CurrentPlayer.Choice.FullPrint());
         }
 
         public static void Kazakus()

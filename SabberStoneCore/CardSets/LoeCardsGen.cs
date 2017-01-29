@@ -811,11 +811,12 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_039", new List<Enchantment> {
-				// TODO [LOE_039] Gorillabot A-3 && Test: Gorillabot A-3_LOE_039
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControlingRace(Race.MECHANICAL)),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.MECHANICAL)))
 				},
 			});
 

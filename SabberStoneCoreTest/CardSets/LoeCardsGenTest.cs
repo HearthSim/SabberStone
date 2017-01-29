@@ -1047,10 +1047,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GorillabotA3_LOE_039()
 		{
-			// TODO GorillabotA3_LOE_039 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1061,8 +1060,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gorillabot A-3"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gorillabot A-3"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice == null);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorillabot A-3"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_046] Huge Toad - COST:2 [ATK:3/HP:2] 
