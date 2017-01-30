@@ -17,6 +17,9 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
         public static SelfCondition IsThisWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon == me);
 
+        public static SelfCondition IsDamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
+        public static SelfCondition IsUndamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage == 0);
+
         public static SelfCondition IsControlingRace(Race race) => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == race));
         public static SelfCondition IsControlingBeast => IsControlingRace(Race.BEAST);
         public static SelfCondition IsControlingPirate => IsControlingRace(Race.PIRATE);

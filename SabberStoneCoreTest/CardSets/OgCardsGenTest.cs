@@ -1054,10 +1054,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void RagnarosLightlord_OG_229()
 		{
-			// TODO RagnarosLightlord_OG_229 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1068,7 +1067,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ragnaros, Lightlord"));
+		    game.Player1.Hero.Damage = 10;
+		    var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ragnaros, Lightlord"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - PALADIN

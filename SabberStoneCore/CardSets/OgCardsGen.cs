@@ -851,13 +851,21 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_229", new List<Enchantment> {
-				// TODO [OG_229] Ragnaros, Lightlord && Test: Ragnaros, Lightlord_OG_229
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.FRIENDS),
+                            new FilterStackTask(SelfCondition.IsDamaged),
+                            new RandomTask(1, EntityType.STACK),
+                            new HealTask(8, EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - PALADIN
 			// [OG_310] Steward of Darkshire - COST:3 [ATK:3/HP:3] 
