@@ -2513,14 +2513,7 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_522", new List<Enchantment> {
-				// TODO [EX1_522] Patient Assassin && Test: Patient Assassin_EX1_522
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("EX1_522", null);
 
 			// ----------------------------------------- MINION - ROGUE
 			// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2] 
@@ -4943,14 +4936,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_170", new List<Enchantment> {
-				// TODO [EX1_170] Emperor Cobra && Test: Emperor Cobra_EX1_170
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("EX1_170", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5] 
