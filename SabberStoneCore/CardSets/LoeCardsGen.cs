@@ -470,11 +470,12 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_019", new List<Enchantment> {
-				// TODO [LOE_019] Unearthed Raptor && Test: Unearthed Raptor_LOE_019
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDeathrattleMinion),
+                        new FlagTask(true, new CopyDeathrattleTask()))
 				},
 			});
 

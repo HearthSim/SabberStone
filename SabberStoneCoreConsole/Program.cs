@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,20 +87,19 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player1HeroClass = CardClass.ROGUE,
+                Player2HeroClass = CardClass.ROGUE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorillabot A-3"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unearthed Raptor"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
             
-
             ShowLog(game, LogLevel.VERBOSE);
-
-            Console.WriteLine(game.CurrentPlayer.Choice.FullPrint());
         }
 
         public static void Kazakus()

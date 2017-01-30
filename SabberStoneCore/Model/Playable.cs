@@ -174,6 +174,8 @@ namespace SabberStoneCore.Model
                         case PlayReq.REQ_TARGET_WITH_RACE:
                         case PlayReq.REQ_MUST_TARGET_TAUNTER:
                         case PlayReq.REQ_TARGET_MIN_ATTACK:
+                        case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
+                        case PlayReq.REQ_TARGET_WITH_BATTLECRY:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
                         case PlayReq.REQ_NONSELF_TARGET:
                             break;
