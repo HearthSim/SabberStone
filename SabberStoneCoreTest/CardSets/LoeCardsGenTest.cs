@@ -398,10 +398,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SacredTrial_LOE_027()
 		{
-			// TODO SacredTrial_LOE_027 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -412,8 +411,21 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sacred Trial"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sacred Trial"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion3));
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion4));
+            Assert.AreEqual(true, ((Minion)minion4).IsDead);
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4] 

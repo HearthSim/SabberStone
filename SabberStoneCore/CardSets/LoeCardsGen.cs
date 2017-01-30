@@ -308,13 +308,19 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_027", new List<Enchantment> {
-				// TODO [LOE_027] Sacred Trial && Test: Sacred Trial_LOE_027
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsBoardCount(4))
+                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
+                        .SingleTask(ComplexTask.Secret(
+                            new DestroyTask(EntityType.TARGET)))
+                        .Build()
+                },
+            });
 
 			// --------------------------------------- MINION - PALADIN
 			// [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4] 
