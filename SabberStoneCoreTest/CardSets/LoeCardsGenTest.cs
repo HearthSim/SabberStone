@@ -1326,17 +1326,46 @@ namespace SabberStoneCoreTest.CardSets
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Arcane Blast"),
+                    Cards.FromName("Frostbolt"),
+                    Cards.FromName("Arcane Intellect"),
+                    Cards.FromName("Fireball"),
+                },
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Arcane Blast"),
+                    Cards.FromName("Frostbolt"),
+                    Cards.FromName("Arcane Intellect"),
+                    Cards.FromName("Fireball"),
+                },
+                FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Elise Starseeker"));
-            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Deck.Count);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
-            Assert.AreEqual(27, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(1, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(0, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(1, game.CurrentPlayer.Deck.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
+            Assert.AreEqual(Rarity.LEGENDARY, game.CurrentPlayer.Hand[0].Card.Rarity);
+            Assert.AreEqual(Rarity.LEGENDARY, game.CurrentPlayer.Hand[1].Card.Rarity);
+            Assert.AreEqual(Rarity.LEGENDARY, game.CurrentPlayer.Hand[2].Card.Rarity);
+            Assert.AreEqual(Rarity.LEGENDARY, game.CurrentPlayer.Hand[3].Card.Rarity);
         }
 
 		// --------------------------------------- MINION - NEUTRAL

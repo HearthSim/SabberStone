@@ -1084,14 +1084,7 @@ namespace SabberStoneCore.CardSets
 			// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
 			// - Race: murloc, Set: loe, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("LOEA10_3", new List<Enchantment> {
-				// TODO [LOEA10_3] Murloc Tinyfin && Test: Murloc Tinyfin_LOEA10_3
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOEA10_3", null);
 
 		}
 
@@ -1104,11 +1097,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shuffle the Golden Monkey into your deck. Draw a card.
 			// --------------------------------------------------------
 			cards.Add("LOE_019t", new List<Enchantment> {
-				// TODO [LOE_019t] Map to the Golden Monkey && Test: Map to the Golden Monkey_LOE_019t
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new AddCardTo("LOE_019t2", EntityType.DECK),
 				},
 			});
 
@@ -1230,11 +1222,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_019t2", new List<Enchantment> {
-				// TODO [LOE_019t2] Golden Monkey && Test: Golden Monkey_LOE_019t2
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ReplaceTask(EntityType.DECK, Rarity.LEGENDARY),
+                        new ReplaceTask(EntityType.HAND, Rarity.LEGENDARY)),
 				},
 			});
 
