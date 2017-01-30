@@ -1991,11 +1991,12 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_120", new List<Enchantment> {
-				// TODO [CFM_120] Mistress of Mixtures && Test: Mistress of Mixtures_CFM_120
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new HealTask(4, EntityType.HERO),
+                        new HealTask(4, EntityType.OP_HERO)),
 				},
 			});
 
@@ -2071,7 +2072,6 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_341", new List<Enchantment> {
-				// TODO [CFM_341] Sergeant Sally && Test: Sergeant Sally_CFM_341
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
