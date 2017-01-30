@@ -2089,10 +2089,9 @@ namespace SabberStoneCoreTest.CardSets
 		//       add a random Demon
 		//       to your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KabalTrafficker_CFM_663()
 		{
-			// TODO KabalTrafficker_CFM_663 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2103,8 +2102,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Trafficker"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Trafficker"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(Race.DEMON, game.CurrentOpponent.Hand[4].Card.Race);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [CFM_699] Seadevil Stinger - COST:4 [ATK:4/HP:2] 

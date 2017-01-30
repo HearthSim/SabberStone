@@ -1576,13 +1576,19 @@ namespace SabberStoneCore.CardSets
 			//       to your hand.
 			// --------------------------------------------------------
 			cards.Add("CFM_663", new List<Enchantment> {
-				// TODO [CFM_663] Kabal Trafficker && Test: Kabal Trafficker_CFM_663
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_699] Seadevil Stinger - COST:4 [ATK:4/HP:2] 
