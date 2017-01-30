@@ -2387,11 +2387,10 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_656", new List<Enchantment> {
-				// TODO [CFM_656] Streetwise Investigator && Test: Streetwise Investigator_CFM_656
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealStealthTask(EntityType.OP_MINIONS)
 				},
 			});
 
