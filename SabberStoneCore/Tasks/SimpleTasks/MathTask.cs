@@ -26,6 +26,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         }
     }
 
+    public class MathAddTask : SimpleTask
+    {
+        public MathAddTask(int amount)
+        {
+            Amount = amount;
+        }
+
+        public int Amount { get; set; }
+
+        public override TaskState Process()
+        {
+            Number += Amount;
+            return TaskState.COMPLETE;
+        }
+
+        public override ISimpleTask Clone()
+        {
+            var clone = new MathAddTask(Amount);
+            clone.Copy(this);
+            return clone;
+        }
+    }
+
     public class MathSubstractionTask : SimpleTask
     {
 

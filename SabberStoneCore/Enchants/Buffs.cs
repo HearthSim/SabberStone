@@ -124,31 +124,6 @@ namespace SabberStoneCore.Enchants
             };
         }
 
-        public static Enchant WeaponAtkDura(int atk, int dura, bool oneTurnActive = false)
-        {
-            return new Enchant
-            {
-                TurnsActive = oneTurnActive ? 0 : -1,
-                Effects = new Dictionary<GameTag, int>
-                {
-                    [GameTag.ATK] = atk,
-                    [GameTag.DURABILITY] = dura
-                }
-            };
-        }
-
-        public static Enchant WeaponDura(int amount, bool oneTurnActive = false)
-        {
-            return new Enchant
-            {
-                TurnsActive = oneTurnActive ? 0 : -1,
-                Effects = new Dictionary<GameTag, int>
-                {
-                    [GameTag.DURABILITY] = amount
-                }
-            };
-        }
-
         public static Enchant Cost(int amount, bool oneTurnActive = false)
         {
             return new Enchant

@@ -1963,7 +1963,11 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingPirate),
-                        ComplexTask.True(new BuffTask(Buffs.WeaponAtkDura(1,1), EntityType.WEAPON))),
+                        new FlagTask(true, ComplexTask.Create(
+                                new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new MathAddTask(1),
+                                new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON)))),
 				},
 			});
 

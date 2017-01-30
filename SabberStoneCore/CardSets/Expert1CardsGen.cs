@@ -1119,7 +1119,10 @@ namespace SabberStoneCore.CardSets
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsThisWeaponEquiped)
                         .TriggerEffect(GameTag.REVEALED, 1)
-                        .SingleTask(new BuffTask(Buffs.WeaponDura(1), EntityType.SOURCE))
+                        .SingleTask(ComplexTask.Create(
+                            new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                            new MathAddTask(1),
+                            new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON)))
                         .Build()
                 },
             });
@@ -3466,9 +3469,12 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new SelfConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
-                        ComplexTask.True(new BuffTask(Buffs.WeaponAtkDura(1,1), EntityType.WEAPON)),
-                        ComplexTask.False(new ReplaceWeaponTask("EX1_409t"))
-                        ),
+                        new FlagTask(true, ComplexTask.Create(
+                                new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new MathAddTask(1),
+                                new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))),
+                        new FlagTask(false, new ReplaceWeaponTask("EX1_409t")))
 				},
 			});
 
