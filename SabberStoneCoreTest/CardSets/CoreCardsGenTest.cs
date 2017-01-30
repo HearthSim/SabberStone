@@ -1077,10 +1077,9 @@ namespace SabberStoneCoreTest.CardSets
         // --------------------------------------------------------
         // Text: Look at the top 3 cards of your deck. Draw one and discard the_others.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void Tracking_DS1_184()
         {
-            // TODO Tracking_DS1_184 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -1091,7 +1090,15 @@ namespace SabberStoneCoreTest.CardSets
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tracking"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tracking"));
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(23, game.CurrentPlayer.Deck.Count);
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+            Assert.AreEqual(3, game.CurrentPlayer.Choice?.Choices.Count);
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice?.Choices[0]));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
         }
 
         // ----------------------------------------- SPELL - HUNTER

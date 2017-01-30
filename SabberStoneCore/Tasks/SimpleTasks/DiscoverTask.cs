@@ -20,7 +20,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         THREE_COST,
         BEAST,
         MECHANICAL,
-        ARTIFACT
+        ARTIFACT,
+        TRACKING
     }
     public class DiscoverTask : SimpleTask
     {
@@ -122,6 +123,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Cards.FromId("LOEA16_5")
                         }
                     };
+
+                case DiscoverType.TRACKING:
+                    choiceAction = ChoiceAction.TRACKING;
+                    var cards = new List<Card>();
+                    Controller.Deck.GetAll.Take(3).ToList().ForEach(p =>
+                    {
+                        Generic.RemoveFromZone(Controller, p);
+                        Controller.Setaside.Add(p);
+                        cards.Add(p.Card);
+                    });
+                    return new[] { cards };
 
                 case DiscoverType.MINION:
                     choiceAction = ChoiceAction.HAND;

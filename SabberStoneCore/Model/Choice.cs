@@ -6,7 +6,8 @@ namespace SabberStoneCore.Model
 {
     public enum ChoiceAction
     {
-        HAND, SUMMON, HEROPOWER, KAZAKUS, INVALID
+        HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID,
+        
     }
 
     public class Choice

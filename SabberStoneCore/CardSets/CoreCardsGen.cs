@@ -533,11 +533,10 @@ namespace SabberStoneCore.CardSets
             // Text: Look at the top 3 cards of your deck. Draw one and discard the_others.
             // --------------------------------------------------------
             cards.Add("DS1_184", new List<Enchantment> {
-				// TODO [DS1_184] Tracking && Test: Tracking_DS1_184
 				new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.TRACKING)
                 },
             });
 

@@ -24,51 +24,67 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                var playable = Entity.FromCard(c, choice);
+                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {choice.Name} as choice!");
 
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable} as choice!");
-
-                switch (c.Choice.ChoiceAction)
+                if (c.Choice.ChoiceAction == ChoiceAction.HAND)
                 {
-                    case ChoiceAction.HEROPOWER:
-                        playable[GameTag.CREATOR] = c.Hero.Id;
-                        c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                    var playable = Entity.FromCard(c, choice);
+                    c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                    {
+                        Game = c.Game,
+                        Controller = c,
+                        Source = playable,
+                        Target = playable
+                    });
+                }
+                else if (c.Choice.ChoiceAction == ChoiceAction.TRACKING)
+                {
+                    var tracked = c.Setaside.First(p => p.Card == choice);
+                    if (RemoveFromZone(c, tracked))
+                    {
+                        c.Game.TaskQueue.Enqueue(new AddCardTo(tracked, EntityType.HAND)
+                        {
+                            Game = c.Game,
+                            Controller = c,
+                            Source = tracked,
+                            Target = tracked
+                        });
+                    }
+                }
+                else if (c.Choice.ChoiceAction == ChoiceAction.HEROPOWER)
+                {
+                    var playable = Entity.FromCard(c, choice);
+                    playable[GameTag.CREATOR] = c.Hero.Id;
+                    c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                    {
+                        Game = c.Game,
+                        Controller = c,
+                        Source = playable,
+                        Target = playable
+                    });
+                }
+                else if (c.Choice.ChoiceAction == ChoiceAction.KAZAKUS)
+                {
+                    var playable = Entity.FromCard(c, choice);
+                    c.Setaside.Add(playable);
+                    var kazakusPotions =
+                        c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+                            .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
+                            .ToList();
+                    if (kazakusPotions.Any())
+                    {
+                        c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
                         {
                             Game = c.Game,
                             Controller = c,
                             Source = playable,
                             Target = playable
                         });
-                        break;
-                    case ChoiceAction.HAND:
-                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
-                        {
-                            Game = c.Game,
-                            Controller = c,
-                            Source = playable,
-                            Target = playable
-                        });
-                        break;
-                    case ChoiceAction.KAZAKUS:
-                        c.Setaside.Add(playable);
-                        var kazakusPotions =
-                            c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
-                                .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
-                                .ToList();
-                        if (kazakusPotions.Any())
-                        {
-                            c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
-                            {
-                                Game = c.Game,
-                                Controller = c,
-                                Source = playable,
-                                Target = playable
-                            });
-                        }
-                        break;
-
-                    default:
-                        throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    throw new NotImplementedException();
                 }
 
                 // reset choice it's done
