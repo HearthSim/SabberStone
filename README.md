@@ -104,8 +104,8 @@ namespace SabberStoneCore.Loader
 ### Documentation
 
 * Wiki [Link](https://github.com/HearthSim/SabberStone/wiki)
-* SabberStoneAi [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneAi)
-* SabberStoneGui [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui)
+* SabberStoneCoreAi [Link](https://github.com/HearthSim/SabberStone/tree/master/SabberStoneCoreAi)
+* SabberStoneCoreGui [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui)
 
 ### License
 
