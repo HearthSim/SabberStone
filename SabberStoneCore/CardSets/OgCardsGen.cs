@@ -2047,13 +2047,21 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_042", new List<Enchantment> {
-				// TODO [OG_042] Y'Shaarj, Rage Unbound && Test: Y'Shaarj, Rage Unbound_OG_042
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.DECK),
+                            new RandomTask(1, EntityType.STACK),
+                            new RemoveFromDeck(EntityType.STACK),
+                            new SummonTask()))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_082] Evolved Kobold - COST:4 [ATK:2/HP:2] 

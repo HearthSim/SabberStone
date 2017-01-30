@@ -260,6 +260,7 @@ namespace SabberStoneCore.Model
         public void MainStartTriggers()
         {
             CurrentPlayer.TurnStart = true;
+            DeathProcessingAndAuraUpdate();
 
             // set next step
             NextStep = Step.MAIN_RESOURCE;
@@ -309,6 +310,7 @@ namespace SabberStoneCore.Model
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
             
             CurrentPlayer.TurnStart = false;
+            DeathProcessingAndAuraUpdate();
 
             // set next step
             NextStep = Step.MAIN_NEXT;

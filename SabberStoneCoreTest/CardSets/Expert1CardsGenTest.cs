@@ -3537,9 +3537,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Tide Totem"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.AreEqual(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.AreEqual(1, game.CurrentOpponent.NumCardsDrawnThisTurn);
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
 
         }
 

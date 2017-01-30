@@ -2441,10 +2441,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void YshaarjRageUnbound_OG_042()
 		{
-			// TODO YshaarjRageUnbound_OG_042 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2455,8 +2454,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Y'Shaarj, Rage Unbound"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Y'Shaarj, Rage Unbound"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_082] Evolved Kobold - COST:4 [ATK:2/HP:2] 
