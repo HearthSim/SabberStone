@@ -2075,7 +2075,9 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                        new DamageNumberTask(EntityType.ENEMIES)),
 				},
 			});
 
@@ -2366,7 +2368,6 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_655", new List<Enchantment> {
-				// TODO [CFM_655] Toxic Sewer Ooze && Test: Toxic Sewer Ooze_CFM_655
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
