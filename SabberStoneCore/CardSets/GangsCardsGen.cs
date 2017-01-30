@@ -2843,11 +2843,10 @@ namespace SabberStoneCore.CardSets
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_855", new List<Enchantment> {
-				// TODO [CFM_855] Defias Cleaner && Test: Defias Cleaner_CFM_855
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SilenceTask(EntityType.TARGET)
 				},
 			});
 
