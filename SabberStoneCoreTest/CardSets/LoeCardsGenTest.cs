@@ -659,10 +659,9 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: Give your minions +2/+2.
 		//       Costs (1) less for each Murloc you control.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EveryfinIsAwesome_LOE_113()
 		{
-			// TODO EveryfinIsAwesome_LOE_113 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -673,8 +672,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Everyfin is Awesome"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Everyfin is Awesome"));
+            Assert.AreEqual(7, testCard.Cost);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(6, testCard.Cost);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(6, testCard.Cost);
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6] 

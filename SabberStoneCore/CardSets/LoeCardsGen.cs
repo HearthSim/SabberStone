@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
@@ -499,13 +500,30 @@ namespace SabberStoneCore.CardSets
 			//       Costs (1) less for each Murloc you control.
 			// --------------------------------------------------------
 			cards.Add("LOE_113", new List<Enchantment> {
-				// TODO [LOE_113] Everyfin is Awesome && Test: Everyfin is Awesome_LOE_113
+
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                    Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.Board.Count(p => p.Card.Race == Race.MURLOC)
+                    }
+                },
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS)
+                },
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6] 

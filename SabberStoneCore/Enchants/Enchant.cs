@@ -27,7 +27,7 @@ namespace SabberStoneCore.Enchants
 
         public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
 
-        public Func<IPlayable, int> ValueFunc = null;
+        public Func<IPlayable, int> ValueFunc;
 
         public int TurnsActive { get; set; } = -1;
 
