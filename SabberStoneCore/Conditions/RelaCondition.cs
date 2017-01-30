@@ -38,9 +38,17 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
         {
             return new RelaCondition((me, other) => 
-             relaSign == RelaSign.EQ  && other[tag] == value 
-          || relaSign == RelaSign.GEQ && other[tag] >= value
-          || relaSign == RelaSign.LEQ && other[tag] <= value);
+                relaSign == RelaSign.EQ  && other[tag] == value 
+             || relaSign == RelaSign.GEQ && other[tag] >= value
+             || relaSign == RelaSign.LEQ && other[tag] <= value);
+        }
+
+        public static RelaCondition IsBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
+        {
+            return new RelaCondition((me, other) => 
+                relaSign == RelaSign.EQ  && other.Controller.Board.Count == value
+             || relaSign == RelaSign.GEQ && other.Controller.Board.Count >= value
+             || relaSign == RelaSign.LEQ && other.Controller.Board.Count <= value);
         }
 
         public RelaCondition(Func<IPlayable, IPlayable, bool> function)

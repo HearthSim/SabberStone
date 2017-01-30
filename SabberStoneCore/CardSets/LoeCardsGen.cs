@@ -1055,12 +1055,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Can't attack unless it's the only minion in the battlefield.
 			// --------------------------------------------------------
 			cards.Add("LOE_107", new List<Enchantment> {
-				// TODO [LOE_107] Eerie Statue && Test: Eerie Statue_LOE_107
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.BOARD,
+					SingleTask = new AuraTask(
+                        Auras.SimpleInclSelf(GameTag.CANT_ATTACK, 1, RelaCondition.IsBoardCount(2, RelaSign.GEQ)), 
+                        AuraArea.SELF)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

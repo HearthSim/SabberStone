@@ -1470,10 +1470,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Can’t attack unless it’s the only minion in the battlefield.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EerieStatue_LOE_107()
 		{
-			// TODO EerieStatue_LOE_107 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1484,8 +1483,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eerie Statue"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eerie Statue"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, testCard.Enchants.Count);
+            Assert.AreEqual(0, testCard[GameTag.CANT_ATTACK]);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(1, testCard[GameTag.CANT_ATTACK]);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_110] Ancient Shade - COST:4 [ATK:7/HP:4] 
