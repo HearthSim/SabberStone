@@ -105,10 +105,13 @@ namespace SabberStoneCore.Model
 
             Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue?"(fatigue)":"")}");
 
+            // check if there was damage done
+            var tookDamage = PreDamage > 0;
+
             // reset predamage
             PreDamage = 0;
 
-            return true;
+            return tookDamage;
         }
 
         public void TakeFullHeal(IPlayable source)

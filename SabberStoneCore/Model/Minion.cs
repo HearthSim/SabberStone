@@ -96,5 +96,11 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.FREEZE] == 1; }
             set { this[GameTag.FREEZE] = value ? 1 : 0; }
         }
+
+        public bool Poisonous
+        {
+            get { return this[GameTag.POISONOUS] == 1; }
+            set { this[GameTag.POISONOUS] = value ? 1 : 0; }
+        }
     }
 }

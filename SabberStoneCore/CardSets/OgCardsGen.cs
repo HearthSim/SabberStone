@@ -2246,14 +2246,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("OG_145", new List<Enchantment> {
-				// TODO [OG_145] Psych-o-Tron && Test: Psych-o-Tron_OG_145
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_145", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_147] Corrupted Healbot - COST:5 [ATK:6/HP:6] 

@@ -82,7 +82,15 @@ namespace SabberStoneCore.Actions
 
                 // freeze target if attacker is freezer
                 if (targetDamaged && minion != null && minion.Freeze)
+                {
                     target.IsFrozen = true;
+                }
+
+                // destroy target if attacker is poisonous
+                if (targetDamaged && minion != null && minion.Poisonous)
+                {
+                    target.Destroy();
+                }
 
                 // ignore damage from defenders with 0 attack
                 if (targetAttack > 0)
@@ -92,7 +100,15 @@ namespace SabberStoneCore.Actions
                     // freeze source if defender is freezer
                     var targetMinion = target as Minion;
                     if (sourceDamaged && targetMinion != null && targetMinion.Freeze)
+                    {
                         source.IsFrozen = true;
+                    }
+
+                    // destroy source if defender is poisonous
+                    if (sourceDamaged && targetMinion != null && targetMinion.Poisonous)
+                    {
+                        source.Destroy();
+                    }
                 }
 
                 if (minion != null && minion.HasStealth)

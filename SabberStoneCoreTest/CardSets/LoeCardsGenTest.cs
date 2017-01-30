@@ -577,10 +577,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PitSnake_LOE_010()
 		{
-			// TODO PitSnake_LOE_010 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -591,8 +590,23 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pit Snake"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pit Snake"));
+            var testCard2= Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pit Snake"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Psych-o-Tron"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(true, ((Minion)minion).HasDivineShield);
+		    game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard1, minion));
+            Assert.AreEqual(false, ((Minion)minion).HasDivineShield);
+            Assert.AreEqual(true, ((Minion)testCard1).IsDead);
+            Assert.AreEqual(false, ((Minion)minion).IsDead);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard2, minion));
+            Assert.AreEqual(true, ((Minion)testCard2).IsDead);
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4] 

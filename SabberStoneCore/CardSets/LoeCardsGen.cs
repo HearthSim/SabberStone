@@ -432,14 +432,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_010", new List<Enchantment> {
-				// TODO [LOE_010] Pit Snake && Test: Pit Snake_LOE_010
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("LOE_010", null);
 
 			// ----------------------------------------- MINION - ROGUE
 			// [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4] 
