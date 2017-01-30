@@ -41,24 +41,24 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Jade Golems (Jade Lotus)
 - [x] Buffing Hand (Grimy Goons)
 - [x] Excess Mana
-- [x] Freeze & Stealth
+- [x] Freeze, Stealth & Poisonous
 - [x] Potions (Kabal) ex. Kazakus
 - [ ] Spell Bender Phase
 - [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
-* 99% Basic (142 Cards)
-* 65% Classic (245 Cards)
+* 100% Basic (142 Cards)
+* 68% Classic (245 Cards)
 
 **Adventures**
 * 32% Blackrock Mountain (31 Cards)
 * 55% One Night in Karazhan (45 Cards)
-* 15% The League of Explorers (45 Cards)
+* 95% The League of Explorers (45 Cards)
 
 **Expensions**
-* 31% The Grand Tournament (132 Cards)
-* 37% Whispers of the Old Gods (134 Cards)
-* 39% Mean Streets of Gadgetzan (132 Cards)
+* 42% The Grand Tournament (132 Cards)
+* 45% Whispers of the Old Gods (134 Cards)
+* 43% Mean Streets of Gadgetzan (132 Cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 
