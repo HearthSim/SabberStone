@@ -482,11 +482,10 @@ namespace SabberStoneCore.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_021", new List<Enchantment> {
-				// TODO [CFM_021] Freezing Potion && Test: Freezing Potion_CFM_021
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Freeze(EntityType.TARGET)
 				},
 			});
 
