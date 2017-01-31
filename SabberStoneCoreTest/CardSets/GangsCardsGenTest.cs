@@ -458,10 +458,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - FINISH_ATTACK_SPELL_ON_DAMAGE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Knuckles_CFM_333()
 		{
-			// TODO Knuckles_CFM_333 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -472,8 +471,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Knuckles"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Knuckles"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+            Assert.AreEqual(27, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(24, game.CurrentOpponent.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [CFM_335] Dispatch Kodo - COST:4 [ATK:2/HP:4] 

@@ -330,13 +330,21 @@ namespace SabberStoneCore.CardSets
 			// - FINISH_ATTACK_SPELL_ON_DAMAGE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_333", new List<Enchantment> {
-				// TODO [CFM_333] Knuckles && Test: Knuckles_CFM_333
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsProposedDefender(CardType.MINION)),
+                            new FlagTask(true, ComplexTask.Create(
+                                new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                                new DamageNumberTask(EntityType.OP_HERO)))))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_335] Dispatch Kodo - COST:4 [ATK:2/HP:4] 
