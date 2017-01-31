@@ -309,11 +309,12 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_316", new List<Enchantment> {
-				// TODO [CFM_316] Rat Pack && Test: Rat Pack_CFM_316
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                        new EnqueueNumberTask(new SummonTask("CFM_316t")))
 				},
 			});
 
