@@ -1551,10 +1551,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LuckydoBuccaneer_CFM_342()
 		{
-			// TODO LuckydoBuccaneer_CFM_342 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1565,8 +1564,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Luckydo Buccaneer"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Luckydo Buccaneer"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Luckydo Buccaneer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(5, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(5, ((Minion)testCard1).Health);
+            game.CurrentPlayer.UsedMana = 0;
+
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassin's Blade"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, weapon));
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(9, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(9, ((Minion)testCard2).Health);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [CFM_634] Lotus Assassin - COST:5 [ATK:5/HP:5] 

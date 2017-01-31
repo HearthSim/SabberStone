@@ -1093,8 +1093,7 @@ namespace SabberStoneCore.CardSets
 			// - Set: gangs, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage.
-			//       <b>Combo:</b> Summon a{1} {0} <b>Jade Golem</b>.@Deal $2 damage.
-			//       <b>Combo:</b> Summon a <b>Jade Golem</b>. *spelldmg
+			//       <b>Combo:</b> Summon a{1} {0} <b>Jade Golem</b>.
 			// --------------------------------------------------------
 			// GameTag:
 			// - COMBO = 1
@@ -1107,13 +1106,20 @@ namespace SabberStoneCore.CardSets
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_690", new List<Enchantment> {
-				// TODO [CFM_690] Jade Shuriken && Test: Jade Shuriken_CFM_690
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.TARGET)
 				},
-			});
+                // Combo
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET),
+                        ComplexTask.SummonJadeGolem())
+                },
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_342] Luckydo Buccaneer - COST:6 [ATK:5/HP:5] 
@@ -1125,11 +1131,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_342", new List<Enchantment> {
-				// TODO [CFM_342] Luckydo Buccaneer && Test: Luckydo Buccaneer_CFM_342
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.WEAPON, SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(4), EntityType.SOURCE)))
 				},
 			});
 
