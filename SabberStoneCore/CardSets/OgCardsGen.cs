@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
@@ -2060,6 +2061,7 @@ namespace SabberStoneCore.CardSets
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(ComplexTask.Create(
                             new IncludeTask(EntityType.DECK),
+                            new FilterStackTask(SelfCondition.IsMinion),
                             new RandomTask(1, EntityType.STACK),
                             new RemoveFromDeck(EntityType.STACK),
                             new SummonTask()))
