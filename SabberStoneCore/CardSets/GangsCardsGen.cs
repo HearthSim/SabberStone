@@ -980,13 +980,19 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion is_healed, summon a 2/2_Crystal.
 			// --------------------------------------------------------
 			cards.Add("CFM_606", new List<Enchantment> {
-				// TODO [CFM_606] Mana Geode && Test: Mana Geode_CFM_606
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .SingleTask(new SummonTask("CFM_606t"))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_626] Kabal Talonpriest - COST:3 [ATK:3/HP:4] 

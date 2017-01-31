@@ -1390,22 +1390,27 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever this minion is_healed, summon a 2/2_Crystal.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ManaGeode_CFM_606()
 		{
-			// TODO ManaGeode_CFM_606 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Geode"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Geode"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [CFM_626] Kabal Talonpriest - COST:3 [ATK:3/HP:4] 
