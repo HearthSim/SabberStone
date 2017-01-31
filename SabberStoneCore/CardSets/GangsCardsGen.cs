@@ -578,11 +578,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_660", new List<Enchantment> {
-				// TODO [CFM_660] Manic Soulcaster && Test: Manic Soulcaster_CFM_660
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new AddStackTo(EntityType.DECK))
 				},
 			});
 
