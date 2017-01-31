@@ -1034,11 +1034,10 @@ namespace SabberStoneCore.CardSets
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_657", new List<Enchantment> {
-				// TODO [CFM_657] Kabal Songstealer && Test: Kabal Songstealer_CFM_657
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SilenceTask(EntityType.TARGET)
 				},
 			});
 
