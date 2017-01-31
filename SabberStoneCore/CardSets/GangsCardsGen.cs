@@ -359,12 +359,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_335", new List<Enchantment> {
-				// TODO [CFM_335] Dispatch Kodo && Test: Dispatch Kodo_CFM_335
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                        new DamageNumberTask(EntityType.TARGET))
+                },
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -378,11 +379,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_336", new List<Enchantment> {
-				// TODO [CFM_336] Shaky Zipgunner && Test: Shaky Zipgunner_CFM_336
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, Buffs.AttackHealth(2), new SelfCondition[]{ }),
 				},
 			});
 
