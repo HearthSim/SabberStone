@@ -15,22 +15,11 @@ namespace SabberStoneCore.Loader
 
     internal class CardLoader : ICardLoader
     {
-        private static string _path { get; set; }
+        private static Assembly Assembly => typeof(CardLoader).GetTypeInfo().Assembly;
 
-        public static string Path {
-            get
-            {
-                if (_path == null)
-                {
-                    _path = @"C:\Users\admin\Source\Repos\";
-                }
-
-                return _path;
-            }
-        } 
         public List<int> LoadPlayReqOrder()
         {
-            var playErr = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\PlayErrors.xml");
+            var playErr = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.PlayErrors.xml"));
             var playReqOrder = (from r in playErr.Descendants("PlayErrors")
                                 select new
                                 {
@@ -51,7 +40,7 @@ namespace SabberStoneCore.Loader
 
         public Dictionary<int, PlayerReqDesc> LoadPlayReqDesc()
         {
-            var playErr = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\PlayErrors.xml");
+            var playErr = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.PlayErrors.xml"));
 
             var playReqDesc = (from r in playErr.Descendants("PlayErrors")
                                select new
@@ -80,8 +69,8 @@ namespace SabberStoneCore.Loader
         public List<Card> Load()
         {
             // Get XML definitions from assembly embedded resource
-            var cardDefsXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
-            var cardXml = XDocument.Load(@Path + @"SabberStone\SabberStoneCore\Loader\Data\CARD.xml");
+            var cardDefsXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CardDefs.xml"));
+            var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"));
             // Parse XML
             var cardDefs = (from r in cardDefsXml.Descendants("Entity")
                          select new

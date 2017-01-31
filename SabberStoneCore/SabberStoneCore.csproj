@@ -3,9 +3,8 @@
     <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Loader\Data\CARD.xml" />
-    <Content Include="Loader\Data\cardDataJson.txt" />
-    <Content Include="Loader\Data\CardDefs.xml" />
-    <Content Include="Loader\Data\PlayErrors.xml" />
+    <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
+    <EmbeddedResource Include="Loader\Data\CARD.xml" />
+    <EmbeddedResource Include="Loader\Data\PlayErrors.xml" />
   </ItemGroup>
 </Project>

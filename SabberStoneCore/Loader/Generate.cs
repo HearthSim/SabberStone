@@ -11,6 +11,8 @@ namespace SabberStoneCore.Loader
 {
     public class Generate
     {
+        private static readonly string Path = @"C:\Users\admin\Source\Repos\";
+
         private static readonly Regex Rgx = new Regex("[^a-zA-Z0-9 -]");
 
         private static string UpperCaseFirst(string s)
@@ -32,9 +34,9 @@ namespace SabberStoneCore.Loader
             foreach (CardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
-                var path = CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSets\";
+                var path = Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSets\";
                 var classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGenTest";
-                var pathTest = CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSetsTest\";
+                var pathTest = Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSetsTest\";
 
                 WriteCardSetFile(cardSet, className, path, values);
                 WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
