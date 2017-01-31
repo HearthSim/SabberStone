@@ -808,11 +808,12 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_759", new List<Enchantment> {
-				// TODO [CFM_759] Meanstreet Marshal && Test: Meanstreet Marshal_CFM_759
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.GEQ)),
+                        new FlagTask(true, new DrawTask()))
 				},
 			});
 
