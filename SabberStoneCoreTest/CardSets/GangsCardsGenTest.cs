@@ -24,10 +24,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - JADE_GOLEM = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JadeIdol_CFM_602()
 		{
-			// TODO JadeIdol_CFM_602 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -38,8 +37,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Idol"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Idol"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Jade Idol"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(26, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(29, game.CurrentPlayer.Deck.Count);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [CFM_614] Mark of the Lotus - COST:1 
@@ -47,10 +53,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Give your minions +1/+1.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MarkOfTheLotus_CFM_614()
 		{
-			// TODO MarkOfTheLotus_CFM_614 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -61,8 +66,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of the Lotus"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of the Lotus"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(1, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(1, ((Minion)minion).Health);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(2, ((Minion)minion).Health);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [CFM_616] Pilfered Power - COST:3 
@@ -105,10 +117,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - JADE_GOLEM = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JadeBlossom_CFM_713()
 		{
-			// TODO JadeBlossom_CFM_713 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -117,10 +128,13 @@ namespace SabberStoneCoreTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Blossom"));
-		}
+			game.Player1.BaseMana = 5;
+			game.Player2.BaseMana = 5;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Blossom"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(6, game.CurrentPlayer.BaseMana);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [CFM_811] Lunar Visions - COST:5 
@@ -128,7 +142,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Draw 2 cards. Minions drawn cost (2) less.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LunarVisions_CFM_811()
 		{
 			// TODO LunarVisions_CFM_811 test
@@ -142,8 +156,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lunar Visions"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lunar Visions"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+		    Assert.AreEqual(game.CurrentPlayer.Hand[5].Cost, game.CurrentPlayer.Hand[5].Card.Cost > 1 ? game.CurrentPlayer.Hand[5].Card.Cost - 2 : 0);
+            Assert.AreEqual(game.CurrentPlayer.Hand[4].Cost, game.CurrentPlayer.Hand[4].Card.Cost > 1 ? game.CurrentPlayer.Hand[4].Card.Cost - 2 : 0);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [CFM_308] Kun the Forgotten King - COST:10 [ATK:7/HP:7] 
@@ -155,10 +174,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KunTheForgottenKing_CFM_308()
 		{
-			// TODO KunTheForgottenKing_CFM_308 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -169,8 +187,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kun the Forgotten King"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kun the Forgotten King"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(10, game.CurrentPlayer.Hero.Armor);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kun the Forgotten King"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(10, game.CurrentPlayer.RemainingMana);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [CFM_343] Jade Behemoth - COST:6 [ATK:3/HP:6] 
@@ -189,10 +214,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - JADE_GOLEM = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JadeBehemoth_CFM_343()
 		{
-			// TODO JadeBehemoth_CFM_343 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -203,22 +227,23 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Behemoth"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Jade Behemoth"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+        }
 
-		// ----------------------------------------- MINION - DRUID
-		// [CFM_617] Celestial Dreamer - COST:3 [ATK:3/HP:3] 
-		// - Set: gangs, Rarity: rare
-		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> If a friendly minion has 5 or more Attack, gain +2/+2.
-		// --------------------------------------------------------
-		// GameTag:
-		// - BATTLECRY = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+        // ----------------------------------------- MINION - DRUID
+        // [CFM_617] Celestial Dreamer - COST:3 [ATK:3/HP:3] 
+        // - Set: gangs, Rarity: rare
+        // --------------------------------------------------------
+        // Text: <b>Battlecry:</b> If a friendly minion has 5 or more Attack, gain +2/+2.
+        // --------------------------------------------------------
+        // GameTag:
+        // - BATTLECRY = 1
+        // --------------------------------------------------------
+        [TestMethod]
 		public void CelestialDreamer_CFM_617()
 		{
-			// TODO CelestialDreamer_CFM_617 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -229,8 +254,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Celestial Dreamer"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Celestial Dreamer"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Celestial Dreamer"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Booty Bay Bodyguard"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(3, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(3, ((Minion)testCard1).Health);
+            Assert.AreEqual(5, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(5, ((Minion)testCard2).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [CFM_816] Virmen Sensei - COST:5 [ATK:4/HP:5] 
@@ -247,10 +284,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_TARGET_WITH_RACE = 20
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VirmenSensei_CFM_816()
 		{
-			// TODO VirmenSensei_CFM_816 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -261,9 +297,19 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Virmen Sensei"));
-		}
-
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Virmen Sensei"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Virmen Sensei"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, minion1));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(3, ((Minion)minion1).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion1).Health);
+        }
 	}
 
 	[TestClass]

@@ -11,13 +11,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             UseNumber = useNumber;
         }
 
-        public ManaCrystalEmptyTask()
-        {
-            UseNumber = true;
-            Amount = 0;
-            Opponent = false;
-        }
-
         public int Amount { get; set; }
         public bool Opponent { get; set; }
         public bool UseNumber { get; set; }

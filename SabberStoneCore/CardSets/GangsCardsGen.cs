@@ -24,14 +24,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_602", new List<Enchantment> {
-				// TODO [CFM_602] Jade Idol && Test: Jade Idol_CFM_602
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			cards.Add("CFM_602",
+                //CHOOSE_ONE
+                null);
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_614] Mark of the Lotus - COST:1 
@@ -40,12 +35,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your minions +1/+1.
 			// --------------------------------------------------------
 			cards.Add("CFM_614", new List<Enchantment> {
-				// TODO [CFM_614] Mark of the Lotus && Test: Mark of the Lotus_CFM_614
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -61,7 +55,7 @@ namespace SabberStoneCore.CardSets
                     SingleTask = ComplexTask.Create(
                         ComplexTask.ExcessManaCheck,
                         new CountTask(EntityType.MINIONS),
-                        new ManaCrystalEmptyTask())
+                        new ManaCrystalEmptyTask(0, false, true))
                 },
 			});
 
@@ -69,7 +63,7 @@ namespace SabberStoneCore.CardSets
 			// [CFM_713] Jade Blossom - COST:3 
 			// - Set: gangs, Rarity: common
 			// --------------------------------------------------------
-			// Text: Summon a{1} {0} <b>Jade Golem</b>. Gain an empty Mana Crystal.@Summon a <b>Jade Golem</b>. Gain an empty Mana Crystal.
+			// Text: Summon a{1} {0} <b>Jade Golem</b>. Gain an empty Mana Crystal.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 0
@@ -78,11 +72,12 @@ namespace SabberStoneCore.CardSets
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_713", new List<Enchantment> {
-				// TODO [CFM_713] Jade Blossom && Test: Jade Blossom_CFM_713
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        ComplexTask.SummonJadeGolem(),
+                        new ManaCrystalEmptyTask(1))
 				},
 			});
 
@@ -93,11 +88,12 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw 2 cards. Minions drawn cost (2) less.
 			// --------------------------------------------------------
 			cards.Add("CFM_811", new List<Enchantment> {
-				// TODO [CFM_811] Lunar Visions && Test: Lunar Visions_CFM_811
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, ComplexTask.Create(
+                        new DrawTask(true),
+                        new BuffTask(Buffs.Cost(-2), EntityType.STACK)))
 				},
 			});
 
@@ -111,39 +107,31 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_308", new List<Enchantment> {
-				// TODO [CFM_308] Kun the Forgotten King && Test: Kun the Forgotten King_CFM_308
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("CFM_308",
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------------- MINION - DRUID
-			// [CFM_343] Jade Behemoth - COST:6 [ATK:3/HP:6] 
-			// - Set: gangs, Rarity: common
-			// --------------------------------------------------------
-			// Text: [x]<b>Taunt</b>
-			//       <b>Battlecry:</b> Summon a{1}
-			//       {0} <b>Jade Golem</b>.@[x]<b>Taunt</b>
-			//       <b>Battlecry:</b> Summon a
-			//       <b>Jade Golem</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - JADE_GOLEM = 1
-			// --------------------------------------------------------
-			cards.Add("CFM_343", new List<Enchantment> {
-				// TODO [CFM_343] Jade Behemoth && Test: Jade Behemoth_CFM_343
+            // ----------------------------------------- MINION - DRUID
+            // [CFM_343] Jade Behemoth - COST:6 [ATK:3/HP:6] 
+            // - Set: gangs, Rarity: common
+            // --------------------------------------------------------
+            // Text: [x]<b>Taunt</b>
+            //       <b>Battlecry:</b> Summon a{1}
+            //       {0} <b>Jade Golem</b>.
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // - BATTLECRY = 1
+            // --------------------------------------------------------
+            // RefTag:
+            // - JADE_GOLEM = 1
+            // --------------------------------------------------------
+            cards.Add("CFM_343", new List<Enchantment> {
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.SummonJadeGolem(),
+				}
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -156,11 +144,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_617", new List<Enchantment> {
-				// TODO [CFM_617] Celestial Dreamer && Test: Celestial Dreamer_CFM_617
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.MINIONS, SelfCondition.IsTagValue(GameTag.ATK, 4, RelaSign.LEQ)),
+                        new FlagTask(false, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
 				},
 			});
 
@@ -180,11 +169,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_816", new List<Enchantment> {
-				// TODO [CFM_816] Virmen Sensei && Test: Virmen Sensei_CFM_816
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET)
 				},
 			});
 
@@ -199,12 +187,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Gain 10 Armor.
 			// --------------------------------------------------------
 			cards.Add("CFM_308a", new List<Enchantment> {
-				// TODO [CFM_308a] Forgotten Armor && Test: Forgotten Armor_CFM_308a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ArmorTask(10)
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -214,11 +201,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Refresh your Mana Crystals.
 			// --------------------------------------------------------
 			cards.Add("CFM_308b", new List<Enchantment> {
-				// TODO [CFM_308b] Forgotten Mana && Test: Forgotten Mana_CFM_308b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new SetControllerGameTagTask(GameTag.RESOURCES_USED, 0)
 				},
 			});
 
@@ -232,11 +218,10 @@ namespace SabberStoneCore.CardSets
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_602a", new List<Enchantment> {
-				// TODO [CFM_602a] Jade Idol && Test: Jade Idol_CFM_602a
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonJadeGolem()
 				},
 			});
 
@@ -247,11 +232,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shuffle 3 Jade Idols into your deck.
 			// --------------------------------------------------------
 			cards.Add("CFM_602b", new List<Enchantment> {
-				// TODO [CFM_602b] Jade Idol && Test: Jade Idol_CFM_602b
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3, new AddCardTo("CFM_602", EntityType.DECK))
 				},
 			});
 

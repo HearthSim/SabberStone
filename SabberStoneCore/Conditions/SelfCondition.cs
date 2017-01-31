@@ -39,7 +39,6 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsInDeckZone => IsInZone(Zone.DECK);
         public static SelfCondition IsInZone(Zone zone) => new SelfCondition(me => me.Zone.Type == zone);
         public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
-        public static SelfCondition IsTagValue(GameTag tag, int value) => new SelfCondition(me => me[tag] == value);
         public static SelfCondition IsHeroPower(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
         public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.Deck.GroupBy(x => new {x.Card.Id}).Any(x => x.Skip(1).Any()));
         public static SelfCondition IsManaCrystalFull => new SelfCondition(me => me.Controller.BaseMana == 10);
@@ -50,8 +49,21 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsNotBoardFull => new SelfCondition(me => !me.Controller.Board.IsFull);
         public static SelfCondition IsDurabilityOkay => new SelfCondition(me => me is Weapon && ((Weapon)me).Durability > 0);
 
+        //public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
+        //    => new SelfCondition(me => 
+        //            relaSign == RelaSign.EQ  && me.Controller.Board.Any(p => p[tag] == amount)
+        //         || relaSign == RelaSign.GEQ && me.Controller.Board.Any(p => p[tag] >= amount)
+        //         || relaSign == RelaSign.LEQ && me.Controller.Board.Any(p => p[tag] <= amount));
+
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+
+        public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ) 
+            => new SelfCondition(me => 
+                    relaSign == RelaSign.EQ  && me[tag] == value
+                 || relaSign == RelaSign.GEQ && me[tag] >= value
+                 || relaSign == RelaSign.LEQ && me[tag] <= value);
+
 
         public static SelfCondition IsCthunGameTag(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
         {
