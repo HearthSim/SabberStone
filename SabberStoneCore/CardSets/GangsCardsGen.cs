@@ -496,11 +496,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Deal $2 damage to all_minions. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("CFM_065", new List<Enchantment> {
-				// TODO [CFM_065] Volcanic Potion && Test: Volcanic Potion_CFM_065
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.ALLMINIONS, true)
 				},
 			});
 
