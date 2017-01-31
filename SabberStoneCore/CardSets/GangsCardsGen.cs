@@ -148,8 +148,8 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.MINIONS, SelfCondition.IsTagValue(GameTag.ATK, 4, RelaSign.LEQ)),
-                        new FlagTask(false, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.ATK, 5, RelaSign.GEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
 				},
 			});
 
@@ -601,12 +601,13 @@ namespace SabberStoneCore.CardSets
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_671", new List<Enchantment> {
-				// TODO [CFM_671] Cryomancer && Test: Cryomancer_CFM_671
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.FROZEN, 1)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
+                }
 			});
 
 			// ------------------------------------------ MINION - MAGE

@@ -49,11 +49,17 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsNotBoardFull => new SelfCondition(me => !me.Controller.Board.IsFull);
         public static SelfCondition IsDurabilityOkay => new SelfCondition(me => me is Weapon && ((Weapon)me).Durability > 0);
 
-        //public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
-        //    => new SelfCondition(me => 
-        //            relaSign == RelaSign.EQ  && me.Controller.Board.Any(p => p[tag] == amount)
-        //         || relaSign == RelaSign.GEQ && me.Controller.Board.Any(p => p[tag] >= amount)
-        //         || relaSign == RelaSign.LEQ && me.Controller.Board.Any(p => p[tag] <= amount));
+        public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
+            => new SelfCondition(me => 
+                    relaSign == RelaSign.EQ  && me.Controller.Board.Any(p => p[tag] == amount)
+                 || relaSign == RelaSign.GEQ && me.Controller.Board.Any(p => p[tag] >= amount)
+                 || relaSign == RelaSign.LEQ && me.Controller.Board.Any(p => p[tag] <= amount));
+
+        public static SelfCondition HasOpBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
+            => new SelfCondition(me =>
+                    relaSign == RelaSign.EQ  && me.Controller.Opponent.Board.Any(p => p[tag] == amount)
+                 || relaSign == RelaSign.GEQ && me.Controller.Opponent.Board.Any(p => p[tag] >= amount)
+                 || relaSign == RelaSign.LEQ && me.Controller.Opponent.Board.Any(p => p[tag] <= amount));
 
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
