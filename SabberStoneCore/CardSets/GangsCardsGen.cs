@@ -1009,11 +1009,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_626", new List<Enchantment> {
-				// TODO [CFM_626] Kabal Talonpriest && Test: Kabal Talonpriest_CFM_626
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
 				},
 			});
 

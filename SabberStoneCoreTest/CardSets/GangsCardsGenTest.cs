@@ -1426,11 +1426,10 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KabalTalonpriest_CFM_626()
 		{
-			// TODO KabalTalonpriest_CFM_626 test
-			var game = new Game(new GameConfig
+    		var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
@@ -1440,8 +1439,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Talonpriest"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Talonpriest"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mana Geode"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(6, ((Minion)minion).Health);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [CFM_657] Kabal Songstealer - COST:5 [ATK:5/HP:5] 
