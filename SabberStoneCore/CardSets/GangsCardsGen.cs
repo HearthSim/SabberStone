@@ -396,12 +396,11 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_338", new List<Enchantment> {
-				// TODO [CFM_338] Trogg Beastrager && Test: Trogg Beastrager_CFM_338
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, Buffs.AttackHealth(1), SelfCondition.IsRace(Race.BEAST))
+                },
 			});
 
 			// ---------------------------------------- WEAPON - HUNTER
@@ -415,13 +414,17 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 4
 			// --------------------------------------------------------
 			cards.Add("CFM_337", new List<Enchantment> {
-				// TODO [CFM_337] Piranha Launcher && Test: Piranha Launcher_CFM_337
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.WEAPON,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(new SummonTask("CFM_337t"))
+                        .Build()
+                }
+            });
 
 		}
 

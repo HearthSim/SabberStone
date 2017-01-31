@@ -498,10 +498,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void DispatchKodo_CFM_335()
 		{
-			// TODO DispatchKodo_CFM_335 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -512,8 +511,10 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dispatch Kodo"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dispatch Kodo"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [CFM_336] Shaky Zipgunner - COST:3 [ATK:3/HP:3] 
@@ -578,10 +579,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DURABILITY = 4
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PiranhaLauncher_CFM_337()
 		{
-			// TODO PiranhaLauncher_CFM_337 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -592,8 +592,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Piranha Launcher"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Piranha Launcher"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+
+        }
 
 	}
 
