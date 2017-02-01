@@ -1001,10 +1001,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GrimestreetProtector_CFM_062()
 		{
-			// TODO GrimestreetProtector_CFM_062 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1015,8 +1014,22 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Protector"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Protector"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Protector"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+		    game.CurrentPlayer.UsedMana = 0;
+            Assert.AreEqual(false, ((Minion)minion1).HasDivineShield);
+            Assert.AreEqual(true, ((Minion)minion2).HasDivineShield);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, null, 3, 0));
+            Assert.AreEqual(true, ((Minion)minion3).HasDivineShield);
+            Assert.AreEqual(true, ((Minion)testCard1).HasDivineShield);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [CFM_639] Grimestreet Enforcer - COST:5 [ATK:4/HP:4] 

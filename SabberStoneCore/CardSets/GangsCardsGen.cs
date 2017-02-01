@@ -733,11 +733,13 @@ namespace SabberStoneCore.CardSets
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_062", new List<Enchantment> {
-				// TODO [CFM_062] Grimestreet Protector && Test: Grimestreet Protector_CFM_062
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
 				},
 			});
 
