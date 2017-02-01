@@ -1807,10 +1807,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FindersKeepers_CFM_313()
 		{
-			// TODO FindersKeepers_CFM_313 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1821,8 +1820,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Finders Keepers"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Finders Keepers"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+            Assert.AreEqual(true, game.CurrentPlayer.Choice.Choices[0].HasOverload);
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [CFM_696] Devolve - COST:2 
@@ -2366,10 +2368,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void IKnowAGuy_CFM_940()
 		{
-			// TODO IKnowAGuy_CFM_940 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2380,8 +2381,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("I Know a Guy"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("I Know a Guy"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+            Assert.AreEqual(true, game.CurrentPlayer.Choice.Choices[0][GameTag.TAUNT] == 1);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [CFM_300] Public Defender - COST:2 [ATK:0/HP:7] 
@@ -2777,10 +2781,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GrimestreetInformant_CFM_321()
 		{
-			// TODO GrimestreetInformant_CFM_321 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2791,8 +2794,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Informant"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Informant"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+            var card1 = game.CurrentPlayer.Choice.Choices[0];
+            var card2 = game.CurrentPlayer.Choice.Choices[1];
+            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            Assert.AreEqual(true, card1.Class == CardClass.HUNTER || card1.MultiClassGroup > 0);
+            Assert.AreEqual(true, card2.Class == CardClass.PALADIN || card2.MultiClassGroup > 0);
+            Assert.AreEqual(true, card3.Class == CardClass.WARRIOR || card3.MultiClassGroup > 0);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_325] Small-Time Buccaneer - COST:1 [ATK:1/HP:2] 
@@ -3156,10 +3167,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KabalCourier_CFM_649()
 		{
-			// TODO KabalCourier_CFM_649 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3170,8 +3180,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Courier"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Courier"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+            var card1 = game.CurrentPlayer.Choice.Choices[0];
+            var card2 = game.CurrentPlayer.Choice.Choices[1];
+            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            Assert.AreEqual(true, card1.Class == CardClass.MAGE    || card1.MultiClassGroup > 0);
+            Assert.AreEqual(true, card2.Class == CardClass.PRIEST  || card2.MultiClassGroup > 0);
+            Assert.AreEqual(true, card3.Class == CardClass.WARLOCK || card3.MultiClassGroup > 0);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_651] Naga Corsair - COST:4 [ATK:5/HP:4] 
@@ -3911,10 +3929,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TREASURE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LotusAgents_CFM_852()
 		{
-			// TODO LotusAgents_CFM_852 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3925,8 +3942,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Agents"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Agents"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Choice != null);
+		    var card1 = game.CurrentPlayer.Choice.Choices[0];
+            var card2 = game.CurrentPlayer.Choice.Choices[1];
+            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            Assert.AreEqual(true, card1.Class == CardClass.DRUID  || card1.MultiClassGroup > 0);
+            Assert.AreEqual(true, card2.Class == CardClass.ROGUE  || card2.MultiClassGroup > 0);
+            Assert.AreEqual(true, card3.Class == CardClass.SHAMAN || card3.MultiClassGroup > 0);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_853] Grimestreet Smuggler - COST:3 [ATK:2/HP:4] 

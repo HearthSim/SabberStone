@@ -21,7 +21,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         BEAST,
         MECHANICAL,
         ARTIFACT,
-        TRACKING
+        TRACKING,
+        DRUID_ROGUE_SHAMAN,
+        MAGE_PRIEST_WARLOCK,
+        OVERLOAD,
+        TAUNT,
+        HUNTER_PALADIN_WARRIOR
     }
     public class DiscoverTask : SimpleTask
     {
@@ -38,23 +43,38 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var cardsToDiscover = Discovery(DiscoverType, out choiceAction);
 
             var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
-            if (cardsToDiscover.Length > 1)
+            if (cardsToDiscover.Length == 2)
             {
                 totcardsToDiscover.AddRange(cardsToDiscover[1]);
                 totcardsToDiscover.AddRange(cardsToDiscover[1]);
                 totcardsToDiscover.AddRange(cardsToDiscover[1]);
                 totcardsToDiscover.AddRange(cardsToDiscover[1]);
             }
-            var cardsDiscovered = new List<Card>();
-            while (cardsDiscovered.Count < 3)
+
+            var resultCards = new List<Card>();
+
+            // standard discover takes 3 random cards from a set of cards
+            if (cardsToDiscover.Length < 3)
             {
-                var discoveredCard = Util<Card>.Choose(totcardsToDiscover);
-                cardsDiscovered.Add(discoveredCard);
-                // remove all cards matching the discovered one, 
-                // need because class cards are duplicated 4 x times
-                // to have a balance to neutral cards
-                // http://hearthstone.gamepedia.com/Discover
-                totcardsToDiscover.RemoveAll(p => p == discoveredCard);
+                while (resultCards.Count < 3)
+                {
+                    var discoveredCard = Util<Card>.Choose(totcardsToDiscover);
+                    resultCards.Add(discoveredCard);
+                    // remove all cards matching the discovered one, 
+                    // need because class cards are duplicated 4 x times
+                    // to have a balance to neutral cards
+                    // http://hearthstone.gamepedia.com/Discover
+                    totcardsToDiscover.RemoveAll(p => p == discoveredCard);
+                }
+            }
+            else
+            {
+                // tri-class discover takes one random card from each of the three sets
+                foreach (var classDiscover in cardsToDiscover)
+                {
+                    resultCards.ForEach(p => classDiscover.Remove(p));
+                    resultCards.Add(Util<Card>.Choose(classDiscover));
+                } 
             }
 
             // TODO work on it ...
@@ -63,7 +83,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 ProcessSplit(cardsToDiscover, choiceAction);
             }
 
-            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, cardsDiscovered.ToList());
+            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, resultCards.ToList());
 
             return TaskState.COMPLETE;
         }
@@ -96,6 +116,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         {
             switch (discoverType)
             {
+                case DiscoverType.DRUID_ROGUE_SHAMAN:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetTriClass(CardClass.DRUID, CardClass.ROGUE, CardClass.SHAMAN);
+
+                case DiscoverType.MAGE_PRIEST_WARLOCK:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetTriClass(CardClass.MAGE, CardClass.PRIEST, CardClass.WARLOCK);
+
+                case DiscoverType.HUNTER_PALADIN_WARRIOR:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetTriClass(CardClass.HUNTER, CardClass.PALADIN, CardClass.WARRIOR);
+
                 case DiscoverType.BASIC_HEROPOWERS:
                     choiceAction = ChoiceAction.HEROPOWER;
                     return new [] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.SHOWN_HERO_POWER])).ToList()};
@@ -103,6 +135,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.DRAGON:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+
+                case DiscoverType.OVERLOAD:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.HasOverload));
+
+                case DiscoverType.TAUNT:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p[GameTag.TAUNT] == 1));
 
                 case DiscoverType.BEAST:
                     choiceAction = ChoiceAction.HAND;
@@ -175,6 +215,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
             }
+        }
+
+        private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
+        {
+            var cardSet = Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+            return new [] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
+                            cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
+                            cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
         }
 
         private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)

@@ -1318,11 +1318,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_313", new List<Enchantment> {
-				// TODO [CFM_313] Finders Keepers && Test: Finders Keepers_CFM_313
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.OVERLOAD)
 				},
 			});
 
@@ -1722,11 +1721,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_940", new List<Enchantment> {
-				// TODO [CFM_940] I Know a Guy && Test: I Know a Guy_CFM_940
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.TAUNT),
 				},
 			});
 
@@ -2026,11 +2024,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_321", new List<Enchantment> {
-				// TODO [CFM_321] Grimestreet Informant && Test: Grimestreet Informant_CFM_321
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.HUNTER_PALADIN_WARRIOR),
 				},
 			});
 
@@ -2290,12 +2287,11 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_649", new List<Enchantment> {
-				// TODO [CFM_649] Kabal Courier && Test: Kabal Courier_CFM_649
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    SingleTask = new DiscoverTask(DiscoverType.MAGE_PRIEST_WARLOCK)
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2796,11 +2792,10 @@ namespace SabberStoneCore.CardSets
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_852", new List<Enchantment> {
-				// TODO [CFM_852] Lotus Agents && Test: Lotus Agents_CFM_852
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DRUID_ROGUE_SHAMAN)
 				},
 			});
 
