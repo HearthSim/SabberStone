@@ -197,6 +197,12 @@ namespace SabberStoneCore.Model
                             return false;
                         }
                         break;
+                    case PlayReq.REQ_STEALTHED_TARGET:
+                        if (!(target is Minion) || !((Minion)target).HasStealth)
+                        {
+                            return false;
+                        }
+                        break;
                     // implemented in playable ... 
                     case PlayReq.REQ_NUM_MINION_SLOTS:
                     case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
@@ -229,7 +235,6 @@ namespace SabberStoneCore.Model
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
                     case PlayReq.REQ_SECRET_CAP_FOR_NON_SECRET:
                     case PlayReq.REQ_TARGET_EXACT_COST:
-                    case PlayReq.REQ_STEALTHED_TARGET:
                     case PlayReq.REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT:
                     case PlayReq.REQ_DRAG_TO_PLAY:
                         Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", $"PlayReq {req} not implemented right now!");

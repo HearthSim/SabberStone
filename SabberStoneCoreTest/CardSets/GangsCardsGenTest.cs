@@ -1729,10 +1729,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ShadowSensei_CFM_694()
 		{
-			// TODO ShadowSensei_CFM_694 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1743,8 +1742,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Sensei"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Sensei"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion1));
+            Assert.AreEqual(1, ((Minion)minion1).AttackDamage);
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion2));
+            Assert.AreEqual(4, ((Minion)minion2).AttackDamage);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [CFM_781] Shaku, the Collector - COST:3 [ATK:2/HP:3] 

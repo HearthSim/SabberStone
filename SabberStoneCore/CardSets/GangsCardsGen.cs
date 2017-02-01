@@ -1152,7 +1152,6 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_634", new List<Enchantment> {
-				// TODO [CFM_634] Lotus Assassin && Test: Lotus Assassin_CFM_634
 				new Enchantment
 				(
 					//Activation = null,
@@ -1234,11 +1233,10 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_694", new List<Enchantment> {
-				// TODO [CFM_694] Shadow Sensei && Test: Shadow Sensei_CFM_694
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET)
 				},
 			});
 
