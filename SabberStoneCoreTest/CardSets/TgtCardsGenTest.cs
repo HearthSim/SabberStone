@@ -1924,10 +1924,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Anubarak_AT_036()
 		{
-			// TODO Anubarak_AT_036 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1938,8 +1937,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Anub'arak"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Anub'arak"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+        }
 
 		// ----------------------------------------- WEAPON - ROGUE
 		// [AT_034] Poisoned Blade - COST:4 [ATK:1/HP:0] 

@@ -1355,11 +1355,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shuffle 3 Ambushes into your opponent's deck. When drawn, you summon a 4/4 Nerubian.
 			// --------------------------------------------------------
 			cards.Add("AT_035", new List<Enchantment> {
-				// TODO [AT_035] Beneath the Grounds && Test: Beneath the Grounds_AT_035
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3, new AddCardTo("AT_035t", EntityType.OP_DECK))
 				},
 			});
 
@@ -1461,11 +1460,12 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_036", new List<Enchantment> {
-				// TODO [AT_036] Anub'arak && Test: Anub'arak_AT_036
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new AddCardTo("AT_036", EntityType.HAND),
+                        new SummonTask("AT_036t"))
 				},
 			});
 
@@ -1501,11 +1501,12 @@ namespace SabberStoneCore.CardSets
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("AT_035t", new List<Enchantment> {
-				// TODO [AT_035t] Ambush! && Test: Ambush!_AT_035t
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SummonOpTask("AT_036t"),
+                        new DrawTask())
 				},
 			});
 
