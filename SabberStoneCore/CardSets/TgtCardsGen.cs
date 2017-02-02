@@ -2719,11 +2719,12 @@ namespace SabberStoneCore.CardSets
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("AT_112", new List<Enchantment> {
-				// TODO [AT_112] Master Jouster && Test: Master Jouster_AT_112
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealTask(ComplexTask.Create(
+                        ComplexTask.Taunt(EntityType.SOURCE),
+                        ComplexTask.DivineShield(EntityType.SOURCE))),
 				},
 			});
 
