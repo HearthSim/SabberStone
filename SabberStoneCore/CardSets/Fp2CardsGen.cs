@@ -536,11 +536,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Deal $1 damage to all minions. If you have 12 or less Health, deal $3 damage instead. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("BRM_015", new List<Enchantment> {
-				// TODO [BRM_015] Revenge && Test: Revenge_BRM_015
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
 				},
 			});
 
@@ -636,7 +636,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHealth(15, RelaSign.LEQ)),
+                        new SelfConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
 				},
 			});
