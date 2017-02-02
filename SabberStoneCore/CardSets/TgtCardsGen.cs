@@ -1267,14 +1267,15 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_018", new List<Enchantment> {
-				// TODO [AT_018] Confessor Paletress && Test: Confessor Paletress_AT_018
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,twilight
-
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.Create(
+                        new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
+                        new SummonStackTask()))
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [AT_116] Wyrmrest Agent - COST:2 [ATK:1/HP:4] 

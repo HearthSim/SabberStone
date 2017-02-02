@@ -1680,10 +1680,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ConfessorPaletress_AT_018()
 		{
-			// TODO ConfessorPaletress_AT_018 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1694,8 +1693,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Confessor Paletress"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Confessor Paletress"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(Rarity.LEGENDARY, game.CurrentPlayer.Board[1].Card.Rarity);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [AT_116] Wyrmrest Agent - COST:2 [ATK:1/HP:4] 
