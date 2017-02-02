@@ -2221,10 +2221,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ThunderBluffValiant_AT_049()
 		{
-			// TODO ThunderBluffValiant_AT_049 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2235,7 +2234,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thunder Bluff Valiant"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thunder Bluff Valiant"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(game.CurrentPlayer.Board[1].Card[GameTag.ATK] + 2, ((Minion)game.CurrentPlayer.Board[1]).AttackDamage);
+
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

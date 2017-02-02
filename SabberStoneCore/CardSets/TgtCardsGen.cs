@@ -1663,12 +1663,12 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_049", new List<Enchantment> {
-				// TODO [AT_049] Thunder Bluff Valiant && Test: Thunder Bluff Valiant_AT_049
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(new BuffTask(Buffs.Attack(2), EntityType.MINIONS, SelfCondition.IsRace(Race.TOTEM)))
+                }
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
