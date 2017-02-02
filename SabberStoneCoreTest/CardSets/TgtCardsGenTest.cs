@@ -1311,22 +1311,55 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TuskarrJouster_AT_104()
 		{
-			// TODO TuskarrJouster_AT_104 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
-			});
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                },
+                Player2HeroClass = CardClass.MAGE,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                },
+                FillDecks = false
+            });
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tuskarr Jouster"));
-		}
+            game.Player1.Hero.Damage = 10;
+            game.Player2.Hero.Damage = 10;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tuskarr Jouster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(20, game.CurrentPlayer.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tuskarr Jouster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(27, game.CurrentPlayer.Hero.Health);
+        }
 
 		// --------------------------------------- WEAPON - PALADIN
 		// [AT_077] Argent Lance - COST:2 [ATK:2/HP:0] 

@@ -1050,11 +1050,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_104", new List<Enchantment> {
-				// TODO [AT_104] Tuskarr Jouster && Test: Tuskarr Jouster_AT_104
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealTask(new HealTask(7, EntityType.HERO))
 				},
 			});
 
