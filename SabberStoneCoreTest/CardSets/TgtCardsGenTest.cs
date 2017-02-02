@@ -1302,10 +1302,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MurlocKnight_AT_076()
 		{
-			// TODO MurlocKnight_AT_076 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1316,8 +1315,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Knight"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Knight"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(Race.MURLOC, game.CurrentPlayer.Board[2].Card.Race);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [AT_079] Mysterious Challenger - COST:6 [ATK:6/HP:6] 

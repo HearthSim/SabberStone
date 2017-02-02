@@ -1012,12 +1012,14 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_076", new List<Enchantment> {
-				// TODO [AT_076] Murloc Knight && Test: Murloc Knight_AT_076
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.MURLOC),
+                        new SummonStackTask()))
+                }
 			});
 
 			// --------------------------------------- MINION - PALADIN
