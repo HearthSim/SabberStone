@@ -10,18 +10,14 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 
 // TODO check this https://github.com/jleclanche/fireplace/wiki/How-to-enable-logging
-// TODO implement http://hearthstone.gamepedia.com/Excess_Mana & tests
-// TODO implement freeze water elemental & tests
 // TODO test combo and choose one with battle cry check if that makes problem ...
 // TODO verify http://hearthstone.gamepedia.com/Advanced_rulebook#Damage_and_Healing
 // TODO implement clone split on random events ^^ bääm
 // TODO removed duplicate check in lazyqueue ... check if we need a check ... to avoid multiple triggering
-// TODO check for stealth implementation, until now only removed stealth when attacking ...
 // TODO check for reseting entity allways when zone move ...
-// TODO Discovery ... blah blah
 // TODO remove event shit
-// TODO choice has to use ... cards not playables .... moron
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
+// TODO [DS1_188] Gladiator's Longbow, check should be on IMMUNE_WHILE_ATTACKING
 namespace SabberStoneCore.Model
 {
     public delegate void EntityChangedEventHandler(object sender, GameTag t, int oldValue, int newValue);

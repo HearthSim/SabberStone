@@ -662,13 +662,19 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_063", new List<Enchantment> {
-				// TODO [AT_063] Acidmaw && Test: Acidmaw_AT_063
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new DestroyTask(EntityType.TARGET))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - HUNTER
 			// [AT_063t] Dreadscale - COST:3 [ATK:4/HP:2] 
