@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 
@@ -69,6 +70,9 @@ namespace SabberStoneCore.Model
                                         $"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
 
             var success = CurrentTask.Process();
+
+            // reset between task execution
+            Game.TaskStack.Reset();
 
             //if (Game.Splits.Count == 0 && CurrentTask.Splits != null && CurrentTask.Splits.Count > 0)
             //{

@@ -20,7 +20,9 @@ namespace SabberStoneCore.Tasks
         }
 
         public static ISimpleTask Create(params ISimpleTask[] list)
-            => StateTaskList<ISimpleTask>.Chain(list);
+        {
+            return StateTaskList<ISimpleTask>.Chain(list);
+        }
 
         public static ISimpleTask Freeze(EntityType entityType)
             => new SetGameTagTask(GameTag.FROZEN, 1, entityType);
@@ -49,6 +51,11 @@ namespace SabberStoneCore.Tasks
             => Create(
                 new RandomTask(targets, type),
                 new DamageTask(amount, EntityType.STACK, spellDmg));
+
+        public static ISimpleTask DestroyRandomTargets(int targets, EntityType type)
+            => Create(
+                new RandomTask(targets, type),
+                new DestroyTask(EntityType.STACK));
 
         public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
             => Create(

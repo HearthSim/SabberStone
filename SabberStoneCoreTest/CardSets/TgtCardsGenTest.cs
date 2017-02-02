@@ -1118,7 +1118,7 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
-            Assert.AreEqual(7, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(6, game.CurrentOpponent.Hand.Count);
         }
 
 		// ------------------------------------------ MINION - MAGE
@@ -2492,10 +2492,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VoidCrusher_AT_023()
 		{
-			// TODO VoidCrusher_AT_023 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2506,8 +2505,32 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Void Crusher"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion5));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion6 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion6));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Void Crusher"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(3, game.CurrentOpponent.Board.Count);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [AT_026] Wrathguard - COST:2 [ATK:4/HP:3] 

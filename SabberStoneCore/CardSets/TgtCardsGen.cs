@@ -1896,13 +1896,15 @@ namespace SabberStoneCore.CardSets
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_023", new List<Enchantment> {
-				// TODO [AT_023] Void Crusher && Test: Void Crusher_AT_023
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.Create(
+                        ComplexTask.DestroyRandomTargets(1, EntityType.MINIONS),
+                        ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)))
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_026] Wrathguard - COST:2 [ATK:4/HP:3] 

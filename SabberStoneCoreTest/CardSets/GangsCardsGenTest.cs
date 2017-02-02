@@ -1951,7 +1951,7 @@ namespace SabberStoneCoreTest.CardSets
 		// [CFM_312] Jade Chieftain - COST:7 [ATK:5/HP:5] 
 		// - Set: gangs, Rarity: common
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>. Give it <b>Taunt</b>. @<b>Battlecry:</b> Summon a <b>Jade Golem</b>. Give it <b>Taunt</b>.
+		// Text: <b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>. Give it <b>Taunt</b>.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
