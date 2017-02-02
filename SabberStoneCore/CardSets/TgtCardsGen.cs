@@ -932,29 +932,34 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("AT_073", new List<Enchantment> {
-				// TODO [AT_073] Competitive Spirit && Test: Competitive Spirit_AT_073
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)))
+                        .Build()
+                }
+            });
 
-			// ---------------------------------------- SPELL - PALADIN
-			// [AT_074] Seal of Champions - COST:3 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a minion
-			//       +3 Attack and <b>Divine Shield</b>.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - DIVINE_SHIELD = 1
-			// --------------------------------------------------------
-			cards.Add("AT_074", new List<Enchantment> {
+            // ---------------------------------------- SPELL - PALADIN
+            // [AT_074] Seal of Champions - COST:3 
+            // - Set: tgt, Rarity: common
+            // --------------------------------------------------------
+            // Text: Give a minion
+            //       +3 Attack and <b>Divine Shield</b>.
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_MINION_TARGET = 0
+            // - REQ_TARGET_TO_PLAY = 0
+            // --------------------------------------------------------
+            // RefTag:
+            // - DIVINE_SHIELD = 1
+            // --------------------------------------------------------
+            cards.Add("AT_074", new List<Enchantment> {
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,

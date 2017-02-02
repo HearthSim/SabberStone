@@ -1185,10 +1185,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CompetitiveSpirit_AT_073()
 		{
-			// TODO CompetitiveSpirit_AT_073 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1199,8 +1198,17 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Competitive Spirit"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Competitive Spirit"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(0, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(2, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(2, ((Minion)minion).Health);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [AT_074] Seal of Champions - COST:3 
