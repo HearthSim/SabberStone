@@ -35,6 +35,10 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsAnyNotImmune { get; } = new RelaCondition((me, other) => me.Game.Characters.Exists(p => !p.IsImmune));
         public static RelaCondition IsOtherSilverHandRecruit { get; } = new RelaCondition((me, other) => other is Minion && ((Minion)other).Card.Id.Equals("CS2_101t"));
 
+        public static RelaCondition IsOtherNotRace(Race race) { 
+            return new RelaCondition((me, other) => !SelfCondition.IsRace(race).Eval(other));
+        }
+
         //public static RelaCondition Is50PercChance { get; } = new RelaCondition((me, other) => Util.Random.Next(0,2) == 0);
 
         public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)

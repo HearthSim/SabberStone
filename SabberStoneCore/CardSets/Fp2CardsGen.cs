@@ -485,11 +485,12 @@ namespace SabberStoneCore.CardSets
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_005", new List<Enchantment> {
-				// TODO [BRM_005] Demonwrath && Test: Demonwrath_BRM_005
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new FilterStackTask(EntityType.ALLMINIONS, RelaCondition.IsOtherNotRace(Race.DEMON)),
+                        new DamageTask(2, EntityType.STACK, true))
 				},
 			});
 
@@ -500,13 +501,18 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion takes damage, summon a 1/1 Imp.
 			// --------------------------------------------------------
 			cards.Add("BRM_006", new List<Enchantment> {
-				// TODO [BRM_006] Imp Gang Boss && Test: Imp Gang Boss_BRM_006
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new SummonTask("BRM_006t"))
+                        .Build()
+                }
+            });
 
 		}
 
@@ -516,14 +522,7 @@ namespace SabberStoneCore.CardSets
 			// [BRM_006t] Imp (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: demon, Set: fp2, 
 			// --------------------------------------------------------
-			cards.Add("BRM_006t", new List<Enchantment> {
-				// TODO [BRM_006t] Imp && Test: Imp_BRM_006t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("BRM_006t", null);
 
 		}
 
