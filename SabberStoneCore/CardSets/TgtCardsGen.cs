@@ -1550,12 +1550,11 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD_OWED = 5
 			// --------------------------------------------------------
 			cards.Add("AT_051", new List<Enchantment> {
-				// TODO [AT_051] Elemental Destruction && Test: Elemental Destruction_AT_051
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = new DamageTask(4, 1, EntityType.ALLMINIONS, true)
+                },
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN

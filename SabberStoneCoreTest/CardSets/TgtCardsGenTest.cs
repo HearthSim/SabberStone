@@ -1961,10 +1961,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - OVERLOAD = 5
 		// - OVERLOAD_OWED = 5
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ElementalDestruction_AT_051()
 		{
-			// TODO ElementalDestruction_AT_051 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1975,8 +1974,71 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Elemental Destruction"));
-		}
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion5));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion6 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion6));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion7 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion7));
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion8 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion8));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion9 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion9));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion10 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion10));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion11 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion11));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion12 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion12));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion13 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion13));
+            game.CurrentPlayer.UsedMana = 0;
+            var minion14 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Oasis Snapjaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion14));
+            game.CurrentPlayer.UsedMana = 0;
+
+            Assert.AreEqual(98, ((Minion)minion1).Health + ((Minion)minion2).Health + ((Minion)minion3).Health
+                + ((Minion)minion4).Health + ((Minion)minion5).Health + ((Minion)minion6).Health
+                + ((Minion)minion7).Health + ((Minion)minion8).Health + ((Minion)minion9).Health 
+                + ((Minion)minion10).Health + ((Minion)minion11).Health + ((Minion)minion12).Health
+                + ((Minion)minion13).Health + ((Minion)minion14).Health);
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elemental Destruction"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreNotEqual(52, ((Minion)minion1).Health + ((Minion)minion2).Health + ((Minion)minion3).Health
+                + ((Minion)minion4).Health + ((Minion)minion5).Health + ((Minion)minion6).Health
+                + ((Minion)minion7).Health + ((Minion)minion8).Health + ((Minion)minion9).Health
+                + ((Minion)minion10).Health + ((Minion)minion11).Health + ((Minion)minion12).Health
+                + ((Minion)minion13).Health + ((Minion)minion14).Health);
+            Assert.AreNotEqual(38, ((Minion)minion1).Health + ((Minion)minion2).Health + ((Minion)minion3).Health
+                + ((Minion)minion4).Health + ((Minion)minion5).Health + ((Minion)minion6).Health
+                + ((Minion)minion7).Health + ((Minion)minion8).Health + ((Minion)minion9).Health
+                + ((Minion)minion10).Health + ((Minion)minion11).Health + ((Minion)minion12).Health
+                + ((Minion)minion13).Health + ((Minion)minion14).Health);
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [AT_053] Ancestral Knowledge - COST:2 
