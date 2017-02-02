@@ -428,11 +428,12 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_011", new List<Enchantment> {
-				// TODO [BRM_011] Lava Shock && Test: Lava Shock_BRM_011
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET),
+                        new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0)),
 				},
 			});
 

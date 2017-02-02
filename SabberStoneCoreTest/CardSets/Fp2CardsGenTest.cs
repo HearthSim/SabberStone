@@ -480,10 +480,9 @@ namespace SabberStoneCoreTest.CardSets
             // RefTag:
             // - OVERLOAD = 1
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void LavaShock_BRM_011()
             {
-                // TODO LavaShock_BRM_011 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
@@ -492,9 +491,17 @@ namespace SabberStoneCoreTest.CardSets
                     FillDecks = true
                 });
                 game.StartGame();
-                game.Player1.BaseMana = 10;
-                game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lava Shock"));
+                game.Player1.BaseMana = 5;
+                game.Player2.BaseMana = 5;
+                var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lava Shock"));
+                var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancestral Knowledge"));
+                game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                Assert.AreEqual(4, game.CurrentPlayer.RemainingMana);
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+                Assert.AreEqual(4, game.CurrentPlayer.RemainingMana);
+                Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
             }
 
             // ---------------------------------------- MINION - SHAMAN
