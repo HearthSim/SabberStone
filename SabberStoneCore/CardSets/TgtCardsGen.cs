@@ -1993,11 +1993,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_068", new List<Enchantment> {
-				// TODO [AT_068] Bolster && Test: Bolster_AT_068
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS, SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
 				},
 			});
 
