@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
@@ -2138,16 +2139,20 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_065", new List<Enchantment> {
-				// TODO [AT_065] King's Defender && Test: King's Defender_AT_065
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
+				//new Enchantment
+				//{
+				//	Activation = EnchantmentActivation.WEAPON,
+				//	SingleTask = null,
+				//},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.MINIONS, SelfCondition.HasBoardMinion(GameTag.TAUNT, 1)),
+                        new FlagTask(true, ComplexTask.Create(
+                            new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                            new MathAddTask(1),
+                            new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON))))
 				},
 			});
 
@@ -2227,12 +2232,23 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_070", new List<Enchantment> {
-				// TODO [AT_070] Skycap'n Kragg && Test: Skycap'n Kragg_AT_070
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.Board.Count(p => p.Card.Race == Race.PIRATE)
+                    }
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
