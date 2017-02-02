@@ -4000,22 +4000,55 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GadgetzanJouster_AT_133()
 		{
-			// TODO GadgetzanJouster_AT_133 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                },
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                },
+                FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gadgetzan Jouster"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gadgetzan Jouster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(1, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(2, ((Minion)testCard1).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gadgetzan Jouster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(2, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(3, ((Minion)testCard2).Health);
+        }
 
 	}
 

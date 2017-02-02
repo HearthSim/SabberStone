@@ -3056,11 +3056,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_133", new List<Enchantment> {
-				// TODO [AT_133] Gadgetzan Jouster && Test: Gadgetzan Jouster_AT_133
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
 				},
 			});
 
