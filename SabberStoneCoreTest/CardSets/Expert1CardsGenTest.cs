@@ -4878,22 +4878,28 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a character is healed, gain +2 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Lightwarden_EX1_001()
 		{
-			// TODO Lightwarden_EX1_001 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightwarden"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightwarden"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5] 

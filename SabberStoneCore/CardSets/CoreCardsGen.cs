@@ -1418,6 +1418,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CS2_074", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_074e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.WeaponAtk(2), EntityType.WEAPON)
                 }
@@ -2350,6 +2351,7 @@ namespace SabberStoneCore.CardSets
             cards.Add("CS2_122", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_122e",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.Attack(1)
@@ -2666,6 +2668,7 @@ namespace SabberStoneCore.CardSets
             {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_222o",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.AttackHealth(1, 1)
@@ -2684,6 +2687,7 @@ namespace SabberStoneCore.CardSets
             cards.Add("CS2_226", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_226e",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = SpecificTask.FrostwolfBanner
                 }
@@ -2809,6 +2813,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_399", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "EX1_399e",
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -2845,6 +2850,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_508", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "EX1_508o",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
@@ -2899,6 +2905,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GAME_005", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "GAME_005e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new TempManaTask(1)
                 }
@@ -2911,54 +2918,6 @@ namespace SabberStoneCore.CardSets
 			// Text: Somehow, the card you USED to have has been deleted.  Here, have this one instead!
 			// --------------------------------------------------------
 			cards.Add("GAME_006", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [CS2_074e] Deadly Poison (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: +2 Attack.
-            // --------------------------------------------------------
-            cards.Add("CS2_074e", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [CS2_122e] Enhanced (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: Raid Leader is granting this minion +1 Attack.
-            // --------------------------------------------------------
-            cards.Add("CS2_122e", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [CS2_222o] Might of Stormwind (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: Has +1/+1.
-            // --------------------------------------------------------
-            cards.Add("CS2_222o", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [CS2_226e] Frostwolf Banner (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: Increased stats.
-            // --------------------------------------------------------
-            cards.Add("CS2_226e", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [EX1_399e] Berserking (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: This minion has increased Attack.
-            // --------------------------------------------------------
-            cards.Add("EX1_399e", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [EX1_508o] Mlarggragllabl! (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: This Murloc has +1 Attack.
-            // --------------------------------------------------------
-            cards.Add("EX1_508o", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [GAME_001] Luck of the Coin (*) - COST:0 
@@ -2991,12 +2950,6 @@ namespace SabberStoneCore.CardSets
             // Text: Your turns are shorter.
             // --------------------------------------------------------
             cards.Add("GAME_004", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [GAME_005e] The Coin (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            cards.Add("GAME_005e", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1] 

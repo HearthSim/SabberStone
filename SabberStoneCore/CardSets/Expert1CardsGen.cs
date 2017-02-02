@@ -3974,6 +3974,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CS2_188", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_188o",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = new BuffTask(Buffs.AttackTurn(2), EntityType.TARGET),
                 }
@@ -4015,6 +4016,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CS2_221", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "CS2_221e",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.Attack(2, RelaCondition.IsEnraged, RelaCondition.IsMyWeapon), AuraArea.GAME)
                 }
@@ -4050,13 +4052,19 @@ namespace SabberStoneCore.CardSets
             // Text: Whenever a character is healed, gain +2 Attack.
             // --------------------------------------------------------
             cards.Add("EX1_001", new List<Enchantment> {
-				// TODO [EX1_001] Lightwarden && Test: Lightwarden_EX1_001
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS_HEROES,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5] 
@@ -4094,6 +4102,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_004", new List<Enchantment> {
                 new Enchantment
                 {
+                    InfoCardId = "EX1_004e",
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -5940,25 +5949,6 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CS2_181e", null);
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [CS2_188o] 'Inspired' (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: This minion has +2 Attack this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - OneTurnEffect = 1
-			// --------------------------------------------------------
-			cards.Add("CS2_188o", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [CS2_221e] Sharp! (*) - COST:0 
-            // - Set: expert1, 
-            // --------------------------------------------------------
-            // Text: +2 Attack from Spiteful Smith.
-            // --------------------------------------------------------
-            cards.Add("CS2_221e", null);
-
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [DREAM_05e] Nightmare (*) - COST:0 
             // - Set: expert1, 
@@ -5974,14 +5964,6 @@ namespace SabberStoneCore.CardSets
             // Text: Increased Attack.
             // --------------------------------------------------------
             cards.Add("EX1_001e", null);
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [EX1_004e] Elune's Grace (*) - COST:0 
-            // - Set: expert1, 
-            // --------------------------------------------------------
-            // Text: Increased Health.
-            // --------------------------------------------------------
-            cards.Add("EX1_004e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [EX1_009e] Enraged (*) - COST:0 
