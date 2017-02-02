@@ -1273,10 +1273,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void WarhorseTrainer_AT_075()
 		{
-			// TODO WarhorseTrainer_AT_075 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1287,8 +1286,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Warhorse Trainer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Warhorse Trainer"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(2, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [AT_076] Murloc Knight - COST:4 [ATK:3/HP:4] 

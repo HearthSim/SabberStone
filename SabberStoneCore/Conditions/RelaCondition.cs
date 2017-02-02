@@ -19,7 +19,7 @@ namespace SabberStoneCore.Conditions
 
         public static RelaCondition IsFriendly { get; } = new RelaCondition((me, other) => me.Controller == other.Controller);
         public static RelaCondition IsSameZone { get; } = new RelaCondition((me, other) => me.Zone == other.Zone);
-        public static RelaCondition IsSelf{ get; } = new RelaCondition((me, other) => me == other);
+        public static RelaCondition IsSelf { get; } = new RelaCondition((me, other) => me == other);
         public static RelaCondition IsNotSelf { get; } = new RelaCondition((me, other) => me != other);
         public static RelaCondition IsSideBySide { get; } = new RelaCondition((me, other) =>  me.Zone == other.Zone && Math.Abs(me[GameTag.ZONE_POSITION]-other[GameTag.ZONE_POSITION]) == 1);
         public static RelaCondition IsSameRace { get; } = new RelaCondition((me, other) => me is ICharacter && other is ICharacter && ((ICharacter)me).Race == ((ICharacter)other).Race);
@@ -33,6 +33,8 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsOtherAttacking { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).IsAttacking);
         public static RelaCondition IsOtherAttackingHero { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).ProposedDefender == me.Controller.Hero.Id);
         public static RelaCondition IsAnyNotImmune { get; } = new RelaCondition((me, other) => me.Game.Characters.Exists(p => !p.IsImmune));
+        public static RelaCondition IsOtherSilverHandRecruit { get; } = new RelaCondition((me, other) => other is Minion && ((Minion)other).Card.Id.Equals("CS2_101t"));
+
         //public static RelaCondition Is50PercChance { get; } = new RelaCondition((me, other) => Util.Random.Next(0,2) == 0);
 
         public static RelaCondition HasTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)

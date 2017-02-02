@@ -994,12 +994,12 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_075", new List<Enchantment> {
-				// TODO [AT_075] Warhorse Trainer && Test: Warhorse Trainer_AT_075
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.Attack(1, RelaCondition.IsOtherSilverHandRecruit)
+                }
 			});
 
 			// --------------------------------------- MINION - PALADIN
