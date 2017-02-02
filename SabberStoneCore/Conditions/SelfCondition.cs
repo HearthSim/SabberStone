@@ -86,6 +86,12 @@ namespace SabberStoneCore.Conditions
             });
         }
 
+        public static SelfCondition IsHealth(int value, RelaSign relaSign)
+        {
+            return new SelfCondition(me => relaSign == RelaSign.EQ && me is ICharacter && ((ICharacter)me).Health == value
+                                        || relaSign == RelaSign.GEQ && me is ICharacter && ((ICharacter)me).Health >= value
+                                        || relaSign == RelaSign.LEQ && me is ICharacter && ((ICharacter)me).Health <= value);
+        }
 
         public static SelfCondition IsBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
         {
@@ -105,7 +111,6 @@ namespace SabberStoneCore.Conditions
         {
             return _function(owner);
         }
-
     }
 
 }

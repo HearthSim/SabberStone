@@ -638,10 +638,9 @@ namespace SabberStoneCoreTest.CardSets
             // --------------------------------------------------------
             // Text: Whenever this minion survives damage, summon another Grim Patron.
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void GrimPatron_BRM_019()
             {
-                // TODO GrimPatron_BRM_019 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
@@ -652,7 +651,17 @@ namespace SabberStoneCoreTest.CardSets
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grim Patron"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grim Patron"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+                var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Reckless Rocketeer"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+                game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, testCard));
+                Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+                game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, testCard));
+                Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
             }
 
             // --------------------------------------- MINION - NEUTRAL

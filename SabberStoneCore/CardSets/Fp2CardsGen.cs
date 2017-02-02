@@ -570,13 +570,18 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion survives damage, summon another Grim Patron.
 			// --------------------------------------------------------
 			cards.Add("BRM_019", new List<Enchantment> {
-				// TODO [BRM_019] Grim Patron && Test: Grim Patron_BRM_019
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new SummonTask("BRM_019"))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_020] Dragonkin Sorcerer - COST:4 [ATK:3/HP:5] 
@@ -600,13 +605,17 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion takes damage, summon a 2/1 Whelp.
 			// --------------------------------------------------------
 			cards.Add("BRM_022", new List<Enchantment> {
-				// TODO [BRM_022] Dragon Egg && Test: Dragon Egg_BRM_022
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new SummonTask("BRM_004t"))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6] 
@@ -618,11 +627,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_024", new List<Enchantment> {
-				// TODO [BRM_024] Drakonid Crusher && Test: Drakonid Crusher_BRM_024
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHealth(15, RelaSign.LEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
 				},
 			});
 
