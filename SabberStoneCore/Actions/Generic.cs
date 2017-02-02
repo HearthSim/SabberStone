@@ -88,17 +88,17 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, bool> JoustBlock
+        public static Func<Controller, IPlayable> JoustBlock
             => delegate (Controller c)
             {
                 if (c.Deck.Count == 0)
                 {
-                    return false;
+                    return null;
                 }
 
                 if (c.Opponent.Deck.Count == 0)
                 {
-                    return true;
+                    return null;
                 }
 
                 var card = Util<IPlayable>.Choose(c.Deck.GetAll);
@@ -107,7 +107,7 @@ namespace SabberStoneCore.Actions
                 c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
                 
                 // TODO shuffle deck .... or ... just let it be?
-                return success;
+                return success ? card : null;
             };
 
         public static Func<Controller, IPlayable, bool> ShuffleIntoDeck

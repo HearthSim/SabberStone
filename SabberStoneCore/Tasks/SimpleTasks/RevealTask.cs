@@ -1,4 +1,6 @@
-﻿using SabberStoneCore.Actions;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -16,8 +18,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-            if (Generic.JoustBlock.Invoke(Controller))
+            IPlayable playable = Generic.JoustBlock.Invoke(Controller);
+            if (playable != null)
             {
+                // add joust card winner to stack
+                Playables = new List<IPlayable>{playable};
+
                 SuccessJoustTask.Game = Game;
                 SuccessJoustTask.Controller = Controller;
                 SuccessJoustTask.Source = Source;

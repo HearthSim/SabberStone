@@ -625,11 +625,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_058", new List<Enchantment> {
-				// TODO [AT_058] King's Elekk && Test: King's Elekk_AT_058
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new RevealTask(new DrawStackTask())
 				},
 			});
 
