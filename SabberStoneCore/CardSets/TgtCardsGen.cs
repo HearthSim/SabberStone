@@ -1617,11 +1617,14 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_047", new List<Enchantment> {
-				// TODO [AT_047] Draenei Totemcarver && Test: Draenei Totemcarver_AT_047
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsRace(Race.TOTEM)),
+                        new CountTask(EntityType.STACK),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE)),
 				},
 			});
 
