@@ -786,11 +786,10 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("AT_004", new List<Enchantment> {
-				// TODO [AT_004] Arcane Blast && Test: Arcane Blast_AT_004
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.TARGET, true)
 				},
 			});
 

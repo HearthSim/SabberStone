@@ -978,10 +978,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ArcaneBlast_AT_004()
 		{
-			// TODO ArcaneBlast_AT_004 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -992,8 +991,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcane Blast"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcane Blast"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Blast"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbark Protector"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion2));
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, minion2));
+            Assert.AreEqual(6, ((Minion)minion2).Health);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2));
+            Assert.AreEqual(2, ((Minion)minion2).Health);
+
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [AT_005] Polymorph: Boar - COST:3 

@@ -20,5 +20,11 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.COUNTER] == 1; }
             set { this[GameTag.COUNTER] = value ? 1 : 0; }
         }
+
+        public bool ReceveivesDoubleSpellDamage
+        {
+            get { return this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] == 1; }
+            set { this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] = value ? 1 : 0; }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -39,9 +40,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 ProccessSplit();
             }
 
+            var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPower * 2 : Controller.Hero.SpellPower) : 0;
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
-                    Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
-                        SpellDmg ? Controller.Hero.SpellPower : 0));
+                    Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
+                        Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
+                        spellDmgValue));
             return TaskState.COMPLETE;
         }
 
