@@ -935,10 +935,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Effigy_AT_002()
 		{
-			// TODO Effigy_AT_002 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -949,8 +948,19 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Effigy"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Effigy"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+		    Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(true, minion.ToBeDestroyed);
+            Assert.AreEqual(minion.Cost, game.CurrentOpponent.Board[0].Cost);
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [AT_004] Arcane Blast - COST:1 

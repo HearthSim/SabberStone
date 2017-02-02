@@ -754,13 +754,20 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("AT_002", new List<Enchantment> {
-				// TODO [AT_002] Effigy && Test: Effigy_AT_002
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsSecretActive)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(ComplexTask.Secret(
+                                    new GetGameTagTask(GameTag.COST, EntityType.TARGET),
+                                    new RandomMinionNumberTask(GameTag.COST),
+                                    new SummonStackTask()))
+                                .Build()
+                }
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [AT_004] Arcane Blast - COST:1 
