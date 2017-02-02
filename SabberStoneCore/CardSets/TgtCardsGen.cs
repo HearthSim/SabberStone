@@ -2117,12 +2117,11 @@ namespace SabberStoneCore.CardSets
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("AT_130", new List<Enchantment> {
-				// TODO [AT_130] Sea Reaver && Test: Sea Reaver_AT_130
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.HAND,
+					SingleTask = new DamageTask(1, EntityType.MINIONS)
+				}
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
