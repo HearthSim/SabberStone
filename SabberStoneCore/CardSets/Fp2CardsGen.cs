@@ -551,13 +551,18 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion takes damage, deal 2 damage to the enemy hero.
 			// --------------------------------------------------------
 			cards.Add("BRM_016", new List<Enchantment> {
-				// TODO [BRM_016] Axe Flinger && Test: Axe Flinger_BRM_016
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new DamageTask(2, EntityType.OP_HERO))
+                        .Build()
+                }
+            });
 
 		}
 
