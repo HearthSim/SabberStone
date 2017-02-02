@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,19 +87,15 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
+                Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mana Geode"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellslinger"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());

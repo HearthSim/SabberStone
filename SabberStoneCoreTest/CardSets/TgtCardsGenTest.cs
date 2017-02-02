@@ -1100,10 +1100,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Spellslinger_AT_007()
 		{
-			// TODO Spellslinger_AT_007 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1114,8 +1113,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Spellslinger"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Spellslinger"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(7, game.CurrentOpponent.Hand.Count);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [AT_008] Coldarra Drake - COST:6 [ATK:6/HP:6] 

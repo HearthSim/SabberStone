@@ -860,12 +860,17 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_007", new List<Enchantment> {
-				// TODO [AT_007] Spellslinger && Test: Spellslinger_AT_007
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID, EntityType.HAND)
+                },
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID, EntityType.OP_HAND)
+                },
+                                       
 			});
 
 			// ------------------------------------------ MINION - MAGE

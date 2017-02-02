@@ -48,7 +48,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     throw new NotImplementedException();
             }
 
-            var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass] : Cards.Wild[CardClass];
+            var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
             var cardsList = cards.Where(p =>
                 (CardType == CardType.INVALID || p.Type == CardType) &&
                 (CardClass == CardClass.INVALID || p.Class == CardClass));
