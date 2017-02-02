@@ -1530,11 +1530,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_048", new List<Enchantment> {
-				// TODO [AT_048] Healing Wave && Test: Healing Wave_AT_048
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new RevealTask(
+                        new HealTask(14, EntityType.TARGET), 
+                        new HealTask(7, EntityType.TARGET)),
 				},
 			});
 

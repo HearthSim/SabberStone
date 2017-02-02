@@ -4,34 +4,50 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RevealTask : SimpleTask
     {
-        public RevealTask(ISimpleTask taskToDo)
+        public RevealTask(ISimpleTask successJoustTask, ISimpleTask failedJoustTask = null)
         {
-            TaskToDo = taskToDo;
+            SuccessJoustTask = successJoustTask;
+            FailedJoustTask = failedJoustTask;
         }
 
-        public ISimpleTask TaskToDo { get; set; }
+        public ISimpleTask SuccessJoustTask { get; set; }
+
+        public ISimpleTask FailedJoustTask { get; set; }
 
         public override TaskState Process()
         {
-            if (!Generic.JoustBlock.Invoke(Controller))
+            if (Generic.JoustBlock.Invoke(Controller))
             {
-                return TaskState.STOP;
+                SuccessJoustTask.Game = Game;
+                SuccessJoustTask.Controller = Controller;
+                SuccessJoustTask.Source = Source;
+                SuccessJoustTask.Target = Target;
+                SuccessJoustTask.Playables = Playables;
+                SuccessJoustTask.CardIds = CardIds;
+                SuccessJoustTask.Flag = Flag;
+                SuccessJoustTask.Number = Number;
+                return SuccessJoustTask.Process();
             }
 
-            TaskToDo.Game = Game;
-            TaskToDo.Controller = Controller;
-            TaskToDo.Source = Source;
-            TaskToDo.Target = Target;
-            TaskToDo.Playables = Playables;
-            TaskToDo.CardIds = CardIds;
-            TaskToDo.Flag = Flag;
-            TaskToDo.Number = Number;
-            return TaskToDo.Process();
+            if (FailedJoustTask != null)
+            {
+                FailedJoustTask.Game = Game;
+                FailedJoustTask.Controller = Controller;
+                FailedJoustTask.Source = Source;
+                FailedJoustTask.Target = Target;
+                FailedJoustTask.Playables = Playables;
+                FailedJoustTask.CardIds = CardIds;
+                FailedJoustTask.Flag = Flag;
+                FailedJoustTask.Number = Number;
+                return FailedJoustTask.Process();
+            }
+
+            return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new RevealTask(TaskToDo);
+            var clone = new RevealTask(SuccessJoustTask, FailedJoustTask);
             clone.Copy(this);
             return clone;
         }

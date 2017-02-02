@@ -1901,22 +1901,55 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void HealingWave_AT_048()
 		{
-			// TODO HealingWave_AT_048 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.SHAMAN,
-				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
-			});
-			game.StartGame();
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                },
+                Player2HeroClass = CardClass.MAGE,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                },
+                FillDecks = false
+            });
+            game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Healing Wave"));
-		}
+            game.Player1.Hero.Damage = 14;
+            game.Player2.Hero.Damage = 14;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Healing Wave"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, game.CurrentPlayer.Hero));
+            Assert.AreEqual(23, game.CurrentPlayer.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Healing Wave"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, game.CurrentPlayer.Hero));
+            Assert.AreEqual(30, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [AT_051] Elemental Destruction - COST:3 
