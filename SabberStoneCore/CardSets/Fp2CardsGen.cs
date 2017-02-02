@@ -651,11 +651,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_026", new List<Enchantment> {
-				// TODO [BRM_026] Hungry Dragon && Test: Hungry Dragon_BRM_026
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomMinionTask(GameTag.COST, 1),
+                        new SummonOpTask()),
 				},
 			});
 
