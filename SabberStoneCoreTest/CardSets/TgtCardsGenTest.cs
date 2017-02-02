@@ -2771,10 +2771,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VarianWrynn_AT_072()
 		{
-			// TODO VarianWrynn_AT_072 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2785,7 +2784,10 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Varian Wrynn"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Varian Wrynn"));
+		    int count = game.CurrentPlayer.Hand.Count + game.CurrentPlayer.Board.Count;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(count + 3, game.CurrentPlayer.Hand.Count + game.CurrentPlayer.Board.Count);
 		}
 
 		// --------------------------------------- MINION - WARRIOR

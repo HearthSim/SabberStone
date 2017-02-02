@@ -2094,11 +2094,16 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_072", new List<Enchantment> {
-				// TODO [AT_072] Varian Wrynn && Test: Varian Wrynn_AT_072
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3,ComplexTask.Create(
+                        new DrawTask(true),
+                        new SelfConditionTask(EntityType.STACK, SelfCondition.IsMinion),
+                        new FlagTask(true, ComplexTask.Create(
+                            new RemoveFromHand(EntityType.STACK),
+                            new SummonStackTask())))
+                        ),
 				},
 			});
 
