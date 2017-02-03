@@ -600,10 +600,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Powershot_AT_056()
 		{
-			// TODO Powershot_AT_056 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -614,8 +613,21 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Powershot"));
-		}
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Boulderfist Ogre"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Powershot"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion2));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [AT_060] Bear Trap - COST:2 

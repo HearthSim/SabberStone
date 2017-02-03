@@ -528,12 +528,15 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_056", new List<Enchantment> {
-				// TODO [AT_056] Powershot && Test: Powershot_AT_056
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET, true),
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+                        new DamageTask(2, EntityType.STACK, true))
+                },
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
