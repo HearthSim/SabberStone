@@ -46,7 +46,10 @@ namespace SabberStoneCore.Conditions
             return false;
         });
 
-
+        public static RelaCondition IsOtherRace(Race race)
+        {
+            return new RelaCondition((me, other) => SelfCondition.IsRace(race).Eval(other));
+        }
         public static RelaCondition IsOtherNotRace(Race race) { 
             return new RelaCondition((me, other) => !SelfCondition.IsRace(race).Eval(other));
         }
@@ -78,5 +81,6 @@ namespace SabberStoneCore.Conditions
         {
             return _function(owner, affected);
         }
+
     }
 }

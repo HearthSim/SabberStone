@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
@@ -317,13 +318,18 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you summon a Beast, reduce the Cost of this card by (1).
 			// --------------------------------------------------------
 			cards.Add("AT_041", new List<Enchantment> {
-				// TODO [AT_041] Knight of the Wild && Test: Knight of the Wild_AT_041
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.HAND,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInHandZone)
+                        .ApplyConditions(RelaCondition.IsOtherRace(Race.BEAST))
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- MINION - DRUID
 			// [AT_042] Druid of the Saber - COST:2 [ATK:2/HP:1] 

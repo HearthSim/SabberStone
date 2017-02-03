@@ -487,10 +487,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you summon a Beast, reduce the Cost of this card by (1).
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KnightOfTheWild_AT_041()
 		{
-			// TODO KnightOfTheWild_AT_041 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -501,8 +500,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Knight of the Wild"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knight of the Wild"));
+            Assert.AreEqual(7, testCard.Cost);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.AreEqual(6, testCard.Cost);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(6, testCard.Cost);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.AreEqual(5, testCard.Cost);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [AT_042] Druid of the Saber - COST:2 [ATK:2/HP:1] 
