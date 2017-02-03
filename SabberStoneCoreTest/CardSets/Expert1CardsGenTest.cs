@@ -1323,46 +1323,59 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
         }
 
-		// ------------------------------------------- SPELL - MAGE
-		// [EX1_275] Cone of Cold - COST:4 
-		// - Fac: neutral, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: <b>Freeze</b> a minion and the minions next to it, and deal $1 damage to them. *spelldmg
-		// --------------------------------------------------------
-		// GameTag:
-		// - FREEZE = 1
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_MINION_TARGET = 0
-		// - REQ_TARGET_TO_PLAY = 0
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void ConeOfCold_EX1_275()
-		{
-			// TODO ConeOfCold_EX1_275 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cone of Cold"));
-		}
+        // ------------------------------------------- SPELL - MAGE
+        // [EX1_275] Cone of Cold - COST:4 
+        // - Fac: neutral, Set: expert1, Rarity: common
+        // --------------------------------------------------------
+        // Text: <b>Freeze</b> a minion and the minions next to it, and deal $1 damage to them. *spelldmg
+        // --------------------------------------------------------
+        // GameTag:
+        // - FREEZE = 1
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_MINION_TARGET = 0
+        // - REQ_TARGET_TO_PLAY = 0
+        // --------------------------------------------------------
+        [TestMethod]
+        public void ConeOfCold_EX1_275()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-		// ------------------------------------------- SPELL - MAGE
-		// [EX1_279] Pyroblast - COST:10 
-		// - Fac: neutral, Set: expert1, Rarity: epic
-		// --------------------------------------------------------
-		// Text: Deal $10 damage. *spelldmg
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_TARGET_TO_PLAY = 0
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Boulderfist Ogre"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cone of Cold"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion2));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(true, ((Minion)minion1).IsFrozen);
+        }
+
+        // ------------------------------------------- SPELL - MAGE
+        // [EX1_279] Pyroblast - COST:10 
+        // - Fac: neutral, Set: expert1, Rarity: epic
+        // --------------------------------------------------------
+        // Text: Deal $10 damage. *spelldmg
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_TARGET_TO_PLAY = 0
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void Pyroblast_EX1_279()
 		{
 			// TODO Pyroblast_EX1_279 test
@@ -1478,71 +1491,113 @@ namespace SabberStoneCoreTest.CardSets
             Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
         }
 
-		// ------------------------------------------- SPELL - MAGE
-		// [EX1_295] Ice Block - COST:3 
-		// - Fac: neutral, Set: expert1, Rarity: epic
-		// --------------------------------------------------------
-		// Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
-		// --------------------------------------------------------
-		// GameTag:
-		// - SECRET = 1
-		// --------------------------------------------------------
-		// RefTag:
-		// - IMMUNE = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void IceBlock_EX1_295()
-		{
-			// TODO IceBlock_EX1_295 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ice Block"));
-		}
+        // ------------------------------------------- SPELL - MAGE
+        // [EX1_295] Ice Block - COST:3 
+        // - Fac: neutral, Set: expert1, Rarity: epic
+        // --------------------------------------------------------
+        // Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
+        // --------------------------------------------------------
+        // GameTag:
+        // - SECRET = 1
+        // --------------------------------------------------------
+        // RefTag:
+        // - IMMUNE = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void IceBlock_EX1_295()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player1.Hero.Health = 2;
+            game.Player2.BaseMana = 10;
 
-		// ------------------------------------------- SPELL - MAGE
-		// [EX1_594] Vaporize - COST:3 
-		// - Fac: neutral, Set: expert1, Rarity: rare
-		// --------------------------------------------------------
-		// Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
-		// --------------------------------------------------------
-		// GameTag:
-		// - SECRET = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
-		public void Vaporize_EX1_594()
-		{
-			// TODO Vaporize_EX1_594 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Vaporize"));
-		}
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Block"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            //Assert.AreEqual(1, game.CurrentOpponent.Board.Triggers.Count);
 
-		// ------------------------------------------- SPELL - MAGE
-		// [tt_010] Spellbender - COST:3 
-		// - Fac: neutral, Set: expert1, Rarity: epic
-		// --------------------------------------------------------
-		// Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
-		// --------------------------------------------------------
-		// GameTag:
-		// - SECRET = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // play 2 charge minions
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+
+            // minion 1 attacks hero that should NOT proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion1, game.CurrentOpponent.Hero));
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+
+            // minion 2 attacks hero that should proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Health);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // minion 2 now kills opponent
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(true, game.CurrentOpponent.Hero.IsDead);
+        }
+
+        // ------------------------------------------- SPELL - MAGE
+        // [EX1_594] Vaporize - COST:3 
+        // - Fac: neutral, Set: expert1, Rarity: rare
+        // --------------------------------------------------------
+        // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+        // --------------------------------------------------------
+        // GameTag:
+        // - SECRET = 1
+        // --------------------------------------------------------
+        [TestMethod]
+        public void Vaporize_EX1_594()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vaporize"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Triggers.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(0, game.CurrentPlayer.Board.Triggers.Count);
+        }
+
+        // ------------------------------------------- SPELL - MAGE
+        // [tt_010] Spellbender - COST:3 
+        // - Fac: neutral, Set: expert1, Rarity: epic
+        // --------------------------------------------------------
+        // Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
+        // --------------------------------------------------------
+        // GameTag:
+        // - SECRET = 1
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void Spellbender_tt_010()
 		{
 			// TODO Spellbender_tt_010 test

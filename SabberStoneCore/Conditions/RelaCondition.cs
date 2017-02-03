@@ -32,8 +32,20 @@ namespace SabberStoneCore.Conditions
         public static RelaCondition IsOtherCthun { get; } = new RelaCondition((me, other) => other.Card.Id.Equals("OG_280"));
         public static RelaCondition IsOtherAttacking { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).IsAttacking);
         public static RelaCondition IsOtherAttackingHero { get; } = new RelaCondition((me, other) => other is ICharacter && ((ICharacter)other).ProposedDefender == me.Controller.Hero.Id);
+        public static RelaCondition IsOtherHero { get; } = new RelaCondition((me, other) => other is Hero);
+
         public static RelaCondition IsAnyNotImmune { get; } = new RelaCondition((me, other) => me.Game.Characters.Exists(p => !p.IsImmune));
         public static RelaCondition IsOtherSilverHandRecruit { get; } = new RelaCondition((me, other) => other is Minion && ((Minion)other).Card.Id.Equals("CS2_101t"));
+
+        public static RelaCondition HasOtherTakenLethalDamage { get; } = new RelaCondition((me, other) => {
+            var character = other as ICharacter;
+            if (character != null)
+            {
+                return (character.PreDamage > 0) && (character.PreDamage >= character.Health);
+            }
+            return false;
+        });
+
 
         public static RelaCondition IsOtherNotRace(Race race) { 
             return new RelaCondition((me, other) => !SelfCondition.IsRace(race).Eval(other));

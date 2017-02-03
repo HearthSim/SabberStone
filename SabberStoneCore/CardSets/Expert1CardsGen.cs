@@ -1255,13 +1255,19 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_275", new List<Enchantment> {
-				// TODO [EX1_275] Cone of Cold && Test: Cone of Cold_EX1_275
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET, true),
+                        ComplexTask.Freeze(EntityType.TARGET),
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+                        new DamageTask(1, EntityType.STACK, true),
+                        ComplexTask.Freeze(EntityType.STACK))
+                },
+
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [EX1_279] Pyroblast - COST:10 
@@ -1352,55 +1358,71 @@ namespace SabberStoneCore.CardSets
                 },
 			});
 
-			// ------------------------------------------- SPELL - MAGE
-			// [EX1_295] Ice Block - COST:3 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - IMMUNE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_295", new List<Enchantment> {
-				// TODO [EX1_295] Ice Block && Test: Ice Block_EX1_295
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+            // ------------------------------------------- SPELL - MAGE
+            // [EX1_295] Ice Block - COST:3 
+            // - Fac: neutral, Set: expert1, Rarity: epic
+            // --------------------------------------------------------
+            // Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
+            // --------------------------------------------------------
+            // GameTag:
+            // - SECRET = 1
+            // --------------------------------------------------------
+            // RefTag:
+            // - IMMUNE = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_295", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsOtherHero, RelaCondition.HasOtherTakenLethalDamage)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.PREDAMAGE, 1)
+                        .SingleTask(ComplexTask.Secret(
+                                ComplexTask.Create(new SetGameTagTask(GameTag.PREDAMAGE, 0, EntityType.HERO),
+                                new BuffTask(Buffs.ImmuneTurn(), EntityType.TARGET)))
+                        )
+                        .Build()
+                },
+            });
 
-			// ------------------------------------------- SPELL - MAGE
-			// [EX1_594] Vaporize - COST:3 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_594", new List<Enchantment> {
-				// TODO [EX1_594] Vaporize && Test: Vaporize_EX1_594
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+            // ------------------------------------------- SPELL - MAGE
+            // [EX1_594] Vaporize - COST:3 
+            // - Fac: neutral, Set: expert1, Rarity: rare
+            // --------------------------------------------------------
+            // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+            // --------------------------------------------------------
+            // GameTag:
+            // - SECRET = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_594", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsOtherAttackingHero)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .FastExecution(true)
+                        .SingleTask(ComplexTask.Secret(
+                            new DestroyTask(EntityType.TARGET)))
+                        .Build()
 				},
-			});
+            });
 
-			// ------------------------------------------- SPELL - MAGE
-			// [tt_010] Spellbender - COST:3 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("tt_010", new List<Enchantment> {
+            // ------------------------------------------- SPELL - MAGE
+            // [tt_010] Spellbender - COST:3 
+            // - Fac: neutral, Set: expert1, Rarity: epic
+            // --------------------------------------------------------
+            // Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
+            // --------------------------------------------------------
+            // GameTag:
+            // - SECRET = 1
+            // --------------------------------------------------------
+            cards.Add("tt_010", new List<Enchantment> {
 				// TODO [tt_010] Spellbender && Test: Spellbender_tt_010
 				new Enchantment
 				{
