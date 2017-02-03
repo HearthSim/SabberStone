@@ -234,11 +234,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_044", new List<Enchantment> {
-				// TODO [AT_044] Mulch && Test: Mulch_AT_044
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new RandomCardTask(CardType.MINION, CardClass.INVALID),
+                        new AddStackTo(EntityType.OP_HAND))
 				},
 			});
 

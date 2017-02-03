@@ -352,10 +352,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Mulch_AT_044()
 		{
-			// TODO Mulch_AT_044 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -366,21 +365,30 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mulch"));
-		}
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mulch"));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(true, minion.ToBeDestroyed);
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            Assert.AreEqual(CardType.MINION, game.CurrentOpponent.Hand[4].Card.Type);
+        }
 
-		// ----------------------------------------- MINION - DRUID
-		// [AT_038] Darnassus Aspirant - COST:2 [ATK:2/HP:3] 
-		// - Set: tgt, Rarity: rare
-		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Gain an empty Mana Crystal.
-		//       <b>Deathrattle:</b> Lose a Mana Crystal.
-		// --------------------------------------------------------
-		// GameTag:
-		// - DEATHRATTLE = 1
-		// - BATTLECRY = 1
-		// --------------------------------------------------------
-		[TestMethod]
+        // ----------------------------------------- MINION - DRUID
+        // [AT_038] Darnassus Aspirant - COST:2 [ATK:2/HP:3] 
+        // - Set: tgt, Rarity: rare
+        // --------------------------------------------------------
+        // Text: <b>Battlecry:</b> Gain an empty Mana Crystal.
+        //       <b>Deathrattle:</b> Lose a Mana Crystal.
+        // --------------------------------------------------------
+        // GameTag:
+        // - DEATHRATTLE = 1
+        // - BATTLECRY = 1
+        // --------------------------------------------------------
+        [TestMethod]
 		public void DarnassusAspirant_AT_038()
 		{
 			var game = new Game(new GameConfig
