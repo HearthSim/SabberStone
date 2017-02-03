@@ -562,10 +562,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Aviana_AT_045()
 		{
-			// TODO Aviana_AT_045 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -576,8 +575,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Aviana"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Aviana"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aviana"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            Assert.AreEqual(1, minion1.Cost);
+            Assert.AreEqual(1, minion2.Cost);
+            Assert.AreEqual(7, spell.Cost);
+        }
 
 	}
 

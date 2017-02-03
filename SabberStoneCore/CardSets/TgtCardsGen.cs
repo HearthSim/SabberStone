@@ -357,12 +357,27 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_045", new List<Enchantment> {
-				// TODO [AT_045] Aviana && Test: Aviana_AT_045
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+					Activation = EnchantmentActivation.BOARD,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced
+                        },
+                        ApplyConditions = new List<RelaCondition>
+                        {
+                            RelaCondition.IsOtherMinion
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 1
+                        },
+                        FixedValueFunc = owner => 1
+                    }
+                }
 			});
 
 		}

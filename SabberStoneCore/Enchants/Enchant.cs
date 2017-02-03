@@ -27,6 +27,8 @@ namespace SabberStoneCore.Enchants
 
         public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
 
+        public Func<IPlayable, int> FixedValueFunc;
+
         public Func<IPlayable, int> ValueFunc;
 
         public int TurnsActive { get; set; } = -1;
@@ -55,6 +57,7 @@ namespace SabberStoneCore.Enchants
                 RemovalTask = RemovalTask?.Clone(),
                 Effects = new Dictionary<GameTag, int>(Effects),
                 ValueFunc = ValueFunc,
+                FixedValueFunc = FixedValueFunc,
                 TurnsActive = TurnsActive
             };
         }
@@ -132,7 +135,13 @@ namespace SabberStoneCore.Enchants
                 return value;
             }
 
-            Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]}");
+            if (FixedValueFunc != null)
+            {
+                Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
+                return FixedValueFunc.Invoke(Owner);
+            }
+
+            Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
 
             // apply variable effects if we have ...
             var effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];

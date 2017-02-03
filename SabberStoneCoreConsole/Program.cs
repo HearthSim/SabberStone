@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,18 +87,21 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellslinger"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aviana"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aviana"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
         }
 
         public static void Kazakus()
