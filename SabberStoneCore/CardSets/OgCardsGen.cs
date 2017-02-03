@@ -633,7 +633,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                                     new RandomTask(2, EntityType.ENEMIES),
@@ -721,7 +721,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
@@ -1532,7 +1532,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInHandZone)
-                        .ApplyConditions(RelaCondition.IsOtherTotem)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM)))
                         .TriggerEffect(GameTag.SUMMONED, 1)
                         .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
                         .Build()
@@ -2888,7 +2888,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Cost(-2, RelaCondition.IsOtherWeapon), AuraArea.HAND)
+                    SingleTask = new AuraTask(Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsWeapon)), AuraArea.HAND)
                 }
             });
 

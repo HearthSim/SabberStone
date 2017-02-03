@@ -2042,7 +2042,7 @@ namespace SabberStoneCore.CardSets
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsWeaponEquiped)
+                    Enchant = Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsWeaponEquiped))
                 }
 			});
 
@@ -2519,7 +2519,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new AddCardTo("GAME_005", EntityType.HAND))
                         .Build()
@@ -2693,7 +2693,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER))
                         .Build()

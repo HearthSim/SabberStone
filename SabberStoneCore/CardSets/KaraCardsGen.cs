@@ -126,7 +126,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Cost(-99, RelaCondition.HasTargetTagValue(GameTag.SECRET, 1)), AuraArea.HAND)
+                    SingleTask = new AuraTask(Auras.Cost(-99, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.SECRET, 1))), AuraArea.HAND)
                 }
             });
 
@@ -354,7 +354,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new HealTask(3, EntityType.HERO))
                         .Build()
@@ -493,7 +493,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new IncludeTask(EntityType.SOURCE),
@@ -533,7 +533,7 @@ namespace SabberStoneCore.CardSets
 				{
                     Area = EnchantmentArea.SELF,
 					Activation = EnchantmentActivation.WEAPON,
-					Enchant =  Auras.WeaponAttack(2, RelaCondition.IsSpellDmgOnHero)
+					Enchant =  Auras.WeaponAttack(2, RelaCondition.IsMe(SelfCondition.IsSpellDmgOnHero))
 				},
 			});
 
@@ -829,7 +829,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
                         .Build()

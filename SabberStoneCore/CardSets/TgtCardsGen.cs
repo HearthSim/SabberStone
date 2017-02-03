@@ -324,7 +324,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInHandZone)
-                        .ApplyConditions(RelaCondition.IsOtherRace(Race.BEAST))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.BEAST)))
                         .TriggerEffect(GameTag.SUMMONED, 1)
                         .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
                         .Build()
@@ -369,7 +369,7 @@ namespace SabberStoneCore.CardSets
                         },
                         ApplyConditions = new List<RelaCondition>
                         {
-                            RelaCondition.IsOtherMinion
+                            RelaCondition.IsOther(SelfCondition.IsMinion)
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
@@ -1022,7 +1022,7 @@ namespace SabberStoneCore.CardSets
                 {
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.Attack(1, RelaCondition.IsOtherSilverHandRecruit)
+                    Enchant = Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsSilverHandRecruit))
                 }
 			});
 
@@ -2932,7 +2932,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.HasTargetTagValue(GameTag.BATTLECRY, 1))
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.BATTLECRY, 1)))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
                         .Build()

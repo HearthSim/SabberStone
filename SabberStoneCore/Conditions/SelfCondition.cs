@@ -17,6 +17,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
         public static SelfCondition IsThisWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon == me);
 
+        public static SelfCondition IsEnraged = new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
+
         public static SelfCondition IsDamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
         public static SelfCondition IsUndamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage == 0);
 
@@ -28,7 +30,16 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsMinion => new SelfCondition(me => me is Minion);
+        public static SelfCondition IsSpell => new SelfCondition(me => me is Spell);
+        public static SelfCondition IsWeapon => new SelfCondition(me => me is Weapon);
+        public static SelfCondition IsWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon != null);
+        public static SelfCondition IsHero => new SelfCondition(me => me is Hero);
+        public static SelfCondition IsAttacking => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsAttacking);
+        public static SelfCondition IsCthun => new SelfCondition(me => me.Card.Id.Equals("OG_280"));
+        public static SelfCondition IsSilverHandRecruit => new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
+        public static SelfCondition IsSpellDmgOnHero => new SelfCondition(me => me.Controller.Hero.SpellPower > 0);
         public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is Minion && ((Minion)me).NumAttacksThisTurn == number);
+
         public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
         public static SelfCondition IsInPlayZone => IsInZone(Zone.PLAY);
         public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
@@ -49,6 +60,11 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsNotBoardFull => new SelfCondition(me => !me.Controller.Board.IsFull);
         public static SelfCondition IsDurabilityOkay => new SelfCondition(me => me is Weapon && ((Weapon)me).Durability > 0);
 
+        public static SelfCondition IsAnyNotImmune => new SelfCondition(me => me.Game.Characters.Exists(p => !p.IsImmune));
+        public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
+        public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+        public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
+
         public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
             => new SelfCondition(me => 
                     relaSign == RelaSign.EQ  && me.Controller.Board.Any(p => p[tag] == amount)
@@ -61,11 +77,6 @@ namespace SabberStoneCore.Conditions
                  || relaSign == RelaSign.GEQ && me.Controller.Opponent.Board.Any(p => p[tag] >= amount)
                  || relaSign == RelaSign.LEQ && me.Controller.Opponent.Board.Any(p => p[tag] <= amount));
 
-        public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
-        public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
-
-        public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
-
         public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ) 
             => new SelfCondition(me => 
                     relaSign == RelaSign.EQ  && me[tag] == value
@@ -74,8 +85,7 @@ namespace SabberStoneCore.Conditions
 
 
         public static SelfCondition IsCthunGameTag(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
-        {
-            return new SelfCondition(me =>
+            => new SelfCondition(me =>
             {
                 if (!me.Controller.SeenCthun)
                     return false;
@@ -84,21 +94,27 @@ namespace SabberStoneCore.Conditions
                     || relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
                     || relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;
             });
-        }
 
         public static SelfCondition IsHealth(int value, RelaSign relaSign)
-        {
-            return new SelfCondition(me => relaSign == RelaSign.EQ && me is ICharacter && ((ICharacter)me).Health == value
-                                        || relaSign == RelaSign.GEQ && me is ICharacter && ((ICharacter)me).Health >= value
-                                        || relaSign == RelaSign.LEQ && me is ICharacter && ((ICharacter)me).Health <= value);
-        }
+            => new SelfCondition(me => relaSign == RelaSign.EQ && me is ICharacter && ((ICharacter)me).Health == value
+                                    || relaSign == RelaSign.GEQ && me is ICharacter && ((ICharacter)me).Health >= value
+                                    || relaSign == RelaSign.LEQ && me is ICharacter && ((ICharacter)me).Health <= value);
+  
 
         public static SelfCondition IsBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
-        {
-            return new SelfCondition(me => relaSign == RelaSign.EQ  && me.Controller.Board.Count == value
-                                        || relaSign == RelaSign.GEQ && me.Controller.Board.Count >= value
-                                        || relaSign == RelaSign.LEQ && me.Controller.Board.Count <= value);
-        }
+            => new SelfCondition(me => relaSign == RelaSign.EQ  && me.Controller.Board.Count == value
+                                    || relaSign == RelaSign.GEQ && me.Controller.Board.Count >= value
+                                    || relaSign == RelaSign.LEQ && me.Controller.Board.Count <= value);
+
+
+        public static SelfCondition IsLethalPreDamaged => new SelfCondition(me => {
+            var character = me as ICharacter;
+            if (character == null)
+            {
+                return false;
+            }
+            return character.PreDamage > 0 && character.PreDamage >= character.Health;
+        });
 
         private readonly Func<IPlayable, bool> _function;
 
