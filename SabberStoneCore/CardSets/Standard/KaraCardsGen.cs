@@ -143,27 +143,13 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("KAR_004a", new List<Enchantment> {
-				// TODO [KAR_004a] Cat in a Hat && Test: Cat in a Hat_KAR_004a
-				new Enchantment
-                (
-					//Activation = null,
-					//SingleTask = null,
-				)
-            });
+            cards.Add("KAR_004a", null);
 
             // ---------------------------------------- MINION - HUNTER
             // [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2] 
             // - Race: beast, Set: kara, 
             // --------------------------------------------------------
-            cards.Add("KAR_005a", new List<Enchantment> {
-				// TODO [KAR_005a] Big Bad Wolf && Test: Big Bad Wolf_KAR_005a
-				new Enchantment
-                (
-					//Activation = null,
-					//SingleTask = null,
-				)
-            });
+            cards.Add("KAR_005a", null);
 
         }
 
@@ -431,11 +417,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_094", new List<Enchantment> {
-				// TODO [KAR_094] Deadly Fork && Test: Deadly Fork_KAR_094
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("KAR_094a", EntityType.HAND)
 				},
 			});
 
