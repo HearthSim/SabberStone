@@ -618,7 +618,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingBeast),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         new FlagTask(true, ComplexTask.Create(
                             new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
                             new SummonStackTask()))),
@@ -1496,7 +1496,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingPirate),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))),
 				},
 			});

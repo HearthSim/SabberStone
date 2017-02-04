@@ -572,7 +572,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingBeast),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         ComplexTask.True(new DamageTask(5, EntityType.TARGET, true)),
                         ComplexTask.False(new DamageTask(3, EntityType.TARGET, true)))
                 }

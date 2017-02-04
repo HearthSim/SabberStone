@@ -22,9 +22,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsDamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
         public static SelfCondition IsUndamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage == 0);
 
-        public static SelfCondition IsControlingRace(Race race) => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == race));
-        public static SelfCondition IsControlingBeast => IsControlingRace(Race.BEAST);
-        public static SelfCondition IsControlingPirate => IsControlingRace(Race.PIRATE);
+        public static SelfCondition IsControllingRace(Race race) => new SelfCondition(me => me.Controller.Board.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == race));
+        public static SelfCondition IsControllingSecret => new SelfCondition(me => me.Controller.Secrets.Count > 0);
 
         public static SelfCondition IsDragonInHand => new SelfCondition(me => me.Controller.Hand.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
         public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));

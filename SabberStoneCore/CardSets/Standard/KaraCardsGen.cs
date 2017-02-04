@@ -435,14 +435,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("KAR_094a", new List<Enchantment> {
-				// TODO [KAR_094a] Sharp Fork && Test: Sharp Fork_KAR_094a
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+			cards.Add("KAR_094a", null);
 
 		}
 
@@ -664,7 +657,6 @@ namespace SabberStoneCore.CardSets.Standard
 			//       4-Cost minion.
 			// --------------------------------------------------------
 			cards.Add("KAR_091", new List<Enchantment> {
-				// TODO [KAR_091] Ironforge Portal && Test: Ironforge Portal_KAR_091
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
@@ -836,11 +828,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_037", new List<Enchantment> {
-				// TODO [KAR_037] Avian Watcher && Test: Avian Watcher_KAR_037
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
+                        new FlagTask(true, ComplexTask.Create(
+                            new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
+                            ComplexTask.Taunt(EntityType.SOURCE)))),
 				},
 			});
 
