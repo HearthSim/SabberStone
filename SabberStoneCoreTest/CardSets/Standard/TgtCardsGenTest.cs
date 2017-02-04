@@ -671,10 +671,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Each time you cast a spell this turn, add a random Hunter card to your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LockAndLoad_AT_061()
 		{
-			// TODO LockAndLoad_AT_061 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -685,8 +684,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lock and Load"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lock and Load"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Quick Shot"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [AT_062] Ball of Spiders - COST:6 

@@ -171,6 +171,12 @@ namespace SabberStoneCore.Enchants
             return this;
         }
 
+        public TriggerBuilder TurnsActive(int value)
+        {
+            _trigger.TurnsActive = value;
+            return this;
+        }
+
         public TriggerBuilder FastExecution(bool fastExecution)
         {
             _trigger.FastExecution = fastExecution;

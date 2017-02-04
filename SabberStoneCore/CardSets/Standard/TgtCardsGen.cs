@@ -570,13 +570,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Each time you cast a spell this turn, add a random Hunter card to your hand.
 			// --------------------------------------------------------
 			cards.Add("AT_061", new List<Enchantment> {
-				// TODO [AT_061] Lock and Load && Test: Lock and Load_AT_061
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.SPELL,
+                    Trigger = new TriggerBuilder().Create()
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TurnsActive(0)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomCardTask(CardType.INVALID, CardClass.HUNTER),
+                            new CopyToHand()))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [AT_062] Ball of Spiders - COST:6 
