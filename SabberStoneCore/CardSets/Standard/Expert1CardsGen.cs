@@ -1326,11 +1326,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_289", new List<Enchantment> {
-				// TODO [EX1_289] Ice Barrier && Test: Ice Barrier_EX1_289
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.DEFENDING, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new ArmorTask(8)))
+                        .Build()
 				},
 			});
 

@@ -1447,7 +1447,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
         [Fact(Skip="unfinished")]
 		public void IceBarrier_EX1_289()
 		{
-			// TODO IceBarrier_EX1_289 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1458,7 +1457,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ice Barrier"));
+
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Barrier"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // play charge minions
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+
+            // minion 1 attacks hero that should proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion, game.CurrentOpponent.Hero));
+            Assert.Equal(8-((Minion)minion).AttackDamage, game.CurrentOpponent.Hero.Armor);
+            Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1521,7 +1535,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Block"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
             Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
-            //Assert.Equal(1, game.CurrentOpponent.Board.Triggers.Count);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
