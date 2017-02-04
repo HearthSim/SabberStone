@@ -1029,11 +1029,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_702", new List<Enchantment> {
-				// TODO [KAR_702] Menagerie Magician && Test: Menagerie Magician_KAR_702
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsRace(Race.BEAST, Race.DRAGON, Race.MURLOC)),
+                        new RandomTask(1, EntityType.STACK),
+                        new BuffTask(Buffs.AttackHealth(2), EntityType.STACK))
 				},
 			});
 
