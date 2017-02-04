@@ -3777,10 +3777,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - CANT_ATTACK = 1
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ArgentWatchman_AT_109()
 		{
-			// TODO ArgentWatchman_AT_109 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3791,8 +3790,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Argent Watchman"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Argent Watchman"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.AreEqual(27, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_110] Coliseum Manager - COST:3 [ATK:2/HP:5] 

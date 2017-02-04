@@ -2786,13 +2786,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_109", new List<Enchantment> {
-				// TODO [AT_109] Argent Watchman && Test: Argent Watchman_AT_109
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(
+                        new BuffTask(Buffs.Simple(GameTag.CANT_ATTACK, -1, true), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_110] Coliseum Manager - COST:3 [ATK:2/HP:5] 
