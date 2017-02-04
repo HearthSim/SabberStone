@@ -47,7 +47,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
-* 100% Basic (142 Cards)
+* **100% Basic (142 Cards)**
 * 69% Classic (245 Cards)
 
 **Adventures**
