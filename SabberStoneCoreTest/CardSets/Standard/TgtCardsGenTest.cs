@@ -3516,21 +3516,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SideshowSpelleater_AT_098()
 		{
-			// TODO SideshowSpelleater_AT_098 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sideshow Spelleater"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sideshow Spelleater"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(game.CurrentOpponent.Hero.Power.Card.Id, game.CurrentPlayer.Hero.Power.Card.Id);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

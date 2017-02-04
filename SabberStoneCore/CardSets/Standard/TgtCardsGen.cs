@@ -2621,11 +2621,12 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             cards.Add("AT_098", new List<Enchantment> {
-				// TODO [AT_098] Sideshow Spelleater && Test: Sideshow Spelleater_AT_098
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.OP_HERO_POWER, 1),
+                        new ReplaceHeroPower()),
 				},
 			});
 
