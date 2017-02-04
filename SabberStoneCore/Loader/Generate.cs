@@ -29,14 +29,15 @@ namespace SabberStoneCore.Loader
         public static void CardSetFile(Dictionary<string, Card>.ValueCollection values)
         {
             var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
-                {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
+               // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
+            { CardSet.GVG};
             //var cardSets = Enum.GetValues(typeof(CardSet));
             foreach (CardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
-                var path = Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSets\";
+                var path = Path + @"SabberStone\SabberStoneCore\Loader\Generated\CardSets\";
                 var classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGenTest";
-                var pathTest = Path + @"SabberStone\HSProtoSim\Loader\Generated\CardSetsTest\";
+                var pathTest = Path + @"SabberStone\SabberStoneCore\Loader\Generated\CardSetsTest\";
 
                 WriteCardSetFile(cardSet, className, path, values);
                 WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);

@@ -154,7 +154,7 @@ namespace SabberStoneCore.Model
             Cards = (from c in cards select new {Key = c.Id, Value = c}).ToDictionary(x => x.Key, x => x.Value);
 
             // Add enchantments
-            //Generate.CardSetFile(Cards.Values);
+            Generate.CardSetFile(Cards.Values);
             foreach (var c in Cards.Values)
             {
                 List<Enchantment> list;
