@@ -4285,22 +4285,60 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TheSkeletonKnight_AT_128()
 		{
-			// TODO TheSkeletonKnight_AT_128 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                },
+                Player2HeroClass = CardClass.MAGE,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                    Cards.FromName("Ironbark Protector"),
+                },
+                FillDecks = false
+            });
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Skeleton Knight"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Skeleton Knight"));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Skeleton Knight"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, testCard1));
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(6, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, testCard2));
+            Assert.AreEqual(7, game.CurrentOpponent.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_129] Fjola Lightbane - COST:3 [ATK:3/HP:4] 

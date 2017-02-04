@@ -3100,11 +3100,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_128", new List<Enchantment> {
-				// TODO [AT_128] The Skeleton Knight && Test: The Skeleton Knight_AT_128
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new RevealTask(ComplexTask.Create(
+                        new CopyTask(EntityType.SOURCE, 1),
+                        new CopyToHand())),
 				},
 			});
 
