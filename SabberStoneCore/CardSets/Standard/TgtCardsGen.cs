@@ -2805,13 +2805,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_110", new List<Enchantment> {
-				// TODO [AT_110] Coliseum Manager && Test: Coliseum Manager_AT_110
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(
+                        new ReturnHandTask(EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_111] Refreshment Vendor - COST:4 [ATK:3/HP:5] 
