@@ -2576,11 +2576,10 @@ namespace SabberStoneCore.CardSets.Standard
             // - REQ_TARGET_IF_AVAILABLE = 0
             // --------------------------------------------------------
             cards.Add("AT_096", new List<Enchantment> {
-				// TODO [AT_096] Clockwork Knight && Test: Clockwork Knight_AT_096
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
 				},
 			});
 

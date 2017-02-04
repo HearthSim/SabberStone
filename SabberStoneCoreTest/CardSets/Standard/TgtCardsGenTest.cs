@@ -3456,10 +3456,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_WITH_RACE = 17
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ClockworkKnight_AT_096()
 		{
-			// TODO ClockworkKnight_AT_096 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3470,8 +3469,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Clockwork Knight"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Clockwork Knight"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Clockwork Knight"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard1));
+            Assert.AreEqual(6, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(6, ((Minion)testCard1).Health);
+            Assert.AreEqual(5, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(5, ((Minion)testCard2).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_097] Tournament Attendee - COST:1 [ATK:2/HP:1] 
