@@ -2231,7 +2231,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.HasTargetTagValue(GameTag.CHARGE, 1)), AuraArea.BOARD)
+                    SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.CHARGE, 1))), AuraArea.BOARD)
                 }
             });
 

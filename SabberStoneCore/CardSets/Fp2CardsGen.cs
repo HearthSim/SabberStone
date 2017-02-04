@@ -241,7 +241,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)))
                         .Build()
@@ -490,7 +490,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new FilterStackTask(EntityType.ALLMINIONS, RelaCondition.IsOtherNotRace(Race.DEMON)),
+                        new FilterStackTask(EntityType.ALLMINIONS, RelaCondition.IsOther(SelfCondition.IsNotRace(Race.DEMON))),
                         new DamageTask(2, EntityType.STACK, true))
 				},
 			});
@@ -508,7 +508,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(new SummonTask("BRM_006t"))
                         .Build()
@@ -557,7 +557,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(new DamageTask(2, EntityType.OP_HERO))
                         .Build()
@@ -581,7 +581,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.TO_BE_DESTROYED, 0))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(new SummonTask("BRM_019"))
                         .Build()

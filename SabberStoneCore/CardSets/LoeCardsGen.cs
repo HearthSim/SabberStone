@@ -174,10 +174,10 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsOtherMinion, 
-                            RelaCondition.HasTargetTagValue(GameTag.COST, 1)),
-                        ComplexTask.SummonOpRandomMinion(EntityType.OP_DECK, RelaCondition.IsOtherMinion,
-                            RelaCondition.HasTargetTagValue(GameTag.COST, 1))),
+                        ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsOther(SelfCondition.IsMinion),
+                            RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.COST, 1))),
+                        ComplexTask.SummonOpRandomMinion(EntityType.OP_DECK, RelaCondition.IsOther(SelfCondition.IsMinion),
+                            RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.COST, 1)))),
 				},
 			});
 
@@ -314,7 +314,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretActive)
-                        .ApplyConditions(RelaCondition.IsBoardCount(4))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsBoardCount(4)))
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             new DestroyTask(EntityType.TARGET)))
@@ -541,7 +541,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.DEATHRATTLE, 1))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1)))
                         .TriggerEffect(GameTag.SUMMONED, 1)
                         .SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 2))
                         .Build()
@@ -1016,7 +1016,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new RandomMinionTask(GameTag.COST, EntityType.TARGET),
@@ -1077,7 +1077,8 @@ namespace SabberStoneCore.CardSets
                 {
 					Activation = EnchantmentActivation.BOARD,
 					SingleTask = new AuraTask(
-                        Auras.SimpleInclSelf(GameTag.CANT_ATTACK, 1, RelaCondition.IsBoardCount(2, RelaSign.GEQ)), 
+                        Auras.SimpleInclSelf(GameTag.CANT_ATTACK, 1, 
+                        RelaCondition.IsOther(SelfCondition.IsBoardCount(2, RelaSign.GEQ))), 
                         AuraArea.SELF)
 				}
 			});

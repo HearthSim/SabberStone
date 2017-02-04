@@ -324,7 +324,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInHandZone)
-                        .ApplyConditions(RelaCondition.IsOtherRace(Race.BEAST))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.BEAST)))
                         .TriggerEffect(GameTag.SUMMONED, 1)
                         .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
                         .Build()
@@ -369,7 +369,7 @@ namespace SabberStoneCore.CardSets
                         },
                         ApplyConditions = new List<RelaCondition>
                         {
-                            RelaCondition.IsOtherMinion
+                            RelaCondition.IsOther(SelfCondition.IsMinion)
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
@@ -1025,7 +1025,7 @@ namespace SabberStoneCore.CardSets
                 {
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.Attack(1, RelaCondition.IsOtherSilverHandRecruit)
+                    Enchant = Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsSilverHandRecruit))
                 }
 			});
 
@@ -1173,13 +1173,18 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_013", new List<Enchantment> {
-				// TODO [AT_013] Power Word: Glory && Test: Power Word: Glory_AT_013
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.SPELL,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new HealTask(4, EntityType.HERO)))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [AT_015] Convert - COST:2 
@@ -2935,7 +2940,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.HasTargetTagValue(GameTag.BATTLECRY, 1))
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.BATTLECRY, 1)))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
                         .Build()

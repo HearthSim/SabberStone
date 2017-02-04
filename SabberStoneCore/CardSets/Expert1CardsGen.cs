@@ -815,7 +815,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretActive)
-                        .ApplyConditions(RelaCondition.IsOtherAttackingHero, RelaCondition.IsAnyNotImmune)
+                        .ApplyConditions(RelaCondition.IsMyHeroAttacked, RelaCondition.IsMe(SelfCondition.IsAnyNotImmune))
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
                         .SingleTask(ComplexTask.Secret(
@@ -1093,7 +1093,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = new AuraTask(Auras.Immune(RelaCondition.IsOtherAttacking), AuraArea.HERO),
+					SingleTask = new AuraTask(Auras.Immune(RelaCondition.IsOther(SelfCondition.IsAttacking)), AuraArea.HERO),
 				},
 			});
 
@@ -1305,7 +1305,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretActive)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .FastExecution(true)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Secret(
@@ -1377,7 +1377,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretActive)
-                        .ApplyConditions(RelaCondition.IsOtherHero, RelaCondition.HasOtherTakenLethalDamage)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsHero), RelaCondition.IsOther(SelfCondition.IsLethalPreDamaged))
                         .FastExecution(true)
                         .TriggerEffect(GameTag.PREDAMAGE, 1)
                         .SingleTask(ComplexTask.Secret(
@@ -1404,7 +1404,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretActive)
-                        .ApplyConditions(RelaCondition.IsOtherAttackingHero)
+                        .ApplyConditions(RelaCondition.IsMyHeroAttacked)
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
                         .SingleTask(ComplexTask.Secret(
@@ -1465,7 +1465,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
                         .Build()
@@ -1485,7 +1485,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Cost(-1, RelaCondition.IsOtherSpell), AuraArea.HAND)
+                    SingleTask = new AuraTask(Auras.Cost(-1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.HAND)
                 }
             });
 
@@ -1524,7 +1524,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
                         .Build()
@@ -2915,7 +2915,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.HasTargetTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ))
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ)))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
                         .Build()
@@ -3606,7 +3606,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 6, RelaCondition.IsEnraged), AuraArea.SELF)
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 6, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
             });
 
@@ -3920,7 +3920,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsWeaponEquiped), AuraArea.SELF)
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsMe(SelfCondition.IsWeaponEquiped)), AuraArea.SELF)
                 }
             });
 
@@ -4040,7 +4040,7 @@ namespace SabberStoneCore.CardSets
                 {
                     InfoCardId = "CS2_221e",
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Attack(2, RelaCondition.IsEnraged, RelaCondition.IsMyWeapon), AuraArea.GAME)
+                    SingleTask = new AuraTask(Auras.Attack(2, RelaCondition.IsMe(SelfCondition.IsEnraged), RelaCondition.IsMyWeapon), AuraArea.GAME)
                 }
             });
 
@@ -4219,7 +4219,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 5, RelaCondition.IsEnraged), AuraArea.SELF)
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 5, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
             });
 
@@ -4549,7 +4549,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.AttackTurn(2), EntityType.SOURCE))
                         .Build()
@@ -4670,7 +4670,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.HasTargetTagValue(GameTag.SECRET, 1))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.SECRET, 1)))
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
                         .Build()
@@ -4792,7 +4792,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new DrawTask())
                         .Build()
@@ -5080,7 +5080,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsEnraged), AuraArea.SELF)
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
             });
 
@@ -5097,7 +5097,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsEnraged), AuraArea.SELF)
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
             });
 
@@ -5145,7 +5145,7 @@ namespace SabberStoneCore.CardSets
                             {
                                 [GameTag.ATK] = 1,
                                 [GameTag.WINDFURY] = 1
-                            }, RelaCondition.IsEnraged), AuraArea.SELF)
+                            }, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
             });
 
@@ -5646,7 +5646,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new DamageTask(1, EntityType.ALLMINIONS))
                         .Build()
@@ -5695,7 +5695,7 @@ namespace SabberStoneCore.CardSets
                         },
                         ApplyConditions = new List<RelaCondition>
                         {
-                            RelaCondition.IsWeaponEquiped
+                            RelaCondition.IsMe(SelfCondition.IsWeaponEquiped)
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
@@ -5770,7 +5770,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOtherSpell)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new SummonTask("NEW1_026t"))
                         .Build()
@@ -5809,7 +5809,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new AuraTask(Auras.CostTurn(-99, RelaCondition.IsOtherSpell), AuraArea.OP_HAND)
+                    SingleTask = new AuraTask(Auras.CostTurn(-99, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.OP_HAND)
                 },
 			});
 
@@ -5916,7 +5916,7 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.OP_MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.HasTargetTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ))),
                         new RandomTask(1, EntityType.STACK),
                         new DestroyTask(EntityType.STACK)),
 				},
