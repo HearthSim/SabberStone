@@ -3098,12 +3098,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("AT_129", new List<Enchantment> {
-				// TODO [AT_129] Fjola Lightbane && Test: Fjola Lightbane_AT_129
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.DivineShield(EntityType.SOURCE))
+                        .Build()
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3116,13 +3122,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_131", new List<Enchantment> {
-				// TODO [AT_131] Eydis Darkbane && Test: Eydis Darkbane_AT_131
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new DamageTask(3, EntityType.ENEMIES))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_132] Justicar Trueheart - COST:6 [ATK:6/HP:3] 
