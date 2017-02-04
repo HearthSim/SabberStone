@@ -4255,22 +4255,25 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - INSPIRE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void NexusChampionSaraad_AT_127()
 		{
-			// TODO NexusChampionSaraad_AT_127 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nexus-Champion Saraad"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nexus-Champion Saraad"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_128] The Skeleton Knight - COST:6 [ATK:7/HP:4] 

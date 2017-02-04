@@ -3081,13 +3081,13 @@ namespace SabberStoneCore.CardSets.Standard
             // - INSPIRE = 1
             // --------------------------------------------------------
             cards.Add("AT_127", new List<Enchantment> {
-				// TODO [AT_127] Nexus-Champion Saraad && Test: Nexus-Champion Saraad_AT_127
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_128] The Skeleton Knight - COST:6 [ATK:7/HP:4] 
