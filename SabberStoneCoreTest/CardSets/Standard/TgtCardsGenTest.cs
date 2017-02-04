@@ -3152,10 +3152,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Saboteur_AT_086()
 		{
-			// TODO Saboteur_AT_086 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3166,8 +3165,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Saboteur"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Saboteur"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(7, game.CurrentPlayer.Hero.Power.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Power.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_087] Argent Horserider - COST:3 [ATK:2/HP:1] 

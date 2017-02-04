@@ -24,6 +24,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         /// </summary>
         HERO_POWER,
         /// <summary>
+        ///  Opponent's hero power
+        /// </summary>
+        OP_HERO_POWER,
+        /// <summary>
         ///  All cards in the player's hand
         /// </summary>
         HAND,
@@ -115,7 +119,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         /// <summary>
         ///  All cards in the graveyard
         /// </summary>
-        GRAVEYARD
+        GRAVEYARD,
     }
 
     public class IncludeTask : SimpleTask
@@ -189,6 +193,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case EntityType.HERO_POWER:
                     result.Add(controller.Hero.Power);
+                    break;
+
+                case EntityType.OP_HERO_POWER:
+                    result.Add(controller.Opponent.Hero.Power);
                     break;
 
                 case EntityType.WEAPON:

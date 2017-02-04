@@ -2399,11 +2399,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_086", new List<Enchantment> {
-				// TODO [AT_086] Saboteur && Test: Saboteur_AT_086
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(
+                                    new Enchant
+                                    {
+                                        TurnsActive = 1,
+                                        Effects = new Dictionary<GameTag, int> { [GameTag.COST] = 5 }
+                                    }, EntityType.OP_HERO_POWER)
 				},
 			});
 
