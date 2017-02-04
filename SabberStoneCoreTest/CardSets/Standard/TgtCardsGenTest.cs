@@ -1581,22 +1581,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Convert_AT_015()
 		{
-			// TODO Convert_AT_015 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.HUNTER,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Convert"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Convert"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(minion.Card.Id, game.CurrentPlayer.Hand[5].Card.Id);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [AT_016] Confuse - COST:2 

@@ -1195,11 +1195,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_015", new List<Enchantment> {
-				// TODO [AT_015] Convert && Test: Convert_AT_015
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new CopyToHand()),
 				},
 			});
 
