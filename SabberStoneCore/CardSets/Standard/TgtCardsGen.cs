@@ -1459,12 +1459,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
 			cards.Add("AT_030", new List<Enchantment> {
-				// TODO [AT_030] Undercity Valiant && Test: Undercity Valiant_AT_030
+                // Combo
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new DamageTask(1, EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
