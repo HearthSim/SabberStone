@@ -3008,11 +3008,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 4
 			// --------------------------------------------------------
 			cards.Add("AT_122", new List<Enchantment> {
-				// TODO [AT_122] Gormok the Impaler && Test: Gormok the Impaler_AT_122
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(4, EntityType.TARGET)
 				},
 			});
 

@@ -4143,10 +4143,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 4
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GormokTheImpaler_AT_122()
 		{
-			// TODO GormokTheImpaler_AT_122 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4157,8 +4156,31 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gormok the Impaler"));
-		}
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+
+		    game.CurrentPlayer.UsedMana = 0;
+
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gormok the Impaler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+
+            game.CurrentPlayer.UsedMana = 0;
+
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gormok the Impaler"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
+
+            Assert.AreEqual(5, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_123] Chillmaw - COST:7 [ATK:6/HP:6] 

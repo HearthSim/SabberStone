@@ -26,7 +26,10 @@ namespace SabberStoneCore.Model
         }
 
         // Default definition of whether the entity currently requires a target list to be calculated before use
-        protected internal virtual bool NeedsTargetList => RefCard.RequiresTarget || RefCard.RequiresTargetIfAvailable || RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand;
+        protected internal virtual bool NeedsTargetList => RefCard.RequiresTarget 
+            || RefCard.RequiresTargetIfAvailable 
+            || RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand 
+            || RefCard.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4;
 
         public IEnumerable<ICharacter> ValidPlayTargets => GetValidPlayTargets();
 
@@ -34,7 +37,8 @@ namespace SabberStoneCore.Model
         {
             // check if the current target is legit
             if ((RefCard.RequiresTargetIfAvailable ||
-                RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand) && target == null && ValidPlayTargets.Any())
+                RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand ||
+                RefCard.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4) && target == null && ValidPlayTargets.Any())
             {
                 Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} hasn't a target and there are valid targets for this card.");
                 return false;
@@ -191,6 +195,12 @@ namespace SabberStoneCore.Model
                             return false;
                         }
                         break;
+                    case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
+                        if (Controller.Board.Count < param)
+                        {
+                            return false;
+                        }
+                        break;
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
                         if (!Controller.DragonInHand)
                         {
@@ -231,7 +241,6 @@ namespace SabberStoneCore.Model
                     case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_TURN:
                     
                     case PlayReq.REQ_ENEMY_WEAPON_EQUIPPED:
-                    case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
                     case PlayReq.REQ_SECRET_CAP_FOR_NON_SECRET:
                     case PlayReq.REQ_TARGET_EXACT_COST:

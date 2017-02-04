@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,17 +87,32 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
+                Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fjola Lightbane"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+
+            game.CurrentPlayer.UsedMana = 0;
+
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gormok the Impaler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+
+            game.CurrentPlayer.UsedMana = 0;
+
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gormok the Impaler"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());

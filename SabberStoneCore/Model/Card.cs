@@ -54,6 +54,8 @@ namespace SabberStoneCore.Model
 
         public bool RequiresTargetIfAvailableAndDragonInHand => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
 
+        public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
+
         public int MaxAllowedInDeck => Rarity == Rarity.LEGENDARY ? 1 : 2;
 
         public bool Implemented { get; set; }
