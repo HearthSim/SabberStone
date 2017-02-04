@@ -614,11 +614,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_010", new List<Enchantment> {
-				// TODO [AT_010] Ram Wrangler && Test: Ram Wrangler_AT_010
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingBeast),
+                        new FlagTask(true, ComplexTask.Create(
+                            new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+                            new SummonStackTask()))),
 				},
 			});
 

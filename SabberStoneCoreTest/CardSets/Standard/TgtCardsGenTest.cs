@@ -738,10 +738,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void RamWrangler_AT_010()
 		{
-			// TODO RamWrangler_AT_010 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -752,8 +751,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ram Wrangler"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ram Wrangler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ram Wrangler"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+		    game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [AT_057] Stablemaster - COST:3 [ATK:4/HP:2] 
