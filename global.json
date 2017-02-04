@@ -1,0 +1,9 @@
+{
+    "projects": [
+        "SabberStoneCore",
+        "SabberStoneCoreAi",
+        "SabberStoneCoreConsole",
+        "SabberStoneCoreTest",
+        "SabberStoneCoreXTests"
+    ]
+}
