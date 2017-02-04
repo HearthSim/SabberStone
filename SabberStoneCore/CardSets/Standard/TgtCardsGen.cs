@@ -1410,12 +1410,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("AT_028", new List<Enchantment> {
-				// TODO [AT_028] Shado-Pan Rider && Test: Shado-Pan Rider_AT_028
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                // Combo
+                new Enchantment
+                {
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.SOURCE)
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1425,13 +1425,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you equip a weapon, give it +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_029", new List<Enchantment> {
-				// TODO [AT_029] Buccaneer && Test: Buccaneer_AT_029
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsWeapon))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.WeaponAtk(1), EntityType.TARGET))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [AT_030] Undercity Valiant - COST:2 [ATK:3/HP:2] 
@@ -1860,11 +1865,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_024", new List<Enchantment> {
-				// TODO [AT_024] Demonfuse && Test: Demonfuse_AT_024
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET),
+                        new ManaCrystalEmptyTask(1, true)),
 				},
 			});
 

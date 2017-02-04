@@ -228,6 +228,11 @@ namespace SabberStoneCore.Actions
                 // activate battlecry
                 weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, Zone.PLAY);
                 weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY);
+                c.Game.DeathProcessingAndAuraUpdate();
+
+                // trigger After Play Phase
+                c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", "trigger After Play Phase");
+                weapon.JustPlayed = false;
 
                 return true;
             };

@@ -1860,10 +1860,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - COMBO = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ShadoPanRider_AT_028()
 		{
-			// TODO ShadoPanRider_AT_028 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1874,8 +1873,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shado-Pan Rider"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shado-Pan Rider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shado-Pan Rider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(3, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(6, ((Minion)testCard2).AttackDamage);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [AT_029] Buccaneer - COST:1 [ATK:2/HP:1] 
@@ -1883,10 +1887,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Whenever you equip a weapon, give it +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Buccaneer_AT_029()
 		{
-			// TODO Buccaneer_AT_029 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1897,8 +1900,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Buccaneer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Buccaneer"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassin's Blade"));
+            //game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Triggers.Count);
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [AT_030] Undercity Valiant - COST:2 [ATK:3/HP:2] 
@@ -2428,10 +2438,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_WITH_RACE = 15
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Demonfuse_AT_024()
 		{
-			// TODO Demonfuse_AT_024 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2440,10 +2449,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demonfuse"));
-		}
+			game.Player1.BaseMana = 8;
+			game.Player2.BaseMana = 8;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demonfuse"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidwalker"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(8, game.CurrentOpponent.BaseMana);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(4, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(6, ((Minion)minion).Health);
+            Assert.AreEqual(9, game.CurrentOpponent.BaseMana);
+        }
 
 		// ---------------------------------------- SPELL - WARLOCK
 		// [AT_025] Dark Bargain - COST:6 
