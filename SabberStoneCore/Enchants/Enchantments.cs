@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.CardSets;
+using SabberStoneCore.CardSets.Standard;
 
 namespace SabberStoneCore.Enchants
 {
@@ -17,6 +18,7 @@ namespace SabberStoneCore.Enchants
 
         private Enchantments()
         {
+            // Standard
             CoreCardsGen.AddAll(_entchantmentDic);
             Expert1CardsGen.AddAll(_entchantmentDic);
             Fp2CardsGen.AddAll(_entchantmentDic);
@@ -25,6 +27,9 @@ namespace SabberStoneCore.Enchants
             LoeCardsGen.AddAll(_entchantmentDic);
             OgCardsGen.AddAll(_entchantmentDic);
             TgtCardsGen.AddAll(_entchantmentDic);
+
+            // Rest
+            NaxxCardsGen.AddAll(_entchantmentDic);
         }
 
         public static Enchantments Instance => _instance ?? (_instance = new Enchantments());

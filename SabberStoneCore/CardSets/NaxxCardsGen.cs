@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -1080,14 +1083,14 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_011", new List<Enchantment> {
-				// TODO [FP1_011] Webspinner && Test: Webspinner_FP1_011
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
-			});
-
+                new Enchantment
+                { 
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+                        new AddStackTo(EntityType.HAND))
+                }
+            });
 		}
 
 		private static void Mage(IDictionary<string, List<Enchantment>> cards)

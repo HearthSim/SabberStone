@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class TgtCardsGen
 	{
@@ -590,11 +588,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("AT_062", new List<Enchantment> {
-				// TODO [AT_062] Ball of Spiders && Test: Ball of Spiders_AT_062
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3, new SummonTask("FP1_011"))
 				},
 			});
 

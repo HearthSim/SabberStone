@@ -87,21 +87,17 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
-                Player2HeroClass = CardClass.PRIEST,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            game.Player1.Hero.Damage = 10;
-            game.Player2.Hero.Damage = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Glory"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ball of Spiders"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Board[0]));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());

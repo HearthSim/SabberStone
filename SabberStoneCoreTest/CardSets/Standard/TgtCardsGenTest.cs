@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using SabberStoneCore.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCoreTest.CardSets
+namespace SabberStoneCoreTest.CardSets.Standard
 {
 	[TestClass]
 	public class HeroPowersTgtTest
@@ -697,22 +697,28 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_NUM_MINION_SLOTS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void BallOfSpiders_AT_062()
 		{
-			// TODO BallOfSpiders_AT_062 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ball of Spiders"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ball of Spiders"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, game.CurrentOpponent.Hand.Count);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Board[0]));
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual(5, game.CurrentOpponent.Hand.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [AT_010] Ram Wrangler - COST:5 [ATK:3/HP:3] 

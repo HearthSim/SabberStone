@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class GangsCardsGen
 	{

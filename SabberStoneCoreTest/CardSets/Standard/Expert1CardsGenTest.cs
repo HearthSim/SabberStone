@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using SabberStoneCore.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using System.Collections.Generic;
 using Generic = SabberStoneCore.Actions.Generic;
 
-namespace SabberStoneCoreTest.CardSets
+namespace SabberStoneCoreTest.CardSets.Standard
 {
-	[TestClass]
+    [TestClass]
 	public class HeroesExpert1Test
 	{
 		// ----------------------------------------- HERO - WARLOCK

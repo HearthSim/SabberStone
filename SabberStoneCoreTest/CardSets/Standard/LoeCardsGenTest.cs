@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using SabberStoneCore.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCoreTest.CardSets
+namespace SabberStoneCoreTest.CardSets.Standard
 {
 	[TestClass]
 	public class DruidLoeTest

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 
-namespace SabberStoneCore.Loader.Generated.CardSets
+namespace SabberStoneCore.CardSets
 {
 	public class Pe1CardsGen
 	{

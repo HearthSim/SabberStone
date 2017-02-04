@@ -3,7 +3,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets
 {
 	[TestClass]
 	public class DruidPe1Test

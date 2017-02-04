@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.SimpleTasks.Tasks;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-using SabberStoneCore.SimpleTasks.Tasks;
-using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class OgCardsGen
 	{

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.SimpleTasks.Tasks;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class LoeCardsGen
 	{

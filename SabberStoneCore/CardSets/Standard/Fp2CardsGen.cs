@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-using SabberStoneCore.Enums;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class Fp2CardsGen
 	{
