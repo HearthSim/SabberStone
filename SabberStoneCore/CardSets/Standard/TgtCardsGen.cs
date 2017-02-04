@@ -1958,13 +1958,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, also deal that amount to your hero.
 			// --------------------------------------------------------
 			cards.Add("AT_026", new List<Enchantment> {
-				// TODO [AT_026] Wrathguard && Test: Wrathguard_AT_026
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new DamageNumberTask(EntityType.HERO))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_027] Wilfred Fizzlebang - COST:6 [ATK:4/HP:4] 

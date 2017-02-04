@@ -2627,10 +2627,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Whenever this minion takes damage, also deal that amount to your hero.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Wrathguard_AT_026()
 		{
-			// TODO Wrathguard_AT_026 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2641,8 +2640,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wrathguard"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wrathguard"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
+            Assert.AreEqual(2, ((Minion)testCard).Health);
+            Assert.AreEqual(29, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [AT_027] Wilfred Fizzlebang - COST:6 [ATK:4/HP:4] 
