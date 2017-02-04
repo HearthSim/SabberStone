@@ -1271,10 +1271,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MedivhTheGuardian_KAR_097()
 		{
-			// TODO MedivhTheGuardian_KAR_097 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1285,8 +1284,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Medivh, the Guardian"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Medivh, the Guardian"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.Hero.Weapon != null);
+            Assert.AreEqual(3, game.CurrentPlayer.Hero.Weapon.Durability);
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Triggers.Count);
+		    game.CurrentPlayer.UsedMana = 0;
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Weapon.Durability);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_114] Barnes - COST:4 [ATK:3/HP:4] 

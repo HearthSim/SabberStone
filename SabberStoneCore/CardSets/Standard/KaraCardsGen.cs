@@ -984,11 +984,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_097", new List<Enchantment> {
-				// TODO [KAR_097] Medivh, the Guardian && Test: Medivh, the Guardian_KAR_097
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "KAR_097t")
 				},
 			});
 
@@ -1332,13 +1331,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("KAR_097t", new List<Enchantment> {
-				// TODO [KAR_097t] Atiesh && Test: Atiesh_KAR_097t
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.WEAPON,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomMinionNumberTask(GameTag.COST),
+                            new SummonStackTask(),
+                            ComplexTask.Create(
+                                new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new MathSubstractionTask(1),
+                                new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON))
+                            ))
+                        .Build()
+                }
+            });
 		}
 
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
