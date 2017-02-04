@@ -2747,11 +2747,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_106", new List<Enchantment> {
-				// TODO [AT_106] Light's Champion && Test: Light's Champion_AT_106
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SilenceTask(EntityType.TARGET)
 				},
 			});
 
