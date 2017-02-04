@@ -1668,22 +1668,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Whenever a character is healed, gain +2 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void HolyChampion_AT_011()
 		{
-			// TODO HolyChampion_AT_011 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
+				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Holy Champion"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Holy Champion"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [AT_012] Spawn of Shadows - COST:4 [ATK:5/HP:4] 

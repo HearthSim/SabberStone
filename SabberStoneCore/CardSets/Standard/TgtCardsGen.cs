@@ -1250,13 +1250,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a character is healed, gain +2 Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_011", new List<Enchantment> {
-				// TODO [AT_011] Holy Champion && Test: Holy Champion_AT_011
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS_HEROES,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [AT_012] Spawn of Shadows - COST:4 [ATK:5/HP:4] 
