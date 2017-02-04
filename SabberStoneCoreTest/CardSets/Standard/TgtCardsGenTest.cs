@@ -1971,10 +1971,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ShadyDealer_AT_032()
 		{
-			// TODO ShadyDealer_AT_032 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1985,8 +1984,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shady Dealer"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shady Dealer"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shady Dealer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Southsea Deckhand"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(4, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(3, ((Minion)testCard1).Health);
+            Assert.AreEqual(5, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(4, ((Minion)testCard2).Health);
+
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [AT_036] Anub'arak - COST:9 [ATK:8/HP:4] 

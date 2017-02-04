@@ -1484,11 +1484,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_032", new List<Enchantment> {
-				// TODO [AT_032] Shady Dealer && Test: Shady Dealer_AT_032
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingPirate),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))),
 				},
 			});
 
