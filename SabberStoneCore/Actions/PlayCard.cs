@@ -30,6 +30,12 @@ namespace SabberStoneCore.Actions
 
                 c.LastCardPlayed = source.Id;
 
+                // target is beeing set onto this gametag
+                if (target != null)
+                {
+                    source.CardTarget = target.Id;
+                }
+
                 if (source is Minion)
                 {
                     PlayMinion.Invoke(c, (Minion)source, target, zonePosition);
@@ -58,6 +64,8 @@ namespace SabberStoneCore.Actions
 
                     PlaySpell.Invoke(c, (Spell)source, target);
                 }
+
+                source.CardTarget = -1;
 
                 c.NumOptionsPlayedThisTurn++;
 

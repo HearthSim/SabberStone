@@ -595,13 +595,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("BRM_020", new List<Enchantment> {
-				// TODO [BRM_020] Dragonkin Sorcerer && Test: Dragonkin Sorcerer_BRM_020
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.FriendlySpellTargetingMe(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_022] Dragon Egg - COST:1 [ATK:0/HP:2] 

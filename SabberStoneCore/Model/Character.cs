@@ -310,8 +310,9 @@ namespace SabberStoneCore.Model
 
         public int BaseHealth
         {
-            get { return Card[GameTag.HEALTH]; }
+            get { return this[GameTag.HEALTH]; }
             set { this[GameTag.HEALTH] = value; }
         }
+
     }
 }

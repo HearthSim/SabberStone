@@ -14,5 +14,16 @@ namespace SabberStoneCore.Enchants
                 .SingleTask(task)
                 .Build();
         }
+
+        public static Trigger FriendlySpellTargetingMe(ISimpleTask task)
+        {
+            return new TriggerBuilder().Create()
+                .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe, RelaCondition.IsFriendly)
+                .FastExecution(true)
+                .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                .SingleTask(task)
+                .Build();
+        }
     }
 }

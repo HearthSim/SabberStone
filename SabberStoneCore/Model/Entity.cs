@@ -120,6 +120,7 @@ namespace SabberStoneCore.Model
                 }
 
                 // trigger here
+                Game?.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
                 Zone?.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
                 Triggers.ForEach(p => p.Change(this, t, oldValue, value));
             }
@@ -257,6 +258,12 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.JUST_PLAYED] == 1; }
             set { this[GameTag.JUST_PLAYED] = value ? 1 : 0; }
+        }
+
+        public int CardTarget
+        {
+            get { return this[GameTag.CARD_TARGET]; }
+            set { this[GameTag.CARD_TARGET] = value; }
         }
     }
 }

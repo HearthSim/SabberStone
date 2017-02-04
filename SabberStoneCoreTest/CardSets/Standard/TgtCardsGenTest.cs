@@ -4287,22 +4287,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FjolaLightbane_AT_129()
 		{
-			// TODO FjolaLightbane_AT_129 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fjola Lightbane"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fjola Lightbane"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Triggers.Count);
+            Assert.AreEqual(true, ((Minion)testCard).HasDivineShield);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_131] Eydis Darkbane - COST:3 [ATK:3/HP:4] 
@@ -4313,10 +4318,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EydisDarkbane_AT_131()
 		{
-			// TODO EydisDarkbane_AT_131 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4327,8 +4331,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eydis Darkbane"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eydis Darkbane"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Triggers.Count);
+            Assert.AreEqual(27, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_132] Justicar Trueheart - COST:6 [ATK:6/HP:3] 

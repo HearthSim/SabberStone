@@ -3102,13 +3102,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe)
-                        .FastExecution(true)
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                        .SingleTask(ComplexTask.DivineShield(EntityType.SOURCE))
-                        .Build()
+                    Trigger = Triggers.FriendlySpellTargetingMe(ComplexTask.DivineShield(EntityType.SOURCE))
                 }
 			});
 
@@ -3126,13 +3120,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe)
-                        .FastExecution(true)
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                        .SingleTask(new DamageTask(3, EntityType.ENEMIES))
-                        .Build()
+                    Trigger = Triggers.FriendlySpellTargetingMe(new DamageTask(3, EntityType.ENEMIES))
                 }
             });
 

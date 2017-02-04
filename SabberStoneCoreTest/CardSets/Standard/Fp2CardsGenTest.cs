@@ -677,10 +677,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             // --------------------------------------------------------
             // Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
             // --------------------------------------------------------
-            [TestMethod, Ignore]
+            [TestMethod]
             public void DragonkinSorcerer_BRM_020()
             {
-                // TODO DragonkinSorcerer_BRM_020 test
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
@@ -691,7 +690,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
                 game.StartGame();
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
-                //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragonkin Sorcerer"));
+                var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragonkin Sorcerer"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+                var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+                game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+                Assert.AreEqual(1, game.CurrentPlayer.Hand.Triggers.Count);
+                Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+                Assert.AreEqual(8, ((Minion)testCard).Health);
             }
 
             // --------------------------------------- MINION - NEUTRAL

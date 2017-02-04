@@ -21,6 +21,7 @@ namespace SabberStoneCore.Model
         bool JustPlayed { get; set; }
         bool CheckPlayable(int chooseOne);
         int Overload { get; set; }
+        int CardTarget { get; set; }
 
         List<Enchantment> Enchantments { get; set; }
         //void Reset();
