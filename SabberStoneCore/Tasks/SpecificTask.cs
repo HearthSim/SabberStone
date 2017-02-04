@@ -3,7 +3,6 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
-using SabberStoneCore.SimpleTasks.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Tasks

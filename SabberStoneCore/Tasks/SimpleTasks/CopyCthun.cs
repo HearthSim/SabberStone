@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

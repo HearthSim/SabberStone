@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SabberStoneCore.Enchants;
+﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 

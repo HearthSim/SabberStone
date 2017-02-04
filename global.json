@@ -3,6 +3,7 @@
         "SabberStoneCore",
         "SabberStoneCoreAi",
         "SabberStoneCoreConsole",
-        "SabberStoneCoreTest"
+        "SabberStoneCoreTest",
+        "SabberStoneCoreXTests"
     ]
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
