@@ -1087,11 +1087,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_081", new List<Enchantment> {
-				// TODO [AT_081] Eadric the Pure && Test: Eadric the Pure_AT_081
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SetGameTagTask(GameTag.ATK, 1, EntityType.OP_MINIONS)
 				},
 			});
 
