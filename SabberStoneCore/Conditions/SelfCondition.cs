@@ -107,14 +107,16 @@ namespace SabberStoneCore.Conditions
                                     || relaSign == RelaSign.LEQ && me.Controller.Board.Count <= value);
 
 
-        public static SelfCondition IsLethalPreDamaged => new SelfCondition(me => {
-            var character = me as ICharacter;
-            if (character == null)
+        public static SelfCondition IsLethalPreDamaged 
+            => new SelfCondition(me => 
             {
-                return false;
-            }
-            return character.PreDamage > 0 && character.PreDamage >= character.Health;
-        });
+                var character = me as ICharacter;
+                if (character == null)
+                {
+                    return false;
+                }
+                return character.PreDamage > 0 && character.PreDamage >= character.Health;
+            });
 
         private readonly Func<IPlayable, bool> _function;
 

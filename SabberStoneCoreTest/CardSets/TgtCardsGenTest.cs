@@ -1527,10 +1527,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void PowerWordGlory_AT_013()
 		{
-			// TODO PowerWordGlory_AT_013 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1541,8 +1540,17 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Power Word: Glory"));
-		}
+            game.Player1.Hero.Damage = 10;
+            game.Player2.Hero.Damage = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Power Word: Glory"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(20, game.CurrentPlayer.Hero.Health);
+            Assert.AreEqual(20, game.CurrentOpponent.Hero.Health);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.AreEqual(24, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [AT_015] Convert - COST:2 

@@ -4,10 +4,6 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Conditions
 {
-    public enum RelaSign
-    {
-        EQ, GEQ, LEQ
-    }
     public class RelaCondition
     {
         private readonly Func<IPlayable, IPlayable, bool> _function;
