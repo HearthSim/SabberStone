@@ -3135,10 +3135,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MaidenOfTheLake_AT_085()
 		{
-			// TODO MaidenOfTheLake_AT_085 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3149,7 +3148,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Maiden of the Lake"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Maiden of the Lake"));
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Power.Cost);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Hero.Power.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

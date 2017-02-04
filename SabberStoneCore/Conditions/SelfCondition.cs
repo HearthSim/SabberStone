@@ -34,6 +34,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsWeapon => new SelfCondition(me => me is Weapon);
         public static SelfCondition IsWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon != null);
         public static SelfCondition IsHero => new SelfCondition(me => me is Hero);
+        public static SelfCondition IsHeroPower => new SelfCondition(me => me is HeroPower);
         public static SelfCondition IsAttacking => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsAttacking);
         public static SelfCondition IsCthun => new SelfCondition(me => me.Card.Id.Equals("OG_280"));
         public static SelfCondition IsSilverHandRecruit => new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
@@ -50,7 +51,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsInDeckZone => IsInZone(Zone.DECK);
         public static SelfCondition IsInZone(Zone zone) => new SelfCondition(me => me.Zone.Type == zone);
         public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
-        public static SelfCondition IsHeroPower(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
+        public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
         public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.Deck.GroupBy(x => new {x.Card.Id}).Any(x => x.Skip(1).Any()));
         public static SelfCondition IsManaCrystalFull => new SelfCondition(me => me.Controller.BaseMana == 10);
         public static SelfCondition IsRemaningManaFull => new SelfCondition(me => me.Controller.RemainingMana == 10);

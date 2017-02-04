@@ -2382,12 +2382,29 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_085", new List<Enchantment> {
-				// TODO [AT_085] Maiden of the Lake && Test: Maiden of the Lake_AT_085
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.GAME,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInPlayZone,
+                            SelfCondition.IsNotSilenced
+                        },
+                        ApplyConditions = new List<RelaCondition>
+                        {
+                            RelaCondition.IsOther(SelfCondition.IsHeroPower)
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        FixedValueFunc = owner => 1,
+                    }
+
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
