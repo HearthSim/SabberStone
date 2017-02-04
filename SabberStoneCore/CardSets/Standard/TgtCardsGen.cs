@@ -1893,11 +1893,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_ENEMY_MINIONS = 2
 			// --------------------------------------------------------
 			cards.Add("AT_025", new List<Enchantment> {
-				// TODO [AT_025] Dark Bargain && Test: Dark Bargain_AT_025
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        ComplexTask.DestroyRandomTargets(2, EntityType.OP_MINIONS),
+                        ComplexTask.DiscardRandomCard(2)),
 				},
 			});
 
