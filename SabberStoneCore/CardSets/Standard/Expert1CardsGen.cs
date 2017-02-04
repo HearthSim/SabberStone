@@ -2134,7 +2134,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPower("EX1_625t")),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPowerCard("EX1_625t")),
                         ComplexTask.True(new ReplaceHeroPower(Cards.FromId("EX1_625t2"))),
                         ComplexTask.False(new ReplaceHeroPower(Cards.FromId("EX1_625t"))))
 				},

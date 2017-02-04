@@ -614,11 +614,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_010", new List<Enchantment> {
-				// TODO [AT_010] Ram Wrangler && Test: Ram Wrangler_AT_010
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new FlagTask(true, ComplexTask.Create(
+                            new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+                            new SummonStackTask()))),
 				},
 			});
 
@@ -1087,11 +1090,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_081", new List<Enchantment> {
-				// TODO [AT_081] Eadric the Pure && Test: Eadric the Pure_AT_081
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SetGameTagTask(GameTag.ATK, 1, EntityType.OP_MINIONS)
 				},
 			});
 
@@ -1251,13 +1253,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a character is healed, gain +2 Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_011", new List<Enchantment> {
-				// TODO [AT_011] Holy Champion && Test: Holy Champion_AT_011
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS_HEROES,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [AT_012] Spawn of Shadows - COST:4 [ATK:5/HP:4] 
@@ -1451,12 +1459,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
 			cards.Add("AT_030", new List<Enchantment> {
-				// TODO [AT_030] Undercity Valiant && Test: Undercity Valiant_AT_030
+                // Combo
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new DamageTask(1, EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1484,11 +1492,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_032", new List<Enchantment> {
-				// TODO [AT_032] Shady Dealer && Test: Shady Dealer_AT_032
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))),
 				},
 			});
 
@@ -1884,11 +1893,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_ENEMY_MINIONS = 2
 			// --------------------------------------------------------
 			cards.Add("AT_025", new List<Enchantment> {
-				// TODO [AT_025] Dark Bargain && Test: Dark Bargain_AT_025
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        ComplexTask.DestroyRandomTargets(2, EntityType.OP_MINIONS),
+                        ComplexTask.DiscardRandomCard(2)),
 				},
 			});
 
@@ -1957,13 +1967,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, also deal that amount to your hero.
 			// --------------------------------------------------------
 			cards.Add("AT_026", new List<Enchantment> {
-				// TODO [AT_026] Wrathguard && Test: Wrathguard_AT_026
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new DamageNumberTask(EntityType.HERO))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_027] Wilfred Fizzlebang - COST:6 [ATK:4/HP:4] 
@@ -2381,12 +2396,29 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_085", new List<Enchantment> {
-				// TODO [AT_085] Maiden of the Lake && Test: Maiden of the Lake_AT_085
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.GAME,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInPlayZone,
+                            SelfCondition.IsNotSilenced
+                        },
+                        ApplyConditions = new List<RelaCondition>
+                        {
+                            RelaCondition.IsOther(SelfCondition.IsHeroPower)
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        FixedValueFunc = owner => 1,
+                    }
+
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2575,11 +2607,10 @@ namespace SabberStoneCore.CardSets.Standard
             // - REQ_TARGET_IF_AVAILABLE = 0
             // --------------------------------------------------------
             cards.Add("AT_096", new List<Enchantment> {
-				// TODO [AT_096] Clockwork Knight && Test: Clockwork Knight_AT_096
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
 				},
 			});
 
@@ -2604,11 +2635,12 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             cards.Add("AT_098", new List<Enchantment> {
-				// TODO [AT_098] Sideshow Spelleater && Test: Sideshow Spelleater_AT_098
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.OP_HERO_POWER, 1),
+                        new ReplaceHeroPower()),
 				},
 			});
 
@@ -2715,11 +2747,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_106", new List<Enchantment> {
-				// TODO [AT_106] Light's Champion && Test: Light's Champion_AT_106
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SilenceTask(EntityType.TARGET)
 				},
 			});
 
@@ -2755,13 +2786,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_109", new List<Enchantment> {
-				// TODO [AT_109] Argent Watchman && Test: Argent Watchman_AT_109
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(
+                        new BuffTask(Buffs.Simple(GameTag.CANT_ATTACK, -1, true), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_110] Coliseum Manager - COST:3 [ATK:2/HP:5] 
@@ -2773,13 +2805,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - INSPIRE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_110", new List<Enchantment> {
-				// TODO [AT_110] Coliseum Manager && Test: Coliseum Manager_AT_110
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(
+                        new ReturnHandTask(EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_111] Refreshment Vendor - COST:4 [ATK:3/HP:5] 
@@ -2977,11 +3010,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 4
 			// --------------------------------------------------------
 			cards.Add("AT_122", new List<Enchantment> {
-				// TODO [AT_122] Gormok the Impaler && Test: Gormok the Impaler_AT_122
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(4, EntityType.TARGET)
 				},
 			});
 
@@ -3058,13 +3090,13 @@ namespace SabberStoneCore.CardSets.Standard
             // - INSPIRE = 1
             // --------------------------------------------------------
             cards.Add("AT_127", new List<Enchantment> {
-				// TODO [AT_127] Nexus-Champion Saraad && Test: Nexus-Champion Saraad_AT_127
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.Inspire(ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_128] The Skeleton Knight - COST:6 [ATK:7/HP:4] 
@@ -3077,11 +3109,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_128", new List<Enchantment> {
-				// TODO [AT_128] The Skeleton Knight && Test: The Skeleton Knight_AT_128
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new RevealTask(ComplexTask.Create(
+                        new CopyTask(EntityType.SOURCE, 1),
+                        new CopyToHand())),
 				},
 			});
 
@@ -3098,12 +3131,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("AT_129", new List<Enchantment> {
-				// TODO [AT_129] Fjola Lightbane && Test: Fjola Lightbane_AT_129
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.FriendlySpellTargetingMe(ComplexTask.DivineShield(EntityType.SOURCE))
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3116,13 +3149,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_131", new List<Enchantment> {
-				// TODO [AT_131] Eydis Darkbane && Test: Eydis Darkbane_AT_131
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.FriendlySpellTargetingMe(new DamageTask(3, EntityType.ENEMIES))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_132] Justicar Trueheart - COST:6 [ATK:6/HP:3] 

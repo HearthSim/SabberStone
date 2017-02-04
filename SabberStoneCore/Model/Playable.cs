@@ -21,6 +21,7 @@ namespace SabberStoneCore.Model
         bool JustPlayed { get; set; }
         bool CheckPlayable(int chooseOne);
         int Overload { get; set; }
+        int CardTarget { get; set; }
 
         List<Enchantment> Enchantments { get; set; }
         //void Reset();
@@ -177,6 +178,7 @@ namespace SabberStoneCore.Model
                         case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
                         case PlayReq.REQ_TARGET_WITH_BATTLECRY:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                        case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
                         case PlayReq.REQ_NONSELF_TARGET:
                             break;
 

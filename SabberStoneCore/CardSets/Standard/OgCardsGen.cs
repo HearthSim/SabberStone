@@ -1961,7 +1961,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControlingPirate),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
                         new FlagTask(true, ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                                 new MathAddTask(1),
