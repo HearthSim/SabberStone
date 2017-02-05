@@ -1546,11 +1546,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_611", new List<Enchantment> {
-				// TODO [CFM_611] Bloodfury Potion && Test: Bloodfury Potion_CFM_611
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.DEMON)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET)),
+                        new FlagTask(false, new BuffTask(Buffs.Attack(3), EntityType.TARGET))),
 				},
 			});
 
