@@ -1648,11 +1648,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_751", new List<Enchantment> {
-				// TODO [CFM_751] Abyssal Enforcer && Test: Abyssal Enforcer_CFM_751
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(3, EntityType.ALL_NOSOURCE)
 				},
 			});
 
