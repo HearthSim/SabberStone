@@ -5576,11 +5576,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("NEW1_017", new List<Enchantment> {
-				// TODO [NEW1_017] Hungry Crab && Test: Hungry Crab_NEW1_017
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
 				},
 			});
 
