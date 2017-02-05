@@ -6,6 +6,8 @@ SabberStone is just another Hearthstone simulator and implementation, written in
 By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of ([Brimstone](https://github.com/HearthSim/Brimstone/tree/master/Brimstone)) was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** & **@Katy** for helping on hearthstone super science problems ^^ You're welcome!
 
 
+**State of Implementation: 77% of current Standard Cards!**
+
 ### Project Structure ###
 
 * **SabberStoneCore** *(.NET Core)*
