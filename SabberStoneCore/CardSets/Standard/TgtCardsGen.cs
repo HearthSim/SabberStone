@@ -2935,11 +2935,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_118", new List<Enchantment> {
-				// TODO [AT_118] Grand Crusader && Test: Grand Crusader_AT_118
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomCardTask(CardType.INVALID, CardClass.PALADIN),
+                        new CopyToHand())
 				},
 			});
 

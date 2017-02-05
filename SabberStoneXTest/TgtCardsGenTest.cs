@@ -4035,10 +4035,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void GrandCrusader_AT_118()
 		{
-			// TODO GrandCrusader_AT_118 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4049,8 +4048,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grand Crusader"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grand Crusader"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(CardClass.PALADIN, game.CurrentPlayer.Hand[4].Card.Class);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_119] Kvaldir Raider - COST:5 [ATK:4/HP:4] 

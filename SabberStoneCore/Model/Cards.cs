@@ -167,7 +167,7 @@ namespace SabberStoneCore.Model
 
             }
 
-            Generate.EnchantmentLeftOver(Cards.Values);
+            //Generate.EnchantmentLeftOver(Cards.Values);
         }
 
         public IEnumerator<Card> GetEnumerator()
