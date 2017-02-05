@@ -1855,11 +1855,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_149", new List<Enchantment> {
-				// TODO [OG_149] Ravaging Ghoul && Test: Ravaging Ghoul_OG_149
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE)
 				},
 			});
 
