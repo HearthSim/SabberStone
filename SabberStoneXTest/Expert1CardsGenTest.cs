@@ -4225,10 +4225,9 @@ namespace SabberStoneXTest
 		// PlayReq:
 		// - REQ_MINIMUM_TOTAL_MINIONS = 2
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Brawl_EX1_407()
 		{
-			// TODO Brawl_EX1_407 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4239,8 +4238,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Brawl"));
-		}
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brawl"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count + game.CurrentOpponent.Board.Count);
+        }
 
 		// ---------------------------------------- SPELL - WARRIOR
 		// [EX1_408] Mortal Strike - COST:4 

@@ -148,6 +148,13 @@ namespace SabberStoneCore.Model
                                 return false;
                             }
                             break;
+                        case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
+                            if (Controller.Board.Count + Controller.Opponent.Board.Count < param)
+                            {
+                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need at least {param} minions to play this card.");
+                                return false;
+                            }
+                            break;
                         case PlayReq.REQ_STEADY_SHOT:
                             if (!Controller.Hero.Power.Card.Id.Equals("DS1h_292"))
                             {

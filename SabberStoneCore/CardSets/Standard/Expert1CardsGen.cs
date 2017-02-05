@@ -3456,13 +3456,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_TOTAL_MINIONS = 2
 			// --------------------------------------------------------
 			cards.Add("EX1_407", new List<Enchantment> {
-				// TODO [EX1_407] Brawl && Test: Brawl_EX1_407
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.ALLMINIONS),
+                        new IncludeTask(EntityType.ALLMINIONS, new [] {EntityType.STACK}),
+                        new DestroyTask(EntityType.STACK))
+                },
+            });
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [EX1_408] Mortal Strike - COST:4 
