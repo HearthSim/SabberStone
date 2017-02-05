@@ -5451,13 +5451,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other minion on the battlefield.
 			// --------------------------------------------------------
 			cards.Add("EX1_586", new List<Enchantment> {
-				// TODO [EX1_586] Sea Giant && Test: Sea Giant_EX1_586
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.Board.Count
+                    }
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3] 

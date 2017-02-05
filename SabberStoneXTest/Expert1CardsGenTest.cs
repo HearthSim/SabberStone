@@ -7182,10 +7182,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each other minion on the battlefield.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SeaGiant_EX1_586()
 		{
-			// TODO SeaGiant_EX1_586 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7196,8 +7195,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sea Giant"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sea Giant"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.Equal(10, testCard.Cost);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(9, testCard.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3] 
