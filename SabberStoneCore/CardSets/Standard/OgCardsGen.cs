@@ -1123,11 +1123,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_072", new List<Enchantment> {
-				// TODO [OG_072] Journey Below && Test: Journey Below_OG_072
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DEATHRATTLE)
 				},
 			});
 
