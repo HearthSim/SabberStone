@@ -1525,11 +1525,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_608", new List<Enchantment> {
-				// TODO [CFM_608] Blastcrystal Potion && Test: Blastcrystal Potion_CFM_608
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new ManaCrystalEmptyTask(-1)),
 				},
 			});
 
