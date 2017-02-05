@@ -2291,11 +2291,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_151", new List<Enchantment> {
-				// TODO [OG_151] Tentacle of N'Zoth && Test: Tentacle of N'Zoth_OG_151
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS)
 				},
 			});
 
