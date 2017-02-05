@@ -1480,14 +1480,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 2
 			// - OVERLOAD_OWED = 2
 			// --------------------------------------------------------
-			cards.Add("OG_024", new List<Enchantment> {
-				// TODO [OG_024] Flamewreathed Faceless && Test: Flamewreathed Faceless_OG_024
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_024", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [OG_026] Eternal Sentinel - COST:2 [ATK:3/HP:2] 
@@ -2316,14 +2309,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_152", new List<Enchantment> {
-				// TODO [OG_152] Grotesque Dragonhawk && Test: Grotesque Dragonhawk_OG_152
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_152", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_153] Bog Creeper - COST:7 [ATK:6/HP:8] 
@@ -2334,14 +2320,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_153", new List<Enchantment> {
-				// TODO [OG_153] Bog Creeper && Test: Bog Creeper_OG_153
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_153", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_156] Bilefin Tidehunter - COST:2 [ATK:2/HP:1] 
@@ -2489,14 +2468,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("OG_247", new List<Enchantment> {
-				// TODO [OG_247] Twisted Worgen && Test: Twisted Worgen_OG_247
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_247", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_248] Am'gam Rager - COST:3 [ATK:1/HP:5] 

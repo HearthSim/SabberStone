@@ -3878,14 +3878,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CS1_069", new List<Enchantment> {
-				// TODO [CS1_069] Fen Creeper && Test: Fen Creeper_CS1_069
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("CS1_069", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3] 

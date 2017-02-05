@@ -4559,32 +4559,6 @@ namespace SabberStoneXTest
 	public class NeutralExpert1Test
 	{
 		// --------------------------------------- MINION - NEUTRAL
-		// [CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6] 
-		// - Fac: alliance, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: <b>Taunt</b>
-		// --------------------------------------------------------
-		// GameTag:
-		// - TAUNT = 1
-		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
-		public void FenCreeper_CS1_069()
-		{
-			// TODO FenCreeper_CS1_069 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fen Creeper"));
-		}
-
-		// --------------------------------------- MINION - NEUTRAL
 		// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3] 
 		// - Set: expert1, Rarity: common
 		// --------------------------------------------------------

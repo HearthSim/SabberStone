@@ -186,8 +186,6 @@ OG_123;MINION;Each turn this is in your hand, transform it into a random minion.
 OG_131;MINION;[x]<b><b>Taunt</b>Battlecry:</b> If your C'Thun hasat least 10 Attack, summonanother Emperor.
 OG_134;MINION;<b>Battlecry:</b> Cast a random spell for each spell you've cast this game <i>(targets chosen randomly)</i>.
 OG_138;MINION;At the start of your turn, reduce this card'sCost by (1).
-OG_141;MINION;
-OG_142;MINION;
 OG_147;MINION;<b>Deathrattle:</b> Restore 8 Health to the enemy hero.
 OG_149;MINION;<b>Battlecry:</b> Deal 1 damage to all other minions.
 OG_150;MINION;<b>Enrage:</b> +2 Attack.
@@ -209,7 +207,6 @@ OG_222;WEAPON;<b>Battlecry:</b> Give +1/+1 to your minions with <b>Divine Shield
 OG_223;SPELL;Give a minion +1/+2.
 OG_241;MINION;<b>Deathrattle:</b> Summon a 1/1 Shadowbeast.
 OG_247;MINION;<b>Stealth</b>
-OG_248;MINION;
 OG_249;MINION;<b>Taunt</b><b>Deathrattle:</b> Summon a 2/2 Slime.
 OG_254;MINION;<b>Battlecry:</b> Destroy all enemy <b>Secrets</b>. Gain +1/+1 for each.
 OG_256;MINION;<b>Deathrattle:</b> Give your minions +1/+1.
