@@ -760,11 +760,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_223", new List<Enchantment> {
-				// TODO [OG_223] Divine Strength && Test: Divine Strength_OG_223
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1, 2), EntityType.TARGET)
 				},
 			});
 
