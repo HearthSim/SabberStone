@@ -2259,11 +2259,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_623", new List<Enchantment> {
-				// TODO [EX1_623] Temple Enforcer && Test: Temple Enforcer_EX1_623
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
 				},
 			});
 
