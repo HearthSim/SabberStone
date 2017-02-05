@@ -2246,11 +2246,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_147", new List<Enchantment> {
-				// TODO [OG_147] Corrupted Healbot && Test: Corrupted Healbot_OG_147
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new HealTask(8, EntityType.OP_HERO)
 				},
 			});
 
