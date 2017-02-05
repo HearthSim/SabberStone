@@ -1,0 +1,217 @@
+AT_003;MINION;Your Hero Power deals 1 extra damage.
+AT_008;MINION;You can use your Hero Power any number of times.
+AT_014;MINION;Whenever you draw a card, reduce its Cost by (1).
+AT_016;SPELL;Swap the Attack and Health of all minions.
+AT_021;MINION;Whenever you discard a card, gain +1/+1.
+AT_022;SPELL;When you play or discard this, deal $4 damage to a random enemy. *spelldmg
+AT_027;MINION;Cards you draw from your Hero Power cost (0).
+AT_031;MINION;Whenever this minion attacks a hero, add the Coin to your hand.
+AT_033;SPELL;Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
+AT_034;WEAPON;Your Hero Power gives this weapon +1 Attack instead of replacing it.
+AT_054;MINION;<b>Battlecry:</b> Give all minions in your hand and deck +1/+1.
+AT_067;MINION;Also damages the minions next to whomeverhe attacks.
+AT_078;SPELL;Destroy all minions except each player's highest Attack minion.
+AT_079;MINION;<b>Battlecry:</b> Put one of each <b>Secret</b> from your deck into the battlefield.
+AT_080;MINION;You can use your Hero Power twice a turn.
+AT_111;MINION;<b>Battlecry:</b> Restore 4 Health to each hero.
+AT_115;MINION;<b>Battlecry:</b> The next time you use your Hero Power, it costs (2) less.
+AT_117;MINION;<b>Battlecry:</b> If you have a minion with <b>Spell Damage</b>, gain +2/+2.
+AT_118;MINION;<b>Battlecry:</b> Add a random Paladin card to your hand.
+AT_120;MINION;Costs (1) less for each time you used your Hero Power this game.
+AT_124;MINION;Whenever your hero takes damage, this minion takes it instead.
+BRM_001;SPELL;Draw 2 cards. Costs (1) less for each minion that died this turn.
+BRM_003;SPELL;Deal $4 damage. Costs (1) less for each minion that died this turn. *spelldmg
+BRM_008;MINION;<b>Battlecry:</b> Deal 2 damage to all undamaged enemy minions.
+BRM_009;MINION;<b>Taunt</b>Costs (1) less for each minion that died this turn.
+BRM_012;MINION;<b>Battlecry:</b> Gain 1-4 Attack. <b>Overload:</b> (1)
+BRM_018;MINION;<b>Battlecry:</b> The next Dragon you play costs (2) less.
+BRM_025;MINION;Costs (1) less for each minion that died this turn.
+BRM_028;MINION;At the end of your turn, reduce the Cost of cards in your hand by (1).
+BRM_029;MINION;<b>Battlecry:</b> If you're holding a Dragon, destroy a <b>Legendary</b> minion.
+BRM_030;MINION;<b>Battlecry:</b> Add 2 random spells to your hand <i>(from your opponent's class)</i>.
+BRM_031;MINION;Whenever you draw a card, put another copy into your hand.
+CFM_020;MINION;[x]  <b>Battlecry:</b> If your deck has  no duplicates, your Hero Power costs (0) this game.
+CFM_025;MINION;Whenever this attacks a minion and survives, draw_a card.
+CFM_060;MINION;Whenever  you cast a spell, gain +2 Attack.
+CFM_063;MINION;<b>Battlecry:</b> Swap the Attack and Health of a minion.
+CFM_064;MINION;Whenever you summon a <b>Battlecry</b> minion while this_is in your hand, gain_+1/+1.
+CFM_066;MINION;[x]<b>Battlecry:</b> The next <b>Secret</b>you play this turn costs (0).
+CFM_067;MINION;<b>Battlecry</b>: Restore a minion to full Health.
+CFM_095;MINION;<b>Deathrattle:</b> Shuffle this minion into your opponent's deck.
+CFM_310;SPELL;Summon four 1/1 Murlocs.
+CFM_328;MINION;[x]<b>Battlecry:</b> If you controla minion with 6 or more_Health, draw two cards.
+CFM_603;SPELL;Gain control of an enemy minion with 2 or less Attack until end of turn.
+CFM_609;MINION;At the start of your turn, deal 2 damage to this_minion.
+CFM_611;SPELL;[x]Give a minion +3 Attack.If it's a Demon, alsogive it +3 Health.
+CFM_619;MINION;<b>Battlecry:</b> Add a random Potion to your hand.
+CFM_631;WEAPON;[x]After your hero attacks,give a random minion inyour hand +1/+1.
+CFM_634;MINION;<b>Stealth</b>. Whenever this attacks and kills a minion, gain <b>Stealth</b>.
+CFM_643;MINION;<b>Battlecry:</b> Give all weapons in your hand and deck +1 Attack.
+CFM_652;MINION;[x]<b>Taunt</b>Costs (2) less if youropponent has at leastthree minions.
+CFM_670;MINION;All targets are chosen randomly.
+CFM_672;MINION;<b>Battlecry:</b> Choose a friendly minion. Swap it with a minion in your deck.
+CFM_687;MINION;[x]<b>Battlecry:</b> If your deck hasno duplicates, the nextspell you cast this turncosts (0).
+CFM_688;MINION;<b>Battlecry:</b> If an enemy minion has <b>Taunt</b>, gain_<b>Charge</b>.
+CFM_696;SPELL;Transform all enemy minions into random ones that cost (1) less.
+CFM_697;MINION;[x]After this minion attacksa hero, transform it into a_random 6-Cost minion.
+CFM_699;MINION;[x]<b>Battlecry:</b> The next Murlocyou play this turn costs_Health instead of Mana.
+CFM_716;SPELL;Deal $3 damage to all damaged minions. *spelldmg
+CFM_750;MINION;[x]<b>Battlecry:</b> If your deck hasno duplicates, summon all_Demons from your hand._
+CFM_752;SPELL;Give a random <b>Taunt</b> minion in your hand +3/+3.
+CFM_754;MINION;At the end of your turn, give a random minion in your hand +2/+2.
+CFM_755;MINION;<b>Battlecry:</b> Give a random weapon in your hand +1/+1.
+CFM_756;MINION;[x]<b>Taunt</b>Whenever this miniondeals damage, gainthat much Armor.
+CFM_760;MINION;Costs (2) less for each <b>Secret</b> you've played this_game.
+CFM_781;MINION;[x]<b>Stealth</b>. Whenever thisattacks, add a random cardto your hand <i>(from youropponent's class).</i>
+CFM_800;SPELL;<b>Secret:</b> When a friendly minion dies, return it to your hand.
+CFM_806;MINION;<b>Taunt</b>. <b>Battlecry:</b> Draw cards until you draw one that isn't a Dragon.
+CFM_808;MINION;Whenever this attacks, both players draw until they have 3 cards.
+CFM_809;MINION;[x]<b>Battlecry:</b> If your opponent'shand is empty, gain <b>Charge</b>.
+CFM_810;MINION;<b>Battlecry:</b> If your opponent has 6 or more cards in hand, gain <b>Charge</b>.
+CFM_815;MINION;[x]<b>Divine Shield</b>. <b>Taunt</b>.Damage dealt by this minionalso heals your hero.
+CFM_851;MINION;Whenever your opponent draws a card, gain +1/+1.
+CFM_900;MINION;Whenever you summon a minion, deal 5 damage to_your Hero.
+CS1_129;SPELL;Change a minion's Attack to be equal to its Health.
+CS2_038;SPELL;Give a minion "<b>Deathrattle:</b> Resummon this minion."
+EX1_006;MINION;[x]At the start of your turn,swap this minion with a   random one in your hand.
+EX1_057;MINION;<b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.
+EX1_058;MINION;<b>Battlecry:</b> Give adjacent minions <b>Taunt</b>.
+EX1_059;MINION;<b>Battlecry:</b> Swap the Attack and Health of a minion.
+EX1_076;MINION;The first minion you play each turn costs (1) less.
+EX1_083;MINION;[x]<b>Battlecry:</b> Transformanother random minioninto a 5/5 Devilsaur or a 1/1 Squirrel.
+EX1_091;MINION;<b>Battlecry:</b> Take control of an enemy minion that has 2 or less Attack.
+EX1_093;MINION;<b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
+EX1_100;MINION;Whenever a player casts a spell, put a copy into the other player’s hand.
+EX1_103;MINION;<b>Battlecry:</b> Give your other Murlocs +2 Health.
+EX1_105;MINION;Costs (1) less for each other card in your hand.
+EX1_128;SPELL;Give your minions <b>Stealth</b> until your next_turn.
+EX1_130;SPELL;<b>Secret:</b> When an enemy attacks, summon a 2/1 Defender as the new target.
+EX1_132;SPELL;<b>Secret:</b> When your hero takes damage, deal_that much damage to the enemy hero.
+EX1_137;SPELL;Deal $2 damage to the enemy hero. <b>Combo:</b> Return this to your hand next turn. *spelldmg
+EX1_145;SPELL;The next spell you cast this turn costs (3) less.
+EX1_274;MINION;If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
+EX1_289;SPELL;<b>Secret:</b> When yourhero is attacked,gain 8 Armor.
+EX1_301;MINION;<b>Taunt</b><b>Battlecry:</b> Destroy one of your Mana Crystals.
+EX1_303;SPELL;Destroy a friendly minion and deal its Attack damage to all enemy minions. *spelldmg
+EX1_304;MINION;[x]<b>Battlecry:</b> Destroy bothadjacent minions and gain their Attack and Health.
+EX1_315;MINION;Your minions cost (2) less, but not less than (1).
+EX1_316;SPELL;Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+EX1_317;SPELL;Draw 2 Demonsfrom your deck.
+EX1_320;SPELL;Deal $2 damage to_a character. If that kills it, summon a random Demon. *spelldmg
+EX1_334;SPELL;Gain control of an enemy minion with 3 or less Attack until end of turn.
+EX1_335;MINION;This minion's Attack is always equal to its Health.
+EX1_339;SPELL;Copy 2 cards in your opponent's deck and add them to your hand.
+EX1_341;MINION;At the start of your turn, restore 3 Health to a damaged friendly character.
+EX1_345;SPELL;Put a copy ofa random minion fromyour opponent's deck into the battlefield.
+EX1_349;SPELL;Draw cards until you have as many in hand as your opponent.
+EX1_350;MINION;Double the damage and healing of your spells and Hero Power.
+EX1_355;SPELL;Double a minion's Attack.
+EX1_363;SPELL;Choose a minion. Whenever it attacks, draw a card.
+EX1_391;SPELL;Deal $2 damage to a minion. If it survives, draw a card. *spelldmg
+EX1_392;SPELL;Draw a card for each damaged friendly character.
+EX1_398;MINION;<b>Battlecry:</b> Equip a 2/2_weapon.
+EX1_402;MINION;Whenever a friendly minion_takes damage, gain 1 Armor.
+EX1_407;SPELL;Destroy all minions except one. <i>(chosen randomly)</i>
+EX1_408;SPELL;Deal $4 damage. If you have 12 or less Health, deal $6 instead. *spelldmg
+EX1_410;SPELL;Deal 1 damage to a minion for each Armor you have. *spelldmg
+EX1_411;WEAPON;Attacking a minion costs 1 Attack instead of 1 Durability.
+EX1_557;MINION;At the start of your turn, you have a 50% chance to draw an extra card.
+EX1_558;MINION;<b>Battlecry:</b> Destroy your opponent's weapon and draw cards equal to its Durability.
+EX1_560;MINION;Players only have 15 seconds to take their_turns.
+EX1_562;MINION;<b>Battlecry:</b> Summon 1/1 Whelps until your side of the battlefield is full.
+EX1_564;MINION;<b>Battlecry:</b> Choose a minion and become a copy of it.
+EX1_567;WEAPON;<b>Windfury, Overload:</b> (2)
+EX1_577;MINION;<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.
+EX1_584;MINION;<b>Battlecry:</b> Give adjacent_minions <b>Spell_Damage +1</b>.
+EX1_586;MINION;Costs (1) less for each other minion on the battlefield.
+EX1_590;MINION;<b>Battlecry:</b> All minions lose <b>Divine Shield</b>. Gain +3/+3 for each Shield lost.
+EX1_591;MINION;Your cards and powers that restore Health now deal damage instead.
+EX1_596;SPELL;Deal $2 damage to a minion. If it’s a friendly Demon, give it +2/+2 instead. *spelldmg
+EX1_597;MINION;[x]At the end of your turn, deal1 damage to this minion and summon a 1/1 Imp.
+EX1_603;MINION;<b>Battlecry:</b> Deal 1 damage to a minion and give it +2_Attack.
+EX1_612;MINION;[x]<b>Battlecry:</b> The next <b>Secret</b>you play this turn costs (0).
+EX1_616;MINION;ALL minions cost (1) more.
+EX1_619;SPELL;Change the Health of ALL minions to 1.
+EX1_620;MINION;Costs (1) less for each damage your hero has taken.
+EX1_621;SPELL;Restore #4 Health to ALL_minions.
+EX1_623;MINION;<b>Battlecry:</b> Give a friendly minion +3 Health.
+EX1_624;SPELL;Deal $5 damage. Restore #5 Health to your hero. *spelldmg
+EX1_626;SPELL;<b>Silence</b> all enemy minions. Draw a card.
+KAR_004;SPELL;<b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
+KAR_026;SPELL;For each enemy minion, summon a 1/1 Pawn with <b>Taunt</b>.
+KAR_028;WEAPON;Unlimited attacks each turn. Can't attack heroes.
+KAR_041;MINION;<b>Battlecry:</b> Destroy a minion. <b>Deathrattle:</b> Resummon it.
+KAR_057;MINION;[x]<b>Battlecry:</b> <b>Discover</b> a spell.Restore Health to your heroequal to its Cost.
+KAR_061;MINION;<b>Taunt</b><b>Battlecry:</b> Draw a Beast, Dragon, and Murloc from your deck.
+KAR_070;MINION;[x]<b>Battlecry:</b> If you're holdingany non-Rogue class cards,_reduce their Cost by (2).
+KAR_089;MINION;Whenever you discard a card, draw a card.
+KAR_092;MINION;<b>Battlecry:</b> If you control a <b>Secret</b>, deal 3 damage.
+KAR_095;MINION;<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.
+KAR_096;MINION;[x]When the game starts,add 5 extra <b>Legendary</b>minions to your deck.
+KAR_205;MINION;If you discard this minion, summon it.
+KAR_711;MINION;[x]Costs (1) less for each spellyou've cast this game.
+KAR_712;MINION;During your turn, your hero is <b>Immune</b>.
+LOE_038;MINION;Your cards cost (5).
+LOE_053;MINION;After you cast a spell on another friendly minion, cast a copy of it on this one.
+NEW1_005;MINION;<b>Combo:</b> Return a minion to_its owner's hand.
+NEW1_014;MINION;<b>Battlecry:</b> Give a friendly minion <b>Stealth</b> until your next turn.
+NEW1_024;MINION;<b>Battlecry:</b> Give your weapon +1/+1.
+NEW1_025;MINION;[x]<b>Battlecry:</b> Remove1 Durability from youropponent's weapon.
+NEW1_036;SPELL;Your minions can't be reduced below 1 Health this turn. Draw a card.
+OG_023;SPELL;Give a minion +1/+1 for each of your Totems.
+OG_026;MINION;<b>Battlecry:</b> Unlock your <b>Overloaded</b> Mana Crystals.
+OG_027;SPELL;Transform your minions into random minions that cost (1) more.
+OG_033;WEAPON;<b>Deathrattle:</b> Return this to your hand.
+OG_034;MINION;Can only attack if your hero attacked this turn.
+OG_044;MINION;Your <b>Choose One</b> cards have both effects combined.
+OG_073;SPELL;Draw a card. Add 2 extra copies of it to your hand.
+OG_087;MINION;<b>Battlecry:</b> Cast a random spell that costs (5) or less <i>(targets chosen randomly)</i>.
+OG_096;MINION;<b>Battlecry:</b> If your C'Thun  has at least 10 Attack, restore 10 Health to your hero.
+OG_100;SPELL;Destroy all minions with 2 or less Attack.
+OG_102;MINION;<b>Battlecry:</b> Swap stats with a friendly minion.
+OG_104;SPELL;This turn, your healing effects deal damage instead.
+OG_109;MINION;<b>Battlecry:</b>Discard a random card. <b>Deathrattle:</b>Draw a card.
+OG_113;MINION;After you summon a minion, gain +1 Attack.
+OG_118;SPELL;Replace your Hero Power and Warlock cards with another class's. The cards cost (1) less.
+OG_121;MINION;<b>Battlecry:</b> The next spell you cast this turn costs Health instead of Mana.
+OG_122;MINION;<b>Battlecry:</b> Add 2 Bananas to your hand.
+OG_123;MINION;Each turn this is in your hand, transform it into a random minion.
+OG_131;MINION;[x]<b><b>Taunt</b>Battlecry:</b> If your C'Thun hasat least 10 Attack, summonanother Emperor.
+OG_134;MINION;<b>Battlecry:</b> Cast a random spell for each spell you've cast this game <i>(targets chosen randomly)</i>.
+OG_138;MINION;At the start of your turn, reduce this card'sCost by (1).
+OG_147;MINION;<b>Deathrattle:</b> Restore 8 Health to the enemy hero.
+OG_150;MINION;<b>Enrage:</b> +2 Attack.
+OG_158;MINION;<b>Deathrattle:</b> Give a random friendly minion +1/+1.
+OG_173;MINION;If you control two of theseat the end of your turn, merge them into 'The Ancient One'.
+OG_174;MINION;<b>Taunt</b><b>Battlecry:</b> Copy a friendly minion's Attack and Health.
+OG_200;MINION;At the start of your turn, set this minion's Attack to 7.
+OG_206;SPELL;Deal $4 damage to a minion. <b>Overload:</b> (1) *spelldmg
+OG_209;MINION;Whenever your spells deal damage, restore that much Health to your hero.
+OG_218;MINION;<b>Taunt</b><b>Enrage:</b> +3 Attack.
+OG_220;MINION;<b>Battlecry:</b> Equip a random weapon.
+OG_221;MINION;<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.
+OG_222;WEAPON;<b>Battlecry:</b> Give +1/+1 to your minions with <b>Divine Shield</b>.
+OG_254;MINION;<b>Battlecry:</b> Destroy all enemy <b>Secrets</b>. Gain +1/+1 for each.
+OG_256;MINION;<b>Deathrattle:</b> Give your minions +1/+1.
+OG_271;MINION;At the start of your turn, double this minion's Attack.
+OG_272;MINION;<b>Deathrattle:</b> Summon a 5/5 Faceless Destroyer.
+OG_276;SPELL;Add a copy of each damaged friendly minion to your hand.
+OG_282;MINION;<b>Battlecry:</b> Destroy a minion. Add its Attack and Health to_your C'Thun's <i>(wherever it is).</i>
+OG_290;MINION;At the start of your turn, put a 10-Cost minion from your deck into your hand.
+OG_291;MINION;<b>Battlecry:</b> Choose a friendly minion. Add a 1/1 copy to_your hand that costs_(1).
+OG_295;MINION;<b>Battlecry:</b> For each enemy minion, restore 2 Health to your hero.
+OG_300;MINION;Whenever this attacks and kills a minion, gain +2/+2.
+OG_301;MINION;<b>Battlecry:</b> If your C'Thun has at least 10 Attack, gain 10 Armor.
+OG_302;MINION;Whenever a friendly minion dies, give your C'Thun +1/+1<i>(wherever it is).</i>
+OG_308;MINION;Whenever this attacks and kills a minion, it may attack again.
+OG_310;MINION;Whenever you summon a 1-Health minion, give it <b>Divine Shield</b>.
+OG_311;SPELL;<b>Discover</b> a minion.Give it +1/+1.
+OG_314;SPELL;Deal $1 damage to a minion. If it survives, summon a 2/2 Slime. *spelldmg
+OG_316;MINION;<b>Battlecry:</b> Summon a 1/1 copy of each of your other minions.
+OG_317;MINION;<b>Deathrattle:</b> Put all Dragons from your hand into the battlefield.
+OG_318;MINION;Whenever this minion takes damage, summon a 2/2 Gnoll with <b>Taunt</b>.
+OG_321;MINION;<b>Taunt.</b> Whenever this minion takes damage, give your C'Thun +1/+1 <i>(wherever it is).</i>
+OG_328;MINION;<b>Battlecry:</b> Transform a friendly minion into a random one that costs (1) more.
+OG_330;MINION;<b>Deathrattle:</b> Add a random class card to your hand <i>(from your opponent's class)</i>.
+OG_338;MINION;At the start of your opponent's turn, they have a 50% chance to draw an extra card.
+tt_010;SPELL;<b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.

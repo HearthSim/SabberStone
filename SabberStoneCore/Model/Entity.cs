@@ -265,5 +265,11 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.CARD_TARGET]; }
             set { this[GameTag.CARD_TARGET] = value; }
         }
+
+        public bool HasDeathrattle
+        {
+            get { return this[GameTag.DEATHRATTLE] == 1; }
+            set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
+        }
     }
 }

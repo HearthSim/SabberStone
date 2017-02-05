@@ -506,11 +506,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_309", new List<Enchantment> {
-				// TODO [OG_309] Princess Huhuran && Test: Princess Huhuran_OG_309
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE)
 				},
 			});
 
@@ -761,11 +760,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_223", new List<Enchantment> {
-				// TODO [OG_223] Divine Strength && Test: Divine Strength_OG_223
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1, 2), EntityType.TARGET)
 				},
 			});
 
@@ -1124,11 +1122,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_072", new List<Enchantment> {
-				// TODO [OG_072] Journey Below && Test: Journey Below_OG_072
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DEATHRATTLE)
 				},
 			});
 
@@ -1481,14 +1478,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 2
 			// - OVERLOAD_OWED = 2
 			// --------------------------------------------------------
-			cards.Add("OG_024", new List<Enchantment> {
-				// TODO [OG_024] Flamewreathed Faceless && Test: Flamewreathed Faceless_OG_024
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_024", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [OG_026] Eternal Sentinel - COST:2 [ATK:3/HP:2] 
@@ -1589,16 +1579,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_031", new List<Enchantment> {
-				// TODO [OG_031] Hammer of Twilight && Test: Hammer of Twilight_OG_031
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_031a")
 				},
 			});
 
@@ -1765,11 +1749,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_241", new List<Enchantment> {
-				// TODO [OG_241] Possessed Villager && Test: Possessed Villager_OG_241
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_241a"),
 				},
 			});
 
@@ -1864,11 +1847,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_149", new List<Enchantment> {
-				// TODO [OG_149] Ravaging Ghoul && Test: Ravaging Ghoul_OG_149
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE)
 				},
 			});
 
@@ -1884,13 +1866,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218", new List<Enchantment> {
-				// TODO [OG_218] Bloodhoof Brave && Test: Bloodhoof Brave_OG_218
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [OG_220] Malkorok - COST:7 [ATK:6/HP:5] 
@@ -1981,16 +1962,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_033", new List<Enchantment> {
-				// TODO [OG_033] Tentacles for Arms && Test: Tentacles for Arms_OG_033
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("OG_033", EntityType.HAND),
 				},
 			});
 
@@ -2123,7 +2098,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.HAND))
 				},
 			});
 
@@ -2233,27 +2208,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// [OG_141] Faceless Behemoth - COST:10 [ATK:10/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_141", new List<Enchantment> {
-				// TODO [OG_141] Faceless Behemoth && Test: Faceless Behemoth_OG_141
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_141", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_142] Eldritch Horror - COST:8 [ATK:6/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_142", new List<Enchantment> {
-				// TODO [OG_142] Eldritch Horror && Test: Eldritch Horror_OG_142
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_142", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_145] Psych-o-Tron - COST:5 [ATK:3/HP:4] 
@@ -2278,11 +2239,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_147", new List<Enchantment> {
-				// TODO [OG_147] Corrupted Healbot && Test: Corrupted Healbot_OG_147
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new HealTask(8, EntityType.OP_HERO)
 				},
 			});
 
@@ -2296,13 +2256,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150", new List<Enchantment> {
-				// TODO [OG_150] Aberrant Berserker && Test: Aberrant Berserker_OG_150
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_151] Tentacle of N'Zoth - COST:1 [ATK:1/HP:1] 
@@ -2314,11 +2273,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_151", new List<Enchantment> {
-				// TODO [OG_151] Tentacle of N'Zoth && Test: Tentacle of N'Zoth_OG_151
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS)
 				},
 			});
 
@@ -2331,14 +2289,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_152", new List<Enchantment> {
-				// TODO [OG_152] Grotesque Dragonhawk && Test: Grotesque Dragonhawk_OG_152
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_152", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_153] Bog Creeper - COST:7 [ATK:6/HP:8] 
@@ -2349,14 +2300,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_153", new List<Enchantment> {
-				// TODO [OG_153] Bog Creeper && Test: Bog Creeper_OG_153
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_153", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_156] Bilefin Tidehunter - COST:2 [ATK:2/HP:1] 
@@ -2371,11 +2315,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_156", new List<Enchantment> {
-				// TODO [OG_156] Bilefin Tidehunter && Test: Bilefin Tidehunter_OG_156
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_156a"),
 				},
 			});
 
@@ -2407,11 +2350,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_161", new List<Enchantment> {
-				// TODO [OG_161] Corrupted Seer && Test: Corrupted Seer_OG_161
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsNotRace(Race.MURLOC)),
+                        new DamageTask(2, EntityType.STACK)),
 				},
 			});
 
@@ -2504,27 +2449,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("OG_247", new List<Enchantment> {
-				// TODO [OG_247] Twisted Worgen && Test: Twisted Worgen_OG_247
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_247", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_248] Am'gam Rager - COST:3 [ATK:1/HP:5] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_248", new List<Enchantment> {
-				// TODO [OG_248] Am'gam Rager && Test: Am'gam Rager_OG_248
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_248", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_249] Infested Tauren - COST:4 [ATK:2/HP:3] 
@@ -2538,11 +2469,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_249", new List<Enchantment> {
-				// TODO [OG_249] Infested Tauren && Test: Infested Tauren_OG_249
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_249a")
 				},
 			});
 
@@ -2598,11 +2528,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_256", new List<Enchantment> {
-				// TODO [OG_256] Spawn of N'Zoth && Test: Spawn of N'Zoth_OG_256
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
 				},
 			});
 
@@ -2631,11 +2560,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_272", new List<Enchantment> {
-				// TODO [OG_272] Twilight Summoner && Test: Twilight Summoner_OG_272
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_272t"),
 				},
 			});
 

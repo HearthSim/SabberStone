@@ -1,11 +1,10 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using Xunit;
 
-namespace SabberStoneCoreTest.CardSets
+namespace SabberStoneXTest
 {
-	[TestClass]
 	public class DruidPe1Test
 	{
 		// ------------------------------------------ SPELL - DRUID
@@ -19,7 +18,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Recycle_GVG_031()
 		{
 			// TODO Recycle_GVG_031 test
@@ -42,7 +41,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Restore all characters to full Health.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TreeOfLife_GVG_033()
 		{
 			// TODO TreeOfLife_GVG_033 test
@@ -75,7 +74,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void DarkWispers_GVG_041()
 		{
 			// TODO DarkWispers_GVG_041 test
@@ -103,7 +102,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void AnodizedRoboCub_GVG_030()
 		{
 			// TODO AnodizedRoboCub_GVG_030 test
@@ -129,7 +128,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GroveTender_GVG_032()
 		{
 			// TODO GroveTender_GVG_032 test
@@ -157,7 +156,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPARE_PART = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MechBearCat_GVG_034()
 		{
 			// TODO MechBearCat_GVG_034 test
@@ -184,7 +183,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Malorne_GVG_035()
 		{
 			// TODO Malorne_GVG_035 test
@@ -210,7 +209,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void DruidOfTheFang_GVG_080()
 		{
 			// TODO DruidOfTheFang_GVG_080 test
@@ -229,7 +228,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class HunterPe1Test
 	{
 		// ----------------------------------------- SPELL - HUNTER
@@ -239,7 +238,7 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: Draw a card.
 		//       If it's a Beast, it costs (4) less.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void CallPet_GVG_017()
 		{
 			// TODO CallPet_GVG_017 test
@@ -265,7 +264,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FeignDeath_GVG_026()
 		{
 			// TODO FeignDeath_GVG_026 test
@@ -292,7 +291,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void CobraShot_GVG_073()
 		{
 			// TODO CobraShot_GVG_073 test
@@ -319,7 +318,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void KingOfBeasts_GVG_046()
 		{
 			// TODO KingOfBeasts_GVG_046 test
@@ -345,7 +344,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MetaltoothLeaper_GVG_048()
 		{
 			// TODO MetaltoothLeaper_GVG_048 test
@@ -371,7 +370,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Gahzrilla_GVG_049()
 		{
 			// TODO Gahzrilla_GVG_049 test
@@ -394,7 +393,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Your Hero Power can target minions.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SteamwheedleSniper_GVG_087()
 		{
 			// TODO SteamwheedleSniper_GVG_087 test
@@ -421,7 +420,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - DURABILITY = 2
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Glaivezooka_GVG_043()
 		{
 			// TODO Glaivezooka_GVG_043 test
@@ -440,7 +439,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class MagePe1Test
 	{
 		// ------------------------------------------- SPELL - MAGE
@@ -452,7 +451,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_MINIMUM_ENEMY_MINIONS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Flamecannon_GVG_001()
 		{
 			// TODO Flamecannon_GVG_001 test
@@ -475,7 +474,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Add a random minion to your hand. It costs (3) less.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void UnstablePortal_GVG_003()
 		{
 			// TODO UnstablePortal_GVG_003 test
@@ -498,7 +497,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Put a copy of each friendly minion into your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void EchoOfMedivh_GVG_005()
 		{
 			// TODO EchoOfMedivh_GVG_005 test
@@ -524,7 +523,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Snowchugger_GVG_002()
 		{
 			// TODO Snowchugger_GVG_002 test
@@ -550,7 +549,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GoblinBlastmage_GVG_004()
 		{
 			// TODO GoblinBlastmage_GVG_004 test
@@ -577,7 +576,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - TOPDECK = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FlameLeviathan_GVG_007()
 		{
 			// TODO FlameLeviathan_GVG_007 test
@@ -603,7 +602,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void WeeSpellstopper_GVG_122()
 		{
 			// TODO WeeSpellstopper_GVG_122 test
@@ -629,7 +628,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SootSpewer_GVG_123()
 		{
 			// TODO SootSpewer_GVG_123 test
@@ -648,7 +647,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class PaladinPe1Test
 	{
 		// ---------------------------------------- SPELL - PALADIN
@@ -657,7 +656,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Restore #4 Health to your hero and gain +2 Attack this turn.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SealOfLight_GVG_057()
 		{
 			// TODO SealOfLight_GVG_057 test
@@ -680,7 +679,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MusterForBattle_GVG_061()
 		{
 			// TODO MusterForBattle_GVG_061 test
@@ -706,7 +705,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ShieldedMinibot_GVG_058()
 		{
 			// TODO ShieldedMinibot_GVG_058 test
@@ -732,7 +731,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Quartermaster_GVG_060()
 		{
 			// TODO Quartermaster_GVG_060 test
@@ -758,7 +757,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void CobaltGuardian_GVG_062()
 		{
 			// TODO CobaltGuardian_GVG_062 test
@@ -784,7 +783,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void BolvarFordragon_GVG_063()
 		{
 			// TODO BolvarFordragon_GVG_063 test
@@ -813,7 +812,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ScarletPurifier_GVG_101()
 		{
 			// TODO ScarletPurifier_GVG_101 test
@@ -844,7 +843,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Coghammer_GVG_059()
 		{
 			// TODO Coghammer_GVG_059 test
@@ -863,7 +862,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class PriestPe1Test
 	{
 		// ----------------------------------------- SPELL - PRIEST
@@ -875,7 +874,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AFFECTED_BY_SPELL_POWER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Lightbomb_GVG_008()
 		{
 			// TODO Lightbomb_GVG_008 test
@@ -905,7 +904,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void VelensChosen_GVG_010()
 		{
 			// TODO VelensChosen_GVG_010 test
@@ -931,7 +930,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void LightOfTheNaaru_GVG_012()
 		{
 			// TODO LightOfTheNaaru_GVG_012 test
@@ -957,7 +956,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Shadowbomber_GVG_009()
 		{
 			// TODO Shadowbomber_GVG_009 test
@@ -987,7 +986,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Shrinkmeister_GVG_011()
 		{
 			// TODO Shrinkmeister_GVG_011 test
@@ -1018,7 +1017,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Voljin_GVG_014()
 		{
 			// TODO Voljin_GVG_014 test
@@ -1041,7 +1040,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a character is healed, deal 1 damage to a random enemy.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Shadowboxer_GVG_072()
 		{
 			// TODO Shadowboxer_GVG_072 test
@@ -1073,7 +1072,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_TARGET_WITH_RACE = 17
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void UpgradedRepairBot_GVG_083()
 		{
 			// TODO UpgradedRepairBot_GVG_083 test
@@ -1092,7 +1091,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class RoguePe1Test
 	{
 		// ------------------------------------------ SPELL - ROGUE
@@ -1107,7 +1106,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TinkersSharpswordOil_GVG_022()
 		{
 			// TODO TinkersSharpswordOil_GVG_022 test
@@ -1137,7 +1136,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_ENEMY_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Sabotage_GVG_047()
 		{
 			// TODO Sabotage_GVG_047 test
@@ -1163,7 +1162,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GoblinAutoBarber_GVG_023()
 		{
 			// TODO GoblinAutoBarber_GVG_023 test
@@ -1189,7 +1188,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void OneEyedCheat_GVG_025()
 		{
 			// TODO OneEyedCheat_GVG_025 test
@@ -1212,7 +1211,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, give another friendly Mech +2/+2.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void IronSensei_GVG_027()
 		{
 			// TODO IronSensei_GVG_027 test
@@ -1238,7 +1237,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TradePrinceGallywix_GVG_028()
 		{
 			// TODO TradePrinceGallywix_GVG_028 test
@@ -1266,7 +1265,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - STEALTH = 1
 		// - FORGETFUL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void OgreNinja_GVG_088()
 		{
 			// TODO OgreNinja_GVG_088 test
@@ -1293,7 +1292,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - DURABILITY = 3
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void CogmastersWrench_GVG_024()
 		{
 			// TODO CogmastersWrench_GVG_024 test
@@ -1312,7 +1311,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class ShamanPe1Test
 	{
 		// ----------------------------------------- SPELL - SHAMAN
@@ -1321,7 +1320,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Put a random minion from each player's hand into the battlefield.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void AncestorsCall_GVG_029()
 		{
 			// TODO AncestorsCall_GVG_029 test
@@ -1351,7 +1350,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Crackle_GVG_038()
 		{
 			// TODO Crackle_GVG_038 test
@@ -1377,7 +1376,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - WINDFURY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void WhirlingZapOMatic_GVG_037()
 		{
 			// TODO WhirlingZapOMatic_GVG_037 test
@@ -1400,7 +1399,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, restore 4 Health to your hero.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void VitalityTotem_GVG_039()
 		{
 			// TODO VitalityTotem_GVG_039 test
@@ -1427,7 +1426,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - OVERLOAD = 1
 		// - OVERLOAD_OWED = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SiltfinSpiritwalker_GVG_040()
 		{
 			// TODO SiltfinSpiritwalker_GVG_040 test
@@ -1456,7 +1455,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - BATTLECRY = 1
 		// - OVERLOAD_OWED = 3
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Neptulon_GVG_042()
 		{
 			// TODO Neptulon_GVG_042 test
@@ -1486,7 +1485,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - OVERLOAD_OWED = 1
 		// - FORGETFUL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void DunemaulShaman_GVG_066()
 		{
 			// TODO DunemaulShaman_GVG_066 test
@@ -1513,7 +1512,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - DURABILITY = 2
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Powermace_GVG_036()
 		{
 			// TODO Powermace_GVG_036 test
@@ -1532,7 +1531,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class WarlockPe1Test
 	{
 		// ---------------------------------------- SPELL - WARLOCK
@@ -1544,7 +1543,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Darkbomb_GVG_015()
 		{
 			// TODO Darkbomb_GVG_015 test
@@ -1571,7 +1570,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Demonheart_GVG_019()
 		{
 			// TODO Demonheart_GVG_019 test
@@ -1598,7 +1597,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ImpLosion_GVG_045()
 		{
 			// TODO ImpLosion_GVG_045 test
@@ -1621,7 +1620,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever this minion deals damage, restore that much Health to your hero.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MistressOfPain_GVG_018()
 		{
 			// TODO MistressOfPain_GVG_018 test
@@ -1644,7 +1643,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of your turn, deal 2 damage to a non-Mech minion.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FelCannon_GVG_020()
 		{
 			// TODO FelCannon_GVG_020 test
@@ -1675,7 +1674,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - IMMUNE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Malganis_GVG_021()
 		{
 			// TODO Malganis_GVG_021 test
@@ -1698,7 +1697,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of each turn, destroy this minion if it's your only one.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void AnimaGolem_GVG_077()
 		{
 			// TODO AnimaGolem_GVG_077 test
@@ -1721,7 +1720,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your hero takes damage on your turn, gain +2/+2.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FloatingWatcher_GVG_100()
 		{
 			// TODO FloatingWatcher_GVG_100 test
@@ -1740,7 +1739,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class WarriorPe1Test
 	{
 		// ---------------------------------------- SPELL - WARRIOR
@@ -1752,7 +1751,7 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_MINIMUM_TOTAL_MINIONS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void BouncingBlade_GVG_050()
 		{
 			// TODO BouncingBlade_GVG_050 test
@@ -1779,7 +1778,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Crush_GVG_052()
 		{
 			// TODO Crush_GVG_052 test
@@ -1805,7 +1804,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ENRAGED = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Warbot_GVG_051()
 		{
 			// TODO Warbot_GVG_051 test
@@ -1831,7 +1830,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Shieldmaiden_GVG_053()
 		{
 			// TODO Shieldmaiden_GVG_053 test
@@ -1862,7 +1861,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_TARGET_WITH_RACE = 17
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ScrewjankClunker_GVG_055()
 		{
 			// TODO ScrewjankClunker_GVG_055 test
@@ -1889,7 +1888,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void IronJuggernaut_GVG_056()
 		{
 			// TODO IronJuggernaut_GVG_056 test
@@ -1912,7 +1911,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you gain Armor, give this minion +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SiegeEngine_GVG_086()
 		{
 			// TODO SiegeEngine_GVG_086 test
@@ -1938,7 +1937,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DURABILITY = 2
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void OgreWarmaul_GVG_054()
 		{
 			// TODO OgreWarmaul_GVG_054 test
@@ -1957,7 +1956,7 @@ namespace SabberStoneCoreTest.CardSets
 
 	}
 
-	[TestClass]
+	
 	public class NeutralPe1Test
 	{
 		// --------------------------------------- MINION - NEUTRAL
@@ -1969,7 +1968,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Mechwarper_GVG_006()
 		{
 			// TODO Mechwarper_GVG_006 test
@@ -1995,7 +1994,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Cogmaster_GVG_013()
 		{
 			// TODO Cogmaster_GVG_013 test
@@ -2018,7 +2017,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your opponent plays a card, remove the top 3 cards of your deck.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FelReaver_GVG_016()
 		{
 			// TODO FelReaver_GVG_016 test
@@ -2039,7 +2038,7 @@ namespace SabberStoneCoreTest.CardSets
 		// [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4] 
 		// - Race: mechanical, Set: pe1, Rarity: common
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SpiderTank_GVG_044()
 		{
 			// TODO SpiderTank_GVG_044 test
@@ -2060,7 +2059,7 @@ namespace SabberStoneCoreTest.CardSets
 		// [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2] 
 		// - Race: murloc, Set: pe1, Rarity: common
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Puddlestomper_GVG_064()
 		{
 			// TODO Puddlestomper_GVG_064 test
@@ -2086,7 +2085,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - FORGETFUL = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void OgreBrute_GVG_065()
 		{
 			// TODO OgreBrute_GVG_065 test
@@ -2109,7 +2108,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your opponent casts a spell, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void StonesplinterTrogg_GVG_067()
 		{
 			// TODO StonesplinterTrogg_GVG_067 test
@@ -2132,7 +2131,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your opponent casts a spell, gain +2 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void BurlyRockjawTrogg_GVG_068()
 		{
 			// TODO BurlyRockjawTrogg_GVG_068 test
@@ -2158,7 +2157,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void AntiqueHealbot_GVG_069()
 		{
 			// TODO AntiqueHealbot_GVG_069 test
@@ -2179,7 +2178,7 @@ namespace SabberStoneCoreTest.CardSets
 		// [GVG_070] Salty Dog - COST:5 [ATK:7/HP:4] 
 		// - Race: pirate, Set: pe1, Rarity: common
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SaltyDog_GVG_070()
 		{
 			// TODO SaltyDog_GVG_070 test
@@ -2200,7 +2199,7 @@ namespace SabberStoneCoreTest.CardSets
 		// [GVG_071] Lost Tallstrider - COST:4 [ATK:5/HP:4] 
 		// - Race: beast, Set: pe1, Rarity: common
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void LostTallstrider_GVG_071()
 		{
 			// TODO LostTallstrider_GVG_071 test
@@ -2229,7 +2228,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void KezanMystic_GVG_074()
 		{
 			// TODO KezanMystic_GVG_074 test
@@ -2252,7 +2251,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you summon a Pirate, deal 2 damage to a random enemy.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ShipsCannon_GVG_075()
 		{
 			// TODO ShipsCannon_GVG_075 test
@@ -2278,7 +2277,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ExplosiveSheep_GVG_076()
 		{
 			// TODO ExplosiveSheep_GVG_076 test
@@ -2307,7 +2306,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPARE_PART = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MechanicalYeti_GVG_078()
 		{
 			// TODO MechanicalYeti_GVG_078 test
@@ -2333,7 +2332,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ForceTankMax_GVG_079()
 		{
 			// TODO ForceTankMax_GVG_079 test
@@ -2359,7 +2358,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GilblinStalker_GVG_081()
 		{
 			// TODO GilblinStalker_GVG_081 test
@@ -2388,7 +2387,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPARE_PART = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ClockworkGnome_GVG_082()
 		{
 			// TODO ClockworkGnome_GVG_082 test
@@ -2414,7 +2413,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - WINDFURY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FlyingMachine_GVG_084()
 		{
 			// TODO FlyingMachine_GVG_084 test
@@ -2442,7 +2441,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void AnnoyOTron_GVG_085()
 		{
 			// TODO AnnoyOTron_GVG_085 test
@@ -2468,7 +2467,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Illuminator_GVG_089()
 		{
 			// TODO Illuminator_GVG_089 test
@@ -2494,7 +2493,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MadderBomber_GVG_090()
 		{
 			// TODO MadderBomber_GVG_090 test
@@ -2523,7 +2522,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - CANT_BE_TARGETED_BY_ABILITIES = 1
 		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ArcaneNullifierX21_GVG_091()
 		{
 			// TODO ArcaneNullifierX21_GVG_091 test
@@ -2549,7 +2548,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GnomishExperimenter_GVG_092()
 		{
 			// TODO GnomishExperimenter_GVG_092 test
@@ -2575,7 +2574,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TargetDummy_GVG_093()
 		{
 			// TODO TargetDummy_GVG_093 test
@@ -2598,7 +2597,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the end of each player's turn, that player draws until they have 3 cards.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Jeeves_GVG_094()
 		{
 			// TODO Jeeves_GVG_094 test
@@ -2624,7 +2623,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GoblinSapper_GVG_095()
 		{
 			// TODO GoblinSapper_GVG_095 test
@@ -2650,7 +2649,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void PilotedShredder_GVG_096()
 		{
 			// TODO PilotedShredder_GVG_096 test
@@ -2681,7 +2680,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void LilExorcist_GVG_097()
 		{
 			// TODO LilExorcist_GVG_097 test
@@ -2709,7 +2708,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - CHARGE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void GnomereganInfantry_GVG_098()
 		{
 			// TODO GnomereganInfantry_GVG_098 test
@@ -2735,7 +2734,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void BombLobber_GVG_099()
 		{
 			// TODO BombLobber_GVG_099 test
@@ -2764,7 +2763,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPARE_PART = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TinkertownTechnician_GVG_102()
 		{
 			// TODO TinkertownTechnician_GVG_102 test
@@ -2787,7 +2786,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: At the start of each turn, gain +1 Attack.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MicroMachine_GVG_103()
 		{
 			// TODO MicroMachine_GVG_103 test
@@ -2810,7 +2809,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you play a 1-Attack minion, give it +2/+2.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Hobgoblin_GVG_104()
 		{
 			// TODO Hobgoblin_GVG_104 test
@@ -2836,7 +2835,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void PilotedSkyGolem_GVG_105()
 		{
 			// TODO PilotedSkyGolem_GVG_105 test
@@ -2859,7 +2858,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever a friendly Mech dies, gain +2/+2.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Junkbot_GVG_106()
 		{
 			// TODO Junkbot_GVG_106 test
@@ -2891,7 +2890,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void EnhanceOMechano_GVG_107()
 		{
 			// TODO EnhanceOMechano_GVG_107 test
@@ -2922,7 +2921,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Recombobulator_GVG_108()
 		{
 			// TODO Recombobulator_GVG_108 test
@@ -2950,7 +2949,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - STEALTH = 1
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MiniMage_GVG_109()
 		{
 			// TODO MiniMage_GVG_109 test
@@ -2977,7 +2976,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void DrBoom_GVG_110()
 		{
 			// TODO DrBoom_GVG_110 test
@@ -3003,7 +3002,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MimironsHead_GVG_111()
 		{
 			// TODO MimironsHead_GVG_111 test
@@ -3029,7 +3028,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MogorTheOgre_GVG_112()
 		{
 			// TODO MogorTheOgre_GVG_112 test
@@ -3055,7 +3054,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void FoeReaper4000_GVG_113()
 		{
 			// TODO FoeReaper4000_GVG_113 test
@@ -3082,7 +3081,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void SneedsOldShredder_GVG_114()
 		{
 			// TODO SneedsOldShredder_GVG_114 test
@@ -3113,7 +3112,7 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPARE_PART = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Toshley_GVG_115()
 		{
 			// TODO Toshley_GVG_115 test
@@ -3139,7 +3138,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void MekgineerThermaplugg_GVG_116()
 		{
 			// TODO MekgineerThermaplugg_GVG_116 test
@@ -3165,7 +3164,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Gazlowe_GVG_117()
 		{
 			// TODO Gazlowe_GVG_117 test
@@ -3191,7 +3190,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void TroggzorTheEarthinator_GVG_118()
 		{
 			// TODO TroggzorTheEarthinator_GVG_118 test
@@ -3218,7 +3217,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void Blingtron3000_GVG_119()
 		{
 			// TODO Blingtron3000_GVG_119 test
@@ -3249,7 +3248,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_TARGET_WITH_RACE = 20
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void HemetNesingwary_GVG_120()
 		{
 			// TODO HemetNesingwary_GVG_120 test
@@ -3272,7 +3271,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each card in your opponent's hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact(Skip="NotImplemented")]
 		public void ClockworkGiant_GVG_121()
 		{
 			// TODO ClockworkGiant_GVG_121 test

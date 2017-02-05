@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
@@ -31,6 +32,11 @@ namespace SabberStoneCore.Model
             if (Weapon == null)
             {
                 return;
+            }
+
+            if (Weapon.HasDeathrattle)
+            {
+                Weapon.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
             }
             Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
             Controller.Graveyard.Add(Weapon);

@@ -153,6 +153,7 @@ namespace SabberStoneCore.Model
 
             // Add enchantments
             //Generate.CardSetFile(Cards.Values);
+
             foreach (var c in Cards.Values)
             {
                 List<Enchantment> list;
@@ -166,6 +167,7 @@ namespace SabberStoneCore.Model
 
             }
 
+            Generate.EnchantmentLeftOver(Cards.Values);
         }
 
         public IEnumerator<Card> GetEnumerator()

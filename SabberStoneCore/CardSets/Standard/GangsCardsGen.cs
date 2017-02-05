@@ -1296,11 +1296,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_310", new List<Enchantment> {
-				// TODO [CFM_310] Call in the Finishers && Test: Call in the Finishers_CFM_310
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(4, new SummonTask("CFM_310t")),
 				},
 			});
 
@@ -1525,11 +1524,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_608", new List<Enchantment> {
-				// TODO [CFM_608] Blastcrystal Potion && Test: Blastcrystal Potion_CFM_608
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new ManaCrystalEmptyTask(-1)),
 				},
 			});
 
@@ -1648,11 +1648,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_751", new List<Enchantment> {
-				// TODO [CFM_751] Abyssal Enforcer && Test: Abyssal Enforcer_CFM_751
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(3, EntityType.ALL_NOSOURCE)
 				},
 			});
 
@@ -1961,11 +1960,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_067", new List<Enchantment> {
-				// TODO [CFM_067] Hozen Healer && Test: Hozen Healer_CFM_067
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new HealFullTask(EntityType.TARGET)
 				},
 			});
 
@@ -1979,11 +1977,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_095", new List<Enchantment> {
-				// TODO [CFM_095] Weasel Tunneler && Test: Weasel Tunneler_CFM_095
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("CFM_095",EntityType.OP_DECK)
 				},
 			});
 

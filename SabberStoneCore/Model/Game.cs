@@ -391,7 +391,7 @@ namespace SabberStoneCore.Model
                 p.Zone.Remove(p);
                 if (p.HasDeathrattle)
                 {
-                    p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, SabberStoneCore.Enums.Zone.GRAVEYARD);
+                    p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
                 }
                 p.Controller.Graveyard.Add(p);
                 CurrentPlayer.NumMinionsPlayerKilledThisTurn++;

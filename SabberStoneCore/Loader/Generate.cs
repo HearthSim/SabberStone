@@ -269,6 +269,11 @@ namespace SabberStoneCore.Loader
             return str.ToString();
         }
 
+        internal static void EnchantmentLeftOver(Card c)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string AddCardCode(Card card)
         {
             var str = new StringBuilder();
@@ -415,6 +420,38 @@ namespace SabberStoneCore.Loader
             }
             str.AppendLine("\t}");
             return str.ToString();
+        }
+
+        public static void EnchantmentLeftOver(Dictionary<string, Card>.ValueCollection cardsValues)
+        {
+            var str = new StringBuilder();
+            foreach (var card in cardsValues)
+            {
+                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) || card.Implemented)
+                    continue;
+
+                str.AppendLine($"{card.Id};{card.Type};{RemoveLineEndings(card.Text)}");
+            }
+
+
+            var path = Path + @"SabberStone\SabberStoneCore\Loader\Generated\Statistics\";
+            var file = path + "echantmentsleft.csv";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            Console.WriteLine($"Writing cardset class: {file}.");
+            File.WriteAllText(file, str.ToString());
+        }
+
+        public static string RemoveLineEndings(string value)
+        {
+            if (String.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+            string lineSeparator = ((char)0x2028).ToString();
+            string paragraphSeparator = ((char)0x2029).ToString();
+
+            return value.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(lineSeparator, string.Empty).Replace(paragraphSeparator, string.Empty);
         }
     }
 }

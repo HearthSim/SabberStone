@@ -3883,14 +3883,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CS1_069", new List<Enchantment> {
-				// TODO [CS1_069] Fen Creeper && Test: Fen Creeper_CS1_069
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("CS1_069", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3] 
@@ -5588,11 +5581,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("NEW1_017", new List<Enchantment> {
-				// TODO [NEW1_017] Hungry Crab && Test: Hungry Crab_NEW1_017
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
 				},
 			});
 
