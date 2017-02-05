@@ -2969,13 +2969,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each time you used your Hero Power this game.
 			// --------------------------------------------------------
 			cards.Add("AT_120", new List<Enchantment> {
-				// TODO [AT_120] Frost Giant && Test: Frost Giant_AT_120
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.NumTimesHeroPowerUsedThisGame
+                    }
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_121] Crowd Favorite - COST:4 [ATK:4/HP:4] 

@@ -1069,11 +1069,23 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("KAR_711", new List<Enchantment> {
 				// TODO [KAR_711] Arcane Giant && Test: Arcane Giant_KAR_711
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        //ValueFunc = owner => -owner.Controller.NumSpellPlayerCastThisGame
+                    }
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 

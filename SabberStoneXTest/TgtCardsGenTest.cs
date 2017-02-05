@@ -4087,10 +4087,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each time you used your Hero Power this game.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void FrostGiant_AT_120()
 		{
-			// TODO FrostGiant_AT_120 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4101,8 +4100,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Frost Giant"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Frost Giant"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(10, testCard.Cost);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.Equal(9, testCard.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [AT_121] Crowd Favorite - COST:4 [ATK:4/HP:4] 
