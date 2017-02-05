@@ -746,10 +746,9 @@ namespace SabberStoneXTest
         // --------------------------------------------------------
         // Text: Costs (1) less for each minion that died this turn.
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void VolcanicDrake_BRM_025()
         {
-            // TODO VolcanicDrake_BRM_025 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -760,7 +759,16 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Volcanic Drake"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Volcanic Drake"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, testCard.Enchants.Count);
+            Assert.Equal(6, testCard.Cost);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.Equal(5, testCard.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(6, testCard.Cost);
         }
 
         // --------------------------------------- MINION - NEUTRAL

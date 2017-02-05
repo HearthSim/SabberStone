@@ -660,12 +660,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_025", new List<Enchantment> {
-				// TODO [BRM_025] Volcanic Drake && Test: Volcanic Drake_BRM_025
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				{
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
+                                               owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn)
+                    }
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
