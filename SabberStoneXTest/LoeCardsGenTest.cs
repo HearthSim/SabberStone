@@ -1085,10 +1085,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void NagaSeaWitch_LOE_038()
 		{
-			// TODO NagaSeaWitch_LOE_038 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1099,8 +1098,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Naga Sea Witch"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Naga Sea Witch"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(5, game.CurrentPlayer.Hand[0].Cost);
+            Assert.Equal(5, game.CurrentPlayer.Hand[1].Cost);
+            Assert.Equal(5, game.CurrentPlayer.Hand[2].Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [LOE_039] Gorillabot A-3 - COST:4 [ATK:3/HP:4] 

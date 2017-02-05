@@ -817,12 +817,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_038", new List<Enchantment> {
-				// TODO [LOE_038] Naga Sea Witch && Test: Naga Sea Witch_LOE_038
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        FixedValueFunc = owner => 5
+                    }
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

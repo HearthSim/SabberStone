@@ -371,7 +371,7 @@ namespace SabberStoneCore.CardSets.Standard
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
-                            [GameTag.COST] = 1
+                            [GameTag.COST] = 0
                         },
                         FixedValueFunc = owner => 1
                     }
