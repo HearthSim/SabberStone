@@ -2092,11 +2092,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Restore #4 Health to ALL_minions.
 			// --------------------------------------------------------
 			cards.Add("EX1_621", new List<Enchantment> {
-				// TODO [EX1_621] Circle of Healing && Test: Circle of Healing_EX1_621
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new HealTask(4,EntityType.ALLMINIONS)
 				},
 			});
 
