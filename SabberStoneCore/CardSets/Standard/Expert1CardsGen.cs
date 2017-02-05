@@ -5232,11 +5232,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_558", new List<Enchantment> {
-				// TODO [EX1_558] Harrison Jones && Test: Harrison Jones_EX1_558
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
+                        new DestroyTask(EntityType.OP_WEAPON),
+                        new EnqueueNumberTask(new DrawTask()))
 				},
 			});
 

@@ -6896,22 +6896,27 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void HarrisonJones_EX1_558()
 		{
-			// TODO HarrisonJones_EX1_558 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Harrison Jones"));
-		}
+            var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, weapon));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Harrison Jones"));
+            Assert.Equal(7, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(8, game.CurrentPlayer.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8] 

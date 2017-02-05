@@ -1916,10 +1916,15 @@ namespace SabberStoneXTest
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-            Assert.Equal(22, game.CurrentOpponent.Hero.Health);
-            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acidic Swamp Ooze"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion));
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+            //game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            //game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            //Assert.Equal(22, game.CurrentOpponent.Hero.Health);
+            //Assert.Equal(1, game.CurrentPlayer.Board.Count);
         }
 
 	}
