@@ -1713,13 +1713,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After you summon a minion, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_113", new List<Enchantment> {
-				// TODO [OG_113] Darkshire Councilman && Test: Darkshire Councilman_OG_113
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [OG_121] Cho'gall - COST:7 [ATK:7/HP:7] 

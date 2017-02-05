@@ -2069,10 +2069,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: After you summon a minion, gain +1 Attack.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void DarkshireCouncilman_OG_113()
 		{
-			// TODO DarkshireCouncilman_OG_113 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2083,8 +2082,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Darkshire Councilman"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Darkshire Councilman"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(1, ((Minion)testCard).AttackDamage);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(2, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [OG_121] Cho'gall - COST:7 [ATK:7/HP:7] 
