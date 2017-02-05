@@ -54,21 +54,29 @@ namespace SabberStoneXTest
         // GameTag:
         // - TAUNT = 1
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void VolcanicLumberer_BRM_009()
         {
-            // TODO VolcanicLumberer_BRM_009 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.DRUID,
+                Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Volcanic Lumberer"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Volcanic Lumberer"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, testCard.Enchants.Count);
+            Assert.Equal(9, testCard.Cost);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.Equal(8, testCard.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(9, testCard.Cost);
         }
 
         // ----------------------------------------- MINION - DRUID

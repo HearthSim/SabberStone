@@ -394,6 +394,8 @@ namespace SabberStoneCore.Model
                     p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
                 }
                 p.Controller.Graveyard.Add(p);
+
+                p.Controller.NumFriendlyMinionsThatDiedThisTurn++;
                 CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
             });
 

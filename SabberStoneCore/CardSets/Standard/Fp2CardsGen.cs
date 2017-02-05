@@ -69,12 +69,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_009", new List<Enchantment> {
-                // TODO [BRM_009] Volcanic Lumberer && Test: Volcanic Lumberer_BRM_009
                 new Enchantment
-                (
-                //Activation = null,
-                //SingleTask = null,
-                )
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
+                                               owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn)
+                    }
+                }
             });
 
 			// ----------------------------------------- MINION - DRUID
