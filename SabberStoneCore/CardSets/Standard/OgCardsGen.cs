@@ -1755,11 +1755,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_241", new List<Enchantment> {
-				// TODO [OG_241] Possessed Villager && Test: Possessed Villager_OG_241
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_241a"),
 				},
 			});
 
