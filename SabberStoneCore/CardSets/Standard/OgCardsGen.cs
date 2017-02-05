@@ -2099,7 +2099,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.HAND))
 				},
 			});
 
