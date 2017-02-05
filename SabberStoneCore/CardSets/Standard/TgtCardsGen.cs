@@ -2973,18 +2973,8 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.HAND,
-                    Enchant = new Enchant
-                    {
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsInHandZone
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.COST] = 0
-                        },
-                        ValueFunc = owner => -owner.Controller.NumTimesHeroPowerUsedThisGame
-                    }
+                    Enchant = Auras.CostFunc(
+                        owner => -owner.Controller.NumTimesHeroPowerUsedThisGame)
                 }
             });
 

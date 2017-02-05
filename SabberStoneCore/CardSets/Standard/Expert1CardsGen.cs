@@ -4898,18 +4898,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.HAND,
-                    Enchant = new Enchant
-                    {
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsInHandZone
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.COST] = 0
-                        },
-                        ValueFunc = owner => -(owner.Controller.Hand.Count - 1)
-                    }
+                    Enchant = Auras.CostFunc(
+                        owner => -(owner.Controller.Hand.Count - 1))
                 }
 			});
 
@@ -5455,18 +5445,8 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.HAND,
-                    Enchant = new Enchant
-                    {
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsInHandZone
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.COST] = 0
-                        },
-                        ValueFunc = owner => -owner.Controller.Board.Count
-                    }
+                    Enchant = Auras.CostFunc(
+                        owner => -owner.Controller.Board.Count)
                 }
             });
 
@@ -5581,18 +5561,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.HAND,
-                    Enchant = new Enchant
-                    {
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsInHandZone
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.COST] = 0
-                        },
-                        ValueFunc = owner => -owner.Controller.Hero.Damage
-                    }
+                    Enchant = Auras.CostFunc(
+                        owner => -owner.Controller.Hero.Damage)
                 }
 			});
 
