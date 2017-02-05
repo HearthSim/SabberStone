@@ -7330,22 +7330,30 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ManaWraith_EX1_616()
 		{
-			// TODO ManaWraith_EX1_616 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Fireball"),
+                },
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
+                Shuffle = false,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Wraith"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mana Wraith"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(2, game.CurrentPlayer.Hand[0].Cost);
+            Assert.Equal(4, game.CurrentPlayer.Hand[1].Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_620] Molten Giant - COST:25 [ATK:8/HP:8] 

@@ -100,6 +100,12 @@ namespace SabberStoneCore.Enchants
                     Enchant?.Activate(source.Card.Id, controller.Opponent.Hand.Enchants, source);
                     Trigger?.Activate(source.Card.Id, controller.Opponent.Hand.Triggers, source);
                     break;
+                case EnchantmentArea.HANDS:
+                    Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
+                    Enchant?.Activate(source.Card.Id, controller.Opponent.Hand.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Opponent.Hand.Triggers, source);
+                    break;
                 case EnchantmentArea.HAND_AND_BOARD:
                     Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
                     Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);

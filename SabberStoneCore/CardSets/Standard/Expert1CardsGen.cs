@@ -5540,12 +5540,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_616", new List<Enchantment> {
-				// TODO [EX1_616] Mana Wraith && Test: Mana Wraith_EX1_616
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HANDS,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = Auras.Cost(1, RelaCondition.IsOther(SelfCondition.IsMinion))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
