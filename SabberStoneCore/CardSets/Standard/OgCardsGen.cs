@@ -2368,11 +2368,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_161", new List<Enchantment> {
-				// TODO [OG_161] Corrupted Seer && Test: Corrupted Seer_OG_161
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsNotRace(Race.MURLOC)),
+                        new DamageTask(2, EntityType.STACK)),
 				},
 			});
 
