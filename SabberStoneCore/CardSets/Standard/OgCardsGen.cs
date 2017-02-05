@@ -1963,16 +1963,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_033", new List<Enchantment> {
-				// TODO [OG_033] Tentacles for Arms && Test: Tentacles for Arms_OG_033
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("OG_033", EntityType.HAND),
 				},
 			});
 
