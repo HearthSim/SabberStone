@@ -1866,13 +1866,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218", new List<Enchantment> {
-				// TODO [OG_218] Bloodhoof Brave && Test: Bloodhoof Brave_OG_218
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [OG_220] Malkorok - COST:7 [ATK:6/HP:5] 
@@ -2257,13 +2256,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150", new List<Enchantment> {
-				// TODO [OG_150] Aberrant Berserker && Test: Aberrant Berserker_OG_150
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_151] Tentacle of N'Zoth - COST:1 [ATK:1/HP:1] 
