@@ -1960,11 +1960,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_067", new List<Enchantment> {
-				// TODO [CFM_067] Hozen Healer && Test: Hozen Healer_CFM_067
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new HealFullTask(EntityType.TARGET)
 				},
 			});
 
