@@ -6347,10 +6347,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each other card in your hand.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void MountainGiant_EX1_105()
 		{
-			// TODO MountainGiant_EX1_105 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6361,8 +6360,10 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mountain Giant"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mountain Giant"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(8, testCard.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5] 

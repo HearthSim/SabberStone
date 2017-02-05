@@ -4894,12 +4894,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other card in your hand.
 			// --------------------------------------------------------
 			cards.Add("EX1_105", new List<Enchantment> {
-				// TODO [EX1_105] Mountain Giant && Test: Mountain Giant_EX1_105
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				{
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -(owner.Controller.Hand.Count - 1)
+                    }
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
