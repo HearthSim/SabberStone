@@ -813,10 +813,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ProtectTheKing_KAR_026()
 		{
-			// TODO ProtectTheKing_KAR_026 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -827,8 +826,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Protect the King!"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Protect the King!"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2= Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- SPELL - WARRIOR
 		// [KAR_091] Ironforge Portal - COST:5 

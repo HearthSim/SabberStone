@@ -640,11 +640,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_026", new List<Enchantment> {
-				// TODO [KAR_026] Protect the King! && Test: Protect the King!_KAR_026
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.OP_MINIONS),
+                        new EnqueueNumberTask(new SummonTask("KAR_026t")))
 				},
 			});
 
