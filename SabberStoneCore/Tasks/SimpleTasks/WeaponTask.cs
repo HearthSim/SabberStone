@@ -4,39 +4,32 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum WeaponTaskType
-    {
-        EQUIP,
-        DESTROY
-    }
-
     public class WeaponTask : SimpleTask
     {
-        public WeaponTask(WeaponTaskType taskType, string cardId = "")
+        public WeaponTask(string cardId = "")
         {
-            TaskType = taskType;
             CardId = cardId;
         }
 
-        public WeaponTaskType TaskType { get; set; }
         public string CardId { get; set; }
 
         public override TaskState Process()
         {
-            if (TaskType == WeaponTaskType.EQUIP && CardId != null)
-            {
-                var card = Cards.FromId(CardId);
-                var weapon = Entity.FromCard(Controller, card) as Weapon;
-                Generic.PlayWeapon.Invoke(Controller, weapon);
 
-                return TaskState.COMPLETE;
+            if (CardId == null)
+            {
+                return TaskState.STOP;
             }
-            throw new NotImplementedException();
+
+            var card = Cards.FromId(CardId);
+            var weapon = Entity.FromCard(Controller, card) as Weapon;
+            Generic.PlayWeapon.Invoke(Controller, weapon);
+            return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new WeaponTask(TaskType, CardId);
+            var clone = new WeaponTask(CardId);
             clone.Copy(this);
             return clone;
         }

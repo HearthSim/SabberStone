@@ -1874,7 +1874,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "EX1_383t")
+                    SingleTask = new WeaponTask("EX1_383t")
                 },
             });
 
@@ -3572,11 +3572,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_398", new List<Enchantment> {
-				// TODO [EX1_398] Arathi Weaponsmith && Test: Arathi Weaponsmith_EX1_398
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new WeaponTask("EX1_398t")
 				},
 			});
 

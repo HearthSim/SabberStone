@@ -132,7 +132,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "AT_132_ROGUEt")
+                    SingleTask = new WeaponTask("AT_132_ROGUEt")
                 }
             });
 

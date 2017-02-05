@@ -199,7 +199,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "CS2_082")
+                    SingleTask = new WeaponTask("CS2_082")
                 }
             });
 

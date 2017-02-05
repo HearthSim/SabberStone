@@ -987,7 +987,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new WeaponTask(WeaponTaskType.EQUIP, "KAR_097t")
+					SingleTask = new WeaponTask("KAR_097t")
 				},
 			});
 
