@@ -1286,12 +1286,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_330", new List<Enchantment> {
-				// TODO [OG_330] Undercity Huckster && Test: Undercity Huckster_OG_330
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
+                    SingleTask = ComplexTask.Create(
+                        new RandomCardTask(EntityType.OP_HERO),
+                        new CopyToHand()),
+                },
 			});
 
 		}

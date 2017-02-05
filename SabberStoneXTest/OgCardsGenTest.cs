@@ -1630,22 +1630,28 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void UndercityHuckster_OG_330()
 		{
-			// TODO UndercityHuckster_OG_330 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Undercity Huckster"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Undercity Huckster"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.Equal(4, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.Equal(CardClass.MAGE, game.CurrentOpponent.Hand[4].Card.Class);
+        }
 
 	}
 
