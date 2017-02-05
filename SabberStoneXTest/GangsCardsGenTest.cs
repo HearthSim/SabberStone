@@ -3265,10 +3265,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SecondRateBruiser_CFM_652()
 		{
-			// TODO SecondRateBruiser_CFM_652 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3279,8 +3278,18 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Second-Rate Bruiser"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Second-Rate Bruiser"));
+            Assert.Equal(1, testCard.Enchants.Count);
+            Assert.Equal(5, testCard.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.Equal(3, testCard.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_653] Hired Gun - COST:3 [ATK:4/HP:3] 

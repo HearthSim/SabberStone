@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
@@ -173,6 +174,8 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+
+
         public static Enchant CostTurn(int amount, params RelaCondition[] list)
         {
             var relaConditions = new List<RelaCondition>();
@@ -190,6 +193,25 @@ namespace SabberStoneCore.Enchants
                 {
                     [GameTag.COST] = amount
                 }
+            };
+        }
+
+        public static Enchant CostFunc(Func<IPlayable, int> function, params RelaCondition[] list)
+        {
+            var relaConditions = new List<RelaCondition>();
+            relaConditions.AddRange(list);
+            return new Enchant
+            {
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsInHandZone
+                },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.COST] = 0
+                },
+                ApplyConditions = relaConditions,
+                ValueFunc = function
             };
         }
 

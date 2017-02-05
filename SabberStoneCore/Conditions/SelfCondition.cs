@@ -105,6 +105,10 @@ namespace SabberStoneCore.Conditions
                                     || relaSign == RelaSign.GEQ && me.Controller.Board.Count >= value
                                     || relaSign == RelaSign.LEQ && me.Controller.Board.Count <= value);
 
+        public static SelfCondition IsOpBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
+            => new SelfCondition(me => relaSign == RelaSign.EQ && me.Controller.Opponent.Board.Count == value
+                                    || relaSign == RelaSign.GEQ && me.Controller.Opponent.Board.Count >= value
+                                    || relaSign == RelaSign.LEQ && me.Controller.Opponent.Board.Count <= value);
 
         public static SelfCondition IsLethalPreDamaged 
             => new SelfCondition(me => 

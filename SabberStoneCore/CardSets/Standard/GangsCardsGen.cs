@@ -2320,13 +2320,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_652", new List<Enchantment> {
-				// TODO [CFM_652] Second-Rate Bruiser && Test: Second-Rate Bruiser_CFM_652
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = Auras.CostFunc(
+                        owner => -2, RelaCondition.IsMe(SelfCondition.IsOpBoardCount(3, RelaSign.GEQ)))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_653] Hired Gun - COST:3 [ATK:4/HP:3] 
