@@ -2145,11 +2145,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SILENCE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_626", new List<Enchantment> {
-				// TODO [EX1_626] Mass Dispel && Test: Mass Dispel_EX1_626
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SilenceTask(EntityType.OP_MINIONS),
+                        new DrawTask())
 				},
 			});
 

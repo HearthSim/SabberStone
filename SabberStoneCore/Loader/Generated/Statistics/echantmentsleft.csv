@@ -13,7 +13,6 @@ AT_067;MINION;Also damages the minions next to whomeverhe attacks.
 AT_078;SPELL;Destroy all minions except each player's highest Attack minion.
 AT_079;MINION;<b>Battlecry:</b> Put one of each <b>Secret</b> from your deck into the battlefield.
 AT_080;MINION;You can use your Hero Power twice a turn.
-AT_111;MINION;<b>Battlecry:</b> Restore 4 Health to each hero.
 AT_115;MINION;<b>Battlecry:</b> The next time you use your Hero Power, it costs (2) less.
 AT_117;MINION;<b>Battlecry:</b> If you have a minion with <b>Spell Damage</b>, gain +2/+2.
 AT_118;MINION;<b>Battlecry:</b> Add a random Paladin card to your hand.
@@ -36,9 +35,6 @@ CFM_060;MINION;Whenever  you cast a spell, gain +2 Attack.
 CFM_063;MINION;<b>Battlecry:</b> Swap the Attack and Health of a minion.
 CFM_064;MINION;Whenever you summon a <b>Battlecry</b> minion while this_is in your hand, gain_+1/+1.
 CFM_066;MINION;[x]<b>Battlecry:</b> The next <b>Secret</b>you play this turn costs (0).
-CFM_067;MINION;<b>Battlecry</b>: Restore a minion to full Health.
-CFM_095;MINION;<b>Deathrattle:</b> Shuffle this minion into your opponent's deck.
-CFM_310;SPELL;Summon four 1/1 Murlocs.
 CFM_328;MINION;[x]<b>Battlecry:</b> If you controla minion with 6 or more_Health, draw two cards.
 CFM_603;SPELL;Gain control of an enemy minion with 2 or less Attack until end of turn.
 CFM_609;MINION;At the start of your turn, deal 2 damage to this_minion.
@@ -161,7 +157,6 @@ NEW1_036;SPELL;Your minions can't be reduced below 1 Health this turn. Draw a ca
 OG_023;SPELL;Give a minion +1/+1 for each of your Totems.
 OG_026;MINION;<b>Battlecry:</b> Unlock your <b>Overloaded</b> Mana Crystals.
 OG_027;SPELL;Transform your minions into random minions that cost (1) more.
-OG_033;WEAPON;<b>Deathrattle:</b> Return this to your hand.
 OG_034;MINION;Can only attack if your hero attacked this turn.
 OG_044;MINION;Your <b>Choose One</b> cards have both effects combined.
 OG_073;SPELL;Draw a card. Add 2 extra copies of it to your hand.
@@ -174,27 +169,21 @@ OG_109;MINION;<b>Battlecry:</b>Discard a random card. <b>Deathrattle:</b>Draw a 
 OG_113;MINION;After you summon a minion, gain +1 Attack.
 OG_118;SPELL;Replace your Hero Power and Warlock cards with another class's. The cards cost (1) less.
 OG_121;MINION;<b>Battlecry:</b> The next spell you cast this turn costs Health instead of Mana.
-OG_122;MINION;<b>Battlecry:</b> Add 2 Bananas to your hand.
 OG_123;MINION;Each turn this is in your hand, transform it into a random minion.
 OG_131;MINION;[x]<b><b>Taunt</b>Battlecry:</b> If your C'Thun hasat least 10 Attack, summonanother Emperor.
 OG_134;MINION;<b>Battlecry:</b> Cast a random spell for each spell you've cast this game <i>(targets chosen randomly)</i>.
 OG_138;MINION;At the start of your turn, reduce this card'sCost by (1).
-OG_147;MINION;<b>Deathrattle:</b> Restore 8 Health to the enemy hero.
-OG_150;MINION;<b>Enrage:</b> +2 Attack.
 OG_158;MINION;<b>Deathrattle:</b> Give a random friendly minion +1/+1.
 OG_173;MINION;If you control two of theseat the end of your turn, merge them into 'The Ancient One'.
 OG_174;MINION;<b>Taunt</b><b>Battlecry:</b> Copy a friendly minion's Attack and Health.
 OG_200;MINION;At the start of your turn, set this minion's Attack to 7.
 OG_206;SPELL;Deal $4 damage to a minion. <b>Overload:</b> (1) *spelldmg
 OG_209;MINION;Whenever your spells deal damage, restore that much Health to your hero.
-OG_218;MINION;<b>Taunt</b><b>Enrage:</b> +3 Attack.
 OG_220;MINION;<b>Battlecry:</b> Equip a random weapon.
 OG_221;MINION;<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.
 OG_222;WEAPON;<b>Battlecry:</b> Give +1/+1 to your minions with <b>Divine Shield</b>.
 OG_254;MINION;<b>Battlecry:</b> Destroy all enemy <b>Secrets</b>. Gain +1/+1 for each.
-OG_256;MINION;<b>Deathrattle:</b> Give your minions +1/+1.
 OG_271;MINION;At the start of your turn, double this minion's Attack.
-OG_272;MINION;<b>Deathrattle:</b> Summon a 5/5 Faceless Destroyer.
 OG_276;SPELL;Add a copy of each damaged friendly minion to your hand.
 OG_282;MINION;<b>Battlecry:</b> Destroy a minion. Add its Attack and Health to_your C'Thun's <i>(wherever it is).</i>
 OG_290;MINION;At the start of your turn, put a 10-Cost minion from your deck into your hand.
