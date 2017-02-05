@@ -4568,11 +4568,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_057", new List<Enchantment> {
-				// TODO [EX1_057] Ancient Brewmaster && Test: Ancient Brewmaster_EX1_057
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new ReturnHandTask(EntityType.TARGET)
 				},
 			});
 
@@ -5391,11 +5390,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_577", new List<Enchantment> {
-				// TODO [EX1_577] The Beast && Test: The Beast_EX1_577
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonOpTask("EX1_finkle")
 				},
 			});
 
