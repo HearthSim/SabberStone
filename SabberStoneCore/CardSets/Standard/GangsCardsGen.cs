@@ -1978,11 +1978,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_095", new List<Enchantment> {
-				// TODO [CFM_095] Weasel Tunneler && Test: Weasel Tunneler_CFM_095
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("CFM_095",EntityType.OP_DECK)
 				},
 			});
 
