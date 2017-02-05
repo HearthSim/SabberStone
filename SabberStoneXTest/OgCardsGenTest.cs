@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -3603,22 +3604,33 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void DeathwingDragonlord_OG_317()
 		{
-			// TODO DeathwingDragonlord_OG_317 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Faerie Dragon"),
+                    Cards.FromName("Twilight Drake"),
+                    Cards.FromName("Twilight Whelp")
+                },
+				Player2HeroClass = CardClass.ROGUE,
+                Shuffle = false,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing, Dragonlord"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deathwing, Dragonlord"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.Equal(true, game.CurrentOpponent.Board.Count >= 3);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_318] Hogger, Doom of Elwynn - COST:7 [ATK:6/HP:6] 

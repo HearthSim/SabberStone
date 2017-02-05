@@ -2743,13 +2743,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_317", new List<Enchantment> {
-				// TODO [OG_317] Deathwing, Dragonlord && Test: Deathwing, Dragonlord_OG_317
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
+                        new RemoveFromHand(EntityType.STACK),
+                        new SummonStackTask())
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_318] Hogger, Doom of Elwynn - COST:7 [ATK:6/HP:6] 
