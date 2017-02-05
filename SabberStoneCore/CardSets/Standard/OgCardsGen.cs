@@ -2530,11 +2530,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_256", new List<Enchantment> {
-				// TODO [OG_256] Spawn of N'Zoth && Test: Spawn of N'Zoth_OG_256
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
 				},
 			});
 
