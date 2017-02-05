@@ -1011,11 +1011,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Destroy all minions except each player's highest Attack minion.
 			// --------------------------------------------------------
 			cards.Add("AT_078", new List<Enchantment> {
-				// TODO [AT_078] Enter the Coliseum && Test: Enter the Coliseum_AT_078
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FuncTask(p =>
+                        {
+                            if (!p.Any())
+                                return new List<IPlayable>();
+                            var contrA = p[0].Controller;
+                            var contrB = p[0].Controller.Opponent;
+                            var maxA = p.Where(t => t.Controller == contrA)
+                                .OrderByDescending(x => ((Minion) x).AttackDamage)
+                                .FirstOrDefault();
+                            var maxB = p.Where(t => t.Controller == contrB)
+                                .OrderByDescending(x => ((Minion) x).AttackDamage)
+                                .FirstOrDefault();
+                            p.Remove(maxA);
+                            p.Remove(maxB);
+                            return p;
+                        }),
+                        new DestroyTask(EntityType.STACK))
 				},
 			});
 

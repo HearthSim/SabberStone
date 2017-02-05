@@ -1303,10 +1303,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Destroy all minions except each player's highest Attack minion.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void EnterTheColiseum_AT_078()
 		{
-			// TODO EnterTheColiseum_AT_078 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1317,8 +1316,19 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Enter the Coliseum"));
-		}
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Enter the Coliseum"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [AT_075] Warhorse Trainer - COST:3 [ATK:2/HP:4] 
