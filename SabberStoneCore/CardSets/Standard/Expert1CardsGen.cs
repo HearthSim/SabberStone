@@ -5305,11 +5305,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_562", new List<Enchantment> {
-				// TODO [EX1_562] Onyxia && Test: Onyxia_EX1_562
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(6, new SummonTask("EX1_116t"))
 				},
 			});
 
@@ -6258,12 +6257,6 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: alliance, Set: expert1, Rarity: common
             // --------------------------------------------------------
             cards.Add("CS2_152", null);
-
-            // --------------------------------------- MINION - NEUTRAL
-            // [ds1_whelptoken] Whelp (*) - COST:1 [ATK:1/HP:1] 
-            // - Race: dragon, Fac: neutral, Set: expert1, 
-            // --------------------------------------------------------
-            cards.Add("ds1_whelptoken", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5] 
