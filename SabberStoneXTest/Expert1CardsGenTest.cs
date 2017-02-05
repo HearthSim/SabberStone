@@ -7361,10 +7361,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each damage your hero has taken.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void MoltenGiant_EX1_620()
 		{
-			// TODO MoltenGiant_EX1_620 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7375,8 +7374,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Molten Giant"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Molten Giant"));
+            Assert.Equal(30, game.CurrentPlayer.Hero.Health);
+            Assert.Equal(25, testCard.Cost);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+            Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+            Assert.Equal(24, testCard.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2] 

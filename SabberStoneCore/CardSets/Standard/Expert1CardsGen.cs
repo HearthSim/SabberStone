@@ -5555,12 +5555,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each damage your hero has taken.
 			// --------------------------------------------------------
 			cards.Add("EX1_620", new List<Enchantment> {
-				// TODO [EX1_620] Molten Giant && Test: Molten Giant_EX1_620
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				{
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.Hero.Damage
+                    }
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
