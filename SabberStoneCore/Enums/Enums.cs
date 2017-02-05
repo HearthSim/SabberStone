@@ -124,7 +124,7 @@
         PLAYER = 2,
         HERO = 3,
         MINION = 4,
-        ABILITY = 5,
+        //ABILITY = 5,
         SPELL = 5,
         ENCHANTMENT = 6,
         WEAPON = 7,

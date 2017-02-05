@@ -2232,27 +2232,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// [OG_141] Faceless Behemoth - COST:10 [ATK:10/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_141", new List<Enchantment> {
-				// TODO [OG_141] Faceless Behemoth && Test: Faceless Behemoth_OG_141
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_141", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_142] Eldritch Horror - COST:8 [ATK:6/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_142", new List<Enchantment> {
-				// TODO [OG_142] Eldritch Horror && Test: Eldritch Horror_OG_142
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_142", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_145] Psych-o-Tron - COST:5 [ATK:3/HP:4] 
@@ -2516,14 +2502,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [OG_248] Am'gam Rager - COST:3 [ATK:1/HP:5] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_248", new List<Enchantment> {
-				// TODO [OG_248] Am'gam Rager && Test: Am'gam Rager_OG_248
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("OG_248", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_249] Infested Tauren - COST:4 [ATK:2/HP:3] 
