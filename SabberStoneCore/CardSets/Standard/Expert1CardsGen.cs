@@ -3049,11 +3049,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_303", new List<Enchantment> {
-				// TODO [EX1_303] Shadowflame && Test: Shadowflame_EX1_303
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new DestroyTask(EntityType.TARGET),
+                        new DamageNumberTask(EntityType.OP_MINIONS))
 				},
 			});
 

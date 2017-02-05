@@ -3704,10 +3704,9 @@ namespace SabberStoneXTest
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Shadowflame_EX1_303()
 		{
-			// TODO Shadowflame_EX1_303 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3718,8 +3717,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadowflame"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowflame"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion1));
+            Assert.Equal(true, minion1.ToBeDestroyed);
+            Assert.Equal(true, minion2.ToBeDestroyed);
+            Assert.Equal(1, ((Minion)minion3).Health);
+        }
 
 		// ---------------------------------------- SPELL - WARLOCK
 		// [EX1_309] Siphon Soul - COST:6 
