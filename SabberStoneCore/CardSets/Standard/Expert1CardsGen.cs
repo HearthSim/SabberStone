@@ -2578,12 +2578,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("NEW1_005", new List<Enchantment> {
-				// TODO [NEW1_005] Kidnapper && Test: Kidnapper_NEW1_005
+				// Combo
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ReturnHandTask(EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
