@@ -1890,11 +1890,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_220", new List<Enchantment> {
-				// TODO [OG_220] Malkorok && Test: Malkorok_OG_220
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomCardTask(CardType.WEAPON, CardClass.INVALID),
+                        new WeaponTask()),
 				},
 			});
 

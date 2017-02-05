@@ -2294,10 +2294,9 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Malkorok_OG_220()
 		{
-			// TODO Malkorok_OG_220 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2308,7 +2307,9 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Malkorok"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Malkorok"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
 		}
 
 		// --------------------------------------- MINION - WARRIOR

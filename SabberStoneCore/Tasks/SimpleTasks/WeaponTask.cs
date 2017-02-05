@@ -6,7 +6,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class WeaponTask : SimpleTask
     {
-        public WeaponTask(string cardId = "")
+        public WeaponTask(string cardId = null)
         {
             CardId = cardId;
         }
@@ -15,14 +15,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-
-            if (CardId == null)
+            if (CardId == null && Playables.Count != 1)
             {
                 return TaskState.STOP;
             }
 
-            var card = Cards.FromId(CardId);
-            var weapon = Entity.FromCard(Controller, card) as Weapon;
+            var weapon = CardId != null ? 
+                Entity.FromCard(Controller, Cards.FromId(CardId)) as Weapon :
+                Playables[0] as Weapon;
             Generic.PlayWeapon.Invoke(Controller, weapon);
             return TaskState.COMPLETE;
         }
