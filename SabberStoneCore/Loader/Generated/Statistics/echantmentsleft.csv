@@ -41,7 +41,6 @@ CFM_095;MINION;<b>Deathrattle:</b> Shuffle this minion into your opponent's deck
 CFM_310;SPELL;Summon four 1/1 Murlocs.
 CFM_328;MINION;[x]<b>Battlecry:</b> If you controla minion with 6 or more_Health, draw two cards.
 CFM_603;SPELL;Gain control of an enemy minion with 2 or less Attack until end of turn.
-CFM_608;SPELL;Destroy a minion and one of your Mana Crystals.
 CFM_609;MINION;At the start of your turn, deal 2 damage to this_minion.
 CFM_611;SPELL;[x]Give a minion +3 Attack.If it's a Demon, alsogive it +3 Health.
 CFM_619;MINION;<b>Battlecry:</b> Add a random Potion to your hand.
@@ -58,7 +57,6 @@ CFM_697;MINION;[x]After this minion attacksa hero, transform it into a_random 6-
 CFM_699;MINION;[x]<b>Battlecry:</b> The next Murlocyou play this turn costs_Health instead of Mana.
 CFM_716;SPELL;Deal $3 damage to all damaged minions. *spelldmg
 CFM_750;MINION;[x]<b>Battlecry:</b> If your deck hasno duplicates, summon all_Demons from your hand._
-CFM_751;MINION;<b>Battlecry:</b> Deal 3 damage to all other characters.
 CFM_752;SPELL;Give a random <b>Taunt</b> minion in your hand +3/+3.
 CFM_754;MINION;At the end of your turn, give a random minion in your hand +2/+2.
 CFM_755;MINION;<b>Battlecry:</b> Give a random weapon in your hand +1/+1.
@@ -73,7 +71,6 @@ CFM_810;MINION;<b>Battlecry:</b> If your opponent has 6 or more cards in hand, g
 CFM_815;MINION;[x]<b>Divine Shield</b>. <b>Taunt</b>.Damage dealt by this minionalso heals your hero.
 CFM_851;MINION;Whenever your opponent draws a card, gain +1/+1.
 CFM_900;MINION;Whenever you summon a minion, deal 5 damage to_your Hero.
-CS1_069;MINION;<b>Taunt</b>
 CS1_129;SPELL;Change a minion's Attack to be equal to its Health.
 CS2_038;SPELL;Give a minion "<b>Deathrattle:</b> Resummon this minion."
 EX1_006;MINION;[x]At the start of your turn,swap this minion with a   random one in your hand.
@@ -158,19 +155,16 @@ LOE_038;MINION;Your cards cost (5).
 LOE_053;MINION;After you cast a spell on another friendly minion, cast a copy of it on this one.
 NEW1_005;MINION;<b>Combo:</b> Return a minion to_its owner's hand.
 NEW1_014;MINION;<b>Battlecry:</b> Give a friendly minion <b>Stealth</b> until your next turn.
-NEW1_017;MINION;<b>Battlecry:</b> Destroy a Murloc and gain +2/+2.
 NEW1_024;MINION;<b>Battlecry:</b> Give your weapon +1/+1.
 NEW1_025;MINION;[x]<b>Battlecry:</b> Remove1 Durability from youropponent's weapon.
 NEW1_036;SPELL;Your minions can't be reduced below 1 Health this turn. Draw a card.
 OG_023;SPELL;Give a minion +1/+1 for each of your Totems.
-OG_024;MINION;<b>Overload:</b> (2)
 OG_026;MINION;<b>Battlecry:</b> Unlock your <b>Overloaded</b> Mana Crystals.
 OG_027;SPELL;Transform your minions into random minions that cost (1) more.
 OG_031;WEAPON;<b>Deathrattle:</b> Summon a 4/2 Elemental.
 OG_033;WEAPON;<b>Deathrattle:</b> Return this to your hand.
 OG_034;MINION;Can only attack if your hero attacked this turn.
 OG_044;MINION;Your <b>Choose One</b> cards have both effects combined.
-OG_072;SPELL;<b>Discover</b> a <b>Deathrattle</b> card.
 OG_073;SPELL;Draw a card. Add 2 extra copies of it to your hand.
 OG_087;MINION;<b>Battlecry:</b> Cast a random spell that costs (5) or less <i>(targets chosen randomly)</i>.
 OG_096;MINION;<b>Battlecry:</b> If your C'Thun  has at least 10 Attack, restore 10 Health to your hero.
@@ -187,14 +181,9 @@ OG_131;MINION;[x]<b><b>Taunt</b>Battlecry:</b> If your C'Thun hasat least 10 Att
 OG_134;MINION;<b>Battlecry:</b> Cast a random spell for each spell you've cast this game <i>(targets chosen randomly)</i>.
 OG_138;MINION;At the start of your turn, reduce this card'sCost by (1).
 OG_147;MINION;<b>Deathrattle:</b> Restore 8 Health to the enemy hero.
-OG_149;MINION;<b>Battlecry:</b> Deal 1 damage to all other minions.
 OG_150;MINION;<b>Enrage:</b> +2 Attack.
-OG_151;MINION;<b>Deathrattle:</b> Deal 1 damage to all minions.
-OG_152;MINION;<b>Windfury</b>
-OG_153;MINION;<b>Taunt</b>
 OG_156;MINION;<b>Battlecry:</b> Summon a 1/1 Ooze with <b>Taunt</b>.
 OG_158;MINION;<b>Deathrattle:</b> Give a random friendly minion +1/+1.
-OG_161;MINION;<b>Battlecry:</b> Deal 2 damage to all non-Murloc minions.
 OG_173;MINION;If you control two of theseat the end of your turn, merge them into 'The Ancient One'.
 OG_174;MINION;<b>Taunt</b><b>Battlecry:</b> Copy a friendly minion's Attack and Health.
 OG_200;MINION;At the start of your turn, set this minion's Attack to 7.
@@ -204,9 +193,7 @@ OG_218;MINION;<b>Taunt</b><b>Enrage:</b> +3 Attack.
 OG_220;MINION;<b>Battlecry:</b> Equip a random weapon.
 OG_221;MINION;<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.
 OG_222;WEAPON;<b>Battlecry:</b> Give +1/+1 to your minions with <b>Divine Shield</b>.
-OG_223;SPELL;Give a minion +1/+2.
 OG_241;MINION;<b>Deathrattle:</b> Summon a 1/1 Shadowbeast.
-OG_247;MINION;<b>Stealth</b>
 OG_249;MINION;<b>Taunt</b><b>Deathrattle:</b> Summon a 2/2 Slime.
 OG_254;MINION;<b>Battlecry:</b> Destroy all enemy <b>Secrets</b>. Gain +1/+1 for each.
 OG_256;MINION;<b>Deathrattle:</b> Give your minions +1/+1.

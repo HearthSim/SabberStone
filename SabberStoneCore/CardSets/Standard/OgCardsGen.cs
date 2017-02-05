@@ -2486,11 +2486,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_249", new List<Enchantment> {
-				// TODO [OG_249] Infested Tauren && Test: Infested Tauren_OG_249
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_249a")
 				},
 			});
 
