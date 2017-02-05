@@ -1579,16 +1579,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_031", new List<Enchantment> {
-				// TODO [OG_031] Hammer of Twilight && Test: Hammer of Twilight_OG_031
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_031a")
 				},
 			});
 

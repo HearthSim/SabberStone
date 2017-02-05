@@ -1893,10 +1893,9 @@ namespace SabberStoneXTest
 		// - DURABILITY = 2
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void HammerOfTwilight_OG_031()
 		{
-			// TODO HammerOfTwilight_OG_031 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1907,8 +1906,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hammer of Twilight"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hammer of Twilight"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.Equal(22, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+        }
 
 	}
 

@@ -73,12 +73,6 @@ namespace SabberStoneCore.Model
             set { this[GameTag.INSPIRE] = value ? 1 : 0; }
         }
 
-        public bool HasDeathrattle
-        {
-            get { return this[GameTag.DEATHRATTLE] == 1; }
-            set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
-        }
-
         public bool HasStealth
         {
             get { return this[GameTag.STEALTH] == 1; }

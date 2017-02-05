@@ -161,7 +161,6 @@ NEW1_036;SPELL;Your minions can't be reduced below 1 Health this turn. Draw a ca
 OG_023;SPELL;Give a minion +1/+1 for each of your Totems.
 OG_026;MINION;<b>Battlecry:</b> Unlock your <b>Overloaded</b> Mana Crystals.
 OG_027;SPELL;Transform your minions into random minions that cost (1) more.
-OG_031;WEAPON;<b>Deathrattle:</b> Summon a 4/2 Elemental.
 OG_033;WEAPON;<b>Deathrattle:</b> Return this to your hand.
 OG_034;MINION;Can only attack if your hero attacked this turn.
 OG_044;MINION;Your <b>Choose One</b> cards have both effects combined.
@@ -182,7 +181,6 @@ OG_134;MINION;<b>Battlecry:</b> Cast a random spell for each spell you've cast t
 OG_138;MINION;At the start of your turn, reduce this card'sCost by (1).
 OG_147;MINION;<b>Deathrattle:</b> Restore 8 Health to the enemy hero.
 OG_150;MINION;<b>Enrage:</b> +2 Attack.
-OG_156;MINION;<b>Battlecry:</b> Summon a 1/1 Ooze with <b>Taunt</b>.
 OG_158;MINION;<b>Deathrattle:</b> Give a random friendly minion +1/+1.
 OG_173;MINION;If you control two of theseat the end of your turn, merge them into 'The Ancient One'.
 OG_174;MINION;<b>Taunt</b><b>Battlecry:</b> Copy a friendly minion's Attack and Health.
@@ -193,8 +191,6 @@ OG_218;MINION;<b>Taunt</b><b>Enrage:</b> +3 Attack.
 OG_220;MINION;<b>Battlecry:</b> Equip a random weapon.
 OG_221;MINION;<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.
 OG_222;WEAPON;<b>Battlecry:</b> Give +1/+1 to your minions with <b>Divine Shield</b>.
-OG_241;MINION;<b>Deathrattle:</b> Summon a 1/1 Shadowbeast.
-OG_249;MINION;<b>Taunt</b><b>Deathrattle:</b> Summon a 2/2 Slime.
 OG_254;MINION;<b>Battlecry:</b> Destroy all enemy <b>Secrets</b>. Gain +1/+1 for each.
 OG_256;MINION;<b>Deathrattle:</b> Give your minions +1/+1.
 OG_271;MINION;At the start of your turn, double this minion's Attack.
