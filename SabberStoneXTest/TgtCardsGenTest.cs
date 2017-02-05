@@ -1824,22 +1824,26 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Burgle_AT_033()
 		{
-			// TODO Burgle_AT_033 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Burgle"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Burgle"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(CardClass.PRIEST, game.CurrentPlayer.Hand[5].Card.Class);
+            Assert.Equal(CardClass.PRIEST, game.CurrentPlayer.Hand[4].Card.Class);
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [AT_035] Beneath the Grounds - COST:3 

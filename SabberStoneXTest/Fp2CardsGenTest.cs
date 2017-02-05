@@ -883,21 +883,25 @@ namespace SabberStoneXTest
         // - ELITE = 1
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void Nefarian_BRM_030()
         {
-            // TODO Nefarian_BRM_030 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nefarian"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nefarian"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(CardClass.DRUID, game.CurrentPlayer.Hand[5].Card.Class);
+            Assert.Equal(CardClass.DRUID, game.CurrentPlayer.Hand[4].Card.Class);
         }
 
         // --------------------------------------- MINION - NEUTRAL

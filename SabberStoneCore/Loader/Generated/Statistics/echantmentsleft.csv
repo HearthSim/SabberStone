@@ -6,7 +6,6 @@ AT_021;MINION;Whenever you discard a card, gain +1/+1.
 AT_022;SPELL;When you play or discard this, deal $4 damage to a random enemy. *spelldmg
 AT_027;MINION;Cards you draw from your Hero Power cost (0).
 AT_031;MINION;Whenever this minion attacks a hero, add the Coin to your hand.
-AT_033;SPELL;Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
 AT_034;WEAPON;Your Hero Power gives this weapon +1 Attack instead of replacing it.
 AT_054;MINION;<b>Battlecry:</b> Give all minions in your hand and deck +1/+1.
 AT_067;MINION;Also damages the minions next to whomeverhe attacks.
@@ -27,7 +26,6 @@ BRM_018;MINION;<b>Battlecry:</b> The next Dragon you play costs (2) less.
 BRM_025;MINION;Costs (1) less for each minion that died this turn.
 BRM_028;MINION;At the end of your turn, reduce the Cost of cards in your hand by (1).
 BRM_029;MINION;<b>Battlecry:</b> If you're holding a Dragon, destroy a <b>Legendary</b> minion.
-BRM_030;MINION;<b>Battlecry:</b> Add 2 random spells to your hand <i>(from your opponent's class)</i>.
 BRM_031;MINION;Whenever you draw a card, put another copy into your hand.
 CFM_020;MINION;[x]  <b>Battlecry:</b> If your deck has  no duplicates, your Hero Power costs (0) this game.
 CFM_025;MINION;Whenever this attacks a minion and survives, draw_a card.
@@ -132,7 +130,6 @@ EX1_620;MINION;Costs (1) less for each damage your hero has taken.
 EX1_621;SPELL;Restore #4 Health to ALL_minions.
 EX1_623;MINION;<b>Battlecry:</b> Give a friendly minion +3 Health.
 EX1_624;SPELL;Deal $5 damage. Restore #5 Health to your hero. *spelldmg
-EX1_626;SPELL;<b>Silence</b> all enemy minions. Draw a card.
 KAR_004;SPELL;<b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
 KAR_026;SPELL;For each enemy minion, summon a 1/1 Pawn with <b>Taunt</b>.
 KAR_028;WEAPON;Unlimited attacks each turn. Can't attack heroes.

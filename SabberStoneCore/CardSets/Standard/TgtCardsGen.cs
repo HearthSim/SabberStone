@@ -1386,11 +1386,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
 			// --------------------------------------------------------
 			cards.Add("AT_033", new List<Enchantment> {
-				// TODO [AT_033] Burgle && Test: Burgle_AT_033
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, ComplexTask.Create(
+                        new RandomCardTask(EntityType.OP_HERO),
+                        new CopyToHand())),
 				},
 			});
 

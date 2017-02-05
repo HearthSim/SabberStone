@@ -746,12 +746,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_030", new List<Enchantment> {
-				// TODO [BRM_030] Nefarian && Test: Nefarian_BRM_030
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new EnqueueTask(2, ComplexTask.Create(
+                        new RandomCardTask(EntityType.OP_HERO),
+                        new CopyToHand())),
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
