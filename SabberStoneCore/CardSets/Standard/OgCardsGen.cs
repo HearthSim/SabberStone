@@ -2570,11 +2570,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_272", new List<Enchantment> {
-				// TODO [OG_272] Twilight Summoner && Test: Twilight Summoner_OG_272
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_272t"),
 				},
 			});
 
