@@ -2330,11 +2330,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_156", new List<Enchantment> {
-				// TODO [OG_156] Bilefin Tidehunter && Test: Bilefin Tidehunter_OG_156
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("OG_156a"),
 				},
 			});
 
