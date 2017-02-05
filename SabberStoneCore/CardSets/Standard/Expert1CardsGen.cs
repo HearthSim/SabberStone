@@ -5748,11 +5748,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_025", new List<Enchantment> {
-				// TODO [NEW1_025] Bloodsail Corsair && Test: Bloodsail Corsair_NEW1_025
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask =  ComplexTask.Create(
+                                new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
+                                new MathSubstractionTask(1),
+                                new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.OP_WEAPON))
 				},
 			});
 
