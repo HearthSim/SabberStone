@@ -74,27 +74,45 @@ namespace SabberStoneCore.Tasks
                     switch (controller.Hero.Power.Card.Id)
                     {
                         case "CS1h_001":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_PRIEST"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_PRIEST"))};
                         case "CS2_017":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_DRUID"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_DRUID"))};
                         case "CS2_034":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_MAGE"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_MAGE"))};
                         case "CS2_049":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_SHAMAN"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_SHAMAN"))};
                         case "CS2_056":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_WARLOCK"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_WARLOCK"))};
                         case "CS2_083b":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_ROGUE"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_ROGUE"))};
                         case "CS2_101":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_PALADIN"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_PALADIN"))};
                         case "CS2_102":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_WARRIOR"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_WARRIOR"))};
                         case "DS1h_292":
-                            return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_HUNTER"))};
+                            return new List<IPlayable> {Entity.FromCard(controller, Cards.FromId("AT_132_HUNTER"))};
                     }
                     return new List<IPlayable>();
                 }),
                 new ReplaceHeroPower()
-                );
+            );
+
+        public static ISimpleTask RandomPotionToHand()
+            => ComplexTask.Create(
+                new FuncCardIdsTask(p => new List<string>
+                {
+                    "CFM_021",
+                    "CFM_065",
+                    "CFM_620",
+                    "CFM_603",
+                    "CFM_661",
+                    "CFM_604",
+                    "CFM_662",
+                    "CFM_611",
+                    "CFM_608",
+                    "CFM_094"
+                }),
+                new RandomCardIdFromListTask(),
+                new AddStackTo(EntityType.HAND));
     }
 }

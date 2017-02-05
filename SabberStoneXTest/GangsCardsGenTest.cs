@@ -2988,10 +2988,9 @@ namespace SabberStoneXTest
 		// - MULTI_CLASS_GROUP = 3
 		// - KABAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void KabalChemist_CFM_619()
 		{
-			// TODO KabalChemist_CFM_619 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3002,8 +3001,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Chemist"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Chemist"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(true, game.CurrentPlayer.Hand[4].Card.Name.Contains("Potion"));
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_621] Kazakus - COST:4 [ATK:3/HP:3] 

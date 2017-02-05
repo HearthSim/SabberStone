@@ -250,5 +250,6 @@ namespace SabberStoneCore.Tasks
                 new RandomMinionNumberTask(tag),
                 new SummonTask());
         }
+
     }
 }

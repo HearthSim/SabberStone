@@ -2151,11 +2151,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - KABAL = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_619", new List<Enchantment> {
-				// TODO [CFM_619] Kabal Chemist && Test: Kabal Chemist_CFM_619
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = SpecificTask.RandomPotionToHand(),
 				},
 			});
 
