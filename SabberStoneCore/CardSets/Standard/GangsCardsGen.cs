@@ -1296,11 +1296,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_310", new List<Enchantment> {
-				// TODO [CFM_310] Call in the Finishers && Test: Call in the Finishers_CFM_310
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(4, new SummonTask("CFM_310t")),
 				},
 			});
 
