@@ -3105,10 +3105,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the start of your turn, set this minion's Attack to 7.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ValidatedDoomsayer_OG_200()
 		{
-			// TODO ValidatedDoomsayer_OG_200 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3119,8 +3118,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Validated Doomsayer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Validated Doomsayer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(0, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(7, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_247] Twisted Worgen - COST:2 [ATK:3/HP:1] 

@@ -2443,13 +2443,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, set this minion's Attack to 7.
 			// --------------------------------------------------------
 			cards.Add("OG_200", new List<Enchantment> {
-				// TODO [OG_200] Validated Doomsayer && Test: Validated Doomsayer_OG_200
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new SetAttackTask(7, EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_247] Twisted Worgen - COST:2 [ATK:3/HP:1] 
