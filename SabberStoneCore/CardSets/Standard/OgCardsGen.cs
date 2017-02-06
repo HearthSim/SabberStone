@@ -2557,13 +2557,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, double this minion's Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_271", new List<Enchantment> {
-				// TODO [OG_271] Scaled Nightmare && Test: Scaled Nightmare_OG_271
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                            new BuffAttackNumberTask(EntityType.SOURCE)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_272] Twilight Summoner - COST:4 [ATK:1/HP:1] 

@@ -3299,10 +3299,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the start of your turn, double this minion's Attack.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ScaledNightmare_OG_271()
 		{
-			// TODO ScaledNightmare_OG_271 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3313,8 +3312,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Scaled Nightmare"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Scaled Nightmare"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(4, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_272] Twilight Summoner - COST:4 [ATK:1/HP:1] 
