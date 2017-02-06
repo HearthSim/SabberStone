@@ -2203,13 +2203,17 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Cost by (1).
 			// --------------------------------------------------------
 			cards.Add("OG_138", new List<Enchantment> {
-				// TODO [OG_138] Nerubian Prophet && Test: Nerubian Prophet_OG_138
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.HAND,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInHandZone)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_141] Faceless Behemoth - COST:10 [ATK:10/HP:10] 

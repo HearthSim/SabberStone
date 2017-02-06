@@ -2704,22 +2704,28 @@ namespace SabberStoneXTest
 		// Text: At the start of your turn, reduce this card's
 		//       Cost by (1).
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void NerubianProphet_OG_138()
 		{
-			// TODO NerubianProphet_OG_138 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Nerubian Prophet")
+                },
+                Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nerubian Prophet"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nerubian Prophet"));
+            Assert.Equal(testCard.Card.Name, game.CurrentPlayer.Hand[0].Card.Name);
+            Assert.Equal(testCard.Cost - 1, game.CurrentPlayer.Hand[0].Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_141] Faceless Behemoth - COST:10 [ATK:10/HP:10] 
