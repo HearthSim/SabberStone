@@ -707,13 +707,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_028", new List<Enchantment> {
-				// TODO [BRM_028] Emperor Thaurissan && Test: Emperor Thaurissan_BRM_028
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_029] Rend Blackhand - COST:7 [ATK:8/HP:4] 

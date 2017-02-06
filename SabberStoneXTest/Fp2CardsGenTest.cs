@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -840,10 +841,9 @@ namespace SabberStoneXTest
         // GameTag:
         // - ELITE = 1
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void EmperorThaurissan_BRM_028()
         {
-            // TODO EmperorThaurissan_BRM_028 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -854,7 +854,12 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Emperor Thaurissan"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Emperor Thaurissan"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var totCost = game.CurrentPlayer.Hand.GetAll.Sum(p => p.Cost);
+            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(totCost-4, game.CurrentOpponent.Hand.GetAll.Sum(p => p.Cost));
         }
 
         // --------------------------------------- MINION - NEUTRAL
