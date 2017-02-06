@@ -82,6 +82,11 @@ namespace SabberStoneCore.Conditions
                  || relaSign == RelaSign.GEQ && me[tag] >= value
                  || relaSign == RelaSign.LEQ && me[tag] <= value);
 
+        public static SelfCondition IsBaseTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
+            => new SelfCondition(me =>
+                    relaSign == RelaSign.EQ && me.Card[tag] == value
+                 || relaSign == RelaSign.GEQ && me.Card[tag] >= value
+                 || relaSign == RelaSign.LEQ && me.Card[tag] <= value);
 
         public static SelfCondition IsCthunGameTag(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
             => new SelfCondition(me =>

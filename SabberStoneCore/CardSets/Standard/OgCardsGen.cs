@@ -2688,13 +2688,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, put a 10-Cost minion from your deck into your hand.
 			// --------------------------------------------------------
 			cards.Add("OG_290", new List<Enchantment> {
-				// TODO [OG_290] Ancient Harbinger && Test: Ancient Harbinger_OG_290
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.SummonRandomMinion(EntityType.DECK, 
+                            RelaCondition.IsOther(SelfCondition.IsBaseTagValue(GameTag.COST, 10))))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_295] Cult Apothecary - COST:5 [ATK:4/HP:4] 

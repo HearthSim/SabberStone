@@ -3525,22 +3525,38 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the start of your turn, put a 10-Cost minion from your deck into your hand.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void AncientHarbinger_OG_290()
 		{
-			// TODO AncientHarbinger_OG_290 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Deathwing"),
+                },
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient Harbinger"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancient Harbinger"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+            Assert.Equal(10, game.CurrentPlayer.Board[1].Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_295] Cult Apothecary - COST:5 [ATK:4/HP:4] 

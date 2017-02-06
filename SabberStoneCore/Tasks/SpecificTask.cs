@@ -11,8 +11,9 @@ namespace SabberStoneCore.Tasks
     {
         public static ISimpleTask PatchesThePirate
             => ComplexTask.Create(
-                new RemoveFromDeck(EntityType.SOURCE),
-                new SummonTask()
+                new SelfConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
+                new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
+                new FlagTask(true, new SummonTask())
             );
 
         public static ISimpleTask FrostwolfBanner
