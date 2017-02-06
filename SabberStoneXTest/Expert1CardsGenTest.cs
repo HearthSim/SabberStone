@@ -6875,10 +6875,9 @@ namespace SabberStoneXTest
         // GameTag:
         // - ELITE = 1
         // --------------------------------------------------------
-        [Fact(Skip="NotImplemented")]
+        [Fact]
 		public void NatPagle_EX1_557()
 		{
-			// TODO NatPagle_EX1_557 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

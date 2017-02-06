@@ -5217,13 +5217,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_557", new List<Enchantment> {
-				// TODO [EX1_557] Nat Pagle && Test: Nat Pagle_EX1_557
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new HalfHalfChanceTask(),
+                            new DrawTask()))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4] 
