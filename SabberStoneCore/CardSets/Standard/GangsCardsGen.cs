@@ -2136,13 +2136,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, deal 2 damage to this_minion.
 			// --------------------------------------------------------
 			cards.Add("CFM_609", new List<Enchantment> {
-				// TODO [CFM_609] Fel Orc Soulfiend && Test: Fel Orc Soulfiend_CFM_609
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new DamageTask(2, EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_619] Kabal Chemist - COST:4 [ATK:3/HP:3] 

@@ -2968,10 +2968,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the start of your turn, deal 2 damage to this_minion.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void FelOrcSoulfiend_CFM_609()
 		{
-			// TODO FelOrcSoulfiend_CFM_609 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2982,8 +2981,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fel Orc Soulfiend"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fel Orc Soulfiend"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(7, ((Minion)testCard).Health);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(7, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, ((Minion)testCard).Health);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_619] Kabal Chemist - COST:4 [ATK:3/HP:3] 
