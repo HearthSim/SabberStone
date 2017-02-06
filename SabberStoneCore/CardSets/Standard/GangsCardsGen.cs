@@ -1766,13 +1766,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, give a random minion in your hand +2/+2.
 			// --------------------------------------------------------
 			cards.Add("CFM_754", new List<Enchantment> {
-				// TODO [CFM_754] Grimy Gadgeteer && Test: Grimy Gadgeteer_CFM_754
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.BuffRandomMinion(EntityType.HAND, Buffs.AttackHealth(2), SelfCondition.IsMinion))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_755] Grimestreet Pawnbroker - COST:3 [ATK:3/HP:3] 

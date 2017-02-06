@@ -2465,10 +2465,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the end of your turn, give a random minion in your hand +2/+2.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void GrimyGadgeteer_CFM_754()
 		{
-			// TODO GrimyGadgeteer_CFM_754 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2479,8 +2478,18 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimy Gadgeteer"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimy Gadgeteer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    var totAtk = game.CurrentPlayer.Hand.GetAll.Where(p => p.Card.Type == CardType.MINION)
+                .Sum(p => ((Minion) p).AttackDamage);
+            var totHp = game.CurrentPlayer.Hand.GetAll.Where(p => p.Card.Type == CardType.MINION)
+                .Sum(p => ((Minion)p).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(totAtk != 0 ? totAtk + 2 : 0, game.CurrentOpponent.Hand.GetAll.Where(p => p.Card.Type == CardType.MINION)
+                .Sum(p => ((Minion)p).AttackDamage));
+            Assert.Equal(totHp != 0 ? totHp + 2 : 0, game.CurrentOpponent.Hand.GetAll.Where(p => p.Card.Type == CardType.MINION)
+                .Sum(p => ((Minion)p).Health));
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [CFM_755] Grimestreet Pawnbroker - COST:3 [ATK:3/HP:3] 
