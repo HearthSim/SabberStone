@@ -5501,13 +5501,19 @@ namespace SabberStoneCore.CardSets.Standard
 			//        and summon a 1/1 Imp.
 			// --------------------------------------------------------
 			cards.Add("EX1_597", new List<Enchantment> {
-				// TODO [EX1_597] Imp Master && Test: Imp Master_EX1_597
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new DamageTask(1, EntityType.SOURCE),
+                            new SummonTask("EX1_598")))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5] 

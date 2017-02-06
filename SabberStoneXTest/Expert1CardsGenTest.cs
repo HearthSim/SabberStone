@@ -7300,10 +7300,9 @@ namespace SabberStoneXTest
 		//       1 damage to this minion
 		//        and summon a 1/1 Imp.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ImpMaster_EX1_597()
 		{
-			// TODO ImpMaster_EX1_597 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7314,8 +7313,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Imp Master"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Imp Master"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+            Assert.Equal(5, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(2, game.CurrentOpponent.Board.Count);
+            Assert.Equal(4, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5] 
