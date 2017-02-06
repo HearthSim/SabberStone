@@ -2199,13 +2199,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
 			// --------------------------------------------------------
 			cards.Add("EX1_341", new List<Enchantment> {
-				// TODO [EX1_341] Lightwell && Test: Lightwell_EX1_341
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.FRIENDS),
+                            new FilterStackTask(SelfCondition.IsDamaged),
+                            new RandomTask(1, EntityType.STACK),
+                            new HealTask(3, EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7] 

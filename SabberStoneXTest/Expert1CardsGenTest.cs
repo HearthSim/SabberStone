@@ -2549,10 +2549,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Lightwell_EX1_341()
 		{
-			// TODO Lightwell_EX1_341 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2563,8 +2562,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightwell"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightwell"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(6, ((Minion)minion).Health);
+
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7] 
