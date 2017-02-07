@@ -2065,11 +2065,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_328", new List<Enchantment> {
-				// TODO [CFM_328] Fight Promoter && Test: Fight Promoter_CFM_328
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.HEALTH, 6, RelaSign.GEQ)),
+                        new FlagTask(true, new EnqueueTask(2, new DrawTask())))
 				},
 			});
 
