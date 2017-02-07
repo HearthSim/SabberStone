@@ -1704,12 +1704,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_355", new List<Enchantment> {
-				// TODO [EX1_355] Blessed Champion && Test: Blessed Champion_EX1_355
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                            new GetNativeGameTagTask(GameTag.ATK, EntityType.SOURCE, true),
+                            new BuffAttackNumberTask(EntityType.SOURCE))
+                },
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -3636,11 +3637,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_603", new List<Enchantment> {
-				// TODO [EX1_603] Cruel Taskmaster && Test: Cruel Taskmaster_EX1_603
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET),
+                        new BuffTask(Buffs.Attack(2), EntityType.TARGET))
 				},
 			});
 
