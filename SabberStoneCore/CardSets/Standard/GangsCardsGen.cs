@@ -1683,11 +1683,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Deal $3 damage to all damaged minions. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("CFM_716", new List<Enchantment> {
-				// TODO [CFM_716] Sleep with the Fishes && Test: Sleep with the Fishes_CFM_716
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsDamaged),
+                        new DamageTask(3, EntityType.STACK, true)),
 				},
 			});
 
