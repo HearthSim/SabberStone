@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,35 +87,21 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player1HeroClass = CardClass.SHAMAN,
+                Player2HeroClass = CardClass.SHAMAN,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-
-            game.CurrentPlayer.UsedMana = 0;
-
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gormok the Impaler"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-
-            game.CurrentPlayer.UsedMana = 0;
-
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gormok the Impaler"));
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Primal Fusion"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
 
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
         }
 
         public static void Kazakus()

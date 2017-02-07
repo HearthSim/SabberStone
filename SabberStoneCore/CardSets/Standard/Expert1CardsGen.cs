@@ -3,7 +3,6 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.SimpleTasks.Tasks;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 

@@ -1696,10 +1696,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void PrimalFusion_OG_023()
 		{
-			// TODO PrimalFusion_OG_023 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1710,8 +1709,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Primal Fusion"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Primal Fusion"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(2, ((Minion)minion).AttackDamage);
+            Assert.Equal(2, ((Minion)minion).Health);
+
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [OG_027] Evolve - COST:1 

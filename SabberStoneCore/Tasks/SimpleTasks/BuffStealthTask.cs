@@ -1,9 +1,7 @@
 ﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.SimpleTasks.Tasks
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 
     public class BuffStealthTask : SimpleTask

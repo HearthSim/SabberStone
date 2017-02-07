@@ -3,7 +3,6 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.SimpleTasks.Tasks;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
@@ -1425,11 +1424,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_023", new List<Enchantment> {
-				// TODO [OG_023] Primal Fusion && Test: Primal Fusion_OG_023
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM))),
+                        new CountTask(EntityType.STACK),
+                        new BuffAttackHealthNumberTask(EntityType.TARGET))
 				},
 			});
 
