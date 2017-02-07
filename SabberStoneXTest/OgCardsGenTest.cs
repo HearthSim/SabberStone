@@ -3318,11 +3318,17 @@ namespace SabberStoneXTest
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             Assert.Equal(4, ((Minion)testCard).AttackDamage);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aldor Peacekeeper"));
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aldor Peacekeeper"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion1, testCard));
             Assert.Equal(1, ((Minion)testCard).AttackDamage);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             Assert.Equal(2, ((Minion)testCard).AttackDamage);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.Equal(3, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, ((Minion)testCard).AttackDamage);
         }
 
 		// --------------------------------------- MINION - NEUTRAL
