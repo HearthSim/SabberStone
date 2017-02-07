@@ -5894,10 +5894,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SunfuryProtector_EX1_058()
 		{
-			// TODO SunfuryProtector_EX1_058 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5908,8 +5907,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sunfury Protector"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sunfury Protector"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, null, 1));
+            Assert.Equal(true, ((Minion)minion1).HasTaunt);
+            Assert.Equal(true, ((Minion)minion2).HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2] 

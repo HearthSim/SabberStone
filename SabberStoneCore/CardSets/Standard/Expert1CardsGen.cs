@@ -4597,13 +4597,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_058", new List<Enchantment> {
-				// TODO [EX1_058] Sunfury Protector && Test: Sunfury Protector_EX1_058
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        ComplexTask.Taunt(EntityType.STACK))
+                },
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2] 
