@@ -72,35 +72,13 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### Requirements
 
-* Windows, OS X or Linux
-  tbd
+* Windows, macOS or Linux
+  - [Visual Studio 2017 RC](https://www.microsoft.com/net/core#windowsvs2017) or [Visual Studio Code](https://code.visualstudio.com/) for best .NET Core support
+  - [.NET Core](https://www.microsoft.com/net/download/core)
 
 ### Installation
 
-**Most important part to have it run right now is that you change the path to your current folder**
-
-ex. C:\Users\admin\Source\Repos\SabberStone\ --> C:\Users\admin\Source\Repos\
-
-```csharp
-namespace SabberStoneCore.Loader
-{
-    internal class CardLoader : ICardLoader
-    {
-        private static string _path { get; set; }
-
-        public static string Path {
-            get
-            {
-                if (_path == null)
-                {
-                    _path = @"C:\Users\admin\Source\Repos\"; // <--- CHANGE TO YOUR FOLDER ... WHERE SABBERSTONE IS
-                }
-
-                return _path;
-            }
-        } 
-```
-
+* tbd
 
 ### Documentation
 
