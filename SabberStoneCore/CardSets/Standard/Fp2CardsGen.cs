@@ -418,11 +418,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_008", new List<Enchantment> {
-				// TODO [BRM_008] Dark Iron Skulker && Test: Dark Iron Skulker_BRM_008
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsUndamaged)),
+                        new DamageTask(2, EntityType.STACK))
 				},
 			});
 
