@@ -3614,10 +3614,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void CultApothecary_OG_295()
 		{
-			// TODO CultApothecary_OG_295 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3628,8 +3627,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cult Apothecary"));
-		}
+		    game.CurrentPlayer.Hero.Damage = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cult Apothecary"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(22, game.CurrentPlayer.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_300] The Boogeymonster - COST:8 [ATK:6/HP:7] 

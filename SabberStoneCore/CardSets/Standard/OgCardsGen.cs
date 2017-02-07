@@ -2730,11 +2730,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_295", new List<Enchantment> {
-				// TODO [OG_295] Cult Apothecary && Test: Cult Apothecary_OG_295
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.OP_MINIONS),
+                        new MathMultiplyTask(2),
+                        new HealNumberTask(EntityType.HERO)),
 				},
 			});
 
