@@ -5489,11 +5489,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_590", new List<Enchantment> {
-				// TODO [EX1_590] Blood Knight && Test: Blood Knight_EX1_590
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1)),
+                        new SetGameTagTask(GameTag.DIVINE_SHIELD, 0, EntityType.STACK),
+                        new CountTask(EntityType.STACK),
+                        new MathMultiplyTask(3),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE)),
 				},
 			});
 

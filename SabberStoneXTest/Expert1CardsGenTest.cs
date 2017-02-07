@@ -7275,10 +7275,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void BloodKnight_EX1_590()
 		{
-			// TODO BloodKnight_EX1_590 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7289,8 +7288,19 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blood Knight"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blood Knight"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Argent Squire"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Argent Squire"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(false, ((Minion)minion1).HasDivineShield);
+            Assert.Equal(false, ((Minion)minion2).HasDivineShield);
+            Assert.Equal(9, ((Minion)testCard).AttackDamage);
+            Assert.Equal(9, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_595] Cult Master - COST:4 [ATK:4/HP:2] 
