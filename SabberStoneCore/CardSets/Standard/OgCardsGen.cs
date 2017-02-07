@@ -2573,7 +2573,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Create(
-                            new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                            new GetNativeGameTagTask(GameTag.ATK, EntityType.SOURCE, true),
                             new BuffAttackNumberTask(EntityType.SOURCE)))
                         .Build()
                 }

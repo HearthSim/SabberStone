@@ -84,6 +84,11 @@ namespace SabberStoneCore.Model
             return str.ToString();
         }
 
+        public int NativeGameTag(GameTag t)
+        {
+            return _data[t];
+        }
+
         public int this[GameTag t]
         {
             get
