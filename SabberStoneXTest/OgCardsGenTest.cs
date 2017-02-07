@@ -1033,22 +1033,28 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SelflessHero_OG_221()
 		{
-			// TODO SelflessHero_OG_221 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Selfless Hero"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Selfless Hero"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.Equal(true, ((Minion)minion).HasDivineShield);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [OG_229] Ragnaros, Lightlord - COST:8 [ATK:8/HP:8] 

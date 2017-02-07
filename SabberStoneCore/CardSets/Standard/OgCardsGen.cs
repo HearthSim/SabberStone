@@ -829,11 +829,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_221", new List<Enchantment> {
-				// TODO [OG_221] Selfless Hero && Test: Selfless Hero_OG_221
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new RandomTask(1, EntityType.STACK),
+                        new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
 				},
 			});
 
