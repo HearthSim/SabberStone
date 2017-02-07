@@ -3145,11 +3145,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_320", new List<Enchantment> {
-				// TODO [EX1_320] Bane of Doom && Test: Bane of Doom_EX1_320
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+                        new FlagTask(true, ComplexTask.SummonRandomMinion(GameTag.CARDRACE, (int) Race.DEMON))),
 				},
 			});
 

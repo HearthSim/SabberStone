@@ -3849,10 +3849,9 @@ namespace SabberStoneXTest
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void BaneOfDoom_EX1_320()
 		{
-			// TODO BaneOfDoom_EX1_320 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3863,8 +3862,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bane of Doom"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bane of Doom"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+            Assert.Equal(true, minion.ToBeDestroyed);
+        }
 
 		// ---------------------------------------- SPELL - WARLOCK
 		// [EX1_596] Demonfire - COST:2 
