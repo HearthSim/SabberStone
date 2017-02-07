@@ -2347,11 +2347,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_158", new List<Enchantment> {
-				// TODO [OG_158] Zealous Initiate && Test: Zealous Initiate_OG_158
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.BuffRandomMinion(
+                        EntityType.MINIONS, 
+                        Buffs.AttackHealth(1), 
+                        new SelfCondition[]{}),
 				},
 			});
 
