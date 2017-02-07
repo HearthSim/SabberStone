@@ -2612,11 +2612,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_014", new List<Enchantment> {
-				// TODO [NEW1_014] Master of Disguise && Test: Master of Disguise_NEW1_014
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffStealthTask(EntityType.TARGET)
 				},
 			});
 
