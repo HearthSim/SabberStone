@@ -423,7 +423,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.OP_MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsUndamaged)),
+                        new FilterStackTask(SelfCondition.IsUndamaged),
                         new DamageTask(2, EntityType.STACK))
 				},
 			});
@@ -508,7 +508,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new FilterStackTask(EntityType.ALLMINIONS, RelaCondition.IsOther(SelfCondition.IsNotRace(Race.DEMON))),
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsNotRace(Race.DEMON)),
                         new DamageTask(2, EntityType.STACK, true))
 				},
 			});

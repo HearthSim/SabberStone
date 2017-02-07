@@ -902,7 +902,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1))),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1)),
                         new BuffTask(Buffs.AttackHealth(1), EntityType.STACK))
 				},
 			});
@@ -1431,7 +1431,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM))),
+                        new FilterStackTask(SelfCondition.IsRace(Race.TOTEM)),
                         new CountTask(EntityType.STACK),
                         new BuffAttackHealthNumberTask(EntityType.TARGET))
 				},

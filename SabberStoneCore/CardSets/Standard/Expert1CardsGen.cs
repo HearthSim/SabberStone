@@ -5938,7 +5938,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.OP_MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ))),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
                         new RandomTask(1, EntityType.STACK),
                         new DestroyTask(EntityType.STACK)),
 				},
