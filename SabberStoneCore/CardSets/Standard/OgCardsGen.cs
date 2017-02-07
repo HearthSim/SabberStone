@@ -1461,11 +1461,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_206", new List<Enchantment> {
-				// TODO [OG_206] Stormcrack && Test: Stormcrack_OG_206
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(4, EntityType.TARGET, true)
 				},
 			});
 
