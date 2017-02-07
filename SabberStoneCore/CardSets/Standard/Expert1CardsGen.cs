@@ -4775,11 +4775,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_093", new List<Enchantment> {
-				// TODO [EX1_093] Defender of Argus && Test: Defender of Argus_EX1_093
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK),
+                        ComplexTask.Taunt(EntityType.STACK))
 				},
 			});
 

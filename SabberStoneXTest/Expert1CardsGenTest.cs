@@ -6207,10 +6207,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void DefenderOfArgus_EX1_093()
 		{
-			// TODO DefenderOfArgus_EX1_093 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6221,8 +6220,19 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Defender of Argus"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Defender of Argus"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, null, 1));
+            Assert.Equal(2, ((Minion)minion1).AttackDamage);
+            Assert.Equal(2, ((Minion)minion2).AttackDamage);
+            Assert.Equal(2, ((Minion)minion1).Health);
+            Assert.Equal(2, ((Minion)minion2).Health);
+            Assert.Equal(true, ((Minion)minion1).HasTaunt);
+            Assert.Equal(true, ((Minion)minion2).HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4] 
