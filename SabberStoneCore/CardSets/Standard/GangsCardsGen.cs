@@ -1703,11 +1703,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_752", new List<Enchantment> {
-				// TODO [CFM_752] Stolen Goods && Test: Stolen Goods_CFM_752
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.BuffRandomMinion(
+                        EntityType.HAND, 
+                        Buffs.AttackHealth(3), 
+                        SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
 				},
 			});
 
