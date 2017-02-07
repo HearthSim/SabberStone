@@ -5759,12 +5759,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_024", new List<Enchantment> {
-				// TODO [NEW1_024] Captain Greenskin && Test: Captain Greenskin_NEW1_024
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
+                        new FlagTask(true, ComplexTask.Create(
+                                new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new MathAddTask(1),
+                                new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON),
+                                new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))))
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
