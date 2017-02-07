@@ -1437,10 +1437,9 @@ namespace SabberStoneXTest
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ThistleTea_OG_073()
 		{
-			// TODO ThistleTea_OG_073 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1451,8 +1450,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thistle Tea"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thistle Tea"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(7, game.CurrentPlayer.Hand.Count);
+
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [OG_176] Shadow Strike - COST:3 

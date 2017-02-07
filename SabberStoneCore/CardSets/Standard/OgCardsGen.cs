@@ -1142,11 +1142,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_073", new List<Enchantment> {
-				// TODO [OG_073] Thistle Tea && Test: Thistle Tea_OG_073
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new CopyTask(EntityType.STACK, 2),
+                        new AddStackTo(EntityType.HAND)),
 				},
 			});
 
