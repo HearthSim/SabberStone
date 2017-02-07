@@ -3823,22 +3823,38 @@ namespace SabberStoneXTest
 		// Text: Draw 2 Demons
 		//       from your deck.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SenseDemons_EX1_317()
 		{
-			// TODO SenseDemons_EX1_317 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Voidwalker"),
+                    Cards.FromName("Voidwalker")
+                },
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sense Demons"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Sense Demons"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(Race.DEMON, game.CurrentPlayer.Hand[5].Card.Race);
+            Assert.Equal(Race.DEMON, game.CurrentPlayer.Hand[4].Card.Race);
+        }
 
 		// ---------------------------------------- SPELL - WARLOCK
 		// [EX1_320] Bane of Doom - COST:5 

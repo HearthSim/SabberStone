@@ -3125,11 +3125,15 @@ namespace SabberStoneCore.CardSets.Standard
 			//       from your deck.
 			// --------------------------------------------------------
 			cards.Add("EX1_317", new List<Enchantment> {
-				// TODO [EX1_317] Sense Demons && Test: Sense Demons_EX1_317
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.DECK),
+                        new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+                        new RandomTask(2, EntityType.STACK),
+                        new RemoveFromDeck(EntityType.STACK),
+                        new AddStackTo(EntityType.HAND))
 				},
 			});
 
