@@ -222,13 +222,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_003", new List<Enchantment> {
-				// TODO [BRM_003] Dragon's Breath && Test: Dragon's Breath_BRM_003
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = Auras.CostFunc(
+                        owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
+                                   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
+                },
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(4, EntityType.TARGET, true)
+                }
+            });
 
 			// ------------------------------------------ MINION - MAGE
 			// [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4] 

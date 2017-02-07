@@ -215,10 +215,9 @@ namespace SabberStoneXTest
         // PlayReq:
         // - REQ_TARGET_TO_PLAY = 0
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void DragonsBreath_BRM_003()
         {
-            // TODO DragonsBreath_BRM_003 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -229,7 +228,15 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragon's Breath"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dragon's Breath"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, testCard.Enchants.Count);
+            Assert.Equal(5, testCard.Cost);
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.Equal(4, testCard.Cost);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.Equal(26, game.CurrentOpponent.Hero.Health);
         }
 
         // ------------------------------------------ MINION - MAGE
