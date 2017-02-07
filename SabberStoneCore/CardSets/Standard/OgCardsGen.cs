@@ -1692,16 +1692,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_109", new List<Enchantment> {
-				// TODO [OG_109] Darkshire Librarian && Test: Darkshire Librarian_OG_109
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.DiscardRandomCard(1),
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DrawTask()
 				},
 			});
 
