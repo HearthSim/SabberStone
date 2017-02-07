@@ -896,16 +896,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_222", new List<Enchantment> {
-				// TODO [OG_222] Rallying Blade && Test: Rallying Blade_OG_222
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1))),
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK))
 				},
 			});
 

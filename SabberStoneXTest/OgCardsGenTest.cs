@@ -1118,10 +1118,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void RallyingBlade_OG_222()
 		{
-			// TODO RallyingBlade_OG_222 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1132,8 +1131,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Rallying Blade"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Rallying Blade"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Argent Squire"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(2, ((Minion)minion1).AttackDamage);
+            Assert.Equal(2, ((Minion)minion1).Health);
+            Assert.Equal(2, ((Minion)minion2).AttackDamage);
+            Assert.Equal(1, ((Minion)minion2).Health);
+        }
 
 	}
 
