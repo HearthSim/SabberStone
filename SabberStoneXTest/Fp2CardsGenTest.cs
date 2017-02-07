@@ -284,10 +284,9 @@ namespace SabberStoneXTest
         // --------------------------------------------------------
         // Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void SolemnVigil_BRM_001()
         {
-            // TODO SolemnVigil_BRM_001 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -298,7 +297,21 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Solemn Vigil"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Solemn Vigil"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.Equal(1, testCard.Enchants.Count);
+            Assert.Equal(5, testCard.Cost);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, testCard.Cost);
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, minion2));
+            Assert.Equal(3, testCard.Cost);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(7, game.CurrentPlayer.Hand.Count);
         }
 
         // --------------------------------------- MINION - PALADIN

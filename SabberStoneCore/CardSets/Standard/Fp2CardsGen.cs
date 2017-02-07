@@ -283,13 +283,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_001", new List<Enchantment> {
-				// TODO [BRM_001] Solemn Vigil && Test: Solemn Vigil_BRM_001
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = Auras.CostFunc(
+                        owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
+                                   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
+                },
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(2, new DrawTask())
+                },
+            });
 
 			// --------------------------------------- MINION - PALADIN
 			// [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5] 
