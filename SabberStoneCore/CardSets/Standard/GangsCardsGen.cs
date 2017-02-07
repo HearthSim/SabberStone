@@ -3144,7 +3144,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = new EnqueueTask(2, ComplexTask.Create(
                         new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
-                        new CopyToHand()))
+                        new AddStackTo(EntityType.HAND)))
 				},
 			});
 
@@ -3309,7 +3309,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
                     SingleTask = new EnqueueTask(3, ComplexTask.Create(
                         new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
-                        new CopyToHand()))
+                        new AddStackTo(EntityType.HAND)))
                 }
 			});
 
@@ -3488,7 +3488,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
-                        new CopyToHand())
+                        new AddStackTo(EntityType.HAND))
                 }
 			});
 

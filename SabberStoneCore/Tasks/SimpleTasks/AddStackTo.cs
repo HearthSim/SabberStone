@@ -19,7 +19,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             switch (Type)
             {
                 case EntityType.DECK:
-
                     Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(Controller, p));
                     return TaskState.COMPLETE;
 

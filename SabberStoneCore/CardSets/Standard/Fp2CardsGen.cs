@@ -776,7 +776,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new EnqueueTask(2, ComplexTask.Create(
                         new RandomCardTask(EntityType.OP_HERO),
-                        new CopyToHand())),
+                        new AddStackTo(EntityType.HAND))),
                 }
 			});
 

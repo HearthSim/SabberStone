@@ -383,7 +383,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RandomCardTask(EntityType.OP_HERO),
-                        new CopyToHand())
+                        new AddStackTo(EntityType.HAND))
                 },
 			});
 

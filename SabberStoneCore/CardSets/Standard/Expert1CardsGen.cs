@@ -5395,7 +5395,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(ComplexTask.Create(
                             new RandomEntourageTask(),
-                            new CopyToHand()))
+                            new AddStackTo(EntityType.HAND)))
                         .Build()
                 }
 			});

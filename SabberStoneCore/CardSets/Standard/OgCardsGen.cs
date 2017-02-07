@@ -1205,14 +1205,14 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                             new RandomEntourageTask(),
-                            new CopyToHand())
+                            new AddStackTo(EntityType.HAND))
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
                             new RandomEntourageTask(),
-                            new CopyToHand())
+                            new AddStackTo(EntityType.HAND))
                 },
 			});
 
@@ -1294,7 +1294,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
                         new RandomCardTask(EntityType.OP_HERO),
-                        new CopyToHand()),
+                        new AddStackTo(EntityType.HAND)),
                 },
 			});
 
@@ -1820,11 +1820,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add a copy of each damaged friendly minion to your hand.
 			// --------------------------------------------------------
 			cards.Add("OG_276", new List<Enchantment> {
-				// TODO [OG_276] Blood Warriors && Test: Blood Warriors_OG_276
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsDamaged),
+                        new CopyTask(EntityType.STACK, 1),
+                        new AddStackTo(EntityType.HAND))
 				},
 			});
 

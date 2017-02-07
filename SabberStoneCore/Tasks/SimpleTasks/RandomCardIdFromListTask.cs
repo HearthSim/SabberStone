@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {

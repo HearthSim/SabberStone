@@ -581,7 +581,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new RandomCardTask(CardType.INVALID, CardClass.HUNTER),
-                            new CopyToHand()))
+                            new AddStackTo(EntityType.HAND)))
                         .Build()
                 }
             });
@@ -1227,7 +1227,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new CopyTask(EntityType.TARGET, 1),
-                        new CopyToHand()),
+                        new AddStackTo(EntityType.HAND)),
 				},
 			});
 
@@ -1408,7 +1408,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = new EnqueueTask(2, ComplexTask.Create(
                         new RandomCardTask(EntityType.OP_HERO),
-                        new CopyToHand())),
+                        new AddStackTo(EntityType.HAND))),
 				},
 			});
 
@@ -2957,7 +2957,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new RandomCardTask(CardType.INVALID, CardClass.PALADIN),
-                        new CopyToHand())
+                        new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -3136,7 +3136,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = new RevealTask(ComplexTask.Create(
                         new CopyTask(EntityType.SOURCE, 1),
-                        new CopyToHand())),
+                        new AddStackTo(EntityType.HAND))),
 				},
 			});
 

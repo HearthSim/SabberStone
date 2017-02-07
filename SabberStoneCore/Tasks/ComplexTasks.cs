@@ -60,7 +60,7 @@ namespace SabberStoneCore.Tasks
             => Create(
                 new RandomTask(1, entityType),
                 new CopyTask(EntityType.STACK, 1),
-                new CopyToHand());
+                new AddStackTo(EntityType.HAND));
 
         public static ISimpleTask IfComboElse(ISimpleTask combo)
             => Create(
