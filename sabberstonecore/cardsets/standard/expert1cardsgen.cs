@@ -3636,11 +3636,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_603", new List<Enchantment> {
-				// TODO [EX1_603] Cruel Taskmaster && Test: Cruel Taskmaster_EX1_603
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET),
+                        new BuffTask(Buffs.Attack(2), EntityType.TARGET))
 				},
 			});
 
@@ -5395,7 +5396,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(ComplexTask.Create(
                             new RandomEntourageTask(),
-                            new CopyToHand()))
+                            new AddStackTo(EntityType.HAND)))
                         .Build()
                 }
 			});
@@ -5489,11 +5490,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_590", new List<Enchantment> {
-				// TODO [EX1_590] Blood Knight && Test: Blood Knight_EX1_590
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1)),
+                        new SetGameTagTask(GameTag.DIVINE_SHIELD, 0, EntityType.STACK),
+                        new CountTask(EntityType.STACK),
+                        new MathMultiplyTask(3),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE)),
 				},
 			});
 
