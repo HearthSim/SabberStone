@@ -1173,10 +1173,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Destroy all minions with 2 or less Attack.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ShadowWordHorror_OG_100()
 		{
-			// TODO ShadowWordHorror_OG_100 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1187,8 +1186,25 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Word: Horror"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Horror"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Goldshire Footman"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Goldshire Footman"));
+            var minion5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion6 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion5));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion6));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(6, game.Minions.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(2, game.Minions.Count);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [OG_101] Forbidden Shaping - COST:0 

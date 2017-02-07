@@ -956,11 +956,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Destroy all minions with 2 or less Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_100", new List<Enchantment> {
-				// TODO [OG_100] Shadow Word: Horror && Test: Shadow Word: Horror_OG_100
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new FilterStackTask(EntityType.SOURCE, 
+                            RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ))),
+                        new DestroyTask(EntityType.STACK))
 				},
 			});
 
