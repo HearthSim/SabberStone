@@ -4169,20 +4169,19 @@ namespace SabberStoneXTest
             Assert.Equal(7, ((Minion)minion1).Health);
         }
 
-		// ---------------------------------------- SPELL - WARRIOR
-		// [EX1_391] Slam - COST:2 
-		// - Fac: neutral, Set: expert1, Rarity: common
-		// --------------------------------------------------------
-		// Text: Deal $2 damage to a minion. If it survives, draw a card. *spelldmg
-		// --------------------------------------------------------
-		// PlayReq:
-		// - REQ_MINION_TARGET = 0
-		// - REQ_TARGET_TO_PLAY = 0
-		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+        // ---------------------------------------- SPELL - WARRIOR
+        // [EX1_391] Slam - COST:2 
+        // - Fac: neutral, Set: expert1, Rarity: common
+        // --------------------------------------------------------
+        // Text: Deal $2 damage to a minion. If it survives, draw a card. *spelldmg
+        // --------------------------------------------------------
+        // PlayReq:
+        // - REQ_MINION_TARGET = 0
+        // - REQ_TARGET_TO_PLAY = 0
+        // --------------------------------------------------------
+        [Fact]
 		public void Slam_EX1_391()
 		{
-			// TODO Slam_EX1_391 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4193,8 +4192,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Slam"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Slam"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ---------------------------------------- SPELL - WARRIOR
 		// [EX1_392] Battle Rage - COST:2 

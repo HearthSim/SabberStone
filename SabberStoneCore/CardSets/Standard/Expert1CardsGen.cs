@@ -3426,13 +3426,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_391", new List<Enchantment> {
-				// TODO [EX1_391] Slam && Test: Slam_EX1_391
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET, true),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+                        new FlagTask(true, new DrawTask()))
+                },
+            });
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [EX1_392] Battle Rage - COST:2 
