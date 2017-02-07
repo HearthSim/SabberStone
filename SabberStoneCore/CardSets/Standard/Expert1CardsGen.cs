@@ -2433,11 +2433,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_128", new List<Enchantment> {
-				// TODO [EX1_128] Conceal && Test: Conceal_EX1_128
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new BuffStealthTask(EntityType.MINIONS)
 				},
 			});
 
@@ -4894,11 +4893,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_103", new List<Enchantment> {
-				// TODO [EX1_103] Coldlight Seer && Test: Coldlight Seer_EX1_103
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+                        new BuffTask(Buffs.Health(2), EntityType.STACK))
 				},
 			});
 
@@ -5450,9 +5451,13 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [EX1_584] Ancient Mage && Test: Ancient Mage_EX1_584
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide)
+                        //new BuffTask(Auras.SpellDamage(1), EntityType.HERO)
+                        )
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
