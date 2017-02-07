@@ -1835,11 +1835,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("OG_314", new List<Enchantment> {
-				// TODO [OG_314] Blood To Ichor && Test: Blood To Ichor_OG_314
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET, true),
+                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+                        new FlagTask(true, new SummonTask("OG_314b")))
 				},
 			});
 

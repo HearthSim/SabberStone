@@ -2214,10 +2214,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void BloodToIchor_OG_314()
 		{
-			// TODO BloodToIchor_OG_314 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2228,8 +2227,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blood To Ichor"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blood To Ichor"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [OG_149] Ravaging Ghoul - COST:3 [ATK:3/HP:3] 
