@@ -3528,11 +3528,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_410", new List<Enchantment> {
-				// TODO [EX1_410] Shield Slam && Test: Shield Slam_EX1_410
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ARMOR, EntityType.HERO),
+                        new DamageNumberTask(EntityType.TARGET, true))
 				},
 			});
 

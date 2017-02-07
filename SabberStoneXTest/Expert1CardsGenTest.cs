@@ -4334,10 +4334,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ShieldSlam_EX1_410()
 		{
-			// TODO ShieldSlam_EX1_410 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4348,8 +4347,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shield Slam"));
-		}
+            var minion = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.Equal(2, game.CurrentPlayer.Hero.Armor);
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shield Slam"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(true, minion.ToBeDestroyed);
+
+        }
 
 		// ---------------------------------------- SPELL - WARRIOR
 		// [EX1_607] Inner Rage - COST:0 
