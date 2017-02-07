@@ -3212,11 +3212,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_301", new List<Enchantment> {
-				// TODO [EX1_301] Felguard && Test: Felguard_EX1_301
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new ManaCrystalEmptyTask(-1)
 				},
 			});
 

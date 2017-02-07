@@ -3949,10 +3949,9 @@ namespace SabberStoneXTest
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Felguard_EX1_301()
 		{
-			// TODO Felguard_EX1_301 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3961,9 +3960,11 @@ namespace SabberStoneXTest
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Felguard"));
+			game.Player1.BaseMana = 5;
+			game.Player2.BaseMana = 5;
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Felguard"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(4, game.CurrentPlayer.BaseMana);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
