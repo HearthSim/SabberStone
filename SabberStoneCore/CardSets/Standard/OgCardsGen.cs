@@ -1920,13 +1920,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_301", new List<Enchantment> {
-				// TODO [OG_301] Ancient Shieldbearer && Test: Ancient Shieldbearer_OG_301
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new FlagTask(true, new ArmorTask(10)))
+                },
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [OG_312] N'Zoth's First Mate - COST:1 [ATK:1/HP:1] 
