@@ -2661,10 +2661,9 @@ namespace SabberStoneXTest
 		// - BATTLECRY = 1
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void TwinEmperorVeklor_OG_131()
 		{
-			// TODO TwinEmperorVeklor_OG_131 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2675,8 +2674,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twin Emperor Vek'lor"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twin Emperor Vek'lor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+            game.CurrentPlayer.UsedMana = 0;
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion1, game.CurrentOpponent.Hero));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Disciple of C'Thun"));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, game.CurrentOpponent.Hero));
+            Assert.Equal(3, game.CurrentPlayer.Board.Count);
+		    game.CurrentPlayer.UsedMana = 0;
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twin Emperor Vek'lor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.Equal(5, game.CurrentPlayer.Board.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_133] N'Zoth, the Corruptor - COST:10 [ATK:5/HP:7] 

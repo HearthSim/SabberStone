@@ -1010,6 +1010,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
+                        new RitualTask(),
                         new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
                         new FlagTask(true, new HealTask(10, EntityType.HERO)))
 				},
@@ -1924,6 +1925,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
+                        new RitualTask(),
                         new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
                         new FlagTask(true, new ArmorTask(10)))
                 },
@@ -2154,13 +2156,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_131", new List<Enchantment> {
-				// TODO [OG_131] Twin Emperor Vek'lor && Test: Twin Emperor Vek'lor_OG_131
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new RitualTask(),
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new FlagTask(true, new SummonTask("OG_131")))
+                },
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_133] N'Zoth, the Corruptor - COST:10 [ATK:5/HP:7] 
