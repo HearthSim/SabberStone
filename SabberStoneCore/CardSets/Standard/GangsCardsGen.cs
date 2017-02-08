@@ -1632,13 +1632,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_750", new List<Enchantment> {
-				// TODO [CFM_750] Krul the Unshackled && Test: Krul the Unshackled_CFM_750
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new FlagTask(true, ComplexTask.Create(
+                            new IncludeTask(EntityType.HAND),
+                            new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+                            new RemoveFromHand(EntityType.STACK),
+                            new SummonStackTask())))
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6] 

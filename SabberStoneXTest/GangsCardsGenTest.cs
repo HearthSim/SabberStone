@@ -2255,22 +2255,34 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void KrulTheUnshackled_CFM_750()
 		{
-			// TODO KrulTheUnshackled_CFM_750 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Voidwalker"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Flame Imp"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("River Crocolisk"),
+                },
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = false,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Krul the Unshackled"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Krul the Unshackled"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(3, game.CurrentPlayer.Board.Count);
+            Assert.Equal(30, game.CurrentPlayer.Hero.Health);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6] 
