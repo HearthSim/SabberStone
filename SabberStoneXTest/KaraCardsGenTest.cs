@@ -115,22 +115,28 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void CatTrick_KAR_004()
 		{
-			// TODO CatTrick_KAR_004 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cat Trick"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cat Trick"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Hero));
+            Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 

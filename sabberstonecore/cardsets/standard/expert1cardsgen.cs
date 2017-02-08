@@ -1802,11 +1802,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Change the Health of ALL minions to 1.
 			// --------------------------------------------------------
 			cards.Add("EX1_619", new List<Enchantment> {
-				// TODO [EX1_619] Equality && Test: Equality_EX1_619
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SetHealthTask(1, EntityType.ALLMINIONS)
 				},
 			});
 
@@ -2057,11 +2056,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copy 2 cards in your opponent's deck and add them to your hand.
 			// --------------------------------------------------------
 			cards.Add("EX1_339", new List<Enchantment> {
-				// TODO [EX1_339] Thoughtsteal && Test: Thoughtsteal_EX1_339
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(2, EntityType.OP_HAND),
+                        new CopyTask(EntityType.STACK, 1),
+                        new AddStackTo(EntityType.HAND))
 				},
 			});
 

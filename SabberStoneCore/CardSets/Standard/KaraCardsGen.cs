@@ -88,12 +88,18 @@ namespace SabberStoneCore.CardSets.Standard
             // - STEALTH = 1
             // --------------------------------------------------------
             cards.Add("KAR_004", new List<Enchantment> {
-				// TODO [KAR_004] Cat Trick && Test: Cat Trick_KAR_004
-				new Enchantment
+                new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
-                },
+                    Area = EnchantmentArea.OP_HAND,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new SummonTask("KAR_004a")))
+                        .Build()
+                }
             });
 
             // ---------------------------------------- MINION - HUNTER
