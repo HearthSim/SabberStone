@@ -752,11 +752,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_LEGENDARY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_029", new List<Enchantment> {
-				// TODO [BRM_029] Rend Blackhand && Test: Rend Blackhand_BRM_029
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.TARGET)
 				},
 			});
 
