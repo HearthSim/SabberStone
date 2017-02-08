@@ -2337,10 +2337,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Copy 2 cards in your opponent's deck and add them to your hand.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Thoughtsteal_EX1_339()
 		{
-			// TODO Thoughtsteal_EX1_339 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2351,8 +2350,11 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thoughtsteal"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Thoughtsteal"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [EX1_345] Mindgames - COST:4 

@@ -2057,11 +2057,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copy 2 cards in your opponent's deck and add them to your hand.
 			// --------------------------------------------------------
 			cards.Add("EX1_339", new List<Enchantment> {
-				// TODO [EX1_339] Thoughtsteal && Test: Thoughtsteal_EX1_339
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(2, EntityType.OP_HAND),
+                        new CopyTask(EntityType.STACK, 1),
+                        new AddStackTo(EntityType.HAND))
 				},
 			});
 
