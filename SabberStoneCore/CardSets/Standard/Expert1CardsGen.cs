@@ -4627,11 +4627,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_059", new List<Enchantment> {
-				// TODO [EX1_059] Crazed Alchemist && Test: Crazed Alchemist_EX1_059
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
 				},
 			});
 
