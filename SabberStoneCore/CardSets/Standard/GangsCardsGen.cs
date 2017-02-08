@@ -1935,11 +1935,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_063", new List<Enchantment> {
-				// TODO [CFM_063] Kooky Chemist && Test: Kooky Chemist_CFM_063
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
 				},
 			});
 

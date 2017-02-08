@@ -2679,10 +2679,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void KookyChemist_CFM_063()
 		{
-			// TODO KookyChemist_CFM_063 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2693,8 +2692,22 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kooky Chemist"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kooky Chemist"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blessing of Might"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion3, minion1));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion1));
+            Assert.Equal(5, ((Minion)minion1).AttackDamage);
+            Assert.Equal(2, ((Minion)minion1).Health);
+            game.CurrentPlayer.UsedMana = 0;
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion1));
+            Assert.Equal(3, ((Minion)minion1).AttackDamage);
+            Assert.Equal(6, ((Minion)minion1).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_064] Blubber Baron - COST:3 [ATK:1/HP:1] 
