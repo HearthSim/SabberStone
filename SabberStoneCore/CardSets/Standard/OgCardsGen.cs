@@ -1006,11 +1006,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_096", new List<Enchantment> {
-				// TODO [OG_096] Twilight Darkmender && Test: Twilight Darkmender_OG_096
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new FlagTask(true, new HealTask(10, EntityType.HERO)))
 				},
 			});
 
