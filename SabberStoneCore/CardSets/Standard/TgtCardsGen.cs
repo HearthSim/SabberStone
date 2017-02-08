@@ -1238,11 +1238,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Swap the Attack and Health of all minions.
 			// --------------------------------------------------------
 			cards.Add("AT_016", new List<Enchantment> {
-				// TODO [AT_016] Confuse && Test: Confuse_AT_016
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SwapAttackHealthTask(EntityType.ALLMINIONS)
 				},
 			});
 

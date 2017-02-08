@@ -1635,10 +1635,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Swap the Attack and Health of all minions.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Confuse_AT_016()
 		{
-			// TODO Confuse_AT_016 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1649,8 +1648,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Confuse"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Confuse"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shieldbearer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(true, minion.ToBeDestroyed);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [AT_055] Flash Heal - COST:1 
