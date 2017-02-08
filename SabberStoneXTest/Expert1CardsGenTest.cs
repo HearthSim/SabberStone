@@ -4,6 +4,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Generic = SabberStoneCore.Actions.Generic;
 
@@ -2052,10 +2053,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Change the Health of ALL minions to 1.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Equality_EX1_619()
 		{
-			// TODO Equality_EX1_619 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2066,7 +2066,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Equality"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Equality"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+		    var totHealth = game.Minions.Sum(p => ((Minion) p).Health);
+            Assert.Equal(4, totHealth);
 		}
 
 		// --------------------------------------- MINION - PALADIN

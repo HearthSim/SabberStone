@@ -1802,11 +1802,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Change the Health of ALL minions to 1.
 			// --------------------------------------------------------
 			cards.Add("EX1_619", new List<Enchantment> {
-				// TODO [EX1_619] Equality && Test: Equality_EX1_619
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SetHealthTask(1, EntityType.ALLMINIONS)
 				},
 			});
 
