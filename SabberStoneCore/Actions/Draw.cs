@@ -51,8 +51,8 @@ namespace SabberStoneCore.Actions
             => delegate(Controller c, IPlayable cardToDraw)
             {
                 var playable = c.Deck.Remove(cardToDraw ?? c.Deck[0]);
-                c.NumCardsDrawnThisTurn++;
                 c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", $"{c.Name} draws {playable}");
+                c.NumCardsDrawnThisTurn++;
                 return playable;
             };
     }

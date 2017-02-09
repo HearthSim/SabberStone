@@ -1445,10 +1445,9 @@ namespace SabberStoneXTest
         // GameTag:
         // - SECRET = 1
         // --------------------------------------------------------
-        [Fact(Skip="NotImplemented")]
+        [Fact]
 		public void IceBarrier_EX1_289()
 		{
-			// TODO IceBarrier_EX1_289 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1459,8 +1458,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ice Barrier"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ice Barrier"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, game.CurrentOpponent.Secrets.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
+            Assert.Equal(7, game.CurrentOpponent.Hero.Armor);
+        }
 
 		// ------------------------------------------- SPELL - MAGE
 		// [EX1_294] Mirror Entity - COST:3 
