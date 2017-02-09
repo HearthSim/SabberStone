@@ -1913,13 +1913,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever  you cast a spell, gain +2 Attack.
 			// --------------------------------------------------------
 			cards.Add("CFM_060", new List<Enchantment> {
-				// TODO [CFM_060] Red Mana Wyrm && Test: Red Mana Wyrm_CFM_060
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_063] Kooky Chemist - COST:4 [ATK:4/HP:4] 

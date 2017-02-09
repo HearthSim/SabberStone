@@ -2649,10 +2649,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever  you cast a spell, gain +2 Attack.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void RedManaWyrm_CFM_060()
 		{
-			// TODO RedManaWyrm_CFM_060 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2663,8 +2662,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Red Mana Wyrm"));
-		}
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Red Mana Wyrm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(4, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(4, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_063] Kooky Chemist - COST:4 [ATK:4/HP:4] 

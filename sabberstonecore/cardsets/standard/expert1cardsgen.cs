@@ -1325,13 +1325,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_289", new List<Enchantment> {
-				// TODO [EX1_289] Ice Barrier && Test: Ice Barrier_EX1_289
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.DEFENDING, 1)
+                        .SingleTask(ComplexTask.Secret(new ArmorTask(8)))
+                        .Build()
+                },
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [EX1_294] Mirror Entity - COST:3 
@@ -1617,13 +1621,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_132", new List<Enchantment> {
-				// TODO [EX1_132] Eye for an Eye && Test: Eye for an Eye_EX1_132
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.SECRET,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new DamageNumberTask(EntityType.OP_HERO)))
+                        .Build()
+                },
+            });
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_136] Redemption - COST:1 
