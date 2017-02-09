@@ -2854,13 +2854,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_321", new List<Enchantment> {
-				// TODO [OG_321] Crazed Worshipper && Test: Crazed Worshipper_OG_321
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_322] Blackwater Pirate - COST:4 [ATK:2/HP:5] 
