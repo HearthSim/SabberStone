@@ -2600,10 +2600,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - CHOOSE_ONE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void WindUpBurglebot_CFM_025()
 		{
-			// TODO WindUpBurglebot_CFM_025 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2614,8 +2613,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wind-up Burglebot"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wind-up Burglebot"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_039] Street Trickster - COST:3 [ATK:0/HP:7] 

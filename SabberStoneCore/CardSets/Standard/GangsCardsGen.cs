@@ -1880,12 +1880,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_025", new List<Enchantment> {
-				// TODO [CFM_025] Wind-up Burglebot && Test: Wind-up Burglebot_CFM_025
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				{
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTargetMinion(
+                                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+                                new DrawTask())
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2121,25 +2123,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
 					Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.ATTACKING, -1)
-                        .SingleTask(ComplexTask.Create(
-                            new IncludeTask(EntityType.SOURCE),
-                            new FuncTask(p =>
-                            {
-                                var result = new List<IPlayable>();
-                                var minion = p[0] as Minion;
-                                if (minion == null)
-                                    return result;
-                                var target = minion.Game.IdEntityDic[minion.ProposedDefender] as Minion;
-                                if (target != null)
-                                   result.Add(target);
-                                return result; }),
-                            new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
-                            ComplexTask.True(new EnqueueTask(2,
-                                ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace)))))
-                        .Build()
+                    Trigger = Triggers.MinionAttacksAndTargetMinion(
+                        new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                        new EnqueueTask(2,ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace)))
                 }
 			});
 
