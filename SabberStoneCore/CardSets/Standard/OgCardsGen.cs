@@ -1505,13 +1505,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_026", new List<Enchantment> {
-				// TODO [OG_026] Eternal Sentinel && Test: Eternal Sentinel_OG_026
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0),
+                },
+            });
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [OG_028] Thing from Below - COST:6 [ATK:5/HP:5] 
@@ -2815,13 +2814,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_318", new List<Enchantment> {
-				// TODO [OG_318] Hogger, Doom of Elwynn && Test: Hogger, Doom of Elwynn_OG_318
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new SummonTask("OG_318t"))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_320] Midnight Drake - COST:4 [ATK:1/HP:4] 
