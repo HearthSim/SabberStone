@@ -2766,13 +2766,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_300", new List<Enchantment> {
-				// TODO [OG_300] The Boogeymonster && Test: The Boogeymonster_OG_300
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTargetMinion(
+                                new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                                new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_317] Deathwing, Dragonlord - COST:10 [ATK:12/HP:12] 

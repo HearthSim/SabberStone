@@ -3690,10 +3690,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void TheBoogeymonster_OG_300()
 		{
-			// TODO TheBoogeymonster_OG_300 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3704,8 +3703,21 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Boogeymonster"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Boogeymonster"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		    Assert.Equal(6, ((Minion)testCard).AttackDamage);
+            Assert.Equal(6, ((Minion)testCard).Health);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer,testCard, minion2));
+            Assert.Equal(8, ((Minion)testCard).AttackDamage);
+            Assert.Equal(7, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_317] Deathwing, Dragonlord - COST:10 [ATK:12/HP:12] 
