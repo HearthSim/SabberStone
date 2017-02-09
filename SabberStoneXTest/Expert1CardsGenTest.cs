@@ -1809,10 +1809,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void EyeForAnEye_EX1_132()
 		{
-			// TODO EyeForAnEye_EX1_132 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1823,8 +1822,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eye for an Eye"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eye for an Eye"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(1, game.CurrentOpponent.Secrets.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
+            Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [EX1_136] Redemption - COST:1 
