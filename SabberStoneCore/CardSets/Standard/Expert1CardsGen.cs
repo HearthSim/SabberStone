@@ -2194,12 +2194,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack is always equal to its Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_335", new List<Enchantment> {
-				// TODO [EX1_335] Lightspawn && Test: Lightspawn_EX1_335
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = new Enchant()
+					{
+					    EnableConditions = new List<SelfCondition>
+					    {
+                            SelfCondition.IsInHandOrPlayZone,
+                            SelfCondition.IsNotSilenced,
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.ATK] = 0
+                        },
+                        FixedValueFunc = owner => ((Minion)owner).Health
+                    },
+
+				}
 			});
 
 			// ---------------------------------------- MINION - PRIEST

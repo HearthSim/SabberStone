@@ -2555,22 +2555,26 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: This minion's Attack is always equal to its Health.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Lightspawn_EX1_335()
 		{
-			// TODO Lightspawn_EX1_335 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightspawn"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightspawn"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(5, ((Minion)testCard).Health);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            Assert.Equal(4, ((Minion)testCard).Health);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5] 
