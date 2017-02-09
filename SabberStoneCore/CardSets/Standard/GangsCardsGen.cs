@@ -1152,12 +1152,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_634", new List<Enchantment> {
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTargetMinion(
+                                new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                                new SetGameTagTask(GameTag.STEALTH, 1, EntityType.SOURCE))
+                }
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_636] Shadow Rager - COST:3 [ATK:5/HP:1] 

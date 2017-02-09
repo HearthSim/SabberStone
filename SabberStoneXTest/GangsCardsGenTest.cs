@@ -1600,10 +1600,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void LotusAssassin_CFM_634()
 		{
-			// TODO LotusAssassin_CFM_634 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1614,8 +1613,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Assassin"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Assassin"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(true, ((Minion)testCard).HasStealth);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion2));
+            Assert.Equal(true, ((Minion)testCard).HasStealth);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [CFM_636] Shadow Rager - COST:3 [ATK:5/HP:1] 
