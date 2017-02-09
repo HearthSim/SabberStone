@@ -4498,10 +4498,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Armorsmith_EX1_402()
 		{
-			// TODO Armorsmith_EX1_402 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4512,8 +4511,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Armorsmith"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Armorsmith"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
+            Assert.Equal(1, game.CurrentOpponent.Hero.Armor);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9] 

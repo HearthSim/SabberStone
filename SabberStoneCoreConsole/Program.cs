@@ -19,11 +19,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -87,18 +87,19 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.SHAMAN,
+                Player1HeroClass = CardClass.WARRIOR,
+                Player2HeroClass = CardClass.WARRIOR,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Primal Fusion"));
-            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Armorsmith"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
