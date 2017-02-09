@@ -3110,13 +3110,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_316", new List<Enchantment> {
-				// TODO [EX1_316] Power Overwhelming && Test: Power Overwhelming_EX1_316
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
+                    Enchant = new Enchant
+                    {
+                        TurnsActive = 0,
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsNotSilenced,
+                            SelfCondition.IsInPlayZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.NUM_TURNS_IN_PLAY] = 0
+                        },
+                        SingleTask = new DestroyTask(EntityType.TARGET)
+                    }
+                }
+            });
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [EX1_317] Sense Demons - COST:3 

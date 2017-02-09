@@ -3814,10 +3814,9 @@ namespace SabberStoneXTest
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void PowerOverwhelming_EX1_316()
 		{
-			// TODO PowerOverwhelming_EX1_316 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3828,8 +3827,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Power Overwhelming"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Power Overwhelming"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(5, ((Minion)minion).AttackDamage);
+            Assert.Equal(5, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(true, minion.ToBeDestroyed);
+        }
 
 		// ---------------------------------------- SPELL - WARLOCK
 		// [EX1_317] Sense Demons - COST:3 
