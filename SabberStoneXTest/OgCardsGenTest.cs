@@ -540,10 +540,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever this attacks and kills a minion, it may attack again.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void GiantSandWorm_OG_308()
 		{
-			// TODO GiantSandWorm_OG_308 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -554,8 +553,24 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Giant Sand Worm"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Giant Sand Worm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            var minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion1));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion2));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion3));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion4));
+            Assert.Equal(0, game.CurrentOpponent.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [OG_309] Princess Huhuran - COST:5 [ATK:6/HP:5] 

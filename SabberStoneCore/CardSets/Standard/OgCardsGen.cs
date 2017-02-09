@@ -477,13 +477,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this attacks and kills a minion, it may attack again.
 			// --------------------------------------------------------
 			cards.Add("OG_308", new List<Enchantment> {
-				// TODO [OG_308] Giant Sand Worm && Test: Giant Sand Worm_OG_308
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTargetMinion(
+                                new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                                new FlagTask(true, ComplexTask.Create(
+                                    new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.EXHAUSTED, 1)),
+                                    new FlagTask(true, new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE)))))
+                }
+            });
 
 			// ---------------------------------------- MINION - HUNTER
 			// [OG_309] Princess Huhuran - COST:5 [ATK:6/HP:5] 
