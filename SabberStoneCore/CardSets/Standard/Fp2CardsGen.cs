@@ -789,13 +789,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_031", new List<Enchantment> {
-				// TODO [BRM_031] Chromaggus && Test: Chromaggus_BRM_031
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4] 

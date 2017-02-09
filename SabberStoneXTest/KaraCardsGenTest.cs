@@ -441,10 +441,10 @@ namespace SabberStoneXTest
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             Assert.Equal(true, ((Minion)minion).HasDeathrattle);
-            Assert.Equal(3, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
             Assert.Equal(false, ((Minion)minion).HasDeathrattle);
-            Assert.Equal(4, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
         }
 
 		// ---------------------------------------- MINION - PRIEST

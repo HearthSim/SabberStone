@@ -107,15 +107,15 @@ namespace SabberStoneXTest
             Assert.Equal(1, ((Minion)minion2).Health);
             var spell1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of Y'Shaarj"));
             var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mark of Y'Shaarj"));
-            Assert.Equal(5, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion2));
             Assert.Equal(4, ((Minion)minion2).AttackDamage);
             Assert.Equal(3, ((Minion)minion2).Health);
-            Assert.Equal(5, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion1));
             Assert.Equal(5, ((Minion)minion1).AttackDamage);
             Assert.Equal(4, ((Minion)minion1).Health);
-            Assert.Equal(6, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
 
         }
 

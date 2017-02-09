@@ -977,10 +977,10 @@ namespace SabberStoneXTest
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Small-Time Recruits"));
-            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(5, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(4, game.CurrentPlayer.NumCardsDrawnThisTurn);
             Assert.Equal(7, game.CurrentPlayer.Hand.Count);
 
         }

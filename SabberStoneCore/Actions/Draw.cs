@@ -20,7 +20,7 @@ namespace SabberStoneCore.Actions
             => delegate(Controller c, Card card)
             {
                 var playable = Entity.FromCard(c, card);
-                c.NumCardsDrawnThisTurn++;
+                //c.NumCardsDrawnThisTurn++;
                 AddHandPhase.Invoke(c, playable);
                 return playable;
             };

@@ -660,11 +660,11 @@ namespace SabberStoneXTest
 
             var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient of Lore"));
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2, 1));
 
-            Assert.Equal(4, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
 
 	}
@@ -1983,11 +1983,11 @@ namespace SabberStoneXTest
 
             var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Holy Wrath"));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(30 - game.CurrentPlayer.Hand[4].Card.Cost, game.CurrentOpponent.Hero.Health);
         }
 
@@ -5161,7 +5161,7 @@ namespace SabberStoneXTest
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Acolyte of Pain"));
             game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
 
@@ -5308,11 +5308,11 @@ namespace SabberStoneXTest
 
             Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -6311,12 +6311,12 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 8;
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gadgetzan Auctioneer"));
-            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
             Assert.Equal(4, game.CurrentPlayer.RemainingMana);
-            Assert.Equal(3, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
         }
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -1248,17 +1248,17 @@ namespace SabberStoneXTest
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Starving Buzzard"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             var minion3 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Murloc Raider"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-            Assert.Equal(5, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
 
         // ---------------------------------------- MINION - HUNTER
@@ -1473,12 +1473,12 @@ namespace SabberStoneXTest
 
             var spell = Generic.DrawCard(game.Player1,Cards.FromName("Arcane Intellect"));
 
-            Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(0, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
 
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, spell));
 
-            Assert.Equal(4, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(3, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
         }
 
@@ -2060,7 +2060,7 @@ namespace SabberStoneXTest
 
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(true, minion1.ToBeDestroyed);
         }
 
@@ -2313,7 +2313,7 @@ namespace SabberStoneXTest
             var spell = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Holy Nova"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(28, game.CurrentOpponent.Hero.Health);
             Assert.Equal(3, ((ICharacter) minion13).Health);
             Assert.Equal(Zone.GRAVEYARD, minion24.Zone.Type);
@@ -2479,7 +2479,7 @@ namespace SabberStoneXTest
 
             var minion1 = Generic.DrawCard(game.Player1,Cards.FromName("Murloc Raider"));
 
-            Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
@@ -2487,13 +2487,13 @@ namespace SabberStoneXTest
 
             var spell = Generic.DrawCard(game.Player1,Cards.FromName("Power Word: Shield"));
 
-            Assert.Equal(3, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             Assert.Equal(1, game.Player1.Board[0][GameTag.HEALTH]);
 
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion1));
 
-            Assert.Equal(4, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
             Assert.Equal(3, game.Player1.Board[0][GameTag.HEALTH]);
         }
@@ -2522,7 +2522,7 @@ namespace SabberStoneXTest
 
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Northshire Cleric"));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             Generic.PlayCardBlock(game.CurrentPlayer, minion1, null, -1, 0);
 
@@ -2530,7 +2530,7 @@ namespace SabberStoneXTest
 
             var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Frostwolf Grunt"));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             Generic.PlayCardBlock(game.CurrentPlayer, minion2, null, -1, 0);
 
@@ -2663,7 +2663,7 @@ namespace SabberStoneXTest
 
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Northshire Cleric"));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             Generic.PlayCardBlock(game.CurrentPlayer, minion1, null, -1, 0);
 
@@ -2671,7 +2671,7 @@ namespace SabberStoneXTest
 
             var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Frostwolf Grunt"));
 
-            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
             Generic.PlayCardBlock(game.CurrentPlayer, minion2, null, -1, 0);
 
@@ -2924,7 +2924,7 @@ namespace SabberStoneXTest
             Assert.Equal(1, ((ICharacter) m3).Health);
             Assert.Equal(true, ((ICharacter) m1).IsDead);
 
-            Assert.Equal(3, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -3752,7 +3752,7 @@ namespace SabberStoneXTest
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Board[1]));
 
             Assert.Equal(1, game.CurrentOpponent.Board.Count);
-            Assert.Equal(4, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -5335,12 +5335,12 @@ namespace SabberStoneXTest
 
             var minion = Generic.DrawCard(game.Player1,Cards.FromName("Novice Engineer"));
 
-            Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(0, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
 
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 
-            Assert.Equal(3, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
+            Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
             Assert.Equal(1, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
         }
 

@@ -162,10 +162,10 @@ namespace SabberStoneXTest
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Quick Shot"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, game.CurrentOpponent.Hero));
             Assert.Equal(27, game.CurrentOpponent.Hero.Health);
-            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(0, game.CurrentPlayer.NumCardsDrawnThisTurn);
             Assert.Equal(15, game.CurrentPlayer.Hero.Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
-            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+            Assert.Equal(0, game.CurrentPlayer.NumCardsDrawnThisTurn);
             Assert.Equal(24, game.CurrentOpponent.Hero.Health);
             Assert.Equal(-1, game.CurrentPlayer.Hero.Health);
         }
