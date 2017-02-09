@@ -3622,13 +3622,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
 			// --------------------------------------------------------
 			cards.Add("EX1_402", new List<Enchantment> {
-				// TODO [EX1_402] Armorsmith && Test: Armorsmith_EX1_402
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new ArmorTask(1))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9] 

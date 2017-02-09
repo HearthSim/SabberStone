@@ -2198,22 +2198,28 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - RITUAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void UsherOfSouls_OG_302()
 		{
-			// TODO UsherOfSouls_OG_302 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player2HeroClass = CardClass.WARLOCK,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Usher of Souls"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Usher of Souls"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.Equal(7, ((Minion)game.CurrentOpponent.Setaside[0]).Health);
+            Assert.Equal(7, ((Minion)game.CurrentOpponent.Setaside[0]).AttackDamage);
+        }
 
 	}
 

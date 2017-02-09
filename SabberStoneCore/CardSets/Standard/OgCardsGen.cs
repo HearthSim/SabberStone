@@ -1779,13 +1779,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_302", new List<Enchantment> {
-				// TODO [OG_302] Usher of Souls && Test: Usher of Souls_OG_302
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                        .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
+                        .Build()
+                }
+            });
 
 		}
 
