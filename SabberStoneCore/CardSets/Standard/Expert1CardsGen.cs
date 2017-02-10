@@ -3524,11 +3524,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_408", new List<Enchantment> {
-				// TODO [EX1_408] Mortal Strike && Test: Mortal Strike_EX1_408
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
+                        new FlagTask(true, new DamageTask(6, EntityType.TARGET, true)),
+                        new FlagTask(false, new DamageTask(4, EntityType.TARGET, true))),
 				},
 			});
 
