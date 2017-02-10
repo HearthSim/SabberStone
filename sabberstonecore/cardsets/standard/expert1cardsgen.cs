@@ -1733,13 +1733,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_363", new List<Enchantment> {
-				// TODO [EX1_363] Blessing of Wisdom && Test: Blessing of Wisdom_EX1_363
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.SPELL,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_365] Holy Wrath - COST:5 
@@ -2475,13 +2479,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_137", new List<Enchantment> {
-				// TODO [EX1_137] Headcrack && Test: Headcrack_EX1_137
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.OP_HERO),
+                },
+                // Combo
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.OP_HERO),
+                    Trigger = new TriggerBuilder().Create()
+                        .TurnsActive(0)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new AddCardTo("EX1_137", EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_144] Shadowstep - COST:0 

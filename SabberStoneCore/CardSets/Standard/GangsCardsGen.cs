@@ -1257,13 +1257,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_781", new List<Enchantment> {
-				// TODO [CFM_781] Shaku, the Collector && Test: Shaku, the Collector_CFM_781
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.SPELL,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomCardTask(EntityType.OP_HERO),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
+                }
+            });
 
 		}
 
