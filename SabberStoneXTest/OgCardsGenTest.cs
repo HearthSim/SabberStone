@@ -3172,10 +3172,9 @@ namespace SabberStoneXTest
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void FacelessShambler_OG_174()
 		{
-			// TODO FacelessShambler_OG_174 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3186,8 +3185,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Shambler"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Shambler"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(3, ((Minion)testCard).AttackDamage);
+            Assert.Equal(2, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [OG_200] Validated Doomsayer - COST:5 [ATK:0/HP:7] 

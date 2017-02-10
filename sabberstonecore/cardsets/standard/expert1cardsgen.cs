@@ -1234,7 +1234,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
                         ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
                         ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
                 }
@@ -2139,7 +2139,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPowerCard("EX1_625t")),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPowerCard("EX1_625t")),
                         ComplexTask.True(new ReplaceHeroPower(Cards.FromId("EX1_625t2"))),
                         ComplexTask.False(new ReplaceHeroPower(Cards.FromId("EX1_625t"))))
 				},
@@ -3190,7 +3190,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new DamageTask(2, EntityType.TARGET),
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
                         new FlagTask(true, ComplexTask.SummonRandomMinion(GameTag.CARDRACE, (int) Race.DEMON))),
 				},
 			});
@@ -3206,11 +3206,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_596", new List<Enchantment> {
-				// TODO [EX1_596] Demonfire && Test: Demonfire_EX1_596
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                            new ConditionTask(EntityType.TARGET, 
+                                RelaCondition.IsFriendly, 
+                                RelaCondition.IsOther(SelfCondition.IsRace(Race.DEMON))),
+                            new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET)),
+                            new FlagTask(false, new DamageTask(2, EntityType.TARGET))
+                        ),
 				},
 			});
 
@@ -3472,7 +3477,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DamageTask(2, EntityType.TARGET, true),
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
                         new FlagTask(true, new DrawTask()))
                 },
             });
@@ -3529,7 +3534,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
+                        new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
                         new FlagTask(true, new DamageTask(6, EntityType.TARGET, true)),
                         new FlagTask(false, new DamageTask(4, EntityType.TARGET, true))),
 				},
@@ -3546,7 +3551,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
+                        new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
                         new FlagTask(true, ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                                 new MathAddTask(1),
@@ -4791,7 +4796,7 @@ namespace SabberStoneCore.CardSets.Standard
                         new IncludeTask(EntityType.OP_MINIONS),
                         new FuncTask(p => p.Count > 3 ? p : new List<IPlayable>()),
                         new RandomTask(1, EntityType.STACK),
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
                         new FlagTask(false, new ControlTask(EntityType.STACK)),
                         new FlagTask(true, new DestroyTask(EntityType.STACK)))
 				},
@@ -5568,7 +5573,7 @@ namespace SabberStoneCore.CardSets.Standard
                                 .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
                                 .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
                                 .SingleTask(ComplexTask.Create(
-                                    new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+                                    new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
                                     ComplexTask.True(new DrawTask())))
                                 .Build()
                 }
@@ -5819,7 +5824,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
+                        new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
                         new FlagTask(true, ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                                 new MathAddTask(1),

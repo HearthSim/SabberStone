@@ -2453,12 +2453,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("OG_174", new List<Enchantment> {
-				// TODO [OG_174] Faceless Shambler && Test: Faceless Shambler_OG_174
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+                        new SetGameTagNumberTask(GameTag.HEALTH, EntityType.SOURCE))
+                },
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
