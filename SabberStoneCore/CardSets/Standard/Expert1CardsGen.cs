@@ -2475,13 +2475,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_137", new List<Enchantment> {
-				// TODO [EX1_137] Headcrack && Test: Headcrack_EX1_137
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.OP_HERO),
+                },
+                // Combo
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EntityType.OP_HERO),
+                    Trigger = new TriggerBuilder().Create()
+                        .TurnsActive(0)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new AddCardTo("EX1_137", EntityType.HAND))
+                        .Build()
+                }
+            });
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_144] Shadowstep - COST:0 

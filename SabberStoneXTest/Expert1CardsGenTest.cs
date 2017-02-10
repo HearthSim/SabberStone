@@ -2902,10 +2902,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - COMBO = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Headcrack_EX1_137()
 		{
-			// TODO Headcrack_EX1_137 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2916,8 +2915,23 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Headcrack"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Headcrack"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Headcrack"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            Assert.Equal(28, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, game.CurrentOpponent.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.Equal(26, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(6, game.CurrentOpponent.Hand.Count);
+            Assert.Equal(testCard1.Card.Id, game.CurrentOpponent.Hand[5].Card.Id);
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [EX1_144] Shadowstep - COST:0 
