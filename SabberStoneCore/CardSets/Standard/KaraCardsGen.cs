@@ -266,7 +266,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new EnqueueTask(2, new SummonTask("KAR_010a")))),
 				},
 			});
@@ -794,7 +794,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DestroyTask(EntityType.TARGET)))
                 },
 			});
@@ -839,7 +839,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
                         new FlagTask(true, ComplexTask.Create(
                             new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
                             ComplexTask.Taunt(EntityType.SOURCE)))),
@@ -937,7 +937,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DiscoverTask(DiscoverType.DRAGON)))
 				},
 			});
@@ -1019,7 +1019,7 @@ namespace SabberStoneCore.CardSets.Standard
                             new IncludeTask(EntityType.DECK),
                             new FilterStackTask(SelfCondition.IsMinion),
                             new RandomTask(1, EntityType.STACK),
-                            new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+                            new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
                             new FlagTask(true, ComplexTask.Create(
                                 new RemoveFromDeck(EntityType.STACK),
                                 new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),

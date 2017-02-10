@@ -172,7 +172,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new DamageTask(3, EntityType.TARGET, true),
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
                         new FlagTask(true, new DrawTask()))
 				},
 			});
@@ -191,7 +191,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE)))
 				},
 			});
@@ -364,7 +364,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new BuffTask(Buffs.Health(2), EntityType.SOURCE)))
 				},
 			});
@@ -559,7 +559,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
+                        new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
 				},
 			});
 
@@ -655,7 +655,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
+                        new ConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
 				},
 			});
@@ -811,7 +811,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)))
                 },
 			});
@@ -833,7 +833,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DamageTask(3, EntityType.TARGET)))
                 },
 			});

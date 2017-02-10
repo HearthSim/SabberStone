@@ -618,7 +618,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         new FlagTask(true, ComplexTask.Create(
                             new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
                             new SummonStackTask()))),
@@ -682,7 +682,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.Inspire(ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
                         new FlagTask(true, new DamageTask(2, EntityType.OP_HERO))))
                 }
 			});
@@ -1356,7 +1356,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, ComplexTask.Create(
                             new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
                             ComplexTask.Taunt(EntityType.SOURCE)))),
@@ -1513,7 +1513,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))),
 				},
 			});
@@ -2151,7 +2151,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, ComplexTask.Create(
                             new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
                             ComplexTask.Charge(EntityType.SOURCE)))),
@@ -2175,7 +2175,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = new EnqueueTask(3,ComplexTask.Create(
                         new DrawTask(true),
-                        new SelfConditionTask(EntityType.STACK, SelfCondition.IsMinion),
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
                         new FlagTask(true, ComplexTask.Create(
                             new RemoveFromHand(EntityType.STACK),
                             new SummonStackTask())))
@@ -2223,7 +2223,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.MINIONS, SelfCondition.HasBoardMinion(GameTag.TAUNT, 1)),
+                        new ConditionTask(EntityType.MINIONS, SelfCondition.HasBoardMinion(GameTag.TAUNT, 1)),
                         new FlagTask(true, ComplexTask.Create(
                             new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                             new MathAddTask(1),
@@ -2288,7 +2288,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, ComplexTask.Create(
                             new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
                             ComplexTask.Taunt(EntityType.SOURCE)))),
@@ -3057,7 +3057,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DamageTask(3, EntityType.ALLMINIONS)))
                 },
 			});

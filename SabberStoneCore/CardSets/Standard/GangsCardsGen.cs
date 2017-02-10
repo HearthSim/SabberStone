@@ -148,7 +148,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.ATK, 5, RelaSign.GEQ)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.ATK, 5, RelaSign.GEQ)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
 				},
 			});
@@ -338,7 +338,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.ATTACKING, -1)
                         .SingleTask(ComplexTask.Create(
-                            new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsProposedDefender(CardType.MINION)),
+                            new ConditionTask(EntityType.SOURCE, SelfCondition.IsProposedDefender(CardType.MINION)),
                             new FlagTask(true, ComplexTask.Create(
                                 new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
                                 new DamageNumberTask(EntityType.OP_HERO)))))
@@ -605,7 +605,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.FROZEN, 1)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.FROZEN, 1)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))),
                 }
 			});
@@ -814,7 +814,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.GEQ)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.GEQ)),
                         new FlagTask(true, new DrawTask()))
 				},
 			});
@@ -970,7 +970,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
                         new FlagTask(true, new DiscoverTask(DiscoverType.OP_DECK)))
                 },
 			});
@@ -1137,7 +1137,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.WEAPON, SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ)),
+                        new ConditionTask(EntityType.WEAPON, SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(4), EntityType.SOURCE)))
 				},
 			});
@@ -1157,7 +1157,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                                new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
                                 new SetGameTagTask(GameTag.STEALTH, 1, EntityType.SOURCE))
                 }
             });
@@ -1553,7 +1553,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.DEMON)),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.DEMON)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET)),
                         new FlagTask(false, new BuffTask(Buffs.Attack(3), EntityType.TARGET))),
 				},
@@ -1639,7 +1639,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
                         new FlagTask(true, ComplexTask.Create(
                             new IncludeTask(EntityType.HAND),
                             new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
@@ -1888,7 +1888,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+                                new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
                                 new DrawTask())
                 }
 			});
@@ -2083,7 +2083,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.HEALTH, 6, RelaSign.GEQ)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.HEALTH, 6, RelaSign.GEQ)),
                         new FlagTask(true, new EnqueueTask(2, new DrawTask())))
 				},
 			});
@@ -2127,7 +2127,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
 					Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.MinionAttacksAndTargetMinion(
-                        new SelfConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
                         new EnqueueTask(2,ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace)))
                 }
 			});
@@ -2193,7 +2193,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
                         new FlagTask(true, new PotionGenerating()))
 				},
 			});

@@ -64,12 +64,12 @@ namespace SabberStoneCore.Tasks
 
         public static ISimpleTask IfComboElse(ISimpleTask combo)
             => Create(
-                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
+                new ConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo));
 
         public static ISimpleTask IfComboElse(ISimpleTask combo, ISimpleTask noCombo)
             => Create(
-                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
+                new ConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo),
                 new FlagTask(false, noCombo));
 
@@ -87,10 +87,10 @@ namespace SabberStoneCore.Tasks
 
         public static ISimpleTask ExcessManaCheck
             => Create(
-                new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+                new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
                 new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)),
                 new FlagTask(false, Create(
-                    new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsRemaningManaFull),
+                    new ConditionTask(EntityType.SOURCE, SelfCondition.IsRemaningManaFull),
                     new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND))))
                 );
 
@@ -138,7 +138,7 @@ namespace SabberStoneCore.Tasks
                 new IncludeTask(type),
                 new FilterStackTask(EntityType.SOURCE, list),
                 new RandomTask(1, EntityType.STACK),
-                new SelfConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
+                new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
                 new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
                 new FlagTask(true, new SummonTask()));
         }
@@ -149,7 +149,7 @@ namespace SabberStoneCore.Tasks
                 new IncludeTask(type),
                 new FilterStackTask(EntityType.SOURCE, list),
                 new RandomTask(1, EntityType.STACK),
-                new SelfConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
+                new ConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
                 new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
                 new FlagTask(true, new SummonOpTask()));
         }

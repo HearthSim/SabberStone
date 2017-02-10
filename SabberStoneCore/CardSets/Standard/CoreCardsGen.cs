@@ -571,7 +571,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         ComplexTask.True(new DamageTask(5, EntityType.TARGET, true)),
                         ComplexTask.False(new DamageTask(3, EntityType.TARGET, true)))
                 }
@@ -2000,7 +2000,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DamageTask(1, EntityType.TARGET, true),
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
                         ComplexTask.True(new DrawTask()))
                 }
             });

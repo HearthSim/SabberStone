@@ -3935,10 +3935,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Demonfire_EX1_596()
 		{
-			// TODO Demonfire_EX1_596 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3949,8 +3948,21 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Demonfire"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Demonfire"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Demonfire"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidwalker"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidwalker"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, minion1));
+            Assert.Equal(3, ((Minion)minion1).AttackDamage);
+            Assert.Equal(5, ((Minion)minion1).Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2));
+            Assert.Equal(1, ((Minion)minion2).AttackDamage);
+            Assert.Equal(1, ((Minion)minion2).Health);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1] 

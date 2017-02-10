@@ -472,7 +472,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.TARGET, SelfCondition.IsDeathrattleMinion),
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsDeathrattleMinion),
                         new FlagTask(true, new CopyDeathrattleTask()))
 				},
 			});
@@ -635,7 +635,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(7)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(7)),
                         new FlagTask(true, new BuffTask(Buffs.AttackHealth(4), EntityType.SOURCE)))
 				}
 			});
@@ -780,7 +780,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
                         new FlagTask(true, new HealFullTask(EntityType.HERO)))
 				},
 			});
@@ -852,7 +852,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MECHANICAL)),
+                        new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MECHANICAL)),
                         new FlagTask(true, new DiscoverTask(DiscoverType.MECHANICAL)))
 				},
 			});
@@ -943,7 +943,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new SelfConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         new FlagTask(true, ComplexTask.Taunt(EntityType.SOURCE)))
 				},
 			});
