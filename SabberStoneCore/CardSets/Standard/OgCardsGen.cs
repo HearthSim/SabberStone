@@ -2034,13 +2034,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Can only attack if your hero attacked this turn.
 			// --------------------------------------------------------
 			cards.Add("OG_034", new List<Enchantment> {
-				// TODO [OG_034] Silithid Swarmer && Test: Silithid Swarmer_OG_034
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(
+                        GameTag.CANT_ATTACK, 1, RelaCondition.IsOther(SelfCondition.HasMyHeroNotAttackedThisTurn)), 
+                        AuraArea.SELF)
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_042] Y'Shaarj, Rage Unbound - COST:10 [ATK:10/HP:10] 
