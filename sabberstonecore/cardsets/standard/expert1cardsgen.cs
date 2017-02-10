@@ -2119,11 +2119,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_624", new List<Enchantment> {
-				// TODO [EX1_624] Holy Fire && Test: Holy Fire_EX1_624
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(5, EntityType.TARGET),
+                        new HealTask(5, EntityType.HERO))
 				},
 			});
 
@@ -3524,11 +3525,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_408", new List<Enchantment> {
-				// TODO [EX1_408] Mortal Strike && Test: Mortal Strike_EX1_408
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new SelfConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
+                        new FlagTask(true, new DamageTask(6, EntityType.TARGET, true)),
+                        new FlagTask(false, new DamageTask(4, EntityType.TARGET, true))),
 				},
 			});
 
