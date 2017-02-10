@@ -1733,13 +1733,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_363", new List<Enchantment> {
-				// TODO [EX1_363] Blessing of Wisdom && Test: Blessing of Wisdom_EX1_363
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.SPELL,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_365] Holy Wrath - COST:5 

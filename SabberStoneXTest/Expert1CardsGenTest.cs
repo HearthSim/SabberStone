@@ -1952,10 +1952,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void BlessingOfWisdom_EX1_363()
 		{
-			// TODO BlessingOfWisdom_EX1_363 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1966,8 +1965,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blessing of Wisdom"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blessing of Wisdom"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+		    game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [EX1_365] Holy Wrath - COST:5 
