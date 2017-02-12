@@ -1806,12 +1806,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_755", new List<Enchantment> {
-				// TODO [CFM_755] Grimestreet Pawnbroker && Test: Grimestreet Pawnbroker_CFM_755
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsWeapon),
+                        new RandomTask(1, EntityType.STACK),
+                        new GetGameTagTask(GameTag.DURABILITY, EntityType.STACK),
+                        new MathAddTask(1),
+                        new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.STACK),
+                        new BuffTask(Buffs.WeaponAtk(1), EntityType.STACK))
+                },
 			});
 
 			// --------------------------------------- MINION - WARRIOR

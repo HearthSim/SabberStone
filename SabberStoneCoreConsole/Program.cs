@@ -20,11 +20,11 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            GameSplitTest();
+            //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
@@ -131,59 +131,6 @@ namespace SabberStoneCoreConsole
             }
 
             ShowLog(game, LogLevel.VERBOSE);
-
-
-
-           
-            //var split0nr0 = game.Splits[0];
-            //Console.WriteLine(split0nr0.TaskQueue.CurrentTask.State);
-            //Console.WriteLine(split0nr0.TaskQueue.TaskList[0].Game.CloneIndex);
-
-            //var currentStakeList = (StateTaskList<ISimpleTask>) split0nr0.TaskQueue.CurrentTask;
-            //Console.WriteLine(currentStakeList.ToString() + " " + currentStakeList.Game.CloneIndex);
-            //currentStakeList.ToList().ForEach(p => Console.WriteLine(p.ToString() + " " + p.State));
-            //Console.WriteLine("cloneindex = " + split0nr0.CloneIndex);
-            //Console.WriteLine(split0nr0.TaskQueue.CurrentTask.Process());
-            //Console.WriteLine(split0nr0.CurrentPlayer.Hero.Health);
-            //Console.WriteLine(split0nr0.CurrentOpponent.Hero.Health);
-            //Console.WriteLine(split0nr0.CurrentOpponent.Hero.Health);
-            //split0nr0.DeathProcessingAndAuraUpdate();
-            //Console.WriteLine(split0nr0.Splits.Count);
-
-            //var split1nr0 = split0nr0.Splits[0];
-            //Console.WriteLine(split1nr0.TaskQueue.CurrentTask.State);
-            //Console.WriteLine("cloneindex = " + split1nr0.TaskQueue.CurrentTask.Game.CloneIndex);
-            //Console.WriteLine("cloneindex = " + split1nr0.CloneIndex);
-            //Console.WriteLine(split1nr0.TaskQueue.CurrentTask.Process());
-            //Console.WriteLine(split1nr0.CurrentPlayer.Hero.Health);
-            //Console.WriteLine(split1nr0.CurrentOpponent.Hero.Health);
-            //Console.WriteLine(split1nr0.CurrentOpponent.Hero.Health);
-            //split1nr0.DeathProcessingAndAuraUpdate();
-            //Console.WriteLine(split1nr0.Splits.Count);
-
-
-            //var split2nr0 = split1nr0.Splits[0];
-            //Console.WriteLine(split2nr0.TaskQueue.CurrentTask.State);
-            //Console.WriteLine("cloneindex = " + split2nr0.TaskQueue.CurrentTask.Game.CloneIndex);
-            //Console.WriteLine("cloneindex = " + split2nr0.CloneIndex);
-            //Console.WriteLine(split2nr0.TaskQueue.CurrentTask.Process());
-            //Console.WriteLine(split2nr0.CurrentPlayer.Hero.Health);
-            //Console.WriteLine(split2nr0.CurrentOpponent.Hero.Health);
-            //Console.WriteLine(split2nr0.CurrentOpponent.Hero.Health);
-            //split2nr0.DeathProcessingAndAuraUpdate();
-            //Console.WriteLine(split2nr0.Splits.Count);
-
-            //var split2nr1 = split1nr0.Splits[1];
-            //Console.WriteLine(split2nr1.TaskQueue.CurrentTask.State);
-            //Console.WriteLine("cloneindex = " + split2nr1.TaskQueue.CurrentTask.Game.CloneIndex);
-            //Console.WriteLine("cloneindex = " + split2nr1.CloneIndex);
-            //Console.WriteLine(split2nr1.TaskQueue.CurrentTask.Process());
-            //Console.WriteLine(split2nr1.CurrentPlayer.Hero.Health);
-            //Console.WriteLine(split2nr1.CurrentOpponent.Hero.Health);
-            //split2nr1.DeathProcessingAndAuraUpdate();
-            //Console.WriteLine(split2nr1.Splits.Count);
-            //Console.WriteLine(split2nr1.Hash().Equals(split2nr0.Hash()));
-
         }
 
         public static void GameMulliganTest()
@@ -245,18 +192,27 @@ namespace SabberStoneCoreConsole
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                     Cards.FromName("Fiery War Axe"),
+                     Cards.FromName("Murloc Raider"),
+                     Cards.FromName("Murloc Raider"),
+                     Cards.FromName("Bloodfen Raptor"),
+                     Cards.FromName("Bloodfen Raptor"),
+                     Cards.FromName("Stonetusk Boar"),
+                     Cards.FromName("Stonetusk Boar"),
+                },
                 Player2HeroClass = CardClass.WARRIOR,
+                Shuffle = false,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Varian Wrynn"));
-            int count = game.CurrentPlayer.Hand.Count + game.CurrentPlayer.Board.Count;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Pawnbroker"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
             Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
         }
 

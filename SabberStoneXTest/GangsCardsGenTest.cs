@@ -2519,22 +2519,37 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void GrimestreetPawnbroker_CFM_755()
 		{
-			// TODO GrimestreetPawnbroker_CFM_755 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                     Cards.FromName("Fiery War Axe"),
+                     Cards.FromName("Murloc Raider"),
+                     Cards.FromName("Murloc Raider"),
+                     Cards.FromName("Bloodfen Raptor"),
+                     Cards.FromName("Bloodfen Raptor"),
+                     Cards.FromName("Stonetusk Boar"),
+                     Cards.FromName("Stonetusk Boar"),
+                },
 				Player2HeroClass = CardClass.WARRIOR,
+                Shuffle = false,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Pawnbroker"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Pawnbroker"));
+            Assert.Equal(3, ((Weapon)game.CurrentPlayer.Hand[0]).AttackDamage);
+            Assert.Equal(2, ((Weapon)game.CurrentPlayer.Hand[0]).Durability);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(4, ((Weapon)game.CurrentPlayer.Hand[0]).AttackDamage);
+            Assert.Equal(3, ((Weapon)game.CurrentPlayer.Hand[0]).Durability);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [CFM_756] Alley Armorsmith - COST:5 [ATK:2/HP:7] 
