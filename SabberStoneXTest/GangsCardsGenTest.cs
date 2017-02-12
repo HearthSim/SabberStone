@@ -3770,10 +3770,9 @@ namespace SabberStoneXTest
 		// - TAUNT = 1
 		// - CHARGE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void SpikedHogrider_CFM_688()
 		{
-			// TODO SpikedHogrider_CFM_688 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3784,8 +3783,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Spiked Hogrider"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spiked Hogrider"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spiked Hogrider"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.Equal(false, ((Minion)testCard1).HasCharge);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Goldshire Footman"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.Equal(true, ((Minion)testCard2).HasCharge);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_715] Jade Spirit - COST:4 [ATK:2/HP:3] 

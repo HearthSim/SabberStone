@@ -2625,11 +2625,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_688", new List<Enchantment> {
-				// TODO [CFM_688] Spiked Hogrider && Test: Spiked Hogrider_CFM_688
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.TAUNT, 1)),
+                        new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE)))
 				},
 			});
 
