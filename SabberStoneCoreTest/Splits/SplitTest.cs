@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Actions;
@@ -23,14 +24,15 @@ namespace SabberStoneCoreTest.Splits
                     Player1HeroClass = CardClass.PRIEST,
                     Player2HeroClass = CardClass.HUNTER,
                     FillDecks = true,
-                    Splitting = SplitType.ALL_SPLITS
+                    Splitting = true
                 });
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             game.StartGame();
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(8, game.FinalSplits.Count);
+            Assert.AreEqual(4, game.FinalSplits.Count);
+            Assert.AreEqual(8, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
         [TestMethod]
@@ -43,7 +45,7 @@ namespace SabberStoneCoreTest.Splits
                     Player1HeroClass = CardClass.PRIEST,
                     Player2HeroClass = CardClass.HUNTER,
                     FillDecks = true,
-                    Splitting = SplitType.ALL_SPLITS
+                    Splitting = true
                 });
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
@@ -59,7 +61,8 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(20, game.FinalSplits.Count);
+            Assert.AreEqual(7, game.FinalSplits.Count);
+            Assert.AreEqual(20, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
         [TestMethod]
@@ -72,7 +75,7 @@ namespace SabberStoneCoreTest.Splits
                     Player1HeroClass = CardClass.PRIEST,
                     Player2HeroClass = CardClass.HUNTER,
                     FillDecks = true,
-                    Splitting = SplitType.ALL_SPLITS
+                    Splitting = true
                 });
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
@@ -88,7 +91,8 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(44, game.FinalSplits.Count);
+            Assert.AreEqual(12, game.FinalSplits.Count);
+            Assert.AreEqual(44, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
         [TestMethod]
@@ -101,7 +105,7 @@ namespace SabberStoneCoreTest.Splits
                     Player1HeroClass = CardClass.PRIEST,
                     Player2HeroClass = CardClass.HUNTER,
                     FillDecks = true,
-                    Splitting = SplitType.ALL_SPLITS
+                    Splitting = true
                 });
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
@@ -117,7 +121,8 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(86, game.FinalSplits.Count);
+            Assert.AreEqual(20, game.FinalSplits.Count);
+            Assert.AreEqual(86, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
         [TestMethod]
@@ -130,7 +135,7 @@ namespace SabberStoneCoreTest.Splits
                     Player1HeroClass = CardClass.PRIEST,
                     Player2HeroClass = CardClass.HUNTER,
                     FillDecks = true,
-                    Splitting = SplitType.ALL_SPLITS
+                    Splitting = true
                 });
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
@@ -146,7 +151,8 @@ namespace SabberStoneCoreTest.Splits
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(191, game.FinalSplits.Count);
+            Assert.AreEqual(42, game.FinalSplits.Count);
+            Assert.AreEqual(191, game.FinalSplits.Sum(p => p.SameState + 1));
         }
     }
 }

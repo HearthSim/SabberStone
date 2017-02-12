@@ -4891,6 +4891,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
+                    //SingleTask = ComplexTask.DrawCardTask()
                     SingleTask = new DrawTask()
                 }
             });

@@ -46,6 +46,12 @@ namespace SabberStoneCore.Tasks
                 new RandomTask(amount, EntityType.HAND),
                 new DiscardTask(EntityType.STACK));
 
+        public static ISimpleTask DrawCardTask()
+            => Create(
+                new SplitTask(1, EntityType.DECK),
+                new RandomTask(1, EntityType.STACK),
+                new DrawCardTask());
+
         public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
             => Create(
                 new SplitTask(targets, type),

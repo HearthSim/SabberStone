@@ -22,7 +22,7 @@ namespace SabberStoneCore.Model
     {
         public int NextCloneIndex { get; set; } = 1;
 
-        public List<Game> FinalSplits { get; set; }
+        public List<SplitNode> FinalSplits { get; set; }
 
         public string CloneIndex { get; set; } = "[0]";
 
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model
 
         private readonly GameConfig _gameConfig;
 
-        public SplitType Splitting => _gameConfig.Splitting;
+        public bool Splitting => _gameConfig.Splitting;
 
         public TaskStack TaskStack { get; }
 
@@ -481,14 +481,14 @@ namespace SabberStoneCore.Model
             gameTask.Game = this;
             gameTask.Process();
 
-            if (Splitting != SplitType.NONE)
+            if (Splitting)
             {
                 var finalSplits = SplitNode.GetSolutions(this, 10, 10000);
-                Dump("Split", $"found {finalSplits.Count} final splits!");
+                Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState + 1)}!");
                 finalSplits.GroupBy(p => p.SameState)
                     .Select(i => new {Word = i.Key, Count = i.Count()})
                     .ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
-                FinalSplits = finalSplits.Select(p => p.Game).ToList();
+                FinalSplits = finalSplits;
             }
         }
 
@@ -503,7 +503,12 @@ namespace SabberStoneCore.Model
 
         public Game Clone()
         {
-            var game = new Game(_gameConfig.Clone(), false) {CloneIndex = $"{this.CloneIndex}[{NextCloneIndex++}]"};
+            var gameConfig = _gameConfig.Clone();
+            gameConfig.Logging = false;
+            var game = new Game(gameConfig, false)
+            {
+                CloneIndex = $"{this.CloneIndex}[{NextCloneIndex++}]"
+            };
             game.Player1.Stamp(Player1);
             game.Player2.Stamp(Player2);
             game.Stamp(this);

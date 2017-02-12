@@ -23,6 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 // clone task here
                 var clone = Task.Clone();
+                clone.ResetState();
                 clone.Game = Controller.Game;
                 clone.Controller = Controller;
                 clone.Source = Source as IPlayable;

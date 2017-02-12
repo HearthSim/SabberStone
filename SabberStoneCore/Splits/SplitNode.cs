@@ -7,7 +7,7 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Splits
 {
-    internal class SplitNode
+    public class SplitNode
     {
         private readonly SplitNode _parent;
 
@@ -27,13 +27,12 @@ namespace SabberStoneCore.Splits
             _root = root;
             Game = game;
 
+            SameState = 0;
+
             if (!isRoot)
                 Execute();
 
-            Hash = 
-                _root.Splitting == SplitType.ALL_SPLITS ? 
-                Game.CloneIndex + Game.Hash() : 
-                Game.Hash();
+            Hash = Game.Hash();
         }
 
         public void Execute()
@@ -45,43 +44,62 @@ namespace SabberStoneCore.Splits
             Game.DeathProcessingAndAuraUpdate();
         }
 
-        public void Splits(ref Dictionary<string, SplitNode> splitNodes)
+        public void Splits(ref List<SplitNode> splitNodes)
         {
+            //var uniqSplits = new Dictionary<string, SplitNode>();
             var splits = Game.Splits;
+
             foreach (var split in splits)
             {
-                var splitNode = new SplitNode(this, this._root, split);
-                if (!splitNodes.ContainsKey(splitNode.Hash))
-                    splitNodes.Add(splitNode.Hash, splitNode);
-                else
-                {
-                    splitNodes[splitNode.Hash].SameState++;
-                }
+                var splitNode = new SplitNode(this, _root, split);
+
+                //if (!uniqSplits.ContainsKey(splitNode.Hash))
+                //{
+                //    uniqSplits.Add(splitNode.Hash, splitNode);
+                    splitNodes.Add(splitNode);
+                //}
+
+                //splitNodes.Add(splitNode);
             }
         }
 
         public static List<SplitNode> GetSolutions(Game game, int maxDepth = 10, int maxWidth = 10000)
         {
             var rootGame = new SplitNode(null, game, game, true);
-            var depthNodes = new Dictionary<string, SplitNode> { [rootGame.Hash] = rootGame };
-            var endTurnNodes = new List<SplitNode>();
+            var depthNodes = new List<SplitNode> { rootGame };
+            var uniqueFinalSplits = new Dictionary<string, SplitNode>();
             for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
             {
-                var nextDepthNodes = new Dictionary<string, SplitNode>();
-                foreach (var option in depthNodes.Values)
+                var nextDepthNodes = new List<SplitNode>();
+                foreach (var option in depthNodes)
                 {
                     option.Splits(ref nextDepthNodes);
                 }
 
-                endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => !p.Game.Splits.Any()));
-                endTurnNodes.ForEach(p => nextDepthNodes.Remove(p.Hash));
-                depthNodes = nextDepthNodes
-                    .Take(maxWidth)
-                    .ToDictionary(p => p.Key, p => p.Value);
+                depthNodes.Clear();
 
-                game.Dump("GetSolutions", $"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
+                nextDepthNodes.ForEach(p =>
+                {
+                    if (!p.Game.Splits.Any())
+                    {
+                        if (uniqueFinalSplits.ContainsKey(p.Hash))
+                        {
+                            uniqueFinalSplits[p.Hash].SameState++;
+                        }
+                        else
+                        {
+                            uniqueFinalSplits.Add(p.Hash, p);
+                        }
+                    }
+                    else
+                    {
+                        depthNodes.Add(p);
+                    }
+                });
+
+                game.Dump("GetSolutions", $"Depth: {i + 1} --> {depthNodes.Count} Splits! [Final: {uniqueFinalSplits.Values.Count}]");
             }
-            return endTurnNodes;
+            return uniqueFinalSplits.Values.ToList();
         }
 
     }

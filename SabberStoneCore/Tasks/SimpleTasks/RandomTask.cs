@@ -25,18 +25,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (entities.Count == 0)
                 return TaskState.STOP;
 
-            if (Game.Splitting != SplitType.NONE && Game.Splits.Count == 0)
+            if (Game.Splitting && Game.Splits.Count == 0)
             {
-                var sets = Util.GetPowerSet(entities).Where(p => p.Count() == Amount).ToList();
-                sets.ForEach(p =>
+                if (Amount == 1)
                 {
-                    Playables = p.ToList();
-                    State = TaskState.COMPLETE;
-                    //Game.Log(LogLevel.ERROR, BlockType.SCRIPT, "", "got " + Game.TaskQueue.Count + " in orginal game");
-                    var clone = Game.Clone();
-                    Game.Splits.Add(clone);
-                });
-                //Playables = Util.RandomElement(Sets).ToList();
+                    entities.ForEach(p =>
+                    {
+                        //Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+                        Playables = new List<IPlayable> { p };
+                        State = TaskState.COMPLETE;
+                        var clone = Game.Clone();
+                        Game.Splits.Add(clone);
+                    });
+                }
+                else
+                {
+                    var sets = Util.GetPowerSet(entities).Where(p => p.Count() == Amount).ToList();
+                    sets.ForEach(p =>
+                    {
+                        //Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+                        Playables = p.ToList();
+                        State = TaskState.COMPLETE;
+                        var clone = Game.Clone();
+                        Game.Splits.Add(clone);
+                    });
+                }
             }
 
             Playables = entities;

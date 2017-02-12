@@ -24,7 +24,7 @@ namespace SabberStoneCore.Model
         public StringBuilder Hash(params GameTag[] ignore)
         {
             var hash = new StringBuilder();
-            //hash.Append("[");
+            hash.Append("[");
             //hash.Append(Id.ToString());
             //hash.Append(",");
             hash.Append(Card.Id);

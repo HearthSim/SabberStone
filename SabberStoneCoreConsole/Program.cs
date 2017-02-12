@@ -34,40 +34,106 @@ namespace SabberStoneCoreConsole
         public static void GameSplitTest()
         {
             Game game = null;
-            bool right = true;
-            while (right)
+            bool goOnFlag = true;
+            while (goOnFlag)
             {
                 game =
                     new Game(new GameConfig
                     {
                         StartPlayer = 1,
                         Player1HeroClass = CardClass.PRIEST,
+                        DeckPlayer1 = new List<Card>()
+                        {
+                            Cards.FromName("Loot Hoarder"),       // 1
+                            Cards.FromName("Loot Hoarder"),       // 2
+                            Cards.FromName("Huge Toad"),          // 3
+                            Cards.FromName("Mad Bomber"),         // 4
+                            Cards.FromName("Stonetusk Boar"),     // 5
+                            Cards.FromName("Magma Rager"),        // 6
+                            Cards.FromName("War Golem"),          // 7
+                            Cards.FromName("Reckless Rocketeer"), // 8
+                            Cards.FromName("Wolfrider"),          // 9
+                            Cards.FromName("Sen'jin Shieldmasta"),// 10
+                            Cards.FromName("Voodoo Doctor"),      // 11
+                            Cards.FromName("River Crocolisk"),    // 12
+                            Cards.FromName("Oasis Snapjaw"),      // 13
+                            Cards.FromName("Novice Engineer"),    // 14
+                            Cards.FromName("Core Hound"),         // 15
+                            Cards.FromName("Booty Bay Bodyguard"),// 16
+                            Cards.FromName("Ogre Magi"),          // 17
+                            Cards.FromName("Chillwind Yeti"),     // 18
+                            Cards.FromName("Acidic Swamp Ooze"),  // 19
+                            Cards.FromName("Ironfur Grizzly"),    // 20
+                            Cards.FromName("Bluegill Warrior"),   // 21
+                            Cards.FromName("Murloc Tidehunter"),  // 22
+                            Cards.FromName("Frostwolf Grunt"),    // 23
+                            Cards.FromName("Ironforge Rifleman"), // 24
+                            Cards.FromName("Kobold Geomancer"),   // 25
+                            Cards.FromName("Razorfen Hunter"),    // 26
+                            Cards.FromName("Gnomish Inventor"),   // 27
+                            Cards.FromName("Stormwind Knight"),   // 28
+                            Cards.FromName("Gurubashi Berserker"),// 29
+                            Cards.FromName("Elven Archer"),       // 30
+                        },
                         Player2HeroClass = CardClass.HUNTER,
-                        FillDecks = true,
-                        Splitting = SplitType.ALL_SPLITS
+                        DeckPlayer2 = new List<Card>()
+                        {
+                            Cards.FromName("Loot Hoarder"),       // 1
+                            Cards.FromName("Loot Hoarder"),       // 2
+                            Cards.FromName("Huge Toad"),          // 3
+                            Cards.FromName("Mad Bomber"),         // 4
+                            Cards.FromName("Stonetusk Boar"),     // 5
+                            Cards.FromName("Magma Rager"),        // 6
+                            Cards.FromName("War Golem"),          // 7
+                            Cards.FromName("Reckless Rocketeer"), // 8
+                            Cards.FromName("Wolfrider"),          // 9
+                            Cards.FromName("Sen'jin Shieldmasta"),// 10
+                            Cards.FromName("Voodoo Doctor"),      // 11
+                            Cards.FromName("River Crocolisk"),    // 12
+                            Cards.FromName("Oasis Snapjaw"),      // 13
+                            Cards.FromName("Novice Engineer"),    // 14
+                            Cards.FromName("Core Hound"),         // 15
+                            Cards.FromName("Booty Bay Bodyguard"),// 16
+                            Cards.FromName("Ogre Magi"),          // 17
+                            Cards.FromName("Chillwind Yeti"),     // 18
+                            Cards.FromName("Acidic Swamp Ooze"),  // 19
+                            Cards.FromName("Ironfur Grizzly"),    // 20
+                            Cards.FromName("Bluegill Warrior"),   // 21
+                            Cards.FromName("Murloc Tidehunter"),  // 22
+                            Cards.FromName("Frostwolf Grunt"),    // 23
+                            Cards.FromName("Ironforge Rifleman"), // 24
+                            Cards.FromName("Kobold Geomancer"),   // 25
+                            Cards.FromName("Razorfen Hunter"),    // 26
+                            Cards.FromName("Gnomish Inventor"),   // 27
+                            Cards.FromName("Stormwind Knight"),   // 28
+                            Cards.FromName("Gurubashi Berserker"),// 29
+                            Cards.FromName("Elven Archer"),       // 30
+                        },
+                        FillDecks = false,
+                        Shuffle = false,
+                        Splitting = true
                     });
-                game.Player1.BaseMana = 10;
-                game.Player2.BaseMana = 10;
                 game.StartGame();
-                var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
-                var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
-                //game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                //var hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
-                //game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
-                //var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
-                //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
-                var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4])); // Coin
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[1])); // Huge Toad
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[1])); // Mad Bomber
+                //game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[2]));
 
-
-                right = game.FinalSplits.Count == 86;
+                goOnFlag = false;
             }
-            
-
 
             ShowLog(game, LogLevel.VERBOSE);
+
+
+
            
             //var split0nr0 = game.Splits[0];
             //Console.WriteLine(split0nr0.TaskQueue.CurrentTask.State);
@@ -280,7 +346,7 @@ namespace SabberStoneCoreConsole
 
             Console.WriteLine($"{game.FullPrint()}");
 
-            const int total = 10000;
+            const int total = 127000;
             var watch = Stopwatch.StartNew();
             for (var i = 0; i < total; i++)
             {

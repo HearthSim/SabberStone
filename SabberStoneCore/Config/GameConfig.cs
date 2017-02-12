@@ -4,11 +4,6 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Config
 {
-    public enum SplitType
-    {
-        NONE, UNIQUE_STATE_SPLITS, ALL_SPLITS
-    }
-
     public class GameConfig
     {
         public int StartPlayer { get; set; } = -1;
@@ -33,7 +28,7 @@ namespace SabberStoneCore.Config
 
         public bool Shuffle { get; set; } = true;
 
-        public SplitType Splitting { get; set; } = SplitType.NONE;
+        public bool Splitting { get; set; } = false;
 
         public bool Logging { get; set; } = true;
 

@@ -20,6 +20,7 @@ namespace SabberStoneCore.Model
         public void Reset()
         {
             Playables = new List<IPlayable>();
+            CardIds = new List<string>();
             Flag = false;
             Number = 0;
         }
@@ -27,9 +28,8 @@ namespace SabberStoneCore.Model
         public void Stamp(TaskStack taskStack)
         {
             Playables = new List<IPlayable>();
-            CardIds = new List<string>();
-            //taskStack.Playables?.ForEach(p => Playables.Add(Game.IdEntityDic[p.Id]));
             Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
+            CardIds = taskStack.CardIds;
             Flag = taskStack.Flag;
             Number = taskStack.Number;
         }

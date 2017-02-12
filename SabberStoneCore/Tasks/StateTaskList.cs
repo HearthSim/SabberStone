@@ -109,6 +109,11 @@ namespace SabberStoneCore.Tasks
             return cloneList;
         }
 
+        public void ResetState()
+        {
+            State = TaskState.READY;
+        }
+
         public static StateTaskList<ISimpleTask> Chain(params ISimpleTask[] list)
         {
             var newList = new StateTaskList<ISimpleTask>();
@@ -118,39 +123,23 @@ namespace SabberStoneCore.Tasks
 
         public void Copy(ISimpleTask task)
         {
-            if (task.Game != null)
-            {
-                State = task.State;
+            State = task.State;
 
-                Game = task.Game;
-                Controller = task.Controller;
-                Source = task.Source;
-                Target = task.Target;
+            if (task.Game == null)
+                return;
 
-                Playables = task.Playables;
-                CardIds = task.CardIds;
-                Flag = task.Flag;
-                Number = task.Number;
-            }
+            Game = task.Game;
+            Controller = task.Controller;
+            Source = task.Source;
+            Target = task.Target;
+
+            Playables = task.Playables;
+            CardIds = task.CardIds;
+            Flag = task.Flag;
+            Number = task.Number;
 
             //Splits = task.Splits;
             //Sets = task.Sets;
-        }
-
-        public void Reset()
-        {
-            State = TaskState.READY;
-
-            Playables = new List<IPlayable>();
-            CardIds = new List<string>();
-            Flag = false;
-            Number = 0;
-
-            //Splits = new List<Game>();
-            //Sets = null;
-
-            // reset its chain ...
-            ForEach(p => p.Reset());
         }
 
     }

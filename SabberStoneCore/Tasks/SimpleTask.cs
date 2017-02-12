@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks
 
         TaskState Process();
 
-        void Reset();
+        void ResetState();
     }
 
     public abstract class SimpleTask : ISimpleTask
@@ -111,17 +111,9 @@ namespace SabberStoneCore.Tasks
             //Sets = task.Sets;
         }
 
-        public void Reset()
+        public void ResetState()
         {
             State = TaskState.READY;
-
-            Playables = new List<IPlayable>();
-            CardIds = new List<string>();
-            Flag = false;
-            Number = 0;
-
-            //Splits = new List<Game>();
-            //Sets = null;
         }
     }
 
@@ -185,22 +177,15 @@ namespace SabberStoneCore.Tasks
             throw new NotImplementedException();
         }
 
-        public void Reset()
-        {
-            Playables = new List<IPlayable>();
-            CardIds = new List<string>();
-            Flag = false;
-            Number = 0;
-
-            Splits = new List<Game>();
-            Sets = null;
-        }
-
         public virtual string FullPrint()
         {
             return "PlayerTask";
         }
 
+        public void ResetState()
+        {
+            State = TaskState.READY;
+        }
     }
 
 }
