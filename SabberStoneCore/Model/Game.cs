@@ -22,7 +22,7 @@ namespace SabberStoneCore.Model
     {
         public int NextCloneIndex { get; set; } = 1;
 
-        public static List<Game> FinalSplits { get; set; }
+        public List<Game> FinalSplits { get; set; }
 
         public string CloneIndex { get; set; } = "[0]";
 
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model
 
         private readonly GameConfig _gameConfig;
 
-        public bool Splitting => _gameConfig.Splitting;
+        public SplitType Splitting => _gameConfig.Splitting;
 
         public TaskStack TaskStack { get; }
 
@@ -51,6 +51,18 @@ namespace SabberStoneCore.Model
         public Queue<ILazyRemove> LazyRemoves { get; set; } = new Queue<ILazyRemove>();
 
         public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>();
+
+        public void Dump(string location, string text)
+        {
+            Logs.Enqueue(new LogEntry()
+            {
+                TimeStamp = DateTime.Now,
+                Level = LogLevel.DUMP,
+                Location = location,
+                BlockType = BlockType.SCRIPT,
+                Text = text
+            });
+        }
         public void Log(LogLevel level, BlockType block, string location, string text)
         {
             if (!_gameConfig.Logging)
@@ -469,13 +481,14 @@ namespace SabberStoneCore.Model
             gameTask.Game = this;
             gameTask.Process();
 
-            if (Splitting)
+            if (Splitting != SplitType.NONE)
             {
-                var finalSplits = SplitNode.GetSolutions(this, gameTask, 10, 10000);
-                Log(LogLevel.INFO, BlockType.PLAY, "Split", $"found {finalSplits.Count} final splits!");
+                var finalSplits = SplitNode.GetSolutions(this, 10, 10000);
+                Dump("Split", $"found {finalSplits.Count} final splits!");
                 finalSplits.GroupBy(p => p.SameState)
                     .Select(i => new {Word = i.Key, Count = i.Count()})
-                    .ToList().ForEach(p => Log(LogLevel.INFO, BlockType.PLAY, "Split", $"{p.Word} - {p.Count}"));
+                    .ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
+                FinalSplits = finalSplits.Select(p => p.Game).ToList();
             }
         }
 
@@ -494,8 +507,9 @@ namespace SabberStoneCore.Model
             game.Player1.Stamp(Player1);
             game.Player2.Stamp(Player2);
             game.Stamp(this);
-            game.TaskQueue.Stamp(TaskQueue);
+
             game.TaskStack.Stamp(TaskStack);
+            game.TaskQueue.Stamp(TaskQueue);
 
             // set indexer to avoid conflicts ...
             game.SetIndexer(_idIndex, _oopIndex);

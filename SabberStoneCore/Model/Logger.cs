@@ -5,7 +5,7 @@ namespace SabberStoneCore.Model
 {
     public enum LogLevel
     {
-        ERROR, WARNING, INFO, VERBOSE, DEBUG
+        DUMP, ERROR, WARNING, INFO, VERBOSE, DEBUG
     }
 
     public class LogEntry

@@ -18,9 +18,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public override TaskState Process()
         {
             var times = SpellDmg ? Amount + Controller.Hero.SpellPower : Amount;
-            var tasks = new StateTaskList<ISimpleTask>();
-
-            tasks.Copy(this);
 
             for (var i = 0; i < times; i++)
             {

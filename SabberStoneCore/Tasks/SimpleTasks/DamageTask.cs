@@ -34,51 +34,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (Amount < 1 && RandAmount < 1)
                 return TaskState.STOP;
 
-            if (Game.Splitting)
-            {
-                ProccessSplit();
-            }
-
             var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPower * 2 : Controller.Hero.SpellPower) : 0;
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
                     Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
                         Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
                         spellDmgValue));
             return TaskState.COMPLETE;
-        }
-
-        public void ProccessSplit()
-        {
-
-            //if (Game.Splits.Count > 0 || Splits != null && Splits.Count > 0)
-            //    return;
-
-            //// EndTurnTask off log here if needed :-)
-            ////Util.LogOn(true);
-
-            //Splits = new List<Game> { Controller.Game };
-
-            //var result = new List<Game>();
-
-            //Splits.ForEach(game => Sets?.ToList().ForEach(set =>
-            //{
-            //    var clone = game.Clone();
-            //    Log.Info($"Executing Clone Split {clone.CloneIndex} <-- !!!");
-            //    var source = clone.IdEntityDic[Source.Id];
-            //    set.ToList().ForEach(p => 
-            //        Generic.DamageCharFunc.Invoke(source, clone.IdEntityDic[p.Id] as ICharacter, Amount,
-            //            SpellDmg ? Controller.Hero.SpellPower : 0)
-            //    );
-
-            //    result.Add(clone);
-            //}));
-
-            //// EndTurnTask on log here if needed :-)
-            ////Util.LogOn(true);
-
-            //Log.Info($"[Game-Split] calculated {result.Count} splits");
-
-            //Splits = result;
         }
 
         public override ISimpleTask Clone()

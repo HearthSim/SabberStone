@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks
 {
     public enum TaskState
     {
-        READY, RUNNING, COMPLETE,
-        STOP
+        READY, RUNNING, COMPLETE, STOP
     }
 
     public class StateTaskList<T> : List<T>, ISimpleTask where T : ISimpleTask
@@ -14,7 +15,7 @@ namespace SabberStoneCore.Tasks
         public TaskState State { get; set; } = TaskState.READY;
 
         private int _position = 0;
-        public ISimpleTask CurrentTask => this[_position].CurrentTask;
+        //public ISimpleTask CurrentTask => this[_position].CurrentTask;
 
         public Game Game { get; set; }
         private int _controllerId;
@@ -102,10 +103,7 @@ namespace SabberStoneCore.Tasks
 
         public ISimpleTask Clone()
         {
-            var cloneList = new StateTaskList<ISimpleTask>
-            {
-                State = State
-            };
+            var cloneList = new StateTaskList<ISimpleTask>();
             cloneList.Copy(this);
             ForEach(p => cloneList.Add(p.Clone()));
             return cloneList;
@@ -122,6 +120,8 @@ namespace SabberStoneCore.Tasks
         {
             if (task.Game != null)
             {
+                State = task.State;
+
                 Game = task.Game;
                 Controller = task.Controller;
                 Source = task.Source;
@@ -139,6 +139,8 @@ namespace SabberStoneCore.Tasks
 
         public void Reset()
         {
+            State = TaskState.READY;
+
             Playables = new List<IPlayable>();
             CardIds = new List<string>();
             Flag = false;

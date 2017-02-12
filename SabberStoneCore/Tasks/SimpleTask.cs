@@ -7,7 +7,7 @@ namespace SabberStoneCore.Tasks
     public interface ISimpleTask
     {
         TaskState State { get; set; }
-        ISimpleTask CurrentTask { get; }
+        //ISimpleTask CurrentTask { get; }
 
         Game Game { get; set; }
         Controller Controller { get; set; }
@@ -25,6 +25,7 @@ namespace SabberStoneCore.Tasks
         ISimpleTask Clone();
 
         TaskState Process();
+
         void Reset();
     }
 
@@ -33,7 +34,8 @@ namespace SabberStoneCore.Tasks
         internal static Random Random = new Random();
 
         public TaskState State { get; set; } = TaskState.READY;
-        public ISimpleTask CurrentTask => this;
+
+        //public ISimpleTask CurrentTask => this;
 
         public Game Game { get; set; }
         private int _controllerId;
@@ -81,19 +83,19 @@ namespace SabberStoneCore.Tasks
             set { Game.TaskStack.Number = value; }
         }
 
-        public virtual TaskState Process()
-        {
-            return TaskState.COMPLETE;
-        }
+        public abstract TaskState Process();
+        //{
+        //    return TaskState.COMPLETE;
+        //}
 
         public abstract ISimpleTask Clone();
 
         public void Copy(SimpleTask task)
         {
+            State = task.State;
+
             if (task.Game == null)
                 return;
-
-            State = task.State;
 
             Game = task.Game;
             Controller = task.Controller;
@@ -111,6 +113,8 @@ namespace SabberStoneCore.Tasks
 
         public void Reset()
         {
+            State = TaskState.READY;
+
             Playables = new List<IPlayable>();
             CardIds = new List<string>();
             Flag = false;
@@ -129,7 +133,7 @@ namespace SabberStoneCore.Tasks
     public class PlayerTask : ISimpleTask
     {
         public TaskState State { get; set; } = TaskState.READY;
-        public ISimpleTask CurrentTask => this;
+        //public ISimpleTask CurrentTask => this;
 
         public PlayerTaskType PlayerTaskType { get; set; }
         public Game Game { get; set; }

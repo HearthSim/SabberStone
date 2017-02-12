@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStoneCore.Model
 {
@@ -28,6 +29,7 @@ namespace SabberStoneCore.Model
             Playables = new List<IPlayable>();
             CardIds = new List<string>();
             //taskStack.Playables?.ForEach(p => Playables.Add(Game.IdEntityDic[p.Id]));
+            Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
             Flag = taskStack.Flag;
             Number = taskStack.Number;
         }

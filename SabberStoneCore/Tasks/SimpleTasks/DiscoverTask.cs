@@ -78,10 +78,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
 
             // TODO work on it ...
-            if (Game.Splitting)
-            {
-                ProcessSplit(cardsToDiscover, choiceAction);
-            }
+            //if (Game.Splitting)
+            //{
+            //    ProcessSplit(cardsToDiscover, choiceAction);
+            //}
 
             var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, resultCards.ToList());
 

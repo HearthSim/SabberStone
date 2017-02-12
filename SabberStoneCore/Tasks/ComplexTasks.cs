@@ -48,7 +48,9 @@ namespace SabberStoneCore.Tasks
 
         public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
             => Create(
-                new RandomTask(targets, type),
+                new SplitTask(targets, type),
+                new RandomTask(targets, EntityType.STACK),
+                //new RandomTask(targets, type),
                 new DamageTask(amount, EntityType.STACK, spellDmg));
 
         public static ISimpleTask DestroyRandomTargets(int targets, EntityType type)

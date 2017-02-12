@@ -6,6 +6,7 @@ using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreConsole
@@ -23,10 +24,100 @@ namespace SabberStoneCoreConsole
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
-            Console.WriteLine(Cards.Statistics());
+            GameSplitTest();
+            //Console.WriteLine(Cards.Statistics());
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
+        }
+
+        public static void GameSplitTest()
+        {
+            Game game = null;
+            bool right = true;
+            while (right)
+            {
+                game =
+                    new Game(new GameConfig
+                    {
+                        StartPlayer = 1,
+                        Player1HeroClass = CardClass.PRIEST,
+                        Player2HeroClass = CardClass.HUNTER,
+                        FillDecks = true,
+                        Splitting = SplitType.ALL_SPLITS
+                    });
+                game.Player1.BaseMana = 10;
+                game.Player2.BaseMana = 10;
+                game.StartGame();
+                var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
+                var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
+                //game.Process(EndTurnTask.Any(game.CurrentPlayer));
+                //var hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+                //game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
+                //var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
+                //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
+                var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
+
+
+                right = game.FinalSplits.Count == 86;
+            }
+            
+
+
+            ShowLog(game, LogLevel.VERBOSE);
+           
+            //var split0nr0 = game.Splits[0];
+            //Console.WriteLine(split0nr0.TaskQueue.CurrentTask.State);
+            //Console.WriteLine(split0nr0.TaskQueue.TaskList[0].Game.CloneIndex);
+
+            //var currentStakeList = (StateTaskList<ISimpleTask>) split0nr0.TaskQueue.CurrentTask;
+            //Console.WriteLine(currentStakeList.ToString() + " " + currentStakeList.Game.CloneIndex);
+            //currentStakeList.ToList().ForEach(p => Console.WriteLine(p.ToString() + " " + p.State));
+            //Console.WriteLine("cloneindex = " + split0nr0.CloneIndex);
+            //Console.WriteLine(split0nr0.TaskQueue.CurrentTask.Process());
+            //Console.WriteLine(split0nr0.CurrentPlayer.Hero.Health);
+            //Console.WriteLine(split0nr0.CurrentOpponent.Hero.Health);
+            //Console.WriteLine(split0nr0.CurrentOpponent.Hero.Health);
+            //split0nr0.DeathProcessingAndAuraUpdate();
+            //Console.WriteLine(split0nr0.Splits.Count);
+
+            //var split1nr0 = split0nr0.Splits[0];
+            //Console.WriteLine(split1nr0.TaskQueue.CurrentTask.State);
+            //Console.WriteLine("cloneindex = " + split1nr0.TaskQueue.CurrentTask.Game.CloneIndex);
+            //Console.WriteLine("cloneindex = " + split1nr0.CloneIndex);
+            //Console.WriteLine(split1nr0.TaskQueue.CurrentTask.Process());
+            //Console.WriteLine(split1nr0.CurrentPlayer.Hero.Health);
+            //Console.WriteLine(split1nr0.CurrentOpponent.Hero.Health);
+            //Console.WriteLine(split1nr0.CurrentOpponent.Hero.Health);
+            //split1nr0.DeathProcessingAndAuraUpdate();
+            //Console.WriteLine(split1nr0.Splits.Count);
+
+
+            //var split2nr0 = split1nr0.Splits[0];
+            //Console.WriteLine(split2nr0.TaskQueue.CurrentTask.State);
+            //Console.WriteLine("cloneindex = " + split2nr0.TaskQueue.CurrentTask.Game.CloneIndex);
+            //Console.WriteLine("cloneindex = " + split2nr0.CloneIndex);
+            //Console.WriteLine(split2nr0.TaskQueue.CurrentTask.Process());
+            //Console.WriteLine(split2nr0.CurrentPlayer.Hero.Health);
+            //Console.WriteLine(split2nr0.CurrentOpponent.Hero.Health);
+            //Console.WriteLine(split2nr0.CurrentOpponent.Hero.Health);
+            //split2nr0.DeathProcessingAndAuraUpdate();
+            //Console.WriteLine(split2nr0.Splits.Count);
+
+            //var split2nr1 = split1nr0.Splits[1];
+            //Console.WriteLine(split2nr1.TaskQueue.CurrentTask.State);
+            //Console.WriteLine("cloneindex = " + split2nr1.TaskQueue.CurrentTask.Game.CloneIndex);
+            //Console.WriteLine("cloneindex = " + split2nr1.CloneIndex);
+            //Console.WriteLine(split2nr1.TaskQueue.CurrentTask.Process());
+            //Console.WriteLine(split2nr1.CurrentPlayer.Hero.Health);
+            //Console.WriteLine(split2nr1.CurrentOpponent.Hero.Health);
+            //split2nr1.DeathProcessingAndAuraUpdate();
+            //Console.WriteLine(split2nr1.Splits.Count);
+            //Console.WriteLine(split2nr1.Hash().Equals(split2nr0.Hash()));
+
         }
 
         public static void GameMulliganTest()
@@ -94,15 +185,13 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Armorsmith"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Varian Wrynn"));
+            int count = game.CurrentPlayer.Hand.Count + game.CurrentPlayer.Board.Count;
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
         }
 
         public static void Kazakus()
@@ -253,6 +342,9 @@ namespace SabberStoneCoreConsole
                     var foreground = ConsoleColor.White;
                     switch (logEntry.Level)
                     {
+                        case LogLevel.DUMP:
+                            foreground = ConsoleColor.DarkCyan;
+                            break;
                         case LogLevel.ERROR:
                             foreground = ConsoleColor.Red;
                             break;

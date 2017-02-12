@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 
@@ -9,11 +11,9 @@ namespace SabberStoneCore.Splits
     {
         private readonly SplitNode _parent;
 
-        private readonly Game _game;
+        private readonly Game _root;
 
-        private readonly PlayerTask _playerTask;
-
-        public bool IsRoot => _playerTask != null;
+        public Game Game;
 
         public int SameState { get; set; }
 
@@ -21,29 +21,36 @@ namespace SabberStoneCore.Splits
 
         public string Hash;
 
-        public SplitNode(SplitNode parent, Game game, PlayerTask playerTask = null)
+        public SplitNode(SplitNode parent, Game root, Game game, bool isRoot = false)
         {
             _parent = parent;
-            _game = game;
-            _playerTask = playerTask;
+            _root = root;
+            Game = game;
 
-            if (!IsRoot)
+            if (!isRoot)
                 Execute();
 
-            Hash = _game.Hash();
+            Hash = 
+                _root.Splitting == SplitType.ALL_SPLITS ? 
+                Game.CloneIndex + Game.Hash() : 
+                Game.Hash();
         }
 
         public void Execute()
         {
-            _game.DeathProcessingAndAuraUpdate();
+            // pick-up mid splitting taks which aren't finished
+            if (Game.TaskQueue.CurrentTask != null && Game.TaskQueue.CurrentTask.State != TaskState.COMPLETE)
+                Game.TaskQueue.CurrentTask.Process();
+
+            Game.DeathProcessingAndAuraUpdate();
         }
 
         public void Splits(ref Dictionary<string, SplitNode> splitNodes)
         {
-            var splits = _game.Splits;
+            var splits = Game.Splits;
             foreach (var split in splits)
             {
-                var splitNode = new SplitNode(this, split);
+                var splitNode = new SplitNode(this, this._root, split);
                 if (!splitNodes.ContainsKey(splitNode.Hash))
                     splitNodes.Add(splitNode.Hash, splitNode);
                 else
@@ -53,9 +60,9 @@ namespace SabberStoneCore.Splits
             }
         }
 
-        public static List<SplitNode> GetSolutions(Game game, PlayerTask playerTask, int maxDepth = 10, int maxWidth = 10000)
+        public static List<SplitNode> GetSolutions(Game game, int maxDepth = 10, int maxWidth = 10000)
         {
-            var rootGame = new SplitNode(null, game, playerTask);
+            var rootGame = new SplitNode(null, game, game, true);
             var depthNodes = new Dictionary<string, SplitNode> { [rootGame.Hash] = rootGame };
             var endTurnNodes = new List<SplitNode>();
             for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
@@ -66,13 +73,13 @@ namespace SabberStoneCore.Splits
                     option.Splits(ref nextDepthNodes);
                 }
 
-                endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => !p._game.Splits.Any()));
-
+                endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => !p.Game.Splits.Any()));
+                endTurnNodes.ForEach(p => nextDepthNodes.Remove(p.Hash));
                 depthNodes = nextDepthNodes
                     .Take(maxWidth)
                     .ToDictionary(p => p.Key, p => p.Value);
 
-                //Log.Info($"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
+                game.Dump("GetSolutions", $"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
             }
             return endTurnNodes;
         }

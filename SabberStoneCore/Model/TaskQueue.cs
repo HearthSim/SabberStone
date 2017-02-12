@@ -24,11 +24,15 @@ namespace SabberStoneCore.Model
         {
             TaskList = new List<ISimpleTask>();
             taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
-            CurrentTask = taskQueue.CurrentTask?.Clone();
+            if (taskQueue.CurrentTask != null)
+            {
+                CurrentTask = taskQueue.CurrentTask.Clone();
+                CurrentTask.Game = Game;
+            }
             TaskList.ForEach(p =>
             {
-                p.Reset();
                 p.Game = Game;
+                //p.Reset();
             });
         }
 
