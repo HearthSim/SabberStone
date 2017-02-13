@@ -1864,10 +1864,9 @@ namespace SabberStoneXTest
 		// PlayReq:
 		// - REQ_HERO_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Devolve_CFM_696()
 		{
-			// TODO Devolve_CFM_696 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1878,8 +1877,19 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Devolve"));
-		}
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Devolve"));
+            Assert.Equal(6, game.CurrentOpponent.Board.Sum(p => p.Card.Cost));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(3, game.CurrentOpponent.Board.Sum(p => p.Card.Cost));
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [CFM_707] Jade Lightning - COST:4 

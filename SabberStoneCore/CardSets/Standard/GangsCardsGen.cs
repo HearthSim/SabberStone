@@ -1354,11 +1354,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_HERO_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("CFM_696", new List<Enchantment> {
-				// TODO [CFM_696] Devolve && Test: Devolve_CFM_696
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new TransformMinionTask(EntityType.OP_MINIONS, -1)
 				},
 			});
 
