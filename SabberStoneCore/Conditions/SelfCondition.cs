@@ -43,6 +43,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition HasMyHeroNotAttackedThisTurn => new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
 
         public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
+        public static SelfCondition IsBattlecryMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
         public static SelfCondition IsInPlayZone => IsInZone(Zone.PLAY);
         public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
         public static SelfCondition IsInHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));

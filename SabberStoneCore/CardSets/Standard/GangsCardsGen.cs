@@ -1985,13 +1985,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_064", new List<Enchantment> {
-				// TODO [CFM_064] Blubber Baron && Test: Blubber Baron_CFM_064
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.HAND,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInHandZone)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsBattlecryMinion))
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_067] Hozen Healer - COST:4 [ATK:2/HP:6] 

@@ -2758,10 +2758,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void BlubberBaron_CFM_064()
 		{
-			// TODO BlubberBaron_CFM_064 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2772,8 +2771,18 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blubber Baron"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Blubber Baron"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+		    Assert.Equal(1, ((Minion)testCard).AttackDamage);
+            Assert.Equal(1, ((Minion)testCard).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.Equal(1, ((Minion)testCard).AttackDamage);
+            Assert.Equal(1, ((Minion)testCard).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.Equal(2, ((Minion)testCard).AttackDamage);
+            Assert.Equal(2, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_067] Hozen Healer - COST:4 [ATK:2/HP:6] 
