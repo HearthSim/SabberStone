@@ -867,10 +867,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void KabalCrystalRunner_CFM_760()
 		{
-			// TODO KabalCrystalRunner_CFM_760 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -881,8 +880,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Crystal Runner"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Crystal Runner"));
+            Assert.Equal(6, testCard.Cost);
+            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+            Assert.Equal(5, testCard.Cost);
+        }
 
 	}
 

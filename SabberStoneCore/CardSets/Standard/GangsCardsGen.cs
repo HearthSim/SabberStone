@@ -642,12 +642,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_760", new List<Enchantment> {
-				// TODO [CFM_760] Kabal Crystal Runner && Test: Kabal Crystal Runner_CFM_760
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.HAND,
+                    Enchant = new Enchant
+                    {
+                        EnableConditions = new List<SelfCondition>
+                        {
+                            SelfCondition.IsInHandZone
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.COST] = 0
+                        },
+                        ValueFunc = owner => -owner.Controller.NumSecretsPlayedThisGame
+                    }
+                }
 			});
 
 		}
