@@ -1577,13 +1577,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("OG_328", new List<Enchantment> {
-				// TODO [OG_328] Master of Evolution && Test: Master of Evolution_OG_328
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new TransformMinionTask(EntityType.TARGET, 1)
+                },
+            });
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [OG_031] Hammer of Twilight - COST:5 [ATK:4/HP:0] 
