@@ -4934,13 +4934,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_100", new List<Enchantment> {
-				// TODO [EX1_100] Lorewalker Cho && Test: Lorewalker Cho_EX1_100
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HANDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new CopyTask(EntityType.TARGET, 1, true),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_102] Demolisher - COST:3 [ATK:1/HP:4] 

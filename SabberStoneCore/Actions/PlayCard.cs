@@ -217,8 +217,6 @@ namespace SabberStoneCore.Actions
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
                     c.Graveyard.Add(spell);
-
-                    c.NumSpellsPlayedThisGame++;
                 }
                 c.Game.DeathProcessingAndAuraUpdate();
 
@@ -226,6 +224,8 @@ namespace SabberStoneCore.Actions
                 c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger After Play Phase");
                 spell.JustPlayed = false;
                 c.Game.DeathProcessingAndAuraUpdate();
+
+                c.NumSpellsPlayedThisGame++;
 
                 return true;
             };
