@@ -3507,11 +3507,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_392", new List<Enchantment> {
-				// TODO [EX1_392] Battle Rage && Test: Battle Rage_EX1_392
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.FRIENDS),
+                        new FilterStackTask(SelfCondition.IsDamaged),
+                        new CountTask(EntityType.STACK),
+                        new EnqueueNumberTask(new DrawTask()))
 				},
 			});
 
