@@ -881,13 +881,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_310", new List<Enchantment> {
-				// TODO [OG_310] Steward of Darkshire && Test: Steward of Darkshire_OG_310
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.HEALTH, 1)))
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(ComplexTask.DivineShield(EntityType.TARGET))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- WEAPON - PALADIN
 			// [OG_222] Rallying Blade - COST:3 [ATK:3/HP:0] 

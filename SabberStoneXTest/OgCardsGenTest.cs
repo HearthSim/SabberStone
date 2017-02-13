@@ -1109,10 +1109,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void StewardOfDarkshire_OG_310()
 		{
-			// TODO StewardOfDarkshire_OG_310 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1123,8 +1122,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Steward of Darkshire"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Steward of Darkshire"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.Equal(true, ((Minion)minion1).HasDivineShield);
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acidic Swamp Ooze"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            Assert.Equal(false, ((Minion)minion2).HasDivineShield);
+
+
+        }
 
 		// --------------------------------------- WEAPON - PALADIN
 		// [OG_222] Rallying Blade - COST:3 [ATK:3/HP:0] 
