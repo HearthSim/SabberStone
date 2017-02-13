@@ -1889,7 +1889,7 @@ namespace SabberStoneXTest
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Divine Favor"));
             Assert.Equal(1, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.Opponent.Hand.Count);
         }
 
 		// ---------------------------------------- SPELL - PALADIN

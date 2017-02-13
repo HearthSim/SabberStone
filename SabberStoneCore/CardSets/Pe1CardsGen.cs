@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -2313,13 +2315,19 @@ namespace SabberStoneCore.CardSets
 			// Text: At the end of each player's turn, that player draws until they have 3 cards.
 			// --------------------------------------------------------
 			cards.Add("GVG_094", new List<Enchantment> {
-				// TODO [GVG_094] Jeeves && Test: Jeeves_GVG_094
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new FuncNumberTask(p =>
+                        {
+                            var controller = p.Controller;
+                            var diffHands = 3 - controller.Hand.Count;
+                            return diffHands > 0 ? diffHands : 0;
+                        }),
+                        new EnqueueNumberTask(new DrawTask())),
+                },
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GVG_095] Goblin Sapper - COST:3 [ATK:2/HP:4] 

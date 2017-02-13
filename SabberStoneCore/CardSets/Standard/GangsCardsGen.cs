@@ -2744,13 +2744,30 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_808", new List<Enchantment> {
-				// TODO [CFM_808] Genzo, the Shark && Test: Genzo, the Shark_CFM_808
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(
+                            ComplexTask.Create(new FuncNumberTask(p => {
+                                var controller = p.Controller;
+                                var diffHands = 3 - controller.Hand.Count;
+                                return diffHands > 0 ? diffHands : 0;
+                            }),
+                            new EnqueueNumberTask(new DrawTask()),
+                            new ClearStackTask(),
+                            ComplexTask.Create(new FuncNumberTask(p => {
+                                var controller = p.Controller;
+                                var diffHands = 3 - controller.Opponent.Hand.Count;
+                                return diffHands > 0 ? diffHands : 0;
+                            }),
+                            new EnqueueNumberTask(new DrawOpTask()))))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_809] Tanaris Hogchopper - COST:4 [ATK:4/HP:4] 

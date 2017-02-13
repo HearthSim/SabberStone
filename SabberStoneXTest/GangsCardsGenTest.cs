@@ -3934,10 +3934,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void GenzoTheShark_CFM_808()
 		{
-			// TODO GenzoTheShark_CFM_808 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3948,23 +3947,33 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Genzo, the Shark"));
-		}
+            game.Player1.Hand.GetAll.ForEach(p => Generic.DiscardBlock(game.Player1, p));
+            game.Player2.Hand.GetAll.ForEach(p => Generic.DiscardBlock(game.Player2, p));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Genzo, the Shark"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(1, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(1, game.CurrentOpponent.Hand.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.Equal(3, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(3, game.CurrentOpponent.Hand.Count);
+        }
 
-		// --------------------------------------- MINION - NEUTRAL
-		// [CFM_809] Tanaris Hogchopper - COST:4 [ATK:4/HP:4] 
-		// - Set: gangs, Rarity: common
-		// --------------------------------------------------------
-		// Text: [x]<b>Battlecry:</b> If your opponent's
-		//       hand is empty, gain <b>Charge</b>.
-		// --------------------------------------------------------
-		// GameTag:
-		// - BATTLECRY = 1
-		// --------------------------------------------------------
-		// RefTag:
-		// - CHARGE = 1
-		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+        // --------------------------------------- MINION - NEUTRAL
+        // [CFM_809] Tanaris Hogchopper - COST:4 [ATK:4/HP:4] 
+        // - Set: gangs, Rarity: common
+        // --------------------------------------------------------
+        // Text: [x]<b>Battlecry:</b> If your opponent's
+        //       hand is empty, gain <b>Charge</b>.
+        // --------------------------------------------------------
+        // GameTag:
+        // - BATTLECRY = 1
+        // --------------------------------------------------------
+        // RefTag:
+        // - CHARGE = 1
+        // --------------------------------------------------------
+        [Fact(Skip="NotImplemented")]
 		public void TanarisHogchopper_CFM_809()
 		{
 			// TODO TanarisHogchopper_CFM_809 test
