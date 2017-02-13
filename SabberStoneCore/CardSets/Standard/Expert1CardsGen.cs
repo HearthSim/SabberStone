@@ -1653,7 +1653,7 @@ namespace SabberStoneCore.CardSets.Standard
                                 .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
                                 .SingleTask(ComplexTask.Secret(
                                     new CopyTask(EntityType.TARGET, 1),
-                                    new FuncTask(list =>
+                                    new FuncPlayablesTask(list =>
                                     {
                                         var target = list[0] as ICharacter;
                                         if (target == null)
@@ -1675,11 +1675,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw cards until you have as many in hand as your opponent.
 			// --------------------------------------------------------
 			cards.Add("EX1_349", new List<Enchantment> {
-				// TODO [EX1_349] Divine Favor && Test: Divine Favor_EX1_349
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new FuncNumberTask(p =>
+                        {
+                            var controller = p.Controller;
+                            var diffHands = controller.Opponent.Hand.Count - controller.Hand.Count;
+                            return diffHands > 0 ? diffHands : 0;
+                        }),
+                        new EnqueueNumberTask(new DrawTask())),
 				},
 			});
 
@@ -4812,7 +4818,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.OP_MINIONS),
-                        new FuncTask(p => p.Count > 3 ? p : new List<IPlayable>()),
+                        new FuncPlayablesTask(p => p.Count > 3 ? p : new List<IPlayable>()),
                         new RandomTask(1, EntityType.STACK),
                         new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
                         new FlagTask(false, new ControlTask(EntityType.STACK)),
@@ -5373,7 +5379,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.TARGET),
-                        new FuncTask(p =>
+                        new FuncPlayablesTask(p =>
                         {
                             var hero = p[0] as Hero;
                             if (hero != null)

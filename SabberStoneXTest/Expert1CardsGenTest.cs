@@ -1872,22 +1872,25 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Draw cards until you have as many in hand as your opponent.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void DivineFavor_EX1_349()
 		{
-			// TODO DivineFavor_EX1_349 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+                Player2HeroClass = CardClass.PALADIN,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Divine Favor"));
-		}
+            game.Player1.Hand.GetAll.ForEach(p => Generic.DiscardBlock(game.Player1, p));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Divine Favor"));
+            Assert.Equal(1, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [EX1_354] Lay on Hands - COST:8 

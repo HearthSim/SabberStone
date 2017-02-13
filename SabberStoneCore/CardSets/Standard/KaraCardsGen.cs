@@ -481,7 +481,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new IncludeTask(EntityType.SOURCE),
-                            new FuncTask(list =>
+                            new FuncPlayablesTask(list =>
                             {
                                 var controller = list[0].Controller;
                                 var basicTotem = new List<string>

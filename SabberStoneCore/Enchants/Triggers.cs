@@ -35,7 +35,7 @@ namespace SabberStoneCore.Enchants
             var taskList = new List<ISimpleTask>
             {
                 new IncludeTask(EntityType.SOURCE),
-                new FuncTask(p =>
+                new FuncPlayablesTask(p =>
                 {
                     var result = new List<IPlayable>();
                     var minion = p[0] as Minion;

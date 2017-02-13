@@ -1016,7 +1016,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.ALLMINIONS),
-                        new FuncTask(p =>
+                        new FuncPlayablesTask(p =>
                         {
                             if (!p.Any())
                                 return new List<IPlayable>();
@@ -1684,7 +1684,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                             new IncludeTask(EntityType.SOURCE),
-                            new FuncTask(list =>
+                            new FuncPlayablesTask(list =>
                             {
                                 var controller = list[0].Controller;
                                 var basicTotem = new List<string>

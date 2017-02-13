@@ -108,7 +108,7 @@ namespace SabberStoneCore.Tasks
                 new GetControllerManaTask(),
                 task,
                 new IncludeTask(EntityType.SOURCE),
-                new FuncTask(p =>
+                new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;
                     if (controller != null)
@@ -192,7 +192,7 @@ namespace SabberStoneCore.Tasks
         {
             return Create(
                 new IncludeTask(EntityType.SOURCE),
-                new FuncTask(p =>
+                new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;
                     var jadeGolem = controller.JadeGolem;

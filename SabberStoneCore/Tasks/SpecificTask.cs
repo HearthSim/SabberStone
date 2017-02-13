@@ -25,7 +25,7 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask AnimalCompanion
             => ComplexTask.Create(
                 new IncludeTask(EntityType.SOURCE),
-                new FuncTask(list =>
+                new FuncPlayablesTask(list =>
                 {
                     var result = new List<IPlayable>();
                     var controller = list[0].Controller;
@@ -39,7 +39,7 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask TotemicCall
             => ComplexTask.Create(
                 new IncludeTask(EntityType.HERO),
-                new FuncTask(list =>
+                new FuncPlayablesTask(list =>
                 {
                     var result = new List<IPlayable>();
                     var controller = list[0].Controller;
@@ -69,7 +69,7 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask JusticarTrueheart
             => ComplexTask.Create(
                 new IncludeTask(EntityType.SOURCE),
-                new FuncTask(p =>
+                new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;
                     switch (controller.Hero.Power.Card.Id)

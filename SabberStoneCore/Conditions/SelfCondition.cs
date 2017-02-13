@@ -66,6 +66,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
         public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
+        public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.Hand.Count < me.Controller.Opponent.Hand.Count);
 
         public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
             => new SelfCondition(me => 
@@ -140,6 +141,7 @@ namespace SabberStoneCore.Conditions
         {
             return _function(owner);
         }
+
     }
 
 }

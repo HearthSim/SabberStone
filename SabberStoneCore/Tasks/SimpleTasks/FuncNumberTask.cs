@@ -4,24 +4,30 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class FuncTask : SimpleTask
+    public class FuncNumberTask : SimpleTask
     {
-        public FuncTask(Func<List<IPlayable>, List<IPlayable>> function)
+        public FuncNumberTask(Func<IPlayable, int> function)
         {
             Function = function;
         }
 
-        public Func<List<IPlayable>, List<IPlayable>> Function { get; set; }
+        public Func<IPlayable, int> Function { get; set; }
 
         public override TaskState Process()
         {
-            Playables = Function(Playables);
+            var source = Source as IPlayable;
+            if (source == null)
+            {
+                return TaskState.STOP;
+            }
+
+            Number = Function(source);
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new FuncTask(Function);
+            var clone = new FuncNumberTask(Function);
             clone.Copy(this);
             return clone;
         }
