@@ -210,11 +210,15 @@ namespace SabberStoneCore.Actions
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SECRET, Zone.PLAY);
                     c.Secrets.Add(spell);
+
+                    c.NumSecretsPlayedThisGame++;
                 }
                 else
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
                     c.Graveyard.Add(spell);
+
+                    c.NumSpellsPlayedThisGame++;
                 }
                 c.Game.DeathProcessingAndAuraUpdate();
 

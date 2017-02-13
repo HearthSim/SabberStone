@@ -20,12 +20,13 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
+            KabalCourierDiscover();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -184,6 +185,38 @@ namespace SabberStoneCoreConsole
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
 
             ShowLog(game, LogLevel.VERBOSE);
+        }
+
+        public static void KabalCourierDiscover()
+        {
+
+            var cardSet = Cards.Standard;
+
+            var mageCards =
+                cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroup != 0).ToList();
+            var priestCards =
+                cardSet[CardClass.PRIEST].Where(p => p.Class == CardClass.PRIEST || p.MultiClassGroup != 0).ToList();
+            var warlockCards =
+                cardSet[CardClass.WARLOCK].Where(p => p.Class == CardClass.WARLOCK || p.MultiClassGroup != 0).ToList();
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            List<List<Card>> cardSets = new List<List<Card>>();
+            foreach (Card mageCard in mageCards)
+            {
+                foreach (Card priestCard in priestCards)
+                {
+                    foreach (Card warlockCard in warlockCards)
+                    {
+                        cardSets.Add(new List<Card> { mageCard , priestCard, warlockCard});
+                    }
+                }
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
+            Console.WriteLine("cardSets: {0}", cardSets.Count);
         }
 
         public static void CardsTest()

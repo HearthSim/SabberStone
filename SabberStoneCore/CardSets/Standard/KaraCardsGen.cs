@@ -1077,7 +1077,6 @@ namespace SabberStoneCore.CardSets.Standard
 			//       you've cast this game.
 			// --------------------------------------------------------
 			cards.Add("KAR_711", new List<Enchantment> {
-				// TODO [KAR_711] Arcane Giant && Test: Arcane Giant_KAR_711
 				new Enchantment
                 {
                     Area = EnchantmentArea.SELF,
@@ -1092,7 +1091,7 @@ namespace SabberStoneCore.CardSets.Standard
                         {
                             [GameTag.COST] = 0
                         },
-                        //ValueFunc = owner => -owner.Controller.NumSpellPlayerCastThisGame
+                        ValueFunc = owner => -owner.Controller.NumSpellsPlayedThisGame
                     }
                 }
             });

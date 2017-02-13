@@ -1390,10 +1390,9 @@ namespace SabberStoneXTest
 		// Text: [x]Costs (1) less for each spell
 		//       you've cast this game.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void ArcaneGiant_KAR_711()
 		{
-			// TODO ArcaneGiant_KAR_711 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1404,8 +1403,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcane Giant"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcane Giant"));
+		    Assert.Equal(12, testCard.Cost);
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+            Assert.Equal(11, testCard.Cost);
+
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 

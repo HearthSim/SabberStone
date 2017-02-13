@@ -474,6 +474,9 @@
         KABAL = 484,
         ADDITIONAL_PLAY_REQS_1 = 515,
         ADDITIONAL_PLAY_REQS_2 = 516,
+
+        NUM_SPELLS_PLAYED_THIS_GAME = 1001,
+        NUM_SECRETS_PLAYED_THIS_GAME = 1002,
     }
 
     public enum GameType
