@@ -19,19 +19,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             switch (Type)
             {
                 case EntityType.DECK:
-                    Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(Controller, p));
+                   
+                    Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
                     return TaskState.COMPLETE;
 
                 case EntityType.HAND:
-                    Playables.ForEach(p => Generic.AddHandPhase.Invoke(Controller, p));
+                    Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
                     return TaskState.COMPLETE;
 
                 case EntityType.OP_HAND:
-                    Playables.ForEach(p => Generic.AddHandPhase.Invoke(Controller.Opponent, p));
+                    Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
                     return TaskState.COMPLETE;
 
                 case EntityType.OP_DECK:
-                    Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(Controller.Opponent, p));
+                    Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
                     return TaskState.COMPLETE;
 
                 default:

@@ -596,7 +596,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.MAGE))
+					SingleTask = new EnqueueTask(3, ComplexTask.Create(
+                        new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+                        new AddStackTo(EntityType.HAND)))
                 },
 			});
 

@@ -245,13 +245,6 @@ namespace SabberStoneCore.Tasks
             return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
         }
 
-        public static ISimpleTask RandomCardToHand(CardType cardType, CardClass cardClass, EntityType type = EntityType.HAND)
-        {
-            return Create(
-                new RandomCardTask(cardType, cardClass),
-                new AddStackTo(type));
-        }
-
         public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
         {
             return Create(

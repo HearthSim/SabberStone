@@ -238,7 +238,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new DestroyTask(EntityType.TARGET),
-                        new RandomCardTask(CardType.MINION, CardClass.INVALID),
+                        new RandomCardTask(CardType.MINION, CardClass.INVALID, true),
                         new AddStackTo(EntityType.OP_HAND))
 				},
 			});
@@ -898,12 +898,16 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID, EntityType.HAND)
+					SingleTask = ComplexTask.Create(
+                        new RandomCardTask(CardType.SPELL, CardClass.INVALID),
+                        new AddStackTo(EntityType.HAND))
                 },
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID, EntityType.OP_HAND)
+                    SingleTask = ComplexTask.Create(
+                        new RandomCardTask(CardType.SPELL, CardClass.INVALID, true),
+                        new AddStackTo(EntityType.OP_HAND))
                 },
                                        
 			});
@@ -3115,7 +3119,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.Inspire(ComplexTask.RandomCardToHand(CardType.SPELL, CardClass.INVALID))
+                    Trigger = Triggers.Inspire(ComplexTask.Create(
+                        new RandomCardTask(CardType.SPELL, CardClass.INVALID),
+                        new AddStackTo(EntityType.HAND)))
                 }
             });
 

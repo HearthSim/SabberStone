@@ -6448,10 +6448,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void LorewalkerCho_EX1_100()
 		{
-			// TODO LorewalkerCho_EX1_100 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6462,8 +6461,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lorewalker Cho"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lorewalker Cho"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.Equal(5, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+		    Assert.Equal(6, game.CurrentOpponent.Hand.Count);
+            Assert.Equal(spell1.Card.Id, game.CurrentOpponent.Hand[5].Card.Id);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            Assert.Equal(4, game.CurrentOpponent.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+            Assert.Equal(5, game.CurrentOpponent.Hand.Count);
+            Assert.Equal(spell2.Card.Id, game.CurrentOpponent.Hand[4].Card.Id);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_102] Demolisher - COST:3 [ATK:1/HP:4] 
