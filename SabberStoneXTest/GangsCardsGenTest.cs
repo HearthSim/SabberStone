@@ -3002,13 +3002,18 @@ namespace SabberStoneXTest
 				Player1HeroClass = CardClass.DRUID,
                 DeckPlayer1 = new List<Card>()
                 {
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Oasis Snapjaw"),
+                    Cards.FromName("Novice Engineer"),
                     Cards.FromName("Bluegill Warrior"),
                     Cards.FromName("Bluegill Warrior"),
                     Cards.FromName("Murloc Warleader"),
                     Cards.FromName("Murloc Warleader")
                 },
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;

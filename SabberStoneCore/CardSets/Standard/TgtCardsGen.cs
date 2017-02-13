@@ -1495,13 +1495,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion attacks a hero, add the Coin to your hand.
 			// --------------------------------------------------------
 			cards.Add("AT_031", new List<Enchantment> {
-				// TODO [AT_031] Cutpurse && Test: Cutpurse_AT_031
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsHero),
+                        new FlagTask(true, new AddCardTo("GAME_005", EntityType.HAND)))
+                }
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [AT_032] Shady Dealer - COST:3 [ATK:4/HP:3] 

@@ -1974,10 +1974,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever this minion attacks a hero, add the Coin to your hand.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Cutpurse_AT_031()
 		{
-			// TODO Cutpurse_AT_031 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1988,8 +1987,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cutpurse"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cutpurse"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [AT_032] Shady Dealer - COST:3 [ATK:4/HP:3] 

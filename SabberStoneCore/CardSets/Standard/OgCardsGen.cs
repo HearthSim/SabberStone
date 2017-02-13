@@ -481,8 +481,8 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                                new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                                 new FlagTask(true, ComplexTask.Create(
                                     new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.EXHAUSTED, 1)),
                                     new FlagTask(true, new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE)))))
@@ -2779,8 +2779,8 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                                new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                                 new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
                 }
             });

@@ -7,10 +7,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class ConditionTask : SimpleTask
     {
         private ConditionTask(EntityType entityType, 
-            SelfCondition[] selfSelfConditions,
+            SelfCondition[] selfConditions,
             RelaCondition[] relaConditions)
         {
-            SelfConditions = selfSelfConditions;
+            SelfConditions = selfConditions;
             RelaConditions = relaConditions;
             Type = entityType;
         }

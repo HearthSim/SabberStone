@@ -20,13 +20,13 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
-            KabalCourierDiscover();
+            //KabalCourierDiscover();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -224,29 +224,32 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
+                Player1HeroClass = CardClass.DRUID,
+                DeckPlayer1 = new List<Card>()
                 {
-                     Cards.FromName("Fiery War Axe"),
-                     Cards.FromName("Murloc Raider"),
-                     Cards.FromName("Murloc Raider"),
-                     Cards.FromName("Bloodfen Raptor"),
-                     Cards.FromName("Bloodfen Raptor"),
-                     Cards.FromName("Stonetusk Boar"),
-                     Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Murloc Warleader"),
+                    Cards.FromName("Murloc Warleader")
                 },
-                Player2HeroClass = CardClass.WARRIOR,
-                Shuffle = false,
+                Player2HeroClass = CardClass.PALADIN,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Pawnbroker"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Finja, the Flying Star"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Board[0]));
 
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
         }
 
         public static void Kazakus()

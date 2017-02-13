@@ -1167,8 +1167,8 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                                new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                                 new SetGameTagTask(GameTag.STEALTH, 1, EntityType.SOURCE))
                 }
             });
@@ -1910,8 +1910,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.MinionAttacksAndTargetMinion(
-                                new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                                new ConditionTask(EntityType.SOURCE, SelfCondition.IsMinion, SelfCondition.IsNotDead),
                                 new DrawTask())
                 }
 			});
@@ -2149,9 +2149,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.SELF,
 					Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.MinionAttacksAndTargetMinion(
-                        new ConditionTask(EntityType.STACK, SelfCondition.IsDead),
-                        new EnqueueTask(2,ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace)))
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
+                        new FlagTask(true, new EnqueueTask(2, ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace))))
                 }
 			});
 

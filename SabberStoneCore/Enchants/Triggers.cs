@@ -30,7 +30,7 @@ namespace SabberStoneCore.Enchants
                 .Build();
         }
 
-        public static Trigger MinionAttacksAndTargetMinion(params ISimpleTask[] list)
+        public static Trigger MinionAttacksAndTarget(params ISimpleTask[] list)
         {
             var taskList = new List<ISimpleTask>
             {
@@ -41,7 +41,7 @@ namespace SabberStoneCore.Enchants
                     var minion = p[0] as Minion;
                     if (minion == null)
                         return result;
-                    var target = minion.Game.IdEntityDic[minion.ProposedDefender] as Minion;
+                    var target = minion.Game.IdEntityDic[minion.ProposedDefender] as ICharacter;
                     if (target != null)
                         result.Add(target);
                     return result;
