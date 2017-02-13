@@ -1,7 +1,7 @@
 <img align="left" src="/Readme/sabberstone.png">
 # SabberStone
 
-**State of Implementation: 90% of current Standard Cards!** 
+**State of Implementation: 90% of current Standard Cards!** ***(13.02.2017)***
 
 SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
@@ -65,10 +65,14 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 ### ToDo List ###
 
-- [x] Move SabberStone to Github
-- [x] Start Wiki for SabberStone
-- [x] Moved from .NET Framework to .NET Core
-- [ ] Fill Wiki for SabberStone
+- [x] move SabberStone to Github
+- [x] start Wiki for SabberStone
+- [x] moved from .NET Framework to .NET Core
+- [x] make tasksystem stateful
+- [ ] create a sync with a current game (hook on the power.log)
+- [ ] integrate inter phases split.
+- [ ] implement caching for performance opt.
+- [ ] fill wiki for SabberStone
 
 ### Requirements
 
