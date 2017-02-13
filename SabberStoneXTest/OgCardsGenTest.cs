@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -1754,10 +1755,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Transform your minions into random minions that cost (1) more.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Evolve_OG_027()
 		{
-			// TODO Evolve_OG_027 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1768,8 +1768,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Evolve"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Evolve"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.Equal(3, game.CurrentPlayer.Board.Sum(p => p.Card.Cost));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(6, game.CurrentPlayer.Board.Sum(p => p.Card.Cost));
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [OG_206] Stormcrack - COST:2 

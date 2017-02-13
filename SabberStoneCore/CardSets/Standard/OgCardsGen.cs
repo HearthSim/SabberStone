@@ -1457,11 +1457,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transform your minions into random minions that cost (1) more.
 			// --------------------------------------------------------
 			cards.Add("OG_027", new List<Enchantment> {
-				// TODO [OG_027] Evolve && Test: Evolve_OG_027
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new TransformMinionTask(EntityType.MINIONS, 1)
 				},
 			});
 
