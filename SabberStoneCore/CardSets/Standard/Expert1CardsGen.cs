@@ -2097,11 +2097,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_345", new List<Enchantment> {
-				// TODO [EX1_345] Mindgames && Test: Mindgames_EX1_345
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.OP_DECK),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new RandomTask(1, EntityType.STACK),
+                        new CopyTask(EntityType.STACK, 1),
+                        new SummonStackTask()),
 				},
 			});
 

@@ -2402,10 +2402,9 @@ namespace SabberStoneXTest
 		// PlayReq:
 		// - REQ_NUM_MINION_SLOTS = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Mindgames_EX1_345()
 		{
-			// TODO Mindgames_EX1_345 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2416,7 +2415,9 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mindgames"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mindgames"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.Equal(1, game.CurrentPlayer.Board.Count);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
