@@ -3882,7 +3882,7 @@ namespace SabberStoneXTest
             Assert.Equal(5, game.CurrentOpponent.Hand.Count);
             var nominion = game.CurrentOpponent.Hand.GetAll.TrueForAll(p => !(p is Minion));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-		    Assert.Equal(1, game.CurrentOpponent.Board.Count);
+		    Assert.Equal(nominion ? 0 : 1, game.CurrentOpponent.Board.Count);
             Assert.Equal(nominion? 5: 4, game.CurrentOpponent.Hand.Count);
 		}
 
