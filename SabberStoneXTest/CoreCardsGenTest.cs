@@ -1721,7 +1721,7 @@ namespace SabberStoneXTest
             var spell2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
 
-            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
             Assert.Equal(17, game.CurrentOpponent.Hero.Health);
         }
 
@@ -1831,7 +1831,7 @@ namespace SabberStoneXTest
             totHealth += ((ICharacter) minion1).IsDead ? 0 : ((ICharacter) minion1).Health;
             totHealth += ((ICharacter) minion2).IsDead ? 0 : ((ICharacter) minion2).Health;
 
-            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
             Assert.Equal(33, totHealth);
         }
 

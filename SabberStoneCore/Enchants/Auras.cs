@@ -155,6 +155,22 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant HeroPowerDamage(int amount)
+        {
+            return new Enchant
+            {
+                EnableConditions = new List<SelfCondition>
+                {
+                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsNotSilenced
+                },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.HEROPOWER_DAMAGE] = amount
+                }
+            };
+        }
+
         public static Enchant Cost(int amount, params RelaCondition[] list)
         {
             var relaConditions = new List<RelaCondition>();

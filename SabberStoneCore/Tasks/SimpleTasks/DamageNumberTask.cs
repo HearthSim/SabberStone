@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPower * 2 : Controller.Hero.SpellPower) : 0;
+            var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPowerDamage * 2 : Controller.Hero.SpellPowerDamage) : 0;
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables)
                 .ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Number,
                     spellDmgValue));

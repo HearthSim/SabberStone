@@ -341,6 +341,12 @@ namespace SabberStoneCore.Model
             set { this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME] = value; }
         }
 
+        public int NumWeaponsPlayedThisGame
+        {
+            get { return this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME]; }
+            set { this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME] = value; }
+        }
+
         public int NumTurnsLeft
         {
             get { return this[GameTag.NUM_TURNS_LEFT]; }

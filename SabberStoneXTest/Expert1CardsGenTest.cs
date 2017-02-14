@@ -5373,7 +5373,7 @@ namespace SabberStoneXTest
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodmage Thalnos"));
             game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
 
             Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 

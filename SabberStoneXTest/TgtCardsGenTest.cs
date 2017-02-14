@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -1101,10 +1102,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - HEROPOWER_DAMAGE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void FallenHero_AT_003()
 		{
-			// TODO FallenHero_AT_003 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1115,8 +1115,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fallen Hero"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fallen Hero"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+		    Assert.Equal(29, game.CurrentOpponent.Hero.Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.Equal(27, game.CurrentOpponent.Hero.Health);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [AT_006] Dalaran Aspirant - COST:4 [ATK:3/HP:5] 
@@ -1142,9 +1149,9 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dalaran Aspirant"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(0, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(0, game.CurrentPlayer.Hero.SpellPowerDamage);
             game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1935,7 +1942,7 @@ namespace SabberStoneXTest
             //game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
             Assert.Equal(1, game.CurrentPlayer.Hand.Triggers.Count);
-            Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+            Assert.Equal(game.CurrentPlayer.Hero.Weapon.Card[GameTag.ATK] + 1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 
         }
 

@@ -21,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            var times = SpellDmg ? Number + Controller.Hero.SpellPower : Number;
+            var times = SpellDmg ? Number + Controller.Hero.SpellPowerDamage : Number;
 
             for (var i = 0; i < times; i++)
             {

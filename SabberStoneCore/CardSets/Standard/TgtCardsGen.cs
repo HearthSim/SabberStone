@@ -859,13 +859,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HEROPOWER_DAMAGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_003", new List<Enchantment> {
-				// TODO [AT_003] Fallen Hero && Test: Fallen Hero_AT_003
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.HeroPowerDamage(1)
+                }
+            });
 
 			// ------------------------------------------ MINION - MAGE
 			// [AT_006] Dalaran Aspirant - COST:4 [ATK:3/HP:5] 

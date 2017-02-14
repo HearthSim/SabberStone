@@ -34,7 +34,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (Amount < 1 && RandAmount < 1)
                 return TaskState.STOP;
 
-            var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPower * 2 : Controller.Hero.SpellPower) : 0;
+            var spellDmgValue = 0;
+            if (Source is HeroPower)
+            {
+                spellDmgValue = Controller.Hero.HeroPowerDamage;
+            }
+            else if (SpellDmg)
+            {
+                spellDmgValue = Source is Spell && ((Spell) Source).ReceveivesDoubleSpellDamage
+                    ? Controller.Hero.SpellPowerDamage * 2
+                    : Controller.Hero.SpellPowerDamage;
+            }
+
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
                     Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
                         Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),

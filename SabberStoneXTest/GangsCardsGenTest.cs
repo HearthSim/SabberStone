@@ -733,7 +733,7 @@ namespace SabberStoneXTest
             totHealth += ((ICharacter)minion1).IsDead ? 0 : ((ICharacter)minion1).Health;
             totHealth += ((ICharacter)minion2).IsDead ? 0 : ((ICharacter)minion2).Health;
             // Spellpower check
-            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPower);
+            Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
             Assert.Equal(15, totHealth);
         }
 

@@ -477,6 +477,7 @@
 
         NUM_SPELLS_PLAYED_THIS_GAME = 1001,
         NUM_SECRETS_PLAYED_THIS_GAME = 1002,
+        NUM_WEAPONS_PLAYED_THIS_GAME = 1003,
     }
 
     public enum GameType

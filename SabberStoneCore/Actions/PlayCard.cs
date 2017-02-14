@@ -242,6 +242,8 @@ namespace SabberStoneCore.Actions
                 weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY);
                 c.Game.DeathProcessingAndAuraUpdate();
 
+                c.NumWeaponsPlayedThisGame++;
+
                 // trigger After Play Phase
                 c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", "trigger After Play Phase");
                 weapon.JustPlayed = false;
