@@ -1688,13 +1688,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you summon a minion, deal 5 damage to_your Hero.
 			// --------------------------------------------------------
 			cards.Add("CFM_900", new List<Enchantment> {
-				// TODO [CFM_900] Unlicensed Apothecary && Test: Unlicensed Apothecary_CFM_900
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new DamageTask(5, EntityType.HERO))
+                        .Build()
+                }
+            });
 
 		}
 

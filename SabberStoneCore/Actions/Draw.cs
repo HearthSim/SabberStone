@@ -52,7 +52,10 @@ namespace SabberStoneCore.Actions
             {
                 var playable = c.Deck.Remove(cardToDraw ?? c.Deck[0]);
                 c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", $"{c.Name} draws {playable}");
+
                 c.NumCardsDrawnThisTurn++;
+                c.LastCardDrawn = playable.Id;
+
                 return playable;
             };
     }

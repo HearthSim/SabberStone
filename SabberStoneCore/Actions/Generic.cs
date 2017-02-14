@@ -88,6 +88,9 @@ namespace SabberStoneCore.Actions
                 var discard = c.Hand.Remove(playable);
                 c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", $"{discard} is beeing discarded.");
                 c.Graveyard.Add(discard);
+
+                c.LastCardDiscarded = discard.Id;
+
                 return true;
             };
 

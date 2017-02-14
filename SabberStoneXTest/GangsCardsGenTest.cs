@@ -2336,10 +2336,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever you summon a minion, deal 5 damage to_your Hero.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void UnlicensedApothecary_CFM_900()
 		{
-			// TODO UnlicensedApothecary_CFM_900 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2350,8 +2349,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Unlicensed Apothecary"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Unlicensed Apothecary"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(25, game.CurrentPlayer.Hero.Health);
+        }
 
 	}
 

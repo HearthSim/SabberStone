@@ -478,6 +478,8 @@
         NUM_SPELLS_PLAYED_THIS_GAME = 1001,
         NUM_SECRETS_PLAYED_THIS_GAME = 1002,
         NUM_WEAPONS_PLAYED_THIS_GAME = 1003,
+        LAST_CARD_DRAWN = 1004,
+        LAST_CARD_DISCARDED = 1005,
     }
 
     public enum GameType
