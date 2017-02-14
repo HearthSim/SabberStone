@@ -4,6 +4,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -789,13 +790,26 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_031", new List<Enchantment> {
-				// TODO [BRM_031] Chromaggus && Test: Chromaggus_BRM_031
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf)
+                        .TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.SOURCE),
+                            new FuncPlayablesTask(p =>
+                            {
+                                var controller = p[0].Controller;
+                                return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
+                            }),
+                            new CopyTask(EntityType.STACK, 1),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4] 

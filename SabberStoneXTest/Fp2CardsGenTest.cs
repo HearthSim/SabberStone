@@ -954,10 +954,9 @@ namespace SabberStoneXTest
         // GameTag:
         // - ELITE = 1
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void Chromaggus_BRM_031()
         {
-            // TODO Chromaggus_BRM_031 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -968,7 +967,13 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Chromaggus"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Chromaggus"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(game.CurrentPlayer.Hand[4].Card.Id, game.CurrentPlayer.Hand[5].Card.Id);
         }
 
         // --------------------------------------- MINION - NEUTRAL
