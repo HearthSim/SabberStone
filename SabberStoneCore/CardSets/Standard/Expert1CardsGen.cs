@@ -2194,11 +2194,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_091", new List<Enchantment> {
-				// TODO [EX1_091] Cabal Shadow Priest && Test: Cabal Shadow Priest_EX1_091
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new ControlTask(EntityType.TARGET)
 				},
 			});
 

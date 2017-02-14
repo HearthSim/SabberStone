@@ -2541,10 +2541,9 @@ namespace SabberStoneXTest
 		// - REQ_ENEMY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void CabalShadowPriest_EX1_091()
 		{
-			// TODO CabalShadowPriest_EX1_091 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2555,8 +2554,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cabal Shadow Priest"));
-		}
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cabal Shadow Priest"));
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+            Assert.Equal(0, game.CurrentPlayer.Board.Count);
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(0, game.CurrentOpponent.Board.Count);
+            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5] 
