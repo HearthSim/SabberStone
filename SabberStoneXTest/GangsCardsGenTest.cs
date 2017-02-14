@@ -4034,10 +4034,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - CHARGE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void LeathercladHogleader_CFM_810()
 		{
-			// TODO LeathercladHogleader_CFM_810 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4048,8 +4047,16 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Leatherclad Hogleader"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leatherclad Hogleader"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leatherclad Hogleader"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.Equal(false, ((Minion)testCard1).HasCharge);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.Equal(true, ((Minion)testCard2).HasCharge);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_851] Daring Reporter - COST:4 [ATK:3/HP:3] 

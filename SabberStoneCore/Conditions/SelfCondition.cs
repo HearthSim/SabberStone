@@ -71,6 +71,18 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
         public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.Hand.Count < me.Controller.Opponent.Hand.Count);
 
+        public static SelfCondition IsZoneCount(Zone zone, int amount, RelaSign relaSign = RelaSign.EQ) 
+            => new SelfCondition(me =>
+                    relaSign == RelaSign.EQ  && me.Controller.Zones[zone].Count == amount
+                 || relaSign == RelaSign.GEQ && me.Controller.Zones[zone].Count >= amount
+                 || relaSign == RelaSign.LEQ && me.Controller.Zones[zone].Count <= amount);
+
+        public static SelfCondition IsOpZoneCount(Zone zone, int amount, RelaSign relaSign = RelaSign.EQ)
+            => new SelfCondition(me =>
+                    relaSign == RelaSign.EQ  && me.Controller.Opponent.Zones[zone].Count == amount
+                 || relaSign == RelaSign.GEQ && me.Controller.Opponent.Zones[zone].Count >= amount
+                 || relaSign == RelaSign.LEQ && me.Controller.Opponent.Zones[zone].Count <= amount);
+
         public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ) 
             => new SelfCondition(me => 
                     relaSign == RelaSign.EQ  && me.Controller.Board.Any(p => p[tag] == amount)

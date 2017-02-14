@@ -2814,11 +2814,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_810", new List<Enchantment> {
-				// TODO [CFM_810] Leatherclad Hogleader && Test: Leatherclad Hogleader_CFM_810
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpZoneCount(Zone.HAND, 6, RelaSign.GEQ)),
+                        new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE)))
 				},
 			});
 
