@@ -561,10 +561,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void EtherealPeddler_KAR_070()
 		{
-			// TODO EtherealPeddler_KAR_070 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -575,8 +574,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Peddler"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Peddler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    var card1 = game.CurrentPlayer.Hand[0];
+            Assert.Equal(card1.Card.Class == CardClass.ROGUE ? card1.Cost : (card1.Card.Cost > 1 ? card1.Card.Cost - 2 : 0), card1.Cost);
+            var card2 = game.CurrentPlayer.Hand[1];
+            Assert.Equal(card2.Card.Class == CardClass.ROGUE ? card2.Cost : (card2.Card.Cost > 1 ? card2.Card.Cost - 2 : 0), card2.Cost);
+            var card3 = game.CurrentPlayer.Hand[2];
+            Assert.Equal(card3.Card.Class == CardClass.ROGUE ? card3.Cost : (card3.Card.Cost > 1 ? card3.Card.Cost - 2 : 0), card3.Cost);
+            var card4 = game.CurrentPlayer.Hand[3];
+            Assert.Equal(card4.Card.Class == CardClass.ROGUE ? card4.Cost : (card4.Card.Cost > 1 ? card4.Card.Cost - 2 : 0), card4.Cost);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2] 

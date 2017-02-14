@@ -407,11 +407,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_070", new List<Enchantment> {
-				// TODO [KAR_070] Ethereal Peddler && Test: Ethereal Peddler_KAR_070
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.AnyNonClassCardInHand(CardClass.ROGUE)),
+                        new FlagTask(true, ComplexTask.Create(
+                            new IncludeTask(EntityType.HAND),
+                            new FilterStackTask(SelfCondition.IsNotCardClass(CardClass.ROGUE)),
+                            new BuffTask(Buffs.Cost(-2), EntityType.STACK))))
 				},
 			});
 
