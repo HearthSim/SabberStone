@@ -1967,13 +1967,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you discard a card, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("AT_021", new List<Enchantment> {
-				// TODO [AT_021] Tiny Knight of Evil && Test: Tiny Knight of Evil_AT_021
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.LAST_CARD_DISCARDED, 0)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_023] Void Crusher - COST:6 [ATK:5/HP:4] 

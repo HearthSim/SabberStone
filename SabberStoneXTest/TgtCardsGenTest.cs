@@ -2601,10 +2601,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever you discard a card, gain +1/+1.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void TinyKnightOfEvil_AT_021()
 		{
-			// TODO TinyKnightOfEvil_AT_021 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2615,8 +2614,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tiny Knight of Evil"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tiny Knight of Evil"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(3, ((Minion)testCard).AttackDamage);
+            Assert.Equal(2, ((Minion)testCard).Health);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.Equal(3, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(4, ((Minion)testCard).AttackDamage);
+            Assert.Equal(3, ((Minion)testCard).Health);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [AT_023] Void Crusher - COST:6 [ATK:5/HP:4] 
