@@ -4000,10 +4000,9 @@ namespace SabberStoneXTest
         // RefTag:
         // - CHARGE = 1
         // --------------------------------------------------------
-        [Fact(Skip="NotImplemented")]
+        [Fact]
 		public void TanarisHogchopper_CFM_809()
 		{
-			// TODO TanarisHogchopper_CFM_809 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4014,8 +4013,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Tanaris Hogchopper"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tanaris Hogchopper"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tanaris Hogchopper"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.Equal(false, ((Minion)testCard1).HasCharge);
+            game.Player2.Hand.GetAll.ForEach(p => Generic.DiscardBlock(game.Player2, p));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.Equal(true, ((Minion)testCard2).HasCharge);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [CFM_810] Leatherclad Hogleader - COST:6 [ATK:6/HP:6] 

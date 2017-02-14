@@ -12,6 +12,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsSilenced => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsSilenced);
         public static SelfCondition IsBoardFull => new SelfCondition(me => me.Controller.Board.IsFull);
         public static SelfCondition IsHandEmpty => new SelfCondition(me => me.Controller.Hand.IsEmpty);
+        public static SelfCondition IsOpHandEmpty => new SelfCondition(me => me.Controller.Opponent.Hand.IsEmpty);
+
         public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.Combo);
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
         public static SelfCondition IsThisWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon == me);

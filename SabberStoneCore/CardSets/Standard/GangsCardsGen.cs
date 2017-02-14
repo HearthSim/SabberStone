@@ -2792,11 +2792,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_809", new List<Enchantment> {
-				// TODO [CFM_809] Tanaris Hogchopper && Test: Tanaris Hogchopper_CFM_809
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpHandEmpty),
+                        new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE)))
 				},
 			});
 
