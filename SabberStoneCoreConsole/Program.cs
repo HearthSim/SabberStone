@@ -20,9 +20,9 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //CloneStampTest();
-            //OptionsTest();
+            OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
@@ -359,21 +359,29 @@ namespace SabberStoneCoreConsole
             var wins = new[] { 0, 0 };
             for (var i = 0; i < total; i++)
             {
+                Console.Clear();
+                ProgressBar(i, total);
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = Cards.BasicHeroes[i % 9],
+                    Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
                     FillDecks = true,
                     Logging = false
                 });
                 game.StartGame();
 
+                Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns ... " + 
+                game.Player1.HeroClass + " vs. " + game.Player2.HeroClass);
+  
                 while (game.State != State.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     var option = options[Rnd.Next(options.Count)];
+                    //Console.WriteLine(option.FullPrint());
                     game.Process(option);
+
+
                 }
                 turns += game.Turn;
                 if (game.Player1.PlayState == PlayState.WON)
@@ -433,5 +441,37 @@ namespace SabberStoneCoreConsole
             Console.ResetColor();
         }
 
+        private static void ProgressBar(int progress, int tot)
+        {
+            //draw empty progress bar
+            Console.CursorLeft = 0;
+            Console.Write("["); //start
+            Console.CursorLeft = 32;
+            Console.Write("]"); //end
+            Console.CursorLeft = 1;
+            float onechunk = 30.0f / tot;
+
+            //draw filled part
+            int position = 1;
+            for (int i = 0; i < onechunk * progress; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.CursorLeft = position++;
+                Console.Write(" ");
+            }
+
+            //draw unfilled part
+            for (int i = position; i <= 31; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.CursorLeft = position++;
+                Console.Write(" ");
+            }
+
+            //draw totals
+            Console.CursorLeft = 35;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(progress.ToString() + " of " + tot.ToString() + "    "); //blanks at the end remove any excess
+        }
     }
 }

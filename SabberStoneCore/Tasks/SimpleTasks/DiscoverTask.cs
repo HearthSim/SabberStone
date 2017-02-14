@@ -56,7 +56,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             // standard discover takes 3 random cards from a set of cards
             if (cardsToDiscover.Length < 3)
             {
-                while (resultCards.Count < 3)
+                while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
                 {
                     var discoveredCard = Util<Card>.Choose(totcardsToDiscover);
                     resultCards.Add(discoveredCard);
@@ -64,7 +64,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     // need because class cards are duplicated 4 x times
                     // to have a balance to neutral cards
                     // http://hearthstone.gamepedia.com/Discover
-                    totcardsToDiscover.RemoveAll(p => p == discoveredCard);
+                    if (DiscoverType == DiscoverType.TRACKING)
+                    {
+                        totcardsToDiscover.Remove(discoveredCard);
+                    }
+                    else
+                    {
+                        totcardsToDiscover.RemoveAll(p => p == discoveredCard);
+                    }
                 }
             }
             else
@@ -83,8 +90,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //    ProcessSplit(cardsToDiscover, choiceAction);
             //}
 
-            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, resultCards.ToList());
+            // TODO check for the rules class specific vs. non-class specific cards, discovers, like Finders Keepers, and spell creating cards like Spellslinger generate problematic contellations.
+            //if (resultCards.Count == 0)
+            //{
+            //    Game.Log(LogLevel.ERROR, BlockType.PLAY, "DiscoverTask",
+            //        $"Found no petential cards to use for {DiscoverType}");
+            //    return TaskState.STOP;
+            //}
 
+            var success = Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, choiceAction, resultCards.ToList());
             return TaskState.COMPLETE;
         }
 
@@ -138,7 +152,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.OVERLOAD:
                     choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.HasOverload));
+                    var cardSet = Cards.FormatTypeCards(Game.FormatType);
+                    return new [] { cardSet.Where(p => p.HasOverload).ToList() };
 
                 case DiscoverType.TAUNT:
                     choiceAction = ChoiceAction.HAND;
@@ -219,7 +234,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
         {
-            var cardSet = Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+            var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
             return new [] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
                             cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
                             cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
@@ -227,9 +242,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
         {
-            var cardSet = Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
-            var nonClassCards = filter.Invoke(cardSet[Controller.HeroClass].Where(p => p.Class != Controller.HeroClass));
-            var classCards = filter.Invoke(cardSet[Controller.HeroClass].Where(p => p.Class == Controller.HeroClass));
+            var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+            var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.BasicHeroes);
+            var nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
+            var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
             return new [] { nonClassCards.ToList(), classCards.ToList() };
         }
 

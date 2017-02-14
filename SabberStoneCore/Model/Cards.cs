@@ -14,7 +14,17 @@ namespace SabberStoneCore.Model
     {
         private static readonly CardDefinitions Data;
 
-        public static CardSet[] StandardSets { get; } = { CardSet.CORE, CardSet.EXPERT1, CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS };
+        public static CardSet[] StandardSets { get; } = {
+            CardSet.CORE, CardSet.EXPERT1, CardSet.FP2, CardSet.TGT,
+            CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS
+        };
+
+        public static CardClass[] BasicHeroes => new []
+        {
+            CardClass.DRUID, CardClass.HUNTER, CardClass.PALADIN,
+            CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK,
+            CardClass.MAGE, CardClass.PRIEST, CardClass.WARRIOR 
+        };
 
         public static Card HeroCard(CardClass cardClass)
         {
@@ -105,6 +115,11 @@ namespace SabberStoneCore.Model
         public static IEnumerable<Card> AllStandard { get; }
 
         public static IEnumerable<Card> AllWild { get; }
+
+        public static Dictionary<CardClass, List<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+
+        public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+
 
         public static string Statistics()
         {

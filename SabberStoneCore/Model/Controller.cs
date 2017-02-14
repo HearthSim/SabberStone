@@ -117,10 +117,12 @@ namespace SabberStoneCore.Model
                     case ChoiceType.GENERAL:
                         Choice.Choices.ToList().ForEach(p => result.Add(ChooseTask.Pick(this, p)));
                         return result;
+
                     case ChoiceType.MULLIGAN:
                         var choices = Util.GetPowerSet(Choice.Choices);
                         choices.ToList().ForEach(p => result.Add(ChooseTask.Mulligan(this, p.ToList())));
                         return result;
+
                     default:
                         throw new NotImplementedException();
                 } 
