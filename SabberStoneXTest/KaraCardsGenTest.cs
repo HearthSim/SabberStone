@@ -758,10 +758,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever you discard a card, draw a card.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void MalchezaarsImp_KAR_089()
 		{
-			// TODO MalchezaarsImp_KAR_089 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -772,8 +771,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Malchezaar's Imp"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Malchezaar's Imp"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 

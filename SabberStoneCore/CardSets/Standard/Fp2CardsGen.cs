@@ -796,7 +796,6 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf)
                         .TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
                         .SingleTask(ComplexTask.Create(
                             new IncludeTask(EntityType.SOURCE),

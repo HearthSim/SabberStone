@@ -554,13 +554,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you discard a card, draw a card.
 			// --------------------------------------------------------
 			cards.Add("KAR_089", new List<Enchantment> {
-				// TODO [KAR_089] Malchezaar's Imp && Test: Malchezaar's Imp_KAR_089
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.LAST_CARD_DISCARDED, 0)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 
