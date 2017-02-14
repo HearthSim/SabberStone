@@ -1314,13 +1314,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you draw a card, reduce its Cost by (1).
 			// --------------------------------------------------------
 			cards.Add("AT_014", new List<Enchantment> {
-				// TODO [AT_014] Shadowfiend && Test: Shadowfiend_AT_014
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf)
+                        .TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.SOURCE),
+                            new FuncPlayablesTask(p =>
+                            {
+                                var controller = p[0].Controller;
+                                return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
+                            }),
+                            new BuffTask(Buffs.Cost(-1), EntityType.STACK)))
+                        .Build()
+                }
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [AT_018] Confessor Paletress - COST:7 [ATK:5/HP:4] 

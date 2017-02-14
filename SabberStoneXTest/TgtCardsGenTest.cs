@@ -1749,10 +1749,9 @@ namespace SabberStoneXTest
 		// --------------------------------------------------------
 		// Text: Whenever you draw a card, reduce its Cost by (1).
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Shadowfiend_AT_014()
 		{
-			// TODO Shadowfiend_AT_014 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1763,8 +1762,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadowfiend"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadowfiend"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+		    var lastCardDrawn = game.CurrentPlayer.Hand[4];
+            Assert.Equal(lastCardDrawn.Card.Cost > 0 ? lastCardDrawn.Card.Cost-1 : 0 , lastCardDrawn.Cost);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [AT_018] Confessor Paletress - COST:7 [ATK:5/HP:4] 
