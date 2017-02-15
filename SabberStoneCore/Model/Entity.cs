@@ -84,9 +84,24 @@ namespace SabberStoneCore.Model
             return str.ToString();
         }
 
-        public int NativeGameTag(GameTag t)
+        /// <summary>
+        /// Gets the native value with out any enchanment or aura applied.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public int GetNativeGameTag(GameTag t)
         {
             return _data[t];
+        }
+
+        /// <summary>
+        /// Sets the native value with out any trigger activated.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="value"></param>
+        public void SetNativeGameTag(GameTag t, int value)
+        {
+            _data[t] = value;
         }
 
         public int this[GameTag t]

@@ -20,10 +20,10 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            OptionsTest();
+            //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
@@ -253,17 +253,23 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.WARLOCK,
-                Player2HeroClass = CardClass.WARLOCK,
+                Player1HeroClass = CardClass.WARRIOR,
+                Player2HeroClass = CardClass.WARRIOR,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malchezaar's Imp"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion1));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
