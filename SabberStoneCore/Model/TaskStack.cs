@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model
         public List<IPlayable> Playables { get; set; }
         public List<string> CardIds { get; set; }
         public bool Flag { get; set; }
-        public int Number { get; set; }
+        public int[] Numbers { get; set; } = new[] { 0, 0, 0, 0, 0 };
 
         public TaskStack(Game game)
         {
@@ -22,7 +22,7 @@ namespace SabberStoneCore.Model
             Playables = new List<IPlayable>();
             CardIds = new List<string>();
             Flag = false;
-            Number = 0;
+            Numbers = new [] { 0, 0, 0, 0, 0};
         }
 
         public void Stamp(TaskStack taskStack)
@@ -31,7 +31,7 @@ namespace SabberStoneCore.Model
             Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
             CardIds = taskStack.CardIds;
             Flag = taskStack.Flag;
-            Number = taskStack.Number;
+            Numbers = taskStack.Numbers;
         }
     }
 }

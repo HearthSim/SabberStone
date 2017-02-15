@@ -4339,7 +4339,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(1)
+                    Enchant = Auras.SpellPowerDamage(1)
                 },
                 new Enchantment
                 {
@@ -5135,7 +5135,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(1)
+                    Enchant = Auras.SpellPowerDamage(1)
                 },
                 new Enchantment
                 {
@@ -5438,7 +5438,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(5)
+                    Enchant = Auras.SpellPowerDamage(5)
                 }
             });
 
@@ -5546,7 +5546,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
                         new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide)
-                        //new BuffTask(Auras.SpellDamage(1), EntityType.HERO)
+                        //new BuffTask(Auras.SpellPowerDamage(1), EntityType.HERO)
                         )
                 },
 			});

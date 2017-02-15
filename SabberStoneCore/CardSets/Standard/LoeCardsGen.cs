@@ -69,7 +69,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HEROES,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(2)
+                    Enchant = Auras.SpellPowerDamage(2)
                 },
             });
 

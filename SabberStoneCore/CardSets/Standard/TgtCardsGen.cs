@@ -881,7 +881,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = Triggers.Inspire(new AuraTask(Auras.SpellDamage(1), AuraArea.HERO))
+                    Trigger = Triggers.Inspire(new AuraTask(Auras.SpellPowerDamage(1), AuraArea.HERO))
                 }
 			});
 
@@ -1871,7 +1871,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(1)
+                    Enchant = Auras.SpellPowerDamage(1)
                 },
             });
 
@@ -2596,7 +2596,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellDamage(1)
+                    Enchant = Auras.SpellPowerDamage(1)
                 },
             });
 

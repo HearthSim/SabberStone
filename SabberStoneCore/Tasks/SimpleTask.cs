@@ -79,8 +79,8 @@ namespace SabberStoneCore.Tasks
         //public int Number { get; set; }
         public int Number
         {
-            get { return Game.TaskStack.Number; }
-            set { Game.TaskStack.Number = value; }
+            get { return Game.TaskStack.Numbers[0]; }
+            set { Game.TaskStack.Numbers[0] = value; }
         }
 
         public abstract TaskState Process();

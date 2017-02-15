@@ -139,7 +139,7 @@ namespace SabberStoneCore.Enchants
             return result;
         }
 
-        public static Enchant SpellDamage(int amount)
+        public static Enchant SpellPowerDamage(int amount)
         {
             return new Enchant
             {
