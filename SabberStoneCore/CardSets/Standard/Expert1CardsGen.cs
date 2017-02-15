@@ -5546,7 +5546,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
                         new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide)
-                        //new BuffTask(Auras.SpellPowerDamage(1), EntityType.HERO)
+                        //new BuffTask(Auras.SpellDamage(1), EntityType.HERO)
                         )
                 },
 			});

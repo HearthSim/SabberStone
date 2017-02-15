@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneXTest", "SabberS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleServer", "SabberStoneKettleServer\SabberStoneKettleServer.csproj", "{C20F4B2D-8B3A-4FA5-A028-A09C81705819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKetteClient", "SabberStoneKetteClient\SabberStoneKetteClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,18 @@ Global
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Release|x64.Build.0 = Release|x64
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Release|x86.ActiveCfg = Release|x86
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Release|x86.Build.0 = Release|x86
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x64.ActiveCfg = Debug|x64
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x64.Build.0 = Debug|x64
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x86.ActiveCfg = Debug|x86
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x86.Build.0 = Debug|x86
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x64.ActiveCfg = Release|x64
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x64.Build.0 = Release|x64
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.ActiveCfg = Release|x86
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
