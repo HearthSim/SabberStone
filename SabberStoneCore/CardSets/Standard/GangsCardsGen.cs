@@ -1460,13 +1460,15 @@ namespace SabberStoneCore.CardSets.Standard
 			//       _random 6-Cost minion.
 			// --------------------------------------------------------
 			cards.Add("CFM_697", new List<Enchantment> {
-				// TODO [CFM_697] Lotus Illusionist && Test: Lotus Illusionist_CFM_697
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = Triggers.MinionAttacksAndTarget(
+                                new ConditionTask(EntityType.STACK, RelaCondition.IsMe(SelfCondition.IsNotDead), RelaCondition.IsOther(SelfCondition.IsHero)),
+                                new FlagTask(true, new TransformMinionTask(EntityType.SOURCE, 2)))
+                }
+            });
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [CFM_717] Jade Claws - COST:2 [ATK:2/HP:0] 
@@ -2693,8 +2695,9 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new RandomTask(1, EntityType.OP_HAND),
+                        new IncludeTask(EntityType.OP_HAND),
                         new FilterStackTask(SelfCondition.IsMinion),
+                        new RandomTask(1, EntityType.STACK),
                         new RemoveFromHand(EntityType.STACK),
                         new SummonOpTask())
 				},

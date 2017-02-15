@@ -20,9 +20,10 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
+            //WhileCardTest();
             //CloneStampTest();
-            //OptionsTest();
+            OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
@@ -217,6 +218,34 @@ namespace SabberStoneCoreConsole
             stopwatch.Stop();
             Console.WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
             Console.WriteLine("cardSets: {0}", cardSets.Count);
+        }
+
+        public static void WhileCardTest()
+        {
+            bool flag = true;
+            Game game = null;
+            while (flag)
+            {
+                game = new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.MAGE,
+                    Player2HeroClass = CardClass.MAGE,
+                    FillDecks = true
+                });
+                game.StartGame();
+                game.Player1.BaseMana = 10;
+                game.Player2.BaseMana = 10;
+                var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
+                var hasMinion = game.CurrentOpponent.Hand.GetAll.Any(p => p is Minion);
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            
+                flag = hasMinion ? 1 == game.CurrentOpponent.Board.Count : 0 == game.CurrentOpponent.Board.Count;
+            }
+
+            ShowLog(game, LogLevel.VERBOSE);
+            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
         }
 
         public static void CardsTest()

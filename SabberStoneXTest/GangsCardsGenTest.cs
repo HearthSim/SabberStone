@@ -2041,10 +2041,9 @@ namespace SabberStoneXTest
 		//       a hero, transform it into a
 		//       _random 6-Cost minion.
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void LotusIllusionist_CFM_697()
 		{
-			// TODO LotusIllusionist_CFM_697 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2055,8 +2054,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Illusionist"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Illusionist"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion));
+		    Assert.Equal(testCard.Card.Id, game.CurrentPlayer.Board[0].Card.Id);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+            Assert.NotEqual(testCard.Card.Id, game.CurrentPlayer.Board[0].Card.Id);
+            Assert.Equal(6, game.CurrentPlayer.Board[0].Cost);
+        }
 
 		// ---------------------------------------- WEAPON - SHAMAN
 		// [CFM_717] Jade Claws - COST:2 [ATK:2/HP:0] 
@@ -3883,10 +3894,10 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dirty Rat"));
             Assert.Equal(5, game.CurrentOpponent.Hand.Count);
-            var nominion = game.CurrentOpponent.Hand.GetAll.TrueForAll(p => !(p is Minion));
+            var hasMinion = game.CurrentOpponent.Hand.GetAll.Any(p => p is Minion);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-		    Assert.Equal(nominion ? 0 : 1, game.CurrentOpponent.Board.Count);
-            Assert.Equal(nominion? 5: 4, game.CurrentOpponent.Hand.Count);
+		    Assert.Equal(hasMinion ? 1 : 0, game.CurrentOpponent.Board.Count);
+            Assert.Equal(hasMinion ? 4: 5, game.CurrentOpponent.Hand.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
