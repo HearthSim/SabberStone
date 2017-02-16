@@ -138,7 +138,7 @@ namespace SabberStoneKettleServer
 
         public void SendMessage(KettleFullEntity message)
         {
-            SendPacket("KettleFullEntity", message);
+            SendPacket("FullEntity", message);
         }
 
         public void SendMessage(List<KettleOption> message)
