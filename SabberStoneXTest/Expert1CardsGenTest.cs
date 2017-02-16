@@ -4688,10 +4688,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - DURABILITY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Gorehowl_EX1_411()
 		{
-			// TODO Gorehowl_EX1_411 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4702,8 +4701,25 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Gorehowl"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.Equal(23, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(true, game.CurrentOpponent.Hero.Weapon == null);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion1));
+
+            Assert.Equal(23, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+            Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.Durability);
+            Assert.Equal(6, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+        }
 
 	}
 

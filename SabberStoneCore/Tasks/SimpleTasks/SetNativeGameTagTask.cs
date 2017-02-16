@@ -3,18 +3,18 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class GetNativeGameTagTask : SimpleTask
+    public class SetNativeGameTagTask : SimpleTask
     {
-        public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs)
+        public SetNativeGameTagTask(GameTag tag, int value, EntityType entityType)
         {
             Tag = tag;
+            Value = value;
             Type = entityType;
-            SelfBuffs = selfBuffs;
         }
 
         public GameTag Tag { get; set; }
+        public int Value { get; set; }
         public EntityType Type { get; set; }
-        public bool SelfBuffs { get; set; }
 
         public override TaskState Process()
         {
@@ -24,19 +24,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            Number = ((Entity)entities[0]).GetNativeGameTag(Tag);
-
-            if (SelfBuffs)
-            {
-                entities[0].Enchants.ForEach(p => Number = p.Apply((Entity)entities[0], Tag, Number));
-            }
+            ((Entity)entities[0]).SetNativeGameTag(Tag, Value);
 
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs);
+            var clone = new SetNativeGameTagTask(Tag, Value, Type);
             clone.Copy(this);
             return clone;
         }

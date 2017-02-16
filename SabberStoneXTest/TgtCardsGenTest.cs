@@ -889,9 +889,9 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Brave Archer"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(15, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(20, game.CurrentOpponent.Hero.Health);
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-            Assert.Equal(11, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(16, game.CurrentOpponent.Hero.Health);
 		}
 
 		// ---------------------------------------- MINION - HUNTER

@@ -40,7 +40,7 @@ namespace SabberStoneCore.Actions
             {
                 if (c.Deck.IsEmpty)
                 {
-                    var fatigueDamage = c.Hero.Fatigue == 0 ? 1 : c.Hero.Fatigue * 2;
+                    var fatigueDamage = c.Hero.Fatigue == 0 ? 1 : c.Hero.Fatigue + 1;
                     DamageCharFunc(c.Hero, c.Hero, fatigueDamage, 0);
                     return false;
                 }

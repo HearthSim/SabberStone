@@ -3757,12 +3757,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_411", new List<Enchantment> {
-				// TODO [EX1_411] Gorehowl && Test: Gorehowl_EX1_411
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.WEAPON,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .TriggerEffect(GameTag.DURABILITY, 0)
+                        .ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
+                        .FastExecution(true)
+                        .SingleTask(ComplexTask.Create(
+                            new SetNativeGameTagTask(GameTag.DURABILITY, 1, EntityType.SOURCE),
+                            new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                            new MathSubstractionTask(1),
+                            new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE)))
+                        .Build()
+                },
 			});
 
 		}
