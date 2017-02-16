@@ -16,6 +16,7 @@ namespace SabberStoneKettleServer
             Listener = new Socket(SocketType.Stream, ProtocolType.IP);
             Listener.Bind(address);
             Listener.Listen(32);
+            Console.WriteLine("Listening on socket.");
         }
 
         // Keeps listening for incoming connections. For each connection, it spins up a KettleSession with his own simulator.
