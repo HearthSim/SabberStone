@@ -20,7 +20,7 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
             //OptionsTest();
@@ -28,9 +28,26 @@ namespace SabberStoneCoreConsole
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
+            PowerHistoryTest();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
+        }
+
+        private static void PowerHistoryTest()
+        {
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.PRIEST,
+                    Player2HeroClass = CardClass.HUNTER,
+                    FillDecks = true
+                });
+            game.StartGame();
+            ShowLog(game, LogLevel.VERBOSE);
+            Console.WriteLine("*** - PowerHistory - ****");
+            Console.WriteLine(game.PowerHistory.Print());
         }
 
         public static void GameSplitTest()

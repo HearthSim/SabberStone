@@ -2,27 +2,74 @@
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Model
 {
     public class PowerHistory
     {
+        public List<IPowerHistoryEntry> Full { get; } = new List<IPowerHistoryEntry>();
+        public List<IPowerHistoryEntry> Last { get; } = new List<IPowerHistoryEntry>();
+
+        public void Add(IPowerHistoryEntry entry)
+        {
+            Full.Add(entry);
+            Last.Add(entry);
+        }
+
+        public string Print()
+        {
+            StringBuilder str = new StringBuilder();
+            Full.ForEach(p => str.AppendLine(p.Print()));
+            return str.ToString();
+        }
     }
 
-    public class PowerLogEntry
+    public interface IPowerHistoryEntry
     {
-        public PowerType powerType;
+        PowerType PowerType { get; }
+        string Print();
+    }
 
-        public Dictionary<GameTag, int> tags;
+    public class PowerHistoryFullEntity : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.FULL_ENTITY;
+        public PowerHistoryEntity Entity { get; set; }
+        public string Print() => $"{PowerType} Entity=[{Entity.Print()}]";
+    }
+
+    public class PowerHistoryShowEntity : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.SHOW_ENTITY;
+        public PowerHistoryEntity Entity { get; set; }
+        public string Print() => "";
+    }
+
+    public class PowerHistoryTagChange : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.TAG_CHANGE;
+        public int EntityId { get; set; }
+        public GameTag Tag { get; set; }
+        public int Value { get; set; }
+        public string Print() => $"{PowerType} Entity=[{EntityId}] Tag={Tag} Value={Value}";
     }
 
     public class PowerHistoryEntity
     {
-        public int id;
-
-        public string name;
-
-        public Dictionary<GameTag, int> tags;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.Append($"Id={Id}, Name={Name}, Tags=[");
+            foreach (var pair in Tags)
+            {
+                str.Append($"[{pair.Key},{pair.Value}]");
+            }
+            str.Append("]");
+            return str.ToString();
+        }
     }
 }
 

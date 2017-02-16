@@ -52,6 +52,8 @@ namespace SabberStoneCore.Model
 
         public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>();
 
+        public PowerHistory PowerHistory { get; set; } = new PowerHistory();
+
         public void Dump(string location, string text)
         {
             Logs.Enqueue(new LogEntry()
@@ -476,6 +478,9 @@ namespace SabberStoneCore.Model
             Splits = new List<Game>();
 
             Log(LogLevel.INFO, BlockType.PLAY, "Game", gameTask.FullPrint());
+
+            // clear last power history
+            PowerHistory.Last.Clear();
 
             // make sure that we only use task for this game ...
             gameTask.Game = this;

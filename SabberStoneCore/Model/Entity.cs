@@ -37,7 +37,16 @@ namespace SabberStoneCore.Model
 
         public int OrderOfPlay { get; protected set; }
 
-        public Controller Controller { get; set; }
+        private Controller _controller;
+        public Controller Controller
+        {
+            get { return _controller; }
+            set
+            {
+                this[GameTag.CONTROLLER] = value.Id;
+                _controller = value;
+            }
+        }
 
         public Game Game { get; set; }
 
@@ -102,6 +111,14 @@ namespace SabberStoneCore.Model
         public void SetNativeGameTag(GameTag t, int value)
         {
             _data[t] = value;
+
+            // add power history tag change 
+            Game.PowerHistory.Add(new PowerHistoryTagChange
+            {
+                EntityId = Id,
+                Tag = t,
+                Value = value
+            });
         }
 
         public int this[GameTag t]
@@ -129,7 +146,9 @@ namespace SabberStoneCore.Model
                     Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");
                     return;
                 }
-                _data[t] = value;
+
+                SetNativeGameTag(t, value);
+
                 Game.OnEntityChanged(this, t, oldValue, value);
 
 
@@ -179,6 +198,18 @@ namespace SabberStoneCore.Model
             }
 
             controller.Game.IdEntityDic.Add(result.Id, result);
+
+            // add power history full entity 
+            controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
+            {
+                Entity = new PowerHistoryEntity
+                {
+                    Id = result.Id,
+                    Name = result.Card.Id,
+                    Tags = new Dictionary<GameTag, int>(((Entity)result)._data.Tags)
+                }
+            });
+
             return result;
         }
 

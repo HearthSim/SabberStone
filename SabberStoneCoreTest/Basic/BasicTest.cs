@@ -296,18 +296,18 @@ namespace SabberStoneCoreTest.Basic
             Assert.AreEqual(29, game.CurrentPlayer.Hero.Health);
             Assert.AreEqual(29, game.CurrentPlayer.Opponent.Hero.Health);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 12; i++)
             {
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.AreEqual(15, game.CurrentPlayer.Hero.Health);
-            Assert.AreEqual(15, game.CurrentPlayer.Opponent.Hero.Health);
+            Assert.AreEqual(2, game.CurrentPlayer.Hero.Health);
+            Assert.AreEqual(2, game.CurrentPlayer.Opponent.Hero.Health);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.AreEqual(-1, game.CurrentPlayer.Hero.Health);
-            Assert.AreEqual(15, game.CurrentPlayer.Opponent.Hero.Health);
+            Assert.AreEqual(-6, game.CurrentPlayer.Hero.Health);
+            Assert.AreEqual(2, game.CurrentPlayer.Opponent.Hero.Health);
 
             Assert.AreEqual(State.COMPLETE, game.State);
             Assert.AreEqual(PlayState.LOST, game.CurrentPlayer.PlayState);
