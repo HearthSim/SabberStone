@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -21,10 +22,54 @@ namespace SabberStoneCoreAi
             Console.WriteLine("Starting test setup.");
 
             //OneTurn();
-            FullGame();
+            //FullGame();
+            RandomGames();
 
             Console.WriteLine("Test end!");
             Console.ReadLine();
+        }
+
+        public static void RandomGames()
+        {
+            const int total = 100;
+            var watch = Stopwatch.StartNew();
+
+            var turns = 0;
+            var wins = new[] { 0, 0 };
+            for (var i = 0; i < total; i++)
+            {
+                var game = new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.MAGE,
+                    Player2HeroClass = CardClass.MAGE,
+                    FillDecks = true,
+                    Logging = false
+                });
+                game.StartGame();
+
+                while (game.State != State.COMPLETE)
+                {
+                    var options = game.CurrentPlayer.Options();
+                    var option = options[Rnd.Next(options.Count)];
+                    //Console.WriteLine(option.FullPrint());
+                    game.Process(option);
+
+
+                }
+                turns += game.Turn;
+                if (game.Player1.PlayState == PlayState.WON)
+                    wins[0]++;
+                if (game.Player2.PlayState == PlayState.WON)
+                    wins[1]++;
+
+            }
+            watch.Stop();
+
+            Console.WriteLine($"{total} games with {turns} turns took {watch.ElapsedMilliseconds} ms => " +
+                              $"Avg. {watch.ElapsedMilliseconds / total} per game " +
+                              $"and {watch.ElapsedMilliseconds / (total * turns)} per turn!");
+            Console.WriteLine($"playerA {wins[0] * 100 / total}% vs. playerB {wins[1] * 100 / total}%!");
         }
 
         public static void OneTurn()
@@ -46,8 +91,7 @@ namespace SabberStoneCoreAi
             game.Player1.BaseMana = 10;
             game.StartGame();
 
-
-            var aiPlayer1 = new AggroScore();
+           var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new AggroScore();
 
             game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices)));
