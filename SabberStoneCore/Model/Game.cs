@@ -8,6 +8,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Splits;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
@@ -407,7 +408,7 @@ namespace SabberStoneCore.Model
         {
             Heroes.ForEach(p =>
             {
-                if (p.Controller.PlayState == PlayState.LOSING)
+                if (p.Controller.PlayState == PlayState.LOSING || p.Controller.PlayState == PlayState.CONCEDED)
                 {
                     p.Controller.PlayState = PlayState.LOST;
                     p.Controller.Opponent.PlayState = PlayState.WON;

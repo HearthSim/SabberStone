@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model
 {

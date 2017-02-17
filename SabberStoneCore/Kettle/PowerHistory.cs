@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Kettle
 {
     public class PowerHistory
     {
@@ -17,10 +15,13 @@ namespace SabberStoneCore.Model
             Last.Add(entry);
         }
 
-        public string Print()
+        public string Print(bool fullFlag = true)
         {
-            StringBuilder str = new StringBuilder();
-            Full.ForEach(p => str.Append(p.Print()));
+            var str = new StringBuilder();
+            if (fullFlag)
+                Full.ForEach(p => str.Append(p.Print()));
+            else
+                Last.ForEach(p => str.Append(p.Print()));
             return str.ToString();
         }
     }

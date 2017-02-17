@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneKettleServer
 {
@@ -12,7 +13,7 @@ namespace SabberStoneKettleServer
     {
         private Socket Client;
         private KettleAdapter Adapter;
-        private Game Game;
+        private Game _game;
 
         public KettleSession(Socket client)
         {
@@ -38,9 +39,12 @@ namespace SabberStoneKettleServer
             }
         }
 
-        public void OnConcede(int concede)
+        public void OnConcede(int entityid)
         {
-
+            Console.WriteLine($"player[{entityid}] concedes");
+            var concedingPlayer = _game.ControllerById(entityid);
+            _game.Process(ConcedeTask.Any(concedingPlayer));
+            var answer = _game.PowerHistory.Last;
         }
 
         public void OnSendOption(KettleSendOption sendOption)
@@ -56,7 +60,7 @@ namespace SabberStoneKettleServer
         public void OnCreateGame(KettleCreateGame createGame)
         {
             Console.WriteLine("creating game");
-            Game = new Game(new GameConfig
+            _game = new Game(new GameConfig
                     {
                         StartPlayer = 1,
                         Player1HeroClass = CardClass.PRIEST,
@@ -65,8 +69,8 @@ namespace SabberStoneKettleServer
                     });
 
             // TODO: perhaps add kettlesession callbacks to game whenever something changes, so it can send packets through kettle?
-            Game.StartGame();
-            var answer = Game.PowerHistory.Last;
+            _game.StartGame();
+            var answer = _game.PowerHistory.Last;
         }
     }
 }

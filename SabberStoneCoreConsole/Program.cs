@@ -45,10 +45,12 @@ namespace SabberStoneCoreConsole
                     FillDecks = true
                 });
             game.StartGame();
+            Console.Write("*** - START GAME - ***");
+            Console.Write(game.PowerHistory.Print(false));
+            game.Process(ConcedeTask.Any(game.CurrentPlayer));
+            Console.Write("*** - CONCEDE - ***");
+            Console.Write(game.PowerHistory.Print(false));
             ShowLog(game, LogLevel.VERBOSE);
-
-            Console.Write(game.PowerHistory.Print());
-
 
         }
 

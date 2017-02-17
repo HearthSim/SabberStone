@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
@@ -17,8 +18,14 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         }
         public override TaskState Process()
         {
-            Controller.Game.MainEnd();
-            throw new NotImplementedException();
+            Controller.PlayState = PlayState.CONCEDED;
+            Controller.Game.NextStep = Step.MAIN_CLEANUP;
+            return TaskState.COMPLETE;
+        }
+
+        public override string FullPrint()
+        {
+            return $"ConcedeTask => [{Controller.Name}] concedes the game!";
         }
     }
 }
