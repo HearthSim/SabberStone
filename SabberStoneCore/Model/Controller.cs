@@ -111,7 +111,7 @@ namespace SabberStoneCore.Model
 
         public List<PlayerTask> Options(bool playCards = true)
         {
-            var result = new List<PlayerTask> {  };
+            var result = new List<PlayerTask>();
 
             if (this != Game.CurrentPlayer)
                 return null;

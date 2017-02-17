@@ -107,19 +107,14 @@ namespace SabberStoneCore.Model
         /// <summary>
         /// Sets the native value with out any trigger activated.
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="tag"></param>
         /// <param name="value"></param>
-        public void SetNativeGameTag(GameTag t, int value)
+        public void SetNativeGameTag(GameTag tag, int value)
         {
-            _data[t] = value;
+            _data[tag] = value;
 
             // add power history tag change 
-            Game.PowerHistory.Add(new PowerHistoryTagChange
-            {
-                EntityId = Id,
-                Tag = t,
-                Value = value
-            });
+            Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 
         public int this[GameTag t]
@@ -177,7 +172,7 @@ namespace SabberStoneCore.Model
         {
             var nextId = id > 0 ? id : controller.Game.NextId;
 
-            Dictionary<GameTag, int> startTags = new Dictionary<GameTag, int>
+           var startTags = new Dictionary<GameTag, int>
             {
                 //[GameTag.ENTITY_ID] = nextId,
                 [GameTag.CONTROLLER] = controller?.Id ?? 0,
@@ -215,15 +210,7 @@ namespace SabberStoneCore.Model
             controller.Game.IdEntityDic.Add(result.Id, result);
 
             // add power history full entity 
-            controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
-            {
-                Entity = new PowerHistoryEntity
-                {
-                    Id = result.Id,
-                    Name = result.Card.Id,
-                    Tags = new Dictionary<GameTag, int>(((Entity)result)._data.Tags)
-                }
-            });
+            controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 
             return result;
         }

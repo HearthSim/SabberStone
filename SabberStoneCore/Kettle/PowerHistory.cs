@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Kettle
 {
@@ -26,11 +28,75 @@ namespace SabberStoneCore.Kettle
         }
     }
 
+    public class PowerHistoryBuilder
+    {
+        public static PowerHistoryCreateGame CreateGame(Game game, Controller[] players)
+        {
+            return new PowerHistoryCreateGame()
+            {
+                Game = new PowerEntity
+                {
+                    Id = game.Id,
+                    Tags = new Dictionary<GameTag, int>(((Entity)game)._data.Tags)
+                },
+                Players = new PowerPlayer[]
+                        {
+                    new PowerPlayer
+                    {
+                        PlayerId = players[0].PlayerId,
+                        AccountId = 12718623,
+                        CardBack = 100,
+                        PowerEntity = new PowerEntity
+                        {
+                            Id = players[0].Id,
+                            Tags = new Dictionary<GameTag, int>(((Entity)players[0])._data.Tags)
+                        }
+                    },
+                    new PowerPlayer
+                    {
+                        PlayerId = players[1].PlayerId,
+                        AccountId = 18463223,
+                        CardBack = 100,
+                        PowerEntity = new PowerEntity
+                        {
+                            Id = players[1].Id,
+                            Tags = new Dictionary<GameTag, int>(((Entity)players[1])._data.Tags)
+                        }
+                    },
+                        }
+            };
+        }
+
+        public static PowerHistoryTagChange TagChange(int id, GameTag tag, int value)
+        {
+            return new PowerHistoryTagChange()
+            {
+                EntityId = id,
+                Tag = tag,
+                Value = value
+            };
+        }
+
+        public static PowerHistoryFullEntity FullEntity(IPlayable playable)
+        {
+            return new PowerHistoryFullEntity
+            {
+                Entity = new PowerHistoryEntity
+                {
+                    Id = playable.Id,
+                    Name = playable.Card.Id,
+                    Tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+                }
+            };
+        }
+    }
+
     public interface IPowerHistoryEntry
     {
         PowerType PowerType { get; }
         string Print();
     }
+
 
     public class PowerHistoryCreateGame : IPowerHistoryEntry
     {

@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         public override TaskState Process()
         {
             Controller.PlayState = PlayState.CONCEDED;
-            Controller.Game.NextStep = Step.MAIN_CLEANUP;
+            Controller.Game.NextStep = Step.FINAL_WRAPUP;
             return TaskState.COMPLETE;
         }
 

@@ -112,39 +112,7 @@ namespace SabberStoneCore.Model
             _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
 
             // add power history create game 
-            PowerHistory.Add(new PowerHistoryCreateGame()
-            {
-                Game = new PowerEntity
-                {
-                    Id = Game.Id,
-                    Tags = new Dictionary<GameTag, int>(((Entity)Game)._data.Tags)
-                },
-                Players = new PowerPlayer[]
-                {
-                    new PowerPlayer
-                    {
-                        PlayerId = _players[0].PlayerId,
-                        AccountId = 12718623,
-                        CardBack = 100,
-                        PowerEntity = new PowerEntity
-                        {
-                            Id = _players[0].Id,
-                            Tags = new Dictionary<GameTag, int>(((Entity)_players[0])._data.Tags)
-                        }
-                    }, 
-                    new PowerPlayer
-                    {
-                        PlayerId = _players[1].PlayerId,
-                        AccountId = 18463223,
-                        CardBack = 100,
-                        PowerEntity = new PowerEntity
-                        {
-                            Id = _players[1].Id,
-                            Tags = new Dictionary<GameTag, int>(((Entity)_players[1])._data.Tags)
-                        }
-                    },
-                }
-            });
+            PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
             if (setupHeroes)
             {

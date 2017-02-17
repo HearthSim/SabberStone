@@ -72,5 +72,6 @@ namespace SabberStoneKettleServer
             _game.StartGame();
             var answer = _game.PowerHistory.Last;
         }
+
     }
 }

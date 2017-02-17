@@ -5,6 +5,7 @@ using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
@@ -45,13 +46,26 @@ namespace SabberStoneCoreConsole
                     FillDecks = true
                 });
             game.StartGame();
-            Console.Write("*** - START GAME - ***");
-            Console.Write(game.PowerHistory.Print(false));
-            game.Process(ConcedeTask.Any(game.CurrentPlayer));
-            Console.Write("*** - CONCEDE - ***");
-            Console.Write(game.PowerHistory.Print(false));
-            ShowLog(game, LogLevel.VERBOSE);
+            //Console.Write("*** - START GAME - ***");
+            //Console.Write(game.PowerHistory.Print(false));
+            //game.Process(ConcedeTask.Any(game.CurrentPlayer));
+            //Console.Write("*** - CONCEDE - ***");
+            //Console.Write(game.PowerHistory.Print(false));
+            //ShowLog(game, LogLevel.VERBOSE);
+            //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
+            //game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            //ShowLog(game, LogLevel.VERBOSE);
+            //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
+            while (game.State != State.COMPLETE)
+            {
+                var options = game.CurrentPlayer.Options();
+                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                options.ForEach(p => Console.WriteLine(p.FullPrint()));
+                Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, options).Print());
+                var option = options[Rnd.Next(options.Count)];
+                game.Process(option);
+            }
         }
 
         public static void GameSplitTest()
