@@ -66,8 +66,7 @@ namespace SabberStoneKettleServer
 
             // TODO: perhaps add kettlesession callbacks to game whenever something changes, so it can send packets through kettle?
             Game.StartGame();
-
-
+            var answer = Game.PowerHistory.Last;
         }
     }
 }

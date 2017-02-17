@@ -20,7 +20,7 @@ namespace SabberStoneCore.Model
         public string Print()
         {
             StringBuilder str = new StringBuilder();
-            Full.ForEach(p => str.AppendLine(p.Print()));
+            Full.ForEach(p => str.Append(p.Print()));
             return str.ToString();
         }
     }
@@ -40,10 +40,10 @@ namespace SabberStoneCore.Model
         {
             var str = new StringBuilder();
             str.AppendLine($"{PowerType}");
-            str.AppendLine($"   Game Entity=[{Game.Print()}]");
+            str.AppendLine($" - Game Entity = [{Game.Print()}]");
             foreach (var player in Players)
             {
-                str.AppendLine($"   Player Entity=[{player.Print()}]");
+                str.AppendLine($" - Player Entity = [{player.Print()}]");
             }
             return str.ToString();
         }
@@ -57,8 +57,7 @@ namespace SabberStoneCore.Model
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine($"{PowerType} - Creating");
-            str.AppendLine($"   Entity=[{Entity.Print()}]");
+            str.AppendLine($"{PowerType} - Creating Entity = [{Entity.Print()}]");
             return str.ToString();
         }
     }
@@ -80,8 +79,7 @@ namespace SabberStoneCore.Model
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine($"{PowerType}");
-            str.AppendLine($"   Entity=[{EntityId}] Tag={Tag} Value={Value}");
+            str.AppendLine($"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
             return str.ToString();
         }
     }
@@ -94,10 +92,10 @@ namespace SabberStoneCore.Model
         public string Print()
         {
             var str = new StringBuilder();
-            str.Append($"Id={Id}, Name={Name}, Tags=[");
+            str.AppendLine($"Id={Id}, Name={Name}, Tags=[");
             foreach (var pair in Tags)
             {
-                str.Append($"[{pair.Key},{pair.Value}]");
+                str.AppendLine($"      [{pair.Key},{pair.Value}]");
             }
             str.Append("]");
             return str.ToString();
@@ -125,10 +123,10 @@ namespace SabberStoneCore.Model
         public string Print()
         {
             var str = new StringBuilder();
-            str.Append($"Id={Id} Tags=[");
+            str.AppendLine($"Id={Id} Tags=[");
             foreach (var pair in Tags)
             {
-                str.Append($"[{pair.Key},{pair.Value}]");
+                str.AppendLine($"      [{pair.Key},{pair.Value}]");
             }
             str.Append("]");
             return str.ToString();

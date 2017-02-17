@@ -46,8 +46,10 @@ namespace SabberStoneCoreConsole
                 });
             game.StartGame();
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine("*** - PowerHistory - ****");
-            Console.WriteLine(game.PowerHistory.Print());
+
+            Console.Write(game.PowerHistory.Print());
+
+
         }
 
         public static void GameSplitTest()
