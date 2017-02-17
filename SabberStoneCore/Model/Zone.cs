@@ -85,7 +85,7 @@ namespace SabberStoneCore.Model
             {
                 var copy = Entity.FromCard(Controller, p.Card, null, null, p.Id);
                 copy.Stamp(p as Entity);
-                MoveTo(copy, copy[GameTag.ZONE_POSITION]);
+                MoveTo(copy, copy.ZonePosition);
             });
             zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner)));
             zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
@@ -104,7 +104,7 @@ namespace SabberStoneCore.Model
                 Array.Resize(ref ignore, ignore.Length + 1);
                 ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
             }
-            list.ForEach(p => { str.Append(p.Hash(ignore)); });
+            list.ForEach(p => str.Append(p.Hash(ignore)));
             str.Append($"][EN:{Enchants.Count}");
             Enchants.ForEach(p => str.Append(p.Hash));
             str.Append($"][TR:{Triggers.Count}");
@@ -128,7 +128,7 @@ namespace SabberStoneCore.Model
                 entity.Reset();
 
             MoveTo(entity, zonePosition < 0 ? _entitiesAsList.Count : zonePosition);
-            Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity[GameTag.ZONE_POSITION]}'.");
+            Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
             // activate all zone changing enchantments
             entity.ApplyEnchantments(EnchantmentActivation.SETASIDE, Zone.SETASIDE);
@@ -146,10 +146,10 @@ namespace SabberStoneCore.Model
             {
                 throw new ZoneException("Couldn't remove entity from zone.");
             }
-            RePosition(entity[GameTag.ZONE_POSITION]);
+            RePosition(entity.ZonePosition);
             entity.Zone = null;
             entity[GameTag.ZONE] = (int) Zone.INVALID;
-            entity[GameTag.ZONE_POSITION] = 0;
+            entity.ZonePosition = 0;
             return entity;
         }
 
@@ -175,10 +175,10 @@ namespace SabberStoneCore.Model
                 throw new ZoneException("Swap not possible because of zone missmatch.");
             }
 
-            var oldPos = oldEntity[GameTag.ZONE_POSITION];
-            var newPos = newEntity[GameTag.ZONE_POSITION];
-            newEntity[GameTag.ZONE_POSITION] = oldPos;
-            oldEntity[GameTag.ZONE_POSITION] = newPos;
+            var oldPos = oldEntity.ZonePosition;
+            var newPos = newEntity.ZonePosition;
+            newEntity.ZonePosition = oldPos;
+            oldEntity.ZonePosition = newPos;
             _entitiesAsList[newPos] = (T) oldEntity;
             _entitiesAsList[oldPos] = (T) newEntity;
         }
@@ -187,7 +187,7 @@ namespace SabberStoneCore.Model
         {
             for (var i = zonePosition; i < _entitiesAsList.Count; i++)
             {
-                _entitiesAsList[i][GameTag.ZONE_POSITION] = i;
+                _entitiesAsList[i].ZonePosition = i;
             }
         }
 
@@ -215,7 +215,7 @@ namespace SabberStoneCore.Model
                 var m = p as Minion;
                 var w = p as Weapon;
                 var mStr = m != null ? $"[{m.AttackDamage}/{m.Health}]" : (w != null ? $"[{w.AttackDamage}/{w.Durability}]" : "");
-                str.Append($"[P{p[GameTag.ZONE_POSITION]}]{mStr}[C{p.Cost}]{p}|");
+                str.Append($"[P{p.ZonePosition}]{mStr}[C{p.Cost}]{p}|");
             });
             str.Append($"[ENCH {Enchants.Count}]");
             str.Append($"[TRIG {Triggers.Count}]");

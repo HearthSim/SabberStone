@@ -10,15 +10,21 @@ namespace SabberStoneCore.Model
 {
     public partial class Controller : Entity
     {
-        public Controller(Game game, string name, int playerId) : base(game, Card.CardPlayer,
+        public Controller(Game game, string name, int playerId, int id) : base(game, Card.CardPlayer,
             new Dictionary<GameTag, int>
             {
+                //[GameTag.HERO_ENTITY] = ?,
                 [GameTag.MAXHANDSIZE] = 10,
-                [GameTag.MAXRESOURCES] = 10,
+                [GameTag.STARTHANDSIZE] = 4,
                 [GameTag.PLAYER_ID] = playerId,
                 [GameTag.TEAM_ID] = playerId,
-                [GameTag.STARTHANDSIZE] = 4
-            }, playerId)
+                [GameTag.ZONE] = (int)Enums.Zone.PLAY,
+                [GameTag.CONTROLLER] = playerId,
+                [GameTag.ENTITY_ID] = id,
+                [GameTag.MAXRESOURCES] = 10,
+                [GameTag.CARDTYPE] = (int) CardType.PLAYER
+
+            }, id)
         {
             Name = name;
             Zones = new Zones(game, this);
@@ -220,6 +226,12 @@ namespace SabberStoneCore.Model
     public partial class Controller
     {
         public Controller Opponent => Game.Player1 == this ? Game.Player2 : Game.Player1;
+
+        public int PlayerId
+        {
+            get { return this[GameTag.PLAYER_ID]; }
+            set { this[GameTag.PLAYER_ID] = value; }
+        }
 
         public PlayState PlayState
         {

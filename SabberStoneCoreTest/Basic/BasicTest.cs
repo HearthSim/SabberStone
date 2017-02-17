@@ -104,18 +104,18 @@ namespace SabberStoneCoreTest.Basic
             game.Player1.Board.Add(entity2);
             game.Player1.Board.Add(entity3);
 
-            var pos1 = entity1[GameTag.ZONE_POSITION];
-            var pos2 = entity2[GameTag.ZONE_POSITION];
+            var pos1 = entity1.ZonePosition;
+            var pos2 = entity2.ZonePosition;
 
-            Assert.AreEqual(entity1, game.Player1.Board[entity1[GameTag.ZONE_POSITION]]);
-            Assert.AreEqual(entity2, game.Player1.Board[entity2[GameTag.ZONE_POSITION]]);
+            Assert.AreEqual(entity1, game.Player1.Board[entity1.ZonePosition]);
+            Assert.AreEqual(entity2, game.Player1.Board[entity2.ZonePosition]);
 
             game.Player1.Board.Swap(entity1, entity2);
 
-            Assert.AreEqual(entity1, game.Player1.Board[entity1[GameTag.ZONE_POSITION]]);
-            Assert.AreEqual(entity2, game.Player1.Board[entity2[GameTag.ZONE_POSITION]]);
+            Assert.AreEqual(entity1, game.Player1.Board[entity1.ZonePosition]);
+            Assert.AreEqual(entity2, game.Player1.Board[entity2.ZonePosition]);
 
-            Assert.IsTrue(pos1 == entity2[GameTag.ZONE_POSITION] && pos2 == entity1[GameTag.ZONE_POSITION], "Swap wasn't correctly executed.");
+            Assert.IsTrue(pos1 == entity2.ZonePosition && pos2 == entity1.ZonePosition, "Swap wasn't correctly executed.");
         }
 
         [TestMethod]

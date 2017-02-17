@@ -755,7 +755,7 @@
 
     public enum Zone
     {
-        DISCARD = -2,
+        //DISCARD = -2,
         INVALID = 0,
         PLAY = 1,
         DECK = 2,

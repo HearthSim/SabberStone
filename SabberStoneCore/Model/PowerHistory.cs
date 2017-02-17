@@ -31,11 +31,36 @@ namespace SabberStoneCore.Model
         string Print();
     }
 
+    public class PowerHistoryCreateGame : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.CREATE_GAME;
+        public PowerEntity Game { get; set; }
+        public PowerPlayer[] Players { get; set; } 
+        public string Print() 
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType}");
+            str.AppendLine($"   Game Entity=[{Game.Print()}]");
+            foreach (var player in Players)
+            {
+                str.AppendLine($"   Player Entity=[{player.Print()}]");
+            }
+            return str.ToString();
+        }
+    }
+
     public class PowerHistoryFullEntity : IPowerHistoryEntry
     {
         public PowerType PowerType => PowerType.FULL_ENTITY;
         public PowerHistoryEntity Entity { get; set; }
-        public string Print() => $"{PowerType} Entity=[{Entity.Print()}]";
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType} - Creating");
+            str.AppendLine($"   Entity=[{Entity.Print()}]");
+            return str.ToString();
+        }
     }
 
     public class PowerHistoryShowEntity : IPowerHistoryEntry
@@ -51,7 +76,14 @@ namespace SabberStoneCore.Model
         public int EntityId { get; set; }
         public GameTag Tag { get; set; }
         public int Value { get; set; }
-        public string Print() => $"{PowerType} Entity=[{EntityId}] Tag={Tag} Value={Value}";
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType}");
+            str.AppendLine($"   Entity=[{EntityId}] Tag={Tag} Value={Value}");
+            return str.ToString();
+        }
     }
 
     public class PowerHistoryEntity
@@ -71,7 +103,52 @@ namespace SabberStoneCore.Model
             return str.ToString();
         }
     }
+
+    public class PowerPlayer
+    {
+        public int PlayerId { get; set; }
+        public int AccountId { get; set; }
+        public int CardBack { get; set; }
+        public PowerEntity PowerEntity { get; set; }
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.Append($"PlayerId={PlayerId}, AccountId={AccountId}, CardBack={CardBack}, Entity=[{PowerEntity.Print()}]");
+            return str.ToString();
+        }
+    }
+
+    public class PowerEntity
+    {
+        public int Id { get; set; }
+        public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.Append($"Id={Id} Tags=[");
+            foreach (var pair in Tags)
+            {
+                str.Append($"[{pair.Key},{pair.Value}]");
+            }
+            str.Append("]");
+            return str.ToString();
+        }
+    }
 }
+
+//message Player
+//{
+//    required int32 id = 1;
+//    required pegasus.pegasusshared.BnetId game_account_id = 2;
+//    required int32 card_back = 3;
+//    required Entity entity = 4;
+//}
+
+//message Entity
+//{
+//    required int32 id = 1;
+//    repeated Tag tags = 2;
+//}
 
 //message PowerHistory
 //{

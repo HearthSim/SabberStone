@@ -80,7 +80,7 @@ namespace SabberStoneCore.Model
             });
         }
 
-        private int _idIndex;
+        private int _idIndex = 4;
         public int NextId => _idIndex++;
 
         private int _oopIndex;
@@ -96,19 +96,55 @@ namespace SabberStoneCore.Model
 
         public Controller ControllerById(int controllerId)
         {
-            return _players[controllerId - 1];
+            return _players.First(p => p.Id == controllerId);
         }
 
         public List<Game> Splits { get; set; } = new List<Game>();
 
-        public Game(GameConfig gameConfig, bool setupHeroes = true) : base(null, Card.CardGame, null, 0)
+        public Game(GameConfig gameConfig, bool setupHeroes = true) : base(null, Card.CardGame, null, 1)
         {
             _gameConfig = gameConfig;
             Game = this;
             GamesEventManager = new GameEventManager(this);
             FormatType = gameConfig.GameRule;
-            _players[0] = new Controller(this, gameConfig.Player1Name, 1);
-            _players[1] = new Controller(this, gameConfig.Player2Name, 2);
+            _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
+            _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
+
+            // add power history create game 
+            PowerHistory.Add(new PowerHistoryCreateGame()
+            {
+                Game = new PowerEntity
+                {
+                    Id = Game.Id,
+                    Tags = new Dictionary<GameTag, int>(((Entity)Game)._data.Tags)
+                },
+                Players = new PowerPlayer[]
+                {
+                    new PowerPlayer
+                    {
+                        PlayerId = _players[0].PlayerId,
+                        AccountId = 12718623,
+                        CardBack = 100,
+                        PowerEntity = new PowerEntity
+                        {
+                            Id = _players[0].Id,
+                            Tags = new Dictionary<GameTag, int>(((Entity)_players[0])._data.Tags)
+                        }
+                    }, 
+                    new PowerPlayer
+                    {
+                        PlayerId = _players[1].PlayerId,
+                        AccountId = 18463223,
+                        CardBack = 100,
+                        PowerEntity = new PowerEntity
+                        {
+                            Id = _players[1].Id,
+                            Tags = new Dictionary<GameTag, int>(((Entity)_players[1])._data.Tags)
+                        }
+                    },
+                }
+            });
+
             if (setupHeroes)
             {
                 _players[0].AddHeroAndPower(Cards.HeroCard(gameConfig.Player1HeroClass));

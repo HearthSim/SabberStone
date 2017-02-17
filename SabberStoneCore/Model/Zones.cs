@@ -25,7 +25,7 @@ namespace SabberStoneCore.Model
         {
             foreach (Zone value in Enum.GetValues(typeof(Zone)))
             {
-                if (value == Zone.INVALID || value == Zone.DISCARD)
+                if (value == Zone.INVALID)
                     continue;
 
                 var zone = zones[value];

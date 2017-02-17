@@ -27,7 +27,7 @@ namespace SabberStoneCore.Model
 
     public partial class Entity : IEntity
     {
-        private readonly EntityData _data;
+        internal readonly EntityData _data;
 
         public int Id
         {
@@ -172,27 +172,41 @@ namespace SabberStoneCore.Model
             Triggers.Clear();
         }
 
-        public static IPlayable FromCard(Controller controller, Card card, Dictionary<GameTag, int> tags = null,
-            IZone zone = null, int id = -1)
+        public static IPlayable FromCard(Controller controller, Card card, Dictionary<GameTag, int> tags = null, IZone zone = null, int id = -1)
         {
-            IPlayable result;
+            var nextId = id > 0 ? id : controller.Game.NextId;
+
+            Dictionary<GameTag, int> startTags = new Dictionary<GameTag, int>
+            {
+                //[GameTag.ENTITY_ID] = nextId,
+                [GameTag.CONTROLLER] = controller?.Id ?? 0,
+                [GameTag.ZONE] = zone != null? (int)zone.Type : 0,
+                [GameTag.CARD_ID] = card.AssetId
+            };
+
+            IPlayable result = null;
             switch (card.Type)
             {
                 case CardType.MINION:
-                    result = new Minion(controller, zone, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new Minion(controller, zone, card, startTags, nextId);
                     break;
+
                 case CardType.SPELL:
-                    result = new Spell(controller, zone, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new Spell(controller, zone, card, startTags, nextId);
                     break;
+
                 case CardType.WEAPON:
-                    result = new Weapon(controller, zone, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new Weapon(controller, zone, card, startTags, nextId);
                     break;
+
                 case CardType.HERO:
-                    result = new Hero(controller, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new Hero(controller, card, startTags, nextId);
                     break;
+
                 case CardType.HERO_POWER:
-                    result = new HeroPower(controller, card, tags, id > 0 ? id : controller.Game.NextId);
+                    result = new HeroPower(controller, card, startTags, nextId);
                     break;
+
                 default:
                     throw new EntityException($"Couldn't create entity, because of an unknown cardType {card.Type}.");
             }
@@ -274,6 +288,11 @@ namespace SabberStoneCore.Model
             set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
         }
 
+        public int ZonePosition
+        {
+            get { return this[GameTag.ZONE_POSITION] - 1; }
+            set { this[GameTag.ZONE_POSITION] = value + 1; }
+        }
 
         public int NumTurnsInPlay
         {
@@ -322,5 +341,6 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.DEATHRATTLE] == 1; }
             set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
         }
+
     }
 }

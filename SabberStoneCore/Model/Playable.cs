@@ -11,6 +11,7 @@ namespace SabberStoneCore.Model
         bool IsIgnoreDamage { get; set; }
         bool Combo { get;}
         int Cost { get; set; }
+        int ZonePosition { get; set; }
         int NumTurnsInPlay { get; set; }
         IPlayable Destroy();
         bool ToBeDestroyed { get; }

@@ -13,7 +13,7 @@ namespace SabberStoneCore.Model
 
         public void Add(Card card)
         {
-            Add(Entity.FromCard(Controller, card));
+            Add(Entity.FromCard(Controller, card, null, this));
         }
 
         public void Fill()

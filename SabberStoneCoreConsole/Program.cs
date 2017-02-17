@@ -270,23 +270,16 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.WARRIOR,
-                Player2HeroClass = CardClass.WARRIOR,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
-            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gorehowl"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion1));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomcaller"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
