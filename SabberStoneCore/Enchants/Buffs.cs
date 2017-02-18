@@ -9,7 +9,7 @@ namespace SabberStoneCore.Enchants
     {
         public static readonly List<SelfCondition> SelfBuffConditions = new List<SelfCondition>
         {
-            SelfCondition.IsInZone(Zone.HAND, Zone.PLAY),
+            SelfCondition.IsInZone(Zone.DECK, Zone.HAND, Zone.PLAY),
             SelfCondition.IsNotSilenced,
         };
 

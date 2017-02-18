@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -2407,10 +2408,9 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void TheMistcaller_AT_054()
 		{
-			// TODO TheMistcaller_AT_054 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2421,8 +2421,31 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Mistcaller"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Mistcaller"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+		    var minionsHand = game.CurrentPlayer.Hand.GetAll.Where(p => p is Minion).ToList();
+		    if (minionsHand.Any())
+		    {
+		        var count = minionsHand.Count();
+		        var nAtk = minionsHand.Sum(p => ((Minion)p).AttackDamage);
+                var oAtk = minionsHand.Sum(p => ((Minion)p).Card[GameTag.ATK]);
+                Assert.Equal(oAtk + count, nAtk);
+                var nHp = minionsHand.Sum(p => ((Minion)p).Health);
+                var oHp = minionsHand.Sum(p => ((Minion)p).Card[GameTag.HEALTH]);
+                Assert.Equal(oHp + count, nHp);
+            }
+            var minionsDeck = game.CurrentPlayer.Deck.GetAll.Where(p => p is Minion).ToList();
+            if (minionsDeck.Any())
+            {
+                var count = minionsDeck.Count();
+                var nAtk = minionsDeck.Sum(p => ((Minion)p).AttackDamage);
+                var oAtk = minionsDeck.Sum(p => ((Minion)p).Card[GameTag.ATK]);
+                Assert.Equal(oAtk + count, nAtk);
+                var nHp = minionsDeck.Sum(p => ((Minion)p).Health);
+                var oHp = minionsDeck.Sum(p => ((Minion)p).Card[GameTag.HEALTH]);
+                Assert.Equal(oHp + count, nHp);
+            }
+        }
 
 		// ---------------------------------------- WEAPON - SHAMAN
 		// [AT_050] Charged Hammer - COST:4 [ATK:2/HP:0] 

@@ -1781,11 +1781,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_054", new List<Enchantment> {
-				// TODO [AT_054] The Mistcaller && Test: The Mistcaller_AT_054
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new IncludeTask(EntityType.DECK, null, true),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK)),
 				},
 			});
 

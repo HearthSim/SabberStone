@@ -83,7 +83,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         ///  All opponent character except the source
         /// </summary>
         ENEMIES_NOTARGET,
-
         /// <summary>
         ///  All characters
         /// </summary>
@@ -124,25 +123,33 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
     public class IncludeTask : SimpleTask
     {
-        public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null)
+        public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
         {
             IncludeType = includeType;
             ExcludeTypeArray = excludeTypeArray;
+            AddFlag = addFlag;
         }
 
         public EntityType IncludeType { get; set; }
-
         public EntityType[] ExcludeTypeArray { get; set; }
+        public bool AddFlag { get; set; }
 
         public override TaskState Process()
         {
-            Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
+            if (AddFlag)
+            {
+                Playables.AddRange(RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
+            }
+            else
+            {
+                Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
+            }
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new IncludeTask(IncludeType, ExcludeTypeArray);
+            var clone = new IncludeTask(IncludeType, ExcludeTypeArray, AddFlag);
             clone.Copy(this);
             return clone;
         }

@@ -21,7 +21,7 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
             //OptionsTest();
@@ -29,7 +29,7 @@ namespace SabberStoneCoreConsole
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
-            //PowerHistoryTest();
+            PowerHistoryTest();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
