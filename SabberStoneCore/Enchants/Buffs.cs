@@ -9,7 +9,7 @@ namespace SabberStoneCore.Enchants
     {
         public static readonly List<SelfCondition> SelfBuffConditions = new List<SelfCondition>
         {
-            SelfCondition.IsInHandOrPlayZone,
+            SelfCondition.IsInZone(Zone.HAND, Zone.PLAY),
             SelfCondition.IsNotSilenced,
         };
 
@@ -128,7 +128,7 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
-                EnableConditions = new List<SelfCondition> { SelfCondition.IsInHandZone },
+                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND) },
                 Effects = new Dictionary<GameTag, int>
                 {
                     [GameTag.COST] = amount
@@ -143,7 +143,7 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = 1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotAttackingThisTurn(attackedThisTurn)
                 },
                 Effects = new Dictionary<GameTag, int>
@@ -172,7 +172,7 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = -1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInSetasideOrHandOrPlayZone,
+                    SelfCondition.IsInZone(Zone.SETASIDE, Zone.HAND, Zone.PLAY),
                     SelfCondition.IsNotSilenced,
                 },
                 Effects = new Dictionary<GameTag, int>

@@ -321,7 +321,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInHandZone)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.HAND))
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.BEAST)))
                         .TriggerEffect(GameTag.SUMMONED, 1)
                         .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
@@ -363,7 +363,7 @@ namespace SabberStoneCore.CardSets.Standard
                     {
                         EnableConditions = new List<SelfCondition>
                         {
-                            SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced
+                            SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced
                         },
                         ApplyConditions = new List<RelaCondition>
                         {
@@ -726,7 +726,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE))
                         .Build()
@@ -1206,7 +1206,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.TARGET,
                     Activation = EnchantmentActivation.SPELL,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .SingleTask(ComplexTask.Create(
                             new HealTask(4, EntityType.HERO)))
@@ -1471,7 +1471,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsWeapon))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.WeaponAtk(1), EntityType.TARGET))
@@ -1839,7 +1839,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(new HealTask(1, EntityType.MINIONS))
                         .Build()
@@ -2011,7 +2011,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(new DamageNumberTask(EntityType.HERO))
@@ -2337,7 +2337,7 @@ namespace SabberStoneCore.CardSets.Standard
                     {
                         EnableConditions = new List<SelfCondition>
                         {
-                            SelfCondition.IsInHandZone
+                            SelfCondition.IsInZone(Zone.HAND)
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
@@ -2443,7 +2443,7 @@ namespace SabberStoneCore.CardSets.Standard
                     {
                         EnableConditions = new List<SelfCondition>
                         {
-                            SelfCondition.IsInPlayZone,
+                            SelfCondition.IsInZone(Zone.PLAY),
                             SelfCondition.IsNotSilenced
                         },
                         ApplyConditions = new List<RelaCondition>
@@ -2510,7 +2510,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
                         .SingleTask(ComplexTask.Create(
@@ -3031,7 +3031,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.HAND_AND_BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.BATTLECRY, 1)))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))

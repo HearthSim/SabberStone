@@ -47,14 +47,10 @@ namespace SabberStoneCore.Conditions
 
         public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
         public static SelfCondition IsBattlecryMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
-        public static SelfCondition IsInPlayZone => IsInZone(Zone.PLAY);
-        public static SelfCondition IsInHandZone => IsInZone(Zone.HAND);
-        public static SelfCondition IsInHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
-        public static SelfCondition IsInSetasideOrHandOrPlayZone => new SelfCondition(me => me.Zone != null && (me.Zone.Type == Zone.SETASIDE || me.Zone.Type == Zone.PLAY || me.Zone.Type == Zone.HAND));
+
         public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.Graveyard.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
 
-        public static SelfCondition IsInDeckZone => IsInZone(Zone.DECK);
-        public static SelfCondition IsInZone(Zone zone) => new SelfCondition(me => me.Zone.Type == zone);
+        public static SelfCondition IsInZone(params Zone[] zones) => new SelfCondition(me => me.Zone != null && zones.Contains(me.Zone.Type));
         public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
         public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
         public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.Deck.GroupBy(x => new {x.Card.Id}).Any(x => x.Skip(1).Any()));

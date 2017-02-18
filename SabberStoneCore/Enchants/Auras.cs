@@ -24,7 +24,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 Effects = new Dictionary<GameTag, int>()
@@ -48,7 +48,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 Effects = effects
@@ -63,7 +63,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = new List<RelaCondition>
@@ -90,7 +90,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
@@ -120,7 +120,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
@@ -145,7 +145,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 Effects = new Dictionary<GameTag, int>
@@ -161,7 +161,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 Effects = new Dictionary<GameTag, int>
@@ -179,7 +179,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
@@ -201,7 +201,7 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = 1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInPlayZone,
+                    SelfCondition.IsInZone(Zone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
@@ -220,7 +220,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInHandZone
+                    SelfCondition.IsInZone(Zone.HAND)
                 },
                 Effects = new Dictionary<GameTag, int>
                 {

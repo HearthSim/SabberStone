@@ -1888,7 +1888,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(new HealTask(1, EntityType.MINIONS))
                         .Build()
@@ -1973,7 +1973,7 @@ namespace SabberStoneCore.CardSets.Standard
                         EnableConditions = new List<SelfCondition>
                         {
                             SelfCondition.IsNotSilenced,
-                            SelfCondition.IsInPlayZone
+                            SelfCondition.IsInZone(Zone.PLAY)
                         },
                         Effects = new Dictionary<GameTag, int>
                         {
@@ -2816,7 +2816,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInPlayZone, SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
                         .Build()
