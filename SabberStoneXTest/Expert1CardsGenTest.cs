@@ -3259,22 +3259,30 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void AncestralSpirit_CS2_038()
 		{
-			// TODO AncestralSpirit_CS2_038 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
-				Player2HeroClass = CardClass.SHAMAN,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancestral Spirit"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancestral Spirit"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+		    Assert.NotEqual(minion, game.CurrentOpponent.Board[0]);
+            Assert.Equal(minion.Card.Id, game.CurrentOpponent.Board[0].Card.Id);
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [CS2_053] Far Sight - COST:3 

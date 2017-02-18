@@ -2774,12 +2774,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_038", new List<Enchantment> {
-				// TODO [CS2_038] Ancestral Spirit && Test: Ancestral Spirit_CS2_038
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DeathrattleTask(EntityType.MINIONS,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = ComplexTask.Create(
+                                new CopyTask(EntityType.SOURCE, 1),
+                                new SummonStackTask())
+                        })
+                },
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
