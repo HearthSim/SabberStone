@@ -123,6 +123,7 @@ namespace SabberStoneKettleServer
 
         private void SendPacket(String name, object payload)
         {
+            Console.WriteLine("Sending packet with type " + name + ".");
             // Create a kettle packet to serialize
             JArray packet = CreateKettlePacket(name, payload);
 
@@ -130,15 +131,36 @@ namespace SabberStoneKettleServer
             String data = Newtonsoft.Json.JsonConvert.SerializeObject(packet);
 
             // first send the length of the data
-            Writer.Write(data.Length);
+            Writer.Write(IPAddress.HostToNetworkOrder(data.Length));
+            
 
             // and then send the data
             Writer.Write(System.Text.Encoding.UTF8.GetBytes(data));
         }
 
-        public void SendMessage(KettleFullEntity message)
+        public void SendMessage(KettleHistoryTagChange message)
         {
-            SendPacket("FullEntity", message);
+            SendPacket("HistoryTagChange", message);
+        }
+
+        public void SendMessage(KettleHistoryCreateGame message)
+        {
+            SendPacket("HistoryCreateGame", message);
+        }
+
+        public void SendMessage(KettleHistoryFullEntity message)
+        {
+            SendPacket("HistoryFullEntity", message);
+        }
+
+        public void SendMessage(KettleHistoryShowEntity message)
+        {
+            SendPacket("HistoryShowEntity", message);
+        }
+
+        public void SendMessage(KettleHistoryChangeEntity message)
+        {
+            SendPacket("HistoryChangeEntity", message);
         }
 
         public void SendMessage(List<KettleOption> message)
@@ -149,11 +171,6 @@ namespace SabberStoneKettleServer
         public void SendMessage(KettleEntityChoices message)
         {
             SendPacket("EntityChoices", message);
-        }
-
-        public void SendMessage(KettleTagChange message)
-        {
-            SendPacket("TagChange", message);
         }
     }
 }
