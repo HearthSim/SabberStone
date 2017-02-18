@@ -13,8 +13,7 @@ namespace SabberStoneCore.Model
 
         public override bool TargetingRequirements(ICharacter target)
         {
-            var minion = target as Minion;
-            return (minion == null || !minion.CantBeTargetedByAbilities) && base.TargetingRequirements(target);
+            return !target.CantBeTargetedByHeroPowers && base.TargetingRequirements(target);
         }
 
         public override bool IsPlayable => !IsExhausted && base.IsPlayable;

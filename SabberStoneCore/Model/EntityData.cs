@@ -89,6 +89,9 @@ namespace SabberStoneCore.Model
         public void Reset(Dictionary<GameTag, int> tags = null)
         {
             //Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
+            Tags.Remove(GameTag.ATK);
+            Tags.Remove(GameTag.HEALTH);
+            Tags.Remove(GameTag.COST);
             Tags.Remove(GameTag.DAMAGE);
             Tags.Remove(GameTag.TAUNT);
             Tags.Remove(GameTag.FROZEN);

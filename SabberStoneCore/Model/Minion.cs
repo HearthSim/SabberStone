@@ -43,12 +43,6 @@ namespace SabberStoneCore.Model
 
     public partial class Minion
     {
-        public bool CantBeTargetedByAbilities
-        {
-            get { return this[GameTag.CANT_BE_TARGETED_BY_ABILITIES] == 1; }
-            set { this[GameTag.CANT_BE_TARGETED_BY_ABILITIES] = value ? 1 : 0; }
-        }
-
         public bool HasCharge
         {
             get { return this[GameTag.CHARGE] == 1; }

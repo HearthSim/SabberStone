@@ -7835,7 +7835,7 @@ namespace SabberStoneXTest
 		// Text: Can't be targeted by spells or Hero Powers.
 		// --------------------------------------------------------
 		// GameTag:
-		// - CANT_BE_TARGETED_BY_ABILITIES = 1
+		// - CANT_BE_TARGETED_BY_SPELLS = 1
 		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 		// --------------------------------------------------------
 		[Fact]
@@ -7858,6 +7858,7 @@ namespace SabberStoneXTest
             Assert.Equal(2, ((Minion)testCard).Health);
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.Equal(false, ((Minion)testCard).IsDead);
             Assert.Equal(2, ((Minion)testCard).Health);
         }
 

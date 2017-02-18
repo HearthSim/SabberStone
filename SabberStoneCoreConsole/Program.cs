@@ -21,10 +21,10 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            OptionsTest();
+            //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
@@ -295,9 +295,12 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomcaller"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("C'Thun"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Faerie Dragon"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());

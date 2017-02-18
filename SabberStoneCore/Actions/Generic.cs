@@ -53,6 +53,9 @@ namespace SabberStoneCore.Actions
                 if (!RemoveFromZone.Invoke(c, minion))
                     return false;
 
+                // reset minion
+                minion.Reset();
+
                 c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReturnToHandBlock", $"{c.Name} gets {minion} returned.");
 
                 if (!AddHandPhase.Invoke(c, minion))

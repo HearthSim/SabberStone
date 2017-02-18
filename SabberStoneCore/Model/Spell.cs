@@ -11,6 +11,11 @@ namespace SabberStoneCore.Model
             Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Spell", $"{card.Name} ({card.Class}) was created.");
         }
 
+        public override bool TargetingRequirements(ICharacter target)
+        {
+            return !target.CantBeTargetedBySpells && base.TargetingRequirements(target);
+        }
+
         public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 
         public bool IsSecret => this[GameTag.SECRET] == 1;

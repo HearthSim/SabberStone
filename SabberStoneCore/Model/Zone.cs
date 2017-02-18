@@ -123,8 +123,8 @@ namespace SabberStoneCore.Model
                 throw new ZoneException("Zoneposition '" + zonePosition + "' isn't in a valid range.");
             }
 
-            // reset the card in all zone except for the play zone ...
-            if (Type != Zone.PLAY)
+            // reset the card if it gets into the graveyard ...
+            if (Type == Zone.GRAVEYARD)
                 entity.Reset();
 
             MoveTo(entity, zonePosition < 0 ? _entitiesAsList.Count : zonePosition);

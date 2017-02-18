@@ -142,7 +142,9 @@ namespace SabberStoneCore.Model
     public partial interface ICharacter
     {
         int AttackDamage { get; set; }
+        bool CantBeTargetedBySpells { get; set; }
         bool CantBeTargetedByOpponents { get; set; }
+        bool CantBeTargetedByHeroPowers { get; set; }
         int Damage { get; set; }
         int Health { get; set; }
         bool IsAttacking { get; set; }
@@ -175,6 +177,18 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.CANNOT_ATTACK_HEROES] == 1; }
             set { this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0; }
+        }
+
+        public bool CantBeTargetedBySpells
+        {
+            get { return this[GameTag.CANT_BE_TARGETED_BY_SPELLS] == 1; }
+            set { this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0; }
+        }
+
+        public bool CantBeTargetedByHeroPowers
+        {
+            get { return this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] == 1; }
+            set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
         }
 
         public int Armor
