@@ -71,6 +71,9 @@ namespace SabberStoneKettleServer
 
             _game.StartGame();
             SendPowerHistory(_game.PowerHistory.Last);
+
+            // getting options for currentPlayer ...
+            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Id, _game.CurrentPlayer.Options());
         }
 
         private Dictionary<int, int> GameTagsToKettleTags(Dictionary<GameTag, int> tags)
