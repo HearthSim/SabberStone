@@ -1786,13 +1786,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_643", new List<Enchantment> {
-				// TODO [CFM_643] Hobart Grapplehammer && Test: Hobart Grapplehammer_CFM_643
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new IncludeTask(EntityType.DECK, null, true),
+                        new FilterStackTask(SelfCondition.IsWeapon),
+                        new BuffTask(Buffs.WeaponAtk(1), EntityType.STACK)),
+                },
+            });
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_754] Grimy Gadgeteer - COST:4 [ATK:4/HP:3] 

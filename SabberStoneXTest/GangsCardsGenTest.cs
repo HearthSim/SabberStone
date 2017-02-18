@@ -2488,7 +2488,7 @@ namespace SabberStoneXTest
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void HobartGrapplehammer_CFM_643()
 		{
 			// TODO HobartGrapplehammer_CFM_643 test
@@ -2502,8 +2502,25 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hobart Grapplehammer"));
-		}
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hobart Grapplehammer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var weaponsHand = game.CurrentPlayer.Hand.GetAll.Where(p => p is Weapon).ToList();
+            if (weaponsHand.Any())
+            {
+                var count = weaponsHand.Count();
+                var nAtk = weaponsHand.Sum(p => ((Weapon)p).AttackDamage);
+                var oAtk = weaponsHand.Sum(p => ((Weapon)p).Card[GameTag.ATK]);
+                Assert.Equal(oAtk + count, nAtk);
+            }
+            var weaponsDeck = game.CurrentPlayer.Deck.GetAll.Where(p => p is Weapon).ToList();
+            if (weaponsDeck.Any())
+            {
+                var count = weaponsDeck.Count();
+                var nAtk = weaponsDeck.Sum(p => ((Weapon)p).AttackDamage);
+                var oAtk = weaponsDeck.Sum(p => ((Weapon)p).Card[GameTag.ATK]);
+                Assert.Equal(oAtk + count, nAtk);
+            }
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [CFM_754] Grimy Gadgeteer - COST:4 [ATK:4/HP:3] 
