@@ -19,16 +19,17 @@ namespace SabberStoneKettleServer
     public class KettleEntity
     {
         public int EntityID;
-        public Dictionary<string, int> Tags;
+        public Dictionary<int, int> Tags;
     }
 
     public class KettlePlayer
     {
-        public KettleEntity KettleEntity;
+        public KettleEntity Entity;
         public int PlayerID;
+        public int CardBack;
     }
 
-    public class KettleTagChange
+    public class KettleHistoryTagChange
     {
         public int EntityID;
         public int Tag;
@@ -43,10 +44,22 @@ namespace SabberStoneKettleServer
         public int Target;
     }
 
-    public class KettleFullEntity
+    public class KettleHistoryFullEntity
     {
         public KettleEntity KettleEntity;
-        public string CardID;
+        public string Name;
+    }
+
+    public class KettleHistoryShowEntity
+    {
+        public KettleEntity KettleEntity;
+        public string Name;
+    }
+
+    public class KettleHistoryChangeEntity
+    {
+        public KettleEntity KettleEntity;
+        public string Name;
     }
 
     public class KettleMetaData
@@ -95,5 +108,11 @@ namespace SabberStoneKettleServer
         public List<int> Entities;
         public int Source;
         public int PlayerID;
+    }
+
+    public class KettleHistoryCreateGame
+    {
+        public KettleEntity Game;
+        public List<KettlePlayer> Players;
     }
 }
