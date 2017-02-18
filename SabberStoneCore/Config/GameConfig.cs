@@ -32,6 +32,8 @@ namespace SabberStoneCore.Config
 
         public bool Logging { get; set; } = true;
 
+        public bool History { get; set; } = true;
+
         public bool SkipMulligan { get; set; } = true;
 
         public GameConfig Clone()

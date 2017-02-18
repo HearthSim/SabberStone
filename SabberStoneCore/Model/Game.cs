@@ -45,6 +45,8 @@ namespace SabberStoneCore.Model
 
         public bool Splitting => _gameConfig.Splitting;
 
+        public bool History => _gameConfig.History;
+
         public TaskStack TaskStack { get; }
 
         public TaskQueue TaskQueue { get; }
@@ -54,32 +56,6 @@ namespace SabberStoneCore.Model
         public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>();
 
         public PowerHistory PowerHistory { get; set; } = new PowerHistory();
-
-        public void Dump(string location, string text)
-        {
-            Logs.Enqueue(new LogEntry()
-            {
-                TimeStamp = DateTime.Now,
-                Level = LogLevel.DUMP,
-                Location = location,
-                BlockType = BlockType.SCRIPT,
-                Text = text
-            });
-        }
-        public void Log(LogLevel level, BlockType block, string location, string text)
-        {
-            if (!_gameConfig.Logging)
-                return;
-
-            Logs.Enqueue(new LogEntry()
-            {
-                TimeStamp = DateTime.Now,
-                Level = level,
-                Location = location,
-                BlockType = block,
-                Text = text
-            });
-        }
 
         private int _idIndex = 4;
         public int NextId => _idIndex++;
@@ -111,8 +87,9 @@ namespace SabberStoneCore.Model
             _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
             _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
 
-            // add power history create game 
-            PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
+            // add power history create game
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
             if (setupHeroes)
             {
@@ -530,6 +507,32 @@ namespace SabberStoneCore.Model
             game.SetIndexer(_idIndex, _oopIndex);
 
             return game;
+        }
+
+        public void Dump(string location, string text)
+        {
+            Logs.Enqueue(new LogEntry()
+            {
+                TimeStamp = DateTime.Now,
+                Level = LogLevel.DUMP,
+                Location = location,
+                BlockType = BlockType.SCRIPT,
+                Text = text
+            });
+        }
+        public void Log(LogLevel level, BlockType block, string location, string text)
+        {
+            if (!_gameConfig.Logging)
+                return;
+
+            Logs.Enqueue(new LogEntry()
+            {
+                TimeStamp = DateTime.Now,
+                Level = level,
+                Location = location,
+                BlockType = block,
+                Text = text
+            });
         }
 
         public string FullPrint()

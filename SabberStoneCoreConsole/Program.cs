@@ -24,12 +24,12 @@ namespace SabberStoneCoreConsole
             //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            //OptionsTest();
+            OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
-            PowerHistoryTest();
+            //PowerHistoryTest();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -403,7 +403,7 @@ namespace SabberStoneCoreConsole
 
         public static void OptionsTest()
         {
-            const int total = 1000;
+            const int total = 10000;
             var watch = Stopwatch.StartNew();
 
             var turns = 0;
@@ -418,7 +418,8 @@ namespace SabberStoneCoreConsole
                     Player1HeroClass = Cards.BasicHeroes[i % 9],
                     Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
                     FillDecks = true,
-                    Logging = false
+                    Logging = false,
+                    History = false
                 });
                 game.StartGame();
 

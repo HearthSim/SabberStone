@@ -113,8 +113,9 @@ namespace SabberStoneCore.Model
         {
             _data[tag] = value;
 
-            // add power history tag change 
-            Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
+            // add power history tag change
+            if (Game.History)
+                Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 
         public int this[GameTag t]
@@ -210,7 +211,8 @@ namespace SabberStoneCore.Model
             controller.Game.IdEntityDic.Add(result.Id, result);
 
             // add power history full entity 
-            controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
+            if (controller.Game.History)
+                controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 
             return result;
         }
