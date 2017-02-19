@@ -25,8 +25,6 @@ namespace SabberStoneCore.Model
         {
             var hash = new StringBuilder();
             hash.Append("[");
-            //hash.Append(Id.ToString());
-            //hash.Append(",");
             hash.Append(Card.Id);
             hash.Append("][GT:");
             var keys = Tags.Keys.ToList();
@@ -46,7 +44,11 @@ namespace SabberStoneCore.Model
             return hash;
         }
 
-        public int Id { get; internal set; }
+        public int Id
+        {
+            get { return this[GameTag.ENTITY_ID]; }
+            set { this[GameTag.ENTITY_ID] = value; }
+        }
 
         public Card Card { get; }
 
@@ -61,10 +63,7 @@ namespace SabberStoneCore.Model
         public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
         {
             // Entity ID
-            var allTags = new Dictionary<GameTag, int>(Card.Tags)
-            {
-                {GameTag.ENTITY_ID, Id}
-            };
+            var allTags = new Dictionary<GameTag, int>(Card.Tags);
 
             // Entity tags override card tags
             foreach (var tag in Tags)

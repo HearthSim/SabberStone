@@ -6,15 +6,6 @@ package pegasus.pegasusgame;
 
 import "Pegasus/PegasusShared/PegasusShared.proto";
 
-message AllOptions {
-	enum PacketID {
-		ID_a74d = 14;
-	}
-
-	required int32 id = 1;
-	repeated Option options = 2;
-}
-
 message ChooseEntities {
 	enum PacketID {
 		ID_af95 = 3;
@@ -179,30 +170,11 @@ message NAckOption {
 	required int32 id = 1;
 }
 
-message Option {
-	enum Type {
-		PASS = 1;
-		END_TURN = 2;
-		POWER = 3;
-	}
-
-	required Type type = 1;
-	optional SubOption main_option = 2;
-	repeated SubOption sub_options = 3;
-}
-
 message Ping {
 	enum PacketID {
 		ID_a09e = 115;
 	}
 
-}
-
-message Player {
-	required int32 id = 1;
-	required pegasus.pegasusshared.BnetId game_account_id = 2;
-	required int32 card_back = 3;
-	required Entity entity = 4;
 }
 
 message Pong {
@@ -220,11 +192,6 @@ message PowerHistory {
 	repeated PowerHistoryData list = 1;
 }
 
-message PowerHistoryCreateGame {
-	required Entity game_entity = 1;
-	repeated Player players = 2;
-}
-
 message PowerHistoryData {
 	optional PowerHistoryEntity full_entity = 1;
 	optional PowerHistoryEntity show_entity = 2;
@@ -238,12 +205,6 @@ message PowerHistoryData {
 }
 
 message PowerHistoryEnd {
-}
-
-message PowerHistoryEntity {
-	required int32 entity = 1;
-	required string name = 2;
-	repeated Tag tags = 3;
 }
 
 message PowerHistoryHide {
@@ -263,12 +224,6 @@ message PowerHistoryStart {
 	required int32 source = 3;
 	required int32 target = 4;
 	optional string effect_card_id = 5;
-}
-
-message PowerHistoryTagChange {
-	required int32 entity = 1;
-	required int32 tag = 2;
-	required int32 value = 3;
 }
 
 message RemoveSpectators {
@@ -339,11 +294,6 @@ message SpectatorRemoved {
 	optional pegasus.pegasusshared.BnetId removed_by = 2;
 }
 
-message SubOption {
-	required int32 id = 1;
-	repeated int32 targets = 3 [packed=true];
-}
-
 message Tag {
 	required int32 name = 1;
 	required int32 value = 2;
@@ -368,4 +318,3 @@ message UserUI {
 	optional int32 emote = 2;
 	optional int32 player_id = 3;
 }
-

@@ -175,7 +175,7 @@ namespace SabberStoneCore.Model
 
            var startTags = new Dictionary<GameTag, int>
             {
-                //[GameTag.ENTITY_ID] = nextId,
+                [GameTag.ENTITY_ID] = nextId,
                 [GameTag.CONTROLLER] = controller?.Id ?? 0,
                 [GameTag.ZONE] = zone != null? (int)zone.Type : 0,
                 [GameTag.CARD_ID] = card.AssetId
