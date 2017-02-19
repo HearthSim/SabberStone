@@ -51,8 +51,8 @@ namespace SabberStoneCoreConsole
                     FillDecks = true
                 });
             game.StartGame();
-            //Console.Write("*** - START GAME - ***");
-            //Console.Write(game.PowerHistory.Print(false));
+            Console.Write("*** - START GAME - ***");
+            Console.Write(game.PowerHistory.Print(false));
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
             //Console.Write(game.PowerHistory.Print(false));
@@ -65,9 +65,9 @@ namespace SabberStoneCoreConsole
             while (game.State != State.COMPLETE)
             {
                 var options = game.CurrentPlayer.Options();
-                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-                options.ForEach(p => Console.WriteLine(p.FullPrint()));
-                Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, options).Print());
+                //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                //options.ForEach(p => Console.WriteLine(p.FullPrint()));
+                //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, options).Print());
                 var option = options[Rnd.Next(options.Count)];
                 game.Process(option);
             }

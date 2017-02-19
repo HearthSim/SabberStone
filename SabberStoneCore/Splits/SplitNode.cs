@@ -32,7 +32,7 @@ namespace SabberStoneCore.Splits
             if (!isRoot)
                 Execute();
 
-            Hash = Game.Hash();
+            Hash = Game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
         }
 
         public void Execute()

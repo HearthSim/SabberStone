@@ -206,6 +206,11 @@ namespace SabberStoneCore.Kettle
         }
     }
 
+    //message Entity
+    //{
+    //    required int32 id = 1;
+    //    repeated Tag tags = 2;
+    //}
     public class PowerEntity
     {
         public int Id { get; set; }
