@@ -42,18 +42,26 @@ namespace SabberStoneCore.Kettle
             var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();
             foreach (var sourceId in playCards.Select(p => p.Source.Id).Distinct())
             {
-                var targets = playCards.Where(p => p.Source.Id == sourceId && p.Target != null);
-
-                result.PowerOptionList.Add(
-                    new PowerOption
+                var targets = playCards.Where(p => p.Source.Id == sourceId && p.Target != null && p.ChooseOne == 0);
+                var mainOption = new PowerOption
+                {
+                    OptionType = OptionType.POWER,
+                    MainOption = new PowerSubOption
                     {
-                        OptionType = OptionType.POWER,
-                        MainOption = new PowerSubOption
-                        {
-                            EntityId = sourceId,
-                            Targets = targets.Any() ? targets.Select(p => p.Target.Id).Distinct().ToList() : null
-                        }
+                        EntityId = sourceId,
+                        Targets = targets.Any() ? targets.Select(p => p.Target.Id).Distinct().ToList() : null
+                    }
+                };
+                result.PowerOptionList.Add(mainOption);
+
+                var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne > 0);
+                foreach (var subOption in subOptions)
+                {
+                    mainOption.SubOptions.Add(new PowerSubOption()
+                    {
+                        EntityId = sourceId
                     });
+                }
             }
 
             var minionAttacks = list.Where(p => p.PlayerTaskType == PlayerTaskType.MINION_ATTACK).ToList();
@@ -83,7 +91,7 @@ namespace SabberStoneCore.Kettle
 
         public PowerSubOption MainOption { get; set; }
 
-        public List<PowerSubOption> SubOptions { get; set; }
+        public List<PowerSubOption> SubOptions { get; set; } = new List<PowerSubOption>();
 
         public string Print()
         {
@@ -92,6 +100,10 @@ namespace SabberStoneCore.Kettle
             for (int i = 0; i < MainOption?.Targets?.Count; i++)
             {
                 str.AppendLine($" target {i} entity=[{MainOption.Targets[i]}] ");
+            }
+            for (int i = 0; i < SubOptions.Count; i++)
+            {
+                str.AppendLine($" subOption {i} entity=[{SubOptions[i].EntityId}] ");
             }
             return str.ToString();
         }

@@ -41,8 +41,13 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
+                    Player1HeroClass = CardClass.DRUID,
+                    DeckPlayer1 = new List<Card>()
+                    {
+                        Cards.FromName("Raven Idol")
+                    },
                     Player2HeroClass = CardClass.HUNTER,
+                    Shuffle = false,
                     FillDecks = true
                 });
             game.StartGame();
@@ -57,15 +62,15 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            while (game.State != State.COMPLETE)
-            {
+            //while (game.State != State.COMPLETE)
+            //{
                 var options = game.CurrentPlayer.Options();
                 Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
                 options.ForEach(p => Console.WriteLine(p.FullPrint()));
                 Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, options).Print());
-                var option = options[Rnd.Next(options.Count)];
-                game.Process(option);
-            }
+                //var option = options[Rnd.Next(options.Count)];
+                //game.Process(option);
+            //}
         }
 
         public static void GameSplitTest()
