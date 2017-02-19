@@ -7,6 +7,15 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Kettle
 {
+    //message AllOptions
+    //{
+    //    enum PacketID
+    //    {
+    //        ID_a74d = 14;
+    //    }
+    //    required int32 id = 1;
+	//    repeated Option options = 2;
+    //}
     public class PowerAllOptions
     {
         public int EntityId;
@@ -81,10 +90,54 @@ namespace SabberStoneCore.Kettle
                     });
             }
 
+            var heroAttacks = list.Where(p => p.PlayerTaskType == PlayerTaskType.HERO_ATTACK).ToList();
+            if (heroAttacks.Any())
+            {
+                var targets = heroAttacks.Where(p => p.Target != null);
+                var mainOption = new PowerOption
+                {
+                    OptionType = OptionType.POWER,
+                    MainOption = new PowerSubOption
+                    {
+                        EntityId = heroAttacks.First().Controller.Hero.Id,
+                        Targets = targets.Any() ? targets.Select(p => p.Target.Id).Distinct().ToList() : null
+                    }
+                };
+                result.PowerOptionList.Add(mainOption);
+            }
+
+            var heroPowers = list.Where(p => p.PlayerTaskType == PlayerTaskType.HERO_POWER).ToList();
+            if (heroPowers.Any())
+            {
+                var targets = heroPowers.Where(p => p.Target != null);
+                var mainOption = new PowerOption
+                {
+                    OptionType = OptionType.POWER,
+                    MainOption = new PowerSubOption
+                    {
+                        EntityId = heroPowers.First().Controller.Hero.Power.Id,
+                        Targets = targets.Any() ? targets.Select(p => p.Target.Id).Distinct().ToList() : null
+                    }
+                };
+                result.PowerOptionList.Add(mainOption);
+            }
+
             return result;
         }
     }
 
+    //message Option
+    //{
+    //    enum Type
+    //    {
+    //        PASS = 1;
+    //        END_TURN = 2;
+    //        POWER = 3;
+    //    }
+    //    required Type type = 1;
+	//    optional SubOption main_option = 2;
+	//    repeated SubOption sub_options = 3;
+    //}
     public class PowerOption
     {
         public OptionType OptionType { get; set; }
@@ -109,6 +162,11 @@ namespace SabberStoneCore.Kettle
         }
     }
 
+    //message SubOption
+    //{
+    //    required int32 id = 1;
+    //    repeated int32 targets = 3 [packed=true];
+    //}
     public class PowerSubOption
     {
         public int EntityId { get; set; }

@@ -1,0 +1,371 @@
+syntax = "proto2";
+package pegasus.pegasusgame;
+
+// Protobuffer decompiler
+// File generated at 8/02/2017 16:24:56
+
+import "Pegasus/PegasusShared/PegasusShared.proto";
+
+message AllOptions {
+	enum PacketID {
+		ID_a74d = 14;
+	}
+
+	required int32 id = 1;
+	repeated Option options = 2;
+}
+
+message ChooseEntities {
+	enum PacketID {
+		ID_af95 = 3;
+	}
+
+	required int32 id = 1;
+	repeated int32 entities = 2 [packed=true];
+}
+
+message ChooseOption {
+	enum PacketID {
+		ID_a2e9 = 2;
+	}
+
+	required int32 id = 1;
+	required int32 index = 2;
+	required int32 target = 3;
+	optional int32 sub_option = 4;
+	optional int32 position = 5;
+}
+
+message Concede {
+	enum PacketID {
+		ID_a123 = 11;
+	}
+
+}
+
+message DebugMessage {
+	enum PacketID {
+		ID_acc4 = 5;
+	}
+
+	required string message = 1;
+}
+
+message EntitiesChosen {
+	enum PacketID {
+		ID_a751 = 13;
+	}
+
+	required ChooseEntities choose_entities = 3;
+	required int32 player_id = 4;
+	optional int32 choice_type = 5;
+}
+
+message Entity {
+	required int32 id = 1;
+	repeated Tag tags = 2;
+}
+
+message EntityChoices {
+	enum PacketID {
+		ID_a5d9 = 17;
+	}
+
+	required int32 id = 1;
+	required int32 choice_type = 2;
+	required int32 count_min = 4;
+	required int32 count_max = 5;
+	repeated int32 entities = 6 [packed=true];
+	optional int32 source = 7;
+	required int32 player_id = 8;
+	required bool hide_chosen = 9;
+}
+
+message GameCanceled {
+	enum PacketID {
+		ID_af2c = 12;
+	}
+
+	enum Reason {
+		OPPONENT_TIMEOUT = 1;
+	}
+
+	required Reason reason = 1;
+}
+
+message GameSetup {
+	enum PacketID {
+		ID_a1c7 = 16;
+	}
+
+	required int32 board = 1;
+	required int32 max_secrets_per_player = 2;
+	required int32 max_friendly_minions_per_player = 3;
+	optional int32 keep_alive_frequency_seconds = 4;
+	optional int32 disconnect_when_stuck_seconds = 5;
+}
+
+message GetGameState {
+	enum PacketID {
+		ID_a275 = 1;
+	}
+
+}
+
+message Handshake {
+	enum PacketID {
+		ID = 168;
+	}
+
+	required int32 game_handle = 1;
+	required string password = 2;
+	required int64 client_handle = 3;
+	optional int32 mission = 4;
+	required string version = 5;
+	required pegasus.pegasusshared.Platform platform = 7;
+}
+
+message HistoryBlock {
+	enum Type {
+		INVALID = 0;
+		ATTACK = 1;
+		JOUST = 2;
+		POWER_a326 = 3;
+		TRIGGER = 5;
+		DEATHS = 6;
+		PLAY = 7;
+		FATIGUE = 8;
+		RITUAL = 9;
+	}
+
+}
+
+message HistoryMeta {
+	enum Type {
+		TARGET = 0;
+		DAMAGE = 1;
+		HEALING = 2;
+		JOUST_acc3 = 3;
+		SHOW_BIG_CARD = 5;
+		EFFECT_TIMING = 6;
+		HISTORY_TARGET = 7;
+		OVERRIDE_HISTORY = 8;
+	}
+
+}
+
+message InviteToSpectate {
+	enum PacketID {
+		ID_a89a = 25;
+	}
+
+	optional pegasus.pegasusshared.BnetId target_bnet_account_id = 1;
+	required pegasus.pegasusshared.BnetId target_game_account_id = 2;
+}
+
+message MouseInfo {
+	required int32 arrow_origin = 1;
+	required int32 held_card = 2;
+	required int32 over_card = 3;
+	required int32 x = 4;
+	required int32 y = 5;
+}
+
+message NAckOption {
+	enum PacketID {
+		ID_a470 = 10;
+	}
+
+	required int32 id = 1;
+}
+
+message Option {
+	enum Type {
+		PASS = 1;
+		END_TURN = 2;
+		POWER = 3;
+	}
+
+	required Type type = 1;
+	optional SubOption main_option = 2;
+	repeated SubOption sub_options = 3;
+}
+
+message Ping {
+	enum PacketID {
+		ID_a09e = 115;
+	}
+
+}
+
+message Player {
+	required int32 id = 1;
+	required pegasus.pegasusshared.BnetId game_account_id = 2;
+	required int32 card_back = 3;
+	required Entity entity = 4;
+}
+
+message Pong {
+	enum PacketID {
+		ID_afb9 = 116;
+	}
+
+}
+
+message PowerHistory {
+	enum PacketID {
+		ID_acd5 = 19;
+	}
+
+	repeated PowerHistoryData list = 1;
+}
+
+message PowerHistoryCreateGame {
+	required Entity game_entity = 1;
+	repeated Player players = 2;
+}
+
+message PowerHistoryData {
+	optional PowerHistoryEntity full_entity = 1;
+	optional PowerHistoryEntity show_entity = 2;
+	optional PowerHistoryHide hide_entity = 3;
+	optional PowerHistoryTagChange tag_change = 4;
+	optional PowerHistoryCreateGame create_game = 5;
+	optional PowerHistoryStart power_start = 6;
+	optional PowerHistoryEnd power_end = 7;
+	optional PowerHistoryMetaData meta_data = 8;
+	optional PowerHistoryEntity change_entity = 9;
+}
+
+message PowerHistoryEnd {
+}
+
+message PowerHistoryEntity {
+	required int32 entity = 1;
+	required string name = 2;
+	repeated Tag tags = 3;
+}
+
+message PowerHistoryHide {
+	required int32 entity = 1;
+	required int32 zone = 2;
+}
+
+message PowerHistoryMetaData {
+	repeated int32 info = 2 [packed=true];
+	optional HistoryMeta.Type type = 3 [default = TARGET];
+	optional int32 data = 4;
+}
+
+message PowerHistoryStart {
+	required HistoryBlock.Type type = 1;
+	required int32 index = 2;
+	required int32 source = 3;
+	required int32 target = 4;
+	optional string effect_card_id = 5;
+}
+
+message PowerHistoryTagChange {
+	required int32 entity = 1;
+	required int32 tag = 2;
+	required int32 value = 3;
+}
+
+message RemoveSpectators {
+	enum PacketID {
+		ID_aca2 = 26;
+	}
+
+	repeated pegasus.pegasusshared.BnetId target_gameaccount_ids = 1;
+	optional bool kick_all_spectators = 2 [default = false];
+	optional bool regenerate_spectator_password = 3 [default = false];
+}
+
+message ServerResult {
+	enum Code {
+		RESULT_OK = 0;
+		RESULT_RETRY = 1;
+		RESULT_NOT_EXISTS = 2;
+	}
+
+	enum Constants {
+		DEFAULT_RETRY_SECONDS = 2;
+	}
+
+	enum PacketID {
+		ID_a124 = 23;
+	}
+
+	required int32 result_code = 1;
+	optional float retry_delay_seconds = 2;
+}
+
+message SpectatorChange {
+	required pegasus.pegasusshared.BnetId game_account_id = 1;
+	required bool is_removed = 2;
+}
+
+message SpectatorHandshake {
+	enum PacketID {
+		ID_a06c = 22;
+	}
+
+	required int32 game_handle = 1;
+	required string password = 2;
+	required string version = 3;
+	required pegasus.pegasusshared.Platform platform = 4;
+	required pegasus.pegasusshared.BnetId game_account_id = 5;
+}
+
+message SpectatorNotify {
+	enum PacketID {
+		ID_a6b9 = 24;
+	}
+
+	required int32 player_id = 1;
+	optional ChooseOption choose_option = 2;
+	repeated SpectatorChange spectator_change = 4;
+	optional string spectator_password_update = 5;
+	optional SpectatorRemoved spectator_removed = 6;
+}
+
+message SpectatorRemoved {
+	enum SpectatorRemovedReason {
+		SPECTATOR_REMOVED_REASON_KICKED = 0;
+		SPECTATOR_REMOVED_REASON_GAMEOVER = 1;
+	}
+
+	required int32 reason_code = 1;
+	optional pegasus.pegasusshared.BnetId removed_by = 2;
+}
+
+message SubOption {
+	required int32 id = 1;
+	repeated int32 targets = 3 [packed=true];
+}
+
+message Tag {
+	required int32 name = 1;
+	required int32 value = 2;
+}
+
+message TurnTimer {
+	enum PacketID {
+		ID_afff = 9;
+	}
+
+	required int32 seconds = 1;
+	required int32 turn = 2;
+	required bool show = 3;
+}
+
+message UserUI {
+	enum PacketID {
+		ID_a652 = 15;
+	}
+
+	optional MouseInfo mouse_info = 1;
+	optional int32 emote = 2;
+	optional int32 player_id = 3;
+}
+
