@@ -45,7 +45,7 @@ namespace SabberStoneCore.Kettle
                     {
                         PlayerId = players[0].PlayerId,
                         AccountId = 12718623,
-                        CardBack = 100,
+                        CardBack = 0,
                         PowerEntity = new PowerEntity
                         {
                             Id = players[0].Id,
@@ -56,7 +56,7 @@ namespace SabberStoneCore.Kettle
                     {
                         PlayerId = players[1].PlayerId,
                         AccountId = 18463223,
-                        CardBack = 100,
+                        CardBack = 0,
                         PowerEntity = new PowerEntity
                         {
                             Id = players[1].Id,

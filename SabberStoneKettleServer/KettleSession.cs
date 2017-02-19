@@ -80,7 +80,7 @@ namespace SabberStoneKettleServer
         {
             var ktags = new Dictionary<int, int>();
 
-            foreach (var tag in ktags)
+            foreach (var tag in tags)
                 ktags.Add((int)tag.Key, tag.Value);
 
             return ktags;
@@ -139,6 +139,10 @@ namespace SabberStoneKettleServer
 
         private void SendPowerHistoryCreateGame(PowerHistoryCreateGame p)
         {
+            p.Game.Tags[GameTag.ZONE] = (int)Zone.PLAY;
+            p.Game.Tags[GameTag.ENTITY_ID] = 1;
+            p.Game.Tags[GameTag.CARDTYPE] = (int)CardType.GAME;
+
             var k = new KettleHistoryCreateGame
             {
                 Game = new KettleEntity
@@ -149,9 +153,12 @@ namespace SabberStoneKettleServer
                 Players = new List<KettlePlayer>(),
             };
 
+            Console.WriteLine("game tags are:");
+            foreach (var tag in k.Game.Tags)
+                Console.WriteLine("key: " + tag.Key + ", value: " + tag.Value);
+
             foreach (var player in p.Players)
             {
-
                 k.Players.Add(new KettlePlayer
                 {
                     Entity = GameEntityToKettleEntity(player.PowerEntity),
@@ -159,6 +166,9 @@ namespace SabberStoneKettleServer
                     CardBack = player.CardBack,
                 });
             }
+
+            Console.WriteLine("card back is :" + k.Players[0].CardBack);
+            Console.WriteLine("card back is :" + k.Players[1].CardBack);
 
             Adapter.SendMessage(k);
         }
