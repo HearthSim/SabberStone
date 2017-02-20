@@ -14,7 +14,7 @@ namespace SabberStoneCore.Model
             : base(game, Card.CardPlayer,
             new Dictionary<GameTag, int>
             {
-                //[GameTag.HERO_ENTITY] = ?,
+                //[GameTag.HERO_ENTITY] = heroId,
                 [GameTag.MAXHANDSIZE] = 10,
                 [GameTag.STARTHANDSIZE] = 4,
                 [GameTag.PLAYER_ID] = playerId,
@@ -35,6 +35,7 @@ namespace SabberStoneCore.Model
         public void AddHeroAndPower(Card heroCard, Card powerCard = null)
         {
             Hero = FromCard(this, heroCard) as Hero;
+            this[GameTag.HERO_ENTITY] = Hero.Id;
             Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.SHOWN_HERO_POWER]),
                 new Dictionary<GameTag, int> {[GameTag.CREATOR] = Hero.Id}) as HeroPower;
         }
