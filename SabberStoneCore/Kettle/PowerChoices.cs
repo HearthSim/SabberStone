@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Kettle
 {
@@ -21,5 +22,13 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerEntityChoices
     {
+        public int Id { get; set; }
+        public ChoiceType ChoiceType { get; set; }
+        public int CountMin { get; set; }
+        public int CountMax { get; set; }
+        public List<int> Entities { get; set; }
+        public int SourceId { get; set; }
+        public int PlayerId { get; set; }
+        public bool HideChosen { get; set; }
     }
 }

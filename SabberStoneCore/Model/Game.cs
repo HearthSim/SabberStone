@@ -135,8 +135,6 @@ namespace SabberStoneCore.Model
                 Player2.Deck.Fill();
             }
 
-            // TODO implement mulligan step Step.BEGIN_MULLIGAN
-
             // first turn
             Turn = 1;
 

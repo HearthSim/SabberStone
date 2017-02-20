@@ -46,6 +46,10 @@ namespace SabberStoneCore.Kettle
             if (list.Any(p => p.PlayerTaskType == PlayerTaskType.END_TURN))
             {
                 result.PowerOptionList.Add(new PowerOption() { OptionType = OptionType.END_TURN });
+                //if (list.Count == 1)
+                //{
+                //    result.PowerOptionList.Add(new PowerOption() { OptionType = OptionType.PASS });
+                //}
             }
 
             var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();

@@ -214,6 +214,18 @@ namespace SabberStoneCore.Model
             if (controller.Game.History)
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 
+            if (result.ChooseOne && id < 0)
+            {
+                FromCard(controller, 
+                    Cards.FromId(result.Card.Id + "a"), 
+                    new Dictionary<GameTag, int> { [GameTag.CREATOR] = result.Id, [GameTag.PARENT_CARD] = result.Id}, 
+                    controller.Setaside);
+                FromCard(controller, 
+                    Cards.FromId(result.Card.Id + "b"), 
+                    new Dictionary<GameTag, int> { [GameTag.CREATOR] = result.Id, [GameTag.PARENT_CARD] = result.Id }, 
+                    controller.Setaside);
+            }
+
             return result;
         }
 
