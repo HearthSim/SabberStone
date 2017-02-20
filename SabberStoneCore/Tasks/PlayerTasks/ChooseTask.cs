@@ -9,15 +9,15 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
     public class ChooseTask : PlayerTask
     {
-        public static ChooseTask Mulligan(Controller controller, List<Card> choices)
+        public static ChooseTask Mulligan(Controller controller, List<int> choices)
         {
             return new ChooseTask(controller, choices);
         }
-        public static ChooseTask Pick(Controller controller, Card choice)
+        public static ChooseTask Pick(Controller controller, int choice)
         {
-            return new ChooseTask(controller, new List<Card> { choice });
+            return new ChooseTask(controller, new List<int> { choice });
         }
-        private ChooseTask(Controller controller, List<Card> choices)
+        private ChooseTask(Controller controller, List<int> choices)
         {
             PlayerTaskType = PlayerTaskType.CHOOSE;
             Game = controller.Game;
@@ -25,7 +25,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             Choices = choices;
         }
 
-        public List<Card> Choices { get; set; }
+        public List<int> Choices { get; set; }
 
         public override TaskState Process()
         {

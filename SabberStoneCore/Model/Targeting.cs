@@ -20,7 +20,7 @@ namespace SabberStoneCore.Model
 
         public Card RefCard => ChooseOneOption > 0 ? ChooseOneCards[ChooseOneOption-1] : Card;
 
-        protected Targeting(Controller controller, Card card, Dictionary<GameTag, int> tags, int id) : base(controller.Game, card, tags, id)
+        protected Targeting(Controller controller, Card card, Dictionary<GameTag, int> tags) : base(controller.Game, card, tags)
         {
             Controller = controller;
         }

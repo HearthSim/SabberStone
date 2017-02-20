@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -89,6 +90,19 @@ namespace SabberStoneCore.Kettle
                 }
             };
         }
+
+        public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
+        {
+            return new PowerHistoryShowEntity
+            {
+                Entity = new PowerHistoryEntity
+                {
+                    Id = playable.Id,
+                    Name = playable.Card.Id,
+                    Tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+                }
+            };
+        }
     }
 
     public interface IPowerHistoryEntry
@@ -137,7 +151,12 @@ namespace SabberStoneCore.Kettle
     {
         public PowerType PowerType => PowerType.SHOW_ENTITY;
         public PowerHistoryEntity Entity { get; set; }
-        public string Print() => "";
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType} - Updating Entity = [{Entity.Print()}]");
+            return str.ToString();
+        }
     }
 
     //message PowerHistoryTagChange
@@ -156,7 +175,9 @@ namespace SabberStoneCore.Kettle
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine($"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
+            str.AppendLine(Model.Tag.TypedTags.ContainsKey(Tag)
+                ? $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Enum.GetName(Model.Tag.TypedTags[Tag], (int)Value)}"
+                : $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
             return str.ToString();
         }
     }
@@ -178,7 +199,9 @@ namespace SabberStoneCore.Kettle
             str.AppendLine($"Id={Id}, Name={Name}, Tags=[");
             foreach (var pair in Tags)
             {
-                str.AppendLine($"      [{pair.Key},{pair.Value}]");
+                str.AppendLine(Tag.TypedTags.ContainsKey(pair.Key)
+                    ? $"      [{pair.Key},{Enum.GetName(Tag.TypedTags[pair.Key], (int) pair.Value)}]"
+                    : $"      [{pair.Key},{pair.Value}]");
             }
             str.Append("]");
             return str.ToString();

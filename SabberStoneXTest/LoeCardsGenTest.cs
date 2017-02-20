@@ -41,11 +41,11 @@ namespace SabberStoneXTest
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
-            Assert.Equal(CardType.MINION, game.CurrentPlayer.Choice.Choices[0].Type);
+            Assert.Equal(CardType.MINION, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
-            Assert.Equal(CardType.SPELL, game.CurrentPlayer.Choice.Choices[0].Type);
+            Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
         }
@@ -305,7 +305,7 @@ namespace SabberStoneXTest
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Conjurer"));
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(CardType.SPELL, game.CurrentPlayer.Choice.Choices[0].Type);
+            Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
         }
@@ -1303,7 +1303,7 @@ namespace SabberStoneXTest
             Assert.NotEqual(null, game.CurrentPlayer.Choice);
 		    var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(choice, game.CurrentPlayer.Hero.Power.Card);
+            Assert.Equal(choice, game.CurrentPlayer.Hero.Power.Id);
 
         }
 

@@ -9,13 +9,12 @@ namespace SabberStoneCore.Model
 {
     public interface IEntity : IEnumerable<KeyValuePair<GameTag, int>>
     {
-        int Id { get; set; }
+        int Id { get; }
         int OrderOfPlay { get; }
         Game Game { get; set; }
         Card Card { get; }
         Controller Controller { get; set; }
         IZone Zone { get; set; }
-        //int Cost { get; set; }
         int this[GameTag t] { get; set; }
 
         void Reset();
@@ -30,24 +29,9 @@ namespace SabberStoneCore.Model
     {
         internal readonly EntityData _data;
 
-        public int Id
-        {
-            get { return _data.Id; }
-            set { _data.Id = value; }
-        }
-
         public int OrderOfPlay { get; protected set; }
 
-        private Controller _controller;
-        public Controller Controller
-        {
-            get { return _controller; }
-            set
-            {
-                this[GameTag.CONTROLLER] = value.Id;
-                _controller = value;
-            }
-        }
+        public Controller Controller { get; set; }
 
         public Game Game { get; set; }
 
@@ -61,10 +45,10 @@ namespace SabberStoneCore.Model
 
         public Card[] ChooseOneCards { get; } = new Card[2];
 
-        protected internal Entity(Game game, Card card, Dictionary<GameTag, int> tags, int id)
+        protected internal Entity(Game game, Card card, Dictionary<GameTag, int> tags)
         {
             Game = game;
-            _data = new EntityData(card, tags, id);
+            _data = new EntityData(card, tags);
 
             if (ChooseOne)
             {
@@ -113,9 +97,11 @@ namespace SabberStoneCore.Model
         {
             _data[tag] = value;
 
-            // add power history tag change
-            if (Game.History)
-                Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
+            // don't log if no history or zones with out positional changes
+            if (!Game.History || tag == GameTag.ZONE_POSITION && (Zone.Type != Enums.Zone.PLAY || Zone.Type != Enums.Zone.HAND))
+                return;
+
+            Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 
         public int this[GameTag t]
@@ -171,48 +157,50 @@ namespace SabberStoneCore.Model
 
         public static IPlayable FromCard(Controller controller, Card card, Dictionary<GameTag, int> tags = null, IZone zone = null, int id = -1)
         {
-            var nextId = id > 0 ? id : controller.Game.NextId;
-
-           var startTags = new Dictionary<GameTag, int>
-            {
-                [GameTag.ENTITY_ID] = nextId,
-                [GameTag.CONTROLLER] = controller?.Id ?? 0,
-                [GameTag.ZONE] = zone != null? (int)zone.Type : 0,
-                [GameTag.CARD_ID] = card.AssetId
-            };
+            tags = tags ?? new Dictionary<GameTag, int>();
+            tags[GameTag.ENTITY_ID] = id > 0 ? id : controller.Game.NextId;
+            tags[GameTag.CONTROLLER] = controller?.Id ?? 0;
+            tags[GameTag.ZONE] = zone != null ? (int) zone.Type : 0;
+            tags[GameTag.CARD_ID] = card.AssetId;
 
             IPlayable result = null;
             switch (card.Type)
             {
                 case CardType.MINION:
-                    result = new Minion(controller, zone, card, startTags, nextId);
+                    result = new Minion(controller, card, tags);
                     break;
 
                 case CardType.SPELL:
-                    result = new Spell(controller, zone, card, startTags, nextId);
+                    result = new Spell(controller, card, tags);
                     break;
 
                 case CardType.WEAPON:
-                    result = new Weapon(controller, zone, card, startTags, nextId);
+                    result = new Weapon(controller, card, tags);
                     break;
 
                 case CardType.HERO:
-                    result = new Hero(controller, card, startTags, nextId);
+                    result = new Hero(controller, card, tags);
                     break;
 
                 case CardType.HERO_POWER:
-                    result = new HeroPower(controller, card, startTags, nextId);
+                    result = new HeroPower(controller, card, tags);
                     break;
 
                 default:
                     throw new EntityException($"Couldn't create entity, because of an unknown cardType {card.Type}.");
             }
 
+            // add entity to the game dic
             controller.Game.IdEntityDic.Add(result.Id, result);
 
             // add power history full entity 
             if (controller.Game.History)
+            {
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
+            }
+
+            // add entity to the appropriate zone if it was given
+            zone?.Add(result);
 
             if (result.ChooseOne && id < 0)
             {
@@ -247,6 +235,8 @@ namespace SabberStoneCore.Model
 
     public partial class Entity
     {
+        public int Id => _data[GameTag.ENTITY_ID];
+
         public bool TurnStart
         {
             get { return this[GameTag.TURN_START] == 1; }

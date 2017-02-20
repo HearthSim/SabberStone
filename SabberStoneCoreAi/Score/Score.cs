@@ -8,7 +8,7 @@ namespace SabberStoneCoreAi.Score
     public interface IScore
     {
         Controller Controller { get; set; }
-        Func<List<Card>, List<Card>> MulliganRule();
+        Func<List<IPlayable>, List<int>> MulliganRule();
         int Rate();
     }
 
@@ -57,9 +57,9 @@ namespace SabberStoneCoreAi.Score
             return 0;
         }
 
-        public virtual Func<List<Card>, List<Card>> MulliganRule()
+        public virtual Func<List<IPlayable>, List<int>> MulliganRule()
         {
-            return p => new List<Card>();
+            return p => new List<int>();
         }
     }
 }

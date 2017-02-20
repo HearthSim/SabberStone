@@ -22,8 +22,8 @@ namespace SabberStoneCoreAi
             Console.WriteLine("Starting test setup.");
 
             //OneTurn();
-            //FullGame();
-            RandomGames();
+            FullGame();
+            //RandomGames();
 
             Console.WriteLine("Test end!");
             Console.ReadLine();
@@ -94,8 +94,9 @@ namespace SabberStoneCoreAi
            var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new AggroScore();
 
-            game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices)));
-            game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices)));
+            ;
+            game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
+            game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
 
             game.MainBegin();
 
@@ -143,8 +144,8 @@ namespace SabberStoneCoreAi
             var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new MidRangeScore();
 
-            var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices);
-            var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices);
+            var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
+            var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
 
             Console.WriteLine($"Player1: Mulligan {string.Join(",", mulligan1)}");
             Console.WriteLine($"Player2: Mulligan {string.Join(",", mulligan2)}");

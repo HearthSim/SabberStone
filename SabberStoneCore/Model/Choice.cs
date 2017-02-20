@@ -23,20 +23,23 @@ namespace SabberStoneCore.Model
 
         public ChoiceAction ChoiceAction { get; set; } = ChoiceAction.INVALID;
 
-        public List<Card> Choices { get; set; }
+        public List<int> Choices { get; set; }
+
+        public int SourceId { get; set; }
 
         public void Stamp(Choice choice)
         {
             ChoiceType = choice.ChoiceType;
             ChoiceAction = choice.ChoiceAction;
-            Choices = new List<Card>(choice.Choices);
+            Choices = new List<int>(choice.Choices);
+            SourceId = choice.SourceId;
         }
 
         public string FullPrint()
         {
             var str = new StringBuilder();
             str.Append($"{Controller.Name}[ChoiceType:{ChoiceType}][ChoiceAction:{ChoiceAction}][");
-            Choices.ForEach(p => str.Append($"{p.Id}({p.Cost})"));
+            str.Append(string.Join(",", Choices));
             return str.ToString();
         }
     }

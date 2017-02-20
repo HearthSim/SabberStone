@@ -25,7 +25,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerEntityChoices
     {
-        private static int _index = 1;
+        private static int _index;
         public int Index
         {
             get { return _index; }
@@ -40,12 +40,22 @@ namespace SabberStoneCore.Kettle
         public int PlayerId { get; set; }
         public bool HideChosen { get; set; }
 
-        public List<PowerOption> PowerOptionList { get; set; }
-
         public PowerEntityChoices()
         {
             Index++;
-            Entities = new List<int>();
+        }
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax}");
+            str.AppendLine($" Source={SourceId}");
+            for (var i = 0; i < Entities.Count; i++)
+            {
+                str.AppendLine($" Entities[{i}]=[{Entities[i]}]");
+            }
+
+            return str.ToString();
         }
     }
 
@@ -53,12 +63,20 @@ namespace SabberStoneCore.Kettle
     {
         public static PowerEntityChoices EntityChoices(Choice choice)
         {
-            var result = new PowerEntityChoices
+            if (choice == null)
             {
-                ChoiceType = choice.ChoiceType
+                return null;
+            }
+            return new PowerEntityChoices
+            {
+                ChoiceType = choice.ChoiceType,
+                Entities = new List<int>(choice.Choices),
+                CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
+                CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
+                PlayerId = choice.Controller.PlayerId,
+                SourceId = choice.SourceId,
+                HideChosen = choice.ChoiceType != ChoiceType.GENERAL
             };
-
-            return result;
         }
     }
 }

@@ -236,16 +236,18 @@ namespace SabberStoneXTest
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Klaxxi Amber-Weaver"));
             var buffer1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer1));
-            Assert.Equal(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
-            Assert.Equal(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            var proxyCthun1 = game.IdEntityDic[buffer1.Controller.ProxyCthun];
+            Assert.Equal(9, ((Minion)proxyCthun1).Health);
+            Assert.Equal(9, ((Minion)proxyCthun1).AttackDamage);
 		    game.CurrentPlayer.UsedMana = 0;
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
             Assert.Equal(5, ((Minion)testCard1).Health);
             game.CurrentPlayer.UsedMana = 0;
             var buffer2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer2));
-            Assert.Equal(12, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
-            Assert.Equal(12, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+            var proxyCthun2 = game.IdEntityDic[buffer2.Controller.ProxyCthun];
+            Assert.Equal(12, ((Minion)proxyCthun2).Health);
+            Assert.Equal(12, ((Minion)proxyCthun2).AttackDamage);
             game.CurrentPlayer.UsedMana = 0;
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
             Assert.Equal(10, ((Minion)testCard2).Health);
@@ -307,8 +309,9 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Dark Arakkoa"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(9, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
-            Assert.Equal(9, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
+		    var proxyCthun = game.IdEntityDic[testCard.Controller.ProxyCthun];
+            Assert.Equal(9, ((Minion)proxyCthun).Health);
+            Assert.Equal(9, ((Minion)proxyCthun).AttackDamage);
         }
 
 		// ----------------------------------------- MINION - DRUID

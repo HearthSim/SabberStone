@@ -5,8 +5,8 @@ namespace SabberStoneCore.Model
 {
     public partial class Weapon : Playable<Weapon>
     {
-        public Weapon(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, zone, card, tags, id)
+        public Weapon(Controller controller, Card card, Dictionary<GameTag, int> tags)
+            : base(controller, card, tags)
         {
             Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
         }

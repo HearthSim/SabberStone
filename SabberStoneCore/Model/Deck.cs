@@ -11,11 +11,6 @@ namespace SabberStoneCore.Model
         {
         }
 
-        public void Add(Card card)
-        {
-            Add(Entity.FromCard(Controller, card, null, this));
-        }
-
         public void Fill()
         {
             var cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
@@ -26,7 +21,7 @@ namespace SabberStoneCore.Model
             {
                 var card = Util<Card>.Choose(cards);
                 if (cards.Count(c => c == card) >= card.MaxAllowedInDeck) continue;
-                Add(card);
+                Entity.FromCard(Controller, card, null, this);
                 cardsToAdd--;
             }
         }

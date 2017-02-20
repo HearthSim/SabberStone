@@ -67,6 +67,7 @@ namespace SabberStoneKettleServer
                         StartPlayer = 1,
                         Player1HeroClass = CardClass.PRIEST,
                         Player2HeroClass = CardClass.HUNTER,
+                        SkipMulligan = false,
                         FillDecks = true
                     });
 
@@ -74,8 +75,12 @@ namespace SabberStoneKettleServer
             _game.StartGame();
             SendPowerHistory(_game.PowerHistory.Last);
 
-            // And then we send the options to the player
-            //SendOptions(PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options()));
+            // getting choices mulligan choices for players ...
+            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game.Player1.Choice);
+            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game.Player2.Choice);
+
+            // getting options for currentPlayer ...
+            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
         }
 
         private Dictionary<int, int> GameTagsToKettleTags(Dictionary<GameTag, int> tags)
