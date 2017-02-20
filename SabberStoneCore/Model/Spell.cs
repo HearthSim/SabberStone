@@ -5,8 +5,8 @@ namespace SabberStoneCore.Model
 {
     public class Spell : Playable<Spell>
     {
-        public Spell(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, card, tags, id)
+        public Spell(Controller controller, Card card, Dictionary<GameTag, int> tags)
+            : base(controller, card, tags)
         {
             Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Spell", $"{card.Name} ({card.Class}) was created.");
         }

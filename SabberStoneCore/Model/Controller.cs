@@ -10,7 +10,8 @@ namespace SabberStoneCore.Model
 {
     public partial class Controller : Entity
     {
-        public Controller(Game game, string name, int playerId, int id) : base(game, Card.CardPlayer,
+        public Controller(Game game, string name, int playerId, int id) 
+            : base(game, Card.CardPlayer,
             new Dictionary<GameTag, int>
             {
                 //[GameTag.HERO_ENTITY] = ?,
@@ -24,7 +25,7 @@ namespace SabberStoneCore.Model
                 [GameTag.MAXRESOURCES] = 10,
                 [GameTag.CARDTYPE] = (int) CardType.PLAYER
 
-            }, id)
+            })
         {
             Name = name;
             Zones = new Zones(game, this);

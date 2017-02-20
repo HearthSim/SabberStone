@@ -11,8 +11,8 @@ namespace SabberStoneCore.Model
 
         public Weapon Weapon { get; set; }
 
-        public Hero(Controller controller, Card card, Dictionary<GameTag, int> tags, int id) 
-            : base(controller, card, tags, id)
+        public Hero(Controller controller, Card card, Dictionary<GameTag, int> tags) 
+            : base(controller, card, tags)
         {
             Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", $"{card.Name} ({card.Class}) was created.");
         }

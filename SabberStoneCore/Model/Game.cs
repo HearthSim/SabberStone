@@ -78,12 +78,13 @@ namespace SabberStoneCore.Model
 
         public List<Game> Splits { get; set; } = new List<Game>();
 
-        public Game(GameConfig gameConfig, bool setupHeroes = true) : base(null, Card.CardGame, new Dictionary<GameTag, int>
+        public Game(GameConfig gameConfig, bool setupHeroes = true) 
+            : base(null, Card.CardGame, new Dictionary<GameTag, int>
         {
             [GameTag.ENTITY_ID] = 1,
             [GameTag.ZONE] = (int)Enums.Zone.PLAY,
             [GameTag.CARDTYPE] = (int)CardType.GAME
-        }, 1)
+        })
         {
             _gameConfig = gameConfig;
             Game = this;

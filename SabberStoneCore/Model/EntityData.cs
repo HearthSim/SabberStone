@@ -9,11 +9,10 @@ namespace SabberStoneCore.Model
 {
     internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>
     {
-        internal EntityData(Card card, Dictionary<GameTag, int> tags, int id)
+        internal EntityData(Card card, Dictionary<GameTag, int> tags)
         {
             Card = card;
             Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-            Id = id;
         }
 
         public void Stamp(EntityData data)
@@ -42,12 +41,6 @@ namespace SabberStoneCore.Model
             });
             hash.Append("]");
             return hash;
-        }
-
-        public int Id
-        {
-            get { return this[GameTag.ENTITY_ID]; }
-            set { this[GameTag.ENTITY_ID] = value; }
         }
 
         public Card Card { get; }

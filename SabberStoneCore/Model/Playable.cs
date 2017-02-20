@@ -30,7 +30,8 @@ namespace SabberStoneCore.Model
 
     public abstract partial class Playable<T> : Targeting, IPlayable where T : Entity
     {
-        protected Playable(Controller controller, Card card, Dictionary<GameTag, int> tags, int id) : base(controller, card, tags, id)
+        protected Playable(Controller controller, Card card, Dictionary<GameTag, int> tags) 
+            : base(controller, card, tags)
         {
 
             if (Card.Enchantments != null)
