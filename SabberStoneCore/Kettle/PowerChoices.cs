@@ -25,7 +25,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerEntityChoices
     {
-        private static int _index = 1;
+        private static int _index;
         public int Index
         {
             get { return _index; }
@@ -48,10 +48,11 @@ namespace SabberStoneCore.Kettle
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax} Source={SourceId}");
+            str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax}");
+            str.AppendLine($" Source={SourceId}");
             for (var i = 0; i < Entities.Count; i++)
             {
-                str.Append($"Entities[{i}]=[{Entities[i]}]");
+                str.AppendLine($" Entities[{i}]=[{Entities[i]}]");
             }
 
             return str.ToString();
@@ -69,7 +70,7 @@ namespace SabberStoneCore.Kettle
                 CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
                 CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
                 PlayerId = choice.Controller.PlayerId,
-                SourceId = 0,
+                SourceId = choice.SourceId,
                 HideChosen = choice.ChoiceType != ChoiceType.GENERAL
             };
             

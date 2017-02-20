@@ -148,8 +148,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, ChoiceType, ChoiceAction, List<int>, bool> CreateChoice
-            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<int> choices)
+        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<int>, bool> CreateChoice
+            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<int> choices)
             {
                 if (c.Choice != null)
                 {
@@ -161,13 +161,14 @@ namespace SabberStoneCore.Actions
                 {
                     ChoiceType = type,
                     ChoiceAction = action,
-                    Choices = choices
+                    Choices = choices,
+                    SourceId = source.Id
                 };
                 return true;
             };
 
-        public static Func<Controller, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoiceCards
-            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<Card> choices)
+        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoiceCards
+            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<Card> choices)
             {
                 if (c.Choice != null)
                 {
@@ -187,7 +188,8 @@ namespace SabberStoneCore.Actions
                 {
                     ChoiceType = type,
                     ChoiceAction = action,
-                    Choices = choicesIds
+                    Choices = choicesIds,
+                    SourceId = source.Id
                 };
                 return true;
             };

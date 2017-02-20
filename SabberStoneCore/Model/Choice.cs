@@ -25,11 +25,14 @@ namespace SabberStoneCore.Model
 
         public List<int> Choices { get; set; }
 
+        public int SourceId { get; set; }
+
         public void Stamp(Choice choice)
         {
             ChoiceType = choice.ChoiceType;
             ChoiceAction = choice.ChoiceAction;
             Choices = new List<int>(choice.Choices);
+            SourceId = choice.SourceId;
         }
 
         public string FullPrint()

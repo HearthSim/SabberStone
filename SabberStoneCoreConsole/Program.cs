@@ -48,12 +48,17 @@ namespace SabberStoneCoreConsole
                         Cards.FromName("Raven Idol")
                     },
                     Player2HeroClass = CardClass.MAGE,
+                    SkipMulligan = false,
                     Shuffle = false,
                     FillDecks = true
                 });
             game.StartGame();
-            Console.Write("*** - START GAME - ***");
-            Console.Write(game.PowerHistory.Print(false));
+            Console.WriteLine("*** - START GAME - ***");
+            //Console.WriteLine(game.PowerHistory.Print(false));
+            Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
+            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.Player1.Choice).Print());
+            Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
+            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.Player2.Choice).Print());
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
             //Console.Write(game.PowerHistory.Print(false));
@@ -63,18 +68,18 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            while (game.State != State.COMPLETE)
-            {
-                var options = game.CurrentPlayer.Options();
-                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-                options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //while (game.State != State.COMPLETE)
+            //{
+            //    var options = game.CurrentPlayer.Options();
+            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-                Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
-                if (game.CurrentPlayer.Choice != null)
-                    Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.CurrentPlayer.Choice).Print());
-                var option = options[Rnd.Next(options.Count)];
-                game.Process(option);
-            }
+            //    Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
+            //    if (game.CurrentPlayer.Choice != null)
+            //        Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.CurrentPlayer.Choice).Print());
+            //    var option = options[Rnd.Next(options.Count)];
+            //    game.Process(option);
+            //}
 
             ShowLog(game, LogLevel.VERBOSE);
         }

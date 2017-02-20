@@ -192,8 +192,8 @@ namespace SabberStoneCore.Model
         {
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
 
-            Generic.CreateChoice.Invoke(Player1, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
-            Generic.CreateChoice.Invoke(Player2, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
+            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
+            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
 
             Player1.MulliganState = Mulligan.INPUT;
             Player2.MulliganState = Mulligan.INPUT;

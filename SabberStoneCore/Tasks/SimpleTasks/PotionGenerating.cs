@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var minion = Source as Minion;
             if (minion != null && ScriptTags == null)
             {
-                Generic.CreateChoiceCards.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList());
+                Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList());
                 return TaskState.COMPLETE;
 
             }
@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     cardIdList.RemoveAll(p => p == card);
                 }
 
-                Generic.CreateChoiceCards.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList);
+                Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList);
                 return TaskState.COMPLETE;
             }
 
