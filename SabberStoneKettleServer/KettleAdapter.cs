@@ -111,22 +111,17 @@ namespace SabberStoneKettleServer
             }
         }
 
-        private JArray CreateKettlePacket(String name, object payload)
+        private JObject CreateKettlePayload(String name, object payload)
         {
             JObject packet = new JObject();
             packet.Add("Type", name);
-
             packet.Add(name, JObject.FromObject(payload));
 
-            return new JArray(packet);
+            return packet;
         }
 
-        private void SendPacket(String name, object payload)
+        private void SendPacket(JArray packet)
         {
-            Console.WriteLine("Sending packet with type " + name + ".");
-            // Create a kettle packet to serialize
-            JArray packet = CreateKettlePacket(name, payload);
-
             // Get the corresponding json string 
             String data = Newtonsoft.Json.JsonConvert.SerializeObject(packet);
 
@@ -138,39 +133,54 @@ namespace SabberStoneKettleServer
             Writer.Write(System.Text.Encoding.UTF8.GetBytes(data));
         }
 
-        public void SendMessage(KettleHistoryTagChange message)
+        public void SendMessage(JObject payload)
         {
-            SendPacket("HistoryTagChange", message);
+            SendPacket(new JArray(payload));
         }
 
-        public void SendMessage(KettleHistoryCreateGame message)
+        public void SendMessage(List<JObject> payload)
         {
-            SendPacket("HistoryCreateGame", message);
+            SendPacket(new JArray(payload));
         }
 
-        public void SendMessage(KettleHistoryFullEntity message)
+        public JObject CreatePayload(KettleOptionsBlock message)
         {
-            SendPacket("HistoryFullEntity", message);
+            return CreateKettlePayload("OptionsBlock", message);
         }
 
-        public void SendMessage(KettleHistoryShowEntity message)
+        public JObject CreatePayload(KettleHistoryTagChange message)
         {
-            SendPacket("HistoryShowEntity", message);
+            return CreateKettlePayload("HistoryTagChange", message);
         }
 
-        public void SendMessage(KettleHistoryChangeEntity message)
+        public JObject CreatePayload(KettleHistoryCreateGame message)
         {
-            SendPacket("HistoryChangeEntity", message);
+            return CreateKettlePayload("HistoryCreateGame", message);
         }
 
-        public void SendMessage(List<KettleOption> message)
+        public JObject CreatePayload(KettleHistoryFullEntity message)
         {
-            SendPacket("Options", message);
+            return CreateKettlePayload("HistoryFullEntity", message);
         }
 
-        public void SendMessage(KettleEntityChoices message)
+        public JObject CreatePayload(KettleHistoryShowEntity message)
         {
-            SendPacket("EntityChoices", message);
+            return CreateKettlePayload("HistoryShowEntity", message);
+        }
+
+        public JObject CreatePayload(KettleHistoryChangeEntity message)
+        {
+            return CreateKettlePayload("HistoryChangeEntity", message);
+        }
+
+        public JObject CreatePayload(List<KettleOption> message)
+        {
+            return CreateKettlePayload("Options", message);
+        }
+
+        public JObject CreatePayload(KettleEntityChoices message)
+        {
+            return CreateKettlePayload("EntityChoices", message);
         }
     }
 }

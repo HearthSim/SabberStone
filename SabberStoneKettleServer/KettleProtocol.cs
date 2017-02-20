@@ -46,19 +46,19 @@ namespace SabberStoneKettleServer
 
     public class KettleHistoryFullEntity
     {
-        public KettleEntity KettleEntity;
+        public KettleEntity Entity;
         public string Name;
     }
 
     public class KettleHistoryShowEntity
     {
-        public KettleEntity KettleEntity;
+        public KettleEntity Entity;
         public string Name;
     }
 
     public class KettleHistoryChangeEntity
     {
-        public KettleEntity KettleEntity;
+        public KettleEntity Entity;
         public string Name;
     }
 
@@ -77,6 +77,12 @@ namespace SabberStoneKettleServer
         public int Min;
         public int Max;
         public List<int> Choices;
+    }
+
+    public class KettleOptionsBlock
+    {
+        public int ID;
+        public List<KettleOption> Options;
     }
 
     public class KettleOption

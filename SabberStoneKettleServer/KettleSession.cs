@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
+using Newtonsoft.Json.Linq;
 
 namespace SabberStoneKettleServer
 {
@@ -69,11 +70,12 @@ namespace SabberStoneKettleServer
                         FillDecks = true
                     });
 
+            // Start the game and send the following powerhistory to the client
             _game.StartGame();
             SendPowerHistory(_game.PowerHistory.Last);
 
-            // getting options for currentPlayer ...
-            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
+            // And then we send the options to the player
+            //SendOptions(PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options()));
         }
 
         private Dictionary<int, int> GameTagsToKettleTags(Dictionary<GameTag, int> tags)
@@ -104,40 +106,69 @@ namespace SabberStoneKettleServer
             };
         }
 
+        private KettleSubOption GameSubOptionToKettleSubOption(PowerSubOption option)
+        {
+            return new KettleSubOption
+            {
+                ID = option.EntityId,
+                Targets = option.Targets,
+            };
+        }
+
+        private void SendOptions(PowerAllOptions options)
+        {
+            KettleOptionsBlock block = new KettleOptionsBlock();
+            block.ID = options.Index;
+            block.Options = new List<KettleOption>();
+
+            foreach (var option in options.PowerOptionList)
+            {
+                var koption = new KettleOption
+                {
+                    Type = (int)option.OptionType,
+                    MainOption = GameSubOptionToKettleSubOption(option.MainOption),
+                    SubOptions = new List<KettleSubOption>(),
+                };
+
+                foreach (var sub in option.SubOptions)
+                    koption.SubOptions.Add(GameSubOptionToKettleSubOption(sub));
+
+                block.Options.Add(koption);
+            }
+
+            Adapter.SendMessage(Adapter.CreatePayload(block));
+        }
+
         private void SendPowerHistory(List<IPowerHistoryEntry> history)
         {
+            List<JObject> message = new List<JObject>();
             foreach (var entry in history)
             {
-                SendPowerHistoryEntry(entry);
+                switch (entry.PowerType)
+                {
+                    case PowerType.CREATE_GAME:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryCreateGame((PowerHistoryCreateGame)entry)));
+                        break;
+                    case PowerType.FULL_ENTITY:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryFullEntity((PowerHistoryFullEntity)entry)));
+                        break;
+                    //case PowerType.SHOW_ENTITY:
+                    //    message.Add(Adapter.CreatePayload(CreatePowerHistoryShowEntity((PowerHistoryShowEntity)entry)));
+                    //    break;
+                    case PowerType.TAG_CHANGE:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryTagChange((PowerHistoryTagChange)entry)));
+                        break;
+                    /*case PowerType.HIDE_ENTITY:
+                        SendPowerHistoryChangeEntity((SendPowerHistoryChangeEntity)entry);
+                        break;*/
+                    default:
+                        Console.WriteLine("Error, unhandled powertype " + entry.PowerType.ToString());
+                        break;
+                }
             }
+            Adapter.SendMessage(message);
         }
-
-        private void SendPowerHistoryEntry(IPowerHistoryEntry entry)
-        {
-            switch (entry.PowerType)
-            {
-                case PowerType.CREATE_GAME:
-                    SendPowerHistoryCreateGame((PowerHistoryCreateGame)entry);
-                    break;
-                case PowerType.FULL_ENTITY:
-                    SendPowerHistoryFullEntity((PowerHistoryFullEntity)entry);
-                    break;
-                case PowerType.SHOW_ENTITY:
-                    SendPowerHistoryShowEntity((PowerHistoryShowEntity)entry);
-                    break;
-                case PowerType.TAG_CHANGE:
-                    SendPowerHistoryTagChange((PowerHistoryTagChange)entry);
-                    break;
-                /*case PowerType.HIDE_ENTITY:
-                    SendPowerHistoryChangeEntity((SendPowerHistoryChangeEntity)entry);
-                    break;*/
-                default:
-                    Console.WriteLine("Error, unhandled powertype " + entry.PowerType.ToString());
-                    break;
-            }
-        }
-
-        private void SendPowerHistoryCreateGame(PowerHistoryCreateGame p)
+        private KettleHistoryCreateGame CreatePowerHistoryCreateGame(PowerHistoryCreateGame p)
         {
             p.Game.Tags[GameTag.ZONE] = (int)Zone.PLAY;
             p.Game.Tags[GameTag.ENTITY_ID] = 1;
@@ -170,35 +201,35 @@ namespace SabberStoneKettleServer
             Console.WriteLine("card back is :" + k.Players[0].CardBack);
             Console.WriteLine("card back is :" + k.Players[1].CardBack);
 
-            Adapter.SendMessage(k);
+            return k;
         }
 
-        private void SendPowerHistoryFullEntity(PowerHistoryFullEntity p)
+        private KettleHistoryFullEntity CreatePowerHistoryFullEntity(PowerHistoryFullEntity p)
         {
-            Adapter.SendMessage(new KettleHistoryFullEntity
+            return new KettleHistoryFullEntity
             {
                 Name = p.Entity.Name,
-                KettleEntity = GameEntityToKettleEntity(p.Entity),
-            });
+                Entity = GameEntityToKettleEntity(p.Entity),
+            };
         }
 
-        private void SendPowerHistoryShowEntity(PowerHistoryShowEntity p)
+        private KettleHistoryShowEntity SendPowerHistoryShowEntity(PowerHistoryShowEntity p)
         {
-            Adapter.SendMessage(new KettleHistoryShowEntity
+            return new KettleHistoryShowEntity
             {
                 Name = p.Entity.Name,
-                KettleEntity = GameEntityToKettleEntity(p.Entity),
-            });
+                Entity = GameEntityToKettleEntity(p.Entity),
+            };
         }
 
-        private void SendPowerHistoryTagChange(PowerHistoryTagChange p)
+        private KettleHistoryTagChange CreatePowerHistoryTagChange(PowerHistoryTagChange p)
         {
-            Adapter.SendMessage(new KettleHistoryTagChange
+            return new KettleHistoryTagChange
             {
                 EntityID = p.EntityId,
                 Tag = (int)p.Tag,
                 Value = p.Value,
-            });
+            };
         }
 
     }
