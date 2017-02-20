@@ -18,13 +18,25 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerAllOptions
     {
-        public int EntityId;
+        private static int _index = 1;
+        public int Index
+        {
+            get { return _index; }
+            private set { _index = value; }
+        }
 
-        public List<PowerOption> PowerOptionList { get; set; } = new List<PowerOption>();
+        public List<PowerOption> PowerOptionList { get; set; }
+
+        public PowerAllOptions()
+        {
+            Index++;
+            PowerOptionList = new List<PowerOption>();
+        }
 
         public string Print()
         {
             var str = new StringBuilder();
+            str.AppendLine($"PowerOption index={Index}");
             for (var i = 0; i < PowerOptionList.Count; i++)
             {
                 str.Append($"option {i} {PowerOptionList[i].Print()}");
@@ -36,12 +48,9 @@ namespace SabberStoneCore.Kettle
 
     public class PowerOptionsBuilder
     {
-        public static PowerAllOptions AllOptions(int entityId, List<PlayerTask> list)
+        public static PowerAllOptions AllOptions(List<PlayerTask> list)
         {
-            var result = new PowerAllOptions()
-            {
-                EntityId = entityId
-            };
+            var result = new PowerAllOptions();
 
             if (list.Any(p => p.PlayerTaskType == PlayerTaskType.END_TURN))
             {

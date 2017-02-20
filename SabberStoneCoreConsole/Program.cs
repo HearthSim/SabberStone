@@ -65,9 +65,9 @@ namespace SabberStoneCoreConsole
             while (game.State != State.COMPLETE)
             {
                 var options = game.CurrentPlayer.Options();
-                //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-                //options.ForEach(p => Console.WriteLine(p.FullPrint()));
-                //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, options).Print());
+                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                options.ForEach(p => Console.WriteLine(p.FullPrint()));
+                Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
                 var option = options[Rnd.Next(options.Count)];
                 game.Process(option);
             }
