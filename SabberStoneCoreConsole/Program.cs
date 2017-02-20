@@ -54,7 +54,7 @@ namespace SabberStoneCoreConsole
                 });
             game.StartGame();
             Console.WriteLine("*** - START GAME - ***");
-            //Console.WriteLine(game.PowerHistory.Print(false));
+            Console.WriteLine(game.PowerHistory.Print(false));
             Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
             Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.Player1.Choice).Print());
             Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");

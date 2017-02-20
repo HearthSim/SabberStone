@@ -97,9 +97,11 @@ namespace SabberStoneCore.Model
         {
             _data[tag] = value;
 
-            // add power history tag change
-            if (Game.History)
-                Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
+            // don't log if no history or zones with out positional changes
+            if (!Game.History || tag == GameTag.ZONE_POSITION && (Zone.Type != Enums.Zone.PLAY || Zone.Type != Enums.Zone.HAND))
+                return;
+
+            Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 
         public int this[GameTag t]

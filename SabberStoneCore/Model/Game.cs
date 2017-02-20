@@ -116,6 +116,15 @@ namespace SabberStoneCore.Model
         {
             Log(LogLevel.INFO, BlockType.PLAY, "Game", "Starting new game now!");
 
+            // setting up the decks ...
+            _gameConfig.DeckPlayer1?.ForEach(p => Entity.FromCard(Player1, p, null, Player1.Deck));
+            _gameConfig.DeckPlayer2?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.Deck));
+            if (_gameConfig.FillDecks)
+            {
+                Player1.Deck.Fill();
+                Player2.Deck.Fill();
+            }
+
             // set gamestats
             State = State.RUNNING;
             _players.ToList().ForEach(p => p.PlayState = PlayState.PLAYING);
@@ -127,14 +136,6 @@ namespace SabberStoneCore.Model
             CurrentPlayer = FirstPlayer;
 
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"Starting Player is {CurrentPlayer.Name}.");
-
-            _gameConfig.DeckPlayer1?.ForEach(p => Entity.FromCard(Player1, p, null, Player1.Deck));
-            _gameConfig.DeckPlayer2?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.Deck));
-            if (_gameConfig.FillDecks)
-            {
-                Player1.Deck.Fill();
-                Player2.Deck.Fill();
-            }
 
             // first turn
             Turn = 1;
@@ -172,14 +173,22 @@ namespace SabberStoneCore.Model
             _players.ToList().ForEach(p =>
             {
 
-                Generic.Draw(p);
-                Generic.Draw(p);
-                Generic.Draw(p);
+                var card1 = Generic.Draw(p);
+                if (History)
+                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card1));
+                var card2 = Generic.Draw(p);
+                if (History)
+                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card2));
+                var card3 = Generic.Draw(p);
+                if (History)
+                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card3));
 
                 if (p != FirstPlayer)
                 {
                     // 4th card for second player
-                    Generic.Draw(p);
+                    var card4 = Generic.Draw(p);
+                    if (History)
+                        PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card4));
                 }
 
                 p.NumTurnsLeft = 1;
@@ -279,7 +288,9 @@ namespace SabberStoneCore.Model
 
         public void MainDraw()
         {
-            Generic.Draw(CurrentPlayer);
+            var card = Generic.Draw(CurrentPlayer);
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card));
 
             // set next step
             NextStep = Step.MAIN_START;
@@ -524,6 +535,7 @@ namespace SabberStoneCore.Model
                 Text = text
             });
         }
+
         public void Log(LogLevel level, BlockType block, string location, string text)
         {
             if (!_gameConfig.Logging)

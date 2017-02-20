@@ -63,7 +63,11 @@ namespace SabberStoneCore.Kettle
     {
         public static PowerEntityChoices EntityChoices(Choice choice)
         {
-            var result = new PowerEntityChoices
+            if (choice == null)
+            {
+                return null;
+            }
+            return new PowerEntityChoices
             {
                 ChoiceType = choice.ChoiceType,
                 Entities = new List<int>(choice.Choices),
@@ -73,8 +77,6 @@ namespace SabberStoneCore.Kettle
                 SourceId = choice.SourceId,
                 HideChosen = choice.ChoiceType != ChoiceType.GENERAL
             };
-            
-            return result;
         }
     }
 }

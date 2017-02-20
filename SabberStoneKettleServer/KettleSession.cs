@@ -66,11 +66,16 @@ namespace SabberStoneKettleServer
                         StartPlayer = 1,
                         Player1HeroClass = CardClass.PRIEST,
                         Player2HeroClass = CardClass.HUNTER,
+                        SkipMulligan = false,
                         FillDecks = true
                     });
 
             _game.StartGame();
             SendPowerHistory(_game.PowerHistory.Last);
+
+            // getting choices mulligan choices for players ...
+            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game.Player1.Choice);
+            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game.Player2.Choice);
 
             // getting options for currentPlayer ...
             var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
