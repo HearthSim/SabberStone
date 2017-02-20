@@ -40,12 +40,21 @@ namespace SabberStoneCore.Kettle
         public int PlayerId { get; set; }
         public bool HideChosen { get; set; }
 
-        public List<PowerOption> PowerOptionList { get; set; }
-
         public PowerEntityChoices()
         {
             Index++;
-            Entities = new List<int>();
+        }
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax} Source={SourceId}");
+            for (var i = 0; i < Entities.Count; i++)
+            {
+                str.Append($"Entities[{i}]=[{Entities[i]}]");
+            }
+
+            return str.ToString();
         }
     }
 
@@ -55,9 +64,15 @@ namespace SabberStoneCore.Kettle
         {
             var result = new PowerEntityChoices
             {
-                ChoiceType = choice.ChoiceType
+                ChoiceType = choice.ChoiceType,
+                Entities = new List<int>(choice.Choices),
+                CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
+                CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
+                PlayerId = choice.Controller.PlayerId,
+                SourceId = 0,
+                HideChosen = choice.ChoiceType != ChoiceType.GENERAL
             };
-
+            
             return result;
         }
     }

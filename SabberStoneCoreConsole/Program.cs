@@ -63,15 +63,18 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            //while (game.State != State.COMPLETE)
-            //{
-            //    var options = game.CurrentPlayer.Options();
-            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
-            //    Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
-            //    var option = options[Rnd.Next(options.Count)];
-            //    game.Process(option);
-            //}
+            while (game.State != State.COMPLETE)
+            {
+                var options = game.CurrentPlayer.Options();
+                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                options.ForEach(p => Console.WriteLine(p.FullPrint()));
+
+                Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
+                if (game.CurrentPlayer.Choice != null)
+                    Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.CurrentPlayer.Choice).Print());
+                var option = options[Rnd.Next(options.Count)];
+                game.Process(option);
+            }
 
             ShowLog(game, LogLevel.VERBOSE);
         }
