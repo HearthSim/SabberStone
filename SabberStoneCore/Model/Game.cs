@@ -127,8 +127,8 @@ namespace SabberStoneCore.Model
 
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"Starting Player is {CurrentPlayer.Name}.");
 
-            _gameConfig.DeckPlayer1?.ForEach(p => Player1.Deck.Add(p));
-            _gameConfig.DeckPlayer2?.ForEach(p => Player2.Deck.Add(p));
+            _gameConfig.DeckPlayer1?.ForEach(p => Entity.FromCard(Player1, p, null, Player1.Deck));
+            _gameConfig.DeckPlayer2?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.Deck));
             if (_gameConfig.FillDecks)
             {
                 Player1.Deck.Fill();
@@ -191,8 +191,8 @@ namespace SabberStoneCore.Model
         {
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
 
-            Generic.CreateChoice.Invoke(Player1, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Card).ToList());
-            Generic.CreateChoice.Invoke(Player2, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Card).ToList());
+            Generic.CreateChoice.Invoke(Player1, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
+            Generic.CreateChoice.Invoke(Player2, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
 
             Player1.MulliganState = Mulligan.INPUT;
             Player2.MulliganState = Mulligan.INPUT;

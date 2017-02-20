@@ -9,8 +9,8 @@ namespace SabberStoneCore.Actions
 {
     public partial class Generic
     {
-        public static Func<Controller, Card, bool> ChoicePick
-            => delegate(Controller c, Card choice)
+        public static Func<Controller, int, bool> ChoicePick
+            => delegate(Controller c, int choice)
             {
                 if (c.Choice.ChoiceType != ChoiceType.GENERAL)
                 {
@@ -24,51 +24,60 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {choice.Name} as choice!");
+                var playable = c.Game.IdEntityDic[choice];
+
+                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
                 if (c.Choice.ChoiceAction == ChoiceAction.HAND)
                 {
-                    var playable = Entity.FromCard(c, choice);
-                    c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                    if (RemoveFromZone(c, playable))
                     {
-                        Game = c.Game,
-                        Controller = c,
-                        Source = playable,
-                        Target = playable
-                    });
-                }
-                else if (c.Choice.ChoiceAction == ChoiceAction.TRACKING)
-                {
-                    var tracked = c.Setaside.First(p => p.Card == choice);
-                    if (RemoveFromZone(c, tracked))
-                    {
-                        c.Game.TaskQueue.Enqueue(new AddCardTo(tracked, EntityType.HAND)
+                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
                         {
                             Game = c.Game,
                             Controller = c,
-                            Source = tracked,
-                            Target = tracked
+                            Source = playable,
+                            Target = playable
+                        });
+                    }
+                }
+                else if (c.Choice.ChoiceAction == ChoiceAction.TRACKING)
+                {
+                    if (RemoveFromZone(c, playable))
+                    {
+                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                        {
+                            Game = c.Game,
+                            Controller = c,
+                            Source = playable,
+                            Target = playable
                         });
                     }
                 }
                 else if (c.Choice.ChoiceAction == ChoiceAction.HEROPOWER)
                 {
-                    var playable = Entity.FromCard(c, choice);
-                    playable[GameTag.CREATOR] = c.Hero.Id;
-                    c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                    if (RemoveFromZone(c, playable))
                     {
-                        Game = c.Game,
-                        Controller = c,
-                        Source = playable,
-                        Target = playable
-                    });
+                        playable[GameTag.CREATOR] = c.Hero.Id;
+                        c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                        {
+                            Game = c.Game,
+                            Controller = c,
+                            Source = playable,
+                            Target = playable
+                        });
+                    }
                 }
                 else if (c.Choice.ChoiceAction == ChoiceAction.KAZAKUS)
                 {
-                    var playable = Entity.FromCard(c, choice);
-                    c.Setaside.Add(playable);
+                    c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
+                    {
+                        c.Game.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+                    });
+                    //c.Setaside.Add(playable);
                     var kazakusPotions =
                         c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+                            .Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
                             .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
                             .ToList();
                     if (kazakusPotions.Any())
@@ -93,8 +102,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, List<Card>, bool> ChoiceMulligan
-            => delegate(Controller c, List<Card> choices)
+        public static Func<Controller, List<int>, bool> ChoiceMulligan
+            => delegate(Controller c, List<int> choices)
             {
                 if (c.Choice.ChoiceType != ChoiceType.MULLIGAN)
                 {
@@ -114,7 +123,7 @@ namespace SabberStoneCore.Actions
 
                         choices.ForEach(p =>
                         {
-                            var mulliganCard = c.Hand.First(t => t.Card == p);
+                            var mulliganCard = c.Hand.First(t => t.Id == p);
                             RemoveFromZone(c, mulliganCard);
                             ShuffleIntoDeck.Invoke(c, mulliganCard);
                         });
@@ -139,8 +148,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoice
-            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<Card> choices)
+        public static Func<Controller, ChoiceType, ChoiceAction, List<int>, bool> CreateChoice
+            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<int> choices)
             {
                 if (c.Choice != null)
                 {
@@ -153,6 +162,32 @@ namespace SabberStoneCore.Actions
                     ChoiceType = type,
                     ChoiceAction = action,
                     Choices = choices
+                };
+                return true;
+            };
+
+        public static Func<Controller, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoiceCards
+            => delegate (Controller c, ChoiceType type, ChoiceAction action, List<Card> choices)
+            {
+                if (c.Choice != null)
+                {
+                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
+                    return false;
+                }
+
+                var choicesIds = new List<int>();
+                choices.ForEach(p =>
+                {
+                    var choiceEntity = Entity.FromCard(c, p);
+                    c.Setaside.Add(choiceEntity);
+                    choicesIds.Add(choiceEntity.Id);
+                });
+
+                c.Choice = new Choice(c)
+                {
+                    ChoiceType = type,
+                    ChoiceAction = action,
+                    Choices = choicesIds
                 };
                 return true;
             };

@@ -67,7 +67,7 @@ namespace SabberStoneCoreAi.Nodes
 
             _endTurn = _game.CurrentPlayer.Id != _playerId ? 1 : 0;
 
-            Hash = _game.Hash(GameTag.LAST_CARD_PLAYED);
+            Hash = _game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
 
             if (IsEndTurn || !IsRunning)
             {

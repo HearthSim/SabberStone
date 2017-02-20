@@ -1213,9 +1213,9 @@ namespace SabberStoneXTest
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Netherspite Historian"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(Race.DRAGON, game.CurrentPlayer.Choice.Choices[0].Race);
-            Assert.Equal(Race.DRAGON, game.CurrentPlayer.Choice.Choices[1].Race);
-            Assert.Equal(Race.DRAGON, game.CurrentPlayer.Choice.Choices[2].Race);
+            Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
+            Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
+            Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card.Race);
             Assert.Equal(1, game.CurrentPlayer.Hand.Count);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(2, game.CurrentPlayer.Hand.Count);

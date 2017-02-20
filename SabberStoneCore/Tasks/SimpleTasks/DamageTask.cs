@@ -46,8 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     : Controller.Hero.SpellPowerDamage;
             }
 
-            IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
-                    Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
+            var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+            entities.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
                         Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
                         spellDmgValue));
             return TaskState.COMPLETE;

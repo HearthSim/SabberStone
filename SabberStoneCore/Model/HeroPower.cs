@@ -6,7 +6,7 @@ namespace SabberStoneCore.Model
     public class HeroPower : Playable<HeroPower>
     {
         public HeroPower(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, null, card, tags, id)
+            : base(controller, card, tags, id)
         {
             Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
         }

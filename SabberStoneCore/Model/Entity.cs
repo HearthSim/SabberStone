@@ -173,46 +173,50 @@ namespace SabberStoneCore.Model
         {
             var nextId = id > 0 ? id : controller.Game.NextId;
 
-           var startTags = new Dictionary<GameTag, int>
-            {
-                [GameTag.ENTITY_ID] = nextId,
-                [GameTag.CONTROLLER] = controller?.Id ?? 0,
-                [GameTag.ZONE] = zone != null? (int)zone.Type : 0,
-                [GameTag.CARD_ID] = card.AssetId
-            };
+            tags = tags ?? new Dictionary<GameTag, int>();
+            tags[GameTag.ENTITY_ID] = nextId;
+            tags[GameTag.CONTROLLER] = controller?.Id ?? 0;
+            tags[GameTag.ZONE] = zone != null ? (int) zone.Type : 0;
+            tags[GameTag.CARD_ID] = card.AssetId;
 
             IPlayable result = null;
             switch (card.Type)
             {
                 case CardType.MINION:
-                    result = new Minion(controller, zone, card, startTags, nextId);
+                    result = new Minion(controller, card, tags, nextId);
                     break;
 
                 case CardType.SPELL:
-                    result = new Spell(controller, zone, card, startTags, nextId);
+                    result = new Spell(controller, card, tags, nextId);
                     break;
 
                 case CardType.WEAPON:
-                    result = new Weapon(controller, zone, card, startTags, nextId);
+                    result = new Weapon(controller, card, tags, nextId);
                     break;
 
                 case CardType.HERO:
-                    result = new Hero(controller, card, startTags, nextId);
+                    result = new Hero(controller, card, tags, nextId);
                     break;
 
                 case CardType.HERO_POWER:
-                    result = new HeroPower(controller, card, startTags, nextId);
+                    result = new HeroPower(controller, card, tags, nextId);
                     break;
 
                 default:
                     throw new EntityException($"Couldn't create entity, because of an unknown cardType {card.Type}.");
             }
 
+            // add entity to the game dic
             controller.Game.IdEntityDic.Add(result.Id, result);
 
             // add power history full entity 
             if (controller.Game.History)
+            {
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
+            }
+
+            // add entity to the appropriate zone if it was given
+            zone?.Add(result);
 
             if (result.ChooseOne && id < 0)
             {

@@ -30,6 +30,7 @@ namespace SabberStoneCoreConsole
             //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             PowerHistoryTest();
+            //Kazakus();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -62,15 +63,17 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            while (game.State != State.COMPLETE)
-            {
-                var options = game.CurrentPlayer.Options();
-                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-                options.ForEach(p => Console.WriteLine(p.FullPrint()));
-                Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
-                var option = options[Rnd.Next(options.Count)];
-                game.Process(option);
-            }
+            //while (game.State != State.COMPLETE)
+            //{
+            //    var options = game.CurrentPlayer.Options();
+            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //    Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
+            //    var option = options[Rnd.Next(options.Count)];
+            //    game.Process(option);
+            //}
+
+            ShowLog(game, LogLevel.VERBOSE);
         }
 
         public static void GameSplitTest()
@@ -189,10 +192,10 @@ namespace SabberStoneCoreConsole
             game.StartGame();
 
             game.Process(ChooseTask.Mulligan(game.Player1, 
-                game.Player1.Choice.Choices.Where(p => p.Cost > 3).ToList()));
+                game.Player1.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
 
             game.Process(ChooseTask.Mulligan(game.Player2,
-                game.Player2.Choice.Choices.Where(p => p.Cost > 3).ToList()));
+                game.Player2.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
 
             game.MainBegin();
 
@@ -293,22 +296,22 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Faerie Dragon"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
         }
 
         public static void Kazakus()
@@ -411,7 +414,7 @@ namespace SabberStoneCoreConsole
 
         public static void OptionsTest()
         {
-            const int total = 10000;
+            const int total = 1000;
             var watch = Stopwatch.StartNew();
 
             var turns = 0;
@@ -440,8 +443,6 @@ namespace SabberStoneCoreConsole
                     var option = options[Rnd.Next(options.Count)];
                     //Console.WriteLine(option.FullPrint());
                     game.Process(option);
-
-
                 }
                 turns += game.Turn;
                 if (game.Player1.PlayState == PlayState.WON)

@@ -36,9 +36,9 @@ namespace SabberStoneCoreAi.Score
             return result;
         }
 
-        public override Func<List<Card>, List<Card>> MulliganRule()
+        public override Func<List<IPlayable>, List<int>> MulliganRule()
         {
-            return p => p.Where(t => t.Cost > 3).ToList();
+            return p => p.Where(t => t.Cost > 3).Select(t => t.Id).ToList();
         }
     }
 }

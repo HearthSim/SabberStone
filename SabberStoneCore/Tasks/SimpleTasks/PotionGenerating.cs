@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var minion = Source as Minion;
             if (minion != null && ScriptTags == null)
             {
-                Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList());
+                Generic.CreateChoiceCards.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList());
                 return TaskState.COMPLETE;
 
             }
@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     cardIdList.RemoveAll(p => p == card);
                 }
 
-                Generic.CreateChoice.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList);
+                Generic.CreateChoiceCards.Invoke(Controller, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList);
                 return TaskState.COMPLETE;
             }
 
@@ -81,6 +81,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Target = Target as IPlayable
             };
             Controller.Game.TaskQueue.Enqueue(task);
+
+            // remove tag script from used kazakus entities
+            foreach (var playables in Controller.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621")))
+            {
+                playables[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+            }
 
             return TaskState.COMPLETE;
         }

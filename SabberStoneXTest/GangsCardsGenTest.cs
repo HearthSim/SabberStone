@@ -1395,7 +1395,7 @@ namespace SabberStoneXTest
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 		    var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(true, game.CurrentOpponent.Deck.Any(p => p.Card.Id == choice.Id));
+            Assert.Equal(true, game.CurrentOpponent.Deck.Any(p => p.Card.Id == game.IdEntityDic[choice].Card.Id));
 
         }
 
@@ -1852,7 +1852,7 @@ namespace SabberStoneXTest
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Finders Keepers"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
-            Assert.Equal(true, game.CurrentPlayer.Choice.Choices[0].HasOverload);
+            Assert.Equal(true, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.HasOverload);
         }
 
 		// ----------------------------------------- SPELL - SHAMAN
@@ -2449,7 +2449,7 @@ namespace SabberStoneXTest
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("I Know a Guy"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
-            Assert.Equal(true, game.CurrentPlayer.Choice.Choices[0][GameTag.TAUNT] == 1);
+            Assert.Equal(true, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]][GameTag.TAUNT] == 1);
         }
 
 		// --------------------------------------- MINION - WARRIOR
@@ -2940,9 +2940,9 @@ namespace SabberStoneXTest
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Grimestreet Informant"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
-            var card1 = game.CurrentPlayer.Choice.Choices[0];
-            var card2 = game.CurrentPlayer.Choice.Choices[1];
-            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
+            var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
+            var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
             Assert.Equal(true, card1.Class == CardClass.HUNTER || card1.MultiClassGroup > 0);
             Assert.Equal(true, card2.Class == CardClass.PALADIN || card2.MultiClassGroup > 0);
             Assert.Equal(true, card3.Class == CardClass.WARRIOR || card3.MultiClassGroup > 0);
@@ -3340,9 +3340,9 @@ namespace SabberStoneXTest
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Courier"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
-            var card1 = game.CurrentPlayer.Choice.Choices[0];
-            var card2 = game.CurrentPlayer.Choice.Choices[1];
-            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
+            var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
+            var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
             Assert.Equal(true, card1.Class == CardClass.MAGE    || card1.MultiClassGroup > 0);
             Assert.Equal(true, card2.Class == CardClass.PRIEST  || card2.MultiClassGroup > 0);
             Assert.Equal(true, card3.Class == CardClass.WARLOCK || card3.MultiClassGroup > 0);
@@ -4140,9 +4140,9 @@ namespace SabberStoneXTest
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lotus Agents"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
-		    var card1 = game.CurrentPlayer.Choice.Choices[0];
-            var card2 = game.CurrentPlayer.Choice.Choices[1];
-            var card3 = game.CurrentPlayer.Choice.Choices[2];
+            var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
+            var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
+            var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
             Assert.Equal(true, card1.Class == CardClass.DRUID  || card1.MultiClassGroup > 0);
             Assert.Equal(true, card2.Class == CardClass.ROGUE  || card2.MultiClassGroup > 0);
             Assert.Equal(true, card3.Class == CardClass.SHAMAN || card3.MultiClassGroup > 0);

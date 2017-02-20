@@ -1097,7 +1097,10 @@ namespace SabberStoneXTest
             Assert.Equal(true, game.CurrentPlayer.Choice != null);
             Assert.Equal(3, game.CurrentPlayer.Choice?.Choices.Count);
             Assert.Equal(4, game.CurrentPlayer.Hand.Count);
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice?.Choices[0]));
+            if (game.CurrentPlayer.Choice != null)
+            {
+                game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            }
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
         }
 

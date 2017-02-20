@@ -5,8 +5,8 @@ namespace SabberStoneCore.Model
 {
     public partial class Minion : Character<Minion>
     {
-        public Minion(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, zone, card, tags, id)
+        public Minion(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
+            : base(controller, card, tags, id)
         {
             Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
         }

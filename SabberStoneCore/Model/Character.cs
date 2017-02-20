@@ -18,8 +18,8 @@ namespace SabberStoneCore.Model
 
     public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
     {
-        protected Character(Controller controller, IZone zone, Card card, Dictionary<GameTag, int> tags, int id)
-            : base(controller, zone, card, tags, id)
+        protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags, int id)
+            : base(controller, card, tags, id)
         {
         }
 
