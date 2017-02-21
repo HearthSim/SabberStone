@@ -177,23 +177,14 @@ namespace SabberStoneCore.Model
 
             _players.ToList().ForEach(p =>
             {
-
-                var card1 = Generic.Draw(p);
-                if (History)
-                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card1));
-                var card2 = Generic.Draw(p);
-                if (History)
-                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card2));
-                var card3 = Generic.Draw(p);
-                if (History)
-                    PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card3));
+                Generic.Draw(p);
+                Generic.Draw(p);
+                Generic.Draw(p);
 
                 if (p != FirstPlayer)
                 {
                     // 4th card for second player
-                    var card4 = Generic.Draw(p);
-                    if (History)
-                        PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card4));
+                    Generic.Draw(p);
                 }
 
                 p.NumTurnsLeft = 1;
@@ -298,9 +289,7 @@ namespace SabberStoneCore.Model
 
         public void MainDraw()
         {
-            var card = Generic.Draw(CurrentPlayer);
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card));
+            Generic.Draw(CurrentPlayer);
 
             // set next step
             NextStep = Step.MAIN_START;

@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Actions
 {
@@ -30,8 +31,15 @@ namespace SabberStoneCore.Actions
             {
                 if (!PreDrawPhase.Invoke(c))
                     return null;
+
                 var playable = DrawPhase.Invoke(c, cardToDraw);
+
                 AddHandPhase.Invoke(c, playable);
+
+                // add draw block show entity 
+                if (c.Game.History && playable != null)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
+
                 return playable;
             };
 
