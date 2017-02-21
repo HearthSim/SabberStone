@@ -81,6 +81,7 @@ namespace SabberStoneKettleServer
 
     public class KettleOptionsBlock
     {
+        public int PlayerID;
         public int ID;
         public List<KettleOption> Options;
     }
@@ -108,6 +109,7 @@ namespace SabberStoneKettleServer
 
     public class KettleEntityChoices
     {
+        public int ID;
         public int ChoiceType;
         public int CountMin;
         public int CountMax;
@@ -120,5 +122,18 @@ namespace SabberStoneKettleServer
     {
         public KettleEntity Game;
         public List<KettlePlayer> Players;
+    }
+
+    public class KettleHistoryBlockBegin
+    {
+        public int Index;
+        public int Source;
+        public int Target;
+        public int Type;
+        public string EffectCardId;
+    }
+
+    public class KettleHistoryBlockEnd
+    {
     }
 }
