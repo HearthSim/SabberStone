@@ -99,11 +99,9 @@ namespace SabberStoneCore.Model
                 _players[1].AddHeroAndPower(Cards.HeroCard(gameConfig.Player2HeroClass));
             }
 
-
             // add power history create game
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
-
 
             TaskQueue = new TaskQueue(this);
             TaskStack = new TaskStack(this);
@@ -131,6 +129,10 @@ namespace SabberStoneCore.Model
             // set gamestats
             State = State.RUNNING;
             _players.ToList().ForEach(p => p.PlayState = PlayState.PLAYING);
+
+            // starting mulligan draw block
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
 
             // getting first player
             FirstPlayer = _gameConfig.StartPlayer < 0
@@ -198,11 +200,16 @@ namespace SabberStoneCore.Model
             });
 
             NextStep = _gameConfig.SkipMulligan ? Step.MAIN_BEGIN : Step.BEGIN_MULLIGAN;
+            
         }
 
         public void BeginMulligan()
         {
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
+
+            // ending mulligan draw block
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
             Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());

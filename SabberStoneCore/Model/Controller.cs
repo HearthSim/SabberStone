@@ -35,7 +35,7 @@ namespace SabberStoneCore.Model
         public void AddHeroAndPower(Card heroCard, Card powerCard = null)
         {
             Hero = FromCard(this, heroCard) as Hero;
-            this[GameTag.HERO_ENTITY] = Hero.Id;
+            HeroId = Hero.Id;
             Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.SHOWN_HERO_POWER]),
                 new Dictionary<GameTag, int> {[GameTag.CREATOR] = Hero.Id}) as HeroPower;
         }
@@ -233,6 +233,12 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.PLAYER_ID]; }
             set { this[GameTag.PLAYER_ID] = value; }
+        }
+
+        public int HeroId
+        {
+            get { return this[GameTag.HERO_ENTITY]; }
+            set { this[GameTag.HERO_ENTITY] = value; }
         }
 
         public PlayState PlayState

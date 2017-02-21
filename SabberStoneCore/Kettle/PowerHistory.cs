@@ -7,28 +7,6 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Kettle
 {
-    public class PowerHistory
-    {
-        public List<IPowerHistoryEntry> Full { get; } = new List<IPowerHistoryEntry>();
-        public List<IPowerHistoryEntry> Last { get; } = new List<IPowerHistoryEntry>();
-
-        public void Add(IPowerHistoryEntry entry)
-        {
-            Full.Add(entry);
-            Last.Add(entry);
-        }
-
-        public string Print(bool fullFlag = true)
-        {
-            var str = new StringBuilder();
-            if (fullFlag)
-                Full.ForEach(p => str.Append(p.Print()));
-            else
-                Last.ForEach(p => str.Append(p.Print()));
-            return str.ToString();
-        }
-    }
-
     public class PowerHistoryBuilder
     {
         public static PowerHistoryCreateGame CreateGame(Game game, Controller[] players)
@@ -103,8 +81,67 @@ namespace SabberStoneCore.Kettle
                 }
             };
         }
+
+        public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target)
+        {
+            return new PowerHistoryBlockStart
+            {
+                BlockType = blockType,
+                Source = source,
+                EffectCardId = effectCardId,
+                Index = index,
+                Target = target
+            };
+        }
+
+        public static PowerHistoryBlockEnd BlockEnd()
+        {
+            return new PowerHistoryBlockEnd();
+        }
     }
 
+    //message PowerHistory
+    //{
+    //    enum PacketID
+    //    {
+    //        ID_acd5 = 19;
+    //    }
+    //    repeated PowerHistoryData list = 1;
+    //}
+    public class PowerHistory
+    {
+        public List<IPowerHistoryEntry> Full { get; } = new List<IPowerHistoryEntry>();
+        public List<IPowerHistoryEntry> Last { get; } = new List<IPowerHistoryEntry>();
+
+        public void Add(IPowerHistoryEntry entry)
+        {
+            Full.Add(entry);
+            Last.Add(entry);
+        }
+
+        public string Print(bool fullFlag = true)
+        {
+            var str = new StringBuilder();
+            if (fullFlag)
+                Full.ForEach(p => str.Append(p.Print()));
+            else
+                Last.ForEach(p => str.Append(p.Print()));
+            return str.ToString();
+        }
+    }
+
+    //message PowerHistoryData
+    //{
+    //    optional PowerHistoryEntity full_entity = 1;
+    //    optional PowerHistoryEntity show_entity = 2;
+    //    optional PowerHistoryHide hide_entity = 3;
+    //    optional PowerHistoryTagChange tag_change = 4;
+    //    optional PowerHistoryCreateGame create_game = 5;
+    //    optional PowerHistoryStart power_start = 6;
+    //    optional PowerHistoryEnd power_end = 7;
+    //    optional PowerHistoryMetaData meta_data = 8;
+    //    optional PowerHistoryEntity change_entity = 9;
+    //}
     public interface IPowerHistoryEntry
     {
         PowerType PowerType { get; }
@@ -130,6 +167,46 @@ namespace SabberStoneCore.Kettle
             {
                 str.AppendLine($" - Player Entity = [{player.Print()}]");
             }
+            return str.ToString();
+        }
+    }
+
+    //message PowerHistoryStart
+    //{
+    //    required HistoryBlock.Type type = 1;
+    //    required int32 index = 2;
+    //    required int32 source = 3;
+    //    required int32 target = 4;
+    //    optional string effect_card_id = 5;
+    //}
+    public class PowerHistoryBlockStart : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.BLOCK_START;
+        public BlockType BlockType { get; set; }
+        public int Index { get; set; } = -1;
+        public int Source { get; set; }
+        public int Target { get; set; } = 0;
+        public string EffectCardId { get; set; } = "";
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType} {BlockType} Entity=[{Source}] EffectCardId={EffectCardId} EffectIndex={Index} Target={Target}");
+            return str.ToString();
+        }
+    }
+
+    //message PowerHistoryEnd
+    //{
+    //}
+    public class PowerHistoryBlockEnd : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.BLOCK_END;
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType}");
             return str.ToString();
         }
     }
@@ -187,6 +264,11 @@ namespace SabberStoneCore.Kettle
     //    required int32 entity = 1;
     //    required string name = 2;
     //    repeated Tag tags = 3;
+    //}
+    //message Tag
+    //{
+    //    required int32 name = 1;
+    //    required int32 value = 2;
     //}
     public class PowerHistoryEntity
     {
