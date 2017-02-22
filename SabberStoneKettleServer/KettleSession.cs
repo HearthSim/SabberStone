@@ -73,8 +73,8 @@ namespace SabberStoneKettleServer
 
             // Start the game and send the following powerhistory to the client
             _game.StartGame();
-            SendPowerHistory(_game.PowerHistory.Last);
 
+            SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
         }
 

@@ -25,13 +25,9 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerEntityChoices
     {
-        private static int _index;
-        public int Index
-        {
-            get { return _index; }
-            private set { _index = value; }
-        }
+        private static int _index = 0;
 
+        public int Index { get; set; }
         public ChoiceType ChoiceType { get; set; }
         public int CountMin { get; set; }
         public int CountMax { get; set; }
@@ -42,7 +38,7 @@ namespace SabberStoneCore.Kettle
 
         public PowerEntityChoices()
         {
-            Index++;
+            Index = ++_index;
         }
 
         public string Print()
