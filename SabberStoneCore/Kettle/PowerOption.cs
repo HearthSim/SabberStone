@@ -76,11 +76,11 @@ namespace SabberStoneCore.Kettle
 
                 for (var i = 1; i < 3; i++)
                 {
-                    var subOptions1 = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
-                    if (subOptions1.Any())
+                    var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
+                    if (subOptions.Any())
                     {
-                        var refCardId = ((IPlayable)subOptions1.First().Source).ChooseOnePlayables[i-1].Id;
-                        var refCardTargets = subOptions1.Where(p => p.Target != null).Select(p => p.Target).ToList();
+                        var refCardId = ((IPlayable)subOptions.First().Source).ChooseOnePlayables[i-1].Id;
+                        var refCardTargets = subOptions.Where(p => p.Target != null).Select(p => p.Target).ToList();
                         mainOption.SubOptions.Add(new PowerSubOption
                         {
                             EntityId = refCardId,

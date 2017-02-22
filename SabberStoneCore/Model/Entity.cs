@@ -89,7 +89,7 @@ namespace SabberStoneCore.Model
         {
             _data[tag] = value;
 
-            if (Game.History && (tag != GameTag.ZONE_POSITION || Zone == null || Zone.Type == Enums.Zone.PLAY || Zone.Type == Enums.Zone.HAND))
+            if (Game.History && (int)tag < 1000) // && (tag != GameTag.ZONE_POSITION || Zone == null || Zone.Type == Enums.Zone.PLAY || Zone.Type == Enums.Zone.HAND))
                 Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 
@@ -150,7 +150,7 @@ namespace SabberStoneCore.Model
             tags[GameTag.ENTITY_ID] = id > 0 ? id : controller.Game.NextId;
             tags[GameTag.CONTROLLER] = controller?.Id ?? 0;
             tags[GameTag.ZONE] = zone != null ? (int) zone.Type : 0;
-            tags[GameTag.CARD_ID] = card.AssetId;
+            //tags[GameTag.CARD_ID] = card.AssetId;
 
             IPlayable result = null;
             switch (card.Type)
