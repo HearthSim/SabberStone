@@ -34,10 +34,17 @@ namespace SabberStoneCore.Model
 
         public void AddHeroAndPower(Card heroCard, Card powerCard = null)
         {
-            Hero = FromCard(this, heroCard) as Hero;
+            Hero = FromCard(this, heroCard, new Dictionary<GameTag, int>
+            {
+                [GameTag.ZONE] = (int)Enums.Zone.PLAY
+            }) as Hero;
             HeroId = Hero.Id;
             Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.SHOWN_HERO_POWER]),
-                new Dictionary<GameTag, int> {[GameTag.CREATOR] = Hero.Id}) as HeroPower;
+                new Dictionary<GameTag, int>
+                {
+                    [GameTag.ZONE] = (int)Enums.Zone.PLAY,
+                    [GameTag.CREATOR] = Hero.Id
+                }) as HeroPower;
         }
 
         public void Stamp(Controller controller)
