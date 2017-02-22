@@ -29,11 +29,61 @@ namespace SabberStoneCoreConsole
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
-            PowerHistoryTest();
+            //PowerHistoryTest();
+            ChooseOneTest();
             //Kazakus();
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
+        }
+
+        private static void ChooseOneTest()
+        {
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.DRUID,
+                    DeckPlayer1 = new List<Card>()
+                    {
+                        Cards.FromName("Stonetusk Boar"),
+                        Cards.FromName("Bloodfen Raptor"),
+                        Cards.FromName("Raven Idol"),
+                        Cards.FromName("Living Roots"),
+                        Cards.FromName("Druid of the Saber"),
+                        Cards.FromName("Wrath"),
+                        Cards.FromName("Power of the Wild"),
+                    },
+                    Player2HeroClass = CardClass.DRUID,
+                    DeckPlayer2 = new List<Card>()
+                    {
+                        Cards.FromName("Stonetusk Boar"),
+                        Cards.FromName("Bloodfen Raptor"),
+                        Cards.FromName("Raven Idol"),
+                        Cards.FromName("Living Roots"),
+                        Cards.FromName("Druid of the Saber"),
+                        Cards.FromName("Wrath"),
+                        Cards.FromName("Power of the Wild"),
+                    },
+                    SkipMulligan = true,
+                    Shuffle = false,
+                    FillDecks = true
+                });
+            game.StartGame();
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var options = game.CurrentPlayer.Options();
+            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            Console.WriteLine($" *** - PowerOptions - ***");
+            Console.WriteLine(PowerOptionsBuilder.AllOptions(options)?.Print());
+            //ShowLog(game, LogLevel.VERBOSE);
         }
 
         private static void PowerHistoryTest()
@@ -68,18 +118,18 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            //while (game.State != State.COMPLETE)
-            //{
-            //    var options = game.CurrentPlayer.Options();
-            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            while (game.State != State.COMPLETE)
+            {
+                var options = game.CurrentPlayer.Options();
+                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-            //    Console.WriteLine(PowerOptionsBuilder.AllOptions(options).Print());
-            //    if (game.CurrentPlayer.Choice != null)
-            //        Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.CurrentPlayer.Choice).Print());
-            //    var option = options[Rnd.Next(options.Count)];
-            //    game.Process(option);
-            //}
+                Console.WriteLine(PowerOptionsBuilder.AllOptions(options)?.Print());
+                if (game.CurrentPlayer.Choice != null)
+                    Console.WriteLine(PowerChoicesBuilder.EntityChoices(game.CurrentPlayer.Choice).Print());
+                var option = options[Rnd.Next(options.Count)];
+                game.Process(option);
+            }
 
             ShowLog(game, LogLevel.VERBOSE);
         }
@@ -311,12 +361,10 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Roots"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1, 2));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Roots"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero, 1));
             
             ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());

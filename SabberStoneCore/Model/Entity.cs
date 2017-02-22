@@ -43,18 +43,10 @@ namespace SabberStoneCore.Model
 
         public List<Trigger> Triggers { get; } = new List<Trigger>();
 
-        public Card[] ChooseOneCards { get; } = new Card[2];
-
         protected internal Entity(Game game, Card card, Dictionary<GameTag, int> tags)
         {
             Game = game;
             _data = new EntityData(card, tags);
-
-            if (ChooseOne)
-            {
-                ChooseOneCards[0] = Cards.FromId(card.Id + "a");
-                ChooseOneCards[1] = Cards.FromId(card.Id + "b");
-            }
         }
 
         public virtual void Stamp(Entity entity)
@@ -201,13 +193,22 @@ namespace SabberStoneCore.Model
 
             if (result.ChooseOne && id < 0)
             {
-                FromCard(controller, 
+                result.ChooseOnePlayables[0] = FromCard(controller, 
                     Cards.FromId(result.Card.Id + "a"), 
-                    new Dictionary<GameTag, int> { [GameTag.CREATOR] = result.Id, [GameTag.PARENT_CARD] = result.Id}, 
+                    new Dictionary<GameTag, int>
+                    {
+                        [GameTag.CREATOR] = result.Id,
+                        [GameTag.PARENT_CARD] = result.Id
+                    }, 
                     controller.Setaside);
-                FromCard(controller, 
+
+                result.ChooseOnePlayables[1] = FromCard(controller, 
                     Cards.FromId(result.Card.Id + "b"), 
-                    new Dictionary<GameTag, int> { [GameTag.CREATOR] = result.Id, [GameTag.PARENT_CARD] = result.Id }, 
+                    new Dictionary<GameTag, int>
+                    {
+                        [GameTag.CREATOR] = result.Id,
+                        [GameTag.PARENT_CARD] = result.Id
+                    }, 
                     controller.Setaside);
             }
 

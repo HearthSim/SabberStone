@@ -8,6 +8,8 @@ namespace SabberStoneCore.Model
     public interface IPlayable : ITargeting
     {
         bool IsPlayable { get; }
+        bool IsPlayableByPlayer { get; }
+        bool IsPlayableByCardReq { get; }
         bool IsIgnoreDamage { get; set; }
         bool Combo { get;}
         int Cost { get; set; }
@@ -20,12 +22,12 @@ namespace SabberStoneCore.Model
         void SetOrderOfPlay(string type);
         bool IsSummoned { get; set; }
         bool JustPlayed { get; set; }
-        bool CheckPlayable(int chooseOne);
         int Overload { get; set; }
         int CardTarget { get; set; }
 
+        IPlayable[] ChooseOnePlayables { get; }
+
         List<Enchantment> Enchantments { get; set; }
-        //void Reset();
     }
 
     public abstract partial class Playable<T> : Targeting, IPlayable where T : Entity
@@ -39,6 +41,8 @@ namespace SabberStoneCore.Model
                 Enchantments.AddRange(Card.Enchantments);
             }
         }
+
+        public IPlayable[] ChooseOnePlayables { get; } = new IPlayable[2];
 
         public List<Enchantment> Enchantments { get; set; } = new List<Enchantment>();
 
@@ -70,47 +74,53 @@ namespace SabberStoneCore.Model
             return this;
         }
 
-        public bool CheckPlayable(int chooseOne = 0)
-        {
-            this.ChooseOneOption = chooseOne;
-            var check = IsPlayable;
-            this.ChooseOneOption = 0;
-            return check;
-        }
+        public virtual bool IsPlayable => IsPlayableByPlayer && IsPlayableByCardReq;
 
-        public virtual bool IsPlayable
+        public virtual bool IsPlayableByPlayer
         {
             get
             {
                 // check if player is on turn
                 if (Controller != Game.CurrentPlayer)
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because player not on turn.");
+                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                        $"{this} isn't playable, because player not on turn.");
                     return false;
                 }
 
                 // check if entity is in hand to be played
                 if (Zone != Controller.Hand && !(this is HeroPower))
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because card not in hand.");
+                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                        $"{this} isn't playable, because card not in hand.");
                     return false;
                 }
 
                 // check if player has enough mana to play card
                 if (Controller.RemainingMana < Cost)
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because not enough mana to pay cost.");
+                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                        $"{this} isn't playable, because not enough mana to pay cost.");
                     return false;
                 }
 
+                return true;
+            }
+        }
+
+        public virtual bool IsPlayableByCardReq
+        {
+            get
+            {
                 // check if we need a target and there are some
-                if (RefCard.RequiresTarget && !ValidPlayTargets.Any())
+                if (Card.RequiresTarget && !ValidPlayTargets.Any())
                 {
                     Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
                     return false;
                 }
 
-                foreach (var item in RefCard.Requirements)
+                // check requirments on cards here 
+                foreach (var item in Card.Requirements)
                 {
                     var req = item.Key;
                     var param = item.Value;
@@ -129,7 +139,7 @@ namespace SabberStoneCore.Model
                         case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
                             var ids = Controller.Board.GetAll.Select(p => p.Card.Id).ToList();
                             var containsAll = true;
-                            RefCard.Entourage.ForEach(p => containsAll &= ids.Contains(p));
+                            Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
                             if (containsAll)
                             {
                                 Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"All ready all entourageing cards summoned.");
@@ -203,7 +213,9 @@ namespace SabberStoneCore.Model
                 }
 
                 return true;
+
             }
         }
+
     }
 }

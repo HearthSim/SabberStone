@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Kettle
@@ -73,13 +74,19 @@ namespace SabberStoneCore.Kettle
                 };
                 result.PowerOptionList.Add(mainOption);
 
-                var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne > 0);
-                foreach (var subOption in subOptions)
+                for (var i = 1; i < 3; i++)
                 {
-                    mainOption.SubOptions.Add(new PowerSubOption()
+                    var subOptions1 = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
+                    if (subOptions1.Any())
                     {
-                        EntityId = sourceId
-                    });
+                        var refCardId = ((IPlayable)subOptions1.First().Source).ChooseOnePlayables[i-1].Id;
+                        var refCardTargets = subOptions1.Where(p => p.Target != null).Select(p => p.Target).ToList();
+                        mainOption.SubOptions.Add(new PowerSubOption
+                        {
+                            EntityId = refCardId,
+                            Targets = refCardTargets.Any() ? refCardTargets.Select(p => p.Id).ToList() : null
+                        });
+                    }
                 }
             }
 
@@ -166,7 +173,12 @@ namespace SabberStoneCore.Kettle
             }
             for (int i = 0; i < SubOptions.Count; i++)
             {
-                str.AppendLine($" subOption {i} entity=[{SubOptions[i].EntityId}] ");
+                var subOption = SubOptions[i];
+                str.AppendLine($" subOption {i} entity=[{subOption.EntityId}] ");
+                for (var j = 0; j < subOption.Targets?.Count; j++)
+                {
+                    str.AppendLine($"  target {j} entity=[{subOption.Targets[j]}] ");
+                }
             }
             return str.ToString();
         }

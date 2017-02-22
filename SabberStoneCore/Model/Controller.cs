@@ -145,24 +145,31 @@ namespace SabberStoneCore.Model
                 {
                     var minion = playableCard as Minion;
 
-                    // chooose one setup ...
-                    var chooseOne = new List<int> {0, 1, 2};
-                    for (var i = 0; i < chooseOne.Count; i++)
+                    if (!playableCard.IsPlayableByPlayer)
+                        continue;
+
+                    var playables = playableCard.ChooseOne 
+                        ? playableCard.ChooseOnePlayables.ToList() 
+                        : new List<IPlayable> {playableCard};
+
+                    foreach (var t in playables)
                     {
-                        if (!playableCard.ChooseOne && i > 0
-                            || playableCard.ChooseOne && i == 0
-                            || !playableCard.CheckPlayable(i))
+                        if (!t.IsPlayableByCardReq)
                             continue;
 
-                        playableCard.ChooseOneOption = i;
-                        var targets = playableCard.ValidPlayTargets.ToList();
-                        playableCard.ChooseOneOption = 0;
+                        var targets = t.ValidPlayTargets.ToList();
                         var subResult = new List<PlayCardTask>();
-
                         if (!targets.Any())
-                            subResult.Add(PlayCardTask.Any(this, playableCard, null, -1, i));
-                        targets.ToList()
-                            .ForEach(p => subResult.Add(PlayCardTask.Any(this, playableCard, p, -1, i)));
+                        {
+                            subResult.Add(PlayCardTask.Any(this, playableCard, null, -1,
+                                playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
+                        }
+
+                        subResult.AddRange(
+                            targets.Select(
+                                target =>
+                                    PlayCardTask.Any(this, playableCard, target, -1,
+                                        playables.Count == 1 ? 0 : playables.IndexOf(t) + 1)));
 
                         if (minion != null)
                         {

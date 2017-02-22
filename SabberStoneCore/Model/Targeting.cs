@@ -9,43 +9,38 @@ namespace SabberStoneCore.Model
         IEnumerable<ICharacter> ValidPlayTargets { get; }
         bool IsValidPlayTarget(ICharacter target);
 
-        int ChooseOneOption { get; set; }
-        Card RefCard { get; }
         bool ChooseOne { get; set; }
     }
 
     public abstract class Targeting : Entity, ITargeting
     {
-        public int ChooseOneOption { get; set; } = 0;
-
-        public Card RefCard => ChooseOneOption > 0 ? ChooseOneCards[ChooseOneOption-1] : Card;
-
         protected Targeting(Controller controller, Card card, Dictionary<GameTag, int> tags) : base(controller.Game, card, tags)
         {
             Controller = controller;
         }
 
         // Default definition of whether the entity currently requires a target list to be calculated before use
-        protected internal virtual bool NeedsTargetList => RefCard.RequiresTarget 
-            || RefCard.RequiresTargetIfAvailable 
-            || RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand 
-            || RefCard.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4;
+        protected internal virtual bool NeedsTargetList => 
+               Card.RequiresTarget 
+            || Card.RequiresTargetIfAvailable 
+            || Card.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand 
+            || Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4;
 
         public IEnumerable<ICharacter> ValidPlayTargets => GetValidPlayTargets();
 
         public virtual bool IsValidPlayTarget(ICharacter target = null)
         {
             // check if the current target is legit
-            if ((RefCard.RequiresTargetIfAvailable ||
-                RefCard.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand ||
-                RefCard.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4) && target == null && ValidPlayTargets.Any())
+            if ((Card.RequiresTargetIfAvailable ||
+                 Card.RequiresTargetIfAvailableAndDragonInHand && Controller.DragonInHand ||
+                 Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions && Controller.Board.Count >= 4) && target == null && ValidPlayTargets.Any())
             {
                 Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} hasn't a target and there are valid targets for this card.");
                 return false;
             }
 
             // target reqiuired for this card
-            if (RefCard.RequiresTarget && target == null)
+            if (Card.RequiresTarget && target == null)
             {
                 Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} requires a target.");
                 return false;
@@ -76,7 +71,7 @@ namespace SabberStoneCore.Model
                 return false;
             }
 
-            foreach (var item in RefCard.Requirements)
+            foreach (var item in Card.Requirements)
             {
                 var req = item.Key;
                 var param = item.Value;

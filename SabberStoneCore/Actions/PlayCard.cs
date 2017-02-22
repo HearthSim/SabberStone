@@ -84,17 +84,20 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                // TODO ChooseOne implementation: rework on it, later!
-                // set choose one option
-                source.ChooseOneOption = chooseOne;
-                if (source.ChooseOne && chooseOne == 0)
-                {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "PrePlayPhase", $"Choose One, no option set for this card.");
-                    return false;
-                }
+                //// TODO ChooseOne implementation: rework on it, later!
+                //// set choose one option
+                //source.ChooseOneOption = chooseOne;
+                //if (source.ChooseOne && chooseOne == 0)
+                //{
+                //    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "PrePlayPhase", $"Choose One, no option set for this card.");
+                //    return false;
+                //}
+
+                var subSource = chooseOne > 0 ? source.ChooseOnePlayables[chooseOne - 1] : source;
 
                 // check if we can play this card and the target is valid
-                if (!source.IsPlayable || !source.IsValidPlayTarget(target))
+                //if (!source.IsPlayable || !source.IsValidPlayTarget(target))
+                if (!source.IsPlayableByPlayer || !subSource.IsPlayableByCardReq || !subSource.IsValidPlayTarget(target))
                 {
                     return false;
                 }
@@ -102,7 +105,8 @@ namespace SabberStoneCore.Actions
                 // copy choose one enchantment to the actual source
                 if (source.ChooseOne)
                 {
-                    source.Enchantments = source.RefCard.Enchantments;
+                    //source.Enchantments = source.RefCard.Enchantments;
+                    source.Enchantments = subSource.Enchantments;
                 }
 
                 // replace enchantments with the no combo or combo one ..
