@@ -91,17 +91,18 @@ namespace SabberStoneCore.Model
             GamesEventManager = new GameEventManager(this);
             FormatType = gameConfig.GameRule;
 
-            _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
-            _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
+            _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2, 4);
+            _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, 6);
+
+            // add power history create game
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
+
             if (setupHeroes)
             {
                 _players[0].AddHeroAndPower(Cards.HeroCard(gameConfig.Player1HeroClass));
                 _players[1].AddHeroAndPower(Cards.HeroCard(gameConfig.Player2HeroClass));
             }
-
-            // add power history create game
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
             TaskQueue = new TaskQueue(this);
             TaskStack = new TaskStack(this);
