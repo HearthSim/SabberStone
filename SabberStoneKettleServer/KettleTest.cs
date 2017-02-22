@@ -7,7 +7,7 @@ namespace SabberStoneKettleServer
 {
     class KettleTest
     {
-        public static KettleHistoryCreateGame CreatePowerHistoryCreateGameTest()
+        public static KettleHistoryCreateGame CreateGameTest()
         {
             var k = new KettleHistoryCreateGame
             {
@@ -71,6 +71,16 @@ namespace SabberStoneKettleServer
                 CardBack = 0
             });
             return k;
+        }
+
+        public static KettleHistoryTagChange TagChangeTest(int entityId, GameTag tag, int value)
+        {
+            return new KettleHistoryTagChange
+            {
+                EntityID = entityId,
+                Tag = (int)tag,
+                Value = value,
+            };
         }
     }
 }
