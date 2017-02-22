@@ -75,12 +75,7 @@ namespace SabberStoneKettleServer
             _game.StartGame();
             SendPowerHistory(_game.PowerHistory.Last);
 
-            // getting choices mulligan choices for players ...
-            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game.Player1.Choice);
-            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game.Player2.Choice);
-
-            // getting options for currentPlayer ...
-            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
+            SendChoicesOrOptions();
         }
 
         private Dictionary<int, int> GameTagsToKettleTags(Dictionary<GameTag, int> tags)
@@ -120,11 +115,49 @@ namespace SabberStoneKettleServer
             };
         }
 
+        private void SendChoicesOrOptions()
+        {
+            // getting choices mulligan choices for players ...
+            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game.Player1.Choice);
+            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game.Player2.Choice);
+
+            // getting options for currentPlayer ...
+            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
+
+            if (entityChoicesPlayer1 != null)
+                SendEntityChoices(entityChoicesPlayer1);
+
+            if (entityChoicesPlayer2 != null)
+                SendEntityChoices(entityChoicesPlayer2);
+
+            if (options != null)
+                SendOptions(options);
+        }
+
+        private void SendEntityChoices(PowerEntityChoices choices)
+        {
+            KettleEntityChoices kchoices = new KettleEntityChoices
+            {
+                ChoiceType = (int)choices.ChoiceType,
+                CountMax = choices.CountMax,
+                CountMin = choices.CountMin,
+                Source = choices.SourceId,
+                Entities = choices.Entities,
+                PlayerID = _game.CurrentPlayer.PlayerId,
+                ID = choices.Index,
+            };
+
+            Adapter.SendMessage(Adapter.CreatePayload(kchoices));
+        }
+
         private void SendOptions(PowerAllOptions options)
         {
-            KettleOptionsBlock block = new KettleOptionsBlock();
-            block.ID = options.Index;
-            block.Options = new List<KettleOption>();
+            KettleOptionsBlock block = new KettleOptionsBlock
+            {
+                ID = options.Index,
+                Options = new List<KettleOption>(),
+                PlayerID = _game.CurrentPlayer.PlayerId,
+            };
 
             foreach (var option in options.PowerOptionList)
             {
@@ -157,11 +190,17 @@ namespace SabberStoneKettleServer
                     case PowerType.FULL_ENTITY:
                         message.Add(Adapter.CreatePayload(CreatePowerHistoryFullEntity((PowerHistoryFullEntity)entry)));
                         break;
-                    //case PowerType.SHOW_ENTITY:
-                    //    message.Add(Adapter.CreatePayload(CreatePowerHistoryShowEntity((PowerHistoryShowEntity)entry)));
-                    //    break;
+                    case PowerType.SHOW_ENTITY:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryShowEntity((PowerHistoryShowEntity)entry)));
+                        break;
                     case PowerType.TAG_CHANGE:
                         message.Add(Adapter.CreatePayload(CreatePowerHistoryTagChange((PowerHistoryTagChange)entry)));
+                        break;
+                    case PowerType.BLOCK_START:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryBlockStart((PowerHistoryBlockStart)entry)));
+                        break;
+                    case PowerType.BLOCK_END:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryBlockEnd((PowerHistoryBlockEnd)entry)));
                         break;
                     /*case PowerType.HIDE_ENTITY:
                         SendPowerHistoryChangeEntity((SendPowerHistoryChangeEntity)entry);
@@ -218,7 +257,7 @@ namespace SabberStoneKettleServer
             };
         }
 
-        private KettleHistoryShowEntity SendPowerHistoryShowEntity(PowerHistoryShowEntity p)
+        private KettleHistoryShowEntity CreatePowerHistoryShowEntity(PowerHistoryShowEntity p)
         {
             return new KettleHistoryShowEntity
             {
@@ -237,5 +276,21 @@ namespace SabberStoneKettleServer
             };
         }
 
+        private KettleHistoryBlockBegin CreatePowerHistoryBlockStart(PowerHistoryBlockStart p)
+        {
+            return new KettleHistoryBlockBegin
+            {
+                EffectCardId = p.EffectCardId,
+                Index = p.Index,
+                Source = p.Source,
+                Target = p.Target,
+                Type = (int)p.BlockType,
+            };
+        }
+
+        private KettleHistoryBlockEnd CreatePowerHistoryBlockEnd(PowerHistoryBlockEnd p)
+        {
+            return new KettleHistoryBlockEnd { };
+        }
     }
 }

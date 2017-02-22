@@ -173,6 +173,16 @@ namespace SabberStoneKettleServer
             return CreateKettlePayload("HistoryChangeEntity", message);
         }
 
+        public JObject CreatePayload(KettleHistoryBlockBegin message)
+        {
+            return CreateKettlePayload("HistoryBlockBegin", message);
+        }
+
+        public JObject CreatePayload(KettleHistoryBlockEnd message)
+        {
+            return CreateKettlePayload("HistoryBlockEnd", message);
+        }
+
         public JObject CreatePayload(List<KettleOption> message)
         {
             return CreateKettlePayload("Options", message);
