@@ -168,10 +168,12 @@ namespace SabberStoneCore.Model
                     break;
 
                 case CardType.HERO:
+                    tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
                     result = new Hero(controller, card, tags);
                     break;
 
                 case CardType.HERO_POWER:
+                    tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
                     result = new HeroPower(controller, card, tags);
                     break;
 
