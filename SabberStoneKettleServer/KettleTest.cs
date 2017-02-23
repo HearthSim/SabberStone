@@ -10,6 +10,8 @@ namespace SabberStoneKettleServer
     {
         private static void Test()
         {
+            // test data source: https://github.com/HearthSim/SabberStone/blob/master/hslogs/GameStates.txt
+
             CreateGameTest();
             CreateFullEntities();
             TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
