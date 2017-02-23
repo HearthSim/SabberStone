@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks.SimpleTasks;
+using Newtonsoft.Json.Linq;
 
 namespace SabberStoneKettleServer
 {
     class KettleTest
     {
-        private static void Test()
+        private static List<JObject> _history = new List<JObject>();
+        private static KettleAdapter _adapter;
+        public static void Test(KettleAdapter adapter)
         {
             // test data source: https://github.com/HearthSim/SabberStone/blob/master/hslogs/GameStates.txt
+            _adapter = adapter;
 
             CreateGameTest();
             CreateFullEntities();
@@ -167,13 +171,18 @@ namespace SabberStoneKettleServer
 
             BlockEndTest();
 
+            EmitHistory();
             TagChangeTest(1, (int)GameTag.STEP, (int)Step.BEGIN_MULLIGAN);
 
             BlockStartTest("", -1, 1, 0, (int)BlockType.TRIGGER);
             TagChangeTest(2, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.INPUT);
+            EmitHistory();
+
             EntityChoicesTest((int) ChoiceType.MULLIGAN, 3, 0, 1, new List<int> {11, 29, 12}, 2, 1);
 
             TagChangeTest(3, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.INPUT);
+            EmitHistory();
+
             EntityChoicesTest((int)ChoiceType.MULLIGAN, 5, 0, 1, new List<int> { 46,50,34,41,68 }, 3, 2);
 
             //EntitiesChosen: id = 2 Player = toshiro EntitiesCount = 0
@@ -181,6 +190,8 @@ namespace SabberStoneKettleServer
             //   SendChoices: m_chosenEntities[0] =[name = Fiery War Axe id = 11 zone = HAND zonePos = 1 cardId = CS2_106 player = 1]
             //     PowerList: Count = 42
             BlockEndTest();
+
+            
         }
 
         public static KettleHistoryCreateGame CreateGameTest()
@@ -232,7 +243,7 @@ namespace SabberStoneKettleServer
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 3,
-                        [(int)GameTag.PLAYER_ID] = 1,
+                        [(int)GameTag.PLAYER_ID] = 2,
                         [(int)GameTag.HERO_ENTITY] = 66,
                         [(int)GameTag.MAXHANDSIZE] = 10,
                         [(int)GameTag.STARTHANDSIZE] = 4,
@@ -246,17 +257,22 @@ namespace SabberStoneKettleServer
                 PlayerID = 1,
                 CardBack = 0
             });
+
+            _history.Add(_adapter.CreatePayload(k));
             return k;
         }
 
         public static KettleHistoryTagChange TagChangeTest(int entityId, int tag, int value)
         {
-            return new KettleHistoryTagChange
+            var k = new KettleHistoryTagChange
             {
                 EntityID = entityId,
                 Tag = tag,
                 Value = value,
             };
+
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
         }
 
         private static List<KettleHistoryFullEntity> CreateFullEntities()
@@ -328,7 +344,7 @@ namespace SabberStoneKettleServer
 
         public static KettleHistoryBlockBegin BlockStartTest(string effectCardId, int index, int source, int target, int blockType)
         {
-            return new KettleHistoryBlockBegin
+            var k = new KettleHistoryBlockBegin
             {
                 EffectCardId = effectCardId,
                 Index = index,
@@ -336,16 +352,21 @@ namespace SabberStoneKettleServer
                 Target = target,
                 Type = blockType,
             };
+
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
         }
 
         public static KettleHistoryBlockEnd BlockEndTest()
         {
-            return new KettleHistoryBlockEnd();
+            var k = new KettleHistoryBlockEnd();
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
         }
 
         public static KettleEntityChoices EntityChoicesTest(int choiceType, int countMax, int countMin, int source, List<int> entities, int playerId, int index)
         {
-            return new KettleEntityChoices
+            var k = new KettleEntityChoices
             {
                 ChoiceType = choiceType,
                 CountMax = countMax,
@@ -355,11 +376,13 @@ namespace SabberStoneKettleServer
                 PlayerID = playerId,
                 ID = index,
             };
+            _adapter.SendMessage(_adapter.CreatePayload(k));
+            return k;
         }
 
         public static KettleHistoryShowEntity ShowEntityTest(int entityId, string cardId, Dictionary<int, int> tags)
         {
-            return new KettleHistoryShowEntity
+            var k = new KettleHistoryShowEntity
             {
                 Name = cardId,
                 Entity = new KettleEntity()
@@ -368,11 +391,13 @@ namespace SabberStoneKettleServer
                     Tags = tags
                 }
             };
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
         }
 
         public static KettleHistoryFullEntity FullEntityCreate(int entityId, string cardId, Dictionary<int,int> tags)
         {
-            return new KettleHistoryFullEntity
+            var k = new KettleHistoryFullEntity
             {
                 Name = cardId,
                 Entity = new KettleEntity()
@@ -381,6 +406,14 @@ namespace SabberStoneKettleServer
                     Tags = tags
                 }
             };
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
+        }
+
+        public static void EmitHistory()
+        {
+            _adapter.SendMessage(_history);
+            _history.Clear();
         }
 
     }

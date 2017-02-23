@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -26,10 +27,13 @@ namespace SabberStoneKettleServer
             {
                 Socket client = Listener.Accept();
                 Console.WriteLine("Accepted client");
-                KettleSession session = new KettleSession(client);
+
+                KettleTest.Test(new KettleAdapter(new NetworkStream(client)));
+
+                /*KettleSession session = new KettleSession(client);
 
                 // For now we run each session in a new thread. If/when the server needs to scale to tens/hundreds of games, this should be changed
-                new Thread(session.Enter).Start();
+                new Thread(session.Enter).Start();*/
             }
         }
     }
