@@ -16,98 +16,111 @@ namespace SabberStoneKettleServer
             TagChangeTest(2, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);
             TagChangeTest(3, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);
 
-            //         Power: BLOCK_START BlockType = TRIGGER Entity = 1 EffectCardId = EffectIndex = -1 Target = 0
+            BlockStartTest("", -1, 1, 0, (int) BlockType.TRIGGER);
+
             TagChangeTest(2, (int)GameTag.CURRENT_PLAYER, 1);
             TagChangeTest(2, (int)GameTag.FIRST_PLAYER, 1);
             TagChangeTest(1, (int)GameTag.TURN, 1);
             TagChangeTest(1, 467, 3);
-            //         Power: SHOW_ENTITY - Updating Entity = 11 CardID = CS2_106
-            //         Power: tag = PREMIUM value = 0
-            //         Power: tag = DAMAGE value = 0
-            //         Power: tag = ATK value = 3
-            //         Power: tag = COST value = 2
-            //         Power: tag = ZONE value = HAND
-            //         Power: tag = CONTROLLER value = 1
-            //         Power: tag = ENTITY_ID value = 11
-            //         Power: tag = DURABILITY value = 2
-            //         Power: tag = SILENCED value = 0
-            //         Power: tag = WINDFURY value = 0
-            //         Power: tag = TAUNT value = 0
-            //         Power: tag = STEALTH value = 0
-            //         Power: tag = DIVINE_SHIELD value = 0
-            //         Power: tag = CHARGE value = 0
-            //         Power: tag = FACTION value = NEUTRAL
-            //         Power: tag = CARDTYPE value = WEAPON
-            //         Power: tag = RARITY value = FREE
-            //         Power: tag = FROZEN value = 0
-            //         Power: tag = ZONE_POSITION value = 0
-            //         Power: tag = NUM_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = FORCED_PLAY value = 0
-            //         Power: tag = TO_BE_DESTROYED value = 0
-            //         Power: tag = START_WITH_1_HEALTH value = 0
-            //         Power: tag = CUSTOM_KEYWORD_EFFECT value = 0
-            //         Power: tag = EXTRA_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = TAG_LAST_KNOWN_COST_IN_HAND value = 2
-            //         Power: tag = 479 value = 3
+            ShowEntityTest(11, "CS2_106", new Dictionary<int, int>
+            {
+                [(int) GameTag.PREMIUM] = 0,
+                [(int) GameTag.DAMAGE] = 0,
+                [(int) GameTag.ATK] = 3,
+                [(int) GameTag.COST] = 2,
+                [(int) GameTag.ZONE] = (int)Zone.HAND,
+                [(int)GameTag.CONTROLLER] = 1,
+                [(int)GameTag.ENTITY_ID] = 11,
+                [(int)GameTag.DURABILITY] = 2,
+                [(int)GameTag.SILENCED] = 0,
+                [(int)GameTag.WINDFURY] = 0,
+                [(int)GameTag.TAUNT] = 0,
+                [(int)GameTag.STEALTH] = 0,
+                [(int)GameTag.DIVINE_SHIELD] = 0,
+                [(int)GameTag.CHARGE] = 0,
+                [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
+                [(int)GameTag.CARDTYPE] = (int)CardType.WEAPON,
+                [(int)GameTag.RARITY] = (int)Rarity.FREE,
+                [(int)GameTag.FROZEN] = 0,
+                [(int)GameTag.ZONE_POSITION] = 0,
+                [(int)GameTag.NUM_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.FORCED_PLAY] = 0,
+                [(int)GameTag.TO_BE_DESTROYED] = 0,
+                [(int)GameTag.START_WITH_1_HEALTH] = 0,
+                [(int)GameTag.CUSTOM_KEYWORD_EFFECT] = 0,
+                [(int)GameTag.EXTRA_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
+                [479] = 3,
+            });
+
             TagChangeTest(11, (int)GameTag.ZONE_POSITION, 1);
             TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1);
             TagChangeTest(2, 467, 2);
-            //         Power: SHOW_ENTITY - Updating Entity = 29 CardID = NEW1_011
-            //         Power: tag = PREMIUM value = 0
-            //         Power: tag = DAMAGE value = 0
-            //         Power: tag = HEALTH value = 3
-            //         Power: tag = ATK value = 4
-            //         Power: tag = COST value = 4
-            //         Power: tag = ZONE value = HAND
-            //         Power: tag = CONTROLLER value = 1
-            //         Power: tag = ENTITY_ID value = 29
-            //         Power: tag = SILENCED value = 0
-            //         Power: tag = WINDFURY value = 0
-            //         Power: tag = TAUNT value = 0
-            //         Power: tag = STEALTH value = 0
-            //         Power: tag = DIVINE_SHIELD value = 0
-            //         Power: tag = CHARGE value = 1
-            //         Power: tag = CARDTYPE value = MINION
-            //         Power: tag = RARITY value = COMMON
-            //         Power: tag = FROZEN value = 0
-            //         Power: tag = ZONE_POSITION value = 0
-            //         Power: tag = NUM_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = FORCED_PLAY value = 0
-            //         Power: tag = TO_BE_DESTROYED value = 0
-            //         Power: tag = START_WITH_1_HEALTH value = 0
-            //         Power: tag = CUSTOM_KEYWORD_EFFECT value = 0
-            //         Power: tag = EXTRA_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = TAG_LAST_KNOWN_COST_IN_HAND value = 4
-            //         Power: tag = 479 value = 4
+            ShowEntityTest(29, "NEW1_011", new Dictionary<int, int>
+            {
+                [(int)GameTag.PREMIUM] = 0,
+                [(int)GameTag.DAMAGE] = 0,
+                [(int)GameTag.HEALTH] = 3,
+                [(int)GameTag.ATK] = 4,
+                [(int)GameTag.COST] = 4,
+                [(int)GameTag.ZONE] = (int)Zone.HAND,
+                [(int)GameTag.CONTROLLER] = 1,
+                [(int)GameTag.ENTITY_ID] = 29,
+                [(int)GameTag.SILENCED] = 0,
+                [(int)GameTag.WINDFURY] = 0,
+                [(int)GameTag.TAUNT] = 0,
+                [(int)GameTag.STEALTH] = 0,
+                [(int)GameTag.DIVINE_SHIELD] = 0,
+                [(int)GameTag.CHARGE] = 1,
+                //[(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
+                [(int)GameTag.CARDTYPE] = (int)CardType.MINION,
+                [(int)GameTag.RARITY] = (int)Rarity.COMMON,
+                [(int)GameTag.FROZEN] = 0,
+                [(int)GameTag.ZONE_POSITION] = 0,
+                [(int)GameTag.NUM_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.FORCED_PLAY] = 0,
+                [(int)GameTag.TO_BE_DESTROYED] = 0,
+                [(int)GameTag.START_WITH_1_HEALTH] = 0,
+                [(int)GameTag.CUSTOM_KEYWORD_EFFECT] = 0,
+                [(int)GameTag.EXTRA_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 4,
+                [479] = 4,
+            });
+
             TagChangeTest(29, (int)GameTag.ZONE_POSITION, 2);
             TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 2);
             TagChangeTest(2, 467, 1);
-            //         Power: SHOW_ENTITY - Updating Entity = 12 CardID = CS2_105
-            //         Power: tag = PREMIUM value = 0
-            //         Power: tag = DAMAGE value = 0
-            //         Power: tag = COST value = 2
-            //         Power: tag = ZONE value = HAND
-            //         Power: tag = CONTROLLER value = 1
-            //         Power: tag = ENTITY_ID value = 12
-            //         Power: tag = SILENCED value = 0
-            //         Power: tag = WINDFURY value = 0
-            //         Power: tag = TAUNT value = 0
-            //         Power: tag = STEALTH value = 0
-            //         Power: tag = DIVINE_SHIELD value = 0
-            //         Power: tag = CHARGE value = 0
-            //         Power: tag = FACTION value = NEUTRAL
-            //         Power: tag = CARDTYPE value = SPELL
-            //         Power: tag = RARITY value = FREE
-            //         Power: tag = FROZEN value = 0
-            //         Power: tag = ZONE_POSITION value = 0
-            //         Power: tag = NUM_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = FORCED_PLAY value = 0
-            //         Power: tag = TO_BE_DESTROYED value = 0
-            //         Power: tag = START_WITH_1_HEALTH value = 0
-            //         Power: tag = CUSTOM_KEYWORD_EFFECT value = 0
-            //         Power: tag = EXTRA_ATTACKS_THIS_TURN value = 0
-            //         Power: tag = TAG_LAST_KNOWN_COST_IN_HAND value = 2
-            //         Power: tag = 479 value = 0
+            ShowEntityTest(12, "CS2_105", new Dictionary<int, int>
+            {
+                [(int)GameTag.PREMIUM] = 0,
+                [(int)GameTag.DAMAGE] = 0,
+                //[(int)GameTag.HEALTH] = 3,
+                //[(int)GameTag.ATK] = 4,
+                [(int)GameTag.COST] = 2,
+                [(int)GameTag.ZONE] = (int)Zone.HAND,
+                [(int)GameTag.CONTROLLER] = 1,
+                [(int)GameTag.ENTITY_ID] = 12,
+                [(int)GameTag.SILENCED] = 0,
+                [(int)GameTag.WINDFURY] = 0,
+                [(int)GameTag.TAUNT] = 0,
+                [(int)GameTag.STEALTH] = 0,
+                [(int)GameTag.DIVINE_SHIELD] = 0,
+                [(int)GameTag.CHARGE] = 0,
+                [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
+                [(int)GameTag.CARDTYPE] = (int)CardType.SPELL,
+                [(int)GameTag.RARITY] = (int)Rarity.FREE,
+                [(int)GameTag.FROZEN] = 0,
+                [(int)GameTag.ZONE_POSITION] = 0,
+                [(int)GameTag.NUM_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.FORCED_PLAY] = 0,
+                [(int)GameTag.TO_BE_DESTROYED] = 0,
+                [(int)GameTag.START_WITH_1_HEALTH] = 0,
+                [(int)GameTag.CUSTOM_KEYWORD_EFFECT] = 0,
+                [(int)GameTag.EXTRA_ATTACKS_THIS_TURN] = 0,
+                [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
+                [479] = 0,
+            });
+
             TagChangeTest(12, (int)GameTag.ZONE_POSITION, 3);
             TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 3);
             TagChangeTest(2, 467, 0);
@@ -149,7 +162,9 @@ namespace SabberStoneKettleServer
             TagChangeTest(3, (int)GameTag.TIMEOUT, 75);
             TagChangeTest(1, 10, 85);
             TagChangeTest(3, (int)GameTag.NEXT_STEP, (int)Step.BEGIN_MULLIGAN);
-            //         Power: BLOCK_END
+
+            new KettleHistoryBlockEnd {};
+
             //    PowerList:  Count = 3
             //         Power: TAG_CHANGE Entity = GameEntity tag = STEP value = BEGIN_MULLIGAN
             //         Power: BLOCK_START BlockType = TRIGGER Entity = GameEntity EffectCardId = EffectIndex = -1 Target = 0
@@ -316,6 +331,31 @@ namespace SabberStoneKettleServer
             }));
 
             return list;
+        }
+
+        public static KettleHistoryBlockBegin BlockStartTest(string effectCardId, int index, int source, int target, int blockType)
+        {
+            return new KettleHistoryBlockBegin
+            {
+                EffectCardId = effectCardId,
+                Index = index,
+                Source = source,
+                Target = target,
+                Type = blockType,
+            };
+        }
+
+        public static KettleHistoryShowEntity ShowEntityTest(int entityId, string cardId, Dictionary<int, int> tags)
+        {
+            return new KettleHistoryShowEntity
+            {
+                Name = cardId,
+                Entity = new KettleEntity()
+                {
+                    EntityID = entityId,
+                    Tags = tags
+                }
+            };
         }
 
         public static KettleHistoryFullEntity FullEntityCreate(int entityId, string cardId, Dictionary<int,int> tags)
