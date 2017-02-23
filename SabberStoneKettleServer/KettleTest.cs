@@ -163,31 +163,22 @@ namespace SabberStoneKettleServer
             TagChangeTest(1, 10, 85);
             TagChangeTest(3, (int)GameTag.NEXT_STEP, (int)Step.BEGIN_MULLIGAN);
 
-            new KettleHistoryBlockEnd {};
+            BlockEndTest();
 
-            //    PowerList:  Count = 3
-            //         Power: TAG_CHANGE Entity = GameEntity tag = STEP value = BEGIN_MULLIGAN
-            //         Power: BLOCK_START BlockType = TRIGGER Entity = GameEntity EffectCardId = EffectIndex = -1 Target = 0
-            //         Power: TAG_CHANGE Entity = RoxOnTox tag = MULLIGAN_STATE value = INPUT
-            // EntityChoices: id = 1 Player = RoxOnTox TaskList = 4 ChoiceType = MULLIGAN CountMin = 0 CountMax = 3
-            // EntityChoices: Source = GameEntity
-            // EntityChoices: Entities[0] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 11 zone = DECK zonePos = 0 cardId = player = 1]
-            // EntityChoices: Entities[1] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 29 zone = DECK zonePos = 0 cardId = player = 1]
-            // EntityChoices: Entities[2] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 12 zone = DECK zonePos = 0 cardId = player = 1]
-            //     PowerList: Count = 1
-            //         Power: TAG_CHANGE Entity = toshiro tag = MULLIGAN_STATE value = INPUT
-            // EntityChoices: id = 2 Player = toshiro TaskList = 5 ChoiceType = MULLIGAN CountMin = 0 CountMax = 5
-            // EntityChoices: Source = GameEntity
-            // EntityChoices: Entities[0] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 46 zone = DECK zonePos = 0 cardId = player = 2]
-            // EntityChoices: Entities[1] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 50 zone = DECK zonePos = 0 cardId = player = 2]
-            // EntityChoices: Entities[2] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 34 zone = DECK zonePos = 0 cardId = player = 2]
-            // EntityChoices: Entities[3] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 41 zone = DECK zonePos = 0 cardId = player = 2]
-            // EntityChoices: Entities[4] =[name = UNKNOWN ENTITY[cardType = INVALID] id = 68 zone = HAND zonePos = 5 cardId = player = 2]
+            TagChangeTest(1, (int)GameTag.STEP, (int)Step.BEGIN_MULLIGAN);
+
+            BlockStartTest("", -1, 1, 0, (int)BlockType.TRIGGER);
+            TagChangeTest(2, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.INPUT);
+            EntityChoicesTest((int) ChoiceType.MULLIGAN, 3, 0, 1, new List<int> {11, 29, 12}, 2, 1);
+
+            TagChangeTest(3, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.INPUT);
+            EntityChoicesTest((int)ChoiceType.MULLIGAN, 5, 0, 1, new List<int> { 46,50,34,41,68 }, 3, 2);
+
             //EntitiesChosen: id = 2 Player = toshiro EntitiesCount = 0
             //   SendChoices: id = 1 ChoiceType = MULLIGAN
             //   SendChoices: m_chosenEntities[0] =[name = Fiery War Axe id = 11 zone = HAND zonePos = 1 cardId = CS2_106 player = 1]
             //     PowerList: Count = 42
-            //         Power: BLOCK_END
+            BlockEndTest();
         }
 
         public static KettleHistoryCreateGame CreateGameTest()
@@ -342,6 +333,25 @@ namespace SabberStoneKettleServer
                 Source = source,
                 Target = target,
                 Type = blockType,
+            };
+        }
+
+        public static KettleHistoryBlockEnd BlockEndTest()
+        {
+            return new KettleHistoryBlockEnd();
+        }
+
+        public static KettleEntityChoices EntityChoicesTest(int choiceType, int countMax, int countMin, int source, List<int> entities, int playerId, int index)
+        {
+            return new KettleEntityChoices
+            {
+                ChoiceType = choiceType,
+                CountMax = countMax,
+                CountMin = countMin,
+                Source = source,
+                Entities = entities,
+                PlayerID = playerId,
+                ID = index,
             };
         }
 
