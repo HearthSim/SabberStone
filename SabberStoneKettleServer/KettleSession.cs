@@ -84,43 +84,6 @@ namespace SabberStoneKettleServer
             SendChoicesOrOptions();
         }
 
-        private Dictionary<int, int> GameTagsToKettleTags(Dictionary<GameTag, int> tags)
-        {
-            var ktags = new Dictionary<int, int>();
-
-            foreach (var tag in tags)
-                ktags.Add((int)tag.Key, tag.Value);
-
-            return ktags;
-        }
-
-        private KettleEntity GameEntityToKettleEntity(PowerEntity entity)
-        {
-            return new KettleEntity
-            {
-                EntityID = entity.Id,
-                Tags = GameTagsToKettleTags(entity.Tags),
-            };
-        }
-
-        private KettleEntity GameEntityToKettleEntity(PowerHistoryEntity entity)
-        {
-            return new KettleEntity
-            {
-                EntityID = entity.Id,
-                Tags = GameTagsToKettleTags(entity.Tags),
-            };
-        }
-
-        private KettleSubOption GameSubOptionToKettleSubOption(PowerSubOption option)
-        {
-            return new KettleSubOption
-            {
-                ID = option.EntityId,
-                Targets = option.Targets,
-            };
-        }
-
         private void SendChoicesOrOptions()
         {
             // getting choices mulligan choices for players ...
@@ -142,161 +105,22 @@ namespace SabberStoneKettleServer
 
         private void SendEntityChoices(PowerEntityChoices choices)
         {
-            KettleEntityChoices kchoices = new KettleEntityChoices
-            {
-                ChoiceType = (int)choices.ChoiceType,
-                CountMax = choices.CountMax,
-                CountMin = choices.CountMin,
-                Source = choices.SourceId,
-                Entities = choices.Entities,
-                PlayerID = _game.CurrentPlayer.PlayerId,
-                ID = choices.Index,
-            };
-
-            Adapter.SendMessage(Adapter.CreatePayload(kchoices));
+            Adapter.SendMessage(new KettleEntityChoices(choices));
         }
 
         private void SendOptions(PowerAllOptions options)
         {
-            KettleOptionsBlock block = new KettleOptionsBlock
-            {
-                ID = options.Index,
-                Options = new List<KettleOption>(),
-                PlayerID = _game.CurrentPlayer.PlayerId,
-            };
-
-            foreach (var option in options.PowerOptionList)
-            {
-                var koption = new KettleOption
-                {
-                    Type = (int)option.OptionType,
-                    MainOption = GameSubOptionToKettleSubOption(option.MainOption),
-                    SubOptions = new List<KettleSubOption>(),
-                };
-
-                foreach (var sub in option.SubOptions)
-                    koption.SubOptions.Add(GameSubOptionToKettleSubOption(sub));
-
-                block.Options.Add(koption);
-            }
-
-            Adapter.SendMessage(Adapter.CreatePayload(block));
+            Adapter.SendMessage(new KettleOptionsBlock(options, _game.CurrentPlayer.PlayerId));
         }
 
         private void SendPowerHistory(List<IPowerHistoryEntry> history)
         {
-            List<JObject> message = new List<JObject>();
+            List<KettlePayload> message = new List<KettlePayload>();
             foreach (var entry in history)
             {
-                switch (entry.PowerType)
-                {
-                    case PowerType.CREATE_GAME:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryCreateGame((PowerHistoryCreateGame)entry)));
-                        break;
-                    case PowerType.FULL_ENTITY:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryFullEntity((PowerHistoryFullEntity)entry)));
-                        break;
-                    case PowerType.SHOW_ENTITY:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryShowEntity((PowerHistoryShowEntity)entry)));
-                        break;
-                    /*case PowerType.HIDE_ENTITY:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryHideEntity((PowerHistoryHideEntity)entry)));
-                        break;*/
-                    case PowerType.TAG_CHANGE:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryTagChange((PowerHistoryTagChange)entry)));
-                        break;
-                    case PowerType.BLOCK_START:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryBlockStart((PowerHistoryBlockStart)entry)));
-                        break;
-                    case PowerType.BLOCK_END:
-                        message.Add(Adapter.CreatePayload(CreatePowerHistoryBlockEnd((PowerHistoryBlockEnd)entry)));
-                        break;
-                    default:
-                        Console.WriteLine("Error, unhandled powertype " + entry.PowerType.ToString());
-                        break;
-                }
+                message.Add(KettleHistoryEntry.From(entry));
             }
             Adapter.SendMessage(message);
-        }
-        private KettleHistoryCreateGame CreatePowerHistoryCreateGame(PowerHistoryCreateGame p)
-        {
-            p.Game.Tags[GameTag.ZONE] = (int)Zone.PLAY;
-            p.Game.Tags[GameTag.ENTITY_ID] = 1;
-            p.Game.Tags[GameTag.CARDTYPE] = (int)CardType.GAME;
-
-            var k = new KettleHistoryCreateGame
-            {
-                Game = new KettleEntity
-                {
-                    EntityID = p.Game.Id,
-                    Tags = GameTagsToKettleTags(p.Game.Tags),
-                },
-                Players = new List<KettlePlayer>(),
-            };
-
-            Console.WriteLine("game tags are:");
-            foreach (var tag in k.Game.Tags)
-                Console.WriteLine("key: " + tag.Key + ", value: " + tag.Value);
-
-            foreach (var player in p.Players)
-            {
-                k.Players.Add(new KettlePlayer
-                {
-                    Entity = GameEntityToKettleEntity(player.PowerEntity),
-                    PlayerID = player.PlayerId,
-                    CardBack = player.CardBack,
-                });
-            }
-
-            Console.WriteLine("card back is :" + k.Players[0].CardBack);
-            Console.WriteLine("card back is :" + k.Players[1].CardBack);
-
-            return k;
-        }
-
-        private KettleHistoryFullEntity CreatePowerHistoryFullEntity(PowerHistoryFullEntity p)
-        {
-            return new KettleHistoryFullEntity
-            {
-                Name = p.Entity.Name,
-                Entity = GameEntityToKettleEntity(p.Entity),
-            };
-        }
-
-        private KettleHistoryShowEntity CreatePowerHistoryShowEntity(PowerHistoryShowEntity p)
-        {
-            return new KettleHistoryShowEntity
-            {
-                Name = p.Entity.Name,
-                Entity = GameEntityToKettleEntity(p.Entity),
-            };
-        }
-
-        private KettleHistoryTagChange CreatePowerHistoryTagChange(PowerHistoryTagChange p)
-        {
-            return new KettleHistoryTagChange
-            {
-                EntityID = p.EntityId,
-                Tag = (int)p.Tag,
-                Value = p.Value,
-            };
-        }
-
-        private KettleHistoryBlockBegin CreatePowerHistoryBlockStart(PowerHistoryBlockStart p)
-        {
-            return new KettleHistoryBlockBegin
-            {
-                EffectCardId = p.EffectCardId,
-                Index = p.Index,
-                Source = p.Source,
-                Target = p.Target,
-                Type = (int)p.BlockType,
-            };
-        }
-
-        private KettleHistoryBlockEnd CreatePowerHistoryBlockEnd(PowerHistoryBlockEnd p)
-        {
-            return new KettleHistoryBlockEnd { };
         }
     }
 }

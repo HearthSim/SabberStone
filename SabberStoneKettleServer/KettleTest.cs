@@ -13,14 +13,13 @@ namespace SabberStoneKettleServer
 {
     class KettleTest
     {
-        private static List<JObject> _history = new List<JObject>();
+        private static List<KettlePayload> _history = new List<KettlePayload>();
         private static KettleAdapter _adapter;
 
         public static void Test(KettleAdapter adapter)
         {
             // test data source: https://github.com/HearthSim/SabberStone/blob/master/hslogs/GameStates.txt
             _adapter = adapter;
-
 
             Console.WriteLine("creating game");
             var game = new Game(new GameConfig
@@ -35,26 +34,27 @@ namespace SabberStoneKettleServer
             game.StartGame();
 
             var powerHistory = game.PowerHistory.Last;
-            var createGame = powerHistory[0];
-            powerHistory.Remove(powerHistory[0]);
-            Console.WriteLine(createGame);
-            CreateGameSabber(createGame as PowerHistoryCreateGame);
-            
-            ///CreateGameTest();
+            Console.WriteLine("history length is " + powerHistory.Count());
 
-            foreach (var fullEntity in powerHistory.Where(p => p is PowerHistoryFullEntity).Select(p => p as PowerHistoryFullEntity))
+            foreach (var h in powerHistory)
+                QueuePacket(KettleHistoryEntry.From(h));
+
+            var createGame = powerHistory[0];
+            Console.WriteLine(createGame);
+
+            /*foreach (var fullEntity in powerHistory.Where(p => p is PowerHistoryFullEntity).Select(p => p as PowerHistoryFullEntity))
             {
                 Console.WriteLine(fullEntity.Print());
-                FullEntityCreate(fullEntity.Entity.Id, 
+                QueuePacket(CreateEntityCreate(fullEntity.Entity.Id, 
                     fullEntity.Entity.Name,
                     fullEntity.Entity.Tags.ToDictionary(x => (int) x.Key, x => x.Value)
-                );
-            }
+                ));
+            }*/
 
-            //CreateFullEntitiesB();
-            //CreateFullEntitiesA();
+            //CreateFullEntitiesB().ForEach(x => QueuePacket(x));
+            //CreateFullEntitiesA().ForEach(x => QueuePacket(x));
 
-            EmitHistory();
+            SendQueue();
 
             /*TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
             TagChangeTest(2, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);
@@ -232,43 +232,20 @@ namespace SabberStoneKettleServer
 
         }
 
-        public static KettleHistoryCreateGame CreateGameSabber(PowerHistoryCreateGame createGame)
+        private static void QueuePacket(KettlePayload payload)
         {
-            var k = new KettleHistoryCreateGame
-            {
-                Game = new KettleEntity
-                {
-                    EntityID = createGame.Game.Id,
-                    Tags = createGame.Game.Tags.ToDictionary(x => (int)x.Key, x => x.Value) 
-                },
-                Players = new List<KettlePlayer>(),
-            };
+            _history.Add(payload);
+        }
 
-            k.Players.Add(new KettlePlayer
-            {
-                Entity = new KettleEntity()
-                {
-                    EntityID = createGame.Players[0].PowerEntity.Id,
-                    Tags = createGame.Players[0].PowerEntity.Tags.ToDictionary(x => (int)x.Key, x => x.Value)
-                },
-                PlayerID = createGame.Players[0].PlayerId,
-                CardBack = createGame.Players[0].CardBack
-            });
+        private static void SendQueue()
+        {
+            _adapter.SendMessage(_history);
+            _history.Clear();
+        }
 
-
-            k.Players.Add(new KettlePlayer
-            {
-                Entity = new KettleEntity()
-                {
-                    EntityID = createGame.Players[1].PowerEntity.Id,
-                    Tags = createGame.Players[1].PowerEntity.Tags.ToDictionary(x => (int)x.Key, x => x.Value)
-                },
-                PlayerID = createGame.Players[1].PlayerId,
-                CardBack = createGame.Players[1].CardBack
-            });
-
-            _history.Add(_adapter.CreatePayload(k));
-            return k;
+        private static void SendPacket(KettlePayload payload)
+        {
+            _adapter.SendMessage(payload);
         }
 
         public static KettleHistoryCreateGame CreateGameTest()
@@ -334,8 +311,7 @@ namespace SabberStoneKettleServer
                 PlayerID = 1,
                 CardBack = 0
             });
-
-            _history.Add(_adapter.CreatePayload(k));
+            
             return k;
         }
 
@@ -347,29 +323,30 @@ namespace SabberStoneKettleServer
                 Tag = tag,
                 Value = value,
             };
-
-            _history.Add(_adapter.CreatePayload(k));
+            
             return k;
         }
 
-        private static void CreateFullEntitiesA()
+        private static List<KettleHistoryFullEntity> CreateFullEntitiesA()
         {
             var list = new List<KettleHistoryFullEntity>();
             for (var i = 0; i < 60; i++)
             {
-                list.Add(FullEntityCreate(i + 8, "", new Dictionary<int, int>
+                list.Add(CreateEntityCreate(i + 8, "", new Dictionary<int, int>
                 {
                     [(int)GameTag.ZONE] = (int)Zone.DECK,
                     [(int)GameTag.CONTROLLER] = i < 30 ? 1 : 2,
                     [(int)GameTag.ENTITY_ID] = i + 8,
                 }));
             }
+
+            return list;
         }
 
-        private static void CreateFullEntitiesB()
+        private static List<KettleHistoryFullEntity> CreateFullEntitiesB()
         {
             var list = new List<KettleHistoryFullEntity>();
-            list.Add(FullEntityCreate(4, "HERO_01", new Dictionary<int, int>
+            list.Add(CreateEntityCreate(4, "HERO_01", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
@@ -381,7 +358,7 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.HERO_POWER] = 725,
             }));
 
-            list.Add(FullEntityCreate(5, "CS2_102", new Dictionary<int, int>
+            list.Add(CreateEntityCreate(5, "CS2_102", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
@@ -394,7 +371,7 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
 
-            list.Add(FullEntityCreate(6, "HERO_02", new Dictionary<int, int>
+            list.Add(CreateEntityCreate(6, "HERO_02", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
@@ -406,7 +383,7 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.HERO_POWER] = 687,
             }));
 
-            list.Add(FullEntityCreate(7, "CS2_049", new Dictionary<int, int>
+            list.Add(CreateEntityCreate(7, "CS2_049", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
@@ -418,6 +395,8 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.CREATOR] = 6,
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
+
+            return list;
         }
 
         public static KettleHistoryBlockBegin BlockStartTest(string effectCardId, int index, int source, int target, int blockType)
@@ -430,15 +409,13 @@ namespace SabberStoneKettleServer
                 Target = target,
                 Type = blockType,
             };
-
-            _history.Add(_adapter.CreatePayload(k));
+            
             return k;
         }
 
         public static KettleHistoryBlockEnd BlockEndTest()
         {
             var k = new KettleHistoryBlockEnd();
-            _history.Add(_adapter.CreatePayload(k));
             return k;
         }
 
@@ -454,7 +431,6 @@ namespace SabberStoneKettleServer
                 PlayerID = playerId,
                 ID = index,
             };
-            _adapter.SendMessage(_adapter.CreatePayload(k));
             return k;
         }
 
@@ -469,11 +445,10 @@ namespace SabberStoneKettleServer
                     Tags = tags
                 }
             };
-            _history.Add(_adapter.CreatePayload(k));
             return k;
         }
 
-        public static KettleHistoryFullEntity FullEntityCreate(int entityId, string cardId, Dictionary<int,int> tags)
+        public static KettleHistoryFullEntity CreateEntityCreate(int entityId, string cardId, Dictionary<int,int> tags)
         {
             var k = new KettleHistoryFullEntity
             {
@@ -484,15 +459,7 @@ namespace SabberStoneKettleServer
                     Tags = tags
                 }
             };
-            _history.Add(_adapter.CreatePayload(k));
             return k;
         }
-
-        public static void EmitHistory()
-        {
-            _adapter.SendMessage(_history);
-            _history.Clear();
-        }
-
     }
 }
