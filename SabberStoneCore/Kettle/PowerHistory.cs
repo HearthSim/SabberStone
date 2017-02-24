@@ -71,16 +71,40 @@ namespace SabberStoneCore.Kettle
 
         public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
         {
+            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+            {
+                [GameTag.PREMIUM] = playable[GameTag.PREMIUM],
+                [GameTag.DAMAGE] = playable[GameTag.DAMAGE],
+                [GameTag.COST] = playable[GameTag.COST],
+                [GameTag.SILENCED] = playable[GameTag.SILENCED],
+                [GameTag.WINDFURY] = playable[GameTag.WINDFURY],
+                [GameTag.TAUNT] = playable[GameTag.TAUNT],
+                [GameTag.STEALTH] = playable[GameTag.STEALTH],
+                [GameTag.DIVINE_SHIELD] = playable[GameTag.DIVINE_SHIELD],
+                [GameTag.CHARGE] = playable[GameTag.CHARGE],
+                [GameTag.FACTION] = playable[GameTag.FACTION],
+                [GameTag.CARDTYPE] = playable[GameTag.CARDTYPE],
+                [GameTag.RARITY] = playable[GameTag.RARITY],
+                [GameTag.FROZEN] = playable[GameTag.FROZEN],
+                [GameTag.NUM_ATTACKS_THIS_TURN] = playable[GameTag.NUM_ATTACKS_THIS_TURN],
+                [GameTag.FORCED_PLAY] = playable[GameTag.FORCED_PLAY],
+                [GameTag.TO_BE_DESTROYED] = playable[GameTag.TO_BE_DESTROYED],
+                [GameTag.START_WITH_1_HEALTH] = playable[GameTag.START_WITH_1_HEALTH],
+                [GameTag.CUSTOM_KEYWORD_EFFECT] = playable[GameTag.CUSTOM_KEYWORD_EFFECT],
+                [GameTag.EXTRA_ATTACKS_THIS_TURN] = playable[GameTag.EXTRA_ATTACKS_THIS_TURN]
+            };
+            //tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = playable[GameTag.COST];
             return new PowerHistoryShowEntity
             {
                 Entity = new PowerHistoryEntity
                 {
                     Id = playable.Id,
                     Name = playable.Card.Id,
-                    Tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+                    Tags = tags
                 }
             };
         }
+
 
         public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target)
         {
