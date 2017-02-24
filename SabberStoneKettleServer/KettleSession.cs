@@ -51,6 +51,7 @@ namespace SabberStoneKettleServer
 
         public void OnSendOption(KettleSendOption sendOption)
         {
+            Console.WriteLine("simulator OnSendOption called");
             // TODO play the selected option
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
@@ -58,6 +59,7 @@ namespace SabberStoneKettleServer
 
         public void OnChooseEntities(List<int> chooseEntities)
         {
+            Console.WriteLine("simulator OnChooiseEntities called");
             // TODO choose the selected entities
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
