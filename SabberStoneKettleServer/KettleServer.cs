@@ -27,8 +27,13 @@ namespace SabberStoneKettleServer
             {
                 Socket client = Listener.Accept();
                 Console.WriteLine("Accepted client");
-
-                KettleTest.Test(new KettleAdapter(new NetworkStream(client)));
+                try
+                {
+                    KettleTest.Test(new KettleAdapter(new NetworkStream(client)));
+                } catch (IOException)
+                {
+                    Console.WriteLine("Connection closed");
+                }
 
                 /*KettleSession session = new KettleSession(client);
 
