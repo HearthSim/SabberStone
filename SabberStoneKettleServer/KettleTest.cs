@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks.SimpleTasks;
 using Newtonsoft.Json.Linq;
+using SabberStoneCore.Config;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
 
 namespace SabberStoneKettleServer
 {
@@ -11,13 +15,45 @@ namespace SabberStoneKettleServer
     {
         private static List<JObject> _history = new List<JObject>();
         private static KettleAdapter _adapter;
+
         public static void Test(KettleAdapter adapter)
         {
             // test data source: https://github.com/HearthSim/SabberStone/blob/master/hslogs/GameStates.txt
             _adapter = adapter;
 
-            CreateGameTest();
-            CreateFullEntities();
+
+            Console.WriteLine("creating game");
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.WARRIOR,
+                Player2HeroClass = CardClass.SHAMAN,
+                SkipMulligan = false,
+                FillDecks = true
+            });
+            // Start the game and send the following powerhistory to the client
+            game.StartGame();
+
+            var powerHistory = game.PowerHistory.Last;
+            var createGame = powerHistory[0];
+            powerHistory.Remove(powerHistory[0]);
+            Console.WriteLine(createGame);
+            CreateGameSabber(createGame as PowerHistoryCreateGame);
+            
+            ///CreateGameTest();
+
+            foreach (var fullEntity in powerHistory.Where(p => p is PowerHistoryFullEntity).Select(p => p as PowerHistoryFullEntity))
+            {
+                Console.WriteLine(fullEntity.Print());
+                FullEntityCreate(fullEntity.Entity.Id, 
+                    fullEntity.Entity.Name,
+                    fullEntity.Entity.Tags.ToDictionary(x => (int) x.Key, x => x.Value)
+                );
+            }
+
+            //CreateFullEntitiesB();
+            //CreateFullEntitiesA();
+
             EmitHistory();
 
             /*TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
@@ -196,6 +232,45 @@ namespace SabberStoneKettleServer
 
         }
 
+        public static KettleHistoryCreateGame CreateGameSabber(PowerHistoryCreateGame createGame)
+        {
+            var k = new KettleHistoryCreateGame
+            {
+                Game = new KettleEntity
+                {
+                    EntityID = createGame.Game.Id,
+                    Tags = createGame.Game.Tags.ToDictionary(x => (int)x.Key, x => x.Value) 
+                },
+                Players = new List<KettlePlayer>(),
+            };
+
+            k.Players.Add(new KettlePlayer
+            {
+                Entity = new KettleEntity()
+                {
+                    EntityID = createGame.Players[0].PowerEntity.Id,
+                    Tags = createGame.Players[0].PowerEntity.Tags.ToDictionary(x => (int)x.Key, x => x.Value)
+                },
+                PlayerID = createGame.Players[0].PlayerId,
+                CardBack = createGame.Players[0].CardBack
+            });
+
+
+            k.Players.Add(new KettlePlayer
+            {
+                Entity = new KettleEntity()
+                {
+                    EntityID = createGame.Players[1].PowerEntity.Id,
+                    Tags = createGame.Players[1].PowerEntity.Tags.ToDictionary(x => (int)x.Key, x => x.Value)
+                },
+                PlayerID = createGame.Players[1].PlayerId,
+                CardBack = createGame.Players[1].CardBack
+            });
+
+            _history.Add(_adapter.CreatePayload(k));
+            return k;
+        }
+
         public static KettleHistoryCreateGame CreateGameTest()
         {
             var k = new KettleHistoryCreateGame
@@ -222,7 +297,7 @@ namespace SabberStoneKettleServer
                   {
                       [(int)GameTag.ENTITY_ID] = 2,
                       [(int)GameTag.PLAYER_ID] = 1,
-                      [(int)GameTag.HERO_ENTITY] = 64,
+                      [(int)GameTag.HERO_ENTITY] = 4,
                       [(int)GameTag.MAXHANDSIZE] = 10,
                       [(int)GameTag.STARTHANDSIZE] = 4,
                       [(int)GameTag.TEAM_ID] = 1,
@@ -246,7 +321,7 @@ namespace SabberStoneKettleServer
                     {
                         [(int)GameTag.ENTITY_ID] = 3,
                         [(int)GameTag.PLAYER_ID] = 2,
-                        [(int)GameTag.HERO_ENTITY] = 66,
+                        [(int)GameTag.HERO_ENTITY] = 6,
                         [(int)GameTag.MAXHANDSIZE] = 10,
                         [(int)GameTag.STARTHANDSIZE] = 4,
                         [(int)GameTag.TEAM_ID] = 2,
@@ -277,71 +352,72 @@ namespace SabberStoneKettleServer
             return k;
         }
 
-        private static List<KettleHistoryFullEntity> CreateFullEntities()
+        private static void CreateFullEntitiesA()
         {
             var list = new List<KettleHistoryFullEntity>();
             for (var i = 0; i < 60; i++)
             {
-                list.Add(FullEntityCreate(i + 4, "", new Dictionary<int,int>
+                list.Add(FullEntityCreate(i + 8, "", new Dictionary<int, int>
                 {
                     [(int)GameTag.ZONE] = (int)Zone.DECK,
                     [(int)GameTag.CONTROLLER] = i < 30 ? 1 : 2,
-                    [(int)GameTag.ENTITY_ID] = i + 4,
-
+                    [(int)GameTag.ENTITY_ID] = i + 8,
                 }));
             }
+        }
 
-            list.Add(FullEntityCreate(64, "HERO_01", new Dictionary<int, int>
+        private static void CreateFullEntitiesB()
+        {
+            var list = new List<KettleHistoryFullEntity>();
+            list.Add(FullEntityCreate(4, "HERO_01", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 1,
-                [(int)GameTag.ENTITY_ID] = 64,
+                [(int)GameTag.ENTITY_ID] = 4,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
                 [(int)GameTag.HERO_POWER] = 725,
             }));
 
-            list.Add(FullEntityCreate(65, "CS2_102", new Dictionary<int, int>
+            list.Add(FullEntityCreate(5, "CS2_102", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 1,
-                [(int)GameTag.ENTITY_ID] = 65,
+                [(int)GameTag.ENTITY_ID] = 5,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO_POWER,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
-                [(int)GameTag.CREATOR] = 64,
+                [(int)GameTag.CREATOR] = 4,
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
 
-            list.Add(FullEntityCreate(66, "HERO_02", new Dictionary<int, int>
+            list.Add(FullEntityCreate(6, "HERO_02", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 2,
-                [(int)GameTag.ENTITY_ID] = 66,
+                [(int)GameTag.ENTITY_ID] = 6,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
                 [(int)GameTag.HERO_POWER] = 687,
             }));
 
-            list.Add(FullEntityCreate(67, "CS2_049", new Dictionary<int, int>
+            list.Add(FullEntityCreate(7, "CS2_049", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 2,
-                [(int)GameTag.ENTITY_ID] = 67,
+                [(int)GameTag.ENTITY_ID] = 7,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO_POWER,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
-                [(int)GameTag.CREATOR] = 66,
+                [(int)GameTag.CREATOR] = 6,
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
-
-            return list;
         }
 
         public static KettleHistoryBlockBegin BlockStartTest(string effectCardId, int index, int source, int target, int blockType)
