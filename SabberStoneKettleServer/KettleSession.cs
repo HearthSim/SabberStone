@@ -51,12 +51,16 @@ namespace SabberStoneKettleServer
 
         public void OnSendOption(KettleSendOption sendOption)
         {
-
+            // TODO play the selected option
+            SendPowerHistory(_game.PowerHistory.Last);
+            SendChoicesOrOptions();
         }
 
         public void OnChooseEntities(List<int> chooseEntities)
         {
-
+            // TODO choose the selected entities
+            SendPowerHistory(_game.PowerHistory.Last);
+            SendChoicesOrOptions();
         }
 
         public void OnCreateGame(KettleCreateGame createGame)
@@ -193,6 +197,9 @@ namespace SabberStoneKettleServer
                     case PowerType.SHOW_ENTITY:
                         message.Add(Adapter.CreatePayload(CreatePowerHistoryShowEntity((PowerHistoryShowEntity)entry)));
                         break;
+                    /*case PowerType.HIDE_ENTITY:
+                        message.Add(Adapter.CreatePayload(CreatePowerHistoryHideEntity((PowerHistoryHideEntity)entry)));
+                        break;*/
                     case PowerType.TAG_CHANGE:
                         message.Add(Adapter.CreatePayload(CreatePowerHistoryTagChange((PowerHistoryTagChange)entry)));
                         break;
@@ -202,9 +209,6 @@ namespace SabberStoneKettleServer
                     case PowerType.BLOCK_END:
                         message.Add(Adapter.CreatePayload(CreatePowerHistoryBlockEnd((PowerHistoryBlockEnd)entry)));
                         break;
-                    /*case PowerType.HIDE_ENTITY:
-                        SendPowerHistoryChangeEntity((SendPowerHistoryChangeEntity)entry);
-                        break;*/
                     default:
                         Console.WriteLine("Error, unhandled powertype " + entry.PowerType.ToString());
                         break;

@@ -18,7 +18,9 @@ namespace SabberStoneKettleServer
 
             CreateGameTest();
             CreateFullEntities();
-            TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
+            EmitHistory();
+
+            /*TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
             TagChangeTest(2, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);
             TagChangeTest(3, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);
 
@@ -189,9 +191,9 @@ namespace SabberStoneKettleServer
             //   SendChoices: id = 1 ChoiceType = MULLIGAN
             //   SendChoices: m_chosenEntities[0] =[name = Fiery War Axe id = 11 zone = HAND zonePos = 1 cardId = CS2_106 player = 1]
             //     PowerList: Count = 42
-            BlockEndTest();
+            BlockEndTest();*/
 
-            
+
         }
 
         public static KettleHistoryCreateGame CreateGameTest()
