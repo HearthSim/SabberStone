@@ -10,11 +10,11 @@ namespace SabberStoneCore.Model
 {
     public partial class Controller : Entity
     {
-        public Controller(Game game, string name, int playerId, int id, int heroId) 
+        public Controller(Game game, string name, int playerId, int id) 
             : base(game, Card.CardPlayer,
             new Dictionary<GameTag, int>
             {
-                [GameTag.HERO_ENTITY] = heroId,
+                //[GameTag.HERO_ENTITY] = heroId,
                 [GameTag.MAXHANDSIZE] = 10,
                 [GameTag.STARTHANDSIZE] = 4,
                 [GameTag.PLAYER_ID] = playerId,

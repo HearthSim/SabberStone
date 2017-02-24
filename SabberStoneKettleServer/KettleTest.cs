@@ -26,8 +26,8 @@ namespace SabberStoneKettleServer
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.WARRIOR,
-                Player2HeroClass = CardClass.SHAMAN,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.WARLOCK,
                 SkipMulligan = false,
                 FillDecks = true
             });
@@ -35,26 +35,79 @@ namespace SabberStoneKettleServer
             game.StartGame();
 
             var powerHistory = game.PowerHistory.Last;
-            var createGame = powerHistory[0];
-            powerHistory.Remove(powerHistory[0]);
-            Console.WriteLine(createGame);
-            CreateGameSabber(createGame as PowerHistoryCreateGame);
-            
-            ///CreateGameTest();
 
-            foreach (var fullEntity in powerHistory.Where(p => p is PowerHistoryFullEntity).Select(p => p as PowerHistoryFullEntity))
+            while (powerHistory.Any())
             {
-                Console.WriteLine(fullEntity.Print());
-                FullEntityCreate(fullEntity.Entity.Id, 
-                    fullEntity.Entity.Name,
-                    fullEntity.Entity.Tags.ToDictionary(x => (int) x.Key, x => x.Value)
-                );
+
+
+                var nextElement = powerHistory.First();
+                powerHistory.Remove(nextElement);
+                if (nextElement is PowerHistoryCreateGame)
+                {
+                    CreateGameSabber(nextElement as PowerHistoryCreateGame);
+                } else if (nextElement is PowerHistoryFullEntity)
+                {
+                    var fullEntity = nextElement as PowerHistoryFullEntity;
+                    FullEntityCreate(fullEntity.Entity.Id, fullEntity.Entity.Name,
+                        fullEntity.Entity.Tags.ToDictionary(x => (int) x.Key, x => x.Value));
+                }
+                else if (nextElement is PowerHistoryTagChange)
+                {
+                    var fullEntity = nextElement as PowerHistoryTagChange;
+                    TagChangeTest(fullEntity.EntityId, (int) fullEntity.Tag, fullEntity.Value);
+                }
+                else if (nextElement is PowerHistoryShowEntity)
+                {
+                    var showEntity = nextElement as PowerHistoryShowEntity;
+                    ShowEntityTest(showEntity.Entity.Id, showEntity.Entity.Name, 
+                        showEntity.Entity.Tags.ToDictionary(x => (int)x.Key, x => x.Value));
+                }
+                else if (nextElement is PowerHistoryBlockStart)
+                {
+                    var blockStart = nextElement as PowerHistoryBlockStart;
+                    BlockStartTest(blockStart.EffectCardId, blockStart.Index, blockStart.Source, blockStart.Target, (int)blockStart.BlockType);
+                }
+                else if (nextElement is PowerHistoryBlockEnd)
+                {
+                    var blockEnd = nextElement as PowerHistoryBlockEnd;
+                    BlockEndTest();
+                }
+                else
+                {
+                    
+                }
             }
-
-            //CreateFullEntitiesB();
-            //CreateFullEntitiesA();
-
             EmitHistory();
+
+            //Console.WriteLine(game.Player1.Choice);
+            var entityChoices1 = PowerChoicesBuilder.EntityChoices(game.Player1.Choice);
+            EntityChoicesTest((int)entityChoices1.ChoiceType, entityChoices1.CountMax, entityChoices1.CountMin, entityChoices1.SourceId,
+                entityChoices1.Entities, entityChoices1.PlayerId, entityChoices1.Index);
+
+            var entityChoices2 = PowerChoicesBuilder.EntityChoices(game.Player2.Choice);
+            EntityChoicesTest((int)entityChoices2.ChoiceType, entityChoices2.CountMax, entityChoices2.CountMin, entityChoices2.SourceId,
+                entityChoices2.Entities, entityChoices2.PlayerId, entityChoices2.Index);
+
+            //var createGame = powerHistory[0];
+            //powerHistory.Remove(powerHistory[0]);
+            //Console.WriteLine(createGame);
+            //CreateGameSabber(createGame as PowerHistoryCreateGame);
+
+            /////CreateGameTest();
+
+            //foreach (var fullEntity in powerHistory.Where(p => p is PowerHistoryFullEntity).Select(p => p as PowerHistoryFullEntity))
+            //{
+            //    Console.WriteLine(fullEntity.Print());
+            //    FullEntityCreate(fullEntity.Entity.Id, 
+            //        fullEntity.Entity.Name,
+            //        fullEntity.Entity.Tags.ToDictionary(x => (int) x.Key, x => x.Value)
+            //    );
+            //}
+
+            ////CreateFullEntitiesB();
+            ////CreateFullEntitiesA();
+
+            //EmitHistory();
 
             /*TagChangeTest(1, (int)GameTag.STATE, (int)State.RUNNING);
             TagChangeTest(2, (int)GameTag.PLAYSTATE, (int)PlayState.PLAYING);

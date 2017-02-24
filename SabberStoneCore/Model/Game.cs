@@ -91,8 +91,8 @@ namespace SabberStoneCore.Model
             GamesEventManager = new GameEventManager(this);
             FormatType = gameConfig.GameRule;
 
-            _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2, 4);
-            _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, 6);
+            _players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
+            _players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
 
             // add power history create game
             if (History)
@@ -203,11 +203,19 @@ namespace SabberStoneCore.Model
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
-            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
+            // starting mulligan draw block
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
 
             Player1.MulliganState = Mulligan.INPUT;
             Player2.MulliganState = Mulligan.INPUT;
+
+            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
+            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
+
+            // ending mulligan draw block
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
         }
 
         public void MainBegin()

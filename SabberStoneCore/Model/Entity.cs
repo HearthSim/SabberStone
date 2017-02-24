@@ -170,20 +170,20 @@ namespace SabberStoneCore.Model
                 case CardType.HERO:
                     tags[GameTag.HEALTH] = card[GameTag.HEALTH];
                     tags[GameTag.ZONE] = (int) Enums.Zone.PLAY;
-                    tags[GameTag.FACTION] = card[GameTag.FACTION];
+                    //tags[GameTag.FACTION] = card[GameTag.FACTION];
                     tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
-                    tags[GameTag.RARITY] = card[GameTag.RARITY];
-                    tags[GameTag.HERO_POWER] = card[GameTag.HERO_POWER];
+                    //tags[GameTag.RARITY] = card[GameTag.RARITY];
+                    //tags[GameTag.HERO_POWER] = card[GameTag.HERO_POWER];
                     result = new Hero(controller, card, tags);
                     break;
 
                 case CardType.HERO_POWER:
                     tags[GameTag.COST] = card[GameTag.COST];
                     tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
-                    tags[GameTag.FACTION] = card[GameTag.FACTION];
+                    //tags[GameTag.FACTION] = card[GameTag.FACTION];
                     tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
-                    tags[GameTag.RARITY] = card[GameTag.RARITY];
-                    tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = card[GameTag.COST];
+                    //tags[GameTag.RARITY] = card[GameTag.RARITY];
+                    //tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = card[GameTag.COST];
                     result = new HeroPower(controller, card, tags);
                     break;
 
