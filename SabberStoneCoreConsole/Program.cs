@@ -107,9 +107,9 @@ namespace SabberStoneCoreConsole
             //Console.WriteLine("*** - START GAME - ***");
             //Console.WriteLine(game.PowerHistory.Print(false));
             //Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
-            //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice).Print());
+            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice).Print());
             //Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
-            //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
+            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
 
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
@@ -120,18 +120,18 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            while (game.State != State.COMPLETE)
-            {
-                var options = game.CurrentPlayer.Options();
-                //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-                //options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //while (game.State != State.COMPLETE)
+            //{
+            //    var options = game.CurrentPlayer.Options();
+            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-                PowerOptionsBuilder.AllOptions(game, options);
-                PowerChoicesBuilder.EntityChoices(game, game.CurrentPlayer.Choice);
+            //    PowerOptionsBuilder.AllOptions(game, options);
+            //    PowerChoicesBuilder.EntityChoices(game, game.CurrentPlayer.Choice);
 
-                var option = options[Rnd.Next(options.Count)];
-                game.Process(option);
-            }
+            //    var option = options[Rnd.Next(options.Count)];
+            //    game.Process(option);
+            //}
 
             //foreach (var powerAllOptionse in game.AllOptionsMap)
             //    Console.WriteLine($"{powerAllOptionse.Key} => {powerAllOptionse.Value.Print()}");

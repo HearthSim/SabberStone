@@ -290,6 +290,12 @@ namespace SabberStoneCore.Model
             set { this[GameTag.NUM_CARDS_DRAWN_THIS_TURN] = value; }
         }
 
+        //public int NumCardsToDraw
+        //{
+        //    get { return this[GameTag.NUM_CARDS_TO_DRAW]; }
+        //    set { this[GameTag.NUM_CARDS_TO_DRAW] = value; }
+        //}
+
         public int NumAttacksThisTurn
         {
             get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }

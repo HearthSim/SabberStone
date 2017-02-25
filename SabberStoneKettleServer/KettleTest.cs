@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using SabberStoneCore.Config;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneKettleServer
 {
@@ -30,6 +31,18 @@ namespace SabberStoneKettleServer
                 SkipMulligan = false,
                 FillDecks = true
             });
+
+            //_adapter.OnChooseEntities += (KettleChooseEntities e) =>
+            //{
+            //    Console.WriteLine($"In the house now!!! {e.ID} was choosen ");
+            //    var entityChoices = game.EntityChoicesMap[e.ID];
+            //    var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
+            //        ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? game.Player1 : game.Player2, e.Choices)
+            //        : ChooseTask.Pick(entityChoices.PlayerId == 1 ? game.Player1 : game.Player2, e.Choices[0]);
+            //    Console.WriteLine($"{chooseTask.FullPrint()}");
+            //};
+
+
             // Start the game and send the following powerhistory to the client
             game.StartGame();
 
@@ -43,13 +56,10 @@ namespace SabberStoneKettleServer
 
             var entityChoices1 = PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice);
             SendPacket(new KettleEntityChoices(entityChoices1));
+
             var entityChoices2 = PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice);
             SendPacket(new KettleEntityChoices(entityChoices2));
 
-            _adapter.OnChooseEntities += (KettleChooseEntities e) =>
-            {
-
-            };
         }
 
         private static void QueuePacket(KettlePayload payload)
