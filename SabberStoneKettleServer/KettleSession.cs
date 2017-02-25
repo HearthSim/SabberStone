@@ -57,7 +57,7 @@ namespace SabberStoneKettleServer
             SendChoicesOrOptions();
         }
 
-        public void OnChooseEntities(List<int> chooseEntities)
+        public void OnChooseEntities(KettleChooseEntities chooseEntities)
         {
             Console.WriteLine("simulator OnChooiseEntities called");
             // TODO choose the selected entities

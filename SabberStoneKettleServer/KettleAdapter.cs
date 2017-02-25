@@ -17,7 +17,7 @@ namespace SabberStoneKettleServer
         public delegate void OnCreateGameDelegate(KettleCreateGame CreateGame);
         public delegate void OnConcedeDelegate(int Concede);
         public delegate void OnSendOptionDelegate(KettleSendOption SendOption);
-        public delegate void OnChooseEntitiesDelegate(List<int> ChooseEntities);
+        public delegate void OnChooseEntitiesDelegate(KettleChooseEntities ChooseEntities);
 
         public OnCreateGameDelegate OnCreateGame;
         public OnConcedeDelegate OnConcede;
@@ -102,7 +102,7 @@ namespace SabberStoneKettleServer
                     OnSendOption(obj.ToObject<KettleSendOption>());
                     break;
                 case "ChooseEntities":
-                    OnChooseEntities(obj.ToObject<List<int>>());
+                    OnChooseEntities(obj.ToObject<KettleChooseEntities>());
                     break;
                 default:
                     Console.WriteLine("Received unhandled packet:");

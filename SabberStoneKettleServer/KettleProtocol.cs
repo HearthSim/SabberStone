@@ -347,6 +347,18 @@ namespace SabberStoneKettleServer
         public KettleHistoryBlockEnd(PowerHistoryBlockEnd end) { }
     }
 
+    public class KettleChooseEntities : KettlePayload
+    {
+
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload("ChooseEntities", this);
+        }
+
+        public List<int> Choices;
+        public int ID;
+    }
+
     public class KettleUtils
     {
         public static JObject CreateKettlePayload(String name, object payload)
