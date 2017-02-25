@@ -26,12 +26,8 @@ namespace SabberStoneCore.Kettle
     public class PowerEntityChoices
     {
 
-        private static int _index = 0;
-        public int Index
-        {
-            get { return _index; }
-            private set { _index = value; }
-        }
+        private static int _index = 1;
+        public int Index { get; set; }
 
         public ChoiceType ChoiceType { get; set; }
         public int CountMin { get; set; }
@@ -43,7 +39,7 @@ namespace SabberStoneCore.Kettle
 
         public PowerEntityChoices(Game game)
         {
-            ++Index;
+            Index = _index++;
             game.EntityChoicesMap.Add(Index, this);
         }
 

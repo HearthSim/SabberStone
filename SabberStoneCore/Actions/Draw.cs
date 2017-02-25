@@ -33,6 +33,7 @@ namespace SabberStoneCore.Actions
                     return null;
 
                 var playable = DrawPhase.Invoke(c, cardToDraw);
+                //c.NumCardsToDraw--; 
 
                 AddHandPhase.Invoke(c, playable);
 

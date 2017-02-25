@@ -180,6 +180,9 @@ namespace SabberStoneCore.Model
         {
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Draw.");
 
+            //FirstPlayer.NumCardsToDraw = 3;
+            //FirstPlayer.Opponent.NumCardsToDraw = 4;
+
             _players.ToList().ForEach(p =>
             {
                 Generic.Draw(p);
@@ -190,6 +193,7 @@ namespace SabberStoneCore.Model
                 {
                     // 4th card for second player
                     Generic.Draw(p);
+                    Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
                 }
 
                 p.NumTurnsLeft = 1;
@@ -227,7 +231,7 @@ namespace SabberStoneCore.Model
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Main Begin.");
 
             // and a coin
-            Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
+            //Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
 
             NextStep = Step.MAIN_READY;
         }
@@ -302,6 +306,7 @@ namespace SabberStoneCore.Model
 
         public void MainDraw()
         {
+            //CurrentPlayer.NumCardsToDraw = 1;
             Generic.Draw(CurrentPlayer);
 
             // set next step

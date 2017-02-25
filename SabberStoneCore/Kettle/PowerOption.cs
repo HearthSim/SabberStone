@@ -19,18 +19,14 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerAllOptions
     {
-        private static int _index = 0;
-        public int Index
-        {
-            get { return _index; }
-            private set { _index = value; }
-        }
+        private static int _index = 1;
+        public int Index { get; set; }
 
         public List<PowerOption> PowerOptionList { get; set; }
 
         public PowerAllOptions(Game game)
         {
-            ++Index;
+            Index = _index++;
             game.AllOptionsMap.Add(Index, this);
             PowerOptionList = new List<PowerOption>();
         }
