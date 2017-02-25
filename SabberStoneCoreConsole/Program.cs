@@ -105,11 +105,21 @@ namespace SabberStoneCoreConsole
             game.StartGame();
 
             //Console.WriteLine("*** - START GAME - ***");
-            //Console.WriteLine(game.PowerHistory.Print(false));
+            Console.WriteLine(game.PowerHistory.Print(false));
             //Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
-            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice).Print());
+            //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice).Print());
             //Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
-            Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
+            //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
+
+            game.Process(ChooseTask.Mulligan(game.Player1, new List<int> { game.Player1.Choice.Choices[0] }));
+
+            Console.WriteLine(game.PowerHistory.Print(false));
+
+            game.Process(ChooseTask.Mulligan(game.Player2, new List<int> { game.Player2.Choice.Choices[0] }));
+
+            Console.WriteLine(game.PowerHistory.Print(false));
+
+
 
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
@@ -136,15 +146,15 @@ namespace SabberStoneCoreConsole
             //foreach (var powerAllOptionse in game.AllOptionsMap)
             //    Console.WriteLine($"{powerAllOptionse.Key} => {powerAllOptionse.Value.Print()}");
 
-            foreach (var entityChoice in game.EntityChoicesMap)
-                Console.WriteLine($"{entityChoice.Key} => {entityChoice.Value.Print()}");
+            //foreach (var entityChoice in game.EntityChoicesMap)
+            //    Console.WriteLine($"{entityChoice.Key} => {entityChoice.Value.Print()}");
 
-            foreach (var playables in game.IdEntityDic)
-            {
-                Console.WriteLine($"{playables.Key} => {playables.Value}");
-            }
+            //foreach (var playables in game.IdEntityDic)
+            //{
+            //    Console.WriteLine($"{playables.Key} => {playables.Value}");
+            //}
 
-            //ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, LogLevel.VERBOSE);
         }
 
         public static void GameSplitTest()
@@ -267,8 +277,6 @@ namespace SabberStoneCoreConsole
 
             game.Process(ChooseTask.Mulligan(game.Player2,
                 game.Player2.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
-
-            game.MainBegin();
 
             ShowLog(game, LogLevel.VERBOSE);
 

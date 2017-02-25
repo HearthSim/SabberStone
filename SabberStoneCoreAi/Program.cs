@@ -91,14 +91,12 @@ namespace SabberStoneCoreAi
             game.Player1.BaseMana = 10;
             game.StartGame();
 
-           var aiPlayer1 = new AggroScore();
+            var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new AggroScore();
 
-            ;
+
             game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
             game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
-
-            game.MainBegin();
 
             while (game.CurrentPlayer == game.Player1)
             {
@@ -152,8 +150,6 @@ namespace SabberStoneCoreAi
 
             game.Process(ChooseTask.Mulligan(game.Player1, mulligan1));
             game.Process(ChooseTask.Mulligan(game.Player2, mulligan2));
-
-            game.MainBegin();
 
             while (game.State != State.COMPLETE)
             {

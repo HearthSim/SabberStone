@@ -33,7 +33,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             {
                 case ChoiceType.MULLIGAN:
                     Generic.ChoiceMulligan.Invoke(Controller, Choices);
-                    Controller.MulliganState = Enums.Mulligan.WAITING;
+                    Controller.MulliganState = Enums.Mulligan.DONE;
                     return TaskState.COMPLETE;
 
                 case ChoiceType.GENERAL:

@@ -120,7 +120,7 @@ namespace SabberStoneCore.Actions
                 switch (c.Choice.ChoiceAction)
                 {
                     case ChoiceAction.HAND:
-
+                        c.MulliganState = Mulligan.DEALING;
                         choices.ForEach(p =>
                         {
                             var mulliganCard = c.Hand.First(t => t.Id == p);
@@ -130,13 +130,14 @@ namespace SabberStoneCore.Actions
 
                         for (var i = 0; i < choices.Count; i++)
                         {
-                           Draw(c);
+                            //c.NumCardsDrawnThisTurn++;
+                            Draw(c);
                         }
                         
                         // reset choice it's done
                         c.Choice = null;
 
-                        c.MulliganState = Mulligan.DONE;
+                        c.MulliganState = Mulligan.WAITING;
                         break;
 
                     default:
