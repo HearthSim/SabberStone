@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
@@ -33,7 +34,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             {
                 case ChoiceType.MULLIGAN:
                     Generic.ChoiceMulligan.Invoke(Controller, Choices);
+                    if (Controller.Game.History)
+                        Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Controller.Id, "", 7, 0));
                     Controller.MulliganState = Enums.Mulligan.DONE;
+                    if (Controller.Game.History)
+                        Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return TaskState.COMPLETE;
 
                 case ChoiceType.GENERAL:
@@ -49,8 +54,8 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         public override string FullPrint()
         {
-            return $"ChooseTask => [{Controller.Name}] choosed {string.Join(", ", Choices.Select(p => p.ToString()).ToList())} " +
-                   $"to {(Controller.Choice?.ChoiceType == ChoiceType.MULLIGAN ? "mulligan" : "pick")}";
+            return $"ChooseTask => [{Controller.Name}] choosed {(Choices.Count > 0 ? string.Join(", ", Choices.Select(p => p.ToString()).ToList()) : "nothing to")} " +
+                   $"to {(Controller.Choice?.ChoiceType == ChoiceType.MULLIGAN ? "keep" : "pick")}";
         }
     }
 }

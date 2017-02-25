@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Actions
@@ -121,6 +122,11 @@ namespace SabberStoneCore.Actions
                 {
                     case ChoiceAction.HAND:
                         c.MulliganState = Mulligan.DEALING;
+
+                        // starting mulligan draw block
+                        if (c.Game.History)
+                            c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, c.Id, "", 6, 0));
+
                         var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
                         mulliganList.ForEach(p =>
                         {
@@ -133,6 +139,8 @@ namespace SabberStoneCore.Actions
                         //    RemoveFromZone(c, mulliganCard);
                         //    ShuffleIntoDeck.Invoke(c, mulliganCard);
                         //});
+                        if (c.Game.History)
+                            c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
                         c.MulliganState = Mulligan.WAITING;
                         for (var i = 0; i < mulliganList.Count; i++)

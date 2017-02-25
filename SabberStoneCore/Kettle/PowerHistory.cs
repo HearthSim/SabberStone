@@ -114,6 +114,14 @@ namespace SabberStoneCore.Kettle
             };
         }
 
+        public static IPowerHistoryEntry HideEntity(IPlayable playable)
+        {
+            return new PowerHistoryHide
+            {
+                EntityId = playable.Id,
+                Zone = playable.Zone.Type
+            };
+        }
 
         public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target)
         {
@@ -131,6 +139,7 @@ namespace SabberStoneCore.Kettle
         {
             return new PowerHistoryBlockEnd();
         }
+
     }
 
     //message PowerHistory
@@ -265,6 +274,25 @@ namespace SabberStoneCore.Kettle
         {
             var str = new StringBuilder();
             str.AppendLine($"{PowerType} - Updating Entity = [{Entity.Print()}]");
+            return str.ToString();
+        }
+    }
+
+    //message PowerHistoryHide
+    //{
+    //    required int32 entity = 1;
+    //    required int32 zone = 2;
+    //}
+    public class PowerHistoryHide : IPowerHistoryEntry
+    {
+        public PowerType PowerType => PowerType.HIDE_ENTITY;
+        public int EntityId { get; set; }
+        public Zone Zone { get; set; }
+
+        public string Print()
+        {
+            var str = new StringBuilder();
+            str.AppendLine($"{PowerType} Entity = [{EntityId}] tag={Zone}");
             return str.ToString();
         }
     }

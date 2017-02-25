@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Actions
 {
@@ -124,6 +125,11 @@ namespace SabberStoneCore.Actions
             {
                 c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", $"adding to deck {playable}.");
                 c.Deck.Add(playable, c.Deck.Count == 0 ? -1 : Util.Random.Next(c.Deck.Count + 1));
+                
+                // add hide entity 
+                //if (c.Game.History)
+                //    c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(playable));
+
                 return true;
             };
 
