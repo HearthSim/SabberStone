@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
 using Newtonsoft.Json.Linq;
@@ -80,8 +81,23 @@ namespace SabberStoneKettleServer
             });
 
             _game.Process(chooseTask);
+
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
+
+            if (_game.Step == Step.BEGIN_MULLIGAN
+                && _game.Player1.MulliganState == Mulligan.DONE
+                && _game.Player2.MulliganState == Mulligan.DONE)
+            {
+                _game.NextStep = Step.MAIN_BEGIN;
+
+                while (_game.Step != Step.MAIN_ACTION)
+                    Thread.Sleep(500);
+
+                SendPowerHistory(_game.PowerHistory.Last);
+                SendChoicesOrOptions();
+            }
+
         }
 
         public void OnCreateGame(KettleCreateGame createGame)

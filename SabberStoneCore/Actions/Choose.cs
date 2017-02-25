@@ -121,14 +121,21 @@ namespace SabberStoneCore.Actions
                 {
                     case ChoiceAction.HAND:
                         c.MulliganState = Mulligan.DEALING;
-                        choices.ForEach(p =>
+                        var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
+                        mulliganList.ForEach(p =>
                         {
-                            var mulliganCard = c.Hand.First(t => t.Id == p);
-                            RemoveFromZone(c, mulliganCard);
-                            ShuffleIntoDeck.Invoke(c, mulliganCard);
+                            RemoveFromZone(c, p);
+                            ShuffleIntoDeck.Invoke(c, p);
                         });
+                        //choices.ForEach(p =>
+                        //{
+                        //    var mulliganCard = c.Hand.First(t => t.Id == p);
+                        //    RemoveFromZone(c, mulliganCard);
+                        //    ShuffleIntoDeck.Invoke(c, mulliganCard);
+                        //});
 
-                        for (var i = 0; i < choices.Count; i++)
+                        c.MulliganState = Mulligan.WAITING;
+                        for (var i = 0; i < mulliganList.Count; i++)
                         {
                             //c.NumCardsDrawnThisTurn++;
                             Draw(c);
@@ -137,7 +144,6 @@ namespace SabberStoneCore.Actions
                         // reset choice it's done
                         c.Choice = null;
 
-                        c.MulliganState = Mulligan.WAITING;
                         break;
 
                     default:

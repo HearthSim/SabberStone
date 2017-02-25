@@ -18,21 +18,10 @@ namespace SabberStoneCore.Model
             var entity = (Entity)sender;
             //_game.Dump("EntityChangedEvent", $"{sender} - {t}, old: {oldValue}, new: {newValue}");
 
-            switch (t)
-            {
-                case GameTag.NEXT_STEP:
-                    NextStepEvent(entity as Game, (Step)newValue);
-                    break;
-                case GameTag.MULLIGAN_STATE:
-                    if (newValue == (int) Mulligan.DONE && entity is Controller)
-                    {
-                        var controller = entity as Controller;
-                        if (controller.MulliganState == controller.Opponent.MulliganState)
-                        {
-                            _game.NextStep = Step.MAIN_BEGIN;
-                        }
-                    }
-                    break;
+
+            if (t == GameTag.NEXT_STEP)
+            { 
+                NextStepEvent(entity as Game, (Step)newValue);
             }
         }
 

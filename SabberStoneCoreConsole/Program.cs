@@ -111,15 +111,17 @@ namespace SabberStoneCoreConsole
             //Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
             //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
 
-            game.Process(ChooseTask.Mulligan(game.Player1, new List<int> { game.Player1.Choice.Choices[0] }));
+            game.Process(ChooseTask.Mulligan(game.Player1, new List<int> ( game.Player1.Choice.Choices )));
 
             Console.WriteLine(game.PowerHistory.Print(false));
 
-            game.Process(ChooseTask.Mulligan(game.Player2, new List<int> { game.Player2.Choice.Choices[0] }));
+            game.Process(ChooseTask.Mulligan(game.Player2, new List<int> { }));
 
             Console.WriteLine(game.PowerHistory.Print(false));
 
+            game.MainReady();
 
+            Console.WriteLine(game.PowerHistory.Print(false));
 
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
@@ -277,6 +279,8 @@ namespace SabberStoneCoreConsole
 
             game.Process(ChooseTask.Mulligan(game.Player2,
                 game.Player2.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
+
+            game.MainReady();
 
             ShowLog(game, LogLevel.VERBOSE);
 

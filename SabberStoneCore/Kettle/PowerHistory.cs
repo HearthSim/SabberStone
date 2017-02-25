@@ -71,16 +71,16 @@ namespace SabberStoneCore.Kettle
 
         public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
         {
-            //var tags = new Dictionary<GameTag, int>();
+            var firstTags = new Dictionary<GameTag, int>();
 
-            //var enumerator = playable.GetEnumerator();
-            //while (enumerator.MoveNext())
-            //{
-            //    var pair = enumerator.Current;
-            //    tags[pair.Key] = pair.Value;
-            //}
+            var enumerator = playable.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var pair = enumerator.Current;
+                firstTags[pair.Key] = pair.Value;
+            }
 
-            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+            var tags = new Dictionary<GameTag, int>(firstTags)
             {
                 [GameTag.PREMIUM] = playable[GameTag.PREMIUM],
                 [GameTag.DAMAGE] = playable[GameTag.DAMAGE],
