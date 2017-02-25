@@ -52,7 +52,11 @@ namespace SabberStoneKettleServer
         public void OnSendOption(KettleSendOption sendOption)
         {
             Console.WriteLine("simulator OnSendOption called");
-            // TODO play the selected option
+
+            var allOptions = _game.AllOptionsMap[sendOption.Index];
+
+
+
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
         }
@@ -61,10 +65,13 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnChooiseEntities called");
 
-            var test = _game.EntityChoicesMap[chooseEntities.ID];
-            _game.Process(test.ChoiceType == ChoiceType.MULLIGAN
-                ? ChooseTask.Mulligan(test.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices)
-                : ChooseTask.Pick(test.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]));
+            var entityChoices = _game.EntityChoicesMap[chooseEntities.ID];
+            var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
+                ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices)
+                : ChooseTask.Pick(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]);
+
+            Console.WriteLine($"processing => {chooseTask.FullPrint()}");
+            _game.Process(chooseTask);
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
