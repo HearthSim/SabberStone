@@ -60,8 +60,11 @@ namespace SabberStoneKettleServer
         public void OnChooseEntities(KettleChooseEntities chooseEntities)
         {
             Console.WriteLine("simulator OnChooiseEntities called");
-            // TODO choose the selected entities
 
+            var test = _game.EntityChoicesMap[chooseEntities.ID];
+            _game.Process(test.ChoiceType == ChoiceType.MULLIGAN
+                ? ChooseTask.Mulligan(test.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices)
+                : ChooseTask.Pick(test.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]));
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
