@@ -349,14 +349,25 @@ namespace SabberStoneKettleServer
 
     public class KettleChooseEntities : KettlePayload
     {
+        public List<int> Choices;
+        public int ID;
 
         public JObject ToPayload()
         {
             return KettleUtils.CreateKettlePayload("ChooseEntities", this);
         }
+    }
 
-        public List<int> Choices;
-        public int ID;
+    public class KettleEntitiesChosen : KettlePayload
+    {
+        public int ChoiceType;
+        public int PlayerID;
+        public KettleChooseEntities ChooseEntities;
+
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload("EntitiesChosen", this);
+        }
     }
 
     public class KettleUtils
