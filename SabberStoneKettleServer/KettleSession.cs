@@ -63,7 +63,7 @@ namespace SabberStoneKettleServer
 
         public void OnChooseEntities(KettleChooseEntities chooseEntities)
         {
-            Console.WriteLine("simulator OnChooiseEntities called");
+            Console.WriteLine("simulator OnChooseEntities called");
 
             var entityChoices = _game.EntityChoicesMap[chooseEntities.ID];
             var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
@@ -71,8 +71,15 @@ namespace SabberStoneKettleServer
                 : ChooseTask.Pick(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]);
 
             Console.WriteLine($"processing => {chooseTask.FullPrint()}");
-            _game.Process(chooseTask);
 
+            Adapter.SendMessage(new KettleEntitiesChosen
+            {
+                ChoiceType = (int)entityChoices.ChoiceType,
+                PlayerID = entityChoices.PlayerId,
+                ChooseEntities = chooseEntities,
+            });
+
+            _game.Process(chooseTask);
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
         }

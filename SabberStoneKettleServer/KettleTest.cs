@@ -45,6 +45,11 @@ namespace SabberStoneKettleServer
             SendPacket(new KettleEntityChoices(entityChoices1));
             var entityChoices2 = PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice);
             SendPacket(new KettleEntityChoices(entityChoices2));
+
+            _adapter.OnChooseEntities += (KettleChooseEntities e) =>
+            {
+
+            };
         }
 
         private static void QueuePacket(KettlePayload payload)
