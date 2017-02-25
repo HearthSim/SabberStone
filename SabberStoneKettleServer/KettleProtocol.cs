@@ -225,9 +225,11 @@ namespace SabberStoneKettleServer
         public KettleOption(PowerOption option)
         {
             Type = (int)option.OptionType;
-            MainOption = new KettleSubOption(option.MainOption);
-            SubOptions = new List<KettleSubOption>();
 
+            if (option.MainOption != null)
+                MainOption = new KettleSubOption(option.MainOption);
+
+            SubOptions = new List<KettleSubOption>();
             foreach (var sub in option.SubOptions)
                 SubOptions.Add(new KettleSubOption(sub));
         }
