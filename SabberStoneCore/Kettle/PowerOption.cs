@@ -19,7 +19,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerAllOptions
     {
-        private static int _index = 1;
+        private static int _index = 0;
         public int Index
         {
             get { return _index; }
@@ -28,9 +28,10 @@ namespace SabberStoneCore.Kettle
 
         public List<PowerOption> PowerOptionList { get; set; }
 
-        public PowerAllOptions()
+        public PowerAllOptions(Game game)
         {
-            Index++;
+            ++Index;
+            game.AllOptionsMap.Add(Index, this);
             PowerOptionList = new List<PowerOption>();
         }
 
@@ -49,14 +50,14 @@ namespace SabberStoneCore.Kettle
 
     public class PowerOptionsBuilder
     {
-        public static PowerAllOptions AllOptions(List<PlayerTask> list)
+        public static PowerAllOptions AllOptions(Game game, List<PlayerTask> list)
         {
             if (list.All(p => p.PlayerTaskType != PlayerTaskType.END_TURN))
             {
                 return null;
             }
 
-            var result = new PowerAllOptions();
+            var result = new PowerAllOptions(game);
             result.PowerOptionList.Add(new PowerOption { OptionType = OptionType.END_TURN });
 
             var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();

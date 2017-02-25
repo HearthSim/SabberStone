@@ -78,6 +78,10 @@ namespace SabberStoneCore.Model
 
         public List<Game> Splits { get; set; } = new List<Game>();
 
+        public Dictionary<int, PowerEntityChoices> EntityChoicesMap { get; } =  new Dictionary<int, PowerEntityChoices>();
+
+        public Dictionary<int, PowerAllOptions> AllOptionsMap { get; } = new Dictionary<int, PowerAllOptions>();
+
         public Game(GameConfig gameConfig, bool setupHeroes = true) 
             : base(null, Card.CardGame, new Dictionary<GameTag, int>
         {

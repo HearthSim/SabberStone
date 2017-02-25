@@ -25,9 +25,14 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerEntityChoices
     {
-        private static int _index = 0;
 
-        public int Index { get; set; }
+        private static int _index = 0;
+        public int Index
+        {
+            get { return _index; }
+            private set { _index = value; }
+        }
+
         public ChoiceType ChoiceType { get; set; }
         public int CountMin { get; set; }
         public int CountMax { get; set; }
@@ -36,9 +41,10 @@ namespace SabberStoneCore.Kettle
         public int PlayerId { get; set; }
         public bool HideChosen { get; set; }
 
-        public PowerEntityChoices()
+        public PowerEntityChoices(Game game)
         {
-            Index = ++_index;
+            ++Index;
+            game.EntityChoicesMap.Add(Index, this);
         }
 
         public string Print()
@@ -57,13 +63,14 @@ namespace SabberStoneCore.Kettle
 
     public class PowerChoicesBuilder
     {
-        public static PowerEntityChoices EntityChoices(Choice choice)
+        public static PowerEntityChoices EntityChoices(Game game, Choice choice)
         {
             if (choice == null)
             {
                 return null;
             }
-            return new PowerEntityChoices
+
+            return new PowerEntityChoices(game)
             {
                 ChoiceType = choice.ChoiceType,
                 Entities = new List<int>(choice.Choices),

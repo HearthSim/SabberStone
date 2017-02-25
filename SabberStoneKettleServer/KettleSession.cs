@@ -61,6 +61,8 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnChooiseEntities called");
             // TODO choose the selected entities
+
+
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
         }
@@ -87,11 +89,11 @@ namespace SabberStoneKettleServer
         private void SendChoicesOrOptions()
         {
             // getting choices mulligan choices for players ...
-            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game.Player1.Choice);
-            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game.Player2.Choice);
+            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
+            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
 
             // getting options for currentPlayer ...
-            var options = PowerOptionsBuilder.AllOptions(_game.CurrentPlayer.Options());
+            var options = PowerOptionsBuilder.AllOptions(_game, _game.CurrentPlayer.Options());
 
             if (entityChoicesPlayer1 != null)
                 SendEntityChoices(entityChoicesPlayer1);

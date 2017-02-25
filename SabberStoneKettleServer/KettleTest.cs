@@ -41,9 +41,9 @@ namespace SabberStoneKettleServer
                 QueuePacket(KettleHistoryEntry.From(h));
             SendQueue();
 
-            var entityChoices1 = PowerChoicesBuilder.EntityChoices(game.Player1.Choice);
+            var entityChoices1 = PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice);
             SendPacket(new KettleEntityChoices(entityChoices1));
-            var entityChoices2 = PowerChoicesBuilder.EntityChoices(game.Player2.Choice);
+            var entityChoices2 = PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice);
             SendPacket(new KettleEntityChoices(entityChoices2));
         }
 
