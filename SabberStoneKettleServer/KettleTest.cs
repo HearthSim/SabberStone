@@ -16,14 +16,15 @@ namespace SabberStoneKettleServer
     {
         private static List<KettlePayload> _history = new List<KettlePayload>();
         private static KettleAdapter _adapter;
+        private static Game _game;
 
-        public static void Test(KettleAdapter adapter)
+        public static void TestStep1(KettleAdapter adapter)
         {
             // test data source: https://github.com/HearthSim/SabberStone/blob/master/hslogs/GameStates.txt
             _adapter = adapter;
 
             Console.WriteLine("creating game");
-            var game = new Game(new GameConfig
+            _game = new Game(new GameConfig
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
@@ -31,34 +32,45 @@ namespace SabberStoneKettleServer
                 SkipMulligan = false,
                 FillDecks = true
             });
-
-            //_adapter.OnChooseEntities += (KettleChooseEntities e) =>
-            //{
-            //    Console.WriteLine($"In the house now!!! {e.ID} was choosen ");
-            //    var entityChoices = game.EntityChoicesMap[e.ID];
-            //    var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
-            //        ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? game.Player1 : game.Player2, e.Choices)
-            //        : ChooseTask.Pick(entityChoices.PlayerId == 1 ? game.Player1 : game.Player2, e.Choices[0]);
-            //    Console.WriteLine($"{chooseTask.FullPrint()}");
-            //};
+            
 
 
             // Start the game and send the following powerhistory to the client
-            game.StartGame();
+            _game.StartGame();
 
-            var powerHistory = game.PowerHistory.Last;
-            var createGame = powerHistory[0];
-            Console.WriteLine(createGame);
+            var powerHistory = _game.PowerHistory.Last;
 
             foreach (var h in powerHistory)
                 QueuePacket(KettleHistoryEntry.From(h));
             SendQueue();
 
-            var entityChoices1 = PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice);
+            var entityChoices1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
             SendPacket(new KettleEntityChoices(entityChoices1));
 
-            var entityChoices2 = PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice);
+            var entityChoices2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
             SendPacket(new KettleEntityChoices(entityChoices2));
+
+            KettleAdapter.OnChooseEntitiesDelegate handleMulligan = null;
+            handleMulligan = (KettleChooseEntities) =>
+            {
+                // Handle the response to the mulligan (in a dynamic or hardcoded way)
+                // this means sending the proper response/history and perhaps a ChosenEntities 
+
+                // If both players are handled, we can jump to game phase 2
+                if (_game.Step == Step.BEGIN_MULLIGAN
+                    && _game.Player1.MulliganState == Mulligan.DONE
+                    && _game.Player2.MulliganState == Mulligan.DONE)
+                {
+                    _adapter.OnChooseEntities -= handleMulligan;
+                    _game.NextStep = Step.MAIN_BEGIN;
+                    TestStep2();
+                }
+            };
+            _adapter.OnChooseEntities += handleMulligan;
+        }
+
+        public static void TestStep2()
+        {
 
         }
 
