@@ -104,6 +104,11 @@ namespace SabberStoneCoreConsole
                 });
             game.StartGame();
 
+            List<PlayerTask> options;
+            options = game.CurrentPlayer.Options();
+            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+
             //Console.WriteLine("*** - START GAME - ***");
             Console.WriteLine(game.PowerHistory.Print(false));
             //Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
@@ -113,13 +118,24 @@ namespace SabberStoneCoreConsole
 
             game.Process(ChooseTask.Mulligan(game.Player1, new List<int> ( game.Player1.Choice.Choices )));
 
+            options = game.CurrentPlayer.Options();
+            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            options.ForEach(p => Console.WriteLine(p.FullPrint()));
             Console.WriteLine(game.PowerHistory.Print(false));
 
             game.Process(ChooseTask.Mulligan(game.Player2, new List<int> { }));
 
+            options = game.CurrentPlayer.Options();
+            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+
             Console.WriteLine(game.PowerHistory.Print(false));
 
             game.MainReady();
+
+            options = game.CurrentPlayer.Options();
+            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
             Console.WriteLine(game.PowerHistory.Print(false));
 

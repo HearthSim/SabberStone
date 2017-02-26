@@ -89,7 +89,7 @@ namespace SabberStoneCore.Model
         {
             _data[tag] = value;
 
-            if (Game.History && (int)tag < 1000) // && (tag != GameTag.ZONE_POSITION || Zone == null || Zone.Type == Enums.Zone.PLAY || Zone.Type == Enums.Zone.HAND))
+            if (Game.History && (int)tag < 1000 && (tag != GameTag.ZONE_POSITION || Zone == null || Zone.Type == Enums.Zone.PLAY || Zone.Type == Enums.Zone.HAND))
                 Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
         }
 

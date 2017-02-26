@@ -127,8 +127,8 @@ namespace SabberStoneCore.Actions
                 c.Deck.Add(playable, c.Deck.Count == 0 ? -1 : Util.Random.Next(c.Deck.Count + 1));
                 
                 // add hide entity 
-                //if (c.Game.History)
-                //    c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(playable));
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(playable));
 
                 return true;
             };
