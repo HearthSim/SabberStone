@@ -116,7 +116,7 @@ namespace SabberStoneCore.Model
             var result = new List<PlayerTask>();
 
             if (this != Game.CurrentPlayer)
-                return null;
+                return result;
 
             if (Choice != null)
             {
@@ -135,6 +135,10 @@ namespace SabberStoneCore.Model
                         throw new NotImplementedException();
                 } 
             }
+
+            // no options till mulligan is done for both players
+            if (Game.Step != Step.MAIN_ACTION)
+                return result;
 
             // add end turn task ...
             result.Add(EndTurnTask.Any(this));
