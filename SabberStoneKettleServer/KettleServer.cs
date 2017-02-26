@@ -29,11 +29,11 @@ namespace SabberStoneKettleServer
                 Console.WriteLine("Accepted client");
                 try
                 {
-                    //KettleTest.Test(new KettleAdapter(new NetworkStream(client)));
+                    KettleTest.TestStep1(new KettleAdapter(new NetworkStream(client)));
 
                     // For now we run each session in a new thread. If/when the server needs to scale to tens/hundreds of games, this should be changed
-                    KettleSession session = new KettleSession(client);
-                    new Thread(session.Enter).Start();
+                    //KettleSession session = new KettleSession(client);
+                    //new Thread(session.Enter).Start();
                 } catch (IOException)
                 {
                     Console.WriteLine("Connection closed");
