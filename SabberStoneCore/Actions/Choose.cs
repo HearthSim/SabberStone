@@ -130,6 +130,10 @@ namespace SabberStoneCore.Actions
                         var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
                         mulliganList.ForEach(p =>
                         {
+                            // drawing a new one
+                            Draw(c);
+
+                            // removing old one
                             RemoveFromZone(c, p);
                             ShuffleIntoDeck.Invoke(c, p);
                         });
@@ -142,12 +146,12 @@ namespace SabberStoneCore.Actions
                         if (c.Game.History)
                             c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-                        c.MulliganState = Mulligan.WAITING;
-                        for (var i = 0; i < mulliganList.Count; i++)
-                        {
-                            //c.NumCardsDrawnThisTurn++;
-                            Draw(c);
-                        }
+                        //c.MulliganState = Mulligan.WAITING;
+                        //for (var i = 0; i < mulliganList.Count; i++)
+                        //{
+                        //    //c.NumCardsDrawnThisTurn++;
+                        //    Draw(c);
+                        //}
                         
                         // reset choice it's done
                         c.Choice = null;
