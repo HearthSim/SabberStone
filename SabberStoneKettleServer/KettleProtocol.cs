@@ -26,6 +26,8 @@ namespace SabberStoneKettleServer
                     return new KettleHistoryFullEntity((PowerHistoryFullEntity)entry);
                 case PowerType.SHOW_ENTITY:
                     return new KettleHistoryShowEntity((PowerHistoryShowEntity)entry);
+                case PowerType.HIDE_ENTITY:
+                    return new KettleHistoryHideEntity((PowerHistoryHideEntity)entry);
                 case PowerType.TAG_CHANGE:
                     return new KettleHistoryTagChange((PowerHistoryTagChange)entry);
                 case PowerType.BLOCK_START:
@@ -148,6 +150,24 @@ namespace SabberStoneKettleServer
 
         public KettleEntity Entity;
         public string Name;
+    }
+
+    public class KettleHistoryHideEntity : KettleHistoryEntry
+    {
+        public override JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload("HistoryHideEntity", this);
+        }
+
+        public KettleHistoryHideEntity() { }
+        public KettleHistoryHideEntity(PowerHistoryHideEntity p)
+        {
+            EntityID = p.EntityID;
+            Zone = (int)p.Zone;
+        }
+
+        public int EntityID;
+        public int Zone;
     }
 
     public class KettleHistoryChangeEntity : KettleHistoryEntry
