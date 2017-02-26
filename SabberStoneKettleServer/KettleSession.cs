@@ -89,7 +89,7 @@ namespace SabberStoneKettleServer
                 && _game.Player1.MulliganState == Mulligan.DONE
                 && _game.Player2.MulliganState == Mulligan.DONE)
             {
-                _game.NextStep = Step.MAIN_BEGIN;
+                _game.MainBegin();
 
                 while (_game.Step != Step.MAIN_ACTION)
                     Thread.Sleep(500);
@@ -106,9 +106,28 @@ namespace SabberStoneKettleServer
             _game = new Game(new GameConfig
                     {
                         StartPlayer = 1,
-                        Player1HeroClass = CardClass.PRIEST,
-                        Player2HeroClass = CardClass.HUNTER,
+                        Player1HeroClass = CardClass.MAGE,
+                        //DeckPlayer1 = new List<Card>()
+                        //{
+                        //    Cards.FromId("EX1_097"),
+                        //    Cards.FromId("CS2_187"),
+                        //    Cards.FromId("CS2_162"),
+                        //    Cards.FromId("CS2_029"),
+                        //    Cards.FromId("OG_141"),
+                        //    Cards.FromId("EX1_399"),
+                        //},
+                        Player2HeroClass = CardClass.WARRIOR,
+                        //DeckPlayer2 = new List<Card>()
+                        //{
+                        //    Cards.FromId("EX1_016"),
+                        //    Cards.FromId("EX1_606"),
+                        //    Cards.FromId("EX1_410"),
+                        //    Cards.FromId("BRM_015"),
+                        //    Cards.FromId("OG_162"),
+                        //    Cards.FromId("LOE_077"),
+                        //},
                         SkipMulligan = false,
+                        Shuffle = false,
                         FillDecks = true
                     });
 
