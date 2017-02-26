@@ -180,76 +180,77 @@ namespace SabberStoneKettleServer
                 Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN READY !!! */
-                Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_READY));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_READY));
 
-                Adapter.SendMessage(BlockStartTest("", 1, 2, 0, (int)BlockType.TRIGGER));
-                    Adapter.SendMessage(TagChangeTest(66, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
-                    Adapter.SendMessage(TagChangeTest(67, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
-                    Adapter.SendMessage(TagChangeTest(64, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
-                    Adapter.SendMessage(TagChangeTest(65, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
-                    Adapter.SendMessage(TagChangeTest(2, (int)GameTag.RESOURCES, 1));
-                    Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 0));
-                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START_TRIGGERS));
-                Adapter.SendMessage(BlockEndTest());
+                //Adapter.SendMessage(BlockStartTest("", 1, 2, 0, (int)BlockType.TRIGGER));
+                //Adapter.SendMessage(TagChangeTest(66, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
+                //Adapter.SendMessage(TagChangeTest(67, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
+                //Adapter.SendMessage(TagChangeTest(64, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
+                //Adapter.SendMessage(TagChangeTest(65, (int)GameTag.NUM_TURNS_IN_PLAY, 1));
+                //Adapter.SendMessage(TagChangeTest(2, (int)GameTag.RESOURCES, 1));
+                //Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 0));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START_TRIGGERS));
+                //Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN START TRIGGERS !!! */
-                Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START_TRIGGERS));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START_TRIGGERS));
 
-                Adapter.SendMessage(BlockStartTest("", 8, 2, 0, (int)BlockType.TRIGGER));
-                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START));
-                Adapter.SendMessage(BlockEndTest());
+                //Adapter.SendMessage(BlockStartTest("", 8, 2, 0, (int)BlockType.TRIGGER));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START));
+                //Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN START !!! */
-                Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START));
 
-                Adapter.SendMessage(BlockStartTest("", 0, 2, 0, (int)BlockType.TRIGGER));
-                    Adapter.SendMessage(TagChangeTest(2, 467, 1));
-                Adapter.SendMessage(ShowEntityTest(62, "CS2_182", new Dictionary<int, int>
-                {
-                    [(int)GameTag.PREMIUM] = 0,
-                    [(int)GameTag.DAMAGE] = 0,
-                    [(int)GameTag.HEALTH] = 5,
-                    [(int)GameTag.ATK] = 4,
-                    [(int)GameTag.COST] = 4,
-                    [(int)GameTag.ZONE] = (int)Zone.HAND,
-                    [(int)GameTag.CONTROLLER] = 2,
-                    [(int)GameTag.ENTITY_ID] = 62,
-                    //[(int)GameTag.ELITE] = 1,
-                    [(int)GameTag.SILENCED] = 0,
-                    [(int)GameTag.WINDFURY] = 0,
-                    [(int)GameTag.TAUNT] = 0,
-                    [(int)GameTag.STEALTH] = 0,
-                    [(int)GameTag.DIVINE_SHIELD] = 0,
-                    [(int)GameTag.CHARGE] = 0,
-                    [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
-                    [(int)GameTag.CARDTYPE] = (int)CardType.MINION,
-                    [(int)GameTag.RARITY] = (int)Rarity.COMMON,
-                    //[(int)GameTag.BATTLECRY] = 1,
-                    [(int)GameTag.FROZEN] = 0,
-                    [(int)GameTag.ZONE_POSITION] = 0,
-                    [(int)GameTag.NUM_ATTACKS_THIS_TURN] = 0,
-                    [(int)GameTag.FORCED_PLAY] = 0,
-                    [(int)GameTag.TO_BE_DESTROYED] = 0,
-                    //[(int)GameTag.AURA] = 1,
-                    [(int)GameTag.START_WITH_1_HEALTH] = 0,
-                    [(int)GameTag.CUSTOM_KEYWORD_EFFECT] = 0,
-                    //[(int)GameTag.RITUAL] = 1,
-                    [(int)GameTag.EXTRA_ATTACKS_THIS_TURN] = 0,
-                    [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 4,
-                    [479] = 4,
-                }));
-                Adapter.SendMessage(TagChangeTest(62, (int)GameTag.ZONE_POSITION, 4));
-                    Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1));
-                    Adapter.SendMessage(TagChangeTest(2, 467, 0));
-                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_ACTION));
-                Adapter.SendMessage(BlockEndTest());
+                // start turn block
+                //Adapter.SendMessage(BlockStartTest("", 0, 2, 0, (int)BlockType.TRIGGER));
+                //Adapter.SendMessage(TagChangeTest(2, 467, 1));
+                //Adapter.SendMessage(ShowEntityTest(62, "CS2_182", new Dictionary<int, int>
+                //{
+                //    [(int)GameTag.PREMIUM] = 0,
+                //    [(int)GameTag.DAMAGE] = 0,
+                //    [(int)GameTag.HEALTH] = 5,
+                //    [(int)GameTag.ATK] = 4,
+                //    [(int)GameTag.COST] = 4,
+                //    [(int)GameTag.ZONE] = (int)Zone.HAND,
+                //    [(int)GameTag.CONTROLLER] = 2,
+                //    [(int)GameTag.ENTITY_ID] = 62,
+                //    //[(int)GameTag.ELITE] = 1,
+                //    [(int)GameTag.SILENCED] = 0,
+                //    [(int)GameTag.WINDFURY] = 0,
+                //    [(int)GameTag.TAUNT] = 0,
+                //    [(int)GameTag.STEALTH] = 0,
+                //    [(int)GameTag.DIVINE_SHIELD] = 0,
+                //    [(int)GameTag.CHARGE] = 0,
+                //    [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
+                //    [(int)GameTag.CARDTYPE] = (int)CardType.MINION,
+                //    [(int)GameTag.RARITY] = (int)Rarity.COMMON,
+                //    //[(int)GameTag.BATTLECRY] = 1,
+                //    [(int)GameTag.FROZEN] = 0,
+                //    [(int)GameTag.ZONE_POSITION] = 0,
+                //    [(int)GameTag.NUM_ATTACKS_THIS_TURN] = 0,
+                //    [(int)GameTag.FORCED_PLAY] = 0,
+                //    [(int)GameTag.TO_BE_DESTROYED] = 0,
+                //    //[(int)GameTag.AURA] = 1,
+                //    [(int)GameTag.START_WITH_1_HEALTH] = 0,
+                //    [(int)GameTag.CUSTOM_KEYWORD_EFFECT] = 0,
+                //    //[(int)GameTag.RITUAL] = 1,
+                //    [(int)GameTag.EXTRA_ATTACKS_THIS_TURN] = 0,
+                //    [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 4,
+                //    //[479] = 4,
+                //}));
+                //Adapter.SendMessage(TagChangeTest(62, (int)GameTag.ZONE_POSITION, 4));
+                //Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1));
+                //Adapter.SendMessage(TagChangeTest(2, 467, 0));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_ACTION));
+                //Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN ACTION !!! */
-                Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_ACTION));
+                //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_ACTION));
 
-                Adapter.SendMessage(BlockStartTest("", 2, 2, 0, (int)BlockType.TRIGGER));
-                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_END));
-                Adapter.SendMessage(BlockEndTest());
+                //Adapter.SendMessage(BlockStartTest("", 2, 2, 0, (int)BlockType.TRIGGER));
+                //    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_END));
+                //Adapter.SendMessage(BlockEndTest());
             }
 
             if (chooseEntities.ID == 2)

@@ -199,17 +199,16 @@ namespace SabberStoneCore.Model
                 p.NumTurnsLeft = 1;
             });
 
+            // ending mulligan draw block
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
             NextStep = _gameConfig.SkipMulligan ? Step.MAIN_BEGIN : Step.BEGIN_MULLIGAN;
-            
         }
 
         public void BeginMulligan()
         {
             Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
-
-            // ending mulligan draw block
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // starting mulligan draw block
             if (History)
@@ -239,6 +238,9 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_READY
         public void MainReady()
         {
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
+
             Characters.ForEach(p =>
             {
                 p.NumTurnsInPlay++;
@@ -271,6 +273,9 @@ namespace SabberStoneCore.Model
             NumMinionsKilledThisTurn = 0;
             CurrentPlayer.HeroPowerActivationsThisTurn = 0;
 
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
             // set next step
             NextStep = Step.MAIN_START_TRIGGERS;
         }
@@ -280,6 +285,12 @@ namespace SabberStoneCore.Model
         {
             CurrentPlayer.TurnStart = true;
             DeathProcessingAndAuraUpdate();
+
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
+
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_RESOURCE;
@@ -306,8 +317,14 @@ namespace SabberStoneCore.Model
 
         public void MainDraw()
         {
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 0, 0)); // turn start effect
+
             //CurrentPlayer.NumCardsToDraw = 1;
             Generic.Draw(CurrentPlayer);
+
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_START;
@@ -316,7 +333,6 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_START
         public void MainStart()
         {
-
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
                      $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
