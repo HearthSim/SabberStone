@@ -116,9 +116,9 @@ namespace SabberStoneCore.Kettle
 
         public static IPowerHistoryEntry HideEntity(IPlayable playable)
         {
-            return new PowerHistoryHide
+            return new PowerHistoryHideEntity
             {
-                EntityId = playable.Id,
+                EntityID = playable.Id,
                 Zone = playable.Zone.Type
             };
         }
@@ -283,16 +283,16 @@ namespace SabberStoneCore.Kettle
     //    required int32 entity = 1;
     //    required int32 zone = 2;
     //}
-    public class PowerHistoryHide : IPowerHistoryEntry
+    public class PowerHistoryHideEntity : IPowerHistoryEntry
     {
         public PowerType PowerType => PowerType.HIDE_ENTITY;
-        public int EntityId { get; set; }
+        public int EntityID { get; set; }
         public Zone Zone { get; set; }
 
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine($"{PowerType} Entity = [{EntityId}] tag={Zone}");
+            str.AppendLine($"{PowerType} Entity = [{EntityID}] tag={Zone}");
             return str.ToString();
         }
     }
