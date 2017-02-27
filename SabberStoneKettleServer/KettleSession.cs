@@ -3,12 +3,14 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
 using Newtonsoft.Json.Linq;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneKettleServer
 {
@@ -54,9 +56,54 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnSendOption called");
 
-            var allOptions = _game.AllOptionsMap[sendOption.Id];
+            var sendOptionId = sendOption.Id;
+            var sendOptionMainOption = sendOption.MainOption;
+            var sendOptionPosition = sendOption.Position;
+            var sendOptionSubOption = sendOption.SubOption;
+            var sendOptionTarget = sendOption.Target;
+
+            Console.WriteLine($"Id={sendOption.Id} MainOption={sendOption.MainOption} Position={sendOption.Position} SubOption={sendOption.SubOption} Target={sendOption.Target}");
+            var allOptions = _game.AllOptionsMap[sendOptionId+1];
+            Console.WriteLine(allOptions.Print());
+
+            var powerOption = allOptions.PowerOptionList[sendOptionMainOption];
+            var optionType = powerOption.OptionType;
 
 
+
+            PlayerTask task = null;
+            switch (optionType)
+            {
+                case OptionType.END_TURN:
+                    task = EndTurnTask.Any(_game.CurrentPlayer);
+                    break;
+
+                case OptionType.POWER:
+
+                    var mainOption = powerOption.MainOption;
+                    IPlayable source = _game.IdEntityDic[mainOption.EntityId];
+                    IPlayable target = null;
+                    if (mainOption.Targets != null && mainOption.Targets.Any())
+                    {
+                        target = _game.IdEntityDic[mainOption.Targets[sendOptionTarget]];
+                    }
+
+                    task = PlayCardTask.Any(_game.CurrentPlayer, source, target, sendOptionPosition, 0);
+                    
+                    //var subOptions = powerOption.SubOptions;
+                    //if (subOptions != null && subOptions.Any())
+                    //{ 
+                    //}
+
+                    break;
+                case OptionType.PASS:
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            
+            _game.Process(task);
+            ShowLog(_game, LogLevel.VERBOSE);
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
@@ -81,6 +128,7 @@ namespace SabberStoneKettleServer
             });
 
             _game.Process(chooseTask);
+            ShowLog(_game, LogLevel.VERBOSE);
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
@@ -93,7 +141,9 @@ namespace SabberStoneKettleServer
 
                 while (_game.Step != Step.MAIN_ACTION)
                     Thread.Sleep(500);
-                
+
+                ShowLog(_game, LogLevel.VERBOSE);
+
                 SendPowerHistory(_game.PowerHistory.Last);
                 SendChoicesOrOptions();
             }
@@ -133,6 +183,7 @@ namespace SabberStoneKettleServer
 
             // Start the game and send the following powerhistory to the client
             _game.StartGame();
+            ShowLog(_game, LogLevel.VERBOSE);
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
@@ -175,6 +226,49 @@ namespace SabberStoneKettleServer
                 message.Add(KettleHistoryEntry.From(entry));
             }
             Adapter.SendMessage(message);
+        }
+
+        private static void ShowLog(Game game, LogLevel level)
+        {
+            while (game.Logs.Count > 0)
+            {
+                var logEntry = game.Logs.Dequeue();
+                if (logEntry.Level <= level)
+                {
+                    var foreground = ConsoleColor.White;
+                    switch (logEntry.Level)
+                    {
+                        case LogLevel.DUMP:
+                            foreground = ConsoleColor.DarkCyan;
+                            break;
+                        case LogLevel.ERROR:
+                            foreground = ConsoleColor.Red;
+                            break;
+                        case LogLevel.WARNING:
+                            foreground = ConsoleColor.DarkRed;
+                            break;
+                        case LogLevel.INFO:
+                            foreground = logEntry.Location.Equals("Game") ?
+                                ConsoleColor.Yellow :
+                                ConsoleColor.Green;
+                            break;
+                        case LogLevel.VERBOSE:
+                            foreground = ConsoleColor.DarkGreen;
+                            break;
+                        case LogLevel.DEBUG:
+                            foreground = ConsoleColor.DarkGray;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    Console.ForegroundColor = foreground;
+
+                    Console.WriteLine(
+                        $"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}");
+                }
+            }
+            Console.ResetColor();
         }
     }
 }
