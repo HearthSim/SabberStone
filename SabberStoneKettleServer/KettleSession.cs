@@ -58,12 +58,12 @@ namespace SabberStoneKettleServer
 
             var sendOptionId = sendOption.Id;
             var sendOptionMainOption = sendOption.MainOption;
-            var sendOptionPosition = sendOption.Position;
+            var sendOptionPosition = sendOption.Position-1;
             var sendOptionSubOption = sendOption.SubOption;
             var sendOptionTarget = sendOption.Target;
 
             Console.WriteLine($"Id={sendOption.Id} MainOption={sendOption.MainOption} Position={sendOption.Position} SubOption={sendOption.SubOption} Target={sendOption.Target}");
-            var allOptions = _game.AllOptionsMap[sendOptionId+1];
+            var allOptions = _game.AllOptionsMap[sendOptionId];
             Console.WriteLine(allOptions.Print());
 
             var powerOption = allOptions.PowerOptionList[sendOptionMainOption];
