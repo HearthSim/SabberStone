@@ -245,8 +245,8 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_READY
         public void MainReady()
         {
-            //if (History)
-            //    PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
 
             Characters.ForEach(p =>
             {
@@ -280,8 +280,8 @@ namespace SabberStoneCore.Model
             NumMinionsKilledThisTurn = 0;
             CurrentPlayer.HeroPowerActivationsThisTurn = 0;
 
-            //if (History)
-            //    PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_START_TRIGGERS;
@@ -293,11 +293,11 @@ namespace SabberStoneCore.Model
             CurrentPlayer.TurnStart = true;
             DeathProcessingAndAuraUpdate();
 
-            //if (History)
-            //    PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
 
-            //if (History)
-            //    PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+            if (History)
+                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_RESOURCE;
@@ -343,8 +343,16 @@ namespace SabberStoneCore.Model
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
                      $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
+
+            DeathProcessingAndAuraUpdate();
+
+            // move forward if game isn't won by any player now!
+            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
+                ? Step.MAIN_ACTION
+                : Step.FINAL_WRAPUP;
+
             // set next step
-            NextStep = Step.MAIN_CLEANUP;
+            //NextStep = Step.MAIN_CLEANUP;
         }
 
         // Runs when STEP = MAIN_END

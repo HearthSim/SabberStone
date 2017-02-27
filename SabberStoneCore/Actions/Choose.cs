@@ -142,22 +142,10 @@ namespace SabberStoneCore.Actions
                             RemoveFromZone(c, p);
                             ShuffleIntoDeck.Invoke(c, p);
                         });
-                        //choices.ForEach(p =>
-                        //{
-                        //    var mulliganCard = c.Hand.First(t => t.Id == p);
-                        //    RemoveFromZone(c, mulliganCard);
-                        //    ShuffleIntoDeck.Invoke(c, mulliganCard);
-                        //});
+
                         if (c.Game.History)
                             c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-
-                        //c.MulliganState = Mulligan.WAITING;
-                        //for (var i = 0; i < mulliganList.Count; i++)
-                        //{
-                        //    //c.NumCardsDrawnThisTurn++;
-                        //    Draw(c);
-                        //}
-                        
+                       
                         // reset choice it's done
                         c.Choice = null;
 

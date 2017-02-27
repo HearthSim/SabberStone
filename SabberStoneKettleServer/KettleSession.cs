@@ -93,7 +93,7 @@ namespace SabberStoneKettleServer
 
                 while (_game.Step != Step.MAIN_ACTION)
                     Thread.Sleep(500);
-
+                
                 SendPowerHistory(_game.PowerHistory.Last);
                 SendChoicesOrOptions();
             }
@@ -119,7 +119,7 @@ namespace SabberStoneKettleServer
                 Player2HeroClass = CardClass.MAGE,
                 DeckPlayer2 = new List<Card>
                 {
-                    Cards.FromId("EX1_097"),
+                    Cards.FromId("NEW1_012"),
                     Cards.FromId("CS2_187"),
                     Cards.FromId("CS2_162"),
                     Cards.FromId("CS2_029"),
