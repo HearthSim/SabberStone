@@ -176,7 +176,19 @@ namespace SabberStoneKettleServer
 
                 Adapter.SendMessage(BlockStartTest("", 7, 3, 0, (int)BlockType.TRIGGER));
                     Adapter.SendMessage(TagChangeTest(3, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.DONE));
-                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_READY));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_READY));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START_TRIGGERS));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START_TRIGGERS));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_ACTION));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_ACTION));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_END));
                 Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN READY !!! */
@@ -373,7 +385,9 @@ namespace SabberStoneKettleServer
 
                 Adapter.SendMessage(BlockStartTest("", 7, 2, 0, (int) BlockType.TRIGGER));
                     Adapter.SendMessage(TagChangeTest(2, (int) GameTag.MULLIGAN_STATE, (int) Mulligan.DONE));
+                   // Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_READY));
                 Adapter.SendMessage(BlockEndTest());
+
             }
         }
 
