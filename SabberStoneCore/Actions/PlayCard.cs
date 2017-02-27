@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Actions
 {
@@ -29,6 +30,11 @@ namespace SabberStoneCore.Actions
                 c.NumCardsPlayedThisTurn++;
 
                 c.LastCardPlayed = source.Id;
+
+
+                // add draw block show entity 
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
 
                 // target is beeing set onto this gametag
                 if (target != null)
