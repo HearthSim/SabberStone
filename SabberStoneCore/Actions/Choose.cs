@@ -131,7 +131,12 @@ namespace SabberStoneCore.Actions
                         mulliganList.ForEach(p =>
                         {
                             // drawing a new one
-                            Draw(c);
+                            var playable = c.Deck.Remove(c.Deck[0]);
+
+                            if (AddHandPhase.Invoke(c, playable))
+                            {
+                                c.Hand.Swap(p, playable);
+                            }
 
                             // removing old one
                             RemoveFromZone(c, p);

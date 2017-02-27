@@ -193,7 +193,14 @@ namespace SabberStoneCore.Model
                 {
                     // 4th card for second player
                     Generic.Draw(p);
-                    Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
+
+                    var coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
+                    {
+                        [GameTag.ZONE] = (int)Enums.Zone.HAND,
+                        [GameTag.CARDTYPE] = (int)CardType.SPELL,
+                        [GameTag.CREATOR] = FirstPlayer.Opponent.PlayerId
+                    });
+                    Generic.AddHandPhase(FirstPlayer.Opponent, coin);
                 }
 
                 p.NumTurnsLeft = 1;
@@ -238,8 +245,8 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_READY
         public void MainReady()
         {
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
+            //if (History)
+            //    PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
 
             Characters.ForEach(p =>
             {
@@ -273,8 +280,8 @@ namespace SabberStoneCore.Model
             NumMinionsKilledThisTurn = 0;
             CurrentPlayer.HeroPowerActivationsThisTurn = 0;
 
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+            //if (History)
+            //    PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_START_TRIGGERS;
@@ -286,11 +293,11 @@ namespace SabberStoneCore.Model
             CurrentPlayer.TurnStart = true;
             DeathProcessingAndAuraUpdate();
 
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
+            //if (History)
+            //    PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
 
-            if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+            //if (History)
+            //    PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
             NextStep = Step.MAIN_RESOURCE;

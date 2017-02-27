@@ -37,10 +37,6 @@ namespace SabberStoneCore.Actions
 
                 AddHandPhase.Invoke(c, playable);
 
-                // add draw block show entity 
-                if (c.Game.History && playable != null)
-                    c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
-
                 return playable;
             };
 
