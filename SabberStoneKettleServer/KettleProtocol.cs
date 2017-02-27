@@ -279,7 +279,8 @@ namespace SabberStoneKettleServer
             return KettleUtils.CreateKettlePayload("SendOption", this);
         }
 
-        public int Index;
+        public int Id;
+        public int MainOption;
         public int Target;
         public int SubOption;
         public int Position;

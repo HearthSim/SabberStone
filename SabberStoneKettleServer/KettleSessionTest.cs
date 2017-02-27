@@ -55,7 +55,7 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnSendOption called");
 
-            var allOptions = _game.AllOptionsMap[sendOption.Index];
+            var allOptions = _game.AllOptionsMap[sendOption.Id];
 
             SendPowerHistory(_game.PowerHistory.Last);
             SendChoicesOrOptions();
@@ -176,7 +176,19 @@ namespace SabberStoneKettleServer
 
                 Adapter.SendMessage(BlockStartTest("", 7, 3, 0, (int)BlockType.TRIGGER));
                     Adapter.SendMessage(TagChangeTest(3, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.DONE));
-                    //Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_READY));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_READY));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START_TRIGGERS));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START_TRIGGERS));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_START));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_START));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_ACTION));
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.STEP, (int)Step.MAIN_ACTION));
+
+                    Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_END));
                 Adapter.SendMessage(BlockEndTest());
 
                 /* MAIN READY !!! */
@@ -373,7 +385,9 @@ namespace SabberStoneKettleServer
 
                 Adapter.SendMessage(BlockStartTest("", 7, 2, 0, (int) BlockType.TRIGGER));
                     Adapter.SendMessage(TagChangeTest(2, (int) GameTag.MULLIGAN_STATE, (int) Mulligan.DONE));
+                   // Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.MAIN_READY));
                 Adapter.SendMessage(BlockEndTest());
+
             }
         }
 
@@ -392,7 +406,7 @@ namespace SabberStoneKettleServer
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.CURRENT_PLAYER, 1));
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.FIRST_PLAYER, 1));
             Adapter.SendMessage(TagChangeTest(1, (int)GameTag.TURN, 1));
-            //Adapter.SendMessage(TagChangeTest(2, 467, 4));
+            Adapter.SendMessage(TagChangeTest(2, 467, 4));
             Adapter.SendMessage(ShowEntityTest(20, "EX1_016", new Dictionary<int, int>
             {
                 [(int)GameTag.PREMIUM] = 0,
@@ -427,7 +441,7 @@ namespace SabberStoneKettleServer
 
             Adapter.SendMessage(TagChangeTest(20, (int)GameTag.ZONE_POSITION, 1));
             Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1));
-            //Adapter.SendMessage(TagChangeTest(2, 467, 3));
+            Adapter.SendMessage(TagChangeTest(2, 467, 3));
             Adapter.SendMessage(ShowEntityTest(15, "EX1_606", new Dictionary<int, int>
             {
                 [(int)GameTag.PREMIUM] = 0,
@@ -461,7 +475,7 @@ namespace SabberStoneKettleServer
 
             Adapter.SendMessage(TagChangeTest(15, (int)GameTag.ZONE_POSITION, 2));
             Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 2));
-            //TagChangeTest(2, 467, 2);
+            TagChangeTest(2, 467, 2);
             Adapter.SendMessage(ShowEntityTest(18, "EX1_410", new Dictionary<int, int>
             {
                 [(int)GameTag.PREMIUM] = 0,
@@ -495,7 +509,7 @@ namespace SabberStoneKettleServer
             }));
             Adapter.SendMessage(TagChangeTest(18, (int)GameTag.ZONE_POSITION, 3));
             Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 3));
-            //Adapter.SendMessage(TagChangeTest(2, 467, 0));
+            Adapter.SendMessage(TagChangeTest(2, 467, 0));
 
             Adapter.SendMessage(ShowEntityTest(32, "BRM_015", new Dictionary<int, int>
             {
@@ -527,9 +541,9 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
                 [479] = 0,
             }));
-            Adapter.SendMessage(TagChangeTest(32, (int)GameTag.ZONE_POSITION, 4));
+            Adapter.SendMessage(TagChangeTest(32, (int)GameTag.ZONE_POSITION, 3));
             Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 4));
-            //Adapter.SendMessage(TagChangeTest(2, 467, 0));
+            Adapter.SendMessage(TagChangeTest(2, 467, 0));
             Adapter.SendMessage(TagChangeTest(2, (int)GameTag.NUM_TURNS_LEFT, 1));
 
             Adapter.SendMessage(FullEntityCreate(68, "GAME_005", new Dictionary<int, int>
@@ -542,7 +556,7 @@ namespace SabberStoneKettleServer
                 [(int)GameTag.CREATOR] = 1,
             }));
 
-            //Adapter.SendMessage(TagChangeTest(3, 467, 3));
+            Adapter.SendMessage(TagChangeTest(3, 467, 3));
 
             Adapter.SendMessage(ShowEntityTest(57, "EX1_097", new Dictionary<int, int>
             {
@@ -577,7 +591,7 @@ namespace SabberStoneKettleServer
             }));
             Adapter.SendMessage(TagChangeTest(57, (int)GameTag.ZONE_POSITION, 1));
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1));
-            //Adapter.SendMessage(TagChangeTest(3, 467, 2));
+            Adapter.SendMessage(TagChangeTest(3, 467, 2));
 
             Adapter.SendMessage(ShowEntityTest(34, "CS2_187", new Dictionary<int, int>
             {
@@ -611,7 +625,7 @@ namespace SabberStoneKettleServer
             }));
             Adapter.SendMessage(TagChangeTest(34, (int)GameTag.ZONE_POSITION, 2));
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 2));
-            //Adapter.SendMessage(TagChangeTest(3, 467, 1));
+            Adapter.SendMessage(TagChangeTest(3, 467, 1));
 
             Adapter.SendMessage(ShowEntityTest(46, "CS2_162", new Dictionary<int, int>
             {
@@ -645,13 +659,13 @@ namespace SabberStoneKettleServer
             }));
             Adapter.SendMessage(TagChangeTest(46, (int)GameTag.ZONE_POSITION, 3));
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.NUM_CARDS_DRAWN_THIS_TURN, 3));
-            //Adapter.SendMessage(TagChangeTest(3, 467, 0));
+            Adapter.SendMessage(TagChangeTest(3, 467, 0));
 
             Adapter.SendMessage(TagChangeTest(3, (int)GameTag.NUM_TURNS_LEFT, 1));
 
-            //Adapter.SendMessage(TagChangeTest(2, (int)GameTag.TIMEOUT, 75));
-            //Adapter.SendMessage(TagChangeTest(3, (int)GameTag.TIMEOUT, 75));
-            //Adapter.SendMessage(TagChangeTest(1, 10, 85));
+            Adapter.SendMessage(TagChangeTest(2, (int)GameTag.TIMEOUT, 75));
+            Adapter.SendMessage(TagChangeTest(3, (int)GameTag.TIMEOUT, 75));
+            Adapter.SendMessage(TagChangeTest(1, 10, 85));
             Adapter.SendMessage(TagChangeTest(1, (int)GameTag.NEXT_STEP, (int)Step.BEGIN_MULLIGAN));
 
             Adapter.SendMessage(BlockEndTest());
@@ -734,7 +748,7 @@ namespace SabberStoneKettleServer
                     {
                         [(int)GameTag.ENTITY_ID] = 2,
                         [(int)GameTag.PLAYER_ID] = 1,
-                        [(int)GameTag.HERO_ENTITY] = 4,
+                        [(int)GameTag.HERO_ENTITY] = 64,
                         [(int)GameTag.MAXHANDSIZE] = 10,
                         [(int)GameTag.STARTHANDSIZE] = 4,
                         [(int)GameTag.TEAM_ID] = 1,
@@ -758,7 +772,7 @@ namespace SabberStoneKettleServer
                     {
                         [(int)GameTag.ENTITY_ID] = 3,
                         [(int)GameTag.PLAYER_ID] = 2,
-                        [(int)GameTag.HERO_ENTITY] = 6,
+                        [(int)GameTag.HERO_ENTITY] = 66,
                         [(int)GameTag.MAXHANDSIZE] = 10,
                         [(int)GameTag.STARTHANDSIZE] = 4,
                         [(int)GameTag.TEAM_ID] = 2,
@@ -779,7 +793,7 @@ namespace SabberStoneKettleServer
             var list = new List<KettleHistoryFullEntity>();
             for (var i = 0; i < 60; i++)
             {
-                list.Add(FullEntityCreate(i + 8, "", new Dictionary<int, int>
+                list.Add(FullEntityCreate(i + 4, "", new Dictionary<int, int>
                 {
                     [(int)GameTag.ZONE] = (int)Zone.DECK,
                     [(int)GameTag.CONTROLLER] = i < 30 ? 1 : 2,
@@ -788,53 +802,53 @@ namespace SabberStoneKettleServer
                 }));
             }
 
-            list.Add(FullEntityCreate(4, "HERO_01", new Dictionary<int, int>
+            list.Add(FullEntityCreate(64, "HERO_01", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 1,
-                [(int)GameTag.ENTITY_ID] = 4,
+                [(int)GameTag.ENTITY_ID] = 64,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
                 [(int)GameTag.HERO_POWER] = 725,
             }));
 
-            list.Add(FullEntityCreate(5, "CS2_102", new Dictionary<int, int>
+            list.Add(FullEntityCreate(65, "CS2_102", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 1,
-                [(int)GameTag.ENTITY_ID] = 5,
+                [(int)GameTag.ENTITY_ID] = 65,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO_POWER,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
-                [(int)GameTag.CREATOR] = 4,
+                [(int)GameTag.CREATOR] = 64,
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
 
-            list.Add(FullEntityCreate(6, "HERO_08", new Dictionary<int, int>
+            list.Add(FullEntityCreate(66, "HERO_08", new Dictionary<int, int>
             {
                 [(int)GameTag.HEALTH] = 30,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 2,
-                [(int)GameTag.ENTITY_ID] = 6,
+                [(int)GameTag.ENTITY_ID] = 66,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
                 [(int)GameTag.HERO_POWER] = 807,
             }));
 
-            list.Add(FullEntityCreate(7, "CS2_034", new Dictionary<int, int>
+            list.Add(FullEntityCreate(67, "CS2_034", new Dictionary<int, int>
             {
                 [(int)GameTag.COST] = 2,
                 [(int)GameTag.ZONE] = (int)Zone.PLAY,
                 [(int)GameTag.CONTROLLER] = 2,
-                [(int)GameTag.ENTITY_ID] = 7,
+                [(int)GameTag.ENTITY_ID] = 67,
                 [(int)GameTag.FACTION] = (int)Faction.NEUTRAL,
                 [(int)GameTag.CARDTYPE] = (int)CardType.HERO_POWER,
                 [(int)GameTag.RARITY] = (int)Rarity.FREE,
-                [(int)GameTag.CREATOR] = 6,
+                [(int)GameTag.CREATOR] = 66,
                 [(int)GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = 2,
             }));
 

@@ -54,7 +54,7 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnSendOption called");
 
-            var allOptions = _game.AllOptionsMap[sendOption.Index];
+            var allOptions = _game.AllOptionsMap[sendOption.Id];
 
 
 
