@@ -193,7 +193,14 @@ namespace SabberStoneCore.Model
                 {
                     // 4th card for second player
                     Generic.Draw(p);
-                    Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
+
+                    var coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
+                    {
+                        [GameTag.ZONE] = (int)Enums.Zone.HAND,
+                        [GameTag.CARDTYPE] = (int)CardType.SPELL,
+                        [GameTag.CREATOR] = FirstPlayer.Opponent.PlayerId
+                    });
+                    Generic.AddHandPhase(FirstPlayer.Opponent, coin);
                 }
 
                 p.NumTurnsLeft = 1;
@@ -336,8 +343,16 @@ namespace SabberStoneCore.Model
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
                      $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
+
+            DeathProcessingAndAuraUpdate();
+
+            // move forward if game isn't won by any player now!
+            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
+                ? Step.MAIN_ACTION
+                : Step.FINAL_WRAPUP;
+
             // set next step
-            NextStep = Step.MAIN_CLEANUP;
+            //NextStep = Step.MAIN_CLEANUP;
         }
 
         // Runs when STEP = MAIN_END
