@@ -7,7 +7,7 @@ SabberStone is just another Hearthstone simulator and implementation, written in
 
 By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of ([Brimstone](https://github.com/HearthSim/Brimstone/tree/master/Brimstone)) was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome! 
 
-**Sabberstone Simulator is currently getting connected to the game client!** 
+**Sabberstone Simulator is currently getting connected for testing purpose to the client!** 
 <img align="left" src="/Readme/stove.PNG">
 
 ### Project Structure ###
