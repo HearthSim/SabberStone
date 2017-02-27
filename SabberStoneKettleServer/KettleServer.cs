@@ -30,10 +30,7 @@ namespace SabberStoneKettleServer
                 try
                 {
                     // For now we run each session in a new thread. If/when the server needs to scale to tens/hundreds of games, this should be changed
-                    KettleSessionTest session = new KettleSessionTest(client);
-                    //KettleSession session = new KettleSession(client);
                     //KettleSessionTest session = new KettleSessionTest(client);
-                    //new Thread(session.Enter).Start();
                     KettleSession session = new KettleSession(client);
                     new Thread(session.Enter).Start();
                 }
