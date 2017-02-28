@@ -27,9 +27,9 @@ namespace SabberStoneCoreConsole
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
-            //PowerHistoryTest();
+            PowerHistoryTest();
             //ChooseOneTest();
             //Kazakus();
 
@@ -92,7 +92,7 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.MAGE,
+                    Player1HeroClass = CardClass.DRUID,
                     //DeckPlayer1 = new List<Card>
                     //{
                     //    Cards.FromName("Raven Idol")
@@ -104,13 +104,13 @@ namespace SabberStoneCoreConsole
                 });
             game.StartGame();
 
-            List<PlayerTask> options;
-            options = game.CurrentPlayer.Options();
-            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //List<PlayerTask> options;
+            //options = game.CurrentPlayer.Options();
+            //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
             //Console.WriteLine("*** - START GAME - ***");
-            Console.WriteLine(game.PowerHistory.Print(false));
+            //Console.WriteLine(game.PowerHistory.Print(false));
             //Console.WriteLine("*** - MULLIGAN PLAYER 1 - ***");
             //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player1.Choice).Print());
             //Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
@@ -118,26 +118,26 @@ namespace SabberStoneCoreConsole
 
             game.Process(ChooseTask.Mulligan(game.Player1, new List<int> ( game.Player1.Choice.Choices )));
 
-            options = game.CurrentPlayer.Options();
-            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            options.ForEach(p => Console.WriteLine(p.FullPrint()));
-            Console.WriteLine(game.PowerHistory.Print(false));
+            //options = game.CurrentPlayer.Options();
+            //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //Console.WriteLine(game.PowerHistory.Print(false));
 
             game.Process(ChooseTask.Mulligan(game.Player2, new List<int> { }));
 
-            options = game.CurrentPlayer.Options();
-            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //options = game.CurrentPlayer.Options();
+            //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-            Console.WriteLine(game.PowerHistory.Print(false));
+            //Console.WriteLine(game.PowerHistory.Print(false));
 
             game.MainReady();
 
-            options = game.CurrentPlayer.Options();
-            Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            //options = game.CurrentPlayer.Options();
+            //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+            //options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-            Console.WriteLine(game.PowerHistory.Print(false));
+            //Console.WriteLine(game.PowerHistory.Print(false));
 
             //game.Process(ConcedeTask.Any(game.CurrentPlayer));
             //Console.Write("*** - CONCEDE - ***");
@@ -148,18 +148,18 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            //while (game.State != State.COMPLETE)
-            //{
-            //    var options = game.CurrentPlayer.Options();
-            //    Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
-            //    options.ForEach(p => Console.WriteLine(p.FullPrint()));
+            while (game.State != State.COMPLETE)
+            {
+                var options = game.CurrentPlayer.Options();
+                Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
+                options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
-            //    PowerOptionsBuilder.AllOptions(game, options);
-            //    PowerChoicesBuilder.EntityChoices(game, game.CurrentPlayer.Choice);
+                Console.WriteLine(PowerOptionsBuilder.AllOptions(game, options)?.Print());
+                PowerChoicesBuilder.EntityChoices(game, game.CurrentPlayer.Choice);
 
-            //    var option = options[Rnd.Next(options.Count)];
-            //    game.Process(option);
-            //}
+                var option = options[Rnd.Next(options.Count)];
+                game.Process(option);
+            }
 
             //foreach (var powerAllOptionse in game.AllOptionsMap)
             //    Console.WriteLine($"{powerAllOptionse.Key} => {powerAllOptionse.Value.Print()}");

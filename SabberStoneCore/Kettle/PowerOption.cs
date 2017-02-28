@@ -24,6 +24,8 @@ namespace SabberStoneCore.Kettle
 
         public List<PowerOption> PowerOptionList { get; set; }
 
+        public List<PlayerTask> PlayerTaskList { get; set; }
+
         public PowerAllOptions(Game game)
         {
             Index = _index++;
@@ -53,7 +55,10 @@ namespace SabberStoneCore.Kettle
                 return null;
             }
 
-            var result = new PowerAllOptions(game);
+            var result = new PowerAllOptions(game)
+            {
+                PlayerTaskList = list
+            };
             result.PowerOptionList.Add(new PowerOption { OptionType = OptionType.END_TURN });
 
             var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();

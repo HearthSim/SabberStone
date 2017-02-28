@@ -3,6 +3,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -66,8 +67,10 @@ namespace SabberStoneKettleServer
             var allOptions = _game.AllOptionsMap[sendOptionId];
             Console.WriteLine(allOptions.Print());
 
+            var tasks = allOptions.PlayerTaskList;
             var powerOption = allOptions.PowerOptionList[sendOptionMainOption];
             var optionType = powerOption.OptionType;
+
 
 
 
@@ -82,20 +85,31 @@ namespace SabberStoneKettleServer
 
                     var mainOption = powerOption.MainOption;
                     IPlayable source = _game.IdEntityDic[mainOption.EntityId];
-                    IPlayable target = null;
-                    if (mainOption.Targets != null && mainOption.Targets.Any())
+                    IPlayable target = sendOptionTarget > 0 ? _game.IdEntityDic[sendOptionTarget] : null;
+                    var subObtions = powerOption.SubOptions;
+
+                    if (source.Zone?.Type == Zone.PLAY)
                     {
-                        target = _game.IdEntityDic[mainOption.Targets[sendOptionTarget]];
+                        task = MinionAttackTask.Any(_game.CurrentPlayer, source, target);
                     }
-
-                    task = PlayCardTask.Any(_game.CurrentPlayer, source, target, sendOptionPosition, 0);
-                    
-                    //var subOptions = powerOption.SubOptions;
-                    //if (subOptions != null && subOptions.Any())
-                    //{ 
-                    //}
-
+                    else
+                    {
+                        switch (source.Card.Type)
+                        {
+                            case CardType.HERO:
+                                task = HeroAttackTask.Any(_game.CurrentPlayer, target);
+                                break;
+                            case CardType.HERO_POWER:
+                                task = HeroPowerTask.Any(_game.CurrentPlayer, target);
+                                break;
+                            default:
+                                task = PlayCardTask.Any(_game.CurrentPlayer, source, target, sendOptionPosition,
+                                    sendOptionSubOption);
+                                break;
+                        }
+                    }
                     break;
+
                 case OptionType.PASS:
                     break;
                 default:
@@ -210,11 +224,13 @@ namespace SabberStoneKettleServer
 
         private void SendEntityChoices(PowerEntityChoices choices)
         {
+            Console.WriteLine($"SendEntityChoices => {choices.Print()}");
             Adapter.SendMessage(new KettleEntityChoices(choices));
         }
 
         private void SendOptions(PowerAllOptions options)
         {
+            Console.WriteLine($"SendOptions => {options.Print()}");
             Adapter.SendMessage(new KettleOptionsBlock(options, _game.CurrentPlayer.PlayerId));
         }
 
