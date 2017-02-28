@@ -432,6 +432,9 @@ namespace SabberStoneCore.Model
 
         public void FinalWrapUp()
         {
+            if (History)
+                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, Id, "", -1, 0);
+
             Heroes.ForEach(p =>
             {
                 if (p.Controller.PlayState == PlayState.LOSING || p.Controller.PlayState == PlayState.CONCEDED)
@@ -440,6 +443,9 @@ namespace SabberStoneCore.Model
                     p.Controller.Opponent.PlayState = PlayState.WON;
                 }
             });
+
+            if (History)
+                PowerHistoryBuilder.BlockEnd();
 
             // set next step
             NextStep = Step.FINAL_GAMEOVER;
