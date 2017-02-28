@@ -58,7 +58,7 @@ namespace SabberStoneKettleServer
 
             var sendOptionId = sendOption.Id;
             var sendOptionMainOption = sendOption.MainOption;
-            var sendOptionPosition = sendOption.Position;
+            var sendOptionPosition = sendOption.Position-1;
             var sendOptionSubOption = sendOption.SubOption;
             var sendOptionTarget = sendOption.Target;
 
