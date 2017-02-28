@@ -163,16 +163,23 @@ namespace SabberStoneKettleServer
 
         public void OnCreateGame(KettleCreateGame createGame)
         {
-            
+            var player1 = createGame.Players[0];
+            var player2 = createGame.Players[1];
+            var hero1 = player1.Hero;
+            var hero2 = player2.Hero;
+            var hero1Class = Cards.FromId(hero1).Class;
+            var hero2Class = Cards.FromId(hero2).Class;
+            var player1Deck = player1.Cards.Select(Cards.FromId).ToList();
+            var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
+
             Console.WriteLine("creating game");
             _game = new Game(new GameConfig
             {
-                StartPlayer = 2,
-                Player1HeroClass = Cards.FromId(createGame.Players[0].Hero).Class,
-                Player2HeroClass = Cards.FromId(createGame.Players[1].Hero).Class,
-                SkipMulligan = false,
-                Shuffle = false,
-                FillDecks = true
+                Player1HeroClass = hero1Class,
+                DeckPlayer1 = player1Deck,
+                Player2HeroClass = hero2Class,
+                DeckPlayer2 = player2Deck,
+                SkipMulligan = false
             });
 
             // Start the game and send the following powerhistory to the client

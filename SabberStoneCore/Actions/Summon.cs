@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Actions
 {
@@ -23,6 +24,10 @@ namespace SabberStoneCore.Actions
                     minion.IsExhausted = true;
                 c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", $"Summon Minion {minion} to Board of {c.Name}.");
                 c.Board.Add(minion, zonePosition);
+
+                // add summon block show entity 
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
             };
 
         private static Action<Controller, Minion> AfterSummonTrigger

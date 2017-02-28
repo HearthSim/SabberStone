@@ -2,6 +2,7 @@
 using System.Linq;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model
 {
@@ -45,7 +46,15 @@ namespace SabberStoneCore.Model
             clone.Target = target;
             Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
                      $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
+
+            // power block
+            if (controller.Game.History)
+                controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
+
             clone.Process();
+
+            if (controller.Game.History)
+                controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
         }
 
         /// <summary>

@@ -359,9 +359,15 @@ namespace SabberStoneCore.Model
         public void MainEnd()
         {
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
-            
+
+            if (History)
+                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
+
             CurrentPlayer.TurnStart = false;
             DeathProcessingAndAuraUpdate();
+
+            if (History)
+                PowerHistoryBuilder.BlockEnd();
 
             // set next step
             NextStep = Step.MAIN_NEXT;
@@ -370,6 +376,9 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_NEXT
         public void MainNext()
         {
+            if (History)
+                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, this.Id, "", -1, 0);
+
             CurrentPlayer.NumTurnsLeft = 0;
             CurrentOpponent.NumTurnsLeft = 1;
 
@@ -398,13 +407,22 @@ namespace SabberStoneCore.Model
 
             Log(LogLevel.INFO, BlockType.PLAY, "Game", $"CurentPlayer {CurrentPlayer.Name}.");
 
+            if (History)
+                PowerHistoryBuilder.BlockEnd();
+
             // set next step
             NextStep = Step.MAIN_READY;
         }
 
         public void MainCleanUp()
         {
+            if (History)
+                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
+
             DeathProcessingAndAuraUpdate();
+
+            if (History)
+                PowerHistoryBuilder.BlockEnd();
 
             // move forward if game isn't won by any player now!
             NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
