@@ -27,12 +27,15 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
+                // play block
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id,"",0, target?.Id ?? 0));
+
                 c.NumCardsPlayedThisTurn++;
 
                 c.LastCardPlayed = source.Id;
 
-
-                // add draw block show entity 
+                // show entity
                 if (c.Game.History)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
 
@@ -76,6 +79,9 @@ namespace SabberStoneCore.Actions
                 c.NumOptionsPlayedThisTurn++;
 
                 c.IsComboActive = true;
+
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
                 return true;
             };

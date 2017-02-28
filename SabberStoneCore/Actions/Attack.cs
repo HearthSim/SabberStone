@@ -1,5 +1,6 @@
 ﻿using System;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Actions
@@ -12,9 +13,22 @@ namespace SabberStoneCore.Actions
                 if (!PreAttackPhase.Invoke(c, source, target))
                     return false;
                 if (!OnAttackTrigger.Invoke(c, source, target))
+                {
+                    // end block
+                    if (c.Game.History)
+                        c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return false;
+                }
                 if (!AttackPhase.Invoke(c, source))
+                {
+                    // end block
+                    if (c.Game.History)
+                        c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return false;
+                }
+                // end block
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                 return true;
             };
 
@@ -37,6 +51,9 @@ namespace SabberStoneCore.Actions
                     $"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}is attacking " +
                     $"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 
+                // attack block
+                if (c.Game.History)
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
                 // TODO need to be manipulated for 50% chance to attack  someone else 
                 source.ProposedAttacker = source.Id;
