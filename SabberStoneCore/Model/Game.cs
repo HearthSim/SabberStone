@@ -489,32 +489,32 @@ namespace SabberStoneCore.Model
 
         public void AuraUpdate()
         {
-            Game.Enchants.ForEach(p => p.IsEnabled());
-            Game.Triggers.ForEach(p => p.IsEnabled());
+            Enchants.ForEach(p => p.IsEnabled());
+            Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentPlayer.Hero.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentPlayer.Hero.Triggers.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Hero.Enchants.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Hero.Triggers.ForEach(p => p.IsEnabled());
 
-            //Game.CurrentPlayer.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
-            //Game.CurrentPlayer.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
+            //CurrentPlayer.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
+            //CurrentPlayer.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentPlayer.Board.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentPlayer.Board.Triggers.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Board.Enchants.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Board.Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentPlayer.Graveyard.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentPlayer.Graveyard.Triggers.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Graveyard.Enchants.ForEach(p => p.IsEnabled());
+            CurrentPlayer.Graveyard.Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentOpponent.Hero.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentOpponent.Hero.Triggers.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Hero.Enchants.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Hero.Triggers.ForEach(p => p.IsEnabled());
 
-            //Game.CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
-            //Game.CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
+            //CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
+            //CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentOpponent.Board.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentOpponent.Board.Triggers.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Board.Enchants.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Board.Triggers.ForEach(p => p.IsEnabled());
 
-            Game.CurrentOpponent.Graveyard.Enchants.ForEach(p => p.IsEnabled());
-            Game.CurrentOpponent.Graveyard.Triggers.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Graveyard.Enchants.ForEach(p => p.IsEnabled());
+            CurrentOpponent.Graveyard.Triggers.ForEach(p => p.IsEnabled());
 
             Characters.ForEach(p1 => p1.Enchants.ForEach(p2 => p2.IsEnabled()));
             Characters.ForEach(p1 => p1.Triggers.ForEach(p2 => p2.IsEnabled()));
@@ -554,6 +554,39 @@ namespace SabberStoneCore.Model
             // make sure that we only use task for this game ...
             gameTask.Game = this;
             gameTask.Process();
+
+            // add enchantment and buff tag changes
+            if (History)
+            {
+                Enchants.ForEach(p => 
+                    p.Effects.Keys.ToList().ForEach(t =>
+                        IdEntityDic.Values.ToList().ForEach(o => 
+                            PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t])))));
+
+                foreach (var controller in _players)
+                {
+                    controller.Hero.Enchants.ForEach(p =>
+                        p.Effects.Keys.ToList().ForEach(t =>
+                            PowerHistory.Add(PowerHistoryBuilder.TagChange(Game.CurrentPlayer.Hero.Id, t, Game.CurrentPlayer.Hero[t]))));
+
+                    //CurrentPlayer.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
+                    //CurrentPlayer.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
+                    //CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
+                    //CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
+
+                    controller.Zones.Where(z => z != null).ToList().ForEach(z =>
+                        z.Enchants.ForEach(p =>
+                            p.Effects.Keys.ToList().ForEach(t =>
+                                z.GetAll.ForEach(o =>
+                                    PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
+
+                }
+
+                Characters.ForEach(c => 
+                    c.Enchants.ForEach(p =>
+                        p.Effects.Keys.ToList().ForEach(t => 
+                            PowerHistory.Add(PowerHistoryBuilder.TagChange(c.Id, t, c[t])))));
+            }
 
             if (Splitting)
             {
