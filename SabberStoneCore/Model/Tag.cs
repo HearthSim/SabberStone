@@ -4,7 +4,7 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
 {
-    internal class Tag
+    public class Tag
     {
         public GameTag GameTag { get; }
         public TagValue TagValue { get; }

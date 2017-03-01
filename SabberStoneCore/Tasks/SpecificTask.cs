@@ -97,23 +97,5 @@ namespace SabberStoneCore.Tasks
                 }),
                 new ReplaceHeroPower()
             );
-
-        public static ISimpleTask RandomPotionToHand()
-            => ComplexTask.Create(
-                new FuncCardIdsTask(p => new List<string>
-                {
-                    "CFM_021",
-                    "CFM_065",
-                    "CFM_620",
-                    "CFM_603",
-                    "CFM_661",
-                    "CFM_604",
-                    "CFM_662",
-                    "CFM_611",
-                    "CFM_608",
-                    "CFM_094"
-                }),
-                new RandomCardIdFromListTask(),
-                new AddStackTo(EntityType.HAND));
     }
 }

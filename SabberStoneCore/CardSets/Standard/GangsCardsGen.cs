@@ -2204,7 +2204,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = SpecificTask.RandomPotionToHand(),
+					SingleTask = ComplexTask.Create(
+                                    new RandomEntourageTask(),
+                                    new AddStackTo(EntityType.HAND)),
 				},
 			});
 
