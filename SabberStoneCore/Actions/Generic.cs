@@ -81,12 +81,13 @@ namespace SabberStoneCore.Actions
                     c.Graveyard.Add(playable);
                     return false;
                 }
-                c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"adding to hand {playable}.");
-                c.Hand.Add(playable);
 
                 // add draw block show entity 
                 if (c.Game.History && playable != null)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
+
+                c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"adding to hand {playable}.");
+                c.Hand.Add(playable);
 
                 return true;
             };
