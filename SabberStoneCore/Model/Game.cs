@@ -476,10 +476,16 @@ namespace SabberStoneCore.Model
                 {
                     p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
                 }
+                if (History)
+                    PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
+                p.IsExhausted = false;
                 p.Controller.Graveyard.Add(p);
-
                 p.Controller.NumFriendlyMinionsThatDiedThisTurn++;
                 CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
+                NumMinionsKilledThisTurn++;
+                p.Damage = 0;
+                if (History)
+                    PowerHistoryBuilder.BlockEnd();
             });
 
             // check for dead heroes
