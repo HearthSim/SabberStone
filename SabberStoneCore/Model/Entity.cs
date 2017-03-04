@@ -113,11 +113,11 @@ namespace SabberStoneCore.Model
             {
                 var oldValue = _data[t];
                 Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} oldvalue {oldValue}");
-                if (oldValue == value)
-                {
-                    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");
-                    return;
-                }
+                //if (oldValue == value && t != GameTag.ZONE_POSITION)
+                //{
+                //    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");
+                //    return;
+                //}
 
                 SetNativeGameTag(t, value);
 

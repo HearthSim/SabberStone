@@ -149,8 +149,8 @@ namespace SabberStoneCore.Model
             }
             RePosition(entity.ZonePosition);
             entity.Zone = null;
-            entity[GameTag.ZONE] = (int) Zone.INVALID;
-            entity.ZonePosition = 0;
+            //entity[GameTag.ZONE] = (int) Zone.INVALID;
+            //entity.ZonePosition = 0;
             return entity;
         }
 

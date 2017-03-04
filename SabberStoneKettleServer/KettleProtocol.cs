@@ -3,6 +3,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 
 namespace SabberStoneKettleServer
@@ -406,12 +408,7 @@ namespace SabberStoneKettleServer
 
         public static Dictionary<int, int> TagsToKettleTags(Dictionary<GameTag, int> tags)
         {
-            var ktags = new Dictionary<int, int>();
-
-            foreach (var tag in tags)
-                ktags.Add((int)tag.Key, tag.Value);
-
-            return ktags;
+            return tags.OrderBy(p => p.Key).ToDictionary(p => (int)p.Key, p => p.Value);
         }
     }
 }
