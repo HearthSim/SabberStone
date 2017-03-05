@@ -58,51 +58,58 @@ namespace SabberStoneCore.Kettle
 
         public static PowerHistoryFullEntity FullEntity(IPlayable playable)
         {
+            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+            gameTagsEntities.ForEach(p => tags[p] = playable[p]);
+
             return new PowerHistoryFullEntity
             {
                 Entity = new PowerHistoryEntity
                 {
                     Id = playable.Id,
                     Name = playable.Card.Id,
-                    Tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags)
+                    Tags = tags
                 }
             };
         }
 
+        private static List<GameTag> gameTagsEntities = new List<GameTag>()
+        {
+            GameTag.PREMIUM,
+            GameTag.ATK,
+            GameTag.HEALTH,
+            GameTag.DURABILITY,
+            GameTag.DAMAGE,
+            GameTag.COST,
+            GameTag.ZONE,
+            GameTag.ZONE_POSITION,
+            GameTag.CONTROLLER,
+            GameTag.ENTITY_ID,
+            GameTag.SILENCED,
+            GameTag.WINDFURY,
+            GameTag.TAUNT,
+            GameTag.STEALTH,
+            GameTag.DIVINE_SHIELD,
+            GameTag.CHARGE,
+            GameTag.FACTION,
+            GameTag.CARDTYPE,
+            GameTag.RARITY,
+            GameTag.BATTLECRY,
+            GameTag.DEATHRATTLE,
+            GameTag.FROZEN,
+            GameTag.NUM_ATTACKS_THIS_TURN,
+            GameTag.FORCED_PLAY,
+            GameTag.TO_BE_DESTROYED,
+            GameTag.START_WITH_1_HEALTH,
+            GameTag.CUSTOM_KEYWORD_EFFECT,
+            GameTag.EXTRA_ATTACKS_THIS_TURN
+        };
+
         public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
         {
-            var firstTags = new Dictionary<GameTag, int>();
-
-            var enumerator = playable.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var pair = enumerator.Current;
-                firstTags[pair.Key] = pair.Value;
-            }
-
-            var tags = new Dictionary<GameTag, int>(firstTags)
-            {
-                [GameTag.PREMIUM] = playable[GameTag.PREMIUM],
-                [GameTag.DAMAGE] = playable[GameTag.DAMAGE],
-                [GameTag.COST] = playable[GameTag.COST],
-                [GameTag.SILENCED] = playable[GameTag.SILENCED],
-                [GameTag.WINDFURY] = playable[GameTag.WINDFURY],
-                [GameTag.TAUNT] = playable[GameTag.TAUNT],
-                [GameTag.STEALTH] = playable[GameTag.STEALTH],
-                [GameTag.DIVINE_SHIELD] = playable[GameTag.DIVINE_SHIELD],
-                [GameTag.CHARGE] = playable[GameTag.CHARGE],
-                [GameTag.FACTION] = playable[GameTag.FACTION],
-                [GameTag.CARDTYPE] = playable[GameTag.CARDTYPE],
-                [GameTag.RARITY] = playable[GameTag.RARITY],
-                [GameTag.FROZEN] = playable[GameTag.FROZEN],
-                [GameTag.NUM_ATTACKS_THIS_TURN] = playable[GameTag.NUM_ATTACKS_THIS_TURN],
-                [GameTag.FORCED_PLAY] = playable[GameTag.FORCED_PLAY],
-                [GameTag.TO_BE_DESTROYED] = playable[GameTag.TO_BE_DESTROYED],
-                [GameTag.START_WITH_1_HEALTH] = playable[GameTag.START_WITH_1_HEALTH],
-                [GameTag.CUSTOM_KEYWORD_EFFECT] = playable[GameTag.CUSTOM_KEYWORD_EFFECT],
-                [GameTag.EXTRA_ATTACKS_THIS_TURN] = playable[GameTag.EXTRA_ATTACKS_THIS_TURN]
-            };
+            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+            gameTagsEntities.ForEach(p => tags[p] = playable[p]);
             //tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = playable[GameTag.COST];
+
             return new PowerHistoryShowEntity
             {
                 Entity = new PowerHistoryEntity

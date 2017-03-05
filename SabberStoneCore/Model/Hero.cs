@@ -2,6 +2,7 @@
 using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model
 {
@@ -26,6 +27,14 @@ namespace SabberStoneCore.Model
             RemoveWeapon();
             weapon.SetOrderOfPlay("WEAPON");
             Weapon = weapon;
+            Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
+            Weapon[GameTag.ZONE_POSITION] = 0;
+            if (Game.History)
+            {
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, Weapon.Id, "", -1, 0));
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+            }
+            EquippedWeapon = weapon.Id;
         }
 
         public void RemoveWeapon()
@@ -42,6 +51,7 @@ namespace SabberStoneCore.Model
             Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
             Controller.Graveyard.Add(Weapon);
             Weapon = null;
+            EquippedWeapon = 0;
         }
 
         public string FullPrint()
@@ -61,6 +71,12 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.SPELLPOWER]; }
             set { this[GameTag.SPELLPOWER] = value; }
+        }
+
+        public int EquippedWeapon
+        {
+            get { return this[GameTag.WEAPON]; }
+            set { this[GameTag.WEAPON] = value; }
         }
 
         public int HeroPowerDamage
