@@ -81,7 +81,15 @@ namespace SabberStoneCore.Model
             Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
                                         $"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
 
+
+            // power block
+            if (Game.History)
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
+
             var success = CurrentTask.Process();
+
+            if (Game.History)
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // reset between task execution
             Game.TaskStack.Reset();
