@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SabberStoneXTest
 {
-	public class DruidPe1Test
+	public class DruidGvgTest
 	{
 		// ------------------------------------------ SPELL - DRUID
 		// [GVG_031] Recycle - COST:6 
@@ -229,7 +229,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class HunterPe1Test
+	public class HunterGvgTest
 	{
 		// ----------------------------------------- SPELL - HUNTER
 		// [GVG_017] Call Pet - COST:2 
@@ -440,7 +440,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class MagePe1Test
+	public class MageGvgTest
 	{
 		// ------------------------------------------- SPELL - MAGE
 		// [GVG_001] Flamecannon - COST:2 
@@ -648,7 +648,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class PaladinPe1Test
+	public class PaladinGvgTest
 	{
 		// ---------------------------------------- SPELL - PALADIN
 		// [GVG_057] Seal of Light - COST:2 
@@ -863,7 +863,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class PriestPe1Test
+	public class PriestGvgTest
 	{
 		// ----------------------------------------- SPELL - PRIEST
 		// [GVG_008] Lightbomb - COST:6 
@@ -1092,7 +1092,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class RoguePe1Test
+	public class RogueGvgTest
 	{
 		// ------------------------------------------ SPELL - ROGUE
 		// [GVG_022] Tinker's Sharpsword Oil - COST:4 
@@ -1312,7 +1312,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class ShamanPe1Test
+	public class ShamanGvgTest
 	{
 		// ----------------------------------------- SPELL - SHAMAN
 		// [GVG_029] Ancestor's Call - COST:4 
@@ -1532,7 +1532,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class WarlockPe1Test
+	public class WarlockGvgTest
 	{
 		// ---------------------------------------- SPELL - WARLOCK
 		// [GVG_015] Darkbomb - COST:2 
@@ -1740,7 +1740,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class WarriorPe1Test
+	public class WarriorGvgTest
 	{
 		// ---------------------------------------- SPELL - WARRIOR
 		// [GVG_050] Bouncing Blade - COST:3 
@@ -1957,7 +1957,7 @@ namespace SabberStoneXTest
 	}
 
 	
-	public class NeutralPe1Test
+	public class NeutralGvgTest
 	{
 		// --------------------------------------- MINION - NEUTRAL
 		// [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3] 

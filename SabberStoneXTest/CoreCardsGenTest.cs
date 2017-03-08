@@ -16,7 +16,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 725
+        // - HERO_POWER = 725
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void GarroshHellscream_HERO_01()
@@ -40,7 +40,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 687
+        // - HERO_POWER = 687
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void Thrall_HERO_02()
@@ -64,7 +64,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 730
+        // - HERO_POWER = 730
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void ValeeraSanguinar_HERO_03()
@@ -88,7 +88,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 472
+        // - HERO_POWER = 472
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void UtherLightbringer_HERO_04()
@@ -112,7 +112,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 229
+        // - HERO_POWER = 229
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void Rexxar_HERO_05()
@@ -136,7 +136,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 1123
+        // - HERO_POWER = 1123
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void MalfurionStormrage_HERO_06()
@@ -160,7 +160,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 300
+        // - HERO_POWER = 300
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void Guldan_HERO_07()
@@ -184,7 +184,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 807
+        // - HERO_POWER = 807
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void JainaProudmoore_HERO_08()
@@ -208,7 +208,7 @@ namespace SabberStoneXTest
         // - Fac: neutral, Set: core, Rarity: free
         // --------------------------------------------------------
         // GameTag:
-        // - OVERKILL = 479
+        // - HERO_POWER = 479
         // --------------------------------------------------------
         [Fact(Skip="NotImplemented")]
         public void AnduinWrynn_HERO_09()

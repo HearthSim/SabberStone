@@ -17,7 +17,7 @@ namespace SabberStoneXTest
 		// - Race: demon, Fac: neutral, Set: expert1, Rarity: legendary
 		// --------------------------------------------------------
 		// GameTag:
-		// - OVERKILL = 1178
+		// - HERO_POWER = 1178
 		// --------------------------------------------------------
 		[Fact(Skip="NotImplemented")]
 		public void LordJaraxxus_EX1_323h()

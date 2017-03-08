@@ -28,10 +28,10 @@ namespace SabberStoneCore.Loader
 
         public static void CardSetFile(Dictionary<string, Card>.ValueCollection values)
         {
-            var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
-               // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
-            { CardSet.GVG};
-            //var cardSets = Enum.GetValues(typeof(CardSet));
+            //var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
+            //   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
+            //{ CardSet.GVG};
+            var cardSets = Enum.GetValues(typeof(CardSet));
             foreach (CardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
@@ -41,8 +41,6 @@ namespace SabberStoneCore.Loader
 
                 WriteCardSetFile(cardSet, className, path, values);
                 WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
-
-
             }
         }
 
@@ -54,6 +52,10 @@ namespace SabberStoneCore.Loader
             var str = new StringBuilder();
             str.AppendLine("using System.Collections.Generic;");
             str.AppendLine("using SabberStoneCore.Enchants;");
+            str.AppendLine("using SabberStoneCore.Conditions;");
+            str.AppendLine("using SabberStoneCore.Enums;");
+            str.AppendLine("using SabberStoneCore.Tasks;");
+            str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
             str.AppendLine();
             str.AppendLine("namespace SabberStoneCore.Loader.Generated.CardSets");
             str.AppendLine("{");
@@ -81,16 +83,14 @@ namespace SabberStoneCore.Loader
                 if (cardClass == CardClass.NEUTRAL || cardClass == CardClass.INVALID)
                     continue;
 
-                var cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet,
-                    CardType.INVALID, cardClass);
+                var cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet, CardType.INVALID, cardClass);
                 if (cardClassString != null)
                 {
                     methods.Add(UpperCaseFirst(cardClass.ToString()));
                     str.Append(cardClassString);
                     str.AppendLine();
                 }
-                var cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet,
-                    CardType.INVALID, cardClass);
+                var cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet, CardType.INVALID, cardClass);
                 if (cardClassNonCollectString != null)
                 {
                     methods.Add(UpperCaseFirst(cardClass.ToString()) + "NonCollect");
@@ -138,9 +138,7 @@ namespace SabberStoneCore.Loader
             var valuesOrdered = values
                 .Where(p => p.Set == set
                             && (collect == null || p.Collectible == collect)
-                            &&
-                            (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER ||
-                             p.Type == type)
+                            && (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
                             && (cardClass == CardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
             if (!valuesOrdered.Any())
             {
@@ -427,10 +425,10 @@ namespace SabberStoneCore.Loader
             var str = new StringBuilder();
             foreach (var card in cardsValues)
             {
-                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) || card.Implemented)
+                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set))
                     continue;
 
-                str.AppendLine($"{card.Id};{card.Type};{RemoveLineEndings(card.Text)}");
+                str.AppendLine($"{card.Id};{card.Type};{card.Implemented};{RemoveLineEndings(card.Text)}");
             }
 
 

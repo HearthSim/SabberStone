@@ -33,6 +33,7 @@ namespace SabberStoneCoreConsole
             //ChooseOneTest();
             //Kazakus();
 
+            //TestLoader.GetGameTags();
             //TestLoader.Load();
 
             Console.WriteLine("Finished! Press key now.");

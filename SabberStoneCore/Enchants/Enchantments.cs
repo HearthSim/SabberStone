@@ -21,7 +21,7 @@ namespace SabberStoneCore.Enchants
             // Standard
             CoreCardsGen.AddAll(_entchantmentDic);
             Expert1CardsGen.AddAll(_entchantmentDic);
-            Fp2CardsGen.AddAll(_entchantmentDic);
+            BrmCardsGen.AddAll(_entchantmentDic);
             GangsCardsGen.AddAll(_entchantmentDic);
             KaraCardsGen.AddAll(_entchantmentDic);
             LoeCardsGen.AddAll(_entchantmentDic);

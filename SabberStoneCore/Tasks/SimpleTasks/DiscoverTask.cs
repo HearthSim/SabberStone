@@ -144,7 +144,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.BASIC_HEROPOWERS:
                     choiceAction = ChoiceAction.HEROPOWER;
-                    return new [] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.SHOWN_HERO_POWER])).ToList()};
+                    return new [] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToList()};
 
                 case DiscoverType.DRAGON:
                     choiceAction = ChoiceAction.HAND;

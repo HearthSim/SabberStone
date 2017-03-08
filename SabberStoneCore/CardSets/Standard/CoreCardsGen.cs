@@ -16,7 +16,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 725
+            // - HERO_POWER = 725
             // --------------------------------------------------------
             cards.Add("HERO_01", null);
 
@@ -25,7 +25,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 687
+            // - HERO_POWER = 687
             // --------------------------------------------------------
             cards.Add("HERO_02", null);
 
@@ -34,7 +34,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 730
+            // - HERO_POWER = 730
             // --------------------------------------------------------
             cards.Add("HERO_03", null);
 
@@ -43,7 +43,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 472
+            // - HERO_POWER = 472
             // --------------------------------------------------------
             cards.Add("HERO_04", null);
 
@@ -52,7 +52,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 229
+            // - HERO_POWER = 229
             // --------------------------------------------------------
             cards.Add("HERO_05", null);
 
@@ -61,7 +61,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 1123
+            // - HERO_POWER = 1123
             // --------------------------------------------------------
             cards.Add("HERO_06", null);
 
@@ -70,7 +70,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 300
+            // - HERO_POWER = 300
             // --------------------------------------------------------
             cards.Add("HERO_07", null);
 
@@ -79,7 +79,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 807
+            // - HERO_POWER = 807
             // --------------------------------------------------------
             cards.Add("HERO_08", null);
 
@@ -88,7 +88,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
-            // - OVERKILL = 479
+            // - HERO_POWER = 479
             // --------------------------------------------------------
             cards.Add("HERO_09", null);
 

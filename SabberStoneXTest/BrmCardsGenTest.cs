@@ -9,7 +9,7 @@ using Xunit;
 
 namespace SabberStoneXTest
 {
-    public class HeroPowersFp2Test
+    public class HeroPowersBrmTest
     {
         // ----------------------------------- HERO_POWER - NEUTRAL
         // [BRM_027pH] DIE, INSECTS! (*) - COST:2 
@@ -43,7 +43,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class DruidFp2Test
+    public class DruidBrmTest
     {
         // ----------------------------------------- MINION - DRUID
         // [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8] 
@@ -114,7 +114,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class HunterFp2Test
+    public class HunterBrmTest
     {
         // ----------------------------------------- SPELL - HUNTER
         // [BRM_013] Quick Shot - COST:2 
@@ -204,7 +204,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class MageFp2Test
+    public class MageBrmTest
     {
         // ------------------------------------------- SPELL - MAGE
         // [BRM_003] Dragon's Breath - COST:5 
@@ -276,7 +276,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class PaladinFp2Test
+    public class PaladinBrmTest
     {
         // ---------------------------------------- SPELL - PALADIN
         // [BRM_001] Solemn Vigil - COST:5 
@@ -341,7 +341,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class PriestFp2Test
+    public class PriestBrmTest
     {
         // ----------------------------------------- SPELL - PRIEST
         // [BRM_017] Resurrect - COST:2 
@@ -421,7 +421,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class RogueFp2Test
+    public class RogueBrmTest
     {
         // ------------------------------------------ SPELL - ROGUE
         // [BRM_007] Gang Up - COST:2 
@@ -481,7 +481,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class ShamanFp2Test
+    public class ShamanBrmTest
     {
         // ----------------------------------------- SPELL - SHAMAN
         // [BRM_011] Lava Shock - COST:2 
@@ -549,7 +549,7 @@ namespace SabberStoneXTest
         }
     }
     
-    public class WarlockFp2Test
+    public class WarlockBrmTest
     {
         // ---------------------------------------- SPELL - WARLOCK
         // [BRM_005] Demonwrath - COST:3 
@@ -601,7 +601,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class WarriorFp2Test
+    public class WarriorBrmTest
     {
         // ---------------------------------------- SPELL - WARRIOR
         // [BRM_015] Revenge - COST:2 
@@ -650,7 +650,7 @@ namespace SabberStoneXTest
         }
     }
 
-    public class NeutralFp2Test
+    public class NeutralBrmTest
     {
         // --------------------------------------- MINION - NEUTRAL
         // [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3] 

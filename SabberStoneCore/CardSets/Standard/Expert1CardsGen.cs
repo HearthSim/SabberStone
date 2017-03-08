@@ -17,7 +17,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// GameTag:
-			// - OVERKILL = 1178
+			// - HERO_POWER = 1178
 			// --------------------------------------------------------
 			cards.Add("EX1_323h", null);
 

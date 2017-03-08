@@ -5,7 +5,7 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
-	public class Pe1CardsGen
+	public class GvgCardsGen
 	{
 		private static void Druid(IDictionary<string, List<Enchantment>> cards)
 		{

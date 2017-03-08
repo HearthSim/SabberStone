@@ -15,7 +15,7 @@ namespace SabberStoneCore.Model
         private static readonly CardDefinitions Data;
 
         public static CardSet[] StandardSets { get; } = {
-            CardSet.CORE, CardSet.EXPERT1, CardSet.FP2, CardSet.TGT,
+            CardSet.CORE, CardSet.EXPERT1, CardSet.BRM, CardSet.TGT,
             CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS
         };
 

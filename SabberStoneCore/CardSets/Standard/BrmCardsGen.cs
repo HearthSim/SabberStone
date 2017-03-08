@@ -8,7 +8,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.CardSets.Standard
 {
-	public class Fp2CardsGen
+	public class BrmCardsGen
 	{
 		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -17,7 +17,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - Set: fp2, 
 			// --------------------------------------------------------
 			// GameTag:
-			// - OVERKILL = 2319
+			// - HERO_POWER = 2319
 			// --------------------------------------------------------
 			cards.Add("BRM_027h", null);
 
