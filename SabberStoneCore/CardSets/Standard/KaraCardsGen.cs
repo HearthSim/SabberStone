@@ -985,12 +985,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_096", new List<Enchantment> {
-				// TODO [KAR_096] Prince Malchezaar && Test: Prince Malchezaar_KAR_096
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.GAME,
+                    Activation = EnchantmentActivation.DECK,
+                    Trigger = new TriggerBuilder().Create()
+                        //.EnableConditions(SelfCondition.IsInZone(Zone.DECK))
+                        //.ApplyConditions(RelaCondition.IsSameRace)
+                        .TriggerEffect(GameTag.STEP, 0)
+                        .MaxExecution(1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY, 5),
+                            new AddStackTo(EntityType.DECK)))
+                        .Build()
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

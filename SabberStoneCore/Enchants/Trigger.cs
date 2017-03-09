@@ -33,6 +33,10 @@ namespace SabberStoneCore.Enchants
 
         public bool FastExecution { get; set; } = false;
 
+        public int Executions { get; set; } = 0;
+
+        public int MaxExecutions { get; set; } = 0;
+
         public ISimpleTask SingleTask { get; set; }
 
         public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
@@ -52,7 +56,9 @@ namespace SabberStoneCore.Enchants
                 SingleTask = SingleTask,
                 Effects = Effects,
                 TurnsActive = TurnsActive,
-                FastExecution = FastExecution
+                FastExecution = FastExecution,
+                Executions = Executions,
+                MaxExecutions = MaxExecutions
             };
         }
 
@@ -129,6 +135,13 @@ namespace SabberStoneCore.Enchants
             {
                 Owner.Controller.Game.TaskQueue.Enqueue(clone);
             }
+
+            Executions++;
+
+            if (MaxExecutions != 0 && Executions >= MaxExecutions)
+            {
+                Remove();
+            }
         }
 
         public void Activate(string sourceId, List<Trigger> parent, IPlayable owner)
@@ -180,6 +193,12 @@ namespace SabberStoneCore.Enchants
         public TriggerBuilder FastExecution(bool fastExecution)
         {
             _trigger.FastExecution = fastExecution;
+            return this;
+        }
+
+        public TriggerBuilder MaxExecution(int maxExecutions)
+        {
+            _trigger.MaxExecutions = maxExecutions;
             return this;
         }
 

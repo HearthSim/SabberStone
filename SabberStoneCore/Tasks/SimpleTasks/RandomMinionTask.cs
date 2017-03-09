@@ -8,30 +8,34 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomMinionTask : SimpleTask
     {
-        private RandomMinionTask(GameTag tag, int value, EntityType type)
+        private RandomMinionTask(GameTag tag, int value, EntityType type, int amount)
         {
             Tag = tag;
             Value = value;
             Type = type;
+            Amount = amount;
         }
 
-        public RandomMinionTask(GameTag tag, EntityType type)
+        public RandomMinionTask(GameTag tag, EntityType type, int amount = 1)
         {
             Tag = tag;
             Value = -1;
             Type = type;
+            Amount = amount;
         }
 
-        public RandomMinionTask(GameTag tag, int value)
+        public RandomMinionTask(GameTag tag, int value, int amount = 1)
         {
             Tag = tag;
             Value = value;
             Type = EntityType.INVALID;
+            Amount = amount;
         }
 
         public GameTag Tag { get; set; }
         public int Value { get; set; }
         public EntityType Type { get; set; }
+        public int Amount { get; set; }
 
         public override TaskState Process()
         {
@@ -54,15 +58,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            var playable = Entity.FromCard(Controller, Util<Card>.Choose(cardsList));
-            Playables = new List<IPlayable> { playable };
+            var randomMinions = new List<IPlayable>();
+            while (randomMinions.Count < Amount && cardsList.Count > 0)
+            {
+                var card = Util<Card>.Choose(cardsList);
+                cardsList.Remove(card);
+                randomMinions.Add(Entity.FromCard(Controller, card));
+            }
+
+            Playables = randomMinions;
 
             return TaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
         {
-            var clone = new RandomMinionTask(Tag, Value, Type);
+            var clone = new RandomMinionTask(Tag, Value, Type, Amount);
             clone.Copy(this);
             return clone;
         }

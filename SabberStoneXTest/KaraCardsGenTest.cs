@@ -1258,22 +1258,26 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void PrinceMalchezaar_KAR_096()
 		{
-			// TODO PrinceMalchezaar_KAR_096 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Prince Malchezaar")
+                },
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false,
+                
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Prince Malchezaar"));
-		}
+            Assert.Equal(0, game.Triggers.Count);
+            Assert.Equal(31, game.CurrentPlayer.Deck.Count);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7] 
