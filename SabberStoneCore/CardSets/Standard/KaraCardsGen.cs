@@ -921,11 +921,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_061", new List<Enchantment> {
-				// TODO [KAR_061] The Curator && Test: The Curator_KAR_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null
+                    SingleTask = ComplexTask.Create(
+                        ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.BEAST)),
+                        ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DRAGON)),
+                        ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
                 },
 			});
 

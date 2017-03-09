@@ -1171,15 +1171,30 @@ namespace SabberStoneXTest
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Magma Rager"),
+                    Cards.FromName("Magma Rager"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Novice Engineer"),
+                    Cards.FromName("Reckless Rocketeer"),
+                    Cards.FromName("Stampeding Kodo"),
+                    Cards.FromName("Twilight Drake"),
+                    Cards.FromName("Murloc Knight")
+                },
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = false,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("The Curator"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-		}
+            Assert.Equal(Race.BEAST, game.CurrentPlayer.Hand[4].Card.Race);
+            Assert.Equal(Race.DRAGON, game.CurrentPlayer.Hand[5].Card.Race);
+            Assert.Equal(Race.MURLOC, game.CurrentPlayer.Hand[6].Card.Race);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3] 

@@ -3197,11 +3197,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.DECK),
-                        new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
-                        new RandomTask(2, EntityType.STACK),
-                        new RemoveFromDeck(EntityType.STACK),
-                        new AddStackTo(EntityType.HAND))
+                        ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)),
+                        ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)))
 				},
 			});
 
