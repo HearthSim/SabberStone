@@ -26,6 +26,10 @@
             TaskToDo.CardIds = CardIds;
             TaskToDo.Flag = Flag;
             TaskToDo.Number = Number;
+            TaskToDo.Number1 = Number1;
+            TaskToDo.Number2 = Number2;
+            TaskToDo.Number3 = Number3;
+            TaskToDo.Number4 = Number4;
             return TaskToDo.Process();
         }
 

@@ -18,7 +18,11 @@ namespace SabberStoneCore.Tasks
         List<string> CardIds { get; set; }
         bool Flag { get; set; }
         int Number { get; set; }
-       
+        int Number1 { get; set; }
+        int Number2 { get; set; }
+        int Number3 { get; set; }
+        int Number4 { get; set; }
+
         //List<Game> Splits { get; set; }
         //IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
 
@@ -82,7 +86,26 @@ namespace SabberStoneCore.Tasks
             get { return Game.TaskStack.Numbers[0]; }
             set { Game.TaskStack.Numbers[0] = value; }
         }
-
+        public int Number1
+        {
+            get { return Game.TaskStack.Numbers[1]; }
+            set { Game.TaskStack.Numbers[1] = value; }
+        }
+        public int Number2
+        {
+            get { return Game.TaskStack.Numbers[2]; }
+            set { Game.TaskStack.Numbers[2] = value; }
+        }
+        public int Number3
+        {
+            get { return Game.TaskStack.Numbers[3]; }
+            set { Game.TaskStack.Numbers[3] = value; }
+        }
+        public int Number4
+        {
+            get { return Game.TaskStack.Numbers[4]; }
+            set { Game.TaskStack.Numbers[4] = value; }
+        }
         public abstract TaskState Process();
         //{
         //    return TaskState.COMPLETE;
@@ -106,6 +129,10 @@ namespace SabberStoneCore.Tasks
             CardIds = task.CardIds;
             Flag = task.Flag;
             Number = task.Number;
+            Number1 = task.Number1;
+            Number2 = task.Number2;
+            Number3 = task.Number3;
+            Number4 = task.Number4;
 
             //Splits = task.Splits;
             //Sets = task.Sets;
@@ -151,6 +178,10 @@ namespace SabberStoneCore.Tasks
         public List<string> CardIds { get; set; }
         public bool Flag { get; set; } = false;
         public int Number { get; set; } = 0;
+        public int Number1 { get; set; } = 0;
+        public int Number2 { get; set; } = 0;
+        public int Number3 { get; set; } = 0;
+        public int Number4 { get; set; } = 0;
 
         public int ZonePosition { get; set; } = -1;
         public int ChooseOne { get; set; }

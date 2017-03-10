@@ -1,8 +1,75 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+    public enum MathOperation
+    {
+        ADD, SUB, MUL, DIV
+    }
+
+    public class MathNumberIndexTask : SimpleTask
+    {
+        public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation)
+        {
+            IndexA = indexA;
+            IndexB = indexB;
+        }
+
+        public int IndexA { get; set; }
+        public int IndexB { get; set; }
+        public MathOperation MathOperation { get; set; }
+
+        public override TaskState Process()
+        {
+            var numberA = GetIndex(IndexA);
+            var numberB = GetIndex(IndexB);
+            switch (MathOperation)
+            {
+                case MathOperation.ADD:
+                    Number += numberA + numberB;
+                    break;
+                case MathOperation.SUB:
+                    Number -= numberA - numberB;
+                    break;
+                case MathOperation.MUL:
+                    Number *= numberA * numberB;
+                    break;
+                case MathOperation.DIV:
+                    Number /= numberA / numberB;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {MathOperation}");
+            }
+            return TaskState.COMPLETE;
+        }
+
+        private int GetIndex(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return Number1;
+                case 2:
+                    return Number2;
+                case 3:
+                    return Number3;
+                case 4:
+                    return Number4;
+                default:
+                    throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {index}");
+            }
+        }
+
+        public override ISimpleTask Clone()
+        {
+            var clone = new MathNumberIndexTask(IndexA, IndexB, MathOperation);
+            clone.Copy(this);
+            return clone;
+        }
+    }
+
     public class MathMultiplyTask : SimpleTask
     {
         public MathMultiplyTask(int amount)

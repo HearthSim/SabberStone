@@ -3303,11 +3303,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_304", new List<Enchantment> {
-				// TODO [EX1_304] Void Terror && Test: Void Terror_EX1_304
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
+                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
+                        new MathNumberIndexTask(1,2, MathOperation.ADD),
+                        new SetAttackNumberTask(EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 0, 3),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 1, 4),
+                        new MathNumberIndexTask(3,4, MathOperation.ADD),
+                        new SetHealthNumberTask(EntityType.SOURCE),
+                        new DestroyTask(EntityType.STACK)),
 				},
 			});
 

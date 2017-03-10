@@ -32,6 +32,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 SuccessJoustTask.CardIds = CardIds;
                 SuccessJoustTask.Flag = Flag;
                 SuccessJoustTask.Number = Number;
+                SuccessJoustTask.Number1 = Number1;
+                SuccessJoustTask.Number2 = Number2;
+                SuccessJoustTask.Number3 = Number3;
+                SuccessJoustTask.Number4 = Number4;
                 return SuccessJoustTask.Process();
             }
 
@@ -45,6 +49,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 FailedJoustTask.CardIds = CardIds;
                 FailedJoustTask.Flag = Flag;
                 FailedJoustTask.Number = Number;
+                FailedJoustTask.Number1 = Number1;
+                FailedJoustTask.Number2 = Number2;
+                FailedJoustTask.Number3 = Number3;
+                FailedJoustTask.Number4 = Number4;
                 return FailedJoustTask.Process();
             }
 

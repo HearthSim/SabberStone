@@ -59,7 +59,26 @@ namespace SabberStoneCore.Tasks
             get { return Game.TaskStack.Numbers[0]; }
             set { Game.TaskStack.Numbers[0] = value; }
         }
-
+        public int Number1
+        {
+            get { return Game.TaskStack.Numbers[1]; }
+            set { Game.TaskStack.Numbers[1] = value; }
+        }
+        public int Number2
+        {
+            get { return Game.TaskStack.Numbers[2]; }
+            set { Game.TaskStack.Numbers[2] = value; }
+        }
+        public int Number3
+        {
+            get { return Game.TaskStack.Numbers[3]; }
+            set { Game.TaskStack.Numbers[3] = value; }
+        }
+        public int Number4
+        {
+            get { return Game.TaskStack.Numbers[4]; }
+            set { Game.TaskStack.Numbers[4] = value; }
+        }
         public TaskState Process()
         {
             // at the start move over initial parameters ...
@@ -137,6 +156,10 @@ namespace SabberStoneCore.Tasks
             CardIds = task.CardIds;
             Flag = task.Flag;
             Number = task.Number;
+            Number1 = task.Number1;
+            Number2 = task.Number2;
+            Number3 = task.Number3;
+            Number4 = task.Number4;
 
             //Splits = task.Splits;
             //Sets = task.Sets;

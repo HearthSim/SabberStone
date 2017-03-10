@@ -4083,7 +4083,7 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void VoidTerror_EX1_304()
 		{
 			// TODO VoidTerror_EX1_304 test
@@ -4091,14 +4091,34 @@ namespace SabberStoneXTest
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+                DeckPlayer1 = new List<Card>()
+                {
+                    Cards.FromName("Stonetusk Boar"),
+                    Cards.FromName("Bloodfen Raptor"),
+                    Cards.FromName("Void Terror")
+                },
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+                Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Void Terror"));
-		}
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+		    Minion minionA = ((Minion) game.CurrentPlayer.Board[0]);
+            Minion minionB = ((Minion)game.CurrentPlayer.Board[1]);
+            Assert.Equal(1, minionA.AttackDamage);
+            Assert.Equal(1, minionA.Health);
+            Assert.Equal(3, minionB.AttackDamage);
+            Assert.Equal(2, minionB.Health);
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hand[0], null, 1));
+            Minion minion = ((Minion)game.CurrentPlayer.Board[0]);
+            Assert.Equal(true, minionA.IsDead);
+            Assert.Equal(true, minionB.IsDead);
+            Assert.Equal(7, minion.AttackDamage);
+            Assert.Equal(6, minion.Health);
+        }
 
 		// --------------------------------------- MINION - WARLOCK
 		// [EX1_310] Doomguard - COST:5 [ATK:5/HP:7] 
