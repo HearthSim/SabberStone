@@ -184,6 +184,8 @@
         TIMEOUT = 7,
         TURN_START = 8,
         TURN_TIMER_SLUSH = 9,
+        //10 GameTag, seems set to 85 always seconds?
+        //11 MinionTag, Controller, ??? used with Potion of Madness  (11 newController,Charge,333 oldController)
         PREMIUM = 12,
         GOLD_REWARD_STATE = 13,
         PLAYSTATE = 17,
@@ -341,10 +343,13 @@
         NUM_MINIONS_PLAYED_THIS_TURN = 317,
         PREDAMAGE = 318,
         COLLECTIBLE = 321,
+        //323 EnchantmentTag, true ... when weapon equipped
+        //324 EnchantmentTag
         TARGETING_ARROW_TEXT = 325,
         ENCHANTMENT_BIRTH_VISUAL = 330,
         ENCHANTMENT_IDLE_VISUAL = 331,
         CANT_BE_TARGETED_BY_HERO_POWERS = 332,
+        //333 MinionTag, turns till effect? Or controller change after turn?
         WEAPON = 334,
         InvisibleDeathrattle = 335,
         HEALTH_MINIMUM = 337,
@@ -352,6 +357,7 @@
         TAG_ONE_TURN_EFFECT = 338,
         SILENCE = 339,
         COUNTER = 340,
+        //341 MinionTag, true/false
         ARTISTNAME = 342,
         LocalizationNotes = 344,
         HAND_REVEALED = 348,
@@ -416,6 +422,7 @@
         HEROPOWER_ADDITIONAL_ACTIVATIONS = 405,
         HEROPOWER_ACTIVATIONS_THIS_TURN = 406,
         REVEALED = 410,
+        //411 IMPLEMENTED
         NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME = 412,
         CANNOT_ATTACK_HEROES = 413,
         LOCK_AND_LOAD = 414,
@@ -432,6 +439,7 @@
         PREHEALING = 425,
         APPEAR_FUNCTIONALLY_DEAD = 426,
         OVERLOAD_THIS_GAME = 427,
+        //430 GameTag, Number of spells played this turn?
         SPELLS_COST_HEALTH = 431,
         HISTORY_PROXY_NO_BIG_CARD = 432,
         PROXY_CTHUN = 434,
@@ -457,6 +465,7 @@
         AUTOATTACK = 457,
         ARMS_DEALING = 458,
         TAG_LAST_KNOWN_COST_IN_HAND = 466,
+        //467 IMPLEMENTED
         DEFINING_ENCHANTMENT = 469,
         FINISH_ATTACK_SPELL_ON_DAMAGE = 470,
         KAZAKUS_POTION_POWER_1 = 471,
@@ -466,6 +475,7 @@
         MODIFY_DEFINITION_COST = 475,
         MULTIPLE_CLASSES = 476,
         ALL_TARGETS_RANDOM = 477,
+        //479 IMPLEMENTED
         MULTI_CLASS_GROUP = 480,
         CARD_COSTS_HEALTH = 481,
         GRIMY_GOONS = 482,
@@ -474,6 +484,8 @@
         ADDITIONAL_PLAY_REQS_1 = 515,
         ADDITIONAL_PLAY_REQS_2 = 516,
 
+        // more or less guessed gametags
+        EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry
         NUM_CARDS_TO_DRAW = 467,
         TAG_LAST_KNOWN_ATK_IN_HAND = 479, // ???
 

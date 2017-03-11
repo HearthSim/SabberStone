@@ -398,21 +398,30 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
-                Player2HeroClass = CardClass.PRIEST,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Inner Fire"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brann Bronzebeard"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Dump("game.Player1.Enchants.Count", $"{game.Player1.Enchants.Count}");
+            game.Dump("game.Player1.ExtraBattlecry", $"{game.Player1.ExtraBattlecry}");
+            //Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Azure Drake"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            //Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            game.CurrentPlayer.UsedMana = 0;
+            //var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
+            //game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
+            //Assert.Equal(6, ((Minion)minion1).AttackDamage);
+            //Assert.Equal(6, ((Minion)minion1).Health);
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, LogLevel.DEBUG);
 
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
 
         }
 

@@ -186,7 +186,8 @@ namespace SabberStoneCore.Actions
                 //   (death processing, aura updates)
                 minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
                 // check if [LOE_077] Brann Bronzebeard aura is active
-                if (minion[GameTag.BATTLECRY] == 2)
+                if (c.ExtraBattlecry)
+                //if (minion[GameTag.BATTLECRY] == 2)
                 {
                     minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
                 }

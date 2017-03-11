@@ -112,10 +112,10 @@ namespace SabberStoneCore.Enchants
 
             // only allow enchantments on playable entitys ...
             var target = entity as IPlayable;
-            if (target == null)
-            {
-                return value;
-            }
+            //if (target == null && !(entity is Controller))
+            //{
+            //    return value;
+            //}
 
             if (!Effects.ContainsKey(gameTag))
             {
@@ -141,7 +141,7 @@ namespace SabberStoneCore.Enchants
                 return FixedValueFunc.Invoke(Owner);
             }
 
-            Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
+            Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
 
             // apply variable effects if we have ...
             var effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];

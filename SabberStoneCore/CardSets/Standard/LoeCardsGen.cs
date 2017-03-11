@@ -985,9 +985,12 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOE_077", new List<Enchantment> {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
+                    //Area = EnchantmentArea.BOARD,
+                    //Activation = EnchantmentActivation.BOARD,
+                    //Enchant = Auras.SimpleInclSelf(GameTag.BATTLECRY, 1)
+                    Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SimpleInclSelf(GameTag.BATTLECRY, 1)
+                    Enchant = Auras.SimpleInclSelf(GameTag.EXTRA_BATTLECRY, 1)
                 }
             });
 

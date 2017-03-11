@@ -437,5 +437,11 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.PROXY_CTHUN]; }
             set { this[GameTag.PROXY_CTHUN] = value; }
         }
+
+        public bool ExtraBattlecry
+        {
+            get { return this[GameTag.EXTRA_BATTLECRY] == 1; }
+            set { this[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
+        }
     }
 }
