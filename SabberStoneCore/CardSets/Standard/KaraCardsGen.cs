@@ -1129,13 +1129,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - IMMUNE = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_712", new List<Enchantment> {
-				// TODO [KAR_712] Violet Illusionist && Test: Violet Illusionist_KAR_712
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(GameTag.IMMUNE, 1, RelaCondition.IsMe(SelfCondition.IsCurrentPlayer))
+                }
+            });
 
 		}
 

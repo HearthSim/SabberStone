@@ -1454,10 +1454,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - IMMUNE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void VioletIllusionist_KAR_712()
 		{
-			// TODO VioletIllusionist_KAR_712 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1468,8 +1467,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Violet Illusionist"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Violet Illusionist"));
+		    Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
+        }
 
 	}
 
