@@ -2017,12 +2017,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CS1_129", new List<Enchantment> {
-				// TODO [CS1_129] Inner Fire && Test: Inner Fire_CS1_129
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                            new GetNativeGameTagTask(GameTag.HEALTH, EntityType.TARGET, true),
+                            new SetAttackNumberTask(EntityType.TARGET))
+                },
 			});
 
 			// ----------------------------------------- SPELL - PRIEST

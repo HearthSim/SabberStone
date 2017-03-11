@@ -2289,10 +2289,9 @@ namespace SabberStoneXTest
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void InnerFire_CS1_129()
 		{
-			// TODO InnerFire_CS1_129 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2303,8 +2302,12 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Inner Fire"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Inner Fire"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.Equal(2, ((Minion)minion).AttackDamage);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [EX1_332] Silence - COST:0 
@@ -4086,7 +4089,6 @@ namespace SabberStoneXTest
 		[Fact]
 		public void VoidTerror_EX1_304()
 		{
-			// TODO VoidTerror_EX1_304 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

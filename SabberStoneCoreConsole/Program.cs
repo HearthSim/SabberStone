@@ -21,13 +21,13 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //WhileCardTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
@@ -398,20 +398,22 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.DRUID,
-                Player2HeroClass = CardClass.DRUID,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.PRIEST,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Roots"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1, 2));
-            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Roots"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero, 1));
-            
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Inner Fire"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+
             ShowLog(game, LogLevel.VERBOSE);
-            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+
         }
 
         public static void Kazakus()
