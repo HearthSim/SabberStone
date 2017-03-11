@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -65,6 +66,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public override ISimpleTask Clone()
         {
             var clone = new MathNumberIndexTask(IndexA, IndexB, MathOperation);
+            clone.Copy(this);
+            return clone;
+        }
+    }
+
+    public class MathRandTask : SimpleTask
+    {
+        public MathRandTask(int min, int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public int Min { get; set; }
+        public int Max { get; set; }
+
+        public override TaskState Process()
+        {
+            Number = Util.Random.Next(Min, Max + 1);
+            return TaskState.COMPLETE;
+        }
+
+        public override ISimpleTask Clone()
+        {
+            var clone = new MathRandTask(Min, Max);
             clone.Copy(this);
             return clone;
         }

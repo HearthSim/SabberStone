@@ -468,11 +468,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD_OWED = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_012", new List<Enchantment> {
-				// TODO [BRM_012] Fireguard Destroyer && Test: Fireguard Destroyer_BRM_012
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new MathRandTask(1,4),
+                        new BuffAttackNumberTask(EntityType.SOURCE))
 				},
 			});
 

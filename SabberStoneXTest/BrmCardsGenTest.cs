@@ -531,10 +531,9 @@ namespace SabberStoneXTest
         // - BATTLECRY = 1
         // - OVERLOAD_OWED = 1
         // --------------------------------------------------------
-        [Fact(Skip = "NotImplemented")]
+        [Fact]
         public void FireguardDestroyer_BRM_012()
         {
-            // TODO FireguardDestroyer_BRM_012 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -545,7 +544,10 @@ namespace SabberStoneXTest
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fireguard Destroyer"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fireguard Destroyer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(true, ((Minion)testCard).AttackDamage >= 4);
+            Assert.Equal(true, ((Minion)testCard).AttackDamage < 8);
         }
     }
     
