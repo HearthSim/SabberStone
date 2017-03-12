@@ -216,11 +216,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_092", new List<Enchantment> {
-				// TODO [KAR_092] Medivh's Valet && Test: Medivh's Valet_KAR_092
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(3, EntityType.TARGET)
 				},
 			});
 

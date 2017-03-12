@@ -405,21 +405,14 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brann Bronzebeard"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Dump("game.Player1.Enchants.Count", $"{game.Player1.Enchants.Count}");
-            game.Dump("game.Player1.ExtraBattlecry", $"{game.Player1.ExtraBattlecry}");
-            //Assert.Equal(4, game.CurrentPlayer.Hand.Count);
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Azure Drake"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            //Assert.Equal(6, game.CurrentPlayer.Hand.Count);
-            game.CurrentPlayer.UsedMana = 0;
-            //var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
-            //game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
-            //Assert.Equal(6, ((Minion)minion1).AttackDamage);
-            //Assert.Equal(6, ((Minion)minion1).Health);
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
 
-            ShowLog(game, LogLevel.DEBUG);
+            ShowLog(game, LogLevel.VERBOSE);
 
             //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
 

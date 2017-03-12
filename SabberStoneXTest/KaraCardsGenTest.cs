@@ -287,10 +287,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void MedivhsValet_KAR_092()
 		{
-			// TODO MedivhsValet_KAR_092 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -301,8 +300,15 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Medivh's Valet"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
+            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+            Assert.Equal(27, game.CurrentOpponent.Hero.Health);
+        }
 
 	}
 
