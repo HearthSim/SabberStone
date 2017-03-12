@@ -7160,10 +7160,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void Nozdormu_EX1_560()
 		{
-			// TODO Nozdormu_EX1_560 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7174,8 +7173,13 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nozdormu"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Nozdormu"));
+            Assert.Equal(75, game.Player1.TimeOut);
+            Assert.Equal(75, game.Player2.TimeOut);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(20, game.Player1.TimeOut);
+            Assert.Equal(20, game.Player2.TimeOut);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8] 

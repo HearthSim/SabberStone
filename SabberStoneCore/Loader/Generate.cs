@@ -425,10 +425,10 @@ namespace SabberStoneCore.Loader
             var str = new StringBuilder();
             foreach (var card in cardsValues)
             {
-                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set))
+                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) || card.Implemented)
                     continue;
 
-                str.AppendLine($"{card.Id};{card.Type};{card.Implemented};{RemoveLineEndings(card.Text)}");
+                str.AppendLine($"{card.Id}|{card.Type}|{card.Class}|{card.Name}|{RemoveLineEndings(card.Text)}");
             }
 
 

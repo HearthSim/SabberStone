@@ -206,6 +206,9 @@ namespace SabberStoneCore.Model
                 p.NumTurnsLeft = 1;
             });
 
+            Player1.TimeOut = 75;
+            Player2.TimeOut = 75;
+
             // ending mulligan draw block
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

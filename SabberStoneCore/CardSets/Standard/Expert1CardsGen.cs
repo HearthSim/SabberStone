@@ -5394,12 +5394,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_560", new List<Enchantment> {
-				// TODO [EX1_560] Nozdormu && Test: Nozdormu_EX1_560
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.CONTROLLERS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Buffs.Simple(GameTag.TIMEOUT, -55)
+                }
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

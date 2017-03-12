@@ -240,6 +240,12 @@ namespace SabberStoneCore.Model
     {
         public Controller Opponent => Game.Player1 == this ? Game.Player2 : Game.Player1;
 
+        public int TimeOut
+        {
+            get { return this[GameTag.TIMEOUT]; }
+            set { this[GameTag.TIMEOUT] = value; }
+        }
+
         public int PlayerId
         {
             get { return this[GameTag.PLAYER_ID]; }

@@ -42,10 +42,13 @@ namespace SabberStoneCore.Enchants
 
         CONTROLLER,
         OP_CONTROLLER,
+        CONTROLLERS,
+
         SECRET,
         HAND_AND_BOARD,
         OP_BOARD_AND_OP_HERO,
-        BOARDS_HEROES
+        BOARDS_HEROES,
+
     }
 
     public class Enchantment
@@ -155,6 +158,12 @@ namespace SabberStoneCore.Enchants
                     Trigger?.Activate(source.Card.Id, controller.Triggers, source);
                     break;
                 case EnchantmentArea.OP_CONTROLLER:
+                    Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
+                    break;
+                case EnchantmentArea.CONTROLLERS:
+                    Enchant?.Activate(source.Card.Id, controller.Enchants, source);
+                    Trigger?.Activate(source.Card.Id, controller.Triggers, source);
                     Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
                     Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
                     break;
