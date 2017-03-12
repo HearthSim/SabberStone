@@ -151,7 +151,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET),
-                        new DeathrattleTask(EntityType.TARGET, new Enchantment
+                        new AddEnchantmentTask(EntityType.TARGET, new Enchantment
                         {
                             Activation = EnchantmentActivation.DEATHRATTLE,
                             SingleTask = new AddCardTo("LOE_105", EntityType.HAND)

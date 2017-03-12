@@ -133,7 +133,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DeathrattleTask(EntityType.MINIONS,
+					SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
                         new Enchantment
                         {
                             Activation = EnchantmentActivation.DEATHRATTLE,
@@ -2785,7 +2785,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DeathrattleTask(EntityType.MINIONS,
+                    SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
                         new Enchantment
                         {
                             Activation = EnchantmentActivation.DEATHRATTLE,
@@ -5572,15 +5572,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_584", new List<Enchantment> {
-				// TODO [EX1_584] Ancient Mage && Test: Ancient Mage_EX1_584
 				new Enchantment
 				{
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide)
-                        //new BuffTask(Auras.SpellDamage(1), EntityType.HERO)
-                        )
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        new AddEnchantmentTask(EntityType.STACK,
+                            new Enchantment
+                            {
+                                Area = EnchantmentArea.HERO,
+                                Activation = EnchantmentActivation.BOARD,
+                                Enchant = Auras.SpellPowerDamage(1)
+                            },
+                            true))
                 },
 			});
 

@@ -365,7 +365,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DeathrattleTask(EntityType.MINIONS,
+                    SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
                         new Enchantment
                         {
                             Activation = EnchantmentActivation.DEATHRATTLE,

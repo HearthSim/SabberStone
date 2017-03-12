@@ -7416,10 +7416,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void AncientMage_EX1_584()
 		{
-			// TODO AncientMage_EX1_584 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7430,8 +7429,14 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient Mage"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ancient Mage"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, null, 1));
+            Assert.Equal(2, game.CurrentPlayer.Hero.SpellPowerDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8] 
