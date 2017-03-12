@@ -44,6 +44,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is Minion && ((Minion)me).NumAttacksThisTurn == number);
         public static SelfCondition IsNotCardClass(CardClass cardClass) => new SelfCondition(me => me.Card.Class != cardClass);
 
+        public static SelfCondition MinionPlayedThisTurn(int number) => new SelfCondition(me => me.Controller.NumMinionsPlayedThisTurn == number);
+
         public static SelfCondition HasMyHeroAttackedThisTurn => new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
         public static SelfCondition HasMyHeroNotAttackedThisTurn => new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
 

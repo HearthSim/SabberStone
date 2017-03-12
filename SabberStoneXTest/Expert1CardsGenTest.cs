@@ -6169,10 +6169,9 @@ namespace SabberStoneXTest
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void PintSizedSummoner_EX1_076()
 		{
-			// TODO PintSizedSummoner_EX1_076 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -6183,8 +6182,17 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pint-Sized Summoner"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pint-Sized Summoner"));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.Equal(2, minion1.Cost);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.Equal(1, minion1.Cost);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            Assert.Equal(2, minion2.Cost);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2] 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
@@ -35,13 +36,17 @@ namespace SabberStoneCore.Enchants
 
         public int Turn { get; set; }
 
+        public List<GameTag> RemoveTriggerTags { get; set; } = new List<GameTag>();
+
+        public Dictionary<GameTag, int> RemoveTriggers { get; set; } = new Dictionary<GameTag, int>();
+
         public ISimpleTask SingleTask { get; set; }
 
         public ISimpleTask RemovalTask { get; set; }
 
         public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
-        public Enchant Copy(string sourceId, Game game, int turn,  List<Enchant> parent, IPlayable owner)
+        public Enchant Copy(string sourceId, Game game, int turn,  List<Enchant> parent, IPlayable owner, Dictionary<GameTag, int> removeTriggers)
         {
             return new Enchant()
             {
@@ -58,7 +63,10 @@ namespace SabberStoneCore.Enchants
                 Effects = new Dictionary<GameTag, int>(Effects),
                 ValueFunc = ValueFunc,
                 FixedValueFunc = FixedValueFunc,
-                TurnsActive = TurnsActive
+                TurnsActive = TurnsActive,
+
+                RemoveTriggerTags = new List<GameTag>(RemoveTriggerTags),
+                RemoveTriggers = new Dictionary<GameTag, int>(removeTriggers),
             };
         }
 
@@ -83,7 +91,11 @@ namespace SabberStoneCore.Enchants
         public bool IsEnabled()
         {
             var flag = true;
+
             EnableConditions.ForEach(p => flag &= p.Eval(Owner));
+
+            RemoveTriggers.ToList().ForEach(p => flag &= Owner[p.Key] == p.Value);
+
             flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 
             if (!flag && !Owner.Game.LazyRemoves.Contains(this))
@@ -173,7 +185,7 @@ namespace SabberStoneCore.Enchants
 
         public void Activate(string sourceId, List<Enchant> parent, IPlayable owner)
         {
-            parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner));
+            parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner, RemoveTriggerTags.ToDictionary(p => p, p => owner.Controller[p])));
         }
 
     }

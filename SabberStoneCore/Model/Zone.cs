@@ -88,7 +88,7 @@ namespace SabberStoneCore.Model
                 copy.Stamp(p as Entity);
                 MoveTo(copy, copy.ZonePosition);
             });
-            zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner)));
+            zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
             zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
         }
 

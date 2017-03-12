@@ -4767,12 +4767,12 @@ namespace SabberStoneCore.CardSets.Standard
             // - AURA = 1
             // --------------------------------------------------------
             cards.Add("EX1_076", new List<Enchantment> {
-				// TODO [EX1_076] Pint-Sized Summoner && Test: Pint-Sized Summoner_EX1_076
 				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+                {
+                    Area = EnchantmentArea.HAND,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = Auras.Cost(-1, RelaCondition.IsMe(SelfCondition.MinionPlayedThisTurn(0)))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
