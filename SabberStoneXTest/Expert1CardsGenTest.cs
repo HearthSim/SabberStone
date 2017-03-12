@@ -1631,10 +1631,9 @@ namespace SabberStoneXTest
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void EtherealArcanist_EX1_274()
 		{
-			// TODO EtherealArcanist_EX1_274 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1645,8 +1644,24 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Arcanist"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Arcanist"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Arcanist"));
+            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            Assert.Equal(3, ((Minion)testCard1).AttackDamage);
+            Assert.Equal(3, ((Minion)testCard1).Health);
+            Assert.Equal(5, ((Minion)testCard2).AttackDamage);
+            Assert.Equal(5, ((Minion)testCard2).Health);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7] 

@@ -1082,10 +1082,9 @@ namespace SabberStoneXTest
 		// - TAUNT = 1
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip="NotImplemented")]
+		[Fact]
 		public void AvianWatcher_KAR_037()
 		{
-			// TODO AvianWatcher_KAR_037 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1096,8 +1095,20 @@ namespace SabberStoneXTest
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Avian Watcher"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.Equal(3, ((Minion)testCard1).AttackDamage);
+            Assert.Equal(6, ((Minion)testCard1).Health);
+            Assert.Equal(false, ((Minion)testCard1).HasTaunt);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+		    game.Player1.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.Equal(4, ((Minion)testCard2).AttackDamage);
+            Assert.Equal(7, ((Minion)testCard2).Health);
+            Assert.Equal(true, ((Minion)testCard2).HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3] 

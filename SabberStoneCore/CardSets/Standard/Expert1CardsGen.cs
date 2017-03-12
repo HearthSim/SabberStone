@@ -1444,13 +1444,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_274", new List<Enchantment> {
-				// TODO [EX1_274] Ethereal Arcanist && Test: Ethereal Arcanist_EX1_274
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .MaxExecution(1)
+                        .SingleTask(ComplexTask.Create(
+                                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
+                                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))))
+                        .Build()
+                }
+            });
 
 			// ------------------------------------------ MINION - MAGE
 			// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7] 
