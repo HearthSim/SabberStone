@@ -2838,13 +2838,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever your opponent draws a card, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("CFM_851", new List<Enchantment> {
-				// TODO [CFM_851] Daring Reporter && Test: Daring Reporter_CFM_851
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.NUM_CARDS_DRAWN_THIS_TURN, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_852] Lotus Agents - COST:5 [ATK:5/HP:3] 
