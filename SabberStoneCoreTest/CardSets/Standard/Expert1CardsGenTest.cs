@@ -3753,10 +3753,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - OVERLOAD = 2
         // - OVERLOAD_OWED = 2
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void Doomhammer_EX1_567()
         {
-            // TODO Doomhammer_EX1_567 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -3767,7 +3766,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomhammer"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Doomhammer"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(28, game.CurrentOpponent.Hero.Health);
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
         }
     }
 

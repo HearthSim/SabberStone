@@ -3048,16 +3048,9 @@ namespace SabberStoneCore.CardSets.Standard
             // - OVERLOAD = 2
             // - OVERLOAD_OWED = 2
             // --------------------------------------------------------
-            cards.Add("EX1_567", new List<Enchantment> {
-				// TODO [EX1_567] Doomhammer && Test: Doomhammer_EX1_567
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+            cards.Add("EX1_567", null);
 
-		}
+        }
 
 		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{

@@ -292,7 +292,7 @@ namespace SabberStoneCore.Model
             set { this[GameTag.TAUNT] = value ? 1 : 0; }
         }
 
-        public bool HasWindfury
+        public virtual bool HasWindfury
         {
             get { return this[GameTag.WINDFURY] == 1; }
             set { this[GameTag.WINDFURY] = value ? 1 : 0; }

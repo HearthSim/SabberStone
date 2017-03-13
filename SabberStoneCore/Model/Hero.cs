@@ -22,6 +22,8 @@ namespace SabberStoneCore.Model
 
         public override bool CanAttack => TotalAttackDamage > 0 && base.CanAttack;
 
+        public override bool HasWindfury => base.HasWindfury || Weapon != null && Weapon.HasWindfury;
+
         public void AddWeapon(Weapon weapon)
         {
             RemoveWeapon();
