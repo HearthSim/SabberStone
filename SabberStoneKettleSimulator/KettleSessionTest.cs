@@ -10,6 +10,7 @@ using System.Threading;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
 using Newtonsoft.Json.Linq;
+using SabberStoneKettle;
 
 namespace SabberStoneKettleServer
 {

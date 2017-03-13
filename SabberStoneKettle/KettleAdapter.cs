@@ -6,9 +6,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace SabberStoneKettleServer
+namespace SabberStoneKettle
 {
-    class KettleAdapter
+    public class KettleAdapter
     {
         private NetworkStream Stream;
         private BinaryWriter Writer;

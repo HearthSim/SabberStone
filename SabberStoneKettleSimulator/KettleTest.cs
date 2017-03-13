@@ -9,6 +9,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneKettle;
 
 namespace SabberStoneKettleServer
 {

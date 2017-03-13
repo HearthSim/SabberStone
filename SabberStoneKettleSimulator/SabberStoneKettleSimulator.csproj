@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SabberStoneCore\SabberStoneCore.csproj" />
+    <ProjectReference Include="..\SabberStoneKettle\SabberStoneKettle.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
-namespace SabberStoneKettleServer
+namespace SabberStoneKettle
 {
     public interface KettlePayload
     {
