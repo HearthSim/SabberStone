@@ -17,9 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "SabberSto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneXTest", "SabberStoneXTest\SabberStoneXTest.csproj", "{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleServer", "SabberStoneKettleServer\SabberStoneKettleServer.csproj", "{C20F4B2D-8B3A-4FA5-A028-A09C81705819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleSimulator", "SabberStoneKettleServer\SabberStoneKettleSimulator.csproj", "{C20F4B2D-8B3A-4FA5-A028-A09C81705819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKetteClient", "SabberStoneKetteClient\SabberStoneKetteClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleClient", "SabberStoneKetteClient\SabberStoneKettleClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettle", "SabberStoneKettle\SabberStoneKettle.csproj", "{6DEADFED-C31C-45E5-A370-FDB93BE227BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,18 @@ Global
 		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x64.Build.0 = Release|Any CPU
 		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.Build.0 = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x64.Build.0 = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
