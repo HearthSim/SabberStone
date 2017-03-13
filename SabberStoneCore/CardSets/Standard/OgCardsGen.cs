@@ -2964,7 +2964,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Create(
-                            new HalfHalfChanceTask(),
+                            new ChanceTask(),
                             new DrawOpTask()))
                         .Build()
                 }

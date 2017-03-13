@@ -3048,16 +3048,9 @@ namespace SabberStoneCore.CardSets.Standard
             // - OVERLOAD = 2
             // - OVERLOAD_OWED = 2
             // --------------------------------------------------------
-            cards.Add("EX1_567", new List<Enchantment> {
-				// TODO [EX1_567] Doomhammer && Test: Doomhammer_EX1_567
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+            cards.Add("EX1_567", null);
 
-		}
+        }
 
 		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -4829,11 +4822,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_083", new List<Enchantment> {
-				// TODO [EX1_083] Tinkmaster Overspark && Test: Tinkmaster Overspark_EX1_083
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.ALLMINIONS_NOSOURCE),
+                        new ChanceTask(true),
+                        new FlagTask(true, new TransformTask("EX1_tk28", EntityType.STACK)),
+                        new FlagTask(false, new TransformTask("EX1_tk29", EntityType.STACK))),
 				},
 			});
 
@@ -5357,7 +5353,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Create(
-                            new HalfHalfChanceTask(),
+                            new ChanceTask(),
                             new DrawTask()))
                         .Build()
                 }

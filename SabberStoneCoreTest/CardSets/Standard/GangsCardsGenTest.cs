@@ -4092,10 +4092,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // --------------------------------------------------------
         // Text: Whenever your opponent draws a card, gain +1/+1.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void DaringReporter_CFM_851()
         {
-            // TODO DaringReporter_CFM_851 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -4106,7 +4105,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Daring Reporter"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Daring Reporter"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(3, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(4, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(4, ((Minion)testCard).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+            Assert.AreEqual(5, ((Minion)testCard).Health);
         }
 
         // --------------------------------------- MINION - NEUTRAL

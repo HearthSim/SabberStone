@@ -2517,7 +2517,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
                         .SingleTask(ComplexTask.Create(
-                            new HalfHalfChanceTask(),
+                            new ChanceTask(),
                             new IncludeTask(EntityType.ENEMIES, new [] {EntityType.TARGET}),
                             new RandomTask(1, EntityType.STACK),
                             new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))

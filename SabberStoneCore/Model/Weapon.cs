@@ -25,5 +25,11 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.DURABILITY]; }
             set { this[GameTag.DURABILITY] = value; }
         }
+
+        public bool HasWindfury
+        {
+            get { return this[GameTag.WINDFURY] == 1; }
+            set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+        }
     }
 }
