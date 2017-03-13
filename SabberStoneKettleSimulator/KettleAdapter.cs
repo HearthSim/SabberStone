@@ -86,6 +86,13 @@ namespace SabberStoneKettleServer
         private void HandlePayload(JObject jpayload)
         {
             String type = (String)jpayload["Type"];
+
+            if (type == "Concede")
+            {
+                OnConcede(((JValue)jpayload[type]).Value<int>());
+                return;
+            }
+
             JObject obj = (JObject)jpayload[type];
 
             Console.WriteLine("Received packet of type: " + type);
@@ -94,9 +101,6 @@ namespace SabberStoneKettleServer
             {
                 case "CreateGame":
                     OnCreateGame(obj.ToObject<KettleCreateGame>());
-                    break;
-                case "Concede":
-                    OnConcede(obj.ToObject<int>());
                     break;
                 case "SendOption":
                     OnSendOption(obj.ToObject<KettleSendOption>());
