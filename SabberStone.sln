@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreAi", "Sabber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "SabberStoneGui\SabberStoneGui.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneXTest", "SabberStoneXTest\SabberStoneXTest.csproj", "{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleSimulator", "SabberStoneKettleServer\SabberStoneKettleSimulator.csproj", "{C20F4B2D-8B3A-4FA5-A028-A09C81705819}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleClient", "SabberStoneKetteClient\SabberStoneKettleClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
@@ -93,18 +91,6 @@ Global
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x64.Build.0 = Release|Any CPU
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.ActiveCfg = Release|Any CPU
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.Build.0 = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|x64.Build.0 = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Debug|x86.Build.0 = Debug|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|x64.ActiveCfg = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|x64.Build.0 = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|x86.ActiveCfg = Release|Any CPU
-		{2632321E-1AE6-4FDF-AD8A-26C21AC0E047}.Release|x86.Build.0 = Release|Any CPU
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C20F4B2D-8B3A-4FA5-A028-A09C81705819}.Debug|x64.ActiveCfg = Debug|Any CPU
