@@ -35,7 +35,7 @@ namespace SabberStoneKettle
                 case PowerType.BLOCK_START:
                     return new KettleHistoryBlockBegin((PowerHistoryBlockStart)entry);
                 case PowerType.BLOCK_END:
-                    return new KettleHistoryBlockEnd((PowerHistoryBlockEnd)entry);
+                    return new KettleHistoryBlockEnd((PowerHistoryBlockEnd)entry);                    
                 default:
                     Console.WriteLine("Error, unhandled powertype " + entry.PowerType.ToString());
                     return null;
@@ -43,26 +43,45 @@ namespace SabberStoneKettle
         }
     }
 
+    public class KettleGameJoined : KettlePayload
+    {
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload(KettleName, this);
+        }
+
+        public bool Spectating;
+        public int Board;
+        public int MaxSecretsPerPlayer;
+        public int MaxFriendlyMinionsPerPlayer;
+
+        public const String KettleName = "GameJoined";
+    }
+
     public class KettleCreateGame : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("CreateGame", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public List<KettleCreatePlayer> Players;
+
+        public const String KettleName = "CreateGame";
     }
 
     public class KettleCreatePlayer : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("CreatePlayer", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public String Name;
         public String Hero;
         public List<String> Cards;
+
+        public const String KettleName = "CreatePlayer";
     }
 
     public class KettleEntity
@@ -98,11 +117,27 @@ namespace SabberStoneKettle
         public int CardBack;
     }
 
+    public class KettleHistoryMetaData : KettleHistoryEntry
+    {
+        public override JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload(KettleName, this);
+        }
+
+        public KettleHistoryMetaData() { }
+
+        public int Type;
+        public int Data;
+        public List<int> Info;
+
+        public const String KettleName = "HistoryMetaData";
+    }
+
     public class KettleHistoryTagChange : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryTagChange", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryTagChange() { }
@@ -116,13 +151,15 @@ namespace SabberStoneKettle
         public int EntityID;
         public int Tag;
         public int Value;
+
+        public const String KettleName = "HistoryTagChange";
     }
 
     public class KettleHistoryFullEntity : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryFullEntity", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryFullEntity() { }
@@ -134,13 +171,15 @@ namespace SabberStoneKettle
 
         public KettleEntity Entity;
         public string Name;
+
+        public const String KettleName = "HistoryFullEntity";
     }
 
     public class KettleHistoryShowEntity : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryShowEntity", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryShowEntity() { }
@@ -152,13 +191,15 @@ namespace SabberStoneKettle
 
         public KettleEntity Entity;
         public string Name;
+
+        public const String KettleName = "HistoryShowEntity";
     }
 
     public class KettleHistoryHideEntity : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryHideEntity", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryHideEntity() { }
@@ -170,13 +211,15 @@ namespace SabberStoneKettle
 
         public int EntityID;
         public int Zone;
+
+        public const String KettleName = "HistoryHideEntity";
     }
 
     public class KettleHistoryChangeEntity : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryChangeEntity", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryChangeEntity() { }
@@ -188,25 +231,29 @@ namespace SabberStoneKettle
 
         public KettleEntity Entity;
         public string Name;
+
+        public const String KettleName = "HistoryChangeEntity";
     }
 
     public class KettleMetaData : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("MetaData", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public int Meta;
         public int Data;
         public int Info;
+
+        public const String KettleName = "MetaData";
     }
 
     public class KettleChoices : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("Choices", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public int Type;
@@ -215,13 +262,15 @@ namespace SabberStoneKettle
         public int Min;
         public int Max;
         public List<int> Choices;
+
+        public const String KettleName = "Choices";
     }
 
     public class KettleOptionsBlock : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("OptionsBlock", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleOptionsBlock() { }
@@ -238,6 +287,8 @@ namespace SabberStoneKettle
         public int PlayerID;
         public int ID;
         public List<KettleOption> Options;
+
+        public const String KettleName = "OptionsBlock";
     }
 
     public class KettleOption
@@ -278,7 +329,7 @@ namespace SabberStoneKettle
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("SendOption", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public int Id;
@@ -286,13 +337,15 @@ namespace SabberStoneKettle
         public int Target;
         public int SubOption;
         public int Position;
+
+        public const String KettleName = "SendOption";
     }
 
     public class KettleEntityChoices : KettlePayload
     {
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("EntityChoices", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleEntityChoices() { }
@@ -314,13 +367,15 @@ namespace SabberStoneKettle
         public List<int> Entities;
         public int Source;
         public int PlayerID;
+
+        public const String KettleName = "EntityChoices";
     }
 
     public class KettleHistoryCreateGame : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryCreateGame", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryCreateGame() {}
@@ -335,13 +390,15 @@ namespace SabberStoneKettle
 
         public KettleEntity Game;
         public List<KettlePlayer> Players;
+
+        public const String KettleName = "HistoryCreateGame";
     }
 
     public class KettleHistoryBlockBegin : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryBlockBegin", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryBlockBegin() { }
@@ -359,17 +416,21 @@ namespace SabberStoneKettle
         public int Target;
         public int Type;
         public string EffectCardId;
+
+        public const String KettleName = "HistoryBlockBegin";
     }
 
     public class KettleHistoryBlockEnd : KettleHistoryEntry
     {
         public override JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("HistoryBlockEnd", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
 
         public KettleHistoryBlockEnd() { }
         public KettleHistoryBlockEnd(PowerHistoryBlockEnd end) { }
+
+        public const String KettleName = "HistoryBlockEnd";
     }
 
     public class KettleChooseEntities : KettlePayload
@@ -379,8 +440,10 @@ namespace SabberStoneKettle
 
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("ChooseEntities", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
+
+        public const String KettleName = "ChooseEntities";
     }
 
     public class KettleEntitiesChosen : KettlePayload
@@ -391,8 +454,33 @@ namespace SabberStoneKettle
 
         public JObject ToPayload()
         {
-            return KettleUtils.CreateKettlePayload("EntitiesChosen", this);
+            return KettleUtils.CreateKettlePayload(KettleName, this);
         }
+
+        public const String KettleName = "EntitiesChosen";
+    }
+
+    public class KettleMouseInfo
+    {
+        public int ArrowOrigin;
+        public int HeldCard;
+        public int HoverCard;
+        public int X;
+        public int Y;
+    }
+
+    public class KettleUserUI : KettlePayload
+    {
+        public int? PlayerID;
+        public int? Emote;
+        public KettleMouseInfo MouseInfo;
+
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload(KettleName, this);
+        }
+
+        public const String KettleName = "UserUI";
     }
 
     public class KettleUtils

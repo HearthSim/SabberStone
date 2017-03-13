@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -18,12 +19,23 @@ namespace SabberStoneKettle
         public delegate void OnConcedeDelegate(int Concede);
         public delegate void OnSendOptionDelegate(KettleSendOption SendOption);
         public delegate void OnChooseEntitiesDelegate(KettleChooseEntities ChooseEntities);
+        public delegate void OnGameJoinedDelegate(KettleGameJoined GameJoined);
+        public delegate void OnEntityChoicesDelegate(KettleEntityChoices EntityChoices);
+        public delegate void OnEntitiesChosenDelegate(KettleEntitiesChosen EntitiesChosen);
+        public delegate void OnOptionsBlockDelegate(KettleOptionsBlock OptionsBlock);
+        public delegate void OnUserUIDelegate(KettleUserUI UserUI);
+        public delegate void OnHistoryDelegate(List<KettleHistoryEntry> History);
 
         public OnCreateGameDelegate OnCreateGame;
         public OnConcedeDelegate OnConcede;
         public OnSendOptionDelegate OnSendOption;
         public OnChooseEntitiesDelegate OnChooseEntities;
-
+        public OnGameJoinedDelegate OnGameJoined;
+        public OnEntityChoicesDelegate OnEntityChoices;
+        public OnEntitiesChosenDelegate OnEntitiesChosen;
+        public OnOptionsBlockDelegate OnOptionsBlock;
+        public OnUserUIDelegate OnUserUI;
+        public OnHistoryDelegate OnHistory;
 
         public KettleAdapter(NetworkStream stream)
         {
@@ -57,8 +69,7 @@ namespace SabberStoneKettle
                 JArray jpayload = JArray.Parse(payload);
 
                 // and parse each object in the array
-                foreach (JObject obj in jpayload)
-                    HandlePayload(obj);
+                HandlePacket(jpayload);
 
                 return true;
             } catch (SocketException)
@@ -83,34 +94,72 @@ namespace SabberStoneKettle
             return true;
         }
 
-        private void HandlePayload(JObject jpayload)
+        private void HandlePacket(JArray jpacket)
         {
-            String type = (String)jpayload["Type"];
+            String type = (String)jpacket[0]["Type"];
 
             if (type == "Concede")
             {
-                OnConcede(((JValue)jpayload[type]).Value<int>());
+                OnConcede(((JValue)jpacket[0][type]).Value<int>());
                 return;
             }
 
-            JObject obj = (JObject)jpayload[type];
+            JObject obj = (JObject)jpacket[0][type];
 
             Console.WriteLine("Received packet of type: " + type);
 
+            /*        
+        public OnCreateGameDelegate OnCreateGame;
+        public OnConcedeDelegate OnConcede;
+        public OnSendOptionDelegate OnSendOption;
+        public OnChooseEntitiesDelegate OnChooseEntities;
+        public OnGameJoinedDelegate OnGameJoined;
+        public OnEntityChoicesDelegate OnEntityChoices;
+        public OnEntitiesChosenDelegate OnEntitiesChosen;
+        public OnOptionsBlockDelegate OnOptionsBlock;
+        public OnUserUIDelegate OnUserUI;
+        public OnHistoryDelegate OnHistory;*/
+
             switch (type)
             {
-                case "CreateGame":
+                case KettleCreateGame.KettleName:
                     OnCreateGame(obj.ToObject<KettleCreateGame>());
                     break;
-                case "SendOption":
+                case KettleSendOption.KettleName:
                     OnSendOption(obj.ToObject<KettleSendOption>());
                     break;
-                case "ChooseEntities":
+                case KettleChooseEntities.KettleName:
                     OnChooseEntities(obj.ToObject<KettleChooseEntities>());
+                    break;
+                case KettleGameJoined.KettleName:
+                    OnGameJoined(obj.ToObject<KettleGameJoined>());
+                    break;
+                case KettleEntityChoices.KettleName:
+                    OnEntityChoices(obj.ToObject<KettleEntityChoices>());
+                    break;
+                case KettleEntitiesChosen.KettleName:
+                    OnEntitiesChosen(obj.ToObject<KettleEntitiesChosen>());
+                    break;
+                case KettleOptionsBlock.KettleName:
+                    OnOptionsBlock(obj.ToObject<KettleOptionsBlock>());
+                    break;
+                case KettleUserUI.KettleName:
+                    OnUserUI(obj.ToObject<KettleUserUI>());
+                    break;
+                case KettleHistoryBlockBegin.KettleName:
+                case KettleHistoryBlockEnd.KettleName:
+                case KettleHistoryChangeEntity.KettleName:
+                case KettleHistoryCreateGame.KettleName:
+                case KettleHistoryFullEntity.KettleName:
+                case KettleHistoryHideEntity.KettleName:
+                case KettleHistoryShowEntity.KettleName:
+                case KettleHistoryTagChange.KettleName:
+                case KettleHistoryMetaData.KettleName:
+                    OnHistory(jpacket.Values<KettleHistoryEntry>().ToList());
                     break;
                 default:
                     Console.WriteLine("Received unhandled packet:");
-                    Console.WriteLine(jpayload.ToString());
+                    Console.WriteLine(jpacket[0].ToString());
                     break;
             }
         }
