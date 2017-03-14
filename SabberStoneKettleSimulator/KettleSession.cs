@@ -36,13 +36,11 @@ namespace SabberStoneKettleServer
         {
             while (true)
             {
-                Console.WriteLine("Handling next packet..");
                 if (!Adapter.HandleNextPacket())
                 {
                     Console.WriteLine("Kettle session ended.");
                     return;
                 }
-                Console.WriteLine("Done!");
             }
         }
 

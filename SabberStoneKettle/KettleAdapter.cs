@@ -24,6 +24,8 @@ namespace SabberStoneKettle
         public delegate void OnEntitiesChosenDelegate(KettleEntitiesChosen EntitiesChosen);
         public delegate void OnOptionsBlockDelegate(KettleOptionsBlock OptionsBlock);
         public delegate void OnUserUIDelegate(KettleUserUI UserUI);
+        public delegate void OnJoinGameDelegate(KettleJoinGame JoinGame);
+        public delegate void OnStartClientDelegate(KettleStartClient JoinGame);
         public delegate void OnHistoryDelegate(List<KettleHistoryEntry> History);
 
         public OnCreateGameDelegate OnCreateGame;
@@ -35,6 +37,8 @@ namespace SabberStoneKettle
         public OnEntitiesChosenDelegate OnEntitiesChosen;
         public OnOptionsBlockDelegate OnOptionsBlock;
         public OnUserUIDelegate OnUserUI;
+        public OnJoinGameDelegate OnJoinGame;
+        public OnStartClientDelegate OnStartClient;
         public OnHistoryDelegate OnHistory;
 
         public KettleAdapter(NetworkStream stream)
@@ -146,6 +150,12 @@ namespace SabberStoneKettle
                 case KettleUserUI.KettleName:
                     OnUserUI(obj.ToObject<KettleUserUI>());
                     break;
+                case KettleJoinGame.KettleName:
+                    OnJoinGame(obj.ToObject<KettleJoinGame>());
+                    break;
+                case KettleStartClient.KettleName:
+                    OnStartClient(obj.ToObject<KettleStartClient>());
+                    break;
                 case KettleHistoryBlockBegin.KettleName:
                 case KettleHistoryBlockEnd.KettleName:
                 case KettleHistoryChangeEntity.KettleName:
@@ -155,7 +165,33 @@ namespace SabberStoneKettle
                 case KettleHistoryShowEntity.KettleName:
                 case KettleHistoryTagChange.KettleName:
                 case KettleHistoryMetaData.KettleName:
-                    OnHistory(jpacket.Values<KettleHistoryEntry>().ToList());
+                    var history = jpacket.AsEnumerable().Select(packet =>
+                    {
+                        switch ((String)packet["Type"])
+                        {
+                            case KettleHistoryBlockBegin.KettleName:
+                                return (KettleHistoryEntry)packet.ToObject<KettleHistoryBlockBegin>();
+                            case KettleHistoryBlockEnd.KettleName:
+                                return packet.ToObject<KettleHistoryBlockEnd>();
+                            case KettleHistoryChangeEntity.KettleName:
+                                return packet.ToObject<KettleHistoryChangeEntity>();
+                            case KettleHistoryCreateGame.KettleName:
+                                return packet.ToObject<KettleHistoryCreateGame>();
+                            case KettleHistoryFullEntity.KettleName:
+                                return packet.ToObject<KettleHistoryFullEntity>();
+                            case KettleHistoryHideEntity.KettleName:
+                                return packet.ToObject<KettleHistoryHideEntity>();
+                            case KettleHistoryShowEntity.KettleName:
+                                return packet.ToObject<KettleHistoryShowEntity>();
+                            case KettleHistoryTagChange.KettleName:
+                                return packet.ToObject<KettleHistoryTagChange>();
+                            case KettleHistoryMetaData.KettleName:
+                                return packet.ToObject<KettleHistoryMetaData>();
+                            default:
+                                return null;
+                        }
+                    }).ToList();
+                    OnHistory(history);
                     break;
                 default:
                     Console.WriteLine("Received unhandled packet:");

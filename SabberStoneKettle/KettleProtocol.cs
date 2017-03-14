@@ -483,6 +483,36 @@ namespace SabberStoneKettle
         public const String KettleName = "UserUI";
     }
 
+    public class KettleJoinGame: KettlePayload
+    {
+        public long PlayerID;
+        public int GameID;
+        public string GamePassword;
+
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload(KettleName, this);
+        }
+
+        public const String KettleName = "JoinGame";
+    }
+
+    public class KettleStartClient: KettlePayload
+    {
+        public KettleJoinGame JoinGame;
+        public string IP;
+        public int Port;
+        public int GameType;
+        public int Scenario;
+        
+        public JObject ToPayload()
+        {
+            return KettleUtils.CreateKettlePayload(KettleName, this);
+        }
+
+        public const String KettleName = "StartClient";
+    }
+
     public class KettleUtils
     {
         public static JObject CreateKettlePayload(String name, object payload)
