@@ -167,26 +167,27 @@ namespace SabberStoneKettle
                 case KettleHistoryMetaData.KettleName:
                     var history = jpacket.AsEnumerable().Select(packet =>
                     {
-                        switch ((String)packet["Type"])
+                        string ptype = (String)packet["Type"];
+                        switch (ptype)
                         {
                             case KettleHistoryBlockBegin.KettleName:
-                                return (KettleHistoryEntry)packet.ToObject<KettleHistoryBlockBegin>();
+                                return (KettleHistoryEntry)packet[ptype].ToObject<KettleHistoryBlockBegin>();
                             case KettleHistoryBlockEnd.KettleName:
-                                return packet.ToObject<KettleHistoryBlockEnd>();
+                                return packet[ptype].ToObject<KettleHistoryBlockEnd>();
                             case KettleHistoryChangeEntity.KettleName:
-                                return packet.ToObject<KettleHistoryChangeEntity>();
+                                return packet[ptype].ToObject<KettleHistoryChangeEntity>();
                             case KettleHistoryCreateGame.KettleName:
-                                return packet.ToObject<KettleHistoryCreateGame>();
+                                return packet[ptype].ToObject<KettleHistoryCreateGame>();
                             case KettleHistoryFullEntity.KettleName:
-                                return packet.ToObject<KettleHistoryFullEntity>();
+                                return packet[ptype].ToObject<KettleHistoryFullEntity>();
                             case KettleHistoryHideEntity.KettleName:
-                                return packet.ToObject<KettleHistoryHideEntity>();
+                                return packet[ptype].ToObject<KettleHistoryHideEntity>();
                             case KettleHistoryShowEntity.KettleName:
-                                return packet.ToObject<KettleHistoryShowEntity>();
+                                return packet[ptype].ToObject<KettleHistoryShowEntity>();
                             case KettleHistoryTagChange.KettleName:
-                                return packet.ToObject<KettleHistoryTagChange>();
+                                return packet[ptype].ToObject<KettleHistoryTagChange>();
                             case KettleHistoryMetaData.KettleName:
-                                return packet.ToObject<KettleHistoryMetaData>();
+                                return packet[ptype].ToObject<KettleHistoryMetaData>();
                             default:
                                 return null;
                         }

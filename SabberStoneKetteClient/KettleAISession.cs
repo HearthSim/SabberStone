@@ -15,8 +15,7 @@ namespace SabberStoneKettleClient
 
         public KettleAISession(KettleStartClient StartClient)
         {
-            //Adapter = new KettleAdapter(new NetworkStream(client));
-            
+            this.StartClient = StartClient;
         }
 
         public void Enter()
@@ -31,6 +30,8 @@ namespace SabberStoneKettleClient
             Adapter.OnOptionsBlock += OnOptionsBlock;
             Adapter.OnUserUI += OnUserUI;
             Adapter.OnHistory += OnHistory;
+
+            Adapter.SendMessage(StartClient.JoinGame);
 
             // and then we keep listening on the socket
             while (true)

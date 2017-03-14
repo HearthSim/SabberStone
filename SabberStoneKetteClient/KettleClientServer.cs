@@ -16,8 +16,9 @@ namespace SabberStoneKettleClient
 
             Listener = new Socket(SocketType.Stream, ProtocolType.IP);
             Listener.Bind(address);
-            Listener.Listen(1);
+            Listener.Listen(32);
             Console.WriteLine("Listening on socket.");
+            Console.WriteLine("AI Client.");
         }
         
         public void OnStartClient(KettleStartClient StartClient)
@@ -26,28 +27,31 @@ namespace SabberStoneKettleClient
             var session = new KettleAISession(StartClient);
             new Thread(session.Enter).Start();
         }
-        
+
         public void Enter()
         {
             // We wait until someone connects to this server
-            Socket gameserver = Listener.Accept();
-            KettleAdapter gameadapter = new KettleAdapter(new NetworkStream(gameserver));
-            gameadapter.OnStartClient += OnStartClient;
 
             while (true)
             {
+                Socket gameserver = Listener.Accept();
+                KettleAdapter gameadapter = new KettleAdapter(new NetworkStream(gameserver));
+                gameadapter.OnStartClient += OnStartClient;
+
                 try
                 {
-                    if (!gameadapter.HandleNextPacket())
+                    while (true)
                     {
-                        Console.WriteLine("Kettle AI server ended.");
-                        return;
+                        if (!gameadapter.HandleNextPacket())
+                        {
+                            Console.WriteLine("Kettle AI server ended.");
+                            break;
+                        }
                     }
                 }
                 catch (IOException)
                 {
                     Console.WriteLine("Connection closed");
-                    return;
                 }
             }
         }
