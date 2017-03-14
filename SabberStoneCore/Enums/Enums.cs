@@ -439,7 +439,7 @@
         PREHEALING = 425,
         APPEAR_FUNCTIONALLY_DEAD = 426,
         OVERLOAD_THIS_GAME = 427,
-        //430 GameTag, Number of spells played this turn?
+        //430 IMPLEMENTED
         SPELLS_COST_HEALTH = 431,
         HISTORY_PROXY_NO_BIG_CARD = 432,
         PROXY_CTHUN = 434,
@@ -486,6 +486,7 @@
 
         // more or less guessed gametags
         EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry
+        NUM_SPELLS_PLAYED_THIS_TURN = 430, // need to implement it ^^
         NUM_CARDS_TO_DRAW = 467,
         TAG_LAST_KNOWN_ATK_IN_HAND = 479, // ???
 

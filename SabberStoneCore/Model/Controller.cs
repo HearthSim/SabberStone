@@ -152,7 +152,7 @@ namespace SabberStoneCore.Model
                     if (!playableCard.IsPlayableByPlayer)
                         continue;
 
-                    var playables = playableCard.ChooseOne 
+                    var playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
                         ? playableCard.ChooseOnePlayables.ToList() 
                         : new List<IPlayable> {playableCard};
 
@@ -448,6 +448,12 @@ namespace SabberStoneCore.Model
         {
             get { return this[GameTag.EXTRA_BATTLECRY] == 1; }
             set { this[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
+        }
+
+        public bool ChooseBoth
+        {
+            get { return this[GameTag.CHOOSE_BOTH] == 1; }
+            set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
         }
     }
 }

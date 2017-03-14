@@ -105,11 +105,12 @@ namespace SabberStoneCore.CardSets.Standard
                 //[irc] NightKev you have two of those next to each other and place fandral on either end of the board and there are zero other minions on the board
                 //[irc] NightKev then you would be unable to play starfall because it has no targets
                 new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(GameTag.CHOOSE_BOTH, 1)
+                }
+            });
 
 			// ----------------------------------------- MINION - DRUID
 			// [OG_051] Forbidden Ancient - COST:1 [ATK:1/HP:1] 
