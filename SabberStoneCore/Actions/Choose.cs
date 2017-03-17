@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -179,8 +180,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<Card>, bool> CreateChoiceCards
-            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<Card> choices)
+        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
+            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
             {
                 if (c.Choice != null)
                 {
@@ -192,6 +193,11 @@ namespace SabberStoneCore.Actions
                 choices.ForEach(p =>
                 {
                     var choiceEntity = Entity.FromCard(c, p);
+                    // add after discover enchantment
+                    if (enchantment != null)
+                    {
+                        choiceEntity.Enchantments.Add(enchantment);
+                    }
                     c.Setaside.Add(choiceEntity);
                     choicesIds.Add(choiceEntity.Id);
                 });

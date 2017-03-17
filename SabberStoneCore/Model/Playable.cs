@@ -48,13 +48,21 @@ namespace SabberStoneCore.Model
 
         public virtual void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null)
         {
+            var removeEnchantments = new List<Enchantment>();
+
             Enchantments.ForEach(p =>
             {
                 if (p.Activation == activation && (Zone == null || Zone.Type == zoneType))
                 {
                     p.Activate(Controller, this, target);
+                    if (p.RemoveAfterActivation)
+                    {
+                        removeEnchantments.Add(p);
+                    }
                 }
             });
+
+            removeEnchantments.ForEach(p => Enchantments.Remove(p));
         }
 
         public void SetOrderOfPlay(string type)

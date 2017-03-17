@@ -927,10 +927,11 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("AT_008", new List<Enchantment> {
 				// TODO [AT_008] Coldarra Drake && Test: Coldarra Drake_AT_008
 				new Enchantment
-				(
-					//Activation = null,
+                {
+                    //Area = 
+					//Activation = EnchantmentActivation.BOARD,
 					//SingleTask = null,
-				)
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE

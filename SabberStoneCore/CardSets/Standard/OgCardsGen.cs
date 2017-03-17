@@ -798,13 +798,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_311", new List<Enchantment> {
-				// TODO [OG_311] A Light in the Darkness && Test: A Light in the Darkness_OG_311
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DiscoverTask(DiscoverType.MINION,
+                    new Enchantment()
+                    {
+                        Activation = EnchantmentActivation.HAND,
+                        SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
+                        RemoveAfterActivation = true
+                    }),
+                }
+            });
 
 			// --------------------------------------- MINION - PALADIN
 			// [OG_006] Vilefin Inquisitor - COST:1 [ATK:1/HP:3] 

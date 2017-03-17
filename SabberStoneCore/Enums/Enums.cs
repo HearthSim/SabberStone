@@ -466,6 +466,7 @@
         ARMS_DEALING = 458,
         TAG_LAST_KNOWN_COST_IN_HAND = 466,
         //467 IMPLEMENTED
+        //468 IMPLEMENTED
         DEFINING_ENCHANTMENT = 469,
         FINISH_ATTACK_SPELL_ON_DAMAGE = 470,
         KAZAKUS_POTION_POWER_1 = 471,
@@ -488,6 +489,7 @@
         EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry
         NUM_SPELLS_PLAYED_THIS_TURN = 430, // need to implement it ^^
         NUM_CARDS_TO_DRAW = 467,
+        MOAT_LURKER_MINION = 468,
         TAG_LAST_KNOWN_ATK_IN_HAND = 479, // ???
 
         NUM_SPELLS_PLAYED_THIS_GAME = 1001,
