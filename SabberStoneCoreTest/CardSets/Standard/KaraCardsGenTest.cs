@@ -396,10 +396,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // RefTag:
         // - TREASURE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void IvoryKnight_KAR_057()
         {
-            // TODO IvoryKnight_KAR_057 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -410,7 +409,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ivory Knight"));
+            game.CurrentPlayer.Hero.Damage = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ivory Knight"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Assert.AreEqual(spell, game.CurrentPlayer.Hand[4]);
+            Assert.AreEqual(20 + spell.Cost, game.CurrentPlayer.Hero.Health);
         }
     }
 

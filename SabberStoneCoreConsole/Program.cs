@@ -405,10 +405,11 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("A Light in the Darkness"));
+            game.CurrentPlayer.Hero.Damage = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            var minion = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            //var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+            //game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 
             ShowLog(game, LogLevel.VERBOSE);
 
