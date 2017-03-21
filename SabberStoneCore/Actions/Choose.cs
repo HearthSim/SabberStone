@@ -98,6 +98,9 @@ namespace SabberStoneCore.Actions
                     throw new NotImplementedException();
                 }
 
+                // set displayed creator at least for discover
+                //playable[GameTag.DISPLAYED_CREATOR] = c.LastCardPlayed;
+
                 // reset choice it's done
                 c.Choice = null;
 

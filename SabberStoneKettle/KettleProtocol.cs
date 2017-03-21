@@ -89,16 +89,16 @@ namespace SabberStoneKettle
         public KettleEntity() { }
         public KettleEntity(PowerEntity entity)
         {
-            EntityID = entity.Id;
+            EntityId = entity.Id;
             Tags = KettleUtils.TagsToKettleTags(entity.Tags);
         }
         public KettleEntity(PowerHistoryEntity entity)
         {
-            EntityID = entity.Id;
+            EntityId = entity.Id;
             Tags = KettleUtils.TagsToKettleTags(entity.Tags);
         }
 
-        public int EntityID;
+        public int EntityId;
         public Dictionary<int, int> Tags;
     }
 
@@ -108,12 +108,12 @@ namespace SabberStoneKettle
         public KettlePlayer(PowerPlayer player)
         {
             Entity = new KettleEntity(player.PowerEntity);
-            PlayerID = player.PlayerId;
+            PlayerId = player.PlayerId;
             CardBack = player.CardBack;
         }
 
         public KettleEntity Entity;
-        public int PlayerID;
+        public int PlayerId;
         public int CardBack;
     }
 
@@ -143,12 +143,12 @@ namespace SabberStoneKettle
         public KettleHistoryTagChange() { }
         public KettleHistoryTagChange(PowerHistoryTagChange p)
         {
-            EntityID = p.EntityId;
+            EntityId = p.EntityId;
             Tag = (int)p.Tag;
             Value = p.Value;
         }
 
-        public int EntityID;
+        public int EntityId;
         public int Tag;
         public int Value;
 
@@ -205,11 +205,11 @@ namespace SabberStoneKettle
         public KettleHistoryHideEntity() { }
         public KettleHistoryHideEntity(PowerHistoryHideEntity p)
         {
-            EntityID = p.EntityID;
+            EntityId = p.EntityID;
             Zone = (int)p.Zone;
         }
 
-        public int EntityID;
+        public int EntityId;
         public int Zone;
 
         public const String KettleName = "HistoryHideEntity";
@@ -257,7 +257,7 @@ namespace SabberStoneKettle
         }
 
         public int Type;
-        public int EntityID;
+        public int EntityId;
         public int Source;
         public int Min;
         public int Max;
@@ -276,16 +276,16 @@ namespace SabberStoneKettle
         public KettleOptionsBlock() { }
         public KettleOptionsBlock(PowerAllOptions options, int playerID)
         {
-            ID = options.Index;
+            Id = options.Index;
             Options = new List<KettleOption>();
-            PlayerID = playerID;
+            PlayerId = playerID;
 
             foreach (var option in options.PowerOptionList)
                 Options.Add(new KettleOption(option));
         }
 
-        public int PlayerID;
-        public int ID;
+        public int PlayerId;
+        public int Id;
         public List<KettleOption> Options;
 
         public const String KettleName = "OptionsBlock";
@@ -317,11 +317,11 @@ namespace SabberStoneKettle
         public KettleSubOption() { }
         public KettleSubOption(PowerSubOption option)
         {
-            ID = option.EntityId;
+            Id = option.EntityId;
             Targets = option.Targets;
         }
 
-        public int ID;
+        public int Id;
         public List<int> Targets;
     }
 
@@ -356,17 +356,17 @@ namespace SabberStoneKettle
             CountMin = choices.CountMin;
             Source = choices.SourceId;
             Entities = choices.Entities;
-            PlayerID = choices.PlayerId;
-            ID = choices.Index;
+            PlayerId = choices.PlayerId;
+            Id = choices.Index;
         }
 
-        public int ID;
+        public int Id;
         public int ChoiceType;
         public int CountMin;
         public int CountMax;
         public List<int> Entities;
         public int Source;
-        public int PlayerID;
+        public int PlayerId;
 
         public const String KettleName = "EntityChoices";
     }
@@ -436,7 +436,7 @@ namespace SabberStoneKettle
     public class KettleChooseEntities : KettlePayload
     {
         public List<int> Choices;
-        public int ID;
+        public int Id;
 
         public JObject ToPayload()
         {
@@ -449,7 +449,7 @@ namespace SabberStoneKettle
     public class KettleEntitiesChosen : KettlePayload
     {
         public int ChoiceType;
-        public int PlayerID;
+        public int PlayerId;
         public KettleChooseEntities ChooseEntities;
 
         public JObject ToPayload()
@@ -471,7 +471,7 @@ namespace SabberStoneKettle
 
     public class KettleUserUI : KettlePayload
     {
-        public int? PlayerID;
+        public int? PlayerId;
         public int? Emote;
         public KettleMouseInfo MouseInfo;
 
@@ -485,8 +485,8 @@ namespace SabberStoneKettle
 
     public class KettleJoinGame: KettlePayload
     {
-        public long PlayerID;
-        public int GameID;
+        public long PlayerId;
+        public int GameId;
         public string GamePassword;
 
         public JObject ToPayload()
