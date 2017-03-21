@@ -89,9 +89,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_010",
-                //CHOOSE_ONE
-                null);
+			cards.Add("BRM_010", new List<Enchantment> {
+                new Enchantment
+                {
+                    // CHOOSE_ONE, Choose Both option
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("OG_044b", EntityType.SOURCE)
+                }
+            });
 
         }
 
@@ -141,16 +146,9 @@ namespace SabberStoneCore.CardSets.Standard
             // [OG_044b] Druid of the Flame (*) - COST:3 [ATK:5/HP:5] 
             // - Race: beast, Set: fp2, Rarity: common
             // --------------------------------------------------------
-            cards.Add("OG_044b", new List<Enchantment> {
-				// TODO [OG_044b] Druid of the Flame && Test: Druid of the Flame_OG_044b
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+            cards.Add("OG_044b", null);
 
-		}
+        }
 
 		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
 		{

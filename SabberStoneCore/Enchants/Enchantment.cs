@@ -65,6 +65,8 @@ namespace SabberStoneCore.Enchants
 
         public ISimpleTask SingleTask { get; set; }
 
+        public bool RemoveAfterActivation { get; set; } = false;
+
         public void Activate(Controller controller, IPlayable source, IPlayable target = null)
         {
             // execute task straight over

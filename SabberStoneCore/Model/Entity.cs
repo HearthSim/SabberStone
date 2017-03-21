@@ -278,12 +278,6 @@ namespace SabberStoneCore.Model
             set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
         }
 
-        public bool ChooseBoth
-        {
-            get { return this[GameTag.CHOOSE_BOTH] == 1; }
-            set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
-        }
-
         public bool ToBeDestroyed
         {
             get { return this[GameTag.TO_BE_DESTROYED] == 1; }

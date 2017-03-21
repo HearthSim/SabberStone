@@ -66,7 +66,7 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnChooseEntities called");
 
-            if (chooseEntities.ID == 1)
+            if (chooseEntities.Id == 1)
             {
                 Adapter.SendMessage(TagChangeTest(2, (int)GameTag.MULLIGAN_STATE, (int)Mulligan.DEALING));
                 Adapter.SendMessage(BlockStartTest("", 6, 2, 0, (int)BlockType.TRIGGER));
@@ -128,7 +128,7 @@ namespace SabberStoneKettleServer
                     [479] = 2,
                 }));
                 Adapter.SendMessage(TagChangeTest(22, (int)GameTag.ZONE_POSITION, 2));
-                Adapter.SendMessage(new KettleHistoryHideEntity() { EntityID = 15, Zone = (int)Zone.DECK });
+                Adapter.SendMessage(new KettleHistoryHideEntity() { EntityId = 15, Zone = (int)Zone.DECK });
                 Adapter.SendMessage(TagChangeTest(15, (int)GameTag.ZONE, (int)Zone.DECK));
                 Adapter.SendMessage(TagChangeTest(15, (int)GameTag.ZONE_POSITION, 0));
 
@@ -167,7 +167,7 @@ namespace SabberStoneKettleServer
                     [479] = 2,
                 }));
                 Adapter.SendMessage(TagChangeTest(26, (int)GameTag.ZONE_POSITION, 3));
-                Adapter.SendMessage(new KettleHistoryHideEntity() { EntityID = 18, Zone = (int)Zone.DECK });
+                Adapter.SendMessage(new KettleHistoryHideEntity() { EntityId = 18, Zone = (int)Zone.DECK });
                 Adapter.SendMessage(TagChangeTest(18, (int)GameTag.ZONE, (int)Zone.DECK));
                 Adapter.SendMessage(TagChangeTest(18, (int)GameTag.ZONE_POSITION, 0));
 
@@ -266,7 +266,7 @@ namespace SabberStoneKettleServer
                 //Adapter.SendMessage(BlockEndTest());
             }
 
-            if (chooseEntities.ID == 2)
+            if (chooseEntities.Id == 2)
             {
 
                 Adapter.SendMessage(TagChangeTest(2, (int) GameTag.MULLIGAN_STATE, (int) Mulligan.DEALING));
@@ -304,7 +304,7 @@ namespace SabberStoneKettleServer
                     [479] = 0,
                 }));
                 Adapter.SendMessage(TagChangeTest(43, (int) GameTag.ZONE_POSITION, 1));
-                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityID = 57, Zone = (int) Zone.DECK});
+                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityId = 57, Zone = (int) Zone.DECK});
                 Adapter.SendMessage(TagChangeTest(57, (int) GameTag.ZONE, (int) Zone.DECK));
                 Adapter.SendMessage(TagChangeTest(57, (int) GameTag.ZONE_POSITION, 0));
 
@@ -340,7 +340,7 @@ namespace SabberStoneKettleServer
                     [479] = 10,
                 }));
                 Adapter.SendMessage(TagChangeTest(59, (int) GameTag.ZONE_POSITION, 2));
-                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityID = 34, Zone = (int) Zone.DECK});
+                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityId = 34, Zone = (int) Zone.DECK});
                 Adapter.SendMessage(TagChangeTest(34, (int) GameTag.ZONE, (int) Zone.DECK));
                 Adapter.SendMessage(TagChangeTest(34, (int) GameTag.ZONE_POSITION, 0));
 
@@ -377,7 +377,7 @@ namespace SabberStoneKettleServer
                     [479] = 5,
                 }));
                 Adapter.SendMessage(TagChangeTest(51, (int) GameTag.ZONE_POSITION, 3));
-                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityID = 46, Zone = (int) Zone.DECK});
+                Adapter.SendMessage(new KettleHistoryHideEntity() {EntityId = 46, Zone = (int) Zone.DECK});
                 Adapter.SendMessage(TagChangeTest(46, (int) GameTag.ZONE, (int) Zone.DECK));
                 Adapter.SendMessage(TagChangeTest(46, (int) GameTag.ZONE_POSITION, 0));
                 Adapter.SendMessage(TagChangeTest(2, (int) GameTag.MULLIGAN_STATE, (int) Mulligan.WAITING));
@@ -729,7 +729,7 @@ namespace SabberStoneKettleServer
             {
                 Game = new KettleEntity
                 {
-                    EntityID = 1,
+                    EntityId = 1,
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 1,
@@ -744,7 +744,7 @@ namespace SabberStoneKettleServer
             {
                 Entity = new KettleEntity()
                 {
-                    EntityID = 2,
+                    EntityId = 2,
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 2,
@@ -759,7 +759,7 @@ namespace SabberStoneKettleServer
                         [(int)GameTag.CARDTYPE] = (int)CardType.PLAYER,
                     }
                 },
-                PlayerID = 1,
+                PlayerId = 1,
                 CardBack = 0
             });
 
@@ -768,7 +768,7 @@ namespace SabberStoneKettleServer
             {
                 Entity = new KettleEntity()
                 {
-                    EntityID = 3,
+                    EntityId = 3,
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 3,
@@ -783,7 +783,7 @@ namespace SabberStoneKettleServer
                         [(int)GameTag.CARDTYPE] = (int)CardType.PLAYER,
                     }
                 },
-                PlayerID = 1,
+                PlayerId = 1,
                 CardBack = 0
             });
             return k;
@@ -863,7 +863,7 @@ namespace SabberStoneKettleServer
                 Name = cardId,
                 Entity = new KettleEntity()
                 {
-                    EntityID = entityId,
+                    EntityId = entityId,
                     Tags = tags
                 }
             };
@@ -877,7 +877,7 @@ namespace SabberStoneKettleServer
                 Name = cardId,
                 Entity = new KettleEntity()
                 {
-                    EntityID = entityId,
+                    EntityId = entityId,
                     Tags = tags
                 }
             };
@@ -888,7 +888,7 @@ namespace SabberStoneKettleServer
         {
             var k = new KettleHistoryTagChange
             {
-                EntityID = entityId,
+                EntityId = entityId,
                 Tag = tag,
                 Value = value,
             };
@@ -905,8 +905,8 @@ namespace SabberStoneKettleServer
                 CountMin = countMin,
                 Source = source,
                 Entities = entities,
-                PlayerID = playerId,
-                ID = index,
+                PlayerId = playerId,
+                Id = index,
             };
             return k;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -30,12 +31,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     }
     public class DiscoverTask : SimpleTask
     {
-        public DiscoverTask(DiscoverType discoverType)
+        public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
         {
             DiscoverType = discoverType;
+            Enchantment = enchantment;
         }
 
         public DiscoverType DiscoverType { get; set; }
+
+        public Enchantment Enchantment { get; set; }
 
         public override TaskState Process()
         {
@@ -98,7 +102,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //    return TaskState.STOP;
             //}
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, choiceAction, resultCards.ToList());
+            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
             return TaskState.COMPLETE;
         }
 
@@ -120,7 +124,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerById(Controller.Id);
-                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, ChoiceType.GENERAL, choiceAction, p.ToList());
+                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
                 cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
             });
 
@@ -251,7 +255,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new DiscoverTask(DiscoverType);
+            var clone = new DiscoverTask(DiscoverType, Enchantment);
             clone.Copy(this);
             return clone;
         }

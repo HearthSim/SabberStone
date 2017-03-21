@@ -105,11 +105,12 @@ namespace SabberStoneCore.CardSets.Standard
                 //[irc] NightKev you have two of those next to each other and place fandral on either end of the board and there are zero other minions on the board
                 //[irc] NightKev then you would be unable to play starfall because it has no targets
                 new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(GameTag.CHOOSE_BOTH, 1)
+                }
+            });
 
 			// ----------------------------------------- MINION - DRUID
 			// [OG_051] Forbidden Ancient - COST:1 [ATK:1/HP:1] 
@@ -797,13 +798,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_311", new List<Enchantment> {
-				// TODO [OG_311] A Light in the Darkness && Test: A Light in the Darkness_OG_311
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DiscoverTask(DiscoverType.MINION,
+                    new Enchantment()
+                    {
+                        Activation = EnchantmentActivation.HAND,
+                        SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
+                        RemoveAfterActivation = true
+                    }),
+                }
+            });
 
 			// --------------------------------------- MINION - PALADIN
 			// [OG_006] Vilefin Inquisitor - COST:1 [ATK:1/HP:3] 

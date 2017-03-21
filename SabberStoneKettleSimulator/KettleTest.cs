@@ -97,7 +97,7 @@ namespace SabberStoneKettleServer
             {
                 Game = new KettleEntity
                 {
-                    EntityID = 1,
+                    EntityId = 1,
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 1,
@@ -112,7 +112,7 @@ namespace SabberStoneKettleServer
             {
                 Entity = new KettleEntity()
                 {
-                  EntityID  = 2,
+                  EntityId  = 2,
                   Tags = new Dictionary<int, int>
                   {
                       [(int)GameTag.ENTITY_ID] = 2,
@@ -127,7 +127,7 @@ namespace SabberStoneKettleServer
                       [(int)GameTag.CARDTYPE] = (int)CardType.PLAYER,
                   }
                 },
-                PlayerID = 1,
+                PlayerId = 1,
                 CardBack = 0
             });
 
@@ -136,7 +136,7 @@ namespace SabberStoneKettleServer
             {
                 Entity = new KettleEntity()
                 {
-                    EntityID = 3,
+                    EntityId = 3,
                     Tags = new Dictionary<int, int>
                     {
                         [(int)GameTag.ENTITY_ID] = 3,
@@ -151,7 +151,7 @@ namespace SabberStoneKettleServer
                         [(int)GameTag.CARDTYPE] = (int)CardType.PLAYER,
                     }
                 },
-                PlayerID = 1,
+                PlayerId = 1,
                 CardBack = 0
             });
             
@@ -162,7 +162,7 @@ namespace SabberStoneKettleServer
         {
             var k = new KettleHistoryTagChange
             {
-                EntityID = entityId,
+                EntityId = entityId,
                 Tag = tag,
                 Value = value,
             };
@@ -271,8 +271,8 @@ namespace SabberStoneKettleServer
                 CountMin = countMin,
                 Source = source,
                 Entities = entities,
-                PlayerID = playerId,
-                ID = index,
+                PlayerId = playerId,
+                Id = index,
             };
             
             return k;
@@ -285,7 +285,7 @@ namespace SabberStoneKettleServer
                 Name = cardId,
                 Entity = new KettleEntity()
                 {
-                    EntityID = entityId,
+                    EntityId = entityId,
                     Tags = tags
                 }
             };
@@ -299,7 +299,7 @@ namespace SabberStoneKettleServer
                 Name = cardId,
                 Entity = new KettleEntity()
                 {
-                    EntityID = entityId,
+                    EntityId = entityId,
                     Tags = tags
                 }
             };

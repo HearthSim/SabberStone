@@ -275,26 +275,30 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_165", 
-                //CHOOSE_ONE
-                null);
-
-			// ----------------------------------------- MINION - DRUID
-			// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Deal_2_damage; or <b>Silence</b> a minion.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - SILENCE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_166",
+			cards.Add("EX1_165", new List<Enchantment> {
+                new Enchantment
+                {
+                    // CHOOSE_ONE, Choose Both option
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("OG_044a", EntityType.SOURCE)
+                }
+            });
+            // ----------------------------------------- MINION - DRUID
+            // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2] 
+            // - Fac: neutral, Set: expert1, Rarity: rare
+            // --------------------------------------------------------
+            // Text: <b>Choose One -</b> Deal_2_damage; or <b>Silence</b> a minion.
+            // --------------------------------------------------------
+            // GameTag:
+            // - CHOOSE_ONE = 1
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_TARGET_IF_AVAILABLE = 0
+            // --------------------------------------------------------
+            // RefTag:
+            // - SILENCE = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_166",
                 //CHOOSE_ONE
                 null);
 

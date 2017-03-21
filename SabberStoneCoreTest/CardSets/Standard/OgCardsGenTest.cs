@@ -166,10 +166,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - ELITE = 1
         // - AURA = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void FandralStaghelm_OG_044()
         {
-            // TODO FandralStaghelm_OG_044 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -180,7 +179,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fandral Staghelm"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fandral Staghelm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(true, game.CurrentPlayer.ChooseBoth);
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Claw"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
+            Assert.AreEqual("OG_044a", game.CurrentPlayer.Board[1].Card.Id);
+            game.Player1.UsedMana = 0;
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wrath"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentPlayer.Board[1]));
+            Assert.AreEqual(2, ((Minion)game.CurrentPlayer.Board[1]).Health);
         }
 
         // ----------------------------------------- MINION - DRUID
@@ -995,10 +1003,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // RefTag:
         // - TREASURE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void ALightInTheDarkness_OG_311()
         {
-            // TODO ALightInTheDarkness_OG_311 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -1009,7 +1016,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("A Light in the Darkness"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("A Light in the Darkness"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var minion = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            Assert.AreEqual(minion, game.CurrentPlayer.Hand[4]);
+            Assert.AreEqual(game.CurrentPlayer.Hand[4].Card[GameTag.ATK] + 1, ((Minion)minion).AttackDamage);
         }
 
         // --------------------------------------- MINION - PALADIN

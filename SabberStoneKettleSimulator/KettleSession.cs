@@ -123,7 +123,7 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnChooseEntities called");
 
-            var entityChoices = _game.EntityChoicesMap[chooseEntities.ID];
+            var entityChoices = _game.EntityChoicesMap[chooseEntities.Id];
             var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
                 ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices)
                 : ChooseTask.Pick(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]);
@@ -133,7 +133,7 @@ namespace SabberStoneKettleServer
             Adapter.SendMessage(new KettleEntitiesChosen
             {
                 ChoiceType = (int)entityChoices.ChoiceType,
-                PlayerID = entityChoices.PlayerId,
+                PlayerId = entityChoices.PlayerId,
                 ChooseEntities = chooseEntities,
             });
 

@@ -287,12 +287,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TREASURE = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_057", new List<Enchantment> {
-				// TODO [KAR_057] Ivory Knight && Test: Ivory Knight_KAR_057
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL,
+                    new Enchantment()
+                    {
+                        Activation = EnchantmentActivation.HAND,
+                        SingleTask = ComplexTask.Create(
+                            new GetGameTagTask(GameTag.COST, EntityType.SOURCE),
+                            new HealNumberTask(EntityType.HERO)),
+                        RemoveAfterActivation = true
+                    }),
+                },
 			});
 
 		}

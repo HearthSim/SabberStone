@@ -342,19 +342,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_042", null);
-
-			// ----------------------------------------- MINION - DRUID
-			// [AT_045] Aviana - COST:9 [ATK:5/HP:5] 
-			// - Set: tgt, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Your minions cost (1).
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("AT_045", new List<Enchantment> {
+			cards.Add("AT_042", new List<Enchantment> {
+                new Enchantment
+                {
+                    // CHOOSE_ONE, Choose Both option
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("OG_044c", EntityType.SOURCE)
+                }
+            });
+            // ----------------------------------------- MINION - DRUID
+            // [AT_045] Aviana - COST:9 [ATK:5/HP:5] 
+            // - Set: tgt, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: Your minions cost (1).
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - AURA = 1
+            // --------------------------------------------------------
+            cards.Add("AT_045", new List<Enchantment> {
 				new Enchantment
                 {
                     Area = EnchantmentArea.HAND,
@@ -921,10 +927,11 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("AT_008", new List<Enchantment> {
 				// TODO [AT_008] Coldarra Drake && Test: Coldarra Drake_AT_008
 				new Enchantment
-				(
-					//Activation = null,
+                {
+                    //Area = 
+					//Activation = EnchantmentActivation.BOARD,
 					//SingleTask = null,
-				)
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
