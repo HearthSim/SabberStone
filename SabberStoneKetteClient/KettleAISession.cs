@@ -131,10 +131,10 @@ namespace SabberStoneKettleClient
 
         public void OnHistory(List<KettleHistoryEntry> history)
         {
-            var createGame = history.Where(p => p is KettleHistoryCreateGame).Select(p => p as KettleHistoryCreateGame).First();
+            var createGame = history.Where(p => p is KettleHistoryCreateGame).Select(p => p as KettleHistoryCreateGame).FirstOrDefault();
             if (createGame != null)
             {
-                var player = createGame.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).FirstOrDefault();
+                var player = createGame.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).First();
                 PlayerId = player.Entity.EntityId - 1;
 
                 // TODO create the Game object here, etc
