@@ -109,11 +109,13 @@ namespace SabberStoneKettle
         {
             Entity = new KettleEntity(player.PowerEntity);
             PlayerID = player.PlayerId;
+            AccountID = player.AccountId;
             CardBack = player.CardBack;
         }
 
         public KettleEntity Entity;
         public int PlayerID;
+        public int AccountID;
         public int CardBack;
     }
 
@@ -485,7 +487,7 @@ namespace SabberStoneKettle
 
     public class KettleJoinGame: KettlePayload
     {
-        public long PlayerID;
+        public long AccountID;
         public int GameID;
         public string GamePassword;
 

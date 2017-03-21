@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Linq;
 
 namespace SabberStoneKettleClient
 {
@@ -11,10 +12,12 @@ namespace SabberStoneKettleClient
     {
         private KettleStartClient StartClient;
         private KettleAdapter Adapter;
-        private Game _game;
+        private int PlayerId;
+        private Game Game;
 
         public KettleAISession(KettleStartClient StartClient)
         {
+            
             this.StartClient = StartClient;
         }
 
@@ -69,8 +72,17 @@ namespace SabberStoneKettleClient
             Console.WriteLine("AI OnUserUI called.");
         }
 
-        public void OnHistory(List<KettleHistoryEntry> History)
+        public void OnHistory(List<KettleHistoryEntry> history)
         {
+            var createGame = history.Where(p => p is KettleHistoryCreateGame).Select(p => p as KettleHistoryCreateGame).First();
+            if (createGame != null)
+            {
+                var player = createGame.Players.Where(p => p.AccountID == StartClient.JoinGame.AccountID).First();
+                PlayerId = player.Entity.EntityID - 1;
+
+                // TODO create the Game object here, etc
+            }
+
             Console.WriteLine("AI OnHistory called.");
         }
     }
