@@ -57,6 +57,8 @@ namespace SabberStoneKettleClient
         public void OnEntityChoices(KettleEntityChoices entityChoices)
         {
             Console.WriteLine("AI EntityChoices called.");
+            if (entityChoices.PlayerId != PlayerId)
+                return;
 
             var pickList = new List<int>();
             switch ((ChoiceType) entityChoices.ChoiceType)
@@ -93,27 +95,33 @@ namespace SabberStoneKettleClient
         {
             Console.WriteLine("AI OnOptionsBlock called.");
 
-            var kettleOption = optionsBlock.Options[Rand.Next(0, optionsBlock.Options.Count)];
+            int kettleOptionIndex = Rand.Next(0, optionsBlock.Options.Count);
+            var kettleOption = optionsBlock.Options[kettleOptionIndex];
 
             var kettleSendOption = new KettleSendOption()
             {
                 Id = optionsBlock.Id,
-                MainOption = kettleOption.MainOption.Id,
             };
 
-            if (kettleOption.SubOptions.Any())
+            if (kettleOption.MainOption != null)
             {
-                var subOption = kettleOption.SubOptions[Rand.Next(0, kettleOption.SubOptions.Count)];
-                kettleSendOption.SubOption = subOption.Id;
+                kettleSendOption.MainOption = kettleOptionIndex;
+            }
 
-                if (subOption.Targets.Any())
+            if (kettleOption.SubOptions != null && kettleOption.SubOptions.Any())
+            {
+                var kettleSubOptionIndex = Rand.Next(0, kettleOption.SubOptions.Count);
+                var subOption = kettleOption.SubOptions[kettleSubOptionIndex];
+                kettleSendOption.SubOption = kettleSubOptionIndex;
+
+                if (subOption.Targets != null && subOption.Targets.Any())
                 {
                     kettleSendOption.Target = subOption.Targets[Rand.Next(0, subOption.Targets.Count)];
                 }
             }
             else
             {
-                if (kettleOption.MainOption.Targets.Any())
+                if (kettleOption.MainOption != null && kettleOption.MainOption.Targets != null && kettleOption.MainOption.Targets.Any())
                 {
                     kettleSendOption.Target = kettleOption.MainOption.Targets[Rand.Next(0, kettleOption.MainOption.Targets.Count)];
                 }
