@@ -16,7 +16,7 @@ namespace SabberStonePowerLog
 
         public override void Process(PowerGame powerGame)
         {
-            throw new NotImplementedException();
+           powerGame.Entities[Id].Change(Tag, Value);
         }
     }
 }

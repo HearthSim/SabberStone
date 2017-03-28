@@ -10,10 +10,10 @@ namespace SabberStonePowerLog
             PowerEntity = new PowerEntity();
         }
 
-        public string Id
+        public int Id
         {
-            get { return PowerEntity.Id; }
-            set { PowerEntity.Id = value; }
+            get { return int.Parse(PowerEntity.Id); }
+            set { PowerEntity.Id =value.ToString(); }
         }
 
         public string CardId
@@ -24,19 +24,12 @@ namespace SabberStonePowerLog
 
         public override void Process(PowerGame powerGame)
         {
-            int id;
-            if (!int.TryParse(Id, out id))
-            {
-                throw new NotImplementedException("couldn't intepret this id: " + Id);
-            }
-
-            if (powerGame.Entities.ContainsKey(id))
+            if (powerGame.Entities.ContainsKey(Id))
             {
                 throw new NotImplementedException("entity is already contained");
             }
 
-            powerGame.Entities.Add(id, PowerEntity);
-            Console.WriteLine("Full Entity: " + PowerEntity.ToString());
+            powerGame.Entities.Add(Id, PowerEntity);
         }
     }
 }

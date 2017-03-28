@@ -30,6 +30,11 @@ namespace SabberStonePowerLog
             }
         }
 
+        internal void Change(string tag, string value)
+        {
+            Data[tag] = value;
+        }
+
         internal string GetValue(string v)
         {
             string result = null;
@@ -53,5 +58,6 @@ namespace SabberStonePowerLog
             });
             return str.ToString();
         }
+
     }
 }

@@ -74,7 +74,7 @@ namespace SabberStonePowerLog
                         currentPowerGame = new PowerGame();
                         currentNameToIdDict = new Dictionary<string, int>();
                         currentPowerHistoryEntry = new PowerCreateGame();
-                        currentPowerGame.PowerHistory.Add(currentPowerHistoryEntry);
+                        currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
                         powerGames.Add(currentPowerGame);
                     }
                     else if (contentLine.StartsWith("Player"))
@@ -105,7 +105,7 @@ namespace SabberStonePowerLog
                         currentPowerHistoryEntry = ProcessFullEntity(currentPowerGame, contentLine);
                         if (currentPowerHistoryEntry != null)
                         {
-                            currentPowerGame.PowerHistory.Add(currentPowerHistoryEntry);
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
                         }
 
                     }
@@ -115,7 +115,7 @@ namespace SabberStonePowerLog
                         currentPowerHistoryEntry = ProcessTagChange(currentPowerGame, contentLine);
                         if (currentPowerHistoryEntry != null)
                         {
-                            currentPowerGame.PowerHistory.Add(currentPowerHistoryEntry);
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
                         }
                     }
                     else if (contentLine.StartsWith("BLOCK_START"))
@@ -190,7 +190,11 @@ namespace SabberStonePowerLog
 
             File.WriteAllText(filePath + "powerLog.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
 
-            powerGame.PowerHistory.Where(p => p is PowerFullEntity).ToList().ForEach(p => p.Process(powerGame));
+            while (powerGame.PowerHistory.Count > 0)
+            {
+                var powerHistoryEntry = powerGame.PowerHistory.Dequeue();
+                powerHistoryEntry.Process(powerGame);
+            }
 
             File.WriteAllText(filePath + "powerLogProc.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
         }
@@ -246,7 +250,7 @@ namespace SabberStonePowerLog
                 Console.WriteLine("fullEntityRgx unmatched: '" + str + "'");
                 return null;
             }
-            var id = match.Groups[1].Value;
+            var id = int.Parse(match.Groups[1].Value);
             var cardId = match.Groups[2].Value;
 
             return new PowerFullEntity()

@@ -5,7 +5,7 @@ namespace SabberStonePowerLog
 {
     public class PowerGame
     {
-        public List<PowerHistoryEntry> PowerHistory { get; set; }
+        public Queue<PowerHistoryEntry> PowerHistory { get; set; }
 
         public GameEntity Game 
         {
@@ -62,7 +62,7 @@ namespace SabberStonePowerLog
         public PowerGame() 
         {
             Entities = new Dictionary<int, PowerEntity>();
-            PowerHistory = new List<PowerHistoryEntry>();
+            PowerHistory = new Queue<PowerHistoryEntry>();
         }
 
         public PowerEntity GetEntityById(int id)
