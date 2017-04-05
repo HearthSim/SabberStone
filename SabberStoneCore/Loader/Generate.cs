@@ -31,7 +31,8 @@ namespace SabberStoneCore.Loader
             //var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
             //   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
             //{ CardSet.GVG};
-            var cardSets = Enum.GetValues(typeof(CardSet));
+            var cardSets = new[] { CardSet.UNGORO};
+            //var cardSets = Enum.GetValues(typeof(CardSet));
             foreach (CardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
@@ -199,7 +200,7 @@ namespace SabberStoneCore.Loader
                 GameTag.TRIGGER_VISUAL
             };
 
-            var cardType = card.Type == CardType.SPELL ? "SPELL" : card.Type.ToString();
+            var cardType = card.Type.ToString();
 
             var str = new StringBuilder();
             str.AppendLine($"{tab}\t// ----------------{(" " + cardType + " - " + card.Class).PadLeft(40, '-')}");
@@ -276,6 +277,10 @@ namespace SabberStoneCore.Loader
         {
             var str = new StringBuilder();
 
+            var enchantId = Cards.All
+                .Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
+                .Select(p => p.Id).FirstOrDefault();
+
             var activations = new List<string>();
             if (card.Type == CardType.SPELL)
                 activations.Add("EnchantmentActivation.SPELL");
@@ -294,6 +299,8 @@ namespace SabberStoneCore.Loader
                 {
                     str.AppendLine($"\t\t\t\tnew Enchantment");
                     str.AppendLine($"\t\t\t\t{{");
+                    if (enchantId != null)
+                        str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");
                     str.AppendLine($"\t\t\t\t\tActivation = {p},");
                     str.AppendLine($"\t\t\t\t\tSingleTask = null,");
                     str.AppendLine($"\t\t\t\t}},");
@@ -302,10 +309,12 @@ namespace SabberStoneCore.Loader
             else
             {
                 str.AppendLine($"\t\t\t\tnew Enchantment");
-                str.AppendLine($"\t\t\t\t(");
+                str.AppendLine($"\t\t\t\t{{");
+                if (enchantId != null)
+                    str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");
                 str.AppendLine($"\t\t\t\t\t//Activation = null,");
                 str.AppendLine($"\t\t\t\t\t//SingleTask = null,");
-                str.AppendLine($"\t\t\t\t)");
+                str.AppendLine($"\t\t\t\t}}");
             }
 
             str.AppendLine($"\t\t\t}});\n");

@@ -73,12 +73,13 @@ namespace SabberStoneCore.Loader
             // Get XML definitions from assembly embedded resource
             var cardDefsXml =
                 XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CardDefs.xml"));
-            var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"));
+            //var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"));
             // Parse XML
             var cardDefs = (from r in cardDefsXml.Descendants("Entity")
                 select new
                 {
                     Id = r.Attribute("CardID").Value,
+                    AssetId = r.Attribute("ID").Value,
 
                     // Unfortunately the file contains some duplicate tags
                     // so we have to make a list first and weed out the unique ones
@@ -116,25 +117,25 @@ namespace SabberStoneCore.Loader
                                     )))).ToList()
                 }).ToList();
 
-            var dbfCards = (from r in cardXml.Descendants("Record")
-                select new
-                {
-                    AssetId =
-                    (from field in r.Descendants("Field")
-                        where field.Attribute("column").Value == "ID"
-                        select int.Parse(field.Value))
-                    .FirstOrDefault(),
-                    CardId =
-                    (from field in r.Descendants("Field")
-                        where field.Attribute("column").Value == "NOTE_MINI_GUID"
-                        select field.Value)
-                    .FirstOrDefault(),
-                    Guid =
-                    (from field in r.Descendants("Field")
-                        where field.Attribute("column").Value == "LONG_GUID"
-                        select field.Value)
-                    .FirstOrDefault()
-                }).ToDictionary(x => x.CardId, x => x);
+            //var dbfCards = (from r in cardXml.Descendants("Record")
+            //    select new
+            //    {
+            //        AssetId =
+            //        (from field in r.Descendants("Field")
+            //            where field.Attribute("column").Value == "ID"
+            //            select int.Parse(field.Value))
+            //        .FirstOrDefault(),
+            //        CardId =
+            //        (from field in r.Descendants("Field")
+            //            where field.Attribute("column").Value == "NOTE_MINI_GUID"
+            //            select field.Value)
+            //        .FirstOrDefault(),
+            //        Guid =
+            //        (from field in r.Descendants("Field")
+            //            where field.Attribute("column").Value == "LONG_GUID"
+            //            select field.Value)
+            //        .FirstOrDefault()
+            //    }).ToDictionary(x => x.CardId, x => x);
 
             // Build card database
             var cards = new List<Card>();
@@ -142,13 +143,13 @@ namespace SabberStoneCore.Loader
             foreach (var card in cardDefs)
             {
                 // Skip PlaceholderCard etc.
-                if (!dbfCards.ContainsKey(card.Id))
-                    continue;
+                //if (!dbfCards.ContainsKey(card.Id))
+                //    continue;
 
                 var c = new Card()
                 {
-                    AssetId = dbfCards[card.Id].AssetId,
                     Id = card.Id,
+                    AssetId = int.Parse(card.AssetId),
                     Tags = new Dictionary<GameTag, int>(),
                     Requirements = card.Requirements,
                     Entourage = card.Entourage,

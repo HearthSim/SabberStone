@@ -225,7 +225,7 @@ namespace SabberStoneCore.Model
 
                     // TODO still haven't implemented all playerreq ...
                     case PlayReq.REQ_NONSTEALTH_ENEMY_TARGET: // Enemy target cannot be stealthed.
-                    case PlayReq.REQ_ENCHANTED_TARGET: // Target must be enchanted.
+                    case PlayReq.REQ_MAX_SECRETS:
                     case PlayReq.REQ_TARGET_ATTACKED_THIS_TURN: // Target must have already attacked this turn.
                     case PlayReq.REQ_TARGET_TAUNTER: // Default attack power must target taunters
                     case PlayReq.REQ_CAN_BE_ATTACKED: // Target cannot have the tag 'can't be attacked.'
@@ -239,12 +239,10 @@ namespace SabberStoneCore.Model
                     case PlayReq.REQ_SUBCARD_IS_PLAYABLE:
                     case PlayReq.REQ_CAN_BE_TARGETED_BY_BATTLECRIES:
                     case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_TURN:
-                    
                     case PlayReq.REQ_ENEMY_WEAPON_EQUIPPED:
-                    case PlayReq.REQ_SECRET_CAP_FOR_NON_SECRET:
+                    case PlayReq.REQ_SECRET_ZONE_CAP:
                     case PlayReq.REQ_TARGET_EXACT_COST:
                     case PlayReq.REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT:
-                    case PlayReq.REQ_DRAG_TO_PLAY:
                         Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", $"PlayReq {req} not implemented right now!");
                         break;
 

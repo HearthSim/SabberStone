@@ -7,4 +7,20 @@
     <EmbeddedResource Include="Loader\Data\CARD.xml" />
     <EmbeddedResource Include="Loader\Data\PlayErrors.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+    <Folder Include="Loader\Generated\CardSets\" />
+  </ItemGroup>
 </Project>
