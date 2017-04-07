@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -12,7 +12,7 @@ namespace SabberStoneCore.CardSets.Standard
         private static void Heroes(IDictionary<string, List<Enchantment>> cards)
         {
             // ----------------------------------------- HERO - WARRIOR
-            // [HERO_01] Garrosh Hellscream - COST:0 
+			// [HERO_01] Garrosh Hellscream - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -21,7 +21,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_01", null);
 
             // ------------------------------------------ HERO - SHAMAN
-            // [HERO_02] Thrall - COST:0 
+			// [HERO_02] Thrall - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -30,7 +30,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_02", null);
 
             // ------------------------------------------- HERO - ROGUE
-            // [HERO_03] Valeera Sanguinar - COST:0 
+			// [HERO_03] Valeera Sanguinar - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -39,7 +39,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_03", null);
 
             // ----------------------------------------- HERO - PALADIN
-            // [HERO_04] Uther Lightbringer - COST:0 
+			// [HERO_04] Uther Lightbringer - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -48,7 +48,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_04", null);
 
             // ------------------------------------------ HERO - HUNTER
-            // [HERO_05] Rexxar - COST:0 
+			// [HERO_05] Rexxar - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -57,7 +57,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_05", null);
 
             // ------------------------------------------- HERO - DRUID
-            // [HERO_06] Malfurion Stormrage - COST:0 
+			// [HERO_06] Malfurion Stormrage - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -66,7 +66,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_06", null);
 
             // ----------------------------------------- HERO - WARLOCK
-            // [HERO_07] Gul'dan - COST:0 
+			// [HERO_07] Gul'dan - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -75,7 +75,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_07", null);
 
             // -------------------------------------------- HERO - MAGE
-            // [HERO_08] Jaina Proudmoore - COST:0 
+			// [HERO_08] Jaina Proudmoore - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -84,7 +84,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("HERO_08", null);
 
             // ------------------------------------------ HERO - PRIEST
-            // [HERO_09] Anduin Wrynn - COST:0 
+			// [HERO_09] Anduin Wrynn - COST:0 [ATK:0/HP:30] 
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
@@ -124,6 +124,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("CS2_017", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_017o",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new ArmorTask(1),
@@ -258,6 +259,16 @@ namespace SabberStoneCore.CardSets.Standard
 
         private static void Druid(IDictionary<string, List<Enchantment>> cards)
         {
+            // ----------------------------------------- MINION - DRUID
+            // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8] 
+            // - Fac: neutral, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("CS2_232", null);
             // ------------------------------------------ SPELL - DRUID
             // [CS2_005] Claw - COST:1 
             // - Fac: neutral, Set: core, Rarity: free
@@ -267,6 +278,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("CS2_005", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_005o",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new ArmorTask(2),
@@ -293,7 +305,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------ SPELL - DRUID
             // [CS2_008] Moonfire - COST:0 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $1 damage. *spelldmg
             // --------------------------------------------------------
@@ -325,6 +337,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("CS2_009", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_009e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         ComplexTask.Taunt(EntityType.TARGET),
@@ -334,13 +347,14 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------ SPELL - DRUID
             // [CS2_011] Savage Roar - COST:3 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Give your characters +2_Attack this turn.
             // --------------------------------------------------------
             cards.Add("CS2_011", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_011o",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackTurn(2), EntityType.FRIENDS)
                 }
@@ -348,7 +362,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------ SPELL - DRUID
             // [CS2_012] Swipe - COST:4 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $4 damage to an enemy and $1 damage to all other enemies. *spelldmg
             // --------------------------------------------------------
@@ -398,7 +412,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------ SPELL - DRUID
             // [EX1_173] Starfire - COST:6 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $5 damage.
             //       Draw a card. *spelldmg
@@ -416,34 +430,13 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-            // ----------------------------------------- MINION - DRUID
-            // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8] 
-            // - Fac: neutral, Set: core, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Taunt</b>
-            // --------------------------------------------------------
-            // GameTag:
-            // - TAUNT = 1
-            // --------------------------------------------------------
-            cards.Add("CS2_232", null);
+
 
         }
 
         private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
         {
-            // ------------------------------------------ SPELL - DRUID
-            // [CS2_013t] Excess Mana (*) - COST:0 
-            // - Set: core, 
-            // --------------------------------------------------------
-            // Text: Draw a card. <i>(You can only have 10 Mana in your tray.)</i>
-            // --------------------------------------------------------
-            cards.Add("CS2_013t", new List<Enchantment> {
-	            new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DrawTask(),
-                },
-            });
+
 
             // ------------------------------------ ENCHANTMENT - DRUID
             // [CS2_005o] Claw (*) - COST:0 
@@ -452,7 +445,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +2 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("CS2_005o", null);
 
@@ -471,7 +464,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +2 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("CS2_011o", null);
 
@@ -482,17 +475,116 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Your hero has +1 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("CS2_017o", null);
 
+            // ------------------------------------------ SPELL - DRUID
+            // [CS2_013t] Excess Mana (*) - COST:0 
+            // - Set: core, 
+            // --------------------------------------------------------
+            // Text: Draw a card. <i>(You can only have 10 Mana in your tray.)</i>
+            // --------------------------------------------------------
+            cards.Add("CS2_013t", new List<Enchantment> {
+	            new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DrawTask(),
+                },
+            });
         }
 
         private static void Hunter(IDictionary<string, List<Enchantment>> cards)
         {
+            // ---------------------------------------- MINION - HUNTER
+            // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2] 
+            // - Race: beast, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: Whenever you summon a Beast, draw a card.
+            // --------------------------------------------------------
+            cards.Add("CS2_237", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
+
+            // ---------------------------------------- MINION - HUNTER
+            // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3] 
+            // - Fac: neutral, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
+            // --------------------------------------------------------
+            // GameTag:
+            // - BATTLECRY = 1
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_FRIENDLY_TARGET = 0
+            // - REQ_TARGET_WITH_RACE = 20
+            // - REQ_TARGET_IF_AVAILABLE = 0
+            // --------------------------------------------------------
+            // RefTag:
+            // - TAUNT = 1
+            // --------------------------------------------------------
+            cards.Add("DS1_070", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "DS1_070o",
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Taunt(EntityType.TARGET),
+                    Enchant = Buffs.AttackHealth(2)
+                }
+            });
+
+            // ---------------------------------------- MINION - HUNTER
+            // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1] 
+            // - Race: beast, Fac: neutral, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: Your other Beasts have +1_Attack.
+            // --------------------------------------------------------
+            // GameTag:
+            // - AURA = 1
+            // --------------------------------------------------------
+            cards.Add("DS1_175", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "DS1_175o",
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = ComplexTask.Taunt(EntityType.TARGET),
+                    Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
+                }
+            });
+
+            // ---------------------------------------- MINION - HUNTER
+            // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5] 
+            // - Race: beast, Fac: neutral, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: Your Beasts have <b>Charge</b>.
+            // --------------------------------------------------------
+            // RefTag:
+            // - CHARGE = 1
+            // --------------------------------------------------------
+            cards.Add("DS1_178", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "DS1_178e",
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
+                }
+            });
             // ----------------------------------------- SPELL - HUNTER
             // [CS2_084] Hunter's Mark - COST:1 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Change a minion's Health to 1.
             // --------------------------------------------------------
@@ -503,6 +595,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("CS2_084", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_084e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new SetHealthTask(1, EntityType.TARGET)
                 }
@@ -558,7 +651,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ----------------------------------------- SPELL - HUNTER
             // [EX1_539] Kill Command - COST:3 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $3 damage. If you control a Beast, deal
             //       $5 damage instead. *spelldmg
@@ -579,7 +672,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ----------------------------------------- SPELL - HUNTER
             // [NEW1_031] Animal Companion - COST:3 
-            // - Set: core, Rarity: common
+            // - Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Summon a random Beast Companion.
             // --------------------------------------------------------
@@ -596,89 +689,6 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-            // ---------------------------------------- MINION - HUNTER
-            // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2] 
-            // - Race: beast, Set: core, Rarity: common
-            // --------------------------------------------------------
-            // Text: Whenever you summon a Beast, draw a card.
-            // --------------------------------------------------------
-            cards.Add("CS2_237", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(new DrawTask())
-                        .Build()
-                }
-            });
-
-            // ---------------------------------------- MINION - HUNTER
-            // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3] 
-            // - Fac: neutral, Set: core, Rarity: free
-            // --------------------------------------------------------
-            // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
-            // --------------------------------------------------------
-            // GameTag:
-            // - BATTLECRY = 1
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_FRIENDLY_TARGET = 0
-            // - REQ_TARGET_WITH_RACE = 20
-            // - REQ_TARGET_IF_AVAILABLE = 0
-            // --------------------------------------------------------
-            // RefTag:
-            // - TAUNT = 1
-            // --------------------------------------------------------
-            cards.Add("DS1_070", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.TARGET,
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-                    Enchant = Buffs.AttackHealth(2)
-                }
-            });
-
-            // ---------------------------------------- MINION - HUNTER
-            // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1] 
-            // - Race: beast, Fac: neutral, Set: core, Rarity: free
-            // --------------------------------------------------------
-            // Text: Your other Beasts have +1_Attack.
-            // --------------------------------------------------------
-            // GameTag:
-            // - AURA = 1
-            // --------------------------------------------------------
-            cards.Add("DS1_175", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-                    Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
-                }
-            });
-
-            // ---------------------------------------- MINION - HUNTER
-            // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5] 
-            // - Race: beast, Fac: neutral, Set: core, Rarity: common
-            // --------------------------------------------------------
-            // Text: Your Beasts have <b>Charge</b>.
-            // --------------------------------------------------------
-            // RefTag:
-            // - CHARGE = 1
-            // --------------------------------------------------------
-            cards.Add("DS1_178", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
-                }
-            });
 
         }
 
@@ -744,6 +754,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("NEW1_033", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "NEW1_033o",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsNotSelf), AuraArea.BOARD)
                 }
@@ -764,6 +775,16 @@ namespace SabberStoneCore.CardSets.Standard
 
         private static void Mage(IDictionary<string, List<Enchantment>> cards)
         {
+            // ------------------------------------------ MINION - MAGE
+            // [CS2_033] Water Elemental - COST:4 [ATK:3/HP:6] 
+            // - Fac: neutral, Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: <b>Freeze</b> any character damaged by this minion.
+            // --------------------------------------------------------
+            // GameTag:
+            // - FREEZE = 1
+            // --------------------------------------------------------
+            cards.Add("CS2_033", null);
             // ------------------------------------------- SPELL - MAGE
             // [CS2_022] Polymorph - COST:4 
             // - Fac: neutral, Set: core, Rarity: free
@@ -779,6 +800,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
+					InfoCardId = "CS2_022e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask =  new TransformTask("CS2_tk1", EntityType.TARGET)
                 }
@@ -800,7 +822,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------- SPELL - MAGE
             // [CS2_024] Frostbolt - COST:2 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $3 damage to a_character and <b>Freeze</b> it. *spelldmg
             // --------------------------------------------------------
@@ -836,7 +858,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------- SPELL - MAGE
             // [CS2_026] Frost Nova - COST:3 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Freeze</b> all enemy minions.
             // --------------------------------------------------------
@@ -853,7 +875,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------- SPELL - MAGE
             // [CS2_027] Mirror Image - COST:1 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Summon two 0/2 minions with <b>Taunt</b>.
             // --------------------------------------------------------
@@ -890,7 +912,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ------------------------------------------- SPELL - MAGE
             // [CS2_032] Flamestrike - COST:7 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Deal $4 damage to all enemy minions. *spelldmg
             // --------------------------------------------------------
@@ -919,16 +941,7 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-            // ------------------------------------------ MINION - MAGE
-            // [CS2_033] Water Elemental - COST:4 [ATK:3/HP:6] 
-            // - Fac: neutral, Set: core, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Freeze</b> any character damaged by this minion.
-            // --------------------------------------------------------
-            // GameTag:
-            // - FREEZE = 1
-            // --------------------------------------------------------
-            cards.Add("CS2_033", null);
+
 
         }
 
@@ -960,6 +973,22 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - PALADIN
+			// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6] 
+			// - Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("CS2_088", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new HealTask(6, EntityType.HERO)
+                }
+            });
 			// ---------------------------------------- SPELL - PALADIN
 			// [CS2_087] Blessing of Might - COST:1 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -973,6 +1002,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_087", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_087e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
                 }
@@ -997,7 +1027,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CS2_092] Blessing of Kings - COST:4 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
 			// --------------------------------------------------------
@@ -1008,6 +1038,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_092", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_092e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET)
                 }
@@ -1015,7 +1046,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CS2_093] Consecration - COST:4 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all_enemies. *spelldmg
 			// --------------------------------------------------------
@@ -1049,7 +1080,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_360] Humility - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Change a minion's Attack to 1.
 			// --------------------------------------------------------
@@ -1060,6 +1091,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_360", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_360e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new SetAttackTask(1, EntityType.TARGET)
                 }
@@ -1086,22 +1118,7 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-			// --------------------------------------- MINION - PALADIN
-			// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6] 
-			// - Fac: neutral, Set: core, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 6 Health to your hero.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("CS2_088", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new HealTask(6, EntityType.HERO)
-                }
-            });
+
 
             // --------------------------------------- WEAPON - PALADIN
             // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0] 
@@ -1114,7 +1131,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- WEAPON - PALADIN
             // [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Whenever your hero attacks, restore 2_Health to it.
             // --------------------------------------------------------
@@ -1172,9 +1189,29 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Priest(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ---------------------------------------- MINION - PRIEST
+			// [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3] 
+			// - Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Whenever a minion is healed, draw a card.
+			// --------------------------------------------------------
+			cards.Add("CS2_235", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
 			// ----------------------------------------- SPELL - PRIEST
 			// [CS1_112] Holy Nova - COST:5 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all enemies. Restore #2_Health to all friendly characters. *spelldmg
 			// --------------------------------------------------------
@@ -1190,7 +1227,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CS1_113] Mind Control - COST:10 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Take control of an enemy minion.
 			// --------------------------------------------------------
@@ -1227,7 +1264,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CS2_003] Mind Vision - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Put a copy of a random card in your opponent's hand into your hand.
 			// --------------------------------------------------------
@@ -1253,6 +1290,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_004", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_004e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DrawTask(),
@@ -1281,7 +1319,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CS2_236] Divine Spirit - COST:2 
-			// - Set: core, Rarity: common
+			// - Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Double a minion's Health.
 			// --------------------------------------------------------
@@ -1292,6 +1330,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_236", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_236e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
@@ -1316,7 +1355,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [EX1_622] Shadow Word: Death - COST:3 
-			// - Set: core, Rarity: common
+			// - Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Destroy a minion with 5_or more Attack.
 			// --------------------------------------------------------
@@ -1333,26 +1372,7 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-			// ---------------------------------------- MINION - PRIEST
-			// [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3] 
-			// - Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: Whenever a minion is healed, draw a card.
-			// --------------------------------------------------------
-			cards.Add("CS2_235", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARDS,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(
-                            SelfCondition.IsNotDead,
-                            SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, -1)
-                        .SingleTask(new DrawTask())
-                        .Build()
-                }
-            });
+
 
 		}
 
@@ -1458,7 +1478,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [CS2_077] Sprint - COST:7 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Draw 4 cards.
 			// --------------------------------------------------------
@@ -1472,7 +1492,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_129] Fan of Knives - COST:3 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all enemy minions. Draw_a card. *spelldmg
 			// --------------------------------------------------------
@@ -1488,7 +1508,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_278] Shiv - COST:2 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $1 damage.
 			//       Draw a card. *spelldmg
@@ -1527,7 +1547,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [NEW1_004] Vanish - COST:6 
-			// - Set: core, Rarity: common
+			// - Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Return all minions to their owner's hand.
 			// --------------------------------------------------------
@@ -1541,7 +1561,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // ----------------------------------------- WEAPON - ROGUE
             // [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
             // - DURABILITY = 4
@@ -1559,7 +1579,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +1 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_083e", null);
 
@@ -1576,6 +1596,71 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ---------------------------------------- MINION - SHAMAN
+			// [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5] 
+			// - Race: elemental, Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Deal 3 damage.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			cards.Add("CS2_042", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.TARGET,
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(3, EntityType.TARGET)
+                }
+            });
+
+			// ---------------------------------------- MINION - SHAMAN
+			// [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3] 
+			// - Race: totem, Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Adjacent minions have +2_Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ADJACENT_BUFF = 1
+			// - AURA = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_565", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_565o",
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.Attack(2, RelaCondition.IsSideBySide)
+                }
+            });
+
+			// ---------------------------------------- MINION - SHAMAN
+			// [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3] 
+			// - Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - WINDFURY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_587", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.WindFury(EntityType.TARGET)
+                }
+            });
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CS2_037] Frost Shock - COST:1 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -1638,6 +1723,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_041", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_041e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new HealFullTask(EntityType.TARGET),
@@ -1658,6 +1744,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_045", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_045e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackTurn(3), EntityType.TARGET)
                 }
@@ -1665,13 +1752,14 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CS2_046] Bloodlust - COST:5 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Give your minions +3_Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("CS2_046", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_046e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackTurn(3), EntityType.MINIONS)
                 }
@@ -1679,13 +1767,14 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [EX1_244] Totemic Might - COST:0 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Give your Totems +2_Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_244", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_244e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.Health(2),EntityType.MINIONS, SelfCondition.IsTagValue(GameTag.CARDRACE, (int)Race.TOTEM))
                 }
@@ -1707,75 +1796,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_246", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_246e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask =  new TransformTask("hexfrog", EntityType.TARGET)
                 }
             });
 
-			// ---------------------------------------- MINION - SHAMAN
-			// [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5] 
-			// - Fac: neutral, Set: core, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal 3 damage.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("CS2_042", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.TARGET,
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(3, EntityType.TARGET)
-                }
-            });
 
-			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3] 
-			// - Race: totem, Fac: neutral, Set: core, Rarity: common
-			// --------------------------------------------------------
-			// Text: Adjacent minions have +2_Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ADJACENT_BUFF = 1
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_565", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.Attack(2, RelaCondition.IsSideBySide)
-                }
-            });
-
-			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3] 
-			// - Fac: neutral, Set: core, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - WINDFURY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_587", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.WindFury(EntityType.TARGET)
-                }
-            });
 
 		}
 
@@ -1799,7 +1826,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This character has +3 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_045e", null);
 
@@ -1810,7 +1837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +3 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_046e", null);
 
@@ -1899,6 +1926,50 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - WARLOCK
+			// [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6] 
+			// - Race: demon, Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("CS2_064", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(1, EntityType.ALL_NOSOURCE)
+                }
+            });
+
+			// --------------------------------------- MINION - WARLOCK
+			// [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3] 
+			// - Race: demon, Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Taunt</b>
+			// --------------------------------------------------------
+			// GameTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("CS2_065", null);
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_306] Succubus - COST:2 [ATK:4/HP:3] 
+			// - Race: demon, Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Discard a random card.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_306", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.DiscardRandomCard(1)
+                }
+            });
 			// ---------------------------------------- SPELL - WARLOCK
 			// [CS2_057] Shadow Bolt - COST:3 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -1953,7 +2024,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [CS2_063] Corruption - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Choose an enemy minion. At the start of your turn, destroy it.
 			// --------------------------------------------------------
@@ -1965,6 +2036,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_063", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_063e",
                     Area = EnchantmentArea.TARGET,
                     Activation = EnchantmentActivation.SPELL,
                     Enchant = new Enchant
@@ -1986,7 +2058,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [EX1_302] Mortal Coil - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a minion. If that kills it, draw a card. *spelldmg
 			// --------------------------------------------------------
@@ -2007,7 +2079,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [EX1_308] Soulfire - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: [x]Deal $4 damage.
 			//       Discard a random card. *spelldmg
@@ -2027,7 +2099,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [NEW1_003] Sacrificial Pact - COST:0 
-			// - Set: core, Rarity: common
+			// - Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Destroy a Demon. Restore #5 Health to your hero.
 			// --------------------------------------------------------
@@ -2045,50 +2117,7 @@ namespace SabberStoneCore.CardSets.Standard
 				}
 			});
 
-			// --------------------------------------- MINION - WARLOCK
-			// [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6] 
-			// - Race: demon, Fac: neutral, Set: core, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("CS2_064", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(1, EntityType.ALL_NOSOURCE)
-                }
-            });
 
-			// --------------------------------------- MINION - WARLOCK
-			// [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3] 
-			// - Race: demon, Fac: neutral, Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("CS2_065", null);
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_306] Succubus - COST:2 [ATK:4/HP:3] 
-			// - Race: demon, Fac: neutral, Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Discard a random card.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_306", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.DiscardRandomCard(1)
-                }
-            });
 
 		}
 
@@ -2106,6 +2135,39 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3] 
+			// - Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Your <b>Charge</b> minions have +1 Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - AURA = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - CHARGE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_084", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_084e",
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.CHARGE, 1))), AuraArea.BOARD)
+                }
+            });
+
+            // --------------------------------------- MINION - WARRIOR
+            // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3] 
+            // - Set: core, Rarity: free
+            // --------------------------------------------------------
+            // Text: <b>Charge</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - CHARGE = 1
+            // --------------------------------------------------------
+            cards.Add("NEW1_011", null);
+
+
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_103] Charge - COST:1 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -2123,6 +2185,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_103", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_103e2",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         ComplexTask.Charge(EntityType.TARGET),
@@ -2139,6 +2202,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_105", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_105e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackTurn(4), EntityType.HERO)
                 }
@@ -2166,7 +2230,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_114] Cleave - COST:2 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: [x]Deal $2 damage to
 			//       two random enemy
@@ -2185,7 +2249,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [EX1_400] Whirlwind - COST:1 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to ALL_minions. *spelldmg
 			// --------------------------------------------------------
@@ -2199,7 +2263,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [EX1_606] Shield Block - COST:3 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
 			//       Draw a card.
@@ -2214,37 +2278,6 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3] 
-			// - Fac: neutral, Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: Your <b>Charge</b> minions have +1 Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - AURA = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_084", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.CHARGE, 1))), AuraArea.BOARD)
-                }
-            });
-
-            // --------------------------------------- MINION - WARRIOR
-            // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3] 
-            // - Set: core, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Charge</b>
-            // --------------------------------------------------------
-            // GameTag:
-            // - CHARGE = 1
-            // --------------------------------------------------------
-            cards.Add("NEW1_011", null);
-
             // --------------------------------------- WEAPON - WARRIOR
             // [CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0] 
             // - Fac: neutral, Set: core, Rarity: free
@@ -2256,12 +2289,13 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- WEAPON - WARRIOR
             // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // GameTag:
             // - DURABILITY = 2
             // --------------------------------------------------------
             cards.Add("CS2_112", null);
+
 
         }
 
@@ -2282,7 +2316,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +4 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_105e", null);
 
@@ -2300,7 +2334,7 @@ namespace SabberStoneCore.CardSets.Standard
 		{
             // --------------------------------------- MINION - NEUTRAL
             // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2] 
-            // - Fac: alliance, Set: core, Rarity: common
+            // - Fac: alliance, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2311,7 +2345,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1] 
-            // - Set: core, Rarity: free
+			// - Race: elemental, Set: core, Rarity: free
             // --------------------------------------------------------
             cards.Add("CS2_118", null);
 
@@ -2329,7 +2363,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2370,7 +2404,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_125] Ironfur Grizzly - COST:3 [ATK:3/HP:3] 
-            // - Race: beast, Fac: neutral, Set: core, Rarity: common
+            // - Race: beast, Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2381,7 +2415,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4] 
-            // - Race: beast, Fac: horde, Set: core, Rarity: common
+            // - Race: beast, Fac: horde, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2392,7 +2426,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5] 
-            // - Fac: alliance, Set: core, Rarity: common
+            // - Fac: alliance, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Charge</b>
             // --------------------------------------------------------
@@ -2403,7 +2437,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2] 
-            // - Fac: alliance, Set: core, Rarity: common
+            // - Fac: alliance, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Battlecry:</b> Deal 1 damage.
             // --------------------------------------------------------
@@ -2424,7 +2458,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2] 
-			// - Fac: horde, Set: core, Rarity: common
+			// - Fac: horde, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
@@ -2442,7 +2476,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4] 
-			// - Fac: alliance, Set: core, Rarity: common
+			// - Fac: alliance, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a card.
 			// --------------------------------------------------------
@@ -2459,7 +2493,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2] 
-			// - Fac: alliance, Set: core, Rarity: common
+			// - Fac: alliance, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage.
 			// --------------------------------------------------------
@@ -2480,7 +2514,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_155] Archmage - COST:6 [ATK:4/HP:7] 
-			// - Fac: alliance, Set: core, Rarity: common
+			// - Fac: alliance, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
@@ -2498,7 +2532,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5] 
-            // - Fac: alliance, Set: core, Rarity: common
+            // - Fac: alliance, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2532,7 +2566,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1] 
-            // - Race: murloc, Fac: neutral, Set: core, Rarity: common
+            // - Race: murloc, Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Charge</b>
             // --------------------------------------------------------
@@ -2554,19 +2588,19 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             cards.Add("CS2_182", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_186] War Golem - COST:7 [ATK:7/HP:7] 
-            // - Fac: neutral, Set: core, Rarity: common
+            // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             cards.Add("CS2_186", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4] 
-            // - Fac: horde, Set: core, Rarity: common
+            // - Fac: horde, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Taunt</b>
             // --------------------------------------------------------
@@ -2577,7 +2611,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_189] Elven Archer - COST:1 [ATK:1/HP:1] 
-            // - Fac: horde, Set: core, Rarity: common
+            // - Fac: horde, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Battlecry:</b> Deal 1 damage.
             // --------------------------------------------------------
@@ -2598,7 +2632,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3] 
-			// - Fac: horde, Set: core, Rarity: common
+			// - Fac: horde, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 1/1_Boar.
 			// --------------------------------------------------------
@@ -2615,7 +2649,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4] 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
@@ -2639,7 +2673,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5] 
-            // - Race: beast, Set: core, Rarity: common
+            // - Race: beast, Set: core, Rarity: free
             // --------------------------------------------------------
             cards.Add("CS2_201", null);
 
@@ -2656,7 +2690,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6] 
-            // - Fac: alliance, Set: core, Rarity: common
+            // - Fac: alliance, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: Your other minions have +1/+1.
             // --------------------------------------------------------
@@ -2676,7 +2710,7 @@ namespace SabberStoneCore.CardSets.Standard
 
             // --------------------------------------- MINION - NEUTRAL
             // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4] 
-            // - Fac: horde, Set: core, Rarity: common
+            // - Fac: horde, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the battlefield.
             // --------------------------------------------------------
@@ -2694,7 +2728,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5] 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
 			// --------------------------------------------------------
@@ -2748,7 +2782,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2] 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
 			// --------------------------------------------------------
@@ -2771,7 +2805,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4] 
-			// - Fac: alliance, Set: core, Rarity: common
+			// - Fac: alliance, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
 			// --------------------------------------------------------
@@ -2788,7 +2822,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2] 
-			// - Fac: alliance, Set: core, Rarity: common
+			// - Fac: alliance, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy your opponent's weapon.
 			// --------------------------------------------------------
@@ -2805,7 +2839,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7] 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, gain +3_Attack.
 			// --------------------------------------------------------
@@ -2825,7 +2859,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1] 
-			// - Race: murloc, Fac: neutral, Set: core, Rarity: common
+			// - Race: murloc, Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 1/1_Murloc Scout.
 			// --------------------------------------------------------
@@ -2842,7 +2876,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1] 
-			// - Race: murloc, Fac: neutral, Set: core, Rarity: common
+			// - Race: murloc, Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Your other Murlocs have +1 Attack.
 			// --------------------------------------------------------
@@ -2858,7 +2892,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4] 
-			// - Fac: neutral, Set: core, Rarity: common
+			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
@@ -2895,28 +2929,9 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [GAME_005] The Coin (*) - COST:0 
-			// - Set: core, 
-			// --------------------------------------------------------
-			// Text: Gain 1 Mana Crystal this turn only.
-			// --------------------------------------------------------
-			cards.Add("GAME_005", new List<Enchantment> {
-                new Enchantment
-                {
-                    InfoCardId = "GAME_005e",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new TempManaTask(1)
-                }
-            });
 
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [GAME_006] NOOOOOOOOOOOO (*) - COST:2 
-			// - Set: core, 
-			// --------------------------------------------------------
-			// Text: Somehow, the card you USED to have has been deleted.  Here, have this one instead!
-			// --------------------------------------------------------
-			cards.Add("GAME_006", null);
+
+
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [GAME_001] Luck of the Coin (*) - COST:0 
@@ -3000,6 +3015,27 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b></b>
             // --------------------------------------------------------
             cards.Add("skele11", null);
+			// ---------------------------------------- SPELL - NEUTRAL
+			// [GAME_005] The Coin (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Gain 1 Mana Crystal this turn only.
+			// --------------------------------------------------------
+			cards.Add("GAME_005", new List<Enchantment> {
+                new Enchantment
+                {
+                    InfoCardId = "GAME_005e",
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new TempManaTask(1)
+                }
+            });
+			// ---------------------------------------- SPELL - NEUTRAL
+			// [GAME_006] NOOOOOOOOOOOO (*) - COST:2 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Somehow, the card you USED to have has been deleted.  Here, have this one instead!
+			// --------------------------------------------------------
+			cards.Add("GAME_006", null);
 
         }
 

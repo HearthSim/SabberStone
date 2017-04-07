@@ -31,8 +31,8 @@ namespace SabberStoneCore.Loader
             //var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
             //   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
             //{ CardSet.GVG};
-            var cardSets = new[] { CardSet.UNGORO};
-            //var cardSets = Enum.GetValues(typeof(CardSet));
+            //var cardSets = new[] { CardSet.UNGORO};
+            var cardSets = Enum.GetValues(typeof(CardSet));
             foreach (CardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";

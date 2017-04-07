@@ -1222,29 +1222,6 @@ namespace SabberStoneCore.CardSets.Standard
             });
 
 			// ------------------------------------------- SPELL - MAGE
-			// [CS2_031] Ice Lance - COST:1 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - FREEZE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("CS2_031", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
-                        ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
-                        ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
-                }
-            });
-
-			// ------------------------------------------- SPELL - MAGE
 			// [EX1_275] Cone of Cold - COST:4 
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
@@ -2474,23 +2451,6 @@ namespace SabberStoneCore.CardSets.Standard
             });
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_128] Conceal - COST:1 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give your minions <b>Stealth</b> until your next_turn.
-			// --------------------------------------------------------
-			// RefTag:
-			// - STEALTH = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_128", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffStealthTask(EntityType.MINIONS)
-				},
-			});
-
-			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_137] Headcrack - COST:3 
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -3153,40 +3113,6 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new DestroyTask(EntityType.ALLMINIONS),
-                }
-            });
-
-			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_316] Power Overwhelming - COST:1 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_316", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.TARGET,
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
-                    Enchant = new Enchant
-                    {
-                        TurnsActive = 0,
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsNotSilenced,
-                            SelfCondition.IsInZone(Zone.PLAY)
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.NUM_TURNS_IN_PLAY] = 0
-                        },
-                        SingleTask = new DestroyTask(EntityType.TARGET)
-                    }
                 }
             });
 
@@ -4398,28 +4324,6 @@ namespace SabberStoneCore.CardSets.Standard
             });
 
             // --------------------------------------- MINION - NEUTRAL
-            // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5] 
-            // - Set: expert1, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Deathrattle:</b> Take
-            //       control of a random
-            //       enemy minion.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - DEATHRATTLE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_016", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.Create(
-                        new RandomTask(1, EntityType.OP_MINIONS),
-                        new ControlTask(EntityType.STACK))
-                }
-            });
-
-            // --------------------------------------- MINION - NEUTRAL
             // [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2] 
             // - Race: beast, Fac: horde, Set: expert1, Rarity: common
             // --------------------------------------------------------
@@ -5150,53 +5054,6 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Freeze(EntityType.TARGET),
-                }
-            });
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4] 
-			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Spell Damage +1</b>. <b>Battlecry:</b> Draw a card.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SPELLPOWER = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_284", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SpellPowerDamage(1)
-                },
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DrawTask()
-                }
-            });
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Can't attack. At the end of your turn, deal 8 damage to a random enemy.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - CANT_ATTACK = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_298", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
-                        .Build()
                 }
             });
 

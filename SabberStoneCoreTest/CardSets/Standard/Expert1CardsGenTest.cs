@@ -1286,42 +1286,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
         }
 
         // ------------------------------------------- SPELL - MAGE
-        // [CS2_031] Ice Lance - COST:1 
-        // - Fac: neutral, Set: expert1, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. *spelldmg
-        // --------------------------------------------------------
-        // GameTag:
-        // - FREEZE = 1
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        [TestMethod]
-        public void IceLance_CS2_031()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
-            Assert.AreEqual(false, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, game.CurrentOpponent.Hero));
-            Assert.AreEqual(true, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
-            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
-        }
-
-        // ------------------------------------------- SPELL - MAGE
         // [EX1_275] Cone of Cold - COST:4 
         // - Fac: neutral, Set: expert1, Rarity: common
         // --------------------------------------------------------
@@ -2894,32 +2858,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
         }
 
         // ------------------------------------------ SPELL - ROGUE
-        // [EX1_128] Conceal - COST:1 
-        // - Fac: neutral, Set: expert1, Rarity: common
-        // --------------------------------------------------------
-        // Text: Give your minions <b>Stealth</b> until your next_turn.
-        // --------------------------------------------------------
-        // RefTag:
-        // - STEALTH = 1
-        // --------------------------------------------------------
-        [TestMethod, Ignore]
-        public void Conceal_EX1_128()
-        {
-            // TODO Conceal_EX1_128 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.ROGUE,
-                Player2HeroClass = CardClass.ROGUE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Conceal"));
-        }
-
-        // ------------------------------------------ SPELL - ROGUE
         // [EX1_137] Headcrack - COST:3 
         // - Fac: neutral, Set: expert1, Rarity: rare
         // --------------------------------------------------------
@@ -3870,40 +3808,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Twisting Nether"));
-        }
-
-        // ---------------------------------------- SPELL - WARLOCK
-        // [EX1_316] Power Overwhelming - COST:1 
-        // - Fac: neutral, Set: expert1, Rarity: common
-        // --------------------------------------------------------
-        // Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_MINION_TARGET = 0
-        // - REQ_FRIENDLY_TARGET = 0
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        [TestMethod]
-        public void PowerOverwhelming_EX1_316()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.WARLOCK,
-                Player2HeroClass = CardClass.WARLOCK,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Overwhelming"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            Assert.AreEqual(5, ((Minion) minion).AttackDamage);
-            Assert.AreEqual(5, ((Minion) minion).Health);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.AreEqual(true, minion.ToBeDestroyed);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -5474,53 +5378,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
         }
 
         // --------------------------------------- MINION - NEUTRAL
-        // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5] 
-        // - Set: expert1, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: <b>Deathrattle:</b> Take
-        //       control of a random
-        //       enemy minion.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - DEATHRATTLE = 1
-        // --------------------------------------------------------
-        [TestMethod]
-        public void SylvanasWindrunner_EX1_016()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.WARLOCK,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-
-            var minion11 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion11));
-
-            var minion12 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leper Gnome"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion12));
-
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sylvanas Windrunner"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-
-            var myBoardCount = game.CurrentPlayer.Board.Count;
-            var opBoardCount = game.CurrentOpponent.Board.Count;
-
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion2));
-
-            Assert.AreEqual(myBoardCount, game.CurrentPlayer.Board.Count);
-            Assert.AreEqual(opBoardCount - 1, game.CurrentOpponent.Board.Count);
-        }
-
-        // --------------------------------------- MINION - NEUTRAL
         // [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2] 
         // - Race: beast, Fac: horde, Set: expert1, Rarity: common
         // --------------------------------------------------------
@@ -6781,60 +6638,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Frost Elemental"));
-        }
-
-        // --------------------------------------- MINION - NEUTRAL
-        // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4] 
-        // - Race: dragon, Fac: neutral, Set: expert1, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Spell Damage +1</b>. <b>Battlecry:</b> Draw a card.
-        // --------------------------------------------------------
-        // GameTag:
-        // - SPELLPOWER = 1
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [TestMethod, Ignore]
-        public void AzureDrake_EX1_284()
-        {
-            // TODO AzureDrake_EX1_284 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Azure Drake"));
-        }
-
-        // --------------------------------------- MINION - NEUTRAL
-        // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8] 
-        // - Fac: neutral, Set: expert1, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: Can't attack. At the end of your turn, deal 8 damage to a random enemy.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - CANT_ATTACK = 1
-        // --------------------------------------------------------
-        [TestMethod, Ignore]
-        public void RagnarosTheFirelord_EX1_298()
-        {
-            // TODO RagnarosTheFirelord_EX1_298 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ragnaros the Firelord"));
         }
 
         // --------------------------------------- MINION - NEUTRAL
