@@ -1,11 +1,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Conditions;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.Loader.Generated.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class UngoroCardsGen
 	{
@@ -3237,14 +3233,7 @@ namespace SabberStoneCore.Loader.Generated.CardSets
 			// [UNG_806] Ultrasaur - COST:10 [ATK:7/HP:14] 
 			// - Race: beast, Fac: neutral, Set: ungoro, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("UNG_806", new List<Enchantment> {
-				// TODO [UNG_806] Ultrasaur && Test: Ultrasaur_UNG_806
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("UNG_806", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [UNG_807] Golakka Crawler - COST:2 [ATK:2/HP:3] 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
@@ -81,603 +81,290 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+	    private static void Druid(IDictionary<string, List<Enchantment>> cards)
+	    {
+	        // ----------------------------------------- MINION - DRUID
+	        // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4] 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: [x]<b>Choose One -</b> Transform
+	        //       into a 4/4 with <b>Charge</b>;
+	        //       or a 4/6 with <b>Taunt</b>.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - TAUNT = 1
+	        // - CHARGE = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_165", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                // CHOOSE_ONE, Choose Both option
+	                Activation = EnchantmentActivation.BATTLECRY,
+	                SingleTask = new TransformTask("OG_044a", EntityType.SOURCE)
+	            }
+	        });
+	        // ----------------------------------------- MINION - DRUID
+	        // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2] 
+	        // - Fac: neutral, Set: expert1, Rarity: rare
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Deal_2_damage; or <b>Silence</b> a minion.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_TARGET_IF_AVAILABLE = 0
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - SILENCE = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_166",
+	            //CHOOSE_ONE
+	            null);
+
+	        // ----------------------------------------- MINION - DRUID
+	        // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5] 
+	        // - Fac: neutral, Set: expert1, Rarity: epic
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b>
+	        //       +5 Attack; or +5 Health and <b>Taunt</b>.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - TAUNT = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_178",
+	            // CHOOSE_ONE
+	            null);
+
+	        // ----------------------------------------- MINION - DRUID
+	        // [EX1_573] Cenarius - COST:9 [ATK:5/HP:8] 
+	        // - Fac: neutral, Set: expert1, Rarity: legendary
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Give your other minions +2/+2; or Summon two 2/2 Treants with <b>Taunt</b>.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - ELITE = 1
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - TAUNT = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_573",
+	            // CHOOSE_ONE
+	            null);
+
+	        // ----------------------------------------- MINION - DRUID
+	        // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5] 
+	        // - Set: expert1, Rarity: epic
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_TARGET_IF_AVAILABLE = 0
+	        // --------------------------------------------------------
+	        cards.Add("NEW1_008",
+	            // CHOOSE_ONE
+	            null);
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_154] Wrath - COST:2 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Deal $3 damage to a minion; or $1 damage and draw a card. *spelldmg
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_MINION_TARGET = 0
+	        // - REQ_TARGET_TO_PLAY = 0
+	        // --------------------------------------------------------
+	        cards.Add("EX1_154",
+	            //CHOOSE_ONE
+	            null);
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_155] Mark of Nature - COST:3 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Give a minion +4 Attack; or +4 Health and <b>Taunt</b>.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_MINION_TARGET = 0
+	        // - REQ_TARGET_TO_PLAY = 0
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - TAUNT = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_155",
+	            //CHOOSE_ONE
+	            null);
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_158] Soul of the Forest - COST:4 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
+	        // --------------------------------------------------------
+	        // RefTag:
+	        // - DEATHRATTLE = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_158", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                Activation = EnchantmentActivation.SPELL,
+	                SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
+	                    new Enchantment
+	                    {
+	                        Activation = EnchantmentActivation.DEATHRATTLE,
+	                        SingleTask = new SummonTask("EX1_158t")
+	                    })
+	            }
+	        });
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_160] Power of the Wild - COST:2 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2 Panther.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_160",
+	            //CHOOSE_ONE
+	            null);
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_161] Naturalize - COST:1 
+	        // - Fac: neutral, Set: expert1, Rarity: common
+	        // --------------------------------------------------------
+	        // Text: Destroy a minion.
+	        //       Your opponent draws 2_cards.
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_MINION_TARGET = 0
+	        // - REQ_TARGET_TO_PLAY = 0
+	        // --------------------------------------------------------
+	        cards.Add("EX1_161", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                Activation = EnchantmentActivation.SPELL,
+	                SingleTask = ComplexTask.Create(
+	                    new DestroyTask(EntityType.TARGET),
+	                    new EnqueueTask(2, new DrawOpTask()))
+	            }
+	        });
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_164] Nourish - COST:5 
+	        // - Fac: neutral, Set: expert1, Rarity: rare
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Gain 2_Mana Crystals; or Draw 3 cards.
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_164",
+	            //CHOOSE_ONE
+	            null);
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_570] Bite - COST:4 
+	        // - Fac: neutral, Set: expert1, Rarity: rare
+	        // --------------------------------------------------------
+	        // Text: Give your hero +4_Attack this turn and 4 Armor.
+	        // --------------------------------------------------------
+	        cards.Add("EX1_570", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                InfoCardId = "EX1_570e",
+	                Activation = EnchantmentActivation.SPELL,
+	                SingleTask = ComplexTask.Create(
+	                    new BuffTask(Buffs.AttackTurn(4), EntityType.HERO),
+	                    new ArmorTask(4))
+	            },
+	        });
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_571] Force of Nature - COST:5 
+	        // - Fac: neutral, Set: expert1, Rarity: epic
+	        // --------------------------------------------------------
+	        // Text: Summon three 2/2 Treants.
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_NUM_MINION_SLOTS = 1
+	        // --------------------------------------------------------
+	        cards.Add("EX1_571", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                Activation = EnchantmentActivation.SPELL,
+	                SingleTask = new EnqueueTask(3, new SummonTask("EX1_158t")),
+	            },
+	        });
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [EX1_578] Savagery - COST:1 
+	        // - Fac: neutral, Set: expert1, Rarity: rare
+	        // --------------------------------------------------------
+	        // Text: Deal damage equal to your hero's Attack to a minion. *spelldmg
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - AFFECTED_BY_SPELL_POWER = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_MINION_TARGET = 0
+	        // - REQ_TARGET_TO_PLAY = 0
+	        // --------------------------------------------------------
+	        cards.Add("EX1_578", new List<Enchantment>
+	        {
+	            new Enchantment
+	            {
+	                Activation = EnchantmentActivation.SPELL,
+	                SingleTask = ComplexTask.Create(
+	                    new GetGameTagTask(GameTag.ATK, EntityType.HERO),
+	                    new DamageNumberTask(EntityType.TARGET))
+	            },
+	        });
+
+	        // ------------------------------------------ SPELL - DRUID
+	        // [NEW1_007] Starfall - COST:5 
+	        // - Set: expert1, Rarity: rare
+	        // --------------------------------------------------------
+	        // Text: <b>Choose One -</b> Deal $5 damage to a minion; or $2 damage to all enemy minions. *spelldmg
+	        // --------------------------------------------------------
+	        // GameTag:
+	        // - CHOOSE_ONE = 1
+	        // --------------------------------------------------------
+	        // PlayReq:
+	        // - REQ_MINION_TARGET = 0
+	        // - REQ_TARGET_IF_AVAILABLE = 0
+	        // --------------------------------------------------------
+	        cards.Add("NEW1_007",
+	            // CHOOSE_ONE
+	            null);
+
+	    }
+
+	    private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
-            // ------------------------------------------ SPELL - DRUID
-            // [EX1_154] Wrath - COST:2 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Choose One -</b> Deal $3 damage to a minion; or $1 damage and draw a card. *spelldmg
-            // --------------------------------------------------------
-            // GameTag:
-            // - CHOOSE_ONE = 1
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_MINION_TARGET = 0
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            cards.Add("EX1_154", 
-                //CHOOSE_ONE
-                null);
-
-            // ------------------------------------------ SPELL - DRUID
-            // [EX1_155] Mark of Nature - COST:3 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Choose One -</b> Give a minion +4 Attack; or +4 Health and <b>Taunt</b>.
-            // --------------------------------------------------------
-            // GameTag:
-            // - CHOOSE_ONE = 1
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_MINION_TARGET = 0
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            // RefTag:
-            // - TAUNT = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_155",
-                //CHOOSE_ONE
-                null);
-
-            // ------------------------------------------ SPELL - DRUID
-            // [EX1_158] Soul of the Forest - COST:4 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
-            // --------------------------------------------------------
-            // RefTag:
-            // - DEATHRATTLE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_158", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
-                        new Enchantment
-                        {
-                            Activation = EnchantmentActivation.DEATHRATTLE,
-                            SingleTask = new SummonTask("EX1_158t")
-                        })
-				}
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160] Power of the Wild - COST:2 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2 Panther.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_160",
-                //CHOOSE_ONE
-                null);
-
-            // ------------------------------------------ SPELL - DRUID
-            // [EX1_161] Naturalize - COST:1 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: Destroy a minion.
-            //       Your opponent draws 2_cards.
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_MINION_TARGET = 0
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            cards.Add("EX1_161", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new DestroyTask(EntityType.TARGET),
-                        new EnqueueTask(2, new DrawOpTask()))
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164] Nourish - COST:5 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Gain 2_Mana Crystals; or Draw 3 cards.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_164",
-                //CHOOSE_ONE
-                null);
-
-            // ------------------------------------------ SPELL - DRUID
-            // [EX1_570] Bite - COST:4 
-            // - Fac: neutral, Set: expert1, Rarity: rare
-            // --------------------------------------------------------
-            // Text: Give your hero +4_Attack this turn and 4 Armor.
-            // --------------------------------------------------------
-            cards.Add("EX1_570", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-                        new BuffTask(Buffs.AttackTurn(4), EntityType.HERO),
-                        new ArmorTask(4))
-				},
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_571] Force of Nature - COST:5 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Summon three 2/2 Treants.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_571", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, new SummonTask("EX1_158t")),
-				},
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_578] Savagery - COST:1 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Deal damage equal to your hero's Attack to a minion. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - AFFECTED_BY_SPELL_POWER = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_578", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new GetGameTagTask(GameTag.ATK, EntityType.HERO),
-                        new DamageNumberTask(EntityType.TARGET))
-                },
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007] Starfall - COST:5 
-			// - Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Deal $5 damage to a minion; or $2 damage to all enemy minions. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("NEW1_007", 
-                // CHOOSE_ONE
-                null);
-
-			// ----------------------------------------- MINION - DRUID
-			// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> <b>Charge</b>; or +2 Health and <b>Taunt</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - TAUNT = 1
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_165", new List<Enchantment> {
-                new Enchantment
-                {
-                    // CHOOSE_ONE, Choose Both option
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new TransformTask("OG_044a", EntityType.SOURCE)
-                }
-            });
-            // ----------------------------------------- MINION - DRUID
-            // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2] 
-            // - Fac: neutral, Set: expert1, Rarity: rare
-            // --------------------------------------------------------
-            // Text: <b>Choose One -</b> Deal_2_damage; or <b>Silence</b> a minion.
-            // --------------------------------------------------------
-            // GameTag:
-            // - CHOOSE_ONE = 1
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_TARGET_IF_AVAILABLE = 0
-            // --------------------------------------------------------
-            // RefTag:
-            // - SILENCE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_166",
-                //CHOOSE_ONE
-                null);
-
-            // ----------------------------------------- MINION - DRUID
-            // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5] 
-            // - Fac: neutral, Set: expert1, Rarity: epic
-            // --------------------------------------------------------
-            // Text: <b>Choose One -</b>
-            //       +5 Attack; or +5 Health and <b>Taunt</b>.
-            // --------------------------------------------------------
-            // GameTag:
-            // - CHOOSE_ONE = 1
-            // --------------------------------------------------------
-            // RefTag:
-            // - TAUNT = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_178", 
-                // CHOOSE_ONE
-                null);
-
-            // ----------------------------------------- MINION - DRUID
-            // [EX1_573] Cenarius - COST:9 [ATK:5/HP:8] 
-            // - Fac: neutral, Set: expert1, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Choose One -</b> Give your other minions +2/+2; or Summon two 2/2 Treants with <b>Taunt</b>.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - CHOOSE_ONE = 1
-            // --------------------------------------------------------
-            // RefTag:
-            // - TAUNT = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_573", 
-                // CHOOSE_ONE
-                null);
-
-			// ----------------------------------------- MINION - DRUID
-			// [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5] 
-			// - Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("NEW1_008",
-                // CHOOSE_ONE
-                null);
-
-		}
-
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
-		{
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_154a] Wrath (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Deal $3 damage to a minion. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_154a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DamageTask(3, EntityType.TARGET, true),
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_154b] Wrath (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Deal $1 damage to a minion. Draw a card. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_154b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new DamageTask(1, EntityType.TARGET, true),
-                        new DrawTask())
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_155a] Mark of Nature (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: +4 Attack.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_155a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.Attack(4), EntityType.TARGET)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_155b] Mark of Nature (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: +4 Health and <b>Taunt</b>.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_155b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new BuffTask(Buffs.Health(4), EntityType.TARGET),
-                        ComplexTask.Taunt(EntityType.TARGET))
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160a] Summon a Panther (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Summon a 3/2 Panther.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_160a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new SummonTask("EX1_160t")
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160b] Leader of the Pack (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Give your minions +1/+1.
-			// --------------------------------------------------------
-			cards.Add("EX1_160b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164a] Nourish (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Gain 2 Mana Crystals.
-			// --------------------------------------------------------
-			cards.Add("EX1_164a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ManaCrystalEmptyTask(2)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164b] Nourish (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Draw 3 cards.
-			// --------------------------------------------------------
-			cards.Add("EX1_164b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new EnqueueTask(3, new DrawTask())
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_165a] Cat Form (*) - COST:0 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>
-			// --------------------------------------------------------
-			cards.Add("EX1_165a", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new TransformTask("EX1_165t1", EntityType.SOURCE)
-                },
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_165b] Bear Form (*) - COST:0 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: +2 Health and <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("EX1_165b", new List<Enchantment> {
-				new Enchantment
-				{
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new TransformTask("EX1_165t2", EntityType.SOURCE)
-                },
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_166a] Moonfire (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Deal 2 damage.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_166a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(2, EntityType.TARGET)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_166b] Dispel (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: <b>Silence</b> a minion.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SILENCE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_166b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new SilenceTask(EntityType.TARGET)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_178a] Rooted (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: +5 Health and <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("EX1_178a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.Create(
-                        new BuffTask(Buffs.Health(5), EntityType.SOURCE),
-                        ComplexTask.Taunt(EntityType.SOURCE))
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_178b] Uproot (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: +5 Attack.
-			// --------------------------------------------------------
-			cards.Add("EX1_178b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new BuffTask(Buffs.Attack(5), EntityType.SOURCE)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_573a] Demigod's Favor (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Give your other minions +2/+2.
-			// --------------------------------------------------------
-			cards.Add("EX1_573a", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS_NOSOURCE),
-				},
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_573b] Shan'do's Lesson (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Summon two 2/2 Treants with <b>Taunt</b>.
-			// --------------------------------------------------------
-			cards.Add("EX1_573b", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(2, new SummonTask("EX1_573t"))
-				},
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007a] Starfall (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Deal $2 damage to all enemy minions. *spelldmg
-			// --------------------------------------------------------
-			cards.Add("NEW1_007a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(2, EntityType.OP_MINIONS)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007b] Starfall (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Deal $5 damage to a minion. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("NEW1_007b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(5, EntityType.TARGET)
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_008a] Ancient Teachings (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Draw a card.
-			// --------------------------------------------------------
-			cards.Add("NEW1_008a", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DrawTask()
-                }
-            });
-
-			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_008b] Ancient Secrets (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Restore 5 Health.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("NEW1_008b", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new HealTask(5, EntityType.TARGET),
-                }
-            });
-
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [EX1_155ae] Mark of Nature (*) - COST:0 
 			// - Set: expert1, 
@@ -797,11 +484,389 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_044a", null);
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_154a] Wrath (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Deal $3 damage to a minion. *spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_154a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(3, EntityType.TARGET, true),
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_154b] Wrath (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Deal $1 damage to a minion. Draw a card. *spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_154b", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET, true),
+                        new DrawTask())
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_155a] Mark of Nature (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: +4 Attack.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_155a", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_155ae",
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.Attack(4), EntityType.TARGET)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_155b] Mark of Nature (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: +4 Health and <b>Taunt</b>.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_155b", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_155be",
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.Health(4), EntityType.TARGET),
+                        ComplexTask.Taunt(EntityType.TARGET))
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_160a] Summon a Panther (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Summon a 3/2 Panther.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_NUM_MINION_SLOTS = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_160a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new SummonTask("EX1_160t")
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_160b] Leader of the Pack (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Give your minions +1/+1.
+			// --------------------------------------------------------
+			cards.Add("EX1_160b", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_160be",
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_164a] Nourish (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Gain 2 Mana Crystals.
+			// --------------------------------------------------------
+			cards.Add("EX1_164a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new ManaCrystalEmptyTask(2)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_164b] Nourish (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Draw 3 cards.
+			// --------------------------------------------------------
+			cards.Add("EX1_164b", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(3, new DrawTask())
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_165a] Cat Form (*) - COST:0 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Charge</b>
+			// --------------------------------------------------------
+			cards.Add("EX1_165a", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("EX1_165t1", EntityType.SOURCE)
+                },
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_165b] Bear Form (*) - COST:0 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: +2 Health and <b>Taunt</b>.
+			// --------------------------------------------------------
+			cards.Add("EX1_165b", new List<Enchantment> {
+				new Enchantment
+				{
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("EX1_165t2", EntityType.SOURCE)
+                },
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_166a] Moonfire (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Deal 2 damage.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_166a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(2, EntityType.TARGET)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_166b] Dispel (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: <b>Silence</b> a minion.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SILENCE = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_166b", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new SilenceTask(EntityType.TARGET)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_178a] Rooted (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: +5 Health and <b>Taunt</b>.
+			// --------------------------------------------------------
+			cards.Add("EX1_178a", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_178ae",
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.Health(5), EntityType.SOURCE),
+                        ComplexTask.Taunt(EntityType.SOURCE))
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_178b] Uproot (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: +5 Attack.
+			// --------------------------------------------------------
+			cards.Add("EX1_178b", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_178be",
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new BuffTask(Buffs.Attack(5), EntityType.SOURCE)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_573a] Demigod's Favor (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Give your other minions +2/+2.
+			// --------------------------------------------------------
+			cards.Add("EX1_573a", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_573ae",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS_NOSOURCE),
+				},
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_573b] Shan'do's Lesson (*) - COST:0 
+			// - Fac: neutral, Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Summon two 2/2 Treants with <b>Taunt</b>.
+			// --------------------------------------------------------
+			cards.Add("EX1_573b", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new EnqueueTask(2, new SummonTask("EX1_573t"))
+				},
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [NEW1_007a] Starfall (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Deal $2 damage to all enemy minions. *spelldmg
+			// --------------------------------------------------------
+			cards.Add("NEW1_007a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(2, EntityType.OP_MINIONS)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [NEW1_007b] Starfall (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Deal $5 damage to a minion. *spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("NEW1_007b", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(5, EntityType.TARGET)
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [NEW1_008a] Ancient Teachings (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Draw a card.
+			// --------------------------------------------------------
+			cards.Add("NEW1_008a", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DrawTask()
+                }
+            });
+
+			// ------------------------------------------ SPELL - DRUID
+			// [NEW1_008b] Ancient Secrets (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Restore 5 Health.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("NEW1_008b", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new HealTask(5, EntityType.TARGET),
+                }
+            });
+
+
 
 		}
 
 		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ---------------------------------------- MINION - HUNTER
+			// [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2] 
+			// - Race: beast, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Whenever a friendly Beast dies, gain +2/+1.
+			// --------------------------------------------------------
+			cards.Add("EX1_531", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_531e",
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
+                                .ApplyConditions(RelaCondition.IsSameRace)
+                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                                .SingleTask(new BuffTask(Buffs.AttackHealth(2, 1), EntityType.SOURCE))
+                                .Build()
+                }
+            });
+
+			// ---------------------------------------- MINION - HUNTER
+			// [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5] 
+			// - Race: beast, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_534", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new EnqueueTask(2, new SummonTask("EX1_534t"))
+                }
+            });
+
+            // ---------------------------------------- MINION - HUNTER
+            // [EX1_543] King Krush - COST:9 [ATK:8/HP:8] 
+            // - Race: beast, Fac: neutral, Set: expert1, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: <b>Charge</b>
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - CHARGE = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_543", null);
 			// ----------------------------------------- SPELL - HUNTER
 			// [EX1_533] Misdirection - COST:2 
 			// - Fac: neutral, Set: expert1, Rarity: rare
@@ -913,6 +978,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_549", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_549o",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new BuffTask(Buffs.AttackTurn(2), EntityType.TARGET),
@@ -1001,6 +1067,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_611", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_611e",
                     Area = EnchantmentArea.OP_BOARD,
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
@@ -1031,54 +1098,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 			});
 
-			// ---------------------------------------- MINION - HUNTER
-			// [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2] 
-			// - Race: beast, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Whenever a friendly Beast dies, gain +2/+1.
-			// --------------------------------------------------------
-			cards.Add("EX1_531", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                                .EnableConditions(SelfCondition.IsNotDead,  SelfCondition.IsNotSilenced)
-                                .ApplyConditions(RelaCondition.IsSameRace)
-                                .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
-                                .SingleTask(new BuffTask(Buffs.AttackHealth(2, 1), EntityType.SOURCE))
-                                .Build()
-                }
-            });
 
-			// ---------------------------------------- MINION - HUNTER
-			// [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5] 
-			// - Race: beast, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DEATHRATTLE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_534", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new EnqueueTask(2, new SummonTask("EX1_534t"))
-                }
-            });
-
-            // ---------------------------------------- MINION - HUNTER
-            // [EX1_543] King Krush - COST:9 [ATK:8/HP:8] 
-            // - Race: beast, Fac: neutral, Set: expert1, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Charge</b>
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - CHARGE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_543", null);
 
             // ---------------------------------------- WEAPON - HUNTER
             // [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0] 
@@ -1095,6 +1115,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("DS1_188", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "DS1_188e",
 					Activation = EnchantmentActivation.WEAPON,
 					SingleTask = new AuraTask(Auras.Immune(RelaCondition.IsOther(SelfCondition.IsAttacking)), AuraArea.HERO),
 				},
@@ -1117,6 +1138,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_536", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_536e",
                     Area = EnchantmentArea.SECRET,
                     Activation = EnchantmentActivation.WEAPON,
                     Trigger = new TriggerBuilder().Create()
@@ -1163,7 +1185,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +2 Attack and <b>Immune</b> this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_549o", null);
 
@@ -1202,6 +1224,115 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Mage(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ------------------------------------------ MINION - MAGE
+			// [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3] 
+			// - Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
+			// --------------------------------------------------------
+			// RefTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_274", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_274e",
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .MaxExecution(1)
+                        .SingleTask(ComplexTask.Create(
+                                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
+                                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))))
+                        .Build()
+                }
+            });
+
+			// ------------------------------------------ MINION - MAGE
+			// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7] 
+			// - Fac: neutral, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, add a 'Fireball' spell to_your hand.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_559", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
+                        .Build()
+                }
+            });
+
+			// ------------------------------------------ MINION - MAGE
+			// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Your spells cost (1) less.
+			// --------------------------------------------------------
+			// GameTag:
+			// - AURA = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_608", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.Cost(-1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.HAND)
+                }
+            });
+
+			// ------------------------------------------ MINION - MAGE
+			// [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: [x]<b>Battlecry:</b> The next <b>Secret</b>
+			//       you play this turn costs (0).
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_612", new List<Enchantment> {
+				// TODO [EX1_612] Kirin Tor Mage && Test: Kirin Tor Mage_EX1_612
+				new Enchantment
+				{
+					InfoCardId = "EX1_612o",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = null,
+				},
+			});
+
+			// ------------------------------------------ MINION - MAGE
+			// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3] 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, gain +1 Attack.
+			// --------------------------------------------------------
+			cards.Add("NEW1_012", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "NEW1_012o",
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
 			// ------------------------------------------- SPELL - MAGE
 			// [CS2_028] Blizzard - COST:6 
 			// - Fac: neutral, Set: expert1, Rarity: rare
@@ -1357,6 +1488,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_295", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_295o",
                     Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
@@ -1415,113 +1547,6 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 			});
 
-			// ------------------------------------------ MINION - MAGE
-			// [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3] 
-			// - Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
-			// --------------------------------------------------------
-			// RefTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_274", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .MaxExecution(1)
-                        .SingleTask(ComplexTask.Create(
-                                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
-                                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))))
-                        .Build()
-                }
-            });
-
-			// ------------------------------------------ MINION - MAGE
-			// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Whenever you cast a spell, add a 'Fireball' spell to_your hand.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_559", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                        .SingleTask(new AddCardTo("CS2_029", EntityType.HAND))
-                        .Build()
-                }
-            });
-
-			// ------------------------------------------ MINION - MAGE
-			// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Your spells cost (1) less.
-			// --------------------------------------------------------
-			// GameTag:
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_608", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.Cost(-1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.HAND)
-                }
-            });
-
-			// ------------------------------------------ MINION - MAGE
-			// [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: [x]<b>Battlecry:</b> The next <b>Secret</b>
-			//       you play this turn costs (0).
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_612", new List<Enchantment> {
-				// TODO [EX1_612] Kirin Tor Mage && Test: Kirin Tor Mage_EX1_612
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
-			});
-
-			// ------------------------------------------ MINION - MAGE
-			// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3] 
-			// - Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Whenever you cast a spell, gain +1 Attack.
-			// --------------------------------------------------------
-			cards.Add("NEW1_012", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
-                        .Build()
-                }
-            });
-
 		}
 
 		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
@@ -1541,7 +1566,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Your hero is <b>Immune</b> this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_295o", null);
 
@@ -1552,7 +1577,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Your next Secret costs (0).
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_612o", null);
 
@@ -1564,23 +1589,93 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("NEW1_012o", null);
 
-            // ------------------------------------------ MINION - MAGE
-            // [tt_010a] Spellbender (*) - COST:1 [ATK:1/HP:3] 
-            // - Set: expert1, Rarity: epic
-            // --------------------------------------------------------
-            cards.Add("tt_010a", new List<Enchantment> {
-				// TODO [tt_010a] Spellbender && Test: Spellbender_tt_010a
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			// ------------------------------------------ MINION - MAGE
+			// [tt_010a] Spellbender (*) - COST:1 [ATK:1/HP:3] 
+			// - Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+		    cards.Add("tt_010a", new List<Enchantment>
+		    {
+		        // TODO [tt_010a] Spellbender && Test: Spellbender_tt_010a
+		        new Enchantment
+                {
+		            //Activation = null,
+		            //SingleTask = null,
+		        }
+            });
 
-		}
+        }
 
 		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - PALADIN
+			// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_NONSELF_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - DIVINE_SHIELD = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_362", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.DivineShield(EntityType.TARGET)
+                }
+            });
+
+			// --------------------------------------- MINION - PALADIN
+			// [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Change an_enemy minion's Attack to 1.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_ENEMY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_382", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_382e",
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new SetAttackTask(1, EntityType.TARGET)
+                }
+            });
+
+            // --------------------------------------- MINION - PALADIN
+            // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
+            // - Fac: neutral, Set: expert1, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - TAUNT = 1
+            // - DIVINE_SHIELD = 1
+            // - DEATHRATTLE = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_383", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new WeaponTask("EX1_383t")
+                },
+            });
+
 			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_130] Noble Sacrifice - COST:1 
 			// - Fac: neutral, Set: expert1, Rarity: common
@@ -1626,7 +1721,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [EX1_136] Redemption - COST:1 
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When one of your minions dies, return it to life with 1 Health.
+			// Text: <b>Secret:</b> When a friendly minion dies, return it to life with 1 Health.
 			// --------------------------------------------------------
 			// GameTag:
 			// - SECRET = 1
@@ -1709,6 +1804,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_355", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_355e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                             new GetNativeGameTagTask(GameTag.ATK, EntityType.SOURCE, true),
@@ -1729,6 +1825,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_363", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_363e",
                     Area = EnchantmentArea.TARGET,
                     Activation = EnchantmentActivation.SPELL,
                     Trigger = new TriggerBuilder().Create()
@@ -1774,6 +1871,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_379", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_379e",
                     Area = EnchantmentArea.OP_BOARD,
                     Activation = EnchantmentActivation.SECRET,
                     Trigger = new TriggerBuilder().Create()
@@ -1811,78 +1909,11 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_619", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_619e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = new SetHealthTask(1, EntityType.ALLMINIONS)
 				},
 			});
-
-			// --------------------------------------- MINION - PALADIN
-			// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// - REQ_NONSELF_TARGET = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - DIVINE_SHIELD = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_362", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.DivineShield(EntityType.TARGET)
-                }
-            });
-
-			// --------------------------------------- MINION - PALADIN
-			// [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Change an_enemy minion's Attack to 1.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_ENEMY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_382", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new SetAttackTask(1, EntityType.TARGET)
-                }
-            });
-
-            // --------------------------------------- MINION - PALADIN
-            // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
-            // - Fac: neutral, Set: expert1, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Divine Shield</b>. <b>Taunt</b>. <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - TAUNT = 1
-            // - DIVINE_SHIELD = 1
-            // - DEATHRATTLE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_383", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new WeaponTask("EX1_383t")
-                },
-            });
 
             // --------------------------------------- WEAPON - PALADIN
             // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
@@ -1896,6 +1927,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_366", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_366e",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.WEAPON,
                     Trigger = new TriggerBuilder().Create()
@@ -1907,6 +1939,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .Build()
                 }
             });
+
 
 		}
 
@@ -1994,6 +2027,138 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Priest(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5] 
+			// - Fac: neutral, Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Take control of an enemy minion that has 2 or less Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_MAX_ATTACK = 2
+			// - REQ_MINION_TARGET = 0
+			// - REQ_ENEMY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_091", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ControlTask(EntityType.TARGET)
+				},
+			});
+
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: This minion's Attack is always equal to its Health.
+			// --------------------------------------------------------
+			cards.Add("EX1_335", new List<Enchantment> {
+				new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.BOARD,
+					Enchant = new Enchant()
+					{
+					    EnableConditions = new List<SelfCondition>
+					    {
+                            SelfCondition.IsInZone(Zone.HAND, Zone.PLAY),
+                            SelfCondition.IsNotSilenced,
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.ATK] = 0
+                        },
+                        FixedValueFunc = owner => ((Minion)owner).Health
+                    },
+
+				}
+			});
+
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
+			// --------------------------------------------------------
+			cards.Add("EX1_341", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.FRIENDS),
+                            new FilterStackTask(SelfCondition.IsDamaged),
+                            new RandomTask(1, EntityType.STACK),
+                            new HealTask(3, EntityType.STACK)))
+                        .Build()
+                }
+            });
+
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7] 
+			// - Fac: neutral, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: Double the damage and healing of your spells and Hero Power.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_350", new List<Enchantment> {
+				// TODO [EX1_350] Prophet Velen && Test: Prophet Velen_EX1_350
+				new Enchantment
+				{
+					//Activation = null,
+					//SingleTask = null,
+				}
+			});
+
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Your cards and powers that restore Health now deal damage instead.
+			// --------------------------------------------------------
+			// GameTag:
+			// - AURA = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_591", new List<Enchantment> {
+				// TODO [EX1_591] Auchenai Soulpriest && Test: Auchenai Soulpriest_EX1_591
+				new Enchantment
+				{
+					//Activation = null,
+					//SingleTask = null,
+				}
+			});
+
+			// ---------------------------------------- MINION - PRIEST
+			// [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6] 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_623", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_623e",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
+				},
+			});
 			// ----------------------------------------- SPELL - PRIEST
 			// [CS1_129] Inner Fire - COST:1 
 			// - Fac: neutral, Set: expert1, Rarity: common
@@ -2007,6 +2172,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS1_129", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "CS1_129e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                             new GetNativeGameTagTask(GameTag.HEALTH, EntityType.TARGET, true),
@@ -2052,6 +2218,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [EX1_334] Shadow Madness && Test: Shadow Madness_EX1_334
 				new Enchantment
 				{
+					InfoCardId = "EX1_334e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
@@ -2167,137 +2334,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 			});
 
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Take control of an enemy minion that has 2 or less Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_MAX_ATTACK = 2
-			// - REQ_MINION_TARGET = 0
-			// - REQ_ENEMY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_091", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ControlTask(EntityType.TARGET)
-				},
-			});
 
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: This minion's Attack is always equal to its Health.
-			// --------------------------------------------------------
-			cards.Add("EX1_335", new List<Enchantment> {
-				new Enchantment
-                {
-                    Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD,
-					Enchant = new Enchant()
-					{
-					    EnableConditions = new List<SelfCondition>
-					    {
-                            SelfCondition.IsInZone(Zone.HAND, Zone.PLAY),
-                            SelfCondition.IsNotSilenced,
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.ATK] = 0
-                        },
-                        FixedValueFunc = owner => ((Minion)owner).Health
-                    },
-
-				}
-			});
-
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
-			// --------------------------------------------------------
-			cards.Add("EX1_341", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(ComplexTask.Create(
-                            new IncludeTask(EntityType.FRIENDS),
-                            new FilterStackTask(SelfCondition.IsDamaged),
-                            new RandomTask(1, EntityType.STACK),
-                            new HealTask(3, EntityType.STACK)))
-                        .Build()
-                }
-            });
-
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: Double the damage and healing of your spells and Hero Power.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_350", new List<Enchantment> {
-				// TODO [EX1_350] Prophet Velen && Test: Prophet Velen_EX1_350
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
-
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Your cards and powers that restore Health now deal damage instead.
-			// --------------------------------------------------------
-			// GameTag:
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_591", new List<Enchantment> {
-				// TODO [EX1_591] Auchenai Soulpriest && Test: Auchenai Soulpriest_EX1_591
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
-
-			// ---------------------------------------- MINION - PRIEST
-			// [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6] 
-			// - Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_623", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
-				},
-			});
 
 		}
 
@@ -2355,6 +2392,132 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
 		{
+			// ----------------------------------------- MINION - ROGUE
+			// [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Combo:</b> Summon a 2/1 Defias Bandit.
+			// --------------------------------------------------------
+			// GameTag:
+			// - COMBO = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_131", new List<Enchantment> {
+                // Combo
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new SummonTask("EX1_131t")
+                }
+            });
+
+			// ----------------------------------------- MINION - ROGUE
+			// [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Combo:</b> Deal 2 damage.
+			// --------------------------------------------------------
+			// GameTag:
+			// - COMBO = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_FOR_COMBO = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_134", new List<Enchantment> {
+                // Combo
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(2, EntityType.TARGET)
+                }
+            });
+
+			// ----------------------------------------- MINION - ROGUE
+			// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1] 
+			// - Fac: neutral, Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Stealth</b>
+			//       <b>Poisonous</b>
+			// --------------------------------------------------------
+			// GameTag:
+			// - STEALTH = 1
+			// - POISONOUS = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_522", null);
+
+			// ----------------------------------------- MINION - ROGUE
+			// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2] 
+			// - Fac: neutral, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Combo:</b> Gain +2/+2 for each card played earlier this turn.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - COMBO = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_613", new List<Enchantment> {
+                // Combo
+                new Enchantment
+                {
+					InfoCardId = "EX1_613e",
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
+                        new MathSubstractionTask(1),
+                        new MathMultiplyTask(2),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE)
+                        )
+                }
+            });
+
+			// ----------------------------------------- MINION - ROGUE
+			// [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3] 
+			// - Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Combo:</b> Return a minion to_its owner's hand.
+			// --------------------------------------------------------
+			// GameTag:
+			// - COMBO = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_FOR_COMBO = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("NEW1_005", new List<Enchantment> {
+				// Combo
+				new Enchantment
+                {
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ReturnHandTask(EntityType.TARGET)
+				}
+			});
+
+			// ----------------------------------------- MINION - ROGUE
+			// [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4] 
+			// - Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a friendly minion <b>Stealth</b> until your next turn.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_NONSELF_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - STEALTH = 1
+			// --------------------------------------------------------
+			cards.Add("NEW1_014", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "NEW1_014e",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new BuffStealthTask(EntityType.TARGET)
+				},
+			});
+			
 			// ------------------------------------------ SPELL - ROGUE
 			// [CS2_073] Cold Blood - COST:1 
 			// - Fac: neutral, Set: expert1, Rarity: common
@@ -2371,6 +2534,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_073", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_073e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.Attack(2), EntityType.TARGET)
                 },
@@ -2510,133 +2674,13 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [EX1_145] Preparation && Test: Preparation_EX1_145
 				new Enchantment
 				{
+					InfoCardId = "EX1_145o",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
-			// ----------------------------------------- MINION - ROGUE
-			// [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Combo:</b> Summon a 2/1 Defias Bandit.
-			// --------------------------------------------------------
-			// GameTag:
-			// - COMBO = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_131", new List<Enchantment> {
-                // Combo
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new SummonTask("EX1_131t")
-                }
-            });
 
-			// ----------------------------------------- MINION - ROGUE
-			// [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Combo:</b> Deal 2 damage.
-			// --------------------------------------------------------
-			// GameTag:
-			// - COMBO = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_FOR_COMBO = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_134", new List<Enchantment> {
-                // Combo
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(2, EntityType.TARGET)
-                }
-            });
-
-			// ----------------------------------------- MINION - ROGUE
-			// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1] 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Stealth</b>. Destroy any minion damaged by this_minion.
-			// --------------------------------------------------------
-			// GameTag:
-			// - STEALTH = 1
-			// - POISONOUS = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_522", null);
-
-			// ----------------------------------------- MINION - ROGUE
-			// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Combo:</b> Gain +2/+2 for each card played earlier this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - COMBO = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_613", new List<Enchantment> {
-                // Combo
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BOARD,
-                    SingleTask = ComplexTask.Create(
-                        new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
-                        new MathSubstractionTask(1),
-                        new MathMultiplyTask(2),
-                        new BuffAttackHealthNumberTask(EntityType.SOURCE)
-                        )
-                }
-            });
-
-			// ----------------------------------------- MINION - ROGUE
-			// [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3] 
-			// - Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Combo:</b> Return a minion to_its owner's hand.
-			// --------------------------------------------------------
-			// GameTag:
-			// - COMBO = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_FOR_COMBO = 0
-			// - REQ_MINION_TARGET = 0
-			// --------------------------------------------------------
-			cards.Add("NEW1_005", new List<Enchantment> {
-				// Combo
-				new Enchantment
-                {
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ReturnHandTask(EntityType.TARGET)
-				}
-			});
-
-			// ----------------------------------------- MINION - ROGUE
-			// [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4] 
-			// - Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Give a friendly minion <b>Stealth</b> until your next turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NONSELF_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// - REQ_MINION_TARGET = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - STEALTH = 1
-			// --------------------------------------------------------
-			cards.Add("NEW1_014", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffStealthTask(EntityType.TARGET)
-				},
-			});
 
 			// ----------------------------------------- WEAPON - ROGUE
 			// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0] 
@@ -2702,7 +2746,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: The next spell you cast this turn costs (3) less.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_145o", null);
 
@@ -2732,6 +2776,89 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
 		{
+            // ---------------------------------------- MINION - SHAMAN
+            // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1] 
+			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
+            // --------------------------------------------------------
+            // Text: <b>Windfury</b>. <b>Overload:</b> (2)
+            // --------------------------------------------------------
+            // GameTag:
+            // - WINDFURY = 1
+            // - OVERLOAD = 2
+            // - OVERLOAD_OWED = 2
+            // --------------------------------------------------------
+            cards.Add("EX1_243", null);
+
+            // ---------------------------------------- MINION - SHAMAN
+            // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8] 
+			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: epic
+            // --------------------------------------------------------
+            // Text: <b>Taunt</b>. <b>Overload:</b> (3)
+            // --------------------------------------------------------
+            // GameTag:
+            // - TAUNT = 1
+            // - OVERLOAD = 3
+            // - OVERLOAD_OWED = 3
+            // --------------------------------------------------------
+            cards.Add("EX1_250", null);
+
+            // ---------------------------------------- MINION - SHAMAN
+            // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4] 
+			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
+            // --------------------------------------------------------
+            // Text: Whenever you play a card_with <b>Overload</b>, gain_+1/+1.
+            // --------------------------------------------------------
+            // RefTag:
+            // - OVERLOAD = 1
+            // --------------------------------------------------------
+            cards.Add("EX1_258", new List<Enchantment> {
+				new Enchantment
+                {
+					InfoCardId = "EX1_258e",
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .Build()
+                }
+			});
+
+			// ---------------------------------------- MINION - SHAMAN
+			// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3] 
+			// - Race: totem, Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: At the end of your turn, draw a card.
+			// --------------------------------------------------------
+			cards.Add("EX1_575", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new DrawTask())
+                        .Build()
+                }
+            });
+
+			// ---------------------------------------- MINION - SHAMAN
+			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
+			// - Race: elemental, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Windfury, Charge, Divine Shield, Taunt</b>
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - WINDFURY = 1
+			// - TAUNT = 1
+			// - DIVINE_SHIELD = 1
+			// - CHARGE = 1
+			// --------------------------------------------------------
+			cards.Add("NEW1_010", null);
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CS2_038] Ancestral Spirit - COST:2 
 			// - Fac: neutral, Set: expert1, Rarity: rare
@@ -2748,6 +2875,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_038", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "CS2_038e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
                         new Enchantment
@@ -2769,6 +2897,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_053", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_053e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DrawTask(true),
@@ -2904,88 +3033,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 			});
 
-            // ---------------------------------------- MINION - SHAMAN
-            // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1] 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Windfury</b>. <b>Overload:</b> (2)
-            // --------------------------------------------------------
-            // GameTag:
-            // - WINDFURY = 1
-            // - OVERLOAD = 2
-            // - OVERLOAD_OWED = 2
-            // --------------------------------------------------------
-            cards.Add("EX1_243", null);
 
-            // ---------------------------------------- MINION - SHAMAN
-            // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8] 
-            // - Fac: neutral, Set: expert1, Rarity: epic
-            // --------------------------------------------------------
-            // Text: <b>Taunt</b>. <b>Overload:</b> (3)
-            // --------------------------------------------------------
-            // GameTag:
-            // - TAUNT = 1
-            // - OVERLOAD = 3
-            // - OVERLOAD_OWED = 3
-            // --------------------------------------------------------
-            cards.Add("EX1_250", null);
-
-            // ---------------------------------------- MINION - SHAMAN
-            // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4] 
-            // - Fac: neutral, Set: expert1, Rarity: common
-            // --------------------------------------------------------
-            // Text: Whenever you play a card_with <b>Overload</b>, gain_+1/+1.
-            // --------------------------------------------------------
-            // RefTag:
-            // - OVERLOAD = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_258", new List<Enchantment> {
-				new Enchantment
-                {
-                    Area = EnchantmentArea.HAND_AND_BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ)))
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
-                        .Build()
-                }
-			});
-
-			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3] 
-			// - Race: totem, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: At the end of your turn, draw a card.
-			// --------------------------------------------------------
-			cards.Add("EX1_575", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(new DrawTask())
-                        .Build()
-                }
-            });
-
-			// ---------------------------------------- MINION - SHAMAN
-			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
-			// - Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Windfury, Charge, Divine Shield, Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - WINDFURY = 1
-			// - TAUNT = 1
-			// - DIVINE_SHIELD = 1
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("NEW1_010", null);
 
             // ---------------------------------------- WEAPON - SHAMAN
             // [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0] 
@@ -3057,6 +3105,173 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - WARLOCK
+			// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1] 
+			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: [x]  <b>Stealth</b>. At the end of your  
+			//       turn, give another random
+			//        friendly minion +1 Health.
+			// --------------------------------------------------------
+			// GameTag:
+			// - STEALTH = 1
+			// --------------------------------------------------------
+			cards.Add("CS2_059", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "CS2_059o",
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomTask(1, EntityType.MINIONS_NOSOURCE),
+                            new BuffTask(Buffs.Health(1), EntityType.STACK)))
+                        .Build()
+                }
+            });
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_301] Felguard - COST:3 [ATK:3/HP:5] 
+			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Taunt</b>
+			//       <b>Battlecry:</b> Destroy one of your Mana Crystals.
+			// --------------------------------------------------------
+			// GameTag:
+			// - TAUNT = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_301", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ManaCrystalEmptyTask(-1)
+				},
+			});
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3] 
+			// - Race: demon, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: [x]<b>Battlecry:</b> Destroy both
+			//       adjacent minions and gain
+			//        their Attack and Health.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_304", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_304e",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
+                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
+                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
+                        new MathNumberIndexTask(1,2, MathOperation.ADD),
+                        new SetAttackNumberTask(EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 0, 3),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 1, 4),
+                        new MathNumberIndexTask(3,4, MathOperation.ADD),
+                        new SetHealthNumberTask(EntityType.SOURCE),
+                        new DestroyTask(EntityType.STACK)),
+				},
+			});
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_310] Doomguard - COST:5 [ATK:5/HP:7] 
+			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+			// --------------------------------------------------------
+			// GameTag:
+			// - CHARGE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_310", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.DiscardRandomCard(2),
+                }
+            });
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6] 
+			// - Race: demon, Fac: neutral, Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_313", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(5, EntityType.HERO),
+                }
+            });
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Your minions cost (2) less, but not less than (1).
+			// --------------------------------------------------------
+			// GameTag:
+			// - AURA = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_315", new List<Enchantment> {
+				// TODO [EX1_315] Summoning Portal && Test: Summoning Portal_EX1_315
+				new Enchantment
+				{
+					//Activation = null,
+					//SingleTask = null,
+				}
+			});
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_319] Flame Imp - COST:1 [ATK:3/HP:2] 
+			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_319", new List<Enchantment> {
+                new Enchantment
+                {
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(3, EntityType.HERO),
+                }
+            });
+
+			// --------------------------------------- MINION - WARLOCK
+			// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15] 
+			// - Race: demon, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Destroy your hero and replace it with Lord Jaraxxus.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_323", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new ReplaceHeroTask("EX1_323h", "EX1_323w", "EX1_tk33"),
+				},
+			});
+			
 			// ---------------------------------------- SPELL - WARLOCK
 			// [EX1_303] Shadowflame - COST:4 
 			// - Fac: neutral, Set: expert1, Rarity: rare
@@ -3166,6 +3381,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_596", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_596e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                             new ConditionTask(EntityType.TARGET, 
@@ -3177,170 +3393,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 			});
 
-			// --------------------------------------- MINION - WARLOCK
-			// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: [x]  <b>Stealth</b>. At the end of your  
-			//       turn, give another random
-			//        friendly minion +1 Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - STEALTH = 1
-			// --------------------------------------------------------
-			cards.Add("CS2_059", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(ComplexTask.Create(
-                            new RandomTask(1, EntityType.MINIONS_NOSOURCE),
-                            new BuffTask(Buffs.Health(1), EntityType.STACK)))
-                        .Build()
-                }
-            });
 
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_301] Felguard - COST:3 [ATK:3/HP:5] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			//       <b>Battlecry:</b> Destroy one of your Mana Crystals.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_301", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ManaCrystalEmptyTask(-1)
-				},
-			});
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3] 
-			// - Race: demon, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: [x]<b>Battlecry:</b> Destroy both
-			//       adjacent minions and gain
-			//        their Attack and Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_304", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
-                        new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
-                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
-                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
-                        new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
-                        new MathNumberIndexTask(1,2, MathOperation.ADD),
-                        new SetAttackNumberTask(EntityType.SOURCE),
-                        new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE),
-                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 0, 3),
-                        new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 1, 4),
-                        new MathNumberIndexTask(3,4, MathOperation.ADD),
-                        new SetHealthNumberTask(EntityType.SOURCE),
-                        new DestroyTask(EntityType.STACK)),
-				},
-			});
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_310] Doomguard - COST:5 [ATK:5/HP:7] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHARGE = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_310", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.DiscardRandomCard(2),
-                }
-            });
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_313", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(5, EntityType.HERO),
-                }
-            });
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Your minions cost (2) less, but not less than (1).
-			// --------------------------------------------------------
-			// GameTag:
-			// - AURA = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_315", new List<Enchantment> {
-				// TODO [EX1_315] Summoning Portal && Test: Summoning Portal_EX1_315
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_319] Flame Imp - COST:1 [ATK:3/HP:2] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal 3 damage to your hero.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_319", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(3, EntityType.HERO),
-                }
-            });
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15] 
-			// - Race: demon, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Destroy your hero and replace it with Lord Jaraxxus.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_323", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ReplaceHeroTask("EX1_323h", "EX1_323w", "EX1_tk33"),
-				},
-			});
 
 		}
 
@@ -3412,6 +3465,110 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
 		{
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Equip a 2/2_weapon.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_398", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new WeaponTask("EX1_398t")
+				},
+			});
+
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
+			// --------------------------------------------------------
+			cards.Add("EX1_402", new List<Enchantment> {
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+                            SelfCondition.IsNotDead,
+                            SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new ArmorTask(1))
+                        .Build()
+                }
+            });
+
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9] 
+			// - Fac: neutral, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Charge</b>
+			//       <b>Enrage:</b> +6 Attack
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - CHARGE = 1
+			// - ENRAGED = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_414", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_414e",
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 6, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
+                }
+            });
+
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2] 
+			// - Fac: neutral, Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2_Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_NONSELF_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_603", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_603e",
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(1, EntityType.TARGET),
+                        new BuffTask(Buffs.Attack(2), EntityType.TARGET))
+				},
+			});
+
+			// --------------------------------------- MINION - WARRIOR
+			// [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4] 
+			// - Fac: neutral, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Whenever a minion takes damage, gain +1 Attack.
+			// --------------------------------------------------------
+			cards.Add("EX1_604", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_604o",
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+                        .Build()
+                }
+            });
+
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_104] Rampage - COST:2 
 			// - Fac: neutral, Set: expert1, Rarity: common
@@ -3426,6 +3583,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_104", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_104e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET)
                 }
@@ -3522,6 +3680,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_409", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_409e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
@@ -3570,6 +3729,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_607", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_607e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new DamageTask(1, EntityType.TARGET),
@@ -3587,111 +3747,11 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [NEW1_036] Commanding Shout && Test: Commanding Shout_NEW1_036
 				new Enchantment
 				{
+					InfoCardId = "NEW1_036e",
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
-
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Equip a 2/2_weapon.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_398", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new WeaponTask("EX1_398t")
-				},
-			});
-
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
-			// --------------------------------------------------------
-			cards.Add("EX1_402", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(
-                            SelfCondition.IsNotDead,
-                            SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, 1)
-                        .SingleTask(new ArmorTask(1))
-                        .Build()
-                }
-            });
-
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>
-			//       <b>Enrage:</b> +6 Attack
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - CHARGE = 1
-			// - ENRAGED = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_414", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BOARD,
-                    SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 6, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
-                }
-            });
-
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2_Attack.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
-			// - REQ_NONSELF_TARGET = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_603", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-                        new DamageTask(1, EntityType.TARGET),
-                        new BuffTask(Buffs.Attack(2), EntityType.TARGET))
-				},
-			});
-
-			// --------------------------------------- MINION - WARRIOR
-			// [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4] 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Whenever a minion takes damage, gain +1 Attack.
-			// --------------------------------------------------------
-			cards.Add("EX1_604", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARDS,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, 1)
-                        .SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
-                        .Build()
-                }
-            });
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0] 
@@ -3705,6 +3765,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_411", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_411e",
                     Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.WEAPON,
                     Trigger = new TriggerBuilder().Create()
@@ -3796,7 +3857,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Can't be reduced below 1 Health this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("NEW1_036e", null);
 
@@ -3807,7 +3868,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Your minions can't be reduced below 1 Health this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("NEW1_036e2", null);
 
@@ -3833,6 +3894,24 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void DreamNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
+
+			// ----------------------------------------- MINION - DREAM
+			// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5] 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Can't be targeted by spells or Hero Powers.
+			// --------------------------------------------------------
+			// GameTag:
+			// - CANT_BE_TARGETED_BY_SPELLS = 1
+			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+			// --------------------------------------------------------
+			cards.Add("DREAM_01", null);
+
+			// ----------------------------------------- MINION - DREAM
+			// [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6] 
+			// - Race: dragon, Set: expert1, 
+			// --------------------------------------------------------
+			cards.Add("DREAM_03", null);
 			// ------------------------------------------ SPELL - DREAM
 			// [DREAM_02] Ysera Awakens (*) - COST:2 
 			// - Set: expert1, 
@@ -3878,6 +3957,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DREAM_05", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "DREAM_05e",
                     Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.SPELL,
                     SingleTask = new BuffTask(Buffs.AttackHealth(5), EntityType.TARGET),
@@ -3898,23 +3978,6 @@ namespace SabberStoneCore.CardSets.Standard
                 },
 			});
 
-			// ----------------------------------------- MINION - DREAM
-			// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5] 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Can't be targeted by spells or Hero Powers.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CANT_BE_TARGETED_BY_ABILITIES = 1
-			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
-			// --------------------------------------------------------
-			cards.Add("DREAM_01", null);
-
-			// ----------------------------------------- MINION - DREAM
-			// [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6] 
-			// - Race: dragon, Set: expert1, 
-			// --------------------------------------------------------
-			cards.Add("DREAM_03", null);
 
 		}
 
@@ -4019,6 +4082,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("CS2_181", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "CS2_181e",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = new DamageTask(4, EntityType.SOURCE)
                 }
@@ -4120,6 +4184,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_001", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_001e",
                     Area = EnchantmentArea.BOARDS_HEROES,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -4214,10 +4279,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_006", new List<Enchantment> {
 				// TODO [EX1_006] Alarm-o-Bot && Test: Alarm-o-Bot_EX1_006
 				new Enchantment
-				(
+				{
 					//Activation = null,
 					//SingleTask = null,
-				)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4262,6 +4327,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_009", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_009e",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 5, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
@@ -4318,6 +4384,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
+					InfoCardId = "EX1_014te",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.OP_HAND))
                 }
@@ -4432,6 +4499,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_043", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_043e",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new CountTask(EntityType.HAND_NOSOURCE),
@@ -4448,6 +4516,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_044", new List<Enchantment> {
 				new Enchantment
                 {
+					InfoCardId = "EX1_044e",
                     Area = EnchantmentArea.HAND_AND_BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -4486,6 +4555,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_046", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_046e",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = new BuffTask(Buffs.Simple(GameTag.ATK, 2, true), EntityType.TARGET)
                 }
@@ -4567,6 +4637,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_055", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_055o",
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -4640,6 +4711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_059", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_059e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
 				},
@@ -4688,6 +4760,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_080", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_080o",
                     Area = EnchantmentArea.SECRET,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -4798,6 +4871,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_093", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_093e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
@@ -4923,6 +4997,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_103", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_103e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
@@ -4997,6 +5072,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_162", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_162o",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.Attack(1, RelaCondition.IsSideBySide)
@@ -5007,7 +5083,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3] 
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
-			// Text: Destroy any minion damaged by this minion.
+			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
 			// GameTag:
 			// - POISONOUS = 1
@@ -5016,7 +5092,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: legendary
+			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to ALL other characters.
 			// --------------------------------------------------------
@@ -5038,7 +5114,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5] 
-			// - Fac: neutral, Set: expert1, Rarity: common
+			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Freeze</b> a_character.
 			// --------------------------------------------------------
@@ -5071,6 +5147,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_390", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_390e",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
@@ -5088,6 +5165,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_393", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_393e",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)), AuraArea.SELF)
                 }
@@ -5130,6 +5208,7 @@ namespace SabberStoneCore.CardSets.Standard
             cards.Add("EX1_412", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_412e",
                     Activation = EnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(
                         Auras.SimpleInclSelf(
@@ -5153,6 +5232,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_507", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "EX1_507e",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.AttackHealth(2, 1, RelaCondition.IsSameRace)
@@ -5168,6 +5248,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_509", new List<Enchantment> {
 				new Enchantment
                 {
+					InfoCardId = "EX1_509e",
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -5276,6 +5357,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_561", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_561e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.TARGET),
@@ -5431,6 +5513,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_584", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_584e",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
@@ -5477,6 +5560,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_590", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "EX1_590e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.ALLMINIONS),
@@ -5605,6 +5689,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_017", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "NEW1_017e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new DestroyTask(EntityType.TARGET),
@@ -5625,6 +5710,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_018", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "NEW1_018e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
@@ -5734,7 +5820,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Can't be targeted by spells or Hero Powers.
 			// --------------------------------------------------------
 			// GameTag:
-			// - CANT_BE_TARGETED_BY_ABILITIES = 1
+			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_023", null);
@@ -5752,6 +5838,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_024", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "NEW1_024o",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
@@ -5777,6 +5864,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_025", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "NEW1_025e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask =  ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
@@ -5817,6 +5905,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_027", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "NEW1_027e",
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Enchant = Auras.AttackHealth(1, 1, RelaCondition.IsSameRace)
@@ -5836,6 +5925,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_029", new List<Enchantment> {
 				new Enchantment
 				{
+					InfoCardId = "NEW1_029t",
 					Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = new AuraTask(Auras.CostTurn(-99, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.OP_HAND)
                 },
@@ -5870,6 +5960,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_037", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "NEW1_037e",
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -5894,6 +5985,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_038", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "NEW1_038o",
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -5959,6 +6051,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("tt_004", new List<Enchantment> {
                 new Enchantment
                 {
+					InfoCardId = "tt_004o",
                     Area = EnchantmentArea.BOARDS,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
@@ -5973,24 +6066,6 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [EX1_014t] Bananas (*) - COST:1 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Give a minion +1/+1.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_014t", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
-                }
-            });
-
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CS2_181e] Full Strength (*) - COST:0 
 			// - Set: expert1, 
@@ -6057,7 +6132,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +2 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_046e", null);
 
@@ -6068,7 +6143,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Mana Addict has increased Attack.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_055o", null);
 
@@ -6176,7 +6251,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +4 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("EX1_570e", null);
 
@@ -6203,7 +6278,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +8 Attack this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - OneTurnEffect = 1
+            // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
             cards.Add("KARA_08_04e", null);
 
@@ -6355,6 +6430,24 @@ namespace SabberStoneCore.CardSets.Standard
             // - Race: mechanical, Fac: neutral, Set: expert1, Rarity: common
             // --------------------------------------------------------
             cards.Add("skele21", null);
+			// ---------------------------------------- SPELL - NEUTRAL
+			// [EX1_014t] Bananas (*) - COST:1 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Give a minion +1/+1.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_014t", new List<Enchantment> {
+                new Enchantment
+                {
+					InfoCardId = "EX1_014te",
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
+                }
+            });
 
         }
 

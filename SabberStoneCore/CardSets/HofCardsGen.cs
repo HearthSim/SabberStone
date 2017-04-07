@@ -5,7 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets.Standard
+namespace SabberStoneCore.CardSets
 {
 	public class HofCardsGen
 	{

@@ -15,8 +15,7 @@ namespace SabberStoneCore.Model
         private static readonly CardDefinitions Data;
 
         public static CardSet[] StandardSets { get; } = {
-            CardSet.CORE, CardSet.EXPERT1, CardSet.BRM, CardSet.TGT,
-            CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS
+            CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO
         };
 
         public static CardClass[] BasicHeroes => new []
