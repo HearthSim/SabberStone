@@ -15,6 +15,9 @@
     <Folder Include="Loader\Generated\CardSetsTest\" />
     <Folder Include="Loader\Generated\CardSetsTest\" />
     <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSetsTest\" />
+    <Folder Include="Loader\Generated\CardSets\" />
     <Folder Include="Loader\Generated\CardSets\" />
     <Folder Include="Loader\Generated\CardSets\" />
     <Folder Include="Loader\Generated\CardSets\" />

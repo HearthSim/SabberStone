@@ -44,11 +44,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         /// </summary>
         SECRETS,
         /// <summary>
-        ///  All minions
+        ///  Player's minions
         /// </summary>
         MINIONS,
         /// <summary>
-        ///  All minions except the source
+        ///  Player's minions except the source
         /// </summary>
         MINIONS_NOSOURCE,
         /// <summary>

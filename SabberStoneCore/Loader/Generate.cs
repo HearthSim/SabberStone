@@ -55,6 +55,7 @@ namespace SabberStoneCore.Loader
             str.AppendLine("using SabberStoneCore.Enchants;");
             str.AppendLine("using SabberStoneCore.Conditions;");
             str.AppendLine("using SabberStoneCore.Enums;");
+            str.AppendLine("using SabberStoneCore.Model;");
             str.AppendLine("using SabberStoneCore.Tasks;");
             str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
             str.AppendLine();
@@ -140,7 +141,9 @@ namespace SabberStoneCore.Loader
                 .Where(p => p.Set == set
                             && (collect == null || p.Collectible == collect)
                             && (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
-                            && (cardClass == CardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
+                            && (cardClass == CardClass.INVALID || p.Class == cardClass))
+                            .OrderBy(p => p.Type.ToString());
+
             if (!valuesOrdered.Any())
             {
                 return null;
