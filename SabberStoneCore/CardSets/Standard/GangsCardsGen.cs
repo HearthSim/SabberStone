@@ -2160,9 +2160,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.Create(
-                        new HealTask(4, EntityType.HERO),
-                        new HealTask(4, EntityType.OP_HERO)),
+                    SingleTask = new HealTask(4, EntityType.HEROES)
                 },
             });
 

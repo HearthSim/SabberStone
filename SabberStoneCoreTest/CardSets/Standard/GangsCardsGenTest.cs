@@ -2890,21 +2890,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void MistressOfMixtures_CFM_120()
         {
-            // TODO MistressOfMixtures_CFM_120 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.PRIEST,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mistress of Mixtures"));
+            game.Player1.Hero.Damage = 10;
+            game.Player2.Hero.Damage = 10;
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mistress of Mixtures"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(24, game.Player1.Hero.Health);
+            Assert.AreEqual(24, game.Player2.Hero.Health);
         }
 
         // --------------------------------------- MINION - NEUTRAL

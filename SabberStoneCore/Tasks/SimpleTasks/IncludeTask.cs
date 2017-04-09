@@ -119,6 +119,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         ///  All cards in the graveyard
         /// </summary>
         GRAVEYARD,
+        /// <summary>
+        ///  All heroes
+        /// </summary>
+        HEROES
     }
 
     public class IncludeTask : SimpleTask
@@ -196,6 +200,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case EntityType.HERO:
                     result.Add(controller.Hero);
+                    break;
+
+                case EntityType.HEROES:
+                    result.Add(controller.Hero);
+                    result.Add(controller.Opponent.Hero);
                     break;
 
                 case EntityType.HERO_POWER:
