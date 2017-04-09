@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -35,16 +37,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Hero Power</b>
             //       Deal 8 damage to a random enemy.
             // --------------------------------------------------------
-            cards.Add("UNG_934t2", new List<Enchantment>
-            {
-                // TODO [UNG_934t2] DIE, INSECT! && Test: DIE, INSECT!_UNG_934t2
-                new Enchantment
+            cards.Add("UNG_934t2", new List<Enchantment> {
+				// TODO Test: DIE, INSECT!_UNG_934t2
+				new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-        }
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
+				}
+			});
+
+		}
 
         private static void Druid(IDictionary<string, List<Enchantment>> cards)
         {
