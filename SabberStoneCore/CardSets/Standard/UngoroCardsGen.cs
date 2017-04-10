@@ -104,11 +104,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_100", new List<Enchantment>
             {
-                // TODO [UNG_100] Verdant Longneck && Test: Verdant Longneck_UNG_100
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(),
                 },
             });
 
@@ -3888,170 +3887,6 @@ namespace SabberStoneCore.CardSets.Standard
                 }
             });
 
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t10e] Shrouding Mist (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: Stealthed until your next turn.
-            // --------------------------------------------------------
-            cards.Add("UNG_999t10e", new List<Enchantment>
-            {
-                // TODO [UNG_999t10e] Shrouding Mist && Test: Shrouding Mist_UNG_999t10e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t13e] Poison Spit (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: <b>Poisonous</b>
-            // --------------------------------------------------------
-            cards.Add("UNG_999t13e", new List<Enchantment>
-            {
-                // TODO [UNG_999t13e] Poison Spit && Test: Poison Spit_UNG_999t13e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t14e] Volcanic Might (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: +1/+1.
-            // --------------------------------------------------------
-            cards.Add("UNG_999t14e", new List<Enchantment>
-            {
-                // TODO [UNG_999t14e] Volcanic Might && Test: Volcanic Might_UNG_999t14e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t2e] Living Spores (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: <b>Deathrattle:</b> Summon two 1/1 Plants.
-            // --------------------------------------------------------
-            cards.Add("UNG_999t2e", new List<Enchantment>
-            {
-                // TODO [UNG_999t2e] Living Spores && Test: Living Spores_UNG_999t2e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t3e] Flaming Claws (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: +3 Attack.
-            // --------------------------------------------------------
-            cards.Add("UNG_999t3e", new List<Enchantment>
-            {
-                // TODO [UNG_999t3e] Flaming Claws && Test: Flaming Claws_UNG_999t3e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t4e] Rocky Carapace (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: +3 Health.
-            // --------------------------------------------------------
-            cards.Add("UNG_999t4e", new List<Enchantment>
-            {
-                // TODO [UNG_999t4e] Rocky Carapace && Test: Rocky Carapace_UNG_999t4e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t5e] Liquid Membrane (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: Can't be targeted by spells or Hero Powers.
-            // --------------------------------------------------------
-            // GameTag:
-            // - CANT_BE_TARGETED_BY_SPELLS = 1
-            // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
-            // --------------------------------------------------------
-            cards.Add("UNG_999t5e", new List<Enchantment>
-            {
-                // TODO [UNG_999t5e] Liquid Membrane && Test: Liquid Membrane_UNG_999t5e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t6e] Massive (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: <b>Taunt</b>
-            // --------------------------------------------------------
-            cards.Add("UNG_999t6e", new List<Enchantment>
-            {
-                // TODO [UNG_999t6e] Massive && Test: Massive_UNG_999t6e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t7e] Lightning Speed (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: <b>Windfury</b>
-            // --------------------------------------------------------
-            cards.Add("UNG_999t7e", new List<Enchantment>
-            {
-                // TODO [UNG_999t7e] Lightning Speed && Test: Lightning Speed_UNG_999t7e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
-            // ---------------------------------- ENCHANTMENT - NEUTRAL
-            // [UNG_999t8e] Crackling Shield (*) - COST:0 
-            // - Set: ungoro, 
-            // --------------------------------------------------------
-            // Text: <b>Divine Shield</b>
-            // --------------------------------------------------------
-            cards.Add("UNG_999t8e", new List<Enchantment>
-            {
-                // TODO [UNG_999t8e] Crackling Shield && Test: Crackling Shield_UNG_999t8e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
-
             // --------------------------------------- MINION - NEUTRAL
             // [UNG_076t1] Raptor (*) - COST:1 [ATK:1/HP:1] 
             // - Race: beast, Set: ungoro, 
@@ -4068,43 +3903,19 @@ namespace SabberStoneCore.CardSets.Standard
             // [UNG_201t] Primalfin (*) - COST:1 [ATK:1/HP:1] 
             // - Race: murloc, Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_201t", new List<Enchantment>
-            {
-                // TODO [UNG_201t] Primalfin && Test: Primalfin_UNG_201t
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_201t", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [UNG_809t1] Flame Elemental (*) - COST:1 [ATK:1/HP:2] 
             // - Race: elemental, Fac: alliance, Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_809t1", new List<Enchantment>
-            {
-                // TODO [UNG_809t1] Flame Elemental && Test: Flame Elemental_UNG_809t1
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_809t1", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [UNG_999t2t1] Plant (*) - COST:1 [ATK:1/HP:1] 
             // - Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_999t2t1", new List<Enchantment>
-            {
-                // TODO [UNG_999t2t1] Plant && Test: Plant_UNG_999t2t1
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_999t2t1", null);
 
             // ---------------------------------------- SPELL - NEUTRAL
             // [UNG_851t1] Un'Goro Pack (*) - COST:2 
@@ -4134,12 +3945,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t10", new List<Enchantment>
             {
-                // TODO [UNG_999t10] Shrouding Mist && Test: Shrouding Mist_UNG_999t10
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t10e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new BuffStealthTask(EntityType.TARGET)
                 },
             });
 
@@ -4155,12 +3965,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t13", new List<Enchantment>
             {
-                // TODO [UNG_999t13] Poison Spit && Test: Poison Spit_UNG_999t13
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t13e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new SetGameTagTask(GameTag.POISONOUS, 1, EntityType.TARGET)
                 },
             });
 
@@ -4176,12 +3985,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t14", new List<Enchantment>
             {
-                // TODO [UNG_999t14] Volcanic Might && Test: Volcanic Might_UNG_999t14
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t14e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
                 },
             });
 
@@ -4197,12 +4005,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t2", new List<Enchantment>
             {
-                // TODO [UNG_999t2] Living Spores && Test: Living Spores_UNG_999t2
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t2e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new SummonTask("UNG_999t2t1"))
                 },
             });
 
@@ -4218,12 +4025,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t3", new List<Enchantment>
             {
-                // TODO [UNG_999t3] Flaming Claws && Test: Flaming Claws_UNG_999t3
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t3e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
                 },
             });
 
@@ -4239,12 +4045,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t4", new List<Enchantment>
             {
-                // TODO [UNG_999t4] Rocky Carapace && Test: Rocky Carapace_UNG_999t4
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t4e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
                 },
             });
 
@@ -4264,12 +4069,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t5", new List<Enchantment>
             {
-                // TODO [UNG_999t5] Liquid Membrane && Test: Liquid Membrane_UNG_999t5
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t5e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new SetGameTagTask(GameTag.CANT_BE_TARGETED_BY_SPELLS, 1, EntityType.TARGET),
+                        new SetGameTagTask(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, 1, EntityType.TARGET)),
                 },
             });
 
@@ -4285,12 +4091,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t6", new List<Enchantment>
             {
-                // TODO [UNG_999t6] Massive && Test: Massive_UNG_999t6
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t6e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Taunt(EntityType.TARGET),
                 },
             });
 
@@ -4306,12 +4111,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t7", new List<Enchantment>
             {
-                // TODO [UNG_999t7] Lightning Speed && Test: Lightning Speed_UNG_999t7
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t7e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.WindFury(EntityType.TARGET),
                 },
             });
 
@@ -4327,12 +4131,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_999t8", new List<Enchantment>
             {
-                // TODO [UNG_999t8] Crackling Shield && Test: Crackling Shield_UNG_999t8
                 new Enchantment
                 {
                     InfoCardId = "UNG_999t8e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.DivineShield(EntityType.TARGET),
                 },
             });
         }

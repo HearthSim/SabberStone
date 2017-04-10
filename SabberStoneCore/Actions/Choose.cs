@@ -30,72 +30,83 @@ namespace SabberStoneCore.Actions
 
                 c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
-                if (c.Choice.ChoiceAction == ChoiceAction.HAND)
+                switch (c.Choice.ChoiceAction)
                 {
-                    if (RemoveFromZone(c, playable))
-                    {
-                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                    case ChoiceAction.HAND:
+                        if (RemoveFromZone(c, playable))
                         {
-                            Game = c.Game,
-                            Controller = c,
-                            Source = playable,
-                            Target = playable
-                        });
-                    }
-                }
-                else if (c.Choice.ChoiceAction == ChoiceAction.TRACKING)
-                {
-                    if (RemoveFromZone(c, playable))
-                    {
-                        c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+                        break;
+
+                    case ChoiceAction.ADAPT:
+                        var task = playable.Enchantments[0].SingleTask;
+                        var clone = task.Clone();
+                        clone.Game = c.Game;
+                        clone.Controller = c;
+                        clone.Source = playable;
+                        clone.Target = c.Game.IdEntityDic[playable[GameTag.CREATOR]];
+                        c.Game.TaskQueue.Enqueue(clone);
+                        break;
+
+                    case ChoiceAction.TRACKING:
+                        if (RemoveFromZone(c, playable))
                         {
-                            Game = c.Game,
-                            Controller = c,
-                            Source = playable,
-                            Target = playable
-                        });
-                    }
-                }
-                else if (c.Choice.ChoiceAction == ChoiceAction.HEROPOWER)
-                {
-                    if (RemoveFromZone(c, playable))
-                    {
-                        playable[GameTag.CREATOR] = c.Hero.Id;
-                        c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+                        break;
+
+                    case ChoiceAction.HEROPOWER:
+                        if (RemoveFromZone(c, playable))
                         {
-                            Game = c.Game,
-                            Controller = c,
-                            Source = playable,
-                            Target = playable
-                        });
-                    }
-                }
-                else if (c.Choice.ChoiceAction == ChoiceAction.KAZAKUS)
-                {
-                    c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
-                    {
-                        c.Game.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
-                    });
-                    //c.Setaside.Add(playable);
-                    var kazakusPotions =
-                        c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
-                            .Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
-                            .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
-                            .ToList();
-                    if (kazakusPotions.Any())
-                    {
-                        c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
+                            playable[GameTag.CREATOR] = c.Hero.Id;
+                            c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+                        break;
+
+                    case ChoiceAction.KAZAKUS:
+                        c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
                         {
-                            Game = c.Game,
-                            Controller = c,
-                            Source = playable,
-                            Target = playable
+                            c.Game.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
                         });
-                    }
-                }
-                else
-                {
-                    throw new NotImplementedException();
+                        //c.Setaside.Add(playable);
+                        var kazakusPotions =
+                            c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+                                .Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+                                .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
+                                .ToList();
+                        if (kazakusPotions.Any())
+                        {
+                            c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
                 }
 
                 // set displayed creator at least for discover
@@ -196,6 +207,7 @@ namespace SabberStoneCore.Actions
                 choices.ForEach(p =>
                 {
                     var choiceEntity = Entity.FromCard(c, p);
+                    choiceEntity[GameTag.CREATOR] = source.Id;
                     // add after discover enchantment
                     if (enchantment != null)
                     {

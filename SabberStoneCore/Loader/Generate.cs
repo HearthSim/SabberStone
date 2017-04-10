@@ -435,12 +435,13 @@ namespace SabberStoneCore.Loader
         public static void EnchantmentLeftOver(Dictionary<string, Card>.ValueCollection cardsValues)
         {
             var str = new StringBuilder();
+            str.AppendLine($"CARD_ID|IMPL.|SET|FORMAT|TYPE|CLASS|NAME|TEXT");
             foreach (var card in cardsValues)
             {
-                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) || card.Implemented)
+                if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) && !card.Implemented)
                     continue;
 
-                str.AppendLine($"{card.Id}|{card.Type}|{card.Class}|{card.Name}|{RemoveLineEndings(card.Text)}");
+                str.AppendLine($"{card.Id}|{card.Implemented}|{card.Set}|{(Cards.StandardSets.Contains(card.Set)?"S":"W")}|{card.Type}|{card.Class}|{card.Name}|{RemoveLineEndings(card.Text)}");
             }
 
 
@@ -461,7 +462,14 @@ namespace SabberStoneCore.Loader
             string lineSeparator = ((char)0x2028).ToString();
             string paragraphSeparator = ((char)0x2029).ToString();
 
-            return value.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(lineSeparator, string.Empty).Replace(paragraphSeparator, string.Empty);
+            return value
+                .Replace("\r\n", string.Empty)
+                .Replace("\n", " ")
+                .Replace("\r", " ")
+                .Replace(lineSeparator, " ")
+                .Replace(paragraphSeparator, " ")
+                .Replace("[x]", string.Empty).Trim()
+                ;
         }
     }
 }

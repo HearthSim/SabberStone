@@ -1,8 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
@@ -130,10 +131,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VerdantLongneck_UNG_100()
 		{
-			// TODO VerdantLongneck_UNG_100 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -144,8 +144,49 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Verdant Longneck"));
-		}
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Verdant Longneck"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+		    switch (game.IdEntityDic[choice].Card.Id)
+		    {
+                case "UNG_999t2":  // [UNG_999t2] Living Spores
+                    Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+                    break;
+                case "UNG_999t3":  // [UNG_999t3] Flaming Claws
+                    Assert.AreEqual(testCard.Card[GameTag.ATK] + 3, ((Minion)testCard).AttackDamage);
+                    break;
+                case "UNG_999t4":  // [UNG_999t4] Rocky Carapace
+                    Assert.AreEqual(testCard.Card[GameTag.HEALTH] + 3, ((Minion)testCard).Health);
+                    break;
+                case "UNG_999t5":  // [UNG_999t5] Liquid Membrane
+                    Assert.AreEqual(1, testCard[GameTag.CANT_BE_TARGETED_BY_SPELLS]);
+                    Assert.AreEqual(1, testCard[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS]);
+                    break;
+                case "UNG_999t6":  // [UNG_999t6] Massive
+                    Assert.AreEqual(true, ((Minion)testCard).HasTaunt);
+                    break;
+                case "UNG_999t7":  // [UNG_999t7] Lightning Speed
+                    Assert.AreEqual(true, ((Minion)testCard).HasWindfury);
+                    break;
+                case "UNG_999t8":  // [UNG_999t8] Crackling Shield
+                    Assert.AreEqual(true, ((Minion)testCard).HasDivineShield);
+                    break;
+                case "UNG_999t10": // [UNG_999t10] Shrouding Mist
+                    Assert.AreEqual(true, ((Minion)testCard).HasStealth);
+                    break;
+                case "UNG_999t13": // [UNG_999t13] Poison Spit
+                    Assert.AreEqual(1, testCard[GameTag.POISONOUS]);
+                    break;
+                case "UNG_999t14": // [UNG_999t14] Volcanic Might
+                    Assert.AreEqual(testCard.Card[GameTag.ATK] + 1, ((Minion)testCard).AttackDamage);
+                    Assert.AreEqual(testCard.Card[GameTag.HEALTH] + 1, ((Minion)testCard).Health);
+                    break;
+                default:
+                    Assert.AreEqual(true, false);
+                    break;
+            }
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [UNG_101] Shellshifter - COST:4 [ATK:3/HP:3] 

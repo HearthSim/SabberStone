@@ -21,13 +21,13 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            //CardsTest();
+            CardsTest();
             //WhileCardTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
@@ -398,22 +398,21 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PALADIN,
-                Player2HeroClass = CardClass.PALADIN,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            game.CurrentPlayer.Hero.Damage = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            //var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
-            //game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Verdant Longneck"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 
             ShowLog(game, LogLevel.VERBOSE);
 
-            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
         }
 
         public static void Kazakus()
