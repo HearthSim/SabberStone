@@ -12,10 +12,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class AdaptTask : SimpleTask
     {
 
+        public AdaptTask(EntityType type)
+        {
+            Type = type;
+        }
+
+        public EntityType Type { get; set; }
+
         public override TaskState Process()
         {
             var choiceAction = ChoiceAction.ADAPT;
-
+            var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
             //var totAdaptCards = new List<Card>()
             //{ 
             //    Cards.FromId("UNG_999t2"),  // [UNG_999t2] Living Spores
@@ -39,14 +46,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 totAdaptCards.Remove(adaptCard);
             }
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
             return TaskState.COMPLETE;
         }
 
 
         public override ISimpleTask Clone()
         {
-            var clone = new AdaptTask();
+            var clone = new AdaptTask(Type);
             clone.Copy(this);
             return clone;
         }

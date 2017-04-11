@@ -107,7 +107,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new AdaptTask(),
+                    SingleTask = new AdaptTask(EntityType.SOURCE)
                 },
             });
 
@@ -157,7 +157,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new ConditionTask(EntityType.SOURCE, SelfCondition.Is5PlusAtkInHand),
-                        new FlagTask(true, new AdaptTask()))
+                        new FlagTask(true, new AdaptTask(EntityType.SOURCE)))
                 },
             });
 
@@ -4010,8 +4010,13 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "UNG_999t2e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new EnqueueTask(2, new SummonTask("UNG_999t2t1"))
-                },
+                    SingleTask = new AddEnchantmentTask(EntityType.TARGET,
+                            new Enchantment
+                            {
+                                Activation = EnchantmentActivation.DEATHRATTLE,
+                                SingleTask = new EnqueueTask(2, new SummonTask("UNG_999t2t1"))
+                            })
+                }
             });
 
             // ---------------------------------------- SPELL - NEUTRAL

@@ -102,7 +102,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //    return TaskState.STOP;
             //}
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
             return TaskState.COMPLETE;
         }
 
@@ -124,7 +124,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerById(Controller.Id);
-                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
+                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
                 cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
             });
 

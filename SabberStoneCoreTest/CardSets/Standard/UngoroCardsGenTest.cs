@@ -8,6 +8,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
+
 	[TestClass]
 	public class HeroPowersUngoroTest
 	{
@@ -148,40 +149,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Verdant Longneck"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
-		    var boardCountPreAdapt = game.CurrentPlayer.Board.Count;
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.AreEqual(true, CheckAdapt(game, (Minion)testCard, choice, boardCountPreAdapt));
-        }
-
-	    private bool CheckAdapt(Game game, Minion minion, int choice, int boardCountPreAdapt)
-	    {
-            switch (game.IdEntityDic[choice].Card.Id)
-            {
-                case "UNG_999t2":  // [UNG_999t2] Living Spores
-                    return 2 == game.CurrentPlayer.Board.Count - boardCountPreAdapt;
-                case "UNG_999t3":  // [UNG_999t3] Flaming Claws
-                    return minion.Card[GameTag.ATK] + 3 == minion.AttackDamage;
-                case "UNG_999t4":  // [UNG_999t4] Rocky Carapace
-                    return minion.Card[GameTag.HEALTH] + 3 == minion.Health;
-                case "UNG_999t5":  // [UNG_999t5] Liquid Membrane
-                    return 1 == minion[GameTag.CANT_BE_TARGETED_BY_SPELLS] 
-                        && 1 == minion[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
-                case "UNG_999t6":  // [UNG_999t6] Massive
-                    return minion.HasTaunt;
-                case "UNG_999t7":  // [UNG_999t7] Lightning Speed
-                    return minion.HasWindfury;
-                case "UNG_999t8":  // [UNG_999t8] Crackling Shield
-                    return minion.HasDivineShield;
-                case "UNG_999t10": // [UNG_999t10] Shrouding Mist
-                    return minion.HasStealth;
-                case "UNG_999t13": // [UNG_999t13] Poison Spit
-                    return 1 == minion[GameTag.POISONOUS];
-                case "UNG_999t14": // [UNG_999t14] Volcanic Might
-                    return minion.Card[GameTag.ATK] + 1 == minion.AttackDamage
-                        && minion.Card[GameTag.HEALTH] + 1 == minion.Health;
-                default:
-                    return false;
-            }
+            Assert.AreEqual(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
         }
 
 	    // ----------------------------------------- MINION - DRUID
@@ -248,9 +217,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		    if (game.CurrentPlayer.Hand.GetAll.Exists(p => p is Minion && ((Minion) p).AttackDamage >= 5))
 		    {
 		        var choice = game.CurrentPlayer.Choice.Choices[0];
-		        var boardCountPreAdapt = game.CurrentPlayer.Board.Count;
 		        game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-		        Assert.AreEqual(true, CheckAdapt(game, (Minion) testCard, choice, boardCountPreAdapt));
+		        Assert.AreEqual(true, UngoroGenerics.CheckAdapt(game, (Minion) testCard, choice));
 		    }
 		}
 
@@ -3934,4 +3902,37 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 	}
 
+    public class UngoroGenerics
+    {
+        public static bool CheckAdapt(Game game, Minion minion, int choice)
+        {
+            switch (game.IdEntityDic[choice].Card.Id)
+            {
+                case "UNG_999t2":  // [UNG_999t2] Living Spores
+                    return minion.HasDeathrattle;
+                case "UNG_999t3":  // [UNG_999t3] Flaming Claws
+                    return minion.Card[GameTag.ATK] + 3 == minion.AttackDamage;
+                case "UNG_999t4":  // [UNG_999t4] Rocky Carapace
+                    return minion.Card[GameTag.HEALTH] + 3 == minion.Health;
+                case "UNG_999t5":  // [UNG_999t5] Liquid Membrane
+                    return 1 == minion[GameTag.CANT_BE_TARGETED_BY_SPELLS]
+                        && 1 == minion[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
+                case "UNG_999t6":  // [UNG_999t6] Massive
+                    return minion.HasTaunt;
+                case "UNG_999t7":  // [UNG_999t7] Lightning Speed
+                    return minion.HasWindfury;
+                case "UNG_999t8":  // [UNG_999t8] Crackling Shield
+                    return minion.HasDivineShield;
+                case "UNG_999t10": // [UNG_999t10] Shrouding Mist
+                    return minion.HasStealth;
+                case "UNG_999t13": // [UNG_999t13] Poison Spit
+                    return 1 == minion[GameTag.POISONOUS];
+                case "UNG_999t14": // [UNG_999t14] Volcanic Might
+                    return minion.Card[GameTag.ATK] + 1 == minion.AttackDamage
+                        && minion.Card[GameTag.HEALTH] + 1 == minion.Health;
+                default:
+                    return false;
+            }
+        }
+    }
 }

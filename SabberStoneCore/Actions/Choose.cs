@@ -46,13 +46,11 @@ namespace SabberStoneCore.Actions
                         break;
 
                     case ChoiceAction.ADAPT:
-                        var task = playable.Enchantments[0].SingleTask;
-                        var clone = task.Clone();
-                        clone.Game = c.Game;
-                        clone.Controller = c;
-                        clone.Source = playable;
-                        clone.Target = c.Game.IdEntityDic[playable[GameTag.CREATOR]];
-                        c.Game.TaskQueue.Enqueue(clone);
+                        c.Choice.TargetIds.ForEach(p =>
+                        {
+                            var target = c.Game.IdEntityDic[p];
+                            playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
+                        });
                         break;
 
                     case ChoiceAction.TRACKING:
@@ -194,8 +192,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
-            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
+        public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
+            => delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
             {
                 if (c.Choice != null)
                 {
@@ -222,8 +220,10 @@ namespace SabberStoneCore.Actions
                     ChoiceType = type,
                     ChoiceAction = action,
                     Choices = choicesIds,
-                    SourceId = source.Id
+                    SourceId = source.Id,
+                    TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>()
                 };
+
                 return true;
             };
     }
