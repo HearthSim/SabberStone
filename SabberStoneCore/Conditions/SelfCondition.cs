@@ -29,6 +29,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsControllingSecret => new SelfCondition(me => me.Controller.Secrets.Count > 0);
 
         public static SelfCondition IsDragonInHand => new SelfCondition(me => me.Controller.Hand.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
+        public static SelfCondition Is5PlusAtkInHand => new SelfCondition(me => me.Controller.Hand.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).AttackDamage >= 5));
         public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsMinion => new SelfCondition(me => me is Minion);

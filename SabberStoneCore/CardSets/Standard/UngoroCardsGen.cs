@@ -152,11 +152,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_109", new List<Enchantment>
             {
-                // TODO [UNG_109] Elder Longneck && Test: Elder Longneck_UNG_109
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.Is5PlusAtkInHand),
+                        new FlagTask(true, new AdaptTask()))
                 },
             });
 
