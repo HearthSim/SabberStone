@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using SabberStoneCore.Enums;
@@ -37,7 +38,7 @@ namespace SabberStonePowerLog
             PowerType currentPowerType = 0;
             Dictionary<string, int> currentNameToIdDict;
             PowerHistoryEntry currentPowerHistoryEntry = null;
-
+            StringBuilder cleanLog = new StringBuilder(); 
 
             string line;
             while ((line = file.ReadLine()) != null)
@@ -55,6 +56,8 @@ namespace SabberStonePowerLog
                         continue;
 
                     var contentLine = content.Trim();
+
+                    cleanLog.AppendLine(content);
 
                     PowerType nextPowerType;
                     if (Enum.TryParse<PowerType>(contentLine.Split(' ')[0], out nextPowerType))
@@ -189,6 +192,7 @@ namespace SabberStonePowerLog
             var powerGame = powerGames.First();
 
             File.WriteAllText(filePath + "powerLog.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+            File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
 
             while (powerGame.PowerHistory.Count > 0)
             {
