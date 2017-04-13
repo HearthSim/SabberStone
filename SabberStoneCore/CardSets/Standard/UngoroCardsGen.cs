@@ -2908,11 +2908,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_002", new List<Enchantment>
             {
-                // TODO [UNG_002] Volcanosaur && Test: Volcanosaur_UNG_002
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new AdaptTask(EntityType.SOURCE))
                 },
             });
 
