@@ -1215,11 +1215,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_961", new List<Enchantment>
             {
-                // TODO [UNG_961] Adaptation && Test: Adaptation_UNG_961
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(EntityType.TARGET),
                 },
             });
 
