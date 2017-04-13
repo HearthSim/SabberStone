@@ -531,11 +531,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_915", new List<Enchantment>
             {
-                // TODO [UNG_915] Crackling Razormaw && Test: Crackling Razormaw_UNG_915
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(EntityType.TARGET)
                 },
             });
 

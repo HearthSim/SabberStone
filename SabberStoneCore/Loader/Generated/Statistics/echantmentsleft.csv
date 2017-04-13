@@ -998,7 +998,7 @@ UNG_910|False|UNGORO|S|SPELL|HUNTER|Grievous Bite|Deal $2 damage to a minion and
 UNG_912|True|UNGORO|S|MINION|HUNTER|Jeweled Macaw|<b>Battlecry:</b> Add a random Beast to your hand.
 UNG_913|True|UNGORO|S|MINION|HUNTER|Tol'vir Warden|<b>Battlecry:</b> Draw two 1-Cost minions from your deck.
 UNG_914|True|UNGORO|S|MINION|HUNTER|Raptor Hatchling|<b>Deathrattle:</b> Shuffle a 4/3 Raptor into your deck.
-UNG_915|False|UNGORO|S|MINION|HUNTER|Crackling Razormaw|<b>Battlecry:</b> <b>Adapt</b> a friendly_Beast.
+UNG_915|True|UNGORO|S|MINION|HUNTER|Crackling Razormaw|<b>Battlecry:</b> <b>Adapt</b> a friendly_Beast.
 UNG_916|False|UNGORO|S|SPELL|HUNTER|Stampede|Each time you play a Beast this turn, add_a_random Beast to_your hand.
 UNG_917|False|UNGORO|S|SPELL|HUNTER|Dinomancy|Your Hero Power becomes 'Give a Beast +2/+2.'
 UNG_919|False|UNGORO|S|MINION|HUNTER|Swamp King Dred|After your opponent plays a minion, attack_it.

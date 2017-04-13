@@ -506,10 +506,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CracklingRazormaw_UNG_915()
 		{
-			// TODO CracklingRazormaw_UNG_915 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -520,8 +519,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crackling Razormaw"));
-		}
+			var testCard1 =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crackling Razormaw"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crackling Razormaw"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            var choice1 = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
+            Assert.AreEqual(false, UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice1));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard1));
+            var choice2 = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice2));
+            Assert.AreEqual(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice2));
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [UNG_919] Swamp King Dred - COST:7 [ATK:9/HP:9] 
