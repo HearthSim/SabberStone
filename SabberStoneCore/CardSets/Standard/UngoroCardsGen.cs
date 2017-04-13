@@ -2621,11 +2621,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_925", new List<Enchantment>
             {
-                // TODO [UNG_925] Ornery Direhorn && Test: Ornery Direhorn_UNG_925
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(EntityType.SOURCE)
                 },
             });
 
@@ -2888,11 +2887,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_001", new List<Enchantment>
             {
-                // TODO [UNG_001] Pterrordax Hatchling && Test: Pterrordax Hatchling_UNG_001
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(EntityType.SOURCE)
                 },
             });
 
