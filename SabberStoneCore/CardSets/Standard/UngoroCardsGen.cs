@@ -1326,11 +1326,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_954t1", new List<Enchantment>
             {
-                // TODO [UNG_954t1] Galvadon && Test: Galvadon_UNG_954t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(5, new AdaptTask(EntityType.SOURCE))
                 },
             });
         }
