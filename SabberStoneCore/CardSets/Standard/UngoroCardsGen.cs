@@ -1104,11 +1104,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_962", new List<Enchantment>
             {
-                // TODO [UNG_962] Lightfused Stegodon && Test: Lightfused Stegodon_UNG_962
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsSilverHandRecruit),
+                        new AdaptTask(EntityType.STACK)),
                 },
             });
 

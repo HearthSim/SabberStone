@@ -1046,10 +1046,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LightfusedStegodon_UNG_962()
 		{
-			// TODO LightfusedStegodon_UNG_962 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1060,8 +1059,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightfused Stegodon"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightfused Stegodon"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var choice1 = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
+            Assert.AreEqual(false, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[0], choice1));
+            Assert.AreEqual(true, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[1], choice1));
+            Assert.AreEqual(false, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[2], choice1));
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [UNG_004] Dinosize - COST:8 
