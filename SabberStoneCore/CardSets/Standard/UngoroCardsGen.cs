@@ -185,11 +185,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_103", new List<Enchantment>
             {
-                // TODO [UNG_103] Evolving Spores && Test: Evolving Spores_UNG_103
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new AdaptTask(EntityType.MINIONS)
                 },
             });
 

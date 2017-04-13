@@ -946,7 +946,7 @@ UNG_089|False|UNGORO|S|MINION|NEUTRAL|Gentle Megasaur|<b>Battlecry:</b> <b>Adapt
 UNG_099|False|UNGORO|S|MINION|NEUTRAL|Charged Devilsaur|<b>Charge</b> <b>Battlecry:</b> Can't attack heroes this turn.
 UNG_100|True|UNGORO|S|MINION|DRUID|Verdant Longneck|<b>Battlecry:</b> <b>Adapt</b>.
 UNG_101|False|UNGORO|S|MINION|DRUID|Shellshifter|<b>Choose One - </b>Transform into a 5/3 with <b>Stealth</b>; or a 3/5 with <b>Taunt</b>.
-UNG_103|False|UNGORO|S|SPELL|DRUID|Evolving Spores|<b>Adapt</b> your minions.
+UNG_103|True|UNGORO|S|SPELL|DRUID|Evolving Spores|<b>Adapt</b> your minions.
 UNG_108|False|UNGORO|S|SPELL|DRUID|Earthen Scales|Give a friendly minion +1/+1, then gain Armor equal to its Attack.
 UNG_109|True|UNGORO|S|MINION|DRUID|Elder Longneck|<b>Battlecry:</b> If you're holding a minion with 5 or more Attack, <b>Adapt</b>.
 UNG_111|False|UNGORO|S|SPELL|DRUID|Living Mana|Transform your Mana Crystals into 2/2 minions. Recover the mana when they die.
