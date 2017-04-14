@@ -1848,15 +1848,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Increased stats.
             // --------------------------------------------------------
-            cards.Add("UNG_063e", new List<Enchantment>
-            {
-                // TODO [UNG_063e] Sprout && Test: Sprout_UNG_063e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_063e", null);
 
             // ----------------------------------------- MINION - ROGUE
             // [UNG_065t] Sherazin, Seed (*) - COST:11 [ATK:0/HP:1] 
