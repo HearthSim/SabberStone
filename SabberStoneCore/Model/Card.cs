@@ -50,6 +50,8 @@ namespace SabberStoneCore.Model
 
         public bool RequiresTarget => Requirements.ContainsKey(PlayReq.REQ_TARGET_TO_PLAY);
 
+        public bool RequiresTargetForCombo => Requirements.ContainsKey(PlayReq.REQ_TARGET_FOR_COMBO);
+
         public bool RequiresTargetIfAvailable => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
 
         public bool RequiresTargetIfAvailableAndDragonInHand => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);

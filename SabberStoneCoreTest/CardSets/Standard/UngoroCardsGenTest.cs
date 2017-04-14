@@ -595,10 +595,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Each time you play a Beast this turn, add_a_random Beast to_your hand.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Stampede_UNG_916()
 		{
-			// TODO Stampede_UNG_916 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -609,8 +608,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stampede"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stampede"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Quick Shot"));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [UNG_917] Dinomancy - COST:2 
@@ -618,10 +626,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Your Hero Power becomes 'Give a Beast +2/+2.'
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Dinomancy_UNG_917()
 		{
-			// TODO Dinomancy_UNG_917 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -632,8 +639,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dinomancy"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dinomancy"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(3, ((Minion)minion).Health);
+        }
 
 		// ----------------------------------------- SPELL - HUNTER
 		// [UNG_920] The Marsh Queen - COST:1 
@@ -1236,10 +1249,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Vinecleaver_UNG_950()
 		{
-			// TODO Vinecleaver_UNG_950 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1250,7 +1262,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vinecleaver"));
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vinecleaver"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
 		}
 
 	}
@@ -1272,10 +1288,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MirageCaller_UNG_022()
 		{
-			// TODO MirageCaller_UNG_022 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1286,8 +1301,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirage Caller"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirage Caller"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(2, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(2, ((Minion)game.CurrentPlayer.Board[0]).Health);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [UNG_032] Crystalline Oracle - COST:1 [ATK:1/HP:1] 
@@ -1326,10 +1347,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void RadiantElemental_UNG_034()
 		{
-			// TODO RadiantElemental_UNG_034 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1340,8 +1360,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Radiant Elemental"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Radiant Elemental"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Nova"));
+            Assert.AreEqual(4, spell.Cost);
+        }
 
 		// ---------------------------------------- MINION - PRIEST
 		// [UNG_035] Curious Glimmerroot - COST:3 [ATK:3/HP:3] 
@@ -1620,10 +1643,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_FOR_COMBO = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void VilespineSlayer_UNG_064()
 		{
-			// TODO VilespineSlayer_UNG_064 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1634,8 +1656,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vilespine Slayer"));
-		}
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vilespine Slayer"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vilespine Slayer"));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+		    game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(false, ((Minion)minion).IsDead);
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+        }
 
 		// ----------------------------------------- MINION - ROGUE
 		// [UNG_065] Sherazin, Corpse Flower - COST:4 [ATK:5/HP:3] 
@@ -1696,10 +1727,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void MimicPod_UNG_060()
 		{
-			// TODO MimicPod_UNG_060 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1710,8 +1740,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mimic Pod"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mimic Pod"));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [UNG_067] The Caverns Below - COST:1 
@@ -1756,10 +1789,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EnvenomWeapon_UNG_823()
 		{
-			// TODO EnvenomWeapon_UNG_823 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1770,8 +1802,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Envenom Weapon"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Envenom Weapon"));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+        }
 
 		// ------------------------------------------ SPELL - ROGUE
 		// [UNG_856] Hallucination - COST:1 

@@ -1177,7 +1177,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.WEAPON,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsThisWeaponEquiped)
-                        .TriggerEffect(GameTag.NUM_ATTACKS_THIS_TURN, 1)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
                         .SingleTask(new HealTask(2, EntityType.TARGET))
                         .Build()
                 }

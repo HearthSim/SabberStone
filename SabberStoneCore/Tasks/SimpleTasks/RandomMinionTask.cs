@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
@@ -8,12 +9,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomMinionTask : SimpleTask
     {
-        private RandomMinionTask(GameTag tag, int value, EntityType type, int amount)
+        private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign)
         {
             Tag = tag;
             Value = value;
             Type = type;
             Amount = amount;
+            RelaSign = relaSign;
         }
 
         public RandomMinionTask(GameTag tag, EntityType type, int amount = 1)
@@ -22,20 +24,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Value = -1;
             Type = type;
             Amount = amount;
+            RelaSign = RelaSign.EQ;
         }
 
-        public RandomMinionTask(GameTag tag, int value, int amount = 1)
+        public RandomMinionTask(GameTag tag, int value, int amount = 1, RelaSign relaSign = RelaSign.EQ)
         {
             Tag = tag;
             Value = value;
             Type = EntityType.INVALID;
             Amount = amount;
+            RelaSign = relaSign;
         }
 
         public GameTag Tag { get; set; }
         public int Value { get; set; }
         public EntityType Type { get; set; }
         public int Amount { get; set; }
+        public RelaSign RelaSign { get; set; }
 
         public override TaskState Process()
         {
@@ -52,7 +57,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
 
             var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-            var cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Value).ToList();
+            var cardsList = cards.Where(p => p.Type == CardType.MINION 
+                && (RelaSign == RelaSign.EQ && p[Tag] == Value
+                 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
+                 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
             if (!cardsList.Any())
             {
                 return TaskState.STOP;
@@ -73,7 +81,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new RandomMinionTask(Tag, Value, Type, Amount);
+            var clone = new RandomMinionTask(Tag, Value, Type, Amount, RelaSign);
             clone.Copy(this);
             return clone;
         }

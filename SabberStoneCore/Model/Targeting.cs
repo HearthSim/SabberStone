@@ -22,6 +22,7 @@ namespace SabberStoneCore.Model
         // Default definition of whether the entity currently requires a target list to be calculated before use
         protected internal virtual bool NeedsTargetList =>
             Card.RequiresTarget
+            || Card.RequiresTargetForCombo
             || Card.RequiresTargetIfAvailable
             || Card.RequiresTargetIfAvailableAndDragonInHand // && Controller.DragonInHand 
             || Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions // && Controller.Board.Count >= 4
@@ -209,6 +210,12 @@ namespace SabberStoneCore.Model
                         break;
                     case PlayReq.REQ_STEALTHED_TARGET:
                         if (!(target is Minion) || !((Minion)target).HasStealth)
+                        {
+                            return false;
+                        }
+                        break;
+                    case PlayReq.REQ_TARGET_FOR_COMBO:
+                        if (!Controller.IsComboActive)
                         {
                             return false;
                         }

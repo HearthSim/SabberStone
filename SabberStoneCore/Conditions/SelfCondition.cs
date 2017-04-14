@@ -34,6 +34,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
         public static SelfCondition IsMinion => new SelfCondition(me => me is Minion);
         public static SelfCondition IsSpell => new SelfCondition(me => me is Spell);
+        public static SelfCondition IsSecret => new SelfCondition(me => me is Spell && me[GameTag.SECRET] == 1);
         public static SelfCondition IsWeapon => new SelfCondition(me => me is Weapon);
         public static SelfCondition IsWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon != null);
         public static SelfCondition IsHero => new SelfCondition(me => me is Hero);

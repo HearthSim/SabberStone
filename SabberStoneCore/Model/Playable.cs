@@ -192,6 +192,7 @@ namespace SabberStoneCore.Model
                             break;
 
                         // implemented in Targeting
+                        case PlayReq.REQ_TARGET_FOR_COMBO:
                         case PlayReq.REQ_MINION_OR_ENEMY_HERO:
                         case PlayReq.REQ_TARGET_MAX_ATTACK:
                         case PlayReq.REQ_MINION_TARGET:
