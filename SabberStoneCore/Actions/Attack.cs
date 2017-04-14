@@ -104,7 +104,7 @@ namespace SabberStoneCore.Actions
                 }
 
                 // destroy target if attacker is poisonous
-                if (targetDamaged && minion != null && minion.Poisonous)
+                if (targetDamaged && (minion != null && minion.Poisonous || hero != null && hero.Weapon.Poisonous))
                 {
                     target.Destroy();
                 }
