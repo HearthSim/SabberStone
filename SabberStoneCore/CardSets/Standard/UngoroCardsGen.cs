@@ -2046,11 +2046,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_025", new List<Enchantment>
             {
-                // TODO [UNG_025] Volcano && Test: Volcano_UNG_025
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(15, ComplexTask.DamageRandomTargets(1, EntityType.ALL, 1), true)
                 },
             });
 
