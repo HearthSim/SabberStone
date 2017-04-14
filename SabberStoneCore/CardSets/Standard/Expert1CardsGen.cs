@@ -2070,15 +2070,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - DURABILITY = 3
             // --------------------------------------------------------
-            cards.Add("EX1_383t", new List<Enchantment>
-            {
-                // TODO [EX1_383t] Ashbringer && Test: Ashbringer_EX1_383t
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.WEAPON,
-                    SingleTask = null,
-                },
-            });
+            cards.Add("EX1_383t", null);
         }
 
         private static void Priest(IDictionary<string, List<Enchantment>> cards)

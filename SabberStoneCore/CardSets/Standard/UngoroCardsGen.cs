@@ -3611,11 +3611,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_848", new List<Enchantment>
             {
-                // TODO [UNG_848] Primordial Drake && Test: Primordial Drake_UNG_848
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DamageTask(2, EntityType.ALLMINIONS_NOSOURCE)
                 },
             });
 
@@ -3761,16 +3760,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Your minions are 5/5.
             // --------------------------------------------------------
-            cards.Add("UNG_067t1e", new List<Enchantment>
-            {
-                // TODO [UNG_067t1e] Crystallized && Test: Crystallized_UNG_067t1e
-                new Enchantment
-                {
-                    InfoCardId = "UNG_067t1e2",
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_067t1e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_067t1e2] Crystallized (*) - COST:0 
@@ -3778,15 +3768,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: 5/5.
             // --------------------------------------------------------
-            cards.Add("UNG_067t1e2", new List<Enchantment>
-            {
-                // TODO [UNG_067t1e2] Crystallized && Test: Crystallized_UNG_067t1e2
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_067t1e2", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_070e] Stonewall (*) - COST:0 
@@ -3794,15 +3776,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: <b>Divine Shield</b> and <b>Taunt</b>.
             // --------------------------------------------------------
-            cards.Add("UNG_070e", new List<Enchantment>
-            {
-                // TODO [UNG_070e] Stonewall && Test: Stonewall_UNG_070e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_070e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_073e] Trained (*) - COST:0 
@@ -3810,15 +3784,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +1/+1
             // --------------------------------------------------------
-            cards.Add("UNG_073e", new List<Enchantment>
-            {
-                // TODO [UNG_073e] Trained && Test: Trained_UNG_073e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_073e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_113e] Scouted (*) - COST:0 
@@ -3826,15 +3792,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Costs (5).
             // --------------------------------------------------------
-            cards.Add("UNG_113e", new List<Enchantment>
-            {
-                // TODO [UNG_113e] Scouted && Test: Scouted_UNG_113e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_113e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_807e] Overfull Belly (*) - COST:0 
@@ -3842,15 +3800,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Increased stats.
             // --------------------------------------------------------
-            cards.Add("UNG_807e", new List<Enchantment>
-            {
-                // TODO [UNG_807e] Overfull Belly && Test: Overfull Belly_UNG_807e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_807e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_832e] Dark Power (*) - COST:0 
@@ -3858,15 +3808,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Your next spell costs Health instead of Mana.
             // --------------------------------------------------------
-            cards.Add("UNG_832e", new List<Enchantment>
-            {
-                // TODO [UNG_832e] Dark Power && Test: Dark Power_UNG_832e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_832e", null);
 
             // ---------------------------------- ENCHANTMENT - NEUTRAL
             // [UNG_907e] Just Blaze (*) - COST:0 
@@ -3874,15 +3816,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +5 Health
             // --------------------------------------------------------
-            cards.Add("UNG_907e", new List<Enchantment>
-            {
-                // TODO [UNG_907e] Just Blaze && Test: Just Blaze_UNG_907e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_907e", null);
 
             // --------------------------------------- MINION - NEUTRAL
             // [UNG_076t1] Raptor (*) - COST:1 [ATK:1/HP:1] 
