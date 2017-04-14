@@ -1623,11 +1623,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_940t8", new List<Enchantment>
             {
-                // TODO [UNG_940t8] Amara, Warden of Hope && Test: Amara, Warden of Hope_UNG_940t8
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = EntityType.HERO.BaseHealth = 40
                 },
             });
         }
