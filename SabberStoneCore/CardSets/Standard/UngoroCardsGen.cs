@@ -2317,11 +2317,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_833", new List<Enchantment>
             {
-                // TODO [UNG_833] Lakkari Felhound && Test: Lakkari Felhound_UNG_833
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.DiscardRandomCard(2)
                 },
             });
 
