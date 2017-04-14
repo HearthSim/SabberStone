@@ -1368,12 +1368,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_022", new List<Enchantment>
             {
-                // TODO [UNG_022] Mirage Caller && Test: Mirage Caller_UNG_022
+                // TODO Test: Mirage Caller_UNG_022
                 new Enchantment
                 {
                     InfoCardId = "UNG_022e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new SetGameTagTask(GameTag.ATK, 1, EntityType.TARGET),
+                        new SetGameTagTask(GameTag.HEALTH, 1, EntityType.TARGET),
+                        new SummonTask())
                 },
             });
 
