@@ -3152,11 +3152,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_084", new List<Enchantment>
             {
-                // TODO [UNG_084] Fire Plume Phoenix && Test: Fire Plume Phoenix_UNG_084
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DamageTask(2, EntityType.TARGET),
                 },
             });
 
