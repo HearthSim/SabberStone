@@ -396,7 +396,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[TestMethod]
 		public void TerrorscaleStalker_UNG_800()
 		{
-			// TODO TerrorscaleStalker_UNG_800 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
