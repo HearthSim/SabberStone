@@ -598,7 +598,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .FastExecution(true)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
-                            new RandomCardTask(CardType.INVALID, Race.BEAST),
+                            new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
                             new AddStackTo(EntityType.HAND)))
                         .Build()
                 },
