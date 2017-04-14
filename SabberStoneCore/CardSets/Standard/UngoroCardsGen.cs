@@ -1923,15 +1923,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - CANT_BE_TARGETED_BY_SPELLS = 1
             // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
             // --------------------------------------------------------
-            cards.Add("UNG_019", new List<Enchantment>
-            {
-                // TODO [UNG_019] Air Elemental && Test: Air Elemental_UNG_019
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_019", null);
 
             // ---------------------------------------- MINION - SHAMAN
             // [UNG_201] Primalfin Totem - COST:2 [ATK:0/HP:3] 
