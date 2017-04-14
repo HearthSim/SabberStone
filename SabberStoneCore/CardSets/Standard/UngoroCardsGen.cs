@@ -3036,7 +3036,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new SummonTask("UNG_076t1"),
+                    SingleTask = new EnqueueTask(2, new SummonTask("UNG_076t1"))
                 },
             });
 
