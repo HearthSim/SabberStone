@@ -3009,11 +3009,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_072", new List<Enchantment>
             {
-                // TODO [UNG_072] Stonehill Defender && Test: Stonehill Defender_UNG_072
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.TAUNT)
                 },
             });
 
