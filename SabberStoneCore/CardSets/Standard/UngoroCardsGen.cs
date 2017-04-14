@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Tasks;
 
@@ -3403,11 +3404,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_809", new List<Enchantment>
             {
-                // TODO [UNG_809] Fire Fly && Test: Fire Fly_UNG_809
-                new Enchantment
+                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_809t1", EntityType.HAND)
                 },
             });
 
@@ -3496,11 +3496,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_818", new List<Enchantment>
             {
-                // TODO [UNG_818] Volatile Elemental && Test: Volatile Elemental_UNG_818
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 3)
                 },
             });
 
