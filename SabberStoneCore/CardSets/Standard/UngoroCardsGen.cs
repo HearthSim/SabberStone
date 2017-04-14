@@ -3368,12 +3368,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_807", new List<Enchantment>
             {
-                // TODO [UNG_807] Golakka Crawler && Test: Golakka Crawler_UNG_807
                 new Enchantment
                 {
                     InfoCardId = "UNG_807e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.PIRATE)),
+                        new FlagTask(true, new DestroyTask(EntityType.TARGET)),
+                        new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)))
                 },
             });
 

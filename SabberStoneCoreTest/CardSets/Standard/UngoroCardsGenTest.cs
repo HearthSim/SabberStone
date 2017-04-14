@@ -3357,10 +3357,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_WITH_RACE = 23
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void GolakkaCrawler_UNG_807()
 		{
-			// TODO GolakkaCrawler_UNG_807 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3371,8 +3370,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Golakka Crawler"));
-		}
+            var testCard1 =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Golakka Crawler"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Golakka Crawler"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Southsea Deckhand"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard1, minion));
+            Assert.AreEqual(true, ((Minion)minion).IsDead);
+            Assert.AreEqual(3, ((Minion)testCard1).AttackDamage);
+            Assert.AreEqual(4, ((Minion)testCard1).Health);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(2, ((Minion)testCard2).AttackDamage);
+            Assert.AreEqual(3, ((Minion)testCard2).Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [UNG_808] Stubborn Gastropod - COST:2 [ATK:1/HP:2] 
