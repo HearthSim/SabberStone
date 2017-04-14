@@ -598,7 +598,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .FastExecution(true)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
-                            new RandomCardTask(CardType.INVALID, Race.BEAST),
+                            new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
                             new AddStackTo(EntityType.HAND)))
                         .Build()
                 },
@@ -1627,7 +1627,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = EntityType.HERO.BaseHealth = 40
+                    SingleTask = new SetHealthTask(40, EntityType.HERO)
                 },
             });
         }
@@ -1647,11 +1647,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_058", new List<Enchantment>
             {
-                // TODO [UNG_058] Razorpetal Lasher && Test: Razorpetal Lasher_UNG_058
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_057t1", EntityType.HAND)
                 },
             });
 
@@ -1690,11 +1689,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_064", new List<Enchantment>
             {
-                // TODO [UNG_064] Vilespine Slayer && Test: Vilespine Slayer_UNG_064
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DestroyTask(EntityType.TARGET)
                 }
             });
 
@@ -1793,11 +1791,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_823", new List<Enchantment>
             {
-                // TODO [UNG_823] Envenom Weapon && Test: Envenom Weapon_UNG_823
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new SetGameTagTask(GameTag.POISONOUS, 1, EntityType.WEAPON)
                 },
             });
 
