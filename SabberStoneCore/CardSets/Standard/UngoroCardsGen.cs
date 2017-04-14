@@ -2727,9 +2727,16 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [UNG_934] Fire Plume's Heart && Test: Fire Plume's Heart_UNG_934
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
-                },
+                    //Area = EnchantmentArea.HAND,
+                    //Activation = EnchantmentActivation.SECRET,
+                    //Trigger = new TriggerBuilder().Create()
+                    //    .EnableConditions(SelfCondition.IsSecretActive)
+                    //    .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TAUNT, 1)))
+                    //    .TriggerEffect(GameTag.ZONE_POSITION, 0)
+                    //    .SingleTask(
+                    //        )))
+                    //    .Build()
+                }
             });
 
             // --------------------------------------- WEAPON - WARRIOR
