@@ -1889,11 +1889,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_057t1", new List<Enchantment>
             {
-                // TODO [UNG_057t1] Razorpetal && Test: Razorpetal_UNG_057t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DamageTask(1, EntityType.TARGET)
                 },
             });
 
