@@ -712,10 +712,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SteamSurger_UNG_021()
 		{
-			// TODO SteamSurger_UNG_021 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -726,8 +725,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Steam Surger"));
-		}
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Steam Surger"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Steam Surger"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(6, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ------------------------------------------ MINION - MAGE
 		// [UNG_027] Pyros - COST:2 [ATK:2/HP:2] 

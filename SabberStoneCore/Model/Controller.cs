@@ -324,6 +324,18 @@ namespace SabberStoneCore.Model
             set { this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN] = value; }
         }
 
+        public int NumElementalsPlayedThisTurn
+        {
+            get { return this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN]; }
+            set { this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN] = value; }
+        }
+
+        public int NumElementalsPlayedLastTurn
+        {
+            get { return this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN]; }
+            set { this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN] = value; }
+        }
+
         public int NumOptionsPlayedThisTurn
         {
             get { return this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN]; }

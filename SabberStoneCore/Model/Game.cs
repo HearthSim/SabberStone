@@ -283,6 +283,9 @@ namespace SabberStoneCore.Model
             NumMinionsKilledThisTurn = 0;
             CurrentPlayer.HeroPowerActivationsThisTurn = 0;
 
+            CurrentPlayer.NumElementalsPlayedLastTurn = CurrentPlayer.NumElementalsPlayedThisTurn;
+            CurrentPlayer.NumElementalsPlayedThisTurn = 0;
+
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 

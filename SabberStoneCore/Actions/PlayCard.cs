@@ -206,6 +206,11 @@ namespace SabberStoneCore.Actions
 
                 c.NumMinionsPlayedThisTurn++;
 
+                if (minion.Race == Race.ELEMENTAL)
+                {
+                    c.NumElementalsPlayedThisTurn++;
+                }
+
                 return true;
             };
 

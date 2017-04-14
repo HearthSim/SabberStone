@@ -4,8 +4,8 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
-    <EmbeddedResource Include="Loader\Data\CARD.xml" />
-    <EmbeddedResource Include="Loader\Data\PlayErrors.xml" />
+    <EmbeddedResource Include="Loader\Data\Archive\CARD.xml" />
+    <EmbeddedResource Include="Loader\Data\Archive\PlayErrors.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Loader\Generated\CardSetsTest\" />

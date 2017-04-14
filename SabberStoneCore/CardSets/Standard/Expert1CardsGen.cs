@@ -4872,7 +4872,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.Cost(-1, RelaCondition.IsMe(SelfCondition.MinionPlayedThisTurn(0)))
+                    Enchant = Auras.Cost(-1, RelaCondition.IsMe(SelfCondition.MinionsPlayedThisTurn(0)))
                 }
             });
 
