@@ -2065,11 +2065,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_817", new List<Enchantment>
             {
-                // TODO [UNG_817] Tidal Surge && Test: Tidal Surge_UNG_817
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                   SingleTask = ComplexTask.Create(
+                        new DamageTask(4, EntityType.TARGET),
+                        new HealTask(5, EntityType.HERO))
                 },
             });
 
