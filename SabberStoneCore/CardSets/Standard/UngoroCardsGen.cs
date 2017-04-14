@@ -1647,11 +1647,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_058", new List<Enchantment>
             {
-                // TODO [UNG_058] Razorpetal Lasher && Test: Razorpetal Lasher_UNG_058
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_057t1", EntityType.HAND)
                 },
             });
 
