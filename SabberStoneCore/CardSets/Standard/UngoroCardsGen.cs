@@ -2521,15 +2521,7 @@ namespace SabberStoneCore.CardSets.Standard
             // [UNG_834t1] Pterrordax (*) - COST:1 [ATK:1/HP:1] 
             // - Race: beast, Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_834t1", new List<Enchantment>
-            {
-                // TODO [UNG_834t1] Pterrordax && Test: Pterrordax_UNG_834t1
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_834t1", null);
 
             // ---------------------------------------- SPELL - WARLOCK
             // [UNG_829t1] Nether Portal (*) - COST:5 
