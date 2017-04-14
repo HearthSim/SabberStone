@@ -1689,11 +1689,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_064", new List<Enchantment>
             {
-                // TODO [UNG_064] Vilespine Slayer && Test: Vilespine Slayer_UNG_064
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new DestroyTask(EntityType.TARGET)
                 }
             });
 
