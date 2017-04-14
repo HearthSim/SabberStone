@@ -2138,15 +2138,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_208t", new List<Enchantment>
-            {
-                // TODO [UNG_208t] Rock Elemental && Test: Rock Elemental_UNG_208t
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_208t", null);
 
             // ---------------------------------------- MINION - SHAMAN
             // [UNG_211aa] Stone Elemental (*) - COST:1 [ATK:1/HP:1] 
