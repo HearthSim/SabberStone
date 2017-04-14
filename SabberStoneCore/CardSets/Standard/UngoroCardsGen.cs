@@ -1627,7 +1627,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = EntityType.HERO.BaseHealth = 40
+                    SingleTask = new SetHealthTask(40, EntityType.HERO)
                 },
             });
         }
