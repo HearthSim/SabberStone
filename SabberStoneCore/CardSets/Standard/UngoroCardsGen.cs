@@ -3033,12 +3033,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_073", new List<Enchantment>
             {
-                // TODO [UNG_073] Rockpool Hunter && Test: Rockpool Hunter_UNG_073
                 new Enchantment
                 {
                     InfoCardId = "UNG_073e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
                 },
             });
 
