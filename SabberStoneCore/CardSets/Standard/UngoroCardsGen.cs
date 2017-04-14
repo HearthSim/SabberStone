@@ -1246,11 +1246,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_950", new List<Enchantment>
             {
-                // TODO [UNG_950] Vinecleaver && Test: Vinecleaver_UNG_950
+                // TODO Test: Vinecleaver_UNG_950
                 new Enchantment
                 {
+                    Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.WEAPON,
-                    SingleTask = null,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(new EnqueueTask(2, new SummonTask("CS2_101t")))
+                        .Build()
                 },
             });
         }
