@@ -2226,11 +2226,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_211d", new List<Enchantment>
             {
-                // TODO [UNG_211d] Invocation of Air && Test: Invocation of Air_UNG_211d
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DamageTask(3, EntityType.OP_MINIONS, true)
                 },
             });
         }
