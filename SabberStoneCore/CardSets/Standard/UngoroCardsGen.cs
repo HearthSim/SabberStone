@@ -1791,11 +1791,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_823", new List<Enchantment>
             {
-                // TODO [UNG_823] Envenom Weapon && Test: Envenom Weapon_UNG_823
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new SetGameTagTask(GameTag.POISONOUS, 1, EntityType.WEAPON)
                 },
             });
 
