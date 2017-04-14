@@ -2603,11 +2603,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_926", new List<Enchantment>
             {
-                // TODO [UNG_926] Cornered Sentry && Test: Cornered Sentry_UNG_926
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new SummonTask("UNG_076t1"))
                 },
             });
 
