@@ -1743,11 +1743,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_060", new List<Enchantment>
             {
-                // TODO [UNG_060] Mimic Pod && Test: Mimic Pod_UNG_060
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new CopyTask(EntityType.STACK, 1),
+                        new AddStackTo(EntityType.HAND)),
                 },
             });
 
