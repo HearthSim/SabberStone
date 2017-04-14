@@ -25,11 +25,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_917t1", new List<Enchantment>
             {
-                // TODO [UNG_917t1] Dinomancy && Test: Dinomancy_UNG_917t1
+                // TODO Test: Dinomancy_UNG_917t1
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET, SelfCondition.IsRace(Race.BEAST))
                 }
             });
 
@@ -617,12 +617,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_917", new List<Enchantment>
             {
-                // TODO [UNG_917] Dinomancy && Test: Dinomancy_UNG_917
+                // TODO Test: Dinomancy_UNG_917
                 new Enchantment
                 {
                     InfoCardId = "UNG_917e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new ReplaceHeroPower(Cards.FromId("UNG_917t1")),
                 },
             });
 
@@ -676,15 +676,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +2/+2.
             // --------------------------------------------------------
-            cards.Add("UNG_917e", new List<Enchantment>
-            {
-                // TODO [UNG_917e] Well Fed && Test: Well Fed_UNG_917e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_917e", null);
 
             // ---------------------------------------- MINION - HUNTER
             // [UNG_914t1] Raptor Patriarch (*) - COST:1 [ATK:4/HP:3] 
