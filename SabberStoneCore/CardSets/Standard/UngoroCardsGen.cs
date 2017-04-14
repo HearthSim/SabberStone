@@ -3319,11 +3319,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_801", new List<Enchantment>
             {
-                // TODO [UNG_801] Nesting Roc && Test: Nesting Roc_UNG_801
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(3, RelaSign.GEQ)),
+                        new FlagTask(true, ComplexTask.Taunt(EntityType.SOURCE)))
                 },
             });
 
