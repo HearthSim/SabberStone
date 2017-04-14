@@ -935,11 +935,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_955", new List<Enchantment>
             {
-                // TODO [UNG_955] Meteor && Test: Meteor_UNG_955
+                // TODO Test: Meteor_UNG_955
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(15, EntityType.TARGET, true),
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+                        new DamageTask(3, EntityType.STACK, true))
                 },
             });
         }
