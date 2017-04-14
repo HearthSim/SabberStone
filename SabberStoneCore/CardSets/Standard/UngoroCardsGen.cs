@@ -1448,12 +1448,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_037", new List<Enchantment>
             {
-                // TODO [UNG_037] Tortollan Shellraiser && Test: Tortollan Shellraiser_UNG_037
                 new Enchantment
                 {
                     InfoCardId = "UNG_037e",
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.BuffRandomMinion(EntityType.MINIONS, Buffs.AttackHealth(1), new SelfCondition[] {})
                 },
             });
 
