@@ -748,11 +748,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_020", new List<Enchantment>
             {
-                // TODO [UNG_020] Arcanologist && Test: Arcanologist_UNG_020
+                // TODO Test: Arcanologist_UNG_020
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.SECRET, 1))
                 },
             });
 
