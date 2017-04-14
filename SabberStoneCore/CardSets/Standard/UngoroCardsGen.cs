@@ -2144,15 +2144,7 @@ namespace SabberStoneCore.CardSets.Standard
             // [UNG_211aa] Stone Elemental (*) - COST:1 [ATK:1/HP:1] 
             // - Race: elemental, Fac: neutral, Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_211aa", new List<Enchantment>
-            {
-                // TODO [UNG_211aa] Stone Elemental && Test: Stone Elemental_UNG_211aa
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_211aa", null);
 
             // ---------------------------------------- MINION - SHAMAN
             // [UNG_942t] Megafin (*) - COST:5 [ATK:8/HP:8] 
