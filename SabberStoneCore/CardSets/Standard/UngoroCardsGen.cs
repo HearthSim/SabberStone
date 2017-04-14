@@ -1725,11 +1725,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_057", new List<Enchantment>
             {
-                // TODO [UNG_057] Razorpetal Volley && Test: Razorpetal Volley_UNG_057
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new AddCardTo("UNG_057t1", EntityType.HAND))
                 },
             });
 
