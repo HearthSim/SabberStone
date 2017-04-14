@@ -3229,11 +3229,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_089", new List<Enchantment>
             {
-                // TODO [UNG_089] Gentle Megasaur && Test: Gentle Megasaur_UNG_089
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+                        new AdaptTask(EntityType.STACK))
                 },
             });
 
