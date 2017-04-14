@@ -82,11 +82,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_086", new List<Enchantment>
             {
-                // TODO [UNG_086] Giant Anaconda && Test: Giant Anaconda_UNG_086
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
+                        new RandomTask(1, EntityType.STACK),
+                        new RemoveFromHand(EntityType.STACK),
+                        new SummonTask()),
                 },
             });
 
