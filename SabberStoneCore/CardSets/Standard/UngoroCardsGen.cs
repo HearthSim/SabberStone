@@ -1401,11 +1401,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_034", new List<Enchantment>
             {
-                // TODO [UNG_034] Radiant Elemental && Test: Radiant Elemental_UNG_034
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask =
+                        new AuraTask(Auras.Cost(-1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.HAND)
                 }
             });
 
