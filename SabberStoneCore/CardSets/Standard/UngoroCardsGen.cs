@@ -1470,8 +1470,16 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [UNG_963] Lyra the Sunshard && Test: Lyra the Sunshard_UNG_963
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                   Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomCardTask(CardType.SPELL, CardClass.PRIEST),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
                 }
             });
 
