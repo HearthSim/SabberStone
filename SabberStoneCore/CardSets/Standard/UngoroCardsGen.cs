@@ -2127,15 +2127,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: <b>Deathrattle:</b> Return to your hand.
             // --------------------------------------------------------
-            cards.Add("UNG_956e", new List<Enchantment>
-            {
-                // TODO [UNG_956e] Echoed Spirit && Test: Echoed Spirit_UNG_956e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_956e", null);
 
             // ---------------------------------------- MINION - SHAMAN
             // [UNG_208t] Rock Elemental (*) - COST:2 [ATK:2/HP:3] 
