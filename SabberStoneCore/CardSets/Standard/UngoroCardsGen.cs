@@ -150,7 +150,7 @@ namespace SabberStoneCore.CardSets.Standard
             // RefTag:
             // - ADAPT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_109", new List<Enchantment>
+            cards.Add("UNG_109", new List<Enchantment> 
             {
                 new Enchantment
                 {
@@ -446,11 +446,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_800", new List<Enchantment>
             {
-                // TODO [UNG_800] Terrorscale Stalker && Test: Terrorscale Stalker_UNG_800
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE)
                 },
             });
 
