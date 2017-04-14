@@ -393,10 +393,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TerrorscaleStalker_UNG_800()
 		{
-			// TODO TerrorscaleStalker_UNG_800 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -407,8 +406,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Terrorscale Stalker"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Terrorscale Stalker"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+        }
 
 		// ---------------------------------------- MINION - HUNTER
 		// [UNG_912] Jeweled Macaw - COST:1 [ATK:1/HP:1] 
