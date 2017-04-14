@@ -25,7 +25,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_917t1", new List<Enchantment>
             {
-                // TODO Test: Dinomancy_UNG_917t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -41,7 +40,6 @@ namespace SabberStoneCore.CardSets.Standard
             //       Deal 8 damage to a random enemy.
             // --------------------------------------------------------
             cards.Add("UNG_934t2", new List<Enchantment> {
-				// TODO Test: DIE, INSECT!_UNG_934t2
 				new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -64,7 +62,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_078", new List<Enchantment>
             {
-                // TODO Test: Tortollan Forager_UNG_078
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
@@ -571,7 +568,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_910", new List<Enchantment>
             {
-                // TODO Test: Grievous Bite_UNG_910
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -591,7 +587,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_916", new List<Enchantment>
             {
-                // TODO Test: Stampede_UNG_916
                 new Enchantment
                 {
                     InfoCardId = "UNG_916e",
@@ -617,7 +612,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_917", new List<Enchantment>
             {
-                // TODO Test: Dinomancy_UNG_917
                 new Enchantment
                 {
                     InfoCardId = "UNG_917e",
@@ -740,7 +734,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_020", new List<Enchantment>
             {
-                // TODO Test: Arcanologist_UNG_020
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
@@ -927,7 +920,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_955", new List<Enchantment>
             {
-                // TODO Test: Meteor_UNG_955
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -1202,7 +1194,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_960", new List<Enchantment>
             {
-                // TODO Test: Lost in the Jungle_UNG_960
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -1246,7 +1237,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_950", new List<Enchantment>
             {
-                // TODO Test: Vinecleaver_UNG_950
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
@@ -1368,7 +1358,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_022", new List<Enchantment>
             {
-                // TODO Test: Mirage Caller_UNG_022
                 new Enchantment
                 {
                     InfoCardId = "UNG_022e",
@@ -1394,7 +1383,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_032", new List<Enchantment>
             {
-                // TODO Test: Crystalline Oracle_UNG_032
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
