@@ -25,7 +25,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_917t1", new List<Enchantment>
             {
-                // @mvegter removing SelfCondition.IsRace(Race.BEAST), already REQ_TARGET_WITH_RACE checking that.
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
@@ -63,7 +62,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_078", new List<Enchantment>
             {
-                // @mvegter added RelaSign.GEQ, to have "5 or more" included
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
