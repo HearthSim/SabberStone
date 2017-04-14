@@ -1513,11 +1513,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_030", new List<Enchantment>
             {
-                // TODO [UNG_030] Binding Heal && Test: Binding Heal_UNG_030
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new HealTask(5, EntityType.TARGET),
+                        new HealTask(5, EntityType.HERO))
                 },
             });
 
