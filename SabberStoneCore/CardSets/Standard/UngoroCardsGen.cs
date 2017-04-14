@@ -1202,11 +1202,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_960", new List<Enchantment>
             {
-                // TODO [UNG_960] Lost in the Jungle && Test: Lost in the Jungle_UNG_960
+                // TODO Test: Lost in the Jungle_UNG_960
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new SummonTask("CS2_101t")),
                 },
             });
 
