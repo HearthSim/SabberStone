@@ -2006,6 +2006,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
+                    // TODO need to add a SpellCast Discover like Task
                     SingleTask = null,
                 },
             });
@@ -2026,11 +2027,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_938", new List<Enchantment>
             {
-                // TODO [UNG_938] Hot Spring Guardian && Test: Hot Spring Guardian_UNG_938
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new HealTask(3, EntityType.TARGET)
                 },
             });
 
