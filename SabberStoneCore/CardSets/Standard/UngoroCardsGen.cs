@@ -1467,7 +1467,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_963", new List<Enchantment>
             {
-                // TODO [UNG_963] Lyra the Sunshard && Test: Lyra the Sunshard_UNG_963
                 new Enchantment
                 {
                    Area = EnchantmentArea.HAND,
