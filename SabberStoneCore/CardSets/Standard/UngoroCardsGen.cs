@@ -3567,11 +3567,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_845", new List<Enchantment>
             {
-                // TODO [UNG_845] Igneous Elemental && Test: Igneous Elemental_UNG_845
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(2, new AddCardTo("UNG_809t1", EntityType.HAND))
                 },
             });
 
