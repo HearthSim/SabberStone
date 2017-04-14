@@ -64,11 +64,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_078", new List<Enchantment>
             {
-                // TODO [UNG_078] Tortollan Forager && Test: Tortollan Forager_UNG_078
+                // TODO Test: Tortollan Forager_UNG_078
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new RandomMinionTask(GameTag.ATK, 5),
+                        new AddStackTo(EntityType.HAND))
                 },
             });
 
