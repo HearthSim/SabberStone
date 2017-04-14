@@ -2208,11 +2208,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_211c", new List<Enchantment>
             {
-                // TODO [UNG_211c] Invocation of Fire && Test: Invocation of Fire_UNG_211c
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DamageTask(6, EntityType.OP_HERO, true),
                 },
             });
 
