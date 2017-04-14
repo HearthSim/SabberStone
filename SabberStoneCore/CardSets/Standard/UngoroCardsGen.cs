@@ -2194,7 +2194,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new HealTask(12, EntityType.HERO)
                 },
             });
 
