@@ -591,12 +591,21 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_916", new List<Enchantment>
             {
-                // TODO [UNG_916] Stampede && Test: Stampede_UNG_916
+                // TODO Test: Stampede_UNG_916
                 new Enchantment
                 {
                     InfoCardId = "UNG_916e",
+                    Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    Trigger = new TriggerBuilder().Create()
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
+                        .TurnsActive(0)
+                        .FastExecution(true)
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new RandomCardTask(CardType.INVALID, Race.BEAST),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
                 },
             });
 
