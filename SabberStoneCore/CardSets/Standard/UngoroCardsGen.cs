@@ -1979,11 +1979,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_208", new List<Enchantment>
             {
-                // TODO [UNG_208] Stone Sentinel && Test: Stone Sentinel_UNG_208
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new EnqueueTask(2, new SummonTask("UNG_809t1")))),
                 },
             });
 
