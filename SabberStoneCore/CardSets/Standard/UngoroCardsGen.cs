@@ -2190,7 +2190,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_211b", new List<Enchantment>
             {
-                // TODO [UNG_211b] Invocation of Water && Test: Invocation of Water_UNG_211b
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
