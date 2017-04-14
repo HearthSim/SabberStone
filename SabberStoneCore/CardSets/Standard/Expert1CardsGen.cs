@@ -2438,15 +2438,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Mindgames whiffed! Your opponent had no minions!
             // --------------------------------------------------------
-            cards.Add("EX1_345t", new List<Enchantment>
-            {
-                // TODO [EX1_345t] Shadow of Nothing && Test: Shadow of Nothing_EX1_345t
-                new Enchantment
-                (
-                    //Activation = null,
-                    //SingleTask = null,
-                )
-            });
+            cards.Add("EX1_345t", null);
         }
 
         private static void Rogue(IDictionary<string, List<Enchantment>> cards)
