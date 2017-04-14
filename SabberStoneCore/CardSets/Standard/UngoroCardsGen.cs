@@ -2929,11 +2929,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_009", new List<Enchantment>
             {
-                // TODO [UNG_009] Ravasaur Runt && Test: Ravasaur Runt_UNG_009
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(3, RelaSign.GEQ)),
+                        new FlagTask(true, new AdaptTask(EntityType.SOURCE))),
                 },
             });
 

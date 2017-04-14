@@ -2737,10 +2737,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void RavasaurRunt_UNG_009()
 		{
-			// TODO RavasaurRunt_UNG_009 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2751,19 +2750,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravasaur Runt"));
+            var testCard1 =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravasaur Runt"));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravasaur Runt"));
+            var minion1 =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+            Assert.AreEqual(null, game.CurrentPlayer.Choice);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard2, choice));
+		    Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
 		}
 
-		// --------------------------------------- MINION - NEUTRAL
-		// [UNG_010] Sated Threshadon - COST:7 [ATK:5/HP:7] 
-		// - Race: beast, Set: ungoro, Rarity: common
-		// --------------------------------------------------------
-		// Text: <b>Deathrattle:</b> Summon three 1/1 Murlocs.
-		// --------------------------------------------------------
-		// GameTag:
-		// - DEATHRATTLE = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+        // --------------------------------------- MINION - NEUTRAL
+        // [UNG_010] Sated Threshadon - COST:7 [ATK:5/HP:7] 
+        // - Race: beast, Set: ungoro, Rarity: common
+        // --------------------------------------------------------
+        // Text: <b>Deathrattle:</b> Summon three 1/1 Murlocs.
+        // --------------------------------------------------------
+        // GameTag:
+        // - DEATHRATTLE = 1
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void SatedThreshadon_UNG_010()
 		{
 			// TODO SatedThreshadon_UNG_010 test
