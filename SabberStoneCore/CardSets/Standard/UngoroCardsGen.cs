@@ -1394,11 +1394,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_032", new List<Enchantment>
             {
-                // TODO [UNG_032] Crystalline Oracle && Test: Crystalline Oracle_UNG_032
+                // TODO Test: Crystalline Oracle_UNG_032
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.RandomCardCopyToHandFrom(EntityType.OP_DECK)
                 },
             });
 
