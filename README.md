@@ -14,7 +14,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * **SabberStoneCore** *(.NET Core)*
 
-  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStoneCore/wiki) for informations about the core and how to use it.
+  Core simulator engine, all the functions needed for the simulator are in here. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki) for informations about the core and how to use it.
 
 * **SabberStoneCoreTest** *(.NET Core)*
 
@@ -30,7 +30,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 * **SabberStoneGui** *(.NET Framework)*
 
-  A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link] (https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
+  A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
   ![alt tag](/Readme/simpleui.PNG)
   ![alt tag](/Readme/deckcreator.PNG)
   
@@ -47,6 +47,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Excess Mana
 - [x] Freeze, Stealth & Poisonous
 - [x] Potions (Kabal) ex. Kazakus
+- [x] Adapt
 - [ ] Spell Bender Phase
 - [ ] Spell Text Phase (check if not already done)
 
@@ -63,6 +64,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 * 91% The Grand Tournament (132 Cards)
 * 88% Whispers of the Old Gods (134 Cards)
 * 86% Mean Streets of Gadgetzan (132 Cards)
+* 48% Journey to Un'Goro
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 
@@ -101,6 +103,6 @@ SabberStone is licensed under the terms of the
 [Affero GPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html) or any later version.
 
 ### Community
-SabberStone is beeing developed by darkfriend77 (darkfriend@swissonline.ch)
+SabberStone is being developed by darkfriend77 (darkfriend@swissonline.ch)
 * SabberStone on [Reddit](https://redd.it/5p0ar8)
 * SabberStone is a [HearthSim](http://hearthsim.info) project.
