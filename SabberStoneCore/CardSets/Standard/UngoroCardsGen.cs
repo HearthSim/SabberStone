@@ -571,11 +571,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_910", new List<Enchantment>
             {
-                // TODO [UNG_910] Grievous Bite && Test: Grievous Bite_UNG_910
+                // TODO Test: Grievous Bite_UNG_910
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET, true),
+                        new IncludeTask(EntityType.OP_MINIONS),
+                        new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+                        new DamageTask(1, EntityType.STACK, true))
                 },
             });
 
