@@ -150,7 +150,7 @@ namespace SabberStoneCore.CardSets.Standard
             // RefTag:
             // - ADAPT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_109", new List<Enchantment> 
+            cards.Add("UNG_109", new List<Enchantment>
             {
                 new Enchantment
                 {

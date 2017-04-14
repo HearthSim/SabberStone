@@ -413,7 +413,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
             Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
             Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
-
         }
 
 		// ---------------------------------------- MINION - HUNTER
