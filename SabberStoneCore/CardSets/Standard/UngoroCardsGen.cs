@@ -2438,11 +2438,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_834", new List<Enchantment>
             {
-                // TODO [UNG_834] Feeding Time && Test: Feeding Time_UNG_834
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.TARGET, true),
+                        new EnqueueTask(3, new SummonTask("UNG_834t1")))
                 },
             });
         }
