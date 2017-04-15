@@ -380,12 +380,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_073", new List<Enchantment> {
-				// TODO [GVG_073] Cobra Shot && Test: Cobra Shot_GVG_073
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.TARGET, true),
+                        new DamageTask(3, EntityType.OP_HERO, true))
+
+                },
 			});
 
 			// ---------------------------------------- MINION - HUNTER
