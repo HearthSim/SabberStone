@@ -296,15 +296,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t", new List<Enchantment>
-            {
-                // TODO [UNG_101t] Shellshifter && Test: Shellshifter_UNG_101t
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t2] Shellshifter (*) - COST:4 [ATK:3/HP:5] 
@@ -315,15 +307,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t2", new List<Enchantment>
-            {
-                // TODO [UNG_101t2] Shellshifter && Test: Shellshifter_UNG_101t2
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t2", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t3] Shellshifter (*) - COST:4 [ATK:5/HP:5] 
@@ -336,15 +320,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - TAUNT = 1
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t3", new List<Enchantment>
-            {
-                // TODO [UNG_101t3] Shellshifter && Test: Shellshifter_UNG_101t3
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t3", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_111t1] Mana Treant (*) - COST:2 [ATK:2/HP:2] 
