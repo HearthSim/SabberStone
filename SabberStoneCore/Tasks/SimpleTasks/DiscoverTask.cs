@@ -27,7 +27,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         MAGE_PRIEST_WARLOCK,
         OVERLOAD,
         TAUNT,
-        HUNTER_PALADIN_WARRIOR
+        HUNTER_PALADIN_WARRIOR,
+        MURLOC,
+        SECRET
     }
     public class DiscoverTask : SimpleTask
     {
@@ -163,9 +165,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p[GameTag.TAUNT] == 1));
 
+                case DiscoverType.SECRET:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p[GameTag.SECRET] == 1));
+
                 case DiscoverType.BEAST:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.BEAST));
+
+                case DiscoverType.MURLOC:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == Race.MURLOC));
 
                 case DiscoverType.MECHANICAL:
                     choiceAction = ChoiceAction.HAND;

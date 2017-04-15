@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -21,11 +24,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_031", new List<Enchantment> {
-				// TODO [GVG_031] Recycle && Test: Recycle_GVG_031
+				// TODO  MoveToDeck Opponent
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new AddStackTo(EntityType.OP_DECK),
+                        new DestroyTask(EntityType.TARGET))
 				},
 			});
 
@@ -36,11 +42,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Restore all characters to full Health.
 			// --------------------------------------------------------
 			cards.Add("GVG_033", new List<Enchantment> {
-				// TODO [GVG_033] Tree of Life && Test: Tree of Life_GVG_033
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new HealFullTask(EntityType.ALL)
 				},
 			});
 
@@ -138,11 +143,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_035", new List<Enchantment> {
-				// TODO [GVG_035] Malorne && Test: Malorne_GVG_035
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("GVG_035", EntityType.DECK)
 				},
 			});
 
@@ -156,11 +160,14 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_080", new List<Enchantment> {
-				// TODO [GVG_080] Druid of the Fang && Test: Druid of the Fang_GVG_080
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new FlagTask(true, ComplexTask.Create(
+                            new SetAttackTask(7, EntityType.SOURCE),
+                            new SetHealthTask(7, EntityType.SOURCE))))
 				},
 			});
 
@@ -373,12 +380,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_073", new List<Enchantment> {
-				// TODO [GVG_073] Cobra Shot && Test: Cobra Shot_GVG_073
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+                        new DamageTask(3, EntityType.TARGET, true),
+                        new DamageTask(3, EntityType.OP_HERO, true))
+
+                },
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -485,14 +494,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_043e", new List<Enchantment> {
-				// TODO [GVG_043e] Glaivezooka && Test: Glaivezooka_GVG_043e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_043e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_046e] The King (*) - COST:0 
@@ -500,14 +502,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_046e", new List<Enchantment> {
-				// TODO [GVG_046e] The King && Test: The King_GVG_046e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_046e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_048e] Metal Teeth (*) - COST:0 
@@ -515,14 +510,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_048e", new List<Enchantment> {
-				// TODO [GVG_048e] Metal Teeth && Test: Metal Teeth_GVG_048e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_048e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_049e] Might of Zul'Farrak (*) - COST:0 
@@ -530,14 +518,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Multiplying Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_049e", new List<Enchantment> {
-				// TODO [GVG_049e] Might of Zul'Farrak && Test: Might of Zul'Farrak_GVG_049e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_049e", null);
 
 		}
 
@@ -553,11 +534,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_001", new List<Enchantment> {
-				// TODO [GVG_001] Flamecannon && Test: Flamecannon_GVG_001
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4, true)
 				},
 			});
 
@@ -674,13 +654,13 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_123", new List<Enchantment> {
-				// TODO [GVG_123] Soot Spewer && Test: Soot Spewer_GVG_123
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellPowerDamage(1)
+                },
+            });
 
 		}
 
@@ -730,11 +710,12 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
 			// --------------------------------------------------------
 			cards.Add("GVG_061", new List<Enchantment> {
-				// TODO [GVG_061] Muster for Battle && Test: Muster for Battle_GVG_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new EnqueueTask(3, new SummonTask("CS2_101t")),
+                        new WeaponTask("CS2_091"))
 				},
 			});
 
@@ -869,14 +850,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_060e", new List<Enchantment> {
-				// TODO [GVG_060e] Well Equipped && Test: Well Equipped_GVG_060e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_060e", null);
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [GVG_101e] Pure (*) - COST:0 
@@ -884,14 +858,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
-			cards.Add("GVG_101e", new List<Enchantment> {
-				// TODO [GVG_101e] Pure && Test: Pure_GVG_101e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_101e", null);
 
 		}
 

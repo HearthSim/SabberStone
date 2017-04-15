@@ -285,15 +285,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Costs (0).
             // --------------------------------------------------------
-            cards.Add("UNG_116te", new List<Enchantment>
-            {
-                // TODO [UNG_116te] Romper Stompers && Test: Romper Stompers_UNG_116te
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_116te", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t] Shellshifter (*) - COST:4 [ATK:5/HP:3] 
@@ -304,15 +296,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t", new List<Enchantment>
-            {
-                // TODO [UNG_101t] Shellshifter && Test: Shellshifter_UNG_101t
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t2] Shellshifter (*) - COST:4 [ATK:3/HP:5] 
@@ -323,15 +307,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t2", new List<Enchantment>
-            {
-                // TODO [UNG_101t2] Shellshifter && Test: Shellshifter_UNG_101t2
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t2", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t3] Shellshifter (*) - COST:4 [ATK:5/HP:5] 
@@ -344,15 +320,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - TAUNT = 1
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101t3", new List<Enchantment>
-            {
-                // TODO [UNG_101t3] Shellshifter && Test: Shellshifter_UNG_101t3
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101t3", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_111t1] Mana Treant (*) - COST:2 [ATK:2/HP:2] 
@@ -894,11 +862,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_948", new List<Enchantment>
             {
-                // TODO [UNG_948] Molten Reflection && Test: Molten Reflection_UNG_948
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new SummonTask())
                 },
             });
 
@@ -950,15 +919,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Cost reduced.
             // --------------------------------------------------------
-            cards.Add("UNG_941e", new List<Enchantment>
-            {
-                // TODO [UNG_941e] Primal Magic && Test: Primal Magic_UNG_941e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_941e", null);
 
             // ------------------------------------------ MINION - MAGE
             // [UNG_027t2] Pyros (*) - COST:6 [ATK:6/HP:6] 
@@ -1025,11 +986,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_011", new List<Enchantment>
             {
-                // TODO [UNG_011] Hydrologist && Test: Hydrologist_UNG_011
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL)
                 },
             });
 
@@ -1053,8 +1013,8 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.ALLMINIONS),
-                        new SetGameTagTask(GameTag.ATK, 3, EntityType.STACK),
-                        new SetGameTagTask(GameTag.HEALTH, 3, EntityType.STACK))
+                        new SetAttackTask(3, EntityType.STACK),
+                        new SetHealthTask(3, EntityType.STACK))
                 },
             });
 
@@ -1265,11 +1225,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_952e", new List<Enchantment>
             {
-                // TODO [UNG_952e] On a Stegodon && Test: On a Stegodon_UNG_952e
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new SummonTask("UNG_810"),
                 }
             });
 
@@ -2744,15 +2703,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_957t1", new List<Enchantment>
-            {
-                // TODO [UNG_957t1] Direhorn Matriarch && Test: Direhorn Matriarch_UNG_957t1
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_957t1", null);
 
             // ---------------------------------------- SPELL - WARRIOR
             // [UNG_922t1] Choose Your Path (*) - COST:1 
@@ -2901,12 +2852,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_070", new List<Enchantment>
             {
-                // TODO [UNG_070] Tol'vir Stoneshaper && Test: Tol'vir Stoneshaper_UNG_070
                 new Enchantment
                 {
                     InfoCardId = "UNG_070e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, ComplexTask.Create(
+                            ComplexTask.Taunt(EntityType.SOURCE),
+                            ComplexTask.DivineShield(EntityType.SOURCE))))
                 },
             });
 
@@ -3039,11 +2993,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_082", new List<Enchantment>
             {
-                // TODO [UNG_082] Thunder Lizard && Test: Thunder Lizard_UNG_082
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new AdaptTask(EntityType.SOURCE)))
                 },
             });
 
@@ -3113,11 +3068,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_087", new List<Enchantment>
             {
-                // TODO [UNG_087] Bittertide Hydra && Test: Bittertide Hydra_UNG_087
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .SingleTask(new DamageTask(3, EntityType.HERO))
+                        .Build()
                 }
             });
 
@@ -3199,12 +3158,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_113", new List<Enchantment>
             {
-                // TODO [UNG_113] Bright-Eyed Scout && Test: Bright-Eyed Scout_UNG_113
                 new Enchantment
                 {
                     InfoCardId = "UNG_113e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new SetGameTagTask(GameTag.COST, 5, EntityType.STACK))
                 },
             });
 
@@ -3646,11 +3606,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_937", new List<Enchantment>
             {
-                // TODO [UNG_937] Primalfin Lookout && Test: Primalfin Lookout_UNG_937
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.MURLOC)))
                 },
             });
 
@@ -3670,11 +3631,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_946", new List<Enchantment>
             {
-                // TODO [UNG_946] Gluttonous Ooze && Test: Gluttonous Ooze_UNG_946
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
+                        new DestroyTask(EntityType.OP_WEAPON),
+                        new EnqueueNumberTask(new ArmorTask(1)))
                 },
             });
         }
