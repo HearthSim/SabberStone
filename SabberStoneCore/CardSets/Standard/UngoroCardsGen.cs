@@ -2460,11 +2460,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_829t2", new List<Enchantment>
             {
-                // TODO [UNG_829t2] Nether Portal && Test: Nether Portal_UNG_829t2
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new EnqueueTask(2, new SummonTask("UNG_829t3")))
+                        .Build()
                 }
             });
 
