@@ -2476,15 +2476,7 @@ namespace SabberStoneCore.CardSets.Standard
             // [UNG_829t3] Nether Imp (*) - COST:2 [ATK:3/HP:2] 
             // - Race: demon, Set: ungoro, 
             // --------------------------------------------------------
-            cards.Add("UNG_829t3", new List<Enchantment>
-            {
-                // TODO [UNG_829t3] Nether Imp && Test: Nether Imp_UNG_829t3
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_829t3", null);
 
             // --------------------------------------- MINION - WARLOCK
             // [UNG_834t1] Pterrordax (*) - COST:1 [ATK:1/HP:1] 
