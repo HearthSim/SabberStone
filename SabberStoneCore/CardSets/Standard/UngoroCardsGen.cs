@@ -1117,12 +1117,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_004", new List<Enchantment>
             {
-                // TODO [UNG_004] Dinosize && Test: Dinosize_UNG_004
                 new Enchantment
                 {
                     InfoCardId = "UNG_004e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new SetAttackTask(10, EntityType.TARGET),
+                        new SetHealthTask(10, EntityType.TARGET)),
                 },
             });
 
