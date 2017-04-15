@@ -390,9 +390,8 @@ namespace SabberStoneCore.CardSets.Standard
                     InfoCardId = "UNG_116te",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.DECK, null, true),
-                        new FilterStackTask(SelfCondition.IsMinion),
-                        new SetGameTagTask(GameTag.ATK, 0, EntityType.STACK))
+                        new IncludeTask(EntityType.DECK),
+                        new BuffTask(Buffs.CostFix(0), EntityType.STACK, SelfCondition.IsMinion))
                 },
             });
 

@@ -398,23 +398,23 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Fly"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stone Sentinel"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            var barnabus = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("UNG_116t"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, barnabus));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, LogLevel.DEBUG);
 
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            //Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            //Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
         }
 
         public static void Kazakus()

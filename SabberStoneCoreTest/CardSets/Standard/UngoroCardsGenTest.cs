@@ -353,10 +353,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 5
 		// - 676 = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void JungleGiants_UNG_116()
 		{
-			// TODO JungleGiants_UNG_116 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -367,9 +366,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Jungle Giants"));
-		}
-
+			var barnabus =  Generic.DrawCard(game.CurrentPlayer, Cards.FromId("UNG_116t"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, barnabus));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+		    if (game.CurrentPlayer.Hand[4] is Minion)
+		    {
+		        Assert.AreEqual(0, game.CurrentPlayer.Hand[4].Cost);
+		    }
+        }
 	}
 
 	[TestClass]

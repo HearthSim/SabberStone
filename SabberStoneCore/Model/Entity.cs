@@ -98,7 +98,7 @@ namespace SabberStoneCore.Model
             get
             {
                 //if (Card.Name.Equals("Angry Chicken"))
-                Game?.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} get org. data {t} = {_data[t]}");
+                //Game?.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} get org. data {t} = {_data[t]}");
 
                 var value = _data[t];
 
