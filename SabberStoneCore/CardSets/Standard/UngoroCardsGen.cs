@@ -952,15 +952,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Cost reduced.
             // --------------------------------------------------------
-            cards.Add("UNG_941e", new List<Enchantment>
-            {
-                // TODO [UNG_941e] Primal Magic && Test: Primal Magic_UNG_941e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_941e", null);
 
             // ------------------------------------------ MINION - MAGE
             // [UNG_027t2] Pyros (*) - COST:6 [ATK:6/HP:6] 
