@@ -3201,12 +3201,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_113", new List<Enchantment>
             {
-                // TODO [UNG_113] Bright-Eyed Scout && Test: Bright-Eyed Scout_UNG_113
                 new Enchantment
                 {
                     InfoCardId = "UNG_113e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new SetGameTagTask(GameTag.COST, 5, EntityType.STACK))
                 },
             });
 
