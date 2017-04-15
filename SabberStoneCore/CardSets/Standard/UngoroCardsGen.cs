@@ -1851,12 +1851,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_067t1", new List<Enchantment>
             {
-                // TODO [UNG_067t1] Crystal Core && Test: Crystal Core_UNG_067t1
                 new Enchantment
                 {
                     InfoCardId = "UNG_067t1e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new IncludeTask(EntityType.DECK),
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new SetGameTagTask(GameTag.ATK, 5, EntityType.STACK),
+                        new SetGameTagTask(GameTag.HEALTH, 5, EntityType.STACK))
                 },
             });
         }
