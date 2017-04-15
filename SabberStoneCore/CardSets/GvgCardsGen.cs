@@ -537,7 +537,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4)
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4, true)
 				},
 			});
 
