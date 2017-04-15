@@ -687,11 +687,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_920t1", new List<Enchantment>
             {
-                // TODO [UNG_920t1] Queen Carnassa && Test: Queen Carnassa_UNG_920t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(15, new AddCardTo("UNG_076t1", EntityType.DECK))
                 },
             });
 
