@@ -2895,12 +2895,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_070", new List<Enchantment>
             {
-                // TODO [UNG_070] Tol'vir Stoneshaper && Test: Tol'vir Stoneshaper_UNG_070
                 new Enchantment
                 {
                     InfoCardId = "UNG_070e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, ComplexTask.Create(
+                            ComplexTask.Taunt(EntityType.SOURCE),
+                            ComplexTask.DivineShield(EntityType.SOURCE))))
                 },
             });
 
