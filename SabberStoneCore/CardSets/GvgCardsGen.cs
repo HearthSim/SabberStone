@@ -534,11 +534,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_001", new List<Enchantment> {
-				// TODO [GVG_001] Flamecannon && Test: Flamecannon_GVG_001
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4)
 				},
 			});
 
