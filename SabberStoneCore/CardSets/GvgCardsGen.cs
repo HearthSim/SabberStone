@@ -494,14 +494,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_043e", new List<Enchantment> {
-				// TODO [GVG_043e] Glaivezooka && Test: Glaivezooka_GVG_043e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_043e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_046e] The King (*) - COST:0 
@@ -509,14 +502,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_046e", new List<Enchantment> {
-				// TODO [GVG_046e] The King && Test: The King_GVG_046e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_046e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_048e] Metal Teeth (*) - COST:0 
@@ -524,14 +510,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_048e", new List<Enchantment> {
-				// TODO [GVG_048e] Metal Teeth && Test: Metal Teeth_GVG_048e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_048e", null);
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_049e] Might of Zul'Farrak (*) - COST:0 
@@ -539,14 +518,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Multiplying Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_049e", new List<Enchantment> {
-				// TODO [GVG_049e] Might of Zul'Farrak && Test: Might of Zul'Farrak_GVG_049e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_049e", null);
 
 		}
 
