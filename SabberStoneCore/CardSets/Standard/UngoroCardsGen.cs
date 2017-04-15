@@ -1554,15 +1554,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +1/+1.
             // --------------------------------------------------------
-            cards.Add("UNG_037e", new List<Enchantment>
-            {
-                // TODO [UNG_037e] Shellshield && Test: Shellshield_UNG_037e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_037e", null);
 
             // ---------------------------------------- MINION - PRIEST
             // [UNG_940t8] Amara, Warden of Hope (*) - COST:5 [ATK:8/HP:8] 
