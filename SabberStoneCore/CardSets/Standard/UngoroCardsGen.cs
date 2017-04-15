@@ -385,12 +385,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_116t", new List<Enchantment>
             {
-                // TODO [UNG_116t] Barnabus the Stomper && Test: Barnabus the Stomper_UNG_116t
                 new Enchantment
                 {
                     InfoCardId = "UNG_116te",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.DECK, null, true),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new SetGameTagTask(GameTag.ATK, 0, EntityType.STACK))
                 },
             });
 
