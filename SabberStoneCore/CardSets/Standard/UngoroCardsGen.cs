@@ -392,7 +392,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.DECK, null, true),
                         new FilterStackTask(SelfCondition.IsMinion),
-                        new SetAttackTask(0, EntityType.STACK))
+                        new SetGameTagTask(GameTag.ATK, 0, EntityType.STACK))
                 },
             });
 
