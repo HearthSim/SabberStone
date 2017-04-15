@@ -1546,15 +1546,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: 1/1.
             // --------------------------------------------------------
-            cards.Add("UNG_022e", new List<Enchantment>
-            {
-                // TODO [UNG_022e] Mirage && Test: Mirage_UNG_022e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_022e", null);
 
             // ----------------------------------- ENCHANTMENT - PRIEST
             // [UNG_037e] Shellshield (*) - COST:0 
