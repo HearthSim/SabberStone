@@ -771,11 +771,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_027", new List<Enchantment>
             {
-                // TODO [UNG_027] Pyros && Test: Pyros_UNG_027
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_027t2", EntityType.HAND)
                 },
             });
 
