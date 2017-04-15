@@ -3036,11 +3036,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_082", new List<Enchantment>
             {
-                // TODO [UNG_082] Thunder Lizard && Test: Thunder Lizard_UNG_082
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new AdaptTask(EntityType.SOURCE)))
                 },
             });
 
