@@ -1670,10 +1670,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - REQ_FRIENDLY_TARGET = 0
         // - REQ_TARGET_IF_AVAILABLE = 0
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void Shadowcaster_OG_291()
         {
-            // TODO Shadowcaster_OG_291 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -1684,7 +1683,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadowcaster"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadowcaster"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(minion.Card.Id, game.CurrentPlayer.Hand[4].Card.Id);
+            Assert.AreEqual(1, game.CurrentPlayer.Hand[4].Cost);
         }
 
         // ----------------------------------------- MINION - ROGUE
