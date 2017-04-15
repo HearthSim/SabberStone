@@ -39,11 +39,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Restore all characters to full Health.
 			// --------------------------------------------------------
 			cards.Add("GVG_033", new List<Enchantment> {
-				// TODO [GVG_033] Tree of Life && Test: Tree of Life_GVG_033
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new HealFullTask(EntityType.ALL)
 				},
 			});
 
