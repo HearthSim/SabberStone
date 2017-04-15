@@ -168,9 +168,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.BEAST));
 
-                case DiscoverType.BEAST:
+                case DiscoverType.MURLOC:
                     choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.MUROC));
+                    return GetFilter(list => list.Where(p => p.Race == Race.MURLOC));
 
                 case DiscoverType.MECHANICAL:
                     choiceAction = ChoiceAction.HAND;
