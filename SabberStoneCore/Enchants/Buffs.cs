@@ -136,6 +136,20 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant CostFix(int amount, bool oneTurnActive = false)
+        {
+            return new Enchant
+            {
+                TurnsActive = oneTurnActive ? 0 : -1,
+                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND) },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.COST] = 0
+                },
+                FixedValueFunc = owner => 1
+            };
+        }
+
         public static Enchant StealthTurn(int attackedThisTurn)
         {
             return new Enchant
