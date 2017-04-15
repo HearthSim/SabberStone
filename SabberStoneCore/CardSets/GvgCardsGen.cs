@@ -24,14 +24,16 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_031", new List<Enchantment> {
-				// TODO  MoveToDeck Opponent
+
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+                    // http://hearthstone.gamepedia.com/Recycle
+
+                    Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new CopyTask(EntityType.TARGET, 1),
                         new AddStackTo(EntityType.OP_DECK),
-                        new DestroyTask(EntityType.TARGET))
+                        new MoveToSetaside(EntityType.TARGET))
 				},
 			});
 
