@@ -140,11 +140,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_035", new List<Enchantment> {
-				// TODO [GVG_035] Malorne && Test: Malorne_GVG_035
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("GVG_035", EntityType.DECK)
 				},
 			});
 
