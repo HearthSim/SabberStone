@@ -1290,8 +1290,9 @@ namespace SabberStoneCore.CardSets.Standard
                         new CopyTask(EntityType.TARGET, 1),
                         new SetAttackTask(1, EntityType.STACK),
                         new SetHealthTask(1, EntityType.STACK),
-                        new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
-                        new AddStackTo(EntityType.HAND))
+                        //new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
+                        new AddStackTo(EntityType.HAND)),
+                        new BuffTask(Buffs.CostFix(1), EntityType.STACK)))
                 },
             });
 
