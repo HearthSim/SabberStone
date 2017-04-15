@@ -1282,7 +1282,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_291", new List<Enchantment>
             {
-                // @darkfriend77 please confirm this
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
@@ -1291,8 +1290,8 @@ namespace SabberStoneCore.CardSets.Standard
                         new SetAttackTask(1, EntityType.STACK),
                         new SetHealthTask(1, EntityType.STACK),
                         //new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
-                        new AddStackTo(EntityType.HAND)),
-                        new BuffTask(Buffs.CostFix(1), EntityType.STACK)))
+                        new AddStackTo(EntityType.HAND),
+                        new BuffTask(Buffs.CostFix(1), EntityType.STACK))
                 },
             });
 
