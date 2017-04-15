@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.CardSets
 {
@@ -157,11 +160,14 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_080", new List<Enchantment> {
-				// TODO [GVG_080] Druid of the Fang && Test: Druid of the Fang_GVG_080
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+                        new FlagTask(true, ComplexTask.Create(
+                            new SetAttackTask(7, EntityType.SOURCE),
+                            new SetHealthTask(7, EntityType.SOURCE))))
 				},
 			});
 
