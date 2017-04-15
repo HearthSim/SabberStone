@@ -989,7 +989,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DiscoverTask(DiscoverType.SPELL)
+                    SingleTask = new DiscoverTask(DiscoverType.SECRET)
                 },
             });
 
@@ -1223,14 +1223,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: +2/+6 and <b>Taunt</b>.
             //       <b>Deathrattle:</b> Summon a Stegodon.
             // --------------------------------------------------------
-            cards.Add("UNG_952e", new List<Enchantment>
-            {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new SummonTask("UNG_810"),
-                }
-            });
+            cards.Add("UNG_952e", null);
 
             // ---------------------------------- ENCHANTMENT - PALADIN
             // [UNG_953e] Inspired (*) - COST:0 
@@ -3164,7 +3157,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new DrawTask(true),
-                        new SetGameTagTask(GameTag.COST, 5, EntityType.STACK))
+                        new BuffTask(Buffs.SimpleFix(GameTag.COST, 5), EntityType.STACK))
                 },
             });
 
@@ -3635,9 +3628,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
+                        new GetGameTagTask(GameTag.ATK, EntityType.OP_WEAPON),
                         new DestroyTask(EntityType.OP_WEAPON),
-                        new EnqueueNumberTask(new ArmorTask(1)))
+                        new ArmorTask())
                 },
             });
         }
