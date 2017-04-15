@@ -2498,11 +2498,11 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_829t1", new List<Enchantment>
             {
-                // TODO [UNG_829t1] Nether Portal && Test: Nether Portal_UNG_829t1
+                // @darkfriend77 Please confirm this!
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new SummonTask("UNG_829t2")
                 },
             });
         }
