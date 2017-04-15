@@ -850,14 +850,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_060e", new List<Enchantment> {
-				// TODO [GVG_060e] Well Equipped && Test: Well Equipped_GVG_060e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_060e", null);
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [GVG_101e] Pure (*) - COST:0 
@@ -865,14 +858,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
-			cards.Add("GVG_101e", new List<Enchantment> {
-				// TODO [GVG_101e] Pure && Test: Pure_GVG_101e
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_101e", null);
 
 		}
 
