@@ -654,13 +654,13 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_123", new List<Enchantment> {
-				// TODO [GVG_123] Soot Spewer && Test: Soot Spewer_GVG_123
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HERO,
+                    Activation = EnchantmentActivation.BOARD,
+                    Enchant = Auras.SpellPowerDamage(1)
+                },
+            });
 
 		}
 
