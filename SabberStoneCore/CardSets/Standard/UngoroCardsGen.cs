@@ -1856,11 +1856,10 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
-                        new IncludeTask(EntityType.DECK),
-                        new IncludeTask(EntityType.HAND),
+                        new IncludeTask(EntityType.DECK, null, true),
+                        new IncludeTask(EntityType.HAND, null, true),
                         new FilterStackTask(SelfCondition.IsMinion),
-                        new SetGameTagTask(GameTag.ATK, 5, EntityType.STACK),
-                        new SetGameTagTask(GameTag.HEALTH, 5, EntityType.STACK))
+                        new BuffTask(Buffs.AttackHealthFix(5), EntityType.STACK))
                 },
             });
         }
