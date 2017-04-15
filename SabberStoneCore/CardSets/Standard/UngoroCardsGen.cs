@@ -3673,11 +3673,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_946", new List<Enchantment>
             {
-                // TODO [UNG_946] Gluttonous Ooze && Test: Gluttonous Ooze_UNG_946
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
+                        new DestroyTask(EntityType.OP_WEAPON),
+                        new EnqueueNumberTask(new ArmorTask(1)))
                 },
             });
         }
