@@ -1612,12 +1612,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_063", new List<Enchantment>
             {
-                // TODO [UNG_063] Biteweed && Test: Biteweed_UNG_063
+                // Combo
                 new Enchantment
                 {
                     InfoCardId = "UNG_063e",
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.BOARD,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
+                        new MathSubstractionTask(1),
+                        new MathMultiplyTask(1),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE))
                 }
             });
 
