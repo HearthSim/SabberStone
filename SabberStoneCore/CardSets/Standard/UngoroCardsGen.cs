@@ -659,15 +659,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAG_ONE_TURN_EFFECT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_916e", new List<Enchantment>
-            {
-                // TODO [UNG_916e] Stampeding && Test: Stampeding_UNG_916e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_916e", null);
 
             // ----------------------------------- ENCHANTMENT - HUNTER
             // [UNG_917e] Well Fed (*) - COST:0 
