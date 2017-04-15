@@ -1288,8 +1288,8 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new CopyTask(EntityType.TARGET, 1),
-                        new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
-                        new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
+                        new SetAttackTask(1, EntityType.STACK),
+                        new SetHealthTask(1, EntityType.STACK),
                         new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
                         new AddStackTo(EntityType.HAND))
                 },
