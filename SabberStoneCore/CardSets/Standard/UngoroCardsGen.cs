@@ -392,7 +392,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.DECK, null, true),
                         new FilterStackTask(SelfCondition.IsMinion),
-                        new SetGameTagTask(GameTag.ATK, 0, EntityType.STACK))
+                        new SetAttackTask(0, EntityType.STACK))
                 },
             });
 
@@ -1054,8 +1054,8 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.ALLMINIONS),
-                        new SetGameTagTask(GameTag.ATK, 3, EntityType.STACK),
-                        new SetGameTagTask(GameTag.HEALTH, 3, EntityType.STACK))
+                        new SetAttackTask(3, EntityType.STACK),
+                        new SetHealthTask(3, EntityType.STACK))
                 },
             });
 
@@ -1860,8 +1860,8 @@ namespace SabberStoneCore.CardSets.Standard
                         new IncludeTask(EntityType.DECK),
                         new IncludeTask(EntityType.HAND),
                         new FilterStackTask(SelfCondition.IsMinion),
-                        new SetGameTagTask(GameTag.ATK, 5, EntityType.STACK),
-                        new SetGameTagTask(GameTag.HEALTH, 5, EntityType.STACK))
+                        new SetAttackTask(5, EntityType.STACK),
+                        new SetHealthTask(5, EntityType.STACK))
                 },
             });
         }
