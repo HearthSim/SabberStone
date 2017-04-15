@@ -365,11 +365,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_111t1", new List<Enchantment>
             {
-                // TODO [UNG_111t1] Mana Treant && Test: Mana Treant_UNG_111t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new ManaCrystalEmptyTask(1)
                 },
             });
 
