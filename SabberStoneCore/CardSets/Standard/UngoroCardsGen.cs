@@ -987,15 +987,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - ELITE = 1
             // --------------------------------------------------------
-            cards.Add("UNG_027t4", new List<Enchantment>
-            {
-                // TODO [UNG_027t4] Pyros && Test: Pyros_UNG_027t4
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_027t4", null);
 
             // ------------------------------------------- SPELL - MAGE
             // [UNG_028t] Time Warp (*) - COST:5 
