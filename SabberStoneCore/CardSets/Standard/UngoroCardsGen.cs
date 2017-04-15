@@ -1280,15 +1280,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Storing spell.
             // --------------------------------------------------------
-            cards.Add("UNG_953e", new List<Enchantment>
-            {
-                // TODO [UNG_953e] Inspired && Test: Inspired_UNG_953e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_953e", null);
 
             // --------------------------------------- MINION - PALADIN
             // [UNG_954t1] Galvadon (*) - COST:5 [ATK:5/HP:5] 
