@@ -3651,10 +3651,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    //Activation = EnchantmentActivation.BATTLECRY,
-                    //SingleTask = ComplexTask.Create(
-                    //    new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
-                    //    new FlagTask(true, new DiscoverTask(DiscoverType.MURLOC)))
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.MURLOC)))
                 },
             });
 
