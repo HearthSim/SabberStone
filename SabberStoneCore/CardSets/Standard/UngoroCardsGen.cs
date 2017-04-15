@@ -1916,7 +1916,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.HAND),
-                        new FilterStackTask(SelfCondition.IsRace(ELEMENTAL)),
+                        new FilterStackTask(SelfCondition.IsRace(Race.ELEMENTAL)),
                         new BuffTask(Buffs.Cost(-1), EntityType.STACK))
                 },
             });
