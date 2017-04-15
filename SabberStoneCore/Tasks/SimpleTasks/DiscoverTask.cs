@@ -27,7 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         MAGE_PRIEST_WARLOCK,
         OVERLOAD,
         TAUNT,
-        HUNTER_PALADIN_WARRIOR
+        HUNTER_PALADIN_WARRIOR,
+        MURLOC
     }
     public class DiscoverTask : SimpleTask
     {
