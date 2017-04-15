@@ -710,11 +710,12 @@ namespace SabberStoneCore.CardSets
 			// Text: Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
 			// --------------------------------------------------------
 			cards.Add("GVG_061", new List<Enchantment> {
-				// TODO [GVG_061] Muster for Battle && Test: Muster for Battle_GVG_061
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new EnqueueTask(3, new SummonTask("CS2_101t")),
+                        new WeaponTask("CS2_091"))
 				},
 			});
 
