@@ -1911,11 +1911,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_202", new List<Enchantment>
             {
-                // TODO [UNG_202] Fire Plume Harbinger && Test: Fire Plume Harbinger_UNG_202
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsRace(ELEMENTAL)),
+                        new BuffTask(Buffs.Cost(-1), EntityType.STACK))
                 },
             });
 
