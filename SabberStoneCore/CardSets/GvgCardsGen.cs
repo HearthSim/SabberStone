@@ -165,9 +165,7 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
                         new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
-                        new FlagTask(true, ComplexTask.Create(
-                            new SetAttackTask(7, EntityType.SOURCE),
-                            new SetHealthTask(7, EntityType.SOURCE))))
+                        new FlagTask(true, new TransformTask("GVG_080t", EntityType.SOURCE)))
 				},
 			});
 
@@ -322,14 +320,7 @@ namespace SabberStoneCore.CardSets
 			// [GVG_080t] Druid of the Fang (*) - COST:5 [ATK:7/HP:7] 
 			// - Race: beast, Set: pe1, 
 			// --------------------------------------------------------
-			cards.Add("GVG_080t", new List<Enchantment> {
-				// TODO [GVG_080t] Druid of the Fang && Test: Druid of the Fang_GVG_080t
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
-			});
+			cards.Add("GVG_080t", null);
 
 		}
 
