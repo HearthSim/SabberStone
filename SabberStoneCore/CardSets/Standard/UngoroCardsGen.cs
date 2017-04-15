@@ -1048,12 +1048,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_015", new List<Enchantment>
             {
-                // TODO [UNG_015] Sunkeeper Tarim && Test: Sunkeeper Tarim_UNG_015
                 new Enchantment
                 {
                     InfoCardId = "UNG_015e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.ALLMINIONS),
+                        new SetGameTagTask(GameTag.ATK, 3, EntityType.STACK),
+                        new SetGameTagTask(GameTag.HEALTH, 3, EntityType.STACK))
                 },
             });
 
