@@ -285,15 +285,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Costs (0).
             // --------------------------------------------------------
-            cards.Add("UNG_116te", new List<Enchantment>
-            {
-                // TODO [UNG_116te] Romper Stompers && Test: Romper Stompers_UNG_116te
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_116te", null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_101t] Shellshifter (*) - COST:4 [ATK:5/HP:3] 
@@ -390,9 +382,8 @@ namespace SabberStoneCore.CardSets.Standard
                     InfoCardId = "UNG_116te",
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.DECK, null, true),
-                        new FilterStackTask(SelfCondition.IsMinion),
-                        new SetAttackTask(0, EntityType.STACK))
+                        new IncludeTask(EntityType.DECK),
+                        new BuffTask(Buffs.CostFix(0), EntityType.STACK, SelfCondition.IsMinion))
                 },
             });
 
