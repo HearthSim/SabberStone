@@ -1026,11 +1026,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_011", new List<Enchantment>
             {
-                // TODO [UNG_011] Hydrologist && Test: Hydrologist_UNG_011
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL)
                 },
             });
 
