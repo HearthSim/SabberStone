@@ -1258,11 +1258,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_952e", new List<Enchantment>
             {
-                // TODO [UNG_952e] On a Stegodon && Test: On a Stegodon_UNG_952e
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new SummonTask("UNG_810"),
                 }
             });
 
