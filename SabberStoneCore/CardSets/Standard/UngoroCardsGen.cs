@@ -3649,11 +3649,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_937", new List<Enchantment>
             {
-                // TODO [UNG_937] Primalfin Lookout && Test: Primalfin Lookout_UNG_937
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    //Activation = EnchantmentActivation.BATTLECRY,
+                    //SingleTask = ComplexTask.Create(
+                    //    new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
+                    //    new FlagTask(true, new DiscoverTask(DiscoverType.MURLOC)))
                 },
             });
 
