@@ -1637,15 +1637,7 @@ namespace SabberStoneCore.CardSets.Standard
             // [tt_010a] Spellbender (*) - COST:1 [ATK:1/HP:3] 
             // - Set: expert1, Rarity: epic
             // --------------------------------------------------------
-            cards.Add("tt_010a", new List<Enchantment>
-            {
-                // TODO [tt_010a] Spellbender && Test: Spellbender_tt_010a
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("tt_010a", null);
         }
 
         private static void Paladin(IDictionary<string, List<Enchantment>> cards)
