@@ -2136,11 +2136,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_211a", new List<Enchantment>
             {
-                // TODO [UNG_211a] Invocation of Earth && Test: Invocation of Earth_UNG_211a
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.MINIONS),
+                        new MathSubstractionTask(7),
+                        new MathMultiplyTask(-1),
+                        new EnqueueNumberTask(new SummonTask("UNG_211aa")))
                 },
             });
 
