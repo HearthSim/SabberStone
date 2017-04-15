@@ -3508,15 +3508,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: <i>You are out of demons! At least there are always imps...</i>
             // --------------------------------------------------------
-            cards.Add("EX1_317t", new List<Enchantment>
-            {
-                // TODO [EX1_317t] Worthless Imp && Test: Worthless Imp_EX1_317t
-                new Enchantment
-                (
-                    //Activation = null,
-                    //SingleTask = null,
-                )
-            });
+            cards.Add("EX1_317t", null);
 
             // --------------------------------------- MINION - WARLOCK
             // [EX1_tk34] Infernal (*) - COST:6 [ATK:6/HP:6] 
