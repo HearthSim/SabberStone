@@ -2746,15 +2746,7 @@ namespace SabberStoneCore.CardSets.Standard
             // GameTag:
             // - TAUNT = 1
             // --------------------------------------------------------
-            cards.Add("UNG_957t1", new List<Enchantment>
-            {
-                // TODO [UNG_957t1] Direhorn Matriarch && Test: Direhorn Matriarch_UNG_957t1
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_957t1", null);
 
             // ---------------------------------------- SPELL - WARRIOR
             // [UNG_922t1] Choose Your Path (*) - COST:1 
