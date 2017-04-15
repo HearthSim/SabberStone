@@ -1246,15 +1246,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Stats changed to 10/10.
             // --------------------------------------------------------
-            cards.Add("UNG_004e", new List<Enchantment>
-            {
-                // TODO [UNG_004e] RAAAAR! && Test: RAAAAR!_UNG_004e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_004e", null);
 
             // ---------------------------------- ENCHANTMENT - PALADIN
             // [UNG_015e] Watched (*) - COST:0 
