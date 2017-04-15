@@ -2220,7 +2220,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_122", new List<Enchantment>
             {
-                // TODO [OG_122] Mukla, Tyrant of the Vale && Test: Mukla, Tyrant of the Vale_OG_122
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
