@@ -1282,11 +1282,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_291", new List<Enchantment>
             {
-                // TODO [OG_291] Shadowcaster && Test: Shadowcaster_OG_291
+                // @darkfriend77 please confirm this
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
+                        new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
+                        new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
+                        new AddStackTo(EntityType.HAND))
                 },
             });
 
@@ -2215,7 +2220,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_122", new List<Enchantment>
             {
-                // TODO [OG_122] Mukla, Tyrant of the Vale && Test: Mukla, Tyrant of the Vale_OG_122
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
