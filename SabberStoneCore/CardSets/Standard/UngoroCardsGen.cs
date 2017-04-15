@@ -895,11 +895,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_948", new List<Enchantment>
             {
-                // TODO [UNG_948] Molten Reflection && Test: Molten Reflection_UNG_948
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CopyTask(EntityType.TARGET, 1),
+                        new SummonTask())
                 },
             });
 
