@@ -272,15 +272,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +1/+1.
             // --------------------------------------------------------
-            cards.Add("UNG_108e", new List<Enchantment>
-            {
-                // TODO [UNG_108e] It's All Scaley... && Test: It's All Scaley..._UNG_108e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_108e", null);
 
             // ------------------------------------ ENCHANTMENT - DRUID
             // [UNG_116te] Romper Stompers (*) - COST:0 
