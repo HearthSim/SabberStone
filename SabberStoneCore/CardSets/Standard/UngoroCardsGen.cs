@@ -2618,11 +2618,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_927", new List<Enchantment>
             {
-                // TODO [UNG_927] Sudden Genesis && Test: Sudden Genesis_UNG_927
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsDamaged),
+                        new SummonTask(EntityType.STACK))
                 },
             });
 
