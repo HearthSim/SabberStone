@@ -2590,8 +2590,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new CountTask(EntityType.DECK),
-                        new IncludeTask(EntityType.DECK),
-                        new RemoveFromDeck(EntityType.STACK),
+                        new RemoveFromDeck(EntityType.DECK),
                         new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
                 },
             });
