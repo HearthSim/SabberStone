@@ -130,7 +130,7 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: <b>Secret:</b> After an opposing <b>Hero Power</b> is used, deal $5 damage to a random enemy. *spelldmg
 		// --------------------------------------------------------
 		// GameTag:
-		// - SECRET = 1
+		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
 		[TestMethod]
 		public void DartTrap_LOE_021()
@@ -396,7 +396,7 @@ namespace SabberStoneCoreTest.CardSets
 		// Text: <b>Secret:</b> After your opponent has at least 3 minions and plays another, destroy it.
 		// --------------------------------------------------------
 		// GameTag:
-		// - SECRET = 1
+		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
 		[TestMethod]
 		public void SacredTrial_LOE_027()

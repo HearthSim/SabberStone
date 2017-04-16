@@ -457,6 +457,7 @@
         MODIFY_DEFINITION_COST = 475,
         MULTIPLE_CLASSES = 476,
         ALL_TARGETS_RANDOM = 477,
+        // 478, true on quest cards ???
         //479 IMPLEMENTED
         MULTI_CLASS_GROUP = 480,
         CARD_COSTS_HEALTH = 481,
@@ -476,6 +477,7 @@
         SHIFTING_WEAPON = 550,
         BOSS = 556,
         STAMPEDE = 564,
+        // 676, true on quests cards ???
         CORRUPTED = 681,
 
         // more or less guessed gametags

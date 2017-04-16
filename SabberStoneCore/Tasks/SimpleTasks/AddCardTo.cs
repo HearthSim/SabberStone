@@ -24,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         }
         public AddCardTo(string cardId, EntityType type)
         {
-            Card = Cards.FromId(cardId); ;
+            Card = Cards.FromId(cardId);
             Type = type;
         }
 

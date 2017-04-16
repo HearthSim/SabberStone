@@ -631,7 +631,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: <b>Secret:</b> After your hero is attacked, summon a 3/3 Bear with <b>Taunt</b>.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         // RefTag:
         // - TAUNT = 1
@@ -984,7 +984,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: <b>Secret:</b> When a friendly minion dies, summon a random minion with the same Cost.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Effigy_AT_002()
@@ -1238,7 +1238,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: <b>Secret:</b> When your turn starts, give your minions +1/+1.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void CompetitiveSpirit_AT_073()
@@ -1396,7 +1396,7 @@ namespace SabberStoneCoreTest.CardSets
         // - BATTLECRY = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void MysteriousChallenger_AT_079()

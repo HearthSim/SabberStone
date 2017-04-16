@@ -18,7 +18,7 @@
 		<PlayRequirement reqID="15" name="REQ_YOUR_TURN" description="Must be your turn." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
 		<PlayRequirement reqID="16" name="REQ_NONSTEALTH_ENEMY_TARGET" description="Enemy target cannot be stealthed." alwaysRequired="true" hasParam="false" isTargetDetail="true" />
 		<PlayRequirement reqID="17" name="REQ_HERO_TARGET" description="Target must be a hero." alwaysRequired="false" hasParam="false" isTargetDetail="true" />
-		<PlayRequirement reqID="18" name="REQ_SECRET_CAP" description="Must have open slot for secret." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
+		<PlayRequirement reqID="18" name="REQ_SECRET_OR_QUEST_CAP" description="Must have open slot for secret." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
 		<PlayRequirement reqID="19" name="REQ_MINION_CAP_IF_TARGET_AVAILABLE" description="If a target is available, # of minion slots required:" alwaysRequired="false" hasParam="true" isTargetDetail="false" />
 		<PlayRequirement reqID="20" name="REQ_MINION_CAP" description="Cannot exceed minion cap." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
 		<PlayRequirement reqID="21" name="REQ_TARGET_ATTACKED_THIS_TURN" description="Target must have already attacked this turn." alwaysRequired="false" hasParam="false" isTargetDetail="true" />
@@ -26,7 +26,7 @@
 		<PlayRequirement reqID="23" name="REQ_MINIMUM_ENEMY_MINIONS" description="Minimum # of enemy minions that must be in play:" alwaysRequired="false" hasParam="true" isTargetDetail="false" />
 		<PlayRequirement reqID="24" name="REQ_TARGET_FOR_COMBO" description="Target required if it's a combo and targets are available." alwaysRequired="false" hasParam="false" isTargetDetail="false" />
 		<PlayRequirement reqID="25" name="REQ_NOT_EXHAUSTED_ACTIVATE" description="Cannot activate when exhausted." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
-		<PlayRequirement reqID="26" name="REQ_UNIQUE_SECRET" description="Secret must be unique." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
+		<PlayRequirement reqID="26" name="REQ_UNIQUE_SECRET_OR_QUEST" description="Secret must be unique." alwaysRequired="true" hasParam="false" isTargetDetail="false" />
 		<PlayRequirement reqID="27" name="REQ_TARGET_TAUNTER" description="Default attack power must target taunters" alwaysRequired="true" hasParam="false" isTargetDetail="true" />
 		<PlayRequirement reqID="28" name="REQ_CAN_BE_ATTACKED" description="Target cannot have the tag 'can't be attacked.'" alwaysRequired="true" hasParam="false" isTargetDetail="true" />
 		<PlayRequirement reqID="29" name="REQ_ACTION_PWR_IS_MASTER_PWR" description="Can't use an action power that's not the master power." alwaysRequired="true" hasParam="false" isTargetDetail="false" />

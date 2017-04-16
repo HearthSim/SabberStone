@@ -71,7 +71,8 @@ namespace SabberStoneCore.Conditions
 
         public static SelfCondition IsAnyNotImmune => new SelfCondition(me => me.Game.Characters.Exists(p => !p.IsImmune));
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
-        public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+        public static SelfCondition IsSecretOrQuestActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+        public static SelfCondition IsQuestDone => new SelfCondition(me => me[GameTag.QUEST_PROGRESS] == me[GameTag.QUEST_PROGRESS_TOTAL]);
         public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
         public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me => me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
         public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.Hand.Count < me.Controller.Opponent.Hand.Count);

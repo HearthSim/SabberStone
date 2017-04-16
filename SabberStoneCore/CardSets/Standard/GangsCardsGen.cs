@@ -396,16 +396,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> After your opponent plays a minion, give a random minion in your hand +2/+2.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("CFM_026", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             ComplexTask.BuffRandomMinion(EntityType.HAND, Buffs.AttackHealth(2), SelfCondition.IsMinion)))
@@ -505,7 +505,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("CFM_066", new List<Enchantment>
             {
@@ -598,7 +598,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Costs (2) less for each <b>Secret</b> you've played this_game.
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("CFM_760", new List<Enchantment>
             {
@@ -667,16 +667,16 @@ namespace SabberStoneCore.CardSets.Standard
             //       1/1 Sheep.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("CFM_620", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             new TransformTask("CFM_621_m5", EntityType.TARGET)))
@@ -873,7 +873,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When a friendly minion dies, return it to your hand.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("CFM_800", new List<Enchantment>
             {

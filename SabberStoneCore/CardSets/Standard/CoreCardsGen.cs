@@ -2324,7 +2324,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DamageTask(1, EntityType.MINIONS, true)
+                    SingleTask = new DamageTask(1, EntityType.ALLMINIONS, true)
                 }
             });
 

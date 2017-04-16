@@ -325,7 +325,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> After your opponent plays a minion, give a random minion in your hand +2/+2.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void HiddenCache_CFM_026()
@@ -666,7 +666,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         //       1/1 Sheep.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void PotionOfPolymorph_CFM_620()
@@ -750,7 +750,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - BATTLECRY = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void KabalLackey_CFM_066()
@@ -867,7 +867,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: Costs (2) less for each <b>Secret</b> you've played this_game.
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void KabalCrystalRunner_CFM_760()
@@ -929,7 +929,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When a friendly minion dies, return it to your hand.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void GetawayKodo_CFM_800()

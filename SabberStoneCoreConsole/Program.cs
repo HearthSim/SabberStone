@@ -398,19 +398,63 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.DRUID,
-                Player2HeroClass = CardClass.DRUID,
-                FillDecks = true
+                Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var barnabus = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("UNG_116t"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, barnabus));
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-
-            ShowLog(game, LogLevel.DEBUG);
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Alley Armorsmith
+            
+            ShowLog(game, LogLevel.VERBOSE);
 
             //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
             //Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
@@ -582,9 +626,9 @@ namespace SabberStoneCoreConsole
                             foreground = ConsoleColor.DarkRed;
                             break;
                         case LogLevel.INFO:
-                            foreground = logEntry.Location.Equals("Game") ? 
-                                ConsoleColor.Yellow : 
-                                ConsoleColor.Green;
+                            foreground = logEntry.Location.Equals("Game") ? ConsoleColor.Yellow :
+                                         logEntry.Location.StartsWith("Quest") ? ConsoleColor.Cyan :
+                                         ConsoleColor.Green;
                             break;
                         case LogLevel.VERBOSE:
                             foreground = ConsoleColor.DarkGreen;

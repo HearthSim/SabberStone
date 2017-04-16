@@ -240,8 +240,8 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask Secret(params ISimpleTask[] list)
         {
             var secretList = list.ToList();
-            secretList.Add(new EnqueueTask(1, new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE)));
-            secretList.Add(new EnqueueTask(1, new MoveToGraveYard(EntityType.SOURCE)));
+            secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
+            secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
             return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
         }
 

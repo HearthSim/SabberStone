@@ -114,7 +114,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         // RefTag:
         // - STEALTH = 1
@@ -180,7 +180,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: Your <b>Secrets</b> cost (0).
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void CloakedHuntress_KAR_006()
@@ -288,7 +288,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void MedivhsValet_KAR_092()
@@ -1089,7 +1089,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // --------------------------------------------------------
         // RefTag:
         // - TAUNT = 1
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void AvianWatcher_KAR_037()

@@ -68,7 +68,7 @@ namespace SabberStoneCore.Model
         public void SetOrderOfPlay(string type)
         {
             if (type.Equals("PLAY")
-             || type.Equals("SECRET")
+             || type.Equals("SECRET_OR_QUEST")
              || type.Equals("WEAPON"))
             {
                 OrderOfPlay = Game.NextOop;

@@ -2015,7 +2015,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// RefTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_074", new List<Enchantment> {
 				// TODO [GVG_074] Kezan Mystic && Test: Kezan Mystic_GVG_074
@@ -2182,7 +2182,7 @@ namespace SabberStoneCore.CardSets
 			// Text: If you control a <b>Secret</b> at the end of your turn, restore 4 Health to your hero.
 			// --------------------------------------------------------
 			// RefTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_089", new List<Enchantment> {
 				// TODO [GVG_089] Illuminator && Test: Illuminator_GVG_089

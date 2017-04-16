@@ -692,7 +692,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("UNG_020", new List<Enchantment>
             {
@@ -792,7 +792,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When your opponent casts a spell, add a copy to your hand that costs (0).
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("UNG_024", new List<Enchantment>
             {
@@ -981,7 +981,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // - DISCOVER = 1
             // --------------------------------------------------------
             cards.Add("UNG_011", new List<Enchantment>
@@ -2633,19 +2633,47 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_934", new List<Enchantment>
             {
-                // TODO [UNG_934] Fire Plume's Heart && Test: Fire Plume's Heart_UNG_934
+                // Quest Contributor Trigger
                 new Enchantment
                 {
-                    //Area = EnchantmentArea.HAND,
-                    //Activation = EnchantmentActivation.SECRET,
-                    //Trigger = new TriggerBuilder().Create()
-                    //    .EnableConditions(SelfCondition.IsSecretActive)
-                    //    .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TAUNT, 1)))
-                    //    .TriggerEffect(GameTag.ZONE_POSITION, 0)
-                    //    .SingleTask(
-                    //        )))
-                    //    .Build()
-                }
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
+                        new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TAUNT, 1)))
+                        .TriggerEffect(GameTag.ZONE_POSITION, 0)
+                        .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
+                        .Build()
+                },
+                // Quest Progress Trigger
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new QuestProgressTask())
+                        .Build()
+                },
+                // Quest Reward Trigger
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
+                        .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
+                        .SingleTask(new QuestRewardTask("UNG_934t1"))
+                        .Build()
+                },
+
             });
 
             // --------------------------------------- WEAPON - WARRIOR

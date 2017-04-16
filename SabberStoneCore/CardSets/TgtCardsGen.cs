@@ -550,7 +550,7 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Secret:</b> After your hero is attacked, summon a 3/3 Bear with <b>Taunt</b>.
 			// --------------------------------------------------------
 			// GameTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - TAUNT = 1
@@ -559,9 +559,9 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.DEFENDING, 1)
                         .SingleTask(ComplexTask.Secret(
                             new SummonTask("CS2_125")))
@@ -792,15 +792,15 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Secret:</b> When a friendly minion dies, summon a random minion with the same Cost.
 			// --------------------------------------------------------
 			// GameTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("AT_002", new List<Enchantment> {
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                                .EnableConditions(SelfCondition.IsSecretActive)
+                                .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                                 .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
                                 .SingleTask(ComplexTask.Secret(
                                     new GetGameTagTask(GameTag.COST, EntityType.TARGET),
@@ -975,15 +975,15 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Secret:</b> When your turn starts, give your minions +1/+1.
 			// --------------------------------------------------------
 			// GameTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("AT_073", new List<Enchantment> {
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Secret(
                             new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)))
@@ -1095,7 +1095,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// RefTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("AT_079", new List<Enchantment> {
 				// TODO [AT_079] Mysterious Challenger && Test: Mysterious Challenger_AT_079
