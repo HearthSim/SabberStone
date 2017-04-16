@@ -2567,11 +2567,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_957", new List<Enchantment>
             {
-                // TODO [UNG_957] Direhorn Hatchling && Test: Direhorn Hatchling_UNG_957
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_957t1", EntityType.DECK)
                 },
             });
 
