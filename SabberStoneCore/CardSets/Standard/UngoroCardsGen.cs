@@ -1102,12 +1102,18 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_952", new List<Enchantment>
             {
-                // TODO [UNG_952] Spikeridged Steed && Test: Spikeridged Steed_UNG_952
                 new Enchantment
                 {
                     InfoCardId = "UNG_952e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ComplexTask.Taunt(EntityType.TARGET),
+                        new AddEnchantmentTask(EntityType.TARGET,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = new SummonTask("UNG_810")
+                        }))
                 },
             });
 
