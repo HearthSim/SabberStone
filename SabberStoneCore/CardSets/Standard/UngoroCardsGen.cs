@@ -3484,11 +3484,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_847", new List<Enchantment>
             {
-                // TODO [UNG_847] Blazecaller && Test: Blazecaller_UNG_847
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new DamageTask(5, EntityType.TARGET, false)))
                 },
             });
 
