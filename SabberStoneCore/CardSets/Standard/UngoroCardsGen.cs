@@ -1142,12 +1142,13 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         ComplexTask.Taunt(EntityType.STACK),
+                        new BuffTask(Buffs.AttackHealth(2, 6), EntityType.TARGET),
                         new AddEnchantmentTask(EntityType.TARGET,
-                        new Enchantment
-                        {
-                            Activation = EnchantmentActivation.DEATHRATTLE,
-                            SingleTask = new SummonTask("UNG_810")
-                        }))
+                            new Enchantment
+                            {
+                                Activation = EnchantmentActivation.DEATHRATTLE,
+                                SingleTask = new SummonTask("UNG_810")
+                            }))
                 },
             });
 
@@ -2621,11 +2622,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.DECK),
-                        new RemoveFromDeck(EntityType.DECK),
-                        new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
+                    // TODO need to check where the old deck goes setaside?
+                    //Activation = EnchantmentActivation.SPELL,
+                    //SingleTask = ComplexTask.Create(
+                    //    new CountTask(EntityType.DECK),
+                    //    new RemoveFromDeck(EntityType.DECK),
+                    //    new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
                 },
             });
 
@@ -2658,7 +2660,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
                         new FilterStackTask(SelfCondition.IsDamaged),
-                        new SummonTask())
+                        new SummonStackTask())
                 },
             });
 
@@ -3545,7 +3547,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
-                        new FlagTask(true, new DamageTask(5, EntityType.TARGET, false)))
+                        new FlagTask(true, new DamageTask(5, EntityType.TARGET)))
                 },
             });
 

@@ -1143,10 +1143,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SpikeridgedSteed_UNG_952()
 		{
-			// TODO SpikeridgedSteed_UNG_952 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1157,8 +1156,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spikeridged Steed"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spikeridged Steed"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(false, ((Minion)minion).HasDeathrattle);
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+            Assert.AreEqual(3, ((Minion)minion).AttackDamage);
+            Assert.AreEqual(7, ((Minion)minion).Health);
+            Assert.AreEqual(true, ((Minion)minion).HasDeathrattle);
+        }
 
 		// ---------------------------------------- SPELL - PALADIN
 		// [UNG_954] The Last Kaleidosaur - COST:1 
