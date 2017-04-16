@@ -2622,12 +2622,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    // TODO need to check where the old deck goes setaside?
-                    //Activation = EnchantmentActivation.SPELL,
-                    //SingleTask = ComplexTask.Create(
-                    //    new CountTask(EntityType.DECK),
-                    //    new RemoveFromDeck(EntityType.DECK),
-                    //    new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
+                    Activation = EnchantmentActivation.SPELL,
+                    SingleTask = new ReplaceTask(EntityType.DECK, "UNG_922T1")
                 },
             });
 
