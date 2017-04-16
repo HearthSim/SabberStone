@@ -209,12 +209,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_108", new List<Enchantment>
             {
-                // TODO [UNG_108] Earthen Scales && Test: Earthen Scales_UNG_108
                 new Enchantment
                 {
                     InfoCardId = "UNG_108e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET),
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new ArmorTask())
+
                 },
             });
 
