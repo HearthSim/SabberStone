@@ -453,7 +453,11 @@ namespace SabberStoneCoreConsole
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Alley Armorsmith
-            
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[1]));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+
             ShowLog(game, LogLevel.VERBOSE);
 
             //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());

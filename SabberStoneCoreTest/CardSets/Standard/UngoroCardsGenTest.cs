@@ -2757,7 +2757,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.AreEqual(2, game.CurrentPlayer.Hand.Count);
             Assert.AreEqual("UNG_934t1", game.CurrentPlayer.Hand[1].Card.Id);
             Assert.AreEqual(0, game.CurrentPlayer.Secrets.Count);
-            //Assert.AreEqual("", game.CurrentPlayer.Hand[0].Card.Name);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[1]));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
         }
 
 		// --------------------------------------- WEAPON - WARRIOR

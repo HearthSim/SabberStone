@@ -5,6 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -2757,16 +2758,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_934t1", new List<Enchantment>
             {
-                // TODO [UNG_934t1] Sulfuras && Test: Sulfuras_UNG_934t1
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.WEAPON,
-                    SingleTask = null,
-                },
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new ReplaceHeroPower(Cards.FromId("UNG_934t2")),
                 },
             });
         }
