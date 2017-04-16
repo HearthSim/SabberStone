@@ -2623,7 +2623,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ReplaceTask(EntityType.DECK, "UNG_922T1")
+                    SingleTask = new ReplaceTask(EntityType.DECK, "UNG_922t1")
                 },
             });
 

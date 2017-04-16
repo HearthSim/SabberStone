@@ -2604,10 +2604,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ExploreUngoro_UNG_922()
 		{
-			// TODO ExploreUngoro_UNG_922 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2618,7 +2617,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explore Un'Goro"));
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explore Un'Goro"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual("UNG_922t1", game.CurrentPlayer.Deck[0].Card.Id);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
