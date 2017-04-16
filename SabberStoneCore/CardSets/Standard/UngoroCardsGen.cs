@@ -837,12 +837,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_941", new List<Enchantment>
             {
-                // TODO [UNG_941] Primordial Glyph && Test: Primordial Glyph_UNG_941
                 new Enchantment
                 {
                     InfoCardId = "UNG_941e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL,
+                        new Enchantment()
+                        {
+                            Activation = EnchantmentActivation.HAND,
+                            SingleTask = new BuffTask(Buffs.Cost(-2), EntityType.SOURCE)
+                        }),
                 },
             });
 
