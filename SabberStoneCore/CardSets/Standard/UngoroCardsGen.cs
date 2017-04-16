@@ -1107,7 +1107,7 @@ namespace SabberStoneCore.CardSets.Standard
                     InfoCardId = "UNG_952e",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new ComplexTask.Taunt(EntityType.TARGET),
+                        ComplexTask.Taunt(EntityType.STACK),
                         new AddEnchantmentTask(EntityType.TARGET,
                         new Enchantment
                         {
@@ -2588,7 +2588,11 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ReplaceTask(EntityType.DECK, "UNG_922t1")
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.DECK),
+                        new IncludeTask(EntityType.DECK),
+                        new RemoveFromDeck(EntityType.STACK),
+                        new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
                 },
             });
 
