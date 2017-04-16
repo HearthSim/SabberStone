@@ -138,7 +138,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Hero Power</b>
-            //       Deal $1 damage. *spelldmg
+            //       Deal $1 damage.
             // --------------------------------------------------------
             // PlayReq:
             // - REQ_TARGET_TO_PLAY = 0
@@ -179,7 +179,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Hero Power</b>
-            //       Draw a card and take $2 damage. *spelldmg
+            //       Draw a card and take $2 damage.
             // --------------------------------------------------------
             cards.Add("CS2_056", new List<Enchantment>
             {
@@ -248,7 +248,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - Fac: neutral, Set: core, Rarity: free
             // --------------------------------------------------------
             // Text: <b>Hero Power</b>
-            //       Deal $2 damage to the enemy hero. *spelldmg
+            //       Deal $2 damage to the enemy hero.
             // --------------------------------------------------------
             // PlayReq:
             // - REQ_STEADY_SHOT = 0
