@@ -2225,7 +2225,7 @@ namespace SabberStoneCoreTest.CardSets
         // - BATTLECRY = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void KezanMystic_GVG_074()
@@ -2464,7 +2464,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: If you control a <b>Secret</b> at the end of your turn, restore 4 Health to your hero.
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void Illuminator_GVG_089()

@@ -679,7 +679,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When an enemy attacks your hero, instead it attacks another random character.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Misdirection_EX1_533()
@@ -899,7 +899,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When one of your minions is attacked, summon three 1/1 Snakes.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void SnakeTrap_EX1_554()
@@ -935,7 +935,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> After your opponent plays a minion, deal $4 damage to it. *spelldmg
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Snipe_EX1_609()
@@ -969,7 +969,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When your hero is attacked, deal $2 damage to all enemies. *spelldmg
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void ExplosiveTrap_EX1_610()
@@ -1008,7 +1008,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (2) more.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void FreezingTrap_EX1_611()
@@ -1216,7 +1216,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - DURABILITY = 2
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void EaglehornBow_EX1_536()
@@ -1361,7 +1361,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         // RefTag:
         // - COUNTER = 1
@@ -1403,7 +1403,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         //       gain 8 Armor.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void IceBarrier_EX1_289()
@@ -1436,7 +1436,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> After your opponent plays a minion, summon a copy of it.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void MirrorEntity_EX1_294()
@@ -1466,7 +1466,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         // RefTag:
         // - IMMUNE = 1
@@ -1525,7 +1525,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Vaporize_EX1_594()
@@ -1563,7 +1563,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void Spellbender_tt_010()
@@ -1589,7 +1589,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void EtherealArcanist_EX1_274()
@@ -1697,7 +1697,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - BATTLECRY = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void KirinTorMage_EX1_612()
@@ -1755,7 +1755,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When an enemy attacks, summon a 2/1 Defender as the new target.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void NobleSacrifice_EX1_130()
@@ -1781,7 +1781,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When your hero takes damage, deal_that much damage to the enemy hero.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void EyeForAnEye_EX1_132()
@@ -1814,7 +1814,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> When one of your minions dies, return it to life with 1 Health.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Redemption_EX1_136()
@@ -1994,7 +1994,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: <b>Secret:</b> After your opponent plays a minion, reduce its Health to 1.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Repentance_EX1_379()
@@ -6049,7 +6049,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // Text: Whenever a <b>Secret</b> is played, gain +1/+1.
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Secretkeeper_EX1_080()

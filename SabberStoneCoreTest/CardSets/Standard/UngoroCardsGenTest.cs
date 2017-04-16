@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SabberStoneCore.Actions;
@@ -700,7 +701,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
 		// RefTag:
-		// - SECRET = 1
+		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
 		[TestMethod, Ignore]
 		public void Arcanologist_UNG_020()
@@ -842,7 +843,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// Text: <b>Secret:</b> When your opponent casts a spell, add a copy to your hand that costs (0).
 		// --------------------------------------------------------
 		// GameTag:
-		// - SECRET = 1
+		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
 		[TestMethod, Ignore]
 		public void ManaBind_UNG_024()
@@ -988,7 +989,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
 		// RefTag:
-		// - SECRET = 1
+		// - SECRET_OR_QUEST = 1
 		// - DISCOVER = 1
 		// --------------------------------------------------------
 		[TestMethod, Ignore]
@@ -2677,22 +2678,91 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FirePlumesHeart_UNG_934()
 		{
-			// TODO FirePlumesHeart_UNG_934 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Goldshire Footman"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
 				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = true
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
+		    Assert.AreEqual(true, game.CurrentPlayer.Hand.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Secrets.Count);
+            Assert.AreEqual(true, game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
+                .TrueForAll(p => p.HasTaunt && p[GameTag.QUEST_CONTRIBUTOR] == 1 || p[GameTag.QUEST_CONTRIBUTOR] == 0));
+            Assert.AreEqual(0, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            Assert.AreEqual(0, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            Assert.AreEqual(1, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            Assert.AreEqual(2, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            Assert.AreEqual(3, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            Assert.AreEqual(4, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            Assert.AreEqual(5, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            Assert.AreEqual(6, testCard[GameTag.QUEST_PROGRESS]);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            Assert.AreEqual(6, testCard[GameTag.QUEST_PROGRESS]);
+            Assert.AreEqual(2, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Alley Armorsmith
+            Assert.AreEqual(7, testCard[GameTag.QUEST_PROGRESS]);
+            Assert.AreEqual(2, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual("UNG_934t1", game.CurrentPlayer.Hand[1].Card.Id);
+            Assert.AreEqual(0, game.CurrentPlayer.Secrets.Count);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[1]));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(22, game.CurrentOpponent.Hero.Health);
+        }
 
 		// --------------------------------------- WEAPON - WARRIOR
 		// [UNG_929] Molten Blade - COST:1 [ATK:1/HP:0] 

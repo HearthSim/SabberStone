@@ -11,7 +11,7 @@ namespace SabberStoneCore.Enchants
         BOARD,
         HAND,
         DECK,
-        SECRET,
+        SECRET_OR_QUEST,
         SPELL,
         WEAPON,
         SETASIDE,
