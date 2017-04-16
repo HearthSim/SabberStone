@@ -210,12 +210,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_108", new List<Enchantment>
             {
-                // TODO [UNG_108] Earthen Scales && Test: Earthen Scales_UNG_108
                 new Enchantment
                 {
                     InfoCardId = "UNG_108e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET),
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new ArmorTask())
+
                 },
             });
 
@@ -252,12 +255,45 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_116", new List<Enchantment>
             {
-                // TODO [UNG_116] Jungle Giants && Test: Jungle Giants_UNG_116
+                // Quest Contributor Trigger
                 new Enchantment
                 {
-                    InfoCardId = "UNG_116te",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
+                        new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)))
+                        .TriggerEffect(GameTag.ZONE_POSITION, 0)
+                        .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
+                        .Build()
+                },
+                // Quest Progress Trigger
+                new Enchantment
+                {
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new QuestProgressTask())
+                        .Build()
+                },
+                // Quest Reward Trigger
+                new Enchantment
+                {
+                    Area = EnchantmentArea.SELF,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
+                        .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
+                        .SingleTask(new QuestRewardTask("UNG_116t"))
+                        .Build()
                 },
             });
         }
@@ -270,15 +306,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +1/+1.
             // --------------------------------------------------------
-            cards.Add("UNG_108e", new List<Enchantment>
-            {
-                // TODO [UNG_108e] It's All Scaley... && Test: It's All Scaley..._UNG_108e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_108e", null);
 
             // ------------------------------------ ENCHANTMENT - DRUID
             // [UNG_116te] Romper Stompers (*) - COST:0 
@@ -778,11 +806,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_018", new List<Enchantment>
             {
-                // TODO [UNG_018] Flame Geyser && Test: Flame Geyser_UNG_018
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET, true),
+                        new AddCardTo("UNG_809t1", EntityType.HAND))
+
                 },
             });
 
@@ -841,12 +871,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_941", new List<Enchantment>
             {
-                // TODO [UNG_941] Primordial Glyph && Test: Primordial Glyph_UNG_941
                 new Enchantment
                 {
                     InfoCardId = "UNG_941e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL,
+                        new Enchantment()
+                        {
+                            Activation = EnchantmentActivation.HAND,
+                            SingleTask = new BuffTask(Buffs.Cost(-2), EntityType.SOURCE)
+                        }),
                 },
             });
 
@@ -1102,12 +1136,18 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_952", new List<Enchantment>
             {
-                // TODO [UNG_952] Spikeridged Steed && Test: Spikeridged Steed_UNG_952
                 new Enchantment
                 {
                     InfoCardId = "UNG_952e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        ComplexTask.Taunt(EntityType.STACK),
+                        new AddEnchantmentTask(EntityType.TARGET,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = new SummonTask("UNG_810")
+                        }))
                 },
             });
 
@@ -2022,12 +2062,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_956", new List<Enchantment>
             {
-                // TODO [UNG_956] Spirit Echo && Test: Spirit Echo_UNG_956
                 new Enchantment
                 {
                     InfoCardId = "UNG_956e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = new ReturnHandTask(EntityType.TARGET)
+                        })
                 },
             });
         }
@@ -2557,11 +2601,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_957", new List<Enchantment>
             {
-                // TODO [UNG_957] Direhorn Hatchling && Test: Direhorn Hatchling_UNG_957
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_957t1", EntityType.DECK)
                 },
             });
 
@@ -2576,11 +2619,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_922", new List<Enchantment>
             {
-                // TODO [UNG_922] Explore Un'Goro && Test: Explore Un'Goro_UNG_922
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.DECK),
+                        new RemoveFromDeck(EntityType.DECK),
+                        new EnqueueNumberTask(new AddCardTo("UNG_922t1", EntityType.DECK)))
                 },
             });
 
@@ -2607,11 +2652,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_927", new List<Enchantment>
             {
-                // TODO [UNG_927] Sudden Genesis && Test: Sudden Genesis_UNG_927
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsDamaged),
+                        new SummonTask())
                 },
             });
 
@@ -3380,11 +3427,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_816", new List<Enchantment>
             {
-                // TODO [UNG_816] Servant of Kalimos && Test: Servant of Kalimos_UNG_816
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.ELEMENTAL)))
                 },
             });
 
@@ -3492,11 +3540,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_847", new List<Enchantment>
             {
-                // TODO [UNG_847] Blazecaller && Test: Blazecaller_UNG_847
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new DamageTask(5, EntityType.TARGET, false)))
                 },
             });
 

@@ -29,7 +29,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         TAUNT,
         HUNTER_PALADIN_WARRIOR,
         MURLOC,
-        SECRET
+        SECRET,
+        ELEMENTAL
     }
     public class DiscoverTask : SimpleTask
     {
@@ -176,6 +177,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.MURLOC:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.MURLOC));
+
+                case DiscoverType.ELEMENTAL:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == Race.ELEMENTAL));
 
                 case DiscoverType.MECHANICAL:
                     choiceAction = ChoiceAction.HAND;
