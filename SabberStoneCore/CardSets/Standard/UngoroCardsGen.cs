@@ -2028,12 +2028,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_956", new List<Enchantment>
             {
-                // TODO [UNG_956] Spirit Echo && Test: Spirit Echo_UNG_956
                 new Enchantment
                 {
                     InfoCardId = "UNG_956e",
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
+                        new Enchantment
+                        {
+                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            SingleTask = new ReturnHandTask(EntityType.TARGET)
+                        })
                 },
             });
         }
