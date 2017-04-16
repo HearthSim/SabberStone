@@ -2585,11 +2585,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_922", new List<Enchantment>
             {
-                // TODO [UNG_922] Explore Un'Goro && Test: Explore Un'Goro_UNG_922
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new ReplaceTask(EntityType.DECK, "UNG_922t1")
                 },
             });
 
