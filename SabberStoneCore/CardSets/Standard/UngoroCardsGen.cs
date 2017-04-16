@@ -772,11 +772,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_018", new List<Enchantment>
             {
-                // TODO [UNG_018] Flame Geyser && Test: Flame Geyser_UNG_018
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DamageTask(2, EntityType.TARGET, true),
+                        new AddCardTo("UNG_809t1", EntityType.HAND))
+
                 },
             });
 
