@@ -2239,11 +2239,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.MINIONS),
-                        new MathSubstractionTask(7),
-                        new MathMultiplyTask(-1),
-                        new EnqueueNumberTask(new SummonTask("UNG_211aa")))
+                    SingleTask = new EnqueueTask(7, new SummonTask("UNG_211aa"))
                 },
             });
 
