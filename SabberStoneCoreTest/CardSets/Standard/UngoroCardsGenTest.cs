@@ -669,22 +669,67 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 7
 		// - 676 = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TheMarshQueen_UNG_920()
 		{
-			// TODO TheMarshQueen_UNG_920 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Marsh Queen"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PALADIN,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Grimscale Chum"),
+                    Cards.FromName("Grimscale Chum"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Murloc Tidecaller"),
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Marsh Queen"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Queen Carnassa
+            Assert.AreEqual(15, game.CurrentPlayer.Deck.Count);
+        }
 
 	}
 
