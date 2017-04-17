@@ -12,7 +12,9 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsSilenced => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsSilenced);
         public static SelfCondition IsBoardFull => new SelfCondition(me => me.Controller.Board.IsFull);
         public static SelfCondition IsHandEmpty => new SelfCondition(me => me.Controller.Hand.IsEmpty);
+        public static SelfCondition IsHandFull => new SelfCondition(me => me.Controller.Hand.IsFull);
         public static SelfCondition IsOpHandEmpty => new SelfCondition(me => me.Controller.Opponent.Hand.IsEmpty);
+        public static SelfCondition IsOpHandFull => new SelfCondition(me => me.Controller.Opponent.Hand.IsFull);
 
         public static SelfCondition IsCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
 

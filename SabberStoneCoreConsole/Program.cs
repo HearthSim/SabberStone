@@ -398,20 +398,10 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.WARRIOR,
+                Player1HeroClass = CardClass.HUNTER,
                 DeckPlayer1 = new List<Card>
                 {
-                    Cards.FromName("Acolyte of Pain"),
-                    Cards.FromName("Shieldbearer"),
-                    Cards.FromName("Shieldbearer"),
-                    Cards.FromName("Public Defender"),
-                    Cards.FromName("Battle Rage"),
-                    Cards.FromName("Public Defender"),
-                    Cards.FromName("Goldshire Footman"),
-                    Cards.FromName("Goldshire Footman"),
-                    Cards.FromName("Acolyte of Pain"),
-                    Cards.FromName("Alley Armorsmith"),
-                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Loot Hoarder"),
                 },
                 Player2HeroClass = CardClass.WARRIOR,
                 DeckPlayer2 = new List<Card>
@@ -435,34 +425,16 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Alley Armorsmith
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[1]));
-            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Alarm-o-Bot"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
             ShowLog(game, LogLevel.VERBOSE);
 
-            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
-            //Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
-            //Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
         }
 
         public static void Kazakus()

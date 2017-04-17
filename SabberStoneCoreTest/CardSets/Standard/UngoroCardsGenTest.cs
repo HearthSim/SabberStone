@@ -669,22 +669,67 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 7
 		// - 676 = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TheMarshQueen_UNG_920()
 		{
-			// TODO TheMarshQueen_UNG_920 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Marsh Queen"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PALADIN,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Grimscale Chum"),
+                    Cards.FromName("Grimscale Chum"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Murloc Tidecaller"),
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Marsh Queen"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Queen Carnassa
+            Assert.AreEqual(15, game.CurrentPlayer.Deck.Count);
+        }
 
 	}
 
@@ -1567,22 +1612,66 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void AwakenTheMakers_UNG_940()
 		{
-			// TODO AwakenTheMakers_UNG_940 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Awaken the Makers"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Loot Hoarder"),
+                    Cards.FromName("Loot Hoarder"),
+                    Cards.FromName("Harvest Golem"),
+                    Cards.FromName("Harvest Golem"),
+                    Cards.FromName("Leper Gnome"),
+                    Cards.FromName("Leper Gnome"),
+                    Cards.FromName("Mistress of Mixtures"),
+                    Cards.FromName("Mistress of Mixtures"),
+
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Awaken the Makers"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Amara, Warden of Hope             
+            Assert.AreEqual(40, game.CurrentPlayer.Hero.Health);
+        }
 
 	}
 
@@ -2124,10 +2213,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 10
 		// - 676 = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void UniteTheMurlocs_UNG_942()
 		{
-			// TODO UniteTheMurlocs_UNG_942 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2138,8 +2226,83 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unite the Murlocs"));
-		}
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Bilefin Tidehunter"),
+                    Cards.FromName("Bilefin Tidehunter"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Bluegill Warrior"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Grimscale Oracle"),
+                    Cards.FromName("Coldlight Oracle"),
+                    Cards.FromName("Coldlight Oracle"),
+                    Cards.FromName("Murloc Tidecaller"),
+                    Cards.FromName("Murloc Tidecaller"),
+                    Cards.FromName("Murloc Warleader"),
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unite the Murlocs"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bluegill Warrior
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bluegill Warrior
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Coldlight Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Coldlight Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Megafin
+            Assert.AreEqual(10, game.CurrentPlayer.Hand.Count);
+        }
 
 		// ----------------------------------------- SPELL - SHAMAN
 		// [UNG_956] Spirit Echo - COST:3 
