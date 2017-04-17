@@ -2169,10 +2169,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 10
 		// - 676 = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void UniteTheMurlocs_UNG_942()
 		{
-			// TODO UniteTheMurlocs_UNG_942 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
