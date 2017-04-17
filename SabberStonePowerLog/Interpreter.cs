@@ -191,7 +191,12 @@ namespace SabberStonePowerLog
 
             var powerGame = powerGames.First();
 
-            File.WriteAllText(filePath + "powerLog.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+            var jsonStr = JsonConvert.SerializeObject(powerGame, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+            File.WriteAllText(filePath + "powerLog.json", jsonStr);
             File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
 
             while (powerGame.PowerHistory.Count > 0)
@@ -311,6 +316,15 @@ namespace SabberStonePowerLog
                 Tag = tag,
                 Value = value
             };
+        }
+
+        public static object Load(string path)
+        {
+            return JsonConvert.DeserializeObject(File.ReadAllText(path), 
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
         }
     }
 }
