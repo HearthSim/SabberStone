@@ -6,9 +6,11 @@ namespace SabberStonePowerLog
     {
         static void Main(string[] args)
         {
-            Interpreter interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
+            var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
             interpreter.Parse();
             Console.WriteLine("Done parsing!");
+            var powerGame = Interpreter.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\powerLog.json");
+            Console.WriteLine($"Done loading ... {(powerGame as PowerGame)?.Entities.Count}!");
             Console.ReadKey();
         }
     }
