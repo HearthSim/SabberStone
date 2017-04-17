@@ -16,6 +16,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Type = entityType;
         }
 
+        public HealTask(int amount)
+        {
+            Amount = amount;
+            Type = EntityType.INVALID;
+        }
+
         public int Amount { get; set; }
 
         public EntityType Type { get; set; }
@@ -23,23 +29,38 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public override TaskState Process()
         {
             var source = Source as IPlayable;
-            var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-
-
-            entities.ForEach(p =>
+            if (source == null)
             {
-                var target = p as ICharacter;
-                switch (Amount)
-                {
-                    case -1:
-                        target?.TakeHeal(source, Number);
-                        break;
+                return TaskState.STOP;
+            }
 
-                    default:
-                        target?.TakeHeal(source, Amount);
-                        break;
-                }
-            });
+            if (Type == EntityType.INVALID)
+            {
+                Playables.ForEach(p =>
+                {
+                    var target = p as ICharacter;
+                    target?.TakeHeal(source, Amount);
+                });
+            }
+            else
+            {
+                var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+                
+                entities.ForEach(p =>
+                {
+                    var target = p as ICharacter;
+                    switch (Amount)
+                    {
+                        case -1:
+                            target?.TakeHeal(source, Number);
+                            break;
+
+                        default:
+                            target?.TakeHeal(source, Amount);
+                            break;
+                    }
+                });
+            }
 
             return TaskState.COMPLETE;
         }
