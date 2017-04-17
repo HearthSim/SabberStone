@@ -169,10 +169,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Shellshifter_UNG_101()
 		{
-			// TODO Shellshifter_UNG_101 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -183,8 +182,34 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
-		}
+            var testCard1 =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1, 1));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[0]).HasStealth);
+            Assert.AreEqual(5, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[0]).Health);
+            
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
+            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
+            Assert.AreEqual(3, ((Minion)game.CurrentPlayer.Board[1]).AttackDamage);
+            Assert.AreEqual(5, ((Minion)game.CurrentPlayer.Board[1]).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var chooseBoth = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fandral Staghelm"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, chooseBoth));
+            Assert.AreEqual(true, game.CurrentPlayer.ChooseBoth);
+
+            var testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
+            Assert.AreEqual(4, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[3]).HasTaunt);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[3]).HasStealth);
+            Assert.AreEqual(5, ((Minion)game.CurrentPlayer.Board[3]).AttackDamage);
+            Assert.AreEqual(5, ((Minion)game.CurrentPlayer.Board[3]).Health);
+        }
 
 		// ----------------------------------------- MINION - DRUID
 		// [UNG_109] Elder Longneck - COST:3 [ATK:5/HP:1] 

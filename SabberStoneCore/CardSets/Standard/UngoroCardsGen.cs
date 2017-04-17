@@ -131,9 +131,15 @@ namespace SabberStoneCore.CardSets.Standard
             // - TAUNT = 1
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101",
-                // CHOOSE_ONE
-                null);
+            cards.Add("UNG_101", new List<Enchantment>
+            {
+                new Enchantment
+                {
+                    // CHOOSE_ONE, Choose Both option
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("UNG_101t3", EntityType.SOURCE)
+                }
+            });
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_109] Elder Longneck - COST:3 [ATK:5/HP:1] 
@@ -396,10 +402,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new TransformTask("UNG_101t", EntityType.SOURCE),
-                        new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("UNG_101t", EntityType.SOURCE)
                 },
             });
 
@@ -413,10 +417,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask =  ComplexTask.Create(
-                        new TransformTask("UNG_101t2", EntityType.SOURCE),
-                        new BuffTask(Buffs.Health(2), EntityType.SOURCE))
+                    Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new TransformTask("UNG_101t2", EntityType.SOURCE)
                 },
             });
         }
