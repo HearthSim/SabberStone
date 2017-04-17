@@ -8,60 +8,76 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         {
             Amount = amount;
             Type = entityType;
+            Sort = HealType.Heal;
         }
 
         public HealTask(EntityType entityType)
         {
-            Amount = -1;
             Type = entityType;
+            Sort = HealType.HealNumber;
         }
-
+        
         public HealTask(int amount)
         {
             Amount = amount;
-            Type = EntityType.INVALID;
+            Type = EntityType.STACK;
+            Sort = HealType.HealStack;
         }
 
         public int Amount { get; set; }
 
         public EntityType Type { get; set; }
 
+        internal HealType Sort { get; set; }
+
+        internal enum HealType
+        {
+            Heal, HealNumber, HealStack 
+        }
+
         public override TaskState Process()
         {
             var source = Source as IPlayable;
-            if (source == null)
+            var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+            switch (Sort)
             {
-                return TaskState.STOP;
-            }
-
-            if (Type == EntityType.INVALID)
-            {
-                Playables.ForEach(p =>
-                {
-                    var target = p as ICharacter;
-                    target?.TakeHeal(source, Amount);
-                });
-            }
-            else
-            {
-                var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-                
-                entities.ForEach(p =>
-                {
-                    var target = p as ICharacter;
-                    switch (Amount)
+                case HealType.Heal:
+                    if (Amount < 1)
                     {
-                        case -1:
-                            target?.TakeHeal(source, Number);
-                            break;
-
-                        default:
-                            target?.TakeHeal(source, Amount);
-                            break;
+                        return TaskState.STOP;
                     }
-                });
-            }
 
+                    entities.ForEach(p =>
+                    {
+                        var target = p as ICharacter;
+                        target?.TakeHeal(source, Amount);
+                    });
+                    break;
+
+                case HealType.HealNumber:
+                    entities.ForEach(p =>
+                    {
+                        var target = p as ICharacter;
+                        target?.TakeHeal(source, Number);
+                    });
+                    break;
+
+                case HealType.HealStack:
+                    if ((source == null) || (Amount < 1))
+                    {
+                        return TaskState.STOP;
+                    }
+
+                    Playables.ForEach(p =>
+                    {
+                        var target = p as ICharacter;
+                        target?.TakeHeal(source, Amount);
+                    });
+                    break;
+
+                default:
+                    break;
+            }
             return TaskState.COMPLETE;
         }
 
