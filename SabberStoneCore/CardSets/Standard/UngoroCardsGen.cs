@@ -255,6 +255,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_116", new List<Enchantment>
             {
+                // TODO Write test for it ...
                 // Quest Contributor Trigger
                 new Enchantment
                 {
@@ -635,6 +636,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_920", new List<Enchantment>
             {
+                // Quest Progress Contributor
                 new Enchantment
                 {
                     InfoCardId = "UNG_920t1",
@@ -2110,6 +2112,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_942", new List<Enchantment>
             {
+                // Quest Contributor Trigger
                 new Enchantment
                 {
                     InfoCardId = "UNG_942t",
