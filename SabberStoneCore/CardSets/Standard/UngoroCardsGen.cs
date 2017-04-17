@@ -2115,11 +2115,11 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.HAND),
-                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1)),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.CARDRACE, (int)Race.MURLOC)),
                         new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1)))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.CARDRACE, (int)Race.MURLOC)))
                         .TriggerEffect(GameTag.ZONE_POSITION, 0)
                         .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
                         .Build()
