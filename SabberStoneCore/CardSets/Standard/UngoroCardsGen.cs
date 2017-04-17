@@ -636,15 +636,13 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "UNG_920t1",
-                     Activation = EnchantmentActivation.SPELL,
-                     SingleTask = null,
-                     Area = EnchantmentArea.HAND,
-                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
-                     SingleTask = ComplexTask.Create(
-                         new IncludeTask(EntityType.HAND),
-                         new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1)),
-                         new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
-                     Trigger = new TriggerBuilder().Create()
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1)),
+                        new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
+                    Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.COST, 1)))
                         .TriggerEffect(GameTag.ZONE_POSITION, 0)
@@ -1557,8 +1555,6 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "UNG_940t8",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     SingleTask = ComplexTask.Create(
@@ -2115,8 +2111,6 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "UNG_942t",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
                     Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     SingleTask = ComplexTask.Create(
