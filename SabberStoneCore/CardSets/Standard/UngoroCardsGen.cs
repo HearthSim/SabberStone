@@ -2220,11 +2220,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_942t", new List<Enchantment>
             {
-                // TODO [UNG_942t] Megafin && Test: Megafin_UNG_942t
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(10, ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
+                        new FlagTask(false, ComplexTask.Create(
+                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.MURLOC),
+                        new AddStackTo(EntityType.HAND)))))
                 },
             });
 
