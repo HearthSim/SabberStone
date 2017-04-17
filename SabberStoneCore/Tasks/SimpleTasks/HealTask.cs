@@ -10,23 +10,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Type = entityType;
         }
 
+        public HealTask(EntityType entityType)
+        {
+            Amount = -1;
+            Type = entityType;
+        }
+
         public int Amount { get; set; }
 
         public EntityType Type { get; set; }
 
         public override TaskState Process()
         {
-            if (Amount < 1)
-            {
-                return TaskState.STOP;
-            }
-
             var source = Source as IPlayable;
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+
+
             entities.ForEach(p =>
             {
                 var target = p as ICharacter;
-                target?.TakeHeal(source, Amount);
+                switch (Amount)
+                {
+                    case -1:
+                        target?.TakeHeal(source, Number);
+                        break;
+
+                    default:
+                        target?.TakeHeal(source, Amount);
+                        break;
+                }
             });
 
             return TaskState.COMPLETE;

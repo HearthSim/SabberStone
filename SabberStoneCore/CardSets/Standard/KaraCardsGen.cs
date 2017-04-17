@@ -283,7 +283,7 @@ namespace SabberStoneCore.CardSets.Standard
                             Activation = EnchantmentActivation.HAND,
                             SingleTask = ComplexTask.Create(
                                 new GetGameTagTask(GameTag.COST, EntityType.SOURCE),
-                                new HealNumberTask(EntityType.HERO)),
+                                new HealTask(EntityType.HERO)),
                             RemoveAfterActivation = true
                         }),
                 },
