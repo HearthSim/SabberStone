@@ -645,11 +645,11 @@ namespace SabberStoneCore.CardSets.Standard
                          new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1)),
                          new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
                      Trigger = new TriggerBuilder().Create()
-                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.COST, 1)))
-                         .TriggerEffect(GameTag.ZONE_POSITION, 0)
-                         .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
-                         .Build()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.COST, 1)))
+                        .TriggerEffect(GameTag.ZONE_POSITION, 0)
+                        .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
+                        .Build()
                  },
                  // Quest Progress Trigger
                  new Enchantment
@@ -658,10 +658,10 @@ namespace SabberStoneCore.CardSets.Standard
                      Activation = EnchantmentActivation.SECRET_OR_QUEST,
                      Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                         .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
-                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
-                         .SingleTask(new QuestProgressTask())
-                         .Build()
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new QuestProgressTask())
+                        .Build()
                  },
                  // Quest Reward Trigger
                  new Enchantment
@@ -669,11 +669,11 @@ namespace SabberStoneCore.CardSets.Standard
                      Area = EnchantmentArea.SELF,
                      Activation = EnchantmentActivation.SECRET_OR_QUEST,
                      Trigger = new TriggerBuilder().Create()
-                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
-                         .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
-                         .SingleTask(new QuestRewardTask("UNG_920t1"))
-                         .Build()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
+                        .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
+                        .SingleTask(new QuestRewardTask("UNG_920t1"))
+                        .Build()
                  },
             });
         }
@@ -2112,12 +2112,48 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_942", new List<Enchantment>
             {
-                // TODO [UNG_942] Unite the Murlocs && Test: Unite the Murlocs_UNG_942
                 new Enchantment
                 {
+                    InfoCardId = "UNG_940t8",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = null,
-                },
+                    Area = EnchantmentArea.HAND,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1)),
+                        new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1)))
+                        .TriggerEffect(GameTag.ZONE_POSITION, 0)
+                        .SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
+                        .Build()
+                 },
+                 // Quest Progress Trigger
+                 new Enchantment
+                 {
+                     Area = EnchantmentArea.HAND_AND_BOARD,
+                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                     Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(new QuestProgressTask())
+                        .Build()
+                 },
+                 // Quest Reward Trigger
+                 new Enchantment
+                 {
+                     Area = EnchantmentArea.SELF,
+                     Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                     Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
+                        .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
+                        .SingleTask(new QuestRewardTask("UNG_940t8"))
+                        .Build()
+                 },
             });
 
             // ----------------------------------------- SPELL - SHAMAN
