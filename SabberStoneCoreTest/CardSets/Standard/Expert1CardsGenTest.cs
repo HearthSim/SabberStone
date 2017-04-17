@@ -5151,21 +5151,47 @@ namespace SabberStoneCoreTest.CardSets.Standard
         //       swap this minion with a
         //          random one in your hand.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void AlarmOBot_EX1_006()
         {
-            // TODO AlarmOBot_EX1_006 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
+                Player1HeroClass = CardClass.HUNTER,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Loot Hoarder"),
+                },
+                Player2HeroClass = CardClass.WARRIOR,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("Whirlwind"),
+                    Cards.FromName("Brawl"),
+                    Cards.FromName("Shieldbearer"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Battle Rage"),
+                    Cards.FromName("Public Defender"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Armorsmith"),
+                    Cards.FromName("Acolyte of Pain"),
+                    Cards.FromName("Alley Armorsmith"),
+                    Cards.FromName("Alley Armorsmith"),
+                },
+                FillDecks = false,
+                Shuffle = false
+
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Alarm-o-Bot"));
+
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Alarm-o-Bot"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            Assert.AreEqual(1, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
         }
 
         // --------------------------------------- MINION - NEUTRAL

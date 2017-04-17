@@ -4386,6 +4386,7 @@ namespace SabberStoneCore.CardSets.Standard
                             new FilterStackTask(SelfCondition.IsMinion),
                             new RandomTask(1,EntityType.STACK),
                             new SummonStackTask(),
+                            new MoveToSetaside(EntityType.STACK),
                             new ReturnHandTask(EntityType.SOURCE)))
                         .Build()
                 }

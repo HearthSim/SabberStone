@@ -402,14 +402,6 @@ namespace SabberStoneCoreConsole
                 DeckPlayer1 = new List<Card>
                 {
                     Cards.FromName("Loot Hoarder"),
-                    Cards.FromName("Loot Hoarder"),
-                    Cards.FromName("Harvest Golem"),
-                    Cards.FromName("Harvest Golem"),
-                    Cards.FromName("Leper Gnome"),
-                    Cards.FromName("Leper Gnome"),
-                    Cards.FromName("Mistress of Mixtures"),
-                    Cards.FromName("Mistress of Mixtures"),
-
                 },
                 Player2HeroClass = CardClass.WARRIOR,
                 DeckPlayer2 = new List<Card>
@@ -434,29 +426,15 @@ namespace SabberStoneCoreConsole
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
 
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Awaken the Makers"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Alarm-o-Bot"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Amara, Warden of Hope 
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
             ShowLog(game, LogLevel.VERBOSE);
 
-            //Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
-            //Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
-            //Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
         }
 
         public static void Kazakus()
