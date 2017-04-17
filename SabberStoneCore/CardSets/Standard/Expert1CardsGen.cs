@@ -4374,11 +4374,20 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("EX1_006", new List<Enchantment>
             {
-                // TODO [EX1_006] Alarm-o-Bot && Test: Alarm-o-Bot_EX1_006
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.HAND),
+                            new FilterStackTask(SelfCondition.IsMinion),
+                            new RandomTask(1,EntityType.STACK),
+                            new SummonStackTask(),
+                            new ReturnHandTask(EntityType.SOURCE)))
+                        .Build()
                 }
             });
 
