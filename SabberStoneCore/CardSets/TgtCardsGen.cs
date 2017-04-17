@@ -627,7 +627,7 @@ namespace SabberStoneCore.CardSets
                         new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
                         new FlagTask(true, ComplexTask.Create(
                             new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
-                            new SummonStackTask()))),
+                            new SummonTask()))),
 				},
 			});
 
@@ -805,7 +805,7 @@ namespace SabberStoneCore.CardSets
                                 .SingleTask(ComplexTask.Secret(
                                     new GetGameTagTask(GameTag.COST, EntityType.TARGET),
                                     new RandomMinionNumberTask(GameTag.COST),
-                                    new SummonStackTask()))
+                                    new SummonTask()))
                                 .Build()
                 }
             });
@@ -1081,7 +1081,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.Inspire(ComplexTask.Create(
                         new RandomMinionTask(GameTag.CARDRACE, (int)Race.MURLOC),
-                        new SummonStackTask()))
+                        new SummonTask()))
                 }
 			});
 
@@ -1358,7 +1358,7 @@ namespace SabberStoneCore.CardSets
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = Triggers.Inspire(ComplexTask.Create(
                         new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
-                        new SummonStackTask()))
+                        new SummonTask()))
                 }
             });
 
@@ -2210,7 +2210,7 @@ namespace SabberStoneCore.CardSets
                         new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
                         new FlagTask(true, ComplexTask.Create(
                             new RemoveFromHand(EntityType.STACK),
-                            new SummonStackTask())))
+                            new SummonTask())))
                         ),
 				},
 			});

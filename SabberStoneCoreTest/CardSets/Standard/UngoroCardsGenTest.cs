@@ -2216,16 +2216,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[TestMethod]
 		public void UniteTheMurlocs_UNG_942()
 		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.SHAMAN,
-				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,

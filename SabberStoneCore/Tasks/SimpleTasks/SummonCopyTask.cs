@@ -2,19 +2,28 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SummonStackTask : SimpleTask
+    public class SummonCopyTask : SimpleTask
     {
+        public SummonCopyTask(EntityType type)
+        {
+            Type = type;
+        }
+
+        public EntityType Type { get; set; }
+
         public override TaskState Process()
         {
             if (Controller.Board.IsFull)
                 return TaskState.STOP;
 
-            if (Playables.Count < 1)
+            var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+
+            if (entities.Count < 1)
             {
                 return TaskState.STOP;
             }
 
-            Playables.ForEach(p =>
+            entities.ForEach(p =>
             {
                 // clone task here
                 var task = new SummonTask(p.Card)
@@ -33,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new SummonStackTask();
+            var clone = new SummonCopyTask(Type);
             clone.Copy(this);
             return clone;
         }

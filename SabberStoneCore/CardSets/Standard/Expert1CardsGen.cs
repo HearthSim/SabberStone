@@ -2311,7 +2311,7 @@ namespace SabberStoneCore.CardSets.Standard
                         new FilterStackTask(SelfCondition.IsMinion),
                         new RandomTask(1, EntityType.STACK),
                         new CopyTask(EntityType.STACK, 1),
-                        new SummonStackTask()),
+                        new SummonTask()),
                 },
             });
 
@@ -2939,7 +2939,7 @@ namespace SabberStoneCore.CardSets.Standard
                             Activation = EnchantmentActivation.DEATHRATTLE,
                             SingleTask = ComplexTask.Create(
                                 new CopyTask(EntityType.SOURCE, 1),
-                                new SummonStackTask())
+                                new SummonTask())
                         })
                 },
             });
@@ -4384,10 +4384,10 @@ namespace SabberStoneCore.CardSets.Standard
                         .SingleTask(ComplexTask.Create(
                             new IncludeTask(EntityType.HAND),
                             new FilterStackTask(SelfCondition.IsMinion),
+                            new ReturnHandTask(EntityType.SOURCE),
                             new RandomTask(1,EntityType.STACK),
-                            new SummonStackTask(),
-                            new MoveToSetaside(EntityType.STACK),
-                            new ReturnHandTask(EntityType.SOURCE)))
+                            new RemoveFromHand(EntityType.STACK),
+                            new SummonTask()))
                         .Build()
                 }
             });

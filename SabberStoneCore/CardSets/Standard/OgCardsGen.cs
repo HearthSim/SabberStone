@@ -2294,8 +2294,8 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.GRAVEYARD),
                         new FilterStackTask(SelfCondition.IsDeathrattleMinion),
-                        new CopyTask(EntityType.STACK, 1),
-                        new SummonStackTask())
+                        //new CopyTask(EntityType.STACK, 1),
+                        new SummonCopyTask(EntityType.STACK))
                 }
             });
 
@@ -2941,7 +2941,8 @@ namespace SabberStoneCore.CardSets.Standard
                         new IncludeTask(EntityType.HAND),
                         new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
                         new RemoveFromHand(EntityType.STACK),
-                        new SummonStackTask())
+                        // TODO this will summon copies instead of the hand minions, fix!!!
+                        new SummonCopyTask(EntityType.STACK))
                 }
             });
 

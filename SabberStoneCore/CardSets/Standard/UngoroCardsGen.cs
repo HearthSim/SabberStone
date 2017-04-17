@@ -2753,7 +2753,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = ComplexTask.Create(
                         new IncludeTask(EntityType.MINIONS),
                         new FilterStackTask(SelfCondition.IsDamaged),
-                        new SummonStackTask())
+                        new SummonCopyTask(EntityType.STACK))
                 },
             });
 

@@ -1425,7 +1425,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new RandomMinionNumberTask(GameTag.COST),
-                            new SummonStackTask(),
+                            new SummonTask(),
                             ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                                 new MathSubstractionTask(1),

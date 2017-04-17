@@ -293,8 +293,8 @@ namespace SabberStoneCore.CardSets
                         new IncludeTask(EntityType.GRAVEYARD),
                         new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsRace(Race.MURLOC)),
                         new RandomTask(7, EntityType.STACK),
-                        new CopyTask(EntityType.STACK, 1),
-                        new SummonStackTask())}
+                        //new CopyTask(EntityType.STACK, 1),
+                        new SummonCopyTask(EntityType.STACK))}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
