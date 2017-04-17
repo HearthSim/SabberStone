@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     internal class PowerFullEntity : PowerHistoryEntry
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     public class PowerEntity
     {

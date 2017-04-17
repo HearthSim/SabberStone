@@ -1,6 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     public abstract class PowerHistoryEntry
     {

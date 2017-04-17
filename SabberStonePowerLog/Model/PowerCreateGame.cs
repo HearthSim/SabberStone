@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     internal class PowerCreateGame : PowerHistoryEntry
     {

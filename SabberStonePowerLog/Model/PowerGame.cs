@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     public class PowerGame
     {

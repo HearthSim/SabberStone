@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using SabberStoneCore.Enums;
+using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
 {
@@ -30,7 +31,7 @@ namespace SabberStonePowerLog
             this.file = new StreamReader(File.Open(filePath + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
         }
 
-        public void Parse()
+        public List<PowerGame> Parse(bool createJsonFile, bool createCleanLog)
         {
             List<PowerGame> powerGames = new List<PowerGame>();
             PowerState currentPowerState = PowerState.Start;
@@ -189,23 +190,29 @@ namespace SabberStonePowerLog
                 }
             }
 
-            var powerGame = powerGames.First();
-
-            var jsonStr = JsonConvert.SerializeObject(powerGame, Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                });
-            File.WriteAllText(filePath + "powerLog.json", jsonStr);
-            File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
-
-            while (powerGame.PowerHistory.Count > 0)
+            if (createJsonFile)
             {
-                var powerHistoryEntry = powerGame.PowerHistory.Dequeue();
-                powerHistoryEntry.Process(powerGame);
+                var jsonStr = JsonConvert.SerializeObject(powerGames, Formatting.Indented,
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
+                File.WriteAllText(filePath + "powerLog.json", jsonStr);
             }
 
-            File.WriteAllText(filePath + "powerLogProc.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+            if (createCleanLog)
+            {
+                File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
+            }
+
+            //while (powerGame.PowerHistory.Count > 0)
+            //{
+            //    var powerHistoryEntry = powerGame.PowerHistory.Dequeue();
+            //    powerHistoryEntry.Process(powerGame);
+            //}
+            //File.WriteAllText(filePath + "powerLogProc.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+
+            return powerGames;
         }
 
         private PowerBlockStart ProcessBlockStart(PowerGame powerGame, string str)

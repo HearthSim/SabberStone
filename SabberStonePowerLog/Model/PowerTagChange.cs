@@ -1,7 +1,6 @@
-﻿using System;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 
-namespace SabberStonePowerLog
+namespace SabberStonePowerLog.Model
 {
     internal class PowerTagChange : PowerHistoryEntry
     {

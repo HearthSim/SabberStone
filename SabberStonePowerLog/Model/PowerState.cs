@@ -1,4 +1,4 @@
-﻿namespace SabberStonePowerLog
+﻿namespace SabberStonePowerLog.Model
 {
     enum PowerState
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
 {
@@ -7,11 +8,10 @@ namespace SabberStonePowerLog
         static void Main(string[] args)
         {
             var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
-            interpreter.Parse();
-            Console.WriteLine("Done parsing!");
-            var powerGame = Interpreter.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\powerLog.json");
-            Console.WriteLine($"Done loading ... {(powerGame as PowerGame)?.Entities.Count}!");
+            var games = interpreter.Parse(true, true);
+            Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
             Console.ReadKey();
+
         }
     }
 }
