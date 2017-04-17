@@ -2114,7 +2114,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    InfoCardId = "UNG_940t8",
+                    InfoCardId = "UNG_942t",
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = null,
                     Area = EnchantmentArea.HAND,
@@ -2151,7 +2151,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsQuestDone))
                         .TriggerEffect(GameTag.QUEST_PROGRESS, 1)
-                        .SingleTask(new QuestRewardTask("UNG_940t8"))
+                        .SingleTask(new QuestRewardTask("UNG_942t"))
                         .Build()
                  },
             });
