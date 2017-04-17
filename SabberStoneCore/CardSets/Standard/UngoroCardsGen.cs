@@ -131,15 +131,9 @@ namespace SabberStoneCore.CardSets.Standard
             // - TAUNT = 1
             // - STEALTH = 1
             // --------------------------------------------------------
-            cards.Add("UNG_101", new List<Enchantment>
-            {
-                // TODO [UNG_101] Shellshifter && Test: Shellshifter_UNG_101
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_101",
+                // CHOOSE_ONE
+                null);
 
             // ----------------------------------------- MINION - DRUID
             // [UNG_109] Elder Longneck - COST:3 [ATK:5/HP:1] 
@@ -400,11 +394,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_101a", new List<Enchantment>
             {
-                // TODO [UNG_101a] Raptor Form && Test: Raptor Form_UNG_101a
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new TransformTask("UNG_101t", EntityType.SOURCE),
+                        new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
                 },
             });
 
@@ -416,11 +411,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_101b", new List<Enchantment>
             {
-                // TODO [UNG_101b] Direhorn Form && Test: Direhorn Form_UNG_101b
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask =  ComplexTask.Create(
+                        new TransformTask("UNG_101t2", EntityType.SOURCE),
+                        new BuffTask(Buffs.Health(2), EntityType.SOURCE))
                 },
             });
         }
