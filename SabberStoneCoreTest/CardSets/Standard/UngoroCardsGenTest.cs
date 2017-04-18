@@ -2247,7 +2247,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
                 Player1HeroClass = CardClass.WARRIOR,
                 DeckPlayer1 = new List<Card>
                 {
-                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Tidehunter"),
                     Cards.FromName("Murloc Raider"),
                     Cards.FromName("Bilefin Tidehunter"),
                     Cards.FromName("Bilefin Tidehunter"),
@@ -2286,7 +2286,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unite the Murlocs"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
+            Assert.AreEqual(2, testCard[GameTag.QUEST_PROGRESS]);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
