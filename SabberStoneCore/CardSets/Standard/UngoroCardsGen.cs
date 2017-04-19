@@ -2527,15 +2527,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: At the start of the corrupting player's turn, destroy this minion.
             // --------------------------------------------------------
-            cards.Add("UNG_831e", new List<Enchantment>
-            {
-                // TODO [UNG_831e] Corrupting Mist && Test: Corrupting Mist_UNG_831e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_831e", null);
 
             // ---------------------------------- ENCHANTMENT - WARLOCK
             // [UNG_836e] Remembrance (*) - COST:0 
