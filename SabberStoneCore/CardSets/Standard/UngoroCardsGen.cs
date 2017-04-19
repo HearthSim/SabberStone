@@ -2402,11 +2402,18 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_835", new List<Enchantment>
             {
-                // TODO [UNG_835] Chittering Tunneler && Test: Chittering Tunneler_UNG_835
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.SPELL,
+                        new Enchantment()
+                        {
+                            Activation = EnchantmentActivation.HAND,
+                            SingleTask = ComplexTask.Create(
+                                new GetGameTagTask(GameTag.COST, EntityType.SOURCE),
+                                new DamageNumberTask(EntityType.HERO)),
+                            RemoveAfterActivation = true
+                        })
                 },
             });
 
