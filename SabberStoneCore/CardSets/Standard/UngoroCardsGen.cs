@@ -2535,15 +2535,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: +2/+2 each time this is discarded.
             // --------------------------------------------------------
-            cards.Add("UNG_836e", new List<Enchantment>
-            {
-                // TODO [UNG_836e] Remembrance && Test: Remembrance_UNG_836e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_836e", null);
 
             // --------------------------------------- MINION - WARLOCK
             // [UNG_829t2] Nether Portal (*) - COST:11 [ATK:0/HP:1] 
