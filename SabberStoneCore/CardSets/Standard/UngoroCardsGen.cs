@@ -3728,12 +3728,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_907", new List<Enchantment>
             {
-                // TODO [UNG_907] Ozruk && Test: Ozruk_UNG_907
                 new Enchantment
                 {
                     InfoCardId = "UNG_907e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagControllerTask(GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN),
+                        new MathMultiplyTask(5),
+                        new BuffHealthNumberTask(EntityType.SOURCE))
                 },
             });
 
