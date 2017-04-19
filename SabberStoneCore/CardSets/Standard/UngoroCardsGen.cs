@@ -2861,15 +2861,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Transforming into random weapons.
             // --------------------------------------------------------
-            cards.Add("UNG_929e", new List<Enchantment>
-            {
-                // TODO [UNG_929e] Magmic && Test: Magmic_UNG_929e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_929e", null);
 
             // --------------------------------------- MINION - WARRIOR
             // [UNG_957t1] Direhorn Matriarch (*) - COST:5 [ATK:6/HP:9] 
