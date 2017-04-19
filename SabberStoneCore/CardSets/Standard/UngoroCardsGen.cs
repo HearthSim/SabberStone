@@ -2318,11 +2318,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_047", new List<Enchantment>
             {
-                // TODO [UNG_047] Ravenous Pterrordax && Test: Ravenous Pterrordax_UNG_047
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DestroyTask(EntityType.TARGET),
+                        new EnqueueTask(2, new AdaptTask(EntityType.SOURCE)))
                 },
             });
 
