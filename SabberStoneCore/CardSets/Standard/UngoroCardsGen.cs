@@ -2025,7 +2025,9 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DiscoverTask(DiscoverType.ELEMENTAL_INVOCATION)
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.ELEMENTAL_INVOCATION)))
                 },
             });
 
