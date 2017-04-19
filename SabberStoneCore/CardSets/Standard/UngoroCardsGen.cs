@@ -2885,11 +2885,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_922t1", new List<Enchantment>
             {
-                // TODO [UNG_922t1] Choose Your Path && Test: Choose Your Path_UNG_922t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.ALL)
                 },
             });
 
