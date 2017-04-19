@@ -3080,11 +3080,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_075", new List<Enchantment>
             {
-                // TODO [UNG_075] Vicious Fledgling && Test: Vicious Fledgling_UNG_075
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.DECK,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsAttacking)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsHero))
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .FastExecution(true)
+                        .SingleTask(new AdaptTask(EntityType.SOURCE))
+                        .Build()
                 }
             });
 
