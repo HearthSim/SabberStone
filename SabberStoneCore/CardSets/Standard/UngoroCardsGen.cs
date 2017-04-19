@@ -3673,11 +3673,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_851", new List<Enchantment>
             {
-                // TODO [UNG_851] Elise the Trailblazer && Test: Elise the Trailblazer_UNG_851
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new AddCardTo("UNG_851t1", EntityType.DECK)
                 },
             });
 
