@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
@@ -12,6 +13,20 @@ namespace SabberStonePowerLog
             Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
             Console.ReadKey();
 
+            if (games.Any())
+            {
+                PowerGame game = games.Last();
+
+                Console.WriteLine($"Starting a syncronized PowerGame!");
+
+                while (game.PowerHistory.Count > 0)
+                {
+                    PowerHistoryEntry entry = game.PowerHistory.Dequeue();
+
+                    Console.WriteLine($"Dequeue {entry}.");
+                    Console.ReadKey();
+                }
+            }
         }
     }
 }

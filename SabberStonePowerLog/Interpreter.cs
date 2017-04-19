@@ -126,10 +126,19 @@ namespace SabberStonePowerLog
                     {
                         currentPowerState = PowerState.BlockStart;
                         currentPowerHistoryEntry = ProcessBlockStart(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("BLOCK_END"))
                     {
                         currentPowerState = PowerState.BlockEnd;
+                        currentPowerHistoryEntry = ProcessBlockEnd(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("HIDE_ENTITY"))
                     {
@@ -238,6 +247,11 @@ namespace SabberStonePowerLog
             {
                 BlockType = blockType,
             };
+        }
+
+        private PowerBlockEnd ProcessBlockEnd(PowerGame powerGame, string str)
+        {
+            return new PowerBlockEnd();
         }
 
         private int GetIdFromEntity(string str, PowerGame powerGame)
