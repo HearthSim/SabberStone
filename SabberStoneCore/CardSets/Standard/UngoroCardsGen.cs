@@ -3085,7 +3085,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.BOARD,
                     Activation = EnchantmentActivation.DECK,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsAttacking)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced, SelfCondition.IsAttacking)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsHero))
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
