@@ -31,7 +31,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         MURLOC,
         SECRET,
         ELEMENTAL,
-        ALL
+        ALL,
+        ELEMENTAL_INVOCATION
     }
     public class DiscoverTask : SimpleTask
     {
@@ -200,6 +201,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Cards.FromId("LOEA16_3"),
                             Cards.FromId("LOEA16_4"),
                             Cards.FromId("LOEA16_5")
+                        }
+                    };
+
+                case DiscoverType.ELEMENTAL_INVOCATION:
+                    choiceAction = ChoiceAction.HAND;
+                    return new[]
+                    {
+                        new List<Card>
+                        {
+                            Cards.FromId("UNG_211a"),
+                            Cards.FromId("UNG_211b"),
+                            Cards.FromId("UNG_211c"),
+                            Cards.FromId("UNG_211d")
                         }
                     };
 

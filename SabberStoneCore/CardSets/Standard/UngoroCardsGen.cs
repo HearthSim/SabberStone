@@ -2022,12 +2022,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_211", new List<Enchantment>
             {
-                // TODO [UNG_211] Kalimos, Primal Lord && Test: Kalimos, Primal Lord_UNG_211
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    // TODO need to add a SpellCast Discover like Task
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.ELEMENTAL_INVOCATION)
                 },
             });
 
