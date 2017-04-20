@@ -30,7 +30,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         HUNTER_PALADIN_WARRIOR,
         MURLOC,
         SECRET,
-        ELEMENTAL
+        ELEMENTAL,
+        ALL,
+        ELEMENTAL_INVOCATION,
+        OWN_SPELL,
+        COST_8_MORE_SUMMON,
+        OP_HERO
     }
     public class DiscoverTask : SimpleTask
     {
@@ -88,7 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 {
                     resultCards.ForEach(p => classDiscover.Remove(p));
                     resultCards.Add(Util<Card>.Choose(classDiscover));
-                } 
+                }
             }
 
             // TODO work on it ...
@@ -115,7 +120,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var classCnt = 0;
             var uniqueList = new List<Card>(cardsToDiscover[0]);
 
-            if (cardsToDiscover.Length> 1)
+            if (cardsToDiscover.Length > 1)
             {
                 classCnt = cardsToDiscover[1].Count;
                 uniqueList.AddRange(cardsToDiscover[1]);
@@ -151,7 +156,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.BASIC_HEROPOWERS:
                     choiceAction = ChoiceAction.HEROPOWER;
-                    return new [] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToList()};
+                    return new[] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToList() };
 
                 case DiscoverType.DRAGON:
                     choiceAction = ChoiceAction.HAND;
@@ -160,7 +165,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.OVERLOAD:
                     choiceAction = ChoiceAction.HAND;
                     var cardSet = Cards.FormatTypeCards(Game.FormatType);
-                    return new [] { cardSet.Where(p => p.HasOverload).ToList() };
+                    return new[] { cardSet.Where(p => p.HasOverload).ToList() };
 
                 case DiscoverType.TAUNT:
                     choiceAction = ChoiceAction.HAND;
@@ -186,8 +191,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Race == Race.MECHANICAL));
 
+                case DiscoverType.ALL:
+                    choiceAction = ChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Cost >= 0));
+
                 case DiscoverType.ARTIFACT:
-                    choiceAction = ChoiceAction.HAND; 
+                    choiceAction = ChoiceAction.HAND;
                     return new[]
                     {
                         new List<Card>
@@ -195,6 +204,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Cards.FromId("LOEA16_3"),
                             Cards.FromId("LOEA16_4"),
                             Cards.FromId("LOEA16_5")
+                        }
+                    };
+
+                case DiscoverType.ELEMENTAL_INVOCATION:
+                    choiceAction = ChoiceAction.HAND;
+                    return new[]
+                    {
+                        new List<Card>
+                        {
+                            Cards.FromId("UNG_211a"),
+                            Cards.FromId("UNG_211b"),
+                            Cards.FromId("UNG_211c"),
+                            Cards.FromId("UNG_211d")
                         }
                     };
 
@@ -229,6 +251,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
 
+                case DiscoverType.OWN_SPELL:
+                    choiceAction = ChoiceAction.HAND;
+                    return new[] { IncludeTask.GetEntites(EntityType.DECK, Controller, Source, Target, Playables).Select(p => p.Card).Where(p => p.Type == CardType.SPELL).ToList() };
+
                 case DiscoverType.BASIC_TOTEM:
                     choiceAction = ChoiceAction.SUMMON;
                     return new[]
@@ -242,9 +268,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         }
                     };
 
+                case DiscoverType.COST_8_MORE_SUMMON:
+                    choiceAction = ChoiceAction.SUMMON;
+                    return GetFilter(list => list.Where(p => p.Cost >= 8));
+
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;
-                    return new [] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() } ;
+                    return new[] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
+
+                case DiscoverType.OP_HERO:
+                    choiceAction = ChoiceAction.HAND; ;
+                    return new[] { IncludeTask.GetEntites(EntityType.OP_HERO, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
@@ -254,7 +288,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-            return new [] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
+            return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
                             cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
                             cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
         }
@@ -265,7 +299,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.BasicHeroes);
             var nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
             var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
-            return new [] { nonClassCards.ToList(), classCards.ToList() };
+            return new[] { nonClassCards.ToList(), classCards.ToList() };
         }
 
         public override ISimpleTask Clone()
