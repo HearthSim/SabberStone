@@ -230,11 +230,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_111", new List<Enchantment>
             {
-                // TODO [UNG_111] Living Mana && Test: Living Mana_UNG_111
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.SpendAllManaTask(
+                        ComplexTask.Create(
+                            new SummonTask("UNG_111t1"),
+                            new EnqueueNumberTask(
+                                new ManaCrystalEmptyTask(-1))))
                 },
             });
 
