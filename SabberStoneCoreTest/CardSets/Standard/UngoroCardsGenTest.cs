@@ -1955,22 +1955,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Hallucination_UNG_856()
 		{
-			// TODO Hallucination_UNG_856 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hallucination"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hallucination"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(4, game.CurrentPlayer.Hand.Count);
+            var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(5, game.CurrentPlayer.Hand.Count);
+            Assert.AreEqual(CardClass.WARRIOR, game.CurrentPlayer.Hand[4].Card.Class);
+        }
 
 		// ----------------------------------------- WEAPON - ROGUE
 		// [UNG_061] Obsidian Shard - COST:4 [ATK:3/HP:0] 

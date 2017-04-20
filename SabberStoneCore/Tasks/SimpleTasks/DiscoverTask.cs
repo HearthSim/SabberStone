@@ -277,12 +277,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     return new[] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
 
                 case DiscoverType.OP_HERO:
-                    choiceAction = ChoiceAction.HAND; ;
-                    return new[] { IncludeTask.GetEntites(EntityType.OP_HERO, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
+                    choiceAction = ChoiceAction.HAND;
+                    return GetClassCard(Controller.Opponent.HeroClass);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
             }
+        }
+
+        private List<Card>[] GetClassCard(CardClass class1)
+        {
+            var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+            return new[] { cardSet[class1].Where(p => p.Class == class1).ToList()};
         }
 
         private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
