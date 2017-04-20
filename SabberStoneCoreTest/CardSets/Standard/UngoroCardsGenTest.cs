@@ -2668,10 +2668,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TarLord_UNG_838()
 		{
-			// TODO TarLord_UNG_838 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2682,8 +2681,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lord"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lord"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, testCard.Enchants.Count);
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(5, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - WARRIOR
 		// [UNG_925] Ornery Direhorn - COST:6 [ATK:5/HP:5] 
@@ -4119,7 +4125,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void EliseTheTrailblazer_UNG_851()
 		{
 			// TODO EliseTheTrailblazer_UNG_851 test
@@ -4134,7 +4140,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise the Trailblazer"));
-		}
+            Assert.AreEqual(true, false); // need to test this with [UNG_851t1] Un'Goro Pack
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [UNG_900] Spiritsinger Umbra - COST:4 [ATK:3/HP:4] 
@@ -4206,10 +4213,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TarCreeper_UNG_928()
 		{
-			// TODO TarCreeper_UNG_928 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4220,8 +4226,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Creeper"));
-		}
+            var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Creeper"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, testCard.Enchants.Count);
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(3, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [UNG_937] Primalfin Lookout - COST:3 [ATK:3/HP:2] 

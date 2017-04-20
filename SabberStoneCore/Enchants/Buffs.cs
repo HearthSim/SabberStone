@@ -230,5 +230,18 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
+        {
+            return new Enchant
+            {
+                TurnsActive = oneTurnActive ? 0 : -1,
+                EnableConditions = SelfBuffConditions,
+                ApplyConditions = new List<RelaCondition> { RelaCondition.IsMe(SelfCondition.IsNotCurrentPlayer) },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [tag] = amount,
+                }
+            };
+        }
     }
 }

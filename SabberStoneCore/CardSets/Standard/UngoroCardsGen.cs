@@ -2329,25 +2329,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Enchant = new Enchant
-                    {
-                        TurnsActive = -1,
-                        EnableConditions = new List<SelfCondition>()
-                        {
-                            SelfCondition.IsInZone(Zone.PLAY),
-                            SelfCondition.IsNotSilenced
-                        },
-                        ApplyConditions = new List<RelaCondition>()
-                        {
-                            RelaCondition.IsMe(SelfCondition.IsNotCurrentPlayer)
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.ATK] = 3
-                        }
-                    }
+                    SingleTask = new BuffTask(Buffs.OnlyOpponentTurn(GameTag.ATK, 3), EntityType.SOURCE)
                 }
             });
 
@@ -2617,24 +2600,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(new BuffTask(Buffs.Attack(-4), EntityType.SOURCE))
-                        .Build()
+                    SingleTask = new BuffTask(Buffs.OnlyOpponentTurn(GameTag.ATK, 4), EntityType.SOURCE)
                 },
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(new BuffTask(Buffs.Attack(4), EntityType.SOURCE))
-                        .Build()
-                }
             });
 
             // --------------------------------------- MINION - WARRIOR
@@ -3765,24 +3733,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(new BuffTask(Buffs.Attack(-2), EntityType.SOURCE))
-                        .Build()
+                    SingleTask = new BuffTask(Buffs.OnlyOpponentTurn(GameTag.ATK, 2), EntityType.SOURCE)
                 },
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
-                        .Build()
-                }
             });
 
             // --------------------------------------- MINION - NEUTRAL
