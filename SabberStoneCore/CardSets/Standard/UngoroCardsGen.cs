@@ -3758,11 +3758,25 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_928", new List<Enchantment>
             {
-                // TODO [UNG_928] Tar Creeper && Test: Tar Creeper_UNG_928
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(-2), EntityType.SOURCE))
+                        .Build()
+                },
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
+                        .Build()
                 }
             });
 
