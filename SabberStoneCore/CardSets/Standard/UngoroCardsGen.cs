@@ -3308,11 +3308,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_099", new List<Enchantment>
             {
-                // TODO [UNG_099] Charged Devilsaur && Test: Charged Devilsaur_UNG_099
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new BuffTask(Buffs.Simple(GameTag.CANNOT_ATTACK_HEROES, 1, true), EntityType.SOURCE)
                 },
             });
 
