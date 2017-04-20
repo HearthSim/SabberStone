@@ -972,15 +972,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // Text: Take an extra turn.
             // --------------------------------------------------------
-            cards.Add("UNG_028e", new List<Enchantment>
-            {
-                // TODO [UNG_028e] Insightful && Test: Insightful_UNG_028e
-                new Enchantment
-                {
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-            });
+            cards.Add("UNG_028e", null);
 
             // ------------------------------------- ENCHANTMENT - MAGE
             // [UNG_941e] Primal Magic (*) - COST:0 
