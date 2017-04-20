@@ -1812,11 +1812,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_856", new List<Enchantment>
             {
-                // TODO [UNG_856] Hallucination && Test: Hallucination_UNG_856
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.OP_HERO),
                 },
             });
 

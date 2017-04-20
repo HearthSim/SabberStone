@@ -34,7 +34,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         ALL,
         ELEMENTAL_INVOCATION,
         OWN_SPELL,
-        COST_8_MORE_SUMMON
+        COST_8_MORE_SUMMON,
+        OP_HERO
     }
     public class DiscoverTask : SimpleTask
     {
@@ -274,6 +275,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;
                     return new[] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
+
+                case DiscoverType.OP_HERO:
+                    choiceAction = ChoiceAction.HAND; ;
+                    return new[] { IncludeTask.GetEntites(EntityType.OP_HERO, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
