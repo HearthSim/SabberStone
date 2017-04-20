@@ -2334,7 +2334,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .TriggerEffect(GameTag.TURN_START, 1)
                         .SingleTask(new BuffTask(Buffs.Attack(-3), EntityType.SOURCE))
                         .Build()
                 },
@@ -2344,7 +2344,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .TriggerEffect(GameTag.TURN_START, -1)
                         .SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
                         .Build()
                 }
@@ -2614,11 +2614,25 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_838", new List<Enchantment>
             {
-                // TODO [UNG_838] Tar Lord && Test: Tar Lord_UNG_838
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(new BuffTask(Buffs.Attack(-4), EntityType.SOURCE))
+                        .Build()
+                },
+                new Enchantment
+                {
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .SingleTask(new BuffTask(Buffs.Attack(4), EntityType.SOURCE))
+                        .Build()
                 }
             });
 
