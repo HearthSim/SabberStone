@@ -2413,10 +2413,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void TarLurker_UNG_049()
 		{
-			// TODO TarLurker_UNG_049 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2427,21 +2426,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lurker"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lurker"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, testCard.Enchants.Count);
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(4, ((Minion)testCard).AttackDamage);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            Assert.AreEqual(1, ((Minion)testCard).AttackDamage);
+        }
 
-		// --------------------------------------- MINION - WARLOCK
-		// [UNG_830] Cruel Dinomancer - COST:6 [ATK:5/HP:5] 
-		// - Fac: neutral, Set: ungoro, Rarity: rare
-		// --------------------------------------------------------
-		// Text: [x]<b>Deathrattle:</b> Summon a
-		//       random minion you
-		//       discarded this game.
-		// --------------------------------------------------------
-		// GameTag:
-		// - DEATHRATTLE = 1
-		// --------------------------------------------------------
-		[TestMethod, Ignore]
+        // --------------------------------------- MINION - WARLOCK
+        // [UNG_830] Cruel Dinomancer - COST:6 [ATK:5/HP:5] 
+        // - Fac: neutral, Set: ungoro, Rarity: rare
+        // --------------------------------------------------------
+        // Text: [x]<b>Deathrattle:</b> Summon a
+        //       random minion you
+        //       discarded this game.
+        // --------------------------------------------------------
+        // GameTag:
+        // - DEATHRATTLE = 1
+        // --------------------------------------------------------
+        [TestMethod, Ignore]
 		public void CruelDinomancer_UNG_830()
 		{
 			// TODO CruelDinomancer_UNG_830 test

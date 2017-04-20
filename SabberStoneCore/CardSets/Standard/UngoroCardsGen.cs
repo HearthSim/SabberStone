@@ -2329,23 +2329,25 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
+                    Area = EnchantmentArea.SELF,
                     Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(new BuffTask(Buffs.Attack(-3), EntityType.SOURCE))
-                        .Build()
-                },
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
-                        .Build()
+                    Enchant = new Enchant
+                    {
+                        TurnsActive = -1,
+                        EnableConditions = new List<SelfCondition>()
+                        {
+                            SelfCondition.IsInZone(Zone.PLAY),
+                            SelfCondition.IsNotSilenced
+                        },
+                        ApplyConditions = new List<RelaCondition>()
+                        {
+                            RelaCondition.IsMe(SelfCondition.IsNotCurrentPlayer)
+                        },
+                        Effects = new Dictionary<GameTag, int>
+                        {
+                            [GameTag.ATK] = 3
+                        }
+                    }
                 }
             });
 

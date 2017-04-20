@@ -18,6 +18,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsOpHandFull => new SelfCondition(me => me.Controller.Opponent.Hand.IsFull);
 
         public static SelfCondition IsCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
+        public static SelfCondition IsNotCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);
 
         public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.Combo);
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
