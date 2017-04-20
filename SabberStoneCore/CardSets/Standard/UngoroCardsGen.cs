@@ -3706,15 +3706,20 @@ namespace SabberStoneCore.CardSets.Standard
             // - ELITE = 1
             // --------------------------------------------------------
             // RefTag:
-            // - DEATHRATTLE = 1
+            // - DEATHRATTLE = 1 
             // --------------------------------------------------------
             cards.Add("UNG_900", new List<Enchantment>
             {
-                // TODO [UNG_900] Spiritsinger Umbra && Test: Spiritsinger Umbra_UNG_900
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.HAND), SelfCondition.IsNotSilenced)
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsDeathrattleMinion))
+                        .TriggerEffect(GameTag.SUMMONED, 1)
+                        .SingleTask(new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE))
+                        .Build()
                 }
             });
 
