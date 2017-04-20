@@ -233,11 +233,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.SpendAllManaTask(
-                        ComplexTask.Create(
-                            new SummonTask("UNG_111t1"),
-                            new EnqueueNumberTask(
-                                new ManaCrystalEmptyTask(-1))))
+                    SingleTask = SpecificTask.LivingMana
                 },
             });
 

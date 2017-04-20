@@ -347,10 +347,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Transform your Mana Crystals into 2/2 minions. Recover the mana when they die.
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void LivingMana_UNG_111()
 		{
-			// TODO LivingMana_UNG_111 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -359,10 +358,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecks = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
+			game.Player1.BaseMana = 5;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Mana"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Mana"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            Assert.AreEqual(0, game.CurrentPlayer.BaseMana);
+            Assert.AreEqual(5, game.CurrentPlayer.Board.Count);
+        }
 
 		// ------------------------------------------ SPELL - DRUID
 		// [UNG_116] Jungle Giants - COST:1 
