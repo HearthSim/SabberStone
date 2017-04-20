@@ -3903,11 +3903,12 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_851t1", new List<Enchantment>
             {
-                // TODO [UNG_851t1] Un'Goro Pack && Test: Un'Goro Pack_UNG_851t1
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new EnqueueTask(5, ComplexTask.Create(
+                        new RandomCardTask(CardSet.UNGORO),
+                        new AddStackTo(EntityType.HAND)))
                 },
             });
 
