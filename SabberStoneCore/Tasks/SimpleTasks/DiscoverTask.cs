@@ -32,7 +32,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         SECRET,
         ELEMENTAL,
         ALL,
-        ELEMENTAL_INVOCATION
+        ELEMENTAL_INVOCATION,
+        OWN_SPELL
     }
     public class DiscoverTask : SimpleTask
     {
@@ -247,6 +248,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.SPELL:
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
+
+                case DiscoverType.OWN_SPELL:
+                    choiceAction = ChoiceAction.HAND;
+                    return new[] { IncludeTask.GetEntites(EntityType.DECK, Controller, Source, Target, Playables).Select(p => p.Card).Where(p => p.Type == CardType.SPELL).ToList() };
 
                 case DiscoverType.BASIC_TOTEM:
                     choiceAction = ChoiceAction.SUMMON;

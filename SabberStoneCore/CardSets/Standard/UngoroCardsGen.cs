@@ -1476,11 +1476,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_029", new List<Enchantment>
             {
-                // TODO [UNG_029] Shadow Visions && Test: Shadow Visions_UNG_029
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.OWN_SPELL)
                 },
             });
 
