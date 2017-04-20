@@ -2131,10 +2131,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void KalimosPrimalLord_UNG_211()
 		{
-			// TODO KalimosPrimalLord_UNG_211 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2145,8 +2144,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalimos, Primal Lord"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalimos, Primal Lord"));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Igneous Elemental"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+		    var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(1, game.CurrentPlayer.Graveyard.Count); // Invocation must be in graveyard ...
+        }
 
 		// ---------------------------------------- MINION - SHAMAN
 		// [UNG_938] Hot Spring Guardian - COST:3 [ATK:2/HP:4] 
