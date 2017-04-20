@@ -979,7 +979,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new RevealStealthTask(EntityType.MINIONS),
+                        new RevealStealthTask(EntityType.ALLMINIONS),
                         new MoveToGraveYard(EntityType.OP_SECRETS),
                         new DrawTask())
                 },
