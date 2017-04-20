@@ -270,7 +270,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.COST_8_MORE_SUMMON:
                     choiceAction = ChoiceAction.SUMMON;
-                    return GetFilter(list => list.Where(p => p.Cost >= 8));
+                    return GetFilter(list => list.Where(p => p.Cost >= 8 && p.Type == CardType.MINION));
 
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;

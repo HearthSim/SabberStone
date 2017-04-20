@@ -1605,10 +1605,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void FreeFromAmber_UNG_854()
 		{
-			// TODO FreeFromAmber_UNG_854 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1619,8 +1618,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Free From Amber"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Free From Amber"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+		    var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, game.CurrentPlayer.Board[0].Cost >= 8);
+        }
 
 		// ----------------------------------------- SPELL - PRIEST
 		// [UNG_940] Awaken the Makers - COST:1 
