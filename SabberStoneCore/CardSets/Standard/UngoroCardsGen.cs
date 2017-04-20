@@ -1520,11 +1520,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_854", new List<Enchantment>
             {
-                // TODO [UNG_854] Free From Amber && Test: Free From Amber_UNG_854
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    SingleTask = new DiscoverTask(DiscoverType.COST_8_MORE_SUMMON)
                 },
             });
 

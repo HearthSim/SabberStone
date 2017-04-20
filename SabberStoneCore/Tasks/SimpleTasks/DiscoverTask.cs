@@ -33,7 +33,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         ELEMENTAL,
         ALL,
         ELEMENTAL_INVOCATION,
-        OWN_SPELL
+        OWN_SPELL,
+        COST_8_MORE_SUMMON
     }
     public class DiscoverTask : SimpleTask
     {
@@ -265,6 +266,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Cards.FromId("AT_132_SHAMANd")
                         }
                     };
+
+                case DiscoverType.COST_8_MORE_SUMMON:
+                    choiceAction = ChoiceAction.SUMMON;
+                    return GetFilter(list => list.Where(p => p.Cost >= 8));
 
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;
