@@ -54,6 +54,8 @@ namespace SabberStoneKettle
         public int Board;
         public int MaxSecretsPerPlayer;
         public int MaxFriendlyMinionsPerPlayer;
+        public int MaxSecretZoneSizePerPlayer;
+        public int MaxQuestsPerPlayer;
 
         public const String KettleName = "GameJoined";
     }
