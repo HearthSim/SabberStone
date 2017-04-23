@@ -403,19 +403,27 @@ namespace SabberStoneCoreConsole
                 {
                     Cards.FromName("Murloc Raider"),
                     Cards.FromName("Murloc Raider"),
-                    Cards.FromName("Murloc Raider"),
-                    Cards.FromName("Murloc Raider"),
                     Cards.FromName("Murloc Tidehunter"),
+                    Cards.FromName("Murloc Tidehunter"),
+                    Cards.FromName("Herald Volazj"),
                 },
                 Player2HeroClass = CardClass.PRIEST,
-                FillDecks = false
+                FillDecks = false,
+                Shuffle = false
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Herald Volazj
 
             ShowLog(game, LogLevel.VERBOSE);
 

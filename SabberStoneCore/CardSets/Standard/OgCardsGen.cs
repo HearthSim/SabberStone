@@ -1036,11 +1036,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_316", new List<Enchantment>
             {
-                // TODO [OG_316] Herald Volazj && Test: Herald Volazj_OG_316
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new FlagTask(true, ComplexTask.Create(
+                            new CopyTask(EntityType.STACK, 1),
+                            new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
+                            new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
+                            new SummonTask())))
                 },
             });
 
