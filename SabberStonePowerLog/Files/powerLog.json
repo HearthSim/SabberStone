@@ -1332,6 +1332,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 35,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 3,
             "Tag": "NUM_CARDS_DRAWN_THIS_TURN",
@@ -1344,6 +1354,16 @@
             "Tag": "467",
             "Value": "3",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 55,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
+            "CardId": "",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -1367,6 +1387,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 45,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 45,
             "Tag": "ZONE_POSITION",
@@ -1386,6 +1416,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 63,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
+            "CardId": "",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -1577,11 +1617,33 @@
             "PowerType": 0
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 50,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_400",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 50,
             "Tag": "ZONE_POSITION",
             "Value": "2",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Ornery Direhorn",
+            "Id": 55,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "CardId": "UNG_925",
+            "PlayerId": "2",
+            "Tag": "ZONE",
+            "Value": "DECK",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -1596,6 +1658,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "0",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 47,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_391",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -1605,6 +1677,18 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Alley Armorsmith",
+            "Id": 45,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "CardId": "CFM_756",
+            "PlayerId": "2",
+            "Tag": "ZONE",
+            "Value": "DECK",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 45,
             "Tag": "ZONE",
@@ -1619,11 +1703,33 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 57,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "CFM_756",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 57,
             "Tag": "ZONE_POSITION",
             "Value": "4",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Brawl",
+            "Id": 63,
+            "Zone": "HAND",
+            "ZonePos": "4",
+            "CardId": "EX1_407",
+            "PlayerId": "2",
+            "Tag": "ZONE",
+            "Value": "DECK",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -1895,6 +2001,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "2",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 27,
+            "Zone": "HAND",
+            "ZonePos": "1",
+            "PlayerId": "1",
+            "CardId": "UNG_912",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -2186,6 +2302,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 53,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_402",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -2740,6 +2866,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 17,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "KAR_005",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 17,
             "Tag": "EXHAUSTED",
@@ -3239,6 +3375,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 46,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "OG_218",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -3828,6 +3974,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 11,
+            "Zone": "HAND",
+            "ZonePos": "1",
+            "PlayerId": "1",
+            "CardId": "NEW1_031",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -4543,6 +4699,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 54,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_402",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -5266,6 +5432,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 8,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "DS1_070",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 8,
             "Tag": "ZONE_POSITION",
@@ -5326,6 +5502,16 @@
               "Id": "71"
             },
             "Id": 71,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 71,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -5572,6 +5758,16 @@
               "Id": "72"
             },
             "Id": 72,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 72,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -6394,6 +6590,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 37,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_848",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 37,
             "Tag": "ZONE_POSITION",
@@ -6604,6 +6810,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 59,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "OG_149",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -7600,6 +7816,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 12,
+            "Zone": "HAND",
+            "ZonePos": "4",
+            "PlayerId": "1",
+            "CardId": "UNG_915",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 12,
             "Tag": "ZONE_POSITION",
@@ -7712,6 +7938,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 74,
+            "Zone": "SETASIDE",
+            "ZonePos": "0",
+            "PlayerId": "1",
+            "CardId": "UNG_999t2",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerFullEntity, SabberStonePowerLog",
             "PowerEntity": {
               "$type": "SabberStonePowerLog.Model.PowerEntity, SabberStonePowerLog",
@@ -7725,6 +7961,16 @@
               "Id": "77"
             },
             "Id": 77,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 77,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -7747,6 +7993,16 @@
               "Id": "78"
             },
             "Id": 78,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 78,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -8534,6 +8790,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 39,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "CS2_108",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 39,
             "Tag": "ZONE_POSITION",
@@ -8753,6 +9019,18 @@
             "Tag": "ZONE",
             "Value": "REMOVEDFROMGAME",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Living Spores",
+            "Id": 78,
+            "Zone": "PLAY",
+            "ZonePos": "0",
+            "CardId": "UNG_999t2e",
+            "PlayerId": "1",
+            "Tag": "ZONE",
+            "Value": "PLAY",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -10049,6 +10327,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 16,
+            "Zone": "HAND",
+            "ZonePos": "5",
+            "PlayerId": "1",
+            "CardId": "CFM_338",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 16,
             "Tag": "ZONE_POSITION",
@@ -10189,6 +10477,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 18,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "UNG_807",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 18,
             "Tag": "EXHAUSTED",
@@ -10208,6 +10506,16 @@
             "Tag": "LAST_CARD_PLAYED",
             "Value": "18",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 81,
+            "Zone": "PLAY",
+            "ZonePos": "0",
+            "PlayerId": "1",
+            "CardId": "CFM_338e",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -10827,6 +11135,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 58,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "OG_218",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -11811,6 +12129,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 31,
+            "Zone": "HAND",
+            "ZonePos": "4",
+            "PlayerId": "1",
+            "CardId": "UNG_915",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 31,
             "Tag": "ZONE_POSITION",
@@ -11923,6 +12251,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 84,
+            "Zone": "SETASIDE",
+            "ZonePos": "0",
+            "PlayerId": "1",
+            "CardId": "UNG_999t2",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerFullEntity, SabberStonePowerLog",
             "PowerEntity": {
               "$type": "SabberStonePowerLog.Model.PowerEntity, SabberStonePowerLog",
@@ -11936,6 +12274,16 @@
               "Id": "85"
             },
             "Id": 85,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 85,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -11958,6 +12306,16 @@
               "Id": "86"
             },
             "Id": 86,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 86,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -12040,6 +12398,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 5,
+            "Zone": "HAND",
+            "ZonePos": "1",
+            "PlayerId": "1",
+            "CardId": "EX1_539",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -12984,6 +13352,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "Brawl",
+            "Id": 63,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_407",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 63,
             "Tag": "ZONE_POSITION",
@@ -13740,6 +14118,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 19,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "UNG_912",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 19,
             "Tag": "ZONE_POSITION",
@@ -14026,6 +14414,16 @@
               "Id": "88"
             },
             "Id": 88,
+            "CardId": "",
+            "PowerType": 0
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "",
+            "Id": 88,
+            "Zone": "",
+            "ZonePos": "",
+            "PlayerId": "",
             "CardId": "",
             "PowerType": 0
           },
@@ -14407,11 +14805,35 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Smuggling",
+            "Id": 81,
+            "Zone": "PLAY",
+            "ZonePos": "0",
+            "CardId": "CFM_338e",
+            "PlayerId": "1",
+            "Tag": "ZONE",
+            "Value": "PLAY",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 81,
             "Tag": "ZONE",
             "Value": "REMOVEDFROMGAME",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Living Spores",
+            "Id": 86,
+            "Zone": "PLAY",
+            "ZonePos": "0",
+            "CardId": "UNG_999t2e",
+            "PlayerId": "1",
+            "Tag": "ZONE",
+            "Value": "PLAY",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -14489,6 +14911,18 @@
             "Tag": "NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME",
             "Value": "5",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerHideEntity, SabberStonePowerLog",
+            "Name": "Enraged",
+            "Id": 88,
+            "Zone": "PLAY",
+            "ZonePos": "0",
+            "CardId": "OG_218e",
+            "PlayerId": "2",
+            "Tag": "ZONE",
+            "Value": "PLAY",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -15246,6 +15680,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 41,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "KAR_061",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -16833,6 +17277,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 40,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "CFM_716",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 40,
             "Tag": "ZONE_POSITION",
@@ -17026,6 +17480,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 60,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_957",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 60,
             "Tag": "ZONE_POSITION",
@@ -17045,6 +17509,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 38,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_848",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -17914,6 +18388,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 87,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "UNG_852",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 87,
             "Tag": "ZONE_POSITION",
@@ -18297,6 +18781,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 51,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_007",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -19603,6 +20097,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "4",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 13,
+            "Zone": "HAND",
+            "ZonePos": "4",
+            "PlayerId": "1",
+            "CardId": "EX1_538",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -21277,6 +21781,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 7,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "EX1_538",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 7,
             "Tag": "ZONE_POSITION",
@@ -21912,6 +22426,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "2",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 29,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "EX1_539",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -23670,6 +24194,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 52,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "EX1_391",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 52,
             "Tag": "ZONE_POSITION",
@@ -23887,6 +24421,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 44,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "CS2_106",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -24316,6 +24860,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "Alley Armorsmith",
+            "Id": 45,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "CFM_756",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -25055,6 +25609,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 33,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "UNG_913",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 33,
             "Tag": "EXHAUSTED",
@@ -25232,6 +25796,16 @@
             "Tag": "ZONE_POSITION",
             "Value": "2",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 28,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "UNG_801",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -25924,6 +26498,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "Ornery Direhorn",
+            "Id": 55,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_925",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -26763,6 +27347,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 22,
+            "Zone": "HAND",
+            "ZonePos": "4",
+            "PlayerId": "1",
+            "CardId": "EX1_534",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 22,
             "Tag": "ZONE_POSITION",
@@ -27320,6 +27914,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 30,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "CFM_315",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 30,
             "Tag": "ZONE_POSITION",
@@ -27847,6 +28451,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 48,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_072",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -29625,6 +30239,16 @@
             "PowerType": 4
           },
           {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 14,
+            "Zone": "HAND",
+            "ZonePos": "3",
+            "PlayerId": "1",
+            "CardId": "KAR_005",
+            "PowerType": 0
+          },
+          {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
             "Id": 14,
             "Tag": "ZONE_POSITION",
@@ -29711,6 +30335,16 @@
             "Tag": "NUM_MINIONS_PLAYED_THIS_TURN",
             "Value": "2",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 21,
+            "Zone": "HAND",
+            "ZonePos": "2",
+            "PlayerId": "1",
+            "CardId": "CFM_315",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -29818,6 +30452,16 @@
             "Tag": "NUM_MINIONS_PLAYED_THIS_TURN",
             "Value": "3",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 69,
+            "Zone": "HAND",
+            "ZonePos": "1",
+            "PlayerId": "1",
+            "CardId": "CFM_315",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
@@ -30361,6 +31005,16 @@
             "Tag": "467",
             "Value": "1",
             "PowerType": 4
+          },
+          {
+            "$type": "SabberStonePowerLog.Model.PowerShowEntity, SabberStonePowerLog",
+            "Name": "UNKNOWN ENTITY",
+            "Id": 43,
+            "Zone": "DECK",
+            "ZonePos": "0",
+            "PlayerId": "2",
+            "CardId": "UNG_928",
+            "PowerType": 0
           },
           {
             "$type": "SabberStonePowerLog.Model.PowerTagChange, SabberStonePowerLog",
