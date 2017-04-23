@@ -1079,7 +1079,6 @@ namespace SabberStoneCore.CardSets.Standard
                         new RandomTask(1, EntityType.STACK),
                         new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
                         new FlagTask(true, ComplexTask.Create(
-                            new RemoveFromDeck(EntityType.STACK),
                             new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
                             new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
                             new SummonTask())))

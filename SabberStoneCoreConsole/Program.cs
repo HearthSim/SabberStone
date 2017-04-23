@@ -399,23 +399,23 @@ namespace SabberStoneCoreConsole
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.PRIEST,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Raider"),
+                    Cards.FromName("Murloc Tidehunter"),
+                },
                 Player2HeroClass = CardClass.PRIEST,
-                FillDecks = true
+                FillDecks = false
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Demolisher"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             ShowLog(game, LogLevel.VERBOSE);
 
