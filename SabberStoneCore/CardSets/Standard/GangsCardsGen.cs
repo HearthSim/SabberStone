@@ -896,11 +896,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    // TODO check if this is an ordinary Draw ... ???
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask =
                         new EnqueueTask(3,
-                            ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
+                            ComplexTask.DrawFromDeck(SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
                 },
             });
         }
