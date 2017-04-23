@@ -2661,11 +2661,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_254", new List<Enchantment>
             {
-                // TODO [OG_254] Eater of Secrets && Test: Eater of Secrets_OG_254
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.OP_SECRETS),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE),
+                        new MoveToGraveYard(EntityType.OP_SECRETS))
                 },
             });
 
