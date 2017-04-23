@@ -2751,7 +2751,6 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("EX1_133", new List<Enchantment>
             {
-                // TODO [EX1_133] Perdition's Blade && Test: Perdition's Blade_EX1_133
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
