@@ -1264,11 +1264,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_282", new List<Enchantment>
             {
-                // TODO [OG_282] Blade of C'Thun && Test: Blade of C'Thun_OG_282
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new EnqueueNumberTask(new RitualTask(Buffs.CthunAttack(1))),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+                        new EnqueueNumberTask(new RitualTask(Buffs.CthunHealth(1))))
                 },
             });
 
