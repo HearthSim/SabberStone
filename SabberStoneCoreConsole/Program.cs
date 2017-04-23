@@ -405,10 +405,17 @@ namespace SabberStoneCoreConsole
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Free From Amber"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Demolisher"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            var choice = game.CurrentPlayer.Choice.Choices[0];
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             ShowLog(game, LogLevel.VERBOSE);
 

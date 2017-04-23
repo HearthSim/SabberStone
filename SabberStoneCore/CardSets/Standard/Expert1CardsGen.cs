@@ -5105,7 +5105,6 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    // TODO [EX1_102] Demolisher ... unit test
                     Area = EnchantmentArea.CONTROLLER,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
