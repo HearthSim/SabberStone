@@ -2209,11 +2209,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_102", new List<Enchantment>
             {
-                // TODO [OG_102] Darkspeaker && Test: Darkspeaker_OG_102
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
                 },
             });
 
