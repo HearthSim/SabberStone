@@ -1,13 +1,13 @@
 <img align="left" src="/Readme/sabberstone.png">
 # SabberStone
 
-**State of Implementation: 79% of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(08.04.2017)***
+**State of Implementation: 91% (Un'Goro 75%) of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(20.04.2017)***
 
 SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
-By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of ([Brimstone](https://github.com/HearthSim/Brimstone/tree/master/Brimstone)) was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome! 
+By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of Brimstone was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome! 
 
-**Sabberstone Simulator is currently getting connected for testing purpose to the client!** 
+**Sabberstone Simulator can be connected to the real Hearthstone client!** 
 <img align="left" src="/Readme/stove.PNG">
 
 ### Project Structure ###
@@ -48,12 +48,13 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 - [x] Freeze, Stealth & Poisonous
 - [x] Potions (Kabal) ex. Kazakus
 - [x] Adapt
+- [x] Quest
 - [ ] Spell Bender Phase
 - [ ] Spell Text Phase (check if not already done)
 
 **Basic & Classic**
 * **100% Basic (142 Cards)**
-* 91% Classic (245 Cards)
+* 95% Classic (245 Cards)
 
 **Adventures**
 * 93% Blackrock Mountain (31 Cards)
@@ -62,9 +63,9 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 **Expensions**
 * 91% The Grand Tournament (132 Cards)
-* 88% Whispers of the Old Gods (134 Cards)
-* 86% Mean Streets of Gadgetzan (132 Cards)
-* 48% Journey to Un'Goro
+* 91% Whispers of the Old Gods (134 Cards)
+* 90% Mean Streets of Gadgetzan (132 Cards)
+* 75% Journey to Un'Goro
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 

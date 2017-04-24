@@ -101,7 +101,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Your <b>Secrets</b> cost (0).
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("KAR_006", new List<Enchantment>
             {
@@ -122,7 +122,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             // RefTag:
             // - STEALTH = 1
@@ -132,9 +132,9 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_HAND,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Secret(
@@ -199,7 +199,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("KAR_092", new List<Enchantment>
             {
@@ -868,7 +868,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // RefTag:
             // - TAUNT = 1
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("KAR_037", new List<Enchantment>
             {
@@ -1425,7 +1425,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new RandomMinionNumberTask(GameTag.COST),
-                            new SummonStackTask(),
+                            new SummonTask(),
                             ComplexTask.Create(
                                 new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
                                 new MathSubstractionTask(1),

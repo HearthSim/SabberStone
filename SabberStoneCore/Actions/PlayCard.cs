@@ -230,9 +230,9 @@ namespace SabberStoneCore.Actions
                     c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
                     c.Graveyard.Add(spell);
                 }
-                else if (spell.IsSecret)
+                else if (spell.IsSecret || spell.IsQuest)
                 {
-                    spell.ApplyEnchantments(EnchantmentActivation.SECRET, Zone.PLAY);
+                    spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
                     c.Secrets.Add(spell);
 
                     c.NumSecretsPlayedThisGame++;

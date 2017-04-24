@@ -45,6 +45,20 @@ namespace SabberStoneCore.Actions
                         }
                         break;
 
+                    case ChoiceAction.SUMMON:
+                        if (RemoveFromZone(c, playable))
+                        {
+                            c.Game.TaskStack.Playables.Add(playable);
+                            c.Game.TaskQueue.Enqueue(new SummonTask()
+                            {
+                                Game = c.Game,
+                                Controller = c,
+                                Source = playable,
+                                Target = playable
+                            });
+                        }
+                        break;
+
                     case ChoiceAction.ADAPT:
                         c.Choice.TargetIds.ForEach(p =>
                         {

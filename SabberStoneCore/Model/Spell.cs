@@ -20,6 +20,8 @@ namespace SabberStoneCore.Model
 
         public bool IsSecret => this[GameTag.SECRET] == 1;
 
+        public bool IsQuest => this[GameTag.QUEST] == 1;
+
         public bool IsCountered
         {
             get { return this[GameTag.COUNTER] == 1; }
@@ -31,5 +33,13 @@ namespace SabberStoneCore.Model
             get { return this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] == 1; }
             set { this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] = value ? 1 : 0; }
         }
+
+        public int QuestProgress
+        {
+            get { return this[GameTag.QUEST_PROGRESS]; }
+            set { this[GameTag.QUEST_PROGRESS] = value; }
+        }
+
+        public int QuestTotalProgress => this[GameTag.QUEST_PROGRESS_TOTAL];
     }
 }

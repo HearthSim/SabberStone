@@ -9,6 +9,26 @@ namespace SabberStoneCore.Tasks
 {
     internal class SpecificTask
     {
+        public static ISimpleTask LivingMana
+            => ComplexTask.Create(
+                new IncludeTask(EntityType.SOURCE),
+                new FuncPlayablesTask(p =>
+                {
+                    var result = new List<IPlayable>();
+                    var controller = p[0].Controller;
+                    var manaCrystal = (new[] {controller.Board.MaxSize - controller.Board.Count, controller.BaseMana}).Min();
+                    for (var i = 0; i < manaCrystal; i++)
+                    {
+                        result.Add(Entity.FromCard(controller, Cards.FromId("UNG_111t1"))); 
+                    }
+                    return result;
+                }),
+                new CountTask(EntityType.STACK),
+                new SummonCopyTask(EntityType.STACK),
+                new MathMultiplyTask(-1),
+                new ManaCrystalEmptyTask(0, false, true)
+            );
+
         public static ISimpleTask PatchesThePirate
             => ComplexTask.Create(
                 new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),

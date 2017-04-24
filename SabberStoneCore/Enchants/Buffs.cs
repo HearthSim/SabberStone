@@ -26,6 +26,20 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant SimpleFix(GameTag tag, int amount, bool oneTurnActive = false)
+        {
+            return new Enchant
+            {
+                TurnsActive = oneTurnActive ? 0 : -1,
+                EnableConditions = SelfBuffConditions,
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [tag] = 0
+                },
+                FixedValueFunc = owner => amount
+            };
+        }
+
         public static Enchant AttackHealth(int amount, bool oneTurnActive = false)
         {
             return AttackHealth(amount, amount, oneTurnActive);
@@ -44,6 +58,23 @@ namespace SabberStoneCore.Enchants
                 },
                 // Health Retention task ... 
                 RemovalTask = new HealthRetentionTask(health, EntityType.SOURCE)
+            };
+        }
+
+        public static Enchant AttackHealthFix(int amount, bool oneTurnActive = false)
+        {
+            return new Enchant
+            {
+                TurnsActive = oneTurnActive ? 0 : -1,
+                EnableConditions = SelfBuffConditions,
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [GameTag.ATK] = 0,
+                    [GameTag.HEALTH] = 0
+                },
+                // Health Retention task ... 
+                FixedValueFunc = owner => amount,
+                RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
             };
         }
 
@@ -141,12 +172,12 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
-                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND) },
+                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND, Zone.DECK)},
                 Effects = new Dictionary<GameTag, int>
                 {
                     [GameTag.COST] = 0
                 },
-                FixedValueFunc = owner => 1
+                FixedValueFunc = owner => amount
             };
         }
 
@@ -199,5 +230,18 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        public static Enchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
+        {
+            return new Enchant
+            {
+                TurnsActive = oneTurnActive ? 0 : -1,
+                EnableConditions = SelfBuffConditions,
+                ApplyConditions = new List<RelaCondition> { RelaCondition.IsMe(SelfCondition.IsNotCurrentPlayer) },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [tag] = amount,
+                }
+            };
+        }
     }
 }

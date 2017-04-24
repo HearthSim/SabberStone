@@ -78,7 +78,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: <b>Secret:</b> When a friendly minion dies, put 2 copies of it into your hand.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void Duplicate_FP1_018()
@@ -108,7 +108,7 @@ namespace SabberStoneCoreTest.CardSets
         // Text: <b>Secret:</b> When one of your minions dies, give a random friendly minion +3/+2.
         // --------------------------------------------------------
         // GameTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void Avenge_FP1_020()
@@ -374,7 +374,7 @@ namespace SabberStoneCoreTest.CardSets
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void MadScientist_FP1_004()

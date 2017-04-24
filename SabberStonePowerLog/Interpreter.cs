@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using SabberStoneCore.Enums;
+using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
 {
@@ -16,6 +17,8 @@ namespace SabberStonePowerLog
         private static Regex tagValueRgx = new Regex(@"tag=([A-Z0-9_]+)[ ]value=([A-Z0-9]+)", RegexOptions.IgnoreCase);
         private static Regex idRgx = new Regex(@"(Entity|id)=([0-9]+|[A-Z0-9]+)", RegexOptions.IgnoreCase);
         private static Regex blockStartRgx = new Regex(@"BLOCK_START BlockType=([A-Z]+) Entity=([0-9]+|[A-Z0-9]+|\[.*?\]) EffectCardId=([A-Z0-9_]*) EffectIndex=([-0-9]+) Target=([0-9]+|[A-Z0-9]+|\[.*?\])", RegexOptions.IgnoreCase);
+        private static Regex showEntityRgx = new Regex(@"([0-9]+|\[name=([A-Za-z ]+) id=([0-9]+) zone=([A-Z]+) zonePos=([0-9]+) cardId= player=([1-2])\] CardId=([A-Z0-9_]+))", RegexOptions.IgnoreCase);
+        private static Regex hideEntityRgx = new Regex(@"\[name=([A-Za-z ]+) id=([0-9]+) zone=([A-Z]+) zonePos=([0-9]+) cardId=([A-Za-z0-9_]+) player=([1-2])\] tag=([A-Z0-9_]+)[ ]value=([A-Z0-9]+)", RegexOptions.IgnoreCase);
 
         private StreamReader file;
 
@@ -30,7 +33,7 @@ namespace SabberStonePowerLog
             this.file = new StreamReader(File.Open(filePath + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
         }
 
-        public void Parse()
+        public List<PowerGame> Parse(bool createJsonFile, bool createCleanLog)
         {
             List<PowerGame> powerGames = new List<PowerGame>();
             PowerState currentPowerState = PowerState.Start;
@@ -125,18 +128,37 @@ namespace SabberStonePowerLog
                     {
                         currentPowerState = PowerState.BlockStart;
                         currentPowerHistoryEntry = ProcessBlockStart(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("BLOCK_END"))
                     {
                         currentPowerState = PowerState.BlockEnd;
+                        currentPowerHistoryEntry = ProcessBlockEnd(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("HIDE_ENTITY"))
                     {
                         currentPowerState = PowerState.HideEntity;
+                        currentPowerHistoryEntry = ProcessHideEntity(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("SHOW_ENTITY"))
                     {
                         currentPowerState = PowerState.ShowEntity;
+                        currentPowerHistoryEntry = ProcessShowEntity(currentPowerGame, contentLine);
+                        if (currentPowerHistoryEntry != null)
+                        {
+                            currentPowerGame.PowerHistory.Enqueue(currentPowerHistoryEntry);
+                        }
                     }
                     else if (contentLine.StartsWith("META_DATA"))
                     {
@@ -189,18 +211,85 @@ namespace SabberStonePowerLog
                 }
             }
 
-            var powerGame = powerGames.First();
-
-            File.WriteAllText(filePath + "powerLog.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
-            File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
-
-            while (powerGame.PowerHistory.Count > 0)
+            if (createJsonFile)
             {
-                var powerHistoryEntry = powerGame.PowerHistory.Dequeue();
-                powerHistoryEntry.Process(powerGame);
+                var jsonStr = JsonConvert.SerializeObject(powerGames, Formatting.Indented,
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
+                File.WriteAllText(filePath + "powerLog.json", jsonStr);
             }
 
-            File.WriteAllText(filePath + "powerLogProc.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+            if (createCleanLog)
+            {
+                File.WriteAllText(filePath + "cleanLog.log", cleanLog.ToString());
+            }
+
+            //while (powerGame.PowerHistory.Count > 0)
+            //{
+            //    var powerHistoryEntry = powerGame.PowerHistory.Dequeue();
+            //    powerHistoryEntry.Process(powerGame);
+            //}
+            //File.WriteAllText(filePath + "powerLogProc.json", JsonConvert.SerializeObject(powerGame, Formatting.Indented));
+
+            return powerGames;
+        }
+
+        private PowerHistoryEntry ProcessShowEntity(PowerGame currentPowerGame, string contentLine)
+        {
+            var str = contentLine
+                .Replace("SHOW_ENTITY - Updating Entity=", "")
+                .Replace(" [cardType=INVALID]", "")
+            ;
+            var match1 = showEntityRgx.Match(str);
+            if (!match1.Success)
+            {
+                Console.WriteLine("entityRgx unmatched: '" + str + "'");
+                return null;
+            }
+
+            var id = 0;
+            if (!int.TryParse(match1.Groups[1].Value, out id))
+            {
+                id = int.Parse(match1.Groups[3].Value);
+            }
+
+            return new PowerShowEntity()
+            {
+                Name = match1.Groups[2].Value,
+                Id = id,
+                Zone = match1.Groups[4].Value,
+                ZonePos = match1.Groups[5].Value,
+                PlayerId = match1.Groups[6].Value,
+                CardId = match1.Groups[7].Value
+            };
+        }
+
+        private PowerHistoryEntry ProcessHideEntity(PowerGame currentPowerGame, string contentLine)
+        {
+            var str = contentLine
+                .Replace("HIDE_ENTITY - Entity=", "")
+                //.Replace(" [cardType=INVALID]", "")
+            ;
+            var match1 = hideEntityRgx.Match(str);
+            if (!match1.Success)
+            {
+                Console.WriteLine("hideEntityRgx unmatched: '" + str + "'");
+                return null;
+            }
+
+            return new PowerHideEntity()
+            {
+                Name = match1.Groups[1].Value,
+                Id = int.Parse(match1.Groups[2].Value),
+                Zone = match1.Groups[3].Value,
+                ZonePos = match1.Groups[4].Value,
+                CardId = match1.Groups[5].Value,
+                PlayerId = match1.Groups[6].Value,
+                Tag = match1.Groups[7].Value,
+                Value = match1.Groups[8].Value
+            };
         }
 
         private PowerBlockStart ProcessBlockStart(PowerGame powerGame, string str)
@@ -226,6 +315,11 @@ namespace SabberStonePowerLog
             {
                 BlockType = blockType,
             };
+        }
+
+        private PowerBlockEnd ProcessBlockEnd(PowerGame powerGame, string str)
+        {
+            return new PowerBlockEnd();
         }
 
         private int GetIdFromEntity(string str, PowerGame powerGame)
@@ -311,6 +405,15 @@ namespace SabberStonePowerLog
                 Tag = tag,
                 Value = value
             };
+        }
+
+        public static object Load(string path)
+        {
+            return JsonConvert.DeserializeObject(File.ReadAllText(path), 
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
         }
     }
 }

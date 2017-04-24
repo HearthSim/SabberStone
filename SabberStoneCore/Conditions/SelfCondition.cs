@@ -12,9 +12,13 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsSilenced => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsSilenced);
         public static SelfCondition IsBoardFull => new SelfCondition(me => me.Controller.Board.IsFull);
         public static SelfCondition IsHandEmpty => new SelfCondition(me => me.Controller.Hand.IsEmpty);
+        public static SelfCondition IsHandNotEmpty => new SelfCondition(me => !me.Controller.Hand.IsEmpty);
+        public static SelfCondition IsHandFull => new SelfCondition(me => me.Controller.Hand.IsFull);
         public static SelfCondition IsOpHandEmpty => new SelfCondition(me => me.Controller.Opponent.Hand.IsEmpty);
+        public static SelfCondition IsOpHandFull => new SelfCondition(me => me.Controller.Opponent.Hand.IsFull);
 
         public static SelfCondition IsCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
+        public static SelfCondition IsNotCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);
 
         public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.Combo);
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
@@ -57,7 +61,7 @@ namespace SabberStoneCore.Conditions
 
         public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.Graveyard.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
 
-        public static SelfCondition IsInZone(params Zone[] zones) => new SelfCondition(me => me.Zone != null && zones.Contains(me.Zone.Type));
+        public static SelfCondition IsInZone(params Zone[] zones) => new SelfCondition(me => me.Zone == null || zones.Contains(me.Zone.Type));
         public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
         public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
         public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.Deck.GroupBy(x => new {x.Card.Id}).Any(x => x.Skip(1).Any()));
@@ -71,7 +75,8 @@ namespace SabberStoneCore.Conditions
 
         public static SelfCondition IsAnyNotImmune => new SelfCondition(me => me.Game.Characters.Exists(p => !p.IsImmune));
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
-        public static SelfCondition IsSecretActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+        public static SelfCondition IsSecretOrQuestActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
+        public static SelfCondition IsQuestDone => new SelfCondition(me => me[GameTag.QUEST_PROGRESS] == me[GameTag.QUEST_PROGRESS_TOTAL]);
         public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
         public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me => me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
         public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.Hand.Count < me.Controller.Opponent.Hand.Count);

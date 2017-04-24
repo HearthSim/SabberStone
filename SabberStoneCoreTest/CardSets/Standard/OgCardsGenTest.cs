@@ -3330,7 +3330,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - BATTLECRY = 1
         // --------------------------------------------------------
         // RefTag:
-        // - SECRET = 1
+        // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
         [TestMethod, Ignore]
         public void EaterOfSecrets_OG_254()

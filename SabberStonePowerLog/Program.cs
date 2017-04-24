@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
 {
@@ -6,10 +8,25 @@ namespace SabberStonePowerLog
     {
         static void Main(string[] args)
         {
-            Interpreter interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
-            interpreter.Parse();
-            Console.WriteLine("Done parsing!");
+            var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
+            var games = interpreter.Parse(true, true);
+            Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
             Console.ReadKey();
+
+            if (games.Any())
+            {
+                PowerGame game = games.Last();
+
+                Console.WriteLine($"Starting a syncronized PowerGame!");
+
+                while (game.PowerHistory.Count > 0)
+                {
+                    PowerHistoryEntry entry = game.PowerHistory.Dequeue();
+
+                    Console.WriteLine($"Dequeue {entry}.");
+                    Console.ReadKey();
+                }
+            }
         }
     }
 }

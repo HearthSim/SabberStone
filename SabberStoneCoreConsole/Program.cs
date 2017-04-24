@@ -21,13 +21,13 @@ namespace SabberStoneCoreConsole
             Console.WriteLine("Start Test!");
 
             //BasicBuffTest();
-            CardsTest();
+            //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            //Console.WriteLine(Cards.Statistics());
+            Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
@@ -398,23 +398,23 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.PRIEST,
                 FillDecks = true
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Fly"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stone Sentinel"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Free From Amber"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 
             ShowLog(game, LogLevel.VERBOSE);
 
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
         }
 
         public static void Kazakus()
@@ -582,9 +582,9 @@ namespace SabberStoneCoreConsole
                             foreground = ConsoleColor.DarkRed;
                             break;
                         case LogLevel.INFO:
-                            foreground = logEntry.Location.Equals("Game") ? 
-                                ConsoleColor.Yellow : 
-                                ConsoleColor.Green;
+                            foreground = logEntry.Location.Equals("Game") ? ConsoleColor.Yellow :
+                                         logEntry.Location.StartsWith("Quest") ? ConsoleColor.Cyan :
+                                         ConsoleColor.Green;
                             break;
                         case LogLevel.VERBOSE:
                             foreground = ConsoleColor.DarkGreen;

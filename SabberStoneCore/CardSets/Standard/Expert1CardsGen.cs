@@ -893,16 +893,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When an enemy attacks your hero, instead it attacks another random character.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_533", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD_AND_OP_HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsMyHeroAttacked,
                             RelaCondition.IsMe(SelfCondition.IsAnyNotImmune))
                         .TriggerEffect(GameTag.ATTACKING, 1)
@@ -971,7 +971,7 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             // RefTag:
             // - STEALTH = 1
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_544", new List<Enchantment>
             {
@@ -979,7 +979,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new RevealStealthTask(EntityType.OP_MINIONS),
+                        new RevealStealthTask(EntityType.ALLMINIONS),
                         new MoveToGraveYard(EntityType.OP_SECRETS),
                         new DrawTask())
                 },
@@ -1018,16 +1018,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When one of your minions is attacked, summon three 1/1 Snakes.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_554", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.DEFENDING, 1)
                         .SingleTask(ComplexTask.Secret(
                             new EnqueueTask(3, new SummonTask("EX1_554t"))))
@@ -1042,16 +1042,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> After your opponent plays a minion, deal $4 damage to it. *spelldmg
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_609", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             new DamageTask(4, EntityType.TARGET, true)))
@@ -1066,16 +1066,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When your hero is attacked, deal $2 damage to all enemies. *spelldmg
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_610", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.DEFENDING, 1)
                         .SingleTask(ComplexTask.Secret(
                             new DamageTask(2, EntityType.ENEMIES, true)))
@@ -1090,7 +1090,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (2) more.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_611", new List<Enchantment>
             {
@@ -1098,9 +1098,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_611e",
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .SingleTask(ComplexTask.Secret(
                             new ReturnHandTask(EntityType.TARGET)))
@@ -1164,7 +1164,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - DURABILITY = 2
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_536", new List<Enchantment>
             {
@@ -1261,7 +1261,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_274", new List<Enchantment>
             {
@@ -1335,7 +1335,7 @@ namespace SabberStoneCore.CardSets.Standard
             // - BATTLECRY = 1
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_612", new List<Enchantment>
             {
@@ -1442,7 +1442,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             // RefTag:
             // - COUNTER = 1
@@ -1452,9 +1452,9 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_HAND,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
                         .FastExecution(true)
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
@@ -1473,16 +1473,16 @@ namespace SabberStoneCore.CardSets.Standard
             //       gain 8 Armor.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_289", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.DEFENDING, 1)
                         .SingleTask(ComplexTask.Secret(new ArmorTask(8)))
                         .Build()
@@ -1496,16 +1496,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> After your opponent plays a minion, summon a copy of it.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_294", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             new CopyTask(EntityType.TARGET, 1),
@@ -1521,7 +1521,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             // RefTag:
             // - IMMUNE = 1
@@ -1532,9 +1532,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_295o",
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsHero),
                             RelaCondition.IsOther(SelfCondition.IsLethalPreDamaged))
                         .FastExecution(true)
@@ -1554,16 +1554,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_594", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsMyHeroAttacked)
                         .TriggerEffect(GameTag.ATTACKING, 1)
                         .FastExecution(true)
@@ -1580,7 +1580,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("tt_010", new List<Enchantment>
             {
@@ -1721,7 +1721,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When an enemy attacks, summon a 2/1 Defender as the new target.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_130", new List<Enchantment>
             {
@@ -1740,16 +1740,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When your hero takes damage, deal_that much damage to the enemy hero.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_132", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.DAMAGE, 1)
                         .SingleTask(ComplexTask.Secret(
                             new DamageNumberTask(EntityType.OP_HERO)))
@@ -1764,16 +1764,16 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> When a friendly minion dies, return it to life with 1 Health.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_136", new List<Enchantment>
             {
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
                         .SingleTask(ComplexTask.Secret(
                             new CopyTask(EntityType.TARGET, 1),
@@ -1912,7 +1912,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: <b>Secret:</b> After your opponent plays a minion, reduce its Health to 1.
             // --------------------------------------------------------
             // GameTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_379", new List<Enchantment>
             {
@@ -1920,9 +1920,9 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_379e",
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
                             new SetHealthTask(1, EntityType.TARGET)))
@@ -2311,7 +2311,7 @@ namespace SabberStoneCore.CardSets.Standard
                         new FilterStackTask(SelfCondition.IsMinion),
                         new RandomTask(1, EntityType.STACK),
                         new CopyTask(EntityType.STACK, 1),
-                        new SummonStackTask()),
+                        new SummonTask()),
                 },
             });
 
@@ -2939,7 +2939,7 @@ namespace SabberStoneCore.CardSets.Standard
                             Activation = EnchantmentActivation.DEATHRATTLE,
                             SingleTask = ComplexTask.Create(
                                 new CopyTask(EntityType.SOURCE, 1),
-                                new SummonStackTask())
+                                new SummonTask())
                         })
                 },
             });
@@ -4374,11 +4374,21 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("EX1_006", new List<Enchantment>
             {
-                // TODO [EX1_006] Alarm-o-Bot && Test: Alarm-o-Bot_EX1_006
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new IncludeTask(EntityType.HAND),
+                            new FilterStackTask(SelfCondition.IsMinion),
+                            new ReturnHandTask(EntityType.SOURCE),
+                            new RandomTask(1,EntityType.STACK),
+                            new RemoveFromHand(EntityType.STACK),
+                            new SummonTask()))
+                        .Build()
                 }
             });
 
@@ -4867,7 +4877,7 @@ namespace SabberStoneCore.CardSets.Standard
             // Text: Whenever a <b>Secret</b> is played, gain +1/+1.
             // --------------------------------------------------------
             // RefTag:
-            // - SECRET = 1
+            // - SECRET_OR_QUEST = 1
             // --------------------------------------------------------
             cards.Add("EX1_080", new List<Enchantment>
             {

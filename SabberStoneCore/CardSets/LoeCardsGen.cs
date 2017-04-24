@@ -116,15 +116,15 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Secret:</b> After an opposing <b>Hero Power</b> is used, deal $5 damage to a random enemy. *spelldmg
 			// --------------------------------------------------------
 			// GameTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_021", new List<Enchantment> {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_CONTROLLER,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .TriggerEffect(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, 1)
                         .SingleTask(ComplexTask.Secret(
                             ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 5, true)))
@@ -293,8 +293,8 @@ namespace SabberStoneCore.CardSets
                         new IncludeTask(EntityType.GRAVEYARD),
                         new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsRace(Race.MURLOC)),
                         new RandomTask(7, EntityType.STACK),
-                        new CopyTask(EntityType.STACK, 1),
-                        new SummonStackTask())}
+                        //new CopyTask(EntityType.STACK, 1),
+                        new SummonCopyTask(EntityType.STACK))}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -304,15 +304,15 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Secret:</b> After your opponent has at least 3 minions and plays another, destroy it.
 			// --------------------------------------------------------
 			// GameTag:
-			// - SECRET = 1
+			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_027", new List<Enchantment> {
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretActive)
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsBoardCount(4)))
                         .TriggerEffect(GameTag.JUST_PLAYED, -1)
                         .SingleTask(ComplexTask.Secret(
