@@ -1049,7 +1049,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DiscoverTask(DiscoverType.SECRET)
+                    SingleTask = new DiscoverTask(DiscoverType.PALADIN_SECRET)
                 },
             });
 
@@ -1478,7 +1478,9 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DiscoverTask(DiscoverType.OWN_SPELL)
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.HasSpellInDeck),
+                        new FlagTask(true, new DiscoverTask(DiscoverType.OWN_SPELL)))
                 },
             });
 

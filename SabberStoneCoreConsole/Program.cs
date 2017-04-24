@@ -24,10 +24,10 @@ namespace SabberStoneCoreConsole
             //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            //OptionsTest();
+            OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
@@ -35,6 +35,8 @@ namespace SabberStoneCoreConsole
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();
+
+            //Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
@@ -517,18 +519,21 @@ namespace SabberStoneCoreConsole
 
         public static void OptionsTest()
         {
-            const int total = 1000;
-            var watch = Stopwatch.StartNew();
-
+            const int total = 5000;
+            var totCards = Cards.AllStandard.ToList();
+            var totCardsCount = totCards.Count;
             var turns = 0;
             var wins = new[] { 0, 0 };
+
+            var watch = Stopwatch.StartNew();
             for (var i = 0; i < total; i++)
             {
                 Console.Clear();
                 ProgressBar(i, total);
                 var game = new Game(new GameConfig
                 {
-                    StartPlayer = 1,
+                    //StartPlayer = 1,
+                    GameRule = FormatType.FT_STANDARD,
                     Player1HeroClass = Cards.BasicHeroes[i % 9],
                     Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
                     FillDecks = true,
@@ -537,22 +542,46 @@ namespace SabberStoneCoreConsole
                 });
                 game.StartGame();
 
-                Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns ... " + 
-                game.Player1.HeroClass + " vs. " + game.Player2.HeroClass);
+                //watch.Stop();
+                //game.Player1.Deck.ToList().ForEach(p => totCards.Where(n => n == p.Card).ToList().ForEach(n => totCards.Remove(n)));
+                //game.Player2.Deck.ToList().ForEach(p => totCards.Where(n => n == p.Card).ToList().ForEach(n => totCards.Remove(n)));
+                //watch.Start();
+
+                Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns, " +
+                                  //$"{((double)totCardsCount/ totCards.Count):0.0%} Stand." +
+                                  $"{totCards.Count} Stand. -> " +
+                                  $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
   
                 while (game.State != State.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
-                    var option = options[Rnd.Next(options.Count)];
-                    //Console.WriteLine(option.FullPrint());
-                    game.Process(option);
+                    //try
+                    //{
+                        var option = options[Rnd.Next(options.Count)];
+
+                    if (option.PlayerTaskType == PlayerTaskType.PLAY_CARD)
+                    {
+                        totCards.Where(n => n == option.Source.Card).ToList().ForEach(n => totCards.Remove(n));
+                    }
+
+                        //Console.WriteLine(option.FullPrint());
+                        game.Process(option);
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Console.WriteLine(e);
+                    //    ShowLog(game, LogLevel.VERBOSE);
+                    //    throw;
+                    //}
+
                 }
+                game.Logs.Clear();
+
                 turns += game.Turn;
                 if (game.Player1.PlayState == PlayState.WON)
                     wins[0]++;
                 if (game.Player2.PlayState == PlayState.WON)
                     wins[1]++;
-
             }
             watch.Stop();
 
@@ -560,6 +589,8 @@ namespace SabberStoneCoreConsole
                               $"Avg. {watch.ElapsedMilliseconds / total} per game " +
                               $"and {watch.ElapsedMilliseconds / (total * turns)} per turn!");
             Console.WriteLine($"playerA {wins[0] * 100 / total}% vs. playerB {wins[1] * 100 / total}%!");
+
+            totCards.OrderBy(o => o.Id).ToList().ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
         }
 
         private static void ShowLog(Game game, LogLevel level)

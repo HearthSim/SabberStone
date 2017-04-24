@@ -240,8 +240,7 @@ namespace SabberStonePowerLog
         {
             var str = contentLine
                 .Replace("SHOW_ENTITY - Updating Entity=", "")
-                .Replace(" [cardType=INVALID]", "")
-            ;
+                .Replace(" [cardType=INVALID]", "");
             var match1 = showEntityRgx.Match(str);
             if (!match1.Success)
             {
@@ -269,9 +268,7 @@ namespace SabberStonePowerLog
         private PowerHistoryEntry ProcessHideEntity(PowerGame currentPowerGame, string contentLine)
         {
             var str = contentLine
-                .Replace("HIDE_ENTITY - Entity=", "")
-                //.Replace(" [cardType=INVALID]", "")
-            ;
+                .Replace("HIDE_ENTITY - Entity=", "");
             var match1 = hideEntityRgx.Match(str);
             if (!match1.Success)
             {

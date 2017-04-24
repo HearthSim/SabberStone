@@ -4,11 +4,6 @@ namespace SabberStonePowerLog.Model
 {
     internal class PowerHideEntity : PowerHistoryEntry
     {
-        public override void Process(PowerGame powerGame)
-        {
-            throw new NotImplementedException();
-        }
-
         public string Name { get; set; }
         public int Id { get; set; }
         public string Zone { get; set; }
@@ -17,5 +12,10 @@ namespace SabberStonePowerLog.Model
         public string PlayerId { get; set; }
         public string Tag { get; set; }
         public string Value { get; set; }
+
+        public override void Process(PowerGame powerGame)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

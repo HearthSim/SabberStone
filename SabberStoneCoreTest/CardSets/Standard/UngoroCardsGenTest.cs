@@ -1064,10 +1064,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - SECRET_OR_QUEST = 1
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void Hydrologist_UNG_011()
 		{
-			// TODO Hydrologist_UNG_011 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1078,8 +1077,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hydrologist"));
-		}
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hydrologist"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+		    var choice = game.CurrentPlayer.Choice.Choices[0];
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+            Assert.AreEqual(CardType.SPELL, game.CurrentPlayer.Hand[4].Card.Type);
+            Assert.AreEqual(true, ((Spell)game.CurrentPlayer.Hand[4]).IsSecret);
+        }
 
 		// --------------------------------------- MINION - PALADIN
 		// [UNG_015] Sunkeeper Tarim - COST:6 [ATK:3/HP:7] 

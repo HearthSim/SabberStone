@@ -20,7 +20,8 @@ namespace SabberStoneCore.Model
             while (cardsToAdd > 0)
             {
                 var card = Util<Card>.Choose(cards);
-                if (cards.Count(c => c == card) >= card.MaxAllowedInDeck) continue;
+                if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
+                    continue;
                 Entity.FromCard(Controller, card, null, this);
                 cardsToAdd--;
             }

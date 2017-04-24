@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Model;
 
 namespace SabberStonePowerLog.Model
 {
@@ -13,7 +14,7 @@ namespace SabberStonePowerLog.Model
 
         public override void Process(PowerGame powerGame)
         {
-            throw new NotImplementedException();
+            powerGame.Entities[Id].Change("CARD_ID", CardId);
         }
     }
 }
