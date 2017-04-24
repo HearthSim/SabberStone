@@ -29,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         TAUNT,
         HUNTER_PALADIN_WARRIOR,
         MURLOC,
-        PALADIN_SECRET,
+        SECRET,
         ELEMENTAL,
         ALL,
         ELEMENTAL_INVOCATION,
@@ -171,9 +171,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     choiceAction = ChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p[GameTag.TAUNT] == 1));
 
-                case DiscoverType.PALADIN_SECRET:
+                case DiscoverType.SECRET:
                     choiceAction = ChoiceAction.HAND;
-                    return GetClassCard(CardClass.PALADIN, list => list.Where(p => p[GameTag.SECRET] == 1));
+                    var classForSecret = 
+                        Controller.HeroClass == CardClass.PALADIN
+                        || Controller.HeroClass == CardClass.MAGE
+                        || Controller.HeroClass == CardClass.HUNTER
+                        ? Controller.HeroClass
+                        : CardClass.PALADIN;
+                    return GetClassCard(classForSecret, list => list.Where(p => p[GameTag.SECRET] == 1));
 
                 case DiscoverType.BEAST:
                     choiceAction = ChoiceAction.HAND;

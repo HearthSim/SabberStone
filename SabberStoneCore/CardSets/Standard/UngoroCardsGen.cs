@@ -1049,7 +1049,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DiscoverTask(DiscoverType.PALADIN_SECRET)
+                    SingleTask = new DiscoverTask(DiscoverType.SECRET)
                 },
             });
 

@@ -24,7 +24,8 @@ namespace SabberStoneCoreConsole
             //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            OptionsTest();
+            CloneSameSame();
+            //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
             //Console.WriteLine(Cards.Statistics());
@@ -450,7 +451,8 @@ namespace SabberStoneCoreConsole
                 CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
             };
             var flag = true;
-            for (var i = 0; i < 10 && flag; i++)
+            var total = 100;
+            for (var i = 0; i < total && flag; i++)
             {
                 var game = new Game(new GameConfig
                 {
@@ -472,12 +474,15 @@ namespace SabberStoneCoreConsole
                     flag &= str1.Equals(str2);
                     if (!flag)
                     {
+                        Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
                         break;
                     }
                 }
+
+                ProgressBar(i, total);
+
             }
             Console.WriteLine($"Same whole game? {flag}");
-
         }
 
         public static void CloneStampTest()

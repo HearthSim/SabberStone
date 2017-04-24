@@ -805,7 +805,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // --------------------------------------------------------
         // RefTag:
         // - STEALTH = 1
-        // - PALADIN_SECRET = 1
+        // - SECRET = 1
         // --------------------------------------------------------
         [TestMethod]
         public void Flare_EX1_544()
