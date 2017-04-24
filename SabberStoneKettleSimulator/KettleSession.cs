@@ -18,18 +18,21 @@ namespace SabberStoneKettleServer
 {
     class KettleSession
     {
+        public Game Game;
         private Socket Client;
         private KettleAdapter Adapter;
-        private Game _game;
+        private List<Thread> AiThreads;
 
         public KettleSession(Socket client)
         {
             Client = client;
+            AiThreads = new List<Thread>();
             Adapter = new KettleAdapter(new NetworkStream(client));
             Adapter.OnCreateGame += OnCreateGame;
             Adapter.OnConcede += OnConcede;
             Adapter.OnChooseEntities += OnChooseEntities;
             Adapter.OnSendOption += OnSendOption;
+            Adapter.OnStartClient += OnStartClient;
         }
 
         public void Enter()
@@ -44,12 +47,20 @@ namespace SabberStoneKettleServer
             }
         }
 
+        public void OnStartClient(KettleStartClient startClient)
+        {
+            var session = new KettleAISession(this, startClient);
+            var thread = new Thread(session.Enter);
+            AiThreads.Add(thread);
+            thread.Start();
+        }
+
         public void OnConcede(int entityid)
         {
             Console.WriteLine($"player[{entityid}] concedes");
-            var concedingPlayer = _game.ControllerById(entityid);
-            _game.Process(ConcedeTask.Any(concedingPlayer));
-            SendPowerHistory(_game.PowerHistory.Last);
+            var concedingPlayer = Game.ControllerById(entityid);
+            Game.Process(ConcedeTask.Any(concedingPlayer));
+            SendPowerHistory(Game.PowerHistory.Last);
         }
 
         public void OnSendOption(KettleSendOption sendOption)
@@ -63,59 +74,12 @@ namespace SabberStoneKettleServer
             var sendOptionTarget = sendOption.Target;
 
             Console.WriteLine($"Id={sendOption.Id} MainOption={sendOption.MainOption} Position={sendOption.Position} SubOption={sendOption.SubOption} Target={sendOption.Target}");
-            var allOptions = _game.AllOptionsMap[sendOptionId];
-            Console.WriteLine(allOptions.Print());
+            PlayerTask task = SabberStoneKettleSimulator.Util.KettleOptionToPlayerTask(Game, sendOptionId, sendOptionMainOption, sendOptionTarget, sendOptionPosition, sendOptionSubOption);
 
-            var tasks = allOptions.PlayerTaskList;
-            var powerOption = allOptions.PowerOptionList[sendOptionMainOption];
-            var optionType = powerOption.OptionType;
+            Game.Process(task);
+            ShowLog(Game, LogLevel.VERBOSE);
 
-            PlayerTask task = null;
-            switch (optionType)
-            {
-                case OptionType.END_TURN:
-                    task = EndTurnTask.Any(_game.CurrentPlayer);
-                    break;
-
-                case OptionType.POWER:
-
-                    var mainOption = powerOption.MainOption;
-                    IPlayable source = _game.IdEntityDic[mainOption.EntityId];
-                    IPlayable target = sendOptionTarget > 0 ? _game.IdEntityDic[sendOptionTarget] : null;
-                    var subObtions = powerOption.SubOptions;
-
-                    if (source.Zone?.Type == Zone.PLAY)
-                    {
-                        task = MinionAttackTask.Any(_game.CurrentPlayer, source, target);
-                    }
-                    else
-                    {
-                        switch (source.Card.Type)
-                        {
-                            case CardType.HERO:
-                                task = HeroAttackTask.Any(_game.CurrentPlayer, target);
-                                break;
-                            case CardType.HERO_POWER:
-                                task = HeroPowerTask.Any(_game.CurrentPlayer, target);
-                                break;
-                            default:
-                                task = PlayCardTask.Any(_game.CurrentPlayer, source, target, sendOptionPosition,
-                                    sendOptionSubOption);
-                                break;
-                        }
-                    }
-                    break;
-
-                case OptionType.PASS:
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-            
-            _game.Process(task);
-            ShowLog(_game, LogLevel.VERBOSE);
-
-            SendPowerHistory(_game.PowerHistory.Last);
+            SendPowerHistory(Game.PowerHistory.Last);
             SendChoicesOrOptions();
         }
 
@@ -123,10 +87,10 @@ namespace SabberStoneKettleServer
         {
             Console.WriteLine("simulator OnChooseEntities called");
 
-            var entityChoices = _game.EntityChoicesMap[chooseEntities.Id];
+            var entityChoices = Game.EntityChoicesMap[chooseEntities.Id];
             var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
-                ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices)
-                : ChooseTask.Pick(entityChoices.PlayerId == 1 ? _game.Player1 : _game.Player2, chooseEntities.Choices[0]);
+                ? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? Game.Player1 : Game.Player2, chooseEntities.Choices)
+                : ChooseTask.Pick(entityChoices.PlayerId == 1 ? Game.Player1 : Game.Player2, chooseEntities.Choices[0]);
 
             Console.WriteLine($"processing => {chooseTask.FullPrint()}");
 
@@ -137,24 +101,24 @@ namespace SabberStoneKettleServer
                 ChooseEntities = chooseEntities,
             });
 
-            _game.Process(chooseTask);
-            ShowLog(_game, LogLevel.VERBOSE);
+            Game.Process(chooseTask);
+            ShowLog(Game, LogLevel.VERBOSE);
 
-            SendPowerHistory(_game.PowerHistory.Last);
+            SendPowerHistory(Game.PowerHistory.Last);
             SendChoicesOrOptions();
 
-            if (_game.Step == Step.BEGIN_MULLIGAN
-                && _game.Player1.MulliganState == Mulligan.DONE
-                && _game.Player2.MulliganState == Mulligan.DONE)
+            if (Game.Step == Step.BEGIN_MULLIGAN
+                && Game.Player1.MulliganState == Mulligan.DONE
+                && Game.Player2.MulliganState == Mulligan.DONE)
             {
-                _game.MainBegin();
+                Game.MainBegin();
 
-                while (_game.Step != Step.MAIN_ACTION)
+                while (Game.Step != Step.MAIN_ACTION)
                     Thread.Sleep(500);
 
-                ShowLog(_game, LogLevel.VERBOSE);
+                ShowLog(Game, LogLevel.VERBOSE);
 
-                SendPowerHistory(_game.PowerHistory.Last);
+                SendPowerHistory(Game.PowerHistory.Last);
                 SendChoicesOrOptions();
             }
 
@@ -172,31 +136,32 @@ namespace SabberStoneKettleServer
             var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
 
             Console.WriteLine("creating game");
-            _game = new Game(new GameConfig
+            Game = new Game(new GameConfig
             {
                 Player1HeroClass = hero1Class,
                 DeckPlayer1 = player1Deck,
                 Player2HeroClass = hero2Class,
                 DeckPlayer2 = player2Deck,
-                SkipMulligan = false
+                SkipMulligan = false,
+                StartPlayer = 1,
             });
 
             // Start the game and send the following powerhistory to the client
-            _game.StartGame();
-            ShowLog(_game, LogLevel.VERBOSE);
+            Game.StartGame();
+            ShowLog(Game, LogLevel.VERBOSE);
 
-            SendPowerHistory(_game.PowerHistory.Last);
+            SendPowerHistory(Game.PowerHistory.Last);
             SendChoicesOrOptions();
         }
 
         private void SendChoicesOrOptions()
         {
             // getting choices mulligan choices for players ...
-            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
-            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
+            var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(Game, Game.Player1.Choice);
+            var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(Game, Game.Player2.Choice);
 
             // getting options for currentPlayer ...
-            var options = PowerOptionsBuilder.AllOptions(_game, _game.CurrentPlayer.Options());
+            var options = PowerOptionsBuilder.AllOptions(Game, Game.CurrentPlayer.Options());
 
             if (entityChoicesPlayer1 != null)
                 SendEntityChoices(entityChoicesPlayer1);
@@ -217,7 +182,7 @@ namespace SabberStoneKettleServer
         private void SendOptions(PowerAllOptions options)
         {
             Console.WriteLine($"SendOptions => {options.Print()}");
-            Adapter.SendMessage(new KettleOptionsBlock(options, _game.CurrentPlayer.PlayerId));
+            Adapter.SendMessage(new KettleOptionsBlock(options, Game.CurrentPlayer.PlayerId));
         }
 
         private void SendPowerHistory(List<IPowerHistoryEntry> history)
