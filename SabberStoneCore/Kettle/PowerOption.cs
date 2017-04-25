@@ -50,16 +50,15 @@ namespace SabberStoneCore.Kettle
     {
         public static PowerAllOptions AllOptions(Game game, List<PlayerTask> list)
         {
-            if (list.All(p => p.PlayerTaskType != PlayerTaskType.END_TURN))
-            {
-                return null;
-            }
-
             var result = new PowerAllOptions(game)
             {
                 PlayerTaskList = list
             };
-            result.PowerOptionList.Add(new PowerOption { OptionType = OptionType.END_TURN });
+
+            foreach (var option in list.Where(p => p.PlayerTaskType == PlayerTaskType.END_TURN))
+            {
+                result.PowerOptionList.Add(new PowerOption { OptionType = OptionType.END_TURN });
+            }
 
             var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();
             foreach (var sourceId in playCards.Select(p => p.Source.Id).Distinct())

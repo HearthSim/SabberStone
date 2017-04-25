@@ -161,7 +161,11 @@ namespace SabberStoneKettleServer
             var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(Game, Game.Player2.Choice);
 
             // getting options for currentPlayer ...
-            var options = PowerOptionsBuilder.AllOptions(Game, Game.CurrentPlayer.Options());
+            PowerAllOptions options = null;
+            if (!Game.CurrentPlayer.Options().All(p => p.PlayerTaskType != PlayerTaskType.END_TURN))
+            {
+                options = PowerOptionsBuilder.AllOptions(Game, Game.CurrentPlayer.Options());
+            }
 
             if (entityChoicesPlayer1 != null)
                 SendEntityChoices(entityChoicesPlayer1);
