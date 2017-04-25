@@ -1,16 +1,12 @@
-﻿using SabberStoneCore.Model;
-using SabberStoneKettle;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Kettle;
-using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks;
+using SabberStoneKettle;
 
-namespace SabberStoneKettleServer
+namespace SabberStoneKettleSimulator
 {
     class KettleAISession
     {

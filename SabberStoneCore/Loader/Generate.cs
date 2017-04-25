@@ -442,8 +442,11 @@ namespace SabberStoneCore.Loader
                     continue;
 
                 str.AppendLine($"{card.Id}|{card.Implemented}|{card.Set}|{(Cards.StandardSets.Contains(card.Set)?"S":"W")}|{card.Type}|{card.Class}|{card.Name}|{RemoveLineEndings(card.Text)}");
-            }
 
+                //if (!card.Collectible || card.Implemented)
+                //    continue;
+                //str.AppendLine($"{card.AssetId}");
+            }
 
             var path = Path + @"SabberStone\SabberStoneCore\Loader\Generated\Statistics\";
             var file = path + "echantmentsleft.csv";

@@ -21,9 +21,10 @@ namespace SabberStonePowerLog
 
                 while (game.PowerHistory.Count > 0)
                 {
-                    PowerHistoryEntry entry = game.PowerHistory.Dequeue();
+                    var entry = game.PowerHistory.Dequeue();
 
                     Console.WriteLine($"Dequeue {entry}.");
+
                     Console.ReadKey();
                 }
             }

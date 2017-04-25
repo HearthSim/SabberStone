@@ -173,7 +173,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.SECRET:
                     choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p[GameTag.SECRET] == 1));
+                    var classForSecret = 
+                        Controller.HeroClass == CardClass.PALADIN
+                        || Controller.HeroClass == CardClass.MAGE
+                        || Controller.HeroClass == CardClass.HUNTER
+                        ? Controller.HeroClass
+                        : CardClass.PALADIN;
+                    return GetClassCard(classForSecret, list => list.Where(p => p[GameTag.SECRET] == 1));
 
                 case DiscoverType.BEAST:
                     choiceAction = ChoiceAction.HAND;
@@ -253,7 +259,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.OWN_SPELL:
                     choiceAction = ChoiceAction.HAND;
-                    return new[] { IncludeTask.GetEntites(EntityType.DECK, Controller, Source, Target, Playables).Select(p => p.Card).Where(p => p.Type == CardType.SPELL).ToList() };
+                    return new[] { Controller.Deck.Where(p => p is Spell).Select(p => p.Card).ToList() };
 
                 case DiscoverType.BASIC_TOTEM:
                     choiceAction = ChoiceAction.SUMMON;
@@ -274,21 +280,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;
-                    return new[] { IncludeTask.GetEntites(EntityType.OP_DECK, Controller, Source, Target, Playables).Select(p => p.Card).ToList() };
+                    return new[] { Controller.Opponent.Deck.Select(p => p.Card).ToList() };
 
                 case DiscoverType.OP_HERO:
                     choiceAction = ChoiceAction.HAND;
-                    return GetClassCard(Controller.Opponent.HeroClass);
+                    return GetClassCard(Controller.Opponent.HeroClass, list => list);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
             }
         }
 
-        private List<Card>[] GetClassCard(CardClass class1)
+        private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-            return new[] { cardSet[class1].Where(p => p.Class == class1).ToList()};
+            var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
+            return new[] { classCards.ToList()};
         }
 
         private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)

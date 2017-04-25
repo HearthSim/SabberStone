@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks.SimpleTasks;
-using Newtonsoft.Json.Linq;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneKettle;
 
-namespace SabberStoneKettleServer
+namespace SabberStoneKettleSimulator
 {
     class KettleTest
     {
