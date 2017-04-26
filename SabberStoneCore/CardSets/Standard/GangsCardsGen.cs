@@ -896,11 +896,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    // TODO check if this is an ordinary Draw ... ???
                     Activation = EnchantmentActivation.SPELL,
                     SingleTask =
                         new EnqueueTask(3,
-                            ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
+                            ComplexTask.DrawFromDeck(SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
                 },
             });
         }
@@ -1969,12 +1968,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_631", new List<Enchantment>
             {
-                // TODO [CFM_631] Brass Knuckles && Test: Brass Knuckles_CFM_631
                 new Enchantment
                 {
                     InfoCardId = "CFM_631e",
+                    Area = EnchantmentArea.HERO,
                     Activation = EnchantmentActivation.WEAPON,
-                    SingleTask = null,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsThisWeaponEquiped)
+                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .SingleTask(ComplexTask.BuffRandomMinion(EntityType.HAND, Buffs.AttackHealth(1), new SelfCondition[] {}))
+                        .Build()
                 },
             });
         }

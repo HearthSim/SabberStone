@@ -1864,11 +1864,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("UNG_065t", new List<Enchantment>
             {
-                // TODO [UNG_065t] Sherazin, Seed && Test: Sherazin, Seed_UNG_065t
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.HAND_AND_BOARD,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.MinionsPlayedThisTurn(3))
+                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .SingleTask(ComplexTask.Create(
+                            new SummonTask("UNG_065"),
+                            new MoveToSetaside(EntityType.SOURCE)))
+                        .Build()
                 }
             });
 

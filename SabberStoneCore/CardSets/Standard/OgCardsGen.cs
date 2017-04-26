@@ -1036,11 +1036,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_316", new List<Enchantment>
             {
-                // TODO [OG_316] Herald Volazj && Test: Herald Volazj_OG_316
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
+                        new FilterStackTask(SelfCondition.IsMinion),
+                        new FlagTask(true, ComplexTask.Create(
+                            new CopyTask(EntityType.STACK, 1),
+                            new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
+                            new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
+                            new SummonTask())))
                 },
             });
 
@@ -1258,11 +1264,14 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_282", new List<Enchantment>
             {
-                // TODO [OG_282] Blade of C'Thun && Test: Blade of C'Thun_OG_282
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        new EnqueueNumberTask(new RitualTask(Buffs.CthunAttack(1))),
+                        new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+                        new EnqueueNumberTask(new RitualTask(Buffs.CthunHealth(1))))
                 },
             });
 
@@ -2200,11 +2209,10 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_102", new List<Enchantment>
             {
-                // TODO [OG_102] Darkspeaker && Test: Darkspeaker_OG_102
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
                 },
             });
 
@@ -2653,11 +2661,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("OG_254", new List<Enchantment>
             {
-                // TODO [OG_254] Eater of Secrets && Test: Eater of Secrets_OG_254
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new CountTask(EntityType.OP_SECRETS),
+                        new BuffAttackHealthNumberTask(EntityType.SOURCE),
+                        new MoveToGraveYard(EntityType.OP_SECRETS))
                 },
             });
 
