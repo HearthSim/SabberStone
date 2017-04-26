@@ -24,7 +24,7 @@ namespace SabberStoneCoreConsole
             //CardsTest();
             //WhileCardTest();
             //CloneStampTest();
-            CloneSameSame();
+            //CloneSameSame();
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
@@ -33,6 +33,7 @@ namespace SabberStoneCoreConsole
             //PowerHistoryTest();
             //ChooseOneTest();
             //Kazakus();
+            BrainDeadTest();
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();
@@ -41,6 +42,98 @@ namespace SabberStoneCoreConsole
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
+        }
+
+        private static void BrainDeadTest()
+        {
+            const int total = 5000;
+            var totCards = Cards.AllStandard.ToList();
+            var totCardsCount = totCards.Count;
+            var turns = 0;
+            var wins = new[] { 0, 0 };
+
+            var watch = Stopwatch.StartNew();
+            for (var i = 0; i < total; i++)
+            {
+                Console.Clear();
+                ProgressBar(i, total);
+                var game = new Game(new GameConfig
+                {
+                    //StartPlayer = 1,
+                    GameRule = FormatType.FT_STANDARD,
+                    Player1HeroClass = Cards.BasicHeroes[i % 9],
+                    Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
+                    FillDecks = true,
+                    Logging = false,
+                    History = false
+                });
+                game.StartGame();
+
+                Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns, " +
+                                  $"{totCards.Count} Stand. -> " +
+                                  $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
+
+                int loopCount = 0;
+                int prevOptionsCount = 0;
+                while (game.State != State.COMPLETE)
+                {
+                    var options = game.CurrentPlayer.Options();
+                    var option = options[Rnd.Next(options.Count)];
+
+                    if (options.Count > 1 && option is EndTurnTask)
+                    {
+                        continue;
+                    }
+
+                    if (prevOptionsCount == options.Count)
+                    {
+                        loopCount++;
+                    }
+                    else
+                    {
+                        loopCount = 0;
+                    }
+
+                    prevOptionsCount = options.Count;
+
+
+                    if (loopCount > 10)
+                    {
+                        Console.WriteLine("Found bug ... need to be analysed!");
+
+                        Console.WriteLine($"is current player board full? {game.CurrentPlayer.Board.IsFull}");
+                        
+
+                        options.ForEach(p =>
+                        {
+                            Console.WriteLine(p.FullPrint());
+                        });
+
+                        Console.ReadKey();
+                    }
+
+                    game.Process(option);
+
+                    
+
+
+                    // Flame Elemental[79]
+
+                }
+                game.Logs.Clear();
+
+                turns += game.Turn;
+                if (game.Player1.PlayState == PlayState.WON)
+                    wins[0]++;
+                if (game.Player2.PlayState == PlayState.WON)
+                    wins[1]++;
+            }
+            watch.Stop();
+
+            Console.WriteLine($"{total} games with {turns} turns took {watch.ElapsedMilliseconds} ms => " +
+                              $"Avg. {watch.ElapsedMilliseconds / total} per game " +
+                              $"and {watch.ElapsedMilliseconds / (total * turns)} per turn!");
+            Console.WriteLine($"playerA {wins[0] * 100 / total}% vs. playerB {wins[1] * 100 / total}%!");
         }
 
         private static void ChooseOneTest()

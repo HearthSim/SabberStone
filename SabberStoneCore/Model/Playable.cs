@@ -112,6 +112,14 @@ namespace SabberStoneCore.Model
                     return false;
                 }
 
+                // check if we got a slot on board for minions
+                if (Controller.Board.IsFull && this is Minion)
+                {
+                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                        $"{this} isn't playable, because not enough place on board.");
+                    return false;
+                }
+
                 return true;
             }
         }
