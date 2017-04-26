@@ -1869,7 +1869,8 @@ namespace SabberStoneCore.CardSets.Standard
                     Area = EnchantmentArea.HAND_AND_BOARD,
                     Activation = EnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.MinionsPlayedThisTurn(3))
+                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsSilenced)
+                        .ApplyConditions(RelaCondition.IsMe(SelfCondition.MinionsPlayedThisTurn(4)))
                         .TriggerEffect(GameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
                             new SummonTask("UNG_065"),

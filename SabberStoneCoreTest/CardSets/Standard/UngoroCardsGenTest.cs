@@ -1815,7 +1815,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void SherazinCorpseFlower_UNG_065()
 		{
 			// TODO SherazinCorpseFlower_UNG_065 test
@@ -1830,6 +1830,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sherazin, Corpse Flower"));
+            Assert.AreEqual(false, true);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

@@ -1044,8 +1044,8 @@ namespace SabberStoneCore.CardSets.Standard
                         new FilterStackTask(SelfCondition.IsMinion),
                         new FlagTask(true, ComplexTask.Create(
                             new CopyTask(EntityType.STACK, 1),
-                            new SetGameTagTask(GameTag.ATK, 1, EntityType.STACK),
-                            new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),
+                            new SetAttackTask(1, EntityType.STACK),
+                            new SetHealthTask(1, EntityType.STACK),
                             new SummonTask())))
                 },
             });
@@ -1266,12 +1266,15 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
+                    // TODO [OG_282] Blade of C'Thun, this implementation would work but I would like a straight implementation ... 
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.Create(
-                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
-                        new EnqueueNumberTask(new RitualTask(Buffs.CthunAttack(1))),
-                        new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
-                        new EnqueueNumberTask(new RitualTask(Buffs.CthunHealth(1))))
+                    SingleTask = null
+                        //ComplexTask.Create(
+                        //new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+                        //new EnqueueNumberTask(new RitualTask(Buffs.CthunAttack(1))),
+                        //new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+                        //new EnqueueNumberTask(new RitualTask(Buffs.CthunHealth(1))),
+                        //new DestroyTask(EntityType.TARGET))
                 },
             });
 
