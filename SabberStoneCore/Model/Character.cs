@@ -52,7 +52,10 @@ namespace SabberStoneCore.Model
             {
                 var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth).ToList<ICharacter>();
                 var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
-                allTargets.Add(Controller.Opponent.Hero);
+                if (!CantAttackHeroes)
+                {
+                    allTargets.Add(Controller.Opponent.Hero);
+                }
                 return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
             }
         }
