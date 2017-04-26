@@ -55,6 +55,8 @@ namespace SabberStoneCore.Model
 
             if (controller.Game.History)
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+            Game.TaskStack.Reset();
         }
 
         /// <summary>

@@ -64,7 +64,7 @@ namespace SabberStoneCoreConsole
                     Player1HeroClass = Cards.BasicHeroes[i % 9],
                     Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
                     FillDecks = true,
-                    Logging = false,
+                    Logging = true,
                     History = false
                 });
                 game.StartGame();
@@ -100,25 +100,23 @@ namespace SabberStoneCoreConsole
                     if (loopCount > 10)
                     {
                         Console.WriteLine("Found bug ... need to be analysed!");
-
+                        Console.WriteLine("");
                         Console.WriteLine($"is current player board full? {game.CurrentPlayer.Board.IsFull}");
-                        
-
+                        Console.WriteLine("");
+                        Console.WriteLine(game.FullPrint());
+                        Console.WriteLine("");
                         options.ForEach(p =>
                         {
                             Console.WriteLine(p.FullPrint());
                         });
 
+
+                        ShowLog(game, LogLevel.VERBOSE);
+
                         Console.ReadKey();
                     }
 
                     game.Process(option);
-
-                    
-
-
-                    // Flame Elemental[79]
-
                 }
                 game.Logs.Clear();
 

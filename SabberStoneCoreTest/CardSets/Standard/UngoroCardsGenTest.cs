@@ -3543,7 +3543,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[TestMethod]
 		public void ChargedDevilsaur_UNG_099()
 		{
-			// TODO ChargedDevilsaur_UNG_099 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
