@@ -3539,7 +3539,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - CHARGE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void ChargedDevilsaur_UNG_099()
 		{
 			// TODO ChargedDevilsaur_UNG_099 test
@@ -3553,8 +3553,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Charged Devilsaur"));
-		}
+
+            var hoarder = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            var devilsoar =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Charged Devilsaur"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, devilsoar));
+            Assert.AreEqual(1, game.CurrentPlayer.Options().Where(option => option is MinionAttackTask).Count());
+            Assert.AreEqual(hoarder, game.CurrentPlayer.Options().Where(option => option is MinionAttackTask).Cast<MinionAttackTask>().First().Target);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            Assert.AreEqual(2, game.CurrentPlayer.Options().Where(option => option is MinionAttackTask).Count());
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [UNG_113] Bright-Eyed Scout - COST:4 [ATK:3/HP:4] 
