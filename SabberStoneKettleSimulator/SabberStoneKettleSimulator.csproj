@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SabberStoneCoreAi\SabberStoneCoreAi.csproj" />
     <ProjectReference Include="..\SabberStoneCore\SabberStoneCore.csproj" />
     <ProjectReference Include="..\SabberStoneKettle\SabberStoneKettle.csproj" />
   </ItemGroup>

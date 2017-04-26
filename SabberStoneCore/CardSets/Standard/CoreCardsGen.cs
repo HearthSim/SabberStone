@@ -1600,7 +1600,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new ReturnHandTask(EntityType.OP_MINIONS),
+                    SingleTask = new ReturnHandTask(EntityType.ALLMINIONS),
                 },
             });
 

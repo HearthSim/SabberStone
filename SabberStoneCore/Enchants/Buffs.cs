@@ -230,6 +230,42 @@ namespace SabberStoneCore.Enchants
             };
         }
 
+        //public static Enchant CthunAttack(int amount)
+        //{
+        //    return new Enchant
+        //    {
+        //        TurnsActive = -1,
+        //        EnableConditions = new List<SelfCondition>
+        //        {
+        //            SelfCondition.IsInZone(Zone.SETASIDE, Zone.HAND, Zone.PLAY),
+        //            SelfCondition.IsNotSilenced,
+        //        },
+        //        Effects = new Dictionary<GameTag, int>
+        //        {
+        //            [GameTag.ATK] = amount,
+        //        },
+        //    };
+        //}
+
+        //public static Enchant CthunHealth(int amount)
+        //{
+        //    return new Enchant
+        //    {
+        //        TurnsActive = -1,
+        //        EnableConditions = new List<SelfCondition>
+        //        {
+        //            SelfCondition.IsInZone(Zone.SETASIDE, Zone.HAND, Zone.PLAY),
+        //            SelfCondition.IsNotSilenced,
+        //        },
+        //        Effects = new Dictionary<GameTag, int>
+        //        {
+        //            [GameTag.HEALTH] = amount
+        //        },
+        //        // Health Retention task ... 
+        //        RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+        //    };
+        //}
+
         public static Enchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
         {
             return new Enchant

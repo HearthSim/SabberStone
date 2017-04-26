@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCoreAi.Nodes;
+using SabberStoneCoreAi.Score;
 using SabberStoneKettle;
 
 namespace SabberStoneKettleSimulator
@@ -51,6 +56,27 @@ namespace SabberStoneKettleSimulator
 
         public PlayerTask DoAI(List<PlayerTask> tasks)
         {
+            IScore score = new AggroScore();
+            var currentGame = Session.Game;
+
+            if (currentGame.CurrentPlayer.Choice == null)
+            {
+                var solutions = OptionNode.GetSolutions(currentGame, currentGame.CurrentPlayer.Id, score, 10, 500);
+                var solution = new List<PlayerTask>();
+                solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
+                return solution.First();
+            }
+
+            if (currentGame.CurrentPlayer.Choice.ChoiceType == ChoiceType.MULLIGAN)
+            {
+                return tasks[Rand.Next(0, tasks.Count)];
+                //return ChooseTask.Mulligan(currentGame.CurrentPlayer,
+                //    score.MulliganRule()
+                //        .Invoke(
+                //            currentGame.CurrentPlayer.Choice.Choices.Select(p => currentGame.IdEntityDic[p]).ToList()));
+            }
+
+            // random ai!!
             return tasks[Rand.Next(0, tasks.Count)];
         }
 
