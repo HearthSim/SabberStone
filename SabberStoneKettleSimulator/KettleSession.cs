@@ -140,7 +140,6 @@ namespace SabberStoneKettleSimulator
                 Player2HeroClass = hero2Class,
                 DeckPlayer2 = player2Deck,
                 SkipMulligan = false,
-                StartPlayer = 1,
             });
 
             // Start the game and send the following powerhistory to the client

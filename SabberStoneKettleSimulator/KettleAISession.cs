@@ -91,8 +91,21 @@ namespace SabberStoneKettleSimulator
             if (entityChoices.PlayerId != PlayerId)
                 return;
 
-            // convert that option
-            var options = Session.Game.CurrentPlayer.Options();
+            var player = PlayerId == 1 ? Session.Game.Player1 : Session.Game.Player2;
+            var Choice = player.Choice;
+            List<PlayerTask> options = new List<PlayerTask>();
+            switch (Choice.ChoiceType)
+            {
+                case ChoiceType.GENERAL:
+                    Choice.Choices.ToList().ForEach(p => options.Add(ChooseTask.Pick(player, p)));
+                    break;
+                case ChoiceType.MULLIGAN:
+                    var choices = SabberStoneCore.Model.Util.GetPowerSet(Choice.Choices);
+                    choices.ToList().ForEach(p => options.Add(ChooseTask.Mulligan(player, p.ToList())));
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
 
             // Do AI shit
             var option = DoAI(options);
