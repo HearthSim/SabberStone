@@ -6534,10 +6534,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - CHARGE = 1
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void LeeroyJenkins_EX1_116()
         {
-            // TODO LeeroyJenkins_EX1_116 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -6548,7 +6547,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Leeroy Jenkins"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Leeroy Jenkins"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            Assert.AreEqual(1, game.CurrentPlayer.Board.Count);
+            Assert.AreEqual(true, ((Minion)game.CurrentPlayer.Board[0]).HasCharge);
+            Assert.AreEqual(2, game.CurrentOpponent.Board.Count);
         }
 
         // --------------------------------------- MINION - NEUTRAL
