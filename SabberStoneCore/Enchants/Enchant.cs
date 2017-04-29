@@ -94,7 +94,7 @@ namespace SabberStoneCore.Enchants
 
             EnableConditions.ForEach(p => flag &= p.Eval(Owner));
 
-            RemoveTriggers.ToList().ForEach(p => flag &= Owner[p.Key] == p.Value);
+            RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] == p.Value);
 
             flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -277,6 +278,26 @@ namespace SabberStoneCore.Enchants
                 {
                     [tag] = amount,
                 }
+            };
+        }
+
+        public static Enchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func)
+        {
+            return new Enchant()
+            {
+                RemoveTriggerTags =
+                {
+                    changeTriggerTag
+                },
+                ApplyConditions =
+                {
+                    RelaCondition.IsOther(applyCondiction)
+                },
+                Effects = new Dictionary<GameTag, int>
+                {
+                    [tag] = value
+                },
+                FixedValueFunc = func
             };
         }
     }

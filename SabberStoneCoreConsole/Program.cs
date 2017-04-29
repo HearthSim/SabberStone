@@ -28,12 +28,12 @@ namespace SabberStoneCoreConsole
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            //Console.WriteLine(Cards.Statistics());
+            Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
             //Kazakus();
-            BrainDeadTest();
+            //BrainDeadTest();
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();

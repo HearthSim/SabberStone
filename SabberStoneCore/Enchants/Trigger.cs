@@ -37,6 +37,10 @@ namespace SabberStoneCore.Enchants
 
         public int MaxExecutions { get; set; } = 0;
 
+        //public GameTag NextCountGameTag { get; set; } = GameTag.NUM_CARDS_PLAYED_THIS_TURN;
+
+        //public int NextCount { get; set; } = 0;
+
         public ISimpleTask SingleTask { get; set; }
 
         public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
@@ -58,7 +62,9 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = TurnsActive,
                 FastExecution = FastExecution,
                 Executions = Executions,
-                MaxExecutions = MaxExecutions
+                MaxExecutions = MaxExecutions,
+                //NextCountGameTag = NextCountGameTag,
+                //NextCount = owner[NextCountGameTag]
             };
         }
 
@@ -201,6 +207,12 @@ namespace SabberStoneCore.Enchants
             _trigger.MaxExecutions = maxExecutions;
             return this;
         }
+
+        //public TriggerBuilder NextCountGameTag(GameTag nextCountGameTag)
+        //{
+        //    _trigger.NextCountGameTag = nextCountGameTag;
+        //    return this;
+        //}
 
         public Trigger Build()
         {

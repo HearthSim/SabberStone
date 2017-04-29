@@ -509,11 +509,16 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_066", new List<Enchantment>
             {
-                // TODO [CFM_066] Kabal Lackey && Test: Kabal Lackey_CFM_066
                 new Enchantment
                 {
+                    Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    Enchant = Buffs.TillTagChangeActive(
+                        GameTag.NUM_SECRETS_PLAYED_THIS_GAME,
+                        SelfCondition.IsSecret,
+                        GameTag.COST,
+                        0,
+                        owner => 0)
                 },
             });
 

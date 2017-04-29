@@ -752,10 +752,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // RefTag:
         // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void KabalLackey_CFM_066()
         {
-            // TODO KabalLackey_CFM_066 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -766,7 +765,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Lackey"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kabal Lackey"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            var secret1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            var secret2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+            Assert.AreEqual(0, secret1.Cost);
+            Assert.AreEqual(0, secret2.Cost);
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret1));
+            Assert.AreEqual(3, secret2.Cost);
         }
 
         // ------------------------------------------ MINION - MAGE
