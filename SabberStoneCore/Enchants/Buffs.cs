@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
@@ -281,10 +282,11 @@ namespace SabberStoneCore.Enchants
             };
         }
 
-        public static Enchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func)
+        public static Enchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func = null, bool oneTurnActive = false, ISimpleTask removalTask = null)
         {
             return new Enchant()
             {
+                TurnsActive = oneTurnActive ? 0 : -1,
                 RemoveTriggerTags =
                 {
                     changeTriggerTag
@@ -297,7 +299,8 @@ namespace SabberStoneCore.Enchants
                 {
                     [tag] = value
                 },
-                FixedValueFunc = func
+                FixedValueFunc = func,
+                RemovalTask = removalTask
             };
         }
     }

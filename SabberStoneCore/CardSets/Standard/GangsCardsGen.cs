@@ -518,7 +518,8 @@ namespace SabberStoneCore.CardSets.Standard
                         SelfCondition.IsSecret,
                         GameTag.COST,
                         0,
-                        owner => 0)
+                        owner => 0,
+                        true)
                 },
             });
 
@@ -1658,12 +1659,23 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_699", new List<Enchantment>
             {
-                // TODO [CFM_699] Seadevil Stinger && Test: Seadevil Stinger_CFM_699
                 new Enchantment
                 {
+                    // TODO needs to show health costs, however check if there is a better way to this
                     InfoCardId = "CFM_699e",
+                    //Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    //Enchant = Buffs.TillTagChangeActive(
+                    //    GameTag.NUM_MURLOCS_PLAYED_THIS_GAME,
+                    //    SelfCondition.IsRace(Race.MURLOC),
+                    //    GameTag.COST,
+                    //    0,
+                    //    owner => 0
+                    //    //true,
+                    //    //ComplexTask.Create(
+                    //    //    new GetGameTagTask(GameTag.COST, EntityType.TARGET),
+                    //    //    new DamageNumberTask(EntityType.HERO))
+                    //    )
                 },
             });
 

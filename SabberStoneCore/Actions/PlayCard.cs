@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
@@ -206,9 +207,14 @@ namespace SabberStoneCore.Actions
 
                 c.NumMinionsPlayedThisTurn++;
 
-                if (minion.Race == Race.ELEMENTAL)
+                switch (minion.Race)
                 {
-                    c.NumElementalsPlayedThisTurn++;
+                    case Race.ELEMENTAL:
+                        c.NumElementalsPlayedThisTurn++;
+                        break;
+                    case Race.MURLOC:
+                        c.NumMurlocsPlayedThisGame++;
+                        break;
                 }
 
                 return true;

@@ -2264,10 +2264,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // GameTag:
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void SeadevilStinger_CFM_699()
         {
-            // TODO SeadevilStinger_CFM_699 test
+            // TODO take care of cost health animation
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -2278,7 +2278,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Seadevil Stinger"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Seadevil Stinger"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+            Assert.AreEqual(0, minion.Cost);
+            int mana = game.CurrentPlayer.RemainingMana;
+            int health = game.CurrentPlayer.Hero.Health;
+            int cost = minion.Cost;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            Assert.AreEqual(mana, game.CurrentPlayer.RemainingMana);
+            Assert.AreEqual(health - cost, game.CurrentPlayer.Hero.Health);
         }
 
         // --------------------------------------- MINION - WARLOCK

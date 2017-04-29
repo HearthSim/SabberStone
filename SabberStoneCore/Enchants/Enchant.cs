@@ -38,7 +38,7 @@ namespace SabberStoneCore.Enchants
 
         public List<GameTag> RemoveTriggerTags { get; set; } = new List<GameTag>();
 
-        public Dictionary<GameTag, int> RemoveTriggers { get; set; } = new Dictionary<GameTag, int>();
+        internal Dictionary<GameTag, int> RemoveTriggers { get; set; } = new Dictionary<GameTag, int>();
 
         public ISimpleTask SingleTask { get; set; }
 
@@ -94,7 +94,7 @@ namespace SabberStoneCore.Enchants
 
             EnableConditions.ForEach(p => flag &= p.Eval(Owner));
 
-            RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] == p.Value);
+            RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] <= p.Value);
 
             flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 
