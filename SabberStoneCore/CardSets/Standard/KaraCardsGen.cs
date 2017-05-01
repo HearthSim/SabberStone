@@ -904,7 +904,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = new DestroyTask(EntityType.TARGET)
                 },
                 new Enchantment
                 {
