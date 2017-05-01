@@ -588,12 +588,23 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_687", new List<Enchantment>
             {
-                // TODO [CFM_687] Inkmaster Solia && Test: Inkmaster Solia_CFM_687
                 new Enchantment
                 {
                     InfoCardId = "CFM_687e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new FlagTask(true, new AddEnchantmentTask(EntityType.SOURCE, 
+                            new Enchantment {
+                                Area = EnchantmentArea.HAND,
+                                Activation = EnchantmentActivation.BOARD,
+                                Enchant = Buffs.TillTagChangeActive(
+                                    GameTag.NUM_SPELLS_PLAYED_THIS_GAME,
+                                    SelfCondition.IsSpell,
+                                    GameTag.COST,
+                                    0,
+                                    owner => 0)
+                            }, true)))
                 },
             });
 
