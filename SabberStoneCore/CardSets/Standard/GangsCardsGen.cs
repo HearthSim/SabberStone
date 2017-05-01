@@ -894,11 +894,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_800", new List<Enchantment>
             {
-                // TODO [CFM_800] Getaway Kodo && Test: Getaway Kodo_CFM_800
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new CopyTask(EntityType.TARGET, 1),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
                 },
             });
 
