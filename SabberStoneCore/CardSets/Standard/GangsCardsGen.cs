@@ -2780,11 +2780,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_672", new List<Enchantment>
             {
-                // TODO [CFM_672] Madam Goya && Test: Madam Goya_CFM_672
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask =  ComplexTask.Create(
+                        new MoveToDeck(EntityType.TARGET),
+                        ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsOther(SelfCondition.IsMinion)))
+                        
                 },
             });
 
