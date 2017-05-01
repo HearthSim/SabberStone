@@ -2900,11 +2900,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_806", new List<Enchantment>
             {
-                // TODO [CFM_806] Wrathion && Test: Wrathion_CFM_806
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsRace(Race.DRAGON)),
+                        new FlagTask(false, new ActivateEnchantment(EntityType.SOURCE, EnchantmentActivation.BATTLECRY)))
+                        
+                    
                 },
             });
 
