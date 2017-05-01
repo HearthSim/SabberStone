@@ -2755,11 +2755,18 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_670", new List<Enchantment>
             {
-                // TODO [CFM_670] Mayor Noggenfogger && Test: Mayor Noggenfogger_CFM_670
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .SingleTask(ComplexTask.Secret(
+                           new IncludeTask(EntityType.ALL),
+                           new RandomTask(1, EntityType.STACK),
+                           new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+                        .Build()
                 }
             });
 
