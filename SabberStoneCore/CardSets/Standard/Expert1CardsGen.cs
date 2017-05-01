@@ -1730,11 +1730,20 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("EX1_130", new List<Enchantment>
             {
-                // TODO [EX1_130] Noble Sacrifice && Test: Noble Sacrifice_EX1_130
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .SingleTask(ComplexTask.Secret(
+                           new SummonTask("EX1_130a"),
+                           new IncludeTask(EntityType.MINIONS),
+                           new FilterStackTask(SelfCondition.IsCardId("EX1_130a")),
+                           new RandomTask(1, EntityType.STACK),
+                           new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+                        .Build()
                 },
             });
 
