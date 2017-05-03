@@ -588,12 +588,23 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_687", new List<Enchantment>
             {
-                // TODO [CFM_687] Inkmaster Solia && Test: Inkmaster Solia_CFM_687
                 new Enchantment
                 {
                     InfoCardId = "CFM_687e",
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+                        new FlagTask(true, new AddEnchantmentTask(EntityType.SOURCE, 
+                            new Enchantment {
+                                Area = EnchantmentArea.HAND,
+                                Activation = EnchantmentActivation.BOARD,
+                                Enchant = Buffs.TillTagChangeActive(
+                                    GameTag.NUM_SPELLS_PLAYED_THIS_GAME,
+                                    SelfCondition.IsSpell,
+                                    GameTag.COST,
+                                    0,
+                                    owner => 0)
+                            }, true)))
                 },
             });
 
@@ -883,11 +894,17 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_800", new List<Enchantment>
             {
-                // TODO [CFM_800] Getaway Kodo && Test: Getaway Kodo_CFM_800
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = null,
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                        .SingleTask(ComplexTask.Secret(
+                            new CopyTask(EntityType.TARGET, 1),
+                            new AddStackTo(EntityType.HAND)))
+                        .Build()
                 },
             });
 
@@ -2738,11 +2755,18 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_670", new List<Enchantment>
             {
-                // TODO [CFM_670] Mayor Noggenfogger && Test: Mayor Noggenfogger_CFM_670
                 new Enchantment
                 {
-                    //Activation = null,
-                    //SingleTask = null,
+                    Area = EnchantmentArea.BOARDS,
+                    Activation = EnchantmentActivation.BOARD,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.ATTACKING, 1)
+                        .SingleTask(ComplexTask.Secret(
+                           new IncludeTask(EntityType.ALL),
+                           new RandomTask(1, EntityType.STACK),
+                           new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+                        .Build()
                 }
             });
 
@@ -2763,11 +2787,13 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_672", new List<Enchantment>
             {
-                // TODO [CFM_672] Madam Goya && Test: Madam Goya_CFM_672
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask =  ComplexTask.Create(
+                        new MoveToDeck(EntityType.TARGET),
+                        ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsOther(SelfCondition.IsMinion)))
+                        
                 },
             });
 
@@ -2881,11 +2907,15 @@ namespace SabberStoneCore.CardSets.Standard
             // --------------------------------------------------------
             cards.Add("CFM_806", new List<Enchantment>
             {
-                // TODO [CFM_806] Wrathion && Test: Wrathion_CFM_806
                 new Enchantment
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = null,
+                    SingleTask = ComplexTask.Create(
+                        new DrawTask(true),
+                        new ConditionTask(EntityType.STACK, SelfCondition.IsRace(Race.DRAGON)),
+                        new FlagTask(false, new ActivateEnchantment(EntityType.SOURCE, EnchantmentActivation.BATTLECRY)))
+                        
+                    
                 },
             });
 

@@ -54,18 +54,18 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 **Basic & Classic**
 * **100% Basic (142 Cards)**
-* 95% Classic (245 Cards)
+* 96% Classic (239 Cards)
 
 **Adventures**
 * 93% Blackrock Mountain (31 Cards)
-* 82% One Night in Karazhan (45 Cards)
+* 95% One Night in Karazhan (45 Cards)
 * 97% The League of Explorers (45 Cards)
 
 **Expensions**
 * 91% The Grand Tournament (132 Cards)
-* 91% Whispers of the Old Gods (134 Cards)
-* 90% Mean Streets of Gadgetzan (132 Cards)
-* 75% Journey to Un'Goro
+* 93% Whispers of the Old Gods (134 Cards)
+* 96% Mean Streets of Gadgetzan (132 Cards)
+* 86% Journey to Un'Goro (135 cards)
 
 *(Curse of Naxxrams not on focus, because not in Standard.)*
 

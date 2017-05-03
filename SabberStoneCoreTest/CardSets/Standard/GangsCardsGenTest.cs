@@ -849,21 +849,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
         // - ELITE = 1
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void InkmasterSolia_CFM_687()
         {
-            // TODO InkmasterSolia_CFM_687 test
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.MAGE,
                 Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
+                FillDecks = false
             });
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Inkmaster Solia"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Inkmaster Solia"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            var secret1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            var secret2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret1));
         }
 
         // ------------------------------------------ MINION - MAGE
