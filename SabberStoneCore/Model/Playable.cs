@@ -201,6 +201,7 @@ namespace SabberStoneCore.Model
 
                         // implemented in Targeting
                         case PlayReq.REQ_TARGET_FOR_COMBO:
+                        case PlayReq.REQ_FROZEN_TARGET:
                         case PlayReq.REQ_MINION_OR_ENEMY_HERO:
                         case PlayReq.REQ_TARGET_MAX_ATTACK:
                         case PlayReq.REQ_MINION_TARGET:
@@ -214,6 +215,7 @@ namespace SabberStoneCore.Model
                         case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
                         case PlayReq.REQ_TARGET_WITH_BATTLECRY:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                        case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
                         case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
                         case PlayReq.REQ_NONSELF_TARGET:

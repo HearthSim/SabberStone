@@ -25,6 +25,7 @@ namespace SabberStoneCore.Model
             || Card.RequiresTargetForCombo
             || Card.RequiresTargetIfAvailable
             || Card.RequiresTargetIfAvailableAndDragonInHand // && Controller.DragonInHand 
+            || Card.RequiresTargetIfAvailableAndElementalPlayedLastTurn // && Controller.NumElementalsPlayedLastTurn > 0
             || Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions // && Controller.Board.Count >= 4
             || Card.RequiresTargetIfAvailableAndMinimumFriendlySecrets; // && Controller.Secrets.Count > 0;
 
@@ -204,6 +205,12 @@ namespace SabberStoneCore.Model
                         break;
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
                         if (!Controller.DragonInHand)
+                        {
+                            return false;
+                        }
+                        break;
+                    case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+                        if (Controller.NumElementalsPlayedLastTurn < 1)
                         {
                             return false;
                         }

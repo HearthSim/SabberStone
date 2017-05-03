@@ -28,12 +28,12 @@ namespace SabberStoneCoreConsole
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
             //Kazakus();
-            //BrainDeadTest();
+            BrainDeadTest();
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();
@@ -616,7 +616,7 @@ namespace SabberStoneCoreConsole
 
             Console.WriteLine($"{game.FullPrint()}");
 
-            const int total = 127000;
+            const int total = 10000;
             var watch = Stopwatch.StartNew();
             for (var i = 0; i < total; i++)
             {

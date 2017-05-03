@@ -54,11 +54,17 @@ namespace SabberStoneCore.Model
 
         public bool RequiresTargetIfAvailable => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
 
-        public bool RequiresTargetIfAvailableAndDragonInHand => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
+        public bool RequiresTargetIfAvailableAndDragonInHand 
+            => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
 
-        public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
+        public bool RequiresTargetIfAvailableAndElementalPlayedLastTurn
+            => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
 
-        public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
+        public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions 
+            => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
+
+        public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets 
+            => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
 
         public int MaxAllowedInDeck => Rarity == Rarity.LEGENDARY ? 1 : 2;
 
