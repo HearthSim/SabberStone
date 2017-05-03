@@ -983,7 +983,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     Activation = EnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand, SelfCondition.IsOpDeckNotEmpty),
                         new FlagTask(true, new DiscoverTask(DiscoverType.OP_DECK)))
                 },
             });
