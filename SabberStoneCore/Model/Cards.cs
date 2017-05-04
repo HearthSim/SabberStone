@@ -18,6 +18,46 @@ namespace SabberStoneCore.Model
             CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO
         };
 
+        public static CardSet[] WildSets { get; } = {
+            CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO,
+            CardSet.BRM, CardSet.GVG, CardSet.HOF, CardSet.NAXX, CardSet.LOE, CardSet.TGT
+        };
+
+        public static string CardSetToName(CardSet cardSet)
+        {
+            switch (cardSet)
+            {
+                case CardSet.CORE:
+                    return "Basic";
+                case CardSet.EXPERT1:
+                    return "Classic";
+                case CardSet.HOF:
+                    return "Hall of Fame";
+                case CardSet.NAXX:
+                    return "Curse of Naxxramas";
+                case CardSet.GVG:
+                    return "Goblins vs Gnomes";
+                case CardSet.BRM:
+                    return "Blackrock Mountain";
+                case CardSet.TGT:
+                    return "The Grand Tournament";
+                case CardSet.LOE:
+                    return "The League of Explorers";
+                case CardSet.OG:
+                    return "Whispers of the Old Gods";
+                case CardSet.KARA:
+                    return "One Night in Karazhan";
+                case CardSet.GANGS:
+                    return "Mean Streets of Gadgetzan";
+                case CardSet.UNGORO:
+                    return "Journey to Un\'Goro ";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
+            }
+        }
+
+
+
         public static CardClass[] BasicHeroes => new []
         {
             CardClass.DRUID, CardClass.HUNTER, CardClass.PALADIN,
@@ -123,12 +163,19 @@ namespace SabberStoneCore.Model
         public static string Statistics()
         {
             var standard = All.Where(c => c.Collectible && StandardSets.Contains(c.Set));
+            var wild = All.Where(c => c.Collectible);
             var implemented = standard.Where(p => p.Implemented)
                 .GroupBy(p => p.Set)
                 .Select(t => new {Key = t.Key, Count = t.Count()});
+            var implementedWild = wild.Where(p => p.Implemented)
+                .GroupBy(p => p.Set)
+                .Select(t => new { Key = t.Key, Count = t.Count() });
             var all = standard
                 .GroupBy(p => p.Set)
                 .Select(t => new {Key = t.Key, Count = t.Count()});
+            var allWild = wild
+                .GroupBy(p => p.Set)
+                .Select(t => new { Key = t.Key, Count = t.Count() });
             var str = string.Empty;
             var totImpl = 0;
             var totCards = 0;
@@ -137,11 +184,25 @@ namespace SabberStoneCore.Model
                 var impl = implemented.FirstOrDefault(p => p.Key == set).Count;
                 totImpl += impl;
                 var tot = all.FirstOrDefault(p => p.Key == set).Count;
-                str += $"{set} => {impl * 100 / tot}% from {tot} Cards\n";
+                str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
                 totCards += tot;
             }
 
-            str += $"Total => {totImpl * 100 / totCards}% from {totCards} Cards\n";
+            str += $"Total Standard => {totImpl * 100 / totCards}% from {totCards} Cards\n";
+            str += "\n";
+
+            totImpl = 0;
+            totCards = 0;
+            foreach (var set in WildSets)
+            {
+                var impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
+                totImpl += impl;
+                var tot = allWild.FirstOrDefault(p => p.Key == set).Count;
+                str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
+                totCards += tot;
+            }
+
+            str += $"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards\n";
 
             return str;
         }
