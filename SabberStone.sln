@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettleSimulator"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStonePowerLog", "SabberStonePowerLog\SabberStonePowerLog.csproj", "{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneHsReplay", "SabberStoneHsReplay\SabberStoneHsReplay.csproj", "{34049E7A-325F-4C9F-871E-B7656CD6AD4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,18 @@ Global
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Release|x64.Build.0 = Release|Any CPU
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Release|x86.ActiveCfg = Release|Any CPU
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Release|x86.Build.0 = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|x64.Build.0 = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Debug|x86.Build.0 = Debug|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x64.ActiveCfg = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x64.Build.0 = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.ActiveCfg = Release|Any CPU
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
