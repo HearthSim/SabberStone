@@ -431,7 +431,7 @@ namespace SabberStoneCoreTest.CardSets
         [TestMethod, Ignore]
         public void NerubianEgg_FP1_007()
         {
-            // TODO NerubianEgg_FP1_007 test
+
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
@@ -442,7 +442,13 @@ namespace SabberStoneCoreTest.CardSets
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            //var testCard = game.CurrentPlayer.Draw(Cards.FromName("Nerubian Egg"));
+            var testCard = game.CurrentPlayer.Draw(Cards.FromName("Nerubian Egg"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
+            Assert.AreEqual("FP1_007t", game.CurrentOpponent.Board[0].Card.Id);
         }
 
         // --------------------------------------- MINION - NEUTRAL
