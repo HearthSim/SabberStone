@@ -428,7 +428,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [TestMethod]
         public void NerubianEgg_FP1_007()
         {
 
@@ -442,7 +442,7 @@ namespace SabberStoneCoreTest.CardSets
             game.StartGame();
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
-            var testCard = game.CurrentPlayer.Draw(Cards.FromName("Nerubian Egg"));
+            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Egg"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
