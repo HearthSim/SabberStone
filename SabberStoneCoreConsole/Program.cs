@@ -28,7 +28,7 @@ namespace SabberStoneCoreConsole
             //OptionsTest();
             //GameMulliganTest();
             //GameSplitTest();
-            Console.WriteLine(Cards.Statistics());
+            //Console.WriteLine(Cards.Statistics());
             //KabalCourierDiscover();
             //PowerHistoryTest();
             //ChooseOneTest();
@@ -36,7 +36,7 @@ namespace SabberStoneCoreConsole
             //BrainDeadTest();
 
             //TestLoader.GetGameTags();
-            //TestLoader.Load();
+            TestLoader.Load();
 
             //Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
