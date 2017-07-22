@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SabberStoneKettlePlugin": {
+      "commandName": "Project",
+      "commandLineArgs": "--events --public-endpoint 127.0.0.1:5523"
+    }
+  }
+}
