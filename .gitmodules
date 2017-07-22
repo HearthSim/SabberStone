@@ -1,0 +1,4 @@
+[submodule "kettle-code"]
+	path = kettle-code
+	url = https://github.com/HearthSim/kettle-code.git
+	branch = incubate-csharp
