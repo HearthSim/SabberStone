@@ -588,6 +588,26 @@ namespace SabberStoneCoreTest.Basic
         }
 
         [TestMethod]
+        public void SecretOnlyOnce()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.ROGUE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.AreEqual(game.CurrentPlayer.Secrets.Count, 1);
+        }
+
+        [TestMethod]
         public void Aura_LoopBug()
         {
             var game = new Game(new GameConfig

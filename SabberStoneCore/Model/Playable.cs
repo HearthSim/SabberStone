@@ -120,6 +120,15 @@ namespace SabberStoneCore.Model
                     return false;
                 }
 
+                // check if we can play this secret
+                var spell = this as Spell;
+                if (spell != null && spell.IsSecret && Controller.Secrets.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
+                {
+                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                        $"{this} isn't playable, because secret already active on controller.");
+                    return false;
+                }
+
                 return true;
             }
         }
