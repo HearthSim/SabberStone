@@ -2,6 +2,8 @@
 using System;
 using System.Collections.ObjectModel;
 using Kettle.Protocol;
+using SabberStoneKettlePlugin.master;
+using SabberStoneKettlePlugin.slave;
 
 namespace SabberStoneKettlePlugin
 {

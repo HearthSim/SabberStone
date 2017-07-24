@@ -1,17 +1,20 @@
-﻿using Kettle.Adapter.Processing.Management.Implementations;
-using Kettle.Framework;
-using SabberStoneKettlePlugin.master;
+﻿using Kettle.Framework;
 using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace SabberStoneKettlePlugin
+namespace SabberStoneKettlePlugin.master
 {
     internal class MasterCode
     {
+        private IPCProcessor _ipcProcessor;
+        private PublicProcessor _publicProcessor;
+
         public MasterCode()
         {
+            _ipcProcessor = new IPCProcessor();
+            _publicProcessor = new PublicProcessor(Program.IDENTIFIER, Program.PROVIDER);
         }
 
         public bool Enter()
@@ -22,22 +25,13 @@ namespace SabberStoneKettlePlugin
                 return false;
             }
 
-            // Build+Hookup processors.
-            var _MGMTProcessor = new MGMT_Simulator(Program.IDENTIFIER, Program.PROVIDER);
+            // IPC event callbacks are bound through IPCProcessor.
+            _ipcProcessor.Bind();
 
-            _MGMTProcessor.OnNack += MGMTDelegates.OnNack;
-            _MGMTProcessor.Event_OnGameCreated += MGMTDelegates.Event_OnGameCreated;
-            _MGMTProcessor.Event_OnGameFinished += MGMTDelegates.Event_OnGameFinished;
-            _MGMTProcessor.Event_OnGameJoined += MGMTDelegates.Event_OnGameJoined;
-            _MGMTProcessor.MGMT_OnMasterPing += MGMTDelegates.OnMasterPing;
-            _MGMTProcessor.MGMT_OnSlavePing += MGMTDelegates.OnSlavePing;
-
-            // Construct adapter.
-            KettleFramework.MainProcessor = _MGMTProcessor;
-            if (!KettleFramework.BuildAdapter("Master Adapter")) return false;
-
-            // Start the first slave.
-            if (!KettleFramework.StartSlaveAsync().Result) return false;
+            // Public event callbacks are bound through PublicProcessor.
+            _publicProcessor.Bind();
+            // The public processor needs to be stored into the Framework.
+            KettleFramework.PublicProcessor = _publicProcessor;
 
             return PublicAcceptLoop().Result;
         }
@@ -52,7 +46,7 @@ namespace SabberStoneKettlePlugin
             {
                 // Setup public socket.
                 TcpListener listener = new TcpListener(KettleFramework.Options.PublicEndpoint);
-                listener.Start(10);
+                listener.Start(1);
                 Console.WriteLine("MASTER - Public listener started!");
 
                 while (true)
@@ -69,7 +63,7 @@ namespace SabberStoneKettlePlugin
                     // Register socket on adapter.
                     // This method call blocks until the adapter has a free slot to register
                     // another stream.
-                    await KettleFramework.Adapter.AddStreamAsync(newClient.Client);
+                    await KettleFramework.Adapter.AddStreamAsync(newClient.Client, _publicProcessor);
                 }
             }
             catch (Exception e)
