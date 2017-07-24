@@ -1,4 +1,5 @@
 ﻿using Kettle.Adapter;
+using Kettle.Framework;
 using Kettle.Protocol;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -13,6 +14,13 @@ namespace SabberStoneKettlePlugin.master
 
         public void Bind()
         {
+            var processor = KettleFramework.IPCProcessor;
+            processor.OnNack += Respond_Nack;
+            processor.Event_OnGameCreated += Respond_Event_GameCreated;
+            processor.Event_OnGameFinished += Respond_Event_GameFinished;
+            processor.Event_OnGameJoined += Respond_Event_GameJoined;
+            processor.OnMasterPing += Respond_MasterPing;
+            processor.OnSlavePing += Respond_SlavePing;
 
         }
 

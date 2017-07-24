@@ -1,5 +1,7 @@
 ﻿using Kettle.Framework;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -11,6 +13,9 @@ namespace SabberStoneKettlePlugin.master
         private IPCProcessor _ipcProcessor;
         private PublicProcessor _publicProcessor;
 
+        // ConnectionID of the link between the simulator and matchmaker.
+        public static int MMConnectionID { get; private set; } = -1;
+
         public MasterCode()
         {
             _ipcProcessor = new IPCProcessor();
@@ -19,12 +24,6 @@ namespace SabberStoneKettlePlugin.master
 
         public bool Enter()
         {
-            if (KettleFramework.Options.PublicEndpoint == null)
-            {
-                Console.Error.WriteLine("This module must be launched with the option for a public endpoint!");
-                return false;
-            }
-
             // IPC event callbacks are bound through IPCProcessor.
             _ipcProcessor.Bind();
 
@@ -33,53 +32,59 @@ namespace SabberStoneKettlePlugin.master
             // The public processor needs to be stored into the Framework.
             KettleFramework.PublicProcessor = _publicProcessor;
 
-            return PublicAcceptLoop().Result;
+            if (!MatchmakerConnect().Result) return false;
+
+            // Run the framework (and adapter). The task will go into completed state 
+            // when the adapter has no more active connections.
+            // This means that the matchmaker must have closed down our connection as well!
+            return KettleFramework.RunUntilShutdown().Result;
         }
 
-        private async Task<bool> PublicAcceptLoop()
+        private async Task<bool> MatchmakerConnect()
         {
-            // Run the framework (and adapter). The task will go into completed state 
-            // when the adapter crashes, since an uninterrupted run is chosen.
-            var interruptTask = KettleFramework.RunUninterrupted();
-
             try
             {
-                // Setup public socket.
-                TcpListener listener = new TcpListener(KettleFramework.Options.PublicEndpoint);
-                listener.Start(1);
-                Console.WriteLine("MASTER - Public listener started!");
-
-                while (true)
+                // Use the processor to setup a valid connection with the provided 
+                // public endpoint address (of the Matchmaker [implicit]).
+                var mmEndpoint = KettleFramework.Options.PublicEndpoint;
+                if (mmEndpoint == null)
                 {
-                    var acceptSocketTask = listener.AcceptTcpClientAsync();
-                    var targetTask = await Task.WhenAny(acceptSocketTask, interruptTask);
-                    if (targetTask == interruptTask) break;
-
-                    // Accept the new connection.
-                    var newClient = acceptSocketTask.Result;
-                    // TODO; Perform handshaking.
-
-
-                    // Register socket on adapter.
-                    // This method call blocks until the adapter has a free slot to register
-                    // another stream.
-                    await KettleFramework.Adapter.AddStreamAsync(newClient.Client, _publicProcessor);
+                    Console.Error.WriteLine("This module must be launched with the option for a public endpoint!");
+                    return false;
                 }
+                Socket mmConnection = await _publicProcessor.ConnectAsync(mmEndpoint);
+                if (mmConnection == null)
+                {
+                    Console.Error.WriteLine("Matchmaker sent invalid data. Handshake failed!");
+                    return false;
+                }
+
+                // Store connection with matchmaker into adapter.
+                int cID = await KettleFramework.Adapter.AddStreamAsync(mmConnection, _publicProcessor);
+                if (cID == -1)
+                {
+                    Console.Error.WriteLine("Issue storing the matchmaker connection into adapter!");
+                    return false;
+                }
+
+                // Store the connectionID of matchmaker connection for reuse.
+                MMConnectionID = cID;
             }
             catch (Exception e)
             {
                 if (e is SocketException || e is IOException)
                 {
                     Console.Error.WriteLine("MASTER - Public endpoint socket faulted!");
-                    Console.Error.WriteLine("MASTER - Shutting down public endpoint.");
+                    Console.Error.WriteLine("MASTER - Shutting down.");
 
-                    // Request the framework to shutdown gracefully.
-                    KettleFramework.RequestShutdown();
+                    return false;
                 }
+
+                Debug.Fail("Unexpected exception!");
+                throw;
             }
 
-            // Return or await the result of the adapter.
-            return interruptTask.Result;
+            return true;
         }
     }
 }

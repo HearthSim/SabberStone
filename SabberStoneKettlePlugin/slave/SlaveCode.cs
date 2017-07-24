@@ -5,19 +5,10 @@ namespace SabberStoneKettlePlugin.slave
 {
     internal class SlaveCode
     {
-        private SimulatorPurpose _purpose;
-        private int _maxGameInstances;
-        private Supported _details;
-
-
         private PublicProcessor _publicProcessor;
 
-        public SlaveCode(SimulatorPurpose purpose, int maxGameInstances, Supported details)
+        public SlaveCode()
         {
-            _purpose = purpose;
-            _maxGameInstances = maxGameInstances;
-            _details = details;
-
             _publicProcessor = new PublicProcessor(Program.IDENTIFIER, Program.PROVIDER);
         }
 

@@ -14,6 +14,18 @@ namespace SabberStoneKettlePlugin
 
         internal const int DESTRUCT_TIMEOUT = 5;
 
+        internal static readonly SimulatorPurpose Purpose = SimulatorPurpose.Simulator;
+        internal static readonly int MaxInstances = 20;
+        internal static readonly Supported SupportedDetails = new Supported()
+        {
+            Scenario = new ObservableCollection<GameScenarioEnum>()
+                        {
+                            GameScenarioEnum.Match_Standard,
+                            GameScenarioEnum.Match_Wild
+                        },
+            GameID = new ObservableCollection<string>() { "default" }
+        };
+
         static void Main(string[] args)
         {
             if (!KettleFramework.Init(args))
@@ -30,23 +42,11 @@ namespace SabberStoneKettlePlugin
 
             KettleFramework.PreventTerminalInterrupt(null, DESTRUCT_TIMEOUT);
 
-            SimulatorPurpose purpose = SimulatorPurpose.Simulator;
-            int maxInstances = 20;
-            Supported supportedDetails = new Supported()
-            {
-                Scenario = new ObservableCollection<GameScenarioEnum>()
-                        {
-                            GameScenarioEnum.Match_Standard,
-                            GameScenarioEnum.Match_Wild
-                        },
-                GameID = new ObservableCollection<string>() { "default" }
-            };
-
             try
             {
                 if (KettleFramework.IsSlave())
                 {
-                    if (new SlaveCode(purpose, maxInstances, supportedDetails)?.Enter() != true)
+                    if (new SlaveCode()?.Enter() != true)
                     {
                         Console.Error.WriteLine("SLAVE - Error occurred!");
                     }

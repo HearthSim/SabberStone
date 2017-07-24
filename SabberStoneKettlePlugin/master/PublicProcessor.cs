@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.master
@@ -60,11 +61,59 @@ namespace SabberStoneKettlePlugin.master
             return ConnectAsync(endpoint).Result;
         }
 
-        public override Task<Socket> ConnectAsync(IPEndPoint endpoint)
+        public override async Task<Socket> ConnectAsync(IPEndPoint endpoint)
         {
-            // TODO; Connect to matchmaker
+            Debug.Assert(endpoint != null);
 
-            throw new NotImplementedException();
+            TcpClient client = new TcpClient(endpoint.AddressFamily);
+            await client.ConnectAsync(endpoint.Address, endpoint.Port);
+
+            if (!client.Connected) return null;
+
+            // Perform handshaking.
+            var dataStream = client.GetStream();
+            var token = CancellationToken.None;
+            var readResult = await AdapterUtil.ReadKettlePacketAsync(dataStream, token, 5);
+            if(readResult.State != AdapterUtil.READ_STATE.OK || readResult.Data == null)
+            {
+                client.Dispose();
+                return null;
+            }
+
+            // We assume here that the job succeeded.
+            var mmAnnounce = readResult.Data;
+            if (mmAnnounce.Type != PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_announce)
+            {
+                client.Dispose();
+                return null;
+            }
+
+            // Send our own announce.
+            var simAnnounce = new KettlePayload()
+            {
+                Type = PayloadTypeStringEnum.KettleTypes_handshake_simulator_announce,
+                Data = new KettleSimulatorAnnounce()
+                {
+                    Identification = Program.IDENTIFIER,
+                    Provider = Program.PROVIDER,
+                    Max_instances = Program.MaxInstances,
+                    Purpose = Program.Purpose,
+                    Supported = Program.SupportedDetails
+                }
+            };
+
+            var writeResult = await AdapterUtil.WriteKettlePacketAsync(dataStream, simAnnounce, token);
+            if (writeResult != AdapterUtil.WRITE_STATE.OK)
+            {
+                client.Dispose();
+                return null;
+            }
+
+            // Do logging.
+            var mmPayload = mmAnnounce.Data as KettleMatchmakerAnnounce;
+            Console.WriteLine("Connected to Matchmaker:\n{0}\n{1}", mmPayload.Identification, mmPayload.Provider);
+
+            return client.Client;
         }
 
         public override void ParsePayload(KettlePayload data, int cID)
