@@ -146,6 +146,7 @@ namespace SabberStoneKettlePlugin.slave
             // We respond to each client with our own announce if there wasn't already any state bound.
             if (e.Data == null)
             {
+                e.Data = new KettleUserToken();
                 KettleFramework.QueuePacket(GetAnnouncePayload(), e);
             }
         }
@@ -159,12 +160,18 @@ namespace SabberStoneKettlePlugin.slave
         {
             if (e.Data == null)
             {
-                // TODO
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack("Unexpected payload!"), e);
             }
-            else
-            {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
-            }
+
+            KettleUserToken token = e.Data as KettleUserToken;
+            if (token.GameToken != null) return;
+
+            // Check for open game instances.
+
+            // Attach to open game instance.
+
+            // Send ack?
+
         }
 
         private void Respond_ChooseEntities(KettleDoChooseEntities data, KettleConnectionArgs e)

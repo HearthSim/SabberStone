@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.slave
@@ -14,7 +15,7 @@ namespace SabberStoneKettlePlugin.slave
     /// Handles received messages for the IPC connection, Slave side.
     /// </summary>
     /// <seealso cref="Kettle.Adapter.Processing.KettleIPCProcessor" />
-    internal class IPCProcessor: KettleIPCProcessor
+    internal class IPCProcessor : KettleIPCProcessor
     {
         public override event Action<ObservableCollection<KettleNack>, KettleConnectionArgs> OnNack;
         public override event Action<KettleEventBucketCreated, KettleConnectionArgs> Event_OnBucketCreated;
@@ -53,11 +54,51 @@ namespace SabberStoneKettlePlugin.slave
         {
             Debug.Assert(endpoint != null);
 
-            // DEBUG
-            await Task.CompletedTask;
+            try
+            {
+                TcpClient client = new TcpClient(endpoint.AddressFamily);
+                await client.ConnectAsync(endpoint.Address, endpoint.Port);
 
-            // TODO
-            return null;
+                /* Perform handshaking */
+                var dataStream = client.GetStream();
+                var token = CancellationToken.None;
+
+                // Since we connected to a matchmaker, it should announce itself.
+                var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
+                if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                var announcePayload = readResult.Data;
+                var masterAnnounce = announcePayload.Data as KettleMasterAnnounce;
+                if (announcePayload.Type != PayloadTypeStringEnum.KettleTypes_handshake_master_announce ||
+                    masterAnnounce == null)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                // We validated the matchmaker announce, so now we send our own announce.
+                var slaveAnnounce = GetAnnouncePayload();
+                var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, slaveAnnounce, token);
+                if (writeResult != KettleCore.WRITE_STATE.OK)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                // Do logging.
+                Console.WriteLine("Connected to Master at {0}", endpoint.ToString());
+
+                return client.Client;
+            }
+            catch (Exception)
+            {
+                Debug.Fail("Check exception!");
+                return null;
+            }
         }
 
         public void Bind()
@@ -79,7 +120,7 @@ namespace SabberStoneKettlePlugin.slave
             {
                 case PayloadTypeStringEnum.KettleTypes_handshake_master_ping:
                     DelegateCallback(OnMasterPing, data, cID);
-                    break;  
+                    break;
                 case PayloadTypeStringEnum.KettleTypes_lobby_create_game:
                     DelegateCallback(OnCreateGame, data, cID);
                     break;

@@ -4,49 +4,33 @@ using SabberStoneCore.Model;
 namespace SabberStoneKettlePlugin
 {
     /// <summary>
-    /// Object which is set on the connection information to identify the game linked
-    /// to that connection.
+    /// Object which is attached to a connection to provide meta-information.
     /// </summary>
     class KettleUserToken
     {
-        /// <summary>
-        /// The Sabberstone game instance.
-        /// </summary>
-        public readonly Game Game;
 
         /// <summary>
-        /// The player instance, attached to the game instance mentioned by `Game` property.
+        /// Gets or sets the game token.
         /// </summary>
-        public readonly Controller Player;
-
-        /// <summary>
-        /// The connection object of the other player.
-        /// </summary>
-        public KettleConnectionArgs OtherPlayerConnection;
-
-        public KettleUserToken(Game game, Controller player)
+        /// <value>
+        /// The game token.
+        /// </value>
+        public KettleGameToken GameToken
         {
-            Game = game;
-            Player = player;
+            get => _gameToken;
+            set
+            {
+                // Only allow the gametoken to be set exactly once!
+                if (value != null && _gameToken == null)
+                {
+                    _gameToken = value;
+                }
+            }
         }
+        private KettleGameToken _gameToken;
 
-        // TODO; Expose some properties which are often used.
-
-        /// <summary>
-        /// Gets a value indicating whether this player is currently executing it's turn.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> it's the turn of the current player; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsPlayerTurn => Game.CurrentPlayer == Player;
-
-        /// <summary>
-        /// Gets a value indicating whether this game instance has started.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is started; otherwise, <c>false</c>.
-        /// </value>
-        // TODO
-        public bool IsGameStarted => false;
+        public KettleUserToken()
+        {
+        }
     }
 }

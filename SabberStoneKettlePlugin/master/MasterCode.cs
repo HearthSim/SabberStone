@@ -16,7 +16,7 @@ namespace SabberStoneKettlePlugin.master
     /// The Master process communicates with a simulator over a public line.
     /// The Master spawns slaves and 
     /// </summary>
-    internal class MasterCode: GameMaster
+    internal class MasterCode : GameMaster
     {
         private IPCProcessor _ipcProcessor;
         private PublicProcessor _publicProcessor;
@@ -47,8 +47,8 @@ namespace SabberStoneKettlePlugin.master
              * Bindings 
              * IPC delegates are bound inside IPCProcessor.
              */
-             // The public processor methods are written in this class because of the dependancy
-             // on GameMaster.
+            // The public processor methods are written in this class because of the dependancy
+            // on GameMaster.
             _publicProcessor.OnMatchmakerPing += Handle_MatchmakerPing;
             _publicProcessor.OnCreateGame += Handle_CreateGame;
 
@@ -120,7 +120,7 @@ namespace SabberStoneKettlePlugin.master
 
             int slaveID;
             if (RegisterNewGameInstance(out slaveID))
-            {
+            { 
                 // Use the IPC connection towards the slave to instruct it to start a new instance.
                 // TODO; Test if slave is still connected and available! Validity cannot be guaranteed!
                 var createGamePayload = new KettlePayload()
@@ -133,17 +133,7 @@ namespace SabberStoneKettlePlugin.master
             }
 
             // Send NACK because a new game instance cannot be allocated.
-            var nackPayload = new KettlePayload()
-            {
-                Errors = new ObservableCollection<KettleNack>()
-                    {
-                        new KettleNack()
-                        {
-                            Message = Errors.GAMEQUEUE_FULL_MSG,
-                            Data = Errors.GAMEQUEUE_FULL.ToString()
-                        }
-                    }
-            };
+            var nackPayload = PayloadBuilder.BuildNack(Errors.GAMEQUEUE_FULL_MSG, Errors.GAMEQUEUE_FULL.ToString());
             KettleFramework.QueuePacket(nackPayload, e);
         }
     }

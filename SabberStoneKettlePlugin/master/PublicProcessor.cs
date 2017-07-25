@@ -85,43 +85,53 @@ namespace SabberStoneKettlePlugin.master
         {
             Debug.Assert(endpoint != null);
 
-            TcpClient client = new TcpClient(endpoint.AddressFamily);
-            await client.ConnectAsync(endpoint.Address, endpoint.Port);
-
-            if (!client.Connected) return null;
-
-            // Perform handshaking.
-            var dataStream = client.GetStream();
-            var token = CancellationToken.None;
-            var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
-            if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
+            try
             {
-                client.Dispose();
+                TcpClient client = new TcpClient(endpoint.AddressFamily);
+                await client.ConnectAsync(endpoint.Address, endpoint.Port);
+
+                if (!client.Connected) return null;
+
+                /* Perform handshaking. */
+                var dataStream = client.GetStream();
+                var token = CancellationToken.None;
+
+                // Since we connected to a matchmaker, it should announce itself.
+                var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
+                if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                var mmAnnounce = readResult.Data;
+                var mmPayload = mmAnnounce.Data as KettleMatchmakerAnnounce;
+                if (mmAnnounce.Type != PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_announce ||
+                    mmPayload == null)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                // We validated the matchmaker announce, so now we send our own announce.
+                var simAnnounce = GetAnnouncePayload();
+                var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, simAnnounce, token);
+                if (writeResult != KettleCore.WRITE_STATE.OK)
+                {
+                    client.Dispose();
+                    return null;
+                }
+
+                // Do logging.
+                Console.WriteLine("Connected to Matchmaker:\n{0}\n{1}", mmPayload.Identification, mmPayload.Provider);
+
+                return client.Client;
+            }
+            catch (Exception)
+            {
+                Debug.Fail("Check exception!");
                 return null;
             }
-
-            // We assume here that the job succeeded.
-            var mmAnnounce = readResult.Data;
-            if (mmAnnounce.Type != PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_announce)
-            {
-                client.Dispose();
-                return null;
-            }
-
-            // Send our own announce.
-            var simAnnounce = GetAnnouncePayload();
-            var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, simAnnounce, token);
-            if (writeResult != KettleCore.WRITE_STATE.OK)
-            {
-                client.Dispose();
-                return null;
-            }
-
-            // Do logging.
-            var mmPayload = mmAnnounce.Data as KettleMatchmakerAnnounce;
-            Console.WriteLine("Connected to Matchmaker:\n{0}\n{1}", mmPayload.Identification, mmPayload.Provider);
-
-            return client.Client;
         }
 
         public override void ParsePayload(KettlePayload data, int cID)
