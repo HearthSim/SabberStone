@@ -1,6 +1,8 @@
-﻿using Kettle.Framework;
+﻿using Kettle.Adapter;
+using Kettle.Framework;
+using Kettle.Protocol;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
@@ -8,7 +10,13 @@ using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.master
 {
-    internal class MasterCode
+    /// <summary>
+    /// Formulates all procedures for the Master process.
+    /// 
+    /// The Master process communicates with a simulator over a public line.
+    /// The Master spawns slaves and 
+    /// </summary>
+    internal class MasterCode: GameMaster
     {
         private IPCProcessor _ipcProcessor;
         private PublicProcessor _publicProcessor;
@@ -18,19 +26,32 @@ namespace SabberStoneKettlePlugin.master
 
         public MasterCode()
         {
-            _ipcProcessor = new IPCProcessor();
+            _ipcProcessor = new IPCProcessor(Program.IDENTIFIER, Program.PROVIDER);
             _publicProcessor = new PublicProcessor(Program.IDENTIFIER, Program.PROVIDER);
         }
 
         public bool Enter()
         {
-            // IPC event callbacks are bound through IPCProcessor.
-            _ipcProcessor.Bind();
-
-            // Public event callbacks are bound through PublicProcessor.
-            _publicProcessor.Bind();
-            // The public processor needs to be stored into the Framework.
+            KettleFramework.IPCProcessor = _ipcProcessor;
             KettleFramework.PublicProcessor = _publicProcessor;
+
+            // Holds information about all running games.
+            // Also, the game master has setup slave processes for us!
+            if (GameMasterInit() == false)
+            {
+                Console.Error.WriteLine("MASTER - GameMaster wasn't properly initialised!");
+                return false;
+            }
+
+            /* 
+             * Bindings 
+             * IPC delegates are bound inside IPCProcessor.
+             */
+             // The public processor methods are written in this class because of the dependancy
+             // on GameMaster.
+            _publicProcessor.OnMatchmakerPing += Handle_MatchmakerPing;
+            _publicProcessor.OnCreateGame += Handle_CreateGame;
+
 
             if (!MatchmakerConnect().Result) return false;
 
@@ -85,6 +106,45 @@ namespace SabberStoneKettlePlugin.master
             }
 
             return true;
+        }
+
+        private void Handle_MatchmakerPing(KettleMatchmakerPing data, KettleConnectionArgs e)
+        {
+            // Do nothing.
+        }
+
+        private void Handle_CreateGame(KettleCreateGame data, KettleConnectionArgs e)
+        {
+            // Instruct slave to spin up new game instance.
+            // Fire-and-forget.. event CreatedGame will bubble up towards matchmaker.
+
+            int slaveID;
+            if (RegisterNewGameInstance(out slaveID))
+            {
+                // Use the IPC connection towards the slave to instruct it to start a new instance.
+                // TODO; Test if slave is still connected and available! Validity cannot be guaranteed!
+                var createGamePayload = new KettlePayload()
+                {
+                    Type = PayloadTypeStringEnum.KettleTypes_lobby_create_game,
+                    Data = data,
+                };
+                KettleFramework.Adapter.QueuePayload(createGamePayload, slaveID);
+                return;
+            }
+
+            // Send NACK because a new game instance cannot be allocated.
+            var nackPayload = new KettlePayload()
+            {
+                Errors = new ObservableCollection<KettleNack>()
+                    {
+                        new KettleNack()
+                        {
+                            Message = Errors.GAMEQUEUE_FULL_MSG,
+                            Data = Errors.GAMEQUEUE_FULL.ToString()
+                        }
+                    }
+            };
+            KettleFramework.QueuePacket(nackPayload, e);
         }
     }
 }

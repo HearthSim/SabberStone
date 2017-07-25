@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.master
 {
+    /// <summary>
+    /// Handles received messages for the public connection.
+    /// </summary>
+    /// <seealso cref="Kettle.Adapter.Processing.KettleFrontendProcessor" />
     internal class PublicProcessor : KettleFrontendProcessor
     {
         public override event Action<ObservableCollection<KettleNack>, KettleConnectionArgs> OnNack;
@@ -56,6 +60,22 @@ namespace SabberStoneKettlePlugin.master
         {
         }
 
+        protected override KettlePayload GetAnnouncePayload()
+        {
+            return new KettlePayload()
+            {
+                Type = PayloadTypeStringEnum.KettleTypes_handshake_simulator_announce,
+                Data = new KettleSimulatorAnnounce()
+                {
+                    Identification = Identification,
+                    Provider = Provider,
+                    Max_instances = Program.MaxInstances,
+                    Purpose = Program.Purpose,
+                    Supported = Program.SupportedDetails
+                }
+            };
+        }
+
         public override Socket Connect(IPEndPoint endpoint)
         {
             return ConnectAsync(endpoint).Result;
@@ -73,8 +93,8 @@ namespace SabberStoneKettlePlugin.master
             // Perform handshaking.
             var dataStream = client.GetStream();
             var token = CancellationToken.None;
-            var readResult = await AdapterUtil.ReadKettlePacketAsync(dataStream, token, 5);
-            if(readResult.State != AdapterUtil.READ_STATE.OK || readResult.Data == null)
+            var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
+            if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
             {
                 client.Dispose();
                 return null;
@@ -89,21 +109,9 @@ namespace SabberStoneKettlePlugin.master
             }
 
             // Send our own announce.
-            var simAnnounce = new KettlePayload()
-            {
-                Type = PayloadTypeStringEnum.KettleTypes_handshake_simulator_announce,
-                Data = new KettleSimulatorAnnounce()
-                {
-                    Identification = Program.IDENTIFIER,
-                    Provider = Program.PROVIDER,
-                    Max_instances = Program.MaxInstances,
-                    Purpose = Program.Purpose,
-                    Supported = Program.SupportedDetails
-                }
-            };
-
-            var writeResult = await AdapterUtil.WriteKettlePacketAsync(dataStream, simAnnounce, token);
-            if (writeResult != AdapterUtil.WRITE_STATE.OK)
+            var simAnnounce = GetAnnouncePayload();
+            var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, simAnnounce, token);
+            if (writeResult != KettleCore.WRITE_STATE.OK)
             {
                 client.Dispose();
                 return null;
@@ -145,29 +153,5 @@ namespace SabberStoneKettlePlugin.master
 
             return;
         }
-
-        /// <summary>
-        /// Registers all necessary callbacks onto this processor.
-        /// </summary>
-        public void Bind()
-        {
-            OnMatchmakerPing += Respond_MatchmakerPing;
-            OnCreateGame += Respond_CreateGame;
-        }
-
-        private void Respond_MatchmakerPing(KettleMatchmakerPing data, KettleConnectionArgs e)
-        {
-            // Do nothing.
-        }
-
-        private void Respond_CreateGame(KettleCreateGame data, KettleConnectionArgs e)
-        {
-            // Instruct slave to spin up new game instance.
-            // Fire-and-forget.. event CreatedGame will bubble up towards matchmaker.
-
-            // TODO
-            
-        }
-
     }
 }

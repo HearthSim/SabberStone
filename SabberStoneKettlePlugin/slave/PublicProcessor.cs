@@ -1,5 +1,6 @@
 ﻿using Kettle.Adapter;
 using Kettle.Adapter.Processing;
+using Kettle.Framework;
 using Kettle.Protocol;
 using System;
 using System.Collections.ObjectModel;
@@ -10,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.slave
 {
+    /// <summary>
+    /// Handles received messages for the public connection.
+    /// </summary>
+    /// <seealso cref="Kettle.Adapter.Processing.KettleFrontendProcessor" />
     internal class PublicProcessor : KettleFrontendProcessor
     {
         public override event Action<ObservableCollection<KettleNack>, KettleConnectionArgs> OnNack;
@@ -55,13 +60,32 @@ namespace SabberStoneKettlePlugin.slave
         {
         }
 
+        protected override KettlePayload GetAnnouncePayload()
+        {
+            return new KettlePayload()
+            {
+                Type = PayloadTypeStringEnum.KettleTypes_handshake_simulator_announce,
+                Data = new KettleSimulatorAnnounce()
+                {
+                    Identification = Identification,
+                    Provider = Provider,
+                    Purpose = Program.Purpose,
+                    // Leave these values out since they are sensitive.
+                    Max_instances = -1,
+                    Supported = null
+                }
+            };
+        }
+
         public override Socket Connect(IPEndPoint endpoint)
         {
+            // We get connected to!
             throw new NotImplementedException();
         }
 
         public override Task<Socket> ConnectAsync(IPEndPoint endpoint)
         {
+            // We get connected to!
             throw new NotImplementedException();
         }
 
@@ -108,42 +132,87 @@ namespace SabberStoneKettlePlugin.slave
 
         public void Bind()
         {
-            // TODO
+            OnClientAnnounce += Respond_ClientAnnounce;
+            OnClientPing += Respond_ClientPing;
+            OnJoinGame += Respond_JoinGame;
+            OnChooseEntities += Respond_ChooseEntities;
+            OnChooseOption += Respond_ChooseOption;
+            OnConcede += Respond_Concede;
+            OnUserUI += Respond_UserUI;
         }
 
         private void Respond_ClientAnnounce(KettleClientAnnounce data, KettleConnectionArgs e)
         {
-            // TODO
+            // We respond to each client with our own announce if there wasn't already any state bound.
+            if (e.Data == null)
+            {
+                KettleFramework.QueuePacket(GetAnnouncePayload(), e);
+            }
         }
 
         private void Respond_ClientPing(KettleClientPing data, KettleConnectionArgs e)
         {
-            // TODO
+            // Do nothing.
         }
 
         private void Respond_JoinGame(KettleJoinGame data, KettleConnectionArgs e)
         {
-            // TODO
+            if (e.Data == null)
+            {
+                // TODO
+            }
+            else
+            {
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+            }
         }
 
         private void Respond_ChooseEntities(KettleDoChooseEntities data, KettleConnectionArgs e)
         {
-            // TODO
+            if (e.Data == null)
+            {
+                // TODO
+            }
+            else
+            {
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+            }
         }
 
         private void Respond_ChooseOption(KettleDoChooseOption data, KettleConnectionArgs e)
         {
-            // TODO
+            if (e.Data == null)
+            {
+                // TODO
+            }
+            else
+            {
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+            }
         }
 
         private void Respond_Concede(KettleDoConcede data, KettleConnectionArgs e)
         {
-            // TODO
+            if (e.Data == null)
+            {
+                // TODO
+            }
+            else
+            {
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+            }
         }
 
         private void Respond_UserUI(KettleUserUI data, KettleConnectionArgs e)
         {
-            // TODO
+            if (e.Data == null)
+            {
+                // TODO
+            }
+            else
+            {
+                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+            }
         }
     }
 }

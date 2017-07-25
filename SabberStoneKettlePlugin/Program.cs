@@ -4,28 +4,62 @@ using System.Collections.ObjectModel;
 using Kettle.Protocol;
 using SabberStoneKettlePlugin.master;
 using SabberStoneKettlePlugin.slave;
+using SabberStoneKettlePlugin.configurations;
 
 namespace SabberStoneKettlePlugin
 {
     class Program
     {
-        internal const string IDENTIFIER = "Sabberstone Kettle Client";
+        /// <summary>
+        /// The public identifier of the simulator.
+        /// </summary>
+        internal const string IDENTIFIER = "Sabberstone Kettle Client ALPHA";
+
+        /// <summary>
+        /// The BEST team.
+        /// </summary>
         internal const string PROVIDER = "Stove Team";
 
+        /// <summary>
+        /// Shutdown timer used in the interrupt handler.
+        /// This is the amount of time the program waits before shutting down completely.
+        /// </summary>
         internal const int DESTRUCT_TIMEOUT = 5;
 
+        /// <summary>
+        /// The advertised purpose of this simulator.
+        /// </summary>
         internal static readonly SimulatorPurpose Purpose = SimulatorPurpose.Simulator;
+
+        /// <summary>
+        /// The maximum game instances this simulator can run simultanuously.
+        /// </summary>
         internal static readonly int MaxInstances = 20;
+
+        /// <summary>
+        /// The maximum amount of slaves this program supports.
+        /// </summary>
+        internal static readonly int MaxSlaves = 4;
+
+        /// <summary>
+        /// More details informing the simulator about our capabilities.
+        /// </summary>
         internal static readonly Supported SupportedDetails = new Supported()
         {
             Scenario = new ObservableCollection<GameScenarioEnum>()
                         {
                             GameScenarioEnum.Match_Standard,
-                            GameScenarioEnum.Match_Wild
+                            GameScenarioEnum.Match_Wild,
+                            GameScenarioEnum.Ranked_Standard,
+                            GameScenarioEnum.Ranked_Wild
                         },
-            GameID = new ObservableCollection<string>() { "default" }
+            GameID = new ObservableCollection<string>() { DefaultGame.ADVERTISEMENT }
         };
 
+        /// <summary>
+        /// Main entry point of our program.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         static void Main(string[] args)
         {
             if (!KettleFramework.Init(args))
@@ -40,6 +74,7 @@ namespace SabberStoneKettlePlugin
                 goto CLEANUP;
             }
 
+            // Catch CTRL^C in order to shutdown properly!
             KettleFramework.PreventTerminalInterrupt(null, DESTRUCT_TIMEOUT);
 
             try
