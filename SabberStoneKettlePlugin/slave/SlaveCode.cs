@@ -7,15 +7,15 @@ namespace SabberStoneKettlePlugin.slave
     /// 
     /// Basically; Slaves execute commands from Master and run game instances.
     /// </summary>
-    internal class SlaveCode
+    internal class SlaveCode : GameStore
     {
         private IPCProcessor _ipcProcessor;
         private PublicProcessor _publicProcessor;
 
-        public SlaveCode()
+        public SlaveCode(int maxInstances): base(maxInstances)
         {
-            _publicProcessor = new PublicProcessor(Program.IDENTIFIER, Program.PROVIDER);
-            _ipcProcessor = new IPCProcessor(Program.IDENTIFIER, Program.PROVIDER);
+            _publicProcessor = new PublicProcessor(this, Program.IDENTIFIER, Program.PROVIDER);
+            _ipcProcessor = new IPCProcessor(this, Program.IDENTIFIER, Program.PROVIDER);
         }
 
         public bool Enter()

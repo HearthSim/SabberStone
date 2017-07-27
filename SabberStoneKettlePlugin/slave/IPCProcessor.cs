@@ -1,9 +1,14 @@
 ﻿using Kettle.Adapter;
 using Kettle.Adapter.Processing;
+using Kettle.Adapter.Util;
+using Kettle.Framework;
 using Kettle.Protocol;
+using SabberStoneCore.Config;
+using SabberStoneCore.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -27,13 +32,17 @@ namespace SabberStoneKettlePlugin.slave
         public override event Action<KettleEventPlayerQueued, KettleConnectionArgs> Event_OnPlayerQueued;
         public override event Action<KettleMasterAnnounce, KettleConnectionArgs> OnMasterAnnounce;
         public override event Action<KettleMasterPing, KettleConnectionArgs> OnMasterPing;
+        public override event Action<KettleShutdown, KettleConnectionArgs> OnShutdown;
         public override event Action<KettleSlaveAnnounce, KettleConnectionArgs> OnSlaveAnnounce;
         public override event Action<KettleSlavePing, KettleConnectionArgs> OnSlavePing;
         public override event Action<KettleCreateBucket, KettleConnectionArgs> OnCreateBucket;
         public override event Action<KettleCreateGame, KettleConnectionArgs> OnCreateGame;
 
-        public IPCProcessor(string identification, string provider) : base(identification, provider)
+        private GameStore _gameStore;
+
+        public IPCProcessor(GameStore store, string identification, string provider) : base(identification, provider)
         {
+            _gameStore = store;
         }
 
         protected override KettlePayload GetAnnouncePayload()
@@ -45,59 +54,69 @@ namespace SabberStoneKettlePlugin.slave
             };
         }
 
-        public override Socket Connect(IPEndPoint endpoint)
+        public override Socket Connect(IPEndPoint endpoint, int timeout)
         {
-            return ConnectAsync(endpoint).Result;
+            return ConnectAsync(endpoint, timeout).Result;
         }
 
-        public override async Task<Socket> ConnectAsync(IPEndPoint endpoint)
+        public override async Task<Socket> ConnectAsync(IPEndPoint endpoint, int timeout)
         {
             Debug.Assert(endpoint != null);
+            Debug.Assert(timeout > 0);
 
-            try
+            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(timeout));
+            using (var timeoutTaskSource = new CancellationTaskSource(cts.Token))
             {
-                TcpClient client = new TcpClient(endpoint.AddressFamily);
-                await client.ConnectAsync(endpoint.Address, endpoint.Port);
+                // Build Task from cancellationtoken.
+                Task timeoutTask = timeoutTaskSource.Task;
+                TcpClient masterClient = new TcpClient(endpoint.AddressFamily);
+                var connectTask = masterClient.ConnectAsync(endpoint.Address, endpoint.Port);
 
-                /* Perform handshaking */
-                var dataStream = client.GetStream();
-                var token = CancellationToken.None;
-
-                // Since we connected to a matchmaker, it should announce itself.
-                var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
-                if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
+                int taskIdx = Task.WaitAny(new Task[] { timeoutTask, connectTask });
+                if (taskIdx == 0)
                 {
-                    client.Dispose();
+                    // Timeout!
+                    // Dispose of socket, this will cancel the async connect task.
+                    masterClient.Dispose();
                     return null;
                 }
 
-                var announcePayload = readResult.Data;
-                var masterAnnounce = announcePayload.Data as KettleMasterAnnounce;
-                if (announcePayload.Type != PayloadTypeStringEnum.KettleTypes_handshake_master_announce ||
-                    masterAnnounce == null)
+                /* 
+				 * Succesfully connected to master.
+				 * Perform handshaking.
+				 */
+                var dataStream = masterClient.GetStream();
+                CancellationToken token = cts.Token;
+
+                // Read announce.
+                Task<KettleCore.KettleReadResult> readTask = KettleCore.ReadKettlePacketAsync(dataStream, token);
+                KettleCore.KettleReadResult readResultObj = await readTask;
+                if (!readTask.IsCompleted || readResultObj.State != KettleCore.READ_STATE.OK)
                 {
-                    client.Dispose();
+                    dataStream.Dispose();
                     return null;
                 }
 
-                // We validated the matchmaker announce, so now we send our own announce.
-                var slaveAnnounce = GetAnnouncePayload();
-                var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, slaveAnnounce, token);
-                if (writeResult != KettleCore.WRITE_STATE.OK)
+                // Validate announce.
+                var masterAnnounce = KettleCore.CastData<KettleMasterAnnounce>(readResultObj.Payload);
+                if (masterAnnounce == null)
                 {
-                    client.Dispose();
+                    dataStream.Dispose();
                     return null;
                 }
 
-                // Do logging.
-                Console.WriteLine("Connected to Master at {0}", endpoint.ToString());
+                // Then we send our own announce.
+                Task<KettleCore.WRITE_STATE> writeTask = KettleCore.WriteKettlePacketAsync(dataStream, GetAnnouncePayload(), token);
+                KettleCore.WRITE_STATE writeResult = await writeTask;
+                if (!writeTask.IsCompleted || writeResult != KettleCore.WRITE_STATE.OK)
+                {
+                    dataStream.Dispose();
+                    return null;
+                }
 
-                return client.Client;
-            }
-            catch (Exception)
-            {
-                Debug.Fail("Check exception!");
-                return null;
+                // Valid handshake!
+                Console.WriteLine("Connected to master!");
+                return masterClient.Client;
             }
         }
 
@@ -121,6 +140,9 @@ namespace SabberStoneKettlePlugin.slave
                 case PayloadTypeStringEnum.KettleTypes_handshake_master_ping:
                     DelegateCallback(OnMasterPing, data, cID);
                     break;
+                case PayloadTypeStringEnum.KettleTypes_handshake_shutdown:
+                    DelegateCallback(OnShutdown, data, cID);
+                    break;
                 case PayloadTypeStringEnum.KettleTypes_lobby_create_game:
                     DelegateCallback(OnCreateGame, data, cID);
                     break;
@@ -138,10 +160,84 @@ namespace SabberStoneKettlePlugin.slave
             // Do nothing.
         }
 
-        private void Handle_CreateGame(KettleCreateGame data, KettleConnectionArgs e)
+        private void Handle_Shutdown(KettleShutdown data, KettleConnectionArgs e)
         {
             // TODO
-            throw new NotImplementedException();
+        }
+
+        private void Handle_CreateGame(KettleCreateGame data, KettleConnectionArgs e)
+        {
+            // Any exception that's being caught will trigger a nack response.
+            Game sabberGame = null;
+            KettleGame kettleGame = null;
+            try
+            {
+                var playerInformation = data.Players;
+                var gameInformation = data.Bucket;
+
+                var player1 = playerInformation[0];
+                var player2 = playerInformation[1];
+
+                var hero1 = KettleConversion.KettleHeroToCard(player1.HeroID);
+                var hero2 = KettleConversion.KettleHeroToCard(player2.HeroID);
+
+                var player1Deck = player1.Cards.Select(Cards.FromId).ToList();
+                var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
+
+                var gameType = KettleConversion.KettleGameModeToFormat(gameInformation.Details.Scenario);
+
+                var startMana = gameInformation.Details.Start_mana;
+                var startHandSize = gameInformation.Details.Start_hand_size;
+                var startEntities = gameInformation.Details.Start_entities;
+
+                // Build game object.
+                sabberGame = new Game(new GameConfig()
+                {
+                    Player1HeroClass = hero1.Class,
+                    Player2HeroClass = hero2.Class,
+                    DeckPlayer1 = player1Deck,
+                    DeckPlayer2 = player2Deck,
+                    SkipMulligan = false,
+                    GameRule = gameType,
+                    // StartPlayer is 1-indexed.
+                    StartPlayer = 1
+                }, false);
+
+                // Setup correct hero cards.
+                sabberGame.Player1.AddHeroAndPower(hero1);
+                sabberGame.Player2.AddHeroAndPower(hero2);
+
+                // Build internal kettle object.
+                var player1ID = player1.AccountID;
+                var player2ID = player2.AccountID;
+
+                kettleGame = new KettleGame(sabberGame, player1ID, player2ID);
+                // Register game into store.
+                string gameID;
+                if(!_gameStore.RegisterGame(kettleGame, out gameID))
+                {
+                    // No more room to hold another game!
+                    var nackPayload = KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.GAMEQUEUE_FULL_MSG, Errors.GAMEQUEUE_FULL.ToString());
+                    KettleFramework.QueuePacket(nackPayload, e);
+                    return;
+                }
+
+                // TODO; open/link accept socket for game connection offhanding.
+
+                // TODO; respond with GameCreated event.                
+            }
+            catch (Exception)
+            {
+                var nack = KettlePayloadBuilder.BuildNack(
+                        ReasonEnum.Invalid,
+                        Errors.MALFORMED_CREATE_GAME_MSG,
+                        Errors.MALFORMED_CREATE_GAME.ToString()
+                        );
+                KettleFramework.QueuePacket(nack, e);
+                return;
+            }
+
+            
         }
     }
 }

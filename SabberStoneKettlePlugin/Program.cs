@@ -42,6 +42,11 @@ namespace SabberStoneKettlePlugin
         internal static readonly int MaxSlaves = 4;
 
         /// <summary>
+        /// The maximum amount of game instances per slave.
+        /// </summary>
+        internal static readonly int MaxInstancesPerSlave = MaxInstances / MaxSlaves;
+
+        /// <summary>
         /// More details informing the simulator about our capabilities.
         /// </summary>
         internal static readonly Supported SupportedDetails = new Supported()
@@ -81,14 +86,14 @@ namespace SabberStoneKettlePlugin
             {
                 if (KettleFramework.IsSlave())
                 {
-                    if (new SlaveCode()?.Enter() != true)
+                    if (new SlaveCode(MaxInstancesPerSlave)?.Enter() != true)
                     {
                         Console.Error.WriteLine("SLAVE - Error occurred!");
                     }
                 }
                 else
                 {
-                    if (new MasterCode()?.Enter() != true)
+                    if (new MasterCode(MaxInstances, MaxSlaves, MaxInstancesPerSlave)?.Enter() != true)
                     {
                         Console.Error.WriteLine("MASTER - Error occurred!");
                     }

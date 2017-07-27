@@ -15,7 +15,7 @@ namespace SabberStoneKettlePlugin
         /// <value>
         /// The game token.
         /// </value>
-        public KettleGameToken GameToken
+        public KettleGame GameToken
         {
             get => _gameToken;
             set
@@ -27,7 +27,7 @@ namespace SabberStoneKettlePlugin
                 }
             }
         }
-        private KettleGameToken _gameToken;
+        private KettleGame _gameToken;
 
         public KettleUserToken()
         {

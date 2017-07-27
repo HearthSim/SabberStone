@@ -27,10 +27,11 @@ namespace SabberStoneKettlePlugin.master
         public override event Action<KettleEventPlayerQueued, KettleConnectionArgs> Event_OnPlayerQueued;
         public override event Action<KettleMasterAnnounce, KettleConnectionArgs> OnMasterAnnounce;
         public override event Action<KettleMasterPing, KettleConnectionArgs> OnMasterPing;
+        public override event Action<KettleShutdown, KettleConnectionArgs> OnShutdown;
         public override event Action<KettleSlaveAnnounce, KettleConnectionArgs> OnSlaveAnnounce;
         public override event Action<KettleSlavePing, KettleConnectionArgs> OnSlavePing;
         public override event Action<KettleCreateBucket, KettleConnectionArgs> OnCreateBucket;
-        public override event Action<KettleCreateGame, KettleConnectionArgs> OnCreateGame;
+        public override event Action<KettleCreateGame, KettleConnectionArgs> OnCreateGame;        
 
         public IPCProcessor(string identification, string provider) : base(identification, provider)
         {
@@ -82,13 +83,13 @@ namespace SabberStoneKettlePlugin.master
         }
 
 
-        public override Socket Connect(IPEndPoint endpoint)
+        public override Socket Connect(IPEndPoint endpoint, int timeout)
         {
             // We don't connect, but get connected to.
             throw new NotImplementedException();
         }
 
-        public override Task<Socket> ConnectAsync(IPEndPoint endpoint)
+        public override Task<Socket> ConnectAsync(IPEndPoint endpoint, int timeout)
         {
             // We don't connect, but get connected to.
             throw new NotImplementedException();

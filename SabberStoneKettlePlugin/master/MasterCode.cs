@@ -2,7 +2,6 @@
 using Kettle.Framework;
 using Kettle.Protocol;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
@@ -24,7 +23,7 @@ namespace SabberStoneKettlePlugin.master
         // ConnectionID of the link between the simulator and matchmaker.
         public static int MMConnectionID { get; private set; } = -1;
 
-        public MasterCode()
+        public MasterCode(int maxInstances, int maxSlaves, int maxInstancesPerSlave): base(maxInstances, maxSlaves, maxInstancesPerSlave)
         {
             _ipcProcessor = new IPCProcessor(Program.IDENTIFIER, Program.PROVIDER);
             _publicProcessor = new PublicProcessor(Program.IDENTIFIER, Program.PROVIDER);
@@ -73,7 +72,7 @@ namespace SabberStoneKettlePlugin.master
                     Console.Error.WriteLine("This module must be launched with the option for a public endpoint!");
                     return false;
                 }
-                Socket mmConnection = await _publicProcessor.ConnectAsync(mmEndpoint);
+                Socket mmConnection = await _publicProcessor.ConnectAsync(mmEndpoint, KettleFramework.CONNECTION_CREATE_TIMEOUT_SECONDS);
                 if (mmConnection == null)
                 {
                     Console.Error.WriteLine("Matchmaker sent invalid data. Handshake failed!");
@@ -120,7 +119,7 @@ namespace SabberStoneKettlePlugin.master
 
             int slaveID;
             if (RegisterNewGameInstance(out slaveID))
-            { 
+            {
                 // Use the IPC connection towards the slave to instruct it to start a new instance.
                 // TODO; Test if slave is still connected and available! Validity cannot be guaranteed!
                 var createGamePayload = new KettlePayload()
@@ -133,7 +132,7 @@ namespace SabberStoneKettlePlugin.master
             }
 
             // Send NACK because a new game instance cannot be allocated.
-            var nackPayload = PayloadBuilder.BuildNack(Errors.GAMEQUEUE_FULL_MSG, Errors.GAMEQUEUE_FULL.ToString());
+            var nackPayload = KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.GAMEQUEUE_FULL_MSG, Errors.GAMEQUEUE_FULL.ToString());
             KettleFramework.QueuePacket(nackPayload, e);
         }
     }

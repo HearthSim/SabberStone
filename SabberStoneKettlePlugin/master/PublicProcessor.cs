@@ -1,5 +1,6 @@
 ﻿using Kettle.Adapter;
 using Kettle.Adapter.Processing;
+using Kettle.Adapter.Util;
 using Kettle.Protocol;
 using System;
 using System.Collections.ObjectModel;
@@ -29,6 +30,7 @@ namespace SabberStoneKettlePlugin.master
         public override event Action<KettleClientPing, KettleConnectionArgs> OnClientPing = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleMatchmakerAnnounce, KettleConnectionArgs> OnMatchmakerAnounce;
         public override event Action<KettleMatchmakerPing, KettleConnectionArgs> OnMatchmakerPing;
+        public override event Action<KettleShutdown, KettleConnectionArgs> OnShutdown;
         public override event Action<KettleSimulatorAnnounce, KettleConnectionArgs> OnSimulatorAnounce = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleSimulatorPing, KettleConnectionArgs> OnSimulatorPing = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleHistoryCreateEntity, KettleConnectionArgs> OnCreateEntity = delegate { Debug.Fail("Accessing this event is forbidden!"); };
@@ -76,61 +78,67 @@ namespace SabberStoneKettlePlugin.master
             };
         }
 
-        public override Socket Connect(IPEndPoint endpoint)
+        public override Socket Connect(IPEndPoint endpoint, int timeout)
         {
-            return ConnectAsync(endpoint).Result;
+            return ConnectAsync(endpoint, timeout).Result;
         }
 
-        public override async Task<Socket> ConnectAsync(IPEndPoint endpoint)
+        public override async Task<Socket> ConnectAsync(IPEndPoint endpoint, int timeout)
         {
             Debug.Assert(endpoint != null);
+            Debug.Assert(timeout > 0);
 
-            try
+            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(timeout)))
+            using (var timeoutTaskSource = new CancellationTaskSource(cts.Token))
             {
-                TcpClient client = new TcpClient(endpoint.AddressFamily);
-                await client.ConnectAsync(endpoint.Address, endpoint.Port);
+                var timeoutTask = timeoutTaskSource.Task;
 
-                if (!client.Connected) return null;
+                TcpClient mmClient = new TcpClient(endpoint.AddressFamily);
+                var connectTask = mmClient.ConnectAsync(endpoint.Address, endpoint.Port);
 
-                /* Perform handshaking. */
-                var dataStream = client.GetStream();
-                var token = CancellationToken.None;
-
-                // Since we connected to a matchmaker, it should announce itself.
-                var readResult = await KettleCore.ReadKettlePacketAsync(dataStream, token, 5);
-                if (readResult.State != KettleCore.READ_STATE.OK || readResult.Data == null)
+                int taskIdx = Task.WaitAny(timeoutTask, connectTask);
+                if (taskIdx == 0)
                 {
-                    client.Dispose();
+                    // Timeout!
+                    mmClient.Dispose();
                     return null;
                 }
 
-                var mmAnnounce = readResult.Data;
-                var mmPayload = mmAnnounce.Data as KettleMatchmakerAnnounce;
-                if (mmAnnounce.Type != PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_announce ||
-                    mmPayload == null)
+                /* Perform handshaking. */
+                var dataStream = mmClient.GetStream();
+                var token = cts.Token;
+
+                // Since we connected to a matchmaker, it should announce itself.
+                var readTask = KettleCore.ReadKettlePacketAsync(dataStream, token);
+                var readResult = await readTask;
+                if (!readTask.IsCompleted || readResult.State != KettleCore.READ_STATE.OK)
                 {
-                    client.Dispose();
+                    mmClient.Dispose();
+                    return null;
+                }
+
+                var mmAnnouncePayload = readResult.Payload;
+                var mmData = KettleCore.CastData<KettleMatchmakerAnnounce>(mmAnnouncePayload);
+                if (mmData == null ||
+                    mmAnnouncePayload.Type != PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_announce)
+                {
+                    mmClient.Dispose();
                     return null;
                 }
 
                 // We validated the matchmaker announce, so now we send our own announce.
                 var simAnnounce = GetAnnouncePayload();
-                var writeResult = await KettleCore.WriteKettlePacketAsync(dataStream, simAnnounce, token);
-                if (writeResult != KettleCore.WRITE_STATE.OK)
+                var writeTask = KettleCore.WriteKettlePacketAsync(dataStream, simAnnounce, token);
+                var writeResult = await writeTask;
+                if (!writeTask.IsCompleted || writeResult != KettleCore.WRITE_STATE.OK)
                 {
-                    client.Dispose();
+                    mmClient.Dispose();
                     return null;
                 }
 
                 // Do logging.
-                Console.WriteLine("Connected to Matchmaker:\n{0}\n{1}", mmPayload.Identification, mmPayload.Provider);
-
-                return client.Client;
-            }
-            catch (Exception)
-            {
-                Debug.Fail("Check exception!");
-                return null;
+                Console.WriteLine("Connected to Matchmaker:\n{0}\n{1}", mmData.Identification, mmData.Provider);
+                return mmClient.Client;
             }
         }
 
@@ -151,6 +159,9 @@ namespace SabberStoneKettlePlugin.master
                 //    break;
                 case PayloadTypeStringEnum.KettleTypes_handshake_matchmaker_ping:
                     DelegateCallback(OnMatchmakerPing, data, cID);
+                    break;
+                case PayloadTypeStringEnum.KettleTypes_handshake_shutdown:
+                    DelegateCallback(OnShutdown, data, cID);
                     break;
                 case PayloadTypeStringEnum.KettleTypes_lobby_create_game:
                     DelegateCallback(OnCreateGame, data, cID);

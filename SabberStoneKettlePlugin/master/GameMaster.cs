@@ -9,10 +9,11 @@ namespace SabberStoneKettlePlugin.master
     /// <summary>
     /// Object which controls all game instances.
     /// </summary>
-    class GameMaster
+    internal class GameMaster
     {
         private readonly Semaphore _instanceCounter;
         private readonly Dictionary<int, Semaphore> _instancesPerSlave;
+        private readonly int _maxSlaves;
         private readonly int _maxInstancesPerSlave;
         private readonly List<int> _slaveIDs;
         private int _rrSlaveID;
@@ -27,14 +28,16 @@ namespace SabberStoneKettlePlugin.master
         private int _countedGames;
         private object _gameTimeLock;
 
-        public GameMaster()
+        public GameMaster(int maxInstances, int maxSlaves, int maxInstancesPerSlave)
         {
-            Debug.Assert(Program.MaxSlaves > 0);
-            _maxInstancesPerSlave = Program.MaxInstances / Program.MaxSlaves;
-            Debug.Assert(_maxInstancesPerSlave > 0);
+            Debug.Assert(maxInstances > 0);
+            Debug.Assert(maxSlaves > 0);
+            Debug.Assert(maxInstancesPerSlave > 0);
 
-            _instanceCounter = new Semaphore(0, Program.MaxInstances);
+            _instanceCounter = new Semaphore(0, maxInstances);
             _instancesPerSlave = new Dictionary<int, Semaphore>();
+            _maxSlaves = maxSlaves;
+            _maxInstancesPerSlave = maxInstancesPerSlave;
             _slaveIDs = new List<int>();
             _rrSlaveID = 0;
             _slaveSelectorLock = new object();
@@ -66,7 +69,7 @@ namespace SabberStoneKettlePlugin.master
                 // Only loop until we have the desired amount of slaves registered.
                 // It's not our task to care about the abundant amount of slaves (if 
                 // there are).
-                for (int i = 0; i < Program.MaxSlaves; ++i)
+                for (int i = 0; i < _maxSlaves; ++i)
                 {
                     if (i < slaveDescriptors.Count)
                     {

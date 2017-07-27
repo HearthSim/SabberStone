@@ -29,6 +29,7 @@ namespace SabberStoneKettlePlugin.slave
         public override event Action<KettleClientPing, KettleConnectionArgs> OnClientPing;
         public override event Action<KettleMatchmakerAnnounce, KettleConnectionArgs> OnMatchmakerAnounce = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleMatchmakerPing, KettleConnectionArgs> OnMatchmakerPing = delegate { Debug.Fail("Accessing this event is forbidden!"); };
+        public override event Action<KettleShutdown, KettleConnectionArgs> OnShutdown;
         public override event Action<KettleSimulatorAnnounce, KettleConnectionArgs> OnSimulatorAnounce = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleSimulatorPing, KettleConnectionArgs> OnSimulatorPing = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleHistoryCreateEntity, KettleConnectionArgs> OnCreateEntity = delegate { Debug.Fail("Accessing this event is forbidden!"); };
@@ -56,8 +57,11 @@ namespace SabberStoneKettlePlugin.slave
         public override event Action<KettleOptionPower, KettleConnectionArgs> OnPower = delegate { Debug.Fail("Accessing this event is forbidden!"); };
         public override event Action<KettleUserUI, KettleConnectionArgs> OnUserUI;
 
-        public PublicProcessor(string identification, string provider) : base(identification, provider)
+        private GameStore _gameStore;
+
+        public PublicProcessor(GameStore store, string identification, string provider) : base(identification, provider)
         {
+            _gameStore = store;
         }
 
         protected override KettlePayload GetAnnouncePayload()
@@ -77,13 +81,13 @@ namespace SabberStoneKettlePlugin.slave
             };
         }
 
-        public override Socket Connect(IPEndPoint endpoint)
+        public override Socket Connect(IPEndPoint endpoint, int timeout)
         {
             // We get connected to!
             throw new NotImplementedException();
         }
 
-        public override Task<Socket> ConnectAsync(IPEndPoint endpoint)
+        public override Task<Socket> ConnectAsync(IPEndPoint endpoint, int timeout)
         {
             // We get connected to!
             throw new NotImplementedException();
@@ -105,6 +109,9 @@ namespace SabberStoneKettlePlugin.slave
                     break;
                 case PayloadTypeStringEnum.KettleTypes_handshake_client_ping:
                     DelegateCallback(OnClientPing, data, cID);
+                    break;
+                case PayloadTypeStringEnum.KettleTypes_handshake_shutdown:
+                    DelegateCallback(OnShutdown, data, cID);
                     break;
                 case PayloadTypeStringEnum.KettleTypes_lobby_join_game:
                     DelegateCallback(OnJoinGame, data, cID);
@@ -134,6 +141,7 @@ namespace SabberStoneKettlePlugin.slave
         {
             OnClientAnnounce += Respond_ClientAnnounce;
             OnClientPing += Respond_ClientPing;
+            OnShutdown += Respond_Shutdown;
             OnJoinGame += Respond_JoinGame;
             OnChooseEntities += Respond_ChooseEntities;
             OnChooseOption += Respond_ChooseOption;
@@ -144,9 +152,9 @@ namespace SabberStoneKettlePlugin.slave
         private void Respond_ClientAnnounce(KettleClientAnnounce data, KettleConnectionArgs e)
         {
             // We respond to each client with our own announce if there wasn't already any state bound.
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
-                e.Data = new KettleUserToken();
+                e.UserToken = new KettleUserToken();
                 KettleFramework.QueuePacket(GetAnnouncePayload(), e);
             }
         }
@@ -156,14 +164,19 @@ namespace SabberStoneKettlePlugin.slave
             // Do nothing.
         }
 
+        private void Respond_Shutdown(KettleShutdown data, KettleConnectionArgs e)
+        {
+            // TODO
+        }
+
         private void Respond_JoinGame(KettleJoinGame data, KettleConnectionArgs e)
         {
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack("Unexpected payload!"), e);
+                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, "Unexpected payload!"), e);
             }
 
-            KettleUserToken token = e.Data as KettleUserToken;
+            KettleUserToken token = e.UserToken as KettleUserToken;
             if (token.GameToken != null) return;
 
             // Check for open game instances.
@@ -176,49 +189,49 @@ namespace SabberStoneKettlePlugin.slave
 
         private void Respond_ChooseEntities(KettleDoChooseEntities data, KettleConnectionArgs e)
         {
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
                 // TODO
             }
             else
             {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
             }
         }
 
         private void Respond_ChooseOption(KettleDoChooseOption data, KettleConnectionArgs e)
         {
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
                 // TODO
             }
             else
             {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
             }
         }
 
         private void Respond_Concede(KettleDoConcede data, KettleConnectionArgs e)
         {
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
                 // TODO
             }
             else
             {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
             }
         }
 
         private void Respond_UserUI(KettleUserUI data, KettleConnectionArgs e)
         {
-            if (e.Data == null)
+            if (e.UserToken == null)
             {
                 // TODO
             }
             else
             {
-                KettleFramework.QueuePacket(PayloadBuilder.BuildNack(""), e);
+                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
             }
         }
     }
