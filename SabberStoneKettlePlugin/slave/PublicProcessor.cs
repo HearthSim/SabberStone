@@ -173,18 +173,78 @@ namespace SabberStoneKettlePlugin.slave
         {
             if (e.UserToken == null)
             {
-                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, "Unexpected payload!"), e);
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.UNEXPECTED_PAYLOAD_MSG, Errors.UNEXPECTED_PAYLOAD.ToString()), e);
+                return;
             }
 
             KettleUserToken token = e.UserToken as KettleUserToken;
+            // There is already a game associated to this connection.
             if (token.GameToken != null) return;
 
             // Check for open game instances.
+            var targetGameID = data.GameID;
+            var userID = data.AccountID;
+            var gamePassword = data.Password;
+
+            var kettleGame = _gameStore.GetGame(targetGameID);
+            if (kettleGame == null)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, Errors.UNKNOWN_GAME_ID_MSG, Errors.UNKNOWN_GAME_ID.ToString()), e);
+                return;
+            }
 
             // Attach to open game instance.
+            // If the result is NOT invalid, the player is attached to that game!
+            var result = kettleGame.TryJoinGame(userID, gamePassword, e);
+            KettlePayload eventGameJoinedPayload;
+            switch(result)
+            {
+                case KettleGame.PLAYER_TYPE.PLAYER:
+                    eventGameJoinedPayload = new KettlePayload()
+                    {
+                        Type = PayloadTypeStringEnum.KettleTypes_events_game_joined,
+                        Data = new KettleEventGameJoined()
+                        {
+                            AccountID = userID,
+                            Board = 0, // TODO
+                            GameID = targetGameID,
+                            Spectating = false,
+                            Max_friendly_minions_per_player = 7, // TODO
+                            Max_secrets_per_player = 7 // TODO
+                        }
+                    };
+                    break;
+                case KettleGame.PLAYER_TYPE.SPECTATOR:
+                    eventGameJoinedPayload = new KettlePayload()
+                    {
+                        Type = PayloadTypeStringEnum.KettleTypes_events_game_joined,
+                        Data = new KettleEventGameJoined()
+                        {
+                            AccountID = userID,
+                            Board = 0, // TODO
+                            GameID = targetGameID,
+                            // DIFFERENT FROM PLAYER
+                            Spectating = true,
+                            Max_friendly_minions_per_player = 7, // TODO
+                            Max_secrets_per_player = 7 // TODO
+                        }
+                    };
+                    break;
+                case KettleGame.PLAYER_TYPE.INVALID:
+                default:
+                    KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, Errors.INVALID_CREDENTIALS_MSG, Errors.INVALID_CREDENTIALS.ToString()), e);
+                    return;
+            }
 
-            // Send ack?
+            // Send the event to the player, as well as master!
+            KettleFramework.QueuePacket(eventGameJoinedPayload, e);
+            // TODO; send to master
 
+            // Store game token into connection details.
+            token.SetGame(kettleGame);
         }
 
         private void Respond_ChooseEntities(KettleDoChooseEntities data, KettleConnectionArgs e)

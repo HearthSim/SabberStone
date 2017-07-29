@@ -10,27 +10,24 @@ namespace SabberStoneKettlePlugin
     {
 
         /// <summary>
-        /// Gets or sets the game token.
+        /// Gets the game token.
         /// </summary>
         /// <value>
         /// The game token.
         /// </value>
-        public KettleGame GameToken
-        {
-            get => _gameToken;
-            set
-            {
-                // Only allow the gametoken to be set exactly once!
-                if (value != null && _gameToken == null)
-                {
-                    _gameToken = value;
-                }
-            }
-        }
+        public KettleGame GameToken => _gameToken;
         private KettleGame _gameToken;
 
         public KettleUserToken()
         {
+        }
+
+        public bool SetGame(KettleGame game)
+        {
+            if (_gameToken != null) return false;
+
+            _gameToken = game;
+            return true;
         }
     }
 }
