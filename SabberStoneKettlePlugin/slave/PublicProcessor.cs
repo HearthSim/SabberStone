@@ -2,6 +2,9 @@
 using Kettle.Adapter.Processing;
 using Kettle.Framework;
 using Kettle.Protocol;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -173,14 +176,19 @@ namespace SabberStoneKettlePlugin.slave
         {
             if (e.UserToken == null)
             {
-                KettleFramework.QueuePacket(
-                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.UNEXPECTED_PAYLOAD_MSG, Errors.UNEXPECTED_PAYLOAD.ToString()), e);
+                //KettleFramework.QueuePacket(
+                //    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.UNEXPECTED_PAYLOAD_MSG, Errors.UNEXPECTED_PAYLOAD.ToString()), e);
                 return;
             }
 
             KettleUserToken token = e.UserToken as KettleUserToken;
             // There is already a game associated to this connection.
-            if (token.GameToken != null) return;
+            if (token.GameToken != null)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.UNEXPECTED_PAYLOAD_MSG, Errors.UNEXPECTED_PAYLOAD.ToString()), e);
+                return;
+            }
 
             // Check for open game instances.
             var targetGameID = data.GameID;
@@ -199,7 +207,7 @@ namespace SabberStoneKettlePlugin.slave
             // If the result is NOT invalid, the player is attached to that game!
             var result = kettleGame.TryJoinGame(userID, gamePassword, e);
             KettlePayload eventGameJoinedPayload;
-            switch(result)
+            switch (result)
             {
                 case KettleGame.PLAYER_TYPE.PLAYER:
                     eventGameJoinedPayload = new KettlePayload()
@@ -244,19 +252,69 @@ namespace SabberStoneKettlePlugin.slave
             // TODO; send to master
 
             // Store game token into connection details.
-            token.SetGame(kettleGame);
+            token.LinkGame(kettleGame, userID);
         }
 
         private void Respond_ChooseEntities(KettleDoChooseEntities data, KettleConnectionArgs e)
         {
             if (e.UserToken == null)
             {
-                // TODO
+                return;
             }
-            else
+
+            KettleUserToken token = e.UserToken as KettleUserToken;
+            // There is already a game associated to this connection.
+            if (token.GameToken != null)
             {
-                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
+                return;
             }
+
+            if (!token.IsPlayerTurn)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.NOT_ACTIVE_TURN_MSG, Errors.NOT_ACTIVE_TURN.ToString()), e);
+                return;
+            }
+
+            var choiceID = data.ChoiceID;
+            var choiceType = data.Choice_type;
+            var chosenEntities = data.Entities;
+
+            if (chosenEntities.Count < 1)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, Errors.MALFORMED_PAYLOAD_MSG, Errors.MALFORMED_PAYLOAD.ToString()), e);
+                return;
+            }
+
+            var game = token.GameToken.Game;
+            PowerEntityChoices choiceSet;
+            game.EntityChoicesMap.TryGetValue(choiceID, out choiceSet);
+            if (choiceSet == null)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, Errors.INVALID_ID_PROVIDED_MSG, Errors.INVALID_ID_PROVIDED.ToString()), e);
+                return;
+            }
+
+            ChooseTask chooseTask = null;
+            switch (choiceType)
+            {
+                case ChoiceTypeEnum.Mulligan:
+                    // TODO; Wait until interfaces are accepted as parameter.
+                    // chooseTask = ChooseTask.Mulligan(token.PlayerController, chosenEntities);
+                    break;
+                case ChoiceTypeEnum.General:
+                    chooseTask = ChooseTask.Pick(token.PlayerController, chosenEntities[0]);
+                    break;
+                case ChoiceTypeEnum.Invalid:
+                default:
+                    KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, Errors.MALFORMED_PAYLOAD_MSG, Errors.MALFORMED_PAYLOAD.ToString()), e);
+                    return;
+            }
+
+            token.GameToken.ProcessAndUpdate(chooseTask);
         }
 
         private void Respond_ChooseOption(KettleDoChooseOption data, KettleConnectionArgs e)
@@ -275,12 +333,26 @@ namespace SabberStoneKettlePlugin.slave
         {
             if (e.UserToken == null)
             {
-                // TODO
+                return;
             }
-            else
+
+            KettleUserToken token = e.UserToken as KettleUserToken;
+            // There is already a game associated to this connection.
+            if (token.GameToken != null)
             {
-                KettleFramework.QueuePacket(KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid, ""), e);
+                return;
             }
+
+            if (!token.IsPlayerTurn)
+            {
+                KettleFramework.QueuePacket(
+                    KettlePayloadBuilder.BuildNack(ReasonEnum.Invalid_State, Errors.NOT_ACTIVE_TURN_MSG, Errors.NOT_ACTIVE_TURN.ToString()), e);
+                return;
+            }
+
+            Controller controller = token.PlayerController;
+            var task = ConcedeTask.Any(controller);
+            token.GameToken.ProcessAndUpdate(task);
         }
 
         private void Respond_UserUI(KettleUserUI data, KettleConnectionArgs e)

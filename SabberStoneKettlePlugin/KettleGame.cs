@@ -1,5 +1,7 @@
 ﻿using Kettle.Adapter;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -162,6 +164,39 @@ namespace SabberStoneKettlePlugin
             }
 
             return -1;
+        }
+
+        /// <summary>
+        /// Processes the provided task and automatically send updates to all 
+        /// players and spectators.
+        /// </summary>
+        /// <param name="task">The task.</param>
+        /// <returns></returns>
+        public bool ProcessAndUpdate(PlayerTask task)
+        {
+            if (!AllPlayersJoined) return false;
+
+            Game.Process(task);
+
+            // TODO; send state updates to all interested parties.
+
+            /* Pregame MULLIGAN PHASE */
+            if (Game.Step == Step.BEGIN_MULLIGAN &&
+                Game.Player1.MulliganState == Mulligan.DONE &&
+                Game.Player1.MulliganState == Mulligan.DONE)
+            {
+                // Initiate first turn.
+                Game.MainBegin();
+
+                // TODO; send MAIN_ACTION phase history update.
+
+                return true;
+            }
+
+            /* Player TURN switch */
+            // TODO; send turn options.
+
+            return true;
         }
     }
 }

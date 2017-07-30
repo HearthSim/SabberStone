@@ -207,7 +207,11 @@ namespace SabberStoneKettlePlugin.slave
                 sabberGame.Player1.AddHeroAndPower(hero1);
                 sabberGame.Player2.AddHeroAndPower(hero2);
 
-                // Build internal kettle object.
+                // TODO; Further finetune game object.
+                // TODO; Use `SabberStoneKettlePlugin.configurations` for game setup.
+
+
+                // Build kettle game object.
                 var player1ID = player1.AccountID;
                 var player2ID = player2.AccountID;
 
@@ -230,8 +234,8 @@ namespace SabberStoneKettlePlugin.slave
             {
                 var nack = KettlePayloadBuilder.BuildNack(
                         ReasonEnum.Invalid,
-                        Errors.MALFORMED_CREATE_GAME_MSG,
-                        Errors.MALFORMED_CREATE_GAME.ToString()
+                        Errors.MALFORMED_PAYLOAD_MSG,
+                        Errors.MALFORMED_PAYLOAD.ToString()
                         );
                 KettleFramework.QueuePacket(nack, e);
                 return;
