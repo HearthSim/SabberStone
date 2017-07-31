@@ -1,0 +1,17 @@
+language: csharp
+solution: SabberStone.sln
+
+matrix:
+  include:
+    # .NET Core build
+    - dotnet: 1.0.3 # Supports .netCore runtime 1.0.4 & 1.1.1
+      mono: none
+      dist: trusty
+    # Mono build
+    - mono: latest
+
+install:
+  - nuget restore SabberStone.sln
+script:
+  - xbuild /p:Configuration=Release SabberStone.sln
+  - mono ./packages/xunit.runners.*/tools/xunit.console.clr4.exe ./**/Release/**/*.[Tt]est.dll # Depends on XUnit used as dependancy within solution

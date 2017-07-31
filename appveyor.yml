@@ -1,0 +1,23 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Previous Visual Studio 2017
+configuration: Release
+before_build:
+- cmd: >-
+    REM Restore packages for all projects within solution
+
+    nuget.exe restore
+build:
+  project: SabberStone.sln
+  parallel: true
+  verbosity: minimal
+test:
+  assemblies:
+    only:
+    - '**\Release\**\*.[Tt]est.dll'
+artifacts:
+- path: SabberStoneCore\**\Release\**\SabberStoneCore.xml
+  name: SabberStoneCore doc
+- path: SabberStoneCore\**\Release\*\*.dll
+  name: SabberStoneCore libs
