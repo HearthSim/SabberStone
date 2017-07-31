@@ -1,15 +1,14 @@
-﻿using System;
+﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Config;
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Splits;
+using SabberStoneCore.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SabberStoneCore.Actions;
-using SabberStoneCore.Config;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Splits;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Kettle;
-using SabberStoneCore.Extensions;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
@@ -18,7 +17,7 @@ using SabberStoneCore.Extensions;
 // TODO refactor and cleanup SelfCondition & RelaCondition class
 namespace SabberStoneCore.Model
 {
-    public delegate void EntityChangedEventHandler(object sender, GameTag t, int oldValue, int newValue);
+	public delegate void EntityChangedEventHandler(object sender, GameTag t, int oldValue, int newValue);
 
     public partial class Game : Entity
     {

@@ -1,16 +1,15 @@
 ﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Extensions;
 using SabberStoneCore.Model;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace SabberStoneCore.Loader
 {
-    public class Generate
+	public class Generate
     {
         private static readonly string Path = @"C:\Users\admin\Source\Repos\";
 

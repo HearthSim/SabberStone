@@ -1,15 +1,14 @@
-﻿using System;
+﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
-using SabberStoneCore.Extensions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum DiscoverType
+	public enum DiscoverType
     {
         BASIC_HEROPOWERS,
         DRAGON,

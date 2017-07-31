@@ -1,10 +1,9 @@
 ﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Extensions;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DamageNumberTask : SimpleTask
+	public class DamageNumberTask : SimpleTask
     {
         public DamageNumberTask(EntityType type, bool spellDmg = false)
         {

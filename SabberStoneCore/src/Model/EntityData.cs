@@ -1,14 +1,13 @@
-﻿using System;
+﻿using SabberStoneCore.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Extensions;
 
 namespace SabberStoneCore.Model
 {
-    internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>
+	internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>
     {
         internal EntityData(Card card, Dictionary<GameTag, int> tags)
         {

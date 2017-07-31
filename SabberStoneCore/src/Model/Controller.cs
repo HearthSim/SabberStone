@@ -1,15 +1,14 @@
-﻿using System;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.PlayerTasks;
-using SabberStoneCore.Extensions;
 
 namespace SabberStoneCore.Model
 {
-    public partial class Controller : Entity
+	public partial class Controller : Entity
     {
         public Controller(Game game, string name, int playerId, int id) 
             : base(game, Card.CardPlayer,

@@ -1,11 +1,10 @@
 ﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Extensions;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class CopyDeathrattleTask : SimpleTask
+	public class CopyDeathrattleTask : SimpleTask
     {
         public EntityType Type { get; set; }
 

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using SabberStoneCore.Model;
+using System;
 using System.Collections.Generic;
-using SabberStoneCore.Model;
-using SabberStoneCore.Extensions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 
-    public class CopyTask : SimpleTask
+	public class CopyTask : SimpleTask
     {
         public CopyTask(EntityType type, int amount, bool opposite = false)
         {

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
-using SabberStoneCore.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStoneCore.Actions
 {
-    public partial class Generic
+	public partial class Generic
     {
         public static Func<Controller, int, bool> ChoicePick
             => delegate(Controller c, int choice)

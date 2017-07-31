@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
-using SabberStoneCore.Extensions;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DrawStackTask : SimpleTask
+	public class DrawStackTask : SimpleTask
     {
         public override TaskState Process()
         {

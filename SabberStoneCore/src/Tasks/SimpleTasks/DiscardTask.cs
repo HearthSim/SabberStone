@@ -1,9 +1,8 @@
 ﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Extensions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DiscardTask : SimpleTask
+	public class DiscardTask : SimpleTask
     {
         public DiscardTask(EntityType entityType)
         {

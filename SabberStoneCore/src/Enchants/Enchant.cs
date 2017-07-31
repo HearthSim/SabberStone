@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStoneCore.Enchants
 {
-    public class Enchant : ILazyRemove
+	public class Enchant : ILazyRemove
     {
         public List<Enchant> Parent { get; set; }
 

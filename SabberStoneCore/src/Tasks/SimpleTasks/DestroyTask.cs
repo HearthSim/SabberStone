@@ -1,8 +1,6 @@
-﻿using SabberStoneCore.Extensions;
-
-namespace SabberStoneCore.Tasks.SimpleTasks
+﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DestroyTask : SimpleTask
+	public class DestroyTask : SimpleTask
     {
         public DestroyTask(EntityType entityType)
         {

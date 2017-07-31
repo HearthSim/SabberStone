@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
-using SabberStoneCore.Extensions;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model
 {
-    public interface IEntity : IEnumerable<KeyValuePair<GameTag, int>>
+	public interface IEntity : IEnumerable<KeyValuePair<GameTag, int>>
     {
         int Id { get; }
         int OrderOfPlay { get; }
