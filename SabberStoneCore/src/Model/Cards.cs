@@ -98,10 +98,10 @@ namespace SabberStoneCore.Model
                 Wild.Add(heroClass, All.Where(c => 
                 c.Collectible &&
                     (c.Class == heroClass ||
-                     c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-                     c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-                     c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-                     c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
+                     c.Class == CardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
+                     c.MultiClassGroupType == MultiClassGroup.GRIMY_GOONS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
+                     c.MultiClassGroupType == MultiClassGroup.JADE_LOTUS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
+                     c.MultiClassGroupType == MultiClassGroup.KABAL && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
                      c.Type != CardType.HERO).ToList());
                 //Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
             }
@@ -112,10 +112,10 @@ namespace SabberStoneCore.Model
                 Standard.Add(heroClass, All.Where(c => 
                     c.Collectible && 
                     (c.Class == heroClass || 
-                     c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-                     c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-                     c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-                     c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) && 
+                     c.Class == CardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
+                     c.MultiClassGroupType == MultiClassGroup.GRIMY_GOONS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
+                     c.MultiClassGroupType == MultiClassGroup.JADE_LOTUS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
+                     c.MultiClassGroupType == MultiClassGroup.KABAL && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) && 
                      c.Type != CardType.HERO && StandardSets.Contains(c.Set)
                 ).ToList());
                 //Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");

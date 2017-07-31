@@ -301,9 +301,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-            return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
-                            cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
-                            cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
+            return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroupType != 0).ToList(),
+                            cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroupType != 0).ToList(),
+                            cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroupType != 0).ToList()};
         }
 
         private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)

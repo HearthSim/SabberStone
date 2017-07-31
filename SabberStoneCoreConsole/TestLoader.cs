@@ -114,7 +114,7 @@ namespace SabberStoneCoreConsole
                     Id = card.Id,
                     AssetId = int.Parse(card.AssetId),
                     Tags = new Dictionary<GameTag, int>(),
-                    Requirements = card.Requirements,
+                    PlayRequirements = card.Requirements,
                     Entourage = card.Entourage,
                     RefTags = new Dictionary<GameTag, int>(),
                 };
@@ -178,7 +178,7 @@ namespace SabberStoneCoreConsole
                 if (c.Text != null && (c.Text.Contains("$") || c[GameTag.AFFECTED_BY_SPELL_POWER] == 1))
                 {
                     c.Text += " *spelldmg";
-                    c.IsAffectedBySpellDamage = true;
+                    c.BringsSpellDamage = true;
                 }
                 cards.Add(c);
             }

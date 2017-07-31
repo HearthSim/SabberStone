@@ -2965,9 +2965,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
             var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
             var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
-            Assert.Equal(true, card1.Class == CardClass.HUNTER || card1.MultiClassGroup > 0);
-            Assert.Equal(true, card2.Class == CardClass.PALADIN || card2.MultiClassGroup > 0);
-            Assert.Equal(true, card3.Class == CardClass.WARRIOR || card3.MultiClassGroup > 0);
+            Assert.Equal(true, card1.Class == CardClass.HUNTER || card1.MultiClassGroupType > 0);
+            Assert.Equal(true, card2.Class == CardClass.PALADIN || card2.MultiClassGroupType > 0);
+            Assert.Equal(true, card3.Class == CardClass.WARRIOR || card3.MultiClassGroupType > 0);
         }
 
         // --------------------------------------- MINION - NEUTRAL
@@ -3365,9 +3365,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
             var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
             var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
-            Assert.Equal(true, card1.Class == CardClass.MAGE || card1.MultiClassGroup > 0);
-            Assert.Equal(true, card2.Class == CardClass.PRIEST || card2.MultiClassGroup > 0);
-            Assert.Equal(true, card3.Class == CardClass.WARLOCK || card3.MultiClassGroup > 0);
+            Assert.Equal(true, card1.Class == CardClass.MAGE || card1.MultiClassGroupType > 0);
+            Assert.Equal(true, card2.Class == CardClass.PRIEST || card2.MultiClassGroupType > 0);
+            Assert.Equal(true, card3.Class == CardClass.WARLOCK || card3.MultiClassGroupType > 0);
         }
 
         // --------------------------------------- MINION - NEUTRAL
@@ -4176,9 +4176,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var card1 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card;
             var card2 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card;
             var card3 = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card;
-            Assert.Equal(true, card1.Class == CardClass.DRUID || card1.MultiClassGroup > 0);
-            Assert.Equal(true, card2.Class == CardClass.ROGUE || card2.MultiClassGroup > 0);
-            Assert.Equal(true, card3.Class == CardClass.SHAMAN || card3.MultiClassGroup > 0);
+            Assert.Equal(true, card1.Class == CardClass.DRUID || card1.MultiClassGroupType > 0);
+            Assert.Equal(true, card2.Class == CardClass.ROGUE || card2.MultiClassGroupType > 0);
+            Assert.Equal(true, card3.Class == CardClass.SHAMAN || card3.MultiClassGroupType > 0);
         }
 
         // --------------------------------------- MINION - NEUTRAL

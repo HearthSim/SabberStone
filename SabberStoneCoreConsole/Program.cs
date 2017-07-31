@@ -635,11 +635,11 @@ namespace SabberStoneCoreConsole
             var cardSet = Cards.Standard;
 
             var mageCards =
-                cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroup != 0).ToList();
+                cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroupType != 0).ToList();
             var priestCards =
-                cardSet[CardClass.PRIEST].Where(p => p.Class == CardClass.PRIEST || p.MultiClassGroup != 0).ToList();
+                cardSet[CardClass.PRIEST].Where(p => p.Class == CardClass.PRIEST || p.MultiClassGroupType != 0).ToList();
             var warlockCards =
-                cardSet[CardClass.WARLOCK].Where(p => p.Class == CardClass.WARLOCK || p.MultiClassGroup != 0).ToList();
+                cardSet[CardClass.WARLOCK].Where(p => p.Class == CardClass.WARLOCK || p.MultiClassGroupType != 0).ToList();
 
             Stopwatch stopwatch = new Stopwatch();
 
