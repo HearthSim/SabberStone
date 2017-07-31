@@ -1,17 +1,17 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SabberStoneCore.Config;
+﻿using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using System;
+using Xunit;
 using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.Cloning
 {
-    [TestClass]
-    public class CloneStressTest
+
+	public class CloneStressTest
     {
-        [TestMethod]
+        [Fact]
         public void CloneSameSame()
         {
             var rnd = new Random();
@@ -47,10 +47,10 @@ namespace SabberStoneCoreTest.Cloning
                     }
                 }
             }
-            Assert.AreEqual(true, flag);
+            Assert.Equal(true, flag);
         }
 
-        [TestMethod]
+        [Fact]
         public void CloneSameState()
         {
             var game = new Game(new GameConfig
@@ -64,7 +64,7 @@ namespace SabberStoneCoreTest.Cloning
             game.Player2.BaseMana = 10;
             game.StartGame();
             var clone = game.Clone();
-            Assert.AreEqual(game.Hash(), clone.Hash());
+            Assert.Equal(game.Hash(), clone.Hash());
 
             var spell1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Lightning Bolt"));
             var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
@@ -84,10 +84,10 @@ namespace SabberStoneCoreTest.Cloning
 
             var ignored = new GameTag[] { GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
 
-            Assert.AreEqual(game.Hash(ignored), clone.Hash(ignored));
+            Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
         }
 
-        [TestMethod]
+        [Fact]
         public void CloneEndTurnTask()
         {
             var game = new Game(new GameConfig
@@ -101,15 +101,15 @@ namespace SabberStoneCoreTest.Cloning
             game.Player2.BaseMana = 10;
             game.StartGame();
             var clone = game.Clone();
-            Assert.AreEqual(game.Hash(), clone.Hash());
+            Assert.Equal(game.Hash(), clone.Hash());
 
             clone.Process(EndTurnTask.Any(clone.CurrentPlayer));
 
-            Assert.AreNotEqual(game.CurrentPlayer.Name, clone.CurrentPlayer.Name);
+            Assert.NotEqual(game.CurrentPlayer.Name, clone.CurrentPlayer.Name);
 
             clone.Process(EndTurnTask.Any(clone.CurrentPlayer));
 
-            Assert.AreEqual(game.CurrentPlayer.Name, clone.CurrentPlayer.Name);
+            Assert.Equal(game.CurrentPlayer.Name, clone.CurrentPlayer.Name);
         }
     }
 }

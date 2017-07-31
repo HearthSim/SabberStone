@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace SabberStoneCoreTest.Basic
 {
-    [TestClass]
-    public class TheoryStressTest
+
+	public class TheoryStressTest
     {
         // TODO TheoryStressTest Patashu - Heute um 14:00 Uhr
         // order of play, auras and on-death triggers are what really stresses your implementation
@@ -12,7 +12,7 @@ namespace SabberStoneCoreTest.Basic
         // besides those, test things like battlecries that summon minions vs sword of justice,
         // violet teacher vs wild pyromancer, etc
 
-        [TestMethod]
+        [Fact]
         public void PhaseTest()
         {
 

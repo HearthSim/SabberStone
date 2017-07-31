@@ -19,6 +19,10 @@ indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+# Yaml files are indent sensitive
+[*.yml]
+indent_style = space
+
 # General settings for all C# code
 [*.{cs,vb}]
 indent_style = tab

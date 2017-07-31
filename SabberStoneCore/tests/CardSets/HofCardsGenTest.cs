@@ -1,13 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using Xunit;
 
 namespace SabberStoneCoreTest.CardSets
 {
-	[TestClass]
+
 	public class MageHofTest
 	{
         // ------------------------------------------- SPELL - MAGE
@@ -22,7 +22,7 @@ namespace SabberStoneCoreTest.CardSets
         // PlayReq:
         // - REQ_TARGET_TO_PLAY = 0
         // --------------------------------------------------------
-        [TestMethod]
+        [Fact]
         public void IceLance_CS2_031()
         {
             var game = new Game(new GameConfig
@@ -37,18 +37,18 @@ namespace SabberStoneCoreTest.CardSets
             game.Player2.BaseMana = 10;
             var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
-            Assert.AreEqual(false, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(false, game.CurrentOpponent.Hero.IsFrozen);
+            Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, game.CurrentOpponent.Hero));
-            Assert.AreEqual(true, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.AreEqual(30, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(true, game.CurrentOpponent.Hero.IsFrozen);
+            Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
-            Assert.AreEqual(26, game.CurrentOpponent.Hero.Health);
+            Assert.Equal(26, game.CurrentOpponent.Hero.Health);
         }
 
     }
 
-	[TestClass]
+	
 	public class RogueHofTest
 	{
         // ------------------------------------------ SPELL - ROGUE
@@ -60,7 +60,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - STEALTH = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact]
         public void Conceal_EX1_128()
         {
             // TODO Conceal_EX1_128 test
@@ -79,7 +79,7 @@ namespace SabberStoneCoreTest.CardSets
 
     }
 
-	[TestClass]
+	
 	public class WarlockHofTest
 	{
         // ---------------------------------------- SPELL - WARLOCK
@@ -93,7 +93,7 @@ namespace SabberStoneCoreTest.CardSets
         // - REQ_FRIENDLY_TARGET = 0
         // - REQ_TARGET_TO_PLAY = 0
         // --------------------------------------------------------
-        [TestMethod]
+        [Fact]
         public void PowerOverwhelming_EX1_316()
         {
             var game = new Game(new GameConfig
@@ -110,14 +110,14 @@ namespace SabberStoneCoreTest.CardSets
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            Assert.AreEqual(5, ((Minion)minion).AttackDamage);
-            Assert.AreEqual(5, ((Minion)minion).Health);
+            Assert.Equal(5, ((Minion)minion).AttackDamage);
+            Assert.Equal(5, ((Minion)minion).Health);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.AreEqual(true, minion.ToBeDestroyed);
+            Assert.Equal(true, minion.ToBeDestroyed);
         }
     }
 
-	[TestClass]
+	
 	public class NeutralHofTest
 	{
         // --------------------------------------- MINION - NEUTRAL
@@ -132,7 +132,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod]
+        [Fact]
         public void SylvanasWindrunner_EX1_016()
         {
             var game = new Game(new GameConfig
@@ -163,8 +163,8 @@ namespace SabberStoneCoreTest.CardSets
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion2));
 
-            Assert.AreEqual(myBoardCount, game.CurrentPlayer.Board.Count);
-            Assert.AreEqual(opBoardCount - 1, game.CurrentOpponent.Board.Count);
+            Assert.Equal(myBoardCount, game.CurrentPlayer.Board.Count);
+            Assert.Equal(opBoardCount - 1, game.CurrentOpponent.Board.Count);
         }
 
         // --------------------------------------- MINION - NEUTRAL
@@ -177,7 +177,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - CHARGE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact]
 		public void OldMurkEye_EX1_062()
 		{
 			// TODO OldMurkEye_EX1_062 test
@@ -206,7 +206,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact]
 		public void GelbinMekkatorque_EX1_112()
 		{
 			// TODO GelbinMekkatorque_EX1_112 test
@@ -233,7 +233,7 @@ namespace SabberStoneCoreTest.CardSets
         // - SPELLPOWER = 1
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact]
         public void AzureDrake_EX1_284()
         {
             // TODO AzureDrake_EX1_284 test
@@ -260,7 +260,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - CANT_ATTACK = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact]
         public void RagnarosTheFirelord_EX1_298()
         {
             // TODO RagnarosTheFirelord_EX1_298 test
@@ -286,7 +286,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact]
 		public void CaptainsParrot_NEW1_016()
 		{
 			// TODO CaptainsParrot_NEW1_016 test
@@ -315,7 +315,7 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[TestMethod, Ignore]
+		[Fact]
 		public void EliteTaurenChieftain_PRO_001()
 		{
 			// TODO EliteTaurenChieftain_PRO_001 test
