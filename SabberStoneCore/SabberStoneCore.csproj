@@ -1,29 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.3\SabberStoneCore.xml</DocumentationFile>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Loader\Data\Archive\CardDefs.xml" />
-    <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
-    <EmbeddedResource Include="Loader\Data\Archive\CARD.xml" />
+    <Compile Remove="tests\**" />
+    <EmbeddedResource Remove="tests\**" />
+    <None Remove="tests\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
+    <EmbeddedResource Include="resources\Data\CardDefs.xml" />
+    <EmbeddedResource Include="resources\Data\PlayErrors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\Generated\CardSetsTest\" />
+    <Folder Include="resources\Generated\CardSets\" />
   </ItemGroup>
 </Project>

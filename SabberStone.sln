@@ -1,29 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{F5DF7FAD-8623-43B7-BE83-9EFAA57DF7DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreTest", "SabberStoneCoreTest\SabberStoneCoreTest.csproj", "{4858A01E-6F37-4170-AFE3-4C76E514FE19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreConsole", "SabberStoneCoreConsole\SabberStoneCoreConsole.csproj", "{A47F02BC-540C-4576-AD4F-96B3543DC2B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreConsole", "SabberStoneCoreConsole\SabberStoneCoreConsole.csproj", "{A47F02BC-540C-4576-AD4F-96B3543DC2B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreAi", "SabberStoneCoreAi\SabberStoneCoreAi.csproj", "{B3B74404-BDEA-435C-800E-C184BEB0EB60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreAi", "SabberStoneCoreAi\SabberStoneCoreAi.csproj", "{B3B74404-BDEA-435C-800E-C184BEB0EB60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "extensions\SabberStoneGui\SabberStoneGui.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "SabberStoneGui\SabberStoneGui.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStonePowerLog", "extensions\SabberStonePowerLog\SabberStonePowerLog.csproj", "{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleClient", "SabberStoneKetteClient\SabberStoneKettleClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneHsReplay", "extensions\SabberStoneHsReplay\SabberStoneHsReplay.csproj", "{34049E7A-325F-4C9F-871E-B7656CD6AD4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettle", "SabberStoneKettle\SabberStoneKettle.csproj", "{6DEADFED-C31C-45E5-A370-FDB93BE227BD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08D2985C-3CC8-478D-AF9C-F52A6D2B9E64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettleSimulator", "SabberStoneKettleSimulator\SabberStoneKettleSimulator.csproj", "{4B889067-2E85-4396-88FF-1E6B43AF05F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreTest", "SabberStoneCore\tests\SabberStoneCoreTest.csproj", "{F4777205-D083-45DA-8346-656786C75EE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStonePowerLog", "SabberStonePowerLog\SabberStonePowerLog.csproj", "{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneHsReplay", "SabberStoneHsReplay\SabberStoneHsReplay.csproj", "{34049E7A-325F-4C9F-871E-B7656CD6AD4B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{246DD1A3-191C-4CF1-854F-8A59D29794F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,18 +45,6 @@ Global
 		{2916863C-6E4E-4009-AC21-3487A1A9B333}.Release|x64.Build.0 = Release|Any CPU
 		{2916863C-6E4E-4009-AC21-3487A1A9B333}.Release|x86.ActiveCfg = Release|Any CPU
 		{2916863C-6E4E-4009-AC21-3487A1A9B333}.Release|x86.Build.0 = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|x64.Build.0 = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Debug|x86.Build.0 = Debug|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|x64.ActiveCfg = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|x64.Build.0 = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|x86.ActiveCfg = Release|Any CPU
-		{4858A01E-6F37-4170-AFE3-4C76E514FE19}.Release|x86.Build.0 = Release|Any CPU
 		{A47F02BC-540C-4576-AD4F-96B3543DC2B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A47F02BC-540C-4576-AD4F-96B3543DC2B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A47F02BC-540C-4576-AD4F-96B3543DC2B4}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -95,42 +81,6 @@ Global
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x64.Build.0 = Release|Any CPU
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.ActiveCfg = Release|Any CPU
 		{D96672D9-240A-4745-9067-4DE39E098E03}.Release|x86.Build.0 = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x64.Build.0 = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Debug|x86.Build.0 = Debug|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x64.ActiveCfg = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x64.Build.0 = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.ActiveCfg = Release|Any CPU
-		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}.Release|x86.Build.0 = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x64.Build.0 = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Debug|x86.Build.0 = Debug|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x64.ActiveCfg = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x64.Build.0 = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x86.ActiveCfg = Release|Any CPU
-		{6DEADFED-C31C-45E5-A370-FDB93BE227BD}.Release|x86.Build.0 = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|x64.Build.0 = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Debug|x86.Build.0 = Debug|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|x64.ActiveCfg = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|x64.Build.0 = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|x86.ActiveCfg = Release|Any CPU
-		{4B889067-2E85-4396-88FF-1E6B43AF05F7}.Release|x86.Build.0 = Release|Any CPU
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -155,9 +105,27 @@ Global
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x64.Build.0 = Release|Any CPU
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.Build.0 = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|x64.Build.0 = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Debug|x86.Build.0 = Debug|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|x64.ActiveCfg = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|x64.Build.0 = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F4777205-D083-45DA-8346-656786C75EE0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D96672D9-240A-4745-9067-4DE39E098E03} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
+		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
+		{F4777205-D083-45DA-8346-656786C75EE0} = {08D2985C-3CC8-478D-AF9C-F52A6D2B9E64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
