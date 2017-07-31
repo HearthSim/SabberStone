@@ -123,8 +123,7 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig());
 			game.StartGame();
 
-			Assert.Equal(game.Player1.Deck.Count, 0);
-
+            Assert.Equal(0, game.Player1.Deck.Count);
 			game.Player1.Deck.Fill();
 
 			Assert.Equal(game.Player1.Deck.Count, game.Player1.Deck.StartingCards); // "Filling didn't matched max card size for deck.");
@@ -136,7 +135,7 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig());
 			game.StartGame();
 
-			Assert.Equal(game.Player1.Deck.Count, 0);
+            Assert.Equal(0, game.Player1.Deck.Count);
 
 			game.Player1.Deck.Fill();
 
@@ -323,9 +322,9 @@ namespace SabberStoneCoreTest.Basic
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-
-			Assert.Equal(true, game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
+            game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+            
+            Assert.True(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -334,9 +333,9 @@ namespace SabberStoneCoreTest.Basic
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.Equal(true, ((ICharacter)taunt).HasTaunt);
-			Assert.Equal(false, game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
-			Assert.Equal(true, game.CurrentPlayer.Hero.IsValidAttackTarget(taunt as ICharacter));
+            Assert.True(((ICharacter)taunt).HasTaunt);
+            Assert.False(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
+            Assert.True(game.CurrentPlayer.Hero.IsValidAttackTarget(taunt as ICharacter));
 		}
 
 		[Fact]
@@ -350,8 +349,8 @@ namespace SabberStoneCoreTest.Basic
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			}
 
-			Assert.Equal(game.Player1.PlayState, PlayState.WON); // "Fatigue test didn't worked as it should for player 1.");
-			Assert.Equal(game.Player2.PlayState, PlayState.LOST); // "Fatigue test didn't worked as it should for player 2.");
+            Assert.Equal(PlayState.WON, game.Player1.PlayState); // "Fatigue test didn't worked as it should for player 1.");
+			Assert.Equal(PlayState.LOST, game.Player2.PlayState); // "Fatigue test didn't worked as it should for player 2.");
 		}
 
 		[Fact]
@@ -466,170 +465,170 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(Zone.PLAY, ((ICharacter)minion2).Zone.Type);
 		}
 
-		[Fact]
-		public void BasicHealthAuraTest2()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
+        [Fact]
+        public void BasicHealthAuraTest2()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
 
-			var minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
-			var minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
-			var spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+            var minion1 = Generic.DrawCard(game.Player1,Cards.FromName("Murloc Raider"));
+            var minion2 = Generic.DrawCard(game.Player1,Cards.FromName("Ironbeak Owl"));
+            var spell1 = Generic.DrawCard(game.Player1,Cards.FromName("Power Word: Shield"));
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-			Assert.Equal(3, ((ICharacter)minion1).Health);
+            Assert.Equal(3, ((ICharacter)minion1).Health);
 
-			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
 
-			Assert.Equal(1, ((ICharacter)minion1).Health);
+            Assert.Equal(1, ((ICharacter)minion1).Health);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
-			var minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
-			var spell2 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+            var minion3 = Generic.DrawCard(game.Player1,Cards.FromName("Bloodfen Raptor"));
+            var minion4 = Generic.DrawCard(game.Player1,Cards.FromName("Ironbeak Owl"));
+            var spell2 = Generic.DrawCard(game.Player1,Cards.FromName("Power Word: Shield"));
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion3));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion3));
 
-			Assert.Equal(4, ((ICharacter)minion3).Health);
+            Assert.Equal(4, ((ICharacter)minion3).Health);
 
-			((Minion)minion3).Damage = 3;
+            ((Minion) minion3).Damage = 3;
 
-			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion3));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion3));
 
-			Assert.Equal(1, ((ICharacter)minion3).Health);
+            Assert.Equal(1, ((ICharacter)minion3).Health);
 
-		}
+        }
 
-		[Fact]
-		public void BasicHealthAuraTest3()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
+        [Fact]
+        public void BasicHealthAuraTest3()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.PRIEST,
+                Player2HeroClass = CardClass.WARLOCK,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-			var minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
-			var minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Warleader"));
-			var minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Stormwind Champion"));
-			var minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
-			var spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
+            var minion1 = Generic.DrawCard(game.Player1,Cards.FromName("Murloc Raider"));
+            var minion2 = Generic.DrawCard(game.Player1,Cards.FromName("Murloc Warleader"));
+            var minion3 = Generic.DrawCard(game.Player1,Cards.FromName("Stormwind Champion"));
+            var minion4 = Generic.DrawCard(game.Player1,Cards.FromName("Ironbeak Owl"));
+            var spell1 = Generic.DrawCard(game.Player1,Cards.FromName("Power Word: Shield"));
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-			game.Player1.UsedMana = 0;
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-			game.Player1.UsedMana = 0;
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-			game.Player1.UsedMana = 0;
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Player1.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Player1.UsedMana = 0;
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            game.Player1.UsedMana = 0;
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-			Assert.Equal(5, ((ICharacter)minion1).Health);
-			Assert.Equal(4, ((ICharacter)minion2).Health);
-			Assert.Equal(6, ((ICharacter)minion3).Health);
+            Assert.Equal(5, ((ICharacter)minion1).Health);
+            Assert.Equal(4, ((ICharacter)minion2).Health);
+            Assert.Equal(6, ((ICharacter)minion3).Health);
 
-			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion2));
+            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion2));
 
-			Assert.Equal(4, ((ICharacter)minion1).Health);
-			Assert.Equal(4, ((ICharacter)minion2).Health);
-			Assert.Equal(6, ((ICharacter)minion3).Health);
-			Assert.Equal(2, ((ICharacter)minion4).Health);
+            Assert.Equal(4, ((ICharacter)minion1).Health);
+            Assert.Equal(4, ((ICharacter)minion2).Health);
+            Assert.Equal(6, ((ICharacter)minion3).Health);
+            Assert.Equal(2, ((ICharacter)minion4).Health);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hellfire"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hellfire"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
-			Assert.Equal(1, ((ICharacter)minion1).Health);
-			Assert.Equal(1, ((ICharacter)minion2).Health);
-			Assert.Equal(3, ((ICharacter)minion3).Health);
-			Assert.Equal(true, ((ICharacter)minion4).IsDead);
+            Assert.Equal(1, ((ICharacter)minion1).Health);
+            Assert.Equal(1, ((ICharacter)minion2).Health);
+            Assert.Equal(3, ((ICharacter)minion3).Health);
+            Assert.True(((ICharacter)minion4).IsDead);
 
-		}
+        }
 
-		[Fact]
-		public void SecretActivation()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, minion1));
-			Assert.Equal(game.CurrentOpponent.Hero.Health > 27 ? 2 : 1, ((Minion)minion1).Health);
-		}
+        [Fact]
+        public void SecretActivation()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.ROGUE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Knife Juggler"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Snake Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stonetusk Boar"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, minion1));
+            Assert.Equal(game.CurrentOpponent.Hero.Health > 27 ? 2 : 1, ((Minion) minion1).Health);
+        }
 
-		[Fact]
-		public void SecretOnlyOnce()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-			Assert.Equal(game.CurrentPlayer.Secrets.Count, 1);
-		}
+        [Fact]
+        public void SecretOnlyOnce()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.ROGUE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
+        }
 
-		[Fact]
-		public void Aura_LoopBug()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
+        [Fact]
+        public void Aura_LoopBug()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
 
-			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+            var minion1 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stormwind Champion"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stormwind Champion"));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(6, minion1[GameTag.HEALTH]);
+            Assert.Equal(6, minion1[GameTag.HEALTH]);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
 
-			Assert.Equal(7, minion1[GameTag.HEALTH]);
-		}
+            Assert.Equal(7, minion1[GameTag.HEALTH]);
+        }
 
 		[Fact]
 		public void QuestCardDrawFirst()
@@ -666,59 +665,59 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
-		public void OrderOfPlayDeathRattleSylvanasTest()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				FillDecks = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
+        public void OrderOfPlayDeathRattleSylvanasTest()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
 
-			Assert.Equal(1, 0);
-		}
+            Assert.Equal(1, 0);
+        }
 
-		[Fact]
+        [Fact]
 		public void LoathebMillhouseOrderOfPlayTest()
-		{
-			// https://youtu.be/Fmfa9NFThsM?t=50
+        {
+            // https://youtu.be/Fmfa9NFThsM?t=50
 
-			var game =
-				new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.PALADIN,
-					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
-				});
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.PALADIN,
+                    Player2HeroClass = CardClass.MAGE,
+                    FillDecks = true
+                });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-			game.StartGame();
+            game.StartGame();
 
-			Assert.Equal(true, false); // "To be implemented.");
+            Assert.True(false); // "To be implemented.");
 		}
 
-		[Fact]
-		public void IllidanKnifeJugglerTwilightDrakeResolveTest()
-		{
-			// https://youtu.be/Ln0BisR_SfY?t=71
+        [Fact]
+        public void IllidanKnifeJugglerTwilightDrakeResolveTest()
+        {
+            // https://youtu.be/Ln0BisR_SfY?t=71
 
-			var game =
-				new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.PALADIN,
-					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
-				});
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = CardClass.PALADIN,
+                    Player2HeroClass = CardClass.MAGE,
+                    FillDecks = true
+                });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
-			game.StartGame();
+            game.StartGame();
 
-			Assert.Equal(true, false); // "To be implemented.");
+            Assert.True(false); // "To be implemented.");
 		}
 	}
 }
