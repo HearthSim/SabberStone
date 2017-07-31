@@ -24,7 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreTest", "SabberStoneCore\tests\SabberStoneCoreTest.csproj", "{342A5EEB-9492-4B54-BCE7-57AC5CC5338C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreTest", "SabberStoneCore\tests\SabberStoneCoreTest.csproj", "{342A5EEB-9492-4B54-BCE7-57AC5CC5338C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneBuildCardSet", "extensions\SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{5D333916-9343-4A69-B515-8EC64873D4A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,6 +122,18 @@ Global
 		{342A5EEB-9492-4B54-BCE7-57AC5CC5338C}.Release|x64.Build.0 = Release|Any CPU
 		{342A5EEB-9492-4B54-BCE7-57AC5CC5338C}.Release|x86.ActiveCfg = Release|Any CPU
 		{342A5EEB-9492-4B54-BCE7-57AC5CC5338C}.Release|x86.Build.0 = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|x64.Build.0 = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D333916-9343-4A69-B515-8EC64873D4A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +143,7 @@ Global
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
 		{342A5EEB-9492-4B54-BCE7-57AC5CC5338C} = {08D2985C-3CC8-478D-AF9C-F52A6D2B9E64}
+		{5D333916-9343-4A69-B515-8EC64873D4A6} = {246DD1A3-191C-4CF1-854F-8A59D29794F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

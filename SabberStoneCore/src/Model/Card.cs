@@ -174,7 +174,7 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// True if the effects of this card are implemented.
 		/// </summary>
-		internal bool Implemented { get; set; }
+		public bool Implemented { get; set; }
 
 		/// <summary>
 		/// Holds a list of Buffs/Debuffs on this card instance.
