@@ -13,7 +13,6 @@ build:
   parallel: true
   verbosity: minimal
 test_script:
-test_script:
 - cmd: >-
     cd ./SabberStoneCore/tests
 
