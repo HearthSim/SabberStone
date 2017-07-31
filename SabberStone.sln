@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{F5DF7FAD-8623-43B7-BE83-9EFAA57DF7DB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreConsole", "SabberStoneCoreConsole\SabberStoneCoreConsole.csproj", "{A47F02BC-540C-4576-AD4F-96B3543DC2B4}"
@@ -22,6 +20,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreTest", "SabberStoneCore\tests\SabberStoneCoreTest.csproj", "{F4777205-D083-45DA-8346-656786C75EE0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{246DD1A3-191C-4CF1-854F-8A59D29794F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{258DA796-F20E-485E-85BB-4315FD1D1367}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
