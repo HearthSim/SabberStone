@@ -1,5 +1,13 @@
-<span align="left">![SabberStone logo](docs/readme/sabberstone.png)</span>
-# SabberStone
+<p align="center">
+<img src="docs/readme/sabberstone.png" alt="SabberStone logo" height="80%"/>
+</p>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Travis Build Status](https://travis-ci.org/HearthSim/SabberStone.svg?branch=master)](https://travis-ci.org/HearthSim/SabberStone)
+[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/cncu269gxx9x6l3i?svg=true)](https://ci.appveyor.com/project/Bert-Proesmans/sabberstone)
+
+
+# Overview
 
 **State of Implementation: 91% (Un'Goro 75%) of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(20.04.2017)***
 
@@ -8,7 +16,7 @@ SabberStone is just another Hearthstone simulator and implementation, written in
 By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of Brimstone was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome!
 
 **Sabberstone Simulator can be connected to the real Hearthstone client!**
-<span align="left">![Preview SabberStone connected to the Stove project](docs/readme/stove.PNG)</span>
+![Preview SabberStone connected to the Stove project](docs/readme/stove.PNG)
 
 ### Project Structure ###
 
