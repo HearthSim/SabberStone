@@ -314,10 +314,10 @@ namespace SabberStoneGui
             switch (formatType)
             {
                 case FormatType.FT_STANDARD:
-                    cards = Cards.Standard[cardClass];
+                    cards = Cards.StandardPerClass[cardClass];
                     break;
                 case FormatType.FT_WILD:
-                    cards = Cards.Wild[cardClass];
+                    cards = Cards.WildPerClass[cardClass];
                     break;
                 default:
                     throw new NotImplementedException();

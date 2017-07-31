@@ -101,9 +101,9 @@ namespace SabberStoneCore.Model
 
         public int MaxResources => this[GameTag.MAXRESOURCES];
 
-        public List<Card> Standard => Cards.Standard[HeroClass];
+        public List<Card> Standard => Cards.StandardPerClass[HeroClass];
 
-        public List<Card> Wild => Cards.Wild[HeroClass];
+        public List<Card> Wild => Cards.WildPerClass[HeroClass];
 
         public int RemainingMana => BaseMana + TemporaryMana - (UsedMana + OverloadLocked);
 
