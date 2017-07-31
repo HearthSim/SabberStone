@@ -12,12 +12,16 @@ build:
   project: SabberStone.sln
   parallel: true
   verbosity: minimal
-test:
-  assemblies:
-    only:
-    - '**\Release\**\*.[Tt]est.dll'
+test_script:
+test_script:
+- cmd: >-
+    cd ./SabberStoneCore/tests
+
+    REM Run the test project (.NET Core)
+
+    dotnet xunit
 artifacts:
-- path: SabberStoneCore\**\Release\**\SabberStoneCore.xml
+- path: SabberStoneCore\bin\**\Release\**\SabberStoneCore.xml
   name: SabberStoneCore doc
-- path: SabberStoneCore\**\Release\*\*.dll
+- path: SabberStoneCore\bin\**\Release\**\*.dll
   name: SabberStoneCore libs
