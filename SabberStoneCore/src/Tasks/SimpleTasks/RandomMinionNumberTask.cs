@@ -24,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            var playable = Entity.FromCard(Controller, Util<Card>.Choose(cardsList));
+            var playable = Entity.FromCard(Controller, Util.Choose(cardsList));
             Playables = new List<IPlayable> { playable };
 
             return TaskState.COMPLETE;

@@ -69,7 +69,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var randomMinions = new List<IPlayable>();
             while (randomMinions.Count < Amount && cardsList.Count > 0)
             {
-                var card = Util<Card>.Choose(cardsList);
+                var card = Util.Choose(cardsList);
                 cardsList.Remove(card);
                 randomMinions.Add(Entity.FromCard(Controller, card));
             }

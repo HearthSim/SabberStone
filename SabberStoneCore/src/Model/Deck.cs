@@ -19,7 +19,7 @@ namespace SabberStoneCore.Model
             Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
             while (cardsToAdd > 0)
             {
-                var card = Util<Card>.Choose(cards);
+                var card = Util.Choose(cards);
                 if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
                     continue;
                 Entity.FromCard(Controller, card, null, this);

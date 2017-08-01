@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Collections;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -63,14 +64,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 totcardsToDiscover.AddRange(cardsToDiscover[1]);
             }
 
-            var resultCards = new List<Card>();
+            var resultCards = new OrderedHashSet<Card>();
 
             // standard discover takes 3 random cards from a set of cards
             if (cardsToDiscover.Length < 3)
             {
-                while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
+                while (resultCards.Count() < 3 && totcardsToDiscover.Count > 0)
                 {
-                    var discoveredCard = Util<Card>.Choose(totcardsToDiscover);
+                    var discoveredCard = Util.Choose(totcardsToDiscover);
                     resultCards.Add(discoveredCard);
                     // remove all cards matching the discovered one, 
                     // need because class cards are duplicated 4 x times
@@ -91,8 +92,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 // tri-class discover takes one random card from each of the three sets
                 foreach (var classDiscover in cardsToDiscover)
                 {
-                    resultCards.ForEach(p => classDiscover.Remove(p));
-                    resultCards.Add(Util<Card>.Choose(classDiscover));
+					foreach(var card in resultCards)
+					{
+						classDiscover.Remove(card);
+					}
+                    resultCards.Add(Util.Choose(classDiscover));
                 }
             }
 
@@ -110,20 +114,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //    return TaskState.STOP;
             //}
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, Enchantment);
             return TaskState.COMPLETE;
         }
 
         private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
         {
-            var neutralCnt = cardsToDiscover[0].Count;
-            var classCnt = 0;
-            var uniqueList = new List<Card>(cardsToDiscover[0]);
+			int neutralCnt = cardsToDiscover[0].Count;
+			int classCnt = 0;
+            var uniqueList = new OrderedHashSet<Card>(cardsToDiscover[0]);
 
             if (cardsToDiscover.Length > 1)
             {
                 classCnt = cardsToDiscover[1].Count;
-                uniqueList.AddRange(cardsToDiscover[1]);
+				for (int i = 0; i < classCnt; ++i)
+				{
+					uniqueList.Add(cardsToDiscover[1][i]);
+				}
             }
             var combinations = Util.GetDiscoverSets(uniqueList).ToList();
 
@@ -132,7 +139,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerById(Controller.Id);
-                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
+                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, new OrderedHashSet<Card>(p), null);
                 cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
             });
 

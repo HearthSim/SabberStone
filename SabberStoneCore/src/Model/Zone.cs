@@ -54,7 +54,7 @@ namespace SabberStoneCore.Model
 
         public int Count => _entitiesAsList.Count;
 
-        public T Random => Util<T>.Choose(_entitiesAsList);
+        public T Random => Util.Choose(_entitiesAsList);
 
         private readonly List<T> _entitiesAsList = new List<T>();
 

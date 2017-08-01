@@ -5,6 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
+using SabberStoneCore.Collections;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -38,15 +39,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //};
             var totAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
 
-            var resultCards = new List<Card>();
-            while (resultCards.Count < 3)
+            var resultCards = new OrderedHashSet<Card>();
+            while (resultCards.Count() < 3)
             {
-                var adaptCard = Util<Card>.Choose(totAdaptCards);
+				Card adaptCard = Util.Choose(totAdaptCards);
                 resultCards.Add(adaptCard);
                 totAdaptCards.Remove(adaptCard);
             }
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards, null);
             return TaskState.COMPLETE;
         }
 

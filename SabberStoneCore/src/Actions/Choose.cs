@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enchants;
+﻿using SabberStoneCore.Collections;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
@@ -187,8 +188,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, List<int>, bool> CreateChoice
-            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, List<int> choices)
+        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, IReadOnlyOrderedSet<int>, bool> CreateChoice
+            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, IReadOnlyOrderedSet<int> choices)
             {
                 if (c.Choice != null)
                 {
@@ -206,8 +207,8 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
-            => delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
+        public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, IReadOnlyOrderedSet<Card>, Enchantment, bool> CreateChoiceCards
+            => delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, IReadOnlyOrderedSet<Card> choices, Enchantment enchantment)
             {
                 if (c.Choice != null)
                 {
@@ -215,27 +216,27 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                var choicesIds = new List<int>();
-                choices.ForEach(p =>
-                {
-                    var choiceEntity = Entity.FromCard(c, p);
-                    choiceEntity[GameTag.CREATOR] = source.Id;
-                    // add after discover enchantment
-                    if (enchantment != null)
-                    {
-                        choiceEntity.Enchantments.Add(enchantment);
-                    }
-                    c.Setaside.Add(choiceEntity);
-                    choicesIds.Add(choiceEntity.Id);
-                });
+                var choicesIds = new OrderedHashSet<int>();
+				foreach(Card card in choices)
+				{
+					IPlayable choiceEntity = Entity.FromCard(c, card);
+					choiceEntity[GameTag.CREATOR] = source.Id;
+					// add after discover enchantment
+					if (enchantment != null)
+					{
+						choiceEntity.Enchantments.Add(enchantment);
+					}
+					c.Setaside.Add(choiceEntity);
+					choicesIds.Add(choiceEntity.Id);
+				}
 
-                c.Choice = new Choice(c)
-                {
-                    ChoiceType = type,
-                    ChoiceAction = action,
-                    Choices = choicesIds,
-                    SourceId = source.Id,
-                    TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>()
+				c.Choice = new Choice(c)
+				{
+					ChoiceType = type,
+					ChoiceAction = action,
+					Choices = choicesIds,
+					SourceId = source.Id,
+					TargetIds = targets != null ? LightWeightOrderedSet<int>.Build(targets.Select(p => p.Id)) : LightWeightOrderedSet<int>.Empty,
                 };
 
                 return true;

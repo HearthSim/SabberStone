@@ -4,14 +4,15 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
+using SabberStoneCore.Collections;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class PotionGenerating : SimpleTask
     {
-        private List<Card> _kazakusPotionSpells;
+        private ISet<Card> _kazakusPotionSpells;
 
-        private List<Card> KazakusPotionSpells => _kazakusPotionSpells ?? (_kazakusPotionSpells = GetKazakusPotionSpells());
+        private ISet<Card> KazakusPotionSpells => _kazakusPotionSpells ?? (_kazakusPotionSpells = GetKazakusPotionSpells());
 
         public PotionGenerating(List<int> scriptTags = null)
         {
@@ -26,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             var minion = Source as Minion;
             if (minion != null && ScriptTags == null)
             {
-                Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList(), null);
+                Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, LightWeightOrderedSet<Card>.Build(minion.Card.Entourage.Select(Cards.FromId)), null);
                 return TaskState.COMPLETE;
 
             }
@@ -36,18 +37,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (ScriptTags.Count < 3)
             {
 
-                var cost = KazakusPotionSpells.First(p => 
+				int cost = KazakusPotionSpells.First(p => 
                     p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Cost;
                 var cardIdList = KazakusPotionSpells.Where(p => 
                     p[GameTag.TAG_SCRIPT_DATA_NUM_1] < 1000 && p.Cost == cost &&
                     (ScriptTags.Count != 2 || p[GameTag.TAG_SCRIPT_DATA_NUM_1] != ScriptTags[1])).ToList();
 
-                var cardList = new List<Card>();
-                while (cardList.Count < 3)
+                var cardList = new OrderedHashSet<Card>();
+                while (cardList.Count() < 3)
                 {
-                    var card = Util<Card>.Choose(cardIdList);
+					Card card = Util.Choose(cardIdList);
                     cardList.Add(card);
-                    cardIdList.RemoveAll(p => p == card);
+                    cardIdList.Remove(card);
                 }
 
                 Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList, null);
@@ -91,18 +92,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             return TaskState.COMPLETE;
         }
 
-        private static List<Card> GetKazakusPotionSpells()
+        private static ISet<Card> GetKazakusPotionSpells()
         {
-            var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t") 
+			IEnumerable<Card> enumerable = Cards.All.Where(p => p.Id.StartsWith("CFM_621t") 
             && !p.Id.Equals("CFM_621t")
             //&& !p.Id.Equals("CFM_621t11")
             //&& !p.Id.Equals("CFM_621t12")
             //&& !p.Id.Equals("CFM_621t13")
             && !p.Id.Equals("CFM_621t14")
             && !p.Id.Equals("CFM_621t15")
-            ).ToList();
+            );
 
-            return list;
+            return new OrderedHashSet<Card>(enumerable);
         }
 
         private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)

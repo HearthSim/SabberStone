@@ -1095,7 +1095,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(4, game.CurrentPlayer.Hand.Count);
             if (game.CurrentPlayer.Choice != null)
             {
-                game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+                game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
             }
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
         }

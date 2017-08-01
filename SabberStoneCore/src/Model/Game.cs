@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Collections;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -229,8 +230,8 @@ namespace SabberStoneCore.Model
             Player1.MulliganState = Mulligan.INPUT;
             Player2.MulliganState = Mulligan.INPUT;
 
-            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player1.Hand.Select(p => p.Id).ToList());
-            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, Player2.Hand.Select(p => p.Id).ToList());
+            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player1.Hand.Select(p => p.Id)));
+            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player2.Hand.Select(p => p.Id)));
 
             // ending mulligan draw block
             if (History)
