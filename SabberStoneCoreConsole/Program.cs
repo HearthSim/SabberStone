@@ -36,8 +36,8 @@ namespace SabberStoneCoreConsole
             //ChooseOneTest();
             //Kazakus();
             //BrainDeadTest();
-            //ParallelTest();
-            QuestDrawFirstTest();
+            ParallelTest();
+            //QuestDrawFirstTest();
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();
@@ -50,55 +50,99 @@ namespace SabberStoneCoreConsole
 
         static void ParallelTest()
         {
-            var game = new Game(new GameConfig
-            {
-                //StartPlayer = 1,
-                GameRule = FormatType.FT_STANDARD,
-                Player1HeroClass = CardClass.HUNTER,
-                Player2HeroClass = CardClass.HUNTER,
-                FillDecks = true,
-                Logging = true,
-                History = false
-            });
-            game.StartGame();
+            var parallel = 10000;
+            var ensemble = 10;
 
             //Create new game and go to MainReady();
-            for (var i = 0; i < 1000; i++)
+            for (var i = 0; i < parallel; i++)
             {
-                var task = Task.Factory.StartNew(() => ParallelGames(game));
+                var game = new Game(new GameConfig
+                {
+                    //StartPlayer = 1,
+                    GameRule = FormatType.FT_STANDARD,
+                    Player1HeroClass = CardClass.DRUID,
+                    DeckPlayer1 = new List<Card>()
+                    {
+                        Cards.FromName("Kun the Forgotten King"),
+                        //Cards.FromName("Ironbark Protector"),
+                        Cards.FromName("Ironbark Protector"),
+                        Cards.FromName("Healing Touch"),
+                        Cards.FromName("Healing Touch"),
+                        Cards.FromName("Moonfire"),
+                        Cards.FromName("Moonfire"),
+                        Cards.FromName("Swipe"),
+                        Cards.FromName("Swipe"),
+                        Cards.FromName("Novice Engineer"),
+                        Cards.FromName("Novice Engineer"),
+                        Cards.FromName("Voodoo Doctor"),
+                        Cards.FromName("Voodoo Doctor"),
+                        Cards.FromName("Dragonling Mechanic"),
+                        Cards.FromName("Dragonling Mechanic"),
+                        Cards.FromName("Acidic Swamp Ooze"),
+                        Cards.FromName("Acidic Swamp Ooze"),
+                        Cards.FromName("Gurubashi Berserker"),
+                        Cards.FromName("Gurubashi Berserker"),
+                        Cards.FromName("Murloc Tidehunter"),
+                        Cards.FromName("Murloc Tidehunter"),
+                        Cards.FromName("Grimscale Oracle"),
+                        Cards.FromName("Grimscale Oracle"),
+                        Cards.FromName("Dalaran Mage"),
+                        Cards.FromName("Dalaran Mage"),
+                        Cards.FromName("Nightblade"),
+                        Cards.FromName("Nightblade"),
+                        Cards.FromName("War Golem"),
+                        Cards.FromName("War Golem"),
+                        Cards.FromName("Chillwind Yeti"),
+                        Cards.FromName("Chillwind Yeti")
+                    },
+                    Player2HeroClass = CardClass.DRUID,
+                    DeckPlayer2 = new List<Card>()
+                    {
+                        Cards.FromName("Ironbark Protector"),
+                        Cards.FromName("Ironbark Protector"),
+                        Cards.FromName("Healing Touch"),
+                        Cards.FromName("Healing Touch"),
+                        Cards.FromName("Moonfire"),
+                        Cards.FromName("Moonfire"),
+                        Cards.FromName("Swipe"),
+                        Cards.FromName("Swipe"),
+                        Cards.FromName("Novice Engineer"),
+                        Cards.FromName("Novice Engineer"),
+                        Cards.FromName("Voodoo Doctor"),
+                        Cards.FromName("Voodoo Doctor"),
+                        Cards.FromName("Dragonling Mechanic"),
+                        Cards.FromName("Dragonling Mechanic"),
+                        Cards.FromName("Acidic Swamp Ooze"),
+                        Cards.FromName("Acidic Swamp Ooze"),
+                        Cards.FromName("Gurubashi Berserker"),
+                        Cards.FromName("Gurubashi Berserker"),
+                        Cards.FromName("Murloc Tidehunter"),
+                        Cards.FromName("Murloc Tidehunter"),
+                        Cards.FromName("Grimscale Oracle"),
+                        Cards.FromName("Grimscale Oracle"),
+                        Cards.FromName("Dalaran Mage"),
+                        Cards.FromName("Dalaran Mage"),
+                        Cards.FromName("Nightblade"),
+                        Cards.FromName("Nightblade"),
+                        Cards.FromName("War Golem"),
+                        Cards.FromName("War Golem"),
+                        Cards.FromName("Chillwind Yeti"),
+                        Cards.FromName("Chillwind Yeti")
+                    },
+                    FillDecks = true,
+                    Logging = true,
+                    History = false
+                });
+                game.StartGame();
+
+                var task = Task.Factory.StartNew(() => ParallelGames(game, ensemble));
                 task.Wait();
+                ProgressBar(i, parallel);
             }
         }
-         
-        public static void QuestDrawFirstTest()
-        {
-            var game = new Game(
-            new GameConfig()
-            {
-                Player1HeroClass = CardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
-                {
-                                Cards.FromName("Fire Plume's Heart")
-                },
-                Player2HeroClass = CardClass.HUNTER,
-                DeckPlayer2 = new List<Card>
-                {
-                                Cards.FromName("The Marsh Queen")
-                },
-                FillDecks = true,
-                Shuffle = true,
-                SkipMulligan = false
-            });
-            game.StartGame();
 
-            ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
-            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
-        }
-
-        public static void ParallelGames(Game g)
+        public static void ParallelGames(Game g, int ensemble)
         {
-            var ensemble = 10;
             var tasks = new List<Task<double>>();
             var games = new List<Game>();
             for (var i = 0; i < ensemble; i++)
@@ -121,6 +165,32 @@ namespace SabberStoneCoreConsole
                 simcount++;
             }
             return 0.0;
+        }
+
+        public static void QuestDrawFirstTest()
+        {
+            var game = new Game(
+            new GameConfig()
+            {
+                Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                    Cards.FromName("Fire Plume's Heart")
+                },
+                Player2HeroClass = CardClass.HUNTER,
+                DeckPlayer2 = new List<Card>
+                {
+                    Cards.FromName("The Marsh Queen")
+                },
+                FillDecks = true,
+                Shuffle = true,
+                SkipMulligan = false
+            });
+            game.StartGame();
+
+            ShowLog(game, LogLevel.VERBOSE);
+            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
         }
 
         private static void BrainDeadTest()

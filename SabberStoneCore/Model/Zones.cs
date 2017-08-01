@@ -23,15 +23,31 @@ namespace SabberStoneCore.Model
 
         public void Stamp(Zones zones)
         {
-            foreach (Zone value in Enum.GetValues(typeof(Zone)))
-            {
-                if (value == Zone.INVALID)
-                    continue;
-
-                var zone = zones[value];
+            // setaside need to be cloned first for references like choose one cards ...
+            List<Zone> zoneEnums = new List<Zone> {
+                Zone.SETASIDE,
+                Zone.PLAY,
+                Zone.DECK,
+                Zone.HAND,
+                Zone.GRAVEYARD,
+                Zone.SECRET,
+                Zone.REMOVEDFROMGAME
+            };
+            zoneEnums.ForEach(p => {
+                var zone = zones[p];
                 if (zone != null)
-                    this[value].Stamp(zone);
-            }
+                    this[p].Stamp(zone);
+            });
+
+            //foreach (Zone value in Enum.GetValues(typeof(Zone)))
+            //{
+            //    if (value == Zone.INVALID)
+            //        continue;
+
+            //    var zone = zones[value];
+            //    if (zone != null)
+            //        this[value].Stamp(zone);
+            //}
         }
 
         public string Hash(params GameTag[] ignore)

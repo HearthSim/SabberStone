@@ -203,25 +203,25 @@ namespace SabberStoneCore.Model
             // add entity to the appropriate zone if it was given
             zone?.Add(result);
 
-            if (result.ChooseOne && id < 0)
+            if (result.ChooseOne)
             {
-                result.ChooseOnePlayables[0] = FromCard(controller, 
+                result.ChooseOnePlayables[0] = id < 0 ? FromCard(controller, 
                     Cards.FromId(result.Card.Id + "a"), 
                     new Dictionary<GameTag, int>
                     {
                         [GameTag.CREATOR] = result.Id,
                         [GameTag.PARENT_CARD] = result.Id
                     }, 
-                    controller.Setaside);
+                    controller.Setaside) : controller.Setaside.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
 
-                result.ChooseOnePlayables[1] = FromCard(controller, 
+                result.ChooseOnePlayables[1] = id < 0 ? FromCard(controller, 
                     Cards.FromId(result.Card.Id + "b"), 
                     new Dictionary<GameTag, int>
                     {
                         [GameTag.CREATOR] = result.Id,
                         [GameTag.PARENT_CARD] = result.Id
                     }, 
-                    controller.Setaside);
+                    controller.Setaside) : controller.Setaside.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
             }
 
             return result;
