@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Collections
 {
@@ -20,6 +21,18 @@ namespace SabberStoneCore.Collections
 		public static IReadOnlyOrderedSet<T> ToOrderedSet<T>(this IEnumerable<T> data)
 		{
 			return LightWeightOrderedSet<T>.Build(data);
+		}
+
+		/// <summary>Executes the lambda function for each element of the provided list.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="data">The list.</param>
+		/// <param name="lambda">The lambda function.</param>
+		public static void ForEach<T>(this IList<T> data, Action<T> lambda)
+		{
+			for(int i = 0; i < data.Count; ++i)
+			{
+				lambda(data[i]);
+			}
 		}
 	}
 }

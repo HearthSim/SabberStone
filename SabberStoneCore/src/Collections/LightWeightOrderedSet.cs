@@ -92,5 +92,18 @@ namespace SabberStoneCore.Collections
 				lambda(_internalContainer[i]);
 			}
 		}
+
+		bool IReadOnlySet<T>.Exists(Func<T, bool> lambda)
+		{
+			for (int i = 0; i < _internalContainer.Length; ++i)
+			{
+				if (lambda(_internalContainer[i]))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }

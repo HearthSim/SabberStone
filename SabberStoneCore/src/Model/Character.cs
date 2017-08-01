@@ -47,9 +47,6 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// This character takes damage from a certain other entity.
-		/// The source is NOT specifically another character, since cards
-		/// player from hand can also deal damage.
-		/// 
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="damage"></param>
@@ -149,9 +146,7 @@ namespace SabberStoneCore.Model
 	}
 
 	/// <summary>
-	/// A character is ALSO an entity. The Tag based property system is also applicable to instances
-	/// of this type.
-	/// 
+	/// Base implementation of ICharacter.
 	/// <seealso cref="ICharacter"/>
 	/// <seealso cref="Playable{T}"/>
 	/// </summary>
@@ -382,7 +377,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Inflict damage onto this character.
 		/// The actual amount still needs to be determined by the current
-		/// state of the game.
+		/// state of the game. eg: The presence of immunity effects can cause
+		/// the damage to be ignored.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="damage"></param>

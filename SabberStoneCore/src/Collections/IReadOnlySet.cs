@@ -21,5 +21,10 @@ namespace SabberStoneCore.Collections
 		/// <summary>Executes the specified lambda on each of the elements of the set.</summary>
 		/// <param name="lambda">The lambda.</param>
 		void ForEach(Action<T> lambda);
+
+		/// <summary>Checks if there is an item in the set for which the lambda returns true.</summary>
+		/// <param name="lambda">The lambda.</param>
+		/// <returns></returns>
+		bool Exists(Func<T, bool> lambda);
 	}
 }

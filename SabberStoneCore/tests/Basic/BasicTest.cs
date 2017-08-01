@@ -652,16 +652,16 @@ namespace SabberStoneCoreTest.Basic
 				});
 			game.StartGame();
 
-			Assert.False(game.Player1.Choice.Choices.TrueForAll(p =>
+			Assert.True(game.Player1.Choice.Choices.Exists(p =>
 			{
 				IPlayable t = game.IdEntityDic[p];
-				return !(t is Spell) || !((Spell)t).IsQuest;
-			}), "we have a no quest in mulligan! player 1");
-			Assert.False(game.Player2.Choice.Choices.TrueForAll(p =>
+				return ((Spell)t).IsQuest;
+			}), "we have no quest in mulligan! player 1");
+			Assert.True(game.Player2.Choice.Choices.Exists(p =>
 			{
 				IPlayable t = game.IdEntityDic[p];
-				return !(t is Spell) || !((Spell)t).IsQuest;
-			}), "we have a no quest in mulligan! player 2");
+				return ((Spell)t).IsQuest;
+			}), "we have no quest in mulligan! player 2");
 		}
 
 		[Fact]

@@ -8,7 +8,7 @@ namespace SabberStoneCore.Enchants
 {
     public class Trigger : ILazyRemove
     {
-        public List<Trigger> Parent { get; set; }
+        public IList<Trigger> Parent { get; set; }
 
         public List<SelfCondition> EnableConditions { get; set; } = new List<SelfCondition>();
 
@@ -45,7 +45,7 @@ namespace SabberStoneCore.Enchants
 
         public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
-        public Trigger Copy(string sourceId, Game game, int turn, List<Trigger> parent, IPlayable owner)
+        public Trigger Copy(string sourceId, Game game, int turn, IList<Trigger> parent, IPlayable owner)
         {
             return new Trigger
             {
@@ -150,7 +150,7 @@ namespace SabberStoneCore.Enchants
             }
         }
 
-        public void Activate(string sourceId, List<Trigger> parent, IPlayable owner)
+        public void Activate(string sourceId, IList<Trigger> parent, IPlayable owner)
         {
             parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner));
         }

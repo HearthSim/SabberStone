@@ -320,6 +320,19 @@ namespace SabberStoneCore.Collections
 				lambda(internalCopy[i]);
 			}
 		}
+
+		bool IReadOnlySet<T>.Exists(Func<T, bool> lambda)
+		{
+			for (int i = 0; i < _internalList.Count; ++i)
+			{
+				if (lambda(_internalList[i]))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 	/// <summary>
