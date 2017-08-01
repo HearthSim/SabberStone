@@ -79,6 +79,9 @@ namespace SabberStoneCore.Model
                 return false;
             }
 
+            // added pre damage
+            PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : hero.Armor - damage;
+
             if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
             {
                 Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
@@ -88,20 +91,8 @@ namespace SabberStoneCore.Model
             // remove armor first from hero ....
             if (hero != null && hero.Armor > 0)
             {
-                if (hero.Armor < damage)
-                {
-                    damage = damage - hero.Armor;
-                    hero.Armor = 0;
-                }
-                else
-                {
-                    hero.Armor = hero.Armor - damage;
-                    damage = 0;
-                }
+                hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
             }
-
-            // added pre damage to be able to interact
-            PreDamage = damage;
 
             // final damage is beeing accumulated
             Damage += PreDamage;

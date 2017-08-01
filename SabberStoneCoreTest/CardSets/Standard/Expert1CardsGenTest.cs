@@ -1496,17 +1496,34 @@ namespace SabberStoneCoreTest.CardSets.Standard
             // play 2 charge minions
             var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            Assert.AreEqual(2, game.CurrentPlayer.Board.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+            Assert.AreEqual(3, game.CurrentPlayer.Board.Count);
 
             // minion 1 attacks hero that should NOT proc the secret
             game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion) minion1, game.CurrentOpponent.Hero));
             Assert.AreEqual(1, game.CurrentOpponent.Hero.Health);
             Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
 
+            // adding one armor for next attack
+            game.Player1.Hero.Armor = 1;
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Armor);
+
             // minion 2 attacks hero that should proc the secret
             game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion) minion2, game.CurrentOpponent.Hero));
+            Assert.AreEqual(0, game.CurrentOpponent.Hero.Armor);
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Health);
+            Assert.AreEqual(1, game.CurrentOpponent.Secrets.Count);
+
+            // adding one armor for next attack
+            game.Player1.Hero.Armor = 1;
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Armor);
+
+            // minion 3 attacks hero that should proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion3, game.CurrentOpponent.Hero));
+            Assert.AreEqual(1, game.CurrentOpponent.Hero.Armor);
             Assert.AreEqual(0, game.CurrentOpponent.Secrets.Count);
             Assert.AreEqual(1, game.CurrentOpponent.Hero.Health);
 
@@ -1514,7 +1531,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             // minion 2 now kills opponent
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion) minion2, game.CurrentOpponent.Hero));
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion) minion3, game.CurrentOpponent.Hero));
             Assert.AreEqual(true, game.CurrentOpponent.Hero.IsDead);
         }
 

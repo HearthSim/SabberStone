@@ -1541,7 +1541,7 @@ namespace SabberStoneCore.CardSets.Standard
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsSecretOrQuestActive)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsHero),
-                            RelaCondition.IsOther(SelfCondition.IsLethalPreDamaged))
+                            RelaCondition.IsOther(SelfCondition.IsHeroLethalPreDamaged))
                         .FastExecution(true)
                         .TriggerEffect(GameTag.PREDAMAGE, 1)
                         .SingleTask(ComplexTask.Secret(

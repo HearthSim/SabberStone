@@ -9,6 +9,8 @@ using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace SabberStoneCoreConsole
 {
@@ -34,14 +36,117 @@ namespace SabberStoneCoreConsole
             //ChooseOneTest();
             //Kazakus();
             //BrainDeadTest();
+            //ParallelTest();
+            IceBlockTest();
 
             //TestLoader.GetGameTags();
-            TestLoader.Load();
+            //TestLoader.Load();
 
             //Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
             Console.WriteLine("Finished! Press key now.");
             Console.ReadKey();
+        }
+
+        static void ParallelTest()
+        {
+            var game = new Game(new GameConfig
+            {
+                //StartPlayer = 1,
+                GameRule = FormatType.FT_STANDARD,
+                Player1HeroClass = CardClass.HUNTER,
+                Player2HeroClass = CardClass.HUNTER,
+                FillDecks = true,
+                Logging = true,
+                History = false
+            });
+            game.StartGame();
+
+            //Create new game and go to MainReady();
+            for (var i = 0; i < 1000; i++)
+            {
+                var task = Task.Factory.StartNew(() => ParallelGames(game));
+                task.Wait();
+            }
+        }
+
+        public static void IceBlockTest()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player1.Hero.Health = 2;
+            game.Player2.BaseMana = 10;
+
+            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Block"));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // play 2 charge minions
+            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+
+            // minion 1 attacks hero that should NOT proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion1, game.CurrentOpponent.Hero));
+
+            // adding one armor for next attack
+            game.Player1.Hero.Armor = 1;
+
+            // minion 2 attacks hero that should proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
+
+            // adding one armor for next attack
+            game.Player1.Hero.Armor = 1;
+
+            // minion 3 attacks hero that should proc the secret
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion3, game.CurrentOpponent.Hero));
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            // minion 2 now kills opponent
+            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
+
+            ShowLog(game, LogLevel.VERBOSE);
+            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
+        }
+
+        public static void ParallelGames(Game g)
+        {
+            var ensemble = 10;
+            var tasks = new List<Task<double>>();
+            var games = new List<Game>();
+            for (var i = 0; i < ensemble; i++)
+                games.Add(g.Clone());
+            var rewards = new ConcurrentBag<double>();
+            ParallelLoopResult result = Parallel.ForEach(games, game =>
+            rewards.Add(RandomUntilTerminal2(game)));
+        }
+
+        private static double RandomUntilTerminal2(Game g)
+        {
+            var simcount = 0;
+            while (simcount < 1000)
+            {
+                g.Process(g.CurrentPlayer.Options()[Util.Random.Next(g.CurrentPlayer.Options().Count)]);
+                if (g.State == State.COMPLETE)
+                {
+                    return (g.Player1.PlayState == PlayState.WON ? 1.0 : 0.0);
+                }
+                simcount++;
+            }
+            return 0.0;
         }
 
         private static void BrainDeadTest()
