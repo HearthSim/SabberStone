@@ -633,6 +633,38 @@ namespace SabberStoneCoreTest.Basic
         }
 
         [TestMethod]
+        public void QuestCardDrawFirst()
+        {
+            var game = new Game(
+                new GameConfig()
+                {
+                    Player1HeroClass = CardClass.WARRIOR,
+                    DeckPlayer1 = new List<Card>
+                    {
+                        Cards.FromName("Fire Plume's Heart")
+                    },
+                    Player2HeroClass = CardClass.HUNTER,
+                    DeckPlayer2 = new List<Card>
+                    {
+                        Cards.FromName("The Marsh Queen")
+                    },
+                    FillDecks = true,
+                    Shuffle = true,
+                    SkipMulligan = false
+                });
+            game.StartGame();
+
+            Assert.AreEqual(false, game.Player1.Choice.Choices.TrueForAll(p => {
+                var t = game.IdEntityDic[p];
+                return !(t is Spell) || !((Spell)t).IsQuest;
+            }), "we have a no quest in mulligan! player 1");
+            Assert.AreEqual(false, game.Player2.Choice.Choices.TrueForAll(p => {
+                var t = game.IdEntityDic[p];
+                return !(t is Spell) || !((Spell)t).IsQuest;
+            }), "we have a no quest in mulligan! player 2");
+        }
+
+        [TestMethod]
         public void OrderOfPlayDeathRattleSylvanasTest()
         {
             var game = new Game(new GameConfig

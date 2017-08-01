@@ -185,7 +185,9 @@ namespace SabberStoneCore.Model
 
             _players.ToList().ForEach(p =>
             {
-                Generic.Draw(p);
+                // quest draw if there is
+                var quest = p.Deck.GetAll.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
+                Generic.Draw(p, quest != null ? quest : null);
                 Generic.Draw(p);
                 Generic.Draw(p);
 

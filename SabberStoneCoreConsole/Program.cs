@@ -37,7 +37,7 @@ namespace SabberStoneCoreConsole
             //Kazakus();
             //BrainDeadTest();
             //ParallelTest();
-            IceBlockTest();
+            QuestDrawFirstTest();
 
             //TestLoader.GetGameTags();
             //TestLoader.Load();
@@ -69,53 +69,27 @@ namespace SabberStoneCoreConsole
                 task.Wait();
             }
         }
-
-        public static void IceBlockTest()
+         
+        public static void QuestDrawFirstTest()
         {
-            var game = new Game(new GameConfig
+            var game = new Game(
+            new GameConfig()
             {
-                StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.MAGE,
-                FillDecks = true
+                Player1HeroClass = CardClass.WARRIOR,
+                DeckPlayer1 = new List<Card>
+                {
+                                Cards.FromName("Fire Plume's Heart")
+                },
+                Player2HeroClass = CardClass.HUNTER,
+                DeckPlayer2 = new List<Card>
+                {
+                                Cards.FromName("The Marsh Queen")
+                },
+                FillDecks = true,
+                Shuffle = true,
+                SkipMulligan = false
             });
             game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player1.Hero.Health = 2;
-            game.Player2.BaseMana = 10;
-
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Block"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-            // play 2 charge minions
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
-
-            // minion 1 attacks hero that should NOT proc the secret
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion1, game.CurrentOpponent.Hero));
-
-            // adding one armor for next attack
-            game.Player1.Hero.Armor = 1;
-
-            // minion 2 attacks hero that should proc the secret
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
-
-            // adding one armor for next attack
-            game.Player1.Hero.Armor = 1;
-
-            // minion 3 attacks hero that should proc the secret
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion3, game.CurrentOpponent.Hero));
-
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-            // minion 2 now kills opponent
-            game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
 
             ShowLog(game, LogLevel.VERBOSE);
             Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
