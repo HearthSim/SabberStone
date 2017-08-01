@@ -208,7 +208,8 @@ namespace SabberStoneCore.Model
 
 		public virtual string Hash(params GameTag[] ignore)
 		{
-			StringBuilder str = _data.Hash(ignore);
+			var str = new StringBuilder();
+			str.Append(_data.Hash(ignore));
 			str.Append("[O:");
 			str.Append(OrderOfPlay.ToString());
 			str.Append($"][EN:{Enchants.Count}");
@@ -272,7 +273,11 @@ namespace SabberStoneCore.Model
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-		/// <summary>The data</summary>
+		/// <summary>
+		/// This object holds the original tag values, defined through the constructor 
+		/// of this instance.
+		/// These tags are usefull when values are needed without any buffs/debuffs applied.
+		/// </summary>
 		internal readonly EntityData _data;
 
 		/// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>

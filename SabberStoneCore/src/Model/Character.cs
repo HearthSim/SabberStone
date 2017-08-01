@@ -9,7 +9,7 @@ namespace SabberStoneCore.Model
 	/// The actions it can perform, as well as actions it undergoes,
 	/// are defined by this interface.
 	/// 
-	/// The properties defined by this type are non complex; they have a
+	/// The properties defined by this type are non complex, they have a
 	/// very superficial meaning.
 	/// </summary>
 	public partial interface ICharacter : IPlayable
@@ -104,8 +104,6 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		int NumAttacksThisTurn { get; set; }
 
-		//bool ShouldExitCombat { get; set; }
-
 		/// <summary>
 		/// This character is currently attacking another character.
 		/// </summary>
@@ -116,16 +114,16 @@ namespace SabberStoneCore.Model
 		bool IsDefending { get; set; }
 
 		/// <summary>
-		/// This character has the intention of attacking another character.
-		/// This property is important in the PRE-ATTACK phase, where random
-		/// effects can come into play.
+		/// The entityID of the character which wants to attack, by entering the
+		/// next combat phase.
+		/// The defender is this character.
 		/// </summary>
 		int ProposedAttacker { get; set; }
 
 		/// <summary>
-		/// This character has the intention of defending against another character.
-		/// This property is important in the PRE-ATTACK phase, where random
-		/// effects can come into play.
+		/// The entityID of the character which has to defend during the next
+		/// combat phase.
+		/// The attacker is this character.
 		/// </summary>
 		int ProposedDefender { get; set; }
 

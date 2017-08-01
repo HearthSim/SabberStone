@@ -5,6 +5,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Collections;
 
 namespace SabberStoneCore.Kettle
 {
@@ -24,7 +25,7 @@ namespace SabberStoneCore.Kettle
 
         public List<PowerOption> PowerOptionList { get; set; }
 
-        public List<PlayerTask> PlayerTaskList { get; set; }
+        public IReadOnlyOrderedSet<PlayerTask> PlayerTaskList { get; set; }
 
         public PowerAllOptions(Game game)
         {
@@ -48,7 +49,7 @@ namespace SabberStoneCore.Kettle
 
     public class PowerOptionsBuilder
     {
-        public static PowerAllOptions AllOptions(Game game, List<PlayerTask> list)
+        public static PowerAllOptions AllOptions(Game game, IReadOnlyOrderedSet<PlayerTask> list)
         {
             var result = new PowerAllOptions(game)
             {
