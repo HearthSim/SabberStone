@@ -41,14 +41,14 @@ namespace SabberStoneCoreAi
                 var game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player1HeroClass = ECardClass.MAGE,
+                    Player2HeroClass = ECardClass.MAGE,
                     FillDecks = true,
                     Logging = false
                 });
                 game.StartGame();
 
-                while (game.State != State.COMPLETE)
+                while (game.State != EState.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     var option = options[Rnd.Next(options.Count)];
@@ -58,9 +58,9 @@ namespace SabberStoneCoreAi
 
                 }
                 turns += game.Turn;
-                if (game.Player1.PlayState == PlayState.WON)
+                if (game.Player1.PlayState == EPlayState.WON)
                     wins[0]++;
-                if (game.Player2.PlayState == PlayState.WON)
+                if (game.Player2.PlayState == EPlayState.WON)
                     wins[1]++;
 
             }
@@ -79,10 +79,10 @@ namespace SabberStoneCoreAi
                 {
                     StartPlayer = 1,
                     Player1Name = "FitzVonGerald",
-                    Player1HeroClass = CardClass.WARRIOR,
+                    Player1HeroClass = ECardClass.WARRIOR,
                     DeckPlayer1 = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
-                    Player2HeroClass = CardClass.SHAMAN,
+                    Player2HeroClass = ECardClass.SHAMAN,
                     DeckPlayer2 = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = false,
@@ -129,10 +129,10 @@ namespace SabberStoneCoreAi
                 {
                     StartPlayer = 1,
                     Player1Name = "FitzVonGerald",
-                    Player1HeroClass = CardClass.WARRIOR,
+                    Player1HeroClass = ECardClass.WARRIOR,
                     DeckPlayer1 = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
-                    Player2HeroClass = CardClass.SHAMAN,
+                    Player2HeroClass = ECardClass.SHAMAN,
                     DeckPlayer2 = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = true,
@@ -154,14 +154,14 @@ namespace SabberStoneCoreAi
 
             game.MainReady();
 
-            while (game.State != State.COMPLETE)
+            while (game.State != EState.COMPLETE)
             {
                 Console.WriteLine("");
                 Console.WriteLine($"Player1: {game.Player1.PlayState} / Player2: {game.Player2.PlayState} - " +
                                   $"ROUND {(game.Turn + 1) / 2} - {game.CurrentPlayer.Name}");
                 Console.WriteLine($"Hero[P1]: {game.Player1.Hero.Health} / Hero[P2]: {game.Player2.Hero.Health}");
                 Console.WriteLine("");
-                while (game.State == State.RUNNING && game.CurrentPlayer == game.Player1)
+                while (game.State == EState.RUNNING && game.CurrentPlayer == game.Player1)
                 {
                     Console.WriteLine($"* Calculating solutions *** Player 1 ***");
                     var solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
@@ -182,7 +182,7 @@ namespace SabberStoneCoreAi
 
                 // Random mode for Player 2
                 Console.WriteLine($"- Player 2 - <{game.CurrentPlayer.Name}> ---------------------------");
-                while (game.State == State.RUNNING && game.CurrentPlayer == game.Player2)
+                while (game.State == EState.RUNNING && game.CurrentPlayer == game.Player2)
                 {
                     //var options = game.Options(game.CurrentPlayer);
                     //var option = options[Rnd.Next(options.Count)];

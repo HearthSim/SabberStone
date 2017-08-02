@@ -21,26 +21,26 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Specifies which card sets combine into the STANDARD set.
 		/// </summary>
-		public static CardSet[] StandardSets { get; } = {
-			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO
+		public static ECardSet[] StandardSets { get; } = {
+			ECardSet.CORE, ECardSet.EXPERT1, ECardSet.OG, ECardSet.KARA, ECardSet.GANGS, ECardSet.UNGORO
 		};
 
 		/// <summary>
 		/// Specifies which card sets combine into the WILD set.
 		/// </summary>
-		public static CardSet[] WildSets { get; } = {
-			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO,
-			CardSet.BRM, CardSet.GVG, CardSet.HOF, CardSet.NAXX, CardSet.LOE, CardSet.TGT
+		public static ECardSet[] WildSets { get; } = {
+			ECardSet.CORE, ECardSet.EXPERT1, ECardSet.OG, ECardSet.KARA, ECardSet.GANGS, ECardSet.UNGORO,
+			ECardSet.BRM, ECardSet.GVG, ECardSet.HOF, ECardSet.NAXX, ECardSet.LOE, ECardSet.TGT
 		};
 
 		/// <summary>
 		/// Defines all card classes that can be used for deck creation.
 		/// </summary>
-		public static CardClass[] BasicClasses => new[]
+		public static ECardClass[] BasicClasses => new[]
 		{
-			CardClass.DRUID, CardClass.HUNTER, CardClass.PALADIN,
-			CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK,
-			CardClass.MAGE, CardClass.PRIEST, CardClass.WARRIOR
+			ECardClass.DRUID, ECardClass.HUNTER, ECardClass.PALADIN,
+			ECardClass.ROGUE, ECardClass.SHAMAN, ECardClass.WARLOCK,
+			ECardClass.MAGE, ECardClass.PRIEST, ECardClass.WARRIOR
 		};
 
 		/// <summary>
@@ -67,41 +67,41 @@ namespace SabberStoneCore.Model
 			//Log.Info($"Loaded {All.Count()} cards.");
 		}
 
-		private static Dictionary<CardClass, List<Card>> SetupWildCards()
+		private static Dictionary<ECardClass, List<Card>> SetupWildCards()
 		{
-			var container = new Dictionary<CardClass, List<Card>>(Count);
+			var container = new Dictionary<ECardClass, List<Card>>(Count);
 			// Wild
 			//Log.Debug("Wild:");
-			foreach (CardClass heroClass in Enum.GetValues(typeof(CardClass)).Cast<CardClass>())
+			foreach (ECardClass heroClass in Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>())
 			{
 				container.Add(heroClass, Data.AllCards().Where(c =>
 				c.Collectible &&
 					(c.Class == heroClass ||
-					 c.Class == CardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
-					 c.MultiClassGroupType == MultiClassGroup.GRIMY_GOONS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-					 c.MultiClassGroupType == MultiClassGroup.JADE_LOTUS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-					 c.MultiClassGroupType == MultiClassGroup.KABAL && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO).ToList());
+					 c.Class == ECardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
+					 c.MultiClassGroupType == EMultiClassGroup.GRIMY_GOONS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.HUNTER || c.Class == ECardClass.PALADIN || c.Class == ECardClass.WARRIOR) ||
+					 c.MultiClassGroupType == EMultiClassGroup.JADE_LOTUS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.DRUID || c.Class == ECardClass.ROGUE || c.Class == ECardClass.SHAMAN) ||
+					 c.MultiClassGroupType == EMultiClassGroup.KABAL && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.MAGE || c.Class == ECardClass.PRIEST || c.Class == ECardClass.WARLOCK)) &&
+					 c.Type != ECardType.HERO).ToList());
 				//Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
 			}
 
 			return container;
 		}
 
-		private static Dictionary<CardClass, List<Card>> SetupStandardCards()
+		private static Dictionary<ECardClass, List<Card>> SetupStandardCards()
 		{
-			var container = new Dictionary<CardClass, List<Card>>(Count);
+			var container = new Dictionary<ECardClass, List<Card>>(Count);
 			//Log.Debug("Standard:");
-			foreach (CardClass heroClass in Enum.GetValues(typeof(CardClass)).Cast<CardClass>())
+			foreach (ECardClass heroClass in Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>())
 			{
 				container.Add(heroClass, All.Where(c =>
 					c.Collectible &&
 					(c.Class == heroClass ||
-					 c.Class == CardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
-					 c.MultiClassGroupType == MultiClassGroup.GRIMY_GOONS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-					 c.MultiClassGroupType == MultiClassGroup.JADE_LOTUS && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-					 c.MultiClassGroupType == MultiClassGroup.KABAL && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO && StandardSets.Contains(c.Set)
+					 c.Class == ECardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
+					 c.MultiClassGroupType == EMultiClassGroup.GRIMY_GOONS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.HUNTER || c.Class == ECardClass.PALADIN || c.Class == ECardClass.WARRIOR) ||
+					 c.MultiClassGroupType == EMultiClassGroup.JADE_LOTUS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.DRUID || c.Class == ECardClass.ROGUE || c.Class == ECardClass.SHAMAN) ||
+					 c.MultiClassGroupType == EMultiClassGroup.KABAL && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.MAGE || c.Class == ECardClass.PRIEST || c.Class == ECardClass.WARLOCK)) &&
+					 c.Type != ECardType.HERO && StandardSets.Contains(c.Set)
 				).ToList());
 				//Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
 			}
@@ -115,38 +115,38 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, List<Card>> WildPerClass => _WildPerClass ?? (_WildPerClass = SetupWildCards());
-		private static Dictionary<CardClass, List<Card>> _WildPerClass;
+		public static Dictionary<ECardClass, List<Card>> WildPerClass => _WildPerClass ?? (_WildPerClass = SetupWildCards());
+		private static Dictionary<ECardClass, List<Card>> _WildPerClass;
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, List<Card>> StandardPerClass => _StandardPerClass ?? (_StandardPerClass = SetupStandardCards());
-		private static Dictionary<CardClass, List<Card>> _StandardPerClass;
+		public static Dictionary<ECardClass, List<Card>> StandardPerClass => _StandardPerClass ?? (_StandardPerClass = SetupStandardCards());
+		private static Dictionary<ECardClass, List<Card>> _StandardPerClass;
 
 		/// <summary>
-		/// Retrieves the specified set of cards, sorted by <see cref="CardClass"/>.
+		/// Retrieves the specified set of cards, sorted by <see cref="ECardClass"/>.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, List<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? StandardPerClass : WildPerClass;
+		public static Dictionary<ECardClass, List<Card>> FormatTypeClassCards(EFormatType formatType) => formatType == EFormatType.FT_STANDARD ? StandardPerClass : WildPerClass;
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
 		/// </summary>
-		public static IEnumerable<Card> AllStandard => Data.AllCards().Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set));
+		public static IEnumerable<Card> AllStandard => Data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO && StandardSets.Contains(c.Set));
 
 		/// <summary>
 		/// All cards belonging to the Wild set.
 		/// </summary>
-		public static IEnumerable<Card> AllWild => Data.AllCards().Where(c => c.Collectible && c.Type != CardType.HERO);
+		public static IEnumerable<Card> AllWild => Data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO);
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? AllStandard : AllWild;
+		public static IEnumerable<Card> FormatTypeCards(EFormatType formatType) => formatType == EFormatType.FT_STANDARD ? AllStandard : AllWild;
 
 		/// <summary>
 		/// Returns the default hero class card.
@@ -154,9 +154,9 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="cardClass"></param>
 		/// <returns></returns>
-		public static Card DefaultHeroCard(CardClass cardClass)
+		public static Card DefaultHeroCard(ECardClass cardClass)
 		{
-			return Data.AllCards().First(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
+			return Data.AllCards().First(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
 		}
 
 		/// <summary>
@@ -165,7 +165,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static IEnumerable<Card> HeroCards()
 		{
-			return Data.AllCards().Where(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO"));
+			return Data.AllCards().Where(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO"));
 		}
 
 		/// <summary>
@@ -207,33 +207,33 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="cardSet"></param>
 		/// <returns></returns>
-		public static string CardSetToName(CardSet cardSet)
+		public static string CardSetToName(ECardSet cardSet)
 		{
 			switch (cardSet)
 			{
-				case CardSet.CORE:
+				case ECardSet.CORE:
 					return "Basic";
-				case CardSet.EXPERT1:
+				case ECardSet.EXPERT1:
 					return "Classic";
-				case CardSet.HOF:
+				case ECardSet.HOF:
 					return "Hall of Fame";
-				case CardSet.NAXX:
+				case ECardSet.NAXX:
 					return "Curse of Naxxramas";
-				case CardSet.GVG:
+				case ECardSet.GVG:
 					return "Goblins vs Gnomes";
-				case CardSet.BRM:
+				case ECardSet.BRM:
 					return "Blackrock Mountain";
-				case CardSet.TGT:
+				case ECardSet.TGT:
 					return "The Grand Tournament";
-				case CardSet.LOE:
+				case ECardSet.LOE:
 					return "The League of Explorers";
-				case CardSet.OG:
+				case ECardSet.OG:
 					return "Whispers of the Old Gods";
-				case CardSet.KARA:
+				case ECardSet.KARA:
 					return "One Night in Karazhan";
-				case CardSet.GANGS:
+				case ECardSet.GANGS:
 					return "Mean Streets of Gadgetzan";
-				case CardSet.UNGORO:
+				case ECardSet.UNGORO:
 					return "Journey to Un\'Goro ";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);

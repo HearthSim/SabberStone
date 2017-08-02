@@ -9,14 +9,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         /// <summary>
         ///  Changes the attack attribute of the given entity.
         /// </summary>
-        public SetAttackNumberTask(EntityType entityType)
+        public SetAttackNumberTask(EEntityType entityType)
         {
             Type = entityType;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             entities.TrueForAll(p =>
@@ -30,9 +30,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 // work around attack buffs
                 p.Enchants.ForEach(t =>
                 {
-                    if (t.Effects.ContainsKey(GameTag.ATK))
+                    if (t.Effects.ContainsKey(EGameTag.ATK))
                     {
-                        t.Effects.Remove(GameTag.ATK);
+                        t.Effects.Remove(EGameTag.ATK);
                     }
                 });
 
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return true;
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

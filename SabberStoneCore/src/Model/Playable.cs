@@ -18,7 +18,7 @@ namespace SabberStoneCore.Model
         IPlayable Destroy();
         bool ToBeDestroyed { get; }
         bool TurnStart { get; set; }
-        void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null);
+        void ApplyEnchantments(EEnchantmentActivation activation, EZone zoneType, IPlayable target = null);
         void SetOrderOfPlay(string type);
         bool IsSummoned { get; set; }
         bool JustPlayed { get; set; }
@@ -32,7 +32,7 @@ namespace SabberStoneCore.Model
 
     public abstract partial class Playable<T> : Targeting, IPlayable where T : Entity
     {
-        protected Playable(Controller controller, Card card, Dictionary<GameTag, int> tags) 
+        protected Playable(Controller controller, Card card, Dictionary<EGameTag, int> tags) 
             : base(controller, card, tags)
         {
 
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Model
 
         public List<Enchantment> Enchantments { get; set; } = new List<Enchantment>();
 
-        public virtual void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null)
+        public virtual void ApplyEnchantments(EEnchantmentActivation activation, EZone zoneType, IPlayable target = null)
         {
             var removeEnchantments = new List<Enchantment>();
 
@@ -78,7 +78,7 @@ namespace SabberStoneCore.Model
         public IPlayable Destroy()
         {
             ToBeDestroyed = true;
-            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
+            Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
             return this;
         }
 
@@ -91,7 +91,7 @@ namespace SabberStoneCore.Model
                 // check if player is on turn
                 if (Controller != Game.CurrentPlayer)
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable",
                         $"{this} isn't playable, because player not on turn.");
                     return false;
                 }
@@ -99,7 +99,7 @@ namespace SabberStoneCore.Model
                 // check if entity is in hand to be played
                 if (Zone != Controller.Hand && !(this is HeroPower))
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable",
                         $"{this} isn't playable, because card not in hand.");
                     return false;
                 }
@@ -107,7 +107,7 @@ namespace SabberStoneCore.Model
                 // check if player has enough mana to play card
                 if (Controller.RemainingMana < Cost)
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable",
                         $"{this} isn't playable, because not enough mana to pay cost.");
                     return false;
                 }
@@ -115,7 +115,7 @@ namespace SabberStoneCore.Model
                 // check if we got a slot on board for minions
                 if (Controller.Board.IsFull && this is Minion)
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable",
                         $"{this} isn't playable, because not enough place on board.");
                     return false;
                 }
@@ -124,7 +124,7 @@ namespace SabberStoneCore.Model
                 var spell = this as Spell;
                 if (spell != null && spell.IsSecret && Controller.Secrets.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable",
                         $"{this} isn't playable, because secret already active on controller.");
                     return false;
                 }
@@ -140,7 +140,7 @@ namespace SabberStoneCore.Model
                 // check if we need a target and there are some
                 if (Card.RequiresTarget && !ValidPlayTargets.Any())
                 {
-                    Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
+                    Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
                     return false;
                 }
 
@@ -150,93 +150,93 @@ namespace SabberStoneCore.Model
                     var req = item.Key;
                     var param = item.Value;
 
-                    Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
+                    Game.Log(ELogLevel.DEBUG, EBlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
 
                     switch (req)
                     {
-                        case PlayReq.REQ_NUM_MINION_SLOTS:
+                        case EPlayReq.REQ_NUM_MINION_SLOTS:
                             if (Controller.Board.IsFull)
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Board is full can't summon new minion.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"Board is full can't summon new minion.");
                                 return false;
                             }
                             break;
-                        case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
+                        case EPlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
                             var ids = Controller.Board.GetAll.Select(p => p.Card.Id).ToList();
                             var containsAll = true;
                             Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
                             if (containsAll)
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"All ready all entourageing cards summoned.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"All ready all entourageing cards summoned.");
                                 return false;
                             }
                             break;
-                        case PlayReq.REQ_WEAPON_EQUIPPED:
+                        case EPlayReq.REQ_WEAPON_EQUIPPED:
                             if (Controller.Hero.Weapon == null)
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need a weapon to play this card.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"Need a weapon to play this card.");
                                 return false;
                             }
                             break;
-                        case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
+                        case EPlayReq.REQ_MINIMUM_ENEMY_MINIONS:
                             if (Controller.Opponent.Board.Count < param)
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need at least {param} enemy minions to play this card.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"Need at least {param} enemy minions to play this card.");
                                 return false;
                             }
                             break;
-                        case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
+                        case EPlayReq.REQ_MINIMUM_TOTAL_MINIONS:
                             if (Controller.Board.Count + Controller.Opponent.Board.Count < param)
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need at least {param} minions to play this card.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"Need at least {param} minions to play this card.");
                                 return false;
                             }
                             break;
-                        case PlayReq.REQ_STEADY_SHOT:
+                        case EPlayReq.REQ_STEADY_SHOT:
                             if (!Controller.Hero.Power.Card.Id.Equals("DS1h_292"))
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need steady shoot to be used.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"Need steady shoot to be used.");
                                 return false;
                             }
                             break;
 
-                        case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+                        case EPlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
                             if (!Controller.Graveyard.GetAll.Exists(p => p is Minion))
                             {
-                                Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"No friendly minions died this game.");
+                                Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Playable", $"No friendly minions died this game.");
                                 return false;
                             }
                             break;
 
                         // implemented in Targeting
-                        case PlayReq.REQ_TARGET_FOR_COMBO:
-                        case PlayReq.REQ_FROZEN_TARGET:
-                        case PlayReq.REQ_MINION_OR_ENEMY_HERO:
-                        case PlayReq.REQ_TARGET_MAX_ATTACK:
-                        case PlayReq.REQ_MINION_TARGET:
-                        case PlayReq.REQ_FRIENDLY_TARGET:
-                        case PlayReq.REQ_ENEMY_TARGET:
-                        case PlayReq.REQ_UNDAMAGED_TARGET:
-                        case PlayReq.REQ_DAMAGED_TARGET:
-                        case PlayReq.REQ_TARGET_WITH_RACE:
-                        case PlayReq.REQ_MUST_TARGET_TAUNTER:
-                        case PlayReq.REQ_TARGET_MIN_ATTACK:
-                        case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-                        case PlayReq.REQ_TARGET_WITH_BATTLECRY:
-                        case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-                        case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
-                        case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
-                        case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
-                        case PlayReq.REQ_NONSELF_TARGET:
+                        case EPlayReq.REQ_TARGET_FOR_COMBO:
+                        case EPlayReq.REQ_FROZEN_TARGET:
+                        case EPlayReq.REQ_MINION_OR_ENEMY_HERO:
+                        case EPlayReq.REQ_TARGET_MAX_ATTACK:
+                        case EPlayReq.REQ_MINION_TARGET:
+                        case EPlayReq.REQ_FRIENDLY_TARGET:
+                        case EPlayReq.REQ_ENEMY_TARGET:
+                        case EPlayReq.REQ_UNDAMAGED_TARGET:
+                        case EPlayReq.REQ_DAMAGED_TARGET:
+                        case EPlayReq.REQ_TARGET_WITH_RACE:
+                        case EPlayReq.REQ_MUST_TARGET_TAUNTER:
+                        case EPlayReq.REQ_TARGET_MIN_ATTACK:
+                        case EPlayReq.REQ_TARGET_WITH_DEATHRATTLE:
+                        case EPlayReq.REQ_TARGET_WITH_BATTLECRY:
+                        case EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                        case EPlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+                        case EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
+                        case EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+                        case EPlayReq.REQ_NONSELF_TARGET:
                             break;
 
                         // already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
-                        case PlayReq.REQ_TARGET_TO_PLAY:
-                        case PlayReq.REQ_TARGET_IF_AVAILABLE:
+                        case EPlayReq.REQ_TARGET_TO_PLAY:
+                        case EPlayReq.REQ_TARGET_IF_AVAILABLE:
                             break;
 
                         default:
-                            Game.Log(LogLevel.ERROR, BlockType.PLAY, "Playable", $"PlayReq {req} not in switch needs to be added (Playable)!");
+                            Game.Log(ELogLevel.ERROR, EBlockType.PLAY, "Playable", $"PlayReq {req} not in switch needs to be added (Playable)!");
                             break;
                     }
                 }

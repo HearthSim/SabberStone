@@ -7,17 +7,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class QuestProgressTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as Spell;
             if (source == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             source.QuestProgress++;
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestProgressTask", $"{Controller} {source}'s Quest {source.QuestProgress} / {source.QuestTotalProgress} progress!");
-            return TaskState.COMPLETE;
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "QuestProgressTask", $"{Controller} {source}'s Quest {source.QuestProgress} / {source.QuestTotalProgress} progress!");
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

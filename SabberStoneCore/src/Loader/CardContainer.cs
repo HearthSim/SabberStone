@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace SabberStoneCore.Loader
 				// This card has been implemented, so the instance is updated accordingly.
 				card.Enchantments = implementedEnchantments;
 				card.Implemented = implementedEnchantments == null ||
-					card.Enchantments[0].Activation != EnchantmentActivation.NONE &&
+					card.Enchantments[0].Activation != EEnchantmentActivation.NONE &&
 					(card.Enchantments[0].SingleTask != null || card.Enchantments[0].Enchant != null || card.Enchantments[0].Trigger != null);
 			}
 		}

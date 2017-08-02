@@ -25,7 +25,7 @@ namespace SabberStoneCore.Enchants
             set { _ownerId = value.Id; }
         }
 
-        public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
+        public Dictionary<EGameTag, int> Effects { get; set; } = new Dictionary<EGameTag, int>();
 
         public int TurnsActive { get; set; } = -1;
 
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Enchants
             return flag;
         }
 
-        public void Change(Entity entity, GameTag gameTag, int oldValue, int newValue)
+        public void Change(Entity entity, EGameTag gameTag, int oldValue, int newValue)
         {
 
             var target = entity as IPlayable;
@@ -101,26 +101,26 @@ namespace SabberStoneCore.Enchants
 
             if (!Effects.ContainsKey(gameTag))
             {
-                Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"GameTag {gameTag} not concerned by this enchanting(change) ...");
+                Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Trigger", $"GameTag {gameTag} not concerned by this enchanting(change) ...");
                 return;
             }
 
             if (!IsEnabled())
             {
-                Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", "Trigger isn't enabled!");
+                Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Trigger", "Trigger isn't enabled!");
                 return;
             }
 
             if (!IsApplying(target))
             {
-                Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
+                Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
                 return;
             }
 
             if (Effects[gameTag] > 0 && oldValue >= newValue
              || Effects[gameTag] < 0 && oldValue <= newValue)
             {
-                Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
+                Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Trigger", $"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace SabberStoneCore.Enchants
             return this;
         }
 
-        public TriggerBuilder TriggerEffect(GameTag tag, int change)
+        public TriggerBuilder TriggerEffect(EGameTag tag, int change)
         {
             _trigger.Effects.Add(tag, change);
             return this;

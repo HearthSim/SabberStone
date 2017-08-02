@@ -5,28 +5,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SetNativeGameTagTask : SimpleTask
     {
-        public SetNativeGameTagTask(GameTag tag, int value, EntityType entityType)
+        public SetNativeGameTagTask(EGameTag tag, int value, EEntityType entityType)
         {
             Tag = tag;
             Value = value;
             Type = entityType;
         }
 
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
         public int Value { get; set; }
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             if (entities.Count != 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             ((Entity)entities[0]).SetNativeGameTag(Tag, Value);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

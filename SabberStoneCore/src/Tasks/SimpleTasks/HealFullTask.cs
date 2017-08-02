@@ -1,22 +1,23 @@
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class HealFullTask : SimpleTask
     {
-        public HealFullTask(EntityType entityType)
+        public HealFullTask(EEntityType entityType)
         {
             Type = entityType;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
@@ -26,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 target?.TakeFullHeal(source);
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

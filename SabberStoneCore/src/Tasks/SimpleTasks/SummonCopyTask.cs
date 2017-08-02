@@ -1,26 +1,27 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SummonCopyTask : SimpleTask
     {
-        public SummonCopyTask(EntityType type)
+        public SummonCopyTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Controller.Board.IsFull)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
             if (entities.Count < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             entities.ForEach(p =>
@@ -37,7 +38,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Controller.Game.TaskQueue.Enqueue(task);
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

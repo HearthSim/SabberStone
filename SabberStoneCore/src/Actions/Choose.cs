@@ -15,28 +15,28 @@ namespace SabberStoneCore.Actions
         public static Func<Controller, int, bool> ChoicePick
             => delegate(Controller c, int choice)
             {
-                if (c.Choice.ChoiceType != ChoiceType.GENERAL)
+                if (c.Choice.ChoiceType != EChoiceType.GENERAL)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick in a non-pick choice!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick in a non-pick choice!");
                     return false;
                 }
 
                 if (!c.Choice.Choices.Contains(choice))
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick a card that doesn't exist in this choice!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick a card that doesn't exist in this choice!");
                     return false;
                 }
 
                 var playable = c.Game.IdEntityDic[choice];
 
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
                 switch (c.Choice.ChoiceAction)
                 {
-                    case ChoiceAction.HAND:
+                    case EChoiceAction.HAND:
                         if (RemoveFromZone(c, playable))
                         {
-                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EEntityType.HAND)
                             {
                                 Game = c.Game,
                                 Controller = c,
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Actions
                         }
                         break;
 
-                    case ChoiceAction.SUMMON:
+                    case EChoiceAction.SUMMON:
                         if (RemoveFromZone(c, playable))
                         {
                             c.Game.TaskStack.Playables.Add(playable);
@@ -60,7 +60,7 @@ namespace SabberStoneCore.Actions
                         }
                         break;
 
-                    case ChoiceAction.ADAPT:
+                    case EChoiceAction.ADAPT:
                         c.Choice.TargetIds.ForEach(p =>
                         {
                             var target = c.Game.IdEntityDic[p];
@@ -68,10 +68,10 @@ namespace SabberStoneCore.Actions
                         });
                         break;
 
-                    case ChoiceAction.TRACKING:
+                    case EChoiceAction.TRACKING:
                         if (RemoveFromZone(c, playable))
                         {
-                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+                            c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EEntityType.HAND)
                             {
                                 Game = c.Game,
                                 Controller = c,
@@ -81,10 +81,10 @@ namespace SabberStoneCore.Actions
                         }
                         break;
 
-                    case ChoiceAction.HEROPOWER:
+                    case EChoiceAction.HEROPOWER:
                         if (RemoveFromZone(c, playable))
                         {
-                            playable[GameTag.CREATOR] = c.Hero.Id;
+                            playable[EGameTag.CREATOR] = c.Hero.Id;
                             c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
                             {
                                 Game = c.Game,
@@ -95,16 +95,16 @@ namespace SabberStoneCore.Actions
                         }
                         break;
 
-                    case ChoiceAction.KAZAKUS:
+                    case EChoiceAction.KAZAKUS:
                         c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
                         {
-                            c.Game.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+                            c.Game.IdEntityDic[p][EGameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
                         });
                         //c.Setaside.Add(playable);
                         var kazakusPotions =
                             c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
-                                .Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
-                                .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
+                                .Where(p => p[EGameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+                                .Select(p => p[EGameTag.TAG_SCRIPT_DATA_NUM_1])
                                 .ToList();
                         if (kazakusPotions.Any())
                         {
@@ -134,26 +134,26 @@ namespace SabberStoneCore.Actions
         public static Func<Controller, List<int>, bool> ChoiceMulligan
             => delegate(Controller c, List<int> choices)
             {
-                if (c.Choice.ChoiceType != ChoiceType.MULLIGAN)
+                if (c.Choice.ChoiceType != EChoiceType.MULLIGAN)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan in a non-mulligan choice!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan in a non-mulligan choice!");
                     return false;
                 }
 
                 if (!choices.TrueForAll(p => c.Choice.Choices.Contains(p)))
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan a card that doesn't exist in this choice!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan a card that doesn't exist in this choice!");
                     return false;
                 }
 
                 switch (c.Choice.ChoiceAction)
                 {
-                    case ChoiceAction.HAND:
-                        c.MulliganState = Mulligan.DEALING;
+                    case EChoiceAction.HAND:
+                        c.MulliganState = EMulligan.DEALING;
 
                         // starting mulligan draw block
                         if (c.Game.History)
-                            c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, c.Id, "", 6, 0));
+                            c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, c.Id, "", 6, 0));
 
                         var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
                         mulliganList.ForEach(p =>
@@ -188,12 +188,12 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, ChoiceType, ChoiceAction, IReadOnlyOrderedSet<int>, bool> CreateChoice
-            => delegate (Controller c, IEntity source, ChoiceType type, ChoiceAction action, IReadOnlyOrderedSet<int> choices)
+        public static Func<Controller, IEntity, EChoiceType, EChoiceAction, IReadOnlyOrderedSet<int>, bool> CreateChoice
+            => delegate (Controller c, IEntity source, EChoiceType type, EChoiceAction action, IReadOnlyOrderedSet<int> choices)
             {
                 if (c.Choice != null)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
                     return false;
                 }
 
@@ -207,12 +207,12 @@ namespace SabberStoneCore.Actions
                 return true;
             };
 
-        public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, IReadOnlyOrderedSet<Card>, Enchantment, bool> CreateChoiceCards
-            => delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, IReadOnlyOrderedSet<Card> choices, Enchantment enchantment)
+        public static Func<Controller, IEntity, List<IEntity>, EChoiceType, EChoiceAction, IReadOnlyOrderedSet<Card>, Enchantment, bool> CreateChoiceCards
+            => delegate (Controller c, IEntity source, List<IEntity> targets, EChoiceType type, EChoiceAction action, IReadOnlyOrderedSet<Card> choices, Enchantment enchantment)
             {
                 if (c.Choice != null)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
                     return false;
                 }
 
@@ -220,7 +220,7 @@ namespace SabberStoneCore.Actions
 				foreach(Card card in choices)
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, card);
-					choiceEntity[GameTag.CREATOR] = source.Id;
+					choiceEntity[EGameTag.CREATOR] = source.Id;
 					// add after discover enchantment
 					if (enchantment != null)
 					{

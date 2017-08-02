@@ -23,61 +23,61 @@ namespace SabberStoneCore.Tasks
             return StateTaskList<ISimpleTask>.Chain(list);
         }
 
-        public static ISimpleTask Freeze(EntityType entityType)
-            => new SetGameTagTask(GameTag.FROZEN, 1, entityType);
+        public static ISimpleTask Freeze(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.FROZEN, 1, entityType);
 
-        public static ISimpleTask WindFury(EntityType entityType)
-            => new SetGameTagTask(GameTag.WINDFURY, 1, entityType);
+        public static ISimpleTask WindFury(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.WINDFURY, 1, entityType);
 
-        public static ISimpleTask Taunt(EntityType entityType)
-            => new SetGameTagTask(GameTag.TAUNT, 1, entityType);
+        public static ISimpleTask Taunt(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.TAUNT, 1, entityType);
 
-        public static ISimpleTask DivineShield(EntityType entityType)
-            => new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, entityType);
+        public static ISimpleTask DivineShield(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.DIVINE_SHIELD, 1, entityType);
 
-        public static ISimpleTask Charge(EntityType entityType)
-            => new SetGameTagTask(GameTag.CHARGE, 1, entityType);
+        public static ISimpleTask Charge(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.CHARGE, 1, entityType);
 
-        public static ISimpleTask Stealth(EntityType entityType)
-            => new SetGameTagTask(GameTag.STEALTH, 1, entityType);
+        public static ISimpleTask Stealth(EEntityType entityType)
+            => new SetGameTagTask(EGameTag.STEALTH, 1, entityType);
 
         public static ISimpleTask DiscardRandomCard(int amount)
             => Create(
-                new RandomTask(amount, EntityType.HAND),
-                new DiscardTask(EntityType.STACK));
+                new RandomTask(amount, EEntityType.HAND),
+                new DiscardTask(EEntityType.STACK));
 
         public static ISimpleTask DrawCardTask()
             => Create(
-                new SplitTask(1, EntityType.DECK),
-                new RandomTask(1, EntityType.STACK),
+                new SplitTask(1, EEntityType.DECK),
+                new RandomTask(1, EEntityType.STACK),
                 new DrawCardTask());
 
-        public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
+        public static ISimpleTask DamageRandomTargets(int targets, EEntityType type, int amount, bool spellDmg = false)
             => Create(
                 new SplitTask(targets, type),
-                new RandomTask(targets, EntityType.STACK),
+                new RandomTask(targets, EEntityType.STACK),
                 //new RandomTask(targets, type),
-                new DamageTask(amount, EntityType.STACK, spellDmg));
+                new DamageTask(amount, EEntityType.STACK, spellDmg));
 
-        public static ISimpleTask DestroyRandomTargets(int targets, EntityType type)
+        public static ISimpleTask DestroyRandomTargets(int targets, EEntityType type)
             => Create(
                 new RandomTask(targets, type),
-                new DestroyTask(EntityType.STACK));
+                new DestroyTask(EEntityType.STACK));
 
-        public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
+        public static ISimpleTask RandomCardCopyToHandFrom(EEntityType entityType)
             => Create(
                 new RandomTask(1, entityType),
-                new CopyTask(EntityType.STACK, 1),
-                new AddStackTo(EntityType.HAND));
+                new CopyTask(EEntityType.STACK, 1),
+                new AddStackTo(EEntityType.HAND));
 
         public static ISimpleTask IfComboElse(ISimpleTask combo)
             => Create(
-                new ConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
+                new ConditionTask(EEntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo));
 
         public static ISimpleTask IfComboElse(ISimpleTask combo, ISimpleTask noCombo)
             => Create(
-                new ConditionTask(EntityType.SOURCE, SelfCondition.IsComboActive),
+                new ConditionTask(EEntityType.SOURCE, SelfCondition.IsComboActive),
                 new FlagTask(true, combo),
                 new FlagTask(false, noCombo));
 
@@ -87,7 +87,7 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask False(ISimpleTask task)
             => new FlagTask(false, task);
 
-        public static ISimpleTask RemoveFromGameTag(GameTag tag, int amount, EntityType type)
+        public static ISimpleTask RemoveFromGameTag(EGameTag tag, int amount, EEntityType type)
             => Create(
                 new GetGameTagTask(tag, type),
                 new MathSubstractionTask(amount),
@@ -95,11 +95,11 @@ namespace SabberStoneCore.Tasks
 
         public static ISimpleTask ExcessManaCheck
             => Create(
-                new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
-                new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)),
+                new ConditionTask(EEntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+                new FlagTask(true, new AddCardTo("CS2_013t", EEntityType.HAND)),
                 new FlagTask(false, Create(
-                    new ConditionTask(EntityType.SOURCE, SelfCondition.IsRemaningManaFull),
-                    new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND))))
+                    new ConditionTask(EEntityType.SOURCE, SelfCondition.IsRemaningManaFull),
+                    new FlagTask(true, new AddCardTo("CS2_013t", EEntityType.HAND))))
                 );
 
         public static ISimpleTask SpendAllManaTask(ISimpleTask task)
@@ -107,7 +107,7 @@ namespace SabberStoneCore.Tasks
             return Create(
                 new GetControllerManaTask(),
                 task,
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;
@@ -122,57 +122,57 @@ namespace SabberStoneCore.Tasks
                 }));
         }
 
-        public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
+        public static ISimpleTask BuffRandomMinion(EEntityType type, Enchant buff, params SelfCondition[] list)
         {
             return Create(
                 new IncludeTask(type),
                 new FilterStackTask(list),
-                new RandomTask(1, EntityType.STACK),
-                new BuffTask(buff, EntityType.STACK));
+                new RandomTask(1, EEntityType.STACK),
+                new BuffTask(buff, EEntityType.STACK));
         }
 
-        public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params RelaCondition[] list)
+        public static ISimpleTask BuffRandomMinion(EEntityType type, Enchant buff, params RelaCondition[] list)
         {
             return Create(
                 new IncludeTask(type),
-                new FilterStackTask(EntityType.SOURCE, list),
-                new RandomTask(1, EntityType.STACK),
-                new BuffTask(buff, EntityType.STACK));
+                new FilterStackTask(EEntityType.SOURCE, list),
+                new RandomTask(1, EEntityType.STACK),
+                new BuffTask(buff, EEntityType.STACK));
         }
 
-        public static ISimpleTask SummonRandomMinion(EntityType type, params RelaCondition[] list)
+        public static ISimpleTask SummonRandomMinion(EEntityType type, params RelaCondition[] list)
         {
             return Create(
                 new IncludeTask(type),
-                new FilterStackTask(EntityType.SOURCE, list),
-                new RandomTask(1, EntityType.STACK),
-                new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
-                new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
+                new FilterStackTask(EEntityType.SOURCE, list),
+                new RandomTask(1, EEntityType.STACK),
+                new ConditionTask(EEntityType.HERO, SelfCondition.IsNotBoardFull),
+                new FlagTask(true, new RemoveFromDeck(EEntityType.STACK)),
                 new FlagTask(true, new SummonTask()));
         }
 
-        public static ISimpleTask SummonOpRandomMinion(EntityType type, params RelaCondition[] list)
+        public static ISimpleTask SummonOpRandomMinion(EEntityType type, params RelaCondition[] list)
         {
             return Create(
                 new IncludeTask(type),
-                new FilterStackTask(EntityType.SOURCE, list),
-                new RandomTask(1, EntityType.STACK),
-                new ConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
-                new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
+                new FilterStackTask(EEntityType.SOURCE, list),
+                new RandomTask(1, EEntityType.STACK),
+                new ConditionTask(EEntityType.OP_HERO, SelfCondition.IsNotBoardFull),
+                new FlagTask(true, new RemoveFromDeck(EEntityType.STACK)),
                 new FlagTask(true, new SummonOpTask()));
         }
 
         public static ISimpleTask SummonRandomMinionThatDied()
         {
             return Create(
-                new IncludeTask(EntityType.GRAVEYARD),
+                new IncludeTask(EEntityType.GRAVEYARD),
                 new FilterStackTask(SelfCondition.IsMinion),
-                new RandomTask(1, EntityType.STACK),
-                new CopyTask(EntityType.STACK, 1),
+                new RandomTask(1, EEntityType.STACK),
+                new CopyTask(EEntityType.STACK, 1),
                 new SummonTask());
         }
 
-        public static ISimpleTask SummonRandomMinion(GameTag tag, int value)
+        public static ISimpleTask SummonRandomMinion(EGameTag tag, int value)
         {
             return Create(
                 new RandomMinionTask(tag, value),
@@ -182,16 +182,16 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask DrawFromDeck(params SelfCondition[] list)
         {
             return Create(
-                new IncludeTask(EntityType.DECK),
+                new IncludeTask(EEntityType.DECK),
                 new FilterStackTask(list),
-                new RandomTask(1, EntityType.STACK),
+                new RandomTask(1, EEntityType.STACK),
                 new DrawStackTask());
         }
 
         public static ISimpleTask SummonJadeGolem()
         {
             return Create(
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;
@@ -240,12 +240,12 @@ namespace SabberStoneCore.Tasks
         public static ISimpleTask Secret(params ISimpleTask[] list)
         {
             var secretList = list.ToList();
-            secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
-            secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
+            secretList.Add(new SetGameTagTask(EGameTag.REVEALED, 1, EEntityType.SOURCE));
+            secretList.Add(new MoveToGraveYard(EEntityType.SOURCE));
             return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
         }
 
-        public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
+        public static ISimpleTask SummonRandomMinionNumberTag(EGameTag tag)
         {
             return Create(
                 new RandomMinionNumberTask(tag),

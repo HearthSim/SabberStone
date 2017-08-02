@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -16,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public ISimpleTask FailedJoustTask { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             IPlayable playable = Generic.JoustBlock.Invoke(Controller);
             if (playable != null)
@@ -56,7 +57,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return FailedJoustTask.Process();
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

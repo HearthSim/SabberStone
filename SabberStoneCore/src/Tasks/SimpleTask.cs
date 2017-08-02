@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks
 {
     public interface ISimpleTask
     {
-        TaskState State { get; set; }
+        ETaskState State { get; set; }
         //ISimpleTask CurrentTask { get; }
 
         Game Game { get; set; }
@@ -28,7 +29,7 @@ namespace SabberStoneCore.Tasks
 
         ISimpleTask Clone();
 
-        TaskState Process();
+        ETaskState Process();
 
         void ResetState();
     }
@@ -37,7 +38,7 @@ namespace SabberStoneCore.Tasks
     {
         internal static Random Random = new Random();
 
-        public TaskState State { get; set; } = TaskState.READY;
+        public ETaskState State { get; set; } = ETaskState.READY;
 
         //public ISimpleTask CurrentTask => this;
 
@@ -106,9 +107,9 @@ namespace SabberStoneCore.Tasks
             get { return Game.TaskStack.Numbers[4]; }
             set { Game.TaskStack.Numbers[4] = value; }
         }
-        public abstract TaskState Process();
+        public abstract ETaskState Process();
         //{
-        //    return TaskState.COMPLETE;
+        //    return ETaskState.COMPLETE;
         //}
 
         public abstract ISimpleTask Clone();
@@ -140,21 +141,17 @@ namespace SabberStoneCore.Tasks
 
         public void ResetState()
         {
-            State = TaskState.READY;
+            State = ETaskState.READY;
         }
     }
 
-    public enum PlayerTaskType
-    {
-        CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
-    }
 
     public class PlayerTask : ISimpleTask
     {
-        public TaskState State { get; set; } = TaskState.READY;
+        public ETaskState State { get; set; } = ETaskState.READY;
         //public ISimpleTask CurrentTask => this;
 
-        public PlayerTaskType PlayerTaskType { get; set; }
+        public EPlayerTaskType PlayerTaskType { get; set; }
         public Game Game { get; set; }
         private int _controllerId;
         public Controller Controller
@@ -198,9 +195,9 @@ namespace SabberStoneCore.Tasks
             return new List<ISimpleTask> { this };
         }
 
-        public virtual TaskState Process()
+        public virtual ETaskState Process()
         {
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public ISimpleTask Clone()
@@ -215,7 +212,7 @@ namespace SabberStoneCore.Tasks
 
         public void ResetState()
         {
-            State = TaskState.READY;
+            State = ETaskState.READY;
         }
     }
 

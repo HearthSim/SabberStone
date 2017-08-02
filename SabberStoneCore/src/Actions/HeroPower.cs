@@ -25,12 +25,12 @@ namespace SabberStoneCore.Actions
 
                 // play block
                 if (c.Game.History)
-                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.Power.Id, "", 0, target?.Id ?? 0));
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.PLAY, c.Hero.Power.Id, "", 0, target?.Id ?? 0));
 
                 var targtTxt = target != null ? $" targeting {target}" : "";
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", $"Play HeroPower {c.Hero.Power}[{c.Hero.Power.Card.Id}]{targtTxt}.");
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "HeroPowerBlock", $"Play HeroPower {c.Hero.Power}[{c.Hero.Power.Card.Id}]{targtTxt}.");
 
-                c.Hero.Power.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
+                c.Hero.Power.ApplyEnchantments(EEnchantmentActivation.SPELL, EZone.PLAY, target);
 
                 c.Hero.Power.IsExhausted = true;
                 c.HeroPowerActivationsThisTurn++;

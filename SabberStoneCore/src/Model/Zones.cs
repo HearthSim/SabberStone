@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,7 @@ namespace SabberStoneCore.Model
 
         public Controller Controller { get; }
 
-        private readonly IZone[] _zones = new IZone[Enum.GetNames(typeof(Zone)).Length];
+        private readonly IZone[] _zones = new IZone[Enum.GetNames(typeof(EZone)).Length];
 
         public Zones(Game game, Controller controller)
         {
@@ -24,14 +24,14 @@ namespace SabberStoneCore.Model
         public void Stamp(Zones zones)
         {
             // setaside need to be cloned first for references like choose one cards ...
-            List<Zone> zoneEnums = new List<Zone> {
-                Zone.SETASIDE,
-                Zone.PLAY,
-                Zone.DECK,
-                Zone.HAND,
-                Zone.GRAVEYARD,
-                Zone.SECRET,
-                Zone.REMOVEDFROMGAME
+            List<EZone> zoneEnums = new List<EZone> {
+                EZone.SETASIDE,
+                EZone.PLAY,
+                EZone.DECK,
+                EZone.HAND,
+                EZone.GRAVEYARD,
+                EZone.SECRET,
+                EZone.REMOVEDFROMGAME
             };
             zoneEnums.ForEach(p => {
                 var zone = zones[p];
@@ -50,7 +50,7 @@ namespace SabberStoneCore.Model
             //}
         }
 
-        public string Hash(params GameTag[] ignore)
+        public string Hash(params EGameTag[] ignore)
         {
             var str = new StringBuilder();
             foreach (var zone in _zones)
@@ -61,7 +61,7 @@ namespace SabberStoneCore.Model
             return str.ToString();
         }
 
-        public IZone this[Zone zone]
+        public IZone this[EZone zone]
         {
             get
             {
@@ -74,27 +74,27 @@ namespace SabberStoneCore.Model
 
                 switch (zone)
                 {
-                    case Zone.INVALID:
+                    case EZone.INVALID:
                         result = null;
                         break;
-                    case Zone.GRAVEYARD:
+                    case EZone.GRAVEYARD:
                         result = new Zone<IPlayable>(Game, Controller, zone);
                         break;
-                    case Zone.PLAY:
+                    case EZone.PLAY:
                         result = new Zone<Minion>(Game, Controller, zone);
                         break;
-                    case Zone.DECK:
+                    case EZone.DECK:
                         result = new Deck(Game, Controller);
                         break;
-                    case Zone.HAND:
+                    case EZone.HAND:
                         result = new Hand(Game, Controller);
                         break;
-                    case Zone.REMOVEDFROMGAME:
+                    case EZone.REMOVEDFROMGAME:
                         break;
-                    case Zone.SETASIDE:
+                    case EZone.SETASIDE:
                         result = new Zone<IPlayable>(Game, Controller, zone);
                         break;
-                    case Zone.SECRET:
+                    case EZone.SECRET:
                         result = new Zone<Spell>(Game, Controller, zone);
                         break;
                     default:

@@ -11,30 +11,30 @@ namespace SabberStoneCore.Enchants
     {
         public static readonly List<SelfCondition> SelfBuffConditions = new List<SelfCondition>
         {
-            SelfCondition.IsInZone(Zone.DECK, Zone.HAND, Zone.PLAY),
+            SelfCondition.IsInZone(EZone.DECK, EZone.HAND, EZone.PLAY),
             SelfCondition.IsNotSilenced,
         };
 
-        public static Enchant Simple(GameTag tag, int amount, bool oneTurnActive = false)
+        public static Enchant Simple(EGameTag tag, int amount, bool oneTurnActive = false)
         {
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
                     [tag] = amount,
                 }
             };
         }
 
-        public static Enchant SimpleFix(GameTag tag, int amount, bool oneTurnActive = false)
+        public static Enchant SimpleFix(EGameTag tag, int amount, bool oneTurnActive = false)
         {
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
                     [tag] = 0
                 },
@@ -53,13 +53,13 @@ namespace SabberStoneCore.Enchants
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = atk,
-                    [GameTag.HEALTH] = health
+                    [EGameTag.ATK] = atk,
+                    [EGameTag.HEALTH] = health
                 },
                 // Health Retention task ... 
-                RemovalTask = new HealthRetentionTask(health, EntityType.SOURCE)
+                RemovalTask = new HealthRetentionTask(health, EEntityType.SOURCE)
             };
         }
 
@@ -69,14 +69,14 @@ namespace SabberStoneCore.Enchants
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = 0,
-                    [GameTag.HEALTH] = 0
+                    [EGameTag.ATK] = 0,
+                    [EGameTag.HEALTH] = 0
                 },
                 // Health Retention task ... 
                 FixedValueFunc = owner => amount,
-                RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+                RemovalTask = new HealthRetentionTask(amount, EEntityType.SOURCE)
             };
         }
 
@@ -86,9 +86,9 @@ namespace SabberStoneCore.Enchants
             {
                 TurnsActive = -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = amount
+                    [EGameTag.ATK] = amount
                 }
             };
         }
@@ -98,9 +98,9 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = 0,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = amount
+                    [EGameTag.ATK] = amount
                 }
             };
         }
@@ -110,9 +110,9 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = 0,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.WINDFURY] = 1
+                    [EGameTag.WINDFURY] = 1
                 }
             };
         }
@@ -122,9 +122,9 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = 0,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.IMMUNE] = 1
+                    [EGameTag.IMMUNE] = 1
                 }
             };
         }
@@ -135,12 +135,12 @@ namespace SabberStoneCore.Enchants
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.HEALTH] = amount
+                    [EGameTag.HEALTH] = amount
                 },
                 // Health Retention task ... 
-                RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+                RemovalTask = new HealthRetentionTask(amount, EEntityType.SOURCE)
             };
         }
 
@@ -149,9 +149,9 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = amount
+                    [EGameTag.ATK] = amount
                 }
             };
         }
@@ -161,10 +161,10 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
-                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND) },
-                Effects = new Dictionary<GameTag, int>
+                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(EZone.HAND) },
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.COST] = amount
+                    [EGameTag.COST] = amount
                 }
             };
         }
@@ -174,10 +174,10 @@ namespace SabberStoneCore.Enchants
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
-                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND, Zone.DECK)},
-                Effects = new Dictionary<GameTag, int>
+                EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(EZone.HAND, EZone.DECK)},
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.COST] = 0
+                    [EGameTag.COST] = 0
                 },
                 FixedValueFunc = owner => amount
             };
@@ -190,12 +190,12 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = 1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotAttackingThisTurn(attackedThisTurn)
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.STEALTH] = 1
+                    [EGameTag.STEALTH] = 1
                 }
             };
         }
@@ -219,16 +219,16 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = -1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.SETASIDE, Zone.HAND, Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.SETASIDE, EZone.HAND, EZone.PLAY),
                     SelfCondition.IsNotSilenced,
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.ATK] = amount,
-                    [GameTag.HEALTH] = amount
+                    [EGameTag.ATK] = amount,
+                    [EGameTag.HEALTH] = amount
                 },
                 // Health Retention task ... 
-                RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+                RemovalTask = new HealthRetentionTask(amount, EEntityType.SOURCE)
             };
         }
 
@@ -268,21 +268,21 @@ namespace SabberStoneCore.Enchants
         //    };
         //}
 
-        public static Enchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
+        public static Enchant OnlyOpponentTurn(EGameTag tag, int amount, bool oneTurnActive = false)
         {
             return new Enchant
             {
                 TurnsActive = oneTurnActive ? 0 : -1,
                 EnableConditions = SelfBuffConditions,
                 ApplyConditions = new List<RelaCondition> { RelaCondition.IsMe(SelfCondition.IsNotCurrentPlayer) },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
                     [tag] = amount,
                 }
             };
         }
 
-        public static Enchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func = null, bool oneTurnActive = false, ISimpleTask removalTask = null)
+        public static Enchant TillTagChangeActive(EGameTag changeTriggerTag, SelfCondition applyCondiction, EGameTag tag, int value, Func<object, int> func = null, bool oneTurnActive = false, ISimpleTask removalTask = null)
         {
             return new Enchant()
             {
@@ -295,7 +295,7 @@ namespace SabberStoneCore.Enchants
                 {
                     RelaCondition.IsOther(applyCondiction)
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
                     [tag] = value
                 },

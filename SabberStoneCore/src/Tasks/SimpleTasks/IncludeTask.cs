@@ -2,143 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum EntityType
-    {
-        /// <summary>
-        ///  The target
-        /// </summary>
-        TARGET,
-        /// <summary>
-        ///  The source
-        /// </summary>
-        SOURCE,
-        /// <summary>
-        ///  Player's hero
-        /// </summary>
-        HERO,
-        /// <summary>
-        ///  Player's hero power
-        /// </summary>
-        HERO_POWER,
-        /// <summary>
-        ///  Opponent's hero power
-        /// </summary>
-        OP_HERO_POWER,
-        /// <summary>
-        ///  All cards in the player's hand
-        /// </summary>
-        HAND,
-        /// <summary>
-        ///  All cards in the player's hand except the source
-        /// </summary>
-        HAND_NOSOURCE,
-        /// <summary>
-        ///  All cards in the player's deck
-        /// </summary>
-        DECK,
-        /// <summary>
-        ///  Player's secrets
-        /// </summary>
-        SECRETS,
-        /// <summary>
-        ///  Player's minions
-        /// </summary>
-        MINIONS,
-        /// <summary>
-        ///  Player's minions except the source
-        /// </summary>
-        MINIONS_NOSOURCE,
-        /// <summary>
-        ///  All friends characters
-        /// </summary>
-        FRIENDS,
-        /// <summary>
-        ///  Opponent's Hero
-        /// </summary>
-        OP_HERO,
-        /// <summary>
-        ///  All cards in the opponent's hand
-        /// </summary>
-        OP_HAND,
-        /// <summary>
-        ///  All cards in the opponent's deck
-        /// </summary>
-        OP_DECK,
-        /// <summary>
-        ///  All opponent secret
-        /// </summary>
-        OP_SECRETS,
-        /// <summary>
-        ///  All opponent minion
-        /// </summary>
-        OP_MINIONS,
-        /// <summary>
-        ///  All opponent character
-        /// </summary>
-        ENEMIES,
-        /// <summary>
-        ///  All opponent character except the source
-        /// </summary>
-        ENEMIES_NOTARGET,
-        /// <summary>
-        ///  All characters
-        /// </summary>
-        ALL,
-        /// <summary>
-        ///  All characters except the source
-        /// </summary>
-        ALL_NOSOURCE,
-        /// <summary>
-        ///  Player's weapon
-        /// </summary>
-        WEAPON,
-        /// <summary>
-        ///  Opponent's weapon
-        /// </summary>
-        OP_WEAPON,
-        /// <summary>
-        ///  All cards on the stack
-        /// </summary>
-        STACK,
-        /// <summary>
-        ///  All minions
-        /// </summary>
-        ALLMINIONS,
-        /// <summary>
-        ///  Invalid
-        /// </summary>
-        INVALID,
-        /// <summary>
-        ///  All minions except the source
-        /// </summary>
-        ALLMINIONS_NOSOURCE,
-        /// <summary>
-        ///  All cards in the graveyard
-        /// </summary>
-        GRAVEYARD,
-        /// <summary>
-        ///  All heroes
-        /// </summary>
-        HEROES
-    }
-
     public class IncludeTask : SimpleTask
     {
-        public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
+        public IncludeTask(EEntityType includeType, EEntityType[] excludeTypeArray = null, bool addFlag = false)
         {
             IncludeType = includeType;
             ExcludeTypeArray = excludeTypeArray;
             AddFlag = addFlag;
         }
 
-        public EntityType IncludeType { get; set; }
-        public EntityType[] ExcludeTypeArray { get; set; }
+        public EEntityType IncludeType { get; set; }
+        public EEntityType[] ExcludeTypeArray { get; set; }
         public bool AddFlag { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (AddFlag)
             {
@@ -148,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
@@ -158,7 +39,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             return clone;
         }
 
-        private List<IPlayable> RemoveEntities(List<IPlayable> boardGetAll, IEnumerable<EntityType> exceptArray)
+        private List<IPlayable> RemoveEntities(List<IPlayable> boardGetAll, IEnumerable<EEntityType> exceptArray)
         {
             if (exceptArray == null)
             {
@@ -172,17 +53,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             return boardGetAll.Except(exceptListEntities).ToList();
         }
 
-        public static List<IPlayable> GetEntites(EntityType type, Controller controller, IEntity source, IEntity target, List<IPlayable> stack )
+        public static List<IPlayable> GetEntites(EEntityType type, Controller controller, IEntity source, IEntity target, List<IPlayable> stack )
         {
             var result = new List<IPlayable>();
 
             switch (type)
             {
-                case EntityType.STACK:
+                case EEntityType.STACK:
                     result = stack;
                     break;
 
-                case EntityType.TARGET:
+                case EEntityType.TARGET:
                     var t = target as IPlayable;
                     if (t != null)
                     {
@@ -190,7 +71,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.SOURCE:
+                case EEntityType.SOURCE:
                     var s = source as IPlayable;
                     if (s != null)
                     {
@@ -198,51 +79,51 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.HERO:
+                case EEntityType.HERO:
                     result.Add(controller.Hero);
                     break;
 
-                case EntityType.HEROES:
+                case EEntityType.HEROES:
                     result.Add(controller.Hero);
                     result.Add(controller.Opponent.Hero);
                     break;
 
-                case EntityType.HERO_POWER:
+                case EEntityType.HERO_POWER:
                     result.Add(controller.Hero.Power);
                     break;
 
-                case EntityType.OP_HERO_POWER:
+                case EEntityType.OP_HERO_POWER:
                     result.Add(controller.Opponent.Hero.Power);
                     break;
 
-                case EntityType.WEAPON:
+                case EEntityType.WEAPON:
                     if (controller.Hero.Weapon != null)
                     {
                         result.Add(controller.Hero.Weapon);
                     }
                     break;
 
-                case EntityType.HAND:
+                case EEntityType.HAND:
                     result.AddRange(controller.Hand.GetAll);
                     break;
 
-                case EntityType.HAND_NOSOURCE:
+                case EEntityType.HAND_NOSOURCE:
                     result.AddRange(controller.Hand.GetAll);
                     result.Remove(source as IPlayable);
                     break;
 
-                case EntityType.DECK:
+                case EEntityType.DECK:
                     result.AddRange(controller.Deck.GetAll);
                     break;
 
-                case EntityType.MINIONS:
+                case EEntityType.MINIONS:
                     if (controller.Board.Count > 0)
                     {
                         result.AddRange(controller.Board.GetAll);
                     }
                     break;
 
-                case EntityType.MINIONS_NOSOURCE:
+                case EEntityType.MINIONS_NOSOURCE:
                     if (controller.Board.Count > 0)
                     {
                         result.AddRange(controller.Board.GetAll);
@@ -250,14 +131,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     result.Remove(source as IPlayable);
                     break;
 
-                case EntityType.GRAVEYARD:
+                case EEntityType.GRAVEYARD:
                     if (controller.Graveyard.Count > 0)
                     {
                         result.AddRange(controller.Graveyard.GetAll);
                     }
                     break;
 
-                case EntityType.FRIENDS:
+                case EEntityType.FRIENDS:
                     result.Add(controller.Hero);
                     if (controller.Board.Count > 0)
                     {
@@ -265,40 +146,40 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.OP_HERO:
+                case EEntityType.OP_HERO:
                     result.Add(controller.Opponent.Hero);
                     break;
 
-                case EntityType.OP_WEAPON:
+                case EEntityType.OP_WEAPON:
                     if (controller.Opponent.Hero.Weapon != null)
                     {
                         result.Add(controller.Opponent.Hero.Weapon);
                     }
                     break;
 
-                case EntityType.OP_HAND:
+                case EEntityType.OP_HAND:
                     result.AddRange(controller.Opponent.Hand.GetAll);
                     break;
 
-                case EntityType.OP_DECK:
+                case EEntityType.OP_DECK:
                     result.AddRange(controller.Opponent.Deck.GetAll);
                     break;
 
-                case EntityType.OP_MINIONS:
+                case EEntityType.OP_MINIONS:
                     if (controller.Opponent.Board.Count > 0)
                     {
                         result.AddRange(controller.Opponent.Board.GetAll);
                     }
                     break;
 
-                case EntityType.OP_SECRETS:
+                case EEntityType.OP_SECRETS:
                     if (controller.Opponent.Secrets.Count > 0)
                     {
                         result.AddRange(controller.Opponent.Secrets.GetAll);
                     }
                     break;
 
-                case EntityType.ENEMIES:
+                case EEntityType.ENEMIES:
                     result.Add(controller.Opponent.Hero);
                     if (controller.Opponent.Board.Count > 0)
                     {
@@ -306,7 +187,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.ENEMIES_NOTARGET:
+                case EEntityType.ENEMIES_NOTARGET:
                     result.Add(controller.Opponent.Hero);
                     if (controller.Opponent.Board.Count > 0)
                     {
@@ -315,7 +196,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     result.Remove(target as IPlayable);
                     break;
 
-                case EntityType.ALL:
+                case EEntityType.ALL:
                     result.Add(controller.Hero);
                     result.Add(controller.Opponent.Hero);
                     if (controller.Opponent.Board.Count > 0)
@@ -328,7 +209,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.ALL_NOSOURCE:
+                case EEntityType.ALL_NOSOURCE:
                     result.Add(controller.Hero);
                     result.Add(controller.Opponent.Hero);
                     if (controller.Opponent.Board.Count > 0)
@@ -338,7 +219,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     result.Remove(source as IPlayable);
                     break;
 
-                case EntityType.ALLMINIONS:
+                case EEntityType.ALLMINIONS:
                     if (controller.Opponent.Board.Count > 0)
                     {
                         result.AddRange(controller.Opponent.Board.GetAll);
@@ -349,7 +230,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     }
                     break;
 
-                case EntityType.ALLMINIONS_NOSOURCE:
+                case EEntityType.ALLMINIONS_NOSOURCE:
                     if (controller.Opponent.Board.Count > 0)
                     {
                         result.AddRange(controller.Opponent.Board.GetAll);

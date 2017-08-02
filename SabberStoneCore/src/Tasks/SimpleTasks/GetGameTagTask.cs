@@ -4,7 +4,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class GetGameTagTask : SimpleTask
     {
-        public GetGameTagTask(GameTag tag, EntityType entityType, int entityIndex = 0, int numberIndex = 0)
+        public GetGameTagTask(EGameTag tag, EEntityType entityType, int entityIndex = 0, int numberIndex = 0)
         {
             Tag = tag;
             Type = entityType;
@@ -12,17 +12,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             NumberIndex = numberIndex;
         }
 
-        public GameTag Tag { get; set; }
-        public EntityType Type { get; set; }
+        public EGameTag Tag { get; set; }
+        public EEntityType Type { get; set; }
         public int EntityIndex { get; set; }
         public int NumberIndex { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             if (entities.Count == 0)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
             if (NumberIndex == 0)
             {
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         break;
                 }
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

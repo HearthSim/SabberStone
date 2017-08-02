@@ -37,23 +37,23 @@ namespace SabberStoneCore.Actions
             {
                 if (c != source.Controller || c == target.Controller)
                 {
-                    c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "wrong controller in phase.");
+                    c.Game.Log(ELogLevel.ERROR, EBlockType.ATTACK, "PreAttackPhase", "wrong controller in phase.");
                     return false;
                 }
                 if (!source.CanAttack || !source.IsValidAttackTarget(target))
                 {
-                    c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "can't attack with this card.");
+                    c.Game.Log(ELogLevel.ERROR, EBlockType.ATTACK, "PreAttackPhase", "can't attack with this card.");
                     return false;
                 }
                 var hero = source as Hero;
 
-                c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "PreAttackPhase", $"[PreAttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
+                c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "PreAttackPhase", $"[PreAttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
                     $"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}is attacking " +
                     $"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 
                 // attack block
                 if (c.Game.History)
-                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.ATTACK, source.Id, "", -1, target.Id));
 
                 // TODO need to be manipulated for 50% chance to attack  someone else 
                 source.ProposedAttacker = source.Id;
@@ -70,7 +70,7 @@ namespace SabberStoneCore.Actions
                 c.Game.DeathProcessingAndAuraUpdate();
                 if (source.IsDead || target.IsDead)
                 {
-                    c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", "Oh shizzle, something died to the shizzeling of triggering ...");
+                    c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "OnAttackTrigger", "Oh shizzle, something died to the shizzeling of triggering ...");
                     return false;
                 }
                 return true;
@@ -85,10 +85,10 @@ namespace SabberStoneCore.Actions
                 var target = c.Game.IdEntityDic[source.ProposedDefender] as ICharacter;
                 if (target == null)
                 {
-                    c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");
+                    c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");
                     return false;
                 }
-                c.Game.Step = Step.MAIN_COMBAT;
+                c.Game.Step = EStep.MAIN_COMBAT;
 
                 // Save defender's attack as it might change after being damaged (e.g. enrage)
                 var targetHero = target as Hero;
@@ -151,11 +151,11 @@ namespace SabberStoneCore.Actions
                 if (source.NumAttacksThisTurn > 0 && !source.HasWindfury ||
                     source.NumAttacksThisTurn > 1 && source.HasWindfury)
                 {
-                    c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"{source} is now exhausted.");
+                    c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "AttackPhase", $"{source} is now exhausted.");
                     source.IsExhausted = true;
                 }
 
-                c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
+                c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "AttackPhase", $"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
                     $"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}attacked " +
                     $"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
                 return true;

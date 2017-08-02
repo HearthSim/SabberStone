@@ -33,18 +33,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Card PowerCard { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Controller == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             if (PowerCard == null && Power == null)
             {
                 if (Playables.Count != 1 || !(Playables[0] is HeroPower))
                 {
-                    return TaskState.STOP;
+                    return ETaskState.STOP;
                 }
 
                 Power = (HeroPower) Playables[0];
@@ -55,12 +55,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Power = Entity.FromCard(Controller, PowerCard) as HeroPower;
             }
 
-            Power[GameTag.CREATOR] = Controller.Hero.Id;
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower", $"{Controller.Hero} power replaced by {Power}");
+            Power[EGameTag.CREATOR] = Controller.Hero.Id;
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "ReplaceHeroPower", $"{Controller.Hero} power replaced by {Power}");
 
             Controller.Hero.Power = Power;
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

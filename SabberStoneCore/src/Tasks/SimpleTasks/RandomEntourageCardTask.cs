@@ -1,22 +1,23 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomEntourageTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 
             var source = Source as IPlayable;
             if (source == null || source.Card.Entourage.Count < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
           
             var randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose(source.Card.Entourage)));
             Playables.Add(randomCard);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

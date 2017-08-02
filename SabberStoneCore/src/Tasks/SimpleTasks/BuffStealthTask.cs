@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -6,14 +7,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
     public class BuffStealthTask : SimpleTask
     {
-        public BuffStealthTask(EntityType type)
+        public BuffStealthTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
             {
@@ -25,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 buff.Process();
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

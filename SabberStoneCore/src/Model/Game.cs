@@ -18,7 +18,7 @@ using System.Text;
 // TODO refactor and cleanup SelfCondition & RelaCondition class
 namespace SabberStoneCore.Model
 {
-	public delegate void EntityChangedEventHandler(object sender, GameTag t, int oldValue, int newValue);
+	public delegate void EntityChangedEventHandler(object sender, EGameTag t, int oldValue, int newValue);
 
     public partial class Game : Entity
     {
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Model
 
         public GameEventManager GamesEventManager { get; }
 
-        public FormatType FormatType { get; }
+        public EFormatType FormatType { get; }
 
         private readonly GameConfig _gameConfig;
 
@@ -84,11 +84,11 @@ namespace SabberStoneCore.Model
         public Dictionary<int, PowerAllOptions> AllOptionsMap { get; } = new Dictionary<int, PowerAllOptions>();
 
         public Game(GameConfig gameConfig, bool setupHeroes = true) 
-            : base(null, Card.CardGame, new Dictionary<GameTag, int>
+            : base(null, Card.CardGame, new Dictionary<EGameTag, int>
         {
-            [GameTag.ENTITY_ID] = 1,
-            [GameTag.ZONE] = (int)Enums.Zone.PLAY,
-            [GameTag.CARDTYPE] = (int)CardType.GAME
+            [EGameTag.ENTITY_ID] = 1,
+            [EGameTag.ZONE] = (int)Enums.EZone.PLAY,
+            [EGameTag.CARDTYPE] = (int)ECardType.GAME
         })
         {
             _gameConfig = gameConfig;
@@ -113,7 +113,7 @@ namespace SabberStoneCore.Model
             TaskStack = new TaskStack(this);
         }
 
-        protected internal virtual void OnEntityChanged(Entity entity, GameTag t, int oldValue, int newValue)
+        protected internal virtual void OnEntityChanged(Entity entity, EGameTag t, int oldValue, int newValue)
         {
             EntityChangedEvent?.Invoke(entity, t, oldValue, newValue);
         }
@@ -121,7 +121,7 @@ namespace SabberStoneCore.Model
         // Runs when STATE = RUNNING
         public void StartGame()
         {
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", "Starting new game now!");
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", "Starting new game now!");
 
             // setting up the decks ...
             _gameConfig.DeckPlayer1?.ForEach(p => Entity.FromCard(Player1, p, null, Player1.Deck));
@@ -133,12 +133,12 @@ namespace SabberStoneCore.Model
             }
 
             // set gamestats
-            State = State.RUNNING;
-            _players.ToList().ForEach(p => p.PlayState = PlayState.PLAYING);
+            State = EState.RUNNING;
+            _players.ToList().ForEach(p => p.PlayState = EPlayState.PLAYING);
 
             // starting mulligan draw block
             if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, this.Id, "", -1, 0));
 
             // getting first player
             FirstPlayer = _gameConfig.StartPlayer < 0
@@ -146,26 +146,26 @@ namespace SabberStoneCore.Model
                 : _players[_gameConfig.StartPlayer - 1];
             CurrentPlayer = FirstPlayer;
 
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", $"Starting Player is {CurrentPlayer.Name}.");
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"Starting Player is {CurrentPlayer.Name}.");
 
             // first turn
             Turn = 1;
 
             // set next step
-            NextStep = Step.BEGIN_FIRST;
+            NextStep = EStep.BEGIN_FIRST;
         }
 
         public void BeginFirst()
         {
-            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin First.");
+            Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Game", $"Begin First.");
 
             // set next step
-            NextStep = Step.BEGIN_SHUFFLE;
+            NextStep = EStep.BEGIN_SHUFFLE;
         }
 
         public void BeginShuffle()
         {
-            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Shuffle.");
+            Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Game", $"Begin Shuffle.");
 
             if (_gameConfig.Shuffle)
             {
@@ -174,12 +174,12 @@ namespace SabberStoneCore.Model
             }
 
             // set next step
-            NextStep = Step.BEGIN_DRAW;
+            NextStep = EStep.BEGIN_DRAW;
         }
 
         public void BeginDraw()
         {
-            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Draw.");
+            Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Game", $"Begin Draw.");
 
             //FirstPlayer.NumCardsToDraw = 3;
             //FirstPlayer.Opponent.NumCardsToDraw = 4;
@@ -197,11 +197,11 @@ namespace SabberStoneCore.Model
                     // 4th card for second player
                     Generic.Draw(p);
 
-                    var coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
+                    var coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<EGameTag, int>()
                     {
-                        [GameTag.ZONE] = (int)Enums.Zone.HAND,
-                        [GameTag.CARDTYPE] = (int)CardType.SPELL,
-                        [GameTag.CREATOR] = FirstPlayer.Opponent.PlayerId
+                        [EGameTag.ZONE] = (int)Enums.EZone.HAND,
+                        [EGameTag.CARDTYPE] = (int)ECardType.SPELL,
+                        [EGameTag.CREATOR] = FirstPlayer.Opponent.PlayerId
                     });
                     Generic.AddHandPhase(FirstPlayer.Opponent, coin);
                 }
@@ -216,22 +216,22 @@ namespace SabberStoneCore.Model
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-            NextStep = _gameConfig.SkipMulligan ? Step.MAIN_BEGIN : Step.BEGIN_MULLIGAN;
+            NextStep = _gameConfig.SkipMulligan ? EStep.MAIN_BEGIN : EStep.BEGIN_MULLIGAN;
         }
 
         public void BeginMulligan()
         {
-            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Begin Mulligan.");
+            Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Game", $"Begin Mulligan.");
 
             // starting mulligan draw block
             if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, this.Id, "", -1, 0));
 
-            Player1.MulliganState = Mulligan.INPUT;
-            Player2.MulliganState = Mulligan.INPUT;
+            Player1.MulliganState = EMulligan.INPUT;
+            Player2.MulliganState = EMulligan.INPUT;
 
-            Generic.CreateChoice.Invoke(Player1, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player1.Hand.Select(p => p.Id)));
-            Generic.CreateChoice.Invoke(Player2, this, ChoiceType.MULLIGAN, ChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player2.Hand.Select(p => p.Id)));
+            Generic.CreateChoice.Invoke(Player1, this, EChoiceType.MULLIGAN, EChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player1.Hand.Select(p => p.Id)));
+            Generic.CreateChoice.Invoke(Player2, this, EChoiceType.MULLIGAN, EChoiceAction.HAND, LightWeightOrderedSet<int>.Build(Player2.Hand.Select(p => p.Id)));
 
             // ending mulligan draw block
             if (History)
@@ -240,19 +240,19 @@ namespace SabberStoneCore.Model
 
         public void MainBegin()
         {
-            Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", $"Main Begin.");
+            Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Game", $"Main Begin.");
 
             // and a coin
             //Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
 
-            NextStep = Step.MAIN_READY;
+            NextStep = EStep.MAIN_READY;
         }
 
         // Runs when STEP = MAIN_READY
         public void MainReady()
         {
             if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
 
             Characters.ForEach(p =>
             {
@@ -293,7 +293,7 @@ namespace SabberStoneCore.Model
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
-            NextStep = Step.MAIN_START_TRIGGERS;
+            NextStep = EStep.MAIN_START_TRIGGERS;
         }
 
         // Runs when STEP = MAIN_START_TRIGGERS
@@ -303,13 +303,13 @@ namespace SabberStoneCore.Model
             DeathProcessingAndAuraUpdate();
 
             if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0)); 
 
             if (History)
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
-            NextStep = Step.MAIN_RESOURCE;
+            NextStep = EStep.MAIN_RESOURCE;
         }
 
         public void MainRessources()
@@ -328,13 +328,13 @@ namespace SabberStoneCore.Model
             CurrentPlayer.OverloadOwed = 0;
 
             // set next step
-            NextStep = Step.MAIN_DRAW;
+            NextStep = EStep.MAIN_DRAW;
         }
 
         public void MainDraw()
         {
             if (History)
-                PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 0, 0)); // turn start effect
+                PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, CurrentPlayer.Id, "", 0, 0)); // turn start effect
 
             //CurrentPlayer.NumCardsToDraw = 1;
             Generic.Draw(CurrentPlayer);
@@ -343,22 +343,22 @@ namespace SabberStoneCore.Model
                 PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // set next step
-            NextStep = Step.MAIN_START;
+            NextStep = EStep.MAIN_START;
         }
 
         // Runs when STEP = MAIN_START
         public void MainStart()
         {
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
                      $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
 
             DeathProcessingAndAuraUpdate();
 
             // move forward if game isn't won by any player now!
-            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
-                ? Step.MAIN_ACTION
-                : Step.FINAL_WRAPUP;
+            NextStep = _players.ToList().TrueForAll(p => p.PlayState == EPlayState.PLAYING)
+                ? EStep.MAIN_ACTION
+                : EStep.FINAL_WRAPUP;
 
             // set next step
             //NextStep = Step.MAIN_CLEANUP;
@@ -367,10 +367,10 @@ namespace SabberStoneCore.Model
         // Runs when STEP = MAIN_END
         public void MainEnd()
         {
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
 
             if (History)
-                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
+                PowerHistoryBuilder.BlockStart(Enums.EBlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
 
             CurrentPlayer.TurnStart = false;
             DeathProcessingAndAuraUpdate();
@@ -379,14 +379,14 @@ namespace SabberStoneCore.Model
                 PowerHistoryBuilder.BlockEnd();
 
             // set next step
-            NextStep = Step.MAIN_NEXT;
+            NextStep = EStep.MAIN_NEXT;
         }
 
         // Runs when STEP = MAIN_NEXT
         public void MainNext()
         {
             if (History)
-                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, this.Id, "", -1, 0);
+                PowerHistoryBuilder.BlockStart(Enums.EBlockType.TRIGGER, this.Id, "", -1, 0);
 
             CurrentPlayer.NumTurnsLeft = 0;
             CurrentOpponent.NumTurnsLeft = 1;
@@ -414,19 +414,19 @@ namespace SabberStoneCore.Model
             // count next turn
             Turn++;
 
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", $"CurentPlayer {CurrentPlayer.Name}.");
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"CurentPlayer {CurrentPlayer.Name}.");
 
             if (History)
                 PowerHistoryBuilder.BlockEnd();
 
             // set next step
-            NextStep = Step.MAIN_READY;
+            NextStep = EStep.MAIN_READY;
         }
 
         public void MainCleanUp()
         {
             if (History)
-                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
+                PowerHistoryBuilder.BlockStart(Enums.EBlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
 
             DeathProcessingAndAuraUpdate();
 
@@ -434,22 +434,22 @@ namespace SabberStoneCore.Model
                 PowerHistoryBuilder.BlockEnd();
 
             // move forward if game isn't won by any player now!
-            NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
-                ? Step.MAIN_ACTION
-                : Step.FINAL_WRAPUP;
+            NextStep = _players.ToList().TrueForAll(p => p.PlayState == EPlayState.PLAYING)
+                ? EStep.MAIN_ACTION
+                : EStep.FINAL_WRAPUP;
         }
 
         public void FinalWrapUp()
         {
             if (History)
-                PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, Id, "", -1, 0);
+                PowerHistoryBuilder.BlockStart(Enums.EBlockType.TRIGGER, Id, "", -1, 0);
 
             Heroes.ForEach(p =>
             {
-                if (p.Controller.PlayState == PlayState.LOSING || p.Controller.PlayState == PlayState.CONCEDED)
+                if (p.Controller.PlayState == EPlayState.LOSING || p.Controller.PlayState == EPlayState.CONCEDED)
                 {
-                    p.Controller.PlayState = PlayState.LOST;
-                    p.Controller.Opponent.PlayState = PlayState.WON;
+                    p.Controller.PlayState = EPlayState.LOST;
+                    p.Controller.Opponent.PlayState = EPlayState.WON;
                 }
             });
 
@@ -457,15 +457,15 @@ namespace SabberStoneCore.Model
                 PowerHistoryBuilder.BlockEnd();
 
             // set next step
-            NextStep = Step.FINAL_GAMEOVER;
+            NextStep = EStep.FINAL_GAMEOVER;
         }
 
         public void FinalGameOver()
         {
-            State = State.COMPLETE;
+            State = EState.COMPLETE;
             _players.ToList().ForEach(p =>
             {
-                Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
+                Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
             });
         }
 
@@ -479,14 +479,14 @@ namespace SabberStoneCore.Model
             // check for dead minions to carry to the graveyard
             Minions.Where(p => p.IsDead).ToList().ForEach(p =>
             {
-                Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
+                Log(ELogLevel.INFO, EBlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
                 p.Zone.Remove(p);
                 if (p.HasDeathrattle)
                 {
-                    p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+                    p.ApplyEnchantments(EEnchantmentActivation.DEATHRATTLE, EZone.GRAVEYARD);
                 }
                 if (History)
-                    PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
+                    PowerHistoryBuilder.BlockStart(EBlockType.DEATHS, 1, "", 0, 0);
                 p.IsExhausted = false;
                 p.Controller.Graveyard.Add(p);
                 p.Controller.NumFriendlyMinionsThatDiedThisTurn++;
@@ -499,7 +499,7 @@ namespace SabberStoneCore.Model
 
             // check for dead heroes
             var deadHeroes = Heroes.Where(p => p.IsDead).ToList();
-            deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? PlayState.TIED : PlayState.LOSING);
+            deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? EPlayState.TIED : EPlayState.LOSING);
         }
 
         public void AuraUpdate()
@@ -546,9 +546,9 @@ namespace SabberStoneCore.Model
 
             while (TaskQueue.Count > 0)
             {
-                if (TaskQueue.Process() != TaskState.COMPLETE)
+                if (TaskQueue.Process() != ETaskState.COMPLETE)
                 {
-                    Log(LogLevel.INFO, BlockType.PLAY, "Game", "Something really bad happend during proccessing, please analyze!");
+                    Log(ELogLevel.INFO, EBlockType.PLAY, "Game", "Something really bad happend during proccessing, please analyze!");
                 }
                 GraveYard();
 
@@ -561,7 +561,7 @@ namespace SabberStoneCore.Model
             // start with no splits ...
             Splits = new List<Game>();
 
-            Log(LogLevel.INFO, BlockType.PLAY, "Game", gameTask.FullPrint());
+            Log(ELogLevel.INFO, EBlockType.PLAY, "Game", gameTask.FullPrint());
 
             // clear last power history
             PowerHistory.Last.Clear();
@@ -614,7 +614,7 @@ namespace SabberStoneCore.Model
             }
         }
 
-        public override string Hash(params GameTag[] ignore)
+        public override string Hash(params EGameTag[] ignore)
         {
             var str = new StringBuilder();
             str.Append(base.Hash(ignore));
@@ -649,14 +649,14 @@ namespace SabberStoneCore.Model
             Logs.Enqueue(new LogEntry()
             {
                 TimeStamp = DateTime.Now,
-                Level = LogLevel.DUMP,
+                Level = ELogLevel.DUMP,
                 Location = location,
-                BlockType = BlockType.SCRIPT,
+                BlockType = EBlockType.SCRIPT,
                 Text = text
             });
         }
 
-        public void Log(LogLevel level, BlockType block, string location, string text)
+        public void Log(ELogLevel level, EBlockType block, string location, string text)
         {
             if (!_gameConfig.Logging)
                 return;
@@ -688,65 +688,65 @@ namespace SabberStoneCore.Model
     {
         public int Turn
         {
-            get { return this[GameTag.TURN]; }
-            set { this[GameTag.TURN] = value; }
+            get { return this[EGameTag.TURN]; }
+            set { this[EGameTag.TURN] = value; }
         }
 
-        public State State
+        public EState State
         {
-            get { return (State) this[GameTag.STATE]; }
-            set { this[GameTag.STATE] = (int) value; }
+            get { return (EState) this[EGameTag.STATE]; }
+            set { this[EGameTag.STATE] = (int) value; }
         }
 
         public int FirstCardPlayedThisTurn
         {
-            get { return this[GameTag.FIRST_CARD_PLAYED_THIS_TURN]; }
-            set { this[GameTag.FIRST_CARD_PLAYED_THIS_TURN] = value; }
+            get { return this[EGameTag.FIRST_CARD_PLAYED_THIS_TURN]; }
+            set { this[EGameTag.FIRST_CARD_PLAYED_THIS_TURN] = value; }
         }
 
         public Controller FirstPlayer
         {
             get
             {
-                return Player1[GameTag.FIRST_PLAYER] == 1 ? Player1 : Player2[GameTag.FIRST_PLAYER] == 1 ? Player2 : null;
+                return Player1[EGameTag.FIRST_PLAYER] == 1 ? Player1 : Player2[EGameTag.FIRST_PLAYER] == 1 ? Player2 : null;
             }
-            set { value[GameTag.FIRST_PLAYER] = 1; }
+            set { value[EGameTag.FIRST_PLAYER] = 1; }
         }
 
         public Controller CurrentPlayer
         {
             get
             {
-                return Player1[GameTag.CURRENT_PLAYER] == 1
+                return Player1[EGameTag.CURRENT_PLAYER] == 1
                     ? Player1
-                    : Player2[GameTag.CURRENT_PLAYER] == 1 ? Player2 : null;
+                    : Player2[EGameTag.CURRENT_PLAYER] == 1 ? Player2 : null;
             }
             set
             {
-                value.Opponent[GameTag.CURRENT_PLAYER] = 0;
-                value[GameTag.CURRENT_PLAYER] = 1;
+                value.Opponent[EGameTag.CURRENT_PLAYER] = 0;
+                value[EGameTag.CURRENT_PLAYER] = 1;
             }
         }
 
         public Controller CurrentOpponent
-            => Player1[GameTag.CURRENT_PLAYER] == 1 ? Player2 : Player2[GameTag.CURRENT_PLAYER] == 1 ? Player1 : null;
+            => Player1[EGameTag.CURRENT_PLAYER] == 1 ? Player2 : Player2[EGameTag.CURRENT_PLAYER] == 1 ? Player1 : null;
 
-        public Step Step
+        public EStep Step
         {
-            get { return (Step) this[GameTag.STEP]; }
-            set { this[GameTag.STEP] = (int) value; }
+            get { return (EStep) this[EGameTag.STEP]; }
+            set { this[EGameTag.STEP] = (int) value; }
         }
 
-        public Step NextStep
+        public EStep NextStep
         {
-            get { return (Step) this[GameTag.NEXT_STEP]; }
-            set { this[GameTag.NEXT_STEP] = (int) value; }
+            get { return (EStep) this[EGameTag.NEXT_STEP]; }
+            set { this[EGameTag.NEXT_STEP] = (int) value; }
         }
 
         public int NumMinionsKilledThisTurn
         {
-            get { return this[GameTag.NUM_MINIONS_KILLED_THIS_TURN]; }
-            set { this[GameTag.NUM_MINIONS_KILLED_THIS_TURN] = value; }
+            get { return this[EGameTag.NUM_MINIONS_KILLED_THIS_TURN]; }
+            set { this[EGameTag.NUM_MINIONS_KILLED_THIS_TURN] = value; }
         }
 
         public List<Hero> Heroes => new List<Hero> {Game.Player1.Hero, Game.Player2.Hero};

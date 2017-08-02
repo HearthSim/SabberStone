@@ -24,7 +24,7 @@ namespace SabberStoneCore.Visualizer
             return this;
         }
 
-        public CardAsciiBuilder ZoneCards(int cnt, Zone zoneType)
+        public CardAsciiBuilder ZoneCards(int cnt, EZone zoneType)
         {
             var strArray1 = cnt.ToString().PadLeft(2, ' ').ToCharArray();
             var strArray2 = zoneType.ToString().ToUpper().PadRight(4, ' ').ToCharArray();
@@ -71,10 +71,10 @@ namespace SabberStoneCore.Visualizer
             return this;
         }
 
-        public CardAsciiBuilder Type(CardType cardType)
+        public CardAsciiBuilder Type(ECardType cardType)
         {
             var oneChar = cardType.ToString().ToCharArray()[0];
-            if (cardType == CardType.SPELL)
+            if (cardType == ECardType.SPELL)
             {
                 oneChar = 'S';
             }
@@ -269,7 +269,7 @@ namespace SabberStoneCore.Visualizer
             var result = new string[18];
 
             var cardAscii = new CardAsciiBuilder().Create().AttackDamage(8).Health(5).Cost(3)
-                .Name("HS Card").Type(CardType.MINION)
+                .Name("HS Card").Type(ECardType.MINION)
                 .Battlecry(true).Deathrattle(true).Exhausted(true).Spellpower(2).Inspire(true)
                 .Poisonus(true).Freeze(true).Silenced(true)
                 .Charge(true).DivineShield(true).Frozen(true).Stealth(true).Enrage(true).Taunt(true).Windfury(true)
@@ -309,7 +309,7 @@ namespace SabberStoneCore.Visualizer
             result[4] += new string(cost[4]) + " ";
             result[5] += new string(cost[5]) + " ";
 
-            var type = new CardAsciiBuilder().Create().Name("Type").Type(CardType.MINION).Build();
+            var type = new CardAsciiBuilder().Create().Name("Type").Type(ECardType.MINION).Build();
 
             result[0] += new string(type[0]) + " ";
             result[1] += new string(type[1]) + " ";

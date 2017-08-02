@@ -1,10 +1,11 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class HealTask : SimpleTask
     {
-        public HealTask(int amount, EntityType entityType)
+        public HealTask(int amount, EEntityType entityType)
         {
             Amount = amount;
             Type = entityType;
@@ -12,13 +13,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Amount < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var source = Source as IPlayable;
@@ -29,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 target?.TakeHeal(source, Amount);
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

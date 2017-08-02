@@ -6,24 +6,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class MoveToDeck : SimpleTask
     {
-        public MoveToDeck(EntityType type)
+        public MoveToDeck(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             entities.ForEach(p =>
             {
                 var removedEntity = p.Zone.Remove(p);
                 removedEntity.Controller = Controller;
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck", $"{Controller.Name} is taking control of {p} and shuffled into his deck.");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "MoveToDeck", $"{Controller.Name} is taking control of {p} and shuffled into his deck.");
                 Generic.ShuffleIntoDeck.Invoke(Controller, p);
             });
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

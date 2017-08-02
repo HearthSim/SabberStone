@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -31,15 +32,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public bool UseNumber { get; set; }
         public int Amount { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
             Controller.Hero.GainArmor(source, UseNumber ? Number : Amount);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

@@ -31,13 +31,13 @@ namespace SabberStoneGui.Core
             };
         }
 
-        public static IEnumerable FormatTypes => Enum.GetValues(typeof(FormatType)).Cast<FormatType>().Where(e => e != FormatType.FT_UNKNOWN);
-        public static IEnumerable ClassTypes => Enum.GetValues(typeof(CardClass)).Cast<CardClass>()
+        public static IEnumerable FormatTypes => Enum.GetValues(typeof(EFormatType)).Cast<EFormatType>().Where(e => e != EFormatType.FT_UNKNOWN);
+        public static IEnumerable ClassTypes => Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>()
                 .Where(e =>
-                    e != CardClass.INVALID &&
-                    e != CardClass.DEATHKNIGHT &&
-                    e != CardClass.DREAM &&
-                    e != CardClass.NEUTRAL);
+                    e != ECardClass.INVALID &&
+                    e != ECardClass.DEATHKNIGHT &&
+                    e != ECardClass.DREAM &&
+                    e != ECardClass.NEUTRAL);
 
         public static IEnumerable StrategyTypes => Enum.GetValues(typeof(Strategy)).Cast<Strategy>();
 

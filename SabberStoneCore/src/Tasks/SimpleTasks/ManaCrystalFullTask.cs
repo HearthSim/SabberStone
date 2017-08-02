@@ -1,4 +1,5 @@
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,10 +12,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var success = Generic.ChangeManaCrystal.Invoke(Controller, Amount, true);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

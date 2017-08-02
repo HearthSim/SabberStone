@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,17 +12,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool UseFlag { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var random = Util.Random.Next(0, 2);
 
             if (!UseFlag)
             {
-                return random == 0 ? TaskState.COMPLETE : TaskState.STOP;
+                return random == 0 ? ETaskState.COMPLETE : ETaskState.STOP;
             }
 
             Flag = random != 0;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

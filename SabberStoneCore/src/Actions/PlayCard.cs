@@ -29,7 +29,7 @@ namespace SabberStoneCore.Actions
 
                 // play block
                 if (c.Game.History)
-                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id,"",0, target?.Id ?? 0));
+                    c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.PLAY, source.Id,"",0, target?.Id ?? 0));
 
                 c.NumCardsPlayedThisTurn++;
 
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Actions
                 // can't play because we got already board full
                 if (source is Minion && c.Board.IsFull)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "PrePlayPhase", $"Board has already {c.Board.MaxSize} minions.");
+                    c.Game.Log(ELogLevel.WARNING, EBlockType.ACTION, "PrePlayPhase", $"Board has already {c.Board.MaxSize} minions.");
                     return false;
                 }
 
@@ -155,7 +155,7 @@ namespace SabberStoneCore.Actions
                     c.UsedMana += cost - tempUsed;
                     c.TotalManaSpentThisGame += cost;
                 }
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PayPhase", $"Paying {source} for {source.Cost} Mana, remaining mana is {c.RemainingMana}.");
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PayPhase", $"Paying {source} for {source.Cost} Mana, remaining mana is {c.RemainingMana}.");
                 return true;
             };
 
@@ -172,7 +172,7 @@ namespace SabberStoneCore.Actions
                 if (!minion.HasCharge)
                     minion.IsExhausted = true;
 
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", $"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PlayMinion", $"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
                          $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
                 // - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
@@ -186,12 +186,12 @@ namespace SabberStoneCore.Actions
 
                 // - BattleCry Phase --> Battle Cry Resolves
                 //   (death processing, aura updates)
-                minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+                minion.ApplyEnchantments(EEnchantmentActivation.BATTLECRY, EZone.PLAY, target);
                 // check if [LOE_077] Brann Bronzebeard aura is active
                 if (c.ExtraBattlecry)
                 //if (minion[GameTag.BATTLECRY] == 2)
                 {
-                    minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+                    minion.ApplyEnchantments(EEnchantmentActivation.BATTLECRY, EZone.PLAY, target);
                 }
                 c.Game.DeathProcessingAndAuraUpdate();
 
@@ -208,10 +208,10 @@ namespace SabberStoneCore.Actions
 
                 switch (minion.Race)
                 {
-                    case Race.ELEMENTAL:
+                    case ERace.ELEMENTAL:
                         c.NumElementalsPlayedThisTurn++;
                         break;
-                    case Race.MURLOC:
+                    case ERace.MURLOC:
                         c.NumMurlocsPlayedThisGame++;
                         break;
                 }
@@ -222,35 +222,35 @@ namespace SabberStoneCore.Actions
         public static Func<Controller, Spell, ICharacter, bool> PlaySpell
             => delegate(Controller c, Spell spell, ICharacter target)
             {
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PlaySpell", $"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
                 // trigger Spellbender Phase
-                c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger Spellbender Phase (not implemented)");
+                c.Game.Log(ELogLevel.DEBUG, EBlockType.ACTION, "PlaySpell", "trigger Spellbender Phase (not implemented)");
 
                 // trigger SpellText Phase
-                c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger SpellText Phase (not implemented)");
+                c.Game.Log(ELogLevel.DEBUG, EBlockType.ACTION, "PlaySpell", "trigger SpellText Phase (not implemented)");
 
                 if (spell.IsCountered)
                 {
-                    c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
+                    c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
                     c.Graveyard.Add(spell);
                 }
                 else if (spell.IsSecret || spell.IsQuest)
                 {
-                    spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
+                    spell.ApplyEnchantments(EEnchantmentActivation.SECRET_OR_QUEST, EZone.PLAY);
                     c.Secrets.Add(spell);
 
                     c.NumSecretsPlayedThisGame++;
                 }
                 else
                 {
-                    spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
+                    spell.ApplyEnchantments(EEnchantmentActivation.SPELL, EZone.PLAY, target);
                     c.Graveyard.Add(spell);
                 }
                 c.Game.DeathProcessingAndAuraUpdate();
 
                 // trigger After Play Phase
-                c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger After Play Phase");
+                c.Game.Log(ELogLevel.DEBUG, EBlockType.ACTION, "PlaySpell", "trigger After Play Phase");
                 spell.JustPlayed = false;
                 c.Game.DeathProcessingAndAuraUpdate();
 
@@ -264,17 +264,17 @@ namespace SabberStoneCore.Actions
             {
                 c.Hero.AddWeapon(weapon);
 
-                c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
+                c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PlayWeapon", $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
                 // activate battlecry
-                weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, Zone.PLAY);
-                weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY);
+                weapon.ApplyEnchantments(EEnchantmentActivation.WEAPON, EZone.PLAY);
+                weapon.ApplyEnchantments(EEnchantmentActivation.BATTLECRY, EZone.PLAY);
                 c.Game.DeathProcessingAndAuraUpdate();
 
                 c.NumWeaponsPlayedThisGame++;
 
                 // trigger After Play Phase
-                c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", "trigger After Play Phase");
+                c.Game.Log(ELogLevel.DEBUG, EBlockType.ACTION, "PlayWeapon", "trigger After Play Phase");
                 weapon.JustPlayed = false;
 
                 return true;

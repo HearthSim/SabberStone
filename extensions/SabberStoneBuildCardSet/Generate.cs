@@ -32,8 +32,8 @@ namespace SabberStoneCore.Loader
             //   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
             //{ CardSet.GVG};
             //var cardSets = new[] { CardSet.UNGORO};
-            var cardSets = Enum.GetValues(typeof(CardSet));
-            foreach (CardSet cardSet in cardSets)
+            var cardSets = Enum.GetValues(typeof(ECardSet));
+            foreach (ECardSet cardSet in cardSets)
             {
                 var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
                 var path = Path + @"SabberStone\SabberStoneCore\Loader\Generated\CardSets\";
@@ -45,9 +45,9 @@ namespace SabberStoneCore.Loader
             }
         }
 
-        private static void WriteCardSetFile(CardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
+        private static void WriteCardSetFile(ECardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
         {
-            var cardClasses = Enum.GetValues(typeof(CardClass));
+            var cardClasses = Enum.GetValues(typeof(ECardClass));
             var methods = new List<string>();
 
             var str = new StringBuilder();
@@ -64,7 +64,7 @@ namespace SabberStoneCore.Loader
             str.AppendLine($"\tpublic class {className}");
             str.AppendLine("\t{");
 
-            var heroes = CreateMethode("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
+            var heroes = CreateMethode("Heroes", values, null, cardSet, ECardType.HERO, ECardClass.INVALID);
             if (heroes != null)
             {
                 methods.Add("Heroes");
@@ -72,7 +72,7 @@ namespace SabberStoneCore.Loader
                 str.AppendLine();
             }
 
-            var heroPowers = CreateMethode("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
+            var heroPowers = CreateMethode("HeroPowers", values, null, cardSet, ECardType.HERO_POWER, ECardClass.INVALID);
             if (heroPowers != null)
             {
                 methods.Add("HeroPowers");
@@ -80,19 +80,19 @@ namespace SabberStoneCore.Loader
                 str.AppendLine();
             }
 
-            foreach (CardClass cardClass in cardClasses)
+            foreach (ECardClass cardClass in cardClasses)
             {
-                if (cardClass == CardClass.NEUTRAL || cardClass == CardClass.INVALID)
+                if (cardClass == ECardClass.NEUTRAL || cardClass == ECardClass.INVALID)
                     continue;
 
-                var cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet, CardType.INVALID, cardClass);
+                var cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet, ECardType.INVALID, cardClass);
                 if (cardClassString != null)
                 {
                     methods.Add(UpperCaseFirst(cardClass.ToString()));
                     str.Append(cardClassString);
                     str.AppendLine();
                 }
-                var cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet, CardType.INVALID, cardClass);
+                var cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet, ECardType.INVALID, cardClass);
                 if (cardClassNonCollectString != null)
                 {
                     methods.Add(UpperCaseFirst(cardClass.ToString()) + "NonCollect");
@@ -100,20 +100,20 @@ namespace SabberStoneCore.Loader
                     str.AppendLine();
                 }
             }
-            var neutralClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
-                CardType.INVALID, CardClass.NEUTRAL);
+            var neutralClassString = CreateMethode(UpperCaseFirst(ECardClass.NEUTRAL.ToString()), values, true, cardSet,
+                ECardType.INVALID, ECardClass.NEUTRAL);
             if (neutralClassString != null)
             {
-                methods.Add(UpperCaseFirst(CardClass.NEUTRAL.ToString()));
+                methods.Add(UpperCaseFirst(ECardClass.NEUTRAL.ToString()));
                 str.Append(neutralClassString);
                 str.AppendLine();
             }
 
-            var neutralNonCollectClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()) + "NonCollect", values, false,
-                cardSet, CardType.INVALID, CardClass.NEUTRAL);
+            var neutralNonCollectClassString = CreateMethode(UpperCaseFirst(ECardClass.NEUTRAL.ToString()) + "NonCollect", values, false,
+                cardSet, ECardType.INVALID, ECardClass.NEUTRAL);
             if (neutralNonCollectClassString != null)
             {
-                methods.Add(UpperCaseFirst(CardClass.NEUTRAL.ToString()) + "NonCollect");
+                methods.Add(UpperCaseFirst(ECardClass.NEUTRAL.ToString()) + "NonCollect");
                 str.Append(neutralNonCollectClassString);
                 str.AppendLine();
             }
@@ -134,14 +134,14 @@ namespace SabberStoneCore.Loader
         }
 
         private static string CreateMethode(string name,
-            Dictionary<string, Card>.ValueCollection values, bool? collect, CardSet set, CardType type,
-            CardClass cardClass)
+            Dictionary<string, Card>.ValueCollection values, bool? collect, ECardSet set, ECardType type,
+            ECardClass cardClass)
         {
             var valuesOrdered = values
                 .Where(p => p.Set == set
                             && (collect == null || p.Collectible == collect)
-                            && (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
-                            && (cardClass == CardClass.INVALID || p.Class == cardClass))
+                            && (type == ECardType.INVALID && p.Type != ECardType.HERO && p.Type != ECardType.HERO_POWER || p.Type == type)
+                            && (cardClass == ECardClass.INVALID || p.Class == cardClass))
                             .OrderBy(p => p.Type.ToString());
 
             if (!valuesOrdered.Any())
@@ -164,43 +164,43 @@ namespace SabberStoneCore.Loader
         {
             var tab = tabs == 2 ? "\t\t" : "\t";
             var atkHpStr = "";
-            if (card.Tags.ContainsKey(GameTag.ATK) || card.Tags.ContainsKey(GameTag.HEALTH))
+            if (card.Tags.ContainsKey(EGameTag.ATK) || card.Tags.ContainsKey(EGameTag.HEALTH))
             {
-                var atk = card[GameTag.ATK];
-                var hp = card[GameTag.HEALTH];
+                var atk = card[EGameTag.ATK];
+                var hp = card[EGameTag.HEALTH];
                 atkHpStr = $"[ATK:{atk}/HP:{hp}] ";
             }
 
             var cardRace = "";
-            if (card.Race != Race.INVALID)
+            if (card.Race != ERace.INVALID)
                 cardRace = $"Race: {card.Race.ToString().ToLower()}, ";
             var cardFac = "";
-            if (card.Faction != Faction.INVALID)
+            if (card.Faction != EFaction.INVALID)
                 cardFac = $"Fac: {card.Faction.ToString().ToLower()}, ";
             var cardSet = "";
-            if (card.Set != CardSet.INVALID)
+            if (card.Set != ECardSet.INVALID)
                 cardSet = $"Set: {card.Set.ToString().ToLower()}, ";
             var cardRarity = "";
-            if (card.Rarity != Rarity.INVALID)
+            if (card.Rarity != ERarity.INVALID)
                 cardRarity = $"Rarity: {card.Rarity.ToString().ToLower()}";
 
-            var except = new List<GameTag>
+            var except = new List<EGameTag>
             {
-                GameTag.COST,
-                GameTag.ATK,
-                GameTag.HEALTH,
-                GameTag.CARD_SET,
-                GameTag.CARDTYPE,
-                GameTag.RARITY,
-                GameTag.AttackVisualType,
-                GameTag.CLASS,
-                GameTag.CARDRACE,
-                GameTag.FACTION,
-                GameTag.COLLECTIBLE,
-                GameTag.DevState,
-                GameTag.ENCHANTMENT_BIRTH_VISUAL,
-                GameTag.ENCHANTMENT_IDLE_VISUAL,
-                GameTag.TRIGGER_VISUAL
+                EGameTag.COST,
+                EGameTag.ATK,
+                EGameTag.HEALTH,
+                EGameTag.CARD_SET,
+                EGameTag.CARDTYPE,
+                EGameTag.RARITY,
+                EGameTag.AttackVisualType,
+                EGameTag.CLASS,
+                EGameTag.CARDRACE,
+                EGameTag.FACTION,
+                EGameTag.COLLECTIBLE,
+                EGameTag.DevState,
+                EGameTag.ENCHANTMENT_BIRTH_VISUAL,
+                EGameTag.ENCHANTMENT_IDLE_VISUAL,
+                EGameTag.TRIGGER_VISUAL
             };
 
             var cardType = card.Type.ToString();
@@ -281,17 +281,17 @@ namespace SabberStoneCore.Loader
             var str = new StringBuilder();
 
             var enchantId = Cards.All
-                .Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
+                .Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == ECardType.ENCHANTMENT)
                 .Select(p => p.Id).FirstOrDefault();
 
             var activations = new List<string>();
-            if (card.Type == CardType.SPELL)
+            if (card.Type == ECardType.SPELL)
                 activations.Add("EnchantmentActivation.SPELL");
-            if (card.Type == CardType.WEAPON)
+            if (card.Type == ECardType.WEAPON)
                 activations.Add("EnchantmentActivation.WEAPON");
-            if (card[GameTag.BATTLECRY] == 1)
+            if (card[EGameTag.BATTLECRY] == 1)
                 activations.Add("EnchantmentActivation.BATTLECRY");
-            if (card[GameTag.DEATHRATTLE] == 1)
+            if (card[EGameTag.DEATHRATTLE] == 1)
                 activations.Add("EnchantmentActivation.DEATHRATTLE");
 
             str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new List<Enchantment> {{");
@@ -324,9 +324,9 @@ namespace SabberStoneCore.Loader
             return str.ToString();
         }
 
-        private static void WriteCardSetTestFile(CardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
+        private static void WriteCardSetTestFile(ECardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
         {
-            var cardClasses = Enum.GetValues(typeof(CardClass));
+            var cardClasses = Enum.GetValues(typeof(ECardClass));
 
             var str = new StringBuilder();
             str.AppendLine("using Microsoft.VisualStudio.TestTools.UnitTesting;");
@@ -337,27 +337,27 @@ namespace SabberStoneCore.Loader
             str.AppendLine("namespace SabberStoneUnitTest.CardSets");
             str.AppendLine("{");
 
-            var heroes = CreateMethodeTest("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
+            var heroes = CreateMethodeTest("Heroes", values, null, cardSet, ECardType.HERO, ECardClass.INVALID);
             if (heroes != null)
             {
                 str.Append(heroes);
                 str.AppendLine();
             }
 
-            var heroPowers = CreateMethodeTest("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
+            var heroPowers = CreateMethodeTest("HeroPowers", values, null, cardSet, ECardType.HERO_POWER, ECardClass.INVALID);
             if (heroPowers != null)
             {
                 str.Append(heroPowers);
                 str.AppendLine();
             }
 
-            foreach (CardClass cardClass in cardClasses)
+            foreach (ECardClass cardClass in cardClasses)
             {
-                if (cardClass == CardClass.NEUTRAL || cardClass == CardClass.INVALID)
+                if (cardClass == ECardClass.NEUTRAL || cardClass == ECardClass.INVALID)
                     continue;
 
                 var cardClassString = CreateMethodeTest(UpperCaseFirst(cardClass.ToString()), values, true, cardSet,
-                    CardType.INVALID, cardClass);
+                    ECardType.INVALID, cardClass);
                 if (cardClassString != null)
                 {
                     str.Append(cardClassString);
@@ -365,8 +365,8 @@ namespace SabberStoneCore.Loader
                 }
             }
 
-            var neutralCardString = CreateMethodeTest(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
-                CardType.INVALID, CardClass.NEUTRAL);
+            var neutralCardString = CreateMethodeTest(UpperCaseFirst(ECardClass.NEUTRAL.ToString()), values, true, cardSet,
+                ECardType.INVALID, ECardClass.NEUTRAL);
             if (neutralCardString != null)
             {
                 str.Append(neutralCardString);
@@ -384,13 +384,13 @@ namespace SabberStoneCore.Loader
         }
 
         private static string CreateMethodeTest(string name,
-            Dictionary<string, Card>.ValueCollection values, bool? collect, CardSet set, CardType type,
-            CardClass cardClass)
+            Dictionary<string, Card>.ValueCollection values, bool? collect, ECardSet set, ECardType type,
+            ECardClass cardClass)
         {
             var valuesOrdered = values.Where(p => p.Set == set
                             && (collect == null || p.Collectible == collect)
-                            && (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
-                            && (cardClass == CardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
+                            && (type == ECardType.INVALID && p.Type != ECardType.HERO && p.Type != ECardType.HERO_POWER || p.Type == type)
+                            && (cardClass == ECardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
             if (!valuesOrdered.Any())
             {
                 return null;
@@ -403,11 +403,11 @@ namespace SabberStoneCore.Loader
             {
                 var cardNameRx = Rgx.Replace(card.Name, "").Split(' ', '-').ToList();
                 var cardName = string.Join("", cardNameRx.Select(p => UpperCaseFirst(p)).ToList());
-                var heroClass1 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
-                    ? CardClass.MAGE
+                var heroClass1 = card.Class == ECardClass.INVALID || card.Class == ECardClass.NEUTRAL
+                    ? ECardClass.MAGE
                     : card.Class;
-                var heroClass2 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
-                    ? CardClass.MAGE
+                var heroClass2 = card.Class == ECardClass.INVALID || card.Class == ECardClass.NEUTRAL
+                    ? ECardClass.MAGE
                     : card.Class;
                 str.Append(AddCardString(card, 1));
                 str.AppendLine("\t\t[TestMethod, Ignore]");

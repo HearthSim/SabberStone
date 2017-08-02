@@ -4,20 +4,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SetGameTagNumberTask : SimpleTask
     {
-        public SetGameTagNumberTask(GameTag tag, EntityType entityType, bool ignoreDamage = false)
+        public SetGameTagNumberTask(EGameTag tag, EEntityType entityType, bool ignoreDamage = false)
         {
             Tag = tag;
             Type = entityType;
             IgnoreDamage = ignoreDamage;
         }
 
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public bool IgnoreDamage { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
@@ -35,7 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 }
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

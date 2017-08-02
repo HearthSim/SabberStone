@@ -213,14 +213,14 @@ namespace SabberStoneGui
              while (CurrentGame.Logs.Count > 0)
             {
                 var logEntry = CurrentGame.Logs.Dequeue();
-                if (logEntry.Level <= LogLevel.INFO)
+                if (logEntry.Level <= ELogLevel.INFO)
                     TxtPlayLog.Text += $"[{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}\n";
             }
 
 
             TxtPlayLog.ScrollToEnd();
 
-            if (CurrentGame.State == State.RUNNING && !BtnStart.IsEnabled)
+            if (CurrentGame.State == EState.RUNNING && !BtnStart.IsEnabled)
             {
                 TxtPlayer1.Text = $"* Calculating solutions *** {CurrentGame.CurrentPlayer} ***" + Environment.NewLine;
                 TxtPlayer1.AppendText(
@@ -236,7 +236,7 @@ namespace SabberStoneGui
                 worker.RunWorkerAsync(new List<object> {(int) SlidMaxDepth.Value, (int) SlidMaxWidth.Value, scoring});
                 BtnStart.Content = $"{CurrentGame.CurrentPlayer} Move!";
             }
-            else if (CurrentGame.State == SabberStoneCore.Enums.State.COMPLETE)
+            else if (CurrentGame.State == SabberStoneCore.Enums.EState.COMPLETE)
             {
                 TxtPlayer1.Text = ".. Game is finished!" + Environment.NewLine +
                                   $"P1: {CurrentGame.Player1} => {CurrentGame.Player1.PlayState}" + Environment.NewLine +
@@ -260,7 +260,7 @@ namespace SabberStoneGui
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (CurrentGame?.State == SabberStoneCore.Enums.State.RUNNING)
+            if (CurrentGame?.State == SabberStoneCore.Enums.EState.RUNNING)
             {
                 var curPlayer = CurrentGame.CurrentPlayer;
                 var nextTask = CurrentSolution[0];
@@ -307,16 +307,16 @@ namespace SabberStoneGui
             if (CbxFormat.SelectedItem == null || CbxClassCard.SelectedItem == null)
                 return;
 
-            var formatType = (FormatType) CbxFormat.SelectedItem;
-            var cardClass = (CardClass) CbxClassCard.SelectedItem;
+            var formatType = (EFormatType) CbxFormat.SelectedItem;
+            var cardClass = (ECardClass) CbxClassCard.SelectedItem;
 
             List<Card> cards;
             switch (formatType)
             {
-                case FormatType.FT_STANDARD:
+                case EFormatType.FT_STANDARD:
                     cards = Cards.StandardPerClass[cardClass];
                     break;
-                case FormatType.FT_WILD:
+                case EFormatType.FT_WILD:
                     cards = Cards.WildPerClass[cardClass];
                     break;
                 default:
@@ -380,8 +380,8 @@ namespace SabberStoneGui
                 Name = TxDeckname.Text,
                 Description = TxDescription.Text,
                 Link = TxDeckLink.Text,
-                FormatType = (FormatType) CbxFormat.SelectedItem,
-                HeroClass = (CardClass) CbxClassCard.SelectedItem,
+                FormatType = (EFormatType) CbxFormat.SelectedItem,
+                HeroClass = (ECardClass) CbxClassCard.SelectedItem,
                 Strategy = (Strategy) CbxDeckStrategy.SelectedItem,
                 CardIds = CurrentDeck.Select(p => p.Id).ToList()
             };

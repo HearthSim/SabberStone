@@ -9,7 +9,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomMinionTask : SimpleTask
     {
-        private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign)
+        private RandomMinionTask(EGameTag tag, int value, EEntityType type, int amount, ERelaSign relaSign)
         {
             Tag = tag;
             Value = value;
@@ -18,35 +18,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             RelaSign = relaSign;
         }
 
-        public RandomMinionTask(GameTag tag, EntityType type, int amount = 1)
+        public RandomMinionTask(EGameTag tag, EEntityType type, int amount = 1)
         {
             Tag = tag;
             Value = -1;
             Type = type;
             Amount = amount;
-            RelaSign = RelaSign.EQ;
+            RelaSign = ERelaSign.EQ;
         }
 
-        public RandomMinionTask(GameTag tag, int value, int amount = 1, RelaSign relaSign = RelaSign.EQ)
+        public RandomMinionTask(EGameTag tag, int value, int amount = 1, ERelaSign relaSign = ERelaSign.EQ)
         {
             Tag = tag;
             Value = value;
-            Type = EntityType.INVALID;
+            Type = EEntityType.INVALID;
             Amount = amount;
             RelaSign = relaSign;
         }
 
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
         public int Value { get; set; }
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
         public int Amount { get; set; }
-        public RelaSign RelaSign { get; set; }
+        public ERelaSign RelaSign { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
-            if (Type != EntityType.INVALID)
+            if (Type != EEntityType.INVALID)
             {
-                if (Type == EntityType.TARGET && Tag == GameTag.COST)
+                if (Type == EEntityType.TARGET && Tag == EGameTag.COST)
                 {
                     Value = ((IPlayable) Target).Cost;
                 }
@@ -56,14 +56,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 }
             }
 
-            var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-            var cardsList = cards.Where(p => p.Type == CardType.MINION 
-                && (RelaSign == RelaSign.EQ && p[Tag] == Value
-                 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
-                 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
+            var cards = Game.FormatType == EFormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+            var cardsList = cards.Where(p => p.Type == ECardType.MINION 
+                && (RelaSign == ERelaSign.EQ && p[Tag] == Value
+                 || RelaSign == ERelaSign.GEQ && p[Tag] >= Value
+                 || RelaSign == ERelaSign.LEQ && p[Tag] <= Value)).ToList();
             if (!cardsList.Any())
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var randomMinions = new List<IPlayable>();
@@ -76,7 +76,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             Playables = randomMinions;
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

@@ -21,27 +21,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public List<int> ScriptTags { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             
             var minion = Source as Minion;
             if (minion != null && ScriptTags == null)
             {
-                Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, LightWeightOrderedSet<Card>.Build(minion.Card.Entourage.Select(Cards.FromId)), null);
-                return TaskState.COMPLETE;
+                Generic.CreateChoiceCards.Invoke(Controller, Source, null, EChoiceType.GENERAL, EChoiceAction.KAZAKUS, LightWeightOrderedSet<Card>.Build(minion.Card.Entourage.Select(Cards.FromId)), null);
+                return ETaskState.COMPLETE;
 
             }
 
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "PotionGenerating", $"Current scripttags = {string.Join(",", ScriptTags)}");
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "PotionGenerating", $"Current scripttags = {string.Join(",", ScriptTags)}");
 
             if (ScriptTags.Count < 3)
             {
 
 				int cost = KazakusPotionSpells.First(p => 
-                    p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Cost;
+                    p[EGameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Cost;
                 var cardIdList = KazakusPotionSpells.Where(p => 
-                    p[GameTag.TAG_SCRIPT_DATA_NUM_1] < 1000 && p.Cost == cost &&
-                    (ScriptTags.Count != 2 || p[GameTag.TAG_SCRIPT_DATA_NUM_1] != ScriptTags[1])).ToList();
+                    p[EGameTag.TAG_SCRIPT_DATA_NUM_1] < 1000 && p.Cost == cost &&
+                    (ScriptTags.Count != 2 || p[EGameTag.TAG_SCRIPT_DATA_NUM_1] != ScriptTags[1])).ToList();
 
                 var cardList = new OrderedHashSet<Card>();
                 while (cardList.Count() < 3)
@@ -51,14 +51,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     cardIdList.Remove(card);
                 }
 
-                Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList, null);
-                return TaskState.COMPLETE;
+                Generic.CreateChoiceCards.Invoke(Controller, Source, null, EChoiceType.GENERAL, EChoiceAction.KAZAKUS, cardList, null);
+                return ETaskState.COMPLETE;
             }
 
             // create card ...
-            var baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
-            var spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
-            var spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
+            var baseCard = KazakusPotionSpells.First(p => p[EGameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
+            var spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[EGameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
+            var spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[EGameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
             baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
             baseCard.Enchantments = new List<Enchantment>();
             baseCard.Enchantments.AddRange(spell1.Enchantments);
@@ -74,7 +74,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     baseCard.PlayRequirements.Add(p.Key, p.Value);
             });
 
-            var task = new AddCardTo(baseCard, EntityType.HAND)
+            var task = new AddCardTo(baseCard, EEntityType.HAND)
             {
                 Game = Controller.Game,
                 Controller = Controller,
@@ -86,10 +86,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             // remove tag script from used kazakus entities
             foreach (var playables in Controller.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621")))
             {
-                playables[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+                playables[EGameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         private static ISet<Card> GetKazakusPotionSpells()
@@ -106,7 +106,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             return new OrderedHashSet<Card>(enumerable);
         }
 
-        private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
+        private void ProcessSplit(List<Card>[] cardsToDiscover, EChoiceAction choiceAction)
         {
  
         }

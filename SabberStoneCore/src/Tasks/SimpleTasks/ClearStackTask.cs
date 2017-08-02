@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ClearStackTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Playables = new List<IPlayable>();
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

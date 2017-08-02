@@ -5,10 +5,10 @@ namespace SabberStoneCore.Model
 {
     public partial class Minion : Character<Minion>
     {
-        public Minion(Controller controller, Card card, Dictionary<GameTag, int> tags)
+        public Minion(Controller controller, Card card, Dictionary<EGameTag, int> tags)
             : base(controller, card, tags)
         {
-            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
+            Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
         }
 
         public override bool CanAttack => AttackDamage > 0 && ChargeBuffed() && base.CanAttack;
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Model
 
             IsSilenced = true;
 
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "Minion", $"{this} got silenced!");
         }
     }
 
@@ -45,50 +45,50 @@ namespace SabberStoneCore.Model
     {
         public bool HasCharge
         {
-            get { return this[GameTag.CHARGE] == 1; }
-            set { this[GameTag.CHARGE] = value ? 1 : 0; }
+            get { return this[EGameTag.CHARGE] == 1; }
+            set { this[EGameTag.CHARGE] = value ? 1 : 0; }
         }
 
         public bool HasDivineShield
         {
-            get { return this[GameTag.DIVINE_SHIELD] == 1; }
-            set { this[GameTag.DIVINE_SHIELD] = value ? 1 : 0; }
+            get { return this[EGameTag.DIVINE_SHIELD] == 1; }
+            set { this[EGameTag.DIVINE_SHIELD] = value ? 1 : 0; }
         }
 
         public bool HasBattleCry
         {
-            get { return this[GameTag.BATTLECRY] != 0; }
-            set { this[GameTag.BATTLECRY] = value ? 1 : 0; }
+            get { return this[EGameTag.BATTLECRY] != 0; }
+            set { this[EGameTag.BATTLECRY] = value ? 1 : 0; }
         }
 
         public bool HasInspire
         {
-            get { return this[GameTag.INSPIRE] == 1; }
-            set { this[GameTag.INSPIRE] = value ? 1 : 0; }
+            get { return this[EGameTag.INSPIRE] == 1; }
+            set { this[EGameTag.INSPIRE] = value ? 1 : 0; }
         }
 
         public bool HasStealth
         {
-            get { return this[GameTag.STEALTH] == 1; }
-            set { this[GameTag.STEALTH] = value ? 1 : 0; }
+            get { return this[EGameTag.STEALTH] == 1; }
+            set { this[EGameTag.STEALTH] = value ? 1 : 0; }
         }
 
         public bool IsEnraged
         {
-            get { return this[GameTag.ENRAGED] == 1; }
-            set { this[GameTag.ENRAGED] = value ? 1 : 0; }
+            get { return this[EGameTag.ENRAGED] == 1; }
+            set { this[EGameTag.ENRAGED] = value ? 1 : 0; }
         }
 
         public bool Freeze
         {
-            get { return this[GameTag.FREEZE] == 1; }
-            set { this[GameTag.FREEZE] = value ? 1 : 0; }
+            get { return this[EGameTag.FREEZE] == 1; }
+            set { this[EGameTag.FREEZE] = value ? 1 : 0; }
         }
 
         public bool Poisonous
         {
-            get { return this[GameTag.POISONOUS] == 1; }
-            set { this[GameTag.POISONOUS] = value ? 1 : 0; }
+            get { return this[EGameTag.POISONOUS] == 1; }
+            set { this[EGameTag.POISONOUS] = value ? 1 : 0; }
         }
     }
 }

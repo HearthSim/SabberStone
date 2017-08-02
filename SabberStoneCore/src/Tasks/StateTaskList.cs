@@ -5,14 +5,11 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks
 {
-    public enum TaskState
-    {
-        READY, RUNNING, COMPLETE, STOP
-    }
+    
 
     public class StateTaskList<T> : List<T>, ISimpleTask where T : ISimpleTask
     {
-        public TaskState State { get; set; } = TaskState.READY;
+        public ETaskState State { get; set; } = ETaskState.READY;
 
         private int _position = 0;
         //public ISimpleTask CurrentTask => this[_position].CurrentTask;
@@ -79,20 +76,20 @@ namespace SabberStoneCore.Tasks
             get { return Game.TaskStack.Numbers[4]; }
             set { Game.TaskStack.Numbers[4] = value; }
         }
-        public TaskState Process()
+        public ETaskState Process()
         {
             // at the start move over initial parameters ...
-            if (State == TaskState.READY)
+            if (State == ETaskState.READY)
             {
                 Playables = Playables ?? new List<IPlayable>();
                 CardIds = CardIds ?? new List<string>();
             }
 
-            State = TaskState.RUNNING;
-            for (_position = 0; _position < Count && State == TaskState.RUNNING; _position++)
+            State = ETaskState.RUNNING;
+            for (_position = 0; _position < Count && State == ETaskState.RUNNING; _position++)
             {
                 ISimpleTask task = this[_position];
-                if (task.State == TaskState.COMPLETE)
+                if (task.State == ETaskState.COMPLETE)
                     continue;
 
                 task.Game = Game;
@@ -104,7 +101,7 @@ namespace SabberStoneCore.Tasks
                 //task.Number = Number;
 
                 // execution
-                if (task.Process() != TaskState.COMPLETE)
+                if (task.Process() != ETaskState.COMPLETE)
                     break;
 
                 // move over in queue
@@ -117,7 +114,7 @@ namespace SabberStoneCore.Tasks
                 //Number = task.Number;
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public ISimpleTask Clone()
@@ -130,7 +127,7 @@ namespace SabberStoneCore.Tasks
 
         public void ResetState()
         {
-            State = TaskState.READY;
+            State = ETaskState.READY;
         }
 
         public static StateTaskList<ISimpleTask> Chain(params ISimpleTask[] list)

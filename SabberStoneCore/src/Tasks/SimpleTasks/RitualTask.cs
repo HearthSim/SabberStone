@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool Taunt { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             //[irc] Patashu @darkfriend77 yeah, that's the general idea. 
             // there's two kinds of triggers, one when a c'thun is summoned or 
@@ -32,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (!Controller.SeenCthun)
             {
                 var proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
-                proxyCthun[GameTag.REVEALED] = 1;
+                proxyCthun[EGameTag.REVEALED] = 1;
                 Controller.Setaside.Add(proxyCthun);
                 Controller.ProxyCthun = proxyCthun.Id;
                 Controller.SeenCthun = true;
@@ -50,10 +50,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             if (Taunt)
             {
-                entities.ForEach(p => p[GameTag.TAUNT] = 1);
+                entities.ForEach(p => p[EGameTag.TAUNT] = 1);
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

@@ -13,8 +13,8 @@ namespace SabberStoneCore.Enchants
         public static Trigger Inspire(ISimpleTask task)
         {
             return new TriggerBuilder().Create()
-                .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                .TriggerEffect(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, 1)
+                .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                .TriggerEffect(EGameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, 1)
                 .SingleTask(task)
                 .Build();
         }
@@ -22,10 +22,10 @@ namespace SabberStoneCore.Enchants
         public static Trigger FriendlySpellTargetingMe(ISimpleTask task)
         {
             return new TriggerBuilder().Create()
-                .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
                 .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe, RelaCondition.IsFriendly)
                 .FastExecution(true)
-                .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                .TriggerEffect(EGameTag.JUST_PLAYED, 1)
                 .SingleTask(task)
                 .Build();
         }
@@ -34,7 +34,7 @@ namespace SabberStoneCore.Enchants
         {
             var taskList = new List<ISimpleTask>
             {
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(p =>
                 {
                     var result = new List<IPlayable>();
@@ -50,8 +50,8 @@ namespace SabberStoneCore.Enchants
             taskList.AddRange(list);
 
             return new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.ATTACKING, -1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.ATTACKING, -1)
                         .SingleTask(StateTaskList<ISimpleTask>.Chain(taskList.ToArray()))
                         .Build();
         }

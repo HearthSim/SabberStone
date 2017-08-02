@@ -22,8 +22,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int TimeOut
 		{
-			get { return this[GameTag.TIMEOUT]; }
-			set { this[GameTag.TIMEOUT] = value; }
+			get { return this[EGameTag.TIMEOUT]; }
+			set { this[EGameTag.TIMEOUT] = value; }
 		}
 
 		/// <summary>
@@ -32,8 +32,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int PlayerId
 		{
-			get { return this[GameTag.PLAYER_ID]; }
-			set { this[GameTag.PLAYER_ID] = value; }
+			get { return this[EGameTag.PLAYER_ID]; }
+			set { this[EGameTag.PLAYER_ID] = value; }
 		}
 
 		/// <summary>
@@ -41,27 +41,27 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int HeroId
 		{
-			get { return this[GameTag.HERO_ENTITY]; }
-			set { this[GameTag.HERO_ENTITY] = value; }
+			get { return this[EGameTag.HERO_ENTITY]; }
+			set { this[EGameTag.HERO_ENTITY] = value; }
 		}
 
 		/// <summary>
 		/// Context in which the controller is performing.
 		/// </summary>
-		public PlayState PlayState
+		public EPlayState PlayState
 		{
-			get { return (PlayState)this[GameTag.PLAYSTATE]; }
-			set { this[GameTag.PLAYSTATE] = (int)value; }
+			get { return (EPlayState)this[EGameTag.PLAYSTATE]; }
+			set { this[EGameTag.PLAYSTATE] = (int)value; }
 		}
 
 		/// <summary>
 		/// Progress this player is making during Mulligan Phase.
-		/// <see cref="Mulligan"/>
+		/// <see cref="EMulligan"/>
 		/// </summary>
-		public Mulligan MulliganState
+		public EMulligan MulliganState
 		{
-			get { return (Mulligan)this[GameTag.MULLIGAN_STATE]; }
-			set { this[GameTag.MULLIGAN_STATE] = (int)value; }
+			get { return (EMulligan)this[EGameTag.MULLIGAN_STATE]; }
+			set { this[EGameTag.MULLIGAN_STATE] = (int)value; }
 		}
 
 		/// <summary>
@@ -72,8 +72,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int BaseMana
 		{
-			get { return this[GameTag.RESOURCES]; }
-			set { this[GameTag.RESOURCES] = value; }
+			get { return this[EGameTag.RESOURCES]; }
+			set { this[EGameTag.RESOURCES] = value; }
 		}
 
 		/// <summary>
@@ -83,8 +83,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int UsedMana
 		{
-			get { return this[GameTag.RESOURCES_USED]; }
-			set { this[GameTag.RESOURCES_USED] = value; }
+			get { return this[EGameTag.RESOURCES_USED]; }
+			set { this[EGameTag.RESOURCES_USED] = value; }
 		}
 
 		/// <summary>
@@ -92,8 +92,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int TemporaryMana
 		{
-			get { return this[GameTag.TEMP_RESOURCES]; }
-			set { this[GameTag.TEMP_RESOURCES] = value; }
+			get { return this[EGameTag.TEMP_RESOURCES]; }
+			set { this[EGameTag.TEMP_RESOURCES] = value; }
 		}
 
 		/// <summary>
@@ -103,118 +103,118 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool IsComboActive
 		{
-			get { return this[GameTag.COMBO_ACTIVE] == 1; }
-			set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
+			get { return this[EGameTag.COMBO_ACTIVE] == 1; }
+			set { this[EGameTag.COMBO_ACTIVE] = value ? 1 : 0; }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public int NumCardsDrawnThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_DRAWN_THIS_TURN]; }
-			set { this[GameTag.NUM_CARDS_DRAWN_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_CARDS_DRAWN_THIS_TURN]; }
+			set { this[EGameTag.NUM_CARDS_DRAWN_THIS_TURN] = value; }
 		}
 
 		public int NumAttacksThisTurn
 		{
-			get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
-			set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_ATTACKS_THIS_TURN]; }
+			set { this[EGameTag.NUM_ATTACKS_THIS_TURN] = value; }
 		}
 
 		public int NumCardsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_PLAYED_THIS_TURN]; }
-			set { this[GameTag.NUM_CARDS_PLAYED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_CARDS_PLAYED_THIS_TURN]; }
+			set { this[EGameTag.NUM_CARDS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumMinionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN]; }
-			set { this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_MINIONS_PLAYED_THIS_TURN]; }
+			set { this[EGameTag.NUM_MINIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN]; }
-			set { this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN]; }
+			set { this[EGameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedLastTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN]; }
-			set { this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN] = value; }
+			get { return this[EGameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN]; }
+			set { this[EGameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN] = value; }
 		}
 
 		public int NumOptionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN]; }
-			set { this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_OPTIONS_PLAYED_THIS_TURN]; }
+			set { this[EGameTag.NUM_OPTIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatAttackedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN]; }
-			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN]; }
+			set { this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatDiedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN]; }
-			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN]; }
+			set { this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatDiedThisGame
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME]; }
-			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME]; }
+			set { this[EGameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME] = value; }
 		}
 
 		public int NumMinionsPlayerKilledThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN]; }
-			set { this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN] = value; }
+			get { return this[EGameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN]; }
+			set { this[EGameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN] = value; }
 		}
 
 		public int TotalManaSpentThisGame
 		{
-			get { return this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME]; }
-			set { this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_RESOURCES_SPENT_THIS_GAME]; }
+			set { this[EGameTag.NUM_RESOURCES_SPENT_THIS_GAME] = value; }
 		}
 
 		public int HeroPowerActivationsThisTurn
 		{
-			get { return this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN]; }
-			set { this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN] = value; }
+			get { return this[EGameTag.HEROPOWER_ACTIVATIONS_THIS_TURN]; }
+			set { this[EGameTag.HEROPOWER_ACTIVATIONS_THIS_TURN] = value; }
 		}
 
 		public int NumTimesHeroPowerUsedThisGame
 		{
-			get { return this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME]; }
-			set { this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME]; }
+			set { this[EGameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME] = value; }
 		}
 
 		public int NumSecretsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME]; }
-			set { this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_SECRETS_PLAYED_THIS_GAME]; }
+			set { this[EGameTag.NUM_SECRETS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumSpellsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME]; }
-			set { this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_SPELLS_PLAYED_THIS_GAME]; }
+			set { this[EGameTag.NUM_SPELLS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumWeaponsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME]; }
-			set { this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_WEAPONS_PLAYED_THIS_GAME]; }
+			set { this[EGameTag.NUM_WEAPONS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumMurlocsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME]; }
-			set { this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
+			get { return this[EGameTag.NUM_MURLOCS_PLAYED_THIS_GAME]; }
+			set { this[EGameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -227,8 +227,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int NumTurnsLeft
 		{
-			get { return this[GameTag.NUM_TURNS_LEFT]; }
-			set { this[GameTag.NUM_TURNS_LEFT] = value; }
+			get { return this[EGameTag.NUM_TURNS_LEFT]; }
+			set { this[EGameTag.NUM_TURNS_LEFT] = value; }
 		}
 
 		/// <summary>
@@ -236,8 +236,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int OverloadOwed
 		{
-			get { return this[GameTag.OVERLOAD_OWED]; }
-			set { this[GameTag.OVERLOAD_OWED] = value; }
+			get { return this[EGameTag.OVERLOAD_OWED]; }
+			set { this[EGameTag.OVERLOAD_OWED] = value; }
 		}
 
 		/// <summary>
@@ -248,8 +248,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int OverloadLocked
 		{
-			get { return this[GameTag.OVERLOAD_LOCKED]; }
-			set { this[GameTag.OVERLOAD_LOCKED] = value; }
+			get { return this[EGameTag.OVERLOAD_LOCKED]; }
+			set { this[EGameTag.OVERLOAD_LOCKED] = value; }
 		}
 
 		/// <summary>
@@ -257,34 +257,34 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int OverloadThisGame
 		{
-			get { return this[GameTag.OVERLOAD_THIS_GAME]; }
-			set { this[GameTag.OVERLOAD_THIS_GAME] = value; }
+			get { return this[EGameTag.OVERLOAD_THIS_GAME]; }
+			set { this[EGameTag.OVERLOAD_THIS_GAME] = value; }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public int LastCardPlayed
 		{
-			get { return this[GameTag.LAST_CARD_PLAYED]; }
-			set { this[GameTag.LAST_CARD_PLAYED] = value; }
+			get { return this[EGameTag.LAST_CARD_PLAYED]; }
+			set { this[EGameTag.LAST_CARD_PLAYED] = value; }
 		}
 
 		public int LastCardDrawn
 		{
-			get { return this[GameTag.LAST_CARD_DRAWN]; }
-			set { this[GameTag.LAST_CARD_DRAWN] = value; }
+			get { return this[EGameTag.LAST_CARD_DRAWN]; }
+			set { this[EGameTag.LAST_CARD_DRAWN] = value; }
 		}
 
 		public int LastCardDiscarded
 		{
-			get { return this[GameTag.LAST_CARD_DISCARDED]; }
-			set { this[GameTag.LAST_CARD_DISCARDED] = value; }
+			get { return this[EGameTag.LAST_CARD_DISCARDED]; }
+			set { this[EGameTag.LAST_CARD_DISCARDED] = value; }
 		}
 
 		public bool SeenCthun
 		{
-			get { return this[GameTag.SEEN_CTHUN] == 1; }
-			set { this[GameTag.SEEN_CTHUN] = value ? 1 : 0; }
+			get { return this[EGameTag.SEEN_CTHUN] == 1; }
+			set { this[EGameTag.SEEN_CTHUN] = value ? 1 : 0; }
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -295,8 +295,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public int ProxyCthun
 		{
-			get { return this[GameTag.PROXY_CTHUN]; }
-			set { this[GameTag.PROXY_CTHUN] = value; }
+			get { return this[EGameTag.PROXY_CTHUN]; }
+			set { this[EGameTag.PROXY_CTHUN] = value; }
 		}
 
 		/// <summary>
@@ -305,8 +305,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool ExtraBattlecry
 		{
-			get { return this[GameTag.EXTRA_BATTLECRY] == 1; }
-			set { this[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
+			get { return this[EGameTag.EXTRA_BATTLECRY] == 1; }
+			set { this[EGameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
 		}
 
 		/// <summary>
@@ -316,8 +316,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool ChooseBoth
 		{
-			get { return this[GameTag.CHOOSE_BOTH] == 1; }
-			set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
+			get { return this[EGameTag.CHOOSE_BOTH] == 1; }
+			set { this[EGameTag.CHOOSE_BOTH] = value ? 1 : 0; }
 		}
 
 		#endregion
@@ -338,31 +338,31 @@ namespace SabberStoneCore.Model
 		/// The deck of this player.
 		/// This zone contains cards which are not yet drawn. Can be empty.
 		/// </summary>
-		public Deck Deck => Zones[SabberStoneCore.Enums.Zone.DECK] as Deck;
+		public Deck Deck => Zones[SabberStoneCore.Enums.EZone.DECK] as Deck;
 
 		/// <summary>
 		/// The hand of this player.
 		/// This zone contains cards which were drawn from deck or generated 
 		/// during the game. Can be empty.
 		/// </summary>
-		public Hand Hand => Zones[SabberStoneCore.Enums.Zone.HAND] as Hand;
+		public Hand Hand => Zones[SabberStoneCore.Enums.EZone.HAND] as Hand;
 
 		/// <summary>
 		/// The minions friendly to this player.
 		/// This zone contains all minion entities generated by cards from the hand.
 		/// Can be empty.
 		/// </summary>
-		public Zone<Minion> Board => Zones[SabberStoneCore.Enums.Zone.PLAY] as Zone<Minion>;
+		public Zone<Minion> Board => Zones[SabberStoneCore.Enums.EZone.PLAY] as Zone<Minion>;
 
 		/// <summary>
 		/// The zone containing all entities which were once in play, but now destroyed. Can be empty.
 		/// </summary>
-		public Zone<IPlayable> Graveyard => Zones[SabberStoneCore.Enums.Zone.GRAVEYARD] as Zone<IPlayable>;
+		public Zone<IPlayable> Graveyard => Zones[SabberStoneCore.Enums.EZone.GRAVEYARD] as Zone<IPlayable>;
 
 		/// <summary>
 		/// The zone containing all played secrets by this player. Can be empty.
 		/// </summary>
-		public Zone<Spell> Secrets => Zones[SabberStoneCore.Enums.Zone.SECRET] as Zone<Spell>;
+		public Zone<Spell> Secrets => Zones[SabberStoneCore.Enums.EZone.SECRET] as Zone<Spell>;
 
 		/// <summary>
 		/// The zone containing all entities that need to be chosen by the player.
@@ -371,7 +371,7 @@ namespace SabberStoneCore.Model
 		/// 
 		/// Unpicked entities will remain in the setaside zone.
 		/// </summary>
-		public Zone<IPlayable> Setaside => Zones[SabberStoneCore.Enums.Zone.SETASIDE] as Zone<IPlayable>;
+		public Zone<IPlayable> Setaside => Zones[SabberStoneCore.Enums.EZone.SETASIDE] as Zone<IPlayable>;
 
 		/// <summary>
 		/// The hero entity representing this player.
@@ -383,17 +383,17 @@ namespace SabberStoneCore.Model
 		/// Only neutral cards and cards specific to this class are allowed in the starting deck
 		/// of the player.
 		/// </summary>
-		public CardClass HeroClass => Hero.Card.Class;
+		public ECardClass HeroClass => Hero.Card.Class;
 
 		/// <summary>
 		/// Maximum amount of cards in the player's hand
 		/// </summary>
-		public int MaxHandSize => this[GameTag.MAXHANDSIZE];
+		public int MaxHandSize => this[EGameTag.MAXHANDSIZE];
 
 		/// <summary>
 		/// Maximum amount of mana this player is allowed to spend.
 		/// </summary>
-		public int MaxResources => this[GameTag.MAXRESOURCES];
+		public int MaxResources => this[EGameTag.MAXRESOURCES];
 
 		/// <summary>
 		/// All standard cards which can be put into a deck of this class.
@@ -413,7 +413,7 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Returns true if this player has a dragon in his hand.
 		/// </summary>
-		public bool DragonInHand => Hand.GetAll.Exists(p => p.Card.Race == Race.DRAGON);
+		public bool DragonInHand => Hand.GetAll.Exists(p => p.Card.Race == ERace.DRAGON);
 
 		/// <summary>
 		/// The last choice set proposed to this player.
@@ -438,24 +438,24 @@ namespace SabberStoneCore.Model
 		/// <param name="id">Entity ID of this controller.</param>
 		public Controller(Game game, string name, int playerId, int id)
 			: base(game, Card.CardPlayer,
-			new Dictionary<GameTag, int>
+			new Dictionary<EGameTag, int>
 			{
 				//[GameTag.HERO_ENTITY] = heroId,
-				[GameTag.MAXHANDSIZE] = 10,
-				[GameTag.STARTHANDSIZE] = 4,
-				[GameTag.PLAYER_ID] = playerId,
-				[GameTag.TEAM_ID] = playerId,
-				[GameTag.ZONE] = (int)Enums.Zone.PLAY,
-				[GameTag.CONTROLLER] = playerId,
-				[GameTag.ENTITY_ID] = id,
-				[GameTag.MAXRESOURCES] = 10,
-				[GameTag.CARDTYPE] = (int)CardType.PLAYER
+				[EGameTag.MAXHANDSIZE] = 10,
+				[EGameTag.STARTHANDSIZE] = 4,
+				[EGameTag.PLAYER_ID] = playerId,
+				[EGameTag.TEAM_ID] = playerId,
+				[EGameTag.ZONE] = (int)Enums.EZone.PLAY,
+				[EGameTag.CONTROLLER] = playerId,
+				[EGameTag.ENTITY_ID] = id,
+				[EGameTag.MAXRESOURCES] = 10,
+				[EGameTag.CARDTYPE] = (int)ECardType.PLAYER
 
 			})
 		{
 			Name = name;
 			Zones = new Zones(game, this);
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", $"Created Controller '{name}'");
+			Game.Log(ELogLevel.INFO, EBlockType.PLAY, "Controller", $"Created Controller '{name}'");
 		}
 
 		/// <summary>
@@ -467,8 +467,8 @@ namespace SabberStoneCore.Model
 		{
 			Hero = FromCard(this, heroCard) as Hero;
 			HeroId = Hero.Id;
-			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
-				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[EGameTag.HERO_POWER]),
+				new Dictionary<EGameTag, int> { [EGameTag.CREATOR] = Hero.Id }) as HeroPower;
 		}
 
 		/// <summary>
@@ -502,7 +502,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="ignore">All GameTags which have to be ignored during hash generation.</param>
 		/// <returns>The unique hash string.</returns>
-		public override string Hash(params GameTag[] ignore)
+		public override string Hash(params EGameTag[] ignore)
 		{
 			var str = new StringBuilder();
 			str.Append("][C:");
@@ -534,14 +534,14 @@ namespace SabberStoneCore.Model
 			{
 				switch (Choice.ChoiceType)
 				{
-					case ChoiceType.GENERAL:
+					case EChoiceType.GENERAL:
 						foreach (int choice in Choice.Choices)
 						{
 							result.Add(ChooseTask.Pick(this, choice));
 						}
 						return result;
 
-					case ChoiceType.MULLIGAN:
+					case EChoiceType.MULLIGAN:
 						IEnumerable<IReadOnlyOrderedSet<int>> choices = Util.GetPowerSet(Choice.Choices);
 						foreach (IReadOnlyOrderedSet<int> choice in choices)
 						{
@@ -555,7 +555,7 @@ namespace SabberStoneCore.Model
 			}
 
 			// no options till mulligan is done for both players
-			if (Game.Step != Step.MAIN_ACTION)
+			if (Game.Step != EStep.MAIN_ACTION)
 				return result;
 
 			// add end turn task ...

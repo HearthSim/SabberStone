@@ -1,21 +1,22 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DiscardTask : SimpleTask
     {
-        public DiscardTask(EntityType entityType)
+        public DiscardTask(EEntityType entityType)
         {
             Type = entityType;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-    public override TaskState Process()
+    public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             entities.ForEach(p => Generic.DiscardBlock.Invoke(Controller, p));
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

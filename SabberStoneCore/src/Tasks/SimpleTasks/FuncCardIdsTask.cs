@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -13,10 +14,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Func<List<string>, List<string>> Function { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             CardIds = Function(CardIds);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

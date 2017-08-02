@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
@@ -11,15 +12,15 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         private EndTurnTask(Controller controller)
         {
-            PlayerTaskType = PlayerTaskType.END_TURN;
+            PlayerTaskType = EPlayerTaskType.END_TURN;
             Game = controller.Game;
             Controller = controller;
         }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Controller.Game.MainEnd();
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override string FullPrint()

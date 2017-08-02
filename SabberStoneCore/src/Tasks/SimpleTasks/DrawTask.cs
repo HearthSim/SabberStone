@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -12,13 +13,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool ToStack { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var drawedCard = Generic.Draw(Controller);
 
             if (drawedCard == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             if (ToStack)
@@ -26,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Playables.Add(drawedCard);
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

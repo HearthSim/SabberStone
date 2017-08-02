@@ -17,8 +17,8 @@ namespace SabberStoneCoreTest.Cloning
             var rnd = new Random();
             var classes = new[]
             {
-                CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST,
-                CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
+                ECardClass.DRUID, ECardClass.HUNTER, ECardClass.MAGE, ECardClass.PALADIN, ECardClass.PRIEST,
+                ECardClass.ROGUE, ECardClass.SHAMAN, ECardClass.WARLOCK, ECardClass.WARRIOR
             };
             var flag = true;
             for (var i = 0; i < 10 && flag; i++)
@@ -32,7 +32,7 @@ namespace SabberStoneCoreTest.Cloning
                 });
                 game.StartGame();
 
-                while (game.State != State.COMPLETE)
+                while (game.State != EState.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     var option = options[rnd.Next(options.Count)];
@@ -56,8 +56,8 @@ namespace SabberStoneCoreTest.Cloning
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.SHAMAN,
+                Player1HeroClass = ECardClass.SHAMAN,
+                Player2HeroClass = ECardClass.SHAMAN,
                 FillDecks = true
             });
             game.Player1.BaseMana = 10;
@@ -82,7 +82,7 @@ namespace SabberStoneCoreTest.Cloning
             clone.Process(PlayCardTask.SpellTarget(clone.CurrentPlayer, cSpell2, clone.CurrentOpponent.Hero));
             clone.Process(PlayCardTask.SpellTarget(clone.CurrentPlayer, cSpell1, clone.CurrentOpponent.Hero));
 
-            var ignored = new GameTag[] { GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
+            var ignored = new EGameTag[] { EGameTag.LAST_CARD_PLAYED, EGameTag.ENTITY_ID};
 
             Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
         }
@@ -93,8 +93,8 @@ namespace SabberStoneCoreTest.Cloning
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.SHAMAN,
+                Player1HeroClass = ECardClass.SHAMAN,
+                Player2HeroClass = ECardClass.SHAMAN,
                 FillDecks = true
             });
             game.Player1.BaseMana = 10;

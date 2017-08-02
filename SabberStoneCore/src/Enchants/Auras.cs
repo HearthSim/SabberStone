@@ -12,10 +12,10 @@ namespace SabberStoneCore.Enchants
     internal class Auras
     {
 
-        public static Enchant SimpleInclSelf(GameTag tag, int amount, params RelaCondition[] list)
+        public static Enchant SimpleInclSelf(EGameTag tag, int amount, params RelaCondition[] list)
         {
             // health is only allowed with the HealthRetentionTask
-            if (tag == GameTag.HEALTH)
+            if (tag == EGameTag.HEALTH)
             {
                 throw new NotSupportedException();
             }
@@ -24,10 +24,10 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
                     [tag] = amount
                 }
@@ -36,10 +36,10 @@ namespace SabberStoneCore.Enchants
             return result;
         }
 
-        public static Enchant SimpleInclSelf(Dictionary<GameTag, int> effects, params RelaCondition[] list)
+        public static Enchant SimpleInclSelf(Dictionary<EGameTag, int> effects, params RelaCondition[] list)
         {
             // health is only allowed with the HealthRetentionTask
-            if (effects.Keys.Contains(GameTag.HEALTH))
+            if (effects.Keys.Contains(EGameTag.HEALTH))
             {
                 throw new NotSupportedException();
             }
@@ -48,7 +48,7 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 Effects = effects
@@ -63,16 +63,16 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = new List<RelaCondition>
                 {
                     RelaCondition.IsNotSelf
                 },
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
-                    [GameTag.ATK] = amount
+                    [EGameTag.ATK] = amount
                 }
             };
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));
@@ -90,19 +90,19 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
-                    [GameTag.HEALTH] = amount
+                    [EGameTag.HEALTH] = amount
                 },
                 // Health Retention task ... 
                 RemovalTask = ComplexTask.Create(
-                    new IncludeTask(EntityType.MINIONS, new [] { EntityType.SOURCE}),
-                    new FilterStackTask(EntityType.SOURCE, relaConditions.ToArray()),
-                    new HealthRetentionTask(amount, EntityType.STACK))
+                    new IncludeTask(EEntityType.MINIONS, new [] { EEntityType.SOURCE}),
+                    new FilterStackTask(EEntityType.SOURCE, relaConditions.ToArray()),
+                    new HealthRetentionTask(amount, EEntityType.STACK))
             };
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));
             return result;
@@ -120,20 +120,20 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
-                    [GameTag.ATK] = atk,
-                    [GameTag.HEALTH] = health,
+                    [EGameTag.ATK] = atk,
+                    [EGameTag.HEALTH] = health,
                 },
                 // Health Retention task ... 
                 RemovalTask = ComplexTask.Create(
-                    new IncludeTask(EntityType.MINIONS, new[] { EntityType.SOURCE }),
-                    new FilterStackTask(EntityType.SOURCE, relaConditions.ToArray()),
-                    new HealthRetentionTask(health, EntityType.STACK))
+                    new IncludeTask(EEntityType.MINIONS, new[] { EEntityType.SOURCE }),
+                    new FilterStackTask(EEntityType.SOURCE, relaConditions.ToArray()),
+                    new HealthRetentionTask(health, EEntityType.STACK))
             };
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));
             return result;
@@ -145,12 +145,12 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.SPELLPOWER] = amount
+                    [EGameTag.SPELLPOWER] = amount
                 }
             };
         }
@@ -161,12 +161,12 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.HEROPOWER_DAMAGE] = amount
+                    [EGameTag.HEROPOWER_DAMAGE] = amount
                 }
             };
         }
@@ -179,13 +179,13 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.COST] = amount
+                    [EGameTag.COST] = amount
                 }
             };
         }
@@ -201,13 +201,13 @@ namespace SabberStoneCore.Enchants
                 TurnsActive = 1,
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.PLAY),
+                    SelfCondition.IsInZone(EZone.PLAY),
                     SelfCondition.IsNotSilenced
                 },
                 ApplyConditions = relaConditions,
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.COST] = amount
+                    [EGameTag.COST] = amount
                 }
             };
         }
@@ -220,11 +220,11 @@ namespace SabberStoneCore.Enchants
             {
                 EnableConditions = new List<SelfCondition>
                 {
-                    SelfCondition.IsInZone(Zone.HAND)
+                    SelfCondition.IsInZone(EZone.HAND)
                 },
-                Effects = new Dictionary<GameTag, int>
+                Effects = new Dictionary<EGameTag, int>
                 {
-                    [GameTag.COST] = 0
+                    [EGameTag.COST] = 0
                 },
                 ApplyConditions = relaConditions,
                 ValueFunc = function
@@ -239,9 +239,9 @@ namespace SabberStoneCore.Enchants
                 {
                     SelfCondition.IsThisWeaponEquiped
                 },
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
-                    [GameTag.ATK] = amount
+                    [EGameTag.ATK] = amount
                 }
             };
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));
@@ -256,9 +256,9 @@ namespace SabberStoneCore.Enchants
                 {
                     SelfCondition.IsThisWeaponEquiped
                 },
-                Effects = new Dictionary<GameTag, int>()
+                Effects = new Dictionary<EGameTag, int>()
                 {
-                    [GameTag.IMMUNE] = 1
+                    [EGameTag.IMMUNE] = 1
                 }
             };
             list.ToList().ForEach(p => result.ApplyConditions.Add(p));

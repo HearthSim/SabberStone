@@ -5,24 +5,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ControlTask : SimpleTask
     {
-        public ControlTask(EntityType type)
+        public ControlTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
             {
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
                 var removedEntity = p.Zone.Remove(p);
                 removedEntity.Controller = Controller;
                 Controller.Board.Add(removedEntity);
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

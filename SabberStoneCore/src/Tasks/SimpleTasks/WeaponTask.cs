@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -13,11 +14,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public string CardId { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (CardId == null && Playables.Count != 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var weapon = CardId != null ? 
@@ -26,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             Generic.PlayWeapon.Invoke(Controller, weapon);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

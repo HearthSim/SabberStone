@@ -21,7 +21,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_019] Poison Seeds && Test: Poison Seeds_FP1_019
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -59,10 +59,10 @@ namespace SabberStoneCore.CardSets
 			cards.Add("FP1_011", new List<Enchantment> {
                 new Enchantment
                 { 
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
-                        new AddStackTo(EntityType.HAND))
+                        new RandomMinionTask(EGameTag.CARDRACE, (int)ERace.BEAST),
+                        new AddStackTo(EEntityType.HAND))
                 }
             });
 		}
@@ -82,7 +82,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_018] Duplicate && Test: Duplicate_FP1_018
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -104,7 +104,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_020] Avenge && Test: Avenge_FP1_020
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -145,7 +145,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_023] Dark Cultist && Test: Dark Cultist_FP1_023
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -189,7 +189,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_026] Anub'ar Ambusher && Test: Anub'ar Ambusher_FP1_026
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -212,7 +212,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_025] Reincarnate && Test: Reincarnate_FP1_025
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -234,7 +234,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_022] Voidcaller && Test: Voidcaller_FP1_022
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -257,12 +257,12 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_021] Death's Bite && Test: Death's Bite_FP1_021
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -284,7 +284,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_001] Zombie Chow && Test: Zombie Chow_FP1_001
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -302,7 +302,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_002] Haunted Creeper && Test: Haunted Creeper_FP1_002
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -320,7 +320,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_003] Echoing Ooze && Test: Echoing Ooze_FP1_003
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -341,7 +341,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_004] Mad Scientist && Test: Mad Scientist_FP1_004
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -377,7 +377,7 @@ namespace SabberStoneCore.CardSets
 
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new SummonTask("FP1_007t"),
                 },
             });
@@ -415,7 +415,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_009] Deathlord && Test: Deathlord_FP1_009
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -454,7 +454,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_012] Sludge Belcher && Test: Sludge Belcher_FP1_012
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -491,7 +491,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_014] Stalagg && Test: Stalagg_FP1_014
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -510,7 +510,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_015] Feugen && Test: Feugen_FP1_015
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -531,7 +531,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_016] Wailing Soul && Test: Wailing Soul_FP1_016
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -571,7 +571,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_024] Unstable Ghoul && Test: Unstable Ghoul_FP1_024
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -622,7 +622,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_029] Dancing Swords && Test: Dancing Swords_FP1_029
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -641,7 +641,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_030] Loatheb && Test: Loatheb_FP1_030
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -746,7 +746,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_006] Deathcharger && Test: Deathcharger_FP1_006
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});

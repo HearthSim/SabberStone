@@ -1,25 +1,26 @@
 ﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class DrawCardTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Playables.Count != 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var drawedCard = Generic.Draw(Controller, Playables[0]);
 
             if (drawedCard == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

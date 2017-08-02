@@ -26,11 +26,11 @@ namespace SabberStoneCore.CardSets
             cards.Add("CS2_031", new List<Enchantment> {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
-                        ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
-                        ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
+                        new ConditionTask(EEntityType.TARGET, SelfCondition.IsFrozen),
+                        ComplexTask.True(new DamageTask(4, EEntityType.TARGET, true)),
+                        ComplexTask.False(ComplexTask.Freeze(EEntityType.TARGET)))
                 }
             });
         }
@@ -50,8 +50,8 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     InfoCardId = "EX1_128e",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffStealthTask(EntityType.MINIONS)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffStealthTask(EEntityType.MINIONS)
                 },
             });
         }
@@ -77,22 +77,22 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     InfoCardId = "EX1_316e",
-                    Area = EnchantmentArea.TARGET,
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
+                    Area = EEnchantmentArea.TARGET,
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(4), EEntityType.TARGET),
                     Enchant = new Enchant
                     {
                         TurnsActive = 0,
                         EnableConditions = new List<SelfCondition>
                         {
                             SelfCondition.IsNotSilenced,
-                            SelfCondition.IsInZone(Zone.PLAY)
+                            SelfCondition.IsInZone(EZone.PLAY)
                         },
-                        Effects = new Dictionary<GameTag, int>
+                        Effects = new Dictionary<EGameTag, int>
                         {
-                            [GameTag.NUM_TURNS_IN_PLAY] = 0
+                            [EGameTag.NUM_TURNS_IN_PLAY] = 0
                         },
-                        SingleTask = new DestroyTask(EntityType.TARGET)
+                        SingleTask = new DestroyTask(EEntityType.TARGET)
                     }
                 }
             });
@@ -119,10 +119,10 @@ namespace SabberStoneCore.CardSets
             cards.Add("EX1_016", new List<Enchantment> {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new RandomTask(1, EntityType.OP_MINIONS),
-                        new ControlTask(EntityType.STACK))
+                        new RandomTask(1, EEntityType.OP_MINIONS),
+                        new ControlTask(EEntityType.STACK))
                 }
             });
 
@@ -161,7 +161,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [EX1_112] Gelbin Mekkatorque && Test: Gelbin Mekkatorque_EX1_112
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -179,13 +179,13 @@ namespace SabberStoneCore.CardSets
             cards.Add("EX1_284", new List<Enchantment> {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HERO,
+                    Activation = EEnchantmentActivation.BOARD,
                     Enchant = Auras.SpellPowerDamage(1)
                 },
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new DrawTask()
                 }
             });
@@ -203,12 +203,12 @@ namespace SabberStoneCore.CardSets
             cards.Add("EX1_298", new List<Enchantment> {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, -1)
+                        .SingleTask(ComplexTask.DamageRandomTargets(1, EEntityType.ENEMIES, 8))
                         .Build()
                 }
             });
@@ -226,7 +226,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [NEW1_016] Captain's Parrot && Test: Captain's Parrot_NEW1_016
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -247,7 +247,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PRO_001] Elite Tauren Chieftain && Test: Elite Tauren Chieftain_PRO_001
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -392,7 +392,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PRO_001a] I Am Murloc && Test: I Am Murloc_PRO_001a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -410,7 +410,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PRO_001b] Rogues Do It... && Test: Rogues Do It..._PRO_001b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -430,7 +430,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PRO_001c] Power of the Horde && Test: Power of the Horde_PRO_001c
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});

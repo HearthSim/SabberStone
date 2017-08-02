@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -14,11 +15,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public ISimpleTask Task { get; set; }
         public bool SpellDmg { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Number < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var times = SpellDmg ? Number + Controller.Hero.SpellPowerDamage : Number;
@@ -42,7 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         Target = Target as IPlayable
                     });
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

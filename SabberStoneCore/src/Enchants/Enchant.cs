@@ -27,7 +27,7 @@ namespace SabberStoneCore.Enchants
 			set { _ownerId = value.Id; }
 		}
 
-		public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
+		public Dictionary<EGameTag, int> Effects { get; set; } = new Dictionary<EGameTag, int>();
 
 		public Func<IPlayable, int> FixedValueFunc;
 
@@ -37,9 +37,9 @@ namespace SabberStoneCore.Enchants
 
 		public int Turn { get; set; }
 
-		public List<GameTag> RemoveTriggerTags { get; set; } = new List<GameTag>();
+		public List<EGameTag> RemoveTriggerTags { get; set; } = new List<EGameTag>();
 
-		internal Dictionary<GameTag, int> RemoveTriggers { get; set; } = new Dictionary<GameTag, int>();
+		internal Dictionary<EGameTag, int> RemoveTriggers { get; set; } = new Dictionary<EGameTag, int>();
 
 		public ISimpleTask SingleTask { get; set; }
 
@@ -47,7 +47,7 @@ namespace SabberStoneCore.Enchants
 
 		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
-		public Enchant Copy(string sourceId, Game game, int turn, IList<Enchant> parent, IPlayable owner, Dictionary<GameTag, int> removeTriggers)
+		public Enchant Copy(string sourceId, Game game, int turn, IList<Enchant> parent, IPlayable owner, Dictionary<EGameTag, int> removeTriggers)
 		{
 			return new Enchant()
 			{
@@ -61,13 +61,13 @@ namespace SabberStoneCore.Enchants
 				ApplyConditions = ApplyConditions,
 				SingleTask = SingleTask?.Clone(),
 				RemovalTask = RemovalTask?.Clone(),
-				Effects = new Dictionary<GameTag, int>(Effects),
+				Effects = new Dictionary<EGameTag, int>(Effects),
 				ValueFunc = ValueFunc,
 				FixedValueFunc = FixedValueFunc,
 				TurnsActive = TurnsActive,
 
-				RemoveTriggerTags = new List<GameTag>(RemoveTriggerTags),
-				RemoveTriggers = new Dictionary<GameTag, int>(removeTriggers),
+				RemoveTriggerTags = new List<EGameTag>(RemoveTriggerTags),
+				RemoveTriggers = new Dictionary<EGameTag, int>(removeTriggers),
 			};
 		}
 
@@ -75,7 +75,7 @@ namespace SabberStoneCore.Enchants
 		{
 			if (SingleTask != null)
 			{
-				Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "enqueueuing lazy removal task here!");
+				Game.Log(ELogLevel.INFO, EBlockType.TRIGGER, "Enchant", "enqueueuing lazy removal task here!");
 
 				// clone task here
 				var clone = SingleTask.Clone();
@@ -105,7 +105,7 @@ namespace SabberStoneCore.Enchants
 				// execute removal task here, ex. health rentantion   
 				if (RemovalTask != null)
 				{
-					Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "executing removal task priority here");
+					Game.Log(ELogLevel.INFO, EBlockType.TRIGGER, "Enchant", "executing removal task priority here");
 					Owner.Controller.Game.TaskQueue.Execute(RemovalTask, Owner.Controller, Owner, Owner);
 				}
 			}
@@ -120,7 +120,7 @@ namespace SabberStoneCore.Enchants
 			return flag;
 		}
 
-		public int Apply(Entity entity, GameTag gameTag, int value)
+		public int Apply(Entity entity, EGameTag gameTag, int value)
 		{
 
 			// only allow enchantments on playable entitys ...
@@ -132,41 +132,41 @@ namespace SabberStoneCore.Enchants
 
 			if (!Effects.ContainsKey(gameTag))
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"GameTag {gameTag} not concerned by this enchanting ...");
+				Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Enchant", $"GameTag {gameTag} not concerned by this enchanting ...");
 				return value;
 			}
 
 			if (!IsEnabled())
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Enchant from {Owner} isn't enabled! {target}");
+				Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Enchant", $"Enchant from {Owner} isn't enabled! {target}");
 				return value;
 			}
 
 			if (!IsApplying(target))
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Enchant conditions not meet.");
+				Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Enchant", $"Enchant conditions not meet.");
 				return value;
 			}
 
 			if (FixedValueFunc != null)
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
+				Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
 				return FixedValueFunc.Invoke(Owner);
 			}
 
-			Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
+			Game.Log(ELogLevel.DEBUG, EBlockType.TRIGGER, "Enchant", $"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
 
 			// apply variable effects if we have ...
 			var effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];
 
 			// TODO find an elegant way for that ... check if gametag is bool
-			if (gameTag == GameTag.CHARGE || gameTag == GameTag.WINDFURY || gameTag == GameTag.IMMUNE)
+			if (gameTag == EGameTag.CHARGE || gameTag == EGameTag.WINDFURY || gameTag == EGameTag.IMMUNE)
 			{
 				return (value + effect) == 0 ? 0 : 1;
 			}
 
 			// TODO this is really bad practice
-			if (gameTag == GameTag.BATTLECRY)
+			if (gameTag == EGameTag.BATTLECRY)
 			{
 				return value != 0 ? (value + effect) : 0;
 			}

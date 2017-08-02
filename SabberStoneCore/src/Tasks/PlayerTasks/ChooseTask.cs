@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         }
         private ChooseTask(Controller controller, List<int> choices)
         {
-            PlayerTaskType = PlayerTaskType.CHOOSE;
+            PlayerTaskType = EPlayerTaskType.CHOOSE;
             Game = controller.Game;
             Controller = controller;
             Choices = choices;
@@ -28,34 +28,34 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         public List<int> Choices { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             switch (Controller.Choice.ChoiceType)
             {
-                case ChoiceType.MULLIGAN:
+                case EChoiceType.MULLIGAN:
                     Generic.ChoiceMulligan.Invoke(Controller, Choices);
                     if (Controller.Game.History)
-                        Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Controller.Id, "", 7, 0));
-                    Controller.MulliganState = Enums.Mulligan.DONE;
+                        Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, Controller.Id, "", 7, 0));
+                    Controller.MulliganState = Enums.EMulligan.DONE;
                     if (Controller.Game.History)
                         Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case ChoiceType.GENERAL:
+                case EChoiceType.GENERAL:
                     Generic.ChoicePick.Invoke(Controller, Choices[0]);
-                    Controller.Game.NextStep = Step.MAIN_CLEANUP;
-                    return TaskState.COMPLETE;
+                    Controller.Game.NextStep = EStep.MAIN_CLEANUP;
+                    return ETaskState.COMPLETE;
 
-                case ChoiceType.INVALID:
+                case EChoiceType.INVALID:
                     throw new NotImplementedException();
             }
-            return TaskState.STOP;
+            return ETaskState.STOP;
         }
 
         public override string FullPrint()
         {
             return $"ChooseTask => [{Controller.Name}] choosed {(Choices.Count > 0 ? string.Join(", ", Choices.Select(p => p.ToString()).ToList()) : "nothing to")} " +
-                   $"to {(Controller.Choice?.ChoiceType == ChoiceType.MULLIGAN ? "keep" : "pick")}";
+                   $"to {(Controller.Choice?.ChoiceType == EChoiceType.MULLIGAN ? "keep" : "pick")}";
         }
     }
 }

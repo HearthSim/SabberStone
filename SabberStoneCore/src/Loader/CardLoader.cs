@@ -88,7 +88,7 @@ namespace SabberStoneCore.Loader
                     // so we have to make a list first and weed out the unique ones
                     Tags = (from tag in r.Descendants("Tag")
                         select new Tag(
-                            gameTag: (GameTag) Enum.Parse(typeof(GameTag), tag.Attribute("enumID").Value),
+                            gameTag: (EGameTag) Enum.Parse(typeof(EGameTag), tag.Attribute("enumID").Value),
                             tagValue:
                             tag.Attribute("value") != null
                                 ? (TagValue) int.Parse(tag.Attribute("value").Value)
@@ -101,14 +101,14 @@ namespace SabberStoneCore.Loader
                     Requirements = (from req in r.Descendants("PlayRequirement")
                         select new
                         {
-                            Req = (PlayReq) Enum.Parse(typeof(PlayReq), req.Attribute("reqID").Value),
+                            Req = (EPlayReq) Enum.Parse(typeof(EPlayReq), req.Attribute("reqID").Value),
                             Param = (req.Attribute("param").Value != "" ? int.Parse(req.Attribute("param").Value) : 0)
                         }).ToDictionary(x => x.Req, x => x.Param),
                     Entourage = (from ent in r.Descendants("EntourageCard")
                         select ent.Attribute("cardID").Value).ToList(),
                     ReferenzTag = (from rtag in r.Descendants("ReferencedTag")
                         select new Tag(
-                            gameTag: (GameTag) Enum.Parse(typeof(GameTag), rtag.Attribute("enumID").Value),
+                            gameTag: (EGameTag) Enum.Parse(typeof(EGameTag), rtag.Attribute("enumID").Value),
                             tagValue:
                             rtag.Attribute("value") != null
                                 ? (TagValue) int.Parse(rtag.Attribute("value").Value)
@@ -153,10 +153,10 @@ namespace SabberStoneCore.Loader
                 {
                     Id = card.Id,
                     AssetId = int.Parse(card.AssetId),
-                    Tags = new Dictionary<GameTag, int>(),
+                    Tags = new Dictionary<EGameTag, int>(),
                     PlayRequirements = card.Requirements,
                     Entourage = card.Entourage,
-                    RefTags = new Dictionary<GameTag, int>(),
+                    RefTags = new Dictionary<EGameTag, int>(),
                 };
 
                 // Get unique int and bool tags, ignore duplicate and string tags
@@ -177,10 +177,10 @@ namespace SabberStoneCore.Loader
                     {
                         switch (tag.GameTag)
                         {
-                            case GameTag.CARDNAME:
+                            case EGameTag.CARDNAME:
                                 c.Name = tag.TagValue;
                                 break;
-                            case GameTag.CARDTEXT_INHAND:
+                            case EGameTag.CARDTEXT_INHAND:
                                 c.Text = tag.TagValue;
                                 break;
                         }
@@ -204,10 +204,10 @@ namespace SabberStoneCore.Loader
                     {
                         switch (tag.GameTag)
                         {
-                            case GameTag.CARDNAME:
+                            case EGameTag.CARDNAME:
                                 c.Name = tag.TagValue;
                                 break;
-                            case GameTag.CARDTEXT_INHAND:
+                            case EGameTag.CARDTEXT_INHAND:
                                 c.Text = tag.TagValue;
                                 break;
                         }
@@ -215,7 +215,7 @@ namespace SabberStoneCore.Loader
                 }
 
                 // spell damage information add ... 
-                if (c.Text != null && (c.Text.Contains("$") || c[GameTag.AFFECTED_BY_SPELL_POWER] == 1))
+                if (c.Text != null && (c.Text.Contains("$") || c[EGameTag.AFFECTED_BY_SPELL_POWER] == 1))
                 {
                     c.Text += " *spelldmg";
                     c.BringsSpellDamage = true;

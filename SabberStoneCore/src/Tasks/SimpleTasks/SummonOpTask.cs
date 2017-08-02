@@ -1,4 +1,5 @@
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -17,24 +18,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Card Card { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Controller.Opponent.Board.IsFull)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             if (Card == null && Playables.Count < 1)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var summonEntity = Card != null ?
                 Entity.FromCard(Controller.Opponent, Card) as Minion :
                 Playables[0] as Minion;
 
             if (summonEntity == null)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var success = Generic.SummonBlock.Invoke(Controller.Opponent, summonEntity, -1);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

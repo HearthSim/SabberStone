@@ -29,7 +29,7 @@ namespace SabberStoneCore.Kettle
         private static int _index = 1;
         public int Index { get; set; }
 
-        public ChoiceType ChoiceType { get; set; }
+        public EChoiceType ChoiceType { get; set; }
         public int CountMin { get; set; }
         public int CountMax { get; set; }
         public List<int> Entities { get; set; }
@@ -70,11 +70,11 @@ namespace SabberStoneCore.Kettle
             {
                 ChoiceType = choice.ChoiceType,
                 Entities = new List<int>(choice.Choices),
-                CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
-                CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
+                CountMin = choice.ChoiceType == EChoiceType.GENERAL ? 1 : 0,
+                CountMax = choice.ChoiceType == EChoiceType.GENERAL ? 1 : choice.Choices.Count,
                 PlayerId = choice.Controller.PlayerId,
                 SourceId = choice.SourceId,
-                HideChosen = choice.ChoiceType != ChoiceType.GENERAL
+                HideChosen = choice.ChoiceType != EChoiceType.GENERAL
             };
         }
     }

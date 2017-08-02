@@ -1,18 +1,19 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomCardIdFromListTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (CardIds.Count == 0)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose(CardIds)));
             Playables.Add(randomCard);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

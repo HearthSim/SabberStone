@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -26,7 +26,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new SummonTask("OG_006a")
                 }
             });
@@ -58,9 +58,9 @@ namespace SabberStoneCore.CardSets.Standard
                 //[irc] NightKev then you would be unable to play starfall because it has no targets
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
-                    Enchant = Auras.SimpleInclSelf(GameTag.CHOOSE_BOTH, 1)
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
+                    Enchant = Auras.SimpleInclSelf(EGameTag.CHOOSE_BOTH, 1)
                 }
             });
 
@@ -77,9 +77,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.SpendAllManaTask(
-                        new BuffAttackHealthNumberTask(EntityType.SOURCE))
+                        new BuffAttackHealthNumberTask(EEntityType.SOURCE))
                 }
             });
 
@@ -97,11 +97,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(),
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
-                        new FlagTask(true, new BuffTask(Buffs.Health(5), EntityType.SOURCE)))
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsCthunGameTag(EGameTag.ATK, 10, ERelaSign.GEQ)),
+                        new FlagTask(true, new BuffTask(Buffs.Health(5), EEntityType.SOURCE)))
                 },
             });
 
@@ -137,7 +137,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new RitualTask(Buffs.CthunAttackHealth(3))
                 },
             });
@@ -152,12 +152,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EEntityType.TARGET))
                         .Build()
                 }
             });
@@ -191,10 +191,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET),
-                        new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.BEAST)),
+                        new BuffTask(Buffs.AttackHealth(2), EEntityType.TARGET),
+                        new ConditionTask(EEntityType.TARGET, SelfCondition.IsRace(ERace.BEAST)),
                         new FlagTask(true, new DrawTask())),
                 },
             });
@@ -280,8 +280,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackTurn(4), EntityType.HERO)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackTurn(4), EEntityType.HERO)
                 },
             });
 
@@ -295,7 +295,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new ArmorTask(8),
                 },
             });
@@ -310,7 +310,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new EnqueueTask(7, new SummonTask("OG_195c"))
                 },
             });
@@ -325,8 +325,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(2), EEntityType.MINIONS)
                 },
             });
 
@@ -340,7 +340,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new SummonTask("OG_202c"),
                 },
             });
@@ -355,7 +355,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new ManaCrystalEmptyTask(1)
                 },
             });
@@ -376,8 +376,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = ComplexTask.DamageRandomTargets(1, EEntityType.ENEMIES, 1)
                 },
             });
 
@@ -394,7 +394,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new EnqueueTask(2, new SummonTask("OG_216a"))
                 },
             });
@@ -415,11 +415,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.HAND),
+                        new IncludeTask(EEntityType.HAND),
                         new FilterStackTask(SelfCondition.IsDeathrattleMinion),
-                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK))
+                        new BuffTask(Buffs.AttackHealth(1), EEntityType.STACK))
                 },
             });
 
@@ -433,13 +433,13 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.SELF,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = Triggers.MinionAttacksAndTarget(
-                        new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
+                        new ConditionTask(EEntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                         new FlagTask(true, ComplexTask.Create(
-                            new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.EXHAUSTED, 1)),
-                            new FlagTask(true, new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE)))))
+                            new ConditionTask(EEntityType.SOURCE, SelfCondition.IsTagValue(EGameTag.EXHAUSTED, 1)),
+                            new FlagTask(true, new SetGameTagTask(EGameTag.EXHAUSTED, 0, EEntityType.SOURCE)))))
                 }
             });
 
@@ -466,8 +466,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new ActivateEnchantment(EEntityType.TARGET, EEnchantmentActivation.DEATHRATTLE)
                 },
             });
 
@@ -490,14 +490,14 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new AddEnchantmentTask(EEntityType.MINIONS,
                         new Enchantment
                         {
-                            Activation = EnchantmentActivation.DEATHRATTLE,
+                            Activation = EEnchantmentActivation.DEATHRATTLE,
                             SingleTask = ComplexTask.Create(
-                                new RandomMinionTask(GameTag.CARDRACE, (int) Race.BEAST),
-                                new AddStackTo(EntityType.HAND))
+                                new RandomMinionTask(EGameTag.CARDRACE, (int) ERace.BEAST),
+                                new AddStackTo(EEntityType.HAND))
                         })
                 }
             });
@@ -516,9 +516,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new DamageTask(1, EntityType.TARGET, true),
+                        new DamageTask(1, EEntityType.TARGET, true),
                         new SummonTask("OG_061t"))
                 },
             });
@@ -533,7 +533,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new SummonTask("NEW1_034"),
                         new SummonTask("NEW1_033"),
@@ -572,8 +572,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(1, EntityType.OP_MINIONS)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(1, EEntityType.OP_MINIONS)
                 },
             });
 
@@ -590,15 +590,15 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HAND,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .TriggerEffect(EGameTag.JUST_PLAYED, 1)
                         .SingleTask(ComplexTask.Create(
-                            new RandomTask(2, EntityType.ENEMIES),
-                            ComplexTask.Freeze(EntityType.STACK)))
+                            new RandomTask(2, EEntityType.ENEMIES),
+                            ComplexTask.Freeze(EEntityType.STACK)))
                         .Build()
                 }
             });
@@ -617,7 +617,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [OG_087] Servant of Yogg-Saron && Test: Servant of Yogg-Saron_OG_087
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = null,
                 },
             });
@@ -636,8 +636,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new DamageTask(8, EntityType.ALLMINIONS),
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new DamageTask(8, EEntityType.ALLMINIONS),
                 },
             });
 
@@ -654,8 +654,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = ComplexTask.SummonRandomMinion(GameTag.COST, 3)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = ComplexTask.SummonRandomMinion(EGameTag.COST, 3)
                 },
             });
 
@@ -676,18 +676,18 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HERO,
+                    Activation = EEnchantmentActivation.BOARD,
                     Enchant = Auras.SpellPowerDamage(1)
                 },
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HAND,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-                        .TriggerEffect(GameTag.JUST_PLAYED, 1)
+                        .TriggerEffect(EGameTag.JUST_PLAYED, 1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
                 }
@@ -711,8 +711,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DestroyTask(EntityType.TARGET)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DestroyTask(EEntityType.TARGET)
                 },
             });
 
@@ -733,9 +733,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.SpendAllManaTask(
-                        new DamageNumberTask(EntityType.TARGET, true))
+                        new DamageNumberTask(EEntityType.TARGET, true))
                 },
             });
 
@@ -749,10 +749,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new EnqueueTask(3, ComplexTask.Create(
-                        new RandomCardTask(CardType.SPELL, CardClass.MAGE),
-                        new AddStackTo(EntityType.HAND)))
+                        new RandomCardTask(ECardType.SPELL, ECardClass.MAGE),
+                        new AddStackTo(EEntityType.HAND)))
                 },
             });
         }
@@ -772,7 +772,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new ReplaceHeroPower(Cards.FromId("OG_006b")),
                 },
             });
@@ -793,11 +793,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS),
-                        new RandomTask(1, EntityType.STACK),
-                        new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
+                        new IncludeTask(EEntityType.MINIONS),
+                        new RandomTask(1, EEntityType.STACK),
+                        new SetGameTagTask(EGameTag.DIVINE_SHIELD, 1, EEntityType.STACK))
                 },
             });
 
@@ -814,16 +814,16 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, -1)
                         .SingleTask(ComplexTask.Create(
-                            new IncludeTask(EntityType.FRIENDS),
+                            new IncludeTask(EEntityType.FRIENDS),
                             new FilterStackTask(SelfCondition.IsDamaged),
-                            new RandomTask(1, EntityType.STACK),
-                            new HealTask(8, EntityType.STACK)))
+                            new RandomTask(1, EEntityType.STACK),
+                            new HealTask(8, EEntityType.STACK)))
                         .Build()
                 }
             });
@@ -841,14 +841,14 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf,
-                            RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.HEALTH, 1)))
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(ComplexTask.DivineShield(EntityType.TARGET))
+                            RelaCondition.IsOther(SelfCondition.IsTagValue(EGameTag.HEALTH, 1)))
+                        .TriggerEffect(EGameTag.SUMMONED, 1)
+                        .SingleTask(ComplexTask.DivineShield(EEntityType.TARGET))
                         .Build()
                 }
             });
@@ -866,11 +866,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.SpendAllManaTask(
                         ComplexTask.Create(
                             new MathMultiplyTask(2),
-                            new HealNumberTask(EntityType.TARGET)))
+                            new HealNumberTask(EEntityType.TARGET)))
                 },
             });
 
@@ -888,8 +888,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(1, 2), EntityType.TARGET)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1, 2), EEntityType.TARGET)
                 },
             });
 
@@ -903,7 +903,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new EnqueueTask(5, new SummonTask("CS2_101t"))
                 },
             });
@@ -923,12 +923,12 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_311e",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DiscoverTask(DiscoverType.MINION,
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DiscoverTask(EDiscoverType.MINION,
                         new Enchantment()
                         {
-                            Activation = EnchantmentActivation.HAND,
-                            SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
+                            Activation = EEnchantmentActivation.HAND,
+                            SingleTask = new BuffTask(Buffs.AttackHealth(1), EEntityType.SOURCE),
                             RemoveAfterActivation = true
                         }),
                 }
@@ -952,11 +952,11 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_222e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS),
-                        new FilterStackTask(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1)),
-                        new BuffTask(Buffs.AttackHealth(1), EntityType.STACK))
+                        new IncludeTask(EEntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsTagValue(EGameTag.DIVINE_SHIELD, 1)),
+                        new BuffTask(Buffs.AttackHealth(1), EEntityType.STACK))
                 },
             });
         }
@@ -994,11 +994,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(),
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
-                        new FlagTask(true, new HealTask(10, EntityType.HERO)))
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsCthunGameTag(EGameTag.ATK, 10, ERelaSign.GEQ)),
+                        new FlagTask(true, new HealTask(10, EEntityType.HERO)))
                 },
             });
 
@@ -1019,8 +1019,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new HealTask(5, EntityType.TARGET),
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new HealTask(5, EEntityType.TARGET),
                 },
             });
 
@@ -1038,14 +1038,14 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS_NOSOURCE),
+                        new IncludeTask(EEntityType.MINIONS_NOSOURCE),
                         new FilterStackTask(SelfCondition.IsMinion),
                         new FlagTask(true, ComplexTask.Create(
-                            new CopyTask(EntityType.STACK, 1),
-                            new SetAttackTask(1, EntityType.STACK),
-                            new SetHealthTask(1, EntityType.STACK),
+                            new CopyTask(EEntityType.STACK, 1),
+                            new SetAttackTask(1, EEntityType.STACK),
+                            new SetHealthTask(1, EEntityType.STACK),
                             new SummonTask())))
                 },
             });
@@ -1064,13 +1064,13 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARDS,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.BOARDS,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(
                             SelfCondition.IsNotDead,
                             SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, -1)
+                        .TriggerEffect(EGameTag.DAMAGE, -1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
                 }
@@ -1089,8 +1089,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.RandomCardCopyToHandFrom(EntityType.OP_DECK)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = ComplexTask.RandomCardCopyToHandFrom(EEntityType.OP_DECK)
                 },
             });
 
@@ -1109,8 +1109,8 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_094e",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(2, 6), EntityType.TARGET)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(2, 6), EEntityType.TARGET)
                 },
             });
 
@@ -1124,12 +1124,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.ALLMINIONS),
-                        new FilterStackTask(EntityType.SOURCE,
-                            RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ))),
-                        new DestroyTask(EntityType.STACK))
+                        new IncludeTask(EEntityType.ALLMINIONS),
+                        new FilterStackTask(EEntityType.SOURCE,
+                            RelaCondition.IsOther(SelfCondition.IsTagValue(EGameTag.ATK, 2, ERelaSign.LEQ))),
+                        new DestroyTask(EEntityType.STACK))
                 },
             });
 
@@ -1143,9 +1143,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.SpendAllManaTask(
-                        ComplexTask.SummonRandomMinionNumberTag(GameTag.COST))
+                        ComplexTask.SummonRandomMinionNumberTag(EGameTag.COST))
                 },
             });
 
@@ -1161,7 +1161,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_104e",
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = null,
                 },
             });
@@ -1194,8 +1194,8 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EEntityType.SOURCE)
                 }
             });
 
@@ -1216,17 +1216,17 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RandomEntourageTask(),
-                        new AddStackTo(EntityType.HAND))
+                        new AddStackTo(EEntityType.HAND))
                 },
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
                         new RandomEntourageTask(),
-                        new AddStackTo(EntityType.HAND))
+                        new AddStackTo(EEntityType.HAND))
                 },
             });
 
@@ -1243,8 +1243,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new BuffTask(Buffs.WeaponAtk(2), EntityType.WEAPON)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new BuffTask(Buffs.WeaponAtk(2), EEntityType.WEAPON)
                 },
             });
 
@@ -1267,14 +1267,14 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     // TODO [OG_282] Blade of C'Thun, this implementation would work but I would like a straight implementation ... 
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = null
                         //ComplexTask.Create(
                         //new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
                         //new EnqueueNumberTask(new RitualTask(Buffs.CthunAttack(1))),
                         //new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
                         //new EnqueueNumberTask(new RitualTask(Buffs.CthunHealth(1))),
-                        //new DestroyTask(EntityType.TARGET))
+                        //new DestroyTask(EEntityType.TARGET))
                 },
             });
 
@@ -1296,14 +1296,14 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new CopyTask(EntityType.TARGET, 1),
-                        new SetAttackTask(1, EntityType.STACK),
-                        new SetHealthTask(1, EntityType.STACK),
+                        new CopyTask(EEntityType.TARGET, 1),
+                        new SetAttackTask(1, EEntityType.STACK),
+                        new SetHealthTask(1, EEntityType.STACK),
                         //new SetGameTagTask(GameTag.COST, 1, EntityType.STACK),
-                        new AddStackTo(EntityType.HAND),
-                        new BuffTask(Buffs.CostFix(1), EntityType.STACK))
+                        new AddStackTo(EEntityType.HAND),
+                        new BuffTask(Buffs.CostFix(1), EEntityType.STACK))
                 },
             });
 
@@ -1320,10 +1320,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new RandomCardTask(EntityType.OP_HERO),
-                        new AddStackTo(EntityType.HAND)),
+                        new RandomCardTask(EEntityType.OP_HERO),
+                        new AddStackTo(EEntityType.HAND)),
                 },
             });
 
@@ -1341,8 +1341,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DiscoverTask(DiscoverType.DEATHRATTLE)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DiscoverTask(EDiscoverType.DEATHRATTLE)
                 },
             });
 
@@ -1359,11 +1359,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new DrawTask(true),
-                        new CopyTask(EntityType.STACK, 2),
-                        new AddStackTo(EntityType.HAND)),
+                        new CopyTask(EEntityType.STACK, 2),
+                        new AddStackTo(EEntityType.HAND)),
                 },
             });
 
@@ -1381,8 +1381,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DamageTask(5, EntityType.TARGET, true)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(5, EEntityType.TARGET, true)
                 },
             });
         }
@@ -1414,7 +1414,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = new DrawTask(),
                 },
             });
@@ -1435,10 +1435,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new ReturnHandTask(EntityType.TARGET),
-                        new BuffTask(Buffs.Cost(-2), EntityType.TARGET))
+                        new ReturnHandTask(EEntityType.TARGET),
+                        new BuffTask(Buffs.Cost(-2), EEntityType.TARGET))
                 },
             });
 
@@ -1456,8 +1456,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffTask(Buffs.Attack(3), EEntityType.TARGET)
                 },
             });
 
@@ -1479,8 +1479,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffStealthTask(EntityType.TARGET)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new BuffStealthTask(EEntityType.TARGET)
                 },
             });
 
@@ -1497,8 +1497,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DamageTask(2, EntityType.TARGET, true),
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(2, EEntityType.TARGET, true),
                 },
             });
         }
@@ -1533,8 +1533,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0),
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new SetControllerGameTagTask(EGameTag.OVERLOAD_LOCKED, 0),
                 },
             });
 
@@ -1554,13 +1554,13 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.HAND,
+                    Area = EEnchantmentArea.BOARD,
+                    Activation = EEnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.HAND))
-                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM)))
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.HAND))
+                        .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(ERace.TOTEM)))
+                        .TriggerEffect(EGameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.Cost(-1), EEntityType.SOURCE))
                         .Build()
                 }
             });
@@ -1602,8 +1602,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new TransformMinionTask(EntityType.TARGET, 1)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new TransformMinionTask(EEntityType.TARGET, 1)
                 },
             });
             // ----------------------------------------- SPELL - SHAMAN
@@ -1620,12 +1620,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS),
-                        new FilterStackTask(SelfCondition.IsRace(Race.TOTEM)),
-                        new CountTask(EntityType.STACK),
-                        new BuffAttackHealthNumberTask(EntityType.TARGET))
+                        new IncludeTask(EEntityType.MINIONS),
+                        new FilterStackTask(SelfCondition.IsRace(ERace.TOTEM)),
+                        new CountTask(EEntityType.STACK),
+                        new BuffAttackHealthNumberTask(EEntityType.TARGET))
                 },
             });
 
@@ -1639,8 +1639,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new TransformMinionTask(EntityType.MINIONS, 1)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new TransformMinionTask(EEntityType.MINIONS, 1)
                 },
             });
 
@@ -1662,8 +1662,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new DamageTask(4, EntityType.TARGET, true)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new DamageTask(4, EEntityType.TARGET, true)
                 },
             });
 
@@ -1682,7 +1682,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new SummonTask("OG_031a")
                 },
             });
@@ -1706,7 +1706,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [TB_OG_027] Evolve && Test: Evolve_TB_OG_027
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = null,
                 },
             });
@@ -1730,12 +1730,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.DiscardRandomCard(1),
                 },
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new DrawTask()
                 },
             });
@@ -1751,13 +1751,13 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_113e",
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf)
-                        .TriggerEffect(GameTag.SUMMONED, 1)
-                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+                        .TriggerEffect(EGameTag.SUMMONED, 1)
+                        .SingleTask(new BuffTask(Buffs.AttackHealth(1), EEntityType.SOURCE))
                         .Build()
                 }
             });
@@ -1777,7 +1777,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [OG_121] Cho'gall && Test: Cho'gall_OG_121
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = null,
                 },
             });
@@ -1795,7 +1795,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new SummonTask("OG_241a"),
                 },
             });
@@ -1814,11 +1814,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+                        .TriggerEffect(EGameTag.TO_BE_DESTROYED, 1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
                 }
@@ -1834,7 +1834,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.SpendAllManaTask(
                         new EnqueueNumberTask(new SummonTask("OG_114a")))
                 },
@@ -1853,8 +1853,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new EnqueueTask(9, ComplexTask.DamageRandomTargets(1, EntityType.ALL, 1), true)
+                    Activation = EEnchantmentActivation.SPELL,
+                    SingleTask = new EnqueueTask(9, ComplexTask.DamageRandomTargets(1, EEntityType.ALL, 1), true)
                 },
             });
 
@@ -1869,7 +1869,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [OG_118] Renounce Darkness && Test: Renounce Darkness_OG_118
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = null,
                 },
             });
@@ -1884,10 +1884,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.ALLMINIONS),
-                        new DestroyTask(EntityType.ALLMINIONS),
+                        new CountTask(EEntityType.ALLMINIONS),
+                        new DestroyTask(EEntityType.ALLMINIONS),
                         new EnqueueNumberTask(new DrawTask()))
                 },
             });
@@ -1931,8 +1931,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new DamageTask(1, EEntityType.ALLMINIONS_NOSOURCE)
                 },
             });
 
@@ -1951,10 +1951,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     SingleTask =
-                        new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)),
-                            AuraArea.SELF)
+                        new AuraTask(Auras.SimpleInclSelf(EGameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)),
+                            EAuraArea.SELF)
                 }
             });
 
@@ -1972,9 +1972,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new RandomCardTask(CardType.WEAPON, CardClass.INVALID),
+                        new RandomCardTask(ECardType.WEAPON, ECardClass.INVALID),
                         new WeaponTask()),
                 },
             });
@@ -1993,10 +1993,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(),
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsCthunGameTag(EGameTag.ATK, 10, ERelaSign.GEQ)),
                         new FlagTask(true, new ArmorTask(10)))
                 },
             });
@@ -2014,7 +2014,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new ReplaceWeaponTask("OG_058"),
                 },
             });
@@ -2032,14 +2032,14 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsControllingRace(ERace.PIRATE)),
                         new FlagTask(true, ComplexTask.Create(
-                            new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
+                            new GetGameTagTask(EGameTag.DURABILITY, EEntityType.WEAPON),
                             new MathAddTask(1),
-                            new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON),
-                            new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON)))),
+                            new SetGameTagNumberTask(EGameTag.DURABILITY, EEntityType.WEAPON),
+                            new BuffTask(Buffs.WeaponAtk(1), EEntityType.WEAPON)))),
                 },
             });
 
@@ -2053,12 +2053,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.MINIONS),
+                        new IncludeTask(EEntityType.MINIONS),
                         new FilterStackTask(SelfCondition.IsDamaged),
-                        new CopyTask(EntityType.STACK, 1),
-                        new AddStackTo(EntityType.HAND))
+                        new CopyTask(EEntityType.STACK, 1),
+                        new AddStackTo(EEntityType.HAND))
                 },
             });
 
@@ -2076,10 +2076,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
-                        new DamageTask(1, EntityType.TARGET, true),
-                        new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+                        new DamageTask(1, EEntityType.TARGET, true),
+                        new ConditionTask(EEntityType.TARGET, SelfCondition.IsNotDead),
                         new FlagTask(true, new SummonTask("OG_314b")))
                 },
             });
@@ -2098,8 +2098,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new AddCardTo("OG_033", EntityType.HAND),
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new AddCardTo("OG_033", EEntityType.HAND),
                 },
             });
         }
@@ -2142,10 +2142,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     SingleTask = new AuraTask(Auras.SimpleInclSelf(
-                            GameTag.CANT_ATTACK, 1, RelaCondition.IsOther(SelfCondition.HasMyHeroNotAttackedThisTurn)),
-                        AuraArea.SELF)
+                            EGameTag.CANT_ATTACK, 1, RelaCondition.IsOther(SelfCondition.HasMyHeroNotAttackedThisTurn)),
+                        EAuraArea.SELF)
                 }
             });
 
@@ -2162,16 +2162,16 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, -1)
                         .SingleTask(ComplexTask.Create(
-                            new IncludeTask(EntityType.DECK),
+                            new IncludeTask(EEntityType.DECK),
                             new FilterStackTask(SelfCondition.IsMinion),
-                            new RandomTask(1, EntityType.STACK),
-                            new RemoveFromDeck(EntityType.STACK),
+                            new RandomTask(1, EEntityType.STACK),
+                            new RemoveFromDeck(EEntityType.STACK),
                             new SummonTask()))
                         .Build()
                 }
@@ -2190,8 +2190,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HERO,
+                    Activation = EEnchantmentActivation.BOARD,
                     Enchant = Auras.SpellPowerDamage(2)
                 }
             });
@@ -2214,8 +2214,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new SwapAttackHealthTask(EntityType.TARGET)
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new SwapAttackHealthTask(EEntityType.TARGET)
                 },
             });
 
@@ -2233,8 +2233,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.HAND))
+                    Activation = EEnchantmentActivation.BATTLECRY,
+                    SingleTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EEntityType.HAND))
                 },
             });
 
@@ -2276,10 +2276,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(),
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsCthunGameTag(EGameTag.ATK, 10, ERelaSign.GEQ)),
                         new FlagTask(true, new SummonTask("OG_131")))
                 },
             });
@@ -2301,12 +2301,12 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.GRAVEYARD),
+                        new IncludeTask(EEntityType.GRAVEYARD),
                         new FilterStackTask(SelfCondition.IsDeathrattleMinion),
-                        //new CopyTask(EntityType.STACK, 1),
-                        new SummonCopyTask(EntityType.STACK))
+                        //new CopyTask(EEntityType.STACK, 1),
+                        new SummonCopyTask(EEntityType.STACK))
                 }
             });
 
@@ -2325,7 +2325,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [OG_134] Yogg-Saron, Hope's End && Test: Yogg-Saron, Hope's End_OG_134
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = null,
                 },
             });
@@ -2342,12 +2342,12 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_138e",
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.HAND,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.HAND,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.HAND))
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.HAND))
+                        .TriggerEffect(EGameTag.TURN_START, 1)
+                        .SingleTask(new BuffTask(Buffs.Cost(-1), EEntityType.SOURCE))
                         .Build()
                 }
             });
@@ -2390,8 +2390,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new HealTask(8, EntityType.OP_HERO)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new HealTask(8, EEntityType.OP_HERO)
                 },
             });
 
@@ -2409,10 +2409,10 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_150e",
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     SingleTask =
-                        new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsEnraged)),
-                            AuraArea.SELF)
+                        new AuraTask(Auras.SimpleInclSelf(EGameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsEnraged)),
+                            EAuraArea.SELF)
                 }
             });
 
@@ -2429,8 +2429,8 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new DamageTask(1, EntityType.ALLMINIONS)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new DamageTask(1, EEntityType.ALLMINIONS)
                 },
             });
 
@@ -2472,7 +2472,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new SummonTask("OG_156a"),
                 },
             });
@@ -2491,9 +2491,9 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_158e",
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.BuffRandomMinion(
-                        EntityType.MINIONS,
+                        EEntityType.MINIONS,
                         Buffs.AttackHealth(1),
                         new SelfCondition[] {}),
                 },
@@ -2512,11 +2512,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.ALLMINIONS),
-                        new FilterStackTask(SelfCondition.IsNotRace(Race.MURLOC)),
-                        new DamageTask(2, EntityType.STACK)),
+                        new IncludeTask(EEntityType.ALLMINIONS),
+                        new FilterStackTask(SelfCondition.IsNotRace(ERace.MURLOC)),
+                        new DamageTask(2, EEntityType.STACK)),
                 },
             });
 
@@ -2538,10 +2538,10 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(Buffs.CthunAttackHealth(2)),
-                        new DamageTask(2, EntityType.TARGET))
+                        new DamageTask(2, EEntityType.TARGET))
                 },
             });
 
@@ -2583,12 +2583,12 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_174e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
-                        new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE),
-                        new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
-                        new SetGameTagNumberTask(GameTag.HEALTH, EntityType.SOURCE))
+                        new GetGameTagTask(EGameTag.ATK, EEntityType.TARGET),
+                        new SetGameTagNumberTask(EGameTag.ATK, EEntityType.SOURCE),
+                        new GetGameTagTask(EGameTag.HEALTH, EEntityType.TARGET),
+                        new SetGameTagNumberTask(EGameTag.HEALTH, EEntityType.SOURCE))
                 },
             });
 
@@ -2603,12 +2603,12 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_200e",
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(new SetAttackTask(7, EntityType.SOURCE))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, 1)
+                        .SingleTask(new SetAttackTask(7, EEntityType.SOURCE))
                         .Build()
                 }
             });
@@ -2645,7 +2645,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new SummonTask("OG_249a")
                 },
             });
@@ -2666,11 +2666,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.OP_SECRETS),
-                        new BuffAttackHealthNumberTask(EntityType.SOURCE),
-                        new MoveToGraveYard(EntityType.OP_SECRETS))
+                        new CountTask(EEntityType.OP_SECRETS),
+                        new BuffAttackHealthNumberTask(EEntityType.SOURCE),
+                        new MoveToGraveYard(EEntityType.OP_SECRETS))
                 },
             });
 
@@ -2688,11 +2688,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
                         new RitualTask(Buffs.CthunAttackHealth(2)),
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunDead),
-                        new FlagTask(true, new AddCardTo("OG_280", EntityType.DECK)))
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsCthunDead),
+                        new FlagTask(true, new AddCardTo("OG_280", EEntityType.DECK)))
                 },
             });
 
@@ -2710,8 +2710,8 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_256e",
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
+                    SingleTask = new BuffTask(Buffs.AttackHealth(1), EEntityType.MINIONS)
                 },
             });
 
@@ -2726,14 +2726,14 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_271e",
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Create(
-                            new GetNativeGameTagTask(GameTag.ATK, EntityType.SOURCE, true),
-                            new BuffAttackNumberTask(EntityType.SOURCE)))
+                            new GetNativeGameTagTask(EGameTag.ATK, EEntityType.SOURCE, true),
+                            new BuffAttackNumberTask(EEntityType.SOURCE)))
                         .Build()
                 }
             });
@@ -2751,7 +2751,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new SummonTask("OG_272t"),
                 },
             });
@@ -2770,15 +2770,15 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.HAND,
+                    Activation = EEnchantmentActivation.HAND,
                     SingleTask = new CopyCthun(),
                 },
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
-                        new EnqueueNumberTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)))
+                        new GetGameTagTask(EGameTag.ATK, EEntityType.SOURCE),
+                        new EnqueueNumberTask(ComplexTask.DamageRandomTargets(1, EEntityType.ENEMIES, 1)))
                 },
             });
 
@@ -2797,7 +2797,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_281e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
                 }
             });
@@ -2819,7 +2819,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
                 }
             });
@@ -2842,7 +2842,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_284e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new RitualTask(null, true)
                 }
             });
@@ -2860,11 +2860,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, -1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
                 }
@@ -2881,13 +2881,13 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_290e",
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
-                        .SingleTask(ComplexTask.SummonRandomMinion(EntityType.DECK,
-                            RelaCondition.IsOther(SelfCondition.IsBaseTagValue(GameTag.COST, 10))))
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, 1)
+                        .SingleTask(ComplexTask.SummonRandomMinion(EEntityType.DECK,
+                            RelaCondition.IsOther(SelfCondition.IsBaseTagValue(EGameTag.COST, 10))))
                         .Build()
                 }
             });
@@ -2905,11 +2905,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.OP_MINIONS),
+                        new CountTask(EEntityType.OP_MINIONS),
                         new MathMultiplyTask(2),
-                        new HealNumberTask(EntityType.HERO)),
+                        new HealNumberTask(EEntityType.HERO)),
                 },
             });
 
@@ -2927,11 +2927,11 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_300e",
-                    Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.SELF,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = Triggers.MinionAttacksAndTarget(
-                        new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
-                        new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
+                        new ConditionTask(EEntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
+                        new BuffTask(Buffs.AttackHealth(2), EEntityType.SOURCE))
                 }
             });
 
@@ -2949,13 +2949,13 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = ComplexTask.Create(
-                        new IncludeTask(EntityType.HAND),
-                        new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
-                        new RemoveFromHand(EntityType.STACK),
+                        new IncludeTask(EEntityType.HAND),
+                        new FilterStackTask(SelfCondition.IsRace(ERace.DRAGON)),
+                        new RemoveFromHand(EEntityType.STACK),
                         // TODO this will summon copies instead of the hand minions, fix!!!
-                        new SummonCopyTask(EntityType.STACK))
+                        new SummonCopyTask(EEntityType.STACK))
                 }
             });
 
@@ -2975,11 +2975,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.SELF,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.DAMAGE, 1)
                         .SingleTask(new SummonTask("OG_318t"))
                         .Build()
                 }
@@ -3000,10 +3000,10 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_320e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.HAND_NOSOURCE),
-                        new BuffAttackNumberTask(EntityType.SOURCE))
+                        new CountTask(EEntityType.HAND_NOSOURCE),
+                        new BuffAttackNumberTask(EEntityType.SOURCE))
                 }
             });
 
@@ -3022,11 +3022,11 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_321e",
-                    Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.SELF,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.DAMAGE, 1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.DAMAGE, 1)
                         .SingleTask(new RitualTask(Buffs.CthunAttackHealth(1)))
                         .Build()
                 }
@@ -3042,9 +3042,9 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EEnchantmentActivation.BOARD,
                     SingleTask =
-                        new AuraTask(Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsWeapon)), AuraArea.HAND)
+                        new AuraTask(Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsWeapon)), EAuraArea.HAND)
                 }
             });
 
@@ -3061,7 +3061,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
+                    Activation = EEnchantmentActivation.DEATHRATTLE,
                     SingleTask = new DrawTask()
                 },
             });
@@ -3098,10 +3098,10 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_337e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = ComplexTask.Create(
-                        new CountTask(EntityType.OP_MINIONS),
-                        new BuffHealthNumberTask(EntityType.SOURCE))
+                        new CountTask(EEntityType.OP_MINIONS),
+                        new BuffHealthNumberTask(EEntityType.SOURCE))
                 }
             });
 
@@ -3118,11 +3118,11 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.OP_CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.OP_CONTROLLER,
+                    Activation = EEnchantmentActivation.BOARD,
                     Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, 1)
+                        .EnableConditions(SelfCondition.IsInZone(EZone.PLAY), SelfCondition.IsNotSilenced)
+                        .TriggerEffect(EGameTag.TURN_START, 1)
                         .SingleTask(ComplexTask.Create(
                             new ChanceTask(),
                             new DrawOpTask()))
@@ -3145,7 +3145,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_339e",
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = EEnchantmentActivation.BATTLECRY,
                     SingleTask = new RitualTask(Buffs.CthunAttackHealth(2))
                 }
             });

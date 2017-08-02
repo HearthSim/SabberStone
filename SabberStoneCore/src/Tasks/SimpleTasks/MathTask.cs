@@ -5,14 +5,11 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum MathOperation
-    {
-        ADD, SUB, MUL, DIV
-    }
+    
 
     public class MathNumberIndexTask : SimpleTask
     {
-        public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation)
+        public MathNumberIndexTask(int indexA, int indexB, EMathOperation mathOperation)
         {
             IndexA = indexA;
             IndexB = indexB;
@@ -20,30 +17,30 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int IndexA { get; set; }
         public int IndexB { get; set; }
-        public MathOperation MathOperation { get; set; }
+        public EMathOperation MathOperation { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var numberA = GetIndex(IndexA);
             var numberB = GetIndex(IndexB);
             switch (MathOperation)
             {
-                case MathOperation.ADD:
+                case EMathOperation.ADD:
                     Number += numberA + numberB;
                     break;
-                case MathOperation.SUB:
+                case EMathOperation.SUB:
                     Number -= numberA - numberB;
                     break;
-                case MathOperation.MUL:
+                case EMathOperation.MUL:
                     Number *= numberA * numberB;
                     break;
-                case MathOperation.DIV:
+                case EMathOperation.DIV:
                     Number /= numberA / numberB;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {MathOperation}");
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         private int GetIndex(int index)
@@ -82,10 +79,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public int Min { get; set; }
         public int Max { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Number = Util.Random.Next(Min, Max + 1);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
@@ -105,10 +102,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Number *= Amount;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
@@ -128,10 +125,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Number += Amount;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
@@ -145,7 +142,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class MathSubstractionTask : SimpleTask
     {
 
-        private MathSubstractionTask(int amount, GameTag tag, EntityType type)
+        private MathSubstractionTask(int amount, EGameTag tag, EEntityType type)
         {
             Amount = amount;
             Tag = tag;
@@ -157,7 +154,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Amount = amount;
         }
 
-        public MathSubstractionTask(GameTag tag, EntityType type)
+        public MathSubstractionTask(EGameTag tag, EEntityType type)
         {
             Tag = tag;
             Type = type;
@@ -165,11 +162,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; } = 0;
 
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Amount == 0)
             {
@@ -180,7 +177,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Number -= Amount;
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

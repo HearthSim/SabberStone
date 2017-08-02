@@ -1,11 +1,12 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DamageTask : SimpleTask
     {
-        public DamageTask(int amount, int randAmount, EntityType entityType, bool spellDmg = false)
+        public DamageTask(int amount, int randAmount, EEntityType entityType, bool spellDmg = false)
         {
             Amount = amount;
             RandAmount = randAmount;
@@ -13,7 +14,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             SpellDmg = spellDmg;
         }
 
-        public DamageTask(int amount, EntityType entityType, bool spellDmg = false)
+        public DamageTask(int amount, EEntityType entityType, bool spellDmg = false)
         {
             Amount = amount;
             RandAmount = 0;
@@ -25,14 +26,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int RandAmount { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public bool SpellDmg { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Amount < 1 && RandAmount < 1)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var spellDmgValue = 0;
             if (Source is HeroPower)
@@ -50,7 +51,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             entities.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, 
                         Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
                         spellDmgValue));
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

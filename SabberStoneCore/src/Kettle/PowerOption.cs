@@ -56,18 +56,18 @@ namespace SabberStoneCore.Kettle
                 PlayerTaskList = list
             };
 
-            foreach (var option in list.Where(p => p.PlayerTaskType == PlayerTaskType.END_TURN))
+            foreach (var option in list.Where(p => p.PlayerTaskType == EPlayerTaskType.END_TURN))
             {
-                result.PowerOptionList.Add(new PowerOption { OptionType = OptionType.END_TURN });
+                result.PowerOptionList.Add(new PowerOption { OptionType = EOptionType.END_TURN });
             }
 
-            var playCards = list.Where(p => p.PlayerTaskType == PlayerTaskType.PLAY_CARD).ToList();
+            var playCards = list.Where(p => p.PlayerTaskType == EPlayerTaskType.PLAY_CARD).ToList();
             foreach (var sourceId in playCards.Select(p => p.Source.Id).Distinct())
             {
                 var targets = playCards.Where(p => p.Source.Id == sourceId && p.Target != null && p.ChooseOne == 0);
                 var mainOption = new PowerOption
                 {
-                    OptionType = OptionType.POWER,
+                    OptionType = EOptionType.POWER,
                     MainOption = new PowerSubOption
                     {
                         EntityId = sourceId,
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Kettle
                 }
             }
 
-            var minionAttacks = list.Where(p => p.PlayerTaskType == PlayerTaskType.MINION_ATTACK).ToList();
+            var minionAttacks = list.Where(p => p.PlayerTaskType == EPlayerTaskType.MINION_ATTACK).ToList();
             foreach (var sourceId in minionAttacks.Select(p => p.Source.Id).Distinct())
             {
                 var targets = minionAttacks.Where(p => p.Source.Id == sourceId);
@@ -100,7 +100,7 @@ namespace SabberStoneCore.Kettle
                 result.PowerOptionList.Add(
                     new PowerOption
                     {
-                        OptionType = OptionType.POWER,
+                        OptionType = EOptionType.POWER,
                         MainOption = new PowerSubOption
                         {
                             EntityId = sourceId,
@@ -109,13 +109,13 @@ namespace SabberStoneCore.Kettle
                     });
             }
 
-            var heroAttacks = list.Where(p => p.PlayerTaskType == PlayerTaskType.HERO_ATTACK).ToList();
+            var heroAttacks = list.Where(p => p.PlayerTaskType == EPlayerTaskType.HERO_ATTACK).ToList();
             if (heroAttacks.Any())
             {
                 var targets = heroAttacks.Where(p => p.Target != null);
                 var mainOption = new PowerOption
                 {
-                    OptionType = OptionType.POWER,
+                    OptionType = EOptionType.POWER,
                     MainOption = new PowerSubOption
                     {
                         EntityId = heroAttacks.First().Controller.Hero.Id,
@@ -125,13 +125,13 @@ namespace SabberStoneCore.Kettle
                 result.PowerOptionList.Add(mainOption);
             }
 
-            var heroPowers = list.Where(p => p.PlayerTaskType == PlayerTaskType.HERO_POWER).ToList();
+            var heroPowers = list.Where(p => p.PlayerTaskType == EPlayerTaskType.HERO_POWER).ToList();
             if (heroPowers.Any())
             {
                 var targets = heroPowers.Where(p => p.Target != null);
                 var mainOption = new PowerOption
                 {
-                    OptionType = OptionType.POWER,
+                    OptionType = EOptionType.POWER,
                     MainOption = new PowerSubOption
                     {
                         EntityId = heroPowers.First().Controller.Hero.Power.Id,
@@ -159,7 +159,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerOption
     {
-        public OptionType OptionType { get; set; }
+        public EOptionType OptionType { get; set; }
 
         public PowerSubOption MainOption { get; set; }
 

@@ -1,18 +1,19 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ReturnHandTask : SimpleTask
     {
-        public ReturnHandTask(EntityType type)
+        public ReturnHandTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var success = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).TrueForAll(p =>
             {
@@ -24,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return Generic.ReturnToHandBlock.Invoke(target.Controller, target);
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

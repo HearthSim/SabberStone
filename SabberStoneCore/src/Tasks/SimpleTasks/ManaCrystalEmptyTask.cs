@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -15,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         public bool Opponent { get; set; }
         public bool UseNumber { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (UseNumber)
             {
@@ -23,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
 
             var success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

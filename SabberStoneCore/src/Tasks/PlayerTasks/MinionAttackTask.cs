@@ -13,18 +13,18 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         private MinionAttackTask(Controller controller, IEntity source, IEntity target)
         {
-            PlayerTaskType = PlayerTaskType.MINION_ATTACK;
+            PlayerTaskType = EPlayerTaskType.MINION_ATTACK;
             Game = controller.Game;
             Controller = controller;
             Source = source;
             Target = target;
         }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter);
-            Controller.Game.NextStep = Step.MAIN_CLEANUP;
-            return TaskState.COMPLETE;
+            Controller.Game.NextStep = EStep.MAIN_CLEANUP;
+            return ETaskState.COMPLETE;
         }
 
         public override string FullPrint()

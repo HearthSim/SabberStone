@@ -22,7 +22,7 @@ namespace SabberStoneCore.Actions
             {
                 if (!minion.HasCharge)
                     minion.IsExhausted = true;
-                c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", $"Summon Minion {minion} to Board of {c.Name}.");
+                c.Game.Log(ELogLevel.INFO, EBlockType.PLAY, "SummonPhase", $"Summon Minion {minion} to Board of {c.Name}.");
                 c.Board.Add(minion, zonePosition);
 
                 // add summon block show entity 

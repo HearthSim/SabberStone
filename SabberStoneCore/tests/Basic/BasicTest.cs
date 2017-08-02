@@ -58,7 +58,7 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig());
 			game.StartGame();
 
-			Assert.Equal(CardClass.HUNTER, game.Player1.HeroClass); // "Hero class isn't matching.");
+            Assert.Equal(ECardClass.HUNTER, game.Player1.HeroClass); // "Hero class isn't matching.");
 			Assert.Equal(10, game.Player1.MaxHandSize); // "Max size isn't set correctly.");
 			Assert.Equal(10, game.Player1.MaxResources); // "Max ressources aren't set correctly.");
 		}
@@ -153,11 +153,11 @@ namespace SabberStoneCoreTest.Basic
 			Assert.NotEqual(deckString2, deckString3); // "Shuffling didn't changed the positions in deck.");
 		}
 
-		[Fact]
-		public void SummonFailTest()
-		{
-			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.PALADIN, Player2HeroClass = CardClass.MAGE, FillDecks = true });
-			game.StartGame();
+        [Fact]
+        public void SummonFailTest()
+        {
+            var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = ECardClass.PALADIN, Player2HeroClass = ECardClass.MAGE, FillDecks = true });
+            game.StartGame();
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -307,16 +307,17 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(-6, game.CurrentPlayer.Hero.Health);
 			Assert.Equal(2, game.CurrentPlayer.Opponent.Hero.Health);
 
-			Assert.Equal(State.COMPLETE, game.State);
-			Assert.Equal(PlayState.LOST, game.CurrentPlayer.PlayState);
-			Assert.Equal(PlayState.WON, game.CurrentPlayer.Opponent.PlayState);
-		}
+            Assert.Equal(EState.COMPLETE, game.State);
+            Assert.Equal(EPlayState.LOST, game.CurrentPlayer.PlayState);
+            Assert.Equal(EPlayState.WON, game.CurrentPlayer.Opponent.PlayState);
+        }
 
-		[Fact]
-		public void TauntTest()
-		{
-			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.ROGUE, Player2HeroClass = CardClass.WARLOCK, FillDecks = true });
-			game.StartGame();
+        [Fact]
+        public void TauntTest()
+        {
+            var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = ECardClass.ROGUE, Player2HeroClass = ECardClass.WARLOCK, FillDecks = true });
+            game.StartGame();
+
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -344,13 +345,13 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true });
 			game.StartGame();
 
-			while (game.State != State.COMPLETE)
-			{
-				game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			}
+            while (game.State != EState.COMPLETE)
+            {
+                game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            }
 
-            Assert.Equal(PlayState.WON, game.Player1.PlayState); // "Fatigue test didn't worked as it should for player 1.");
-			Assert.Equal(PlayState.LOST, game.Player2.PlayState); // "Fatigue test didn't worked as it should for player 2.");
+            Assert.Equal(EPlayState.WON, game.Player1.PlayState); // "Fatigue test didn't worked as it should for player 1.");
+			Assert.Equal(EPlayState.LOST, game.Player2.PlayState); // "Fatigue test didn't worked as it should for player 2.");
 		}
 
 		[Fact]
@@ -360,8 +361,8 @@ namespace SabberStoneCoreTest.Basic
 				new Game(new GameConfig
 				{
 					StartPlayer = 1,
-					Player1HeroClass = CardClass.PRIEST,
-					Player2HeroClass = CardClass.HUNTER,
+					Player1HeroClass = ECardClass.PRIEST,
+					Player2HeroClass = ECardClass.HUNTER,
 					FillDecks = true
 				});
 			game.Player1.BaseMana = 10;
@@ -379,50 +380,48 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, minion2, minion1));
 			Assert.Equal(1, ((Minion)minion1).AttackDamage);
 			Assert.Equal(1, ((Minion)minion1).Health);
+        }
 
+        [Fact]
+        public void BasicHealthBuffTest1()
+        {
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
+                    FillDecks = true
+                });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            game.StartGame();
 
-		}
-
-		[Fact]
-		public void BasicHealthBuffTest1()
-		{
-			var game =
-				new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.PRIEST,
-					Player2HeroClass = CardClass.HUNTER,
-					FillDecks = true
-				});
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			game.StartGame();
-
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
-			Assert.Equal(4, ((Minion)minion).Health);
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
-			Assert.Equal(1, ((Minion)minion).Health);
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
+            Assert.Equal(4, ((Minion)minion).Health);
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
+            Assert.Equal(1, ((Minion)minion).Health);
 
 		}
 
-		[Fact]
-		public void BasicHealthAuraTest1()
-		{
-			var game =
-				new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.PALADIN,
-					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
-				});
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
+        [Fact]
+        public void BasicHealthAuraTest1()
+        {
+            var game =
+                new Game(new GameConfig
+                {
+                    StartPlayer = 1,
+                    Player1HeroClass = ECardClass.PALADIN,
+                    Player2HeroClass = ECardClass.MAGE,
+                    FillDecks = true
+                });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
 
 			game.StartGame();
 
@@ -461,9 +460,9 @@ namespace SabberStoneCoreTest.Basic
 			var spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell4));
 
-			Assert.Equal(1, ((ICharacter)minion2).Health);
-			Assert.Equal(Zone.PLAY, ((ICharacter)minion2).Zone.Type);
-		}
+            Assert.Equal(1, ((ICharacter)minion2).Health);
+            Assert.Equal(EZone.PLAY, ((ICharacter)minion2).Zone.Type);
+        }
 
         [Fact]
         public void BasicHealthAuraTest2()
@@ -516,8 +515,8 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
-                Player2HeroClass = CardClass.WARLOCK,
+                Player1HeroClass = ECardClass.PRIEST,
+                Player2HeroClass = ECardClass.WARLOCK,
                 FillDecks = true
             });
             game.StartGame();
@@ -567,8 +566,8 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.HUNTER,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = ECardClass.HUNTER,
+                Player2HeroClass = ECardClass.ROGUE,
                 FillDecks = true
             });
             game.StartGame();
@@ -591,8 +590,8 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.HUNTER,
-                Player2HeroClass = CardClass.ROGUE,
+                Player1HeroClass = ECardClass.HUNTER,
+                Player2HeroClass = ECardClass.ROGUE,
                 FillDecks = true
             });
             game.StartGame();
@@ -620,14 +619,14 @@ namespace SabberStoneCoreTest.Basic
             var minion2 = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Stormwind Champion"));
             game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-            Assert.Equal(6, minion1[GameTag.HEALTH]);
+            Assert.Equal(6, minion1[EGameTag.HEALTH]);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
 
-            Assert.Equal(7, minion1[GameTag.HEALTH]);
+            Assert.Equal(7, minion1[EGameTag.HEALTH]);
         }
 
 		[Fact]
@@ -636,12 +635,12 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(
 				new GameConfig()
 				{
-					Player1HeroClass = CardClass.WARRIOR,
+					Player1HeroClass = ECardClass.WARRIOR,
 					DeckPlayer1 = new List<Card>
 					{
 						Cards.FromName("Fire Plume's Heart")
 					},
-					Player2HeroClass = CardClass.HUNTER,
+					Player2HeroClass = ECardClass.HUNTER,
 					DeckPlayer2 = new List<Card>
 					{
 						Cards.FromName("The Marsh Queen")
@@ -687,8 +686,8 @@ namespace SabberStoneCoreTest.Basic
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PALADIN,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player1HeroClass = ECardClass.PALADIN,
+                    Player2HeroClass = ECardClass.MAGE,
                     FillDecks = true
                 });
             game.Player1.BaseMana = 10;
@@ -708,8 +707,8 @@ namespace SabberStoneCoreTest.Basic
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PALADIN,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player1HeroClass = ECardClass.PALADIN,
+                    Player2HeroClass = ECardClass.MAGE,
                     FillDecks = true
                 });
             game.Player1.BaseMana = 10;

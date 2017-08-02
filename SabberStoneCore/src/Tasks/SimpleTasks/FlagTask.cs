@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Enums;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class FlagTask : SimpleTask
     {
@@ -11,11 +13,11 @@
         public bool CheckFlag { get; set; }
         public ISimpleTask TaskToDo { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Flag != CheckFlag)
             {
-                return TaskState.COMPLETE;
+                return ETaskState.COMPLETE;
             }
 
             TaskToDo.Game = Game;

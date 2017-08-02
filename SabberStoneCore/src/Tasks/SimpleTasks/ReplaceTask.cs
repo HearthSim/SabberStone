@@ -8,34 +8,34 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ReplaceTask : SimpleTask
     {
-        private ReplaceTask(EntityType type, Rarity rarity, Card card)
+        private ReplaceTask(EEntityType type, ERarity rarity, Card card)
         {
             Type = type;
             Rarity = rarity;
             Card = card;
         }
 
-        public ReplaceTask(EntityType type, Rarity rarity)
+        public ReplaceTask(EEntityType type, ERarity rarity)
         {
             Type = type;
             Rarity = rarity;
             Card = null;
         }
 
-        public ReplaceTask(EntityType type, string cardId)
+        public ReplaceTask(EEntityType type, string cardId)
         {
             Type = type;
-            Rarity = Rarity.INVALID;
+            Rarity = ERarity.INVALID;
             Card = Cards.FromId(cardId);
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public Rarity Rarity { get; set; }
+        public ERarity Rarity { get; set; }
 
         public Card Card { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 zone.Add(Entity.FromCard(Controller, cards.Count > 1 ? Util.RandomElement(cards) : cards.First()));
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

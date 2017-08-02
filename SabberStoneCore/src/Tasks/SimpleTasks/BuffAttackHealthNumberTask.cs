@@ -1,4 +1,5 @@
-using SabberStoneCore.Enchants;
+﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -6,19 +7,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class BuffAttackHealthNumberTask : SimpleTask
     {
 
-        public BuffAttackHealthNumberTask(EntityType type)
+        public BuffAttackHealthNumberTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null || Number == 0)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var buff = new BuffTask(Buffs.AttackHealth(Number), Type, null);

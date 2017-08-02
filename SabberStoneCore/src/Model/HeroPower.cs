@@ -5,10 +5,10 @@ namespace SabberStoneCore.Model
 {
     public class HeroPower : Playable<HeroPower>
     {
-        public HeroPower(Controller controller, Card card, Dictionary<GameTag, int> tags)
+        public HeroPower(Controller controller, Card card, Dictionary<EGameTag, int> tags)
             : base(controller, card, tags)
         {
-            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
+            Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
         }
 
         public override bool TargetingRequirements(ICharacter target)

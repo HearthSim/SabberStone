@@ -16,7 +16,7 @@ namespace SabberStoneCore.Kettle
                 Game = new PowerEntity
                 {
                     Id = game.Id,
-                    Tags = new Dictionary<GameTag, int>(((Entity)game)._data.Tags)
+                    Tags = new Dictionary<EGameTag, int>(((Entity)game)._data.Tags)
                 },
                 Players = new PowerPlayer[]
                         {
@@ -28,7 +28,7 @@ namespace SabberStoneCore.Kettle
                         PowerEntity = new PowerEntity
                         {
                             Id = players[0].Id,
-                            Tags = new Dictionary<GameTag, int>(((Entity)players[0])._data.Tags)
+                            Tags = new Dictionary<EGameTag, int>(((Entity)players[0])._data.Tags)
                         }
                     },
                     new PowerPlayer
@@ -39,14 +39,14 @@ namespace SabberStoneCore.Kettle
                         PowerEntity = new PowerEntity
                         {
                             Id = players[1].Id,
-                            Tags = new Dictionary<GameTag, int>(((Entity)players[1])._data.Tags)
+                            Tags = new Dictionary<EGameTag, int>(((Entity)players[1])._data.Tags)
                         }
                     },
                         }
             };
         }
 
-        public static PowerHistoryTagChange TagChange(int id, GameTag tag, int value)
+        public static PowerHistoryTagChange TagChange(int id, EGameTag tag, int value)
         {
             return new PowerHistoryTagChange()
             {
@@ -58,7 +58,7 @@ namespace SabberStoneCore.Kettle
 
         public static PowerHistoryFullEntity FullEntity(IPlayable playable)
         {
-            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+            var tags = new Dictionary<EGameTag, int>(((Entity)playable)._data.Tags);
             gameTagsEntities.ForEach(p => tags[p] = playable[p]);
 
             return new PowerHistoryFullEntity
@@ -72,41 +72,41 @@ namespace SabberStoneCore.Kettle
             };
         }
 
-        private static List<GameTag> gameTagsEntities = new List<GameTag>()
+        private static List<EGameTag> gameTagsEntities = new List<EGameTag>()
         {
-            GameTag.PREMIUM,
-            GameTag.ATK,
-            GameTag.HEALTH,
-            GameTag.DURABILITY,
-            GameTag.DAMAGE,
-            GameTag.COST,
-            GameTag.ZONE,
-            GameTag.ZONE_POSITION,
-            GameTag.CONTROLLER,
-            GameTag.ENTITY_ID,
-            GameTag.SILENCED,
-            GameTag.WINDFURY,
-            GameTag.TAUNT,
-            GameTag.STEALTH,
-            GameTag.DIVINE_SHIELD,
-            GameTag.CHARGE,
-            GameTag.FACTION,
-            GameTag.CARDTYPE,
-            GameTag.RARITY,
-            GameTag.BATTLECRY,
-            GameTag.DEATHRATTLE,
-            GameTag.FROZEN,
-            GameTag.NUM_ATTACKS_THIS_TURN,
-            GameTag.FORCED_PLAY,
-            GameTag.TO_BE_DESTROYED,
-            GameTag.START_WITH_1_HEALTH,
-            GameTag.CUSTOM_KEYWORD_EFFECT,
-            GameTag.EXTRA_ATTACKS_THIS_TURN
+            EGameTag.PREMIUM,
+            EGameTag.ATK,
+            EGameTag.HEALTH,
+            EGameTag.DURABILITY,
+            EGameTag.DAMAGE,
+            EGameTag.COST,
+            EGameTag.ZONE,
+            EGameTag.ZONE_POSITION,
+            EGameTag.CONTROLLER,
+            EGameTag.ENTITY_ID,
+            EGameTag.SILENCED,
+            EGameTag.WINDFURY,
+            EGameTag.TAUNT,
+            EGameTag.STEALTH,
+            EGameTag.DIVINE_SHIELD,
+            EGameTag.CHARGE,
+            EGameTag.FACTION,
+            EGameTag.CARDTYPE,
+            EGameTag.RARITY,
+            EGameTag.BATTLECRY,
+            EGameTag.DEATHRATTLE,
+            EGameTag.FROZEN,
+            EGameTag.NUM_ATTACKS_THIS_TURN,
+            EGameTag.FORCED_PLAY,
+            EGameTag.TO_BE_DESTROYED,
+            EGameTag.START_WITH_1_HEALTH,
+            EGameTag.CUSTOM_KEYWORD_EFFECT,
+            EGameTag.EXTRA_ATTACKS_THIS_TURN
         };
 
         public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
         {
-            var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+            var tags = new Dictionary<EGameTag, int>(((Entity)playable)._data.Tags);
             gameTagsEntities.ForEach(p => tags[p] = playable[p]);
             //tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = playable[GameTag.COST];
 
@@ -130,7 +130,7 @@ namespace SabberStoneCore.Kettle
             };
         }
 
-        public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target)
+        public static PowerHistoryBlockStart BlockStart(EBlockType blockType, int source, string effectCardId, int index, int target)
         {
             return new PowerHistoryBlockStart
             {
@@ -193,7 +193,7 @@ namespace SabberStoneCore.Kettle
     //}
     public interface IPowerHistoryEntry
     {
-        PowerType PowerType { get; }
+        EPowerType PowerType { get; }
         string Print();
     }
 
@@ -204,7 +204,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerHistoryCreateGame : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.CREATE_GAME;
+        public EPowerType PowerType => EPowerType.CREATE_GAME;
         public PowerEntity Game { get; set; }
         public PowerPlayer[] Players { get; set; } 
         public string Print() 
@@ -230,8 +230,8 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerHistoryBlockStart : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.BLOCK_START;
-        public BlockType BlockType { get; set; }
+        public EPowerType PowerType => EPowerType.BLOCK_START;
+        public EBlockType BlockType { get; set; }
         public int Index { get; set; } = -1;
         public int Source { get; set; }
         public int Target { get; set; } = 0;
@@ -250,7 +250,7 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerHistoryBlockEnd : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.BLOCK_END;
+        public EPowerType PowerType => EPowerType.BLOCK_END;
 
         public string Print()
         {
@@ -262,7 +262,7 @@ namespace SabberStoneCore.Kettle
 
     public class PowerHistoryFullEntity : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.FULL_ENTITY;
+        public EPowerType PowerType => EPowerType.FULL_ENTITY;
         public PowerHistoryEntity Entity { get; set; }
 
         public string Print()
@@ -275,7 +275,7 @@ namespace SabberStoneCore.Kettle
 
     public class PowerHistoryShowEntity : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.SHOW_ENTITY;
+        public EPowerType PowerType => EPowerType.SHOW_ENTITY;
         public PowerHistoryEntity Entity { get; set; }
         public string Print()
         {
@@ -292,9 +292,9 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerHistoryHideEntity : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.HIDE_ENTITY;
+        public EPowerType PowerType => EPowerType.HIDE_ENTITY;
         public int EntityID { get; set; }
-        public Zone Zone { get; set; }
+        public EZone Zone { get; set; }
 
         public string Print()
         {
@@ -312,9 +312,9 @@ namespace SabberStoneCore.Kettle
     //}
     public class PowerHistoryTagChange : IPowerHistoryEntry
     {
-        public PowerType PowerType => PowerType.TAG_CHANGE;
+        public EPowerType PowerType => EPowerType.TAG_CHANGE;
         public int EntityId { get; set; }
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
         public int Value { get; set; }
 
         public string Print()
@@ -342,7 +342,7 @@ namespace SabberStoneCore.Kettle
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+        public Dictionary<EGameTag, int> Tags { get; set; } = new Dictionary<EGameTag, int>();
         public string Print()
         {
             var str = new StringBuilder();
@@ -387,7 +387,7 @@ namespace SabberStoneCore.Kettle
     public class PowerEntity
     {
         public int Id { get; set; }
-        public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+        public Dictionary<EGameTag, int> Tags { get; set; } = new Dictionary<EGameTag, int>();
         public string Print()
         {
             var str = new StringBuilder();

@@ -6,23 +6,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CopyDeathrattleTask : SimpleTask
     {
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as Minion;
             var target = Target as Minion;
 
-            Game.Log(LogLevel.INFO, BlockType.SCRIPT, "CopyDeathrattleTask", "Inside the Task.");
+            Game.Log(ELogLevel.INFO, EBlockType.SCRIPT, "CopyDeathrattleTask", "Inside the Task.");
 
             if (source == null || target == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             target.Enchantments.ForEach(p =>
             {
-                if (p.Activation == EnchantmentActivation.DEATHRATTLE)
+                if (p.Activation == EEnchantmentActivation.DEATHRATTLE)
                 {
                     source.Enchantments.Add(p);
                     source.HasDeathrattle = true;
@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             });
 
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

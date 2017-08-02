@@ -5,10 +5,10 @@ namespace SabberStoneCore.Model
 {
     public partial class Weapon : Playable<Weapon>
     {
-        public Weapon(Controller controller, Card card, Dictionary<GameTag, int> tags)
+        public Weapon(Controller controller, Card card, Dictionary<EGameTag, int> tags)
             : base(controller, card, tags)
         {
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
         }
     }
 
@@ -16,26 +16,26 @@ namespace SabberStoneCore.Model
     {
         public int AttackDamage
         {
-            get { return this[GameTag.ATK]; }
-            set { this[GameTag.ATK] = value; }
+            get { return this[EGameTag.ATK]; }
+            set { this[EGameTag.ATK] = value; }
         }
 
         public int Durability
         {
-            get { return this[GameTag.DURABILITY]; }
-            set { this[GameTag.DURABILITY] = value; }
+            get { return this[EGameTag.DURABILITY]; }
+            set { this[EGameTag.DURABILITY] = value; }
         }
 
         public bool HasWindfury
         {
-            get { return this[GameTag.WINDFURY] == 1; }
-            set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+            get { return this[EGameTag.WINDFURY] == 1; }
+            set { this[EGameTag.WINDFURY] = value ? 1 : 0; }
         }
 
         public bool Poisonous
         {
-            get { return this[GameTag.POISONOUS] == 1; }
-            set { this[GameTag.POISONOUS] = value ? 1 : 0; }
+            get { return this[EGameTag.POISONOUS] == 1; }
+            set { this[EGameTag.POISONOUS] = value ? 1 : 0; }
         }
     }
 }

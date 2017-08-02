@@ -1,11 +1,13 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Enums;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class GetControllerManaTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Number = Controller.RemainingMana;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

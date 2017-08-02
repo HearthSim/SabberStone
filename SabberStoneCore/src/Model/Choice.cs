@@ -1,29 +1,10 @@
 ﻿using SabberStoneCore.Collections;
 using SabberStoneCore.Enums;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SabberStoneCore.Model
 {
-	/// <summary>
-	/// Specifies the consequences of a made choice.
-	/// </summary>
-	public enum ChoiceAction
-	{
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
-		ADAPT,
-		HAND,
-		SUMMON,
-		HEROPOWER,
-		KAZAKUS,
-		TRACKING,
-		INVALID,
-
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	}
-
 	/// <summary>
 	/// Embodies a choice the specified controller made.
 	/// </summary>
@@ -33,12 +14,12 @@ namespace SabberStoneCore.Model
 		public readonly Controller Controller;
 
 		/// <summary>Gets or sets the type of the choice.</summary>
-		/// <value><see cref="Enums.ChoiceType"/></value>
-		public ChoiceType ChoiceType { get; set; } = ChoiceType.INVALID;
+		/// <value><see cref="EChoiceType"/></value>
+		public EChoiceType ChoiceType { get; set; } = EChoiceType.INVALID;
 
 		/// <summary>Gets or sets the action linked to the made choice.</summary>
-		/// <value>The choice action.</value>
-		public ChoiceAction ChoiceAction { get; set; } = ChoiceAction.INVALID;
+		/// <value><see cref="EChoiceAction"/></value>
+		public EChoiceAction ChoiceAction { get; set; } = EChoiceAction.INVALID;
 
 		/// <summary>Gets or sets the set of possible choices, entity ID's.</summary>
 		/// <value>The set of entity ID's, in a choice set it's not possible to have two options at the same time.</value>

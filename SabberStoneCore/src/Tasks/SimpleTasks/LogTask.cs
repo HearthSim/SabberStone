@@ -13,21 +13,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool CardTextPrint { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (true)
             {
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Log task is beeing processed!");
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Flag: {Flag}, Number: {Number}");
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {string.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "LogTask", $"Log task is beeing processed!");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "LogTask", $"Flag: {Flag}, Number: {Number}");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "LogTask", $"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "LogTask", $"Playables: {string.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
             }
 
             if (CardTextPrint)
             {
-                Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"{Source.Card.Text}");
+                Game.Log(ELogLevel.INFO, EBlockType.PLAY, "LogTask", $"{Source.Card.Text}");
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

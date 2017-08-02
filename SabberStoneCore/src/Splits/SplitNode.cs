@@ -32,13 +32,13 @@ namespace SabberStoneCore.Splits
             if (!isRoot)
                 Execute();
 
-            Hash = Game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
+            Hash = Game.Hash(EGameTag.LAST_CARD_PLAYED, EGameTag.ENTITY_ID);
         }
 
         public void Execute()
         {
             // pick-up mid splitting taks which aren't finished
-            if (Game.TaskQueue.CurrentTask != null && Game.TaskQueue.CurrentTask.State != TaskState.COMPLETE)
+            if (Game.TaskQueue.CurrentTask != null && Game.TaskQueue.CurrentTask.State != ETaskState.COMPLETE)
                 Game.TaskQueue.CurrentTask.Process();
 
             Game.DeathProcessingAndAuraUpdate();

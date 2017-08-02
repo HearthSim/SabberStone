@@ -6,14 +6,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SetHealthNumberTask : SimpleTask
     {
-        public SetHealthNumberTask(EntityType entityType)
+        public SetHealthNumberTask(EEntityType entityType)
         {
             Type = entityType;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             entities.TrueForAll(p =>
@@ -27,9 +27,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 // work around health buffs
                 p.Enchants.ForEach(t =>
                 {
-                    if (t.Effects.ContainsKey(GameTag.HEALTH))
+                    if (t.Effects.ContainsKey(EGameTag.HEALTH))
                     {
-                        t.Effects.Remove(GameTag.HEALTH);
+                        t.Effects.Remove(EGameTag.HEALTH);
                     }
                 });
 
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return true;
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

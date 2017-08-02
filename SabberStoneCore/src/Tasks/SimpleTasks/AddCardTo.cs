@@ -1,28 +1,29 @@
 ﻿using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class AddCardTo : SimpleTask
     {
-        private AddCardTo(IPlayable playable, Card card, EntityType type)
+        private AddCardTo(IPlayable playable, Card card, EEntityType type)
         {
             Playable = playable;
             Card = card;
             Type = type;
         }
-        public AddCardTo(IPlayable playable, EntityType type)
+        public AddCardTo(IPlayable playable, EEntityType type)
         {
             Playable = playable;
             Type = type;
         }
-        public AddCardTo(Card card, EntityType type)
+        public AddCardTo(Card card, EEntityType type)
         {
             Card = card;
             Type = type;
         }
-        public AddCardTo(string cardId, EntityType type)
+        public AddCardTo(string cardId, EEntityType type)
         {
             Card = Cards.FromId(cardId);
             Type = type;
@@ -32,35 +33,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Card Card { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             switch (Type)
             {
-                case EntityType.DECK:
+                case EEntityType.DECK:
                     if (Playable == null)
                         Playable = Entity.FromCard(Controller, Card);
                     Generic.ShuffleIntoDeck.Invoke(Controller, Playable);
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.HAND:
+                case EEntityType.HAND:
                     if (Playable == null)
                         Playable = Entity.FromCard(Controller, Card);
                     Generic.AddHandPhase.Invoke(Controller, Playable);
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.OP_HAND:
+                case EEntityType.OP_HAND:
                     if (Playable == null)
                         Playable = Entity.FromCard(Controller.Opponent, Card);
                     Generic.AddHandPhase.Invoke(Controller.Opponent, Playable);
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.OP_DECK:
+                case EEntityType.OP_DECK:
                     if (Playable == null)
                         Playable = Entity.FromCard(Controller.Opponent, Card);
                     Generic.ShuffleIntoDeck.Invoke(Controller.Opponent, Playable);
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
                 default:
                     throw new NotImplementedException();

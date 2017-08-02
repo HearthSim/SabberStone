@@ -12,10 +12,10 @@ namespace SabberStoneCore.Model
 
         public Weapon Weapon { get; set; }
 
-        public Hero(Controller controller, Card card, Dictionary<GameTag, int> tags) 
+        public Hero(Controller controller, Card card, Dictionary<EGameTag, int> tags) 
             : base(controller, card, tags)
         {
-            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", $"{card.Name} ({card.Class}) was created.");
+            Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Hero", $"{card.Name} ({card.Class}) was created.");
         }
 
         public int TotalAttackDamage => AttackDamage + (Weapon?.AttackDamage ?? 0);
@@ -29,11 +29,11 @@ namespace SabberStoneCore.Model
             RemoveWeapon();
             weapon.SetOrderOfPlay("WEAPON");
             Weapon = weapon;
-            Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
-            Weapon[GameTag.ZONE_POSITION] = 0;
+            Weapon[EGameTag.ZONE] = (int)Enums.EZone.PLAY;
+            Weapon[EGameTag.ZONE_POSITION] = 0;
             if (Game.History)
             {
-                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, Weapon.Id, "", -1, 0));
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, Weapon.Id, "", -1, 0));
                 Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
             }
             EquippedWeapon = weapon.Id;
@@ -48,9 +48,9 @@ namespace SabberStoneCore.Model
 
             if (Weapon.HasDeathrattle)
             {
-                Weapon.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+                Weapon.ApplyEnchantments(EEnchantmentActivation.DEATHRATTLE, Enums.EZone.GRAVEYARD);
             }
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
             Controller.Graveyard.Add(Weapon);
             Weapon = null;
             EquippedWeapon = 0;
@@ -71,26 +71,26 @@ namespace SabberStoneCore.Model
     {
         public int SpellPowerDamage
         {
-            get { return this[GameTag.SPELLPOWER]; }
-            set { this[GameTag.SPELLPOWER] = value; }
+            get { return this[EGameTag.SPELLPOWER]; }
+            set { this[EGameTag.SPELLPOWER] = value; }
         }
 
         public int EquippedWeapon
         {
-            get { return this[GameTag.WEAPON]; }
-            set { this[GameTag.WEAPON] = value; }
+            get { return this[EGameTag.WEAPON]; }
+            set { this[EGameTag.WEAPON] = value; }
         }
 
         public int HeroPowerDamage
         {
-            get { return this[GameTag.HEROPOWER_DAMAGE]; }
-            set { this[GameTag.HEROPOWER_DAMAGE] = value; }
+            get { return this[EGameTag.HEROPOWER_DAMAGE]; }
+            set { this[EGameTag.HEROPOWER_DAMAGE] = value; }
         }
 
         public int Fatigue
         {
-            get { return this[GameTag.FATIGUE]; }
-            set { this[GameTag.FATIGUE] = value; }
+            get { return this[EGameTag.FATIGUE]; }
+            set { this[EGameTag.FATIGUE] = value; }
         }
 
     } 

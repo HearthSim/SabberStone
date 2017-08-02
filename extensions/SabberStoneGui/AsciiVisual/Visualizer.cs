@@ -134,7 +134,7 @@ namespace SabberStoneGui.AsciiVisual
                         .Name(spell.Card.AbbreviatedName(7))
                         .Cost(spell.Cost)
                         .SpellText(Regex.Replace(spell.Card.Text, @"<[^>]*>", "").Replace(Environment.NewLine, ""))
-                        .Type(CardType.SPELL)
+                        .Type(ECardType.SPELL)
                         .Build();
 
                 }
@@ -146,13 +146,13 @@ namespace SabberStoneGui.AsciiVisual
                         .Type(minion.Card.Type)
                         .AttackDamage(minion.AttackDamage)
                         .Health(minion.Health)
-                        .Spellpower(minion[GameTag.SPELLPOWER])
+                        .Spellpower(minion[EGameTag.SPELLPOWER])
                         .Deathrattle(minion.HasDeathrattle)
                         .Battlecry(minion.HasBattleCry)
                         .Inspire(minion.HasInspire)
-                        .Poisonus(minion[GameTag.POISONOUS] == 1)
+                        .Poisonus(minion[EGameTag.POISONOUS] == 1)
                         .Silenced(minion.IsSilenced)
-                        .Freeze(minion[GameTag.FREEZE] == 1)
+                        .Freeze(minion[EGameTag.FREEZE] == 1)
                         .Charge(minion.HasCharge)
                         .Taunt(minion.HasTaunt)
                         .Stealth(minion.HasStealth)
@@ -172,9 +172,9 @@ namespace SabberStoneGui.AsciiVisual
                         .Type(weapon.Card.Type)
                         .AttackDamage(weapon.AttackDamage)
                         .Durability(weapon.Durability)
-                        .Deathrattle(weapon[GameTag.DEATHRATTLE] == 1)
-                        .Battlecry(weapon[GameTag.BATTLECRY] == 1)
-                        .Windfury(weapon[GameTag.WINDFURY] == 1)
+                        .Deathrattle(weapon[EGameTag.DEATHRATTLE] == 1)
+                        .Battlecry(weapon[EGameTag.BATTLECRY] == 1)
+                        .Windfury(weapon[EGameTag.WINDFURY] == 1)
                         .Exhausted(weapon.IsExhausted)
                         .Build();
                 }

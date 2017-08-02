@@ -29,11 +29,11 @@ namespace SabberStoneCore.CardSets
 				{
                     // http://hearthstone.gamepedia.com/Recycle
 
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new CopyTask(EntityType.TARGET, 1),
-                        new AddStackTo(EntityType.OP_DECK),
-                        new MoveToSetaside(EntityType.TARGET))
+                        new CopyTask(EEntityType.TARGET, 1),
+                        new AddStackTo(EEntityType.OP_DECK),
+                        new MoveToSetaside(EEntityType.TARGET))
 				},
 			});
 
@@ -46,8 +46,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_033", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new HealFullTask(EntityType.ALL)
+					Activation = EEnchantmentActivation.SPELL,
+					SingleTask = new HealFullTask(EEntityType.ALL)
 				},
 			});
 
@@ -71,7 +71,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_041] Dark Wispers && Test: Dark Wispers_GVG_041
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -147,8 +147,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_035", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new AddCardTo("GVG_035", EntityType.DECK)
+					Activation = EEnchantmentActivation.DEATHRATTLE,
+					SingleTask = new AddCardTo("GVG_035", EEntityType.DECK)
 				},
 			});
 
@@ -164,10 +164,10 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_080", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
-                        new FlagTask(true, new TransformTask("GVG_080t", EntityType.SOURCE)))
+                        new ConditionTask(EEntityType.SOURCE, SelfCondition.IsControllingRace(ERace.BEAST)),
+                        new FlagTask(true, new TransformTask("GVG_080t", EEntityType.SOURCE)))
 				},
 			});
 
@@ -185,7 +185,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_030a] Attack Mode && Test: Attack Mode_GVG_030a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -200,7 +200,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_030b] Tank Mode && Test: Tank Mode_GVG_030b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -215,7 +215,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_032a] Gift of Mana && Test: Gift of Mana_GVG_032a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -230,7 +230,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_032b] Gift of Cards && Test: Gift of Cards_GVG_032b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -249,7 +249,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_041a] Dark Wispers && Test: Dark Wispers_GVG_041a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -268,7 +268,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_041b] Dark Wispers && Test: Dark Wispers_GVG_041b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -339,7 +339,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_017] Call Pet && Test: Call Pet_GVG_017
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -357,7 +357,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_026] Feign Death && Test: Feign Death_GVG_026
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -375,10 +375,10 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_073", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new DamageTask(3, EntityType.TARGET, true),
-                        new DamageTask(3, EntityType.OP_HERO, true))
+                        new DamageTask(3, EEntityType.TARGET, true),
+                        new DamageTask(3, EEntityType.OP_HERO, true))
 
                 },
 			});
@@ -397,7 +397,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_046] King of Beasts && Test: King of Beasts_GVG_046
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -415,7 +415,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_048] Metaltooth Leaper && Test: Metaltooth Leaper_GVG_048
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -467,12 +467,12 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_043] Glaivezooka && Test: Glaivezooka_GVG_043
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -529,8 +529,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_001", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4, true)
+					Activation = EEnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DamageRandomTargets(1, EEntityType.OP_MINIONS, 4, true)
 				},
 			});
 
@@ -544,7 +544,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_003] Unstable Portal && Test: Unstable Portal_GVG_003
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -559,7 +559,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_005] Echo of Medivh && Test: Echo of Medivh_GVG_005
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -595,7 +595,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_004] Goblin Blastmage && Test: Goblin Blastmage_GVG_004
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -649,8 +649,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_123", new List<Enchantment> {
                 new Enchantment
                 {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Area = EEnchantmentArea.HERO,
+                    Activation = EEnchantmentActivation.BOARD,
                     Enchant = Auras.SpellPowerDamage(1)
                 },
             });
@@ -691,7 +691,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_057] Seal of Light && Test: Seal of Light_GVG_057
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -705,7 +705,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_061", new List<Enchantment> {
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new EnqueueTask(3, new SummonTask("CS2_101t")),
                         new WeaponTask("CS2_091"))
@@ -743,7 +743,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_060] Quartermaster && Test: Quartermaster_GVG_060
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -800,7 +800,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_101] Scarlet Purifier && Test: Scarlet Purifier_GVG_101
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -823,12 +823,12 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_059] Coghammer && Test: Coghammer_GVG_059
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -870,7 +870,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_008] Lightbomb && Test: Lightbomb_GVG_008
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -892,7 +892,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_010] Velen's Chosen && Test: Velen's Chosen_GVG_010
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -910,7 +910,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_012] Light of the Naaru && Test: Light of the Naaru_GVG_012
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -928,7 +928,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_009] Shadowbomber && Test: Shadowbomber_GVG_009
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -950,7 +950,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_011] Shrinkmeister && Test: Shrinkmeister_GVG_011
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -973,7 +973,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_014] Vol'jin && Test: Vol'jin_GVG_014
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1012,7 +1012,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_083] Upgraded Repair Bot && Test: Upgraded Repair Bot_GVG_083
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1071,7 +1071,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_022] Tinker's Sharpsword Oil && Test: Tinker's Sharpsword Oil_GVG_022
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1093,7 +1093,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_047] Sabotage && Test: Sabotage_GVG_047
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1111,7 +1111,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_023] Goblin Auto-Barber && Test: Goblin Auto-Barber_GVG_023
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1201,7 +1201,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_024] Cogmaster's Wrench && Test: Cogmaster's Wrench_GVG_024
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -1239,7 +1239,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_029] Ancestor's Call && Test: Ancestor's Call_GVG_029
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1261,7 +1261,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_038] Crackle && Test: Crackle_GVG_038
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1334,7 +1334,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_042] Neptulon && Test: Neptulon_GVG_042
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1375,12 +1375,12 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_036] Powermace && Test: Powermace_GVG_036
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -1421,7 +1421,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_015] Darkbomb && Test: Darkbomb_GVG_015
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1440,7 +1440,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_019] Demonheart && Test: Demonheart_GVG_019
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1459,7 +1459,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_045] Imp-losion && Test: Imp-losion_GVG_045
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1626,7 +1626,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_050] Bouncing Blade && Test: Bouncing Blade_GVG_050
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1645,7 +1645,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_052] Crush && Test: Crush_GVG_052
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1681,7 +1681,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_053] Shieldmaiden && Test: Shieldmaiden_GVG_053
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1704,7 +1704,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_055] Screwjank Clunker && Test: Screwjank Clunker_GVG_055
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1723,7 +1723,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_056] Iron Juggernaut && Test: Iron Juggernaut_GVG_056
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1756,7 +1756,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_054] Ogre Warmaul && Test: Ogre Warmaul_GVG_054
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = EEnchantmentActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -1779,7 +1779,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_056t] Burrowing Mine && Test: Burrowing Mine_GVG_056t
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1974,7 +1974,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_069] Antique Healbot && Test: Antique Healbot_GVG_069
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2021,7 +2021,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_074] Kezan Mystic && Test: Kezan Mystic_GVG_074
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2054,7 +2054,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_076] Explosive Sheep && Test: Explosive Sheep_GVG_076
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2075,7 +2075,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_078] Mechanical Yeti && Test: Mechanical Yeti_GVG_078
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2132,7 +2132,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_082] Clockwork Gnome && Test: Clockwork Gnome_GVG_082
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2206,7 +2206,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_090] Madder Bomber && Test: Madder Bomber_GVG_090
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2245,7 +2245,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_092] Gnomish Experimenter && Test: Gnomish Experimenter_GVG_092
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2277,7 +2277,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_094", new List<Enchantment> {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = EEnchantmentActivation.SPELL,
                     SingleTask = ComplexTask.Create(
                         new FuncNumberTask(p =>
                         {
@@ -2320,7 +2320,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_096] Piloted Shredder && Test: Piloted Shredder_GVG_096
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2343,7 +2343,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_097] Lil' Exorcist && Test: Lil' Exorcist_GVG_097
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2381,7 +2381,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_099] Bomb Lobber && Test: Bomb Lobber_GVG_099
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2402,7 +2402,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_102] Tinkertown Technician && Test: Tinkertown Technician_GVG_102
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2450,7 +2450,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_105] Piloted Sky Golem && Test: Piloted Sky Golem_GVG_105
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2489,7 +2489,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_107] Enhance-o Mechano && Test: Enhance-o Mechano_GVG_107
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2512,7 +2512,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_108] Recombobulator && Test: Recombobulator_GVG_108
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2551,7 +2551,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_110] Dr. Boom && Test: Dr. Boom_GVG_110
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2624,7 +2624,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_114] Sneed's Old Shredder && Test: Sneed's Old Shredder_GVG_114
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2647,12 +2647,12 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_115] Toshley && Test: Toshley_GVG_115
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2725,7 +2725,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_119] Blingtron 3000 && Test: Blingtron 3000_GVG_119
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2748,7 +2748,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_120] Hemet Nesingwary && Test: Hemet Nesingwary_GVG_120
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EEnchantmentActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2783,7 +2783,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_028t] Gallywix's Coin && Test: Gallywix's Coin_GVG_028t
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2805,7 +2805,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_001] Armor Plating && Test: Armor Plating_PART_001
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2828,7 +2828,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_002] Time Rewinder && Test: Time Rewinder_PART_002
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2853,7 +2853,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_003] Rusty Horn && Test: Rusty Horn_PART_003
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2879,7 +2879,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_004] Finicky Cloakfield && Test: Finicky Cloakfield_PART_004
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2902,7 +2902,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_005] Emergency Coolant && Test: Emergency Coolant_PART_005
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2924,7 +2924,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_006] Reversing Switch && Test: Reversing Switch_PART_006
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2946,7 +2946,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [PART_007] Whirling Blades && Test: Whirling Blades_PART_007
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = EEnchantmentActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3256,7 +3256,7 @@ namespace SabberStoneCore.CardSets
 				// TODO [GVG_110t] Boom Bot && Test: Boom Bot_GVG_110t
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = EEnchantmentActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});

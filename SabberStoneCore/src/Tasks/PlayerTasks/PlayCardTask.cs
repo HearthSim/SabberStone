@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         }
         private PlayCardTask(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
         {
-            PlayerTaskType = PlayerTaskType.PLAY_CARD;
+            PlayerTaskType = EPlayerTaskType.PLAY_CARD;
             Game = controller.Game;
             Controller = controller;
             Source = source;
@@ -42,11 +42,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             return new PlayCardTask(Controller, Source, Target, ZonePosition, ChooseOne);
         }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var success = Generic.PlayCard(Controller, Source as IPlayable, Target as ICharacter, ZonePosition, ChooseOne);
-            Controller.Game.NextStep = Step.MAIN_CLEANUP;
-            return TaskState.COMPLETE;
+            Controller.Game.NextStep = EStep.MAIN_CLEANUP;
+            return ETaskState.COMPLETE;
         }
 
         public override string FullPrint()

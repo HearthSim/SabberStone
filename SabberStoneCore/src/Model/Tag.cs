@@ -6,10 +6,10 @@ namespace SabberStoneCore.Model
 {
     public class Tag
     {
-        public GameTag GameTag { get; }
+        public EGameTag GameTag { get; }
         public TagValue TagValue { get; }
 
-        public Tag(GameTag gameTag, TagValue tagValue)
+        public Tag(EGameTag gameTag, TagValue tagValue)
         {
             GameTag = gameTag;
             TagValue = tagValue;
@@ -31,22 +31,22 @@ namespace SabberStoneCore.Model
             return s + v;
         }
 
-        public static readonly Dictionary<GameTag, System.Type> TypedTags = new Dictionary<GameTag, System.Type> {
-                [GameTag.STATE] = typeof(State),
-                [GameTag.ZONE] = typeof(Zone),
-                [GameTag.STEP] = typeof(Step),
-                [GameTag.NEXT_STEP] = typeof(Step),
-                [GameTag.PLAYSTATE] = typeof(PlayState),
-                [GameTag.CARDTYPE] = typeof(CardType),
-                [GameTag.MULLIGAN_STATE] = typeof(Mulligan),
-                [GameTag.CARD_SET] = typeof(CardSet),
-                [GameTag.CLASS] = typeof(CardClass),
-                [GameTag.RARITY] = typeof(Rarity),
-                [GameTag.FACTION] = typeof(Faction),
-                [GameTag.CARDRACE] = typeof(Race),
-                [GameTag.ENCHANTMENT_BIRTH_VISUAL] = typeof(EnchantmentVisual),
-                [GameTag.ENCHANTMENT_IDLE_VISUAL] = typeof(EnchantmentVisual),
-                [GameTag.GOLD_REWARD_STATE] = typeof(GoldRewardState)
+        public static readonly Dictionary<EGameTag, System.Type> TypedTags = new Dictionary<EGameTag, System.Type> {
+                [EGameTag.STATE] = typeof(EState),
+                [EGameTag.ZONE] = typeof(EZone),
+                [EGameTag.STEP] = typeof(EStep),
+                [EGameTag.NEXT_STEP] = typeof(EStep),
+                [EGameTag.PLAYSTATE] = typeof(EPlayState),
+                [EGameTag.CARDTYPE] = typeof(ECardType),
+                [EGameTag.MULLIGAN_STATE] = typeof(EMulligan),
+                [EGameTag.CARD_SET] = typeof(ECardSet),
+                [EGameTag.CLASS] = typeof(ECardClass),
+                [EGameTag.RARITY] = typeof(ERarity),
+                [EGameTag.FACTION] = typeof(EFaction),
+                [EGameTag.CARDRACE] = typeof(ERace),
+                [EGameTag.ENCHANTMENT_BIRTH_VISUAL] = typeof(EEnchantmentVisual),
+                [EGameTag.ENCHANTMENT_IDLE_VISUAL] = typeof(EEnchantmentVisual),
+                [EGameTag.GOLD_REWARD_STATE] = typeof(EGoldRewardState)
             };
     }
 }

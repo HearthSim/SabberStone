@@ -7,7 +7,7 @@ namespace SabberStonePowerLog.Model
     {
         public PowerCreateGame()
         {
-            PowerType = PowerType.CREATE_GAME;
+            PowerType = EPowerType.CREATE_GAME;
             Players = new List<Player>();
         }
 

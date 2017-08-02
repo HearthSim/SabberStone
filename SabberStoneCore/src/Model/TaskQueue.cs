@@ -44,12 +44,12 @@ namespace SabberStoneCore.Model
             clone.Controller = controller;
             clone.Source = source;
             clone.Target = target;
-            Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
+            Game.Log(ELogLevel.VERBOSE, EBlockType.TRIGGER, "TaskQueue", $"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
                      $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
 
             // power block
             if (controller.Game.History)
-                controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
+                controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
             clone.Process();
 
@@ -76,17 +76,17 @@ namespace SabberStoneCore.Model
             TaskList.Add(task);
         }
 
-        public TaskState Process()
+        public ETaskState Process()
         {
             CurrentTask = TaskList.OrderBy(p => p.Source.OrderOfPlay).First();
             TaskList.Remove(CurrentTask);
-            Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
+            Game.Log(ELogLevel.VERBOSE, EBlockType.TRIGGER, "TaskQueue", $"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
                                         $"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
 
 
             // power block
             if (Game.History)
-                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
+                Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
 
             var success = CurrentTask.Process();
 

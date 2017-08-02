@@ -1,21 +1,22 @@
 ﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ActivateEnchantment : SimpleTask
     {
-        public ActivateEnchantment(EntityType entityType, EnchantmentActivation activation)
+        public ActivateEnchantment(EEntityType entityType, EEnchantmentActivation activation)
         {
             Type = entityType;
             Activation = activation;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public EnchantmentActivation Activation { get; set; }
+        public EEnchantmentActivation Activation { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
@@ -32,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

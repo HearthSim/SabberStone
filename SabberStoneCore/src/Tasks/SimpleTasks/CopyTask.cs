@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using System;
 using System.Collections.Generic;
 
@@ -7,29 +8,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class CopyTask : SimpleTask
     {
-        public CopyTask(EntityType type, int amount, bool opposite = false)
+        public CopyTask(EEntityType type, int amount, bool opposite = false)
         {
             Type = type;
             Amount = amount;
             Opposite = opposite;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public int Amount { get; set; }
 
         public bool Opposite { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var result = new List<IPlayable>();
             switch (Type)
             {
-                case EntityType.TARGET:
+                case EEntityType.TARGET:
                     var target = Target as IPlayable;
                     if (target == null)
                     {
-                        return TaskState.STOP;
+                        return ETaskState.STOP;
                     }
                     for (var i = 0; i < Amount; i++)
                     {
@@ -38,11 +39,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Entity.FromCard(Controller, Cards.FromId(target.Card.Id)));
                     }
                     break;
-                case EntityType.SOURCE:
+                case EEntityType.SOURCE:
                     var source = Source as IPlayable;
                     if (source == null)
                     {
-                        return TaskState.STOP;
+                        return ETaskState.STOP;
                     }
                     for (var i = 0; i < Amount; i++)
                     {
@@ -51,10 +52,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                             Entity.FromCard(Controller, Cards.FromId(source.Card.Id)));
                     }
                     break;
-                case EntityType.STACK:
+                case EEntityType.STACK:
                     if (Playables.Count < 1)
                     {
-                        return TaskState.STOP;
+                        return ETaskState.STOP;
                     }
                     Playables.ForEach(p =>
                     {
@@ -66,7 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         }
                     });
                     break;
-                case EntityType.OP_HERO_POWER:
+                case EEntityType.OP_HERO_POWER:
                     result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.Power.Card.Id)));
                     break;
                 default:
@@ -74,7 +75,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
 
             Playables = result;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

@@ -1,59 +1,51 @@
 ﻿using System;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum AuraArea
-    {
-        BOARD,
-        HAND,
-        GAME,
-        HERO,
-        SELF,
-        OP_HAND
-    }
 
     public class AuraTask : SimpleTask
     {
-        public AuraTask(Enchant aura, AuraArea area)
+        public AuraTask(Enchant aura, EAuraArea area)
         {
             Aura = aura;
             Area = area;
         }
 
         public Enchant Aura { get; set; }
-        public AuraArea Area { get; set; }
+        public EAuraArea Area { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null || Aura == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
-            if (Area == AuraArea.BOARD)
+            if (Area == EAuraArea.BOARD)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Board.Enchants, source);
             }
-            else if (Area == AuraArea.HAND)
+            else if (Area == EAuraArea.HAND)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Hand.Enchants, source);
             }
-            else if (Area == AuraArea.OP_HAND)
+            else if (Area == EAuraArea.OP_HAND)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Opponent.Hand.Enchants, source);
             }
-            else if (Area == AuraArea.GAME)
+            else if (Area == EAuraArea.GAME)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Game.Enchants, source);
             }
-            else if (Area == AuraArea.SELF)
+            else if (Area == EAuraArea.SELF)
             {
                 Aura.Activate(source.Card.Id, source.Enchants, source);
             }
-            else if (Area == AuraArea.HERO)
+            else if (Area == EAuraArea.HERO)
             {
                 Aura.Activate(source.Card.Id, source.Controller.Hero.Enchants, source);
             }
@@ -61,7 +53,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 throw new NotImplementedException();
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

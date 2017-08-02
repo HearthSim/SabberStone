@@ -1,4 +1,5 @@
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -15,14 +16,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool ToStack { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var drawedCard = Card != null ? Generic.DrawCardBlock.Invoke(Controller.Opponent, Card) : Generic.Draw(Controller.Opponent);
             if (ToStack && drawedCard != null)
             {
                 Playables.Add(drawedCard);
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

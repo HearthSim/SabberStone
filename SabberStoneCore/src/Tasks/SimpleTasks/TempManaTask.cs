@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -9,11 +10,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Amount = amount;
         }
         public int Amount { get; set; }
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Generic.AddTempMana.Invoke(Controller, Amount);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

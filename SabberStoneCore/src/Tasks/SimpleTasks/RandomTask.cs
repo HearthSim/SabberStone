@@ -9,7 +9,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class SplitTask : SimpleTask
     {
-        public SplitTask(int amount, EntityType type)
+        public SplitTask(int amount, EEntityType type)
         {
             Amount = amount;
             Type = type;
@@ -17,14 +17,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
             if (entities.Count == 0)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             if (Game.Splitting && Game.Splits.Count == 0)
             {
@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     {
                         //Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
                         Playables = new List<IPlayable> { p };
-                        State = TaskState.COMPLETE;
+                        State = ETaskState.COMPLETE;
                         var clone = Game.Clone();
                         Game.Splits.Add(clone);
                     });
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     {
                         //Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
                         Playables = p.ToList();
-                        State = TaskState.COMPLETE;
+                        State = ETaskState.COMPLETE;
 						Game clone = Game.Clone();
                         Game.Splits.Add(clone);
                     }
@@ -55,7 +55,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             Playables = entities;
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()
@@ -69,7 +69,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
     public class RandomTask : SimpleTask
     {
-        public RandomTask(int amount, EntityType type)
+        public RandomTask(int amount, EEntityType type)
         {
             Amount = amount;
             Type = type;
@@ -77,14 +77,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public int Amount { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
             if (entities.Count == 0)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             Playables = new List<IPlayable>();
             for (var i = 0; i < Amount && entities.Count > 0; i++)
@@ -93,7 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 entities.Remove(randPlayable);
                 Playables.Add(randPlayable);
             }
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

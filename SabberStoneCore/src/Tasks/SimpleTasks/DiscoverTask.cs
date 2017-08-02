@@ -9,50 +9,22 @@ using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public enum DiscoverType
-    {
-        BASIC_HEROPOWERS,
-        DRAGON,
-        OP_DECK,
-        BASIC_TOTEM,
-        MINION,
-        SPELL,
-        DEATHRATTLE,
-        ONE_COST,
-        THREE_COST,
-        BEAST,
-        MECHANICAL,
-        ARTIFACT,
-        TRACKING,
-        DRUID_ROGUE_SHAMAN,
-        MAGE_PRIEST_WARLOCK,
-        OVERLOAD,
-        TAUNT,
-        HUNTER_PALADIN_WARRIOR,
-        MURLOC,
-        SECRET,
-        ELEMENTAL,
-        ALL,
-        ELEMENTAL_INVOCATION,
-        OWN_SPELL,
-        COST_8_MORE_SUMMON,
-        OP_HERO
-    }
+	
     public class DiscoverTask : SimpleTask
     {
-        public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
+        public DiscoverTask(EDiscoverType discoverType, Enchantment enchantment = null)
         {
             DiscoverType = discoverType;
             Enchantment = enchantment;
         }
 
-        public DiscoverType DiscoverType { get; set; }
+        public EDiscoverType DiscoverType { get; set; }
 
         public Enchantment Enchantment { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
-            var choiceAction = ChoiceAction.INVALID;
+            var choiceAction = EChoiceAction.INVALID;
             var cardsToDiscover = Discovery(DiscoverType, out choiceAction);
 
             var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
@@ -77,7 +49,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     // need because class cards are duplicated 4 x times
                     // to have a balance to neutral cards
                     // http://hearthstone.gamepedia.com/Discover
-                    if (DiscoverType == DiscoverType.TRACKING)
+                    if (DiscoverType == EDiscoverType.TRACKING)
                     {
                         totcardsToDiscover.Remove(discoveredCard);
                     }
@@ -111,14 +83,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //{
             //    Game.Log(LogLevel.ERROR, BlockType.PLAY, "DiscoverTask",
             //        $"Found no petential cards to use for {DiscoverType}");
-            //    return TaskState.STOP;
+            //    return ETaskState.STOP;
             //}
 
-            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, Enchantment);
-            return TaskState.COMPLETE;
+            var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, EChoiceType.GENERAL, choiceAction, resultCards, Enchantment);
+            return ETaskState.COMPLETE;
         }
 
-        private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
+        private void ProcessSplit(List<Card>[] cardsToDiscover, EChoiceAction choiceAction)
         {
 			int neutralCnt = cardsToDiscover[0].Count;
 			int classCnt = 0;
@@ -134,82 +106,82 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
             var combinations = Util.GetDiscoverSets(uniqueList).ToList();
 
-            Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
+            Game.Log(ELogLevel.INFO, EBlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
             combinations.ForEach(p =>
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerById(Controller.Id);
-                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, new OrderedHashSet<Card>(p), null);
-                cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
+                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, EChoiceType.GENERAL, choiceAction, new OrderedHashSet<Card>(p), null);
+                cloneGame.TaskQueue.CurrentTask.State = ETaskState.COMPLETE;
             });
 
         }
 
-        private List<Card>[] Discovery(DiscoverType discoverType, out ChoiceAction choiceAction)
+        private List<Card>[] Discovery(EDiscoverType discoverType, out EChoiceAction choiceAction)
         {
             switch (discoverType)
             {
-                case DiscoverType.DRUID_ROGUE_SHAMAN:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetTriClass(CardClass.DRUID, CardClass.ROGUE, CardClass.SHAMAN);
+                case EDiscoverType.DRUID_ROGUE_SHAMAN:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetTriClass(ECardClass.DRUID, ECardClass.ROGUE, ECardClass.SHAMAN);
 
-                case DiscoverType.MAGE_PRIEST_WARLOCK:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetTriClass(CardClass.MAGE, CardClass.PRIEST, CardClass.WARLOCK);
+                case EDiscoverType.MAGE_PRIEST_WARLOCK:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetTriClass(ECardClass.MAGE, ECardClass.PRIEST, ECardClass.WARLOCK);
 
-                case DiscoverType.HUNTER_PALADIN_WARRIOR:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetTriClass(CardClass.HUNTER, CardClass.PALADIN, CardClass.WARRIOR);
+                case EDiscoverType.HUNTER_PALADIN_WARRIOR:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetTriClass(ECardClass.HUNTER, ECardClass.PALADIN, ECardClass.WARRIOR);
 
-                case DiscoverType.BASIC_HEROPOWERS:
-                    choiceAction = ChoiceAction.HEROPOWER;
-                    return new[] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToList() };
+                case EDiscoverType.BASIC_HEROPOWERS:
+                    choiceAction = EChoiceAction.HEROPOWER;
+                    return new[] { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[EGameTag.HERO_POWER])).ToList() };
 
-                case DiscoverType.DRAGON:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+                case EDiscoverType.DRAGON:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == ERace.DRAGON));
 
-                case DiscoverType.OVERLOAD:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.OVERLOAD:
+                    choiceAction = EChoiceAction.HAND;
                     var cardSet = Cards.FormatTypeCards(Game.FormatType);
                     return new[] { cardSet.Where(p => p.HasOverload).ToList() };
 
-                case DiscoverType.TAUNT:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p[GameTag.TAUNT] == 1));
+                case EDiscoverType.TAUNT:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p[EGameTag.TAUNT] == 1));
 
-                case DiscoverType.SECRET:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.SECRET:
+                    choiceAction = EChoiceAction.HAND;
                     var classForSecret = 
-                        Controller.HeroClass == CardClass.PALADIN
-                        || Controller.HeroClass == CardClass.MAGE
-                        || Controller.HeroClass == CardClass.HUNTER
+                        Controller.HeroClass == ECardClass.PALADIN
+                        || Controller.HeroClass == ECardClass.MAGE
+                        || Controller.HeroClass == ECardClass.HUNTER
                         ? Controller.HeroClass
-                        : CardClass.PALADIN;
-                    return GetClassCard(classForSecret, list => list.Where(p => p[GameTag.SECRET] == 1));
+                        : ECardClass.PALADIN;
+                    return GetClassCard(classForSecret, list => list.Where(p => p[EGameTag.SECRET] == 1));
 
-                case DiscoverType.BEAST:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.BEAST));
+                case EDiscoverType.BEAST:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == ERace.BEAST));
 
-                case DiscoverType.MURLOC:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.MURLOC));
+                case EDiscoverType.MURLOC:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == ERace.MURLOC));
 
-                case DiscoverType.ELEMENTAL:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.ELEMENTAL));
+                case EDiscoverType.ELEMENTAL:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == ERace.ELEMENTAL));
 
-                case DiscoverType.MECHANICAL:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Race == Race.MECHANICAL));
+                case EDiscoverType.MECHANICAL:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Race == ERace.MECHANICAL));
 
-                case DiscoverType.ALL:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.ALL:
+                    choiceAction = EChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Cost >= 0));
 
-                case DiscoverType.ARTIFACT:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.ARTIFACT:
+                    choiceAction = EChoiceAction.HAND;
                     return new[]
                     {
                         new List<Card>
@@ -220,8 +192,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         }
                     };
 
-                case DiscoverType.ELEMENTAL_INVOCATION:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.ELEMENTAL_INVOCATION:
+                    choiceAction = EChoiceAction.HAND;
                     return new[]
                     {
                         new List<Card>
@@ -233,8 +205,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         }
                     };
 
-                case DiscoverType.TRACKING:
-                    choiceAction = ChoiceAction.TRACKING;
+                case EDiscoverType.TRACKING:
+                    choiceAction = EChoiceAction.TRACKING;
                     var cards = new List<Card>();
                     Controller.Deck.GetAll.Take(3).ToList().ForEach(p =>
                     {
@@ -244,32 +216,32 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     });
                     return new[] { cards };
 
-                case DiscoverType.MINION:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Type == CardType.MINION));
+                case EDiscoverType.MINION:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Type == ECardType.MINION));
 
-                case DiscoverType.DEATHRATTLE:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
+                case EDiscoverType.DEATHRATTLE:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p[EGameTag.DEATHRATTLE] == 1));
 
-                case DiscoverType.ONE_COST:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.ONE_COST:
+                    choiceAction = EChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Cost == 1));
 
-                case DiscoverType.THREE_COST:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.THREE_COST:
+                    choiceAction = EChoiceAction.HAND;
                     return GetFilter(list => list.Where(p => p.Cost == 3));
 
-                case DiscoverType.SPELL:
-                    choiceAction = ChoiceAction.HAND;
-                    return GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
+                case EDiscoverType.SPELL:
+                    choiceAction = EChoiceAction.HAND;
+                    return GetFilter(list => list.Where(p => p.Type == ECardType.SPELL));
 
-                case DiscoverType.OWN_SPELL:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.OWN_SPELL:
+                    choiceAction = EChoiceAction.HAND;
                     return new[] { Controller.Deck.Where(p => p is Spell).Select(p => p.Card).ToList() };
 
-                case DiscoverType.BASIC_TOTEM:
-                    choiceAction = ChoiceAction.SUMMON;
+                case EDiscoverType.BASIC_TOTEM:
+                    choiceAction = EChoiceAction.SUMMON;
                     return new[]
                     {
                         new List<Card>
@@ -281,16 +253,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                         }
                     };
 
-                case DiscoverType.COST_8_MORE_SUMMON:
-                    choiceAction = ChoiceAction.SUMMON;
-                    return GetFilter(list => list.Where(p => p.Cost >= 8 && p.Type == CardType.MINION));
+                case EDiscoverType.COST_8_MORE_SUMMON:
+                    choiceAction = EChoiceAction.SUMMON;
+                    return GetFilter(list => list.Where(p => p.Cost >= 8 && p.Type == ECardType.MINION));
 
-                case DiscoverType.OP_DECK:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.OP_DECK:
+                    choiceAction = EChoiceAction.HAND;
                     return new[] { Controller.Opponent.Deck.Select(p => p.Card).ToList() };
 
-                case DiscoverType.OP_HERO:
-                    choiceAction = ChoiceAction.HAND;
+                case EDiscoverType.OP_HERO:
+                    choiceAction = EChoiceAction.HAND;
                     return GetClassCard(Controller.Opponent.HeroClass, list => list);
 
                 default:
@@ -298,14 +270,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
         }
 
-        private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
+        private List<Card>[] GetClassCard(ECardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
             var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
             return new[] { classCards.ToList()};
         }
 
-        private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
+        private List<Card>[] GetTriClass(ECardClass class1, ECardClass class2, ECardClass class3)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
             return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroupType != 0).ToList(),
@@ -316,7 +288,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-            var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.BasicClasses);
+            var heroClass = Controller.HeroClass != ECardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.BasicClasses);
             var nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
             var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
             return new[] { nonClassCards.ToList(), classCards.ToList() };

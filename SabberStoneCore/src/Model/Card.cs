@@ -44,30 +44,30 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Properties set on this instance.
 		/// These properties represent health, attack, # turns in play etc.
-		/// <see cref="GameTag"/> for all possibilities.
+		/// <see cref="EGameTag"/> for all possibilities.
 		/// </summary>
-		public Dictionary<GameTag, int> Tags { get; set; }
+		public Dictionary<EGameTag, int> Tags { get; set; }
 
 		/// <summary>
 		/// Declares all effects that are triggered by this instance.
 		/// Possibilities are SpellPower, DeathRattle, Charge etc.
 		/// </summary>
-		public Dictionary<GameTag, int> RefTags { get; set; }
+		public Dictionary<EGameTag, int> RefTags { get; set; }
 
 		/// <summary>
 		/// Requirements that must have been met before this card can be moved into 
 		/// play zone.
-		/// <see cref="PlayReq"/> for all possibilities.
+		/// <see cref="EPlayReq"/> for all possibilities.
 		/// </summary>
-		public Dictionary<PlayReq, int> PlayRequirements { get; set; }
+		public Dictionary<EPlayReq, int> PlayRequirements { get; set; }
 
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.
 		/// <seealso cref="Tags"/>
 		/// </summary>
-		/// <param name="t">The <see cref="GameTag"/> which value is queried</param>
+		/// <param name="t">The <see cref="EGameTag"/> which value is queried</param>
 		/// <returns></returns>
-		public int this[GameTag t] => Tags.ContainsKey(t) ? Tags[t] : 0;
+		public int this[EGameTag t] => Tags.ContainsKey(t) ? Tags[t] : 0;
 
 		/// <summary>
 		/// Indicates if this card occurs in the player's collection. Only collectible
@@ -75,54 +75,54 @@ namespace SabberStoneCore.Model
 		/// 
 		/// Non-collectible cards are generated during the game, like Ysera's Dream cards.
 		/// </summary>
-		public bool Collectible => this[GameTag.COLLECTIBLE] == 1;
+		public bool Collectible => this[EGameTag.COLLECTIBLE] == 1;
 
 		/// <summary>
 		/// A card can have NO class or AT MOST one.
 		/// The cardclass is coupled with the chosen hero to represent the player.
 		/// 
 		/// Cards with a specific class can NOT be put into a deck with other classcards.
-		/// <seealso cref="CardClass"/>
+		/// <seealso cref="ECardClass"/>
 		/// </summary>
-		public CardClass Class => (CardClass)this[GameTag.CLASS];
+		public ECardClass Class => (ECardClass)this[EGameTag.CLASS];
 
 		/// <summary>
 		/// <see cref="Race"/>
 		/// </summary>
-		public Race Race => (Race)this[GameTag.CARDRACE];
+		public ERace Race => (ERace)this[EGameTag.CARDRACE];
 
 		/// <summary>
 		/// <see cref="Faction"/>
 		/// </summary>
-		public Faction Faction => (Faction)this[GameTag.FACTION];
+		public EFaction Faction => (EFaction)this[EGameTag.FACTION];
 
 		/// <summary>
 		/// Indicates if this card has a combo effect or not.
 		/// </summary>
-		public bool HasCombo => this[GameTag.COMBO] == 1;
+		public bool HasCombo => this[EGameTag.COMBO] == 1;
 
 		/// <summary>
 		/// <see cref="Rarity"/>
 		/// </summary>
-		public Rarity Rarity => (Rarity)this[GameTag.RARITY];
+		public ERarity Rarity => (ERarity)this[EGameTag.RARITY];
 
 		/// <summary>
 		/// The actual type of a card has limitations on it's usage.
 		/// A hero card cannot be put into a deck for example.. imagine that!
 		/// 
-		/// <see cref="CardType"/>
+		/// <see cref="ECardType"/>
 		/// </summary>
-		public CardType Type => (CardType)this[GameTag.CARDTYPE];
+		public ECardType Type => (ECardType)this[EGameTag.CARDTYPE];
 
 		/// <summary>
-		/// <see cref="CardSet"/>
+		/// <see cref="ECardSet"/>
 		/// </summary>
-		public CardSet Set => (CardSet)this[GameTag.CARD_SET];
+		public ECardSet Set => (ECardSet)this[EGameTag.CARD_SET];
 
 		/// <summary>
 		/// Original mana-cost of this card.
 		/// </summary>
-		public int Cost => this[GameTag.COST];
+		public int Cost => this[EGameTag.COST];
 
 		/// <summary>
 		/// True if this card will incur Overload when played.
@@ -130,46 +130,46 @@ namespace SabberStoneCore.Model
 		/// Overload is an effect that locks mana crystals.
 		/// Locked mana crystals can't be spent during one turn.
 		/// </summary>
-		public bool HasOverload => this[GameTag.OVERLOAD] == 1;
+		public bool HasOverload => this[EGameTag.OVERLOAD] == 1;
 
 		/// <summary>
 		/// The amount of overload incurred by this card when played.
 		/// </summary>
-		public int Overload => this[GameTag.OVERLOAD_OWED];
+		public int Overload => this[EGameTag.OVERLOAD_OWED];
 
 		/// <summary>
 		/// Returns to which multi class group this card belongs.
-		/// <see cref="MultiClassGroup"/>
+		/// <see cref="EMultiClassGroup"/>
 		/// </summary>
-		public MultiClassGroup MultiClassGroupType => (MultiClassGroup)this[GameTag.MULTI_CLASS_GROUP];
+		public EMultiClassGroup MultiClassGroupType => (EMultiClassGroup)this[EGameTag.MULTI_CLASS_GROUP];
 
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public bool RequiresTarget => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_TO_PLAY);
+		public bool RequiresTarget => PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_TO_PLAY);
 
-		public bool RequiresTargetForCombo => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_FOR_COMBO);
+		public bool RequiresTargetForCombo => PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_FOR_COMBO);
 
-		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
+		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_IF_AVAILABLE);
 
 		public bool RequiresTargetIfAvailableAndDragonInHand
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
+			=> PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
 
 		public bool RequiresTargetIfAvailableAndElementalPlayedLastTurn
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
+			=> PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
 
 		public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
+			=> PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
 
 		public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
+			=> PlayRequirements.ContainsKey(EPlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
 		/// Maximum amount of copies that are allowed in one deck.
 		/// </summary>
-		public int MaxAllowedInDeck => Rarity == Rarity.LEGENDARY ? 1 : 2;
+		public int MaxAllowedInDeck => Rarity == ERarity.LEGENDARY ? 1 : 2;
 
 		/// <summary>
 		/// True if the effects of this card are implemented.
@@ -246,16 +246,16 @@ namespace SabberStoneCore.Model
 		{
 			Id = "Game",
 			Name = "Game",
-			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.GAME },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			Tags = new Dictionary<EGameTag, int> { [EGameTag.CARDTYPE] = (int)ECardType.GAME },
+			PlayRequirements = new Dictionary<EPlayReq, int>(),
 		};
 
 		internal static Card CardPlayer => new Card()
 		{
 			Id = "Player",
 			Name = "Player",
-			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			Tags = new Dictionary<EGameTag, int> { [EGameTag.CARDTYPE] = (int)ECardType.PLAYER },
+			PlayRequirements = new Dictionary<EPlayReq, int>(),
 		};
 	}
 }

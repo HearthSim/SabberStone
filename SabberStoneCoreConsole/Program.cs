@@ -54,8 +54,8 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.DRUID,
-                Player2HeroClass = CardClass.DRUID,
+                Player1HeroClass = ECardClass.DRUID,
+                Player2HeroClass = ECardClass.DRUID,
                 FillDecks = true
             });
             game.Player1.BaseMana = 10;
@@ -95,8 +95,8 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
-                    Player1HeroClass = CardClass.DRUID,
+                    GameRule = EFormatType.FT_STANDARD,
+                    Player1HeroClass = ECardClass.DRUID,
                     DeckPlayer1 = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
@@ -130,7 +130,7 @@ namespace SabberStoneCoreConsole
                         //Cards.FromName("Chillwind Yeti"),
                         //Cards.FromName("Chillwind Yeti")
                     },
-                    Player2HeroClass = CardClass.DRUID,
+                    Player2HeroClass = ECardClass.DRUID,
                     DeckPlayer2 = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
@@ -211,7 +211,7 @@ namespace SabberStoneCoreConsole
                     //return g.IdEntityDic[67].Card.Name;
  //               }
 
-                if (g.State == State.COMPLETE)
+                if (g.State == EState.COMPLETE)
                 {
                     return string.Empty;
                 }
@@ -225,12 +225,12 @@ namespace SabberStoneCoreConsole
             var game = new Game(
             new GameConfig()
             {
-                Player1HeroClass = CardClass.WARRIOR,
+                Player1HeroClass = ECardClass.WARRIOR,
                 DeckPlayer1 = new List<Card>
                 {
                     Cards.FromName("Fire Plume's Heart")
                 },
-                Player2HeroClass = CardClass.HUNTER,
+                Player2HeroClass = ECardClass.HUNTER,
                 DeckPlayer2 = new List<Card>
                 {
                     Cards.FromName("The Marsh Queen")
@@ -241,7 +241,7 @@ namespace SabberStoneCoreConsole
             });
             game.StartGame();
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
             Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
             Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
         }
@@ -262,7 +262,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
+                    GameRule = EFormatType.FT_STANDARD,
                     Player1HeroClass = Cards.BasicClasses[i % 9],
                     Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
@@ -277,7 +277,7 @@ namespace SabberStoneCoreConsole
 
                 int loopCount = 0;
                 int prevOptionsCount = 0;
-                while (game.State != State.COMPLETE)
+                while (game.State != EState.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     var option = options[Rnd.Next(options.Count)];
@@ -313,7 +313,7 @@ namespace SabberStoneCoreConsole
                         });
 
 
-                        ShowLog(game, LogLevel.VERBOSE);
+                        ShowLog(game, ELogLevel.VERBOSE);
 
                         Console.ReadKey();
                     }
@@ -323,9 +323,9 @@ namespace SabberStoneCoreConsole
                 game.Logs.Clear();
 
                 turns += game.Turn;
-                if (game.Player1.PlayState == PlayState.WON)
+                if (game.Player1.PlayState == EPlayState.WON)
                     wins[0]++;
-                if (game.Player2.PlayState == PlayState.WON)
+                if (game.Player2.PlayState == EPlayState.WON)
                     wins[1]++;
             }
             watch.Stop();
@@ -342,7 +342,7 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.DRUID,
+                    Player1HeroClass = ECardClass.DRUID,
                     DeckPlayer1 = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
@@ -353,7 +353,7 @@ namespace SabberStoneCoreConsole
                         Cards.FromName("Wrath"),
                         Cards.FromName("Power of the Wild"),
                     },
-                    Player2HeroClass = CardClass.DRUID,
+                    Player2HeroClass = ECardClass.DRUID,
                     DeckPlayer2 = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
@@ -391,12 +391,12 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.DRUID,
+                    Player1HeroClass = ECardClass.DRUID,
                     //DeckPlayer1 = new List<Card>
                     //{
                     //    Cards.FromName("Raven Idol")
                     //},
-                    Player2HeroClass = CardClass.MAGE,
+                    Player2HeroClass = ECardClass.MAGE,
                     SkipMulligan = false,
                     Shuffle = false,
                     FillDecks = true
@@ -447,7 +447,7 @@ namespace SabberStoneCoreConsole
             //ShowLog(game, LogLevel.VERBOSE);
             //Console.WriteLine(PowerOptionsBuilder.AllOptions(game.CurrentPlayer.Id, game.CurrentPlayer.Options()).Print());
 
-            while (game.State != State.COMPLETE)
+            while (game.State != EState.COMPLETE)
             {
                 var options = game.CurrentPlayer.Options();
                 Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
@@ -471,7 +471,7 @@ namespace SabberStoneCoreConsole
             //    Console.WriteLine($"{playables.Key} => {playables.Value}");
             //}
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
         }
 
         public static void GameSplitTest()
@@ -484,7 +484,7 @@ namespace SabberStoneCoreConsole
                     new Game(new GameConfig
                     {
                         StartPlayer = 1,
-                        Player1HeroClass = CardClass.PRIEST,
+                        Player1HeroClass = ECardClass.PRIEST,
                         DeckPlayer1 = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
@@ -518,7 +518,7 @@ namespace SabberStoneCoreConsole
                             Cards.FromName("Gurubashi Berserker"),// 29
                             Cards.FromName("Elven Archer"),       // 30
                         },
-                        Player2HeroClass = CardClass.HUNTER,
+                        Player2HeroClass = ECardClass.HUNTER,
                         DeckPlayer2 = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
@@ -573,7 +573,7 @@ namespace SabberStoneCoreConsole
                 goOnFlag = false;
             }
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
         }
 
         public static void GameMulliganTest()
@@ -582,8 +582,8 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     SkipMulligan = false
                 });
@@ -597,7 +597,7 @@ namespace SabberStoneCoreConsole
 
             game.MainReady();
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
 
             Console.WriteLine(game.Player1.Choice?.FullPrint());
             Console.WriteLine(game.Player2.Choice?.FullPrint());
@@ -609,8 +609,8 @@ namespace SabberStoneCoreConsole
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true
                 });
 
@@ -626,7 +626,7 @@ namespace SabberStoneCoreConsole
             var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
         }
 
         public static void KabalCourierDiscover()
@@ -635,11 +635,11 @@ namespace SabberStoneCoreConsole
             var cardSet = Cards.StandardPerClass;
 
             var mageCards =
-                cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroupType != 0).ToList();
+                cardSet[ECardClass.MAGE].Where(p => p.Class == ECardClass.MAGE || p.MultiClassGroupType != 0).ToList();
             var priestCards =
-                cardSet[CardClass.PRIEST].Where(p => p.Class == CardClass.PRIEST || p.MultiClassGroupType != 0).ToList();
+                cardSet[ECardClass.PRIEST].Where(p => p.Class == ECardClass.PRIEST || p.MultiClassGroupType != 0).ToList();
             var warlockCards =
-                cardSet[CardClass.WARLOCK].Where(p => p.Class == CardClass.WARLOCK || p.MultiClassGroupType != 0).ToList();
+                cardSet[ECardClass.WARLOCK].Where(p => p.Class == ECardClass.WARLOCK || p.MultiClassGroupType != 0).ToList();
 
             Stopwatch stopwatch = new Stopwatch();
 
@@ -670,8 +670,8 @@ namespace SabberStoneCoreConsole
                 game = new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.MAGE,
-                    Player2HeroClass = CardClass.MAGE,
+                    Player1HeroClass = ECardClass.MAGE,
+                    Player2HeroClass = ECardClass.MAGE,
                     FillDecks = true
                 });
                 game.StartGame();
@@ -684,7 +684,7 @@ namespace SabberStoneCoreConsole
                 flag = hasMinion ? 1 == game.CurrentOpponent.Board.Count : 0 == game.CurrentOpponent.Board.Count;
             }
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
             Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
             Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
         }
@@ -694,7 +694,7 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.PRIEST,
+                Player1HeroClass = ECardClass.PRIEST,
                 DeckPlayer1 = new List<Card>
                 {
                     Cards.FromName("Murloc Raider"),
@@ -703,7 +703,7 @@ namespace SabberStoneCoreConsole
                     Cards.FromName("Murloc Tidehunter"),
                     Cards.FromName("Herald Volazj"),
                 },
-                Player2HeroClass = CardClass.PRIEST,
+                Player2HeroClass = ECardClass.PRIEST,
                 FillDecks = false,
                 Shuffle = false
             });
@@ -721,7 +721,7 @@ namespace SabberStoneCoreConsole
 
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Herald Volazj
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
 
             Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
             Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
@@ -733,9 +733,9 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.DRUID,
+                Player1HeroClass = ECardClass.DRUID,
                 DeckPlayer1 = new List<Card>() { },
-                Player2HeroClass = CardClass.DRUID,
+                Player2HeroClass = ECardClass.DRUID,
                 DeckPlayer2 = new List<Card>() { },
                 FillDecks = false
             });
@@ -748,15 +748,15 @@ namespace SabberStoneCoreConsole
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 
-            ShowLog(game, LogLevel.VERBOSE);
+            ShowLog(game, ELogLevel.VERBOSE);
         }
 
         public static void CloneSameSame()
         {
             var classes = new[]
             {
-                CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST,
-                CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
+                ECardClass.DRUID, ECardClass.HUNTER, ECardClass.MAGE, ECardClass.PALADIN, ECardClass.PRIEST,
+                ECardClass.ROGUE, ECardClass.SHAMAN, ECardClass.WARLOCK, ECardClass.WARRIOR
             };
             var flag = true;
             var total = 100;
@@ -771,7 +771,7 @@ namespace SabberStoneCoreConsole
                 });
                 game.StartGame();
 
-                while (game.State != State.COMPLETE)
+                while (game.State != EState.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     var option = options[Rnd.Next(options.Count)];
@@ -800,8 +800,8 @@ namespace SabberStoneCoreConsole
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.MAGE,
-                Player2HeroClass = CardClass.HUNTER,
+                Player1HeroClass = ECardClass.MAGE,
+                Player2HeroClass = ECardClass.HUNTER,
                 FillDecks = true,
                 Logging = false
             });
@@ -846,7 +846,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
+                    GameRule = EFormatType.FT_STANDARD,
                     Player1HeroClass = Cards.BasicClasses[i % 9],
                     Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
@@ -864,15 +864,15 @@ namespace SabberStoneCoreConsole
                                   //$"{((double)totCardsCount/ totCards.Count):0.0%} Stand." +
                                   $"{totCards.Count} Stand. -> " +
                                   $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
-
-                while (game.State != State.COMPLETE)
+  
+                while (game.State != EState.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     //try
                     //{
                     var option = options[Rnd.Next(options.Count)];
 
-                    if (option.PlayerTaskType == PlayerTaskType.PLAY_CARD)
+                    if (option.PlayerTaskType == EPlayerTaskType.PLAY_CARD)
                     {
                         totCards.Where(n => n == option.Source.Card).ToList().ForEach(n => totCards.Remove(n));
                     }
@@ -891,9 +891,9 @@ namespace SabberStoneCoreConsole
                 game.Logs.Clear();
 
                 turns += game.Turn;
-                if (game.Player1.PlayState == PlayState.WON)
+                if (game.Player1.PlayState == EPlayState.WON)
                     wins[0]++;
-                if (game.Player2.PlayState == PlayState.WON)
+                if (game.Player2.PlayState == EPlayState.WON)
                     wins[1]++;
             }
             watch.Stop();
@@ -906,7 +906,7 @@ namespace SabberStoneCoreConsole
             totCards.OrderBy(o => o.Id).ToList().ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
         }
 
-        private static void ShowLog(Game game, LogLevel level)
+        private static void ShowLog(Game game, ELogLevel level)
         {
             while (game.Logs.Count > 0)
             {
@@ -916,24 +916,24 @@ namespace SabberStoneCoreConsole
                     var foreground = ConsoleColor.White;
                     switch (logEntry.Level)
                     {
-                        case LogLevel.DUMP:
+                        case ELogLevel.DUMP:
                             foreground = ConsoleColor.DarkCyan;
                             break;
-                        case LogLevel.ERROR:
+                        case ELogLevel.ERROR:
                             foreground = ConsoleColor.Red;
                             break;
-                        case LogLevel.WARNING:
+                        case ELogLevel.WARNING:
                             foreground = ConsoleColor.DarkRed;
                             break;
-                        case LogLevel.INFO:
+                        case ELogLevel.INFO:
                             foreground = logEntry.Location.Equals("Game") ? ConsoleColor.Yellow :
                                          logEntry.Location.StartsWith("Quest") ? ConsoleColor.Cyan :
                                          ConsoleColor.Green;
                             break;
-                        case LogLevel.VERBOSE:
+                        case ELogLevel.VERBOSE:
                             foreground = ConsoleColor.DarkGreen;
                             break;
-                        case LogLevel.DEBUG:
+                        case ELogLevel.DEBUG:
                             foreground = ConsoleColor.DarkGray;
                             break;
                         default:

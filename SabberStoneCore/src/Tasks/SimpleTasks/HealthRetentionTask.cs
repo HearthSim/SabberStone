@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -6,20 +7,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     {
         public int Amount { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public HealthRetentionTask(int amount, EntityType type)
+        public HealthRetentionTask(int amount, EEntityType type)
         {
             Amount = amount;
             Type = type;
         }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as ICharacter;
             if (source == null || Amount < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
@@ -33,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 }
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

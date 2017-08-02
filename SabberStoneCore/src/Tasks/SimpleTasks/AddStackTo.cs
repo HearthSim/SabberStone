@@ -1,39 +1,40 @@
 ﻿using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class AddStackTo : SimpleTask
     {
-        public AddStackTo(EntityType type)
+        public AddStackTo(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 
             switch (Type)
             {
-                case EntityType.DECK:
+                case EEntityType.DECK:
                    
                     Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.HAND:
+                case EEntityType.HAND:
                     Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.OP_HAND:
+                case EEntityType.OP_HAND:
                     Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
-                case EntityType.OP_DECK:
+                case EEntityType.OP_DECK:
                     Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
-                    return TaskState.COMPLETE;
+                    return ETaskState.COMPLETE;
 
                 default:
                     throw new NotImplementedException();

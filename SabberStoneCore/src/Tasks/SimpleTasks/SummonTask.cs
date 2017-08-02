@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -21,10 +22,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public bool RemoveFromStack { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Controller.Board.IsFull)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             Minion summonEntity = null;
             if (Card != null)
@@ -41,11 +42,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             }
 
             if (summonEntity == null)
-                return TaskState.STOP;
+                return ETaskState.STOP;
 
             var success = Generic.SummonBlock.Invoke(Controller, summonEntity, -1);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

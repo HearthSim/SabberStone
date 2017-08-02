@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -7,13 +8,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     /// </summary> 
     public class RevealStealthTask : SimpleTask
     {
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public RevealStealthTask(EntityType type)
+        public RevealStealthTask(EEntityType type)
         {
             Type = type;
         }
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             entities.ForEach(p =>
@@ -24,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 minion.HasStealth = false;
             });
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

@@ -13,17 +13,17 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
         private HeroPowerTask(Controller controller, IEntity target)
         {
-            PlayerTaskType = PlayerTaskType.HERO_POWER;
+            PlayerTaskType = EPlayerTaskType.HERO_POWER;
             Game = controller.Game;
             Controller = controller;
             Target = target;
         }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var success = Generic.HeroPower(Controller, Target as ICharacter);
-            Controller.Game.NextStep = Step.MAIN_CLEANUP;
-            return TaskState.COMPLETE;
+            Controller.Game.NextStep = EStep.MAIN_CLEANUP;
+            return ETaskState.COMPLETE;
         }
 
         public override string FullPrint()

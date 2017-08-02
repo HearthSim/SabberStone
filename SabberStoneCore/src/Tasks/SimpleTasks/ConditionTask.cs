@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class ConditionTask : SimpleTask
     {
-        private ConditionTask(EntityType entityType, 
+        private ConditionTask(EEntityType entityType, 
             SelfCondition[] selfConditions,
             RelaCondition[] relaConditions)
         {
@@ -15,14 +16,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Type = entityType;
         }
 
-        public ConditionTask(EntityType entityType, params SelfCondition[] selfConditions)
+        public ConditionTask(EEntityType entityType, params SelfCondition[] selfConditions)
         {
             SelfConditions = selfConditions;
             RelaConditions = new RelaCondition[] {};
             Type = entityType;
         }
 
-        public ConditionTask(EntityType entityType, params RelaCondition[] relaConditions)
+        public ConditionTask(EEntityType entityType, params RelaCondition[] relaConditions)
         {
             SelfConditions = new SelfCondition[] { };
             RelaConditions = relaConditions;
@@ -31,15 +32,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public SelfCondition[] SelfConditions { get; set; }
         public RelaCondition[] RelaConditions { get; set; }
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
             if (entities.Count == 0)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var source = (IPlayable) Source;
@@ -48,7 +49,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 SelfConditions.ToList().TrueForAll(c => c.Eval(p)) &&
                 RelaConditions.ToList().TrueForAll(c => c.Eval(source, p)));
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

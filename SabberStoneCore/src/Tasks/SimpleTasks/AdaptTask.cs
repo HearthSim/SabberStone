@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Collections;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 
-    public class AdaptTask : SimpleTask
+	public class AdaptTask : SimpleTask
     {
 
-        public AdaptTask(EntityType type)
+        public AdaptTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
-            var choiceAction = ChoiceAction.ADAPT;
+            var choiceAction = EChoiceAction.ADAPT;
             var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
             //var totAdaptCards = new List<Card>()
             //{ 
@@ -37,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             //    Cards.FromId("UNG_999t13"), // [UNG_999t13] Poison Spit
             //    Cards.FromId("UNG_999t14"), // [UNG_999t14] Volcanic Might
             //};
-            var totAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
+            var totAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == ECardType.SPELL).ToList();
 
             var resultCards = new OrderedHashSet<Card>();
             while (resultCards.Count() < 3)
@@ -47,8 +44,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 totAdaptCards.Remove(adaptCard);
             }
 
-			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards, null);
-            return TaskState.COMPLETE;
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, EChoiceType.GENERAL, choiceAction, resultCards, null);
+            return ETaskState.COMPLETE;
         }
 
 

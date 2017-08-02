@@ -4,17 +4,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class GetGameTagControllerTask : SimpleTask
     {
-        public GetGameTagControllerTask(GameTag tag)
+        public GetGameTagControllerTask(EGameTag tag)
         {
             Tag = tag;
         }
 
-        public GameTag Tag { get; set; }
+        public EGameTag Tag { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             Number = Controller[Tag];
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

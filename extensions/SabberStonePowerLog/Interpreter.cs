@@ -38,7 +38,7 @@ namespace SabberStonePowerLog
             List<PowerGame> powerGames = new List<PowerGame>();
             PowerState currentPowerState = PowerState.Start;
             PowerGame currentPowerGame = null;
-            PowerType currentPowerType = 0;
+            EPowerType currentPowerType = 0;
             Dictionary<string, int> currentNameToIdDict;
             PowerHistoryEntry currentPowerHistoryEntry = null;
             StringBuilder cleanLog = new StringBuilder(); 
@@ -62,15 +62,15 @@ namespace SabberStonePowerLog
 
                     cleanLog.AppendLine(content);
 
-                    PowerType nextPowerType;
-                    if (Enum.TryParse<PowerType>(contentLine.Split(' ')[0], out nextPowerType))
+                    EPowerType nextPowerType;
+                    if (Enum.TryParse<EPowerType>(contentLine.Split(' ')[0], out nextPowerType))
                     {
                         currentPowerType = nextPowerType;
                     };
 
                     switch (currentPowerType)
                     {
-                        case PowerType.CREATE_GAME:
+                        case EPowerType.CREATE_GAME:
                             break;
                     }
 

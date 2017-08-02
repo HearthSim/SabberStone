@@ -13,7 +13,7 @@ namespace SabberStoneGui.Deck
     {
         string Name { get; set; }
         string Link { get; set; }
-        FormatType FormatType { get; set; }
+        EFormatType FormatType { get; set; }
         List<string> CardIds { get; set; }
     }
 
@@ -22,8 +22,8 @@ namespace SabberStoneGui.Deck
         public string Name { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
-        public CardClass HeroClass { get; set; }
-        public FormatType FormatType { get; set; }
+        public ECardClass HeroClass { get; set; }
+        public EFormatType FormatType { get; set; }
         public Strategy Strategy { get; set; }
         public List<string> CardIds { get; set; }
     }

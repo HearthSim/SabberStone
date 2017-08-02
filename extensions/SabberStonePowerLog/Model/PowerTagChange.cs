@@ -6,7 +6,7 @@ namespace SabberStonePowerLog.Model
     {
         public PowerTagChange()
         {
-            PowerType = PowerType.TAG_CHANGE;
+            PowerType = EPowerType.TAG_CHANGE;
         }
 
         public int Id { get; internal set; }

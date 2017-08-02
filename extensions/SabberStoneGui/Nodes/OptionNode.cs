@@ -62,12 +62,12 @@ namespace SabberStoneCoreGui.Nodes
 
             var controller = _game.ControllerById(_playerId);
 
-            _gameState = _game.State == State.RUNNING ? 0
-                : (controller.PlayState == PlayState.WON ? 1 : -1);
+            _gameState = _game.State == EState.RUNNING ? 0
+                : (controller.PlayState == EPlayState.WON ? 1 : -1);
 
             _endTurn = _game.CurrentPlayer.Id != _playerId ? 1 : 0;
 
-            Hash = _game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
+            Hash = _game.Hash(EGameTag.LAST_CARD_PLAYED, EGameTag.ENTITY_ID);
 
             if (IsEndTurn || !IsRunning)
             {

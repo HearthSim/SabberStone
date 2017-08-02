@@ -1,25 +1,26 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DamageNumberTask : SimpleTask
     {
-        public DamageNumberTask(EntityType type, bool spellDmg = false)
+        public DamageNumberTask(EEntityType type, bool spellDmg = false)
         {
             Type = type;
             SpellDmg = spellDmg;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public bool SpellDmg { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Number < 1)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPowerDamage * 2 : Controller.Hero.SpellPowerDamage) : 0;
@@ -27,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 .ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Number,
                     spellDmgValue));
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

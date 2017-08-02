@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class FilterStackTask : SimpleTask
     {
 
-        private FilterStackTask(EntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)
+        private FilterStackTask(EEntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)
         {
             Type = type;
             SelfConditions = selfConditions;
@@ -18,26 +19,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             SelfConditions = selfConditions;
         }
 
-        public FilterStackTask(EntityType type, params RelaCondition[] relaConditions)
+        public FilterStackTask(EEntityType type, params RelaCondition[] relaConditions)
         {
             Type = type;
             RelaConditions = relaConditions;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public SelfCondition[] SelfConditions { get; set; }
 
         public RelaCondition[] RelaConditions { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (RelaConditions != null)
             {
                 var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
                 if (entities.Count != 1)
-                    return TaskState.STOP;
+                    return ETaskState.STOP;
 
                 Playables = Playables
                     .Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
@@ -51,7 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     .ToList();
             }
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

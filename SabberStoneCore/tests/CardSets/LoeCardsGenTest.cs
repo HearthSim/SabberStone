@@ -31,8 +31,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.DRUID,
-				Player2HeroClass = CardClass.DRUID,
+				Player1HeroClass = ECardClass.DRUID,
+				Player2HeroClass = ECardClass.DRUID,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -42,11 +42,11 @@ namespace SabberStoneCoreTest.CardSets
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
-            Assert.Equal(CardType.MINION, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+            Assert.Equal(ECardType.MINION, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
-            Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+            Assert.Equal(ECardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(6, game.CurrentPlayer.Hand.Count);
         }
@@ -66,8 +66,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.DRUID,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.DRUID,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -99,8 +99,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.DRUID,
-				Player2HeroClass = CardClass.DRUID,
+				Player1HeroClass = ECardClass.DRUID,
+				Player2HeroClass = ECardClass.DRUID,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -138,8 +138,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player1HeroClass = ECardClass.HUNTER,
+				Player2HeroClass = ECardClass.HUNTER,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -172,8 +172,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.HUNTER,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -207,7 +207,7 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
+				Player1HeroClass = ECardClass.HUNTER,
                 DeckPlayer1 = new List<Card>()
                 {
                     Cards.FromName("Bloodfen Raptor"),
@@ -220,7 +220,7 @@ namespace SabberStoneCoreTest.CardSets
                     Cards.FromName("Bluegill Warrior"),
                     Cards.FromName("Elven Archer")
                 },
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = ECardClass.HUNTER,
                 DeckPlayer2 = new List<Card>()
                 {
                     Cards.FromName("Bloodfen Raptor"),
@@ -264,8 +264,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -296,8 +296,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -306,7 +306,7 @@ namespace SabberStoneCoreTest.CardSets
             var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ethereal Conjurer"));
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+            Assert.Equal(ECardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
             Assert.Equal(5, game.CurrentPlayer.Hand.Count);
         }
@@ -323,8 +323,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -356,8 +356,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.PALADIN,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -404,8 +404,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player1HeroClass = ECardClass.PALADIN,
+				Player2HeroClass = ECardClass.PALADIN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -446,8 +446,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player1HeroClass = ECardClass.PALADIN,
+				Player2HeroClass = ECardClass.PALADIN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -484,8 +484,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player1HeroClass = ECardClass.PRIEST,
+				Player2HeroClass = ECardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -515,8 +515,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player1HeroClass = ECardClass.PRIEST,
+				Player2HeroClass = ECardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -553,8 +553,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player1HeroClass = ECardClass.PRIEST,
+				Player2HeroClass = ECardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -583,8 +583,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
+				Player1HeroClass = ECardClass.ROGUE,
+				Player2HeroClass = ECardClass.ROGUE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -623,8 +623,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.ROGUE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -662,8 +662,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.ROGUE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -699,8 +699,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.SHAMAN,
-				Player2HeroClass = CardClass.SHAMAN,
+				Player1HeroClass = ECardClass.SHAMAN,
+				Player2HeroClass = ECardClass.SHAMAN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -731,8 +731,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.SHAMAN,
-				Player2HeroClass = CardClass.SHAMAN,
+				Player1HeroClass = ECardClass.SHAMAN,
+				Player2HeroClass = ECardClass.SHAMAN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -763,8 +763,8 @@ namespace SabberStoneCoreTest.CardSets
             var game = new Game(new GameConfig
             {
                 StartPlayer = 1,
-                Player1HeroClass = CardClass.SHAMAN,
-                Player2HeroClass = CardClass.PALADIN,
+                Player1HeroClass = ECardClass.SHAMAN,
+                Player2HeroClass = ECardClass.PALADIN,
                 FillDecks = true
             });
             game.StartGame();
@@ -798,8 +798,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARLOCK,
-				Player2HeroClass = CardClass.WARLOCK,
+				Player1HeroClass = ECardClass.WARLOCK,
+				Player2HeroClass = ECardClass.WARLOCK,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -833,8 +833,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARLOCK,
-				Player2HeroClass = CardClass.WARLOCK,
+				Player1HeroClass = ECardClass.WARLOCK,
+				Player2HeroClass = ECardClass.WARLOCK,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -858,9 +858,9 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARLOCK,
+				Player1HeroClass = ECardClass.WARLOCK,
                 DeckPlayer1 = new List<Card>() { },
-				Player2HeroClass = CardClass.WARLOCK,
+				Player2HeroClass = ECardClass.WARLOCK,
 				FillDecks = false
 			});
 			game.StartGame();
@@ -908,8 +908,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1HeroClass = ECardClass.WARRIOR,
+				Player2HeroClass = ECardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -934,8 +934,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1HeroClass = ECardClass.WARRIOR,
+				Player2HeroClass = ECardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -959,8 +959,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1HeroClass = ECardClass.WARRIOR,
+				Player2HeroClass = ECardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -995,7 +995,7 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
                 DeckPlayer1 = new List<Card>()
                 {
                     Cards.FromName("Arcane Blast"),
@@ -1008,7 +1008,7 @@ namespace SabberStoneCoreTest.CardSets
                     Cards.FromName("Bloodmage Thalnos"),
                     Cards.FromName("Bloodmage Thalnos")
                 },
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
                 DeckPlayer2 = new List<Card>()
                 {
                     Cards.FromName("Arcane Blast"),
@@ -1067,8 +1067,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1092,8 +1092,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1124,8 +1124,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1155,8 +1155,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1184,8 +1184,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1207,8 +1207,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1233,8 +1233,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1262,8 +1262,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1291,8 +1291,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1327,8 +1327,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1368,7 +1368,7 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
                 DeckPlayer1 = new List<Card>
                 {
                     Cards.FromName("Arcane Blast"),
@@ -1376,7 +1376,7 @@ namespace SabberStoneCoreTest.CardSets
                     Cards.FromName("Arcane Intellect"),
                     Cards.FromName("Fireball"),
                 },
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
                 DeckPlayer2 = new List<Card>
                 {
                     Cards.FromName("Arcane Blast"),
@@ -1405,10 +1405,10 @@ namespace SabberStoneCoreTest.CardSets
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
             Assert.Equal(2, game.CurrentPlayer.Board.Count);
             Assert.Equal(true, ((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
-            Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.Hand[0].Card.Rarity);
-            Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.Hand[1].Card.Rarity);
-            Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.Hand[2].Card.Rarity);
-            Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.Hand[3].Card.Rarity);
+            Assert.Equal(ERarity.LEGENDARY, game.CurrentPlayer.Hand[0].Card.Rarity);
+            Assert.Equal(ERarity.LEGENDARY, game.CurrentPlayer.Hand[1].Card.Rarity);
+            Assert.Equal(ERarity.LEGENDARY, game.CurrentPlayer.Hand[2].Card.Rarity);
+            Assert.Equal(ERarity.LEGENDARY, game.CurrentPlayer.Hand[3].Card.Rarity);
         }
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -1423,8 +1423,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1459,8 +1459,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1497,8 +1497,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1519,8 +1519,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -1529,10 +1529,10 @@ namespace SabberStoneCoreTest.CardSets
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Eerie Statue"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(1, testCard.Enchants.Count);
-            Assert.Equal(0, testCard[GameTag.CANT_ATTACK]);
+            Assert.Equal(0, testCard[EGameTag.CANT_ATTACK]);
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(1, testCard[GameTag.CANT_ATTACK]);
+            Assert.Equal(1, testCard[EGameTag.CANT_ATTACK]);
         }
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -1550,8 +1550,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
                 DeckPlayer2 = new List<Card>()
                 {
                     Cards.FromName("Murloc Raider"),
@@ -1582,8 +1582,8 @@ namespace SabberStoneCoreTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = ECardClass.MAGE,
+				Player2HeroClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();

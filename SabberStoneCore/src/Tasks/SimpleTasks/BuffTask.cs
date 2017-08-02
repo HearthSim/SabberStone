@@ -2,12 +2,13 @@
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class BuffTask : SimpleTask
     {
-        public BuffTask(Enchant buff, EntityType type, SelfCondition condition = null)
+        public BuffTask(Enchant buff, EEntityType type, SelfCondition condition = null)
         {
             Buff = buff;
             Type = type;
@@ -16,16 +17,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Enchant Buff { get; set; }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
         public SelfCondition Condition { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null || Buff == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
@@ -36,7 +37,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             entities.ForEach(p => Buff.Activate(source.Card.Id, p.Enchants, p));
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

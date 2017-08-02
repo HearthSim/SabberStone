@@ -17,7 +17,7 @@ namespace SabberStoneCore.Model
         bool IsEmpty { get; }
         int Count { get; }
         Controller Controller { get; }
-        Zone Type { get; }
+        EZone Type { get; }
         IPlayable this[int zonePosition] { get; }
         List<IPlayable> GetAll { get; }
         IPlayable Add(IPlayable entity, int zonePosition = -1);
@@ -31,7 +31,7 @@ namespace SabberStoneCore.Model
         List<Trigger> Triggers { get; }
 
         void Stamp(IZone zone);
-        string Hash(params GameTag[] ignore);
+        string Hash(params EGameTag[] ignore);
     }
 
     public class Zone<T> : IZone, IEnumerable<T> where T : IPlayable
@@ -40,11 +40,11 @@ namespace SabberStoneCore.Model
 
         public Controller Controller { get; }
 
-        public Zone Type { get; }
+        public EZone Type { get; }
 
-        public int MaxSize => Type == Zone.PLAY
+        public int MaxSize => Type == EZone.PLAY
             ? Game.MaxMinionsOnBoard
-            : (Type == Zone.HAND
+            : (Type == EZone.HAND
                 ? Controller.MaxHandSize
                 : 9999);
 
@@ -72,12 +72,12 @@ namespace SabberStoneCore.Model
             }
         }
 
-        public Zone(Game game, Controller controller, Zone type)
+        public Zone(Game game, Controller controller, EZone type)
         {
             Game = game;
             Controller = controller;
             Type = type;
-            Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Zone", $"Created Zone {type} in Game with Controller {controller.Name}");
+            Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "Zone", $"Created Zone {type} in Game with Controller {controller.Name}");
         }
 
         public void Stamp(IZone zone)
@@ -92,18 +92,18 @@ namespace SabberStoneCore.Model
             zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
         }
 
-        public string Hash(params GameTag[] ignore)
+        public string Hash(params EGameTag[] ignore)
         {
             var str = new StringBuilder();
             str.Append("[Z:");
             str.Append($"{Type}");
             str.Append("][E:");
             var list = GetAll;
-            if (Type != Zone.PLAY)
+            if (Type != EZone.PLAY)
             {
                 list = list.OrderBy(p => p.Id).ToList();
                 Array.Resize(ref ignore, ignore.Length + 1);
-                ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
+                ignore[ignore.Length - 1] = EGameTag.ZONE_POSITION;
             }
             list.ForEach(p => str.Append(p.Hash(ignore)));
             str.Append($"][EN:{Enchants.Count}");
@@ -125,17 +125,17 @@ namespace SabberStoneCore.Model
             }
 
             // reset the card if it gets into the graveyard ...
-            if (Type == Zone.GRAVEYARD)
+            if (Type == EZone.GRAVEYARD)
                 entity.Reset();
 
             MoveTo(entity, zonePosition < 0 ? _entitiesAsList.Count : zonePosition);
-            Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+            Game.Log(ELogLevel.DEBUG, EBlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
             // activate all zone changing enchantments
-            entity.ApplyEnchantments(EnchantmentActivation.SETASIDE, Zone.SETASIDE);
-            entity.ApplyEnchantments(EnchantmentActivation.BOARD, Zone.PLAY);
-            entity.ApplyEnchantments(EnchantmentActivation.HAND, Zone.HAND);
-            entity.ApplyEnchantments(EnchantmentActivation.DECK, Zone.DECK);
+            entity.ApplyEnchantments(EEnchantmentActivation.SETASIDE, EZone.SETASIDE);
+            entity.ApplyEnchantments(EEnchantmentActivation.BOARD, EZone.PLAY);
+            entity.ApplyEnchantments(EEnchantmentActivation.HAND, EZone.HAND);
+            entity.ApplyEnchantments(EEnchantmentActivation.DECK, EZone.DECK);
 
             entity.SetOrderOfPlay(Type.ToString());
             return entity;
@@ -158,7 +158,7 @@ namespace SabberStoneCore.Model
         {
             _entitiesAsList.Insert(zonePosition, (T) entity);
             entity.Zone = this;
-            entity[GameTag.ZONE] = (int) Type;
+            entity[EGameTag.ZONE] = (int) Type;
             RePosition(zonePosition);
         }
 

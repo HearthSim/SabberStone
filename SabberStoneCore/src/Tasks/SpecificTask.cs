@@ -11,7 +11,7 @@ namespace SabberStoneCore.Tasks
     {
         public static ISimpleTask LivingMana
             => ComplexTask.Create(
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(p =>
                 {
                     var result = new List<IPlayable>();
@@ -23,28 +23,28 @@ namespace SabberStoneCore.Tasks
                     }
                     return result;
                 }),
-                new CountTask(EntityType.STACK),
-                new SummonCopyTask(EntityType.STACK),
+                new CountTask(EEntityType.STACK),
+                new SummonCopyTask(EEntityType.STACK),
                 new MathMultiplyTask(-1),
                 new ManaCrystalEmptyTask(0, false, true)
             );
 
         public static ISimpleTask PatchesThePirate
             => ComplexTask.Create(
-                new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
-                new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
+                new ConditionTask(EEntityType.HERO, SelfCondition.IsNotBoardFull),
+                new FlagTask(true, new RemoveFromDeck(EEntityType.SOURCE)),
                 new FlagTask(true, new SummonTask())
             );
 
         public static ISimpleTask FrostwolfBanner
             => ComplexTask.Create(
-                new CountTask(EntityType.MINIONS_NOSOURCE),
-                new BuffAttackHealthNumberTask(EntityType.SOURCE)
+                new CountTask(EEntityType.MINIONS_NOSOURCE),
+                new BuffAttackHealthNumberTask(EEntityType.SOURCE)
             );
 
         public static ISimpleTask AnimalCompanion
             => ComplexTask.Create(
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(list =>
                 {
                     var result = new List<IPlayable>();
@@ -53,12 +53,12 @@ namespace SabberStoneCore.Tasks
                     entourage.ForEach(p => result.Add(Entity.FromCard(controller, Cards.FromId(p))));
                     return result;
                 }),
-                new RandomTask(1, EntityType.STACK),
+                new RandomTask(1, EEntityType.STACK),
                 new SummonTask());
 
         public static ISimpleTask TotemicCall
             => ComplexTask.Create(
-                new IncludeTask(EntityType.HERO),
+                new IncludeTask(EEntityType.HERO),
                 new FuncPlayablesTask(list =>
                 {
                     var result = new List<IPlayable>();
@@ -76,19 +76,19 @@ namespace SabberStoneCore.Tasks
                     notContained.ForEach(p => result.Add(Entity.FromCard(controller, Cards.FromId(p))));
                     return result;
                 }),
-                new RandomTask(1, EntityType.STACK),
+                new RandomTask(1, EEntityType.STACK),
                 new SummonTask());
 
         public static ISimpleTask Betrayal
             => ComplexTask.Create(
-                new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
-                new IncludeTask(EntityType.OP_MINIONS),
-                new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
-                new DamageNumberTask(EntityType.STACK));
+                new GetGameTagTask(EGameTag.ATK, EEntityType.TARGET),
+                new IncludeTask(EEntityType.OP_MINIONS),
+                new FilterStackTask(EEntityType.TARGET, RelaCondition.IsSideBySide),
+                new DamageNumberTask(EEntityType.STACK));
 
         public static ISimpleTask JusticarTrueheart
             => ComplexTask.Create(
-                new IncludeTask(EntityType.SOURCE),
+                new IncludeTask(EEntityType.SOURCE),
                 new FuncPlayablesTask(p =>
                 {
                     var controller = p[0].Controller;

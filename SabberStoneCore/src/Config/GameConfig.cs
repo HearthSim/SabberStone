@@ -10,13 +10,13 @@ namespace SabberStoneCore.Config
 
         public string Player1Name { get; set; } = "Player1";
 
-        public CardClass Player1HeroClass { get; set; } = CardClass.HUNTER;
+        public ECardClass Player1HeroClass { get; set; } = ECardClass.HUNTER;
 
         public string Player2Name { get; set; } = "Player2";
 
-        public CardClass Player2HeroClass { get; set; } = CardClass.MAGE;
+        public ECardClass Player2HeroClass { get; set; } = ECardClass.MAGE;
 
-        public FormatType GameRule { get; set; } = FormatType.FT_STANDARD;
+        public EFormatType GameRule { get; set; } = EFormatType.FT_STANDARD;
 
         public List<Card> DeckPlayer1 { get; set; } = null;
 

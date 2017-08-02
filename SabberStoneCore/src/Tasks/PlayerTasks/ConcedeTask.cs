@@ -12,15 +12,15 @@ namespace SabberStoneCore.Tasks.PlayerTasks
         }
         private ConcedeTask(Controller controller)
         {
-            PlayerTaskType = PlayerTaskType.CONCEDE;
+            PlayerTaskType = EPlayerTaskType.CONCEDE;
             Game = controller.Game;
             Controller = controller;
         }
-        public override TaskState Process()
+        public override ETaskState Process()
         {
-            Controller.PlayState = PlayState.CONCEDED;
-            Controller.Game.NextStep = Step.FINAL_WRAPUP;
-            return TaskState.COMPLETE;
+            Controller.PlayState = EPlayState.CONCEDED;
+            Controller.Game.NextStep = EStep.FINAL_WRAPUP;
+            return ETaskState.COMPLETE;
         }
 
         public override string FullPrint()

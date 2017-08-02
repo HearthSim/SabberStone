@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -15,15 +16,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public Card WeaponCard { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var source = Source as IPlayable;
             if (source == null || Controller == null)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
             Controller.Hero.AddWeapon(Entity.FromCard(Controller, WeaponCard) as Weapon);
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

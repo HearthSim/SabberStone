@@ -1,19 +1,21 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Enums;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class CountTask : SimpleTask
     {
-        public CountTask(EntityType type)
+        public CountTask(EEntityType type)
         {
             Type = type;
         }
 
-        public EntityType Type { get; set; }
+        public EEntityType Type { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
             Number = entities.Count;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

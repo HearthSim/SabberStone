@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using System.Collections.Generic;
 
@@ -6,11 +7,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawStackTask : SimpleTask
     {
-        public override TaskState Process()
+        public override ETaskState Process()
         {
             if (Playables.Count == 0)
             {
-                return TaskState.STOP;
+                return ETaskState.STOP;
             }
 
             var list = new List<IPlayable>();
@@ -19,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 list.Add(Generic.DrawBlock(Controller, p));
             });
             Playables = list;
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

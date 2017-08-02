@@ -7,7 +7,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class RandomCardTask : SimpleTask
     {
-        private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, bool opposite)
+        private RandomCardTask(EEntityType type, ECardType cardType, ECardClass cardClass, ECardSet cardSet, bool opposite)
         {
             Type = type;
             CardType = cardType;
@@ -16,65 +16,65 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             Opposite = opposite;
         }
 
-        public RandomCardTask(EntityType type, bool opposite = false)
+        public RandomCardTask(EEntityType type, bool opposite = false)
         {
             Type = type;
-            CardType = CardType.INVALID;
-            CardSet = CardSet.INVALID;
+            CardType = ECardType.INVALID;
+            CardSet = ECardSet.INVALID;
             Opposite = opposite;
         }
 
-        public RandomCardTask(CardType cardType, CardClass cardClass, bool opposite = false)
+        public RandomCardTask(ECardType cardType, ECardClass cardClass, bool opposite = false)
         {
-            Type = EntityType.INVALID;
+            Type = EEntityType.INVALID;
             CardType = cardType;
             CardClass = cardClass;
-            CardSet = CardSet.INVALID;
+            CardSet = ECardSet.INVALID;
             Opposite = opposite;
         }
 
-        public RandomCardTask(CardSet cardSet)
+        public RandomCardTask(ECardSet cardSet)
         {
-            Type = EntityType.INVALID;
-            CardType = CardType.INVALID;
-            CardClass = CardClass.INVALID;
+            Type = EEntityType.INVALID;
+            CardType = ECardType.INVALID;
+            CardClass = ECardClass.INVALID;
             CardSet = cardSet;
             Opposite = false;
         }
 
-        public EntityType Type { get; set; }
-        public CardType CardType { get; set; }
-        public CardClass CardClass { get; set; }
-        public CardSet CardSet { get; set; }
+        public EEntityType Type { get; set; }
+        public ECardType CardType { get; set; }
+        public ECardClass CardClass { get; set; }
+        public ECardSet CardSet { get; set; }
         public bool Opposite { get; set; }
 
-        public override TaskState Process()
+        public override ETaskState Process()
         {
 
             switch (Type)
             {
-                case EntityType.HERO:
+                case EEntityType.HERO:
                     CardClass = Controller.HeroClass;
                     break;
-                case EntityType.OP_HERO:
+                case EEntityType.OP_HERO:
                     CardClass = Controller.Opponent.HeroClass;
                     break;
-                case EntityType.INVALID:
+                case EEntityType.INVALID:
                     break;
                 default:
                     throw new NotImplementedException();
             }
 
-            var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+            var cards = Game.FormatType == EFormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
             var cardsList = cards.Where(p =>
-                (CardType == CardType.INVALID || p.Type == CardType) &&
-                (CardClass == CardClass.INVALID || p.Class == CardClass) &&
-                (CardSet == CardSet.INVALID || p.Set == CardSet));
+                (CardType == ECardType.INVALID || p.Type == CardType) &&
+                (CardClass == ECardClass.INVALID || p.Class == CardClass) &&
+                (CardSet == ECardSet.INVALID || p.Set == CardSet));
 
             var randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose(cardsList.ToList()));
             Playables.Add(randomCard);
 
-            return TaskState.COMPLETE;
+            return ETaskState.COMPLETE;
         }
 
         public override ISimpleTask Clone()

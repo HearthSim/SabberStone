@@ -18,8 +18,8 @@ namespace SabberStoneCoreTest.Splits
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     Splitting = true
                 });
@@ -39,8 +39,8 @@ namespace SabberStoneCoreTest.Splits
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     Splitting = true
                 });
@@ -69,8 +69,8 @@ namespace SabberStoneCoreTest.Splits
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     Splitting = true
                 });
@@ -99,8 +99,8 @@ namespace SabberStoneCoreTest.Splits
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     Splitting = true
                 });
@@ -129,8 +129,8 @@ namespace SabberStoneCoreTest.Splits
                 new Game(new GameConfig
                 {
                     StartPlayer = 1,
-                    Player1HeroClass = CardClass.PRIEST,
-                    Player2HeroClass = CardClass.HUNTER,
+                    Player1HeroClass = ECardClass.PRIEST,
+                    Player2HeroClass = ECardClass.HUNTER,
                     FillDecks = true,
                     Splitting = true
                 });
