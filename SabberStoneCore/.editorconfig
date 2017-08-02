@@ -1,0 +1,8 @@
+﻿# Project level editorconfig file.
+root = false
+
+# Inherit all settings from root config.
+
+# Additional settings
+[*.xml]
+indent_style = space
