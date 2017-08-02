@@ -151,6 +151,9 @@ namespace SabberStoneCore.Model
 	/// <typeparam name="T">Subclass of entity.</typeparam>
 	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
 	{
+
+		#region TAG_SHORTCUTS
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public bool CantAttack
@@ -314,11 +317,21 @@ namespace SabberStoneCore.Model
 			set { this[EGameTag.HEALTH] = value; }
 		}
 
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+		#endregion
+
+		#region PROPERTIES
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public bool IsDead => Health <= 0 || ToBeDestroyed;
 
 		public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+		#endregion
 
 		/// <summary>
 		/// Build a new character from the provided data.
@@ -329,7 +342,7 @@ namespace SabberStoneCore.Model
 		protected Character(Controller controller, Card card, Dictionary<EGameTag, int> tags)
 			: base(controller, card, tags)
 		{
-		}		
+		}
 
 		/// <summary>
 		/// Indicates if the provided character can be attacked by this character.

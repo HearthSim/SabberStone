@@ -88,6 +88,8 @@ namespace SabberStoneCore.Actions
                     c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");
                     return false;
                 }
+
+				// Force the game into MAIN_COMBAT step!
                 c.Game.Step = EStep.MAIN_COMBAT;
 
                 // Save defender's attack as it might change after being damaged (e.g. enrage)

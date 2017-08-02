@@ -95,7 +95,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = EFormatType.FT_STANDARD,
+                    FormatType = EFormatType.FT_STANDARD,
                     Player1HeroClass = ECardClass.DRUID,
                     DeckPlayer1 = new List<Card>()
                     {
@@ -262,7 +262,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = EFormatType.FT_STANDARD,
+                    FormatType = EFormatType.FT_STANDARD,
                     Player1HeroClass = Cards.BasicClasses[i % 9],
                     Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
@@ -846,7 +846,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = EFormatType.FT_STANDARD,
+                    FormatType = EFormatType.FT_STANDARD,
                     Player1HeroClass = Cards.BasicClasses[i % 9],
                     Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
