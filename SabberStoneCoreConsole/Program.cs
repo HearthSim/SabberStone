@@ -37,6 +37,7 @@ namespace SabberStoneCoreConsole
             //Kazakus();
             //BrainDeadTest();
             ParallelTest();
+            //CloneAdapt();
             //QuestDrawFirstTest();
 
             //TestLoader.GetGameTags();
@@ -48,10 +49,45 @@ namespace SabberStoneCoreConsole
             Console.ReadKey();
         }
 
+        static void CloneAdapt()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.DRUID,
+                Player2HeroClass = CardClass.DRUID,
+                FillDecks = true
+            });
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            game.StartGame();
+
+            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
+            var clone1 = game.Clone();
+            var clone2 = game.Clone();
+            var clone3 = game.Clone();
+            var clone4 = game.Clone();
+
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+
+            clone1.Process(PlayCardTask.Minion(clone1.CurrentPlayer, clone1.CurrentPlayer.Hand[4]));
+            clone1.Process(ChooseTask.Pick(clone1.CurrentPlayer, clone1.CurrentPlayer.Choice.Choices[0]));
+
+            clone2.Process(PlayCardTask.Minion(clone2.CurrentPlayer, clone2.CurrentPlayer.Hand[4]));
+            clone2.Process(ChooseTask.Pick(clone2.CurrentPlayer, clone2.CurrentPlayer.Choice.Choices[0]));
+
+            clone3.Process(PlayCardTask.Minion(clone3.CurrentPlayer, clone3.CurrentPlayer.Hand[4]));
+            clone3.Process(ChooseTask.Pick(clone3.CurrentPlayer, clone3.CurrentPlayer.Choice.Choices[0]));
+
+            clone4.Process(PlayCardTask.Minion(clone4.CurrentPlayer, clone4.CurrentPlayer.Hand[4]));
+            clone4.Process(ChooseTask.Pick(clone4.CurrentPlayer, clone4.CurrentPlayer.Choice.Choices[0]));
+        }
+
         static void ParallelTest()
         {
-            var parallel = 10000;
-            var ensemble = 10;
+            var parallel = 100000;
+            var ensemble = 2;
 
             //Create new game and go to MainReady();
             for (var i = 0; i < parallel; i++)
@@ -63,8 +99,7 @@ namespace SabberStoneCoreConsole
                     Player1HeroClass = CardClass.DRUID,
                     DeckPlayer1 = new List<Card>()
                     {
-                        Cards.FromName("Kun the Forgotten King"),
-                        //Cards.FromName("Ironbark Protector"),
+                        Cards.FromName("Ironbark Protector"),
                         Cards.FromName("Ironbark Protector"),
                         Cards.FromName("Healing Touch"),
                         Cards.FromName("Healing Touch"),
@@ -127,8 +162,9 @@ namespace SabberStoneCoreConsole
                         Cards.FromName("War Golem"),
                         Cards.FromName("War Golem"),
                         Cards.FromName("Chillwind Yeti"),
-                        Cards.FromName("Chillwind Yeti")
+                        Cards.FromName("Elder Longneck")
                     },
+                    Shuffle = true,
                     FillDecks = true,
                     Logging = true,
                     History = false
@@ -137,34 +173,51 @@ namespace SabberStoneCoreConsole
 
                 var task = Task.Factory.StartNew(() => ParallelGames(game, ensemble));
                 task.Wait();
-                ProgressBar(i, parallel);
+                //ProgressBar(i, parallel);
             }
         }
 
         public static void ParallelGames(Game g, int ensemble)
         {
-            var tasks = new List<Task<double>>();
             var games = new List<Game>();
+
             for (var i = 0; i < ensemble; i++)
                 games.Add(g.Clone());
-            var rewards = new ConcurrentBag<double>();
+
             ParallelLoopResult result = Parallel.ForEach(games, game =>
-            rewards.Add(RandomUntilTerminal2(game)));
+            {
+                string maliciousCard = RandomUntilTerminal2(game);
+                if (maliciousCard != string.Empty)
+                    Console.WriteLine(maliciousCard);
+            });
+
         }
 
-        private static double RandomUntilTerminal2(Game g)
+        private static string RandomUntilTerminal2(Game g)
         {
             var simcount = 0;
             while (simcount < 1000)
             {
-                g.Process(g.CurrentPlayer.Options()[Util.Random.Next(g.CurrentPlayer.Options().Count)]);
+
+               // try
+               // {
+                    g.Process(g.CurrentPlayer.Options()[Util.Random.Next(g.CurrentPlayer.Options().Count)]);
+                //}
+                //catch (Exception ex)
+                //{
+                //    ShowLog(g, LogLevel.VERBOSE);
+
+//                    throw;
+                    //return g.IdEntityDic[67].Card.Name;
+ //               }
+
                 if (g.State == State.COMPLETE)
                 {
-                    return (g.Player1.PlayState == PlayState.WON ? 1.0 : 0.0);
+                    return string.Empty;
                 }
                 simcount++;
             }
-            return 0.0;
+            return string.Empty;
         }
 
         public static void QuestDrawFirstTest()
@@ -362,7 +415,7 @@ namespace SabberStoneCoreConsole
             //Console.WriteLine("*** - MULLIGAN PLAYER 2 - ***");
             //Console.WriteLine(PowerChoicesBuilder.EntityChoices(game, game.Player2.Choice).Print());
 
-            game.Process(ChooseTask.Mulligan(game.Player1, new List<int> ( game.Player1.Choice.Choices )));
+            game.Process(ChooseTask.Mulligan(game.Player1, new List<int>(game.Player1.Choice.Choices)));
 
             //options = game.CurrentPlayer.Options();
             //Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
@@ -536,7 +589,7 @@ namespace SabberStoneCoreConsole
                 });
             game.StartGame();
 
-            game.Process(ChooseTask.Mulligan(game.Player1, 
+            game.Process(ChooseTask.Mulligan(game.Player1,
                 game.Player1.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
 
             game.Process(ChooseTask.Mulligan(game.Player2,
@@ -599,7 +652,7 @@ namespace SabberStoneCoreConsole
                 {
                     foreach (Card warlockCard in warlockCards)
                     {
-                        cardSets.Add(new List<Card> { mageCard , priestCard, warlockCard});
+                        cardSets.Add(new List<Card> { mageCard, priestCard, warlockCard });
                     }
                 }
             }
@@ -627,7 +680,7 @@ namespace SabberStoneCoreConsole
                 var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
                 var hasMinion = game.CurrentOpponent.Hand.GetAll.Any(p => p is Minion);
                 game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            
+
                 flag = hasMinion ? 1 == game.CurrentOpponent.Board.Count : 0 == game.CurrentOpponent.Board.Count;
             }
 
@@ -811,21 +864,21 @@ namespace SabberStoneCoreConsole
                                   //$"{((double)totCardsCount/ totCards.Count):0.0%} Stand." +
                                   $"{totCards.Count} Stand. -> " +
                                   $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
-  
+
                 while (game.State != State.COMPLETE)
                 {
                     var options = game.CurrentPlayer.Options();
                     //try
                     //{
-                        var option = options[Rnd.Next(options.Count)];
+                    var option = options[Rnd.Next(options.Count)];
 
                     if (option.PlayerTaskType == PlayerTaskType.PLAY_CARD)
                     {
                         totCards.Where(n => n == option.Source.Card).ToList().ForEach(n => totCards.Remove(n));
                     }
 
-                        //Console.WriteLine(option.FullPrint());
-                        game.Process(option);
+                    //Console.WriteLine(option.FullPrint());
+                    game.Process(option);
                     //}
                     //catch (Exception e)
                     //{

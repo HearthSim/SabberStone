@@ -622,10 +622,10 @@ namespace SabberStoneCore.Model
             return str.ToString();
         }
 
-        public Game Clone()
+        public Game Clone(bool logging = false)
         {
             var gameConfig = _gameConfig.Clone();
-            gameConfig.Logging = false;
+            gameConfig.Logging = logging;
             var game = new Game(gameConfig, false)
             {
                 CloneIndex = $"{this.CloneIndex}[{NextCloneIndex++}]"
