@@ -17,6 +17,7 @@ using SabberStoneGui.AsciiVisual;
 using SabberStoneGui.Core;
 using SabberStoneGui.Deck;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Collections;
 
 namespace SabberStoneGui
 {
@@ -310,7 +311,7 @@ namespace SabberStoneGui
             var formatType = (EFormatType) CbxFormat.SelectedItem;
             var cardClass = (ECardClass) CbxClassCard.SelectedItem;
 
-            List<Card> cards;
+            IReadOnlySet<Card> cards;
             switch (formatType)
             {
                 case EFormatType.FT_STANDARD:

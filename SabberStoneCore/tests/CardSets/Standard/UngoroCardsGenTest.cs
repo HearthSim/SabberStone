@@ -2943,10 +2943,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-		    Assert.Equal(true, game.CurrentPlayer.Hand.GetAll.TrueForAll(p => p[EGameTag.QUEST_CONTRIBUTOR] == 0));
+		    Assert.False(game.CurrentPlayer.Hand.GetAll.Exists(p => p[EGameTag.QUEST_CONTRIBUTOR] != 0));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
-            Assert.Equal(true, game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
+            Assert.True(game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
                 .TrueForAll(p => p.HasTaunt && p[EGameTag.QUEST_CONTRIBUTOR] == 1 || p[EGameTag.QUEST_CONTRIBUTOR] == 0));
             Assert.Equal(0, testCard[EGameTag.QUEST_PROGRESS]);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain

@@ -34,5 +34,17 @@ namespace SabberStoneCore.Collections
 				lambda(data[i]);
 			}
 		}
+
+		/// <summary>Executes the lambda function for each element of the provided enumerable.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="data">The enumerable.</param>
+		/// <param name="lambda">The lambda function.</param>
+		public static void ForEach<T>(this IEnumerable<T> data, Action<T> lambda)
+		{
+			foreach(T element in data)
+			{
+				lambda(element);
+			}
+		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SabberStoneCore.Exceptions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,15 +67,26 @@ namespace SabberStoneCore.Collections
 		/// <summary>Builds a lightweight (ReadOnly) OrderedSet from the provided data.</summary>
 		/// <param name="data">The data.</param>
 		/// <param name="comparer">The comparer.</param>
+		/// <param name="throwOnConstraintViolation">If true throws an error if the unique item constraint is violated.</param>
 		/// <returns></returns>
 		/// <exception cref="System.ArgumentNullException">data is null!</exception>
-		public static LightWeightOrderedSet<T> Build(IEnumerable<T> data, IEqualityComparer<T> comparer = null)
+		public static LightWeightOrderedSet<T> Build(IEnumerable<T> data, IEqualityComparer<T> comparer = null, bool throwOnConstraintViolation = true)
 		{
 			if (data == null) throw new ArgumentNullException("data is null!");
 			// Filter out all double values from enumerable.
 			IEnumerable<T> filtered = data.Distinct();
+			T[] filteredContainer = filtered.ToArray();
+
+			if (throwOnConstraintViolation)
+			{
+				if(data.Count() != filteredContainer.Length)
+				{
+					throw new ConstraintViolationException("Duplicate items detected!");
+				}
+			}
+
 			// Build and return object.
-			return new LightWeightOrderedSet<T>(filtered.ToArray(), comparer);
+			return new LightWeightOrderedSet<T>(filteredContainer, comparer);
 		}
 
 		/// <summary>Builds a lightweight (ReadOnly) OrderedSet without any data.</summary>
@@ -105,5 +117,17 @@ namespace SabberStoneCore.Collections
 
 			return false;
 		}
+
+		IOrderedEnumerable<T> IOrderedEnumerable<T>.CreateOrderedEnumerable<TKey>(Func<T, TKey> keySelector, IComparer<TKey> comparer, bool descending)
+		{
+			if (descending)
+			{
+				return _internalContainer.OrderByDescending(keySelector, comparer);
+			}
+			else
+			{
+				return _internalContainer.OrderBy(keySelector, comparer);
+			}
+		}		
 	}
 }

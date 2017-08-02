@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Collections;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Loader;
 using System;
 using System.Collections.Generic;
@@ -67,34 +68,36 @@ namespace SabberStoneCore.Model
 			//Log.Info($"Loaded {All.Count()} cards.");
 		}
 
-		private static Dictionary<ECardClass, List<Card>> SetupWildCards()
+		private static Dictionary<ECardClass, IReadOnlySet<Card>> SetupWildCards()
 		{
-			var container = new Dictionary<ECardClass, List<Card>>(Count);
+			var container = new Dictionary<ECardClass, IReadOnlySet<Card>>(Count);
 			// Wild
 			//Log.Debug("Wild:");
 			foreach (ECardClass heroClass in Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>())
 			{
-				container.Add(heroClass, Data.AllCards().Where(c =>
+				IEnumerable<Card> cardsEnumerable = Data.AllCards().Where(c =>
 				c.Collectible &&
 					(c.Class == heroClass ||
 					 c.Class == ECardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
 					 c.MultiClassGroupType == EMultiClassGroup.GRIMY_GOONS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.HUNTER || c.Class == ECardClass.PALADIN || c.Class == ECardClass.WARRIOR) ||
 					 c.MultiClassGroupType == EMultiClassGroup.JADE_LOTUS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.DRUID || c.Class == ECardClass.ROGUE || c.Class == ECardClass.SHAMAN) ||
 					 c.MultiClassGroupType == EMultiClassGroup.KABAL && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.MAGE || c.Class == ECardClass.PRIEST || c.Class == ECardClass.WARLOCK)) &&
-					 c.Type != ECardType.HERO).ToList());
+					 c.Type != ECardType.HERO);
+
+				container.Add(heroClass, LightWeightOrderedSet<Card>.Build(cardsEnumerable));
 				//Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
 			}
 
 			return container;
 		}
 
-		private static Dictionary<ECardClass, List<Card>> SetupStandardCards()
+		private static Dictionary<ECardClass, IReadOnlySet<Card>> SetupStandardCards()
 		{
-			var container = new Dictionary<ECardClass, List<Card>>(Count);
+			var container = new Dictionary<ECardClass, IReadOnlySet<Card>>(Count);
 			//Log.Debug("Standard:");
 			foreach (ECardClass heroClass in Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>())
 			{
-				container.Add(heroClass, All.Where(c =>
+				IEnumerable<Card> cardsEnumerable = All.Where(c =>
 					c.Collectible &&
 					(c.Class == heroClass ||
 					 c.Class == ECardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
@@ -102,7 +105,8 @@ namespace SabberStoneCore.Model
 					 c.MultiClassGroupType == EMultiClassGroup.JADE_LOTUS && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.DRUID || c.Class == ECardClass.ROGUE || c.Class == ECardClass.SHAMAN) ||
 					 c.MultiClassGroupType == EMultiClassGroup.KABAL && (c.Class == ECardClass.NEUTRAL || c.Class == ECardClass.MAGE || c.Class == ECardClass.PRIEST || c.Class == ECardClass.WARLOCK)) &&
 					 c.Type != ECardType.HERO && StandardSets.Contains(c.Set)
-				).ToList());
+				);
+				container.Add(heroClass, LightWeightOrderedSet<Card>.Build(cardsEnumerable));
 				//Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
 			}
 			return container;
@@ -115,21 +119,21 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<ECardClass, List<Card>> WildPerClass => _WildPerClass ?? (_WildPerClass = SetupWildCards());
-		private static Dictionary<ECardClass, List<Card>> _WildPerClass;
+		public static Dictionary<ECardClass, IReadOnlySet<Card>> WildPerClass => _WildPerClass ?? (_WildPerClass = SetupWildCards());
+		private static Dictionary<ECardClass, IReadOnlySet<Card>> _WildPerClass;
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<ECardClass, List<Card>> StandardPerClass => _StandardPerClass ?? (_StandardPerClass = SetupStandardCards());
-		private static Dictionary<ECardClass, List<Card>> _StandardPerClass;
+		public static Dictionary<ECardClass, IReadOnlySet<Card>> StandardPerClass => _StandardPerClass ?? (_StandardPerClass = SetupStandardCards());
+		private static Dictionary<ECardClass, IReadOnlySet<Card>> _StandardPerClass;
 
 		/// <summary>
 		/// Retrieves the specified set of cards, sorted by <see cref="ECardClass"/>.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<ECardClass, List<Card>> FormatTypeClassCards(EFormatType formatType) => formatType == EFormatType.FT_STANDARD ? StandardPerClass : WildPerClass;
+		public static Dictionary<ECardClass, IReadOnlySet<Card>> FormatTypeClassCards(EFormatType formatType) => formatType == EFormatType.FT_STANDARD ? StandardPerClass : WildPerClass;
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
