@@ -38,7 +38,7 @@ namespace SabberStoneCore.Model
 	/// game data.
 	/// </summary>
 	/// <seealso cref="SabberStoneCore.Model.Entity" />
-	public partial class Game : Entity
+	public sealed class Game : Entity
 	{
 
 		/// <summary>The entityID of the game itself is always 1.</summary>
@@ -349,7 +349,7 @@ namespace SabberStoneCore.Model
 		/// <param name="t">The game tag which value changed.</param>
 		/// <param name="oldValue">The old value.</param>
 		/// <param name="newValue">The new value.</param>
-		protected internal virtual void OnEntityChanged(Entity entity, EGameTag t, int oldValue, int newValue)
+		internal void OnEntityChanged(Entity entity, EGameTag t, int oldValue, int newValue)
 		{
 			EntityChangedEvent?.Invoke(entity, t, oldValue, newValue);
 		}

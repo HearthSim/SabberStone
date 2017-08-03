@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Visualizer;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneGui.AsciiVisual
 {

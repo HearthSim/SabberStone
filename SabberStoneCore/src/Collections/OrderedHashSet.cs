@@ -8,8 +8,12 @@ namespace SabberStoneCore.Collections
 {
 	/// <summary>
 	/// Collection which returns items in the sequence they got stored.
+	/// The default ordering is the ranking order by which the alements were added to 
+	/// the set.
+	/// 
+	/// This collection DOES NOT allow null elements!
 	/// This collection DOES NOT allow duplicate elements!
-	/// This collection does NOT provide internal concurrency consistency!
+	/// This collection does NOT guarantee internal concurrency consistency!
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	internal class OrderedHashSet<T> : IOrderedSet<T>, IReadOnlyOrderedSet<T>
@@ -22,13 +26,6 @@ namespace SabberStoneCore.Collections
 		/// <summary>The comparer function for T objects.</summary>
 		private IEqualityComparer<T> _comparer;
 
-		/// <summary>Gets the default comparer function for T objects.</summary>
-		/// <returns></returns>
-		private static IEqualityComparer<T> GetDefaultComparer()
-		{
-			return EqualityComparer<T>.Default;
-		}
-
 		/// <summary>The internal list, used for keep track of insertion order.</summary>
 		private readonly List<T> _internalList;
 		/// <summary>The internal lookup table, used for lookups when the amount of items is large.</summary>
@@ -37,19 +34,59 @@ namespace SabberStoneCore.Collections
 		/// violated.</summary>
 		private readonly bool _throwOnViolation;
 
+		T IList<T>.this[int index] { get => _internalList[index]; set => ((IList<T>)this).Insert(index, value); }
+
+		int ICollection<T>.Count => _internalList.Count;
+
+		bool ICollection<T>.IsReadOnly => false;
+
+		int IReadOnlyCollection<T>.Count => _internalList.Count;
+
+		T IReadOnlyList<T>.this[int index] => _internalList[index];
+
+		#region CONSTRUCTORS
+
 		/// <summary>Initializes a new instance of the <see cref="OrderedHashSet{T}"/> class.</summary>
-		/// <param name="sequence">The sequence.</param>
 		/// <param name="throwOnConstraintViolation">True; this object will throw an exception when a constraint is violated. When False; items are simple not added.</param>
 		/// <param name="comparer">The comparer.</param>
-		public OrderedHashSet(IEnumerable<T> sequence = null, bool throwOnConstraintViolation = true, IEqualityComparer<T> comparer = null)
+		public OrderedHashSet(IEqualityComparer<T> comparer = null, bool throwOnConstraintViolation = true)
 		{
 			_internalList = new List<T>(DICTIONARY_CREATION_THRESHOLD);
 			_internalLookup = null;
 			_throwOnViolation = throwOnConstraintViolation;
 			_comparer = comparer ?? GetDefaultComparer();
-
-			if (sequence != null) _internalList.AddRange(sequence);
 		}
+
+		/// <summary>Builds an OrderedSet from the provided data.</summary>
+		/// <param name="data">The data.</param>
+		/// <param name="comparer">The comparer.</param>
+		/// <param name="throwOnConstraintViolation">If true throws an error if the unique item constraint is violated.</param>
+		/// <returns></returns>
+		/// <exception cref="System.ArgumentNullException">data is null!</exception>
+		public static OrderedHashSet<T> Build(IEnumerable<T> data, IEqualityComparer<T> comparer = null, bool throwOnConstraintViolation = true)
+		{
+			if (data == null) throw new ArgumentNullException("data is null!");
+			// Double values will be filtered by the instance itself..
+			// Build and return object.
+			var result = new OrderedHashSet<T>(comparer, throwOnConstraintViolation);
+			foreach(T item in data)
+			{
+				// This will throw an exception if throwOnConstraintViolation == true
+				result.Add(item);
+			}
+
+			return result;
+		}
+
+		/// <summary>Builds an OrderedSet from the provided data.</summary>
+		/// <param name="data">The data.</param>
+		/// <returns></returns>
+		public static OrderedHashSet<T> Build(params T[] data)
+		{
+			return Build(data, GetDefaultComparer(), true);
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Updates the lookup table with the provided argument.
@@ -91,6 +128,8 @@ namespace SabberStoneCore.Collections
 			else
 			{
 				_internalLookup.Remove(item);
+				// TODO; Check if reverting to list after X removes 
+				// is worth it.
 			}
 		}
 
@@ -103,32 +142,18 @@ namespace SabberStoneCore.Collections
 			((ICollection<T>)this).Add(item);
 		}
 
-		T IList<T>.this[int index] { get => _internalList[index]; set => ((IList<T>)this).Insert(index, value); }
-
-		int ICollection<T>.Count => _internalList.Count;
-
-		bool ICollection<T>.IsReadOnly => false;
-
-		int IReadOnlyCollection<T>.Count => _internalList.Count;
-
-		T IReadOnlyList<T>.this[int index] => _internalList[index];
-
-		bool ISet<T>.Add(T item)
+		/// <summary>Gets the default comparer function for T objects.</summary>
+		/// <returns></returns>
+		private static IEqualityComparer<T> GetDefaultComparer()
 		{
-			if (((ICollection<T>)this).Contains(item))
-			{
-				return false;
-			}
-			else
-			{
-				_internalList.Add(item);
-				AppendToLookupTable(item);
-				return true;
-			}
+			return EqualityComparer<T>.Default;
 		}
+
+		#region ICOLLECTION_IMPLEMENTATION
 
 		void ICollection<T>.Add(T item)
 		{
+			// The add behaviour is characteristically from ISET.
 			if (!((ISet<T>)this).Add(item) && _throwOnViolation)
 			{
 				throw new ConstraintViolationException("Duplicate item detected!");
@@ -154,6 +179,8 @@ namespace SabberStoneCore.Collections
 			else
 			{
 				// Use the lookuptable to find the item.
+				// This occurs when the amount of items recorded is bigger 
+				// than DICTIONARY_CREATION_THRESHOLD.
 				return _internalLookup.Contains(item);
 			}
 		}
@@ -161,6 +188,36 @@ namespace SabberStoneCore.Collections
 		void ICollection<T>.CopyTo(T[] array, int arrayIndex)
 		{
 			_internalList.CopyTo(array, arrayIndex);
+		}
+
+		bool ICollection<T>.Remove(T item)
+		{
+			if (((ICollection<T>)this).Contains(item))
+			{
+				_internalList.Remove(item);
+				RemoveFromLookupTable(item);
+				return true;
+			}
+
+			return false;
+		}
+
+		#endregion
+
+		#region ISET_IMPLEMENTATION
+
+		bool ISet<T>.Add(T item)
+		{
+			if (((ICollection<T>)this).Contains(item))
+			{
+				return false;
+			}
+			else
+			{
+				_internalList.Add(item);
+				AppendToLookupTable(item);
+				return true;
+			}
 		}
 
 		void ISet<T>.ExceptWith(IEnumerable<T> other)
@@ -171,42 +228,41 @@ namespace SabberStoneCore.Collections
 			}
 		}
 
-		IEnumerator<T> IEnumerable<T>.GetEnumerator()
-		{
-			return _internalList.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return ((IEnumerable<T>)this).GetEnumerator();
-		}
-
-		int IList<T>.IndexOf(T item)
-		{
-			return _internalList.IndexOf(item);
-		}
-
-		void IList<T>.Insert(int index, T item)
-		{
-			if (((ICollection<T>)this).Contains(item))
-			{
-				if (_throwOnViolation)
-				{
-					throw new ConstraintViolationException("Duplicate item detected!");
-				}
-			}
-			else
-			{
-				_internalList.Insert(index, item);
-				AppendToLookupTable(item);
-			}
-		}
-
 		void ISet<T>.IntersectWith(IEnumerable<T> other)
 		{
 			foreach (T item in other)
 			{
 				((ICollection<T>)this).Remove(item);
+			}
+		}
+
+		bool ISet<T>.SetEquals(IEnumerable<T> other)
+		{
+			if (other == null) throw new ArgumentNullException("other is null!");
+
+			int elementCount = 0;
+			foreach (T item in other)
+			{
+				if (((ICollection<T>)this).Contains(item))
+				{
+					elementCount++;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return elementCount == _internalList.Count;
+		}
+
+		void ISet<T>.UnionWith(IEnumerable<T> other)
+		{
+			if (other == null) throw new ArgumentNullException("other is null!");
+
+			foreach (T item in other)
+			{
+				((ISet<T>)this).Add(item);
 			}
 		}
 
@@ -244,17 +300,9 @@ namespace SabberStoneCore.Collections
 
 		#endregion
 
-		bool ICollection<T>.Remove(T item)
-		{
-			if (((ICollection<T>)this).Contains(item))
-			{
-				_internalList.Remove(item);
-				RemoveFromLookupTable(item);
-				return true;
-			}
+		#endregion		
 
-			return false;
-		}
+		#region ILIST_IMPLEMENTATION
 
 		void IList<T>.RemoveAt(int index)
 		{
@@ -268,40 +316,28 @@ namespace SabberStoneCore.Collections
 			RemoveFromLookupTable(item);
 		}
 
-		bool ISet<T>.SetEquals(IEnumerable<T> other)
+		int IList<T>.IndexOf(T item)
 		{
-			if (other == null) throw new ArgumentNullException("other is null!");
-
-			int elementCount = 0;
-			foreach (T item in other)
-			{
-				if (((ICollection<T>)this).Contains(item))
-				{
-					elementCount++;
-				}
-				else
-				{
-					return false;
-				}
-			}
-
-			return elementCount == _internalList.Count;
+			return _internalList.IndexOf(item);
 		}
 
-		void ISet<T>.UnionWith(IEnumerable<T> other)
+		void IList<T>.Insert(int index, T item)
 		{
-			if (other == null) throw new ArgumentNullException("other is null!");
-
-			foreach (T item in other)
+			if (((ICollection<T>)this).Contains(item))
 			{
-				((ISet<T>)this).Add(item);
+				if (_throwOnViolation)
+				{
+					throw new ConstraintViolationException("Duplicate item detected!");
+				}
+			}
+			else
+			{
+				_internalList.Insert(index, item);
+				AppendToLookupTable(item);
 			}
 		}
 
-		bool IReadOnlySet<T>.Contains(T item)
-		{
-			return ((ICollection<T>)this).Contains(item);
-		}
+		#endregion
 
 		IReadOnlyOrderedSet<T> IOrderedSet<T>.AsReadOnly()
 		{
@@ -313,6 +349,16 @@ namespace SabberStoneCore.Collections
 			((IReadOnlyOrderedSet<T>)this).ForEach(lambda);
 		}
 
+		bool IOrderedSet<T>.Exists(Func<T, bool> lambda)
+		{
+			return ((IReadOnlyOrderedSet<T>)this).Exists(lambda);
+		}
+
+		bool IReadOnlySet<T>.Contains(T item)
+		{
+			return ((ICollection<T>)this).Contains(item);
+		}
+
 		void IReadOnlySet<T>.ForEach(Action<T> lambda)
 		{
 			// List is made to prevent out of bounds by concurrent access.
@@ -321,11 +367,6 @@ namespace SabberStoneCore.Collections
 			{
 				lambda(internalCopy[i]);
 			}
-		}
-
-		bool IOrderedSet<T>.Exists(Func<T, bool> lambda)
-		{
-			return ((IReadOnlyOrderedSet<T>)this).Exists(lambda);
 		}
 
 		bool IReadOnlySet<T>.Exists(Func<T, bool> lambda)
@@ -343,6 +384,16 @@ namespace SabberStoneCore.Collections
 			return false;
 		}
 
+		IEnumerator<T> IEnumerable<T>.GetEnumerator()
+		{
+			return _internalList.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return ((IEnumerable<T>)this).GetEnumerator();
+		}
+
 		IOrderedEnumerable<T> IOrderedEnumerable<T>.CreateOrderedEnumerable<TKey>(Func<T, TKey> keySelector, IComparer<TKey> comparer, bool descending)
 		{
 			if (descending)
@@ -354,7 +405,5 @@ namespace SabberStoneCore.Collections
 				return _internalList.OrderBy(keySelector, comparer);
 			}
 		}
-
-		
 	}
 }

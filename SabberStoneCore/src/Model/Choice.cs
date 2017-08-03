@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model
 	/// <summary>
 	/// Embodies a choice the specified controller made.
 	/// </summary>
-	public class Choice
+	public sealed class Choice
 	{
 		/// <summary>The player who made the choice.</summary>
 		public readonly Controller Controller;

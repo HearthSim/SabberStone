@@ -12,7 +12,7 @@ namespace SabberStoneCore.Model
 	/// The properties defined by this type are non complex, they have a
 	/// very superficial meaning.
 	/// </summary>
-	public partial interface ICharacter : IPlayable
+	public interface ICharacter : IPlayable
 	{
 		/// <summary>
 		/// <see cref="Enums.ERace"/>
@@ -149,7 +149,7 @@ namespace SabberStoneCore.Model
 	/// <seealso cref="Playable{T}"/>
 	/// </summary>
 	/// <typeparam name="T">Subclass of entity.</typeparam>
-	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
+	public abstract class Character<T> : Playable<T>, ICharacter where T : Entity
 	{
 
 		#region TAG_SHORTCUTS

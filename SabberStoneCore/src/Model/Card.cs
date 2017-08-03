@@ -14,7 +14,7 @@ namespace SabberStoneCore.Model
 	/// All properties exposed by these instances are defined by `resources/Data/CardDefs.xml`.
 	/// <see cref="CardLoader"/> for extraction procedures.
 	/// </summary>
-	public class Card
+	public sealed class Card
 	{
 		public int AssetId { get; set; }
 
@@ -213,8 +213,8 @@ namespace SabberStoneCore.Model
 			}
 			else
 			{
-				var strArray = Name.Split(' ');
-				return string.Join("", strArray.Select(p => p.Length > 4 ? p.Substring(0, 4) : p).ToList()).Substring(0, 7);
+				string[] strArray = Name.Split(' ');
+				return String.Join("", strArray.Select(p => p.Length > 4 ? p.Substring(0, 4) : p).ToList()).Substring(0, 7);
 			}
 
 		}

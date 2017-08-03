@@ -3,6 +3,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Zones;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -77,7 +78,7 @@ namespace SabberStoneCore.Model
 	/// <seealso cref="Spell"/>
 	/// </summary>
 	/// <seealso cref="SabberStoneCore.Model.IEntity" />
-	public partial class Entity : IEntity
+	public class Entity : IEntity
 	{
 
 		#region TAG_SHORTCUTS

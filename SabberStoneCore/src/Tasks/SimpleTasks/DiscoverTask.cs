@@ -94,7 +94,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         {
 			int neutralCnt = cardsToDiscover[0].Count;
 			int classCnt = 0;
-            var uniqueList = new OrderedHashSet<Card>(cardsToDiscover[0]);
+            var uniqueList = OrderedHashSet<Card>.Build(cardsToDiscover[0]);
 
             if (cardsToDiscover.Length > 1)
             {
@@ -111,7 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var cloneGame = Game.Clone();
                 var cloneController = cloneGame.ControllerByEntityID(Controller.Id);
-                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, EChoiceType.GENERAL, choiceAction, new OrderedHashSet<Card>(p), null);
+                var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, EChoiceType.GENERAL, choiceAction, LightWeightOrderedSet<Card>.Build(p), null);
                 cloneGame.TaskQueue.CurrentTask.State = ETaskState.COMPLETE;
             });
 

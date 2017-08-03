@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model
 	/// changes. If the requirements are fulfilled, it will transition the game
 	/// to the next state.
 	/// </summary>
-	public class GameStepManager
+	public sealed class GameStepManager
 	{
 		/// <summary>Initializes a new instance of the <see cref="GameStepManager"/> class.</summary>
 		/// <param name="game">The game to manage.</param>

@@ -15,9 +15,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Object holding the information of all known cards.
 		/// </summary>
-		private static readonly CardContainer Data = new CardContainer();
-
-		private static bool DataReady = SetupCards();
+		private static readonly CardContainer _data = new CardContainer();
+		private static bool _dataReady = SetupCards();
 
 		/// <summary>
 		/// Specifies which card sets combine into the STANDARD set.
@@ -47,12 +46,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Returns all known cards.
 		/// </summary>
-		public static IEnumerable<Card> All => Data.AllCards();
+		public static IEnumerable<Card> All => _data.AllCards();
 
 		/// <summary>
 		/// Returns the count of all known cards.
 		/// </summary>
-		public static int Count => Data.AllCards().Count;
+		public static int Count => _data.AllCards().Count;
 
 		#region CARD_SETUP
 
@@ -63,7 +62,7 @@ namespace SabberStoneCore.Model
 			List<Card> cards = cardLoader.Load();
 
 			// Setup container.
-			return CardContainer.SetupContainer(cards, Data);
+			return CardContainer.SetupContainer(cards, _data);
 
 			//Log.Info($"Loaded {All.Count()} cards.");
 		}
@@ -75,7 +74,7 @@ namespace SabberStoneCore.Model
 			//Log.Debug("Wild:");
 			foreach (ECardClass heroClass in Enum.GetValues(typeof(ECardClass)).Cast<ECardClass>())
 			{
-				IEnumerable<Card> cardsEnumerable = Data.AllCards().Where(c =>
+				IEnumerable<Card> cardsEnumerable = _data.AllCards().Where(c =>
 				c.Collectible &&
 					(c.Class == heroClass ||
 					 c.Class == ECardClass.NEUTRAL && c.MultiClassGroupType == 0 ||
@@ -138,12 +137,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// All cards belonging to the Standard set.
 		/// </summary>
-		public static IEnumerable<Card> AllStandard => Data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO && StandardSets.Contains(c.Set));
+		public static IEnumerable<Card> AllStandard => _data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO && StandardSets.Contains(c.Set));
 
 		/// <summary>
 		/// All cards belonging to the Wild set.
 		/// </summary>
-		public static IEnumerable<Card> AllWild => Data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO);
+		public static IEnumerable<Card> AllWild => _data.AllCards().Where(c => c.Collectible && c.Type != ECardType.HERO);
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
@@ -160,7 +159,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card DefaultHeroCard(ECardClass cardClass)
 		{
-			return Data.AllCards().First(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
+			return _data.AllCards().FirstOrDefault(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
 		}
 
 		/// <summary>
@@ -169,7 +168,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static IEnumerable<Card> HeroCards()
 		{
-			return Data.AllCards().Where(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO"));
+			return _data.AllCards().Where(c => c.Type == ECardType.HERO && c.Id.StartsWith("HERO"));
 		}
 
 		/// <summary>
@@ -179,7 +178,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
-			return Data[cardId];
+			return _data[cardId];
 		}
 
 		/// <summary>
@@ -191,7 +190,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromName(string cardName)
 		{
-			return Data.FirstOrDefault(x => x.Name == cardName && x.Collectible);
+			return _data.FirstOrDefault(x => x.Name == cardName && x.Collectible);
 		}
 
 		/// <summary>
@@ -201,7 +200,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromAssetId(int assetId)
 		{
-			return Data.FirstOrDefault(x => x.AssetId == assetId);
+			return _data.FirstOrDefault(x => x.AssetId == assetId);
 		}
 
 		#endregion
@@ -244,10 +243,14 @@ namespace SabberStoneCore.Model
 			}
 		}
 
+		/// <summary>Builds and returns a string containing information about the enchantment
+		/// implementation progress.
+		/// </summary>
+		/// <returns></returns>
 		public static string Statistics()
 		{
-			var standard = All.Where(c => c.Collectible && StandardSets.Contains(c.Set));
-			var wild = All.Where(c => c.Collectible);
+			IEnumerable<Card> standard = All.Where(c => c.Collectible && StandardSets.Contains(c.Set));
+			IEnumerable<Card> wild = All.Where(c => c.Collectible);
 			var implemented = standard.Where(p => p.Implemented)
 				.GroupBy(p => p.Set)
 				.Select(t => new { Key = t.Key, Count = t.Count() });
@@ -260,14 +263,14 @@ namespace SabberStoneCore.Model
 			var allWild = wild
 				.GroupBy(p => p.Set)
 				.Select(t => new { Key = t.Key, Count = t.Count() });
-			var str = string.Empty;
-			var totImpl = 0;
-			var totCards = 0;
-			foreach (var set in StandardSets)
+			string str = String.Empty;
+			int totImpl = 0;
+			int totCards = 0;
+			foreach (ECardSet set in StandardSets)
 			{
-				var impl = implemented.FirstOrDefault(p => p.Key == set).Count;
+				int impl = implemented.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
-				var tot = all.FirstOrDefault(p => p.Key == set).Count;
+				int tot = all.FirstOrDefault(p => p.Key == set).Count;
 				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
 				totCards += tot;
 			}
@@ -277,11 +280,11 @@ namespace SabberStoneCore.Model
 
 			totImpl = 0;
 			totCards = 0;
-			foreach (var set in WildSets)
+			foreach (ECardSet set in WildSets)
 			{
-				var impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
+				int impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
-				var tot = allWild.FirstOrDefault(p => p.Key == set).Count;
+				int tot = allWild.FirstOrDefault(p => p.Key == set).Count;
 				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
 				totCards += tot;
 			}

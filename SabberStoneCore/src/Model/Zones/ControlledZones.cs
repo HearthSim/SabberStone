@@ -5,9 +5,9 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Zones
 {
-    public class Zones : IEnumerable<IZone>
+    public class ControlledZones : IEnumerable<IZone>
     {
         public Game Game { get; }
 
@@ -15,13 +15,13 @@ namespace SabberStoneCore.Model
 
         private readonly IZone[] _zones = new IZone[Enum.GetNames(typeof(EZone)).Length];
 
-        public Zones(Game game, Controller controller)
+        public ControlledZones(Game game, Controller controller)
         {
             Game = game;
             Controller = controller;
         }
 
-        public void Stamp(Zones zones)
+        public void Stamp(ControlledZones zones)
         {
             // setaside need to be cloned first for references like choose one cards ...
             List<EZone> zoneEnums = new List<EZone> {
@@ -78,24 +78,24 @@ namespace SabberStoneCore.Model
                         result = null;
                         break;
                     case EZone.GRAVEYARD:
-                        result = new Zone<IPlayable>(Game, Controller, zone);
+                        result = new GraveyardZone(Game, Controller, zone);
                         break;
                     case EZone.PLAY:
-                        result = new Zone<Minion>(Game, Controller, zone);
+                        result = new BoardZone(Game, Controller, zone);
                         break;
                     case EZone.DECK:
-                        result = new Deck(Game, Controller);
+                        result = new DeckZone(Game, Controller);
                         break;
                     case EZone.HAND:
-                        result = new Hand(Game, Controller);
+                        result = new HandZone(Game, Controller);
                         break;
                     case EZone.REMOVEDFROMGAME:
                         break;
                     case EZone.SETASIDE:
-                        result = new Zone<IPlayable>(Game, Controller, zone);
+                        result = new SetasideZone(Game, Controller, zone);
                         break;
                     case EZone.SECRET:
-                        result = new Zone<Spell>(Game, Controller, zone);
+                        result = new SecretZone(Game, Controller, zone);
                         break;
                     default:
                         throw new ZoneException("No such zone type when creating zone: " + zone);
