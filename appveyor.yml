@@ -14,7 +14,7 @@ before_build:
 - cmd: >-
     REM Restore packages for all projects within solution
 
-    nuget.exe restore -PackagesDirectory '.\packages'
+    nuget.exe restore
 
 build:
   project: SabberStone.sln
