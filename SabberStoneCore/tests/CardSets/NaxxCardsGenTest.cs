@@ -22,9 +22,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO PoisonSeeds_FP1_019 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.DRUID,
-				Player2HeroClass = ECardClass.DRUID,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.DRUID,
+				Player2CardClass = ECardClass.DRUID,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -52,9 +53,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Webspinner_FP1_011 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.HUNTER,
-				Player2HeroClass = ECardClass.HUNTER,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.HUNTER,
+				Player2CardClass = ECardClass.HUNTER,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -82,9 +84,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Duplicate_FP1_018 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -112,9 +115,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Avenge_FP1_020 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.PALADIN,
-				Player2HeroClass = ECardClass.PALADIN,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PALADIN,
+				Player2CardClass = ECardClass.PALADIN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -142,9 +146,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO DarkCultist_FP1_023 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.PRIEST,
-				Player2HeroClass = ECardClass.PRIEST,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PRIEST,
+				Player2CardClass = ECardClass.PRIEST,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -175,9 +180,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO AnubarAmbusher_FP1_026 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.ROGUE,
-				Player2HeroClass = ECardClass.ROGUE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.ROGUE,
+				Player2CardClass = ECardClass.ROGUE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -206,9 +212,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Reincarnate_FP1_025 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.SHAMAN,
-				Player2HeroClass = ECardClass.SHAMAN,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.SHAMAN,
+				Player2CardClass = ECardClass.SHAMAN,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -236,9 +243,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Voidcaller_FP1_022 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.WARLOCK,
-				Player2HeroClass = ECardClass.WARLOCK,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARLOCK,
+				Player2CardClass = ECardClass.WARLOCK,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -267,9 +275,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO DeathsBite_FP1_021 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.WARRIOR,
-				Player2HeroClass = ECardClass.WARRIOR,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARRIOR,
+				Player2CardClass = ECardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -297,9 +306,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO ZombieChow_FP1_001 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -323,9 +333,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO HauntedCreeper_FP1_002 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -349,9 +360,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO EchoingOoze_FP1_003 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -378,9 +390,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO MadScientist_FP1_004 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -404,9 +417,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO ShadeOfNaxxramas_FP1_005 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -430,9 +444,10 @@ namespace SabberStoneCoreTest.CardSets
 
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -463,9 +478,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO SpectralKnight_FP1_008 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -490,9 +506,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Deathlord_FP1_009 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -517,9 +534,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Maexxna_FP1_010 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -545,9 +563,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO SludgeBelcher_FP1_012 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -571,9 +590,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Kelthuzad_FP1_013 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -598,9 +618,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Stalagg_FP1_014 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -625,9 +646,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Feugen_FP1_015 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -654,9 +676,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO WailingSoul_FP1_016 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -683,9 +706,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO NerubarWeblord_FP1_017 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -710,9 +734,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO UnstableGhoul_FP1_024 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -733,9 +758,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO StoneskinGargoyle_FP1_027 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -759,9 +785,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Undertaker_FP1_028 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -785,9 +812,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO DancingSwords_FP1_029 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -812,9 +840,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO Loatheb_FP1_030 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
@@ -842,9 +871,10 @@ namespace SabberStoneCoreTest.CardSets
 			// TODO BaronRivendare_FP1_031 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
-				Player1HeroClass = ECardClass.MAGE,
-				Player2HeroClass = ECardClass.MAGE,
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();

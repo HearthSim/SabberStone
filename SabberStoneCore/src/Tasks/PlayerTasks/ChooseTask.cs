@@ -34,10 +34,10 @@ namespace SabberStoneCore.Tasks.PlayerTasks
             {
                 case EChoiceType.MULLIGAN:
                     Generic.ChoiceMulligan.Invoke(Controller, Choices);
-                    if (Controller.Game.History)
+                    if (Controller.Game.HistoryEnabled)
                         Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, Controller.Id, "", 7, 0));
                     Controller.MulliganState = Enums.EMulligan.DONE;
-                    if (Controller.Game.History)
+                    if (Controller.Game.HistoryEnabled)
                         Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return ETaskState.COMPLETE;
 

@@ -23,7 +23,7 @@ namespace SabberStoneCore.Enchants
 		private int _ownerId;
 		public IPlayable Owner
 		{
-			get { return Game.IdEntityDic[_ownerId]; }
+			get { return Game.Entities[_ownerId]; }
 			set { _ownerId = value.Id; }
 		}
 

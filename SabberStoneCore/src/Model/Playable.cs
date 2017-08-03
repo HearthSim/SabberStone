@@ -71,7 +71,7 @@ namespace SabberStoneCore.Model
              || type.Equals("SECRET_OR_QUEST")
              || type.Equals("WEAPON"))
             {
-                OrderOfPlay = Game.NextOop;
+                OrderOfPlay = Game.NextOrderOfPlayIdx;
             }
         }
 

@@ -26,7 +26,7 @@ namespace SabberStoneCore.Actions
                 c.Board.Add(minion, zonePosition);
 
                 // add summon block show entity 
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
             };
 

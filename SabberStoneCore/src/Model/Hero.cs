@@ -31,7 +31,7 @@ namespace SabberStoneCore.Model
             Weapon = weapon;
             Weapon[EGameTag.ZONE] = (int)Enums.EZone.PLAY;
             Weapon[EGameTag.ZONE_POSITION] = 0;
-            if (Game.History)
+            if (Game.HistoryEnabled)
             {
                 Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, Weapon.Id, "", -1, 0));
                 Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

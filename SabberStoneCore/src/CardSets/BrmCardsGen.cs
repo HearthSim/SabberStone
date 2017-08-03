@@ -801,7 +801,7 @@ namespace SabberStoneCore.CardSets
                             new FuncPlayablesTask(p =>
                             {
                                 var controller = p[0].Controller;
-                                return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
+                                return new List<IPlayable> { controller.Game.Entities[controller.LastCardDrawn] };
                             }),
                             new CopyTask(EEntityType.STACK, 1),
                             new AddStackTo(EEntityType.HAND)))

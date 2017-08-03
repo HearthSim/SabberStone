@@ -27,7 +27,7 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                var playable = c.Game.IdEntityDic[choice];
+                var playable = c.Game.Entities[choice];
 
                 c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
@@ -63,7 +63,7 @@ namespace SabberStoneCore.Actions
                     case EChoiceAction.ADAPT:
                         c.Choice.TargetIds.ForEach(p =>
                         {
-                            var target = c.Game.IdEntityDic[p];
+                            var target = c.Game.Entities[p];
                             playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
                         });
                         break;
@@ -98,7 +98,7 @@ namespace SabberStoneCore.Actions
                     case EChoiceAction.KAZAKUS:
                         c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
                         {
-                            c.Game.IdEntityDic[p][EGameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+                            c.Game.Entities[p][EGameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
                         });
                         //c.Setaside.Add(playable);
                         var kazakusPotions =
@@ -152,7 +152,7 @@ namespace SabberStoneCore.Actions
                         c.MulliganState = EMulligan.DEALING;
 
                         // starting mulligan draw block
-                        if (c.Game.History)
+                        if (c.Game.HistoryEnabled)
                             c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, c.Id, "", 6, 0));
 
                         var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
@@ -171,7 +171,7 @@ namespace SabberStoneCore.Actions
                             ShuffleIntoDeck.Invoke(c, p);
                         });
 
-                        if (c.Game.History)
+                        if (c.Game.HistoryEnabled)
                             c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                        
                         // reset choice it's done

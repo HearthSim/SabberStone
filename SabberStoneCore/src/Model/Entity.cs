@@ -293,7 +293,7 @@ namespace SabberStoneCore.Model
 		{
 			_data[tag] = value;
 
-			if (Game.History && (int)tag < 1000)
+			if (Game.HistoryEnabled && (int)tag < 1000)
 			{
 				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
 			}
@@ -310,7 +310,7 @@ namespace SabberStoneCore.Model
 		public static IPlayable FromCard(Controller controller, Card card, Dictionary<EGameTag, int> tags = null, IZone zone = null, int id = -1)
 		{
 			tags = tags ?? new Dictionary<EGameTag, int>();
-			tags[EGameTag.ENTITY_ID] = id > 0 ? id : controller.Game.NextId;
+			tags[EGameTag.ENTITY_ID] = id > 0 ? id : controller.Game.NextEntityID;
 			tags[EGameTag.CONTROLLER] = controller.PlayerId;
 			tags[EGameTag.ZONE] = zone != null ? (int)zone.Type : 0;
 			//tags[GameTag.CARD_ID] = card.AssetId;
@@ -332,7 +332,7 @@ namespace SabberStoneCore.Model
 
 				case ECardType.HERO:
 					tags[EGameTag.HEALTH] = card[EGameTag.HEALTH];
-					tags[EGameTag.ZONE] = (int)Enums.EZone.PLAY;
+					tags[EGameTag.ZONE] = (int)EZone.PLAY;
 					//tags[GameTag.FACTION] = card[GameTag.FACTION];
 					tags[EGameTag.CARDTYPE] = card[EGameTag.CARDTYPE];
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
@@ -342,7 +342,7 @@ namespace SabberStoneCore.Model
 
 				case ECardType.HERO_POWER:
 					tags[EGameTag.COST] = card[EGameTag.COST];
-					tags[EGameTag.ZONE] = (int)Enums.EZone.PLAY;
+					tags[EGameTag.ZONE] = (int)EZone.PLAY;
 					//tags[GameTag.FACTION] = card[GameTag.FACTION];
 					tags[EGameTag.CARDTYPE] = card[EGameTag.CARDTYPE];
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
@@ -355,10 +355,10 @@ namespace SabberStoneCore.Model
 			}
 
 			// add entity to the game dic
-			controller.Game.IdEntityDic.Add(result.Id, result);
+			controller.Game.Entities.Add(result.Id, result);
 
 			// add power history full entity 
-			if (controller.Game.History)
+			if (controller.Game.HistoryEnabled)
 			{
 				controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 			}

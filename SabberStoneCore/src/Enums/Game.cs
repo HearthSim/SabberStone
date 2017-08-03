@@ -256,6 +256,9 @@
 		TURN = 20,
 		FATIGUE = 22,
 		CURRENT_PLAYER = 23,
+		/// <summary>Interpreted as boolean. The controller entity which has this tag with a value of true (1)
+		/// will execute the first turn at game start.
+		/// </summary>
 		FIRST_PLAYER = 24,
 		RESOURCES_USED = 25,
 		RESOURCES = 26,

@@ -15,19 +15,19 @@ namespace SabberStoneCore.Actions
                 if (!OnAttackTrigger.Invoke(c, source, target))
                 {
                     // end block
-                    if (c.Game.History)
+                    if (c.Game.HistoryEnabled)
                         c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return false;
                 }
                 if (!AttackPhase.Invoke(c, source))
                 {
                     // end block
-                    if (c.Game.History)
+                    if (c.Game.HistoryEnabled)
                         c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                     return false;
                 }
                 // end block
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
                 return true;
             };
@@ -52,7 +52,7 @@ namespace SabberStoneCore.Actions
                     $"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 
                 // attack block
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.ATTACK, source.Id, "", -1, target.Id));
 
                 // TODO need to be manipulated for 50% chance to attack  someone else 
@@ -82,7 +82,7 @@ namespace SabberStoneCore.Actions
                 var hero = source as Hero;
                 var minion = source as Minion;
                 source.ProposedAttacker = source.Id;
-                var target = c.Game.IdEntityDic[source.ProposedDefender] as ICharacter;
+                var target = c.Game.Entities[source.ProposedDefender] as ICharacter;
                 if (target == null)
                 {
                     c.Game.Log(ELogLevel.INFO, EBlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");

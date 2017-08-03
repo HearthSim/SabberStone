@@ -110,7 +110,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             combinations.ForEach(p =>
             {
                 var cloneGame = Game.Clone();
-                var cloneController = cloneGame.ControllerById(Controller.Id);
+                var cloneController = cloneGame.ControllerByEntityID(Controller.Id);
                 var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, EChoiceType.GENERAL, choiceAction, new OrderedHashSet<Card>(p), null);
                 cloneGame.TaskQueue.CurrentTask.State = ETaskState.COMPLETE;
             });

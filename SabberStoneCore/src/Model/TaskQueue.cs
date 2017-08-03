@@ -48,12 +48,12 @@ namespace SabberStoneCore.Model
                      $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
 
             // power block
-            if (controller.Game.History)
+            if (controller.Game.HistoryEnabled)
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
             clone.Process();
 
-            if (controller.Game.History)
+            if (controller.Game.HistoryEnabled)
                 controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             Game.TaskStack.Reset();
@@ -85,12 +85,12 @@ namespace SabberStoneCore.Model
 
 
             // power block
-            if (Game.History)
+            if (Game.HistoryEnabled)
                 Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
 
             var success = CurrentTask.Process();
 
-            if (Game.History)
+            if (Game.HistoryEnabled)
                 Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
             // reset between task execution

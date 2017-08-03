@@ -53,9 +53,9 @@ namespace SabberStoneCoreConsole
         {
             var game = new Game(new GameConfig
             {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.DRUID,
-                Player2HeroClass = ECardClass.DRUID,
+                StartPlayerIdx = 1,
+                Player1CardClass = ECardClass.DRUID,
+                Player2CardClass = ECardClass.DRUID,
                 FillDecks = true
             });
             game.Player1.BaseMana = 10;
@@ -96,8 +96,8 @@ namespace SabberStoneCoreConsole
                 {
                     //StartPlayer = 1,
                     FormatType = EFormatType.FT_STANDARD,
-                    Player1HeroClass = ECardClass.DRUID,
-                    DeckPlayer1 = new List<Card>()
+                    Player1CardClass = ECardClass.DRUID,
+                    Player1Deck = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
                         //Cards.FromName("Ironbark Protector"),
@@ -130,8 +130,8 @@ namespace SabberStoneCoreConsole
                         //Cards.FromName("Chillwind Yeti"),
                         //Cards.FromName("Chillwind Yeti")
                     },
-                    Player2HeroClass = ECardClass.DRUID,
-                    DeckPlayer2 = new List<Card>()
+                    Player2CardClass = ECardClass.DRUID,
+                    Player2Deck = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
                         //Cards.FromName("Ironbark Protector"),
@@ -225,13 +225,13 @@ namespace SabberStoneCoreConsole
             var game = new Game(
             new GameConfig()
             {
-                Player1HeroClass = ECardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
+                Player1CardClass = ECardClass.WARRIOR,
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Fire Plume's Heart")
                 },
-                Player2HeroClass = ECardClass.HUNTER,
-                DeckPlayer2 = new List<Card>
+                Player2CardClass = ECardClass.HUNTER,
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("The Marsh Queen")
                 },
@@ -263,8 +263,8 @@ namespace SabberStoneCoreConsole
                 {
                     //StartPlayer = 1,
                     FormatType = EFormatType.FT_STANDARD,
-                    Player1HeroClass = Cards.BasicClasses[i % 9],
-                    Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
+                    Player1CardClass = Cards.BasicClasses[i % 9],
+                    Player2CardClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
                     Logging = true,
                     History = false
@@ -341,9 +341,9 @@ namespace SabberStoneCoreConsole
             var game =
                 new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.DRUID,
-                    DeckPlayer1 = new List<Card>()
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.DRUID,
+                    Player1Deck = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
                         Cards.FromName("Bloodfen Raptor"),
@@ -353,8 +353,8 @@ namespace SabberStoneCoreConsole
                         Cards.FromName("Wrath"),
                         Cards.FromName("Power of the Wild"),
                     },
-                    Player2HeroClass = ECardClass.DRUID,
-                    DeckPlayer2 = new List<Card>()
+                    Player2CardClass = ECardClass.DRUID,
+                    Player2Deck = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
                         Cards.FromName("Bloodfen Raptor"),
@@ -390,13 +390,13 @@ namespace SabberStoneCoreConsole
             var game =
                 new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.DRUID,
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.DRUID,
                     //DeckPlayer1 = new List<Card>
                     //{
                     //    Cards.FromName("Raven Idol")
                     //},
-                    Player2HeroClass = ECardClass.MAGE,
+                    Player2CardClass = ECardClass.MAGE,
                     SkipMulligan = false,
                     Shuffle = false,
                     FillDecks = true
@@ -483,9 +483,9 @@ namespace SabberStoneCoreConsole
                 game =
                     new Game(new GameConfig
                     {
-                        StartPlayer = 1,
-                        Player1HeroClass = ECardClass.PRIEST,
-                        DeckPlayer1 = new List<Card>()
+                        StartPlayerIdx = 1,
+                        Player1CardClass = ECardClass.PRIEST,
+                        Player1Deck = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -518,8 +518,8 @@ namespace SabberStoneCoreConsole
                             Cards.FromName("Gurubashi Berserker"),// 29
                             Cards.FromName("Elven Archer"),       // 30
                         },
-                        Player2HeroClass = ECardClass.HUNTER,
-                        DeckPlayer2 = new List<Card>()
+                        Player2CardClass = ECardClass.HUNTER,
+                        Player2Deck = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -581,19 +581,19 @@ namespace SabberStoneCoreConsole
             var game =
                 new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.PRIEST,
-                    Player2HeroClass = ECardClass.HUNTER,
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.PRIEST,
+                    Player2CardClass = ECardClass.HUNTER,
                     FillDecks = true,
                     SkipMulligan = false
                 });
             game.StartGame();
 
-            game.Process(ChooseTask.Mulligan(game.Player1,
-                game.Player1.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
+            game.Process(ChooseTask.Mulligan(game.Player1, 
+                game.Player1.Choice.Choices.Where(p => game.Entities[p].Cost > 3).ToList()));
 
             game.Process(ChooseTask.Mulligan(game.Player2,
-                game.Player2.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
+                game.Player2.Choice.Choices.Where(p => game.Entities[p].Cost > 3).ToList()));
 
             game.MainReady();
 
@@ -608,9 +608,9 @@ namespace SabberStoneCoreConsole
             var game =
                 new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.PRIEST,
-                    Player2HeroClass = ECardClass.HUNTER,
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.PRIEST,
+                    Player2CardClass = ECardClass.HUNTER,
                     FillDecks = true
                 });
 
@@ -669,9 +669,9 @@ namespace SabberStoneCoreConsole
             {
                 game = new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.MAGE,
-                    Player2HeroClass = ECardClass.MAGE,
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.MAGE,
+                    Player2CardClass = ECardClass.MAGE,
                     FillDecks = true
                 });
                 game.StartGame();
@@ -693,9 +693,9 @@ namespace SabberStoneCoreConsole
         {
             var game = new Game(new GameConfig
             {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PRIEST,
-                DeckPlayer1 = new List<Card>
+                StartPlayerIdx = 1,
+                Player1CardClass = ECardClass.PRIEST,
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Murloc Raider"),
                     Cards.FromName("Murloc Raider"),
@@ -703,7 +703,7 @@ namespace SabberStoneCoreConsole
                     Cards.FromName("Murloc Tidehunter"),
                     Cards.FromName("Herald Volazj"),
                 },
-                Player2HeroClass = ECardClass.PRIEST,
+                Player2CardClass = ECardClass.PRIEST,
                 FillDecks = false,
                 Shuffle = false
             });
@@ -732,11 +732,11 @@ namespace SabberStoneCoreConsole
         {
             var game = new Game(new GameConfig
             {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.DRUID,
-                DeckPlayer1 = new List<Card>() { },
-                Player2HeroClass = ECardClass.DRUID,
-                DeckPlayer2 = new List<Card>() { },
+                StartPlayerIdx = 1,
+                Player1CardClass = ECardClass.DRUID,
+                Player1Deck = new List<Card>() { },
+                Player2CardClass = ECardClass.DRUID,
+                Player2Deck = new List<Card>() { },
                 FillDecks = false
             });
             game.StartGame();
@@ -764,9 +764,9 @@ namespace SabberStoneCoreConsole
             {
                 var game = new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = classes[Rnd.Next(classes.Length)],
-                    Player2HeroClass = classes[Rnd.Next(classes.Length)],
+                    StartPlayerIdx = 1,
+                    Player1CardClass = classes[Rnd.Next(classes.Length)],
+                    Player2CardClass = classes[Rnd.Next(classes.Length)],
                     FillDecks = true
                 });
                 game.StartGame();
@@ -799,9 +799,9 @@ namespace SabberStoneCoreConsole
 
             var game = new Game(new GameConfig
             {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.HUNTER,
+                StartPlayerIdx = 1,
+                Player1CardClass = ECardClass.MAGE,
+                Player2CardClass = ECardClass.HUNTER,
                 FillDecks = true,
                 Logging = false
             });
@@ -847,8 +847,8 @@ namespace SabberStoneCoreConsole
                 {
                     //StartPlayer = 1,
                     FormatType = EFormatType.FT_STANDARD,
-                    Player1HeroClass = Cards.BasicClasses[i % 9],
-                    Player2HeroClass = Cards.BasicClasses[(i + 1) % 9],
+                    Player1CardClass = Cards.BasicClasses[i % 9],
+                    Player2CardClass = Cards.BasicClasses[(i + 1) % 9],
                     FillDecks = true,
                     Logging = false,
                     History = false

@@ -46,21 +46,21 @@ namespace SabberStoneCore.Tasks
         private int _controllerId;
         public Controller Controller
         {
-            get { return Game.ControllerById(_controllerId); }
+            get { return Game.ControllerByEntityID(_controllerId); }
             set { _controllerId = value.Id; }
         }
 
         private int _sourceId;
         public IEntity Source
         {
-            get { return Game.IdEntityDic[_sourceId]; }
+            get { return Game.Entities[_sourceId]; }
             set { _sourceId = value.Id; }
         }
 
         private int _targetId;
         public IEntity Target
         {
-            get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
+            get { return _targetId > -1 ? Game.Entities[_targetId] : null; }
             set { _targetId = value?.Id ?? -1; }
         }
         
@@ -156,19 +156,19 @@ namespace SabberStoneCore.Tasks
         private int _controllerId;
         public Controller Controller
         {
-            get { return Game.ControllerById(_controllerId); }
+            get { return Game.ControllerByEntityID(_controllerId); }
             set { _controllerId = value.Id; }
         }
         private int _sourceId;
         public IEntity Source
         {
-            get { return Game.IdEntityDic[_sourceId]; }
+            get { return Game.Entities[_sourceId]; }
             set { _sourceId = value.Id; }
         }
         private int _targetId;
         public IEntity Target
         {
-            get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
+            get { return _targetId > -1 ? Game.Entities[_targetId] : null; }
             set { _targetId = value?.Id ?? -1; }
         }
         public List<IPlayable> Playables { get; set; }

@@ -81,8 +81,8 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.Board.IsFull);
         public static SelfCondition IsSecretOrQuestActive => new SelfCondition(me => me.Zone.Type == EZone.SECRET);
         public static SelfCondition IsQuestDone => new SelfCondition(me => me[EGameTag.QUEST_PROGRESS] == me[EGameTag.QUEST_PROGRESS_TOTAL]);
-        public static SelfCondition IsProposedDefender(ECardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
-        public static SelfCondition IsHeroProposedDefender(ECardType cardType) => new SelfCondition(me => me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
+        public static SelfCondition IsProposedDefender(ECardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.Entities[((ICharacter)me).ProposedDefender].Card.Type == cardType);
+        public static SelfCondition IsHeroProposedDefender(ECardType cardType) => new SelfCondition(me => me.Game.Entities[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
         public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.Hand.Count < me.Controller.Opponent.Hand.Count);
 
         public static SelfCondition AnyNonClassCardInHand(ECardClass cardClass)
@@ -129,7 +129,7 @@ namespace SabberStoneCore.Conditions
             {
                 if (!me.Controller.SeenCthun)
                     return false;
-                var proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
+                var proxyCthun = me.Game.Entities[me.Controller.ProxyCthun];
                 return relaSign == ERelaSign.EQ  && proxyCthun[tag] == value
                     || relaSign == ERelaSign.GEQ && proxyCthun[tag] >= value
                     || relaSign == ERelaSign.LEQ && proxyCthun[tag] <= value;

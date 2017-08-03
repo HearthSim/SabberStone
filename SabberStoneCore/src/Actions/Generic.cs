@@ -83,7 +83,7 @@ namespace SabberStoneCore.Actions
                 }
 
                 // add draw block show entity 
-                if (c.Game.History && playable != null)
+                if (c.Game.HistoryEnabled && playable != null)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
 
                 c.Game.Log(ELogLevel.INFO, EBlockType.PLAY, "AddHandPhase", $"adding to hand {playable}.");
@@ -133,7 +133,7 @@ namespace SabberStoneCore.Actions
                 c.Deck.Add(playable, c.Deck.Count == 0 ? -1 : Util.Random.Next(c.Deck.Count + 1));
                 
                 // add hide entity 
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(playable));
 
                 return true;

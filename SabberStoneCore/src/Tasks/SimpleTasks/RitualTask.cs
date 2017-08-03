@@ -38,7 +38,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Controller.SeenCthun = true;
             }
 
-            var entities = new List<IPlayable> {Game.IdEntityDic[Controller.ProxyCthun]};
+            var entities = new List<IPlayable> {Game.Entities[Controller.ProxyCthun]};
             entities.AddRange(Controller.Board.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
             entities.AddRange(Controller.Hand.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 

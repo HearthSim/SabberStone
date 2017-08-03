@@ -28,7 +28,7 @@ namespace SabberStoneCore.Model
         public void Stamp(TaskStack taskStack)
         {
             Playables = new List<IPlayable>();
-            Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
+            Playables = taskStack.Playables?.Select(p => Game.Entities[p.Id]).ToList();
             CardIds = taskStack.CardIds;
             Flag = taskStack.Flag;
             Numbers = taskStack.Numbers;

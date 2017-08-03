@@ -24,7 +24,7 @@ namespace SabberStoneCore.Actions
                 PayPhase.Invoke(c, c.Hero.Power);
 
                 // play block
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.PLAY, c.Hero.Power.Id, "", 0, target?.Id ?? 0));
 
                 var targtTxt = target != null ? $" targeting {target}" : "";
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Actions
                 c.HeroPowerActivationsThisTurn++;
                 c.NumTimesHeroPowerUsedThisGame++;
 
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
                 return true;

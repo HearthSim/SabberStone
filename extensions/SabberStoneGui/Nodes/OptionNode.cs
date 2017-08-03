@@ -53,14 +53,14 @@ namespace SabberStoneCoreGui.Nodes
         public void Switch()
         {
             _isOpponentTurn = !_isOpponentTurn;
-            _playerId = _game.ControllerById(_playerId).Opponent.Id;
+            _playerId = _game.ControllerByEntityID(_playerId).Opponent.Id;
         }
 
         public void Execute()
         {
             _game.Process(PlayerTask);
 
-            var controller = _game.ControllerById(_playerId);
+            var controller = _game.ControllerByEntityID(_playerId);
 
             _gameState = _game.State == EState.RUNNING ? 0
                 : (controller.PlayState == EPlayState.WON ? 1 : -1);
@@ -87,7 +87,7 @@ namespace SabberStoneCoreGui.Nodes
 
         public void Options(ref Dictionary<string, OptionNode> optionNodes)
         {
-            var options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
+            var options = _game.ControllerByEntityID(_playerId).Options(!_isOpponentTurn);
 
             foreach (var option in options)
             {

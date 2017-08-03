@@ -71,14 +71,14 @@ namespace SabberStoneCore.Model
 					game.MainBegin();
 					break;
 
-				case EStep.MAIN_DRAW:
-					game.Step = step;
-					game.MainDraw();
-					break;
-
 				case EStep.MAIN_READY:
 					game.Step = step;
 					game.MainReady();
+					break;
+
+				case EStep.MAIN_DRAW:
+					game.Step = step;
+					game.MainDraw();
 					break;
 
 				case EStep.MAIN_RESOURCE:

@@ -10,1491 +10,1536 @@ namespace SabberStoneCoreTest.CardSets.Standard
 {
 
 	public class DruidKaraTest
-    {
-        // ------------------------------------------ SPELL - DRUID
-        // [KAR_075] Moonglade Portal - COST:6 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: Restore #6 Health. Summon a random
-        //       6-Cost minion.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void MoongladePortal_KAR_075()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.DRUID,
-                Player2HeroClass = ECardClass.DRUID,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            game.Player1.Hero.Damage = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moonglade Portal"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.Hero));
-            Assert.Equal(26, game.CurrentPlayer.Hero.Health);
-            Assert.Equal(6, game.CurrentPlayer.Board[0].Card.Cost);
-        }
+	{
+		// ------------------------------------------ SPELL - DRUID
+		// [KAR_075] Moonglade Portal - COST:6 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Restore #6 Health. Summon a random
+		//       6-Cost minion.
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void MoongladePortal_KAR_075()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.DRUID,
+				Player2CardClass = ECardClass.DRUID,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Player1.Hero.Damage = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moonglade Portal"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.Hero));
+			Assert.Equal(26, game.CurrentPlayer.Hero.Health);
+			Assert.Equal(6, game.CurrentPlayer.Board[0].Card.Cost);
+		}
 
-        // ----------------------------------------- MINION - DRUID
-        // [KAR_065] Menagerie Warden - COST:6 [ATK:5/HP:5] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Choose a friendly Beast. Summon a_copy of it.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_MINION_TARGET = 0
-        // - REQ_FRIENDLY_TARGET = 0
-        // - REQ_TARGET_WITH_RACE = 20
-        // - REQ_TARGET_IF_AVAILABLE = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void MenagerieWarden_KAR_065()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.DRUID,
-                Player2HeroClass = ECardClass.DRUID,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Menagerie Warden"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-            Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[0].Card.Id);
-            Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[2].Card.Id);
-        }
+		// ----------------------------------------- MINION - DRUID
+		// [KAR_065] Menagerie Warden - COST:6 [ATK:5/HP:5] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Choose a friendly Beast. Summon a_copy of it.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_FRIENDLY_TARGET = 0
+		// - REQ_TARGET_WITH_RACE = 20
+		// - REQ_TARGET_IF_AVAILABLE = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void MenagerieWarden_KAR_065()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.DRUID,
+				Player2CardClass = ECardClass.DRUID,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Menagerie Warden"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(3, game.CurrentPlayer.Board.Count);
+			Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[0].Card.Id);
+			Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[2].Card.Id);
+		}
 
-        // ----------------------------------------- MINION - DRUID
-        // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2] 
-        // - Race: beast, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        [Fact]
-        public void EnchantedRaven_KAR_300()
-        {
-            // TODO EnchantedRaven_KAR_300 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.DRUID,
-                Player2HeroClass = ECardClass.DRUID,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Enchanted Raven"));
-        }
-    }
+		// ----------------------------------------- MINION - DRUID
+		// [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2] 
+		// - Race: beast, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		[Fact]
+		public void EnchantedRaven_KAR_300()
+		{
+			// TODO EnchantedRaven_KAR_300 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.DRUID,
+				Player2CardClass = ECardClass.DRUID,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Enchanted Raven"));
+		}
+	}
 
-    
-    public class HunterKaraTest
-    {
-        // ----------------------------------------- SPELL - HUNTER
-        // [KAR_004] Cat Trick - COST:2 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
-        // --------------------------------------------------------
-        // GameTag:
-        // - SECRET_OR_QUEST = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - STEALTH = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void CatTrick_KAR_004()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.HUNTER,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Hero));
-            Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
-            Assert.Equal(1, game.CurrentOpponent.Board.Count);
-        }
 
-        // ---------------------------------------- MINION - HUNTER
-        // [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 
-        // - Race: beast, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DEATHRATTLE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void KindlyGrandmother_KAR_005()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.HUNTER,
-                Player2HeroClass = ECardClass.HUNTER,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kindly Grandmother"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.Equal(1, game.CurrentOpponent.Board.Count);
-            Assert.Equal("KAR_005a", game.CurrentOpponent.Board[0].Card.Id);
-        }
+	public class HunterKaraTest
+	{
+		// ----------------------------------------- SPELL - HUNTER
+		// [KAR_004] Cat Trick - COST:2 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - SECRET_OR_QUEST = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - STEALTH = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void CatTrick_KAR_004()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.HUNTER,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Hero));
+			Assert.Equal(0, game.CurrentOpponent.Secrets.Count);
+			Assert.Equal(1, game.CurrentOpponent.Board.Count);
+		}
 
-        // ---------------------------------------- MINION - HUNTER
-        // [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Your <b>Secrets</b> cost (0).
-        // --------------------------------------------------------
-        // RefTag:
-        // - SECRET_OR_QUEST = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void CloakedHuntress_KAR_006()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.HUNTER,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Snake Trap")
-                },
-                Player2HeroClass = ECardClass.PRIEST,
-                FillDecks = false
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cloaked Huntress"));
-            Assert.Equal(2, game.CurrentPlayer.Hand[0].Cost);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(0, game.CurrentPlayer.Hand[0].Cost);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.Equal(2, game.CurrentOpponent.Hand[0].Cost);
-        }
-    }
+		// ---------------------------------------- MINION - HUNTER
+		// [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 
+		// - Race: beast, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DEATHRATTLE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void KindlyGrandmother_KAR_005()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.HUNTER,
+				Player2CardClass = ECardClass.HUNTER,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kindly Grandmother"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+			Assert.Equal(1, game.CurrentOpponent.Board.Count);
+			Assert.Equal("KAR_005a", game.CurrentOpponent.Board[0].Card.Id);
+		}
 
-    
-    public class MageKaraTest
-    {
-        // ------------------------------------------- SPELL - MAGE
-        // [KAR_076] Firelands Portal - COST:7 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Deal $5 damage. Summon a random
-        //       5-Cost minion. *spelldmg
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void FirelandsPortal_KAR_076()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Firelands Portal"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
-            Assert.Equal(25, game.CurrentOpponent.Hero.Health);
-            Assert.Equal(1, game.CurrentPlayer.Board.Count);
-            Assert.Equal(5, game.CurrentPlayer.Board[0].Card.Cost);
-        }
+		// ---------------------------------------- MINION - HUNTER
+		// [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Your <b>Secrets</b> cost (0).
+		// --------------------------------------------------------
+		// RefTag:
+		// - SECRET_OR_QUEST = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void CloakedHuntress_KAR_006()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.HUNTER,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Snake Trap")
+				},
+				Player2CardClass = ECardClass.PRIEST,
+				FillDecks = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cloaked Huntress"));
+			Assert.Equal(2, game.CurrentPlayer.Hand[0].Cost);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(0, game.CurrentPlayer.Hand[0].Cost);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+			Assert.Equal(2, game.CurrentOpponent.Hand[0].Cost);
+		}
+	}
 
-        // ------------------------------------------ MINION - MAGE
-        // [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Add a random Mage spell to your hand.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void BabblingBook_KAR_009()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[4].Card.Class);
-            Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[5].Card.Class);
-            Assert.Equal(ECardType.SPELL, game.CurrentPlayer.Hand[4].Card.Type);
-            Assert.Equal(ECardType.SPELL, game.CurrentPlayer.Hand[5].Card.Type);
-        }
 
-        // ------------------------------------------ MINION - MAGE
-        // [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> If you control a <b>Secret</b>, deal 3 damage.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - SECRET_OR_QUEST = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void MedivhsValet_KAR_092()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
-            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.Equal(27, game.CurrentOpponent.Hero.Health);
-        }
-    }
+	public class MageKaraTest
+	{
+		// ------------------------------------------- SPELL - MAGE
+		// [KAR_076] Firelands Portal - COST:7 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Deal $5 damage. Summon a random
+		//       5-Cost minion. *spelldmg
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void FirelandsPortal_KAR_076()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Firelands Portal"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+			Assert.Equal(25, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(1, game.CurrentPlayer.Board.Count);
+			Assert.Equal(5, game.CurrentPlayer.Board[0].Card.Cost);
+		}
 
-    
-    public class PaladinKaraTest
-    {
-        // ---------------------------------------- SPELL - PALADIN
-        // [KAR_077] Silvermoon Portal - COST:4 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Give a minion +2/+2. Summon a random
-        //       2-Cost minion.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_MINION_TARGET = 0
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void SilvermoonPortal_KAR_077()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PALADIN,
-                Player2HeroClass = ECardClass.PALADIN,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silvermoon Portal"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(3, ((Minion) minion).AttackDamage);
-            Assert.Equal(3, ((Minion) minion).Health);
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-        }
+		// ------------------------------------------ MINION - MAGE
+		// [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Add a random Mage spell to your hand.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void BabblingBook_KAR_009()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+			Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[4].Card.Class);
+			Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[5].Card.Class);
+			Assert.Equal(ECardType.SPELL, game.CurrentPlayer.Hand[4].Card.Type);
+			Assert.Equal(ECardType.SPELL, game.CurrentPlayer.Hand[5].Card.Type);
+		}
 
-        // --------------------------------------- MINION - PALADIN
-        // [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> If you're holding a Dragon, summon two 1/1 Whelps.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void NightbaneTemplar_KAR_010()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PALADIN,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Azure Drake"),
-                },
-                Player2HeroClass = ECardClass.PALADIN,
-                FillDecks = true,
-                Shuffle = false
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nightbane Templar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-        }
+		// ------------------------------------------ MINION - MAGE
+		// [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, deal 3 damage.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - SECRET_OR_QUEST = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void MedivhsValet_KAR_092()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+			var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+			Assert.Equal(27, game.CurrentOpponent.Hero.Health);
+		}
+	}
 
-        // --------------------------------------- MINION - PALADIN
-        // [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: [x]<b>Battlecry:</b> <b>Discover</b> a spell.
-        //       Restore Health to your hero
-        //       equal to its Cost.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - TREASURE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void IvoryKnight_KAR_057()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PALADIN,
-                Player2HeroClass = ECardClass.PALADIN,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            game.CurrentPlayer.Hero.Damage = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ivory Knight"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
-            Assert.Equal(spell, game.CurrentPlayer.Hand[4]);
-            Assert.Equal(20 + spell.Cost, game.CurrentPlayer.Hero.Health);
-        }
-    }
 
-    
-    public class PriestKaraTest
-    {
-        // ----------------------------------------- SPELL - PRIEST
-        // [KAR_013] Purify - COST:2 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Silence</b> a friendly minion. Draw a card.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_MINION_TARGET = 0
-        // - REQ_FRIENDLY_TARGET = 0
-        // - REQ_TARGET_TO_PLAY = 0
-        // --------------------------------------------------------
-        // RefTag:
-        // - SILENCE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Purify_KAR_013()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PRIEST,
-                Player2HeroClass = ECardClass.PRIEST,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(true, ((Minion) minion).HasDeathrattle);
-            Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(false, ((Minion) minion).HasDeathrattle);
-            Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
-        }
+	public class PaladinKaraTest
+	{
+		// ---------------------------------------- SPELL - PALADIN
+		// [KAR_077] Silvermoon Portal - COST:4 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Give a minion +2/+2. Summon a random
+		//       2-Cost minion.
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void SilvermoonPortal_KAR_077()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PALADIN,
+				Player2CardClass = ECardClass.PALADIN,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silvermoon Portal"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(3, ((Minion)minion).AttackDamage);
+			Assert.Equal(3, ((Minion)minion).Health);
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+		}
 
-        // ---------------------------------------- MINION - PRIEST
-        // [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6] 
-        // - Fac: neutral, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Whenever you cast a spell, restore 3 Health to
-        //       your hero.
-        // --------------------------------------------------------
-        [Fact]
-        public void PriestOfTheFeast_KAR_035()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PRIEST,
-                Player2HeroClass = ECardClass.PRIEST,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.CurrentPlayer.Hero.Damage = 3;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Priest of the Feast"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(27, game.CurrentPlayer.Hero.Health);
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
-            Assert.Equal(30, game.CurrentPlayer.Hero.Health);
-        }
+		// --------------------------------------- MINION - PALADIN
+		// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> If you're holding a Dragon, summon two 1/1 Whelps.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void NightbaneTemplar_KAR_010()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Azure Drake"),
+				},
+				Player2CardClass = ECardClass.PALADIN,
+				FillDecks = true,
+				Shuffle = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nightbane Templar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(3, game.CurrentPlayer.Board.Count);
+		}
 
-        // ---------------------------------------- MINION - PRIEST
-        // [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Summon a friendly minion that died this game.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void OnyxBishop_KAR_204()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.PRIEST,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            Assert.Equal(2, game.CurrentOpponent.Board.Count);
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
-            Assert.Equal(1, game.CurrentOpponent.Board.Count);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-            Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[2].Card.Id);
-            Assert.Equal(7, ((Minion) game.CurrentPlayer.Board[2]).Health);
-        }
-    }
+		// --------------------------------------- MINION - PALADIN
+		// [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: [x]<b>Battlecry:</b> <b>Discover</b> a spell.
+		//       Restore Health to your hero
+		//       equal to its Cost.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - TREASURE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void IvoryKnight_KAR_057()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PALADIN,
+				Player2CardClass = ECardClass.PALADIN,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.CurrentPlayer.Hero.Damage = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			var spell = game.Entities[game.CurrentPlayer.Choice.Choices[0]];
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+			Assert.Equal(spell, game.CurrentPlayer.Hand[4]);
+			Assert.Equal(20 + spell.Cost, game.CurrentPlayer.Hero.Health);
+		}
+	}
 
-    
-    public class RogueKaraTest
-    {
-        // ----------------------------------------- MINION - ROGUE
-        // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1] 
-        // - Race: pirate, Fac: neutral, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Add a random class card to your hand <i>(from your opponent's class).</i>
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Swashburglar_KAR_069()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.ROGUE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[4].Card.Class);
-            Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[5].Card.Class);
-        }
 
-        // ----------------------------------------- MINION - ROGUE
-        // [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: [x]<b>Battlecry:</b> If you're holding
-        //       any non-Rogue class cards,
-        //       _reduce their Cost by (2).
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void EtherealPeddler_KAR_070()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.ROGUE,
-                Player2HeroClass = ECardClass.ROGUE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Peddler"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            var card1 = game.CurrentPlayer.Hand[0];
-            Assert.Equal(
-                card1.Card.Class == ECardClass.ROGUE ? card1.Cost : (card1.Card.Cost > 1 ? card1.Card.Cost - 2 : 0),
-                card1.Cost);
-            var card2 = game.CurrentPlayer.Hand[1];
-            Assert.Equal(
-                card2.Card.Class == ECardClass.ROGUE ? card2.Cost : (card2.Card.Cost > 1 ? card2.Card.Cost - 2 : 0),
-                card2.Cost);
-            var card3 = game.CurrentPlayer.Hand[2];
-            Assert.Equal(
-                card3.Card.Class == ECardClass.ROGUE ? card3.Cost : (card3.Card.Cost > 1 ? card3.Card.Cost - 2 : 0),
-                card3.Cost);
-            var card4 = game.CurrentPlayer.Hand[3];
-            Assert.Equal(
-                card4.Card.Class == ECardClass.ROGUE ? card4.Cost : (card4.Card.Cost > 1 ? card4.Card.Cost - 2 : 0),
-                card4.Cost);
-        }
+	public class PriestKaraTest
+	{
+		// ----------------------------------------- SPELL - PRIEST
+		// [KAR_013] Purify - COST:2 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Silence</b> a friendly minion. Draw a card.
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_FRIENDLY_TARGET = 0
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		// RefTag:
+		// - SILENCE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Purify_KAR_013()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PRIEST,
+				Player2CardClass = ECardClass.PRIEST,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.Equal(true, ((Minion)minion).HasDeathrattle);
+			Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(false, ((Minion)minion).HasDeathrattle);
+			Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
+		}
 
-        // ----------------------------------------- MINION - ROGUE
-        // [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Deathrattle:</b> Add a 3/2 weapon to your hand.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DEATHRATTLE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void DeadlyFork_KAR_094()
-        {
-            // TODO DeadlyFork_KAR_094 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.ROGUE,
-                Player2HeroClass = ECardClass.ROGUE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deadly Fork"));
-        }
-    }
+		// ---------------------------------------- MINION - PRIEST
+		// [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6] 
+		// - Fac: neutral, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Whenever you cast a spell, restore 3 Health to
+		//       your hero.
+		// --------------------------------------------------------
+		[Fact]
+		public void PriestOfTheFeast_KAR_035()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PRIEST,
+				Player2CardClass = ECardClass.PRIEST,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.CurrentPlayer.Hero.Damage = 3;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Priest of the Feast"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(27, game.CurrentPlayer.Hero.Health);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
+		}
 
-    
-    public class ShamanKaraTest
-    {
-        // ----------------------------------------- SPELL - SHAMAN
-        // [KAR_073] Maelstrom Portal - COST:2 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: Deal_$1_damage to_all_enemy_minions. Summon_a_random
-        //       1-Cost minion. *spelldmg
-        // --------------------------------------------------------
-        [Fact]
-        public void MaelstromPortal_KAR_073()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.SHAMAN,
-                Player2HeroClass = ECardClass.SHAMAN,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+		// ---------------------------------------- MINION - PRIEST
+		// [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a friendly minion that died this game.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void OnyxBishop_KAR_204()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.PRIEST,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			Assert.Equal(2, game.CurrentOpponent.Board.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+			Assert.Equal(1, game.CurrentOpponent.Board.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+			Assert.Equal(3, game.CurrentPlayer.Board.Count);
+			Assert.Equal(minion.Card.Id, game.CurrentPlayer.Board[2].Card.Id);
+			Assert.Equal(7, ((Minion)game.CurrentPlayer.Board[2]).Health);
+		}
+	}
 
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+	public class RogueKaraTest
+	{
+		// ----------------------------------------- MINION - ROGUE
+		// [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1] 
+		// - Race: pirate, Fac: neutral, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Add a random class card to your hand <i>(from your opponent's class).</i>
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Swashburglar_KAR_069()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.ROGUE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
+			Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[4].Card.Class);
+			Assert.Equal(ECardClass.MAGE, game.CurrentPlayer.Hand[5].Card.Class);
+		}
 
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+		// ----------------------------------------- MINION - ROGUE
+		// [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: [x]<b>Battlecry:</b> If you're holding
+		//       any non-Rogue class cards,
+		//       _reduce their Cost by (2).
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void EtherealPeddler_KAR_070()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.ROGUE,
+				Player2CardClass = ECardClass.ROGUE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Peddler"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			var card1 = game.CurrentPlayer.Hand[0];
+			Assert.Equal(
+				card1.Card.Class == ECardClass.ROGUE ? card1.Cost : (card1.Card.Cost > 1 ? card1.Card.Cost - 2 : 0),
+				card1.Cost);
+			var card2 = game.CurrentPlayer.Hand[1];
+			Assert.Equal(
+				card2.Card.Class == ECardClass.ROGUE ? card2.Cost : (card2.Card.Cost > 1 ? card2.Card.Cost - 2 : 0),
+				card2.Cost);
+			var card3 = game.CurrentPlayer.Hand[2];
+			Assert.Equal(
+				card3.Card.Class == ECardClass.ROGUE ? card3.Cost : (card3.Card.Cost > 1 ? card3.Card.Cost - 2 : 0),
+				card3.Cost);
+			var card4 = game.CurrentPlayer.Hand[3];
+			Assert.Equal(
+				card4.Card.Class == ECardClass.ROGUE ? card4.Cost : (card4.Card.Cost > 1 ? card4.Card.Cost - 2 : 0),
+				card4.Cost);
+		}
 
-            Assert.Equal(1, game.CurrentOpponent.Board.Count);
-            Assert.Equal(1, game.CurrentPlayer.Board.Count);
+		// ----------------------------------------- MINION - ROGUE
+		// [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Deathrattle:</b> Add a 3/2 weapon to your hand.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DEATHRATTLE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void DeadlyFork_KAR_094()
+		{
+			// TODO DeadlyFork_KAR_094 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.ROGUE,
+				Player2CardClass = ECardClass.ROGUE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Deadly Fork"));
+		}
+	}
 
-            var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-            var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+	public class ShamanKaraTest
+	{
+		// ----------------------------------------- SPELL - SHAMAN
+		// [KAR_073] Maelstrom Portal - COST:2 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Deal_$1_damage to_all_enemy_minions. Summon_a_random
+		//       1-Cost minion. *spelldmg
+		// --------------------------------------------------------
+		[Fact]
+		public void MaelstromPortal_KAR_073()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.SHAMAN,
+				Player2CardClass = ECardClass.SHAMAN,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
-            Assert.Equal(0, game.CurrentOpponent.Board.Count);
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-            Assert.Equal(1, ((Minion) game.CurrentPlayer.Board[0]).Cost);
-            Assert.Equal(2, ((Minion) game.CurrentPlayer.Board[1]).Cost);
-            Assert.Equal(1, ((Minion) game.CurrentPlayer.Board[2]).Cost);
-        }
+			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-        // ---------------------------------------- MINION - SHAMAN
-        // [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Whenever you cast a spell, summon a random basic_Totem.
-        // --------------------------------------------------------
-        [Fact]
-        public void WickedWitchdoctor_KAR_021()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.SHAMAN,
-                Player2HeroClass = ECardClass.SHAMAN,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Witchdoctor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.Equal(ERace.TOTEM, game.CurrentPlayer.Board[1].Card.Race);
-        }
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-        // ---------------------------------------- WEAPON - SHAMAN
-        // [KAR_063] Spirit Claws - COST:1 [ATK:1/HP:0] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: [x]Has +2 Attack while you
-        //       have <b>Spell Damage</b>.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DURABILITY = 3
-        // --------------------------------------------------------
-        // RefTag:
-        // - SPELLPOWER = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void SpiritClaws_KAR_063()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.SHAMAN,
-                Player2HeroClass = ECardClass.SHAMAN,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Claws"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
-            Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-        }
-    }
+			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
 
-    
-    public class WarlockKaraTest
-    {
-        // ---------------------------------------- SPELL - WARLOCK
-        // [KAR_025] Kara Kazham! - COST:5 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Summon a 1/1 Candle, 2/2 Broom, and 3/3 Teapot.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_NUM_MINION_SLOTS = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void KaraKazham_KAR_025()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARLOCK,
-                Player2HeroClass = ECardClass.WARLOCK,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kara Kazham!"));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-        }
+			Assert.Equal(1, game.CurrentOpponent.Board.Count);
+			Assert.Equal(1, game.CurrentPlayer.Board.Count);
 
-        // --------------------------------------- MINION - WARLOCK
-        // [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3] 
-        // - Race: demon, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Whenever you discard a card, draw a card.
-        // --------------------------------------------------------
-        [Fact]
-        public void MalchezaarsImp_KAR_089()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARLOCK,
-                Player2HeroClass = ECardClass.WARLOCK,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malchezaar's Imp"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
-            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
-        }
+			var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-        // --------------------------------------- MINION - WARLOCK
-        // [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: If you discard this minion, summon it.
-        // --------------------------------------------------------
-        // GameTag:
-        // - InvisibleDeathrattle = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void SilverwareGolem_KAR_205()
-        {
-            // TODO SilverwareGolem_KAR_205 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARLOCK,
-                Player2HeroClass = ECardClass.WARLOCK,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silverware Golem"));
-        }
-    }
+			var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
-    
-    public class WarriorKaraTest
-    {
-        // ---------------------------------------- SPELL - WARRIOR
-        // [KAR_026] Protect the King! - COST:3 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: For each enemy minion, summon a 1/1 Pawn with <b>Taunt</b>.
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_NUM_MINION_SLOTS = 1
-        // - REQ_MINIMUM_ENEMY_MINIONS = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - TAUNT = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void ProtectTheKing_KAR_026()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARRIOR,
-                Player2HeroClass = ECardClass.WARRIOR,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Protect the King!"));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-        }
+			Assert.Equal(0, game.CurrentOpponent.Board.Count);
+			Assert.Equal(3, game.CurrentPlayer.Board.Count);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.Board[0]).Cost);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.Board[1]).Cost);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.Board[2]).Cost);
+		}
 
-        // ---------------------------------------- SPELL - WARRIOR
-        // [KAR_091] Ironforge Portal - COST:5 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Gain 4 Armor.
-        //       Summon a random
-        //       4-Cost minion.
-        // --------------------------------------------------------
-        [Fact]
-        public void IronforgePortal_KAR_091()
-        {
-            // TODO IronforgePortal_KAR_091 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARRIOR,
-                Player2HeroClass = ECardClass.WARRIOR,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ironforge Portal"));
-        }
+		// ---------------------------------------- MINION - SHAMAN
+		// [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Whenever you cast a spell, summon a random basic_Totem.
+		// --------------------------------------------------------
+		[Fact]
+		public void WickedWitchdoctor_KAR_021()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.SHAMAN,
+				Player2CardClass = ECardClass.SHAMAN,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Witchdoctor"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+			Assert.Equal(ERace.TOTEM, game.CurrentPlayer.Board[1].Card.Race);
+		}
 
-        // --------------------------------------- WEAPON - WARRIOR
-        // [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Unlimited attacks each turn. Can't attack heroes.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DURABILITY = 4
-        // --------------------------------------------------------
-        [Fact]
-        public void FoolsBane_KAR_028()
-        {
-            // TODO FoolsBane_KAR_028 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.WARRIOR,
-                Player2HeroClass = ECardClass.WARRIOR,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fool's Bane"));
-        }
-    }
+		// ---------------------------------------- WEAPON - SHAMAN
+		// [KAR_063] Spirit Claws - COST:1 [ATK:1/HP:0] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: [x]Has +2 Attack while you
+		//       have <b>Spell Damage</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DURABILITY = 3
+		// --------------------------------------------------------
+		// RefTag:
+		// - SPELLPOWER = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void SpiritClaws_KAR_063()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.SHAMAN,
+				Player2CardClass = ECardClass.SHAMAN,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Claws"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
+			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+		}
+	}
 
-    
-    public class NeutralKaraTest
-    {
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Taunt</b>
-        // --------------------------------------------------------
-        // GameTag:
-        // - TAUNT = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void PompousThespian_KAR_011()
-        {
-            // TODO PompousThespian_KAR_011 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pompous Thespian"));
-        }
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Deathrattle:</b> Draw a card.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DEATHRATTLE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void RunicEgg_KAR_029()
-        {
-            // TODO RunicEgg_KAR_029 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Runic Egg"));
-        }
+	public class WarlockKaraTest
+	{
+		// ---------------------------------------- SPELL - WARLOCK
+		// [KAR_025] Kara Kazham! - COST:5 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Summon a 1/1 Candle, 2/2 Broom, and 3/3 Teapot.
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_NUM_MINION_SLOTS = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void KaraKazham_KAR_025()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARLOCK,
+				Player2CardClass = ECardClass.WARLOCK,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kara Kazham!"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(3, game.CurrentPlayer.Board.Count);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3] 
-        // - Race: beast, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Summon a
-        //       1/3 Spider.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void PantrySpider_KAR_030a()
-        {
-            // TODO PantrySpider_KAR_030a test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pantry Spider"));
-        }
+		// --------------------------------------- MINION - WARLOCK
+		// [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3] 
+		// - Race: demon, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Whenever you discard a card, draw a card.
+		// --------------------------------------------------------
+		[Fact]
+		public void MalchezaarsImp_KAR_089()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARLOCK,
+				Player2CardClass = ECardClass.WARLOCK,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malchezaar's Imp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
+			Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6] 
-        // - Race: dragon, Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> If you're holding a Dragon, destroy an enemy minion with 3 or less Attack.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_TARGET_MAX_ATTACK = 3
-        // - REQ_NONSELF_TARGET = 0
-        // - REQ_ENEMY_TARGET = 0
-        // - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
-        // - REQ_MINION_TARGET = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void BookWyrm_KAR_033()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                DeckPlayer2 = new List<Card>()
-                {
-                    Cards.FromName("Azure Drake")
-                },
-                FillDecks = true,
-                Shuffle = false
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+		// --------------------------------------- MINION - WARLOCK
+		// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: If you discard this minion, summon it.
+		// --------------------------------------------------------
+		// GameTag:
+		// - InvisibleDeathrattle = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void SilverwareGolem_KAR_205()
+		{
+			// TODO SilverwareGolem_KAR_205 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARLOCK,
+				Player2CardClass = ECardClass.WARLOCK,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silverware Golem"));
+		}
+	}
 
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book Wyrm"));
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 
-            game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(true, minion.ToBeDestroyed);
-        }
+	public class WarriorKaraTest
+	{
+		// ---------------------------------------- SPELL - WARRIOR
+		// [KAR_026] Protect the King! - COST:3 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: For each enemy minion, summon a 1/1 Pawn with <b>Taunt</b>.
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_NUM_MINION_SLOTS = 1
+		// - REQ_MINIMUM_ENEMY_MINIONS = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - TAUNT = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void ProtectTheKing_KAR_026()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARRIOR,
+				Player2CardClass = ECardClass.WARRIOR,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Protect the King!"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1] 
-        // - Fac: neutral, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: Whenever you cast a spell, give this minion
-        //       +1 Health.
-        // --------------------------------------------------------
-        [Fact]
-        public void ArcaneAnomaly_KAR_036()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Anomaly"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
-            Assert.Equal(2, ((Minion) testCard).Health);
-        }
+		// ---------------------------------------- SPELL - WARRIOR
+		// [KAR_091] Ironforge Portal - COST:5 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Gain 4 Armor.
+		//       Summon a random
+		//       4-Cost minion.
+		// --------------------------------------------------------
+		[Fact]
+		public void IronforgePortal_KAR_091()
+		{
+			// TODO IronforgePortal_KAR_091 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARRIOR,
+				Player2CardClass = ECardClass.WARRIOR,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ironforge Portal"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1
-        //       and <b>Taunt</b>.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - TAUNT = 1
-        // - SECRET_OR_QUEST = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void AvianWatcher_KAR_037()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
-            var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
-            var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            Assert.Equal(3, ((Minion) testCard1).AttackDamage);
-            Assert.Equal(6, ((Minion) testCard1).Health);
-            Assert.Equal(false, ((Minion) testCard1).HasTaunt);
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
-            game.Player1.UsedMana = 0;
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
-            Assert.Equal(4, ((Minion) testCard2).AttackDamage);
-            Assert.Equal(7, ((Minion) testCard2).Health);
-            Assert.Equal(true, ((Minion) testCard2).HasTaunt);
-        }
+		// --------------------------------------- WEAPON - WARRIOR
+		// [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Unlimited attacks each turn. Can't attack heroes.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DURABILITY = 4
+		// --------------------------------------------------------
+		[Fact]
+		public void FoolsBane_KAR_028()
+		{
+			// TODO FoolsBane_KAR_028 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARRIOR,
+				Player2CardClass = ECardClass.WARRIOR,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fool's Bane"));
+		}
+	}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3] 
-        // - Set: kara, Rarity: rare
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Destroy a minion. <b>Deathrattle:</b> Resummon it.
-        // --------------------------------------------------------
-        // GameTag:
-        // - DEATHRATTLE = 1
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // PlayReq:
-        // - REQ_MINION_TARGET = 0
-        // - REQ_TARGET_IF_AVAILABLE = 0
-        // --------------------------------------------------------
-        [Fact]
-        public void MoatLurker_KAR_041()
-        {
-            // TODO MoatLurker_KAR_041 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moat Lurker"));
-        }
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_044] Moroes - COST:3 [ATK:1/HP:1] 
-        // - Set: kara, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: <b>Stealth</b>
-        //       At the end of your turn, summon a 1/1 Steward.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - STEALTH = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Moroes_KAR_044()
-        {
-            // TODO Moroes_KAR_044 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moroes"));
-        }
+	public class NeutralKaraTest
+	{
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Taunt</b>
+		// --------------------------------------------------------
+		// GameTag:
+		// - TAUNT = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void PompousThespian_KAR_011()
+		{
+			// TODO PompousThespian_KAR_011 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pompous Thespian"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_061] The Curator - COST:7 [ATK:4/HP:6] 
-        // - Race: mechanical, Set: kara, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: <b>Taunt</b>
-        //       <b>Battlecry:</b> Draw a Beast, Dragon, and Murloc from your deck.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - TAUNT = 1
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void TheCurator_KAR_061()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Magma Rager"),
-                    Cards.FromName("Magma Rager"),
-                    Cards.FromName("Novice Engineer"),
-                    Cards.FromName("Novice Engineer"),
-                    Cards.FromName("Reckless Rocketeer"),
-                    Cards.FromName("Stampeding Kodo"),
-                    Cards.FromName("Twilight Drake"),
-                    Cards.FromName("Murloc Knight")
-                },
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = false,
-                Shuffle = false
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Curator"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(ERace.BEAST, game.CurrentPlayer.Hand[4].Card.Race);
-            Assert.Equal(ERace.DRAGON, game.CurrentPlayer.Hand[5].Card.Race);
-            Assert.Equal(ERace.MURLOC, game.CurrentPlayer.Hand[6].Card.Race);
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Deathrattle:</b> Draw a card.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DEATHRATTLE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void RunicEgg_KAR_029()
+		{
+			// TODO RunicEgg_KAR_029 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Runic Egg"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> If you're holding a Dragon, <b>Discover</b>
-        //       a Dragon.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - TREASURE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void NetherspiteHistorian_KAR_062()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Azure Drake")
-                },
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = false
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(ERace.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
-            Assert.Equal(ERace.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
-            Assert.Equal(ERace.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card.Race);
-            Assert.Equal(1, game.CurrentPlayer.Hand.Count);
-            game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
-            Assert.Equal(2, game.CurrentPlayer.Hand.Count);
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3] 
+		// - Race: beast, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a
+		//       1/3 Spider.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void PantrySpider_KAR_030a()
+		{
+			// TODO PantrySpider_KAR_030a test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Pantry Spider"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_095] Zoobot - COST:3 [ATK:3/HP:3] 
-        // - Race: mechanical, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Zoobot_KAR_095()
-        {
-            // TODO Zoobot_KAR_095 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Zoobot"));
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6] 
+		// - Race: dragon, Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> If you're holding a Dragon, destroy an enemy minion with 3 or less Attack.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_MAX_ATTACK = 3
+		// - REQ_NONSELF_TARGET = 0
+		// - REQ_ENEMY_TARGET = 0
+		// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
+		// - REQ_MINION_TARGET = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void BookWyrm_KAR_033()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Azure Drake")
+				},
+				FillDecks = true,
+				Shuffle = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6] 
-        // - Race: demon, Set: kara, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: [x]When the game starts,
-        //       add 5 extra <b>Legendary</b>
-        //       minions to your deck.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void PrinceMalchezaar_KAR_096()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                DeckPlayer1 = new List<Card>()
-                {
-                    Cards.FromName("Prince Malchezaar")
-                },
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true,
-                Shuffle = false,
-            });
-            game.StartGame();
-            Assert.Equal(0, game.Triggers.Count);
-            Assert.Equal(31, game.CurrentPlayer.Deck.Count);
-        }
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book Wyrm"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7] 
-        // - Set: kara, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Equip Atiesh, Greatstaff of the Guardian.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void MedivhTheGuardian_KAR_097()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh, the Guardian"));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
-            Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
-            Assert.Equal(1, game.CurrentPlayer.Hand.Triggers.Count);
-            game.CurrentPlayer.UsedMana = 0;
-            var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
-        }
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(true, minion.ToBeDestroyed);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_114] Barnes - COST:4 [ATK:3/HP:4] 
-        // - Set: kara, Rarity: legendary
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Summon a 1/1 copy of a random minion in your deck.
-        // --------------------------------------------------------
-        // GameTag:
-        // - ELITE = 1
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Barnes_KAR_114()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
-            game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.Equal(1, ((Minion) game.CurrentPlayer.Board[1]).AttackDamage);
-            Assert.Equal(1, ((Minion) game.CurrentPlayer.Board[1]).Health);
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1] 
+		// - Fac: neutral, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: Whenever you cast a spell, give this minion
+		//       +1 Health.
+		// --------------------------------------------------------
+		[Fact]
+		public void ArcaneAnomaly_KAR_036()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Anomaly"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+			Assert.Equal(2, ((Minion)testCard).Health);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4] 
-        // - Fac: neutral, Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void MenagerieMagician_KAR_702()
-        {
-            // TODO MenagerieMagician_KAR_702 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Menagerie Magician"));
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1
+		//       and <b>Taunt</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - TAUNT = 1
+		// - SECRET_OR_QUEST = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void AvianWatcher_KAR_037()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+			var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+			Assert.Equal(3, ((Minion)testCard1).AttackDamage);
+			Assert.Equal(6, ((Minion)testCard1).Health);
+			Assert.Equal(false, ((Minion)testCard1).HasTaunt);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
+			game.Player1.UsedMana = 0;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+			Assert.Equal(4, ((Minion)testCard2).AttackDamage);
+			Assert.Equal(7, ((Minion)testCard2).Health);
+			Assert.Equal(true, ((Minion)testCard2).HasTaunt);
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: <b>Battlecry:</b> Summon a 0/5 minion with <b>Taunt</b>.
-        // --------------------------------------------------------
-        // GameTag:
-        // - BATTLECRY = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - TAUNT = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void Arcanosmith_KAR_710()
-        {
-            // TODO Arcanosmith_KAR_710 test
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            //var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcanosmith"));
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3] 
+		// - Set: kara, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Destroy a minion. <b>Deathrattle:</b> Resummon it.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DEATHRATTLE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_TARGET_IF_AVAILABLE = 0
+		// --------------------------------------------------------
+		[Fact]
+		public void MoatLurker_KAR_041()
+		{
+			// TODO MoatLurker_KAR_041 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moat Lurker"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8] 
-        // - Set: kara, Rarity: epic
-        // --------------------------------------------------------
-        // Text: [x]Costs (1) less for each spell
-        //       you've cast this game.
-        // --------------------------------------------------------
-        [Fact]
-        public void ArcaneGiant_KAR_711()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Giant"));
-            Assert.Equal(12, testCard.Cost);
-            var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
-            Assert.Equal(11, testCard.Cost);
-        }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_044] Moroes - COST:3 [ATK:1/HP:1] 
+		// - Set: kara, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Stealth</b>
+		//       At the end of your turn, summon a 1/1 Steward.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - STEALTH = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Moroes_KAR_044()
+		{
+			// TODO Moroes_KAR_044 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moroes"));
+		}
 
-        // --------------------------------------- MINION - NEUTRAL
-        // [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 
-        // - Set: kara, Rarity: common
-        // --------------------------------------------------------
-        // Text: During your turn, your hero is <b>Immune</b>.
-        // --------------------------------------------------------
-        // GameTag:
-        // - AURA = 1
-        // --------------------------------------------------------
-        // RefTag:
-        // - IMMUNE = 1
-        // --------------------------------------------------------
-        [Fact]
-        public void VioletIllusionist_KAR_712()
-        {
-            var game = new Game(new GameConfig
-            {
-                StartPlayer = 1,
-                Player1HeroClass = ECardClass.MAGE,
-                Player2HeroClass = ECardClass.MAGE,
-                FillDecks = true
-            });
-            game.StartGame();
-            game.Player1.BaseMana = 10;
-            game.Player2.BaseMana = 10;
-            var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Violet Illusionist"));
-            Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
-        }
-    }
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_061] The Curator - COST:7 [ATK:4/HP:6] 
+		// - Race: mechanical, Set: kara, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Taunt</b>
+		//       <b>Battlecry:</b> Draw a Beast, Dragon, and Murloc from your deck.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - TAUNT = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void TheCurator_KAR_061()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Magma Rager"),
+					Cards.FromName("Magma Rager"),
+					Cards.FromName("Novice Engineer"),
+					Cards.FromName("Novice Engineer"),
+					Cards.FromName("Reckless Rocketeer"),
+					Cards.FromName("Stampeding Kodo"),
+					Cards.FromName("Twilight Drake"),
+					Cards.FromName("Murloc Knight")
+				},
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Curator"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(ERace.BEAST, game.CurrentPlayer.Hand[4].Card.Race);
+			Assert.Equal(ERace.DRAGON, game.CurrentPlayer.Hand[5].Card.Race);
+			Assert.Equal(ERace.MURLOC, game.CurrentPlayer.Hand[6].Card.Race);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> If you're holding a Dragon, <b>Discover</b>
+		//       a Dragon.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - TREASURE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void NetherspiteHistorian_KAR_062()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Azure Drake")
+				},
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(ERace.DRAGON, game.Entities[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
+			Assert.Equal(ERace.DRAGON, game.Entities[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
+			Assert.Equal(ERace.DRAGON, game.Entities[game.CurrentPlayer.Choice.Choices[2]].Card.Race);
+			Assert.Equal(1, game.CurrentPlayer.Hand.Count);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+			Assert.Equal(2, game.CurrentPlayer.Hand.Count);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_095] Zoobot - COST:3 [ATK:3/HP:3] 
+		// - Race: mechanical, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Zoobot_KAR_095()
+		{
+			// TODO Zoobot_KAR_095 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Zoobot"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6] 
+		// - Race: demon, Set: kara, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: [x]When the game starts,
+		//       add 5 extra <b>Legendary</b>
+		//       minions to your deck.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void PrinceMalchezaar_KAR_096()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Prince Malchezaar")
+				},
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true,
+				Shuffle = false,
+			});
+			game.StartGame();
+			Assert.Equal(0, game.Triggers.Count);
+			Assert.Equal(31, game.CurrentPlayer.Deck.Count);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7] 
+		// - Set: kara, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Equip Atiesh, Greatstaff of the Guardian.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void MedivhTheGuardian_KAR_097()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh, the Guardian"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
+			Assert.Equal(1, game.CurrentPlayer.Hand.Triggers.Count);
+			game.CurrentPlayer.UsedMana = 0;
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_114] Barnes - COST:4 [ATK:3/HP:4] 
+		// - Set: kara, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a 1/1 copy of a random minion in your deck.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Barnes_KAR_114()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(2, game.CurrentPlayer.Board.Count);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.Board[1]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.Board[1]).Health);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4] 
+		// - Fac: neutral, Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void MenagerieMagician_KAR_702()
+		{
+			// TODO MenagerieMagician_KAR_702 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Menagerie Magician"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a 0/5 minion with <b>Taunt</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - TAUNT = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Arcanosmith_KAR_710()
+		{
+			// TODO Arcanosmith_KAR_710 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Arcanosmith"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8] 
+		// - Set: kara, Rarity: epic
+		// --------------------------------------------------------
+		// Text: [x]Costs (1) less for each spell
+		//       you've cast this game.
+		// --------------------------------------------------------
+		[Fact]
+		public void ArcaneGiant_KAR_711()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Giant"));
+			Assert.Equal(12, testCard.Cost);
+			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
+			Assert.Equal(11, testCard.Cost);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 
+		// - Set: kara, Rarity: common
+		// --------------------------------------------------------
+		// Text: During your turn, your hero is <b>Immune</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - AURA = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - IMMUNE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void VioletIllusionist_KAR_712()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayerIdx = 1,
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.MAGE,
+				Player2CardClass = ECardClass.MAGE,
+				FillDecks = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Violet Illusionist"));
+			Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(false, game.CurrentPlayer.Hero.IsImmune);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(true, game.CurrentPlayer.Hero.IsImmune);
+		}
+	}
 }

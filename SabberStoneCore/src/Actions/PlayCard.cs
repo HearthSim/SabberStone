@@ -28,7 +28,7 @@ namespace SabberStoneCore.Actions
                 }
 
                 // play block
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.PLAY, source.Id,"",0, target?.Id ?? 0));
 
                 c.NumCardsPlayedThisTurn++;
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Actions
                 c.LastCardPlayed = source.Id;
 
                 // show entity
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
 
                 // target is beeing set onto this gametag
@@ -80,7 +80,7 @@ namespace SabberStoneCore.Actions
 
                 c.IsComboActive = true;
 
-                if (c.Game.History)
+                if (c.Game.HistoryEnabled)
                     c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
                 return true;

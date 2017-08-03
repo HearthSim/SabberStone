@@ -40,9 +40,9 @@ namespace SabberStoneCoreAi
             {
                 var game = new Game(new GameConfig
                 {
-                    StartPlayer = 1,
-                    Player1HeroClass = ECardClass.MAGE,
-                    Player2HeroClass = ECardClass.MAGE,
+                    StartPlayerIdx = 1,
+                    Player1CardClass = ECardClass.MAGE,
+                    Player2CardClass = ECardClass.MAGE,
                     FillDecks = true,
                     Logging = false
                 });
@@ -77,13 +77,13 @@ namespace SabberStoneCoreAi
             var game = new Game(
                 new GameConfig()
                 {
-                    StartPlayer = 1,
+                    StartPlayerIdx = 1,
                     Player1Name = "FitzVonGerald",
-                    Player1HeroClass = ECardClass.WARRIOR,
-                    DeckPlayer1 = Decks.AggroPirateWarrior,
+                    Player1CardClass = ECardClass.WARRIOR,
+                    Player1Deck = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
-                    Player2HeroClass = ECardClass.SHAMAN,
-                    DeckPlayer2 = Decks.MidrangeJadeShaman,
+                    Player2CardClass = ECardClass.SHAMAN,
+                    Player2Deck = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = false,
                     SkipMulligan = false
@@ -94,8 +94,8 @@ namespace SabberStoneCoreAi
             var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new AggroScore();
 
-            game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
-            game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList())));
+            game.Process(ChooseTask.Mulligan(game.Player1, aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.Entities[p]).ToList())));
+            game.Process(ChooseTask.Mulligan(game.Player2, aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.Entities[p]).ToList())));
 
             game.MainReady();
 
@@ -127,13 +127,13 @@ namespace SabberStoneCoreAi
             var game = new Game(
                 new GameConfig()
                 {
-                    StartPlayer = 1,
+                    StartPlayerIdx = 1,
                     Player1Name = "FitzVonGerald",
-                    Player1HeroClass = ECardClass.WARRIOR,
-                    DeckPlayer1 = Decks.AggroPirateWarrior,
+                    Player1CardClass = ECardClass.WARRIOR,
+                    Player1Deck = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
-                    Player2HeroClass = ECardClass.SHAMAN,
-                    DeckPlayer2 = Decks.MidrangeJadeShaman,
+                    Player2CardClass = ECardClass.SHAMAN,
+                    Player2Deck = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = true,
                     SkipMulligan = false
@@ -143,8 +143,8 @@ namespace SabberStoneCoreAi
             var aiPlayer1 = new AggroScore();
             var aiPlayer2 = new MidRangeScore();
 
-            var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
-            var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
+            var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.Entities[p]).ToList());
+            var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.Entities[p]).ToList());
 
             Console.WriteLine($"Player1: Mulligan {string.Join(",", mulligan1)}");
             Console.WriteLine($"Player2: Mulligan {string.Join(",", mulligan2)}");

@@ -41,7 +41,7 @@ namespace SabberStoneCore.Enchants
                     var minion = p[0] as Minion;
                     if (minion == null)
                         return result;
-                    var target = minion.Game.IdEntityDic[minion.ProposedDefender] as ICharacter;
+                    var target = minion.Game.Entities[minion.ProposedDefender] as ICharacter;
                     if (target != null)
                         result.Add(target);
                     return result;
