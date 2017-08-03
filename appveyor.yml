@@ -8,13 +8,13 @@ pull_requests:
 # e-mail addresses.
 
 cache:
-- '%HOMEPATH%\.nuget\packages'
+- '.\packages'
 
 before_build:
 - cmd: >-
     REM Restore packages for all projects within solution
 
-    nuget.exe restore -PackagesDirectory '%HOMEPATH%\.nuget\packages'
+    nuget.exe restore -PackagesDirectory '.\packages'
 
 build:
   project: SabberStone.sln
