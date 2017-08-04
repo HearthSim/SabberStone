@@ -4,7 +4,7 @@
 	/// Used within the condition code to express equality
 	/// or inequality between explicit values and game state.
 	/// </summary>
-	public enum ERelaSign
+	public enum ERelaSign : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		EQ,

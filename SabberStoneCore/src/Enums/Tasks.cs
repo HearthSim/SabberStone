@@ -7,7 +7,7 @@ namespace SabberStoneCore.Enums
 	/// Represents the execution state of a task.
 	/// <seealso cref="ISimpleTask"/>
 	/// </summary>
-	public enum ETaskState
+	public enum ETaskState : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		READY, RUNNING, COMPLETE, STOP
@@ -17,7 +17,7 @@ namespace SabberStoneCore.Enums
 	/// <summary>
 	/// Represents basic math operations for usage in <see cref="ISimpleTask"/> objects.
 	/// </summary>
-	public enum EMathOperation
+	public enum EMathOperation : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		ADD, SUB, MUL, DIV
@@ -27,7 +27,7 @@ namespace SabberStoneCore.Enums
 	/// <summary>
 	/// All types of actions which can be performed by controllers.
 	/// </summary>
-	public enum EPlayerTaskType
+	public enum EPlayerTaskType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Enums
 	/// <summary>
 	/// Area where an enchantment, specifically <see cref="AuraTask"/>, are active.
 	/// </summary>
-	public enum EAuraArea
+	public enum EAuraArea : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BOARD, HAND, GAME, HERO, SELF, OP_HAND
@@ -50,7 +50,7 @@ namespace SabberStoneCore.Enums
 	/// eg: <see cref="BASIC_HEROPOWERS"/>: This instructs the simulator to build entities
 	/// from cards which belong to the set of heropowers.
 	/// </summary>
-	public enum EDiscoverType
+	public enum EDiscoverType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BASIC_HEROPOWERS,
@@ -89,7 +89,7 @@ namespace SabberStoneCore.Enums
 	/// categories and the exact resulting set of entities depends on the context
 	/// where tasks run.
 	/// </summary>
-	public enum EEntityType
+	public enum EEntityType : int
 	{
 		/// <summary>
 		///  The target

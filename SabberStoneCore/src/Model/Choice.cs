@@ -6,9 +6,10 @@ using System.Text;
 namespace SabberStoneCore.Model
 {
 	/// <summary>
-	/// Embodies a choice the specified controller made.
+	/// Embodies a choice the specified controller must make.
+	/// This class also holds the made choice.
 	/// </summary>
-	public sealed class Choice
+	public sealed class EntityChoice
 	{
 		/// <summary>The player who made the choice.</summary>
 		public readonly Controller Controller;
@@ -33,16 +34,16 @@ namespace SabberStoneCore.Model
 		/// <value>List of Entity ID's.</value>
 		public IReadOnlyOrderedSet<int> TargetIds { get; set; }
 
-		/// <summary>Initializes a new instance of the <see cref="Choice"/> class.</summary>
+		/// <summary>Initializes a new instance of the <see cref="EntityChoice"/> class.</summary>
 		/// <param name="controller">The controller.</param>
-		public Choice(Controller controller)
+		public EntityChoice(Controller controller)
 		{
 			Controller = controller;
 		}
 
 		/// <summary>Copies information from the provided object into this one.</summary>
 		/// <param name="choice">The choice object to copy from.</param>
-		public void Stamp(Choice choice)
+		public void Stamp(EntityChoice choice)
 		{
 			ChoiceType = choice.ChoiceType;
 			ChoiceAction = choice.ChoiceAction;

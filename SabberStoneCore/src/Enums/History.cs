@@ -5,7 +5,7 @@
 	/// These block can be nested and can contain <see cref="EMetaDataType"/> blocks.
 	/// Each block can have (different) attributes assigned, like ENTITYID.
 	/// </summary>
-	public enum EPowerType
+	public enum EPowerType : int
 	{
 		/// <summary>A block which creates a new known (CARDID is known) entity.</summary>
 		FULL_ENTITY = 1,
@@ -43,7 +43,7 @@
 	/// -> The game goes through the phases which belong to the ATTACK process.
 	/// .. end of block
 	/// </summary>
-	public enum EBlockType
+	public enum EBlockType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		ATTACK = 1,
@@ -71,7 +71,7 @@
 	/// -> The block contains Info objects (OR an int as payload) which are to be used as parameter
 	/// of the METADATATYPE.
 	/// </summary>
-	public enum EMetaDataType
+	public enum EMetaDataType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		META_TARGET = 0,

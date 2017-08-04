@@ -197,7 +197,7 @@ namespace SabberStoneCore.Actions
                     return false;
                 }
 
-                c.Choice = new Choice(c)
+                c.Choice = new EntityChoice(c)
                 {
                     ChoiceType = type,
                     ChoiceAction = action,
@@ -230,7 +230,7 @@ namespace SabberStoneCore.Actions
 					choicesIds.Add(choiceEntity.Id);
 				}
 
-				c.Choice = new Choice(c)
+				c.Choice = new EntityChoice(c)
 				{
 					ChoiceType = type,
 					ChoiceAction = action,

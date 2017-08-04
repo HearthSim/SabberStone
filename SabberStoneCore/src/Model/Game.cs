@@ -5,6 +5,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Splits;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
@@ -329,7 +330,7 @@ namespace SabberStoneCore.Model
 		/// <summary>Validates the game configuration.
 		/// An exception will be thrown when the game configuration is invalid!
 		/// </summary>
-		protected void ValidateConfig()
+		private void ValidateConfig()
 		{
 			if (_gameConfig.Player2CardClass == ECardClass.INVALID || _gameConfig.Player1CardClass == ECardClass.INVALID)
 			{
@@ -413,11 +414,12 @@ namespace SabberStoneCore.Model
 					//CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
 					//CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-					controller.Zones.Where(z => z != null).ToList().ForEach(z =>
+					foreach (IZone z in controller.Zones.Where(z => z != null)) {
 						z.Enchants.ForEach(p =>
 							p.Effects.Keys.ToList().ForEach(t =>
 								z.GetAll.ForEach(o =>
-									PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
+									PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t])))));
+					}
 
 				}
 
@@ -903,7 +905,7 @@ namespace SabberStoneCore.Model
 
 			// check for dead heroes
 			var deadHeroes = Heroes.Where(p => p.IsDead).ToList();
-			deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? EPlayState.TIED : EPlayState.LOSING);
+			deadHeroes.ForEach(p => p.Controller.PlayState = (deadHeroes.Count > 1 ? EPlayState.TIED : EPlayState.LOSING) );
 		}
 
 		/// <summary>Update the auras on each zone (which can be influenced by entities from the 

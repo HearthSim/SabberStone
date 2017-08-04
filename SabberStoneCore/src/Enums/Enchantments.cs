@@ -7,7 +7,7 @@
 	/// eg: <see cref="DEATHRATTLE"/>: The entity has to be destroyed in order
 	/// for the effect to execute.
 	/// </summary>
-	public enum EEnchantmentActivation
+	public enum EEnchantmentActivation : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BATTLECRY,
@@ -26,7 +26,7 @@
 	/// <summary>
 	/// Indicates which (group of) entities the effect will influence.
 	/// </summary>
-	public enum EEnchantmentArea
+	public enum EEnchantmentArea : int
 	{
 		/// <summary>There will be no effect.</summary>
 		NONE,

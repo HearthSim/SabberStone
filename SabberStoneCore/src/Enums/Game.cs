@@ -8,7 +8,7 @@
 	/// The presented set of entities is distinct.
 	/// A 'performed' choice can consist of 0 or more picked entities.
 	/// </summary>
-	public enum EChoiceType
+	public enum EChoiceType: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -20,7 +20,7 @@
 	/// <summary>
 	/// Specifies the consequences of a made choice.
 	/// </summary>
-	public enum EChoiceAction
+	public enum EChoiceAction: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		ADAPT,
@@ -40,7 +40,7 @@
 	/// The presented set of options is distinct.
 	/// A player MUST always pick EXACTLY ONE of the offered options.
 	/// </summary>
-	public enum EOptionType
+	public enum EOptionType: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		PASS = 1,
@@ -54,7 +54,7 @@
 	/// Think of Mulligan itself as a state machine within the game, which 
 	/// is also a state machine.
 	/// </summary>
-	public enum EMulligan
+	public enum EMulligan: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -71,7 +71,7 @@
 	/// 
 	/// A card can have multiple play requirements.
 	/// </summary>
-	public enum EPlayReq
+	public enum EPlayReq: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		REQ_MINION_TARGET = 1,
@@ -146,7 +146,7 @@
 	/// State information about controllers in a game. A controller represents 
 	/// one player.
 	/// </summary>
-	public enum EPlayState
+	public enum EPlayState: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -165,7 +165,7 @@
 	/// <summary>
 	/// Indicates the state of the Game entity.
 	/// </summary>
-	public enum EState
+	public enum EState: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -178,7 +178,7 @@
 	/// <summary>
 	/// Indicates in which state the Game's state machine is in.
 	/// </summary>
-	public enum EStep
+	public enum EStep: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -210,7 +210,7 @@
 	/// eg: <see cref="EZone.PLAY"/>: contains all entities that are on the board.
 	/// eg: <see cref="EZone.DECK"/>: contains all entities which are not yet drawn into <see cref="EZone.HAND"/>.
 	/// </summary>
-	public enum EZone
+	public enum EZone: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		//DISCARD = -2,
@@ -234,7 +234,7 @@
 	/// Both properties have no relation with each other and the available amount of health is calculated
 	/// from these properties and others.
 	/// </summary>
-	public enum EGameTag
+	public enum EGameTag: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		IGNORE_DAMAGE = 1,

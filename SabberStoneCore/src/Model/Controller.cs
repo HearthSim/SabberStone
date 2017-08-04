@@ -416,7 +416,7 @@ namespace SabberStoneCore.Model
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
 		/// </summary>
-		public Choice Choice { get; set; } = null;
+		public EntityChoice Choice { get; set; } = null;
 
 		/// <summary>
 		/// The opponent player instance.
@@ -489,7 +489,7 @@ namespace SabberStoneCore.Model
 
 			if (other.Choice != null)
 			{
-				Choice = new Choice(this);
+				Choice = new EntityChoice(this);
 				Choice.Stamp(other.Choice);
 			}
 		}

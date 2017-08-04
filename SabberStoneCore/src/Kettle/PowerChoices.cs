@@ -59,7 +59,7 @@ namespace SabberStoneCore.Kettle
 
     public class PowerChoicesBuilder
     {
-        public static PowerEntityChoices EntityChoices(Game game, Choice choice)
+        public static PowerEntityChoices EntityChoices(Game game, EntityChoice choice)
         {
             if (choice == null)
             {

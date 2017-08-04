@@ -4,7 +4,7 @@
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-	public enum EBnetGameType
+	public enum EBnetGameType : int
 	{
 		BGT_UNKNOWN = 0,
 		BGT_FRIENDS = 1,
@@ -25,7 +25,7 @@
 		BGT_LAST = 32,
 	}
 
-	public enum EBnetRegion
+	public enum EBnetRegion : int
 	{
 		REGION_UNINITIALIZED = -1,
 		REGION_UNKNOWN = 0,
@@ -42,7 +42,7 @@
 		REGION_PTR = 98,
 	}
 
-	public enum EBooster
+	public enum EBooster : int
 	{
 		INVALID = 0,
 		CLASSIC = 1,
@@ -52,7 +52,7 @@
 		FIRST_PURCHASE = 17,
 	}
 
-	public enum EGoldRewardState
+	public enum EGoldRewardState : int
 	{
 		INVALID = 0,
 		ELIGIBLE = 1,
@@ -64,7 +64,7 @@
 		OVER_CAIS = 6,
 	}
 
-	public enum ELocale
+	public enum ELocale : int
 	{
 		UNKNOWN = -1,
 		enUS = 0,
@@ -85,7 +85,7 @@
 		thTH = 15,
 	}
 
-	public enum EType
+	public enum EType : int
 	{
 		LOCSTRING = -2,
 		UNKNOWN = 0,
@@ -99,7 +99,7 @@
 		STRING = 8,
 	}
 
-	public enum EDeckType
+	public enum EDeckType : int
 	{
 		NORMAL_DECK = 1,
 		AI_DECK = 2,
@@ -109,7 +109,7 @@
 		HIDDEN_DECK = 1000,
 	}
 
-	public enum EGameType
+	public enum EGameType : int
 	{
 		GT_UNKNOWN = 0,
 		GT_VS_AI = 1,
@@ -125,7 +125,7 @@
 		GT_LAST = 19,
 	}
 
-	public enum EEnchantmentVisual
+	public enum EEnchantmentVisual : int
 	{
 		INVALID = 0,
 		POSITIVE = 1,

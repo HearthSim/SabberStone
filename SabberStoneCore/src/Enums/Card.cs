@@ -7,7 +7,7 @@
 	/// for wild format) which contains all cards that are allowed
 	/// to be put into a deck of type WILD.
 	/// </summary>
-	public enum EFormatType
+	public enum EFormatType: int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		FT_UNKNOWN = 0,
@@ -22,7 +22,7 @@
 	/// When a deck is bound to a specific class, only cards of the same
 	/// class and neutral cards are allowed in that deck.
 	/// </summary>
-	public enum ECardClass
+	public enum ECardClass : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -44,7 +44,7 @@
 	/// <summary>
 	/// Mutual exclusive sets to which cards can belong.
 	/// </summary>
-	public enum ECardSet
+	public enum ECardSet : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -83,7 +83,7 @@
 	/// 
 	/// Cards CAN BE heroes or hero powers or minions or spells..
 	/// </summary>
-	public enum ECardType
+	public enum ECardType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -107,7 +107,7 @@
 	/// 
 	/// ex; GRIMMY_GOONS contains Paladin+Hunter+Warrior classes.
 	/// </summary>
-	public enum EMultiClassGroup
+	public enum EMultiClassGroup : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -122,7 +122,7 @@
 	/// The most used value is DRAGON, since a lot of cards interact with
 	/// dragons in hand.
 	/// </summary>
-	public enum ERace
+	public enum ERace : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -156,7 +156,7 @@
 	/// <summary>
 	/// Rarity of a card. This reflects the drop rate from card packs.
 	/// </summary>
-	public enum ERarity
+	public enum ERarity : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
@@ -172,7 +172,7 @@
 	/// <summary>
 	/// Another mutual exclusive classification of cards.
 	/// </summary>
-	public enum EFaction
+	public enum EFaction : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
