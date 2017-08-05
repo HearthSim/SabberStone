@@ -190,6 +190,8 @@ namespace SabberStoneCore.Model.Entities.Playables
 
 		public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
 
+		public IEnumerable<ICharacter> ValidAttackTargets => CollectValidAttackables();
+
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		#endregion
@@ -232,18 +234,15 @@ namespace SabberStoneCore.Model.Entities.Playables
 		/// <summary>
 		/// Returns a sequence of characters which are attackable.
 		/// </summary>
-		public IEnumerable<ICharacter> ValidAttackTargets
+		private IEnumerable<ICharacter> CollectValidAttackables()
 		{
-			get
+			var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth && !x.IsImmune).ToList<ICharacter>();
+			IEnumerable<ICharacter> allTargetsTaunt = allTargets.Where(x => x.HasTaunt);
+			if (!CantAttackHeroes)
 			{
-				var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth && !x.IsImmune).ToList<ICharacter>();
-				var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
-				if (!CantAttackHeroes)
-				{
-					allTargets.Add(Controller.Opponent.Hero);
-				}
-				return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
+				allTargets.Add(Controller.Opponent.Hero);
 			}
+			return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
 		}
 
 		/// <summary>

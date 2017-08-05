@@ -26,10 +26,10 @@ namespace SabberStoneCore.Model.Entities.Playables
 			Game.Log(ELogLevel.VERBOSE, EBlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
 		}
 
-		/// <summary><see cref="Targeting.TargetingRequirements(ICharacter)"/></summary>
-		public override bool TargetingRequirements(ICharacter target)
+		/// <summary><see cref="Targeting.TargetingRequirementsMatch(ICharacter)"/></summary>
+		protected override bool TargetingRequirementsMatch(ICharacter target)
 		{
-			return !target.CantBeTargetedByHeroPowers && base.TargetingRequirements(target);
+			return !target.CantBeTargetedByHeroPowers && base.TargetingRequirementsMatch(target);
 		}
 
 

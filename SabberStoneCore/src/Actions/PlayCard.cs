@@ -108,7 +108,7 @@ namespace SabberStoneCore.Actions
                 }
 
                 // copy choose one enchantment to the actual source
-                if (source.ChooseOne)
+                if (source.ChooseOneMechanic)
                 {
                     // [OG_044] Fandral Staghelm, Aura active 
                     if (c.ChooseBoth
@@ -126,7 +126,7 @@ namespace SabberStoneCore.Actions
                 }
 
                 // replace enchantments with the no combo or combo one ..
-                if (source.Combo)
+                if (source.ComboMechanic)
                 {
                     if (source.Enchantments.Count > 1)
                     {

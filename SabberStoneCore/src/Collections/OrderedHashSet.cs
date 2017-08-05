@@ -62,17 +62,31 @@ namespace SabberStoneCore.Collections
 		/// <param name="comparer">The comparer.</param>
 		/// <param name="throwOnConstraintViolation">If true throws an error if the unique item constraint is violated.</param>
 		/// <returns></returns>
-		/// <exception cref="System.ArgumentNullException">data is null!</exception>
+		/// <exception cref="ArgumentNullException">data is null!</exception>
 		public static OrderedHashSet<T> Build(IEnumerable<T> data, IEqualityComparer<T> comparer = null, bool throwOnConstraintViolation = true)
 		{
 			if (data == null) throw new ArgumentNullException("data is null!");
-			// Double values will be filtered by the instance itself..
-			// Build and return object.
+			// Duplicate values will be filtered by the instance itself..
 			var result = new OrderedHashSet<T>(comparer, throwOnConstraintViolation);
-			foreach(T item in data)
+
+			var dataCollection = data as ICollection<T>;
+			if (dataCollection != null)
 			{
-				// This will throw an exception if throwOnConstraintViolation == true
-				result.Add(item);
+				// Build set through iterator.
+				int elemCount = dataCollection.Count;
+				for(int i = 0; i < elemCount; ++i)
+				{
+					result.Add(dataCollection.ElementAt(i));
+				}
+			}
+			else
+			{
+				// Build set through enumerator.
+				foreach (T item in data)
+				{
+					// This will throw an exception if throwOnConstraintViolation == true
+					result.Add(item);
+				}
 			}
 
 			return result;

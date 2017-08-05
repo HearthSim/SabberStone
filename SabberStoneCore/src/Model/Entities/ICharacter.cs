@@ -109,6 +109,7 @@ namespace SabberStoneCore.Model.Entities
 		/// This character is currently attacking another character.
 		/// </summary>
 		bool IsAttacking { get; set; }
+
 		/// <summary>
 		/// This character is currently defending against another character.
 		/// </summary>

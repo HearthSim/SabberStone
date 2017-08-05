@@ -16,10 +16,16 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public sealed class Card
 	{
+		/// <summary>
+		/// Unique ID, which is used by HearthStone client internally to reference this specific card.
+		/// This ID is related to game assets.
+		/// 
+		/// TODO; This might be removed, since it's of no use for us.
+		/// </summary>
 		public int AssetId { get; set; }
 
 		/// <summary>
-		/// Unique card ID, as defined in 
+		/// Unique card ID (CARDID), as defined in 
 		/// </summary>
 		public string Id { get; set; }
 

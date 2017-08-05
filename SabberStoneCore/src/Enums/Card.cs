@@ -81,7 +81,7 @@
 	/// <summary>
 	/// Meta information about a card.
 	/// 
-	/// Cards CAN BE heroes or hero powers or minions or spells..
+	/// Cards CAN BE heroes or heropowers or minions or spells etc..
 	/// </summary>
 	public enum ECardType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model.Entities.Playables
 	/// After activation it will be moved into <see cref="GraveyardZone"/>.
 	/// </summary>
 	/// <seealso cref="Playable{Spell}" />
-	public class Spell : Playable<Spell>
+	public sealed class Spell : Playable<Spell>
 	{
 		#region TAG_SHORTCUTS
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -56,9 +56,9 @@ namespace SabberStoneCore.Model.Entities.Playables
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public override bool TargetingRequirements(ICharacter target)
+		protected override bool TargetingRequirementsMatch(ICharacter target)
 		{
-			return !target.CantBeTargetedBySpells && base.TargetingRequirements(target);
+			return !target.CantBeTargetedBySpells && base.TargetingRequirementsMatch(target);
 		}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

@@ -568,7 +568,7 @@ namespace SabberStoneCore.Model.Entities
 					if (!playableCard.IsPlayableByController)
 						continue;
 
-					List<IPlayable> playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
+					List<IPlayable> playables = playableCard.ChooseOneMechanic && !Game.CurrentPlayer.ChooseBoth
 						? playableCard.ChooseOnePlayables.ToList()
 						: new List<IPlayable> { playableCard };
 
@@ -634,7 +634,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (Hero.Power.IsPlayable)
 			{
-				var targets = Hero.Power.GetValidPlayTargets().ToList();
+				IEnumerable<ICharacter> targets = Hero.Power.ValidPlayTargets;
 				if (targets.Any())
 				{
 					foreach(ICharacter target in targets)

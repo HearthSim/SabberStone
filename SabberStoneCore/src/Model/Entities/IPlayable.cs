@@ -2,10 +2,10 @@
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities.Playables;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks;
 using System.Collections.Generic;
 
-namespace SabberStoneCore.Model.Entities
-{
+namespace SabberStoneCore.Model.Entities {
 	/// <summary>
 	/// Exposes the properties of an entity that can be 'played', which 
 	/// means it's moved from the <see cref="HandZone"/> into the <see cref="BoardZone"/>.
@@ -14,7 +14,7 @@ namespace SabberStoneCore.Model.Entities
 	/// which manifest at the moment the <see cref="HandZone"/> is left.
 	/// </summary>
 	/// <seealso cref="ITargeting" />
-	public interface IPlayable : ITargeting
+	public interface IPlayable : ITargeting 
 	{
 		/// <summary>Gets a value indicating whether this entity can be played from hand, given
 		/// the current game context.</summary>
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model.Entities
 		/// Applicable to any <see cref="Minion"/>, <see cref="Spell"/> and <see cref="Weapon"/>.
 		/// </summary>
 		/// <value><c>true</c> if combo mechanic; otherwise, <c>false</c>.</value>
-		bool Combo { get; }
+		bool ComboMechanic { get; }
 
 		/// <summary>Gets or sets the resource cost (MANA) of this entity.
 		/// Applicable to any <see cref="IPlayable"/>.
@@ -60,7 +60,7 @@ namespace SabberStoneCore.Model.Entities
 		/// Applicable to any <see cref="Minion"/>, <see cref="Spell"/> and <see cref="Weapon"/>.
 		/// </summary>
 		/// <value>The number turns in play.</value>
-		int NumTurnsInPlay { get; set; }		
+		int NumTurnsInPlay { get; set; }
 
 		/// <summary>
 		/// Gets a value indicating whether this entity is awaiting to be destroyed.
@@ -84,20 +84,53 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The target for the effect, optional.</param>
 		void ApplyEnchantments(EEnchantmentActivation activation, EZone zoneType, IPlayable target = null);
 
-		/// <summary>Sets the order of play counter.</summary>
+		/// <summary>Sets the order of play counter on this entity.
+		/// The order of play is important to resolve enchantments in an intuitive manner.
+		/// </summary>
 		/// <param name="card">The type of card that is played.</param>
 		void SetOrderOfPlay(ECardType card);
 
+		/// <summary>Gets or sets a value indicating whether this entity is summoned (into <see cref="BoardZone"/>).
+		/// Applicable to <see cref="Minion"/>s.
+		/// </summary>
+		/// <value><c>true</c> if this entity is summoned; otherwise, <c>false</c>.</value>
 		bool IsSummoned { get; set; }
 
+		/// <summary>
+		/// Gets or sets a value indicating whether this entity was recently moved from the <see cref="HandZone"/>.
+		/// </summary>
+		/// <value><c>true</c> if this entity was recently played; otherwise, <c>false</c>.</value>
 		bool JustPlayed { get; set; }
 
+		/// <summary>Gets or sets the amount of overload, lock on resources during the next turn, this entity
+		/// inflicts on it's <see cref="Controller"/>.
+		/// Applicable to any <see cref="Minion"/>, <see cref="Spell"/> and <see cref="Weapon"/>.
+		/// </summary>
+		/// <value>The amount of overload.</value>
 		int Overload { get; set; }
 
+		/// <summary>Gets or sets the entityID of the target which undergoes the effect of 
+		/// <see cref="Enchantment"/> and/or <see cref="Trigger"/> defined on this entity.
+		/// Applicable to any <see cref="Minion"/>, <see cref="Spell"/>, <see cref="Weapon"/> and
+		/// <see cref="HeroPower"/>.
+		/// </summary>
+		/// <value>The entityID of the target.</value>
 		int CardTarget { get; set; }
 
+		/// <summary>Gets the array of entities generated for the started 'choose one' effect.
+		/// The purpose of this array is for the game to select the picked option chosen by the
+		/// <see cref="Controller"/>. The <see cref="SimpleTask"/> of the chosen entity will be 
+		/// executed.
+		/// Applicable to any <see cref="Minion"/> and <see cref="Spell"/>.
+		/// </summary>
+		/// <value>The set of <see cref="IPlayable"/>.</value>
 		IPlayable[] ChooseOnePlayables { get; }
 
+		/// <summary>
+		/// Gets or sets the list of enchantments which will be activated, when it's conditions are met,
+		/// will be activated by <see cref="Game"/>.
+		/// </summary>
+		/// <value>The list of <see cref="Enchantment"/>.</value>
 		List<Enchantment> Enchantments { get; set; }
 
 		/// <summary>Marks this entity for destruction.

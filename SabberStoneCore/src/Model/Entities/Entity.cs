@@ -20,7 +20,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Minion"/>
 	/// <seealso cref="Spell"/>
 	/// </summary>
-	/// <seealso cref="SabberStoneCore.Model.IEntity" />
+	/// <seealso cref="IEntity" />
 	public class Entity : IEntity
 	{
 
@@ -53,9 +53,9 @@ namespace SabberStoneCore.Model.Entities
 			set { this[EGameTag.COST] = value; }
 		}
 
-		public bool Combo => this[EGameTag.COMBO] == 1;
+		public bool ComboMechanic => this[EGameTag.COMBO] == 1;
 
-		public bool ChooseOne
+		public bool ChooseOneMechanic
 		{
 			get { return this[EGameTag.CHOOSE_ONE] == 1; }
 			set { this[EGameTag.CHOOSE_ONE] = value ? 1 : 0; }
@@ -310,7 +310,7 @@ namespace SabberStoneCore.Model.Entities
 			// add entity to the appropriate zone if it was given
 			zone?.Add(result);
 
-			if (result.ChooseOne && id < 0)
+			if (result.ChooseOneMechanic && id < 0)
 			{
 				result.ChooseOnePlayables[0] = FromCard(controller,
 					Cards.FromId(result.Card.Id + "a"),
