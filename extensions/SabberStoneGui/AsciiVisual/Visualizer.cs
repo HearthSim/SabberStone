@@ -1,16 +1,19 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Visualizer;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Entities.Playables;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SabberStoneGui.AsciiVisual
 {
-    public class Visualizer
+	public class Visualizer
     {
 
         public static string Visualize(Game currentGame)

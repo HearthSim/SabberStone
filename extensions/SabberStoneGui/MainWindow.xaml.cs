@@ -1,4 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SabberStoneCore.Collections;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Visualizer;
+using SabberStoneCoreGui.Meta;
+using SabberStoneCoreGui.Nodes;
+using SabberStoneCoreGui.Score;
+using SabberStoneGui.AsciiVisual;
+using SabberStoneGui.Core;
+using SabberStoneGui.Deck;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -6,25 +18,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
-using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Visualizer;
-using SabberStoneCoreGui.Score;
-using SabberStoneCoreGui.Nodes;
-using SabberStoneCoreGui.Meta;
-using SabberStoneGui.AsciiVisual;
-using SabberStoneGui.Core;
-using SabberStoneGui.Deck;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Collections;
 
 namespace SabberStoneGui
 {
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+	/// <summary>
+	/// Interaktionslogik für MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
     {
         public Game CurrentGame;
 

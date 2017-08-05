@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Config;
 using SabberStoneCore.Model;
-using SabberStoneGui.Deck;
-using SabberStoneCoreGui.Score;
 using SabberStoneCoreGui.Meta;
+using SabberStoneCoreGui.Score;
+using SabberStoneGui.Deck;
+using System;
+using System.Collections;
+using System.Linq;
 
 namespace SabberStoneGui.Core
 {
