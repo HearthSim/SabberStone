@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {

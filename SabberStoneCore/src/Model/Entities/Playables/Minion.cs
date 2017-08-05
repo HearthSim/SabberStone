@@ -1,9 +1,16 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Zones;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities.Playables
 {
-    public partial class Minion : Character<Minion>
+	/// <summary>
+	/// The (character) entity built from <see cref="ECardType.MINION"/> <see cref="Card"/>s.
+	/// This object will be stored inside the <see cref="BoardZone"/>
+	/// where it will fight 'till death. That's the <see cref="GraveyardZone"/>!
+	/// </summary>
+	/// <seealso cref="Character{Minion}" />
+	public partial class Minion : Character<Minion>
     {
         public Minion(Controller controller, Card card, Dictionary<EGameTag, int> tags)
             : base(controller, card, tags)

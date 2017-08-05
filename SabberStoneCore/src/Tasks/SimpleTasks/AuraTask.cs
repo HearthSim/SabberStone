@@ -2,6 +2,7 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {

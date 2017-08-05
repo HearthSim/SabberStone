@@ -5,6 +5,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Visualizer;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneGui.AsciiVisual
 {

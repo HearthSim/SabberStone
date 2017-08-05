@@ -3,6 +3,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {

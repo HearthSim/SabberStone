@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Zones;
+using System.Collections.Generic;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities.Playables
 {
 	/// <summary>
-	/// Represents a hero power object.
+	/// The special effect linked to the controller's <see cref="Hero"/>/player.
+	/// The hero power is built from <see cref="ECardType.HERO_POWER"/> <see cref="Card"/>s.
+	/// The exact heropower depends on the <see cref="ECardClass"/> of the 
+	/// <see cref="DeckZone"/> of the controller.
 	/// </summary>
-	/// <seealso cref="SabberStoneCore.Model.Playable{SabberStoneCore.Model.HeroPower}" />
+	/// <seealso cref="Playable{HeroPower}" />
 	public class HeroPower : Playable<HeroPower>
 	{
 		/// <summary><see cref="Playable{T}.IsPlayable"/></summary>

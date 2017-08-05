@@ -11,6 +11,8 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using SabberStoneCore.Model.Entities.Playables;
+
 
 namespace SabberStoneCoreConsole
 {

@@ -1,17 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities.Playables;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
-    public interface ITargeting : IEntity
-    {
-        IEnumerable<ICharacter> ValidPlayTargets { get; }
-        bool IsValidPlayTarget(ICharacter target);
-
-        bool ChooseOne { get; set; }
-    }
-
     public abstract class Targeting : Entity, ITargeting
     {
         protected Targeting(Controller controller, Card card, Dictionary<EGameTag, int> tags) : base(controller.Game, card, tags)

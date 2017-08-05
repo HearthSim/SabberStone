@@ -3,6 +3,8 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 using SabberStoneCore.Tasks.SimpleTasks;
 using System;
 using System.Collections.Generic;

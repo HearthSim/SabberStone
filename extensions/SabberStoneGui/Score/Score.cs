@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities.Playables;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreGui.Score
 {

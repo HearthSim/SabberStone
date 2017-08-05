@@ -4,6 +4,7 @@ using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {

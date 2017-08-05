@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneCoreAi.Score
 {

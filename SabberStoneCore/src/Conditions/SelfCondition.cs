@@ -2,6 +2,8 @@
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneCore.Conditions
 {
@@ -21,7 +23,7 @@ namespace SabberStoneCore.Conditions
         public static SelfCondition IsCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
         public static SelfCondition IsNotCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);
 
-        public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.Combo);
+        public static SelfCondition IsComboActive => new SelfCondition(me => me.Controller.IsComboActive);
         public static SelfCondition IsAnyWeaponEquiped => new SelfCondition(me => (me as Hero)?.Weapon != null);
         public static SelfCondition IsThisWeaponEquiped => new SelfCondition(me => me.Controller.Hero.Weapon == me);
 

@@ -1,6 +1,7 @@
 ﻿using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using System;
 using System.Collections.Generic;

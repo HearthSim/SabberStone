@@ -2,6 +2,7 @@
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities.Playables;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Collections.Generic;
 using System.Linq;

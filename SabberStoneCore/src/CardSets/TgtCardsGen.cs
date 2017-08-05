@@ -6,6 +6,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities.Playables;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.CardSets
 {

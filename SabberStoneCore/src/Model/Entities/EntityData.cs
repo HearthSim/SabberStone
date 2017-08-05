@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Holds original entity data for a specific card.

@@ -1,6 +1,7 @@
 ﻿using SabberStoneCore.Collections;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones

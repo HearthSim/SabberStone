@@ -2,6 +2,7 @@
 using SabberStoneCore.Collections;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

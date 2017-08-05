@@ -4,6 +4,8 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneCore.Actions
 {
@@ -100,7 +102,7 @@ namespace SabberStoneCore.Actions
                 var subSource = chooseOne > 0 ? source.ChooseOnePlayables[chooseOne - 1] : source;
 
                 // check if we can play this card and the target is valid
-                if (!source.IsPlayableByPlayer || !subSource.IsPlayableByCardReq || !subSource.IsValidPlayTarget(target))
+                if (!source.IsPlayableByController || !subSource.IsPlayableByCardReq || !subSource.IsValidPlayTarget(target))
                 {
                     return false;
                 }
@@ -262,7 +264,8 @@ namespace SabberStoneCore.Actions
         public static Func<Controller, Weapon, bool> PlayWeapon
             => delegate(Controller c, Weapon weapon)
             {
-                c.Hero.AddWeapon(weapon);
+				weapon.SetOrderOfPlay(ECardType.WEAPON);
+				c.Hero.AddWeapon(weapon);
 
                 c.Game.Log(ELogLevel.INFO, EBlockType.ACTION, "PlayWeapon", $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 

@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Collections;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using System;
 using System.Text;
 

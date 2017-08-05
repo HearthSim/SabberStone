@@ -5,6 +5,8 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Splits;
 using SabberStoneCore.Tasks;

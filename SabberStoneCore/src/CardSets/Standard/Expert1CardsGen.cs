@@ -5,6 +5,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities.Playables;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -1797,9 +1799,9 @@ namespace SabberStoneCore.CardSets.Standard
                                 var target = list[0] as ICharacter;
                                 if (target == null)
                                     return list;
-                                target.IsIgnoreDamage = true;
+                                target.IsIgnoringDamage = true;
                                 target.Damage = target.Health - 1;
-                                target.IsIgnoreDamage = false;
+                                target.IsIgnoringDamage = false;
                                 return list;
                             }),
                             new SummonTask()))
@@ -5537,11 +5539,11 @@ namespace SabberStoneCore.CardSets.Standard
                             var hero = p[0] as Hero;
                             if (hero != null)
                             {
-                                hero.IsIgnoreDamage = true;
+                                hero.IsIgnoringDamage = true;
                                 if (hero.BaseHealth < 15)
                                     hero.BaseHealth = 15;
                                 hero.Damage = hero.BaseHealth - 15;
-                                hero.IsIgnoreDamage = false;
+                                hero.IsIgnoringDamage = false;
                             }
                             return null;
                         }))

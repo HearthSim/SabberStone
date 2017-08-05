@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Collections;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities.Playables;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Instance that represents a player in SabberStone game instances.
@@ -564,7 +565,7 @@ namespace SabberStoneCore.Model
 				{
 					var minion = playableCard as Minion;
 
-					if (!playableCard.IsPlayableByPlayer)
+					if (!playableCard.IsPlayableByController)
 						continue;
 
 					List<IPlayable> playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth

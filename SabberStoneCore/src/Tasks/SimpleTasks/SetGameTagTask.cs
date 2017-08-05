@@ -27,9 +27,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 if (IgnoreDamage)
                 {
-                    p.IsIgnoreDamage = true;
+                    p.IsIgnoringDamage = true;
                     p[Tag] = Amount;
-                    p.IsIgnoreDamage = false;
+                    p.IsIgnoringDamage = false;
                 }
                 else
                 {

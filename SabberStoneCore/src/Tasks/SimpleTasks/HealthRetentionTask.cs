@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -28,9 +29,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 var target = p as ICharacter;
                 if (target != null)
                 {
-                    target.IsIgnoreDamage = true;
+                    target.IsIgnoringDamage = true;
                     target.Damage -= Amount;
-                    target.IsIgnoreDamage = false;
+                    target.IsIgnoringDamage = false;
                 }
             });
 

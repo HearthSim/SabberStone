@@ -5,6 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {

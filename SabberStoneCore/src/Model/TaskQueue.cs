@@ -3,6 +3,8 @@ using System.Linq;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneCore.Model
 {

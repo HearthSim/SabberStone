@@ -1,6 +1,7 @@
 ﻿using SabberStoneCore.Collections;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities.Playables;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {

@@ -4,6 +4,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
 {

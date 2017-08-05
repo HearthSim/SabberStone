@@ -2,6 +2,8 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
+using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Entities.Playables;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,7 +98,7 @@ namespace SabberStoneCore.Model.Zones
 			entity.ApplyEnchantments(EEnchantmentActivation.HAND, EZone.HAND);
 			entity.ApplyEnchantments(EEnchantmentActivation.DECK, EZone.DECK);
 
-			entity.SetOrderOfPlay(Type.ToString());
+			entity.SetOrderOfPlay(entity.Card.Type);
 			return entity;
 		}
 

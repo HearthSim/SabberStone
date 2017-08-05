@@ -2,6 +2,8 @@
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities.Playables;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
