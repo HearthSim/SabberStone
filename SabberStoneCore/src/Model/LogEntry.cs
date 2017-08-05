@@ -3,7 +3,8 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
 {
-    public class LogEntry
+
+    public sealed class LogEntry
     {
         public DateTime TimeStamp { get; set; }
         public ELogLevel Level { get; set; }
