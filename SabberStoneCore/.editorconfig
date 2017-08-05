@@ -6,3 +6,19 @@ root = false
 # Additional settings
 [*.xml]
 indent_style = space
+
+[*.cs]
+# Enforcing naming styles
+
+# Prefix enums with E character
+dotnet_naming_rule.enums_begin_with_e.symbols                      = any_enum
+dotnet_naming_rule.enums_begin_with_e.style                        = begin_with_e
+dotnet_naming_rule.enums_begin_with_e.severity                     = error
+
+# Symbol selecter: All enums
+dotnet_naming_symbols.any_enum.applicable_kinds                    = enum
+dotnet_naming_symbols.any_enum.applicable_accessibilities          = *
+
+# Style convention: Prefix with (UPPERCASE) E
+dotnet_naming_style.begin_with_e.required_prefix                   = E
+dotnet_naming_style.begin_with_e.capitalization                    = pascal_case
