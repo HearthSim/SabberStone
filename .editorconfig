@@ -13,7 +13,7 @@ root = true
 
 # Global settings for all files
 [*]
-charset = utf-8
+charset = utf-8-bom
 end_of_line = lf
 indent_style = tab
 insert_final_newline = true
