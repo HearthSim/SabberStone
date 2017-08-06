@@ -50,47 +50,20 @@ namespace SabberStoneCore.Collections
 			if (data == null) throw new ArgumentNullException("data is null!");
 			if (comparer == null) { comparer = GetDefaultComparer(); }
 
-			bool duplicatesFound = false;
-			T[] distinctElements = null;
+			// Filter out all duplicate values from enumerable.
+			IEnumerable<T> filteredData = data.Distinct();
+			T[] distinctElementArray = filteredData.ToArray();
 
-			var dataCollection = data as ICollection<T>;
-			if (dataCollection != null)
+			if (throwOnConstraintViolation)
 			{
-				// Filter out all duplicate values from collection.
-				int dataCount = dataCollection.Count;
-				distinctElements = new T[dataCount];
-				var lookupTable = new HashSet<T>(comparer);
-
-				int distinctIdx = 0;
-				for (int i = 0; i < dataCount; ++i)
+				if (data.Count() != distinctElementArray.Length)
 				{
-					T elem = dataCollection.ElementAt(i);
-					if (!lookupTable.Contains(elem))
-					{
-						lookupTable.Add(elem);
-						distinctElements[distinctIdx++] = elem;
-					}
+					throw new ConstraintViolationException("Duplicate items detected!");
 				}
-
-				int distinctElementCount = distinctIdx;
-				duplicatesFound = dataCount != distinctElementCount;
-			}
-			else
-			{
-				// Filter out all duplicate values from enumerable.
-				IEnumerable<T> filtered = data.Distinct();
-				distinctElements = filtered.ToArray();
-				duplicatesFound = data.Count() != distinctElements.Length;
-			}
-
-
-			if (throwOnConstraintViolation && duplicatesFound)
-			{
-				throw new ConstraintViolationException("Duplicate items detected!");
 			}
 
 			// Build and return object.
-			return new LightWeightOrderedSet<T>(distinctElements, comparer);
+			return new LightWeightOrderedSet<T>(distinctElementArray, comparer);
 		}
 
 		/// <summary>Builds a lightweight (ReadOnly) OrderedSet from the provided data.</summary>
