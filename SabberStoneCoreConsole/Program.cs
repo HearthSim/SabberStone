@@ -87,7 +87,7 @@ namespace SabberStoneCoreConsole
         static void ParallelTest()
         {
             var parallel = 100000;
-            var ensemble = 10;
+            var ensemble = 2;
 
             //Create new game and go to MainReady();
             for (var i = 0; i < parallel; i++)

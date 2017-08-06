@@ -1349,7 +1349,8 @@ namespace SabberStoneCore.CardSets.Standard
                         SelfCondition.IsSecret,
                         GameTag.COST,
                         0,
-                        owner => 0)
+                        owner => 0,
+                        true)
                 },
             });
 
