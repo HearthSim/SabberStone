@@ -1,4 +1,4 @@
-﻿namespace SabberStoneCore.Model
+﻿namespace SabberStoneCore.Loader
 {
     public struct TagValue
     {

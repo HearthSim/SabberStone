@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Loader;
 
 namespace SabberStoneCore.Kettle
 {
@@ -321,8 +321,8 @@ namespace SabberStoneCore.Kettle
         public string Print()
         {
             var str = new StringBuilder();
-            str.AppendLine(Model.Tag.TypedTags.ContainsKey(Tag)
-                ? $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Enum.GetName(Model.Tag.TypedTags[Tag], (int)Value)}"
+            str.AppendLine(Loader.Tag.TypedTags.ContainsKey(Tag)
+                ? $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Enum.GetName(Loader.Tag.TypedTags[Tag], (int)Value)}"
                 : $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
             return str.ToString();
         }

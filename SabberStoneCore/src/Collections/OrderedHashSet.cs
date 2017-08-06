@@ -7,15 +7,15 @@ using System.Linq;
 namespace SabberStoneCore.Collections
 {
 	/// <summary>
-	/// Collection which returns items in the sequence they got stored.
-	/// The default ordering is the ranking order by which the alements were added to 
-	/// the set.
+	/// Collection which stores/retrieves unique items in insertion order.
+	/// If the unique constraint is violated, an <see cref="ConstraintViolationException"/>
+	/// is thrown.
 	/// 
 	/// This collection DOES NOT allow null elements!
 	/// This collection DOES NOT allow duplicate elements!
 	/// This collection does NOT guarantee internal concurrency consistency!
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">The type stored into this set.</typeparam>
 	internal class OrderedHashSet<T> : IOrderedSet<T>, IReadOnlyOrderedSet<T>
 	{
 		/// <summary>Indicates the amount of elements which have to be inserted before lookups 

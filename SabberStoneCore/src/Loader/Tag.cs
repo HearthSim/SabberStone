@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Loader
 {
     public class Tag
     {

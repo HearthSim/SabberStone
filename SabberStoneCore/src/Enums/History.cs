@@ -7,6 +7,8 @@
 	/// </summary>
 	public enum EPowerType : int
 	{
+		/// <summary>Invalid enum entry.</summary>
+		INVALID = 0,
 		/// <summary>A block which creates a new known (CARDID is known) entity.</summary>
 		FULL_ENTITY = 1,
 		/// <summary>A certain entity makes its CARDID known.</summary>
@@ -46,6 +48,7 @@
 	public enum EBlockType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		INVALID = 0,
 		ATTACK = 1,
 		JOUST = 2,
 		POWER = 3,
@@ -74,6 +77,7 @@
 	public enum EMetaDataType : int
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		// INVALID = -1,
 		META_TARGET = 0,
 		TARGET = 0,
 		META_DAMAGE = 1,
