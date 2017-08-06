@@ -35,7 +35,7 @@
 
         public override ISimpleTask Clone()
         {
-            var clone = new FlagTask(CheckFlag, TaskToDo);
+            var clone = new FlagTask(CheckFlag, TaskToDo.Clone());
             clone.Copy(this);
             return clone;
         }

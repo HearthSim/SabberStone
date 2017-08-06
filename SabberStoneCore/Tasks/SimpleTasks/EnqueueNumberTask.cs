@@ -47,7 +47,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new EnqueueNumberTask(Task, SpellDmg);
+            var clone = new EnqueueNumberTask(Task.Clone(), SpellDmg);
             clone.Copy(this);
             return clone;
         }

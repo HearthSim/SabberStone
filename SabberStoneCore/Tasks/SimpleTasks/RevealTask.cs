@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             if (playable != null)
             {
                 // add joust card winner to stack
-                Playables = new List<IPlayable>{playable};
+                Playables = new List<IPlayable> { playable };
 
                 SuccessJoustTask.Game = Game;
                 SuccessJoustTask.Controller = Controller;
@@ -61,7 +61,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override ISimpleTask Clone()
         {
-            var clone = new RevealTask(SuccessJoustTask, FailedJoustTask);
+            var clone = new RevealTask(SuccessJoustTask.Clone(), FailedJoustTask != null ? FailedJoustTask.Clone() : null);
             clone.Copy(this);
             return clone;
         }
