@@ -8,6 +8,6 @@ install:
 
 script:
   - msbuild /p:Configuration=Release SabberStone.sln
-  - pushd ./SabberStoneCore/tests
+  - pushd ./SabberStoneCoreTest
   - dotnet restore
   - dotnet xunit
