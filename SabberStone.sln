@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{F5DF7FAD-8623-43B7-BE83-9EFAA57DF7DB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreTest", "SabberStoneCoreTest\SabberStoneCoreTest.csproj", "{4858A01E-6F37-4170-AFE3-4C76E514FE19}"
