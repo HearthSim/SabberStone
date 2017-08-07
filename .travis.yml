@@ -1,0 +1,13 @@
+﻿language: csharp
+solution: SabberStone.sln
+mono: latest # Mono needs to be installed for nuget
+dist: trusty
+dotnet: 1.0.4 # Supports .netCore runtime 1.0.5 & 1.1.2
+install:
+  - dotnet nuget restore SabberStone.sln
+
+script:
+  - msbuild /p:Configuration=Release SabberStone.sln
+  - pushd ./SabberStoneCore/tests
+  - dotnet restore
+  - dotnet xunit

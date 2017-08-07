@@ -1,0 +1,26 @@
+﻿version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Previous Visual Studio 2017
+configuration: Release
+before_build:
+- cmd: >-
+    REM Restore packages for all projects within solution
+
+    nuget.exe restore
+build:
+  project: SabberStone.sln
+  parallel: true
+  verbosity: minimal
+test_script:
+- cmd: >-
+    cd ./SabberStoneCore/tests
+
+    REM Run the test project (.NET Core)
+
+    dotnet xunit
+artifacts:
+- path: SabberStoneCore\bin\**\Release\**\SabberStoneCore.xml
+  name: SabberStoneCore doc
+- path: SabberStoneCore\bin\**\Release\**\*.dll
+  name: SabberStoneCore libs
