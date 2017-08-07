@@ -1,4 +1,4 @@
-# EditorConfig is awesome:http://EditorConfig.org
+﻿# EditorConfig is awesome:http://EditorConfig.org
 
 # The intention of this file is to 'force' a specific codestyle
 # for all SabberStone projects.
@@ -18,6 +18,10 @@ end_of_line = lf
 indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+# Yaml files are indent sensitive
+[*.yml]
+indent_style = space
 
 # General settings for all C# code
 [*.{cs,vb}]
