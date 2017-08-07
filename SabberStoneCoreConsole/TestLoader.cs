@@ -114,7 +114,7 @@ namespace SabberStoneCoreConsole
                     Id = card.Id,
                     AssetId = int.Parse(card.AssetId),
                     Tags = new Dictionary<GameTag, int>(),
-                    PlayRequirements = card.Requirements,
+                    Requirements = card.Requirements,
                     Entourage = card.Entourage,
                     RefTags = new Dictionary<GameTag, int>(),
                 };
