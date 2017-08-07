@@ -56,6 +56,8 @@ namespace SabberStoneCore.Model
             }
         }
 
+
+
         public static CardClass[] BasicHeroes => new []
         {
             CardClass.DRUID, CardClass.HUNTER, CardClass.PALADIN,

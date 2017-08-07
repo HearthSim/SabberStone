@@ -30,8 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneBuildCardSet", "SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{48AE839D-1944-45E9-8E38-016C5E7D399B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,18 +160,6 @@ Global
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x64.Build.0 = Release|Any CPU
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B}.Release|x86.Build.0 = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|x64.Build.0 = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Debug|x86.Build.0 = Debug|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|x64.ActiveCfg = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|x64.Build.0 = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|x86.ActiveCfg = Release|Any CPU
-		{48AE839D-1944-45E9-8E38-016C5E7D399B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

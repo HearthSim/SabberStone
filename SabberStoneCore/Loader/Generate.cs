@@ -241,14 +241,14 @@ namespace SabberStoneCore.Loader
                 str.AppendLine($"{tab}\t// - {key} = {(t != null ? t : card.Tags[key].ToString())}");
             }
 
-            if (card.Requirements.Count > 0)
+            if (card.PlayRequirements.Count > 0)
             {
                 str.AppendLine($"{tab}\t// --------------------------------------------------------");
                 str.AppendLine($"{tab}\t// PlayReq:");
             }
-            foreach (var key in card.Requirements.Keys)
+            foreach (var key in card.PlayRequirements.Keys)
             {
-                str.AppendLine($"{tab}\t// - {key} = {card.Requirements[key]}");
+                str.AppendLine($"{tab}\t// - {key} = {card.PlayRequirements[key]}");
             }
 
             wHead = true;
