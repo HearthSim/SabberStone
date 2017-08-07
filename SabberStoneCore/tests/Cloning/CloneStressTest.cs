@@ -86,6 +86,7 @@ namespace SabberStoneCoreTest.Cloning
 
 			var ignored = new EGameTag[] { EGameTag.LAST_CARD_PLAYED, EGameTag.ENTITY_ID };
 
+			// Error: Graveyard zone, playables: different OOP.
 			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
 		}
 

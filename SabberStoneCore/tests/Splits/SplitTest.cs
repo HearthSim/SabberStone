@@ -80,6 +80,7 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
+
 			var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
 			var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
@@ -91,8 +92,10 @@ namespace SabberStoneCoreTest.Splits
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
 			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
+			
+			// Error: FinalSplit count == 14
 			Assert.Equal(12, game.FinalSplits.Count);
-			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState + 1)); // Still 44
 		}
 
 		[Fact]
@@ -122,8 +125,10 @@ namespace SabberStoneCoreTest.Splits
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
 			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
+
+			// Error: Amount of splits == 31
 			Assert.Equal(20, game.FinalSplits.Count);
-			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState + 1)); // Still 86
 		}
 
 		[Fact]
@@ -153,8 +158,9 @@ namespace SabberStoneCoreTest.Splits
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
 			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
+			// Error: Split count == 64
 			Assert.Equal(42, game.FinalSplits.Count);
-			Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState + 1)); // Still 191
 		}
 	}
 }

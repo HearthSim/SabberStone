@@ -377,9 +377,9 @@ namespace SabberStoneCore.Model
 		/// The game will execute the desired task and all effects coupled either
 		/// directly or indirectly in synchronous manner.
 		/// 
-		/// Call <see cref="Controller.Options(bool)"/> on the <see cref="CurrentPlayer"/> 
+		/// Call <see cref="Controller.Options(Boolean)"/> on the <see cref="CurrentPlayer"/> 
 		/// instance for tasks which are accepted as arguments.
-		/// After this method returns, check <see cref="Controller.Options(bool)"/>
+		/// After this method returns, check <see cref="Controller.Options(Boolean)"/>
 		/// again until only <see cref="EndTurnTask"/> remains, which will
 		/// start the turn of <see cref="CurrentOpponent"/>. 
 		/// </summary>
