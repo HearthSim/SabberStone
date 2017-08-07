@@ -61,16 +61,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
             baseCard.Enchantments = new List<Enchantment>();
             baseCard.Enchantments.AddRange(spell1.Enchantments);
-            spell1.PlayRequirements.ToList().ForEach(p =>
+            spell1.Requirements.ToList().ForEach(p =>
             {
-                if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-                    baseCard.PlayRequirements.Add(p.Key, p.Value);
+                if (!baseCard.Requirements.ContainsKey(p.Key))
+                    baseCard.Requirements.Add(p.Key, p.Value);
             });
             baseCard.Enchantments.AddRange(spell2.Enchantments);
-            spell2.PlayRequirements.ToList().ForEach(p =>
+            spell2.Requirements.ToList().ForEach(p =>
             {
-                if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-                    baseCard.PlayRequirements.Add(p.Key, p.Value);
+                if (!baseCard.Requirements.ContainsKey(p.Key))
+                    baseCard.Requirements.Add(p.Key, p.Value);
             });
 
             var task = new AddCardTo(baseCard, EntityType.HAND)
