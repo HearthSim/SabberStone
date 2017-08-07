@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 using System.Linq;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.CardSets
 {
-    [TestClass]
+
     public class DruidNaxxTest
     {
         // ------------------------------------------ SPELL - DRUID
@@ -20,7 +20,7 @@ namespace SabberStoneCoreTest.CardSets
         // --------------------------------------------------------
         // Text: Destroy all minions and summon 2/2 Treants to replace them.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void PoisonSeeds_FP1_019()
         {
             // TODO PoisonSeeds_FP1_019 test
@@ -38,7 +38,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class HunterNaxxTest
     {
         // ---------------------------------------- MINION - HUNTER
@@ -50,7 +50,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Webspinner_FP1_011()
         {
             // TODO Webspinner_FP1_011 test
@@ -68,7 +68,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class MageNaxxTest
     {
         // ------------------------------------------- SPELL - MAGE
@@ -80,7 +80,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Duplicate_FP1_018()
         {
             // TODO Duplicate_FP1_018 test
@@ -98,7 +98,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class PaladinNaxxTest
     {
         // ---------------------------------------- SPELL - PALADIN
@@ -110,7 +110,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Avenge_FP1_020()
         {
             // TODO Avenge_FP1_020 test
@@ -128,7 +128,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class PriestNaxxTest
     {
         // ---------------------------------------- MINION - PRIEST
@@ -140,7 +140,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void DarkCultist_FP1_023()
         {
             // TODO DarkCultist_FP1_023 test
@@ -158,7 +158,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class RogueNaxxTest
     {
         // ----------------------------------------- MINION - ROGUE
@@ -173,7 +173,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - POISONOUS = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void AnubarAmbusher_FP1_026()
         {
             // TODO AnubarAmbusher_FP1_026 test
@@ -191,7 +191,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class ShamanNaxxTest
     {
         // ----------------------------------------- SPELL - SHAMAN
@@ -204,7 +204,7 @@ namespace SabberStoneCoreTest.CardSets
         // - REQ_MINION_TARGET = 0
         // - REQ_TARGET_TO_PLAY = 0
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Reincarnate_FP1_025()
         {
             // TODO Reincarnate_FP1_025 test
@@ -222,7 +222,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class WarlockNaxxTest
     {
         // --------------------------------------- MINION - WARLOCK
@@ -234,7 +234,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Voidcaller_FP1_022()
         {
             // TODO Voidcaller_FP1_022 test
@@ -252,7 +252,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class WarriorNaxxTest
     {
         // --------------------------------------- WEAPON - WARRIOR
@@ -265,7 +265,7 @@ namespace SabberStoneCoreTest.CardSets
         // - DURABILITY = 2
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void DeathsBite_FP1_021()
         {
             // TODO DeathsBite_FP1_021 test
@@ -283,7 +283,7 @@ namespace SabberStoneCoreTest.CardSets
         }
     }
 
-    [TestClass]
+
     public class NeutralNaxxTest
     {
         // --------------------------------------- MINION - NEUTRAL
@@ -295,7 +295,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void ZombieChow_FP1_001()
         {
             // TODO ZombieChow_FP1_001 test
@@ -321,7 +321,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void HauntedCreeper_FP1_002()
         {
             // TODO HauntedCreeper_FP1_002 test
@@ -347,7 +347,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void EchoingOoze_FP1_003()
         {
             // TODO EchoingOoze_FP1_003 test
@@ -376,7 +376,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - SECRET_OR_QUEST = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void MadScientist_FP1_004()
         {
             // TODO MadScientist_FP1_004 test
@@ -402,7 +402,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - STEALTH = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void ShadeOfNaxxramas_FP1_005()
         {
             // TODO ShadeOfNaxxramas_FP1_005 test
@@ -428,7 +428,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod]
+        [Fact]
         public void NerubianEgg_FP1_007()
         {
 
@@ -447,8 +447,8 @@ namespace SabberStoneCoreTest.CardSets
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.AreEqual(1, game.CurrentOpponent.Board.Count);
-            Assert.AreEqual("FP1_007t", game.CurrentOpponent.Board[0].Card.Id);
+            Assert.Equal(1, game.CurrentOpponent.Board.Count);
+            Assert.Equal("FP1_007t", game.CurrentOpponent.Board[0].Card.Id);
         }
 
         // --------------------------------------- MINION - NEUTRAL
@@ -461,7 +461,7 @@ namespace SabberStoneCoreTest.CardSets
         // - CANT_BE_TARGETED_BY_ABILITIES = 1
         // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void SpectralKnight_FP1_008()
         {
             // TODO SpectralKnight_FP1_008 test
@@ -488,7 +488,7 @@ namespace SabberStoneCoreTest.CardSets
         // - TAUNT = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Deathlord_FP1_009()
         {
             // TODO Deathlord_FP1_009 test
@@ -515,7 +515,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - POISONOUS = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Maexxna_FP1_010()
         {
             // TODO Maexxna_FP1_010 test
@@ -543,7 +543,7 @@ namespace SabberStoneCoreTest.CardSets
         // - TAUNT = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void SludgeBelcher_FP1_012()
         {
             // TODO SludgeBelcher_FP1_012 test
@@ -569,7 +569,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - ELITE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Kelthuzad_FP1_013()
         {
             // TODO Kelthuzad_FP1_013 test
@@ -596,7 +596,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Stalagg_FP1_014()
         {
             // TODO Stalagg_FP1_014 test
@@ -623,7 +623,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Feugen_FP1_015()
         {
             // TODO Feugen_FP1_015 test
@@ -652,7 +652,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - SILENCE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void WailingSoul_FP1_016()
         {
             // TODO WailingSoul_FP1_016 test
@@ -681,7 +681,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void NerubarWeblord_FP1_017()
         {
             // TODO NerubarWeblord_FP1_017 test
@@ -708,7 +708,7 @@ namespace SabberStoneCoreTest.CardSets
         // - TAUNT = 1
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void UnstableGhoul_FP1_024()
         {
             // TODO UnstableGhoul_FP1_024 test
@@ -731,7 +731,7 @@ namespace SabberStoneCoreTest.CardSets
         // --------------------------------------------------------
         // Text: At the start of your turn, restore this minion to full Health.
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void StoneskinGargoyle_FP1_027()
         {
             // TODO StoneskinGargoyle_FP1_027 test
@@ -757,7 +757,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Undertaker_FP1_028()
         {
             // TODO Undertaker_FP1_028 test
@@ -783,7 +783,7 @@ namespace SabberStoneCoreTest.CardSets
         // GameTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void DancingSwords_FP1_029()
         {
             // TODO DancingSwords_FP1_029 test
@@ -810,7 +810,7 @@ namespace SabberStoneCoreTest.CardSets
         // - ELITE = 1
         // - BATTLECRY = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void Loatheb_FP1_030()
         {
             // TODO Loatheb_FP1_030 test
@@ -840,7 +840,7 @@ namespace SabberStoneCoreTest.CardSets
         // RefTag:
         // - DEATHRATTLE = 1
         // --------------------------------------------------------
-        [TestMethod, Ignore]
+        [Fact(Skip = "ignore")]
         public void BaronRivendare_FP1_031()
         {
             // TODO BaronRivendare_FP1_031 test

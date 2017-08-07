@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace SabberStoneCoreTest.Basic
 {
-    [TestClass]
     public class TheoryStressTest
     {
         // TODO TheoryStressTest Patashu - Heute um 14:00 Uhr
@@ -12,7 +11,7 @@ namespace SabberStoneCoreTest.Basic
         // besides those, test things like battlecries that summon minions vs sword of justice,
         // violet teacher vs wild pyromancer, etc
 
-        [TestMethod]
+        [Fact]
         public void PhaseTest()
         {
 

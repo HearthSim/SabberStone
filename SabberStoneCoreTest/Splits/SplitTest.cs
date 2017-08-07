@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -11,10 +11,10 @@ using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.Splits
 {
-    [TestClass]
+
     public class SplitTest
     {
-        [TestMethod]
+        [Fact]
         public void MadBomberBasic1()
         {
             var game =
@@ -31,11 +31,11 @@ namespace SabberStoneCoreTest.Splits
             game.StartGame();
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(4, game.FinalSplits.Count);
-            Assert.AreEqual(8, game.FinalSplits.Sum(p => p.SameState + 1));
+            Assert.Equal(4, game.FinalSplits.Count);
+            Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void MadBomberBasic2()
         {
             var game =
@@ -61,11 +61,11 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(7, game.FinalSplits.Count);
-            Assert.AreEqual(20, game.FinalSplits.Sum(p => p.SameState + 1));
+            Assert.Equal(7, game.FinalSplits.Count);
+            Assert.Equal(20, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void MadBomberBasic3()
         {
             var game =
@@ -91,11 +91,11 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(12, game.FinalSplits.Count);
-            Assert.AreEqual(44, game.FinalSplits.Sum(p => p.SameState + 1));
+            Assert.Equal(12, game.FinalSplits.Count);
+            Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void MadBomberBasic4()
         {
             var game =
@@ -121,11 +121,11 @@ namespace SabberStoneCoreTest.Splits
             //game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(20, game.FinalSplits.Count);
-            Assert.AreEqual(86, game.FinalSplits.Sum(p => p.SameState + 1));
+            Assert.Equal(20, game.FinalSplits.Count);
+            Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState + 1));
         }
 
-        [TestMethod]
+        [Fact]
         public void MadBomberBasic5()
         {
             var game =
@@ -151,8 +151,8 @@ namespace SabberStoneCoreTest.Splits
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
             var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
-            Assert.AreEqual(42, game.FinalSplits.Count);
-            Assert.AreEqual(191, game.FinalSplits.Sum(p => p.SameState + 1));
+            Assert.Equal(42, game.FinalSplits.Count);
+            Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState + 1));
         }
     }
 }
