@@ -1,14 +1,14 @@
-<img align="left" src="/Readme/sabberstone.png">
+﻿<span align="left">![SabberStone logo](docs/readme/sabberstone.png)</span>
 # SabberStone
 
 **State of Implementation: 91% (Un'Goro 75%) of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(20.04.2017)***
 
-SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
+SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/extensions/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
-By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of Brimstone was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome! 
+By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of Brimstone was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral** & **@BertP** for working out on the stove implementation. You're welcome!
 
-**Sabberstone Simulator can be connected to the real Hearthstone client!** 
-<img align="left" src="/Readme/stove.PNG">
+**Sabberstone Simulator can be connected to the real Hearthstone client!**
+<span align="left">![Preview SabberStone connected to the Stove project](docs/readme/stove.PNG)</span>
 
 ### Project Structure ###
 
@@ -31,9 +31,9 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 * **SabberStoneGui** *(.NET Framework)*
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
-  ![alt tag](/Readme/simpleui.PNG)
-  ![alt tag](/Readme/deckcreator.PNG)
-  
+  ![Preview of the GUI project - in Game mode](docs/readme/simpleui.PNG)
+  ![Preview of the GUI project - in Deck creator mode](docs/readme/deckcreator.PNG)
+
 ### Cards Implementation
 
 - [x] Aura, Enchantment & Trigger
