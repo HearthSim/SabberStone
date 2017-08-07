@@ -181,7 +181,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fandral Staghelm"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, game.CurrentPlayer.ChooseBoth);
+            Assert.True(game.CurrentPlayer.ChooseBoth);
             var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Claw"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
             Assert.Equal("OG_044a", game.CurrentPlayer.Board[1].Card.Id);
@@ -666,9 +666,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(7, ((Minion)minion).Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
             Assert.Equal(4, ((Minion)minion).Health);
-            Assert.Equal(true, ((Minion)minion).IsFrozen);
+            Assert.True(((Minion)minion).IsFrozen);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(true, ((Minion)minion).IsDead);
+            Assert.True(((Minion)minion).IsDead);
         }
 
         // ------------------------------------------- SPELL - MAGE
@@ -788,9 +788,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-            Assert.Equal(false, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+            Assert.False(((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
-            Assert.Equal(true, ((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+            Assert.True(((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
         }
 
         // ------------------------------------------ MINION - MAGE
@@ -1082,7 +1082,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.Equal(true, ((Minion)minion).HasDivineShield);
+            Assert.True(((Minion)minion).HasDivineShield);
         }
 
         // --------------------------------------- MINION - PALADIN
@@ -1140,10 +1140,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-            Assert.Equal(true, ((Minion)minion1).HasDivineShield);
+            Assert.True(((Minion)minion1).HasDivineShield);
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acidic Swamp Ooze"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-            Assert.Equal(false, ((Minion)minion2).HasDivineShield);
+            Assert.False(((Minion)minion2).HasDivineShield);
         }
 
         // --------------------------------------- WEAPON - PALADIN
@@ -1594,9 +1594,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             var testSpell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("OG_080e"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testSpell1, minion));
-            Assert.Equal(true, ((Minion)minion).HasStealth);
+            Assert.True(((Minion)minion).HasStealth);
             game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
-            Assert.Equal(false, ((Minion)minion).HasStealth);
+            Assert.False(((Minion)minion).HasStealth);
         }
 
         // ----------------------------------------- MINION - ROGUE
@@ -2036,7 +2036,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Forbidden Ritual"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(true, game.CurrentPlayer.Board.IsFull);
+            Assert.True(game.CurrentPlayer.Board.IsFull);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -2406,7 +2406,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malkorok"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
+            Assert.True(game.CurrentPlayer.Hero.Weapon != null);
         }
 
         // --------------------------------------- MINION - WARRIOR
@@ -2459,7 +2459,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("N'Zoth's First Mate"));
-            Assert.Equal(null, game.CurrentPlayer.Hero.Weapon);
+            Assert.Null(game.CurrentPlayer.Hero.Weapon);
             game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
             Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
             Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
@@ -2490,7 +2490,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodsail Cultist"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodsail Cultist"));
-            Assert.Equal(null, game.CurrentPlayer.Hero.Weapon);
+            Assert.Null(game.CurrentPlayer.Hero.Weapon);
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Upgrade!"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
             Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
@@ -3577,7 +3577,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(8, ((Minion)minion).AttackDamage);
             Assert.Equal(8, ((Minion)minion).Health);
-            Assert.Equal(true, ((Minion)testCard).HasDivineShield);
+            Assert.True(((Minion)testCard).HasDivineShield);
             Assert.Equal(8, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
             Assert.Equal(8, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
         }
@@ -3618,11 +3618,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             Assert.Equal(6, ((Minion)minion).AttackDamage);
             Assert.Equal(6, ((Minion)minion).Health);
-            Assert.Equal(true, ((Minion)minion).HasTaunt);
-            Assert.Equal(true, ((Minion)testCard).HasTaunt);
+            Assert.True(((Minion)minion).HasTaunt);
+            Assert.True(((Minion)testCard).HasTaunt);
             Assert.Equal(6, ((Minion)game.CurrentPlayer.Setaside[0]).AttackDamage);
             Assert.Equal(6, ((Minion)game.CurrentPlayer.Setaside[0]).Health);
-            Assert.Equal(true, ((Minion)game.CurrentPlayer.Setaside[0]).HasTaunt);
+            Assert.True(((Minion)game.CurrentPlayer.Setaside[0]).HasTaunt);
         }
 
         // --------------------------------------- MINION - NEUTRAL
@@ -3807,7 +3807,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.Equal(true, game.CurrentOpponent.Board.Count >= 3);
+            Assert.True(game.CurrentOpponent.Board.Count >= 3);
         }
 
         // --------------------------------------- MINION - NEUTRAL

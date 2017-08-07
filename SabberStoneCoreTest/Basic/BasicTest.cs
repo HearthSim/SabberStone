@@ -30,9 +30,9 @@ namespace SabberStoneCoreTest.Basic
                     dict[str] = 1;
                 }
             }
-            Assert.Equal(true, dict["A"] > 300);
-            Assert.Equal(true, dict["B"] > 300);
-            Assert.Equal(true, dict["C"] > 300);
+            Assert.True(dict["A"] > 300);
+            Assert.True(dict["B"] > 300);
+            Assert.True(dict["C"] > 300);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig());
             game.StartGame();
 
-            Assert.Equal(game.Player1.Deck.Count, 0);
+            Assert.Equal(0, game.Player1.Deck.Count);
 
             game.Player1.Deck.Fill();
 
@@ -137,7 +137,7 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig());
             game.StartGame();
 
-            Assert.Equal(game.Player1.Deck.Count, 0);
+            Assert.Equal(0, game.Player1.Deck.Count);
 
             game.Player1.Deck.Fill();
 
@@ -326,7 +326,7 @@ namespace SabberStoneCoreTest.Basic
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(true, game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
+            Assert.True(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -335,9 +335,9 @@ namespace SabberStoneCoreTest.Basic
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(true, ((ICharacter)taunt).HasTaunt);
-            Assert.Equal(false, game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
-            Assert.Equal(true, game.CurrentPlayer.Hero.IsValidAttackTarget(taunt as ICharacter));
+            Assert.True(((ICharacter)taunt).HasTaunt);
+            Assert.False(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
+            Assert.True(game.CurrentPlayer.Hero.IsValidAttackTarget(taunt as ICharacter));
         }
 
         [Fact]
@@ -351,8 +351,8 @@ namespace SabberStoneCoreTest.Basic
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.Equal(game.Player1.PlayState, PlayState.WON); // Fatigue test didn't worked as it should for player 1
-            Assert.Equal(game.Player2.PlayState, PlayState.LOST); // Fatigue test didn't worked as it should for player 2
+            Assert.Equal(PlayState.WON, game.Player1.PlayState); // Fatigue test didn't worked as it should for player 1
+            Assert.Equal(PlayState.LOST, game.Player2.PlayState); // Fatigue test didn't worked as it should for player 2
         }
 
         [Fact]
@@ -559,7 +559,7 @@ namespace SabberStoneCoreTest.Basic
             Assert.Equal(1, ((ICharacter)minion1).Health);
             Assert.Equal(1, ((ICharacter)minion2).Health);
             Assert.Equal(3, ((ICharacter)minion3).Health);
-            Assert.Equal(true, ((ICharacter)minion4).IsDead);
+            Assert.True(((ICharacter)minion4).IsDead);
 
         }
 
@@ -604,7 +604,7 @@ namespace SabberStoneCoreTest.Basic
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            Assert.Equal(game.CurrentPlayer.Secrets.Count, 1);
+            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
         }
 
         [Fact]
@@ -654,12 +654,12 @@ namespace SabberStoneCoreTest.Basic
                 });
             game.StartGame();
 
-            Assert.Equal(false, game.Player1.Choice.Choices.TrueForAll(p =>
+            Assert.False(game.Player1.Choice.Choices.TrueForAll(p =>
             {
                 var t = game.IdEntityDic[p];
                 return !(t is Spell) || !((Spell)t).IsQuest;
             })); // we have a no quest in mulligan! player 1
-            Assert.Equal(false, game.Player2.Choice.Choices.TrueForAll(p =>
+            Assert.False(game.Player2.Choice.Choices.TrueForAll(p =>
             {
                 var t = game.IdEntityDic[p];
                 return !(t is Spell) || !((Spell)t).IsQuest;
@@ -698,7 +698,7 @@ namespace SabberStoneCoreTest.Basic
 
             game.StartGame();
 
-            Assert.Equal(true, false); // To be implemented
+            Assert.True(false); // To be implemented
         }
 
         [Fact]
@@ -719,7 +719,7 @@ namespace SabberStoneCoreTest.Basic
 
             game.StartGame();
 
-            Assert.Equal(true, false); // To be implemented
+            Assert.True(false); // To be implemented
         }
     }
 }

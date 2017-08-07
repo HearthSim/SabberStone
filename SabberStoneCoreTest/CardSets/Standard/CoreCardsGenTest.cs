@@ -459,11 +459,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(false, game.CurrentPlayer.Hero.Weapon != null);
+            Assert.False(game.CurrentPlayer.Hero.Weapon != null);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
+            Assert.True(game.CurrentPlayer.Hero.Weapon != null);
             Assert.Equal(1, game.CurrentPlayer.Hero.TotalAttackDamage);
             Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
@@ -687,14 +687,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             Assert.Equal(1, ((ICharacter)minion).Health);
             Assert.Equal(1, ((ICharacter)minion).AttackDamage);
-            Assert.Equal(false, ((ICharacter)minion).HasTaunt);
+            Assert.False(((ICharacter)minion).HasTaunt);
 
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mark of the Wild"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
 
             Assert.Equal(3, ((ICharacter)minion).Health);
             Assert.Equal(3, ((ICharacter)minion).AttackDamage);
-            Assert.Equal(true, ((ICharacter)minion).HasTaunt);
+            Assert.True(((ICharacter)minion).HasTaunt);
         }
 
         // ------------------------------------------ SPELL - DRUID
@@ -807,7 +807,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(1, ((ICharacter)m2).Health);
             Assert.Equal(1, ((ICharacter)m3).Health);
             Assert.Equal(7, ((ICharacter)m4).Health);
-            Assert.Equal(true, ((ICharacter)m1).IsDead);
+            Assert.True(((ICharacter)m1).IsDead);
 
             game.CurrentPlayer.UsedMana = 0;
 
@@ -818,10 +818,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
 
             Assert.Equal(24, game.CurrentOpponent.Hero.Health);
-            Assert.Equal(true, ((ICharacter)m2).IsDead);
-            Assert.Equal(true, ((ICharacter)m3).IsDead);
+            Assert.True(((ICharacter)m2).IsDead);
+            Assert.True(((ICharacter)m3).IsDead);
             Assert.Equal(5, ((ICharacter)m4).Health);
-            Assert.Equal(true, ((ICharacter)m1).IsDead);
+            Assert.True(((ICharacter)m1).IsDead);
         }
 
         // ------------------------------------------ SPELL - DRUID
@@ -1014,7 +1014,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancestral Healing"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, m1));
 
-            Assert.Equal(true, ((ICharacter)m1).HasTaunt);
+            Assert.True(((ICharacter)m1).HasTaunt);
             Assert.Equal(1, ((ICharacter)m1).Health);
         }
 
@@ -1094,7 +1094,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(26, game.CurrentPlayer.Deck.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             Assert.Equal(23, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(true, game.CurrentPlayer.Choice != null);
+            Assert.True(game.CurrentPlayer.Choice != null);
             Assert.Equal(3, game.CurrentPlayer.Choice?.Choices.Count);
             Assert.Equal(4, game.CurrentPlayer.Hand.Count);
             if (game.CurrentPlayer.Choice != null)
@@ -1306,14 +1306,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             Assert.Equal(1, ((ICharacter)minion).Health);
             Assert.Equal(1, ((ICharacter)minion).AttackDamage);
-            Assert.Equal(false, ((ICharacter)minion).HasTaunt);
+            Assert.False(((ICharacter)minion).HasTaunt);
 
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Houndmaster"));
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, spell, minion));
 
             Assert.Equal(3, ((ICharacter)minion).Health);
             Assert.Equal(3, ((ICharacter)minion).AttackDamage);
-            Assert.Equal(true, ((ICharacter)minion).HasTaunt);
+            Assert.True(((ICharacter)minion).HasTaunt);
         }
 
         // ---------------------------------------- MINION - HUNTER
@@ -1394,15 +1394,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-            Assert.Equal(false, ((Minion)minion1).HasCharge);
-            Assert.Equal(false, ((Minion)minion2).HasCharge);
+            Assert.False(((Minion)minion1).HasCharge);
+            Assert.False(((Minion)minion2).HasCharge);
 
             var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tundra Rhino"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-            Assert.Equal(true, ((Minion)minion1).HasCharge);
-            Assert.Equal(false, ((Minion)minion2).HasCharge);
-            Assert.Equal(true, ((Minion)minion3).HasCharge);
+            Assert.True(((Minion)minion1).HasCharge);
+            Assert.False(((Minion)minion2).HasCharge);
+            Assert.True(((Minion)minion3).HasCharge);
         }
     }
 
@@ -1518,13 +1518,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             Assert.Equal(5, ((ICharacter)m1).Health);
-            Assert.Equal(false, ((ICharacter)m1).IsFrozen);
+            Assert.False(((ICharacter)m1).IsFrozen);
 
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, m1));
 
             Assert.Equal(2, ((ICharacter)m1).Health);
-            Assert.Equal(true, ((ICharacter)m1).IsFrozen);
+            Assert.True(((ICharacter)m1).IsFrozen);
         }
 
         // ------------------------------------------- SPELL - MAGE
@@ -1573,7 +1573,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             Assert.Equal(4, ((ICharacter)m2).Health);
             Assert.Equal(1, ((ICharacter)m3).Health);
-            Assert.Equal(true, ((ICharacter)m1).IsDead);
+            Assert.True(((ICharacter)m1).IsDead);
         }
 
         // ------------------------------------------- SPELL - MAGE
@@ -1614,18 +1614,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(false, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.Equal(false, ((ICharacter)m2).IsFrozen);
-            Assert.Equal(false, ((ICharacter)m3).IsFrozen);
-            Assert.Equal(false, ((ICharacter)m1).IsFrozen);
+            Assert.False(game.CurrentOpponent.Hero.IsFrozen);
+            Assert.False(((ICharacter)m2).IsFrozen);
+            Assert.False(((ICharacter)m3).IsFrozen);
+            Assert.False(((ICharacter)m1).IsFrozen);
 
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Nova"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 
-            Assert.Equal(false, game.CurrentOpponent.Hero.IsFrozen);
-            Assert.Equal(true, ((ICharacter)m2).IsFrozen);
-            Assert.Equal(true, ((ICharacter)m3).IsFrozen);
-            Assert.Equal(true, ((ICharacter)m1).IsFrozen);
+            Assert.False(game.CurrentOpponent.Hero.IsFrozen);
+            Assert.True(((ICharacter)m2).IsFrozen);
+            Assert.True(((ICharacter)m3).IsFrozen);
+            Assert.True(((ICharacter)m1).IsFrozen);
         }
 
         // ------------------------------------------- SPELL - MAGE
@@ -1772,8 +1772,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             Assert.Equal(1, ((ICharacter)m2).Health);
-            Assert.Equal(true, ((ICharacter)m3).IsDead);
-            Assert.Equal(true, ((ICharacter)m1).IsDead);
+            Assert.True(((ICharacter)m3).IsDead);
+            Assert.True(((ICharacter)m1).IsDead);
         }
 
         // ------------------------------------------- SPELL - MAGE
@@ -1864,19 +1864,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, water));
-            Assert.Equal(true, game.Player2.Hero.IsFrozen);
+            Assert.True(game.Player2.Hero.IsFrozen);
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sen'jin Shieldmasta"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(true, game.Player2.Hero.IsFrozen);
+            Assert.True(game.Player2.Hero.IsFrozen);
             game.Process(MinionAttackTask.Any(game.CurrentPlayer, water, minion2));
-            Assert.Equal(true, ((Minion)minion2).IsFrozen);
+            Assert.True(((Minion)minion2).IsFrozen);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(true, game.Player2.Hero.IsFrozen);
-            Assert.Equal(true, ((Minion)minion2).IsFrozen);
+            Assert.True(game.Player2.Hero.IsFrozen);
+            Assert.True(((Minion)minion2).IsFrozen);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(false, game.Player2.Hero.IsFrozen);
-            Assert.Equal(false, ((Minion)minion2).IsFrozen);
+            Assert.False(game.Player2.Hero.IsFrozen);
+            Assert.False(((Minion)minion2).IsFrozen);
         }
     }
 
@@ -2062,7 +2062,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
             Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
-            Assert.Equal(true, minion1.ToBeDestroyed);
+            Assert.True(minion1.ToBeDestroyed);
         }
 
         // ---------------------------------------- SPELL - PALADIN
@@ -2736,7 +2736,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-            Assert.Equal(true, ((ICharacter)minion1).IsDead);
+            Assert.True(((ICharacter)minion1).IsDead);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -2765,7 +2765,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deadly Poison"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
 
-            Assert.Equal(null, game.CurrentPlayer.Hero.Weapon);
+            Assert.Null(game.CurrentPlayer.Hero.Weapon);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
@@ -2849,7 +2849,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Assassinate"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion3));
 
-            Assert.Equal(true, ((ICharacter)minion3).IsDead);
+            Assert.True(((ICharacter)minion3).IsDead);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -2921,7 +2921,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             Assert.Equal(4, ((ICharacter)m2).Health);
             Assert.Equal(1, ((ICharacter)m3).Health);
-            Assert.Equal(true, ((ICharacter)m1).IsDead);
+            Assert.True(((ICharacter)m1).IsDead);
 
             Assert.Equal(2, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
         }
@@ -3107,13 +3107,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(false, ((ICharacter)m2).IsFrozen);
+            Assert.False(((ICharacter)m2).IsFrozen);
             Assert.Equal(5, ((ICharacter)m2).Health);
 
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Shock"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, m2));
 
-            Assert.Equal(true, ((ICharacter)m2).IsFrozen);
+            Assert.True(((ICharacter)m2).IsFrozen);
             Assert.Equal(4, ((ICharacter)m2).Health);
         }
 
@@ -3206,13 +3206,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(false, ((ICharacter)m1).HasTaunt);
+            Assert.False(((ICharacter)m1).HasTaunt);
             Assert.Equal(2, ((ICharacter)m1).Health);
 
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancestral Healing"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, m1));
 
-            Assert.Equal(true, ((ICharacter)m1).HasTaunt);
+            Assert.True(((ICharacter)m1).HasTaunt);
             Assert.Equal(7, ((ICharacter)m1).Health);
         }
 
@@ -3564,7 +3564,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-            Assert.Equal(true, ((ICharacter)minion1).IsDead);
+            Assert.True(((ICharacter)minion1).IsDead);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -3656,9 +3656,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(27, game.CurrentOpponent.Hero.Health);
             Assert.Equal(27, game.CurrentPlayer.Hero.Health);
 
-            Assert.Equal(true, ((ICharacter)minion5).IsDead);
-            Assert.Equal(true, ((ICharacter)minion1).IsDead);
-            Assert.Equal(true, ((ICharacter)minion2).IsDead);
+            Assert.True(((ICharacter)minion5).IsDead);
+            Assert.True(((ICharacter)minion1).IsDead);
+            Assert.True(((ICharacter)minion2).IsDead);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -3698,11 +3698,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(false, ((ICharacter)minion).IsDead);
+            Assert.False(((ICharacter)minion).IsDead);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(true, ((ICharacter)minion).IsDead);
+            Assert.True(((ICharacter)minion).IsDead);
         }
 
         // ---------------------------------------- SPELL - WARLOCK
@@ -3855,7 +3855,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Opponent.Hero));
 
             Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
-            Assert.Equal(game.State, State.COMPLETE);
+            Assert.Equal(State.COMPLETE, game.State);
         }
 
         // --------------------------------------- MINION - WARLOCK
@@ -3909,8 +3909,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
             Assert.Equal(29, game.CurrentOpponent.Hero.Health);
             Assert.Equal(29, game.CurrentPlayer.Hero.Health);
             Assert.Equal(2, ((ICharacter)minion5).Health);
-            Assert.Equal(true, ((ICharacter)minion1).IsDead);
-            Assert.Equal(true, ((ICharacter)minion2).IsDead);
+            Assert.True(((ICharacter)minion1).IsDead);
+            Assert.True(((ICharacter)minion2).IsDead);
         }
 
         // --------------------------------------- MINION - WARLOCK
@@ -3937,7 +3937,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidwalker"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, ((Minion)testCard).HasTaunt);
+            Assert.True(((Minion)testCard).HasTaunt);
         }
 
         // --------------------------------------- MINION - WARLOCK
@@ -4117,7 +4117,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Execute"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion3));
 
-            Assert.Equal(true, ((ICharacter)minion3).IsDead);
+            Assert.True(((ICharacter)minion3).IsDead);
         }
 
         // ---------------------------------------- SPELL - WARRIOR
@@ -4339,12 +4339,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
 
-            Assert.Equal(false, game.CurrentPlayer.Hero.IsExhausted);
+            Assert.False(game.CurrentPlayer.Hero.IsExhausted);
             Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
 
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
 
-            Assert.Equal(true, game.CurrentPlayer.Hero.IsExhausted);
+            Assert.True(game.CurrentPlayer.Hero.IsExhausted);
             Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.Durability);
             Assert.Equal(27, game.CurrentPlayer.Opponent.Hero.Health);
         }
@@ -5440,16 +5440,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
             game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
 
-            Assert.Equal(true, game.CurrentPlayer.Hero.Weapon != null);
+            Assert.True(game.CurrentPlayer.Hero.Weapon != null);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(true, game.CurrentOpponent.Hero.Weapon != null);
+            Assert.True(game.CurrentOpponent.Hero.Weapon != null);
 
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acidic Swamp Ooze"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-            Assert.Equal(false, game.CurrentOpponent.Hero.Weapon != null);
+            Assert.False(game.CurrentOpponent.Hero.Weapon != null);
         }
 
         // --------------------------------------- MINION - NEUTRAL

@@ -151,7 +151,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
+            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
         }
 
         // ----------------------------------------- MINION - DRUID
@@ -185,14 +185,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1, 1));
             Assert.Equal(1, game.CurrentPlayer.Board.Count);
-            Assert.Equal(true, ((Minion)game.CurrentPlayer.Board[0]).HasStealth);
+            Assert.True(((Minion)game.CurrentPlayer.Board[0]).HasStealth);
             Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
             Assert.Equal(3, ((Minion)game.CurrentPlayer.Board[0]).Health);
 
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
             Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.Equal(true, ((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
+            Assert.True(((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
             Assert.Equal(3, ((Minion)game.CurrentPlayer.Board[1]).AttackDamage);
             Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[1]).Health);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -200,13 +200,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var chooseBoth = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fandral Staghelm"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, chooseBoth));
-            Assert.Equal(true, game.CurrentPlayer.ChooseBoth);
+            Assert.True(game.CurrentPlayer.ChooseBoth);
 
             var testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
             Assert.Equal(4, game.CurrentPlayer.Board.Count);
-            Assert.Equal(true, ((Minion)game.CurrentPlayer.Board[3]).HasTaunt);
-            Assert.Equal(true, ((Minion)game.CurrentPlayer.Board[3]).HasStealth);
+            Assert.True(((Minion)game.CurrentPlayer.Board[3]).HasTaunt);
+            Assert.True(((Minion)game.CurrentPlayer.Board[3]).HasStealth);
             Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[3]).AttackDamage);
             Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[3]).Health);
         }
@@ -244,7 +244,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             {
                 var choice = game.CurrentPlayer.Choice.Choices[0];
                 game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-                Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
+                Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
             }
         }
 
@@ -309,7 +309,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
             game.CurrentPlayer.Board.GetAll.ForEach(p =>
             {
-                Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)p, choice));
+                Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)p, choice));
             });
         }
 
@@ -563,11 +563,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
             var choice1 = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
-            Assert.Equal(false, UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice1));
+            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice1));
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard1));
             var choice2 = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice2));
-            Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice2));
+            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice2));
         }
 
         // ---------------------------------------- MINION - HUNTER
@@ -1082,7 +1082,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
             Assert.Equal(CardType.SPELL, game.CurrentPlayer.Hand[4].Card.Type);
-            Assert.Equal(true, ((Spell)game.CurrentPlayer.Hand[4]).IsSecret);
+            Assert.True(((Spell)game.CurrentPlayer.Hand[4]).IsSecret);
         }
 
         // --------------------------------------- MINION - PALADIN
@@ -1174,9 +1174,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             var choice1 = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
-            Assert.Equal(false, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[0], choice1));
-            Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[1], choice1));
-            Assert.Equal(false, UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[2], choice1));
+            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[0], choice1));
+            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[1], choice1));
+            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[2], choice1));
         }
 
         // ---------------------------------------- SPELL - PALADIN
@@ -1235,11 +1235,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spikeridged Steed"));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(false, ((Minion)minion).HasDeathrattle);
+            Assert.False(((Minion)minion).HasDeathrattle);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
             Assert.Equal(3, ((Minion)minion).AttackDamage);
             Assert.Equal(7, ((Minion)minion).Health);
-            Assert.Equal(true, ((Minion)minion).HasDeathrattle);
+            Assert.True(((Minion)minion).HasDeathrattle);
         }
 
         // ---------------------------------------- SPELL - PALADIN
@@ -1627,7 +1627,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
             Assert.Equal(1, game.CurrentPlayer.Board.Count);
-            Assert.Equal(true, game.CurrentPlayer.Board[0].Cost >= 8);
+            Assert.True(game.CurrentPlayer.Board[0].Cost >= 8);
         }
 
         // ----------------------------------------- SPELL - PRIEST
@@ -1800,9 +1800,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            Assert.Equal(false, ((Minion)minion).IsDead);
+            Assert.False(((Minion)minion).IsDead);
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, minion));
-            Assert.Equal(true, ((Minion)minion).IsDead);
+            Assert.True(((Minion)minion).IsDead);
         }
 
         // ----------------------------------------- MINION - ROGUE
@@ -1830,7 +1830,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             //var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sherazin, Corpse Flower"));
-            Assert.Equal(false, true);
+            Assert.False(true);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -1948,7 +1948,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
-            Assert.Equal(true, ((Minion)minion).IsDead);
+            Assert.True(((Minion)minion).IsDead);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -2943,10 +2943,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-            Assert.Equal(true, game.CurrentPlayer.Hand.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
+            Assert.True(game.CurrentPlayer.Hand.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
-            Assert.Equal(true, game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
+            Assert.True(game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
                 .TrueForAll(p => p.HasTaunt && p[GameTag.QUEST_CONTRIBUTOR] == 1 || p[GameTag.QUEST_CONTRIBUTOR] == 0));
             Assert.Equal(0, testCard[GameTag.QUEST_PROGRESS]);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
@@ -3104,11 +3104,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            Assert.Equal(null, game.CurrentPlayer.Choice);
+            Assert.Null(game.CurrentPlayer.Choice);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(true, UngoroGenerics.CheckAdapt(game, (Minion)testCard2, choice));
+            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard2, choice));
             Assert.Equal(3, game.CurrentPlayer.Board.Count);
         }
 
@@ -3736,7 +3736,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Southsea Deckhand"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard1, minion));
-            Assert.Equal(true, ((Minion)minion).IsDead);
+            Assert.True(((Minion)minion).IsDead);
             Assert.Equal(3, ((Minion)testCard1).AttackDamage);
             Assert.Equal(4, ((Minion)testCard1).Health);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
@@ -4157,7 +4157,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             //var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise the Trailblazer"));
-            Assert.Equal(true, false); // need to test this with [UNG_851t1] Un'Goro Pack
+            Assert.True(false); // need to test this with [UNG_851t1] Un'Goro Pack
         }
 
         // --------------------------------------- MINION - NEUTRAL

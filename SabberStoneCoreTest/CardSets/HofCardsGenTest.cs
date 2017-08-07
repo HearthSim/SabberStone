@@ -37,10 +37,10 @@ namespace SabberStoneCoreTest.CardSets
             game.Player2.BaseMana = 10;
             var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Lance"));
-            Assert.Equal(false, game.CurrentOpponent.Hero.IsFrozen);
+            Assert.False(game.CurrentOpponent.Hero.IsFrozen);
             Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, game.CurrentOpponent.Hero));
-            Assert.Equal(true, game.CurrentOpponent.Hero.IsFrozen);
+            Assert.True(game.CurrentOpponent.Hero.IsFrozen);
             Assert.Equal(30, game.CurrentOpponent.Hero.Health);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
             Assert.Equal(26, game.CurrentOpponent.Hero.Health);
@@ -113,7 +113,7 @@ namespace SabberStoneCoreTest.CardSets
             Assert.Equal(5, ((Minion)minion).AttackDamage);
             Assert.Equal(5, ((Minion)minion).Health);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(true, minion.ToBeDestroyed);
+            Assert.True(minion.ToBeDestroyed);
         }
     }
 

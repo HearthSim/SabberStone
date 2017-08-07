@@ -554,8 +554,8 @@ namespace SabberStoneCoreTest.CardSets
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireguard Destroyer"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            Assert.Equal(true, ((Minion)testCard).AttackDamage >= 4);
-            Assert.Equal(true, ((Minion)testCard).AttackDamage < 8);
+            Assert.True(((Minion)testCard).AttackDamage >= 4);
+            Assert.True(((Minion)testCard).AttackDamage < 8);
         }
     }
 

@@ -47,7 +47,7 @@ namespace SabberStoneCoreTest.Cloning
                     }
                 }
             }
-            Assert.Equal(true, flag);
+            Assert.True(flag);
         }
 
         [Fact]
