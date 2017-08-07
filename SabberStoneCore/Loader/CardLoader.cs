@@ -151,7 +151,7 @@ namespace SabberStoneCore.Loader
                     Id = card.Id,
                     AssetId = int.Parse(card.AssetId),
                     Tags = new Dictionary<GameTag, int>(),
-                    Requirements = card.Requirements,
+                    PlayRequirements = card.Requirements,
                     Entourage = card.Entourage,
                     RefTags = new Dictionary<GameTag, int>(),
                 };
