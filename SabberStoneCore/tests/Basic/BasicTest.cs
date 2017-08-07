@@ -635,32 +635,34 @@ namespace SabberStoneCoreTest.Basic
 		[Fact]
 		public void QuestCardDrawFirst()
 		{
-			var config = GameConfig.Stamp(fixture.Conf1StartFill);
-			config.Player1CardClass = ECardClass.WARRIOR;
-			config.Player1Deck = new List<Card>()
+			var game = new Game(new GameConfig()
+			{
+				FormatType = EFormatType.FT_STANDARD,
+				Player1CardClass = ECardClass.WARRIOR,
+				Player1Deck = new List<Card>()
 					{
 						Cards.FromName("Fire Plume's Heart")
-					};
-			config.Player2CardClass = ECardClass.HUNTER;
-			config.Player2Deck = new List<Card>()
-			{
-				Cards.FromName("The Marsh Queen")
-			};
-			config.Shuffle = true;
-			config.SkipMulligan = true;
-
-			var game = new Game(config);
+					},
+				Player2CardClass = ECardClass.HUNTER,
+				Player2Deck = new List<Card>()
+					{
+						Cards.FromName("The Marsh Queen")
+					},
+				FillDecks = true,
+				Shuffle = true,
+				SkipMulligan = false
+			});
 			game.StartGame();
 
 			Assert.True(game.Player1.Choice.Choices.Exists(p =>
 			{
 				IPlayable t = game.Entities[p];
-				return ((Spell)t).IsQuest;
+				return (t is Spell) && ((Spell)t).IsQuest;
 			}), "we have no quest in mulligan! player 1");
 			Assert.True(game.Player2.Choice.Choices.Exists(p =>
 			{
 				IPlayable t = game.Entities[p];
-				return ((Spell)t).IsQuest;
+				return (t is Spell) && ((Spell)t).IsQuest;
 			}), "we have no quest in mulligan! player 2");
 		}
 

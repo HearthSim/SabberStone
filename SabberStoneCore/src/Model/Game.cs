@@ -40,7 +40,7 @@ namespace SabberStoneCore.Model
 	/// This is THE MOST IMPORTANT type, since it provides a simple interface for handling/processing 
 	/// game data.
 	/// </summary>
-	/// <seealso cref="SabberStoneCore.Model.Entity" />
+	/// <seealso cref="Entity" />
 	public sealed class Game : Entity
 	{
 
@@ -342,7 +342,7 @@ namespace SabberStoneCore.Model
 
 			if (_gameConfig.FormatType == EFormatType.FT_UNKNOWN)
 			{
-				throw new GameConfigException("The formattype propertie MUST be provided!");
+				throw new GameConfigException("The formattype property MUST be provided!");
 			}
 
 			// If no exception was thrown, the Game configuration is invariantly valid.
@@ -976,22 +976,25 @@ namespace SabberStoneCore.Model
 			// Copy game configuration.
 			var gameConfig = GameConfig.Stamp(_gameConfig);
 			gameConfig.Logging = false;
+			// Prevent duplicate entityID exceptions because of pre-configured heroes.
+			gameConfig.SetupHeroes = false;
 
 			// Deep copy game instance.
 			var other = new Game(gameConfig)
 			{
 				CloneIndex = NextCloneIndex++
 			};
+
+			// Set indexes to keep constraints valid.
+			other._entityIDIdx = _entityIDIdx;
+			other._oopIndex = _oopIndex;
+
 			other.Player1.Stamp(Player1);
 			other.Player2.Stamp(Player2);
 			other.Stamp(this);
 
 			other.TaskStack.Stamp(TaskStack);
-			other.TaskQueue.Stamp(TaskQueue);
-
-			// Set indexes to keep constraints valid.
-			other._entityIDIdx = _entityIDIdx;
-			other._oopIndex = _oopIndex;
+			other.TaskQueue.Stamp(TaskQueue);			
 
 			return other;
 		}

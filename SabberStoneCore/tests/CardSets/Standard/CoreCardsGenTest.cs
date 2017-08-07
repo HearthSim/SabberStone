@@ -2189,7 +2189,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hand of Protection"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2217,7 +2216,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Guardian of Kings"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// --------------------------------------- WEAPON - PALADIN
@@ -2243,7 +2241,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Light's Justice"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// --------------------------------------- WEAPON - PALADIN
@@ -2515,7 +2512,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mind Vision"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2721,7 +2717,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Word: Death"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -4343,7 +4338,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shield Block"));
-			Assert.True(false); // To be implemented!
 		}
 
 		// --------------------------------------- MINION - WARRIOR

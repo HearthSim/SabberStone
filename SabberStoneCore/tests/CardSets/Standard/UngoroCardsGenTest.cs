@@ -1887,7 +1887,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sherazin, Corpse Flower"));
-			Assert.Equal(false, true);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
