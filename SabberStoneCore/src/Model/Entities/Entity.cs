@@ -255,7 +255,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			tags = tags ?? new Dictionary<EGameTag, int>();
 			tags[EGameTag.ENTITY_ID] = id > 0 ? id : controller.Game.NextEntityID;
-			tags[EGameTag.CONTROLLER] = controller.PlayerId;
+			tags[EGameTag.CONTROLLER] = controller.PlayerIdx;
 			tags[EGameTag.ZONE] = zone != null ? (int)zone.Type : 0;
 			//tags[GameTag.CARD_ID] = card.AssetId;
 

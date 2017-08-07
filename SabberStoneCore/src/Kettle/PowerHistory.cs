@@ -23,7 +23,7 @@ namespace SabberStoneCore.Kettle
                         {
                     new PowerPlayer
                     {
-                        PlayerId = players[0].PlayerId,
+                        PlayerId = players[0].PlayerIdx,
                         AccountId = 12718623,
                         CardBack = 0,
                         PowerEntity = new PowerEntity
@@ -34,7 +34,7 @@ namespace SabberStoneCore.Kettle
                     },
                     new PowerPlayer
                     {
-                        PlayerId = players[1].PlayerId,
+                        PlayerId = players[1].PlayerIdx,
                         AccountId = 18463223,
                         CardBack = 0,
                         PowerEntity = new PowerEntity

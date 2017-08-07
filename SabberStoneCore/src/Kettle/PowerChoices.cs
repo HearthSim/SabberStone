@@ -72,7 +72,7 @@ namespace SabberStoneCore.Kettle
                 Entities = new List<int>(choice.Choices),
                 CountMin = choice.ChoiceType == EChoiceType.GENERAL ? 1 : 0,
                 CountMax = choice.ChoiceType == EChoiceType.GENERAL ? 1 : choice.Choices.Count,
-                PlayerId = choice.Controller.PlayerId,
+                PlayerId = choice.Controller.PlayerIdx,
                 SourceId = choice.SourceId,
                 HideChosen = choice.ChoiceType != EChoiceType.GENERAL
             };

@@ -32,7 +32,7 @@ namespace SabberStoneCore.Model.Entities
 		/// ID of the player, which is a monotone ranking order starting from 1.
 		/// The first player gets PlayerID == 1
 		/// </summary>
-		public int PlayerId => this[EGameTag.PLAYER_ID];
+		public int PlayerIdx => this[EGameTag.PLAYER_ID];
 
 		/// <summary>
 		/// The EntityID of the selected Hero.

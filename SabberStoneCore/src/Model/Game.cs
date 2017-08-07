@@ -183,10 +183,10 @@ namespace SabberStoneCore.Model
 
 		/// <summary>Player with the first turn, alias Player 1.</summary>
 		/// <value><see cref="Controller"/></value>
-		public Controller Player1 => _players.FirstOrDefault(p => p.PlayerId == 1);
+		public Controller Player1 => _players.FirstOrDefault(p => p.PlayerIdx == 1);
 		/// <summary>Player starting at the second turn, alias Player 2.</summary>
 		/// <value><see cref="Controller"/></value>
-		public Controller Player2 => _players.FirstOrDefault(p => p.PlayerId == 2);
+		public Controller Player2 => _players.FirstOrDefault(p => p.PlayerIdx == 2);
 
 		/// <summary>The game configuration, which was provided on setup</summary>
 		private readonly IReadOnlyGameConfig _gameConfig;
@@ -362,7 +362,7 @@ namespace SabberStoneCore.Model
 		/// <param name="playerIdx">Index of the player.</param>
 		public Controller ControllerByPlayerIdx(int playerIdx)
 		{
-			return _players.FirstOrDefault(p => p.PlayerId == playerIdx);
+			return _players.FirstOrDefault(p => p.PlayerIdx == playerIdx);
 		}
 
 		/// <summary>Gets the controller for the provided entityID.</summary>
@@ -471,8 +471,8 @@ namespace SabberStoneCore.Model
 				PowerHistory.Add(PowerHistoryBuilder.BlockStart(EBlockType.TRIGGER, this.Id, "", -1, 0));
 
 			// getting first player
-			FirstPlayer = _gameConfig.StartPlayerIdx < 0
-				? _players[Util.Random.Next(0, 2)]
+			FirstPlayer = _gameConfig.StartPlayerIdx < 1 || _gameConfig.StartPlayerIdx > 2
+				? _players[Util.Random.Next(0, 2)] // 0 inclusive - 2 exclusive
 				: _players[_gameConfig.StartPlayerIdx - 1];
 			CurrentPlayer = FirstPlayer;
 
@@ -541,7 +541,7 @@ namespace SabberStoneCore.Model
 					{
 						[EGameTag.ZONE] = (int)Enums.EZone.HAND,
 						[EGameTag.CARDTYPE] = (int)ECardType.SPELL,
-						[EGameTag.CREATOR] = FirstPlayer.Opponent.PlayerId
+						[EGameTag.CREATOR] = FirstPlayer.Opponent.PlayerIdx
 					});
 					Generic.AddHandPhase(FirstPlayer.Opponent, coin);
 				}
