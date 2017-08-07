@@ -75,7 +75,7 @@ namespace SabberStoneGui.AsciiVisual
             zoneStrArray[0 + x].Append(new string(cardAscii[0]));
             zoneStrArray[1 + x].Append(new string(cardAscii[1]));
             zoneStrArray[2 + x].Append(new string(cardAscii[2]));
-            zoneStrArray[3 + x].Append(new string(cardAscii[3]) + " " + hero.Power.Card.AbbrieviatedName(7));
+            zoneStrArray[3 + x].Append(new string(cardAscii[3]) + " " + hero.Power.Card.AbbreviatedName(7));
             zoneStrArray[4 + x].Append(new string(cardAscii[4]));
             zoneStrArray[turn ? 0 : 5].Append(new string(cardAscii[5]) + " " + (hero.Controller == hero.Game.CurrentPlayer ? " <<==" : "     "));
             zoneStrArray[0].Append(" ");
@@ -131,7 +131,7 @@ namespace SabberStoneGui.AsciiVisual
                 if (spell != null)
                 {
                     cardAscii = new CardAsciiBuilder().Create()
-                        .Name(spell.Card.AbbrieviatedName(7))
+                        .Name(spell.Card.AbbreviatedName(7))
                         .Cost(spell.Cost)
                         .SpellText(Regex.Replace(spell.Card.Text, @"<[^>]*>", "").Replace(Environment.NewLine, ""))
                         .Type(CardType.SPELL)
@@ -141,7 +141,7 @@ namespace SabberStoneGui.AsciiVisual
                 else if (minion != null)
                 {
                     cardAscii = new CardAsciiBuilder().Create()
-                        .Name(minion.Card.AbbrieviatedName(7))
+                        .Name(minion.Card.AbbreviatedName(7))
                         .Cost(minion.Cost)
                         .Type(minion.Card.Type)
                         .AttackDamage(minion.AttackDamage)
@@ -167,7 +167,7 @@ namespace SabberStoneGui.AsciiVisual
                 else if (weapon != null)
                 {
                     cardAscii = new CardAsciiBuilder().Create()
-                        .Name(weapon.Card.AbbrieviatedName(7))
+                        .Name(weapon.Card.AbbreviatedName(7))
                         .Cost(weapon.Cost)
                         .Type(weapon.Card.Type)
                         .AttackDamage(weapon.AttackDamage)
