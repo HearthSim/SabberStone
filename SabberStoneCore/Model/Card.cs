@@ -57,7 +57,7 @@ namespace SabberStoneCore.Model
 		/// play zone.
 		/// <see cref="PlayReq"/> for all possibilities.
 		/// </summary>
-		public Dictionary<PlayReq, int> PlayRequirements { get; set; }
+		public Dictionary<PlayReq, int> Requirements { get; set; }
 
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.
@@ -139,23 +139,23 @@ namespace SabberStoneCore.Model
 		/// Returns to which multi class group this card belongs.
 		/// <see cref="MultiClassGroup"/>
 		/// </summary>
-		public bool RequiresTarget => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_TO_PLAY);
+		public bool RequiresTarget => Requirements.ContainsKey(PlayReq.REQ_TARGET_TO_PLAY);
 
-		public bool RequiresTargetForCombo => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_FOR_COMBO);
+		public bool RequiresTargetForCombo => Requirements.ContainsKey(PlayReq.REQ_TARGET_FOR_COMBO);
 
-		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
+		public bool RequiresTargetIfAvailable => Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
 
 		public bool RequiresTargetIfAvailableAndDragonInHand
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
+			=> Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
 
 		public bool RequiresTargetIfAvailableAndElementalPlayedLastTurn
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
+			=> Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
 
 		public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
+			=> Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
 
 		public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets
-			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
+			=> Requirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
 
 		/// <summary>
 		/// Maximum amount of copies that are allowed in one deck.
@@ -225,7 +225,7 @@ namespace SabberStoneCore.Model
 			if (playReq)
 			{
 				builder.Append("\n   PlayReq:");
-				PlayRequirements.ToList().ForEach(pair => builder.Append($"\n   - {pair.Key} -> {pair.Value}"));
+				Requirements.ToList().ForEach(pair => builder.Append($"\n   - {pair.Key} -> {pair.Value}"));
 			}
 			return builder.ToString();
 		}
@@ -235,7 +235,7 @@ namespace SabberStoneCore.Model
 			Id = "Game",
 			Name = "Game",
 			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.GAME },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			Requirements = new Dictionary<PlayReq, int>(),
 		};
 
 		internal static Card CardPlayer => new Card()
@@ -243,7 +243,7 @@ namespace SabberStoneCore.Model
 			Id = "Player",
 			Name = "Player",
 			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			Requirements = new Dictionary<PlayReq, int>(),
 		};
 	}
 }

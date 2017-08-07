@@ -72,7 +72,7 @@ namespace SabberStoneCore.Model
                 return false;
             }
 
-            foreach (var item in Card.PlayRequirements)
+            foreach (var item in Card.Requirements)
             {
                 var req = item.Key;
                 var param = item.Value;
