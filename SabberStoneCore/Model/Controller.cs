@@ -78,12 +78,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// All standard cards which can be put into a deck of this class.
 		/// </summary>
-		public List<Card> Standard => Cards.Standard[HeroClass];
+		public IEnumerable<Card> Standard => Cards.Standard[HeroClass];
 
 		/// <summary>
 		/// All wild cards which can be put into a deck of this class.
 		/// </summary>
-		public List<Card> Wild => Cards.Wild[HeroClass];
+		public IEnumerable<Card> Wild => Cards.Wild[HeroClass];
 
 		/// <summary>
 		/// The amount of mana available to actually use after calculating all resource factors.

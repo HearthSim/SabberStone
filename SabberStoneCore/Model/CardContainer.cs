@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using Newtonsoft.Json;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 //using SabberStoneCore.Properties;
 
 namespace SabberStoneCore.Model

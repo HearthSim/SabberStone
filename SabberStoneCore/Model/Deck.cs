@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using SabberStoneCore.Enums;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model
 {
@@ -13,13 +14,13 @@ namespace SabberStoneCore.Model
 
 		public void Fill()
 		{
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
+			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
 			var cardsToAdd = StartingCards - Count;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
-				var card = Util.Choose<Card>(cards);
+				var card = Util.Choose<Card>(cards.ToList());
 				if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
 					continue;
 				Entity.FromCard(Controller, card, null, this);

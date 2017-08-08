@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
-//using Newtonsoft.Json;
-using SabberStoneCore.Enchants;
-//using SabberStoneCore.Properties;
 using SabberStoneCore.Loader;
 
 namespace SabberStoneCore.Model
@@ -73,12 +70,12 @@ namespace SabberStoneCore.Model
 					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
 					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
 					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList());
+					 c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly());
 				//Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
 			});
 
 			//Log.Debug("AllStandard:");
-			AllStandard = All.Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList();
+			AllStandard = All.Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly();
 
 			//Log.Debug("Wild:");
 			Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
@@ -90,12 +87,12 @@ namespace SabberStoneCore.Model
 					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
 					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
 					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO).ToList());
+					 c.Type != CardType.HERO).ToList().AsReadOnly());
 				//Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
 			});
 
 			//Log.Debug("AllWild:");
-			AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList();
+			AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList().AsReadOnly();
 		}
 
 		#endregion
@@ -115,12 +112,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, List<Card>> Wild { get; } = new Dictionary<CardClass, List<Card>>();
+		public static Dictionary<CardClass, IEnumerable<Card>> Wild { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, List<Card>> Standard { get; } = new Dictionary<CardClass, List<Card>>();
+		public static Dictionary<CardClass, IEnumerable<Card>> Standard { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
@@ -137,7 +134,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, List<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
