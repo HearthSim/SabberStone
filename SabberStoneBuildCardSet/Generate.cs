@@ -26,7 +26,7 @@ namespace SabberStoneBuildCardSet
 			return new string(a);
 		}
 
-		public static void CardSetFile(Dictionary<string, Card>.ValueCollection values)
+		public static void CardSetFile(IEnumerable<Card> values)
 		{
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
@@ -45,7 +45,7 @@ namespace SabberStoneBuildCardSet
 			}
 		}
 
-		private static void WriteCardSetFile(CardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
+		private static void WriteCardSetFile(CardSet cardSet, string className, string path, IEnumerable<Card> values)
 		{
 			var cardClasses = Enum.GetValues(typeof(CardClass));
 			var methods = new List<string>();
@@ -134,7 +134,7 @@ namespace SabberStoneBuildCardSet
 		}
 
 		private static string CreateMethode(string name,
-			Dictionary<string, Card>.ValueCollection values, bool? collect, CardSet set, CardType type,
+			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
 			var valuesOrdered = values
@@ -324,12 +324,12 @@ namespace SabberStoneBuildCardSet
 			return str.ToString();
 		}
 
-		private static void WriteCardSetTestFile(CardSet cardSet, string className, string path, Dictionary<string, Card>.ValueCollection values)
+		private static void WriteCardSetTestFile(CardSet cardSet, string className, string path, IEnumerable<Card> values)
 		{
 			var cardClasses = Enum.GetValues(typeof(CardClass));
 
 			var str = new StringBuilder();
-			str.AppendLine("using Microsoft.VisualStudio.TestTools.UnitTesting;");
+			str.AppendLine("using Xunit;");
 			str.AppendLine("using SabberStoneCore.Enums;");
 			str.AppendLine("using SabberStoneCore.Config;");
 			str.AppendLine("using SabberStoneCore.Model;");
@@ -384,7 +384,7 @@ namespace SabberStoneBuildCardSet
 		}
 
 		private static string CreateMethodeTest(string name,
-			Dictionary<string, Card>.ValueCollection values, bool? collect, CardSet set, CardType type,
+			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
 			var valuesOrdered = values.Where(p => p.Set == set
@@ -396,7 +396,7 @@ namespace SabberStoneBuildCardSet
 				return null;
 			}
 			var str = new StringBuilder();
-			str.AppendLine("\t[TestClass]");
+			//str.AppendLine("\t[TestClass]");
 			str.AppendLine($"\tpublic class {name}{UpperCaseFirst(set.ToString())}Test");
 			str.AppendLine("\t{");
 			foreach (var card in valuesOrdered)
@@ -410,7 +410,7 @@ namespace SabberStoneBuildCardSet
 					? CardClass.MAGE
 					: card.Class;
 				str.Append(AddCardString(card, 1));
-				str.AppendLine("\t\t[TestMethod, Ignore]");
+				str.AppendLine("\t\t[Fact(Skip = \"ignore\")]");
 				str.AppendLine($"\t\tpublic void {cardName}_{card.Id}()");
 				str.AppendLine("\t\t{");
 				str.AppendLine($"\t\t\t// TODO {cardName}_{card.Id} test");
@@ -432,7 +432,7 @@ namespace SabberStoneBuildCardSet
 			return str.ToString();
 		}
 
-		public static void EnchantmentLeftOver(Dictionary<string, Card>.ValueCollection cardsValues)
+		public static void EnchantmentLeftOver(IEnumerable<Card> cardsValues)
 		{
 			var str = new StringBuilder();
 			str.AppendLine($"CARD_ID|IMPL.|SET|FORMAT|TYPE|CLASS|NAME|TEXT");
@@ -448,7 +448,7 @@ namespace SabberStoneBuildCardSet
 				//str.AppendLine($"{card.AssetId}");
 			}
 
-			var path = Path + @"SabberStone\SabberStoneCore\Loader\Generated\Statistics\";
+			var path = Path + @"SabberStone\SabberStoneBuildCardSet\Statistics\";
 			var file = path + "echantmentsleft.csv";
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);

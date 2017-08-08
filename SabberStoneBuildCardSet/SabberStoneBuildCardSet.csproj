@@ -10,8 +10,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CardSetsTest\" />
+    <Folder Include="CardSetsTest\" />
+    <Folder Include="CardSetsTest\" />
     <Folder Include="CardSets\" />
-    <Folder Include="CardsSetsTest\" />
+    <Folder Include="CardSets\" />
+    <Folder Include="CardSets\" />
+    <Folder Include="CardSets\" />
+    <Folder Include="Statistics\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

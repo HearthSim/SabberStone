@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SabberStoneCore.Model;
+using System;
+using System.Linq;
 
 namespace SabberStoneBuildCardSet
 {
@@ -6,11 +8,8 @@ namespace SabberStoneBuildCardSet
     {
         static void Main(string[] args)
         {
-			//var cardLoader = new CardLoader();
-			//var cards = cardLoader.Load();
-			//Data = new CardDefinitions();
-			//Data.Load(cards);
-			//Generate.CardSetFile(Cards.Values);
+			Generate.CardSetFile(Cards.All);
+			Generate.EnchantmentLeftOver(Cards.All);
 		}
     }
 }
