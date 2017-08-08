@@ -17,10 +17,10 @@ namespace SabberStoneCoreAi.Score
 
             var result = 0;
 
-            if (OpBoard.Count == 0 && Board.Count > 0)
+            if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
                 result += 1000;
 
-            result += (Board.Count - OpBoard.Count) * 50;
+            result += (BoardZone.Count - OpBoardZone.Count) * 50;
 
             result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 25;
 

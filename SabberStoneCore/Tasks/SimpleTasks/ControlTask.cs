@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
                 var removedEntity = p.Zone.Remove(p);
                 removedEntity.Controller = Controller;
-                Controller.Board.Add(removedEntity);
+                Controller.BoardZone.Add(removedEntity);
             });
 
             return TaskState.COMPLETE;

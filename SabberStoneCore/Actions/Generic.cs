@@ -75,10 +75,10 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> AddHandPhase
 			=> delegate (Controller c, IPlayable playable)
 			{
-				if (c.Hand.IsFull)
+				if (c.HandZone.IsFull)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"Hand ist full. Card {playable} drawn is burnt to graveyard.");
-					c.Graveyard.Add(playable);
+					c.GraveyardZone.Add(playable);
 					return false;
 				}
 
@@ -87,7 +87,7 @@ namespace SabberStoneCore.Actions
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
 
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"adding to hand {playable}.");
-				c.Hand.Add(playable);
+				c.HandZone.Add(playable);
 
 				return true;
 			};
@@ -95,9 +95,9 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> DiscardBlock
 			=> delegate (Controller c, IPlayable playable)
 			{
-				var discard = c.Hand.Remove(playable);
+				var discard = c.HandZone.Remove(playable);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", $"{discard} is beeing discarded.");
-				c.Graveyard.Add(discard);
+				c.GraveyardZone.Add(discard);
 
 				c.LastCardDiscarded = discard.Id;
 
@@ -107,18 +107,18 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable> JoustBlock
 			=> delegate (Controller c)
 			{
-				if (c.Deck.Count == 0)
+				if (c.DeckZone.Count == 0)
 				{
 					return null;
 				}
 
-				if (c.Opponent.Deck.Count == 0)
+				if (c.Opponent.DeckZone.Count == 0)
 				{
 					return null;
 				}
 
-				IPlayable card = Util.Choose<IPlayable>(c.Deck.GetAll);
-				IPlayable cardOp = Util.Choose<IPlayable>(c.Opponent.Deck.GetAll);
+				IPlayable card = Util.Choose<IPlayable>(c.DeckZone.GetAll);
+				IPlayable cardOp = Util.Choose<IPlayable>(c.Opponent.DeckZone.GetAll);
 				bool success = card.Cost > cardOp.Cost;
 				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 
@@ -130,7 +130,7 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, IPlayable playable)
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", $"adding to deck {playable}.");
-				c.Deck.Add(playable, c.Deck.Count == 0 ? -1 : Util.Random.Next(c.Deck.Count + 1));
+				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1));
 
 				// add hide entity 
 				if (c.Game.History)
@@ -151,7 +151,7 @@ namespace SabberStoneCore.Actions
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 				var oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
-				oldMinion.Controller.Setaside.Add(oldEntity);
+				oldMinion.Controller.SetasideZone.Add(oldEntity);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", $"{oldEntity} got transformed into {newMinion}.");
 				return true;
 			};

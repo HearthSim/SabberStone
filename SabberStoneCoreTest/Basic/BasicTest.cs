@@ -79,9 +79,9 @@ namespace SabberStoneCoreTest.Basic
             Assert.True(RelaCondition.IsSelf.Eval((ICharacter)entity1, (ICharacter)entity1)); // RelaCondition IsSelf is not correct for same entity
             Assert.False(RelaCondition.IsSelf.Eval((ICharacter)entity1, (ICharacter)entity2)); // RelaCondition IsSelf is not correct for diffrent entity
 
-            game.Player1.Board.Add(entity1);
-            game.Player1.Board.Add(entity2);
-            game.Player1.Board.Add(entity3);
+            game.Player1.BoardZone.Add(entity1);
+            game.Player1.BoardZone.Add(entity2);
+            game.Player1.BoardZone.Add(entity3);
 
             Assert.False(RelaCondition.IsSideBySide.Eval((ICharacter)entity1, (ICharacter)entity1)); // RelaCondition IsSideBySide for same entity shouldn't be true
             Assert.True(RelaCondition.IsSideBySide.Eval((ICharacter)entity1, (ICharacter)entity2)); // RelaCondition IsSideBySide for entitys side by side (1,2) shouldn't be false
@@ -100,20 +100,20 @@ namespace SabberStoneCoreTest.Basic
             var entity2 = Entity.FromCard(game.Player1, Cards.FromId("EX1_012"));
             var entity3 = Entity.FromCard(game.Player1, Cards.FromId("EX1_014"));
 
-            game.Player1.Board.Add(entity1);
-            game.Player1.Board.Add(entity2);
-            game.Player1.Board.Add(entity3);
+            game.Player1.BoardZone.Add(entity1);
+            game.Player1.BoardZone.Add(entity2);
+            game.Player1.BoardZone.Add(entity3);
 
             var pos1 = entity1.ZonePosition;
             var pos2 = entity2.ZonePosition;
 
-            Assert.Equal(entity1, game.Player1.Board[entity1.ZonePosition]);
-            Assert.Equal(entity2, game.Player1.Board[entity2.ZonePosition]);
+            Assert.Equal(entity1, game.Player1.BoardZone[entity1.ZonePosition]);
+            Assert.Equal(entity2, game.Player1.BoardZone[entity2.ZonePosition]);
 
-            game.Player1.Board.Swap(entity1, entity2);
+            game.Player1.BoardZone.Swap(entity1, entity2);
 
-            Assert.Equal(entity1, game.Player1.Board[entity1.ZonePosition]);
-            Assert.Equal(entity2, game.Player1.Board[entity2.ZonePosition]);
+            Assert.Equal(entity1, game.Player1.BoardZone[entity1.ZonePosition]);
+            Assert.Equal(entity2, game.Player1.BoardZone[entity2.ZonePosition]);
 
             Assert.True(pos1 == entity2.ZonePosition && pos2 == entity1.ZonePosition); // Swap wasn't correctly executed
         }
@@ -124,11 +124,11 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig());
             game.StartGame();
 
-            Assert.Equal(0, game.Player1.Deck.Count);
+            Assert.Equal(0, game.Player1.DeckZone.Count);
 
-            game.Player1.Deck.Fill();
+            game.Player1.DeckZone.Fill();
 
-            Assert.Equal(game.Player1.Deck.Count, game.Player1.Deck.StartingCards); // Filling didn't matched max card size for deck
+            Assert.Equal(game.Player1.DeckZone.Count, game.Player1.DeckZone.StartingCards); // Filling didn't matched max card size for deck
         }
 
         [Fact]
@@ -137,19 +137,19 @@ namespace SabberStoneCoreTest.Basic
             var game = new Game(new GameConfig());
             game.StartGame();
 
-            Assert.Equal(0, game.Player1.Deck.Count);
+            Assert.Equal(0, game.Player1.DeckZone.Count);
 
-            game.Player1.Deck.Fill();
+            game.Player1.DeckZone.Fill();
 
-            var deckString1 = game.Player1.Deck.FullPrint();
+            var deckString1 = game.Player1.DeckZone.FullPrint();
 
-            game.Player1.Deck.Shuffle(0);
+            game.Player1.DeckZone.Shuffle(0);
 
-            var deckString2 = game.Player1.Deck.FullPrint();
+            var deckString2 = game.Player1.DeckZone.FullPrint();
 
-            game.Player1.Deck.Shuffle(10);
+            game.Player1.DeckZone.Shuffle(10);
 
-            var deckString3 = game.Player1.Deck.FullPrint();
+            var deckString3 = game.Player1.DeckZone.FullPrint();
 
             Assert.Equal(deckString1, deckString2);
             Assert.NotEqual(deckString2, deckString3); // Shuffling didn't changed the positions in deck
@@ -194,18 +194,18 @@ namespace SabberStoneCoreTest.Basic
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(6, game.CurrentPlayer.Board.Count);
+            Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(7, game.CurrentPlayer.Board.Count);
+            Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
 
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(7, game.CurrentPlayer.Board.Count);
+            Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
         }
 
         [Fact]
@@ -215,79 +215,79 @@ namespace SabberStoneCoreTest.Basic
 
             game.StartGame();
 
-            Assert.Equal(26, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(26, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(26, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(5, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(26, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(5, game.CurrentPlayer.Opponent.HandZone.Count);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(25, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(25, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(26, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(4, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(26, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(4, game.CurrentPlayer.Opponent.HandZone.Count);
 
             for (int i = 0; i < 8; i++)
             {
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.Equal(21, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(21, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(22, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(8, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(22, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(8, game.CurrentPlayer.Opponent.HandZone.Count);
 
             for (int i = 0; i < 4; i++)
             {
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.Equal(19, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(19, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(20, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(20, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
 
             for (int i = 0; i < 20; i++)
             {
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.Equal(9, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(9, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
 
             for (int i = 0; i < 18; i++)
             {
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
             }
 
-            Assert.Equal(0, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(1, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Hand.Count);
-
-            game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-            Assert.Equal(0, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
-
-            Assert.Equal(0, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(1, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            Assert.Equal(0, game.CurrentPlayer.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 
-            Assert.Equal(0, game.CurrentPlayer.Opponent.Deck.Count);
-            Assert.Equal(10, game.CurrentPlayer.Opponent.Hand.Count);
+            Assert.Equal(0, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
+
+            game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+            Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
+
+            Assert.Equal(0, game.CurrentPlayer.Opponent.DeckZone.Count);
+            Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
 
             Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 
@@ -604,7 +604,7 @@ namespace SabberStoneCoreTest.Basic
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
-            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
+            Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
         }
 
         [Fact]
@@ -639,12 +639,12 @@ namespace SabberStoneCoreTest.Basic
                 new GameConfig()
                 {
                     Player1HeroClass = CardClass.WARRIOR,
-                    DeckPlayer1 = new List<Card>
+                    Player1Deck = new List<Card>
                     {
                         Cards.FromName("Fire Plume's Heart")
                     },
                     Player2HeroClass = CardClass.HUNTER,
-                    DeckPlayer2 = new List<Card>
+                    Player2Deck = new List<Card>
                     {
                         Cards.FromName("The Marsh Queen")
                     },

@@ -12,7 +12,7 @@ namespace SabberStoneCoreGui.Score
 
             var result = 0;
 
-            if (OpBoard.Count == 0 && Board.Count > 0)
+            if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
                 result += 1000;
 
             if (OpHandCnt > 9)
@@ -23,7 +23,7 @@ namespace SabberStoneCoreGui.Score
 
             result += (DeckCnt - OpDeckCnt) * 50;
 
-            result += (Board.Count - OpBoard.Count) * 10;
+            result += (BoardZone.Count - OpBoardZone.Count) * 10;
 
             result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 10;
 

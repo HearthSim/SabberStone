@@ -2,13 +2,13 @@
 using SabberStoneCore.Enums;
 using System.Collections.Generic;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Zones
 {
-	public class Deck : Zone<IPlayable>
+	public class DeckZone : Zone<IPlayable>
 	{
 		public int StartingCards { get; set; } = 30;
 
-		public Deck(Game game, Controller controller) : base(game, controller, Zone.DECK)
+		public DeckZone(Game game, Controller controller) : base(game, controller, Zone.DECK)
 		{
 		}
 

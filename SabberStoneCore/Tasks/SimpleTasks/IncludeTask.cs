@@ -223,45 +223,45 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     break;
 
                 case EntityType.HAND:
-                    result.AddRange(controller.Hand.GetAll);
+                    result.AddRange(controller.HandZone.GetAll);
                     break;
 
                 case EntityType.HAND_NOSOURCE:
-                    result.AddRange(controller.Hand.GetAll);
+                    result.AddRange(controller.HandZone.GetAll);
                     result.Remove(source as IPlayable);
                     break;
 
                 case EntityType.DECK:
-                    result.AddRange(controller.Deck.GetAll);
+                    result.AddRange(controller.DeckZone.GetAll);
                     break;
 
                 case EntityType.MINIONS:
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     break;
 
                 case EntityType.MINIONS_NOSOURCE:
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     result.Remove(source as IPlayable);
                     break;
 
                 case EntityType.GRAVEYARD:
-                    if (controller.Graveyard.Count > 0)
+                    if (controller.GraveyardZone.Count > 0)
                     {
-                        result.AddRange(controller.Graveyard.GetAll);
+                        result.AddRange(controller.GraveyardZone.GetAll);
                     }
                     break;
 
                 case EntityType.FRIENDS:
                     result.Add(controller.Hero);
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     break;
 
@@ -277,40 +277,40 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                     break;
 
                 case EntityType.OP_HAND:
-                    result.AddRange(controller.Opponent.Hand.GetAll);
+                    result.AddRange(controller.Opponent.HandZone.GetAll);
                     break;
 
                 case EntityType.OP_DECK:
-                    result.AddRange(controller.Opponent.Deck.GetAll);
+                    result.AddRange(controller.Opponent.DeckZone.GetAll);
                     break;
 
                 case EntityType.OP_MINIONS:
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
                     break;
 
                 case EntityType.OP_SECRETS:
-                    if (controller.Opponent.Secrets.Count > 0)
+                    if (controller.Opponent.SecretZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Secrets.GetAll);
+                        result.AddRange(controller.Opponent.SecretZone.GetAll);
                     }
                     break;
 
                 case EntityType.ENEMIES:
                     result.Add(controller.Opponent.Hero);
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
                     break;
 
                 case EntityType.ENEMIES_NOTARGET:
                     result.Add(controller.Opponent.Hero);
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
                     result.Remove(target as IPlayable);
                     break;
@@ -318,45 +318,45 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case EntityType.ALL:
                     result.Add(controller.Hero);
                     result.Add(controller.Opponent.Hero);
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     break;
 
                 case EntityType.ALL_NOSOURCE:
                     result.Add(controller.Hero);
                     result.Add(controller.Opponent.Hero);
-                    if (controller.Opponent.Board.Count > 0)
-                        result.AddRange(controller.Opponent.Board.GetAll);
-                    if (controller.Board.Count > 0)
-                        result.AddRange(controller.Board.GetAll);
+                    if (controller.Opponent.BoardZone.Count > 0)
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
+                    if (controller.BoardZone.Count > 0)
+                        result.AddRange(controller.BoardZone.GetAll);
                     result.Remove(source as IPlayable);
                     break;
 
                 case EntityType.ALLMINIONS:
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     break;
 
                 case EntityType.ALLMINIONS_NOSOURCE:
-                    if (controller.Opponent.Board.Count > 0)
+                    if (controller.Opponent.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Opponent.Board.GetAll);
+                        result.AddRange(controller.Opponent.BoardZone.GetAll);
                     }
-                    if (controller.Board.Count > 0)
+                    if (controller.BoardZone.Count > 0)
                     {
-                        result.AddRange(controller.Board.GetAll);
+                        result.AddRange(controller.BoardZone.GetAll);
                     }
                     result.Remove(source as IPlayable);
                     break;

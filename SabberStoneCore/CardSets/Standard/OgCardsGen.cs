@@ -59,7 +59,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SimpleInclSelf(GameTag.CHOOSE_BOTH, 1)
                 }
             });
@@ -153,7 +153,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.SUMMONED, 1)
@@ -434,7 +434,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = Triggers.MinionAttacksAndTarget(
                         new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                         new FlagTask(true, ComplexTask.Create(
@@ -591,7 +591,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
@@ -677,13 +677,13 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 },
                 new Enchantment
                 {
                     Area = EnchantmentArea.HAND,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
@@ -815,7 +815,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
@@ -842,7 +842,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf,
@@ -927,7 +927,7 @@ namespace SabberStoneCore.CardSets.Standard
                     SingleTask = new DiscoverTask(DiscoverType.MINION,
                         new Enchantment()
                         {
-                            Activation = EnchantmentActivation.HAND,
+                            Activation = EnchantmentActivation.HAND_ZONE,
                             SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
                             RemoveAfterActivation = true
                         }),
@@ -1065,7 +1065,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARDS,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(
                             SelfCondition.IsNotDead,
@@ -1555,7 +1555,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.HAND,
+                    Activation = EnchantmentActivation.HAND_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.HAND))
                         .ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM)))
@@ -1752,7 +1752,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_113e",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf)
@@ -1815,7 +1815,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
@@ -1951,7 +1951,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask =
                         new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 3, RelaCondition.IsMe(SelfCondition.IsEnraged)),
                             AuraArea.SELF)
@@ -2142,7 +2142,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask = new AuraTask(Auras.SimpleInclSelf(
                             GameTag.CANT_ATTACK, 1, RelaCondition.IsOther(SelfCondition.HasMyHeroNotAttackedThisTurn)),
                         AuraArea.SELF)
@@ -2163,7 +2163,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
@@ -2191,7 +2191,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(2)
                 }
             });
@@ -2343,7 +2343,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_138e",
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.HAND,
+                    Activation = EnchantmentActivation.HAND_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.HAND))
                         .TriggerEffect(GameTag.TURN_START, 1)
@@ -2409,7 +2409,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "OG_150e",
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask =
                         new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 2, RelaCondition.IsMe(SelfCondition.IsEnraged)),
                             AuraArea.SELF)
@@ -2604,7 +2604,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_200e",
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
@@ -2727,7 +2727,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_271e",
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
@@ -2770,7 +2770,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.HAND,
+                    Activation = EnchantmentActivation.HAND_ZONE,
                     SingleTask = new CopyCthun(),
                 },
                 new Enchantment
@@ -2861,7 +2861,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
@@ -2882,7 +2882,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_290e",
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)
@@ -2928,7 +2928,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_300e",
                     Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = Triggers.MinionAttacksAndTarget(
                         new ConditionTask(EntityType.STACK, SelfCondition.IsMinion, SelfCondition.IsDead),
                         new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
@@ -2976,7 +2976,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.DAMAGE, 1)
@@ -3023,7 +3023,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "OG_321e",
                     Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.DAMAGE, 1)
@@ -3042,7 +3042,7 @@ namespace SabberStoneCore.CardSets.Standard
             {
                 new Enchantment
                 {
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask =
                         new AuraTask(Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsWeapon)), AuraArea.HAND)
                 }
@@ -3119,7 +3119,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.OP_CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, 1)

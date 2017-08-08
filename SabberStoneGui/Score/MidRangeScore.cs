@@ -12,10 +12,10 @@ namespace SabberStoneCoreGui.Score
 
             var result = 0;
 
-            if (OpBoard.Count == 0 && Board.Count > 0)
+            if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
                 result += 5000;
 
-            result += (Board.Count - OpBoard.Count) * 5;
+            result += (BoardZone.Count - OpBoardZone.Count) * 5;
 
             if (OpMinionTotHealthTaunt > 0)
                 result += OpMinionTotHealthTaunt * -1000;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCoreAi.Score
 {
@@ -24,33 +25,33 @@ namespace SabberStoneCoreAi.Score
 
         public int OpHeroAtk => Controller.Opponent.Hero.TotalAttackDamage;
 
-        public Zone<IPlayable> Hand => Controller.Hand;
+        public HandZone Hand => Controller.HandZone;
 
         public int HandTotCost => Hand.Sum(p => p.Cost);
 
-        public int HandCnt => Controller.Hand.Count;
+        public int HandCnt => Controller.HandZone.Count;
 
-        public int OpHandCnt => Controller.Opponent.Hand.Count;
+        public int OpHandCnt => Controller.Opponent.HandZone.Count;
 
-        public int DeckCnt => Controller.Deck.Count;
+        public int DeckCnt => Controller.DeckZone.Count;
 
-        public int OpDeckCnt => Controller.Opponent.Deck.Count;
+        public int OpDeckCnt => Controller.Opponent.DeckZone.Count;
 
-        public Zone<Minion> Board => Controller.Board;
+        public BoardZone BoardZone => Controller.BoardZone;
 
-        public Zone<Minion> OpBoard => Controller.Opponent.Board;
+        public BoardZone OpBoardZone => Controller.Opponent.BoardZone;
 
-        public int MinionTotAtk => Board.Sum(p => p.AttackDamage);
+        public int MinionTotAtk => BoardZone.Sum(p => p.AttackDamage);
 
-        public int OpMinionTotAtk => OpBoard.Sum(p => p.AttackDamage);
+        public int OpMinionTotAtk => OpBoardZone.Sum(p => p.AttackDamage);
 
-        public int MinionTotHealth => Board.Sum(p => p.Health);
+        public int MinionTotHealth => BoardZone.Sum(p => p.Health);
 
-        public int OpMinionTotHealth => OpBoard.Sum(p => p.Health);
+        public int OpMinionTotHealth => OpBoardZone.Sum(p => p.Health);
 
-        public int MinionTotHealthTaunt => Board.Where(p => p.HasTaunt).Sum(p => p.Health);
+        public int MinionTotHealthTaunt => BoardZone.Where(p => p.HasTaunt).Sum(p => p.Health);
 
-        public int OpMinionTotHealthTaunt => OpBoard.Where(p => p.HasTaunt).Sum(p => p.Health);
+        public int OpMinionTotHealthTaunt => OpBoardZone.Where(p => p.HasTaunt).Sum(p => p.Health);
 
         public virtual int Rate()
         {

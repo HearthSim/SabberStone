@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-            if (Controller.Opponent.Board.IsFull)
+            if (Controller.Opponent.BoardZone.IsFull)
                 return TaskState.STOP;
 
             if (Card == null && Playables.Count < 1)

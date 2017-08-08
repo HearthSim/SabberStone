@@ -184,17 +184,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1, 1));
-            Assert.Equal(1, game.CurrentPlayer.Board.Count);
-            Assert.True(((Minion)game.CurrentPlayer.Board[0]).HasStealth);
-            Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
-            Assert.Equal(3, ((Minion)game.CurrentPlayer.Board[0]).Health);
+            Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+            Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasStealth);
+            Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+            Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
-            Assert.True(((Minion)game.CurrentPlayer.Board[1]).HasTaunt);
-            Assert.Equal(3, ((Minion)game.CurrentPlayer.Board[1]).AttackDamage);
-            Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[1]).Health);
+            Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+            Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).HasTaunt);
+            Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+            Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -204,11 +204,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
-            Assert.Equal(4, game.CurrentPlayer.Board.Count);
-            Assert.True(((Minion)game.CurrentPlayer.Board[3]).HasTaunt);
-            Assert.True(((Minion)game.CurrentPlayer.Board[3]).HasStealth);
-            Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[3]).AttackDamage);
-            Assert.Equal(5, ((Minion)game.CurrentPlayer.Board[3]).Health);
+            Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+            Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasTaunt);
+            Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasStealth);
+            Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[3]).AttackDamage);
+            Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[3]).Health);
         }
 
         // ----------------------------------------- MINION - DRUID
@@ -240,7 +240,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-            if (game.CurrentPlayer.Hand.GetAll.Exists(p => p is Minion && ((Minion)p).AttackDamage >= 5))
+            if (game.CurrentPlayer.HandZone.GetAll.Exists(p => p is Minion && ((Minion)p).AttackDamage >= 5))
             {
                 var choice = game.CurrentPlayer.Choice.Choices[0];
                 game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
@@ -307,7 +307,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            game.CurrentPlayer.Board.GetAll.ForEach(p =>
+            game.CurrentPlayer.BoardZone.GetAll.ForEach(p =>
             {
                 Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)p, choice));
             });
@@ -363,7 +363,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Living Mana"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             Assert.Equal(0, game.CurrentPlayer.BaseMana);
-            Assert.Equal(5, game.CurrentPlayer.Board.Count);
+            Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
         }
 
         // ------------------------------------------ SPELL - DRUID
@@ -398,10 +398,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, barnabus));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Novice Engineer"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
-            if (game.CurrentPlayer.Hand[4] is Minion)
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+            if (game.CurrentPlayer.HandZone[4] is Minion)
             {
-                Assert.Equal(0, game.CurrentPlayer.Hand[4].Cost);
+                Assert.Equal(0, game.CurrentPlayer.HandZone[4].Cost);
             }
         }
     }
@@ -443,10 +443,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Terrorscale Stalker"));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+            Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
         }
 
         // ---------------------------------------- MINION - HUNTER
@@ -645,13 +645,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stampede"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Quick Shot"));
-            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
         }
 
         // ----------------------------------------- SPELL - HUNTER
@@ -703,7 +703,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.PALADIN,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Murloc Raider"),
                     Cards.FromName("Murloc Raider"),
@@ -714,7 +714,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
                     Cards.FromName("Murloc Tidecaller"),
                 },
                 Player2HeroClass = CardClass.WARRIOR,
-                DeckPlayer2 = new List<Card>
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("Whirlwind"),
                     Cards.FromName("Brawl"),
@@ -738,24 +738,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Marsh Queen"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Chum
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Chum
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Chum
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Oracle
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Oracle
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Brawl
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Queen Carnassa
-            Assert.Equal(15, game.CurrentPlayer.Deck.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Queen Carnassa
+            Assert.Equal(15, game.CurrentPlayer.DeckZone.Count);
         }
 
     }
@@ -820,12 +820,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Steam Surger"));
             var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Steam Surger"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
-            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
         }
 
         // ------------------------------------------ MINION - MAGE
@@ -1081,8 +1081,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(CardType.SPELL, game.CurrentPlayer.Hand[4].Card.Type);
-            Assert.True(((Spell)game.CurrentPlayer.Hand[4]).IsSecret);
+            Assert.Equal(CardType.SPELL, game.CurrentPlayer.HandZone[4].Card.Type);
+            Assert.True(((Spell)game.CurrentPlayer.HandZone[4]).IsSecret);
         }
 
         // --------------------------------------- MINION - PALADIN
@@ -1174,9 +1174,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
             var choice1 = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
-            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[0], choice1));
-            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[1], choice1));
-            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.Board[2], choice1));
+            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[0], choice1));
+            Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[1], choice1));
+            Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[2], choice1));
         }
 
         // ---------------------------------------- SPELL - PALADIN
@@ -1355,7 +1355,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
             Assert.Equal(26, game.CurrentOpponent.Hero.Health);
-            Assert.Equal(2, game.CurrentPlayer.Board.Count);
+            Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
         }
 
     }
@@ -1394,9 +1394,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
             game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
-            Assert.Equal(2, ((Minion)game.CurrentPlayer.Board[0]).AttackDamage);
-            Assert.Equal(2, ((Minion)game.CurrentPlayer.Board[0]).Health);
+            Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+            Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+            Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
         }
 
         // ---------------------------------------- MINION - PRIEST
@@ -1626,8 +1626,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(1, game.CurrentPlayer.Board.Count);
-            Assert.True(game.CurrentPlayer.Board[0].Cost >= 8);
+            Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+            Assert.True(game.CurrentPlayer.BoardZone[0].Cost >= 8);
         }
 
         // ----------------------------------------- SPELL - PRIEST
@@ -1654,7 +1654,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.HUNTER,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Loot Hoarder"),
                     Cards.FromName("Loot Hoarder"),
@@ -1667,7 +1667,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
                 },
                 Player2HeroClass = CardClass.WARRIOR,
-                DeckPlayer2 = new List<Card>
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("Whirlwind"),
                     Cards.FromName("Brawl"),
@@ -1691,20 +1691,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Awaken the Makers"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Harvest Golem
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Harvest Golem
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Harvest Golem
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Leper Gnome
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Mistress of Mixtures            
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Leper Gnome
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Leper Gnome
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Mistress of Mixtures            
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Mistress of Mixtures            
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Amara, Warden of Hope             
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Amara, Warden of Hope             
             Assert.Equal(40, game.CurrentPlayer.Hero.Health);
         }
 
@@ -1879,9 +1879,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mimic Pod"));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(6, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
         }
 
         // ------------------------------------------ SPELL - ROGUE
@@ -1975,11 +1975,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hallucination"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(4, game.CurrentPlayer.Hand.Count);
+            Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(5, game.CurrentPlayer.Hand.Count);
-            Assert.Equal(CardClass.WARRIOR, game.CurrentPlayer.Hand[4].Card.Class);
+            Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+            Assert.Equal(CardClass.WARRIOR, game.CurrentPlayer.HandZone[4].Card.Class);
         }
 
         // ----------------------------------------- WEAPON - ROGUE
@@ -2157,7 +2157,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-            Assert.Equal(1, game.CurrentPlayer.Graveyard.Count); // Invocation must be in graveyard ...
+            Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count); // Invocation must be in graveyard ...
         }
 
         // ---------------------------------------- MINION - SHAMAN
@@ -2268,7 +2268,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Murloc Tidehunter"),
                     Cards.FromName("Murloc Raider"),
@@ -2285,7 +2285,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
                     Cards.FromName("Murloc Warleader"),
                 },
                 Player2HeroClass = CardClass.WARRIOR,
-                DeckPlayer2 = new List<Card>
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("Whirlwind"),
                     Cards.FromName("Brawl"),
@@ -2309,38 +2309,38 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unite the Murlocs"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidehunter
             Assert.Equal(2, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bilefin Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Bilefin Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Bilefin Tidehunter
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bluegill Warrior
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Bluegill Warrior
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Whirlwind
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Bluegill Warrior
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Bluegill Warrior
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Brawl
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Oracle
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Brawl
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Brawl
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Grimscale Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Grimscale Oracle
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Shieldbearer
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Coldlight Oracle
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Coldlight Oracle
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Coldlight Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Coldlight Oracle
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidecaller
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidecaller
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Megafin
-            Assert.Equal(10, game.CurrentPlayer.Hand.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Megafin
+            Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
         }
 
         // ----------------------------------------- SPELL - SHAMAN
@@ -2833,7 +2833,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explore Un'Goro"));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal("UNG_922t1", game.CurrentPlayer.Deck[0].Card.Id);
+            Assert.Equal("UNG_922t1", game.CurrentPlayer.DeckZone[0].Card.Id);
         }
 
         // ---------------------------------------- SPELL - WARRIOR
@@ -2906,7 +2906,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Acolyte of Pain"),
                     Cards.FromName("Shieldbearer"),
@@ -2921,7 +2921,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
                     Cards.FromName("Alley Armorsmith"),
                 },
                 Player2HeroClass = CardClass.WARRIOR,
-                DeckPlayer2 = new List<Card>
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("Whirlwind"),
                     Cards.FromName("Brawl"),
@@ -2943,44 +2943,44 @@ namespace SabberStoneCoreTest.CardSets.Standard
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
             var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-            Assert.True(game.CurrentPlayer.Hand.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
+            Assert.True(game.CurrentPlayer.HandZone.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
             game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-            Assert.Equal(1, game.CurrentPlayer.Secrets.Count);
-            Assert.True(game.CurrentPlayer.Hand.GetAll.OfType<Minion>().ToList()
+            Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+            Assert.True(game.CurrentPlayer.HandZone.GetAll.OfType<Minion>().ToList()
                 .TrueForAll(p => p.HasTaunt && p[GameTag.QUEST_CONTRIBUTOR] == 1 || p[GameTag.QUEST_CONTRIBUTOR] == 0));
             Assert.Equal(0, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Acolyte of Pain
             Assert.Equal(0, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Shieldbearer
             Assert.Equal(1, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Shieldbearer
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Shieldbearer
             Assert.Equal(2, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Public Defender
             Assert.Equal(3, testCard[GameTag.QUEST_PROGRESS]);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Public Defender
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Public Defender
             Assert.Equal(4, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Goldshire Footman
             Assert.Equal(5, testCard[GameTag.QUEST_PROGRESS]);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Goldshire Footman
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Goldshire Footman
             Assert.Equal(6, testCard[GameTag.QUEST_PROGRESS]);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Acolyte of Pain
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Acolyte of Pain
             Assert.Equal(6, testCard[GameTag.QUEST_PROGRESS]);
-            Assert.Equal(2, game.CurrentPlayer.Hand.Count);
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Alley Armorsmith
+            Assert.Equal(2, game.CurrentPlayer.HandZone.Count);
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Alley Armorsmith
             Assert.Equal(7, testCard[GameTag.QUEST_PROGRESS]);
-            Assert.Equal(2, game.CurrentPlayer.Hand.Count);
-            Assert.Equal("UNG_934t1", game.CurrentPlayer.Hand[1].Card.Id);
-            Assert.Equal(0, game.CurrentPlayer.Secrets.Count);
+            Assert.Equal(2, game.CurrentPlayer.HandZone.Count);
+            Assert.Equal("UNG_934t1", game.CurrentPlayer.HandZone[1].Card.Id);
+            Assert.Equal(0, game.CurrentPlayer.SecretZone.Count);
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[1]));
+            game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[1]));
             game.Process(HeroPowerTask.Any(game.CurrentPlayer));
             Assert.Equal(22, game.CurrentOpponent.Hero.Health);
         }
@@ -3109,7 +3109,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
             var choice = game.CurrentPlayer.Choice.Choices[0];
             game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
             Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard2, choice));
-            Assert.Equal(3, game.CurrentPlayer.Board.Count);
+            Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
         }
 
         // --------------------------------------- MINION - NEUTRAL

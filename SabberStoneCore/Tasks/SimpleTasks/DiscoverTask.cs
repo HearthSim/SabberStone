@@ -229,10 +229,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 case DiscoverType.TRACKING:
                     choiceAction = ChoiceAction.TRACKING;
                     var cards = new List<Card>();
-                    Controller.Deck.GetAll.Take(3).ToList().ForEach(p =>
+                    Controller.DeckZone.GetAll.Take(3).ToList().ForEach(p =>
                     {
                         Generic.RemoveFromZone(Controller, p);
-                        Controller.Setaside.Add(p);
+                        Controller.SetasideZone.Add(p);
                         cards.Add(p.Card);
                     });
                     return new[] { cards };
@@ -259,7 +259,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.OWN_SPELL:
                     choiceAction = ChoiceAction.HAND;
-                    return new[] { Controller.Deck.Where(p => p is Spell).Select(p => p.Card).ToList() };
+                    return new[] { Controller.DeckZone.Where(p => p is Spell).Select(p => p.Card).ToList() };
 
                 case DiscoverType.BASIC_TOTEM:
                     choiceAction = ChoiceAction.SUMMON;
@@ -280,7 +280,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
                 case DiscoverType.OP_DECK:
                     choiceAction = ChoiceAction.HAND;
-                    return new[] { Controller.Opponent.Deck.Select(p => p.Card).ToList() };
+                    return new[] { Controller.Opponent.DeckZone.Select(p => p.Card).ToList() };
 
                 case DiscoverType.OP_HERO:
                     choiceAction = ChoiceAction.HAND;

@@ -447,8 +447,8 @@ namespace SabberStoneCoreTest.CardSets
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-            Assert.Equal(1, game.CurrentOpponent.Board.Count);
-            Assert.Equal("FP1_007t", game.CurrentOpponent.Board[0].Card.Id);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+            Assert.Equal("FP1_007t", game.CurrentOpponent.BoardZone[0].Card.Id);
         }
 
         // --------------------------------------- MINION - NEUTRAL

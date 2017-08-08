@@ -35,15 +35,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
             if (Area == AuraArea.BOARD)
             {
-                Aura.Activate(source.Card.Id, source.Controller.Board.Enchants, source);
+                Aura.Activate(source.Card.Id, source.Controller.BoardZone.Enchants, source);
             }
             else if (Area == AuraArea.HAND)
             {
-                Aura.Activate(source.Card.Id, source.Controller.Hand.Enchants, source);
+                Aura.Activate(source.Card.Id, source.Controller.HandZone.Enchants, source);
             }
             else if (Area == AuraArea.OP_HAND)
             {
-                Aura.Activate(source.Card.Id, source.Controller.Opponent.Hand.Enchants, source);
+                Aura.Activate(source.Card.Id, source.Controller.Opponent.HandZone.Enchants, source);
             }
             else if (Area == AuraArea.GAME)
             {

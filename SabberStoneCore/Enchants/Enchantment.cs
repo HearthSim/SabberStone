@@ -52,48 +52,48 @@ namespace SabberStoneCore.Enchants
 					}
 					break;
 				case EnchantmentArea.HAND:
-					Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
 				case EnchantmentArea.OP_HAND:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hand.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hand.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
 				case EnchantmentArea.HANDS:
-					Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hand.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hand.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
 				case EnchantmentArea.HAND_AND_BOARD:
-					Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Hand.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hand.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
 				case EnchantmentArea.BOARD:
-					Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
 					break;
 				case EnchantmentArea.OP_BOARD:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Board.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 				case EnchantmentArea.OP_BOARD_AND_OP_HERO:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Board.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
 				case EnchantmentArea.BOARDS:
-					Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Board.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 				case EnchantmentArea.SECRET:
-					Enchant?.Activate(source.Card.Id, controller.Secrets.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Secrets.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
 				case EnchantmentArea.HERO:
 					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
@@ -132,10 +132,10 @@ namespace SabberStoneCore.Enchants
 					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Board.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Board.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Board.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 
 				default:

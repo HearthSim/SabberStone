@@ -80,10 +80,10 @@ namespace SabberStoneCoreAi
                     StartPlayer = 1,
                     Player1Name = "FitzVonGerald",
                     Player1HeroClass = CardClass.WARRIOR,
-                    DeckPlayer1 = Decks.AggroPirateWarrior,
+                    Player1Deck = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
                     Player2HeroClass = CardClass.SHAMAN,
-                    DeckPlayer2 = Decks.MidrangeJadeShaman,
+                    Player2Deck = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = false,
                     SkipMulligan = false
@@ -118,8 +118,8 @@ namespace SabberStoneCoreAi
                 }
             }
 
-            Console.WriteLine(game.Player1.Hand.FullPrint());
-            Console.WriteLine(game.Player1.Board.FullPrint());
+            Console.WriteLine(game.Player1.HandZone.FullPrint());
+            Console.WriteLine(game.Player1.BoardZone.FullPrint());
         }
 
         public static void FullGame()
@@ -130,10 +130,10 @@ namespace SabberStoneCoreAi
                     StartPlayer = 1,
                     Player1Name = "FitzVonGerald",
                     Player1HeroClass = CardClass.WARRIOR,
-                    DeckPlayer1 = Decks.AggroPirateWarrior,
+                    Player1Deck = Decks.AggroPirateWarrior,
                     Player2Name = "RehHausZuckFuchs",
                     Player2HeroClass = CardClass.SHAMAN,
-                    DeckPlayer2 = Decks.MidrangeJadeShaman,
+                    Player2Deck = Decks.MidrangeJadeShaman,
                     FillDecks = false,
                     Shuffle = true,
                     SkipMulligan = false

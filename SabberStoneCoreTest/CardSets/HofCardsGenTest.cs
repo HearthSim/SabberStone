@@ -157,14 +157,14 @@ namespace SabberStoneCoreTest.CardSets
             var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sylvanas Windrunner"));
             game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-            var myBoardCount = game.CurrentPlayer.Board.Count;
-            var opBoardCount = game.CurrentOpponent.Board.Count;
+            var myBoardCount = game.CurrentPlayer.BoardZone.Count;
+            var opBoardCount = game.CurrentOpponent.BoardZone.Count;
 
             var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
             game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion2));
 
-            Assert.Equal(myBoardCount, game.CurrentPlayer.Board.Count);
-            Assert.Equal(opBoardCount - 1, game.CurrentOpponent.Board.Count);
+            Assert.Equal(myBoardCount, game.CurrentPlayer.BoardZone.Count);
+            Assert.Equal(opBoardCount - 1, game.CurrentOpponent.BoardZone.Count);
         }
 
         // --------------------------------------- MINION - NEUTRAL

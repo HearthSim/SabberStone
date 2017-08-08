@@ -91,9 +91,9 @@ namespace SabberStoneCore.Actions
             => delegate(Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne)
             {
                 // can't play because we got already board full
-                if (source is Minion && c.Board.IsFull)
+                if (source is Minion && c.BoardZone.IsFull)
                 {
-                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "PrePlayPhase", $"Board has already {c.Board.MaxSize} minions.");
+                    c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "PrePlayPhase", $"Board has already {c.BoardZone.MaxSize} minions.");
                     return false;
                 }
 
@@ -178,7 +178,7 @@ namespace SabberStoneCore.Actions
 
                 // - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
                 //   (death processing, aura updates)
-                c.Board.Add(minion, zonePosition);
+                c.BoardZone.Add(minion, zonePosition);
                 c.Game.DeathProcessingAndAuraUpdate();
 
                 // - OnPlay Phase --> OnPlay Trigger (Illidan)
@@ -234,19 +234,19 @@ namespace SabberStoneCore.Actions
                 if (spell.IsCountered)
                 {
                     c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
-                    c.Graveyard.Add(spell);
+                    c.GraveyardZone.Add(spell);
                 }
                 else if (spell.IsSecret || spell.IsQuest)
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
-                    c.Secrets.Add(spell);
+                    c.SecretZone.Add(spell);
 
                     c.NumSecretsPlayedThisGame++;
                 }
                 else
                 {
                     spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
-                    c.Graveyard.Add(spell);
+                    c.GraveyardZone.Add(spell);
                 }
                 c.Game.DeathProcessingAndAuraUpdate();
 

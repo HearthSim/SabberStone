@@ -16,7 +16,7 @@ namespace SabberStoneCore.Tasks
                 {
                     var result = new List<IPlayable>();
                     var controller = p[0].Controller;
-                    var manaCrystal = (new[] {controller.Board.MaxSize - controller.Board.Count, controller.BaseMana}).Min();
+                    var manaCrystal = (new[] {controller.BoardZone.MaxSize - controller.BoardZone.Count, controller.BaseMana}).Min();
                     for (var i = 0; i < manaCrystal; i++)
                     {
                         result.Add(Entity.FromCard(controller, Cards.FromId("UNG_111t1"))); 
@@ -65,7 +65,7 @@ namespace SabberStoneCore.Tasks
                     var controller = list[0].Controller;
                     var entourage = controller.Hero.Power.Card.Entourage;
                     var notContained = new List<string>();
-                    var idsOnBoard = controller.Board.GetAll.Select(p => p.Card.Id).ToList();
+                    var idsOnBoard = controller.BoardZone.GetAll.Select(p => p.Card.Id).ToList();
                     entourage.ForEach(p =>
                     {
                         if (!idsOnBoard.Contains(p))

@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-            if (Controller.Board.IsFull)
+            if (Controller.BoardZone.IsFull)
                 return TaskState.STOP;
 
             var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);

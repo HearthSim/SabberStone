@@ -17,7 +17,7 @@ namespace SabberStoneCoreAi.Score
 
             var result = 0;
 
-            if (OpBoard.Count == 0 && Board.Count > 0)
+            if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
                 result += 1000;
 
             if (OpMinionTotHealthTaunt > 0)

@@ -129,7 +129,7 @@ namespace SabberStoneCore.Model
 		{
 			get
 			{
-				var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth).ToList<ICharacter>();
+				var allTargets = Controller.Opponent.BoardZone.Where(x => !x.HasStealth).ToList<ICharacter>();
 				var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
 				if (!CantAttackHeroes)
 				{

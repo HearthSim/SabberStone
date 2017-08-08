@@ -15,13 +15,14 @@ namespace SabberStoneCore.Enums
 	{
 		BATTLECRY,
 		DEATHRATTLE,
-		BOARD,
-		HAND,
-		DECK,
-		SECRET_OR_QUEST,
-		SPELL,
 		WEAPON,
-		SETASIDE,
+		SPELL,
+		SECRET_OR_QUEST,
+
+		BOARD_ZONE,
+		HAND_ZONE,
+		DECK_ZONE,
+		SETASIDE_ZONE,
 		NONE
 	}
 

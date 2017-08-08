@@ -192,13 +192,13 @@ namespace SabberStoneCore.Model
                         }
                         break;
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
-                        if (Controller.Board.Count < param)
+                        if (Controller.BoardZone.Count < param)
                         {
                             return false;
                         }
                         break;
                     case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
-                        if (Controller.Secrets.Count < param)
+                        if (Controller.SecretZone.Count < param)
                         {
                             return false;
                         }

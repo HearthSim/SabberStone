@@ -101,7 +101,7 @@ namespace SabberStoneCore.Actions
                         });
                         //c.Setaside.Add(playable);
                         var kazakusPotions =
-                            c.Setaside.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+                            c.SetasideZone.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
                                 .Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
                                 .Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
                                 .ToList();
@@ -154,15 +154,15 @@ namespace SabberStoneCore.Actions
                         if (c.Game.History)
                             c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, c.Id, "", 6, 0));
 
-                        var mulliganList = c.Hand.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
+                        var mulliganList = c.HandZone.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
                         mulliganList.ForEach(p =>
                         {
                             // drawing a new one
-                            var playable = c.Deck.Remove(c.Deck[0]);
+                            var playable = c.DeckZone.Remove(c.DeckZone[0]);
 
                             if (AddHandPhase.Invoke(c, playable))
                             {
-                                c.Hand.Swap(p, playable);
+                                c.HandZone.Swap(p, playable);
                             }
 
                             // removing old one
@@ -225,7 +225,7 @@ namespace SabberStoneCore.Actions
                     {
                         choiceEntity.Enchantments.Add(enchantment);
                     }
-                    c.Setaside.Add(choiceEntity);
+                    c.SetasideZone.Add(choiceEntity);
                     choicesIds.Add(choiceEntity.Id);
                 });
 

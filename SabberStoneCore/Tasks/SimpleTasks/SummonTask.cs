@@ -23,7 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
         public override TaskState Process()
         {
-            if (Controller.Board.IsFull)
+            if (Controller.BoardZone.IsFull)
                 return TaskState.STOP;
 
             Minion summonEntity = null;

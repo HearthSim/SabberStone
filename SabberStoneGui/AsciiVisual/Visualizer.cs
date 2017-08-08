@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Visualizer;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneGui.AsciiVisual
 {
@@ -19,13 +20,13 @@ namespace SabberStoneGui.AsciiVisual
             handAStr.AppendLine("+-" + currentGame.Player1.Hero.Controller.Name.PadRight(10).Substring(0, 10) + "-".PadLeft(57, '-') + "[" + p1 + "]-+" + "-".PadLeft(9, '-') + "+");
             handAStr.Append(CreateHero(currentGame.Player1.Hero, true));
             handAStr.AppendLine("+-HAND-v" + "-".PadLeft(74, '-') + "+" + "-".PadLeft(9, '-') + "+");
-            handAStr.Append(CreateZone(currentGame.Player1.Hand, currentGame.Player1.Deck, true));
+            handAStr.Append(CreateZone(currentGame.Player1.HandZone, currentGame.Player1.DeckZone, true));
             handAStr.AppendLine("+-PLAY-v" + "-".PadLeft(74, '-') + "+" + "-".PadLeft(9, '-') + "+");
-            handAStr.Append(CreateZone(currentGame.Player1.Board, currentGame.Player1.Graveyard, true));
+            handAStr.Append(CreateZone(currentGame.Player1.BoardZone, currentGame.Player1.GraveyardZone, true));
             handAStr.AppendLine("+" + "-".PadLeft(81, '-') + "+" + "-".PadLeft(9, '-') + "+");
-            handAStr.Append(CreateZone(currentGame.Player2.Board, currentGame.Player2.Graveyard, false));
+            handAStr.Append(CreateZone(currentGame.Player2.BoardZone, currentGame.Player2.GraveyardZone, false));
             handAStr.AppendLine("+-PLAY-^" + "-".PadLeft(74, '-') + "+" + "-".PadLeft(9, '-') + "+");
-            handAStr.Append(CreateZone(currentGame.Player2.Hand, currentGame.Player2.Deck, false));
+            handAStr.Append(CreateZone(currentGame.Player2.HandZone, currentGame.Player2.DeckZone, false));
             handAStr.AppendLine("+-HAND-^" + "-".PadLeft(74, '-') + "+" + "-".PadLeft(9, '-') + "+");
             handAStr.Append(CreateHero(currentGame.Player2.Hero, false));
             handAStr.AppendLine("+-" + currentGame.Player2.Hero.Controller.Name.PadRight(10).Substring(0, 10) + "-".PadLeft(57, '-') + "[" + p2 + "]-+" + "-".PadLeft(9, '-') + "+");
@@ -85,7 +86,7 @@ namespace SabberStoneGui.AsciiVisual
             zoneStrArray[4].Append(" ");
             zoneStrArray[5].Append(" ");
 
-            var zoneAscii = new CardAsciiBuilder().Create().ZoneCards(hero.Controller.Secrets.Count, hero.Controller.Secrets.Type).Build();
+            var zoneAscii = new CardAsciiBuilder().Create().ZoneCards(hero.Controller.SecretZone.Count, hero.Controller.SecretZone.Type).Build();
 
             var y = turn ? 1 : 0;
             var backStrArray = new[] { "", "", "", "", "", "" };
@@ -109,9 +110,9 @@ namespace SabberStoneGui.AsciiVisual
         {
             var zoneStr = new StringBuilder();
 
-            var spacer = zone.Count == 10 ? new string(' ', 1) : new string(' ', 5 * (8 - zone.Count) + zone.Count + 1);
+			string spacer = zone.Count == 10 ? new string(' ', 1) : new string(' ', 5 * (8 - zone.Count) + zone.Count + 1);
 
-            var zoneStrArray = new StringBuilder[]
+			StringBuilder[] zoneStrArray = new StringBuilder[]
             {
                 new StringBuilder("¦" + spacer),
                 new StringBuilder("¦" + spacer),

@@ -22,10 +22,10 @@ namespace SabberStoneGui.Core
                 StartPlayer = 1,
                 Player1Name = "FitzVonGerald",
                 Player1HeroClass = deck1.HeroClass,
-                DeckPlayer1 = deck1.CardIds.Select(Cards.FromId).ToList(),
+                Player1Deck = deck1.CardIds.Select(Cards.FromId).ToList(),
                 Player2Name = "RehHausZuckFuchs",
                 Player2HeroClass = deck2.HeroClass,
-                DeckPlayer2 = deck2.CardIds.Select(Cards.FromId).ToList(),
+                Player2Deck = deck2.CardIds.Select(Cards.FromId).ToList(),
                 FillDecks = false,
                 Shuffle = true
             };

@@ -68,19 +68,19 @@ namespace SabberStoneCoreConsole
             var clone3 = game.Clone();
             var clone4 = game.Clone();
 
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[4]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
             game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 
-            clone1.Process(PlayCardTask.Minion(clone1.CurrentPlayer, clone1.CurrentPlayer.Hand[4]));
+            clone1.Process(PlayCardTask.Minion(clone1.CurrentPlayer, clone1.CurrentPlayer.HandZone[4]));
             clone1.Process(ChooseTask.Pick(clone1.CurrentPlayer, clone1.CurrentPlayer.Choice.Choices[0]));
 
-            clone2.Process(PlayCardTask.Minion(clone2.CurrentPlayer, clone2.CurrentPlayer.Hand[4]));
+            clone2.Process(PlayCardTask.Minion(clone2.CurrentPlayer, clone2.CurrentPlayer.HandZone[4]));
             clone2.Process(ChooseTask.Pick(clone2.CurrentPlayer, clone2.CurrentPlayer.Choice.Choices[0]));
 
-            clone3.Process(PlayCardTask.Minion(clone3.CurrentPlayer, clone3.CurrentPlayer.Hand[4]));
+            clone3.Process(PlayCardTask.Minion(clone3.CurrentPlayer, clone3.CurrentPlayer.HandZone[4]));
             clone3.Process(ChooseTask.Pick(clone3.CurrentPlayer, clone3.CurrentPlayer.Choice.Choices[0]));
 
-            clone4.Process(PlayCardTask.Minion(clone4.CurrentPlayer, clone4.CurrentPlayer.Hand[4]));
+            clone4.Process(PlayCardTask.Minion(clone4.CurrentPlayer, clone4.CurrentPlayer.HandZone[4]));
             clone4.Process(ChooseTask.Pick(clone4.CurrentPlayer, clone4.CurrentPlayer.Choice.Choices[0]));
         }
 
@@ -95,9 +95,9 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
+                    FormatType = FormatType.FT_STANDARD,
                     Player1HeroClass = CardClass.DRUID,
-                    DeckPlayer1 = new List<Card>()
+                    Player1Deck = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
                         //Cards.FromName("Ironbark Protector"),
@@ -131,7 +131,7 @@ namespace SabberStoneCoreConsole
                         //Cards.FromName("Chillwind Yeti")
                     },
                     Player2HeroClass = CardClass.DRUID,
-                    DeckPlayer2 = new List<Card>()
+                    Player2Deck = new List<Card>()
                     {
                         //Cards.FromName("Ironbark Protector"),
                         //Cards.FromName("Ironbark Protector"),
@@ -226,12 +226,12 @@ namespace SabberStoneCoreConsole
             new GameConfig()
             {
                 Player1HeroClass = CardClass.WARRIOR,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Fire Plume's Heart")
                 },
                 Player2HeroClass = CardClass.HUNTER,
-                DeckPlayer2 = new List<Card>
+                Player2Deck = new List<Card>
                 {
                     Cards.FromName("The Marsh Queen")
                 },
@@ -242,8 +242,8 @@ namespace SabberStoneCoreConsole
             game.StartGame();
 
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
-            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.HandZone.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
         }
 
         private static void BrainDeadTest()
@@ -262,7 +262,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
+                    FormatType = FormatType.FT_STANDARD,
                     Player1HeroClass = Cards.HeroClasses[i % 9],
                     Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
                     FillDecks = true,
@@ -303,7 +303,7 @@ namespace SabberStoneCoreConsole
                     {
                         Console.WriteLine("Found bug ... need to be analysed!");
                         Console.WriteLine("");
-                        Console.WriteLine($"is current player board full? {game.CurrentPlayer.Board.IsFull}");
+                        Console.WriteLine($"is current player board full? {game.CurrentPlayer.BoardZone.IsFull}");
                         Console.WriteLine("");
                         Console.WriteLine(game.FullPrint());
                         Console.WriteLine("");
@@ -343,7 +343,7 @@ namespace SabberStoneCoreConsole
                 {
                     StartPlayer = 1,
                     Player1HeroClass = CardClass.DRUID,
-                    DeckPlayer1 = new List<Card>()
+                    Player1Deck = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
                         Cards.FromName("Bloodfen Raptor"),
@@ -354,7 +354,7 @@ namespace SabberStoneCoreConsole
                         Cards.FromName("Power of the Wild"),
                     },
                     Player2HeroClass = CardClass.DRUID,
-                    DeckPlayer2 = new List<Card>()
+                    Player2Deck = new List<Card>()
                     {
                         Cards.FromName("Stonetusk Boar"),
                         Cards.FromName("Bloodfen Raptor"),
@@ -369,13 +369,13 @@ namespace SabberStoneCoreConsole
                     FillDecks = true
                 });
             game.StartGame();
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0]));
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
             var options = game.CurrentPlayer.Options();
             Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
@@ -485,7 +485,7 @@ namespace SabberStoneCoreConsole
                     {
                         StartPlayer = 1,
                         Player1HeroClass = CardClass.PRIEST,
-                        DeckPlayer1 = new List<Card>()
+                        Player1Deck = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -519,7 +519,7 @@ namespace SabberStoneCoreConsole
                             Cards.FromName("Elven Archer"),       // 30
                         },
                         Player2HeroClass = CardClass.HUNTER,
-                        DeckPlayer2 = new List<Card>()
+                        Player2Deck = new List<Card>()
                         {
                             Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -558,16 +558,16 @@ namespace SabberStoneCoreConsole
                     });
                 game.StartGame();
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.Hand[4])); // Coin
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4])); // Coin
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[1])); // Huge Toad
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Huge Toad
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Loot Hoarder
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
                 game.Process(EndTurnTask.Any(game.CurrentPlayer));
-                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[1])); // Mad Bomber
+                game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Mad Bomber
                 //game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[2]));
 
                 goOnFlag = false;
@@ -678,15 +678,15 @@ namespace SabberStoneCoreConsole
                 game.Player1.BaseMana = 10;
                 game.Player2.BaseMana = 10;
                 var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-                var hasMinion = game.CurrentOpponent.Hand.GetAll.Any(p => p is Minion);
+                var hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
                 game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
-                flag = hasMinion ? 1 == game.CurrentOpponent.Board.Count : 0 == game.CurrentOpponent.Board.Count;
+                flag = hasMinion ? 1 == game.CurrentOpponent.BoardZone.Count : 0 == game.CurrentOpponent.BoardZone.Count;
             }
 
             ShowLog(game, LogLevel.VERBOSE);
-            Console.WriteLine(game.CurrentOpponent.Hand.FullPrint());
-            Console.WriteLine(game.CurrentOpponent.Board.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.HandZone.FullPrint());
+            Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
         }
 
         public static void CardsTest()
@@ -695,7 +695,7 @@ namespace SabberStoneCoreConsole
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.PRIEST,
-                DeckPlayer1 = new List<Card>
+                Player1Deck = new List<Card>
                 {
                     Cards.FromName("Murloc Raider"),
                     Cards.FromName("Murloc Raider"),
@@ -711,21 +711,21 @@ namespace SabberStoneCoreConsole
             game.Player1.BaseMana = 10;
             game.Player2.BaseMana = 10;
 
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Raider
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Murloc Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidehunter
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidehunter
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
             game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[0])); // Herald Volazj
+            game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Herald Volazj
 
             ShowLog(game, LogLevel.VERBOSE);
 
-            Console.WriteLine(game.CurrentPlayer.Board.FullPrint());
-            Console.WriteLine(game.CurrentPlayer.Hand.FullPrint());
-            Console.WriteLine(game.CurrentPlayer.Deck.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());
+            Console.WriteLine(game.CurrentPlayer.DeckZone.FullPrint());
         }
 
         public static void Kazakus()
@@ -734,9 +734,9 @@ namespace SabberStoneCoreConsole
             {
                 StartPlayer = 1,
                 Player1HeroClass = CardClass.DRUID,
-                DeckPlayer1 = new List<Card>() { },
+                Player1Deck = new List<Card>() { },
                 Player2HeroClass = CardClass.DRUID,
-                DeckPlayer2 = new List<Card>() { },
+                Player2Deck = new List<Card>() { },
                 FillDecks = false
             });
             game.StartGame();
@@ -846,7 +846,7 @@ namespace SabberStoneCoreConsole
                 var game = new Game(new GameConfig
                 {
                     //StartPlayer = 1,
-                    GameRule = FormatType.FT_STANDARD,
+                    FormatType = FormatType.FT_STANDARD,
                     Player1HeroClass = Cards.HeroClasses[i % 9],
                     Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
                     FillDecks = true,

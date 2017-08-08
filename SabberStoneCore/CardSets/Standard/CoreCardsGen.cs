@@ -519,7 +519,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
                         .ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
@@ -573,7 +573,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "DS1_175o",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask = ComplexTask.Taunt(EntityType.TARGET),
                     Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
                 }
@@ -594,7 +594,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "DS1_178e",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
                 }
             });
@@ -775,7 +775,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "NEW1_033o",
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsNotSelf), AuraArea.BOARD)
                 }
             });
@@ -1230,7 +1230,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.BOARDS,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(
                             SelfCondition.IsNotDead,
@@ -1677,7 +1677,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_565o",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.Attack(2, RelaCondition.IsSideBySide)
                 }
             });
@@ -1951,7 +1951,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 }
             });
@@ -1967,7 +1967,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.TURN_START, -1)
@@ -2210,7 +2210,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     InfoCardId = "EX1_084e",
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     SingleTask =
                         new AuraTask(
                             Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.CHARGE, 1))),
@@ -2452,7 +2452,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "CS2_122e",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.Attack(1)
                 }
             });
@@ -2537,7 +2537,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 }
             });
@@ -2596,7 +2596,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 }
             });
@@ -2734,7 +2734,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 }
             });
@@ -2777,7 +2777,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "CS2_222o",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.AttackHealth(1, 1)
                 }
             });
@@ -2930,7 +2930,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_399e",
                     Area = EnchantmentArea.SELF,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Trigger = new TriggerBuilder().Create()
                         .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
                         .TriggerEffect(GameTag.DAMAGE, 1)
@@ -2969,7 +2969,7 @@ namespace SabberStoneCore.CardSets.Standard
                 {
                     InfoCardId = "EX1_508o",
                     Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
                 }
             });
@@ -2988,7 +2988,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 }
             });

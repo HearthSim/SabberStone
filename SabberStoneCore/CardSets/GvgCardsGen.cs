@@ -650,7 +650,7 @@ namespace SabberStoneCore.CardSets
                 new Enchantment
                 {
                     Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
                     Enchant = Auras.SpellPowerDamage(1)
                 },
             });
@@ -2282,7 +2282,7 @@ namespace SabberStoneCore.CardSets
                         new FuncNumberTask(p =>
                         {
                             var controller = p.Controller;
-                            var diffHands = 3 - controller.Hand.Count;
+                            var diffHands = 3 - controller.HandZone.Count;
                             return diffHands > 0 ? diffHands : 0;
                         }),
                         new EnqueueNumberTask(new DrawTask())),

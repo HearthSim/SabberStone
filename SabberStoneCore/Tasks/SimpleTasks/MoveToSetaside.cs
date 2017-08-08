@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var removedEntity = p.Zone.Remove(p);
                 Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
-                p.Controller.Setaside.Add(removedEntity);
+                p.Controller.SetasideZone.Add(removedEntity);
             });
             return TaskState.COMPLETE;
         }

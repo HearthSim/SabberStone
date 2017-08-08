@@ -136,9 +136,9 @@ namespace SabberStoneKettleSimulator
             Game = new Game(new GameConfig
             {
                 Player1HeroClass = hero1Class,
-                DeckPlayer1 = player1Deck,
+                Player1Deck = player1Deck,
                 Player2HeroClass = hero2Class,
-                DeckPlayer2 = player2Deck,
+                Player2Deck = player2Deck,
                 SkipMulligan = false,
             });
 

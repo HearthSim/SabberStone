@@ -5,6 +5,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
 using System.Text;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Model
 {
@@ -294,7 +295,7 @@ namespace SabberStoneCore.Model
 						[GameTag.CREATOR] = result.Id,
 						[GameTag.PARENT_CARD] = result.Id
 					},
-					controller.Setaside) : controller.Setaside.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+					controller.SetasideZone) : controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
 
 				result.ChooseOnePlayables[1] = id < 0 ? FromCard(controller,
 					Cards.FromId(result.Card.Id + "b"),
@@ -303,7 +304,7 @@ namespace SabberStoneCore.Model
 						[GameTag.CREATOR] = result.Id,
 						[GameTag.PARENT_CARD] = result.Id
 					},
-					controller.Setaside) : controller.Setaside.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+					controller.SetasideZone) : controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
 			}
 
 			return result;

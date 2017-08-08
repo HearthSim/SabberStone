@@ -33,14 +33,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 var proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
                 proxyCthun[GameTag.REVEALED] = 1;
-                Controller.Setaside.Add(proxyCthun);
+                Controller.SetasideZone.Add(proxyCthun);
                 Controller.ProxyCthun = proxyCthun.Id;
                 Controller.SeenCthun = true;
             }
 
             var entities = new List<IPlayable> {Game.IdEntityDic[Controller.ProxyCthun]};
-            entities.AddRange(Controller.Board.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
-            entities.AddRange(Controller.Hand.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
+            entities.AddRange(Controller.BoardZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
+            entities.AddRange(Controller.HandZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 
             if (Enchant != null)
             {

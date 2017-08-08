@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 return TaskState.STOP;
             }
 
-            source.Controller.Setaside.Add(source.Zone.Remove(source));
+            source.Controller.SetasideZone.Add(source.Zone.Remove(source));
             Controller.AddHeroAndPower(HeroCard, PowerCard);
             if (WeaponCard != null)
                 Controller.Hero.AddWeapon(Entity.FromCard(Controller, WeaponCard) as Weapon);
