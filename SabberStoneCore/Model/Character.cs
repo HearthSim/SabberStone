@@ -4,30 +4,112 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
 {
-    public partial interface ICharacter : IPlayable
+	/// <summary>
+	/// Represents an entity in game which behaves as an actor. 
+	/// The actions it can perform, as well as actions it undergoes,
+	/// are defined by this interface.
+	/// 
+	/// The properties defined by this type are non complex; they have a
+	/// very superficial meaning.
+	/// </summary>
+	public partial interface ICharacter : IPlayable
     {
-        bool IsDead { get; }
-        bool CanAttack { get; }
-        IEnumerable<ICharacter> ValidAttackTargets { get; }
-        bool IsValidAttackTarget(ICharacter target);
-        bool TakeDamage(IPlayable source, int damage);
-        void TakeHeal(IPlayable source, int heal);
-        void TakeFullHeal(IPlayable source);
-        void GainArmor(IPlayable source, int armor);
+		/// <summary>
+		/// Indicates if this character can continue performing actions.
+		/// </summary>
+		bool IsDead { get; }
+
+		/// <summary>
+		/// Indicates if this character has the possibility to attack.
+		/// </summary>
+		bool CanAttack { get; }
+
+		/// <summary>
+		/// Contains a sequence of valid targets, also Characters, which
+		/// can be attacked.
+		/// </summary>
+		IEnumerable<ICharacter> ValidAttackTargets { get; }
+
+		/// <summary>
+		/// Indicates if the provided target is attackable.
+		/// 
+		/// A quick solution would be to test if there are no taunt minions
+		/// present and the target is not immune.
+		/// </summary>
+		/// <param name="target"></param>
+		/// <returns></returns>
+		bool IsValidAttackTarget(ICharacter target);
+
+		/// <summary>
+		/// This character takes damage from a certain other entity.
+		/// The source is NOT specifically another character, since cards
+		/// player from hand can also deal damage.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="damage"></param>
+		/// <returns></returns>
+		bool TakeDamage(IPlayable source, int damage);
+
+		/// <summary>
+		/// This character gets  healed by a certain other entity.
+		/// The source is NOT specifically another character, since cards
+		/// player from hand can also heal.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="heal"></param>
+		void TakeHeal(IPlayable source, int heal);
+
+		/// <summary>
+		/// This character receives a heal for it's maximum health.
+		/// </summary>
+		/// <param name="source"></param>
+		void TakeFullHeal(IPlayable source);
+
+		/// <summary>
+		/// This character receives a specified amount of armor.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="armor"></param>
+		void GainArmor(IPlayable source, int armor);
     }
 
-    public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
+	/// <summary>
+	/// A character is ALSO an entity. The Tag based property system is also applicable to instances
+	/// of this type.
+	/// 
+	/// <seealso cref="ICharacter"/>
+	/// <seealso cref="Playable{T}"/>
+	/// </summary>
+	/// <typeparam name="T">Subclass of entity.</typeparam>
+	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
     {
-        protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
+		/// <summary>
+		/// Build a new character from the provided data.
+		/// </summary>
+		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
+		/// <param name="card">The card which this character embodies.</param>
+		/// <param name="tags">Properties of this entity.</param>
+		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
             : base(controller, card, tags)
         {
         }
 
-        public bool IsDead => Health <= 0 || ToBeDestroyed;
+		/// <summary>
+		/// Character is dead or destroyed.
+		/// </summary>
+		public bool IsDead => Health <= 0 || ToBeDestroyed;
 
-        public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
+		/// <summary>
+		/// Character can attack.
+		/// </summary>
+		public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
 
-        public virtual bool IsValidAttackTarget(ICharacter target)
+		/// <summary>
+		/// Indicates if the provided character can be attacked by this character.
+		/// </summary>
+		/// <param name="target"></param>
+		/// <returns></returns>
+		public virtual bool IsValidAttackTarget(ICharacter target)
         {
             // got target but isn't contained in valid targets
             if (!ValidAttackTargets.Contains(target))
@@ -46,7 +128,10 @@ namespace SabberStoneCore.Model
             return true;
         }
 
-        public IEnumerable<ICharacter> ValidAttackTargets
+		/// <summary>
+		/// Returns a sequence of characters which are attackable.
+		/// </summary>
+		public IEnumerable<ICharacter> ValidAttackTargets
         {
             get
             {
@@ -60,12 +145,20 @@ namespace SabberStoneCore.Model
             }
         }
 
-        public bool TakeDamage(IPlayable source, int damage)
+		/// <summary>
+		/// Inflict damage onto this character.
+		/// The actual amount still needs to be determined by the current
+		/// state of the game.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="damage"></param>
+		/// <returns></returns>
+		public bool TakeDamage(IPlayable source, int damage)
         {
             var hero = this as Hero;
             var minion = this as Minion;
 
-            var fatigue = hero != null && this == source;
+			bool fatigue = hero != null && this == source;
 
             if (fatigue)
             {
@@ -99,8 +192,8 @@ namespace SabberStoneCore.Model
 
             Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue?"(fatigue)":"")}");
 
-            // check if there was damage done
-            var tookDamage = PreDamage > 0;
+			// check if there was damage done
+			bool tookDamage = PreDamage > 0;
 
             // reset predamage
             PreDamage = 0;
@@ -108,12 +201,21 @@ namespace SabberStoneCore.Model
             return tookDamage;
         }
 
-        public void TakeFullHeal(IPlayable source)
+		/// <summary>
+		/// Heal up all taken damage.
+		/// </summary>
+		/// <param name="source"></param>
+		public void TakeFullHeal(IPlayable source)
         {
             TakeHeal(source, Damage);
         }
 
-        public void TakeHeal(IPlayable source, int heal)
+		/// <summary>
+		/// Heal a specified amount of health.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="heal"></param>
+		public void TakeHeal(IPlayable source, int heal)
         {
             // we don't heal undamaged entities
             if (Damage == 0)
@@ -121,12 +223,17 @@ namespace SabberStoneCore.Model
                 return;
             }
 
-            var amount = Damage > heal ? heal : Damage;
+			int amount = Damage > heal ? heal : Damage;
             Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
             Damage -= amount;
         }
 
-        public void GainArmor(IPlayable source, int armor)
+		/// <summary>
+		/// Gain the specified amount of armor.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="armor"></param>
+		public void GainArmor(IPlayable source, int armor)
         {
             Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
             Armor += armor;
@@ -135,33 +242,124 @@ namespace SabberStoneCore.Model
 
     public partial interface ICharacter
     {
-        int AttackDamage { get; set; }
-        bool CantBeTargetedBySpells { get; set; }
-        bool CantBeTargetedByOpponents { get; set; }
-        bool CantBeTargetedByHeroPowers { get; set; }
-        int Damage { get; set; }
-        int Health { get; set; }
-        bool IsAttacking { get; set; }
-        bool IsDefending { get; set; }
-        int ProposedAttacker { get; set; }
-        int ProposedDefender { get; set; }
-        bool IsExhausted { get; set; }
-        bool IsFrozen { get; set; }
-        bool IsSilenced { get; set; }
-        bool IsImmune { get; set; }
-        bool HasTaunt { get; set; }
-        bool HasWindfury { get; set; }
-        int NumAttacksThisTurn { get; set; }
-        int PreDamage { get; set; }
-        Race Race { get; set; }
-        bool ShouldExitCombat { get; set; }
-        int BaseHealth { get; }
-    }
+		/// <summary>
+		/// The amount of damage this character can output.
+		/// </summary>
+		int AttackDamage { get; set; }
+
+		/// <summary>
+		/// The amount of damage taken during the evaluation of one phase.
+		/// </summary>
+		int Damage { get; set; }
+
+		/// <summary>
+		/// The amount of damage this character is about to take.
+		/// </summary>
+		int PreDamage { get; set; }
+
+		/// <summary>
+		/// The amount of health this character has remaing. This value is returned
+		/// AFTER SUBTRACTING the pending damage for this entity.
+		/// </summary>
+		int Health { get; set; }
+
+		/// <summary>
+		/// The starting amount of health of this character.
+		/// </summary>
+		int BaseHealth { get; }
+
+		/// <summary>
+		/// This character is currently attacking another character.
+		/// </summary>
+		bool IsAttacking { get; set; }
+
+		/// <summary>
+		/// This character is currently defending against another character.
+		/// </summary>
+		bool IsDefending { get; set; }
+
+		/// <summary>
+		/// This character has the intention of attacking another character.
+		/// This property is important in the PRE-ATTACK phase, where random
+		/// effects can come into play.
+		/// </summary>
+		int ProposedAttacker { get; set; }
+
+		/// <summary>
+		/// This character has the intention of defending against another character.
+		/// This property is important in the PRE-ATTACK phase, where random
+		/// effects can come into play.
+		/// </summary>
+		int ProposedDefender { get; set; }
+
+		/// <summary>
+		/// Amount of attacks this character has executed during this turn.
+		/// </summary>
+		int NumAttacksThisTurn { get; set; }
+
+		/// <summary>
+		/// <see cref="Enums.Race"/>
+		/// </summary>
+		Race Race { get; set; }
+
+		/// <summary>
+		/// Character should exit combat.
+		/// </summary>
+		bool ShouldExitCombat { get; set; }
+
+		/// <summary>
+		/// Character is exhausted.
+		/// </summary>
+		bool IsExhausted { get; set; }
+
+		/// <summary>
+		/// Character is frozen.
+		/// </summary>
+		bool IsFrozen { get; set; }
+
+		/// <summary>
+		/// Character is silenced.
+		/// </summary>
+		bool IsSilenced { get; set; }
+
+		/// <summary>
+		/// Character is immune.
+		/// </summary>
+		bool IsImmune { get; set; }
+
+		/// <summary>
+		/// Character has taunt.
+		/// </summary>
+		bool HasTaunt { get; set; }
+
+		/// <summary>
+		/// Character has windfury.
+		/// </summary>
+		bool HasWindfury { get; set; }
+
+		/// <summary>
+		/// Character can't be targeted by spells.
+		/// </summary>
+		bool CantBeTargetedBySpells { get; set; }
+
+		/// <summary>
+		/// Character can't be targeted by opponents.
+		/// </summary>
+		bool CantBeTargetedByOpponents { get; set; }
+
+		/// <summary>
+		/// Character can't be targeted by heropowers.
+		/// </summary>
+		bool CantBeTargetedByHeroPowers { get; set; }
+
+	}
 
     public abstract partial class Character<T>
     {
 
-        public bool CantAttack
+#pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
+
+		public bool CantAttack
         {
             get { return this[GameTag.CANT_ATTACK] == 1; }
             set { this[GameTag.CANT_ATTACK] = value ? 1 : 0; }
@@ -316,11 +514,13 @@ namespace SabberStoneCore.Model
             set { this[GameTag.SHOULDEXITCOMBAT] = value ? 1 : 0; }
         }
 
-        public int BaseHealth
-        {
+		public int BaseHealth
+		{
             get { return this[GameTag.HEALTH]; }
             set { this[GameTag.HEALTH] = value; }
         }
+#pragma warning restore CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
-    }
+
+	}
 }
