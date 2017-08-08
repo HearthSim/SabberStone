@@ -2,7 +2,7 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class GetGameTagTask : SimpleTask
+	public class GetGameTagTask : SimpleTask
     {
         public GetGameTagTask(GameTag tag, EntityType entityType, int entityIndex = 0, int numberIndex = 0)
         {

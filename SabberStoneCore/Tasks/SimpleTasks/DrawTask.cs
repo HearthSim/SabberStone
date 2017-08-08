@@ -1,9 +1,8 @@
 ﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Config;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DrawTask : SimpleTask
+	public class DrawTask : SimpleTask
     {
         public DrawTask(bool toStack = false)
         {

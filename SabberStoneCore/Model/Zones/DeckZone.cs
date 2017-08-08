@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using SabberStoneCore.Enums;
 using System.Collections.Generic;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {

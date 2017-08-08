@@ -1,9 +1,9 @@
 ﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SetControllerGameTagTask : SimpleTask
+	public class SetControllerGameTagTask : SimpleTask
     {
         public SetControllerGameTagTask(GameTag tag, int amount, bool opFlag = false)
         {

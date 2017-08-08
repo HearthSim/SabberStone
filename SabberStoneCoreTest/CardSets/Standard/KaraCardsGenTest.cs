@@ -1,19 +1,17 @@
 ﻿using Xunit;
-
-using System.Linq;
 using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCore.Model.Entities;
 
 using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
 
-    public class DruidKaraTest
+	public class DruidKaraTest
     {
         // ------------------------------------------ SPELL - DRUID
         // [KAR_075] Moonglade Portal - COST:6 

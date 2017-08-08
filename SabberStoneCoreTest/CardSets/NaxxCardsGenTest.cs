@@ -1,7 +1,4 @@
 ﻿using Xunit;
-
-using System.Linq;
-using System.Collections.Generic;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -12,7 +9,7 @@ using Generic = SabberStoneCore.Actions.Generic;
 namespace SabberStoneCoreTest.CardSets
 {
 
-    public class DruidNaxxTest
+	public class DruidNaxxTest
     {
         // ------------------------------------------ SPELL - DRUID
         // [FP1_019] Poison Seeds - COST:4 

@@ -5,6 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Visualizer;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneGui.AsciiVisual
 {
@@ -121,9 +122,9 @@ namespace SabberStoneGui.AsciiVisual
                 new StringBuilder("¦" + spacer),
                 new StringBuilder("¦" + spacer),
             };
-            for (var i = 0; i < zone.Count; i++)
+            for (int i = 0; i < zone.Count; i++)
             {
-                var cardAscii = new char[6][];
+				char[][] cardAscii = new char[6][];
 
                 var spell = zone[i] as Spell;
                 var minion = zone[i] as Minion;

@@ -3,7 +3,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	public interface IPlayable : ITargeting
 	{

@@ -7,7 +7,7 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
-    internal class Buffs
+	internal class Buffs
     {
         public static readonly List<SelfCondition> SelfBuffConditions = new List<SelfCondition>
         {

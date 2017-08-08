@@ -4,7 +4,7 @@ using SabberStoneCore.CardSets.Standard;
 
 namespace SabberStoneCore.Enchants
 {
-    public interface ILazyRemove
+	public interface ILazyRemove
     {
         void Remove();
     }

@@ -2,7 +2,7 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class TempManaTask : SimpleTask
+	public class TempManaTask : SimpleTask
     {
         public TempManaTask(int amount)
         {

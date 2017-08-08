@@ -2,18 +2,18 @@
 
 using System.Linq;
 using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCore.Model.Entities;
 
 using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
 
-    public class DruidGangsTest
+	public class DruidGangsTest
     {
         // ------------------------------------------ SPELL - DRUID
         // [CFM_602] Jade Idol - COST:1 

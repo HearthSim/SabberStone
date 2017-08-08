@@ -4,12 +4,13 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+
 using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.Cloning
 {
 
-    public class CloneStressTest
+	public class CloneStressTest
     {
         [Fact]
         public void CloneSameSame()

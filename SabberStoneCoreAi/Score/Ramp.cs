@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score
 {
-    public class RampScore : SabberStoneCoreAi.Score.Score
+	public class RampScore : SabberStoneCoreAi.Score.Score
     {
         public override int Rate()
         {

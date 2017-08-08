@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class HealthRetentionTask : SimpleTask
+	public class HealthRetentionTask : SimpleTask
     {
         public int Amount { get; set; }
 

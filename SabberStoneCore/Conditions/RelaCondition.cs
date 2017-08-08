@@ -1,10 +1,9 @@
 ﻿using System;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Conditions
 {
-    public class RelaCondition
+	public class RelaCondition
     {
         private readonly Func<IPlayable, IPlayable, bool> _function;
 

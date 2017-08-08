@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace SabberStoneKettle
 {
-    public class KettleAdapter
+	public class KettleAdapter
     {
         private NetworkStream Stream;
         private BinaryWriter Writer;

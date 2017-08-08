@@ -3,7 +3,7 @@ using SabberStoneCore.Conditions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class FilterStackTask : SimpleTask
+	public class FilterStackTask : SimpleTask
     {
 
         private FilterStackTask(EntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)

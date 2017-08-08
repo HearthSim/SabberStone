@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {

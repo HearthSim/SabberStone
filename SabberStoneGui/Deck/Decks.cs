@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCoreGui.Meta;
 
 namespace SabberStoneGui.Deck
 {
-    internal interface IDeck
+	internal interface IDeck
     {
         string Name { get; set; }
         string Link { get; set; }

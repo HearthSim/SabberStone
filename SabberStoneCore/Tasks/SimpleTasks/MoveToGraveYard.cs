@@ -1,6 +1,6 @@
 ﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class MoveToGraveYard : SimpleTask
+	public class MoveToGraveYard : SimpleTask
     {
         public MoveToGraveYard(EntityType type)
         {

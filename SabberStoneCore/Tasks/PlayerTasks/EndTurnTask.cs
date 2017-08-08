@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class EndTurnTask : PlayerTask
+	public class EndTurnTask : PlayerTask
     {
         public static EndTurnTask Any(Controller controller)
         {

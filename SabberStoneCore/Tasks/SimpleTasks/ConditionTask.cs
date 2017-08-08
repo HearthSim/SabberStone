@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class ConditionTask : SimpleTask
+	public class ConditionTask : SimpleTask
     {
         private ConditionTask(EntityType entityType, 
             SelfCondition[] selfConditions,

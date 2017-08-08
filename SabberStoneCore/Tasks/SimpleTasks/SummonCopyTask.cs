@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SummonCopyTask : SimpleTask
+	public class SummonCopyTask : SimpleTask
     {
         public SummonCopyTask(EntityType type)
         {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
-using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-    internal class Auras
+	internal class Auras
     {
 
         public static Enchant SimpleInclSelf(GameTag tag, int amount, params RelaCondition[] list)

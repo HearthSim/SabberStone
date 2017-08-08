@@ -1,14 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
-    public class GangsCardsGen
+	public class GangsCardsGen
     {
         private static void Druid(IDictionary<string, List<Enchantment>> cards)
         {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
 {
-    public class PowerHistoryBuilder
+	public class PowerHistoryBuilder
     {
         public static PowerHistoryCreateGame CreateGame(Game game, Controller[] players)
         {

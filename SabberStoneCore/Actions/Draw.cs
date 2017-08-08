@@ -1,11 +1,11 @@
 ﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-    public partial class Generic
+	public partial class Generic
     {
         public static IPlayable DrawCard(Controller c, Card card)
         {

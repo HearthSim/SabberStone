@@ -1,10 +1,9 @@
 ﻿using System;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class AddStackTo : SimpleTask
+	public class AddStackTo : SimpleTask
     {
         public AddStackTo(EntityType type)
         {

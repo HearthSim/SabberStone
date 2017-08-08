@@ -9,6 +9,7 @@ using SabberStoneCore.Splits;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???

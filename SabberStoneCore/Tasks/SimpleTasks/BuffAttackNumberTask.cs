@@ -1,10 +1,10 @@
 ﻿using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 
-    public class BuffAttackNumberTask : SimpleTask
+	public class BuffAttackNumberTask : SimpleTask
     {
         public BuffAttackNumberTask(EntityType type)
         {

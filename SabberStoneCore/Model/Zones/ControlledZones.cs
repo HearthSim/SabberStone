@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {

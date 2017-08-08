@@ -1,8 +1,8 @@
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class ManaCrystalFullTask : SimpleTask
+	public class ManaCrystalFullTask : SimpleTask
     {
         public ManaCrystalFullTask(int amount)
         {

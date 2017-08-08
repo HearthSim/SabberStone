@@ -1,10 +1,10 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class PlayCardTask : PlayerTask
+	public class PlayCardTask : PlayerTask
     {
         public static PlayCardTask Any(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
         {

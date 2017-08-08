@@ -5,6 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {

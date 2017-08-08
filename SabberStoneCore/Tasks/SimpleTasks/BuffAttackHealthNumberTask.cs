@@ -1,9 +1,9 @@
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class BuffAttackHealthNumberTask : SimpleTask
+	public class BuffAttackHealthNumberTask : SimpleTask
     {
 
         public BuffAttackHealthNumberTask(EntityType type)

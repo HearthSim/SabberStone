@@ -7,7 +7,7 @@ using SabberStoneCore.Kettle;
 using System.Text;
 using SabberStoneCore.Model.Zones;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Exposes the properties for each implementing entity.

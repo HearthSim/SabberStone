@@ -5,7 +5,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum MathOperation
+	public enum MathOperation
     {
         ADD, SUB, MUL, DIV
     }

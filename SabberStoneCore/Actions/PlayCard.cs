@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-    public partial class Generic
+	public partial class Generic
     {
         public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0)
         {

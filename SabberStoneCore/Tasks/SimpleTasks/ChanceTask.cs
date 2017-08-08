@@ -2,7 +2,7 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class ChanceTask : SimpleTask
+	public class ChanceTask : SimpleTask
     {
         public ChanceTask(bool useFlag = false)
         {

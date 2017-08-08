@@ -1,10 +1,9 @@
-﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class MoveToSetaside : SimpleTask
+	public class MoveToSetaside : SimpleTask
     {
         public MoveToSetaside(EntityType type)
         {

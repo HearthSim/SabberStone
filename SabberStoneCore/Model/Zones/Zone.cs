@@ -6,7 +6,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
-using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {

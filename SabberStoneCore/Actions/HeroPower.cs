@@ -1,12 +1,12 @@
 ﻿using System;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-    public partial class Generic
+	public partial class Generic
     {
         public static bool HeroPower(Controller c, ICharacter target = null)
         {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score
 {
-    public interface IScore
+	public interface IScore
     {
         Controller Controller { get; set; }
         Func<List<IPlayable>, List<int>> MulliganRule();

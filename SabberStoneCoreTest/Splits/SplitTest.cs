@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Xunit;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
@@ -12,7 +9,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 namespace SabberStoneCoreTest.Splits
 {
 
-    public class SplitTest
+	public class SplitTest
     {
         [Fact]
         public void MadBomberBasic1()

@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class ArmorTask : SimpleTask
+	public class ArmorTask : SimpleTask
     {
         private ArmorTask(bool useNumber, int amount)
         {

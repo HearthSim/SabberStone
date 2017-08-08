@@ -1,10 +1,10 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class HeroAttackTask : PlayerTask
+	public class HeroAttackTask : PlayerTask
     {
         public static HeroAttackTask Any(Controller controller, IEntity target)
         {

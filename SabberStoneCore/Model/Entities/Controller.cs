@@ -7,7 +7,7 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Zones;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Instance that represents a player in SabberStone game instances.

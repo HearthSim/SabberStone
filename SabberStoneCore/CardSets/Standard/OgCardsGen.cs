@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -8,7 +8,7 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
-    public class OgCardsGen
+	public class OgCardsGen
     {
         private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
         {

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks
 {
-    public enum TaskState
+	public enum TaskState
     {
         READY, RUNNING, COMPLETE, STOP
     }

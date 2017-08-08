@@ -2,7 +2,7 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DiscardTask : SimpleTask
+	public class DiscardTask : SimpleTask
     {
         public DiscardTask(EntityType entityType)
         {

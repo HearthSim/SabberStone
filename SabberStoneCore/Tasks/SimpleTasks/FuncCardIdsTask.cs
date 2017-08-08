@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class FuncCardIdsTask : SimpleTask
+	public class FuncCardIdsTask : SimpleTask
     {
         public FuncCardIdsTask(Func<List<string>, List<string>> function)
         {

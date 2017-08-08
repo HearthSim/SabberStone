@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class BuffTask : SimpleTask
+	public class BuffTask : SimpleTask
     {
         public BuffTask(Enchant buff, EntityType type, SelfCondition condition = null)
         {

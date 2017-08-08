@@ -1,6 +1,6 @@
 ﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class CountTask : SimpleTask
+	public class CountTask : SimpleTask
     {
         public CountTask(EntityType type)
         {

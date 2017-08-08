@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
-    public partial class Hero : Character<Hero>
+	public partial class Hero : Character<Hero>
     {
         public HeroPower Power { get; set; }
 

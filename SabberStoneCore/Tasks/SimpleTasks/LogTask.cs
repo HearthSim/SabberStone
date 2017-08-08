@@ -4,7 +4,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class LogTask : SimpleTask
+	public class LogTask : SimpleTask
     {
         public LogTask(bool cardTextPrint = false)
         {

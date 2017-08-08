@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class FuncPlayablesTask : SimpleTask
+	public class FuncPlayablesTask : SimpleTask
     {
         public FuncPlayablesTask(Func<List<IPlayable>, List<IPlayable>> function)
         {

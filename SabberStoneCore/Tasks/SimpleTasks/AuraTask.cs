@@ -1,10 +1,10 @@
 ﻿using System;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public enum AuraArea
+	public enum AuraArea
     {
         BOARD,
         HAND,

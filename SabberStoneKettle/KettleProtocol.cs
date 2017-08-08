@@ -3,13 +3,11 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 
 namespace SabberStoneKettle
 {
-    public interface KettlePayload
+	public interface KettlePayload
     {
         JObject ToPayload();
     }

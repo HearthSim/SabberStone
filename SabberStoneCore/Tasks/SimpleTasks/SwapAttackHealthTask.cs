@@ -1,9 +1,9 @@
 ﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SwapAttackHealthTask : SimpleTask
+	public class SwapAttackHealthTask : SimpleTask
     {
         /// <summary>
         ///  Changes the attack attribute of the given entity.

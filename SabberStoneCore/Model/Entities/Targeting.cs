@@ -2,9 +2,9 @@
 using System.Linq;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
-    public interface ITargeting : IEntity
+	public interface ITargeting : IEntity
     {
         IEnumerable<ICharacter> ValidPlayTargets { get; }
         bool IsValidPlayTarget(ICharacter target);

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreGui.Score
 {
-    public interface IScore
+	public interface IScore
     {
         Controller Controller { get; set; }
         int Rate();

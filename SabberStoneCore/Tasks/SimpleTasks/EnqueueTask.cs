@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class EnqueueTask : SimpleTask
+	public class EnqueueTask : SimpleTask
     {
         public EnqueueTask(int amount, ISimpleTask task, bool spellDmg = false)
         {

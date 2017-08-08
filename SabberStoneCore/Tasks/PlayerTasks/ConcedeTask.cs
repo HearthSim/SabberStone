@@ -1,10 +1,9 @@
-﻿using System;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class ConcedeTask : PlayerTask
+	public class ConcedeTask : PlayerTask
     {
         public static ConcedeTask Any(Controller controller)
         {

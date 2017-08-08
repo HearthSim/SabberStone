@@ -1,10 +1,10 @@
-﻿using System;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class WeaponTask : SimpleTask
+	public class WeaponTask : SimpleTask
     {
         public WeaponTask(string cardId = null)
         {

@@ -1,9 +1,8 @@
 ﻿using SabberStoneCore.Actions;
-using SabberStoneCore.Config;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DrawCardTask : SimpleTask
+	public class DrawCardTask : SimpleTask
     {
         public override TaskState Process()
         {

@@ -1,19 +1,12 @@
 ﻿using Xunit;
-
-using System.Linq;
-using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.PlayerTasks;
-
-using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.CardSets
 {
 
-    public class DruidGvgTest
+	public class DruidGvgTest
     {
         // ------------------------------------------ SPELL - DRUID
         // [GVG_031] Recycle - COST:6 

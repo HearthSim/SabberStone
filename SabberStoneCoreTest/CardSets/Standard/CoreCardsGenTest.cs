@@ -1,19 +1,18 @@
 ﻿using Xunit;
 
 using System.Linq;
-using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCore.Model.Entities;
 
 using Generic = SabberStoneCore.Actions.Generic;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
 
-    public class HeroesCoreTest
+	public class HeroesCoreTest
     {
         // ----------------------------------------- HERO - WARRIOR
         // [HERO_01] Garrosh Hellscream - COST:0 [ATK:0/HP:30] 

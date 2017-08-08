@@ -1,9 +1,9 @@
 ﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SetHealthTask : SimpleTask
+	public class SetHealthTask : SimpleTask
     {
         public SetHealthTask(int amount, EntityType entityType)
         {

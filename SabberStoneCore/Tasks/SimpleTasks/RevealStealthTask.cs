@@ -1,11 +1,11 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    /// <summary>  
-    ///  Reveals the target(s), effectively removing their stealth attribute.  
-    /// </summary> 
-    public class RevealStealthTask : SimpleTask
+	/// <summary>  
+	///  Reveals the target(s), effectively removing their stealth attribute.  
+	/// </summary> 
+	public class RevealStealthTask : SimpleTask
     {
         public EntityType Type { get; set; }
 

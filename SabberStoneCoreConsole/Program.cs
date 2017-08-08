@@ -10,11 +10,11 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreConsole
 {
-    internal class Program
+	internal class Program
     {
         private static readonly Random Rnd = new Random();
 

@@ -1,9 +1,6 @@
-﻿using System;
-using SabberStoneCore.Model;
-
-namespace SabberStonePowerLog.Model
+﻿namespace SabberStonePowerLog.Model
 {
-    internal class PowerShowEntity : PowerHistoryEntry
+	internal class PowerShowEntity : PowerHistoryEntry
     {
         public string Name { get; set; }
         public int Id { get; set; }

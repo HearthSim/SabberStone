@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Config;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SplitTask : SimpleTask
+	public class SplitTask : SimpleTask
     {
         public SplitTask(int amount, EntityType type)
         {

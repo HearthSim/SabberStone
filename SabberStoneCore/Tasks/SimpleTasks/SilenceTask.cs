@@ -1,8 +1,8 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class SilenceTask : SimpleTask
+	public class SilenceTask : SimpleTask
     {
         public EntityType Type { get; set; }
 

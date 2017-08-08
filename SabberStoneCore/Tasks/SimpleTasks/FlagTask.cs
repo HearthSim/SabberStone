@@ -1,6 +1,6 @@
 ﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class FlagTask : SimpleTask
+	public class FlagTask : SimpleTask
     {
         public FlagTask(bool checkFlag, ISimpleTask taskToDo)
         {

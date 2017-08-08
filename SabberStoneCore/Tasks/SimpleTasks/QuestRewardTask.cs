@@ -1,11 +1,11 @@
-﻿using System;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class QuestRewardTask : SimpleTask
+	public class QuestRewardTask : SimpleTask
     {
         private QuestRewardTask(Card card)
         {

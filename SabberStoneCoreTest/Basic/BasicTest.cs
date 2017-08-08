@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
@@ -7,11 +6,12 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreTest.Basic
 {
 
-    public class BasicTest
+	public class BasicTest
     {
         [Fact]
         public void UtilTest()

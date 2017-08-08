@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model.Entities;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class GetControllerManaTask : SimpleTask
     {

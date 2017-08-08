@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Loader;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCoreConsole
 {
 
-    public class TestLoader
+	public class TestLoader
     {
         public static void GetGameTags()
         {

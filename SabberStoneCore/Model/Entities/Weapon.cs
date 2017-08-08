@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
     public partial class Weapon : Playable<Weapon>
     {

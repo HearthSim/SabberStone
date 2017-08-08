@@ -1,6 +1,6 @@
 ﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class DestroyTask : SimpleTask
+	public class DestroyTask : SimpleTask
     {
         public DestroyTask(EntityType entityType)
         {

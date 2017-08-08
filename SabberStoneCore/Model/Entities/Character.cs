@@ -2,7 +2,7 @@
 using System.Linq;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Represents an entity in game which behaves as an actor. 
@@ -515,7 +515,6 @@ namespace SabberStoneCore.Model
 			set { this[GameTag.HEALTH] = value; }
 		}
 #pragma warning restore CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
-
 
 	}
 }

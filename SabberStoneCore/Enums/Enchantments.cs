@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SabberStoneCore.Enums
+﻿namespace SabberStoneCore.Enums
 {
 	/// <summary>
 	/// Indicates the event that must happen in order to trigger the effect

@@ -1,7 +1,5 @@
 ﻿using SabberStoneCore.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {

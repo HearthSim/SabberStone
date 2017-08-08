@@ -4,11 +4,11 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class ChooseTask : PlayerTask
+	public class ChooseTask : PlayerTask
     {
         public static ChooseTask Mulligan(Controller controller, List<int> choices)
         {

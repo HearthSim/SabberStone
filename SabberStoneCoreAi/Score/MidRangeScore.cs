@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score
 {
-    public class MidRangeScore : SabberStoneCoreAi.Score.Score
+	public class MidRangeScore : SabberStoneCoreAi.Score.Score
     {
         public override int Rate()
         {

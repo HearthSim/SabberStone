@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Splits
 {
-    public class SplitNode
+	public class SplitNode
     {
         private readonly SplitNode _parent;
 

@@ -1,8 +1,8 @@
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class HealFullTask : SimpleTask
+	public class HealFullTask : SimpleTask
     {
         public HealFullTask(EntityType entityType)
         {

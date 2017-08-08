@@ -1,10 +1,8 @@
 ﻿using SabberStoneCore.Model;
-using System;
-using System.Linq;
 
 namespace SabberStoneBuildCardSet
 {
-    class Program
+	class Program
     {
         static void Main(string[] args)
         {

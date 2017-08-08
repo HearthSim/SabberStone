@@ -2,7 +2,7 @@
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class GetGameTagControllerTask : SimpleTask
+	public class GetGameTagControllerTask : SimpleTask
     {
         public GetGameTagControllerTask(GameTag tag)
         {

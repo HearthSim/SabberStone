@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class RevealTask : SimpleTask
+	public class RevealTask : SimpleTask
     {
         public RevealTask(ISimpleTask successJoustTask, ISimpleTask failedJoustTask = null)
         {

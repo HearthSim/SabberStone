@@ -1,11 +1,10 @@
-﻿using System;
-using SabberStoneCore.Actions;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class QuestProgressTask : SimpleTask
+	public class QuestProgressTask : SimpleTask
     {
         public override TaskState Process()
         {

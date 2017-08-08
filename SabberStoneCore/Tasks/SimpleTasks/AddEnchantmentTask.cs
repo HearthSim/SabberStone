@@ -1,10 +1,10 @@
 ﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class AddEnchantmentTask : SimpleTask
+	public class AddEnchantmentTask : SimpleTask
     {
         public AddEnchantmentTask(EntityType type, Enchantment enchantment, bool activate = false)
         {

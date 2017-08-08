@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
 {
-    //message AllOptions
-    //{
-    //    enum PacketID
-    //    {
-    //        ID_a74d = 14;
-    //    }
-    //    required int32 id = 1;
+	//message AllOptions
+	//{
+	//    enum PacketID
+	//    {
+	//        ID_a74d = 14;
+	//    }
+	//    required int32 id = 1;
 	//    repeated Option options = 2;
-    //}
-    public class PowerAllOptions
+	//}
+	public class PowerAllOptions
     {
         private static int _index = 1;
         public int Index { get; set; }

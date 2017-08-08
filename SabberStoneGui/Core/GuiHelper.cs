@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
@@ -13,7 +10,7 @@ using SabberStoneCoreGui.Meta;
 
 namespace SabberStoneGui.Core
 {
-    public class GuiHelper
+	public class GuiHelper
     {
         public static GameConfig CreateGameConfig(MetaDeck deck1, MetaDeck deck2)
         {
