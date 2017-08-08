@@ -263,8 +263,8 @@ namespace SabberStoneCoreConsole
                 {
                     //StartPlayer = 1,
                     GameRule = FormatType.FT_STANDARD,
-                    Player1HeroClass = Cards.BasicHeroes[i % 9],
-                    Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
+                    Player1HeroClass = Cards.HeroClasses[i % 9],
+                    Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
                     FillDecks = true,
                     Logging = true,
                     History = false
@@ -847,8 +847,8 @@ namespace SabberStoneCoreConsole
                 {
                     //StartPlayer = 1,
                     GameRule = FormatType.FT_STANDARD,
-                    Player1HeroClass = Cards.BasicHeroes[i % 9],
-                    Player2HeroClass = Cards.BasicHeroes[(i + 1) % 9],
+                    Player1HeroClass = Cards.HeroClasses[i % 9],
+                    Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
                     FillDecks = true,
                     Logging = false,
                     History = false

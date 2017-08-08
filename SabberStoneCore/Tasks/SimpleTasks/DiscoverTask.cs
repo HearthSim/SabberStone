@@ -309,7 +309,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
         private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
         {
             var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-            var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.BasicHeroes);
+            var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.HeroClasses);
             var nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
             var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
             return new[] { nonClassCards.ToList(), classCards.ToList() };
