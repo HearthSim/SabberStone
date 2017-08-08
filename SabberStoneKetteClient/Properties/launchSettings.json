@@ -1,8 +1,8 @@
-{
-  "profiles": {
-    "SabberStoneKettleClient": {
-      "commandName": "Project",
-      "commandLineArgs": "9003"
-    }
-  }
+﻿{
+	"profiles": {
+		"SabberStoneKettleClient": {
+			"commandName": "Project",
+			"commandLineArgs": "9003"
+		}
+	}
 }

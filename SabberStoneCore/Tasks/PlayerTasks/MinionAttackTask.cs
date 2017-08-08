@@ -4,32 +4,32 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
-    public class MinionAttackTask : PlayerTask
-    {
-        public static MinionAttackTask Any(Controller controller, IEntity source, IEntity target)
-        {
-            return new MinionAttackTask(controller, source, target);
-        }
+	public class MinionAttackTask : PlayerTask
+	{
+		public static MinionAttackTask Any(Controller controller, IEntity source, IEntity target)
+		{
+			return new MinionAttackTask(controller, source, target);
+		}
 
-        private MinionAttackTask(Controller controller, IEntity source, IEntity target)
-        {
-            PlayerTaskType = PlayerTaskType.MINION_ATTACK;
-            Game = controller.Game;
-            Controller = controller;
-            Source = source;
-            Target = target;
-        }
+		private MinionAttackTask(Controller controller, IEntity source, IEntity target)
+		{
+			PlayerTaskType = PlayerTaskType.MINION_ATTACK;
+			Game = controller.Game;
+			Controller = controller;
+			Source = source;
+			Target = target;
+		}
 
-        public override TaskState Process()
-        {
-            var success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter);
-            Controller.Game.NextStep = Step.MAIN_CLEANUP;
-            return TaskState.COMPLETE;
-        }
+		public override TaskState Process()
+		{
+			var success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter);
+			Controller.Game.NextStep = Step.MAIN_CLEANUP;
+			return TaskState.COMPLETE;
+		}
 
-        public override string FullPrint()
-        {
-            return $"MinionAttackTask => [{Controller.Name}] {Source}({Source.Card.Type}) attack {Target}";
-        }
-    }
+		public override string FullPrint()
+		{
+			return $"MinionAttackTask => [{Controller.Name}] {Source}({Source.Card.Type}) attack {Target}";
+		}
+	}
 }

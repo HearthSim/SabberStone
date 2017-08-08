@@ -21,58 +21,58 @@ namespace SabberStoneCore.Kettle
 	//    required bool hide_chosen = 9;
 	//}
 	public class PowerEntityChoices
-    {
+	{
 
-        private static int _index = 1;
-        public int Index { get; set; }
+		private static int _index = 1;
+		public int Index { get; set; }
 
-        public ChoiceType ChoiceType { get; set; }
-        public int CountMin { get; set; }
-        public int CountMax { get; set; }
-        public List<int> Entities { get; set; }
-        public int SourceId { get; set; }
-        public int PlayerId { get; set; }
-        public bool HideChosen { get; set; }
+		public ChoiceType ChoiceType { get; set; }
+		public int CountMin { get; set; }
+		public int CountMax { get; set; }
+		public List<int> Entities { get; set; }
+		public int SourceId { get; set; }
+		public int PlayerId { get; set; }
+		public bool HideChosen { get; set; }
 
-        public PowerEntityChoices(Game game)
-        {
-            Index = _index++;
-            game.EntityChoicesMap.Add(Index, this);
-        }
+		public PowerEntityChoices(Game game)
+		{
+			Index = _index++;
+			game.EntityChoicesMap.Add(Index, this);
+		}
 
-        public string Print()
-        {
-            var str = new StringBuilder();
-            str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax}");
-            str.AppendLine($" Source={SourceId}");
-            for (var i = 0; i < Entities.Count; i++)
-            {
-                str.AppendLine($" Entities[{i}]=[{Entities[i]}]");
-            }
+		public string Print()
+		{
+			var str = new StringBuilder();
+			str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax}");
+			str.AppendLine($" Source={SourceId}");
+			for (var i = 0; i < Entities.Count; i++)
+			{
+				str.AppendLine($" Entities[{i}]=[{Entities[i]}]");
+			}
 
-            return str.ToString();
-        }
-    }
+			return str.ToString();
+		}
+	}
 
-    public class PowerChoicesBuilder
-    {
-        public static PowerEntityChoices EntityChoices(Game game, Choice choice)
-        {
-            if (choice == null)
-            {
-                return null;
-            }
+	public class PowerChoicesBuilder
+	{
+		public static PowerEntityChoices EntityChoices(Game game, Choice choice)
+		{
+			if (choice == null)
+			{
+				return null;
+			}
 
-            return new PowerEntityChoices(game)
-            {
-                ChoiceType = choice.ChoiceType,
-                Entities = new List<int>(choice.Choices),
-                CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
-                CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
-                PlayerId = choice.Controller.PlayerId,
-                SourceId = choice.SourceId,
-                HideChosen = choice.ChoiceType != ChoiceType.GENERAL
-            };
-        }
-    }
+			return new PowerEntityChoices(game)
+			{
+				ChoiceType = choice.ChoiceType,
+				Entities = new List<int>(choice.Choices),
+				CountMin = choice.ChoiceType == ChoiceType.GENERAL ? 1 : 0,
+				CountMax = choice.ChoiceType == ChoiceType.GENERAL ? 1 : choice.Choices.Count,
+				PlayerId = choice.Controller.PlayerId,
+				SourceId = choice.SourceId,
+				HideChosen = choice.ChoiceType != ChoiceType.GENERAL
+			};
+		}
+	}
 }

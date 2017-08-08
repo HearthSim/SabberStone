@@ -16,23 +16,4 @@
     <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
     <EmbeddedResource Include="Loader\Data\Archive\CARD.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSetsTest\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-    <Folder Include="Loader\Generated\CardSets\" />
-  </ItemGroup>
 </Project>

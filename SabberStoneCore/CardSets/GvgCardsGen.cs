@@ -30,9 +30,9 @@ namespace SabberStoneCore.CardSets
 
                     Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new CopyTask(EntityType.TARGET, 1),
-                        new AddStackTo(EntityType.OP_DECK),
-                        new MoveToSetaside(EntityType.TARGET))
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.OP_DECK),
+						new MoveToSetaside(EntityType.TARGET))
 				},
 			});
 
@@ -165,8 +165,8 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
-                        new FlagTask(true, new TransformTask("GVG_080t", EntityType.SOURCE)))
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
+						new FlagTask(true, new TransformTask("GVG_080t", EntityType.SOURCE)))
 				},
 			});
 
@@ -376,10 +376,10 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new DamageTask(3, EntityType.TARGET, true),
-                        new DamageTask(3, EntityType.OP_HERO, true))
+						new DamageTask(3, EntityType.TARGET, true),
+						new DamageTask(3, EntityType.OP_HERO, true))
 
-                },
+				},
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -646,13 +646,13 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_123", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD_ZONE,
-                    Enchant = Auras.SpellPowerDamage(1)
-                },
-            });
+				new Enchantment
+				{
+					Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SpellPowerDamage(1)
+				},
+			});
 
 		}
 
@@ -706,8 +706,8 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-                        new EnqueueTask(3, new SummonTask("CS2_101t")),
-                        new WeaponTask("CS2_091"))
+						new EnqueueTask(3, new SummonTask("CS2_101t")),
+						new WeaponTask("CS2_091"))
 				},
 			});
 
@@ -2274,19 +2274,19 @@ namespace SabberStoneCore.CardSets
 			// Text: At the end of each player's turn, that player draws until they have 3 cards.
 			// --------------------------------------------------------
 			cards.Add("GVG_094", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new FuncNumberTask(p =>
-                        {
-                            var controller = p.Controller;
-                            var diffHands = 3 - controller.HandZone.Count;
-                            return diffHands > 0 ? diffHands : 0;
-                        }),
-                        new EnqueueNumberTask(new DrawTask())),
-                },
-            });
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new FuncNumberTask(p =>
+						{
+							var controller = p.Controller;
+							var diffHands = 3 - controller.HandZone.Count;
+							return diffHands > 0 ? diffHands : 0;
+						}),
+						new EnqueueNumberTask(new DrawTask())),
+				},
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GVG_095] Goblin Sapper - COST:3 [ATK:2/HP:4] 

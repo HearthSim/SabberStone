@@ -6,36 +6,36 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-    public partial class Generic
-    {
-        public static Func<Controller, Minion, int, bool> SummonBlock
-            => delegate(Controller c, Minion minion, int zonePosition)
-            {
-                SummonPhase.Invoke(c, minion, zonePosition);
+	public partial class Generic
+	{
+		public static Func<Controller, Minion, int, bool> SummonBlock
+			=> delegate (Controller c, Minion minion, int zonePosition)
+			{
+				SummonPhase.Invoke(c, minion, zonePosition);
 
-                AfterSummonTrigger.Invoke(c, minion);
+				AfterSummonTrigger.Invoke(c, minion);
 
-                return true;
-            };
+				return true;
+			};
 
-        private static Action<Controller, Minion, int> SummonPhase
-            => delegate(Controller c, Minion minion, int zonePosition)
-            {
-                if (!minion.HasCharge)
-                    minion.IsExhausted = true;
-                c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", $"Summon Minion {minion} to Board of {c.Name}.");
-                c.BoardZone.Add(minion, zonePosition);
+		private static Action<Controller, Minion, int> SummonPhase
+			=> delegate (Controller c, Minion minion, int zonePosition)
+			{
+				if (!minion.HasCharge)
+					minion.IsExhausted = true;
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", $"Summon Minion {minion} to Board of {c.Name}.");
+				c.BoardZone.Add(minion, zonePosition);
 
-                // add summon block show entity 
-                if (c.Game.History)
-                    c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
-            };
+				// add summon block show entity 
+				if (c.Game.History)
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
+			};
 
-        private static Action<Controller, Minion> AfterSummonTrigger
-            => delegate(Controller c, Minion minion)
-            {
-                minion.IsSummoned = true;
-                c.Game.DeathProcessingAndAuraUpdate();
-            };
-    }
+		private static Action<Controller, Minion> AfterSummonTrigger
+			=> delegate (Controller c, Minion minion)
+			{
+				minion.IsSummoned = true;
+				c.Game.DeathProcessingAndAuraUpdate();
+			};
+	}
 }

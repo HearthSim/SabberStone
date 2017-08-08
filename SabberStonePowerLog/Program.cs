@@ -4,30 +4,30 @@ using SabberStonePowerLog.Model;
 
 namespace SabberStonePowerLog
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
-            var games = interpreter.Parse(true, true);
-            Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
-            Console.ReadKey();
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
+			var games = interpreter.Parse(true, true);
+			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
+			Console.ReadKey();
 
-            if (games.Any())
-            {
-                PowerGame game = games.Last();
+			if (games.Any())
+			{
+				PowerGame game = games.Last();
 
-                Console.WriteLine($"Starting a syncronized PowerGame!");
+				Console.WriteLine($"Starting a syncronized PowerGame!");
 
-                while (game.PowerHistory.Count > 0)
-                {
-                    var entry = game.PowerHistory.Dequeue();
+				while (game.PowerHistory.Count > 0)
+				{
+					var entry = game.PowerHistory.Dequeue();
 
-                    Console.WriteLine($"Dequeue {entry}.");
+					Console.WriteLine($"Dequeue {entry}.");
 
-                    Console.ReadKey();
-                }
-            }
-        }
-    }
+					Console.ReadKey();
+				}
+			}
+		}
+	}
 }

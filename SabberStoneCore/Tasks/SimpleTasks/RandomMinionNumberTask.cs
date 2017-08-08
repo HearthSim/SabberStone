@@ -6,36 +6,36 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class RandomMinionNumberTask : SimpleTask
-    {
-        public RandomMinionNumberTask(GameTag tag)
-        {
-            Tag = tag;
-        }
+	public class RandomMinionNumberTask : SimpleTask
+	{
+		public RandomMinionNumberTask(GameTag tag)
+		{
+			Tag = tag;
+		}
 
-        public GameTag Tag { get; set; }
+		public GameTag Tag { get; set; }
 
-        public override TaskState Process()
-        {
+		public override TaskState Process()
+		{
 
-            var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-            var cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number).ToList();
-            if (!cardsList.Any())
-            {
-                return TaskState.STOP;
-            }
+			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			var cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number).ToList();
+			if (!cardsList.Any())
+			{
+				return TaskState.STOP;
+			}
 
-            var playable = Entity.FromCard(Controller, Util.Choose<Card>(cardsList));
-            Playables = new List<IPlayable> { playable };
+			var playable = Entity.FromCard(Controller, Util.Choose<Card>(cardsList));
+			Playables = new List<IPlayable> { playable };
 
-            return TaskState.COMPLETE;
-        }
+			return TaskState.COMPLETE;
+		}
 
-        public override ISimpleTask Clone()
-        {
-            var clone = new RandomMinionNumberTask(Tag);
-            clone.Copy(this);
-            return clone;
-        }
-    }
+		public override ISimpleTask Clone()
+		{
+			var clone = new RandomMinionNumberTask(Tag);
+			clone.Copy(this);
+			return clone;
+		}
+	}
 }

@@ -11,50 +11,50 @@ namespace SabberStoneCore.CardSets
 	{
 		private static void Mage(IDictionary<string, List<Enchantment>> cards)
 		{
-            // ------------------------------------------- SPELL - MAGE
-            // [CS2_031] Ice Lance - COST:1 
-            // - Fac: neutral, Set: hof, Rarity: common
-            // --------------------------------------------------------
-            // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. *spelldmg
-            // --------------------------------------------------------
-            // GameTag:
-            // - FREEZE = 1
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            cards.Add("CS2_031", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
-                        ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
-                        ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
-                }
-            });
-        }
+			// ------------------------------------------- SPELL - MAGE
+			// [CS2_031] Ice Lance - COST:1 
+			// - Fac: neutral, Set: hof, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. *spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - FREEZE = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("CS2_031", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
+						ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
+						ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
+				}
+			});
+		}
 
 		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
 		{
-            // ------------------------------------------ SPELL - ROGUE
-            // [EX1_128] Conceal - COST:1 
-            // - Fac: neutral, Set: hof, Rarity: common
-            // --------------------------------------------------------
-            // Text: Give your minions <b>Stealth</b> until your next_turn.
-            // --------------------------------------------------------
-            // RefTag:
-            // - STEALTH = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_128", new List<Enchantment> {
-                new Enchantment
-                {
-                    InfoCardId = "EX1_128e",
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffStealthTask(EntityType.MINIONS)
-                },
-            });
-        }
+			// ------------------------------------------ SPELL - ROGUE
+			// [EX1_128] Conceal - COST:1 
+			// - Fac: neutral, Set: hof, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give your minions <b>Stealth</b> until your next_turn.
+			// --------------------------------------------------------
+			// RefTag:
+			// - STEALTH = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_128", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_128e",
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffStealthTask(EntityType.MINIONS)
+				},
+			});
+		}
 
 		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -62,41 +62,41 @@ namespace SabberStoneCore.CardSets
 
 		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
 		{
-            // ---------------------------------------- SPELL - WARLOCK
-            // [EX1_316] Power Overwhelming - COST:1 
-            // - Fac: neutral, Set: hof, Rarity: common
-            // --------------------------------------------------------
-            // Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_MINION_TARGET = 0
-            // - REQ_FRIENDLY_TARGET = 0
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            cards.Add("EX1_316", new List<Enchantment> {
-                new Enchantment
-                {
-                    InfoCardId = "EX1_316e",
-                    Area = EnchantmentArea.TARGET,
-                    Activation = EnchantmentActivation.SPELL,
-                    SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
-                    Enchant = new Enchant
-                    {
-                        TurnsActive = 0,
-                        EnableConditions = new List<SelfCondition>
-                        {
-                            SelfCondition.IsNotSilenced,
-                            SelfCondition.IsInZone(Zone.PLAY)
-                        },
-                        Effects = new Dictionary<GameTag, int>
-                        {
-                            [GameTag.NUM_TURNS_IN_PLAY] = 0
-                        },
-                        SingleTask = new DestroyTask(EntityType.TARGET)
-                    }
-                }
-            });
-        }
+			// ---------------------------------------- SPELL - WARLOCK
+			// [EX1_316] Power Overwhelming - COST:1 
+			// - Fac: neutral, Set: hof, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("EX1_316", new List<Enchantment> {
+				new Enchantment
+				{
+					InfoCardId = "EX1_316e",
+					Area = EnchantmentArea.TARGET,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
+					Enchant = new Enchant
+					{
+						TurnsActive = 0,
+						EnableConditions = new List<SelfCondition>
+						{
+							SelfCondition.IsNotSilenced,
+							SelfCondition.IsInZone(Zone.PLAY)
+						},
+						Effects = new Dictionary<GameTag, int>
+						{
+							[GameTag.NUM_TURNS_IN_PLAY] = 0
+						},
+						SingleTask = new DestroyTask(EntityType.TARGET)
+					}
+				}
+			});
+		}
 
 		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
 		{
@@ -104,39 +104,39 @@ namespace SabberStoneCore.CardSets
 
 		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
 		{
-            // --------------------------------------- MINION - NEUTRAL
-            // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5] 
-            // - Set: hof, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Deathrattle:</b> Take
-            //       control of a random
-            //       enemy minion.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - DEATHRATTLE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_016", new List<Enchantment> {
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.Create(
-                        new RandomTask(1, EntityType.OP_MINIONS),
-                        new ControlTask(EntityType.STACK))
-                }
-            });
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5] 
+			// - Set: hof, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Take
+			//       control of a random
+			//       enemy minion.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_016", new List<Enchantment> {
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.DEATHRATTLE,
+					SingleTask = ComplexTask.Create(
+						new RandomTask(1, EntityType.OP_MINIONS),
+						new ControlTask(EntityType.STACK))
+				}
+			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4] 
-            // - Race: murloc, Fac: neutral, Set: hof, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - CHARGE = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_062", new List<Enchantment> {
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4] 
+			// - Race: murloc, Fac: neutral, Set: hof, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - CHARGE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_062", new List<Enchantment> {
 				// TODO [EX1_062] Old Murk-Eye && Test: Old Murk-Eye_EX1_062
 				new Enchantment
 				{
@@ -166,63 +166,63 @@ namespace SabberStoneCore.CardSets
 				},
 			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4] 
-            // - Race: dragon, Fac: neutral, Set: hof, Rarity: rare
-            // --------------------------------------------------------
-            // Text: <b>Spell Damage +1</b>. <b>Battlecry:</b> Draw a card.
-            // --------------------------------------------------------
-            // GameTag:
-            // - SPELLPOWER = 1
-            // - BATTLECRY = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_284", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.HERO,
-                    Activation = EnchantmentActivation.BOARD_ZONE,
-                    Enchant = Auras.SpellPowerDamage(1)
-                },
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.BATTLECRY,
-                    SingleTask = new DrawTask()
-                }
-            });
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4] 
+			// - Race: dragon, Fac: neutral, Set: hof, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Spell Damage +1</b>. <b>Battlecry:</b> Draw a card.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SPELLPOWER = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_284", new List<Enchantment> {
+				new Enchantment
+				{
+					Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SpellPowerDamage(1)
+				},
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new DrawTask()
+				}
+			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8] 
-            // - Race: elemental, Fac: neutral, Set: hof, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: Can't attack. At the end of your turn, deal 8 damage to a random enemy.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - CANT_ATTACK = 1
-            // --------------------------------------------------------
-            cards.Add("EX1_298", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.CONTROLLER,
-                    Activation = EnchantmentActivation.BOARD_ZONE,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                        .TriggerEffect(GameTag.TURN_START, -1)
-                        .SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
-                        .Build()
-                }
-            });
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8] 
+			// - Race: elemental, Fac: neutral, Set: hof, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: Can't attack. At the end of your turn, deal 8 damage to a random enemy.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - CANT_ATTACK = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_298", new List<Enchantment> {
+				new Enchantment
+				{
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
+						.Build()
+				}
+			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1] 
-            // - Race: beast, Set: hof, Rarity: epic
-            // --------------------------------------------------------
-            // Text: <b>Battlecry:</b> Draw a Pirate from your deck.
-            // --------------------------------------------------------
-            // GameTag:
-            // - BATTLECRY = 1
-            // --------------------------------------------------------
-            cards.Add("NEW1_016", new List<Enchantment> {
+			// --------------------------------------- MINION - NEUTRAL
+			// [NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1] 
+			// - Race: beast, Set: hof, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Draw a Pirate from your deck.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("NEW1_016", new List<Enchantment> {
 				// TODO [NEW1_016] Captain's Parrot && Test: Captain's Parrot_NEW1_016
 				new Enchantment
 				{

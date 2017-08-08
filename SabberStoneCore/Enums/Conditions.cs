@@ -1,7 +1,7 @@
 ﻿namespace SabberStoneCore.Enums
 {
-    public enum RelaSign
+	public enum RelaSign
 	{
-        EQ, GEQ, LEQ
-    }
+		EQ, GEQ, LEQ
+	}
 }

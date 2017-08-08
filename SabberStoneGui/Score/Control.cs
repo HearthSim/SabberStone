@@ -1,29 +1,29 @@
-namespace SabberStoneCoreGui.Score
+﻿namespace SabberStoneCoreGui.Score
 {
-    public class ControlScore : Score
-    {
-        public override int Rate()
-        {
-            if (OpHeroHp < 1)
-                return int.MaxValue;
+	public class ControlScore : Score
+	{
+		public override int Rate()
+		{
+			if (OpHeroHp < 1)
+				return int.MaxValue;
 
-            if (HeroHp < 1)
-                return int.MinValue;
+			if (HeroHp < 1)
+				return int.MinValue;
 
-            var result = 0;
+			var result = 0;
 
-            if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
-                result += 1000;
+			if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
+				result += 1000;
 
-            result += (BoardZone.Count - OpBoardZone.Count) * 50;
+			result += (BoardZone.Count - OpBoardZone.Count) * 50;
 
-            result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 25;
+			result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 25;
 
-            result += MinionTotAtk;
+			result += MinionTotAtk;
 
-            result += (HeroHp - OpHeroHp) * 10;
+			result += (HeroHp - OpHeroHp) * 10;
 
-            return result;
-        }
-    }
+			return result;
+		}
+	}
 }

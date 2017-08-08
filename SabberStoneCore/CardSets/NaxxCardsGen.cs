@@ -57,14 +57,14 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_011", new List<Enchantment> {
-                new Enchantment
-                { 
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = ComplexTask.Create(
-                        new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
-                        new AddStackTo(EntityType.HAND))
-                }
-            });
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.DEATHRATTLE,
+					SingleTask = ComplexTask.Create(
+						new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+						new AddStackTo(EntityType.HAND))
+				}
+			});
 		}
 
 		private static void Mage(IDictionary<string, List<Enchantment>> cards)
@@ -364,35 +364,35 @@ namespace SabberStoneCore.CardSets
 				)
 			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2] 
-            // - Set: naxx, Rarity: rare
-            // --------------------------------------------------------
-            // Text: <b>Deathrattle:</b> Summon a 4/4 Nerubian.
-            // --------------------------------------------------------
-            // GameTag:
-            // - DEATHRATTLE = 1
-            // --------------------------------------------------------
-            cards.Add("FP1_007", new List<Enchantment> {
+			// --------------------------------------- MINION - NEUTRAL
+			// [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2] 
+			// - Set: naxx, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Summon a 4/4 Nerubian.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("FP1_007", new List<Enchantment> {
 
-                new Enchantment
-                {
-                    Activation = EnchantmentActivation.DEATHRATTLE,
-                    SingleTask = new SummonTask("FP1_007t"),
-                },
-            });
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.DEATHRATTLE,
+					SingleTask = new SummonTask("FP1_007t"),
+				},
+			});
 
-            // --------------------------------------- MINION - NEUTRAL
-            // [FP1_008] Spectral Knight - COST:5 [ATK:4/HP:6] 
-            // - Set: naxx, Rarity: common
-            // --------------------------------------------------------
-            // Text: Can't be targeted by spells or Hero Powers.
-            // --------------------------------------------------------
-            // GameTag:
-            // - CANT_BE_TARGETED_BY_ABILITIES = 1
-            // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
-            // --------------------------------------------------------
-            cards.Add("FP1_008", new List<Enchantment> {
+			// --------------------------------------- MINION - NEUTRAL
+			// [FP1_008] Spectral Knight - COST:5 [ATK:4/HP:6] 
+			// - Set: naxx, Rarity: common
+			// --------------------------------------------------------
+			// Text: Can't be targeted by spells or Hero Powers.
+			// --------------------------------------------------------
+			// GameTag:
+			// - CANT_BE_TARGETED_BY_ABILITIES = 1
+			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+			// --------------------------------------------------------
+			cards.Add("FP1_008", new List<Enchantment> {
 				// TODO [FP1_008] Spectral Knight && Test: Spectral Knight_FP1_008
 				new Enchantment
 				(
