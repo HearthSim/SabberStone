@@ -13,7 +13,7 @@ namespace SabberStoneCore.Model
 	/// very superficial meaning.
 	/// </summary>
 	public partial interface ICharacter : IPlayable
-    {
+	{
 		/// <summary>
 		/// Indicates if this character can continue performing actions.
 		/// </summary>
@@ -42,8 +42,6 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// This character takes damage from a certain other entity.
-		/// The source is NOT specifically another character, since cards
-		/// player from hand can also deal damage.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="damage"></param>
@@ -51,9 +49,7 @@ namespace SabberStoneCore.Model
 		bool TakeDamage(IPlayable source, int damage);
 
 		/// <summary>
-		/// This character gets  healed by a certain other entity.
-		/// The source is NOT specifically another character, since cards
-		/// player from hand can also heal.
+		/// This character gets healed by a certain other entity.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="heal"></param>
@@ -71,18 +67,16 @@ namespace SabberStoneCore.Model
 		/// <param name="source"></param>
 		/// <param name="armor"></param>
 		void GainArmor(IPlayable source, int armor);
-    }
+	}
 
 	/// <summary>
-	/// A character is ALSO an entity. The Tag based property system is also applicable to instances
-	/// of this type.
-	/// 
+	/// Base implementation of ICharacter.
 	/// <seealso cref="ICharacter"/>
 	/// <seealso cref="Playable{T}"/>
 	/// </summary>
 	/// <typeparam name="T">Subclass of entity.</typeparam>
 	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
-    {
+	{
 		/// <summary>
 		/// Build a new character from the provided data.
 		/// </summary>
@@ -90,9 +84,9 @@ namespace SabberStoneCore.Model
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
 		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
-            : base(controller, card, tags)
-        {
-        }
+			: base(controller, card, tags)
+		{
+		}
 
 		/// <summary>
 		/// Character is dead or destroyed.
@@ -110,105 +104,106 @@ namespace SabberStoneCore.Model
 		/// <param name="target"></param>
 		/// <returns></returns>
 		public virtual bool IsValidAttackTarget(ICharacter target)
-        {
-            // got target but isn't contained in valid targets
-            if (!ValidAttackTargets.Contains(target))
-            {
-                Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"{this} has an invalid target {target}.");
-                return false;
-            }
+		{
+			// got target but isn't contained in valid targets
+			if (!ValidAttackTargets.Contains(target))
+			{
+				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"{this} has an invalid target {target}.");
+				return false;
+			}
 
-            var hero = target as Hero;
-            if (CantAttackHeroes && (hero != null))
-            {
-                Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"Can't attack Heroes!");
-                return false;
-            }
+			var hero = target as Hero;
+			if (CantAttackHeroes && (hero != null))
+			{
+				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"Can't attack Heroes!");
+				return false;
+			}
 
-            return true;
-        }
+			return true;
+		}
 
 		/// <summary>
 		/// Returns a sequence of characters which are attackable.
 		/// </summary>
 		public IEnumerable<ICharacter> ValidAttackTargets
-        {
-            get
-            {
-                var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth).ToList<ICharacter>();
-                var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
-                if (!CantAttackHeroes)
-                {
-                    allTargets.Add(Controller.Opponent.Hero);
-                }
-                return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
-            }
-        }
+		{
+			get
+			{
+				var allTargets = Controller.Opponent.Board.Where(x => !x.HasStealth).ToList<ICharacter>();
+				var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
+				if (!CantAttackHeroes)
+				{
+					allTargets.Add(Controller.Opponent.Hero);
+				}
+				return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
+			}
+		}
 
 		/// <summary>
 		/// Inflict damage onto this character.
 		/// The actual amount still needs to be determined by the current
-		/// state of the game.
+		/// state of the game. eg: The presence of immunity effects can cause
+		/// the damage to be ignored.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="damage"></param>
 		/// <returns></returns>
 		public bool TakeDamage(IPlayable source, int damage)
-        {
-            var hero = this as Hero;
-            var minion = this as Minion;
+		{
+			var hero = this as Hero;
+			var minion = this as Minion;
 
 			bool fatigue = hero != null && this == source;
 
-            if (fatigue)
-            {
-                hero.Fatigue = damage;
-            }
+			if (fatigue)
+			{
+				hero.Fatigue = damage;
+			}
 
-            if (minion != null && minion.HasDivineShield)
-            {
-                Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
-                minion.HasDivineShield = false;
-                return false;
-            }
+			if (minion != null && minion.HasDivineShield)
+			{
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
+				minion.HasDivineShield = false;
+				return false;
+			}
 
-            // added pre damage
-            PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : hero.Armor - damage;
+			// added pre damage
+			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : hero.Armor - damage;
 
-            if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
-            {
-                Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
-                return false;
-            }
+			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
+			{
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
+				return false;
+			}
 
-            // remove armor first from hero ....
-            if (hero != null && hero.Armor > 0)
-            {
-                hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
-            }
+			// remove armor first from hero ....
+			if (hero != null && hero.Armor > 0)
+			{
+				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
+			}
 
-            // final damage is beeing accumulated
-            Damage += PreDamage;
+			// final damage is beeing accumulated
+			Damage += PreDamage;
 
-            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue?"(fatigue)":"")}");
+			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			// check if there was damage done
 			bool tookDamage = PreDamage > 0;
 
-            // reset predamage
-            PreDamage = 0;
+			// reset predamage
+			PreDamage = 0;
 
-            return tookDamage;
-        }
+			return tookDamage;
+		}
 
 		/// <summary>
 		/// Heal up all taken damage.
 		/// </summary>
 		/// <param name="source"></param>
 		public void TakeFullHeal(IPlayable source)
-        {
-            TakeHeal(source, Damage);
-        }
+		{
+			TakeHeal(source, Damage);
+		}
 
 		/// <summary>
 		/// Heal a specified amount of health.
@@ -216,17 +211,17 @@ namespace SabberStoneCore.Model
 		/// <param name="source"></param>
 		/// <param name="heal"></param>
 		public void TakeHeal(IPlayable source, int heal)
-        {
-            // we don't heal undamaged entities
-            if (Damage == 0)
-            {
-                return;
-            }
+		{
+			// we don't heal undamaged entities
+			if (Damage == 0)
+			{
+				return;
+			}
 
 			int amount = Damage > heal ? heal : Damage;
-            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
-            Damage -= amount;
-        }
+			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
+			Damage -= amount;
+		}
 
 		/// <summary>
 		/// Gain the specified amount of armor.
@@ -234,14 +229,14 @@ namespace SabberStoneCore.Model
 		/// <param name="source"></param>
 		/// <param name="armor"></param>
 		public void GainArmor(IPlayable source, int armor)
-        {
-            Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
-            Armor += armor;
-        }
-    }
+		{
+			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
+			Armor += armor;
+		}
+	}
 
-    public partial interface ICharacter
-    {
+	public partial interface ICharacter
+	{
 		/// <summary>
 		/// The amount of damage this character can output.
 		/// </summary>
@@ -354,171 +349,171 @@ namespace SabberStoneCore.Model
 
 	}
 
-    public abstract partial class Character<T>
-    {
+	public abstract partial class Character<T>
+	{
 
 #pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
 		public bool CantAttack
-        {
-            get { return this[GameTag.CANT_ATTACK] == 1; }
-            set { this[GameTag.CANT_ATTACK] = value ? 1 : 0; }
-        }
+		{
+			get { return this[GameTag.CANT_ATTACK] == 1; }
+			set { this[GameTag.CANT_ATTACK] = value ? 1 : 0; }
+		}
 
-        public bool CantAttackHeroes
-        {
-            get { return this[GameTag.CANNOT_ATTACK_HEROES] == 1; }
-            set { this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0; }
-        }
+		public bool CantAttackHeroes
+		{
+			get { return this[GameTag.CANNOT_ATTACK_HEROES] == 1; }
+			set { this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0; }
+		}
 
-        public bool CantBeTargetedBySpells
-        {
-            get { return this[GameTag.CANT_BE_TARGETED_BY_SPELLS] == 1; }
-            set { this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0; }
-        }
+		public bool CantBeTargetedBySpells
+		{
+			get { return this[GameTag.CANT_BE_TARGETED_BY_SPELLS] == 1; }
+			set { this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0; }
+		}
 
-        public bool CantBeTargetedByHeroPowers
-        {
-            get { return this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] == 1; }
-            set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
-        }
+		public bool CantBeTargetedByHeroPowers
+		{
+			get { return this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] == 1; }
+			set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
+		}
 
-        public int Armor
-        {
-            get { return this[GameTag.ARMOR]; }
-            set { this[GameTag.ARMOR] = value; }
-        }
+		public int Armor
+		{
+			get { return this[GameTag.ARMOR]; }
+			set { this[GameTag.ARMOR] = value; }
+		}
 
-        public int LastAffectedBy
-        {
-            get { return this[GameTag.LAST_AFFECTED_BY]; }
-            set { this[GameTag.LAST_AFFECTED_BY] = value; }
-        }
+		public int LastAffectedBy
+		{
+			get { return this[GameTag.LAST_AFFECTED_BY]; }
+			set { this[GameTag.LAST_AFFECTED_BY] = value; }
+		}
 
-        public int AttackDamage
-        {
-            get { return this[GameTag.ATK]; }
-            set { this[GameTag.ATK] = value; }
-        }
+		public int AttackDamage
+		{
+			get { return this[GameTag.ATK]; }
+			set { this[GameTag.ATK] = value; }
+		}
 
-        public bool CantBeTargetedByOpponents
-        {
-            get { return this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] == 1; }
-            set { this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] = value ? 1 : 0; }
-        }
+		public bool CantBeTargetedByOpponents
+		{
+			get { return this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] == 1; }
+			set { this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] = value ? 1 : 0; }
+		}
 
-        public int Damage
-        {
-            get { return this[GameTag.DAMAGE]; }
-            set
-            {
-                if (this[GameTag.HEALTH] <= value)
-                {
-                    ToBeDestroyed = true;
-                }
-                // don't allow negative values
-                this[GameTag.DAMAGE] = value < 0 ? 0 : value;
-            }
-        }
+		public int Damage
+		{
+			get { return this[GameTag.DAMAGE]; }
+			set
+			{
+				if (this[GameTag.HEALTH] <= value)
+				{
+					ToBeDestroyed = true;
+				}
+				// don't allow negative values
+				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
+			}
+		}
 
-        public int Health
-        {
-            get { return this[GameTag.HEALTH] - this[GameTag.DAMAGE]; }
-            set
-            {
-                if (value == 0)
-                {
-                    ToBeDestroyed = true;
-                }
+		public int Health
+		{
+			get { return this[GameTag.HEALTH] - this[GameTag.DAMAGE]; }
+			set
+			{
+				if (value == 0)
+				{
+					ToBeDestroyed = true;
+				}
 
-                this[GameTag.HEALTH] = value;
-                this[GameTag.DAMAGE] = 0;
-            }
-        }
+				this[GameTag.HEALTH] = value;
+				this[GameTag.DAMAGE] = 0;
+			}
+		}
 
-        public bool IsAttacking
-        {
-            get { return this[GameTag.ATTACKING] == 1; }
-            set { this[GameTag.ATTACKING] = value ? 1 : 0; }
-        }
+		public bool IsAttacking
+		{
+			get { return this[GameTag.ATTACKING] == 1; }
+			set { this[GameTag.ATTACKING] = value ? 1 : 0; }
+		}
 
-        public bool IsDefending
-        {
-            get { return this[GameTag.DEFENDING] == 1; }
-            set { this[GameTag.DEFENDING] = value ? 1 : 0; }
-        }
+		public bool IsDefending
+		{
+			get { return this[GameTag.DEFENDING] == 1; }
+			set { this[GameTag.DEFENDING] = value ? 1 : 0; }
+		}
 
-        public int ProposedAttacker
-        {
-            get { return this[GameTag.PROPOSED_ATTACKER]; }
-            set { this[GameTag.PROPOSED_ATTACKER] = value; }
-        }
+		public int ProposedAttacker
+		{
+			get { return this[GameTag.PROPOSED_ATTACKER]; }
+			set { this[GameTag.PROPOSED_ATTACKER] = value; }
+		}
 
-        public int ProposedDefender
-        {
-            get { return this[GameTag.PROPOSED_DEFENDER]; }
-            set { this[GameTag.PROPOSED_DEFENDER] = value; }
-        }
+		public int ProposedDefender
+		{
+			get { return this[GameTag.PROPOSED_DEFENDER]; }
+			set { this[GameTag.PROPOSED_DEFENDER] = value; }
+		}
 
-        public bool IsImmune
-        {
-            get { return this[GameTag.IMMUNE] == 1; }
-            set { this[GameTag.IMMUNE] = value ? 1 : 0; }
-        }
+		public bool IsImmune
+		{
+			get { return this[GameTag.IMMUNE] == 1; }
+			set { this[GameTag.IMMUNE] = value ? 1 : 0; }
+		}
 
-        public bool IsFrozen
-        {
-            get { return this[GameTag.FROZEN] == 1; }
-            set { this[GameTag.FROZEN] = value ? 1 : 0; }
-        }
+		public bool IsFrozen
+		{
+			get { return this[GameTag.FROZEN] == 1; }
+			set { this[GameTag.FROZEN] = value ? 1 : 0; }
+		}
 
-        public bool IsSilenced
-        {
-            get { return this[GameTag.SILENCED] == 1; }
-            set { this[GameTag.SILENCED] = value ? 1 : 0; }
-        }
+		public bool IsSilenced
+		{
+			get { return this[GameTag.SILENCED] == 1; }
+			set { this[GameTag.SILENCED] = value ? 1 : 0; }
+		}
 
-        public bool HasTaunt
-        {
-            get { return this[GameTag.TAUNT] == 1; }
-            set { this[GameTag.TAUNT] = value ? 1 : 0; }
-        }
+		public bool HasTaunt
+		{
+			get { return this[GameTag.TAUNT] == 1; }
+			set { this[GameTag.TAUNT] = value ? 1 : 0; }
+		}
 
-        public virtual bool HasWindfury
-        {
-            get { return this[GameTag.WINDFURY] == 1; }
-            set { this[GameTag.WINDFURY] = value ? 1 : 0; }
-        }
+		public virtual bool HasWindfury
+		{
+			get { return this[GameTag.WINDFURY] == 1; }
+			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
 
-        public int NumAttacksThisTurn
-        {
-            get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
-            set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
-        }
+		public int NumAttacksThisTurn
+		{
+			get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
+			set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
+		}
 
-        public int PreDamage
-        {
-            get { return this[GameTag.PREDAMAGE]; }
-            set { this[GameTag.PREDAMAGE] = value; }
-        }
+		public int PreDamage
+		{
+			get { return this[GameTag.PREDAMAGE]; }
+			set { this[GameTag.PREDAMAGE] = value; }
+		}
 
-        public Race Race
-        {
-            get { return (Race) this[GameTag.CARDRACE]; }
-            set { this[GameTag.CARDRACE] = (int) value; }
-        }
+		public Race Race
+		{
+			get { return (Race)this[GameTag.CARDRACE]; }
+			set { this[GameTag.CARDRACE] = (int)value; }
+		}
 
-        public bool ShouldExitCombat
-        {
-            get { return this[GameTag.SHOULDEXITCOMBAT] == 1; }
-            set { this[GameTag.SHOULDEXITCOMBAT] = value ? 1 : 0; }
-        }
+		public bool ShouldExitCombat
+		{
+			get { return this[GameTag.SHOULDEXITCOMBAT] == 1; }
+			set { this[GameTag.SHOULDEXITCOMBAT] = value ? 1 : 0; }
+		}
 
 		public int BaseHealth
 		{
-            get { return this[GameTag.HEALTH]; }
-            set { this[GameTag.HEALTH] = value; }
-        }
+			get { return this[GameTag.HEALTH]; }
+			set { this[GameTag.HEALTH] = value; }
+		}
 #pragma warning restore CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
 
