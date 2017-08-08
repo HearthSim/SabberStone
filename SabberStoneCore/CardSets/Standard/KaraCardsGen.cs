@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -498,7 +498,7 @@ namespace SabberStoneCore.CardSets.Standard
                                 };
                                 return new List<IPlayable>
                                 {
-                                    Entity.FromCard(controller, Cards.FromId(Util<string>.Choose(basicTotem)))
+                                    Entity.FromCard(controller, Cards.FromId(Util.Choose<string>(basicTotem)))
                                 };
                             }),
                             new SummonTask()

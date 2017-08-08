@@ -71,7 +71,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 (CardClass == CardClass.INVALID || p.Class == CardClass) &&
                 (CardSet == CardSet.INVALID || p.Set == CardSet));
 
-            var randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util<Card>.Choose(cardsList.ToList()));
+            var randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
             Playables.Add(randomCard);
 
             return TaskState.COMPLETE;

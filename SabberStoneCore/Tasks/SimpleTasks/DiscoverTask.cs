@@ -70,7 +70,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
             {
                 while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
                 {
-                    var discoveredCard = Util<Card>.Choose(totcardsToDiscover);
+                    var discoveredCard = Util.Choose<Card>(totcardsToDiscover);
                     resultCards.Add(discoveredCard);
                     // remove all cards matching the discovered one, 
                     // need because class cards are duplicated 4 x times
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 foreach (var classDiscover in cardsToDiscover)
                 {
                     resultCards.ForEach(p => classDiscover.Remove(p));
-                    resultCards.Add(Util<Card>.Choose(classDiscover));
+                    resultCards.Add(Util.Choose<Card>(classDiscover));
                 }
             }
 

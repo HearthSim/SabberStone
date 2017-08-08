@@ -45,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
                 var cardList = new List<Card>();
                 while (cardList.Count < 3)
                 {
-                    var card = Util<Card>.Choose(cardIdList);
+                    var card = Util.Choose<Card>(cardIdList);
                     cardList.Add(card);
                     cardIdList.RemoveAll(p => p == card);
                 }

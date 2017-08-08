@@ -117,9 +117,9 @@ namespace SabberStoneCore.Actions
                     return null;
                 }
 
-                var card = Util<IPlayable>.Choose(c.Deck.GetAll);
-                var cardOp = Util<IPlayable>.Choose(c.Opponent.Deck.GetAll);
-                var success = card.Cost > cardOp.Cost;
+				IPlayable card = Util.Choose<IPlayable>(c.Deck.GetAll);
+				IPlayable cardOp = Util.Choose<IPlayable>(c.Opponent.Deck.GetAll);
+				bool success = card.Cost > cardOp.Cost;
                 c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
                 
                 // TODO shuffle deck .... or ... just let it be?
