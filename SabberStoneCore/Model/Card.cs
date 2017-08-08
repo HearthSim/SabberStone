@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using System;
+using SabberStoneCore.Loader;
 
 namespace SabberStoneCore.Model
 {
@@ -14,6 +16,9 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public class Card
 	{
+		/// <summary>
+		/// Unique asset id of that card nummeric representation.
+		/// </summary>
 		public int AssetId { get; set; }
 
 		/// <summary>
@@ -141,19 +146,37 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool RequiresTarget => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_TO_PLAY);
 
+		/// <summary>
+		/// Requires a target for combo
+		/// </summary>
 		public bool RequiresTargetForCombo => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_FOR_COMBO);
 
+		/// <summary>
+		/// Requires a target if available
+		/// </summary>
 		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
 
+		/// <summary>
+		/// Requires a target if available and dragon in hand
+		/// </summary>
 		public bool RequiresTargetIfAvailableAndDragonInHand
 			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND);
 
+		/// <summary>
+		/// Requires a target if available and element played last turn
+		/// </summary>
 		public bool RequiresTargetIfAvailableAndElementalPlayedLastTurn
 			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN);
 
+		/// <summary>
+		/// Requires a target if available and minimum friendly minions
+		/// </summary>
 		public bool RequiresTargetIfAvailableAndMinimumFriendlyMinions
 			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS);
 
+		/// <summary>
+		/// Requires a target if available and minimum friendly secrets
+		/// </summary>
 		public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets
 			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
 
@@ -178,8 +201,15 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool IsAffectedBySpellDamage { get; set; }
 
+		/// <summary>
+		/// Multi class group.
+		/// </summary>
 		public int MultiClassGroup => this[GameTag.MULTI_CLASS_GROUP];
 
+		/// <summary>
+		/// Returns a string representation.
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString()
 		{
 			return $"[{Name}]";
@@ -201,8 +231,8 @@ namespace SabberStoneCore.Model
 			}
 			else
 			{
-				var strArray = Name.Split(' ');
-				return string.Join("", strArray.Select(p => p.Length > 4 ? p.Substring(0, 4) : p).ToList()).Substring(0, 7);
+				string[] strArray = Name.Split(' ');
+				return String.Join("", strArray.Select(p => p.Length > 4 ? p.Substring(0, 4) : p).ToList()).Substring(0, 7);
 			}
 
 		}
