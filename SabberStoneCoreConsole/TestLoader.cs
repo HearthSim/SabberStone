@@ -76,26 +76,6 @@ namespace SabberStoneCoreConsole
 														   )))).ToList()
 							}).ToList();
 
-			//var dbfCards = (from r in cardXml.Descendants("Record")
-			//    select new
-			//    {
-			//        AssetId =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "ID"
-			//            select int.Parse(field.Value))
-			//        .FirstOrDefault(),
-			//        CardId =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "NOTE_MINI_GUID"
-			//            select field.Value)
-			//        .FirstOrDefault(),
-			//        Guid =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "LONG_GUID"
-			//            select field.Value)
-			//        .FirstOrDefault()
-			//    }).ToDictionary(x => x.CardId, x => x);
-
 			// Build card database
 			var cards = new List<Card>();
 

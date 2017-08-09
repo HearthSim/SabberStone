@@ -36,12 +36,15 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			ParallelTest();
+			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
 			//TestLoader.GetGameTags();
-			//TestLoader.Load();
+			//var test = TestLoader.Load();
+			//Console.WriteLine(test.Count());
+
+			Console.WriteLine(Cards.All.Count());
 
 			//Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 

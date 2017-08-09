@@ -13,7 +13,14 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Loader\Data\Archive\CardDefs.xml" />
-    <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
     <EmbeddedResource Include="Loader\Data\Archive\CARD.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Loader\Data\New\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Loader\Data\CardDefs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

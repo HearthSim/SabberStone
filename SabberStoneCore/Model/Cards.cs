@@ -58,8 +58,6 @@ namespace SabberStoneCore.Model
 			Data = new CardContainer();
 			Data.Load(cards);
 
-			//Log.Info($"Loaded {All.Count()} cards.");
-
 			//Log.Debug("Standard:");
 			Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
 			{

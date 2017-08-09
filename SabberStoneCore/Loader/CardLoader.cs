@@ -73,7 +73,9 @@ namespace SabberStoneCore.Loader
 			// Get XML definitions from assembly embedded resource
 			var cardDefsXml =
 				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CardDefs.xml"));
-			//var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"));
+			//var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
+			//var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"))
+			;
 			// Parse XML
 			var cardDefs = (from r in cardDefsXml.Descendants("Entity")
 							select new
@@ -116,26 +118,6 @@ namespace SabberStoneCore.Loader
 															   : (TagValue)0
 														   )))).ToList()
 							}).ToList();
-
-			//var dbfCards = (from r in cardXml.Descendants("Record")
-			//    select new
-			//    {
-			//        AssetId =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "ID"
-			//            select int.Parse(field.Value))
-			//        .FirstOrDefault(),
-			//        CardId =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "NOTE_MINI_GUID"
-			//            select field.Value)
-			//        .FirstOrDefault(),
-			//        Guid =
-			//        (from field in r.Descendants("Field")
-			//            where field.Attribute("column").Value == "LONG_GUID"
-			//            select field.Value)
-			//        .FirstOrDefault()
-			//    }).ToDictionary(x => x.CardId, x => x);
 
 			// Build card database
 			var cards = new List<Card>();
