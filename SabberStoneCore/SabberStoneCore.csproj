@@ -12,6 +12,9 @@
     <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Loader\Data\CardDefs.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Loader\Data\Archive\CardDefs.xml" />
     <EmbeddedResource Include="Loader\Data\Archive\CARD.xml" />
   </ItemGroup>
@@ -20,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="Loader\Data\CardDefs.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>
