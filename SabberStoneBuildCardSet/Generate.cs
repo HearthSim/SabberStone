@@ -56,6 +56,8 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Conditions;");
 			str.AppendLine("using SabberStoneCore.Enums;");
 			str.AppendLine("using SabberStoneCore.Model;");
+			str.AppendLine("using SabberStoneCore.Model.Zones;");
+			str.AppendLine("using SabberStoneCore.Model.Entities;");
 			str.AppendLine("using SabberStoneCore.Tasks;");
 			str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
 			str.AppendLine();
@@ -333,6 +335,8 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Enums;");
 			str.AppendLine("using SabberStoneCore.Config;");
 			str.AppendLine("using SabberStoneCore.Model;");
+			str.AppendLine("using SabberStoneCore.Model.Zones;");
+			str.AppendLine("using SabberStoneCore.Model.Entities;");
 			str.AppendLine();
 			str.AppendLine("namespace SabberStoneUnitTest.CardSets");
 			str.AppendLine("{");

@@ -13,10 +13,13 @@
     <Folder Include="CardSetsTest\" />
     <Folder Include="CardSetsTest\" />
     <Folder Include="CardSetsTest\" />
+    <Folder Include="CardSetsTest\" />
     <Folder Include="CardSets\" />
     <Folder Include="CardSets\" />
     <Folder Include="CardSets\" />
     <Folder Include="CardSets\" />
+    <Folder Include="CardSets\" />
+    <Folder Include="Statistics\" />
     <Folder Include="Statistics\" />
   </ItemGroup>
 
