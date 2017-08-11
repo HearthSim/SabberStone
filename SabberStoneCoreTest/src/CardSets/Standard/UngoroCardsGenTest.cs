@@ -3782,10 +3782,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FireFly_UNG_809()
 		{
-			// TODO FireFly_UNG_809 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3796,7 +3795,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Fly"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Fly"));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("UNG_809t1", game.CurrentPlayer.HandZone[4].Card.Id);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

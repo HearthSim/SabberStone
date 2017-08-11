@@ -61,7 +61,7 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Tasks;");
 			str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
 			str.AppendLine();
-			str.AppendLine("namespace SabberStoneCore.Loader.Generated.CardSets");
+			str.AppendLine("namespace SabberStoneCore.CardSets.Standard");
 			str.AppendLine("{");
 			str.AppendLine($"\tpublic class {className}");
 			str.AppendLine("\t{");
@@ -428,7 +428,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine("\t\t\tgame.StartGame();");
 				str.AppendLine("\t\t\tgame.Player1.BaseMana = 10;");
 				str.AppendLine("\t\t\tgame.Player2.BaseMana = 10;");
-				str.AppendLine($"\t\t\t//var testCard = game.CurrentPlayer.Draw(Cards.FromName(\"{card.Name}\"));");
+				str.AppendLine($"\t\t\t//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(\"{card.Name}\"));");
 				str.AppendLine("\t\t}");
 				str.AppendLine();
 			}

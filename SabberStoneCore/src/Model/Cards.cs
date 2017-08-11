@@ -227,7 +227,9 @@ namespace SabberStoneCore.Model
 				case CardSet.GANGS:
 					return "Mean Streets of Gadgetzan";
 				case CardSet.UNGORO:
-					return "Journey to Un\'Goro ";
+					return "Journey to Un\'Goro";
+				case CardSet.ICECROWN:
+					return "Knights of the Frozen Throne";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}

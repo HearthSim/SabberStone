@@ -23,7 +23,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -44,7 +44,7 @@ namespace SabberStoneCoreConsole
 			//var test = TestLoader.Load();
 			//Console.WriteLine(test.Count());
 
-			Console.WriteLine(Cards.All.Count());
+			//Console.WriteLine(Cards.All.Count());
 
 			//Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
@@ -697,32 +697,15 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player1Deck = new List<Card>
-				{
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Murloc Tidehunter"),
-					Cards.FromName("Murloc Tidehunter"),
-					Cards.FromName("Herald Volazj"),
-				},
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = false,
-				Shuffle = false
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Raider
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidehunter
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Murloc Tidehunter
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Herald Volazj
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ghastly Conjurer"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
 			ShowLog(game, LogLevel.VERBOSE);
 

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -8,7 +8,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.Loader.Generated.CardSets
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class IcecrownCardsGen
 	{
@@ -2095,11 +2095,10 @@ namespace SabberStoneCore.Loader.Generated.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_069", new List<Enchantment> {
-				// TODO [ICC_069] Ghastly Conjurer && Test: Ghastly Conjurer_ICC_069
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new AddCardTo("CS2_027", EntityType.HAND)
 				},
 			});
 

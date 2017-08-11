@@ -1,9 +1,11 @@
-using Xunit;
+﻿using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneUnitTest.CardSets
 {
@@ -35,7 +37,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Thrall, Deathseer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Thrall, Deathseer"));
 		}
 
 		// ------------------------------------------- HERO - ROGUE
@@ -67,7 +69,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Valeera the Hollow"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Valeera the Hollow"));
 		}
 
 		// ------------------------------------------ HERO - HUNTER
@@ -97,7 +99,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deathstalker Rexxar"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathstalker Rexxar"));
 		}
 
 		// ----------------------------------------- HERO - PALADIN
@@ -129,7 +131,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Uther of the Ebon Blade"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Uther of the Ebon Blade"));
 		}
 
 		// ------------------------------------------ HERO - PRIEST
@@ -158,7 +160,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Shadowreaper Anduin"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowreaper Anduin"));
 		}
 
 		// ----------------------------------------- HERO - WARLOCK
@@ -187,7 +189,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bloodreaver Gul'dan"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodreaver Gul'dan"));
 		}
 
 		// ------------------------------------------- HERO - DRUID
@@ -223,7 +225,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Malfurion the Pestilent"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malfurion the Pestilent"));
 		}
 
 		// -------------------------------------------- HERO - MAGE
@@ -258,7 +260,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Frost Lich Jaina"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Lich Jaina"));
 		}
 
 		// ----------------------------------------- HERO - WARRIOR
@@ -287,7 +289,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Scourgelord Garrosh"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scourgelord Garrosh"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -311,7 +313,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("The Lich King"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
 		}
 
 		// ----------------------------------------- HERO - PALADIN
@@ -334,7 +336,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Tirion Fordring"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tirion Fordring"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -355,7 +357,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Secrets of the Citadel"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Secrets of the Citadel"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -379,7 +381,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Sindragosa"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -403,7 +405,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Blood-Queen Lana'thel"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blood-Queen Lana'thel"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -427,7 +429,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Lord Marrowgar"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lord Marrowgar"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -451,7 +453,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Professor Putricide"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -475,7 +477,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Professor Putricide"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -499,7 +501,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Professor Putricide"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -523,7 +525,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("The Lich King"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -547,7 +549,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deathbringer Saurfang"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathbringer Saurfang"));
 		}
 
 		// ----------------------------------------- HERO - NEUTRAL
@@ -571,7 +573,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Lady Deathwhisper"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lady Deathwhisper"));
 		}
 
 	}
@@ -603,7 +605,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Transmute Spirit"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Transmute Spirit"));
 		}
 
 		// ------------------------------------- HERO_POWER - ROGUE
@@ -630,7 +632,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Death's Shadow"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Death's Shadow"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -657,7 +659,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Build-A-Beast"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Build-A-Beast"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -688,7 +690,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("The Four Horsemen"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Four Horsemen"));
 		}
 
 		// ------------------------------------ HERO_POWER - PRIEST
@@ -717,7 +719,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Voidform"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidform"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -748,7 +750,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Siphon Life"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Siphon Life"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -780,7 +782,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Plague Lord"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Plague Lord"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -807,7 +809,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Icy Touch"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Icy Touch"));
 		}
 
 		// ----------------------------------- HERO_POWER - WARRIOR
@@ -831,7 +833,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bladestorm"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bladestorm"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -858,7 +860,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Frost Breath"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Breath"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -882,7 +884,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Frost Breath"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Breath"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -906,7 +908,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Frost Breath"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Breath"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -933,7 +935,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ice Claw"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Claw"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -962,7 +964,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Vampiric Bite"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vampiric Bite"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -993,7 +995,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Vampiric Leech"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vampiric Leech"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1017,7 +1019,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Skeletal Reconstruction"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skeletal Reconstruction"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1044,7 +1046,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Mad Science"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Science"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1071,7 +1073,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Madder Science"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Madder Science"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1102,7 +1104,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Maddest Science"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maddest Science"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1129,7 +1131,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("The Scourge"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Scourge"));
 		}
 
 		// ------------------------------- HERO_POWER - DEATHKNIGHT
@@ -1157,7 +1159,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Remorseless Winter"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Remorseless Winter"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1184,7 +1186,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Harvest of Souls"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Harvest of Souls"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1211,7 +1213,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Blood Rune"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blood Rune"));
 		}
 
 		// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1240,7 +1242,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Whisper of Death"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Whisper of Death"));
 		}
 
 	}
@@ -1274,7 +1276,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Fatespinner"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fatespinner"));
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -1304,7 +1306,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Druid of the Swarm"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -1333,7 +1335,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Strongshell Scavenger"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Strongshell Scavenger"));
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -1361,7 +1363,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Crypt Lord"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -1392,7 +1394,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Hadronox"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hadronox"));
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1421,7 +1423,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Webweave"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Webweave"));
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1450,7 +1452,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Spreading Plague"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spreading Plague"));
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1476,7 +1478,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Gnash"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gnash"));
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1504,7 +1506,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ultimate Infestation"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultimate Infestation"));
 		}
 
 	}
@@ -1535,7 +1537,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Exploding Bloatbat"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Exploding Bloatbat"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1565,7 +1567,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Professor Putricide"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1594,7 +1596,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Corpse Widow"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpse Widow"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1623,7 +1625,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Stitched Tracker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stitched Tracker"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1650,7 +1652,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bearshark"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bearshark"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1678,7 +1680,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Abominable Bowman"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1708,7 +1710,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Toxic Arrow"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toxic Arrow"));
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1740,7 +1742,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Play Dead"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Play Dead"));
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1769,7 +1771,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Venomstrike Trap"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomstrike Trap"));
 		}
 
 	}
@@ -1799,7 +1801,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ice Walker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Walker"));
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1811,10 +1813,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GhastlyConjurer_ICC_069()
 		{
-			// TODO GhastlyConjurer_ICC_069 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1825,7 +1826,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ghastly Conjurer"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ghastly Conjurer"));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("CS2_027", game.CurrentPlayer.HandZone[4].Card.Id);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1851,7 +1857,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Doomed Apprentice"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomed Apprentice"));
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1884,7 +1890,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Coldwraith"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldwraith"));
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1911,7 +1917,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Sindragosa"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1937,7 +1943,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Frozen Clone"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frozen Clone"));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1967,7 +1973,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Glacial Mysteries"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Glacial Mysteries"));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1990,7 +1996,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Simulacrum"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Simulacrum"));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -2019,7 +2025,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Breath of Sindragosa"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Breath of Sindragosa"));
 		}
 
 	}
@@ -2049,7 +2055,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Arrogant Crusader"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arrogant Crusader"));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2077,7 +2083,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Righteous Protector"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Righteous Protector"));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2100,7 +2106,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Blackguard"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blackguard"));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2129,7 +2135,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Howling Commander"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Howling Commander"));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2157,7 +2163,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Chillblade Champion"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillblade Champion"));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2185,7 +2191,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bolvar, Fireblood"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bolvar, Fireblood"));
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -2212,7 +2218,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Dark Conviction"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Conviction"));
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -2242,7 +2248,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Desperate Stand"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Desperate Stand"));
 		}
 
 		// --------------------------------------- WEAPON - PALADIN
@@ -2271,7 +2277,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Light's Sorrow"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Light's Sorrow"));
 		}
 
 	}
@@ -2300,7 +2306,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Shadow Ascendant"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Ascendant"));
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -2326,7 +2332,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Acolyte of Agony"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acolyte of Agony"));
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -2356,7 +2362,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Obsidian Statue"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Obsidian Statue"));
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -2383,7 +2389,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Archbishop Benedictus"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Archbishop Benedictus"));
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2406,7 +2412,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Devour Mind"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Devour Mind"));
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2436,7 +2442,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Eternal Servitude"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eternal Servitude"));
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2462,7 +2468,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Shadow Essence"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Essence"));
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2489,7 +2495,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Spirit Lash"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2519,7 +2525,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Embrace Darkness"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Embrace Darkness"));
 		}
 
 	}
@@ -2549,7 +2555,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bone Baron"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bone Baron"));
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2575,7 +2581,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Runeforge Haunter"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Runeforge Haunter"));
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2609,7 +2615,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Plague Scientist"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Plague Scientist"));
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2636,7 +2642,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Lilian Voss"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lilian Voss"));
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2667,7 +2673,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Spectral Pillager"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spectral Pillager"));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2694,7 +2700,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Roll the Bones"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Roll the Bones"));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2723,7 +2729,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Leeching Poison"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leeching Poison"));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2754,7 +2760,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Doomerang"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomerang"));
 		}
 
 		// ----------------------------------------- WEAPON - ROGUE
@@ -2784,7 +2790,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Shadowblade"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowblade"));
 		}
 
 	}
@@ -2821,7 +2827,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Brrrloc"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brrrloc"));
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -2850,7 +2856,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Drakkari Defender"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Drakkari Defender"));
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -2878,7 +2884,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Voodoo Hexxer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voodoo Hexxer"));
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -2904,7 +2910,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Snowfury Giant"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowfury Giant"));
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -2933,7 +2939,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Moorabi"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moorabi"));
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN
@@ -2963,7 +2969,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Cryostasis"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cryostasis"));
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN
@@ -2993,7 +2999,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Avalanche"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avalanche"));
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN
@@ -3016,7 +3022,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ice Fishing"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Fishing"));
 		}
 
 		// ---------------------------------------- WEAPON - SHAMAN
@@ -3045,7 +3051,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ice Breaker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Breaker"));
 		}
 
 	}
@@ -3072,7 +3078,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Despicable Dreadlord"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Despicable Dreadlord"));
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3095,7 +3101,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Howlfiend"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Howlfiend"));
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3122,7 +3128,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Gnomeferatu"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gnomeferatu"));
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3152,7 +3158,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Blood-Queen Lana'thel"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blood-Queen Lana'thel"));
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3183,7 +3189,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Sanguine Reveler"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sanguine Reveler"));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3206,7 +3212,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Defile"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Defile"));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3238,7 +3244,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Drain Soul"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Drain Soul"));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3266,7 +3272,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Treachery"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Treachery"));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3294,7 +3300,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Unwilling Sacrifice"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unwilling Sacrifice"));
 		}
 
 	}
@@ -3325,7 +3331,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Mountainfire Armor"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mountainfire Armor"));
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3348,7 +3354,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Animated Berserker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Animated Berserker"));
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3377,7 +3383,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Rotface"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Rotface"));
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3402,7 +3408,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Val'kyr Soulclaimer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Val'kyr Soulclaimer"));
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3428,7 +3434,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Death Revenant"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Death Revenant"));
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
@@ -3451,7 +3457,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Dead Man's Hand"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dead Man's Hand"));
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
@@ -3474,7 +3480,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Forge of Souls"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Forge of Souls"));
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
@@ -3497,7 +3503,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bring It On!"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bring It On!"));
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
@@ -3526,7 +3532,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Blood Razor"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blood Razor"));
 		}
 
 	}
@@ -3556,7 +3562,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Phantom Freebooter"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Phantom Freebooter"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3582,7 +3588,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Skelemancer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skelemancer"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3603,7 +3609,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Snowflipper Penguin"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowflipper Penguin"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3633,7 +3639,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Rattling Rascal"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Rattling Rascal"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3659,7 +3665,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Grim Necromancer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grim Necromancer"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3685,7 +3691,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bone Drake"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bone Drake"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3711,7 +3717,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Sunborne Val'kyr"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sunborne Val'kyr"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3734,7 +3740,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Cobalt Scalebane"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cobalt Scalebane"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3758,7 +3764,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Night Howler"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Night Howler"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3784,7 +3790,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Venomancer"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomancer"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3812,7 +3818,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Vryghoul"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vryghoul"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3843,7 +3849,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Acherus Veteran"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acherus Veteran"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3877,7 +3883,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Tuskarr Fisherman"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tuskarr Fisherman"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3908,7 +3914,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Fallen Sun Cleric"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fallen Sun Cleric"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3934,7 +3940,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Furnacefire Colossus"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Furnacefire Colossus"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3957,7 +3963,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Grave Shambler"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grave Shambler"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3988,7 +3994,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Tomb Lurker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tomb Lurker"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4014,7 +4020,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Ticking Abomination"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ticking Abomination"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4040,7 +4046,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deadscale Knight"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deadscale Knight"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4077,7 +4083,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Corpse Raiser"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpse Raiser"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4109,7 +4115,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("The Lich King"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4137,7 +4143,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Saronite Chain Gang"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Saronite Chain Gang"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4171,7 +4177,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deathspeaker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathspeaker"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4194,7 +4200,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Wretched Tiller"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wretched Tiller"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4217,7 +4223,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Happy Ghoul"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Happy Ghoul"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4244,7 +4250,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Skulking Geist"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skulking Geist"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4270,7 +4276,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Shallow Gravedigger"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shallow Gravedigger"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4304,7 +4310,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bonemare"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bonemare"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4330,7 +4336,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Nerubian Unraveler"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Unraveler"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4359,7 +4365,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deathaxe Punisher"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathaxe Punisher"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4388,7 +4394,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Meat Wagon"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Meat Wagon"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4415,7 +4421,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Prince Keleseth"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Keleseth"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4446,7 +4452,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Prince Taldaram"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Taldaram"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4477,7 +4483,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Prince Valanar"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Valanar"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4506,7 +4512,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Arfus"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arfus"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4535,7 +4541,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Hyldnir Frostrider"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hyldnir Frostrider"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4561,7 +4567,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Spellweaver"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellweaver"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4584,7 +4590,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Necrotic Geist"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Necrotic Geist"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4610,7 +4616,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Drakkari Enchanter"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Drakkari Enchanter"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4633,7 +4639,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Mindbreaker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mindbreaker"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4659,7 +4665,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Wicked Skeleton"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Skeleton"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4685,7 +4691,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bloodworm"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodworm"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4708,7 +4714,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Keening Banshee"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Keening Banshee"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4743,7 +4749,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Corpsetaker"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpsetaker"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4771,7 +4777,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Tainted Zealot"));
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tainted Zealot"));
 		}
 
 	}

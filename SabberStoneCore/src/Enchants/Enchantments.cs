@@ -25,6 +25,7 @@ namespace SabberStoneCore.Enchants
 			KaraCardsGen.AddAll(_entchantmentDic);
 			OgCardsGen.AddAll(_entchantmentDic);
 			UngoroCardsGen.AddAll(_entchantmentDic);
+			IcecrownCardsGen.AddAll(_entchantmentDic);
 
 			// Rest
 			HofCardsGen.AddAll(_entchantmentDic);
