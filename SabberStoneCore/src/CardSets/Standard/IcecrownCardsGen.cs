@@ -2821,11 +2821,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_065", new List<Enchantment> {
-				// TODO [ICC_065] Bone Baron && Test: Bone Baron_ICC_065
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new AddCardTo("ICC_026t", EntityType.HAND))
 				},
 			});
 
@@ -3188,14 +3187,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 3
 			// - OVERLOAD_OWED = 3
 			// --------------------------------------------------------
-			cards.Add("ICC_081", new List<Enchantment> {
-				// TODO [ICC_081] Drakkari Defender && Test: Drakkari Defender_ICC_081
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_081", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_088] Voodoo Hexxer - COST:5 [ATK:2/HP:7] 
@@ -3792,14 +3784,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICC_023] Snowflipper Penguin - COST:0 [ATK:1/HP:1] 
 			// - Race: beast, Set: icecrown, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("ICC_023", new List<Enchantment> {
-				// TODO [ICC_023] Snowflipper Penguin && Test: Snowflipper Penguin_ICC_023
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_023", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_025] Rattling Rascal - COST:4 [ATK:2/HP:2] 
@@ -3815,16 +3800,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_025", new List<Enchantment> {
-				// TODO [ICC_025] Rattling Rascal && Test: Rattling Rascal_ICC_025
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("ICC_025t"),
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new SummonOpTask("ICC_025t"),
 				},
 			});
 
@@ -3838,12 +3822,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_026", new List<Enchantment> {
-				// TODO [ICC_026] Grim Necromancer && Test: Grim Necromancer_ICC_026
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_026t"))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3925,14 +3908,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_032", new List<Enchantment> {
-				// TODO [ICC_032] Venomancer && Test: Venomancer_ICC_032
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_032", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_067] Vryghoul - COST:3 [ATK:3/HP:1] 
