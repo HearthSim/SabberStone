@@ -11,18 +11,17 @@ namespace SabberStoneBuildCardSet
 {
 	public class Generate
 	{
-		private static readonly string Path = @"C:\Users\admin\Source\Repos\";
-
+		private static readonly string Path = Directory.GetCurrentDirectory(); // @"C:\Users\admin\Source\Repos\";
 		private static readonly Regex Rgx = new Regex("[^a-zA-Z0-9 -]");
 
 		private static string UpperCaseFirst(string s)
 		{
-			if (string.IsNullOrEmpty(s))
+			if (String.IsNullOrEmpty(s))
 			{
-				return string.Empty;
+				return String.Empty;
 			}
-			var a = s.ToLower().ToCharArray();
-			a[0] = char.ToUpper(a[0]);
+			char[] a = s.ToLower().ToCharArray();
+			a[0] = Char.ToUpper(a[0]);
 			return new string(a);
 		}
 
@@ -31,23 +30,24 @@ namespace SabberStoneBuildCardSet
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			//var cardSets = new[] { CardSet.UNGORO};
-			var cardSets = Enum.GetValues(typeof(CardSet));
+			CardSet[] cardSets = new[] { CardSet.ICECROWN};
+			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
-				var className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
-				var path = Path + @"SabberStone\SabberStoneBuildCardSet\CardSets\";
-				var classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGenTest";
-				var pathTest = Path + @"SabberStone\SabberStoneBuildCardSet\CardSetsTest\";
+				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
+				string path = Path + @"\CardSets\";
+				string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGenTest";
+				string pathTest = Path + @"\CardSetsTest\";
 
 				WriteCardSetFile(cardSet, className, path, values);
 				WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
 			}
+			Console.ReadKey();
 		}
 
 		private static void WriteCardSetFile(CardSet cardSet, string className, string path, IEnumerable<Card> values)
 		{
-			var cardClasses = Enum.GetValues(typeof(CardClass));
+			Array cardClasses = Enum.GetValues(typeof(CardClass));
 			var methods = new List<string>();
 
 			var str = new StringBuilder();
@@ -66,7 +66,7 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine($"\tpublic class {className}");
 			str.AppendLine("\t{");
 
-			var heroes = CreateMethode("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
+			string heroes = CreateMethode("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
 			if (heroes != null)
 			{
 				methods.Add("Heroes");
@@ -74,7 +74,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine();
 			}
 
-			var heroPowers = CreateMethode("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
+			string heroPowers = CreateMethode("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
 			if (heroPowers != null)
 			{
 				methods.Add("HeroPowers");
@@ -87,14 +87,14 @@ namespace SabberStoneBuildCardSet
 				if (cardClass == CardClass.NEUTRAL || cardClass == CardClass.INVALID)
 					continue;
 
-				var cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet, CardType.INVALID, cardClass);
+				string cardClassString = CreateMethode(UpperCaseFirst(cardClass.ToString()), values, true, cardSet, CardType.INVALID, cardClass);
 				if (cardClassString != null)
 				{
 					methods.Add(UpperCaseFirst(cardClass.ToString()));
 					str.Append(cardClassString);
 					str.AppendLine();
 				}
-				var cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet, CardType.INVALID, cardClass);
+				string cardClassNonCollectString = CreateMethode(UpperCaseFirst(cardClass.ToString()) + "NonCollect", values, false, cardSet, CardType.INVALID, cardClass);
 				if (cardClassNonCollectString != null)
 				{
 					methods.Add(UpperCaseFirst(cardClass.ToString()) + "NonCollect");
@@ -102,7 +102,7 @@ namespace SabberStoneBuildCardSet
 					str.AppendLine();
 				}
 			}
-			var neutralClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
+			string neutralClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
 				CardType.INVALID, CardClass.NEUTRAL);
 			if (neutralClassString != null)
 			{
@@ -111,7 +111,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine();
 			}
 
-			var neutralNonCollectClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()) + "NonCollect", values, false,
+			string neutralNonCollectClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()) + "NonCollect", values, false,
 				cardSet, CardType.INVALID, CardClass.NEUTRAL);
 			if (neutralNonCollectClassString != null)
 			{
@@ -127,7 +127,7 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("\t}");
 			str.AppendLine("}");
 
-			var file = path + className + ".cs";
+			string file = path + className + ".cs";
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
 
@@ -139,7 +139,7 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
-			var valuesOrdered = values
+			IOrderedEnumerable<Card> valuesOrdered = values
 				.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
@@ -153,7 +153,7 @@ namespace SabberStoneBuildCardSet
 			var str = new StringBuilder();
 			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, List<Enchantment>> cards)");
 			str.AppendLine("\t\t{");
-			foreach (var card in valuesOrdered)
+			foreach (Card card in valuesOrdered)
 			{
 				str.Append(AddCardString(card));
 				str.Append(AddCardCode(card));
@@ -164,25 +164,25 @@ namespace SabberStoneBuildCardSet
 
 		private static string AddCardString(Card card, int tabs = 2)
 		{
-			var tab = tabs == 2 ? "\t\t" : "\t";
-			var atkHpStr = "";
+			string tab = tabs == 2 ? "\t\t" : "\t";
+			string atkHpStr = "";
 			if (card.Tags.ContainsKey(GameTag.ATK) || card.Tags.ContainsKey(GameTag.HEALTH))
 			{
-				var atk = card[GameTag.ATK];
-				var hp = card[GameTag.HEALTH];
+				int atk = card[GameTag.ATK];
+				int hp = card[GameTag.HEALTH];
 				atkHpStr = $"[ATK:{atk}/HP:{hp}] ";
 			}
 
-			var cardRace = "";
+			string cardRace = "";
 			if (card.Race != Race.INVALID)
 				cardRace = $"Race: {card.Race.ToString().ToLower()}, ";
-			var cardFac = "";
+			string cardFac = "";
 			if (card.Faction != Faction.INVALID)
 				cardFac = $"Fac: {card.Faction.ToString().ToLower()}, ";
-			var cardSet = "";
+			string cardSet = "";
 			if (card.Set != CardSet.INVALID)
 				cardSet = $"Set: {card.Set.ToString().ToLower()}, ";
-			var cardRarity = "";
+			string cardRarity = "";
 			if (card.Rarity != Rarity.INVALID)
 				cardRarity = $"Rarity: {card.Rarity.ToString().ToLower()}";
 
@@ -205,7 +205,7 @@ namespace SabberStoneBuildCardSet
 				GameTag.TRIGGER_VISUAL
 			};
 
-			var cardType = card.Type.ToString();
+			string cardType = card.Type.ToString();
 
 			var str = new StringBuilder();
 			str.AppendLine($"{tab}\t// ----------------{(" " + cardType + " - " + card.Class).PadLeft(40, '-')}");
@@ -220,10 +220,10 @@ namespace SabberStoneBuildCardSet
 			if (card.Entourage != null && card.Entourage.Count > 0)
 			{
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
-				str.AppendLine($"{tab}\t// Entourage: {string.Join(", ", card.Entourage)}");
+				str.AppendLine($"{tab}\t// Entourage: {String.Join(", ", card.Entourage)}");
 			}
-			var wHead = true;
-			foreach (var key in card.Tags.Keys)
+			bool wHead = true;
+			foreach (GameTag key in card.Tags.Keys)
 			{
 				if (except.Contains(key))
 					continue;
@@ -240,7 +240,7 @@ namespace SabberStoneBuildCardSet
 					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
 				}
 
-				str.AppendLine($"{tab}\t// - {key} = {(t != null ? t : card.Tags[key].ToString())}");
+				str.AppendLine($"{tab}\t// - {key} = {(t ?? card.Tags[key].ToString())}");
 			}
 
 			if (card.PlayRequirements.Count > 0)
@@ -248,13 +248,13 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
 				str.AppendLine($"{tab}\t// PlayReq:");
 			}
-			foreach (var key in card.PlayRequirements.Keys)
+			foreach (PlayReq key in card.PlayRequirements.Keys)
 			{
 				str.AppendLine($"{tab}\t// - {key} = {card.PlayRequirements[key]}");
 			}
 
 			wHead = true;
-			foreach (var key in card.RefTags.Keys)
+			foreach (GameTag key in card.RefTags.Keys)
 			{
 				if (wHead)
 				{
@@ -282,7 +282,7 @@ namespace SabberStoneBuildCardSet
 		{
 			var str = new StringBuilder();
 
-			var enchantId = Cards.All
+			string enchantId = Cards.All
 				.Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
 				.Select(p => p.Id).FirstOrDefault();
 
@@ -328,7 +328,7 @@ namespace SabberStoneBuildCardSet
 
 		private static void WriteCardSetTestFile(CardSet cardSet, string className, string path, IEnumerable<Card> values)
 		{
-			var cardClasses = Enum.GetValues(typeof(CardClass));
+			Array cardClasses = Enum.GetValues(typeof(CardClass));
 
 			var str = new StringBuilder();
 			str.AppendLine("using Xunit;");
@@ -341,14 +341,14 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("namespace SabberStoneUnitTest.CardSets");
 			str.AppendLine("{");
 
-			var heroes = CreateMethodeTest("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
+			string heroes = CreateMethodeTest("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
 			if (heroes != null)
 			{
 				str.Append(heroes);
 				str.AppendLine();
 			}
 
-			var heroPowers = CreateMethodeTest("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
+			string heroPowers = CreateMethodeTest("HeroPowers", values, null, cardSet, CardType.HERO_POWER, CardClass.INVALID);
 			if (heroPowers != null)
 			{
 				str.Append(heroPowers);
@@ -360,7 +360,7 @@ namespace SabberStoneBuildCardSet
 				if (cardClass == CardClass.NEUTRAL || cardClass == CardClass.INVALID)
 					continue;
 
-				var cardClassString = CreateMethodeTest(UpperCaseFirst(cardClass.ToString()), values, true, cardSet,
+				string cardClassString = CreateMethodeTest(UpperCaseFirst(cardClass.ToString()), values, true, cardSet,
 					CardType.INVALID, cardClass);
 				if (cardClassString != null)
 				{
@@ -369,7 +369,7 @@ namespace SabberStoneBuildCardSet
 				}
 			}
 
-			var neutralCardString = CreateMethodeTest(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
+			string neutralCardString = CreateMethodeTest(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
 				CardType.INVALID, CardClass.NEUTRAL);
 			if (neutralCardString != null)
 			{
@@ -379,7 +379,7 @@ namespace SabberStoneBuildCardSet
 
 			str.AppendLine("}");
 
-			var file = path + className + ".cs";
+			string file = path + className + ".cs";
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
 
@@ -391,7 +391,7 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
-			var valuesOrdered = values.Where(p => p.Set == set
+			IOrderedEnumerable<Card> valuesOrdered = values.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
 							&& (cardClass == CardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
@@ -403,14 +403,14 @@ namespace SabberStoneBuildCardSet
 			//str.AppendLine("\t[TestClass]");
 			str.AppendLine($"\tpublic class {name}{UpperCaseFirst(set.ToString())}Test");
 			str.AppendLine("\t{");
-			foreach (var card in valuesOrdered)
+			foreach (Card card in valuesOrdered)
 			{
 				var cardNameRx = Rgx.Replace(card.Name, "").Split(' ', '-').ToList();
-				var cardName = string.Join("", cardNameRx.Select(p => UpperCaseFirst(p)).ToList());
-				var heroClass1 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
+				string cardName = String.Join("", cardNameRx.Select(p => UpperCaseFirst(p)).ToList());
+				CardClass heroClass1 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
 					? CardClass.MAGE
 					: card.Class;
-				var heroClass2 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
+				CardClass heroClass2 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
 					? CardClass.MAGE
 					: card.Class;
 				str.Append(AddCardString(card, 1));
@@ -440,7 +440,7 @@ namespace SabberStoneBuildCardSet
 		{
 			var str = new StringBuilder();
 			str.AppendLine($"CARD_ID|IMPL.|SET|FORMAT|TYPE|CLASS|NAME|TEXT");
-			foreach (var card in cardsValues)
+			foreach (Card card in cardsValues)
 			{
 				if (!card.Collectible || !Cards.StandardSets.Contains(card.Set) && !card.Implemented)
 					continue;
@@ -452,12 +452,13 @@ namespace SabberStoneBuildCardSet
 				//str.AppendLine($"{card.AssetId}");
 			}
 
-			var path = Path + @"SabberStone\SabberStoneBuildCardSet\Statistics\";
-			var file = path + "echantmentsleft.csv";
+			string path = Path + @"\Statistics\";
+			string file = path + "echantmentsleft.csv";
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
-			Console.WriteLine($"Writing cardset class: {file}.");
+			Console.WriteLine($"Writing statistics: {file}.");
 			File.WriteAllText(file, str.ToString());
+			Console.ReadKey();
 		}
 
 		public static string RemoveLineEndings(string value)
@@ -470,12 +471,12 @@ namespace SabberStoneBuildCardSet
 			string paragraphSeparator = ((char)0x2029).ToString();
 
 			return value
-				.Replace("\r\n", string.Empty)
+				.Replace("\r\n", String.Empty)
 				.Replace("\n", " ")
 				.Replace("\r", " ")
 				.Replace(lineSeparator, " ")
 				.Replace(paragraphSeparator, " ")
-				.Replace("[x]", string.Empty).Trim()
+				.Replace("[x]", String.Empty).Trim()
 				;
 		}
 	}

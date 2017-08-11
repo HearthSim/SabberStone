@@ -196,7 +196,7 @@ namespace SabberStoneCore.Loader
 				// spell damage information add ... 
 				if (c.Text != null && (c.Text.Contains("$") || c[GameTag.AFFECTED_BY_SPELL_POWER] == 1))
 				{
-					c.Text += " *spelldmg";
+					c.Text += " @spelldmg";
 					c.IsAffectedBySpellDamage = true;
 				}
 				cards.Add(c);
