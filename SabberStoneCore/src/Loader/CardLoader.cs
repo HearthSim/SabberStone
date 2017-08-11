@@ -20,7 +20,7 @@ namespace SabberStoneCore.Loader
 		public List<int> LoadPlayReqOrder()
 		{
 			var playErr =
-				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.PlayErrors.xml"));
+				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.PlayErrors.xml"));
 			var playReqOrder = (from r in playErr.Descendants("PlayErrors")
 								select new
 								{
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Loader
 		public Dictionary<int, PlayerReqDesc> LoadPlayReqDesc()
 		{
 			var playErr =
-				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.PlayErrors.xml"));
+				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.PlayErrors.xml"));
 
 			var playReqDesc = (from r in playErr.Descendants("PlayErrors")
 							   select new
@@ -72,7 +72,7 @@ namespace SabberStoneCore.Loader
 		{
 			// Get XML definitions from assembly embedded resource
 			var cardDefsXml =
-				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CardDefs.xml"));
+				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.CardDefs.xml"));
 			//var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
 			//var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"))
 			;

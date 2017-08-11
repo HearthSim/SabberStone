@@ -1,28 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreTest", "SabberStoneCoreTest\SabberStoneCoreTest.csproj", "{4858A01E-6F37-4170-AFE3-4C76E514FE19}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreConsole", "SabberStoneCoreConsole\SabberStoneCoreConsole.csproj", "{A47F02BC-540C-4576-AD4F-96B3543DC2B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneCoreAi", "SabberStoneCoreAi\SabberStoneCoreAi.csproj", "{B3B74404-BDEA-435C-800E-C184BEB0EB60}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "SabberStoneGui\SabberStoneGui.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettleClient", "SabberStoneKetteClient\SabberStoneKettleClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneKettle", "SabberStoneKettle\SabberStoneKettle.csproj", "{6DEADFED-C31C-45E5-A370-FDB93BE227BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettleSimulator", "SabberStoneKettleSimulator\SabberStoneKettleSimulator.csproj", "{4B889067-2E85-4396-88FF-1E6B43AF05F7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStonePowerLog", "SabberStonePowerLog\SabberStonePowerLog.csproj", "{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneHsReplay", "SabberStoneHsReplay\SabberStoneHsReplay.csproj", "{34049E7A-325F-4C9F-871E-B7656CD6AD4B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{261600B6-3820-499E-8186-F2589B9F5049}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -30,7 +10,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneBuildCardSet", "SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{48AE839D-1944-45E9-8E38-016C5E7D399B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2A33A780-09E0-43EA-BAC7-BD3443B2EC79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AI", "AI", "{5CD57D98-F9FA-4402-806A-8FF418CF253E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCore", "SabberStoneCore\SabberStoneCore.csproj", "{2916863C-6E4E-4009-AC21-3487A1A9B333}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreTest", "SabberStoneCoreTest\SabberStoneCoreTest.csproj", "{4858A01E-6F37-4170-AFE3-4C76E514FE19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SabberStoneGui", "SabberStoneGui\SabberStoneGui.csproj", "{D96672D9-240A-4745-9067-4DE39E098E03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreConsole", "core-extensions\SabberStoneCoreConsole\SabberStoneCoreConsole.csproj", "{A47F02BC-540C-4576-AD4F-96B3543DC2B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneCoreAi", "core-extensions\SabberStoneCoreAi\SabberStoneCoreAi.csproj", "{B3B74404-BDEA-435C-800E-C184BEB0EB60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettleClient", "core-extensions\SabberStoneKetteClient\SabberStoneKettleClient.csproj", "{5DB9BC27-E64B-4B89-B125-919AC57E0E9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettle", "core-extensions\SabberStoneKettle\SabberStoneKettle.csproj", "{6DEADFED-C31C-45E5-A370-FDB93BE227BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettleSimulator", "core-extensions\SabberStoneKettleSimulator\SabberStoneKettleSimulator.csproj", "{4B889067-2E85-4396-88FF-1E6B43AF05F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStonePowerLog", "core-extensions\SabberStonePowerLog\SabberStonePowerLog.csproj", "{FF3B4BE2-040E-4962-B2CB-8250437D7AD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneHsReplay", "core-extensions\SabberStoneHsReplay\SabberStoneHsReplay.csproj", "{34049E7A-325F-4C9F-871E-B7656CD6AD4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneBuildCardSet", "core-extensions\SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{48AE839D-1944-45E9-8E38-016C5E7D399B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +183,18 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2916863C-6E4E-4009-AC21-3487A1A9B333} = {2A33A780-09E0-43EA-BAC7-BD3443B2EC79}
+		{4858A01E-6F37-4170-AFE3-4C76E514FE19} = {2A33A780-09E0-43EA-BAC7-BD3443B2EC79}
+		{A47F02BC-540C-4576-AD4F-96B3543DC2B4} = {2A33A780-09E0-43EA-BAC7-BD3443B2EC79}
+		{B3B74404-BDEA-435C-800E-C184BEB0EB60} = {5CD57D98-F9FA-4402-806A-8FF418CF253E}
+		{5DB9BC27-E64B-4B89-B125-919AC57E0E9F} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{6DEADFED-C31C-45E5-A370-FDB93BE227BD} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{4B889067-2E85-4396-88FF-1E6B43AF05F7} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{34049E7A-325F-4C9F-871E-B7656CD6AD4B} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{48AE839D-1944-45E9-8E38-016C5E7D399B} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
