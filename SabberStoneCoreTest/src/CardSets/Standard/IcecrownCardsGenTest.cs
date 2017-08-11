@@ -4129,10 +4129,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SaroniteChainGang_ICC_466()
 		{
-			// TODO SaroniteChainGang_ICC_466 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4143,7 +4142,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Saronite Chain Gang"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Saronite Chain Gang"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(2, game.Player1.BoardZone.Count);
+			Assert.Equal("ICC_466", game.Player1.BoardZone[0].Card.Id);
+			Assert.Equal("ICC_466", game.Player1.BoardZone[1].Card.Id);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

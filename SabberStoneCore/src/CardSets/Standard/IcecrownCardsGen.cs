@@ -4190,11 +4190,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_466", new List<Enchantment> {
-				// TODO [ICC_466] Saronite Chain Gang && Test: Saronite Chain Gang_ICC_466
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("ICC_466"),
 				},
 			});
 
