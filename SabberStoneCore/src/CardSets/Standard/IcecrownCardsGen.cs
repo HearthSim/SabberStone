@@ -1312,14 +1312,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA09_003t4", new List<Enchantment> {
-				// TODO [ICCA09_003t4] Abominable Knuckles && Test: Abominable Knuckles_ICCA09_003t4
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+			cards.Add("ICCA09_003t4", null);
 
 		}
 
@@ -4506,11 +4499,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
 			cards.Add("ICC_856", new List<Enchantment> {
-				// TODO [ICC_856] Spellweaver && Test: Spellweaver_ICC_856
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SpellPowerDamage(2)
 				}
 			});
 
@@ -4653,11 +4646,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_913", new List<Enchantment> {
-				// TODO [ICC_913] Tainted Zealot && Test: Tainted Zealot_ICC_913
+
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
@@ -5189,7 +5183,8 @@ namespace SabberStoneCore.CardSets.Standard
 				}
 			});
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// ---------------------------------- 
+
 			// [ICCA08_022e2] Join the Ranks (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
@@ -5208,66 +5203,31 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICC_019t] Skeletal Flayer (*) - COST:8 [ATK:8/HP:8] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_019t", new List<Enchantment> {
-				// TODO [ICC_019t] Skeletal Flayer && Test: Skeletal Flayer_ICC_019t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_019t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_025t] Skeletal Enforcer (*) - COST:5 [ATK:5/HP:5] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_025t", new List<Enchantment> {
-				// TODO [ICC_025t] Skeletal Enforcer && Test: Skeletal Enforcer_ICC_025t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_025t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_026t] Skeleton (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_026t", new List<Enchantment> {
-				// TODO [ICC_026t] Skeleton && Test: Skeleton_ICC_026t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_026t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_800h3t] Zombeast (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: icecrown, Rarity: legendary
 			// --------------------------------------------------------
-			cards.Add("ICC_800h3t", new List<Enchantment> {
-				// TODO [ICC_800h3t] Zombeast && Test: Zombeast_ICC_800h3t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_800h3t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_900t] Ghoul (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_900t", new List<Enchantment> {
-				// TODO [ICC_900t] Ghoul && Test: Ghoul_ICC_900t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_900t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA01_004t] Ghoul (*) - COST:3 [ATK:3/HP:3] 
@@ -5278,14 +5238,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA01_004t", new List<Enchantment> {
-				// TODO [ICCA01_004t] Ghoul && Test: Ghoul_ICCA01_004t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA01_004t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA01_007] Eager Rogue (*) - COST:1 [ATK:3/HP:2] 
@@ -5306,14 +5259,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICCA01_008] Terrible Tank (*) - COST:2 [ATK:2/HP:3] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA01_008", new List<Enchantment> {
-				// TODO [ICCA01_008] Terrible Tank && Test: Terrible Tank_ICCA01_008
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA01_008", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA01_009] Needy Hunter (*) - COST:3 [ATK:3/HP:3] 
@@ -5340,14 +5286,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA01_010", new List<Enchantment> {
-				// TODO [ICCA01_010] A. F. Kay && Test: A. F. Kay_ICCA01_010
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA01_010", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA01_011] Warlock on Fire (*) - COST:5 [ATK:7/HP:1] 
@@ -5385,14 +5324,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICCA05_003] Sleeping Acolyte (*) - COST:1 [ATK:0/HP:10] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA05_003", new List<Enchantment> {
-				// TODO [ICCA05_003] Sleeping Acolyte && Test: Sleeping Acolyte_ICCA05_003
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA05_003", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA06_005] Bone Spike (*) - COST:4 [ATK:0/HP:8] 
@@ -5435,11 +5367,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("ICCA07_008", new List<Enchantment> {
-				// TODO [ICCA07_008] Festergut && Test: Festergut_ICCA07_008
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(new DamageTask(3, EntityType.OP_MINIONS))
+						.Build()
 				}
 			});
 
@@ -5447,14 +5383,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICCA08_002t] Ghoul (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_002t", new List<Enchantment> {
-				// TODO [ICCA08_002t] Ghoul && Test: Ghoul_ICCA08_002t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA08_002t", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA08_017] Val'kyr Shadowguard (*) - COST:3 [ATK:0/HP:5] 
@@ -5475,14 +5404,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICCA08_033] Trapped Soul (*) - COST:3 [ATK:2/HP:6] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_033", new List<Enchantment> {
-				// TODO [ICCA08_033] Trapped Soul && Test: Trapped Soul_ICCA08_033
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA08_033", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICCA09_001t1] Blood Beast (*) - COST:3 [ATK:2/HP:4] 
@@ -5491,11 +5413,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, restore 3 Health to your hero.
 			// --------------------------------------------------------
 			cards.Add("ICCA09_001t1", new List<Enchantment> {
-				// TODO [ICCA09_001t1] Blood Beast && Test: Blood Beast_ICCA09_001t1
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, 1)
+						.SingleTask(new HealTask(3, EntityType.HERO))
+						.Build()
 				}
 			});
 
@@ -5569,14 +5495,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 6
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA06_003", new List<Enchantment> {
-				// TODO [ICCA06_003] Bryn'troll, the Bone Arbiter && Test: Bryn'troll, the Bone Arbiter_ICCA06_003
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+			cards.Add("ICCA06_003", null);
 
 			// --------------------------------------- WEAPON - NEUTRAL
 			// [ICCA07_020] Tentacles (*) - COST:6 [ATK:3/HP:0] 
@@ -5585,14 +5504,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DURABILITY = 6
 			// --------------------------------------------------------
-			cards.Add("ICCA07_020", new List<Enchantment> {
-				// TODO [ICCA07_020] Tentacles && Test: Tentacles_ICCA07_020
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
-			});
+			cards.Add("ICCA07_020", null);
 
 		}
 
