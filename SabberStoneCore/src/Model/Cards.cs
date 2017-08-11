@@ -20,7 +20,7 @@ namespace SabberStoneCore.Model
 		/// Specifies which card sets combine into the STANDARD set.
 		/// </summary>
 		public static CardSet[] StandardSets { get; } = {
-			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO
+			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO, CardSet.ICECROWN
 		};
 
 		/// <summary>
