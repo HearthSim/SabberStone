@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,9 +65,15 @@ namespace SabberStoneGui
 				var tasks = new List<Task>();
 				foreach (var option in depthNodes.Values)
 				{
-					countNodes++;
-					worker?.ReportProgress(countNodes, countNodesTot);
-					tasks.Add(new Task(() => option.Options(ref nextDepthNodes)));
+					tasks.Add(new Task(() =>
+					{
+						option.Options(ref nextDepthNodes);
+						var inner = Task.Factory.StartNew(() =>
+						{
+							Interlocked.Increment(ref countNodes);
+							worker?.ReportProgress(countNodes, countNodesTot);
+						}, TaskCreationOptions.AttachedToParent);
+					}));
 				}
 				foreach (var task in tasks)
 					task.Start();
