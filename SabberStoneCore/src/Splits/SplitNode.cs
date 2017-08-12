@@ -31,7 +31,7 @@ namespace SabberStoneCore.Splits
 			if (!isRoot)
 				Execute();
 
-			Hash = Game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
+			Hash = Game.ToHash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
 		}
 
 		public void Execute()

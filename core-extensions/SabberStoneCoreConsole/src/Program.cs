@@ -763,8 +763,8 @@ namespace SabberStoneCoreConsole
 					var option = options[Rnd.Next(options.Count)];
 					game.Process(option);
 					var cloneGame = game.Clone();
-					var str1 = game.Hash();
-					var str2 = cloneGame.Hash();
+					var str1 = game.ToHash();
+					var str2 = cloneGame.ToHash();
 					flag &= str1.Equals(str2);
 					if (!flag)
 					{

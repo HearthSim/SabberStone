@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model.Zones
 	/// reside.
 	/// A zone is owned by a controller and isn't shared.
 	/// </summary>
-	public interface IZone
+	public interface IZone: IModel<IZone>
 	{
 		/// <summary>
 		/// Gets the maximum amount of entities this zone can hold.
@@ -111,18 +111,5 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <value>The list of triggers.</value>
 		List<Trigger> Triggers { get; }
-
-		/// <summary>
-		/// Copy data from the specified zone into this one.
-		/// </summary>
-		/// <param name="zone">The other zone object.</param>
-		void Stamp(IZone zone);
-
-		/// <summary>
-		/// Returns a string which contains a hash unique to this zone object.
-		/// </summary>
-		/// <param name="ignore">The <see cref="GameTag"/>s to ignore during hash creation.</param>
-		/// <returns></returns>
-		string Hash(params GameTag[] ignore);
 	}
 }

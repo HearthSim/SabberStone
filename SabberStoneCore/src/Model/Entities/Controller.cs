@@ -23,7 +23,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
-		public ControlledZones ControlledZones { get; }
+		public ControlledZones ControlledZones { get; private set; }
 
 		/// <summary>
 		/// The deck of this player.
@@ -33,7 +33,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// The hand of this player.
-		/// This zone contains cards which were drawn from deck or generated 
+		/// This zone contains cards which were drawn from deck or generated
 		/// during the game. Can be empty.
 		/// </summary>
 		public HandZone HandZone => ControlledZones[Enums.Zone.HAND] as HandZone;
@@ -59,7 +59,7 @@ namespace SabberStoneCore.Model.Entities
 		/// The zone containing all entities that need to be chosen by the player.
 		/// Before an option set is created, it's entities are built and stored in the this zone.
 		/// The picked entity will move from that zone into the hand zone.
-		/// 
+		///
 		/// Unpicked entities will remain in the setaside zone.
 		/// </summary>
 		public SetasideZone SetasideZone => ControlledZones[Enums.Zone.SETASIDE] as SetasideZone;
@@ -149,14 +149,13 @@ namespace SabberStoneCore.Model.Entities
 				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 		}
 
-		/// <summary>
-		/// Copy data from the provided argument into this object.
-		/// </summary>
-		/// <param name="controller"></param>
-		public void Stamp(Controller controller)
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override void InternalStamp(IModel other)
 		{
+			Controller controller = other as Controller ?? throw new InvalidOperationException("entity is not of type Controller!");
+
 			ControlledZones.Stamp(controller.ControlledZones);
-			base.Stamp(controller);
 			Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
 			Hero.Stamp(controller.Hero);
 			Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
@@ -175,25 +174,31 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		/// <summary>
-		/// Build a unique string describing this object.
-		/// </summary>
-		/// <param name="ignore">All GameTags which have to be ignored during hash generation.</param>
-		/// <returns>The unique hash string.</returns>
-		public override string Hash(params GameTag[] ignore)
+		protected override string InternalToHash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
 			str.Append("][C:");
 			str.Append($"{Name}");
 			str.Append("]");
-			str.Append(base.Hash(ignore));
-			str.Append(Hero.Hash(ignore));
-			str.Append(Hero.Power.Hash(ignore));
+			str.Append(Hero.ToHash(ignore));
+			str.Append(Hero.Power.ToHash(ignore));
 			if (Hero.Weapon != null)
-				str.Append(Hero.Weapon.Hash(ignore));
-			str.Append(ControlledZones.Hash(ignore));
+				str.Append(Hero.Weapon.ToHash(ignore));
+			str.Append(ControlledZones.ToHash(ignore));
 			return str.ToString();
 		}
+
+		protected override Entity InternalClone()
+		{
+			return new Controller(Game, Name, PlayerId, Id)
+			{
+				ControlledZones = ControlledZones.Clone() as ControlledZones,
+				Hero = Hero.Clone() as Hero,
+				Choice = Choice.Clone() as Choice,
+			};
+		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
 		/// Returns a set of all options this player can perform execute at the moment.
@@ -393,7 +398,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Total amount of mana available to this player.
 		/// This value DOES NOT contain temporary mana!
-		/// 
+		///
 		/// This value is limited to 1 turnand should be reset in the next turn.
 		/// </summary>
 		public int BaseMana
@@ -404,7 +409,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// Amount of mana used by this player.
-		/// 
+		///
 		/// This value is limited to 1 turnand should be reset in the next turn.
 		/// </summary>
 		public int UsedMana
@@ -424,7 +429,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// Indicates if combo enchantment effects of next cards should be executed or not.
-		/// 
+		///
 		/// Combo is active if at least one card has been played this turn.
 		/// </summary>
 		public bool IsComboActive
@@ -554,8 +559,8 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// Amount of turns left for this player.
-		/// 
-		/// This is a special tag used for the spell Time Warp, which grants 
+		///
+		/// This is a special tag used for the spell Time Warp, which grants
 		/// the caster an additional turn.
 		/// </summary>
 		public int NumTurnsLeft
@@ -575,7 +580,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// Amount of mana crystals locked this turn.
-		/// 
+		///
 		/// The subtraction of BASE_MANA and this value gives the available
 		/// resources during this turn.
 		/// </summary>

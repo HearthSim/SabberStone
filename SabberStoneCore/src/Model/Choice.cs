@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System.Linq;
 
 namespace SabberStoneCore.Model
 {
@@ -11,7 +13,7 @@ namespace SabberStoneCore.Model
 
 	}
 
-	public class Choice
+	public class Choice: IModel<Choice>
 	{
 		public Choice(Controller controller)
 		{
@@ -30,8 +32,28 @@ namespace SabberStoneCore.Model
 
 		public List<int> TargetIds { get; set; }
 
-		public void Stamp(Choice choice)
+		public Choice Clone()
 		{
+			return new Choice(Controller)
+			{
+				ChoiceType = ChoiceType,
+				ChoiceAction = ChoiceAction,
+				Choices = Choices.ToList(), // Makes shallow copy
+				SourceId = SourceId,
+				TargetIds = TargetIds.ToList(), // Makes shallow copy
+			};
+		}
+
+		public string ToHash(params GameTag[] ignore)
+		{
+			// TODO hash
+			throw new NotImplementedException();
+		}
+
+		public void Stamp(IModel other)
+		{
+			Choice choice = other as Choice ?? throw new InvalidOperationException("other's type is invalid");
+
 			ChoiceType = choice.ChoiceType;
 			ChoiceAction = choice.ChoiceAction;
 			Choices = new List<int>(choice.Choices);
@@ -39,12 +61,9 @@ namespace SabberStoneCore.Model
 			TargetIds = new List<int>(choice.TargetIds);
 		}
 
-		public string FullPrint()
+		IModel IModel.Clone()
 		{
-			var str = new StringBuilder();
-			str.Append($"{Controller.Name}[ChoiceType:{ChoiceType}][ChoiceAction:{ChoiceAction}][");
-			str.Append(string.Join(",", Choices));
-			return str.ToString();
+			return Clone();
 		}
 	}
 }

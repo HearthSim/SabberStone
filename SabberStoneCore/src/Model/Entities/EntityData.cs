@@ -10,8 +10,19 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Holds original entity data for a specific card.
 	/// </summary>
-	internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>
+	internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>, IModel<EntityData>
 	{
+		/// <summary>
+		/// The card which was used to create this instance.
+		/// </summary>
+		public Card Card { get; }
+
+		/// <summary>
+		/// The container with tags used to create this instance.
+		/// </summary>
+		/// TODO; This might be made private.
+		public Dictionary<GameTag, int> Tags { get; private set; }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityData"/> class.
 		/// </summary>
@@ -23,21 +34,42 @@ namespace SabberStoneCore.Model.Entities
 			Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
 		}
 
-		/// <summary>
-		/// Copies data from the other object into this one.
-		/// </summary>
-		/// <param name="data">The data.</param>
-		public void Stamp(EntityData data)
+		/// <summary>Gets or sets the value of a specific GameTag.</summary>
+		/// <value></value>
+		/// <param name="t">The GameTag.</param>
+		/// <returns></returns>
+		public int this[GameTag t]
 		{
-			Tags = new Dictionary<GameTag, int>(data.Tags);
+			get { return Tags.ContainsKey(t) ? Tags[t] : (Card.Tags.ContainsKey(t) ? Card[t] : 0); }
+			set { Tags[t] = value; }
 		}
 
-		/// <summary>
-		/// Returns a string uniquely identifying this object.
-		/// </summary>
-		/// <param name="ignore">The tags to ignore during hashing.</param>
-		/// <returns>The hash string.</returns>
-		public string Hash(params GameTag[] ignore)
+		/// <summary>Resets all tags from the container.</summary>
+		public void Reset(Dictionary<GameTag, int> tags = null)
+		{
+			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
+			Tags.Remove(GameTag.ATK);
+			Tags.Remove(GameTag.HEALTH);
+			Tags.Remove(GameTag.COST);
+			Tags.Remove(GameTag.DAMAGE);
+			Tags.Remove(GameTag.TAUNT);
+			Tags.Remove(GameTag.FROZEN);
+			Tags.Remove(GameTag.ENRAGED);
+			Tags.Remove(GameTag.CHARGE);
+			Tags.Remove(GameTag.WINDFURY);
+			Tags.Remove(GameTag.DIVINE_SHIELD);
+			Tags.Remove(GameTag.STEALTH);
+			Tags.Remove(GameTag.DEATHRATTLE);
+			Tags.Remove(GameTag.BATTLECRY);
+			Tags.Remove(GameTag.SILENCED);
+		}
+
+		public EntityData Clone()
+		{
+			return new EntityData(Card, Tags);
+		}
+
+		public string ToHash(params GameTag[] ignore)
 		{
 			var hash = new StringBuilder();
 			hash.Append("[");
@@ -60,25 +92,21 @@ namespace SabberStoneCore.Model.Entities
 			return hash.ToString();
 		}
 
-		/// <summary>
-		/// The card which was used to create this instance.
-		/// </summary>
-		public Card Card { get; }
-
-		/// <summary>
-		/// The container with tags used to create this instance.
-		/// </summary>
-		/// TODO; This might be made private.
-		public Dictionary<GameTag, int> Tags { get; private set; }
-
-		/// <summary>Gets or sets the value of a specific GameTag.</summary>
-		/// <value></value>
-		/// <param name="t">The GameTag.</param>
-		/// <returns></returns>
-		public int this[GameTag t]
+		public void Stamp(IModel other)
 		{
-			get { return Tags.ContainsKey(t) ? Tags[t] : (Card.Tags.ContainsKey(t) ? Card[t] : 0); }
-			set { Tags[t] = value; }
+			EntityData data = other as EntityData ?? throw new InvalidProgramException("other's type is invalid");
+			Tags = new Dictionary<GameTag, int>(data.Tags);
+		}
+
+		IModel IModel.Clone()
+		{
+			return Clone();
+		}
+		
+		public override string ToString()
+		{
+			string s = Tags.Aggregate(Card.Name + " - ", (current, tag) => current + new Tag(tag.Key, tag.Value) + ", ");
+			return s.Substring(0, s.Length - 2);
 		}
 
 		public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
@@ -98,32 +126,6 @@ namespace SabberStoneCore.Model.Entities
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
-		}
-
-		public override string ToString()
-		{
-			string s = Tags.Aggregate(Card.Name + " - ", (current, tag) => current + new Tag(tag.Key, tag.Value) + ", ");
-			return s.Substring(0, s.Length - 2);
-		}
-
-		/// <summary>Resets all tags from the container.</summary>
-		public void Reset(Dictionary<GameTag, int> tags = null)
-		{
-			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-			Tags.Remove(GameTag.ATK);
-			Tags.Remove(GameTag.HEALTH);
-			Tags.Remove(GameTag.COST);
-			Tags.Remove(GameTag.DAMAGE);
-			Tags.Remove(GameTag.TAUNT);
-			Tags.Remove(GameTag.FROZEN);
-			Tags.Remove(GameTag.ENRAGED);
-			Tags.Remove(GameTag.CHARGE);
-			Tags.Remove(GameTag.WINDFURY);
-			Tags.Remove(GameTag.DIVINE_SHIELD);
-			Tags.Remove(GameTag.STEALTH);
-			Tags.Remove(GameTag.DEATHRATTLE);
-			Tags.Remove(GameTag.BATTLECRY);
-			Tags.Remove(GameTag.SILENCED);
 		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using System;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -53,16 +53,26 @@ namespace SabberStoneCore.Model.Entities
 			Controller.GraveyardZone.Add(Weapon);
 			Weapon = null;
 			EquippedWeapon = 0;
+		}		
+
+		protected override void InternalStamp(IModel entity)
+		{
+			// Do nothing, stamping was taken care of by Controller.InternalStamp
 		}
 
-		public string FullPrint()
+		protected override string InternalToHash(params GameTag[] ignore)
 		{
-			var str = new StringBuilder();
-			var mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
-			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{SpellPowerDamage}]");
-			str.Append($"[ENCH {Enchants.Count}]");
-			str.Append($"[TRIG {Triggers.Count}]");
-			return str.ToString();
+			// Do nothing, toHash has been taken care of by Controller.InternalToHash
+			return String.Empty;
+		}
+
+		protected override Entity InternalClone()
+		{
+			return new Hero(Controller, Card, null)
+			{
+				Weapon = Weapon.Clone() as Weapon,
+				Power = Power.Clone() as HeroPower,
+			};
 		}
 	}
 

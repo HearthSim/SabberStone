@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -38,6 +39,22 @@ namespace SabberStoneCore.Model.Entities
 			IsSilenced = true;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
+		}
+
+		protected override void InternalStamp(IModel entity)
+		{
+			// Do nothing, nothing to stamp.
+		}
+
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			// Do nothing, nothing to report.
+			return String.Empty;
+		}
+
+		protected override Entity InternalClone()
+		{
+			return new Minion(Controller, Card, null);
 		}
 	}
 

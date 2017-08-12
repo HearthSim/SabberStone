@@ -4,10 +4,13 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections;
 
 namespace SabberStoneCore.Model
 {
-	public class TaskQueue
+	// Should be IModelCollection<ISimpleTask>
+	public class TaskQueue : IModel<TaskQueue>
 	{
 		public List<ISimpleTask> TaskList = new List<ISimpleTask>();
 
@@ -20,22 +23,6 @@ namespace SabberStoneCore.Model
 		public TaskQueue(Game game)
 		{
 			Game = game;
-		}
-
-		public void Stamp(TaskQueue taskQueue)
-		{
-			TaskList = new List<ISimpleTask>();
-			taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
-			if (taskQueue.CurrentTask != null)
-			{
-				CurrentTask = taskQueue.CurrentTask.Clone();
-				CurrentTask.Game = Game;
-			}
-			TaskList.ForEach(p =>
-			{
-				p.Game = Game;
-				//p.Reset();
-			});
 		}
 
 		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target)
@@ -103,6 +90,52 @@ namespace SabberStoneCore.Model
 			//    Game.Splits = CurrentTask.Splits;                
 			//}
 			return success;
+		}
+
+		public TaskQueue Clone()
+		{
+			var clone = new TaskQueue(Game)
+			{
+				CurrentTask = CurrentTask.Clone() as ISimpleTask
+			};
+
+			// TODO; Change into our own container to smoothen clone behaviour
+			clone.TaskList = new List<ISimpleTask>(TaskList.Capacity);
+			for (int i = 0; i < TaskList.Count; ++i)
+			{
+				clone.TaskList[i] = TaskList[i].Clone() as ISimpleTask;
+			}
+
+			return clone;
+		}
+
+		public string ToHash(params GameTag[] ignore)
+		{
+			// TODO; Might be interesting to return something here.
+			return String.Empty;
+		}
+
+		public void Stamp(IModel other)
+		{
+			TaskQueue taskQueue = other as TaskQueue ?? throw new InvalidOperationException("other's type is invalid");
+
+			TaskList = new List<ISimpleTask>();
+			taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
+			if (taskQueue.CurrentTask != null)
+			{
+				CurrentTask = taskQueue.CurrentTask.Clone();
+				CurrentTask.Game = Game;
+			}
+			TaskList.ForEach(p =>
+			{
+				p.Game = Game;
+				//p.Reset();
+			});
+		}
+
+		IModel IModel.Clone()
+		{
+			return Clone();
 		}
 	}
 }

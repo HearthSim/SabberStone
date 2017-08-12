@@ -2,12 +2,15 @@
 using SabberStoneCore.Enums;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model.Zones
 {
 	public class DeckZone : Zone<IPlayable>
 	{
 		public int StartingCards { get; set; } = 30;
+
+		public override int MaxSize => 9999;
 
 		public DeckZone(Game game, Controller controller) : base(game, controller, Zone.DECK)
 		{
@@ -42,6 +45,11 @@ namespace SabberStoneCore.Model.Zones
 			{
 				Swap(Random, Random);
 			}
+		}
+
+		protected override Zone<IPlayable> InternalClone()
+		{
+			return new DeckZone(Game, Controller);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -9,6 +10,22 @@ namespace SabberStoneCore.Model.Entities
 			: base(controller, card, tags)
 		{
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
+		}
+
+		protected override Entity InternalClone()
+		{
+			return new Weapon(Controller, Card, null);
+		}
+
+		protected override void InternalStamp(IModel entity)
+		{
+			// Do nothing, nothing to stamp.
+		}
+
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			// Do nothing, nothing to report.
+			return String.Empty;
 		}
 	}
 

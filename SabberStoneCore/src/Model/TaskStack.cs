@@ -1,10 +1,12 @@
 ﻿using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Enums;
+using System;
 
 namespace SabberStoneCore.Model
 {
-	public class TaskStack
+	public class TaskStack : IModel<TaskStack>
 	{
 		public Game Game { get; set; }
 
@@ -26,13 +28,36 @@ namespace SabberStoneCore.Model
 			Numbers = new[] { 0, 0, 0, 0, 0 };
 		}
 
-		public void Stamp(TaskStack taskStack)
+		public TaskStack Clone()
 		{
+			return new TaskStack(Game)
+			{
+				Playables = Playables.ToList(), // Shallow copy
+				CardIds = CardIds.ToList(), // Shallow copy
+				Flag = Flag,
+				Numbers = Numbers.ToArray(), // Shallow copy
+			};
+		}
+
+		public string ToHash(params GameTag[] ignore)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Stamp(IModel other)
+		{
+			TaskStack taskStack = other as TaskStack ?? throw new InvalidOperationException("other's type is invalid");
+
 			Playables = new List<IPlayable>();
 			Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
 			CardIds = taskStack.CardIds;
 			Flag = taskStack.Flag;
 			Numbers = taskStack.Numbers;
+		}
+
+		IModel IModel.Clone()
+		{
+			return Clone();
 		}
 	}
 }

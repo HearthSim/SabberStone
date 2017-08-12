@@ -14,9 +14,9 @@ namespace SabberStoneCore.Model.Zones
 	/// Base implementation of IZone.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <seealso cref="Model.Zones.IZone" />
+	/// <seealso cref="IZone" />
 	/// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
-	public abstract class Zone<T> : IZone, IEnumerable<T> where T : IPlayable
+	public abstract class Zone<T> : IZone, IModelCollection<T> where T : class, IPlayable
 	{
 		public Game Game { get; }
 
@@ -24,25 +24,23 @@ namespace SabberStoneCore.Model.Zones
 
 		public Zone Type { get; }
 
-		public int MaxSize => Type == Zone.PLAY
-			? Game.MAX_MINIONS_ON_BOARD
-			: (Type == Zone.HAND
-				? Controller.MaxHandSize
-				: 9999);
+		public abstract int MaxSize { get; }
 
 		public bool IsFull => !(Count < MaxSize);
 
 		public bool IsEmpty => Count == 0;
 
+		public bool IsReadOnly => false;
+
 		public int Count => _entitiesAsList.Count;
 
-		public T Random => Util.Choose<T>(_entitiesAsList);
+		public T Random => Util.Choose(_entitiesAsList);
 
 		private readonly List<T> _entitiesAsList = new List<T>();
 
-		public List<Enchant> Enchants { get; } = new List<Enchant>();
+		public List<Enchant> Enchants { get; private set; } = new List<Enchant>();
 
-		public List<Trigger> Triggers { get; } = new List<Trigger>();
+		public List<Trigger> Triggers { get; private set; } = new List<Trigger>();
 
 		public List<IPlayable> GetAll
 		{
@@ -64,40 +62,6 @@ namespace SabberStoneCore.Model.Zones
 			Controller = controller;
 			Type = type;
 			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Zone", $"Created Zone {type} in Game with Controller {controller.Name}");
-		}
-
-		public void Stamp(IZone zone)
-		{
-			zone.GetAll.ToList().ForEach(p =>
-			{
-				IPlayable copy = Entity.FromCard(Controller, p.Card, null, null, p.Id);
-				copy.Stamp(p as Entity);
-				MoveTo(copy, copy.ZonePosition);
-			});
-			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
-		}
-
-		public string Hash(params GameTag[] ignore)
-		{
-			var str = new StringBuilder();
-			str.Append("[Z:");
-			str.Append($"{Type}");
-			str.Append("][E:");
-			List<IPlayable> list = GetAll;
-			if (Type != Zone.PLAY)
-			{
-				list = list.OrderBy(p => p.Id).ToList();
-				Array.Resize(ref ignore, ignore.Length + 1);
-				ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
-			}
-			list.ForEach(p => str.Append(p.Hash(ignore)));
-			str.Append($"][EN:{Enchants.Count}");
-			Enchants.ForEach(p => str.Append(p.Hash));
-			str.Append($"][TR:{Triggers.Count}");
-			Triggers.ForEach(p => str.Append(p.Hash));
-			str.Append("]");
-			return str.ToString();
 		}
 
 		public IPlayable this[int zonePosition]
@@ -178,21 +142,7 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		public override string ToString()
-		{
-			return $"[ZONE {Type} '{Controller.Name}']";
-		}
-
-		public IEnumerator<T> GetEnumerator()
-		{
-			return _entitiesAsList.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
+		// TODO; Move out of core.
 		public string FullPrint()
 		{
 			var str = new StringBuilder();
@@ -208,5 +158,121 @@ namespace SabberStoneCore.Model.Zones
 			str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
 		}
+
+		public override string ToString()
+		{
+			return $"[ZONE {Type} '{Controller.Name}']";
+		}
+
+		#region IMODEL_IMPLEMENTATION
+
+		public IEnumerator<T> GetEnumerator()
+		{
+			return _entitiesAsList.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		void ICollection<T>.Add(T item)
+		{
+			Add(item, -1);
+		}
+
+		void ICollection<T>.Clear()
+		{
+			_entitiesAsList.Clear();
+		}
+
+		bool ICollection<T>.Contains(T item)
+		{
+			return _entitiesAsList.Contains(item);
+		}
+
+		void ICollection<T>.CopyTo(T[] array, int arrayIndex)
+		{
+			_entitiesAsList.CopyTo(array, arrayIndex);
+		}
+
+		bool ICollection<T>.Remove(T item)
+		{
+			return Remove(item) != null;
+		}
+
+		public IModelCollection<T> Clone()
+		{
+			return InternalClone();
+		}
+
+		public string ToHash(params GameTag[] ignore)
+		{
+			var str = new StringBuilder();
+			str.Append("[Z:");
+			str.Append($"{Type}");
+			str.Append("][E:");
+			List<IPlayable> list = GetAll;
+			if (Type != Zone.PLAY)
+			{
+				list = list.OrderBy(p => p.Id).ToList();
+				Array.Resize(ref ignore, ignore.Length + 1);
+				ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
+			}
+			list.ForEach(p => str.Append(p.ToHash(ignore)));
+			str.Append($"][EN:{Enchants.Count}");
+			Enchants.ForEach(p => str.Append(p.Hash));
+			str.Append($"][TR:{Triggers.Count}");
+			Triggers.ForEach(p => str.Append(p.Hash));
+			str.Append("]");
+			return str.ToString();
+		}
+
+		public void Stamp(IModel other)
+		{
+			Zone<T> zone = other as Zone<T> ?? throw new InvalidOperationException("other's type is invalid");
+
+			zone.GetAll.ToList().ForEach(p =>
+			{
+				IPlayable copy = Entity.FromCard(Controller, p.Card, null, null, p.Id);
+				copy.Stamp(p as Entity);
+				MoveTo(copy, copy.ZonePosition);
+			});
+			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+		}
+
+		IModel IModel.Clone()
+		{
+			return InternalClone();
+		}
+
+		IZone IModel<IZone>.Clone()
+		{
+			return InternalClone();
+		}
+
+		private Zone<T> ZoneClone()
+		{
+			Zone<T> deepClone = InternalClone() ?? throw new InvalidOperationException("Implemented class returned null");
+			_entitiesAsList.ForEach(p =>
+			{
+				IPlayable copy = p.Clone() as IPlayable;
+				// Is this still necessary?
+				deepClone.MoveTo(copy, copy.ZonePosition);
+			});
+			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+
+			return deepClone;
+		}
+
+		/// <summary>
+		/// Method definition forcing implementing classes to implement cloning behaviour.
+		/// </summary>
+		/// <returns></returns>
+		protected abstract Zone<T> InternalClone();
+
+		#endregion
 	}
 }
