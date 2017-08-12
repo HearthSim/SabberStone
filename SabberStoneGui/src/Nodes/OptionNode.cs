@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Concurrent;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
@@ -83,15 +84,25 @@ namespace SabberStoneCoreGui.Nodes
 			list.Add(PlayerTask);
 		}
 
-		public void Options(ref Dictionary<string, OptionNode> optionNodes)
+		//public void Options(ref Dictionary<string, OptionNode> optionNodes)
+		//{
+		//	var options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
+
+		//	foreach (var option in options)
+		//	{
+		//		var optionNode = new OptionNode(this, _game, _playerId, option, Scoring);
+		//		if (!optionNodes.ContainsKey(optionNode.Hash))
+		//			optionNodes.Add(optionNode.Hash, optionNode);
+		//	}
+		//}
+		public void Options(ref ConcurrentDictionary<string, OptionNode> optionNodes)
 		{
 			var options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
 
 			foreach (var option in options)
 			{
 				var optionNode = new OptionNode(this, _game, _playerId, option, Scoring);
-				if (!optionNodes.ContainsKey(optionNode.Hash))
-					optionNodes.Add(optionNode.Hash, optionNode);
+				optionNodes.TryAdd(optionNode.Hash, optionNode);
 			}
 		}
 	}

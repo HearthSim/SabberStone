@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -49,15 +51,26 @@ namespace SabberStoneGui
 			var endTurnNodes = new List<OptionNode>();
 			for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
 			{
-				var nextDepthNodes = new Dictionary<string, OptionNode>();
+				//var nextDepthNodes = new Dictionary<string, OptionNode>();
+				var nextDepthNodes = new ConcurrentDictionary<string, OptionNode>();
 				var countNodes = 0;
 				var countNodesTot = depthNodes.Values.Count;
+				//foreach (var option in depthNodes.Values)
+				//{
+				//	countNodes++;
+				//	worker?.ReportProgress(countNodes, countNodesTot);
+				//	option.Options(ref nextDepthNodes);
+				//}
+				var tasks = new List<Task>();
 				foreach (var option in depthNodes.Values)
 				{
 					countNodes++;
 					worker?.ReportProgress(countNodes, countNodesTot);
-					option.Options(ref nextDepthNodes);
+					tasks.Add(new Task(() => option.Options(ref nextDepthNodes)));
 				}
+				foreach (var task in tasks)
+					task.Start();
+				Task.WaitAll(tasks.ToArray());
 
 				endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => p.IsEndTurn || p.IsWon));
 
@@ -101,15 +114,26 @@ namespace SabberStoneGui
 			var opEndTurnNodes = new List<OptionNode>();
 			for (var i = 0; opDepthNodes.Count > 0 && i < maxDepth; i++)
 			{
-				var nextDepthNodes = new Dictionary<string, OptionNode>();
+				//var nextDepthNodes = new Dictionary<string, OptionNode>();
+				var nextDepthNodes = new ConcurrentDictionary<string, OptionNode>();
 				var countNodes = 0;
 				var countNodesTot = opDepthNodes.Values.Count;
+				//foreach (var option in opDepthNodes.Values)
+				//{
+				//	countNodes++;
+				//	worker?.ReportProgress(countNodes, countNodesTot);
+				//	option.Options(ref nextDepthNodes);
+				//}
+				var tasks = new List<Task>();
 				foreach (var option in opDepthNodes.Values)
 				{
 					countNodes++;
 					worker?.ReportProgress(countNodes, countNodesTot);
-					option.Options(ref nextDepthNodes);
+					tasks.Add(new Task(() => option.Options(ref nextDepthNodes)));
 				}
+				foreach (var task in tasks)
+					task.Start();
+				Task.WaitAll(tasks.ToArray());
 
 				opEndTurnNodes.AddRange(nextDepthNodes.Values.Where(p => p.IsEndTurn || p.IsWon));
 
