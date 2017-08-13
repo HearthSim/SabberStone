@@ -1728,10 +1728,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PlayDead_ICC_052()
 		{
-			// TODO PlayDead_ICC_052 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1742,7 +1741,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Play Dead"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Play Dead"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1757,21 +1762,32 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VenomstrikeTrap_ICC_200()
 		{
-			// TODO VenomstrikeTrap_ICC_200 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.ROGUE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomstrike Trap"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomstrike Trap"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Acidic Swamp Ooze"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Triggers.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
+			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Triggers.Count);
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 		}
 
 	}

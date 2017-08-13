@@ -1989,11 +1989,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_052", new List<Enchantment> {
-				// TODO [ICC_052] Play Dead && Test: Play Dead_ICC_052
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE),
 				},
 			});
 
@@ -2010,11 +2009,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_200", new List<Enchantment> {
-				// TODO [ICC_200] Venomstrike Trap && Test: Venomstrike Trap_ICC_200
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Area = EnchantmentArea.BOARD,
+					Activation = EnchantmentActivation.SECRET_OR_QUEST,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
+						.TriggerEffect(GameTag.DEFENDING, 1)
+						.SingleTask(ComplexTask.Secret(
+							new EnqueueTask(1, new SummonTask("EX1_170"))))
+						.Build()
 				},
 			});
 
