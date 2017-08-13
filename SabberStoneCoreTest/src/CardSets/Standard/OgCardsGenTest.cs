@@ -3686,20 +3686,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 					Cards.FromName("Murloc Raider"),
 					Cards.FromName("Goldshire Footman"),
 					Cards.FromName("Goldshire Footman"),
-					Cards.FromName("Deathwing"),
+					Cards.FromName("Deathwing"), // 10-cost
 				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancient Harbinger"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancient Harbinger"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(10, game.CurrentPlayer.BoardZone[1].Cost);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count); // 3 (starting) + 2x draw + draw DeathWing
+			Assert.Equal(game.CurrentPlayer.DeckZone.StartingCards - 6, game.CurrentPlayer.DeckZone.Count); // 30 (starting) - 6
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
