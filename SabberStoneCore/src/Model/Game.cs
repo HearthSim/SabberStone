@@ -160,6 +160,9 @@ namespace SabberStoneCore.Model
 		private int _choiceIndex = 0;
 		public int NextChoiceId => _idIndex++;
 
+		private int _optionIndex = 0;
+		public int NextOptionId => _optionIndex++;
+
 		public void SetIndexer(int id, int oop)
 		{
 			_idIndex = id;
