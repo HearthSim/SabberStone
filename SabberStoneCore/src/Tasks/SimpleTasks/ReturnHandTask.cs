@@ -5,16 +5,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReturnHandTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public ReturnHandTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var success = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).TrueForAll(p =>
+			bool success = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).TrueForAll(p =>
 			{
 				var target = p as Minion;
 				if (target == null)
@@ -27,11 +29,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ReturnHandTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new ReturnHandTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -6,6 +6,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SummonOpTask : SimpleTask
 	{
+		public Card Card { get; set; }
+
 		public SummonOpTask(Card card = null)
 		{
 			Card = card;
@@ -16,7 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card = Cards.FromId(cardId);
 		}
 
-		public Card Card { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -26,23 +28,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Card == null && Playables.Count < 1)
 				return TaskState.STOP;
 
-			var summonEntity = Card != null ?
+			Minion summonEntity = Card != null ?
 				Entity.FromCard(Controller.Opponent, Card) as Minion :
 				Playables[0] as Minion;
 
 			if (summonEntity == null)
 				return TaskState.STOP;
 
-			var success = Generic.SummonBlock.Invoke(Controller.Opponent, summonEntity, -1);
+			bool success = Generic.SummonBlock.Invoke(Controller.Opponent, summonEntity, -1);
 
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new SummonOpTask(Card);
-			clone.Copy(this);
-			return clone;
+			return new SummonOpTask(Card);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

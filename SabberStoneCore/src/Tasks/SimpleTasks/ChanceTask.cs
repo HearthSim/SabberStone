@@ -4,16 +4,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChanceTask : SimpleTask
 	{
+		public bool UseFlag { get; set; }
+
 		public ChanceTask(bool useFlag = false)
 		{
 			UseFlag = useFlag;
 		}
 
-		public bool UseFlag { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var random = Util.Random.Next(0, 2);
+			int random = Util.Random.Next(0, 2);
 
 			if (!UseFlag)
 			{
@@ -24,11 +26,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ChanceTask(UseFlag);
-			clone.Copy(this);
-			return clone;
+			return new ChanceTask(UseFlag);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

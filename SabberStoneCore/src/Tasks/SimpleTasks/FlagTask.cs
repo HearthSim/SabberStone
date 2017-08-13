@@ -2,14 +2,16 @@
 {
 	public class FlagTask : SimpleTask
 	{
+		public bool CheckFlag { get; set; }
+		public ISimpleTask TaskToDo { get; set; }
+
 		public FlagTask(bool checkFlag, ISimpleTask taskToDo)
 		{
 			CheckFlag = checkFlag;
 			TaskToDo = taskToDo;
 		}
 
-		public bool CheckFlag { get; set; }
-		public ISimpleTask TaskToDo { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -33,11 +35,11 @@
 			return TaskToDo.Process();
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new FlagTask(CheckFlag, TaskToDo.Clone());
-			clone.Copy(this);
-			return clone;
+			return new FlagTask(CheckFlag, TaskToDo.Clone());
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

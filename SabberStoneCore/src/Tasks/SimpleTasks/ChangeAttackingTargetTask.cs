@@ -1,24 +1,27 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChangeAttackingTargetTask : SimpleTask
 	{
+		public EntityType TypeA { get; set; }
+		public EntityType TypeB { get; set; }
+
 		public ChangeAttackingTargetTask(EntityType typA, EntityType typB)
 		{
 			TypeA = typA;
 			TypeB = typB;
 		}
 
-		public EntityType TypeA { get; set; }
-		public EntityType TypeB { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var typeA = IncludeTask.GetEntites(TypeA, Controller, Source, Target, Playables);
-			var typeB = IncludeTask.GetEntites(TypeB, Controller, Source, Target, Playables);
+			List<IPlayable> typeA = IncludeTask.GetEntites(TypeA, Controller, Source, Target, Playables);
+			List<IPlayable> typeB = IncludeTask.GetEntites(TypeB, Controller, Source, Target, Playables);
 			if (typeA.Count != 1 || typeB.Count != 1)
 			{
 				return TaskState.STOP;
@@ -37,11 +40,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ChangeAttackingTargetTask(TypeA, TypeB);
-			clone.Copy(this);
-			return clone;
+			return new ChangeAttackingTargetTask(TypeA, TypeB);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

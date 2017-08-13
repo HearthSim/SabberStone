@@ -5,6 +5,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceHeroTask : SimpleTask
 	{
+		public Card HeroCard { get; set; }
+		public Card WeaponCard { get; set; }
+		public Card PowerCard { get; set; }
+
 		public ReplaceHeroTask(Card cardHero, Card cardWeapon, Card cardPower)
 		{
 			HeroCard = cardHero;
@@ -23,9 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			PowerCard = Cards.FromId(cardIdPower);
 		}
 
-		public Card HeroCard { get; set; }
-		public Card WeaponCard { get; set; }
-		public Card PowerCard { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -42,12 +44,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ReplaceHeroTask(HeroCard, WeaponCard, PowerCard);
-			clone.Copy(this);
-			return clone;
+			return new ReplaceHeroTask(HeroCard, WeaponCard, PowerCard);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 }

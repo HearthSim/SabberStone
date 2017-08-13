@@ -6,12 +6,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class WeaponTask : SimpleTask
 	{
+		public string CardId { get; set; }
+
 		public WeaponTask(string cardId = null)
 		{
 			CardId = cardId;
 		}
 
-		public string CardId { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -20,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var weapon = CardId != null ?
+			Weapon weapon = CardId != null ?
 				Entity.FromCard(Controller, Cards.FromId(CardId)) as Weapon :
 				Playables[0] as Weapon;
 
@@ -29,11 +31,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new WeaponTask(CardId);
-			clone.Copy(this);
-			return clone;
+			return new WeaponTask(CardId);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

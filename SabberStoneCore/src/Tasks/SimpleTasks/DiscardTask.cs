@@ -1,28 +1,31 @@
 ﻿using SabberStoneCore.Actions;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DiscardTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public DiscardTask(EntityType entityType)
 		{
 			Type = entityType;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => Generic.DiscardBlock.Invoke(Controller, p));
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new DiscardTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new DiscardTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

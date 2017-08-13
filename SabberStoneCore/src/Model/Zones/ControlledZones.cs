@@ -124,7 +124,7 @@ namespace SabberStoneCore.Model.Zones
 		public IReadOnlyModelCollection<IZone> Clone()
 		{
 			var clone = new ControlledZones(Game, Controller);
-			for(int i = 0; i < _zones.Length; ++i)
+			for (int i = 0; i < _zones.Length; ++i)
 			{
 				clone._zones[i] = _zones[i].Clone() as IZone;
 			}
@@ -142,6 +142,6 @@ namespace SabberStoneCore.Model.Zones
 			return _zones.GetEnumerator();
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

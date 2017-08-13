@@ -1,18 +1,21 @@
 ﻿using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class HealTask : SimpleTask
 	{
+		public int Amount { get; set; }
+
+		public EntityType Type { get; set; }
+
 		public HealTask(int amount, EntityType entityType)
 		{
 			Amount = amount;
 			Type = entityType;
 		}
 
-		public int Amount { get; set; }
-
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -22,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var source = Source as IPlayable;
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
 				var target = p as ICharacter;
@@ -32,11 +35,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new HealTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
+			return new HealTask(Amount, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

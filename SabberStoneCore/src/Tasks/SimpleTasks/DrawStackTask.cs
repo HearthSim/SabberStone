@@ -6,6 +6,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawStackTask : SimpleTask
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			if (Playables.Count == 0)
@@ -22,11 +24,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new DrawStackTask();
-			clone.Copy(this);
-			return clone;
+			return new DrawStackTask();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

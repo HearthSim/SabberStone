@@ -198,7 +198,7 @@ namespace SabberStoneCore.Model.Entities
 			};
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
 		/// Returns a set of all options this player can perform execute at the moment.

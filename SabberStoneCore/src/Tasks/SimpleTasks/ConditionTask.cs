@@ -1,11 +1,16 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ConditionTask : SimpleTask
 	{
+		public SelfCondition[] SelfConditions { get; set; }
+		public RelaCondition[] RelaConditions { get; set; }
+		public EntityType Type { get; set; }
+
 		private ConditionTask(EntityType entityType,
 			SelfCondition[] selfConditions,
 			RelaCondition[] relaConditions)
@@ -29,13 +34,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Type = entityType;
 		}
 
-		public SelfCondition[] SelfConditions { get; set; }
-		public RelaCondition[] RelaConditions { get; set; }
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count == 0)
 			{
@@ -51,11 +54,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ConditionTask(Type, SelfConditions, RelaConditions);
-			clone.Copy(this);
-			return clone;
+			return new ConditionTask(Type, SelfConditions, RelaConditions);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

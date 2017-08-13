@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model.Zones
 	/// reside.
 	/// A zone is owned by a controller and isn't shared.
 	/// </summary>
-	public interface IZone: IModel<IZone>
+	public interface IZone : IModel<IZone>
 	{
 		/// <summary>
 		/// Gets the maximum amount of entities this zone can hold.

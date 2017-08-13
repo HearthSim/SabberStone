@@ -7,16 +7,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RemoveFromDeck : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public RemoveFromDeck(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			var list = new List<IPlayable>();
 			entities.ForEach(p =>
 			{
@@ -27,11 +29,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new RemoveFromDeck(Type);
-			clone.Copy(this);
-			return clone;
+			return new RemoveFromDeck(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

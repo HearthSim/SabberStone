@@ -854,12 +854,13 @@ namespace SabberStoneCore.Model
 			newConfig.Logging = false;
 			newConfig.History = false;
 
-			var clone = new Game(newConfig, false){
+			var clone = new Game(newConfig, false)
+			{
 				TaskQueue = TaskQueue.Clone(),
 				TaskStack = TaskStack.Clone(),
 			};
 
-			for(int i = 0; i < _players.Length; ++i)
+			for (int i = 0; i < _players.Length; ++i)
 			{
 				clone._players[i] = _players[i].Clone() as Controller;
 			}

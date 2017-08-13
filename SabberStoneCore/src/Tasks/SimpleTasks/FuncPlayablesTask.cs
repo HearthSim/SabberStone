@@ -6,12 +6,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FuncPlayablesTask : SimpleTask
 	{
+		public Func<List<IPlayable>, List<IPlayable>> Function { get; set; }
+
 		public FuncPlayablesTask(Func<List<IPlayable>, List<IPlayable>> function)
 		{
 			Function = function;
 		}
 
-		public Func<List<IPlayable>, List<IPlayable>> Function { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -19,11 +21,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new FuncPlayablesTask(Function);
-			clone.Copy(this);
-			return clone;
+			return new FuncPlayablesTask(Function);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

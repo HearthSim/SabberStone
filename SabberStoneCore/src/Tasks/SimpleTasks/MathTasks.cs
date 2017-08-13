@@ -12,20 +12,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class MathNumberIndexTask : SimpleTask
 	{
+		public int IndexA { get; set; }
+		public int IndexB { get; set; }
+		public MathOperation MathOperation { get; set; }
+
 		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation)
 		{
 			IndexA = indexA;
 			IndexB = indexB;
 		}
 
-		public int IndexA { get; set; }
-		public int IndexB { get; set; }
-		public MathOperation MathOperation { get; set; }
+		private int GetIndex(int index)
+		{
+			switch (index)
+			{
+				case 1:
+					return Number1;
+				case 2:
+					return Number2;
+				case 3:
+					return Number3;
+				case 4:
+					return Number4;
+				default:
+					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {index}");
+			}
+		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var numberA = GetIndex(IndexA);
-			var numberB = GetIndex(IndexB);
+			int numberA = GetIndex(IndexA);
+			int numberB = GetIndex(IndexB);
 			switch (MathOperation)
 			{
 				case MathOperation.ADD:
@@ -46,41 +65,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		private int GetIndex(int index)
+		public override ISimpleTask InternalClone()
 		{
-			switch (index)
-			{
-				case 1:
-					return Number1;
-				case 2:
-					return Number2;
-				case 3:
-					return Number3;
-				case 4:
-					return Number4;
-				default:
-					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {index}");
-			}
+			return new MathNumberIndexTask(IndexA, IndexB, MathOperation);
 		}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathNumberIndexTask(IndexA, IndexB, MathOperation);
-			clone.Copy(this);
-			return clone;
-		}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public class MathRandTask : SimpleTask
 	{
+		public int Min { get; set; }
+		public int Max { get; set; }
+
 		public MathRandTask(int min, int max)
 		{
 			Min = min;
 			Max = max;
 		}
 
-		public int Min { get; set; }
-		public int Max { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -88,22 +92,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new MathRandTask(Min, Max);
-			clone.Copy(this);
-			return clone;
+			return new MathRandTask(Min, Max);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public class MathMultiplyTask : SimpleTask
 	{
+		public int Amount { get; set; }
+
 		public MathMultiplyTask(int amount)
 		{
 			Amount = amount;
 		}
 
-		public int Amount { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -111,22 +117,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new MathMultiplyTask(Amount);
-			clone.Copy(this);
-			return clone;
+			return new MathMultiplyTask(Amount);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public class MathAddTask : SimpleTask
 	{
+		public int Amount { get; set; }
+
 		public MathAddTask(int amount)
 		{
 			Amount = amount;
 		}
 
-		public int Amount { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -134,16 +142,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new MathAddTask(Amount);
-			clone.Copy(this);
-			return clone;
+			return new MathAddTask(Amount);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public class MathSubstractionTask : SimpleTask
 	{
+		public int Amount { get; set; } = 0;
+
+		public GameTag Tag { get; set; }
+
+		public EntityType Type { get; set; }
 
 		private MathSubstractionTask(int amount, GameTag tag, EntityType type)
 		{
@@ -163,11 +176,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Type = type;
 		}
 
-		public int Amount { get; set; } = 0;
-
-		public GameTag Tag { get; set; }
-
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -183,11 +192,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new MathSubstractionTask(Amount, Tag, Type);
-			clone.Copy(this);
-			return clone;
+			return new MathSubstractionTask(Amount, Tag, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

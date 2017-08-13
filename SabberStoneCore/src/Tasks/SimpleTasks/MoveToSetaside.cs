@@ -1,34 +1,38 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class MoveToSetaside : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public MoveToSetaside(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
-				var removedEntity = p.Zone.Remove(p);
+				IPlayable removedEntity = p.Zone.Remove(p);
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
 				p.Controller.SetasideZone.Add(removedEntity);
 			});
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new MoveToSetaside(Type);
-			clone.Copy(this);
-			return clone;
+			return new MoveToSetaside(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

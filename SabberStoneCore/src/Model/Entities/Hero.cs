@@ -53,7 +53,7 @@ namespace SabberStoneCore.Model.Entities
 			Controller.GraveyardZone.Add(Weapon);
 			Weapon = null;
 			EquippedWeapon = 0;
-		}		
+		}
 
 		protected override void InternalStamp(IModel entity)
 		{

@@ -4,12 +4,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class GetGameTagControllerTask : SimpleTask
 	{
+		public GameTag Tag { get; set; }
+
 		public GetGameTagControllerTask(GameTag tag)
 		{
 			Tag = tag;
 		}
 
-		public GameTag Tag { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -17,11 +19,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new GetGameTagControllerTask(Tag);
-			clone.Copy(this);
-			return clone;
+			return new GetGameTagControllerTask(Tag);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

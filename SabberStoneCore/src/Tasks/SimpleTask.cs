@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks
 {
-	public interface ISimpleTask
+	public interface ISimpleTask : IModel<ISimpleTask>
 	{
 		TaskState State { get; set; }
 		//ISimpleTask CurrentTask { get; }
@@ -24,11 +25,6 @@ namespace SabberStoneCore.Tasks
 		int Number3 { get; set; }
 		int Number4 { get; set; }
 
-		//List<Game> Splits { get; set; }
-		//IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
-
-		ISimpleTask Clone();
-
 		TaskState Process();
 
 		void ResetState();
@@ -36,11 +32,12 @@ namespace SabberStoneCore.Tasks
 
 	public abstract class SimpleTask : ISimpleTask
 	{
+		// TODO; Move this to Game to have unique random source limited to one game.
 		internal static Random Random = new Random();
 
-		public TaskState State { get; set; } = TaskState.READY;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		//public ISimpleTask CurrentTask => this;
+		public TaskState State { get; set; } = TaskState.READY;
 
 		public Game Game { get; set; }
 		private int _controllerId;
@@ -64,7 +61,6 @@ namespace SabberStoneCore.Tasks
 			set { _targetId = value?.Id ?? -1; }
 		}
 
-		//public List<IPlayable> Playables { get; set; }
 		public List<IPlayable> Playables
 		{
 			get { return Game.TaskStack.Playables; }
@@ -75,13 +71,13 @@ namespace SabberStoneCore.Tasks
 			get { return Game.TaskStack.CardIds; }
 			set { Game.TaskStack.CardIds = value; }
 		}
-		//public bool Flag { get; set; }
+
 		public bool Flag
 		{
 			get { return Game.TaskStack.Flag; }
 			set { Game.TaskStack.Flag = value; }
 		}
-		//public int Number { get; set; }
+
 		public int Number
 		{
 			get { return Game.TaskStack.Numbers[0]; }
@@ -107,19 +103,72 @@ namespace SabberStoneCore.Tasks
 			get { return Game.TaskStack.Numbers[4]; }
 			set { Game.TaskStack.Numbers[4] = value; }
 		}
-		public abstract TaskState Process();
-		//{
-		//    return TaskState.COMPLETE;
-		//}
 
-		public abstract ISimpleTask Clone();
-
-		public void Copy(SimpleTask task)
+		public void ResetState()
 		{
+			State = TaskState.READY;
+		}
+
+		public abstract TaskState Process();
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+		/// <summary>
+		/// Forces the implementing class to clone itself.
+		/// </summary>
+		/// <returns></returns>
+		public abstract ISimpleTask InternalClone();
+
+		#region IMODEL_IMPLEMENTATION
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		public ISimpleTask Clone()
+		{
+			ISimpleTask deepClone = InternalClone() ?? throw new InvalidProgramException("Implementing object returned null!");
+
+			deepClone.State = State;
+
+			// If no game was set, there is no need to copy activation specific information.
+			if (Game == null)
+			{
+				return deepClone;
+			}
+
+			deepClone.Game = Game;
+			deepClone.Controller = Controller;
+			deepClone.Source = Source;
+			deepClone.Target = Target;
+
+			deepClone.Playables = Playables;
+			deepClone.CardIds = CardIds;
+			deepClone.Flag = Flag;
+			deepClone.Number = Number;
+			deepClone.Number1 = Number1;
+			deepClone.Number2 = Number2;
+			deepClone.Number3 = Number3;
+			deepClone.Number4 = Number4;
+
+			return deepClone;
+		}
+
+		// TODO; Make this abstract and for implementing class to define ToHash().
+		public string ToHash(params GameTag[] ignore)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Stamp(IModel other)
+		{
+			// Perform a shallow stamp of the other object.
+			SimpleTask task = other as SimpleTask ?? throw new InvalidOperationException("other's type is not valid!");
+
 			State = task.State;
 
+			// If no game was set, there is no need to copy activation specific information.
 			if (task.Game == null)
+			{
 				return;
+			}
 
 			Game = task.Game;
 			Controller = task.Controller;
@@ -139,85 +188,12 @@ namespace SabberStoneCore.Tasks
 			//Sets = task.Sets;
 		}
 
-		public void ResetState()
+		IModel IModel.Clone()
 		{
-			State = TaskState.READY;
+			return Clone();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		#endregion
 	}
-
-	public enum PlayerTaskType
-	{
-		CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
-	}
-
-	public class PlayerTask : ISimpleTask
-	{
-		public TaskState State { get; set; } = TaskState.READY;
-		//public ISimpleTask CurrentTask => this;
-
-		public PlayerTaskType PlayerTaskType { get; set; }
-		public Game Game { get; set; }
-		private int _controllerId;
-		public Controller Controller
-		{
-			get { return Game.ControllerById(_controllerId); }
-			set { _controllerId = value.Id; }
-		}
-		private int _sourceId;
-		public IEntity Source
-		{
-			get { return Game.IdEntityDic[_sourceId]; }
-			set { _sourceId = value.Id; }
-		}
-		private int _targetId;
-		public IEntity Target
-		{
-			get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
-			set { _targetId = value?.Id ?? -1; }
-		}
-		public List<IPlayable> Playables { get; set; }
-		public List<string> CardIds { get; set; }
-		public bool Flag { get; set; } = false;
-		public int Number { get; set; } = 0;
-		public int Number1 { get; set; } = 0;
-		public int Number2 { get; set; } = 0;
-		public int Number3 { get; set; } = 0;
-		public int Number4 { get; set; } = 0;
-
-		public int ZonePosition { get; set; } = -1;
-		public int ChooseOne { get; set; }
-
-		public List<Game> Splits { get; set; } = new List<Game>();
-		public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
-
-		public virtual List<ISimpleTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
-		{
-			Game = game;
-			Controller = controller;
-			Source = source;
-			Target = target;
-			return new List<ISimpleTask> { this };
-		}
-
-		public virtual TaskState Process()
-		{
-			return TaskState.COMPLETE;
-		}
-
-		public ISimpleTask Clone()
-		{
-			throw new NotImplementedException();
-		}
-
-		public virtual string FullPrint()
-		{
-			return "PlayerTask";
-		}
-
-		public void ResetState()
-		{
-			State = TaskState.READY;
-		}
-	}
-
 }

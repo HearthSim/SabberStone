@@ -9,6 +9,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RitualTask : SimpleTask
 	{
+		public Enchant Enchant { get; set; }
+
+		public bool Taunt { get; set; }
 
 		public RitualTask(Enchant enchant = null, bool taunt = false)
 		{
@@ -16,9 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Taunt = taunt;
 		}
 
-		public Enchant Enchant { get; set; }
-
-		public bool Taunt { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -32,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (!Controller.SeenCthun)
 			{
-				var proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
+				IPlayable proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
 				Controller.SetasideZone.Add(proxyCthun);
 				Controller.ProxyCthun = proxyCthun.Id;
@@ -57,11 +58,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new RitualTask(Enchant, Taunt);
-			clone.Copy(this);
-			return clone;
+			return new RitualTask(Enchant, Taunt);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

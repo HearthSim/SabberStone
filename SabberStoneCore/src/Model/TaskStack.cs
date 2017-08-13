@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using System;
+using System.Text;
 
 namespace SabberStoneCore.Model
 {
@@ -28,6 +29,9 @@ namespace SabberStoneCore.Model
 			Numbers = new[] { 0, 0, 0, 0, 0 };
 		}
 
+		#region IMODEL_IMPLEMENTATION
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public TaskStack Clone()
 		{
 			return new TaskStack(Game)
@@ -41,7 +45,15 @@ namespace SabberStoneCore.Model
 
 		public string ToHash(params GameTag[] ignore)
 		{
-			throw new NotImplementedException();
+			var str = new StringBuilder();
+			str.Append("?TS?[PL:");
+			Playables.ForEach(pl => str.Append(pl.ToHash()));
+			str.Append("][IDs:");
+			CardIds.ForEach(id => str.Append(id));
+			str.AppendFormat("][FLAG:{0}]", Flag);
+			str.AppendFormat("[REG:{0}-{1}-{2}-{3}-{4}", Numbers[0], Numbers[1], Numbers[2], Numbers[3], Numbers[4]);
+			str.Append("!TS!");
+			return str.ToString();
 		}
 
 		public void Stamp(IModel other)
@@ -59,5 +71,8 @@ namespace SabberStoneCore.Model
 		{
 			return Clone();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		#endregion
 	}
 }

@@ -6,6 +6,7 @@ using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using System;
 using System.Collections;
+using System.Text;
 
 namespace SabberStoneCore.Model
 {
@@ -92,6 +93,9 @@ namespace SabberStoneCore.Model
 			return success;
 		}
 
+		#region IMODEL_IMPLEMENTATION
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public TaskQueue Clone()
 		{
 			var clone = new TaskQueue(Game)
@@ -111,8 +115,15 @@ namespace SabberStoneCore.Model
 
 		public string ToHash(params GameTag[] ignore)
 		{
-			// TODO; Might be interesting to return something here.
-			return String.Empty;
+			var str = new StringBuilder();
+			str.Append("?TQ?");
+			str.AppendFormat("[C:{0}]", Count);
+			str.Append("[FRONT:");
+			str.Append(CurrentTask.ToHash());
+			str.Append("][QUEUE:");
+			TaskList.ForEach(t => str.Append(t.ToHash()));
+			str.Append("]!!TQ!");
+			return str.ToString();
 		}
 
 		public void Stamp(IModel other)
@@ -137,5 +148,8 @@ namespace SabberStoneCore.Model
 		{
 			return Clone();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		#endregion
 	}
 }

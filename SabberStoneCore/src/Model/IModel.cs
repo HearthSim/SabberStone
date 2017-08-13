@@ -36,13 +36,13 @@ namespace SabberStoneCore.Model
 	/// Interface which extends the primitive behaviour of implementers 
 	/// with generics for type safety.
 	/// </summary>
-	public interface IModel<T>: IModel where T : class, IModel
+	public interface IModel<T> : IModel where T : class, IModel
 	{
 		/// <summary>
 		/// Returns a deep copy of the implementing class object.
 		/// </summary>
 		/// <returns>A newly created object which is full duplicate of the 
 		/// original.</returns>
-		new T Clone();		
+		new T Clone();
 	}
 }

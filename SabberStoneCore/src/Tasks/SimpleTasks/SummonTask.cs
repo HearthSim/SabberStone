@@ -6,6 +6,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SummonTask : SimpleTask
 	{
+		public Card Card { get; set; }
+
+		public bool RemoveFromStack { get; set; }
+
 		public SummonTask(Card card = null, bool removeFromStack = false)
 		{
 			Card = card;
@@ -18,9 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			RemoveFromStack = false;
 		}
 
-		public Card Card { get; set; }
-
-		public bool RemoveFromStack { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -44,16 +46,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (summonEntity == null)
 				return TaskState.STOP;
 
-			var success = Generic.SummonBlock.Invoke(Controller, summonEntity, -1);
+			bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, -1);
 
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new SummonTask(Card, RemoveFromStack);
-			clone.Copy(this);
-			return clone;
+			return new SummonTask(Card, RemoveFromStack);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

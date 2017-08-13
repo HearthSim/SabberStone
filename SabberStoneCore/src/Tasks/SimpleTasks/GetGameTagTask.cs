@@ -1,9 +1,16 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class GetGameTagTask : SimpleTask
 	{
+		public GameTag Tag { get; set; }
+		public EntityType Type { get; set; }
+		public int EntityIndex { get; set; }
+		public int NumberIndex { get; set; }
+
 		public GetGameTagTask(GameTag tag, EntityType entityType, int entityIndex = 0, int numberIndex = 0)
 		{
 			Tag = tag;
@@ -12,14 +19,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			NumberIndex = numberIndex;
 		}
 
-		public GameTag Tag { get; set; }
-		public EntityType Type { get; set; }
-		public int EntityIndex { get; set; }
-		public int NumberIndex { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			if (entities.Count == 0)
 			{
 				return TaskState.STOP;
@@ -49,11 +53,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new GetGameTagTask(Tag, Type, EntityIndex, NumberIndex);
-			clone.Copy(this);
-			return clone;
+			return new GetGameTagTask(Tag, Type, EntityIndex, NumberIndex);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

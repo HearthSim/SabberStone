@@ -3,15 +3,16 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class BuffHealthNumberTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public BuffHealthNumberTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -22,16 +23,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var buff = new BuffTask(Buffs.Health(Number), Type, null);
-			buff.Copy(this);
+			buff.Stamp(this);
 
 			return buff.Process();
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new BuffHealthNumberTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new BuffHealthNumberTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -14,6 +14,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Type = type;
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			var source = Source as ICharacter;
@@ -36,11 +38,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new HealthRetentionTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
+			return new HealthRetentionTask(Amount, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -5,9 +5,15 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class CopyTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
+		public int Amount { get; set; }
+
+		public bool Opposite { get; set; }
+
+
 		public CopyTask(EntityType type, int amount, bool opposite = false)
 		{
 			Type = type;
@@ -15,11 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Opposite = opposite;
 		}
 
-		public EntityType Type { get; set; }
-
-		public int Amount { get; set; }
-
-		public bool Opposite { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -32,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return TaskState.STOP;
 					}
-					for (var i = 0; i < Amount; i++)
+					for (int i = 0; i < Amount; i++)
 					{
 						result.Add(Opposite ?
 							Entity.FromCard(target.Controller.Opponent, Cards.FromId(target.Card.Id)) :
@@ -45,7 +47,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return TaskState.STOP;
 					}
-					for (var i = 0; i < Amount; i++)
+					for (int i = 0; i < Amount; i++)
 					{
 						result.Add(Opposite ?
 							Entity.FromCard(source.Controller.Opponent, Cards.FromId(source.Card.Id)) :
@@ -59,7 +61,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					Playables.ForEach(p =>
 					{
-						for (var i = 0; i < Amount; i++)
+						for (int i = 0; i < Amount; i++)
 						{
 							result.Add(Opposite ?
 								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id)) :
@@ -78,11 +80,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new CopyTask(Type, Amount, Opposite);
-			clone.Copy(this);
-			return clone;
+			return new CopyTask(Type, Amount, Opposite);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

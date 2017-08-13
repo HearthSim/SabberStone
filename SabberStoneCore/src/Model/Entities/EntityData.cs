@@ -102,7 +102,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return Clone();
 		}
-		
+
 		public override string ToString()
 		{
 			string s = Tags.Aggregate(Card.Name + " - ", (current, tag) => current + new Tag(tag.Key, tag.Value) + ", ");

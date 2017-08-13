@@ -10,7 +10,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public BoardZone(Game game, Controller controller) : base(game, controller, Zone.PLAY)
 		{
-		}		
+		}
 
 		protected override Zone<Minion> InternalClone()
 		{

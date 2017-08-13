@@ -16,14 +16,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class AuraTask : SimpleTask
 	{
+		public Enchant Aura { get; set; }
+		public AuraArea Area { get; set; }
+
 		public AuraTask(Enchant aura, AuraArea area)
 		{
 			Aura = aura;
 			Area = area;
 		}
 
-		public Enchant Aura { get; set; }
-		public AuraArea Area { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -64,11 +66,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new AuraTask(Aura, Area);
-			clone.Copy(this);
-			return clone;
+			return new AuraTask(Aura, Area);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

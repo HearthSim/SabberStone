@@ -5,15 +5,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DamageNumberTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
+		public bool SpellDmg { get; set; }
+
 		public DamageNumberTask(EntityType type, bool spellDmg = false)
 		{
 			Type = type;
 			SpellDmg = spellDmg;
 		}
 
-		public EntityType Type { get; set; }
-
-		public bool SpellDmg { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -22,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPowerDamage * 2 : Controller.Hero.SpellPowerDamage) : 0;
+			int spellDmgValue = SpellDmg ? (Source is Spell && ((Spell)Source).ReceveivesDoubleSpellDamage ? Controller.Hero.SpellPowerDamage * 2 : Controller.Hero.SpellPowerDamage) : 0;
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables)
 				.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Number,
 					spellDmgValue));
@@ -30,11 +32,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new DamageNumberTask(Type, SpellDmg);
-			clone.Copy(this);
-			return clone;
+			return new DamageNumberTask(Type, SpellDmg);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

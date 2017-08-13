@@ -7,33 +7,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddCardTo : SimpleTask
 	{
-		private AddCardTo(IPlayable playable, Card card, EntityType type)
-		{
-			Playable = playable;
-			Card = card;
-			Type = type;
-		}
-		public AddCardTo(IPlayable playable, EntityType type)
-		{
-			Playable = playable;
-			Type = type;
-		}
-		public AddCardTo(Card card, EntityType type)
-		{
-			Card = card;
-			Type = type;
-		}
-		public AddCardTo(string cardId, EntityType type)
-		{
-			Card = Cards.FromId(cardId);
-			Type = type;
-		}
 
 		public IPlayable Playable { get; set; }
 
 		public Card Card { get; set; }
 
 		public EntityType Type { get; set; }
+
+		private AddCardTo(IPlayable playable, Card card, EntityType type)
+		{
+			Playable = playable;
+			Card = card;
+			Type = type;
+		}
+
+		public AddCardTo(IPlayable playable, EntityType type)
+		{
+			Playable = playable;
+			Type = type;
+		}
+
+		public AddCardTo(Card card, EntityType type)
+		{
+			Card = card;
+			Type = type;
+		}
+
+		public AddCardTo(string cardId, EntityType type)
+		{
+			Card = Cards.FromId(cardId);
+			Type = type;
+		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -68,11 +74,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new AddCardTo(Playable, Card, Type);
-			clone.Copy(this);
-			return clone;
+			return new AddCardTo(Playable, Card, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

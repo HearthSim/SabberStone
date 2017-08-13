@@ -4,6 +4,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class EnqueueTask : SimpleTask
 	{
+		public int Amount { get; set; }
+		public ISimpleTask Task { get; set; }
+		public bool SpellDmg { get; set; }
+
 		public EnqueueTask(int amount, ISimpleTask task, bool spellDmg = false)
 		{
 			Amount = amount;
@@ -11,18 +15,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			SpellDmg = spellDmg;
 		}
 
-		public int Amount { get; set; }
-		public ISimpleTask Task { get; set; }
-		public bool SpellDmg { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var times = SpellDmg ? Amount + Controller.Hero.SpellPowerDamage : Amount;
+			int times = SpellDmg ? Amount + Controller.Hero.SpellPowerDamage : Amount;
 
-			for (var i = 0; i < times; i++)
+			for (int i = 0; i < times; i++)
 			{
 				// clone task here
-				var clone = Task.Clone();
+				ISimpleTask clone = Task.Clone();
 				clone.ResetState();
 				clone.Game = Controller.Game;
 				clone.Controller = Controller;
@@ -42,11 +44,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new EnqueueTask(Amount, Task.Clone(), SpellDmg);
-			clone.Copy(this);
-			return clone;
+			return new EnqueueTask(Amount, Task.Clone(), SpellDmg);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -10,17 +10,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class AdaptTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
 
 		public AdaptTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var choiceAction = ChoiceAction.ADAPT;
+			ChoiceAction choiceAction = ChoiceAction.ADAPT;
 			var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
 			//var totAdaptCards = new List<Card>()
 			//{ 
@@ -40,21 +41,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var resultCards = new List<Card>();
 			while (resultCards.Count < 3)
 			{
-				var adaptCard = Util.Choose<Card>(totAdaptCards);
+				Card adaptCard = Util.Choose(totAdaptCards);
 				resultCards.Add(adaptCard);
 				totAdaptCards.Remove(adaptCard);
 			}
 
-			var success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
 			return TaskState.COMPLETE;
 		}
 
-
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new AdaptTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new AdaptTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

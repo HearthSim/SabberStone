@@ -4,24 +4,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ManaCrystalFullTask : SimpleTask
 	{
+		public int Amount { get; set; }
+
 		public ManaCrystalFullTask(int amount)
 		{
 			Amount = amount;
 		}
 
-		public int Amount { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var success = Generic.ChangeManaCrystal.Invoke(Controller, Amount, true);
+			bool success = Generic.ChangeManaCrystal.Invoke(Controller, Amount, true);
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ManaCrystalFullTask(Amount);
-			clone.Copy(this);
-			return clone;
+			return new ManaCrystalFullTask(Amount);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -3,15 +3,16 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class BuffStealthTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public BuffStealthTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -20,19 +21,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var minion = p as Minion;
 				if (minion == null)
 					return;
+
 				var buff = new BuffTask(Buffs.StealthTurn(minion.NumAttacksThisTurn), Type);
-				buff.Copy(this);
+				buff.Stamp(this);
 				buff.Process();
 			});
 
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new BuffStealthTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new BuffStealthTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

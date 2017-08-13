@@ -5,22 +5,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardIdFromListTask : SimpleTask
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			if (CardIds.Count == 0)
 				return TaskState.STOP;
 
-			var randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(CardIds)));
+			IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose(CardIds)));
 			Playables.Add(randomCard);
 
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new RandomCardIdFromListTask();
-			clone.Copy(this);
-			return clone;
+			return new RandomCardIdFromListTask();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

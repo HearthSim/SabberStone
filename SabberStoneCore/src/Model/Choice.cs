@@ -13,7 +13,7 @@ namespace SabberStoneCore.Model
 
 	}
 
-	public class Choice: IModel<Choice>
+	public class Choice : IModel<Choice>
 	{
 		public Choice(Controller controller)
 		{

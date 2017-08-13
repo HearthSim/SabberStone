@@ -3,11 +3,19 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
+		public Rarity Rarity { get; set; }
+
+		public Card Card { get; set; }
+
+
 		private ReplaceTask(EntityType type, Rarity rarity, Card card)
 		{
 			Type = type;
@@ -29,23 +37,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card = Cards.FromId(cardId);
 		}
 
-		public EntityType Type { get; set; }
-
-		public Rarity Rarity { get; set; }
-
-		public Card Card { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
-			var cards = Card == null
+			List<Card> cards = Card == null
 				? Cards.All.Where(p => p.Collectible && p.Rarity == Rarity).ToList()
 				: new List<Card> { Card };
 
 			entities.ForEach(p =>
 			{
-				var zone = p.Zone;
+				IZone zone = p.Zone;
 				Controller.SetasideZone.Add(zone.Remove(p));
 				zone.Add(Entity.FromCard(Controller, cards.Count > 1 ? Util.RandomElement(cards) : cards.First()));
 			});
@@ -53,12 +57,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalClone()
 		{
-			var clone = new ReplaceTask(Type, Rarity, Card);
-			clone.Copy(this);
-			return clone;
+			return new ReplaceTask(Type, Rarity, Card);
 		}
-	}
 
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+	}
 }

@@ -215,7 +215,7 @@ namespace SabberStoneCore.Model
 		public override string ToString()
 		{
 			return $"[{Name}]";
-		}		
+		}
 
 		internal static Card CardGame => new Card()
 		{

@@ -14,12 +14,33 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private List<Card> KazakusPotionSpells => _kazakusPotionSpells ?? (_kazakusPotionSpells = GetKazakusPotionSpells());
 
+		public List<int> ScriptTags { get; set; }
+
 		public PotionGenerating(List<int> scriptTags = null)
 		{
 			ScriptTags = scriptTags;
 		}
 
-		public List<int> ScriptTags { get; set; }
+		private static List<Card> GetKazakusPotionSpells()
+		{
+			var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t")
+			&& !p.Id.Equals("CFM_621t")
+			//&& !p.Id.Equals("CFM_621t11")
+			//&& !p.Id.Equals("CFM_621t12")
+			//&& !p.Id.Equals("CFM_621t13")
+			&& !p.Id.Equals("CFM_621t14")
+			&& !p.Id.Equals("CFM_621t15")
+			).ToList();
+
+			return list;
+		}
+
+		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
+		{
+
+		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -37,7 +58,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (ScriptTags.Count < 3)
 			{
 
-				var cost = KazakusPotionSpells.First(p =>
+				int cost = KazakusPotionSpells.First(p =>
 					p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Cost;
 				var cardIdList = KazakusPotionSpells.Where(p =>
 					p[GameTag.TAG_SCRIPT_DATA_NUM_1] < 1000 && p.Cost == cost &&
@@ -46,7 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var cardList = new List<Card>();
 				while (cardList.Count < 3)
 				{
-					var card = Util.Choose<Card>(cardIdList);
+					Card card = Util.Choose(cardIdList);
 					cardList.Add(card);
 					cardIdList.RemoveAll(p => p == card);
 				}
@@ -56,9 +77,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// create card ...
-			var baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
-			var spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
-			var spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
+			Card baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
+			Card spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
+			Card spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
 			baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
 			baseCard.Enchantments = new List<Enchantment>();
 			baseCard.Enchantments.AddRange(spell1.Enchantments);
@@ -84,7 +105,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Controller.Game.TaskQueue.Enqueue(task);
 
 			// remove tag script from used kazakus entities
-			foreach (var playables in Controller.SetasideZone.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621")))
+			foreach (IPlayable playables in Controller.SetasideZone.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621")))
 			{
 				playables[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
 			}
@@ -92,30 +113,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		private static List<Card> GetKazakusPotionSpells()
+		public override ISimpleTask InternalClone()
 		{
-			var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t")
-			&& !p.Id.Equals("CFM_621t")
-			//&& !p.Id.Equals("CFM_621t11")
-			//&& !p.Id.Equals("CFM_621t12")
-			//&& !p.Id.Equals("CFM_621t13")
-			&& !p.Id.Equals("CFM_621t14")
-			&& !p.Id.Equals("CFM_621t15")
-			).ToList();
-
-			return list;
+			return new PotionGenerating(ScriptTags);
 		}
 
-		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
-		{
-
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new PotionGenerating(ScriptTags);
-			clone.Copy(this);
-			return clone;
-		}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }
