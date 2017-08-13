@@ -1934,11 +1934,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_825", new List<Enchantment> {
-				// TODO [ICC_825] Abominable Bowman && Test: Abominable Bowman_ICC_825
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(SelfCondition.IsRace(Race.BEAST)),
 				},
 			});
 

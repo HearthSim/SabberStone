@@ -1702,21 +1702,49 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AbominableBowman_ICC_825()
 		{
-			// TODO AbominableBowman_ICC_825 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
+			IPlayable beast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable murloc = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, beast));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, murloc));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable mark1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+			IPlayable shot1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
+			IPlayable shot2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
+			IPlayable shot3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot3, murloc));
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, mark1, testCard1));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot1, testCard1));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot2, beast));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable mark2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+			IPlayable shot4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, mark2, testCard2));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot4, testCard2));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal("Stonetusk Boar", game.CurrentOpponent.BoardZone[0].Card.Name);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
