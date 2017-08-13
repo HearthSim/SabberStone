@@ -1696,10 +1696,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ToxicArrow_ICC_049()
 		{
-			// TODO ToxicArrow_ICC_049 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1710,7 +1709,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toxic Arrow"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toxic Arrow"));
+			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aberrant Berserker"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.True(((Minion)minion).Poisonous);
+			Assert.True(((Minion)minion).IsEnraged);
+			Assert.Equal(3, ((Minion)minion).Health);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

@@ -1969,7 +1969,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "ICC_049e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(2, EntityType.TARGET, true),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+						ComplexTask.Poisonous(EntityType.TARGET))
 				},
 			});
 

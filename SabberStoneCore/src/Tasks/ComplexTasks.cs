@@ -36,6 +36,9 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask DivineShield(EntityType entityType)
 			=> new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, entityType);
 
+		public static ISimpleTask Poisonous(EntityType entityType)
+			=> new SetGameTagTask(GameTag.POISONOUS, 1, entityType);
+
 		public static ISimpleTask Charge(EntityType entityType)
 			=> new SetGameTagTask(GameTag.CHARGE, 1, entityType);
 
