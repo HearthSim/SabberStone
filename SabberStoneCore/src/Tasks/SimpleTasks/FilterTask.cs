@@ -46,8 +46,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (SelfConditions != null)
 			{
+				var selfConditionList = SelfConditions.Where(x => x != null).ToList();
 				Playables = Playables
-					.Where(p1 => SelfConditions.ToList().TrueForAll(p2 => p2.Eval(p1)))
+					.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
 					.ToList();
 			}
 
