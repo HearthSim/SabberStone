@@ -6,7 +6,6 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Tasks.PlayerTasks;
-using System.Collections.Generic;
 
 namespace SabberStoneUnitTest.CardSets
 {
@@ -1612,49 +1611,21 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void StitchedTracker_ICC_415()
 		{
+			// TODO StitchedTracker_ICC_415 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Arcane Shot"), Cards.FromName("Arcane Shot"),
-					Cards.FromName("Hunter's Mark"), Cards.FromName("Hunter's Mark"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Kill Command"), Cards.FromName("Kill Command"),
-					Cards.FromName("Multi-Shot"), Cards.FromName("Multi-Shot"),
-					Cards.FromName("Play Dead"), Cards.FromName("Play Dead"),
-					Cards.FromName("Deadly Shot"), Cards.FromName("Deadly Shot"),
-					Cards.FromName("Explosive Trap"), Cards.FromName("Explosive Trap")
-				},
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = false,
-				Shuffle = false
+				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stitched Tracker"));
-			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-			int choice = game.CurrentPlayer.Choice.Choices[0];
-			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-			Assert.Equal(CardType.MINION, game.CurrentPlayer.HandZone[4].Card.Type);
-			Assert.Equal("Murloc Raider", game.CurrentPlayer.HandZone[4].Card.Name);
-			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.Null(game.CurrentPlayer.Choice);
-			Assert.Equal("Murloc Raider", game.CurrentPlayer.HandZone[5].Card.Name);
-			Assert.False(game.CurrentPlayer.DeckZone.GetAll.Exists(p => p is Minion));
-			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stitched Tracker"));
-			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
-			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
-			Assert.Null(game.CurrentPlayer.Choice);
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stitched Tracker"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1667,28 +1638,21 @@ namespace SabberStoneUnitTest.CardSets
 		// - CANT_BE_TARGETED_BY_SPELLS = 1
 		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void Bearshark_ICC_419()
 		{
+			// TODO Bearshark_ICC_419 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.HUNTER,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bearshark"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
-			Assert.Equal(3, ((Minion)testCard).Health);
-			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-			Assert.False(((Minion)testCard).IsDead);
-			Assert.Equal(3, ((Minion)testCard).Health);
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bearshark"));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1702,49 +1666,21 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void AbominableBowman_ICC_825()
 		{
+			// TODO AbominableBowman_ICC_825 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.HUNTER,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
-			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
-			IPlayable beast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			IPlayable murloc = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, beast));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, murloc));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			IPlayable mark1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
-			IPlayable shot1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
-			IPlayable shot2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
-			IPlayable shot3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot3, murloc));
-			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, mark1, testCard1));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot1, testCard1));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot2, beast));
-			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			IPlayable mark2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
-			IPlayable shot4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, mark2, testCard2));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot4, testCard2));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal("Stonetusk Boar", game.CurrentOpponent.BoardZone[0].Card.Name);
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

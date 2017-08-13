@@ -2267,7 +2267,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void SeadevilStinger_CFM_699()
 		{
 			// TODO take care of cost health animation

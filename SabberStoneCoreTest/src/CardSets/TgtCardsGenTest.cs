@@ -1919,7 +1919,7 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you equip a weapon, give it +1 Attack.
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void Buccaneer_AT_029()
 		{
 			var game = new Game(new GameConfig
@@ -3290,7 +3290,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - FORGETFUL = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void MogorsChampion_AT_088()
 		{
 			var game = new Game(new GameConfig
