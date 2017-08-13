@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Loader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Loader;
 
 namespace SabberStoneCore.Model
 {
@@ -11,11 +11,6 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public static class Cards
 	{
-		/// <summary>
-		/// Object holding the information of all known cards.
-		/// </summary>
-		private static readonly CardContainer Data;
-
 		/// <summary>
 		/// Specifies which card sets combine into the STANDARD set.
 		/// </summary>
@@ -41,105 +36,59 @@ namespace SabberStoneCore.Model
 			CardClass.MAGE, CardClass.PRIEST, CardClass.WARRIOR
 		};
 
-		#region CARD_SETUP
-
-		static Cards()
-		{
-			// Fetch all cards.
-			var cardLoader = new CardLoader();
-			List<Card> cards = cardLoader.Load();
-
-			//string json = File.ReadAllText(CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Data\cardData.json");
-			//string json = File.ReadAllText(Environment.CurrentDirectory + @"\cardData.json");
-			//var cards = JsonConvert.DeserializeObject<IEnumerable<Card>>(Resources.cardDataJson);
-			//File.WriteAllText(CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Data\cardDataJson.txt", JsonConvert.SerializeObject(cards, Formatting.Indented));
-			// Set as card definitions
-
-			Data = new CardContainer();
-			Data.Load(cards);
-
-			//Log.Debug("Standard:");
-			Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
-			{
-				Standard.Add(heroClass, All.Where(c =>
-				c.Collectible &&
-					(c.Class == heroClass ||
-					 c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly());
-				//Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
-			});
-
-			//Log.Debug("AllStandard:");
-			AllStandard = All.Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly();
-
-			//Log.Debug("Wild:");
-			Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
-			{
-				Wild.Add(heroClass, All.Where(c =>
-				c.Collectible &&
-					(c.Class == heroClass ||
-					 c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO).ToList().AsReadOnly());
-				//Log.Debug($"-> [{heroClass}] - {Wild[heroClass].Count} cards.");
-			});
-
-			//Log.Debug("AllWild:");
-			AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList().AsReadOnly();
-		}
-
-		#endregion
+		private static CardContainer _data;
 
 		#region FILTERS
 
 		/// <summary>
 		/// Returns all known cards.
 		/// </summary>
-		public static IEnumerable<Card> All => Data.Cards.Values;
+		public static IEnumerable<Card> All => _data;
 
 		/// <summary>
 		/// Returns the count of all known cards.
 		/// </summary>
-		public static int Count => Data.Cards.Count;
+		public static int Count => _data.Count;
 
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Wild { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IEnumerable<Card>> Wild => _data.Wild;
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Standard { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IEnumerable<Card>> Standard => _data.Standard;
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
 		/// </summary>
-		public static IEnumerable<Card> AllStandard { get; }
+		public static IEnumerable<Card> AllStandard => _data.AllStandard;
 
 		/// <summary>
 		/// All cards belonging to the Wild set.
 		/// </summary>
-		public static IEnumerable<Card> AllWild { get; }
+		public static IEnumerable<Card> AllWild => _data.AllWild;
 
 		/// <summary>
 		/// Retrieves the specified set of cards, sorted by <see cref="CardClass"/>.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType)
+		{
+			return formatType == FormatType.FT_STANDARD ? Standard : Wild;
+		}
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+		public static IEnumerable<Card> FormatTypeCards(FormatType formatType)
+		{
+			return formatType == FormatType.FT_STANDARD ? AllStandard : AllWild;
+		}
 
 		/// <summary>
 		/// Returns the default hero class card.
@@ -168,7 +117,8 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
-			return Data.Cards.ContainsKey(cardId) ? Data.Cards[cardId] : null;
+			// TODO Test this for exceptions.
+			return _data[cardId];
 		}
 
 		/// <summary>
@@ -180,7 +130,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromName(string cardName)
 		{
-			return Data.Cards.FirstOrDefault(x => x.Value.Name == cardName && x.Value.Collectible).Value;
+			return _data.FirstOrDefault(x => x.Name == cardName && x.Collectible);
 		}
 
 		/// <summary>
@@ -190,7 +140,27 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromAssetId(int assetId)
 		{
-			return Data.Cards.Values.FirstOrDefault(x => x.AssetId == assetId);
+			return _data.FirstOrDefault(x => x.AssetId == assetId);
+		}
+
+		#endregion
+
+		#region SETUP
+
+		static Cards()
+		{
+			// Load and test received CardContainer instance.
+			var cardLoader = new CardLoader();
+			// CardContainer must be assigned immediately because enchantment definitions
+			// depend on access to Card objects.
+			_data = cardLoader.Load();
+			
+			// Here can custom cards be implemented, if desired.
+			// The container will become read-only after the LockContainer() method
+			// is executed!
+
+
+			_data.LockContainer();			
 		}
 
 		#endregion

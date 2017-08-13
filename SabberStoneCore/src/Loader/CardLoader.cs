@@ -5,12 +5,13 @@ using System.Reflection;
 using System.Xml.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Loader
 {
 	internal interface ICardLoader
 	{
-		List<Card> Load();
+		CardContainer Load();
 	}
 
 	internal class CardLoader : ICardLoader
@@ -68,7 +69,7 @@ namespace SabberStoneCore.Loader
 			return dict;
 		}
 
-		public List<Card> Load()
+		public CardContainer Load()
 		{
 			// Get XML definitions from assembly embedded resource
 			var cardDefsXml =
@@ -120,7 +121,7 @@ namespace SabberStoneCore.Loader
 							}).ToList();
 
 			// Build card database
-			var cards = new List<Card>();
+			var cards = new CardContainer(Enchantments.COLLECTION_INIT_SIZE);
 
 			foreach (var card in cardDefs)
 			{
