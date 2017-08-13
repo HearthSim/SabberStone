@@ -1667,21 +1667,28 @@ namespace SabberStoneUnitTest.CardSets
 		// - CANT_BE_TARGETED_BY_SPELLS = 1
 		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Bearshark_ICC_419()
 		{
-			// TODO Bearshark_ICC_419 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
-				Player2HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bearshark"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bearshark"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(3, ((Minion)testCard).Health);
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
+			Assert.False(((Minion)testCard).IsDead);
+			Assert.Equal(3, ((Minion)testCard).Health);
 		}
 
 		// ---------------------------------------- MINION - HUNTER

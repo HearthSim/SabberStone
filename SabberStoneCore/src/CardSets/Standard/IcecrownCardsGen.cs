@@ -1920,14 +1920,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_419", new List<Enchantment> {
-				// TODO [ICC_419] Bearshark && Test: Bearshark_ICC_419
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_419", null);
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_825] Abominable Bowman - COST:7 [ATK:6/HP:7] 
