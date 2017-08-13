@@ -29,4 +29,4 @@ install: # We only accomodate .NET Core + .NET Standard projects.
 # `script` DOES NOT immediately fail when one command returns != 0
 # so the one-liner trick is used.
 script:
-- dotnet build -c Release /p:TravisBuild=True && pushd ./SabberStoneCore/tests && dotnet xunit
+- dotnet build -c Release /p:TravisBuild=True && pushd ./SabberStoneCoreTest && dotnet xunit

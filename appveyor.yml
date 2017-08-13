@@ -21,7 +21,7 @@ build:
 
 test_script:
 - cmd: >-
-    cd ./SabberStoneCore/tests
+    cd ./SabberStoneCoreTest
     REM Run the test project (.NET Core)
     dotnet xunit
 artifacts:
