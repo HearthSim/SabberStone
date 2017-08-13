@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -48,7 +49,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter,
-						Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
+						Amount + (RandAmount > 0 ? Util.Random.Next(0, RandAmount + 1) : 0),
 						spellDmgValue));
 			return TaskState.COMPLETE;
 		}
