@@ -3669,7 +3669,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: At the start of your turn, put a 10-Cost minion from your deck into your hand.
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void AncientHarbinger_OG_290()
 		{
 			var game = new Game(new GameConfig

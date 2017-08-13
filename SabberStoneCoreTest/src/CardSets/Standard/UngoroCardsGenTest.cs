@@ -1648,7 +1648,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void AwakenTheMakers_UNG_940()
 		{
 			var game = new Game(new GameConfig
@@ -1816,7 +1816,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void SherazinCorpseFlower_UNG_065()
 		{
 			// TODO SherazinCorpseFlower_UNG_065 test
@@ -2137,7 +2137,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void KalimosPrimalLord_UNG_211()
 		{
 			var game = new Game(new GameConfig
@@ -2262,7 +2262,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 10
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void UniteTheMurlocs_UNG_942()
 		{
 			var game = new Game(new GameConfig
@@ -4147,7 +4147,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void EliseTheTrailblazer_UNG_851()
 		{
 			// TODO EliseTheTrailblazer_UNG_851 test

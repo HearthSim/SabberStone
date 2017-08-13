@@ -340,7 +340,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(game.CurrentPlayer.Hero.IsValidAttackTarget(taunt as ICharacter));
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void FatigueTest()
 		{
 			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true });
@@ -683,7 +683,7 @@ namespace SabberStoneCoreTest.Basic
 			})); // we have a no quest in mulligan! player 2
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void OrderOfPlayDeathRattleSylvanasTest()
 		{
 			var game = new Game(new GameConfig
@@ -697,7 +697,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(1, 0);
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void LoathebMillhouseOrderOfPlayTest()
 		{
 			// https://youtu.be/Fmfa9NFThsM?t=50
@@ -718,7 +718,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(false); // To be implemented
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void IllidanKnifeJugglerTwilightDrakeResolveTest()
 		{
 			// https://youtu.be/Ln0BisR_SfY?t=71
