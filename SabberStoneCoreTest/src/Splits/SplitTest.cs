@@ -21,6 +21,7 @@ namespace SabberStoneCoreTest.Splits
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Splitting = true
 				});
 			game.Player1.BaseMana = 10;
@@ -42,6 +43,7 @@ namespace SabberStoneCoreTest.Splits
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Splitting = true
 				});
 			game.Player1.BaseMana = 10;
@@ -72,6 +74,7 @@ namespace SabberStoneCoreTest.Splits
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Splitting = true
 				});
 			game.Player1.BaseMana = 10;
@@ -102,6 +105,7 @@ namespace SabberStoneCoreTest.Splits
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Splitting = true
 				});
 			game.Player1.BaseMana = 10;
@@ -132,6 +136,7 @@ namespace SabberStoneCoreTest.Splits
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Splitting = true
 				});
 			game.Player1.BaseMana = 10;

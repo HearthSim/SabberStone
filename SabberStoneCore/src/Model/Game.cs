@@ -323,8 +323,8 @@ namespace SabberStoneCore.Model
 			_gameConfig.Player2Deck?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.DeckZone));
 			if (_gameConfig.FillDecks)
 			{
-				Player1.DeckZone.Fill();
-				Player2.DeckZone.Fill();
+				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably);
+				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably);
 			}
 
 			// set gamestats

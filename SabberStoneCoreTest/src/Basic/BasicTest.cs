@@ -158,7 +158,7 @@ namespace SabberStoneCoreTest.Basic
 		[Fact]
 		public void SummonFailTest()
 		{
-			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.PALADIN, Player2HeroClass = CardClass.MAGE, FillDecks = true });
+			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.PALADIN, Player2HeroClass = CardClass.MAGE, FillDecks = true, FillDecksPredictably = true });
 			game.StartGame();
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -211,7 +211,7 @@ namespace SabberStoneCoreTest.Basic
 		[Fact]
 		public void CompleteGameNoPlayTest()
 		{
-			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true });
+			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true, FillDecksPredictably = true });
 
 			game.StartGame();
 
@@ -317,7 +317,7 @@ namespace SabberStoneCoreTest.Basic
 		[Fact]
 		public void TauntTest()
 		{
-			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.ROGUE, Player2HeroClass = CardClass.WARLOCK, FillDecks = true });
+			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.ROGUE, Player2HeroClass = CardClass.WARLOCK, FillDecks = true, FillDecksPredictably = true });
 			game.StartGame();
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -343,7 +343,7 @@ namespace SabberStoneCoreTest.Basic
 		[Fact]
 		public void FatigueTest()
 		{
-			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true });
+			var game = new Game(new GameConfig { StartPlayer = 1, FillDecks = true, FillDecksPredictably = true });
 			game.StartGame();
 
 			while (game.State != State.COMPLETE)
@@ -364,7 +364,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -394,7 +395,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -421,7 +423,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PALADIN,
 					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -473,7 +476,8 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -520,7 +524,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -571,7 +576,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -612,7 +618,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -630,7 +637,8 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -666,6 +674,7 @@ namespace SabberStoneCoreTest.Basic
 						Cards.FromName("The Marsh Queen")
 					},
 					FillDecks = true,
+					FillDecksPredictably = true,
 					Shuffle = true,
 					SkipMulligan = false
 				});
@@ -683,21 +692,20 @@ namespace SabberStoneCoreTest.Basic
 			})); // we have a no quest in mulligan! player 2
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void OrderOfPlayDeathRattleSylvanasTest()
 		{
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
-
-			Assert.Equal(1, 0);
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void LoathebMillhouseOrderOfPlayTest()
 		{
 			// https://youtu.be/Fmfa9NFThsM?t=50
@@ -708,17 +716,16 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PALADIN,
 					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
 			game.StartGame();
-
-			Assert.True(false); // To be implemented
 		}
 
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void IllidanKnifeJugglerTwilightDrakeResolveTest()
 		{
 			// https://youtu.be/Ln0BisR_SfY?t=71
@@ -729,14 +736,13 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PALADIN,
 					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
 			game.StartGame();
-
-			Assert.True(false); // To be implemented
 		}
 	}
 }
