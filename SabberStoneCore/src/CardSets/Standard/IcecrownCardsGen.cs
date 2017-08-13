@@ -1903,11 +1903,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_415", new List<Enchantment> {
-				// TODO [ICC_415] Stitched Tracker && Test: Stitched Tracker_ICC_415
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DECK_MINION)
 				},
 			});
 

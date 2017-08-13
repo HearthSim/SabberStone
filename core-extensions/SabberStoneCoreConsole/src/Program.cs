@@ -23,7 +23,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -36,7 +36,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -89,17 +89,17 @@ namespace SabberStoneCoreConsole
 
 		static void ParallelTest()
 		{
-			var parallel = 100000;
-			var ensemble = 2;
+			int parallel = 100000;
+			int ensemble = 2;
 
 			//Create new game and go to MainReady();
-			for (var i = 0; i < parallel; i++)
+			for (int i = 0; i < parallel; i++)
 			{
 				var game = new Game(new GameConfig
 				{
 					//StartPlayer = 1,
 					FormatType = FormatType.FT_STANDARD,
-					Player1HeroClass = CardClass.DRUID,
+					Player1HeroClass = Cards.HeroClasses[i % 9],
 					Player1Deck = new List<Card>()
 					{
 						//Cards.FromName("Ironbark Protector"),
@@ -133,7 +133,7 @@ namespace SabberStoneCoreConsole
 						//Cards.FromName("Chillwind Yeti"),
 						//Cards.FromName("Chillwind Yeti")
 					},
-					Player2HeroClass = CardClass.DRUID,
+					Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
 					Player2Deck = new List<Card>()
 					{
 						//Cards.FromName("Ironbark Protector"),
@@ -174,7 +174,7 @@ namespace SabberStoneCoreConsole
 				});
 				game.StartGame();
 
-				var task = Task.Factory.StartNew(() => ParallelGames(game, ensemble));
+				Task task = Task.Factory.StartNew(() => ParallelGames(game, ensemble));
 				task.Wait();
 				ProgressBar(i, parallel);
 			}

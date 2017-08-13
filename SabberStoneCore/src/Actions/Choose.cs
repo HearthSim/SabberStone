@@ -219,7 +219,7 @@ namespace SabberStoneCore.Actions
 				var choicesIds = new List<int>();
 				choices.ForEach(p =>
 				{
-					var choiceEntity = Entity.FromCard(c, p);
+					IPlayable choiceEntity = Entity.FromCard(c, p);
 					choiceEntity[GameTag.CREATOR] = source.Id;
 					// add after discover enchantment
 					if (enchantment != null)

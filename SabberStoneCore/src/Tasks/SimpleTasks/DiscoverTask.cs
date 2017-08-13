@@ -16,6 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		OP_DECK,
 		BASIC_TOTEM,
 		MINION,
+		DECK_MINION,
 		SPELL,
 		DEATHRATTLE,
 		ONE_COST,
@@ -52,8 +53,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var choiceAction = ChoiceAction.INVALID;
-			var cardsToDiscover = Discovery(DiscoverType, out choiceAction);
+			ChoiceAction choiceAction = ChoiceAction.INVALID;
+			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out choiceAction);
 
 			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
 			if (cardsToDiscover.Length == 2)
@@ -71,7 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
 				{
-					var discoveredCard = Util.Choose<Card>(totcardsToDiscover);
+					Card discoveredCard = Util.Choose(totcardsToDiscover);
 					resultCards.Add(discoveredCard);
 					// remove all cards matching the discovered one, 
 					// need because class cards are duplicated 4 x times
@@ -90,7 +91,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 			{
 				// tri-class discover takes one random card from each of the three sets
-				foreach (var classDiscover in cardsToDiscover)
+				foreach (List<Card> classDiscover in cardsToDiscover)
 				{
 					resultCards.ForEach(p => classDiscover.Remove(p));
 					resultCards.Add(Util.Choose<Card>(classDiscover));
@@ -103,22 +104,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//    ProcessSplit(cardsToDiscover, choiceAction);
 			//}
 
-			// TODO check for the rules class specific vs. non-class specific cards, discovers, like Finders Keepers, and spell creating cards like Spellslinger generate problematic contellations.
-			//if (resultCards.Count == 0)
-			//{
-			//    Game.Log(LogLevel.ERROR, BlockType.PLAY, "DiscoverTask",
-			//        $"Found no petential cards to use for {DiscoverType}");
-			//    return TaskState.STOP;
-			//}
+			if (resultCards.Count == 0)
+			{
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
+					$"Found no potential cards to use for {DiscoverType}");
+			}
+			else
+			{
+				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+			}
 
-			var success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
 			return TaskState.COMPLETE;
 		}
 
 		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
 		{
-			var neutralCnt = cardsToDiscover[0].Count;
-			var classCnt = 0;
+			int neutralCnt = cardsToDiscover[0].Count;
+			int classCnt = 0;
 			var uniqueList = new List<Card>(cardsToDiscover[0]);
 
 			if (cardsToDiscover.Length > 1)
@@ -131,9 +133,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
 			combinations.ForEach(p =>
 			{
-				var cloneGame = Game.Clone();
-				var cloneController = cloneGame.ControllerById(Controller.Id);
-				var success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
+				Game cloneGame = Game.Clone();
+				Controller cloneController = cloneGame.ControllerById(Controller.Id);
+				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
 			});
 
@@ -165,7 +167,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				case DiscoverType.OVERLOAD:
 					choiceAction = ChoiceAction.HAND;
-					var cardSet = Cards.FormatTypeCards(Game.FormatType);
+					IEnumerable<Card> cardSet = Cards.FormatTypeCards(Game.FormatType);
 					return new[] { cardSet.Where(p => p.HasOverload).ToList() };
 
 				case DiscoverType.TAUNT:
@@ -174,7 +176,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				case DiscoverType.SECRET:
 					choiceAction = ChoiceAction.HAND;
-					var classForSecret =
+					CardClass classForSecret =
 						Controller.HeroClass == CardClass.PALADIN
 						|| Controller.HeroClass == CardClass.MAGE
 						|| Controller.HeroClass == CardClass.HUNTER
@@ -242,6 +244,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					choiceAction = ChoiceAction.HAND;
 					return GetFilter(list => list.Where(p => p.Type == CardType.MINION));
 
+				case DiscoverType.DECK_MINION:
+					choiceAction = ChoiceAction.HAND;
+					return new[] { Controller.DeckZone.Where(p => p is Minion).Select(p => p.Card).ToList() };
+
 				case DiscoverType.DEATHRATTLE:
 					choiceAction = ChoiceAction.HAND;
 					return GetFilter(list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
@@ -294,14 +300,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
 			return new[] { classCards.ToList() };
 		}
 
 		private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
 		{
-			var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
 			return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
 							cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
 							cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
@@ -309,10 +315,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			var cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			var heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.HeroClasses);
-			var nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
-			var classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			CardClass heroClass = Controller.HeroClass != CardClass.NEUTRAL ? Controller.HeroClass : Util.RandomElement(Cards.HeroClasses);
+			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass));
 			return new[] { nonClassCards.ToList(), classCards.ToList() };
 		}
 
