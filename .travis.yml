@@ -1,11 +1,32 @@
-﻿language: csharp
-solution: SabberStone.sln
+﻿language: csharp # Comes with Mono automatically.
+mono: none # ..speeds up builds by not installing Mono.
 dist: trusty
-dotnet: 1.0.4 # Supports .netCore runtime 1.0.5 & 1.1.2
-install: # We only accomodate .NET Core + .NET Standard projects
+dotnet: 1.0.4 # Supports .netCore runtime 1.0.5 & 1.1.2.
+
+notifications:
+  email:
+    on_success: change # default: change
+    on_failure: never # default: always
+    on_start: never   # default: never
+    on_cancel: never # default: always
+    on_error: always # default: always
+
+# As long as we are at the root of the repo
+# Dotnet will automatically find and build the solution (SabberStone.sln).
+
+cache:
+  directories:
+    - $HOME/.nuget/packages # ..speeds up builds, caches dependancy downloads.
+
+# There is no cleaning up of cache to do.
+
+# `before_install`, `install` and `before_script` immediately exit when
+# non zero exit code is returned.
+
+install: # We only accomodate .NET Core + .NET Standard projects.
   - dotnet restore
 
+# `script` DOES NOT immediately fail when one command returns != 0
+# so the one-liner trick is used.
 script:
-  - dotnet build -c Release /p:TravisBuild=True
-  - pushd ./SabberStoneCoreTest
-  - dotnet xunit
+- dotnet build -c Release /p:TravisBuild=True && pushd ./SabberStoneCore/tests && dotnet xunit
