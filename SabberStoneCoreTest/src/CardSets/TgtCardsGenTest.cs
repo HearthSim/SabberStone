@@ -1522,23 +1522,23 @@ namespace SabberStoneCoreTest.CardSets
 				Player1HeroClass = CardClass.PALADIN,
 				Player1Deck = new List<Card>
 				{
-					Cards.FromName("Sen'jin Shieldmasta"),
-					Cards.FromName("Sen'jin Shieldmasta"),
+					Cards.FromName("Sen'jin Shieldmasta"), // 4-cost
+					Cards.FromName("Sen'jin Shieldmasta"), 
+					Cards.FromName("Grimestreet Enforcer"), // 5-cost
 					Cards.FromName("Grimestreet Enforcer"),
-					Cards.FromName("Grimestreet Enforcer"),
-					Cards.FromName("Tirion Fordring"),
-					Cards.FromName("Argent Commander"),
+					Cards.FromName("Tirion Fordring"), // 8-cost
+					Cards.FromName("Argent Commander"), // 6-cost
 					Cards.FromName("Argent Commander"),
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				Player2Deck = new List<Card>
 				{
-					Cards.FromName("Sir Finley Mrrgglton"),
+					Cards.FromName("Sir Finley Mrrgglton"), // 1-cost
+					Cards.FromName("Worgen Infiltrator"), // 2-cost
 					Cards.FromName("Worgen Infiltrator"),
-					Cards.FromName("Worgen Infiltrator"),
+					Cards.FromName("Acolyte of Pain"), // 3-cost
 					Cards.FromName("Acolyte of Pain"),
-					Cards.FromName("Acolyte of Pain"),
-					Cards.FromName("Argent Horserider"),
+					Cards.FromName("Argent Horserider"), // 3-cost
 					Cards.FromName("Argent Horserider"),
 				},
 				FillDecks = false,
@@ -1547,7 +1547,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Argent Lance"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Argent Lance"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.NotNull(game.CurrentPlayer.Hero.Weapon);
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
