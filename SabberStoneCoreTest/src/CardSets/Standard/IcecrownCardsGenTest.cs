@@ -1524,10 +1524,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ExplodingBloatbat_ICC_021()
 		{
-			// TODO ExplodingBloatbat_ICC_021 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1538,7 +1537,22 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Exploding Bloatbat"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Exploding Bloatbat"));
+			IPlayable alarm = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Alarm-o-Bot"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, alarm));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable aberrant = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aberrant Berserker"));
+			IPlayable shot1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Shot"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, aberrant));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, shot1, testCard));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(3, ((Minion)aberrant).Health);
+			Assert.Equal(3, ((Minion)alarm).Health);
+			Assert.Equal(30, game.CurrentPlayer.Opponent.Hero.Health);
 		}
 
 		// ---------------------------------------- MINION - HUNTER

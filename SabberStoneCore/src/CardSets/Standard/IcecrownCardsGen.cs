@@ -1839,11 +1839,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_021", new List<Enchantment> {
-				// TODO [ICC_021] Exploding Bloatbat && Test: Exploding Bloatbat_ICC_021
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.ENEMIES_NOTARGET),
 				},
 			});
 
