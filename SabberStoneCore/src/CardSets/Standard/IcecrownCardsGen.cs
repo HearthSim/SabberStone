@@ -1487,7 +1487,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "ICC_079e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new BuffTask(Buffs.AttackTurn(3), EntityType.HERO), 
+						new ArmorTask(3))
+
 				},
 			});
 

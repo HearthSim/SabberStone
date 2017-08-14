@@ -1499,7 +1499,7 @@ namespace SabberStoneUnitTest.CardSets
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Gnash_ICC_079()
 		{
 			// TODO Gnash_ICC_079 test
@@ -1513,7 +1513,19 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gnash"));
+
+			Assert.Equal(0, game.CurrentPlayer.Hero.Armor);
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gnash"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
+			Assert.Equal(3, game.CurrentPlayer.Hero.Armor);
+			Assert.Equal(3, game.CurrentPlayer.Hero.AttackDamage);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(0, game.CurrentOpponent.Hero.AttackDamage);
+			Assert.Equal(3, game.CurrentOpponent.Hero.Armor);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
