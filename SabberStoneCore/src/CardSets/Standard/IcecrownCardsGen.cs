@@ -1885,11 +1885,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_243", new List<Enchantment> {
-				// TODO [ICC_243] Corpse Widow && Test: Corpse Widow_ICC_243
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask =
+						new AuraTask(
+							Auras.Cost(-99, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1))),
+							AuraArea.HAND)
 				}
 			});
 

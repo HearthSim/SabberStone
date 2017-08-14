@@ -1644,7 +1644,7 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CorpseWidow_ICC_243()
 		{
 			// TODO CorpseWidow_ICC_243 test
@@ -1656,9 +1656,36 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpse Widow"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpse Widow"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Abominable Bowman"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, testCard));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Anomalus"));
+			IPlayable minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Backstreet Leper"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ---------------------------------------- MINION - HUNTER
