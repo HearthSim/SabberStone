@@ -2107,11 +2107,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_083", new List<Enchantment> {
-				// TODO [ICC_083] Doomed Apprentice && Test: Doomed Apprentice_ICC_083
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask =
+						new AuraTask(Auras.Cost(1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.OP_HAND)
 				}
 			});
 

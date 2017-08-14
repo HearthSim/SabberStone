@@ -2018,7 +2018,7 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DoomedApprentice_ICC_083()
 		{
 			// TODO DoomedApprentice_ICC_083 test
@@ -2032,7 +2032,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomed Apprentice"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomed Apprentice"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pyroblast"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			
+			Assert.Equal(11, spell1.Cost);
+			Assert.Equal(5, spell2.Cost);
 		}
 
 		// ------------------------------------------ MINION - MAGE
