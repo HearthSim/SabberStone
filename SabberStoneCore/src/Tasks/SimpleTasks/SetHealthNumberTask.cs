@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
@@ -42,7 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new SetHealthNumberTask(Type);
 		}

@@ -2,6 +2,7 @@
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -58,9 +59,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new FilterStackTask(Type, SelfConditions, RelaConditions);
+			return new FilterStackTask(Type, SelfConditions?.ToArray(), RelaConditions?.ToArray());
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

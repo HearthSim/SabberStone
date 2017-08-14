@@ -66,9 +66,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new ReplaceHeroPower(Power, PowerCard);
+			return new ReplaceHeroPower(Power?.ClonedFrom(newGame) as HeroPower, PowerCard);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

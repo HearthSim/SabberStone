@@ -27,7 +27,7 @@ namespace SabberStoneCore.Enchants
 			if (SingleTask != null)
 			{
 				// clone task here
-				var clone = SingleTask.Clone();
+				var clone = SingleTask.Clone(null);
 				clone.Game = controller.Game;
 				clone.Controller = controller;
 				clone.Source = source;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Linq;
+using System.Text;
 
 namespace SabberStoneCore.Tasks
 {
@@ -30,14 +32,16 @@ namespace SabberStoneCore.Tasks
 		private int _sourceId;
 		public IEntity Source
 		{
-			get { return Game.IdEntityDic[_sourceId]; }
+			get { return Game.EntityContainer[_sourceId]; }
 			set { _sourceId = value.Id; }
 		}
 
 		private int _targetId;
+		// CARE; _targetId is by default initialized to 0, for which Target will throw an 
+		// exception if not initialized manually!
 		public IEntity Target
 		{
-			get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
+			get { return _targetId > -1 ? Game.EntityContainer[_targetId] : null; }
 			set { _targetId = value?.Id ?? -1; }
 		}
 
@@ -147,39 +151,48 @@ namespace SabberStoneCore.Tasks
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public ISimpleTask Clone()
+		public ISimpleTask Clone(Game newGame)
 		{
 			var deepClone = new StateTaskList<ISimpleTask>(Capacity);
 			// Copy each task over.
-			ForEach(p => deepClone.Add(p.Clone()));
+			ForEach(p => deepClone.Add(p.Clone(newGame)));
 
 			deepClone.State = State;
-			// If no game was set, there is no need to copy activation specific information.
+			// If no game was set, there is no need to copy stack + task runtime information.
 			if (Game == null)
 			{
 				return deepClone;
 			}
 
-			deepClone.Game = Game;
-			deepClone.Controller = Controller;
-			deepClone.Source = Source;
-			deepClone.Target = Target;
+			deepClone.Game = newGame;
+			deepClone.Controller = Controller.ClonedFrom(newGame);
+			deepClone.Source = Source.ClonedFrom(newGame);
+			deepClone.Target = Target.ClonedFrom(newGame);
 
-			deepClone.Playables = Playables;
-			deepClone.CardIds = CardIds;
-			deepClone.Flag = Flag;
-			deepClone.Number = Number;
-			deepClone.Number1 = Number1;
-			deepClone.Number2 = Number2;
-			deepClone.Number3 = Number3;
-			deepClone.Number4 = Number4;
+			// Following properties are elements of the stack, which is owned and copied by Game.
+			//if (Playables != null)
+			//{
+			//	deepClone.Playables = new List<IPlayable>();
+			//	Playables?.ForEach(p => deepClone.Playables.Add(p.ClonedFrom(newGame)));
+			//}
+
+			//deepClone.CardIds = CardIds?.ToList(); // Shallow clone is enough
+			//deepClone.Flag = Flag;
+			//deepClone.Number = Number;
+			//deepClone.Number1 = Number1;
+			//deepClone.Number2 = Number2;
+			//deepClone.Number3 = Number3;
+			//deepClone.Number4 = Number4;
 
 			return deepClone;
 		}
 
 		public string ToHash(params GameTag[] ignore)
 		{
-			throw new NotImplementedException();
+			var str = new StringBuilder();
+			str.Append("?TSL?");
+			str.Append("!TSL!");
+			return str.ToString();
 		}
 
 		public void Stamp(IModel other)
@@ -187,9 +200,9 @@ namespace SabberStoneCore.Tasks
 			throw new NotImplementedException();
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

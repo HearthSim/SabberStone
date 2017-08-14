@@ -41,6 +41,8 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		protected override void InternalStamp(IModel entity)
 		{
 			// Do nothing, nothing to stamp.
@@ -52,10 +54,12 @@ namespace SabberStoneCore.Model.Entities
 			return String.Empty;
 		}
 
-		protected override Entity InternalClone()
+		protected override Entity InternalDeepClone(Game newGame)
 		{
-			return new Minion(Controller, Card, null);
+			return new Minion(newGame.ControllerById(Controller.Id), Card, null);
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Minion

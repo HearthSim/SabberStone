@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -24,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			for (int i = 0; i < times; i++)
 			{
 				// clone task here
-				ISimpleTask clone = Task.Clone();
+				ISimpleTask clone = Task.Clone(null);
 				clone.ResetState();
 				clone.Game = Controller.Game;
 				clone.Controller = Controller;
@@ -44,9 +45,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new EnqueueTask(Amount, Task.Clone(), SpellDmg);
+			return new EnqueueTask(Amount, Task.Clone(newGame), SpellDmg);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

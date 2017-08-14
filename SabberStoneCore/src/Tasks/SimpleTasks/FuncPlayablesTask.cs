@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FuncPlayablesTask : SimpleTask
 	{
-		public Func<List<IPlayable>, List<IPlayable>> Function { get; set; }
+		public Func<List<IPlayable>, List<IPlayable>> Function { get; }
 
 		public FuncPlayablesTask(Func<List<IPlayable>, List<IPlayable>> function)
 		{
@@ -21,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new FuncPlayablesTask(Function);
 		}

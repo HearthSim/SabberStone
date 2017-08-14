@@ -1,5 +1,6 @@
 ﻿using System;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -40,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new AddStackTo(Type);
 		}

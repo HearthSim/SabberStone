@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -28,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return buff.Process();
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new BuffHealthNumberTask(Type);
 		}

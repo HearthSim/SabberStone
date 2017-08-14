@@ -83,7 +83,7 @@ namespace SabberStoneCore.Actions
 				var hero = source as Hero;
 				var minion = source as Minion;
 				source.ProposedAttacker = source.Id;
-				var target = c.Game.IdEntityDic[source.ProposedDefender] as ICharacter;
+				var target = c.Game.EntityContainer[source.ProposedDefender] as ICharacter;
 				if (target == null)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");

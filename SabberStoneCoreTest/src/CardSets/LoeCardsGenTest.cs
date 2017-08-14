@@ -44,11 +44,11 @@ namespace SabberStoneCoreTest.CardSets
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Idol"));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
-			Assert.Equal(CardType.MINION, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+			Assert.Equal(CardType.MINION, game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
-			Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+			Assert.Equal(CardType.SPELL, game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 		}
@@ -308,7 +308,7 @@ namespace SabberStoneCoreTest.CardSets
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Conjurer"));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal(CardType.SPELL, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
+			Assert.Equal(CardType.SPELL, game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]].Card.Type);
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 		}

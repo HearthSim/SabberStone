@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SabberStoneCore.Model;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new CountTask(Type);
 		}

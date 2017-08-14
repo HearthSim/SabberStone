@@ -47,9 +47,13 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		protected override Zone<IPlayable> InternalClone()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override Zone<IPlayable> InternalClone(Game newGame)
 		{
-			return new DeckZone(Game, Controller);
+			return new DeckZone(newGame, newGame.ControllerById(Controller.Id));
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -28,13 +28,13 @@ namespace SabberStoneCore.Tasks
 		private int _sourceId;
 		public IEntity Source
 		{
-			get { return Game.IdEntityDic[_sourceId]; }
+			get { return Game.EntityContainer[_sourceId]; }
 			set { _sourceId = value.Id; }
 		}
 		private int _targetId;
 		public IEntity Target
 		{
-			get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
+			get { return _targetId > -1 ? Game.EntityContainer[_targetId] : null; }
 			set { _targetId = value?.Id ?? -1; }
 		}
 		public List<IPlayable> Playables { get; set; }
@@ -80,7 +80,7 @@ namespace SabberStoneCore.Tasks
 		#region IMODEL_IMPLEMENTATION
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public ISimpleTask Clone()
+		public ISimpleTask Clone(Game newGame)
 		{
 			throw new NotImplementedException();
 		}
@@ -95,9 +95,9 @@ namespace SabberStoneCore.Tasks
 			throw new NotImplementedException();
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

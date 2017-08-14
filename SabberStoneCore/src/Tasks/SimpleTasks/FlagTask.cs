@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FlagTask : SimpleTask
 	{
@@ -35,9 +37,9 @@
 			return TaskToDo.Process();
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new FlagTask(CheckFlag, TaskToDo.Clone());
+			return new FlagTask(CheckFlag, TaskToDo.Clone(newGame));
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

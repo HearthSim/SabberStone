@@ -41,7 +41,7 @@ namespace SabberStoneCoreAi.Nodes
 		public OptionNode(OptionNode parent, Game game, int playerId, PlayerTask playerTask, IScore scoring)
 		{
 			_parent = parent;
-			_game = game.Clone(); // create clone
+			_game = game.Clone(null) as Game; // create clone
 			_playerId = playerId;
 			PlayerTask = playerTask;
 			Scoring = scoring;

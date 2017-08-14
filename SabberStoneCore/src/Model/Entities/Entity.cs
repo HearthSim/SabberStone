@@ -133,22 +133,22 @@ namespace SabberStoneCore.Model.Entities
 			return str.ToString();
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
-		public IEntity Clone()
+		public IEntity Clone(Game newGame)
 		{
-			Entity deepClone = InternalClone() ?? throw new InvalidOperationException("The implementing class returned null");
+			Entity deepClone = InternalDeepClone(newGame) ?? throw new InvalidOperationException("The implementing class returned null");
 			deepClone.OrderOfPlay = OrderOfPlay;
-			deepClone._data = _data.Clone();
+			deepClone._data = _data.Clone(newGame);
 			// TODO; Replace lists with our own containers to easily abstract clone behaviour
 			// TODO; Use Reset() instead of manual clear?
 			deepClone.Enchants.Clear();
 			deepClone.Triggers.Clear();
-			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Enchants, p.Owner, p.RemoveTriggers)));
+			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Triggers, p.Owner)));
 
 			return deepClone;
 		}
@@ -157,7 +157,7 @@ namespace SabberStoneCore.Model.Entities
 
 		protected abstract string InternalToHash(params GameTag[] ignore);
 
-		protected abstract Entity InternalClone();
+		protected abstract Entity InternalDeepClone(Game newGame);
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		#endregion
@@ -304,7 +304,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			// add entity to the game dic
-			controller.Game.IdEntityDic.Add(result.Id, result);
+			controller.Game.EntityContainer.Add(result.Id, result);
 
 			// add power history full entity
 			if (controller.Game.History)

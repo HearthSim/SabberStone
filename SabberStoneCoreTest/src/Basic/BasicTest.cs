@@ -673,12 +673,12 @@ namespace SabberStoneCoreTest.Basic
 
 			Assert.False(game.Player1.Choice.Choices.TrueForAll(p =>
 			{
-				var t = game.IdEntityDic[p];
+				var t = game.EntityContainer[p];
 				return !(t is Spell) || !((Spell)t).IsQuest;
 			})); // we have a no quest in mulligan! player 1
 			Assert.False(game.Player2.Choice.Choices.TrueForAll(p =>
 			{
-				var t = game.IdEntityDic[p];
+				var t = game.EntityContainer[p];
 				return !(t is Spell) || !((Spell)t).IsQuest;
 			})); // we have a no quest in mulligan! player 2
 		}

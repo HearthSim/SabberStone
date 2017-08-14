@@ -19,6 +19,11 @@ namespace SabberStoneCore.Model
 
 		public Game Game { get; set; }
 
+		/// <summary>
+		/// Get or set the task currently being executed by the queue.
+		/// This value can be null!
+		/// <value><see cref="ISimpleTask"/></value>
+		/// </summary>
 		public ISimpleTask CurrentTask { get; set; }
 
 		public TaskQueue(Game game)
@@ -28,7 +33,7 @@ namespace SabberStoneCore.Model
 
 		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target)
 		{
-			var clone = task.Clone();
+			var clone = task.Clone(null);
 			clone.Game = controller.Game;
 			clone.Controller = controller;
 			clone.Source = source;
@@ -96,18 +101,19 @@ namespace SabberStoneCore.Model
 		#region IMODEL_IMPLEMENTATION
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public TaskQueue Clone()
+		public TaskQueue Clone(Game newGame)
 		{
-			var clone = new TaskQueue(Game)
+			var clone = new TaskQueue(newGame)
 			{
-				CurrentTask = CurrentTask.Clone() as ISimpleTask
+				// CurrentTask can be null!
+				CurrentTask = CurrentTask?.Clone(newGame) as ISimpleTask
 			};
 
 			// TODO; Change into our own container to smoothen clone behaviour
 			clone.TaskList = new List<ISimpleTask>(TaskList.Capacity);
 			for (int i = 0; i < TaskList.Count; ++i)
 			{
-				clone.TaskList[i] = TaskList[i].Clone() as ISimpleTask;
+				clone.TaskList.Add(TaskList[i].Clone(newGame) as ISimpleTask);
 			}
 
 			return clone;
@@ -131,10 +137,10 @@ namespace SabberStoneCore.Model
 			TaskQueue taskQueue = other as TaskQueue ?? throw new InvalidOperationException("other's type is invalid");
 
 			TaskList = new List<ISimpleTask>();
-			taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
+			taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone(taskQueue.Game)));
 			if (taskQueue.CurrentTask != null)
 			{
-				CurrentTask = taskQueue.CurrentTask.Clone();
+				CurrentTask = taskQueue.CurrentTask.Clone(taskQueue.Game);
 				CurrentTask.Game = Game;
 			}
 			TaskList.ForEach(p =>
@@ -144,9 +150,9 @@ namespace SabberStoneCore.Model
 			});
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

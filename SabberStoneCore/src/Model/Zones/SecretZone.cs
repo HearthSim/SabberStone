@@ -12,9 +12,13 @@ namespace SabberStoneCore.Model.Zones
 		{
 		}
 
-		protected override Zone<Spell> InternalClone()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override Zone<Spell> InternalClone(Game newGame)
 		{
-			return new SecretZone(Game, Controller);
+			return new SecretZone(newGame, newGame.ControllerById(Controller.Id));
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

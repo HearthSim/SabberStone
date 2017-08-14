@@ -7,7 +7,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddCardTo : SimpleTask
 	{
-
 		public IPlayable Playable { get; set; }
 
 		public Card Card { get; set; }
@@ -74,9 +73,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new AddCardTo(Playable, Card, Type);
+			return new AddCardTo(Playable?.ClonedFrom(newGame), Card, Type);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

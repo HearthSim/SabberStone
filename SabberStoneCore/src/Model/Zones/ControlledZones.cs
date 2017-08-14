@@ -115,18 +115,20 @@ namespace SabberStoneCore.Model.Zones
 			//}
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
 			// Delegate to more type specific method.
-			return Clone();
+			return Clone(newGame);
 		}
 
-		public IReadOnlyModelCollection<IZone> Clone()
+		public IReadOnlyModelCollection<IZone> Clone(Game newGame)
 		{
-			var clone = new ControlledZones(Game, Controller);
+			var clone = new ControlledZones(newGame, newGame.ControllerById(Controller.Id));
 			for (int i = 0; i < _zones.Length; ++i)
 			{
-				clone._zones[i] = _zones[i].Clone() as IZone;
+				// Zone could be null!
+				// TODO; FIX this by always initializing ALL zones at construction.
+				clone._zones[i] = _zones[i]?.Clone(newGame) as IZone;
 			}
 
 			return clone;

@@ -68,7 +68,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
 			combinations.ForEach(p =>
 			{
-				Game cloneGame = Game.Clone();
+				var cloneGame = Game.Clone(null) as Game;
 				Controller cloneController = cloneGame.ControllerById(Controller.Id);
 				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
@@ -324,8 +324,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
+			// TODO; Check if enchantment needs to be copied.
 			return new DiscoverTask(DiscoverType, Enchantment);
 		}
 

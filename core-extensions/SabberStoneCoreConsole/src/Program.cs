@@ -65,11 +65,11 @@ namespace SabberStoneCoreConsole
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
-			var clone1 = game.Clone();
-			var clone2 = game.Clone();
-			var clone3 = game.Clone();
-			var clone4 = game.Clone();
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
+			var clone1 = game.Clone(null) as Game;
+			var clone2 = game.Clone(null) as Game;
+			var clone3 = game.Clone(null) as Game;
+			var clone4 = game.Clone(null) as Game;
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
@@ -185,7 +185,7 @@ namespace SabberStoneCoreConsole
 			var games = new List<Game>();
 
 			for (var i = 0; i < ensemble; i++)
-				games.Add(g.Clone());
+				games.Add(g.Clone(null) as Game);
 
 			ParallelLoopResult result = Parallel.ForEach(games, game =>
 			{
@@ -593,10 +593,10 @@ namespace SabberStoneCoreConsole
 			game.StartGame();
 
 			game.Process(ChooseTask.Mulligan(game.Player1,
-				game.Player1.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
+				game.Player1.Choice.Choices.Where(p => game.EntityContainer[p].Cost > 3).ToList()));
 
 			game.Process(ChooseTask.Mulligan(game.Player2,
-				game.Player2.Choice.Choices.Where(p => game.IdEntityDic[p].Cost > 3).ToList()));
+				game.Player2.Choice.Choices.Where(p => game.EntityContainer[p].Cost > 3).ToList()));
 
 			game.MainReady();
 
@@ -762,7 +762,7 @@ namespace SabberStoneCoreConsole
 					var options = game.CurrentPlayer.Options();
 					var option = options[Rnd.Next(options.Count)];
 					game.Process(option);
-					var cloneGame = game.Clone();
+					var cloneGame = game.Clone(null);
 					var str1 = game.ToHash();
 					var str2 = cloneGame.ToHash();
 					flag &= str1.Equals(str2);
@@ -808,7 +808,7 @@ namespace SabberStoneCoreConsole
 			var watch = Stopwatch.StartNew();
 			for (var i = 0; i < total; i++)
 			{
-				var cloneGame = game.Clone();
+				var cloneGame = game.Clone(null);
 			}
 			watch.Stop();
 

@@ -201,10 +201,7 @@ namespace SabberStoneCore.Model.Zones
 			return Remove(item) != null;
 		}
 
-		public IModelCollection<T> Clone()
-		{
-			return InternalClone();
-		}
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public string ToHash(params GameTag[] ignore)
 		{
@@ -242,27 +239,37 @@ namespace SabberStoneCore.Model.Zones
 			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
 		}
 
-		IModel IModel.Clone()
+		public IModelCollection<T> Clone(Game newGame)
 		{
-			return InternalClone();
+			return ZoneClone(newGame);
 		}
 
-		IZone IModel<IZone>.Clone()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+		IModel IModel.Clone(Game newGame)
 		{
-			return InternalClone();
+			return ZoneClone(newGame);
 		}
 
-		private Zone<T> ZoneClone()
+		IZone IModel<IZone>.Clone(Game newGame)
 		{
-			Zone<T> deepClone = InternalClone() ?? throw new InvalidOperationException("Implemented class returned null");
+			return ZoneClone(newGame);
+		}
+
+		private Zone<T> ZoneClone(Game newGame)
+		{
+			Zone<T> deepClone = InternalClone(newGame) ?? throw new InvalidOperationException("Implemented class returned null");
 			_entitiesAsList.ForEach(p =>
 			{
-				IPlayable copy = p.Clone() as IPlayable;
+				var copy = p.Clone(newGame) as IPlayable;
+				// Save copy of this entity in the new game instance.
+				newGame.EntityContainer[copy.Id] = copy;
+
 				// Is this still necessary?
 				deepClone.MoveTo(copy, copy.ZonePosition);
 			});
-			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Enchants, p.Owner, p.RemoveTriggers)));
+			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Triggers, p.Owner)));
 
 			return deepClone;
 		}
@@ -271,7 +278,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Method definition forcing implementing classes to implement cloning behaviour.
 		/// </summary>
 		/// <returns></returns>
-		protected abstract Zone<T> InternalClone();
+		protected abstract Zone<T> InternalClone(Game newGame);
 
 		#endregion
 	}

@@ -55,6 +55,8 @@ namespace SabberStoneCore.Model.Entities
 			EquippedWeapon = 0;
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		protected override void InternalStamp(IModel entity)
 		{
 			// Do nothing, stamping was taken care of by Controller.InternalStamp
@@ -66,14 +68,27 @@ namespace SabberStoneCore.Model.Entities
 			return String.Empty;
 		}
 
-		protected override Entity InternalClone()
+		protected override Entity InternalDeepClone(Game newGame)
 		{
-			return new Hero(Controller, Card, null)
+			var heroClone = new Hero(newGame.ControllerById(Controller.Id), Card, null)
 			{
-				Weapon = Weapon.Clone() as Weapon,
-				Power = Power.Clone() as HeroPower,
+				// Weapon could be null!
+				Weapon = Weapon?.Clone(newGame) as Weapon,
+				// Hero power should ALWAYS be set.
+				Power = Power.Clone(newGame) as HeroPower,
 			};
+
+			// Manually push cloned entities to newGame.
+			newGame.EntityContainer[Id] = heroClone;
+			if(heroClone.Weapon != null)
+			{
+				newGame.EntityContainer[Weapon.Id] = heroClone.Weapon;
+			}
+
+			return heroClone;
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Hero

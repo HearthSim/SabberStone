@@ -32,15 +32,15 @@ namespace SabberStoneCore.Model
 
 		public List<int> TargetIds { get; set; }
 
-		public Choice Clone()
+		public Choice Clone(Game newGame)
 		{
-			return new Choice(Controller)
+			return new Choice(newGame.ControllerById(Controller.Id))
 			{
 				ChoiceType = ChoiceType,
 				ChoiceAction = ChoiceAction,
-				Choices = Choices.ToList(), // Makes shallow copy
+				Choices = Choices?.ToList(), // Makes shallow copy
 				SourceId = SourceId,
-				TargetIds = TargetIds.ToList(), // Makes shallow copy
+				TargetIds = TargetIds?.ToList(), // Makes shallow copy
 			};
 		}
 
@@ -61,9 +61,9 @@ namespace SabberStoneCore.Model
 			TargetIds = new List<int>(choice.TargetIds);
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 	}
 }

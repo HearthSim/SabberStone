@@ -64,9 +64,9 @@ namespace SabberStoneCore.Model.Entities
 			Tags.Remove(GameTag.SILENCED);
 		}
 
-		public EntityData Clone()
+		public EntityData Clone(Game newGame)
 		{
-			return new EntityData(Card, Tags);
+			return new EntityData(Card, new Dictionary<GameTag, int>(Tags)); // Shallow dictionary clone
 		}
 
 		public string ToHash(params GameTag[] ignore)
@@ -98,9 +98,9 @@ namespace SabberStoneCore.Model.Entities
 			Tags = new Dictionary<GameTag, int>(data.Tags);
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
 		public override string ToString()

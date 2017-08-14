@@ -32,15 +32,23 @@ namespace SabberStoneCore.Model
 		#region IMODEL_IMPLEMENTATION
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public TaskStack Clone()
+		public TaskStack Clone(Game newGame)
 		{
-			return new TaskStack(Game)
+			var deepClone = new TaskStack(newGame)
 			{
-				Playables = Playables.ToList(), // Shallow copy
-				CardIds = CardIds.ToList(), // Shallow copy
+				// Be aware of NULL values..
+				CardIds = CardIds?.ToList(), // Shallow copy
 				Flag = Flag,
 				Numbers = Numbers.ToArray(), // Shallow copy
 			};
+
+			if (Playables != null)
+			{
+				deepClone.Playables = new List<IPlayable>(Playables.Capacity);
+				Playables.ForEach(p => deepClone.Playables.Add(p.ClonedFrom(newGame)));
+			}
+
+			return deepClone;
 		}
 
 		public string ToHash(params GameTag[] ignore)
@@ -61,15 +69,15 @@ namespace SabberStoneCore.Model
 			TaskStack taskStack = other as TaskStack ?? throw new InvalidOperationException("other's type is invalid");
 
 			Playables = new List<IPlayable>();
-			Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
+			Playables = taskStack.Playables?.Select(p => Game.EntityContainer[p.Id]).ToList();
 			CardIds = taskStack.CardIds;
 			Flag = taskStack.Flag;
 			Numbers = taskStack.Numbers;
 		}
 
-		IModel IModel.Clone()
+		IModel IModel.Clone(Game newGame)
 		{
-			return Clone();
+			return Clone(newGame);
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

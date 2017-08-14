@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SabberStoneCore.Model;
+using System;
 using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -6,7 +7,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	[Obsolete("Unused and marked for removal!")]
 	public class FuncCardIdsTask : SimpleTask
 	{
-		public Func<List<string>, List<string>> Function { get; set; }
+		public Func<List<string>, List<string>> Function { get; }
 
 		public FuncCardIdsTask(Func<List<string>, List<string>> function)
 		{
@@ -21,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new FuncCardIdsTask(Function);
 		}

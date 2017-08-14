@@ -27,9 +27,10 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Returns a deep copy of the implementing class object.
 		/// </summary>
+		/// <param name="newGame">The game instance to attach the clone onto.</param>
 		/// <returns>A newly created object which is full duplicate of the 
 		/// original.</returns>
-		IModel Clone();
+		IModel Clone(Game newGame);
 	}
 
 	/// <summary>
@@ -41,8 +42,9 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Returns a deep copy of the implementing class object.
 		/// </summary>
+		/// <param name="newGame">The game instance to attach the clone onto.</param>
 		/// <returns>A newly created object which is full duplicate of the 
 		/// original.</returns>
-		new T Clone();
+		new T Clone(Game newGame);
 	}
 }

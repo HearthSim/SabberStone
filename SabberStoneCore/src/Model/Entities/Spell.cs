@@ -17,6 +17,8 @@ namespace SabberStoneCore.Model.Entities
 			return !target.CantBeTargetedBySpells && base.TargetingRequirements(target);
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		protected override void InternalStamp(IModel entity)
 		{
 			// Do nothing, nothing to stamp.
@@ -28,10 +30,12 @@ namespace SabberStoneCore.Model.Entities
 			return String.Empty;
 		}
 
-		protected override Entity InternalClone()
+		protected override Entity InternalDeepClone(Game newGame)
 		{
-			return new Spell(Controller, Card, null);
+			return new Spell(newGame.ControllerById(Controller.Id), Card, null);
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 

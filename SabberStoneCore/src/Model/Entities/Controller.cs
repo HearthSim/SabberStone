@@ -188,14 +188,19 @@ namespace SabberStoneCore.Model.Entities
 			return str.ToString();
 		}
 
-		protected override Entity InternalClone()
+		protected override Entity InternalDeepClone(Game newGame)
 		{
-			return new Controller(Game, Name, PlayerId, Id)
-			{
-				ControlledZones = ControlledZones.Clone() as ControlledZones,
-				Hero = Hero.Clone() as Hero,
-				Choice = Choice.Clone() as Choice,
-			};
+			var deepCopy = new Controller(newGame, Name, PlayerId, Id);
+			// Push ourselves into the new game instance, this prevents short circuits
+			// when cloning.
+			newGame._players[PlayerId-1] = deepCopy;
+
+			// ControlledZones and Hero should ALWAYS contain a value!
+			deepCopy.Hero = Hero.Clone(newGame) as Hero;
+			deepCopy.Choice = Choice?.Clone(newGame) as Choice;
+			deepCopy.ControlledZones = ControlledZones.Clone(newGame) as ControlledZones;
+
+			return deepCopy;
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

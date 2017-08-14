@@ -38,7 +38,7 @@ namespace SabberStoneCoreTest.Cloning
 					var options = game.CurrentPlayer.Options();
 					var option = options[rnd.Next(options.Count)];
 					game.Process(option);
-					var cloneGame = game.Clone();
+					var cloneGame = game.Clone(null);
 					var str1 = game.ToHash();
 					var str2 = cloneGame.ToHash();
 					flag &= str1.Equals(str2);
@@ -64,7 +64,7 @@ namespace SabberStoneCoreTest.Cloning
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var clone = game.Clone();
+			var clone = game.Clone(null) as Game;
 			Assert.Equal(game.ToHash(), clone.ToHash());
 
 			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
@@ -101,7 +101,7 @@ namespace SabberStoneCoreTest.Cloning
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var clone = game.Clone();
+			var clone = game.Clone(null) as Game;
 			Assert.Equal(game.ToHash(), clone.ToHash());
 
 			clone.Process(EndTurnTask.Any(clone.CurrentPlayer));

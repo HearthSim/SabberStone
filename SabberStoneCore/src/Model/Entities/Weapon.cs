@@ -12,9 +12,11 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
 		}
 
-		protected override Entity InternalClone()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override Entity InternalDeepClone(Game newGame)
 		{
-			return new Weapon(Controller, Card, null);
+			return new Weapon(newGame.ControllerById(Controller.Id), Card, null);
 		}
 
 		protected override void InternalStamp(IModel entity)
@@ -27,6 +29,8 @@ namespace SabberStoneCore.Model.Entities
 			// Do nothing, nothing to report.
 			return String.Empty;
 		}
+
+		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Weapon

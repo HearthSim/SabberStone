@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -61,9 +62,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			return new RevealTask(SuccessJoustTask.Clone(), FailedJoustTask?.Clone());
+			return new RevealTask(SuccessJoustTask?.Clone(newGame), FailedJoustTask?.Clone(newGame));
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

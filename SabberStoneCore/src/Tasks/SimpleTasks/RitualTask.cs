@@ -40,7 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Controller.SeenCthun = true;
 			}
 
-			var entities = new List<IPlayable> { Game.IdEntityDic[Controller.ProxyCthun] };
+			var entities = new List<IPlayable> { Game.EntityContainer[Controller.ProxyCthun] };
 			entities.AddRange(Controller.BoardZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 			entities.AddRange(Controller.HandZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
 
@@ -58,8 +58,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
+			// TODO; Check if this enchant needs to be copied.
 			return new RitualTask(Enchant, Taunt);
 		}
 

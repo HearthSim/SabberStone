@@ -410,7 +410,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.CurrentPlayer.Hero.Damage = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+			var spell = game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(spell, game.CurrentPlayer.HandZone[4]);
 			Assert.Equal(20 + spell.Cost, game.CurrentPlayer.Hero.Health);
@@ -1252,9 +1252,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
-			Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
-			Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[2]].Card.Race);
+			Assert.Equal(Race.DRAGON, game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
+			Assert.Equal(Race.DRAGON, game.EntityContainer[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
+			Assert.Equal(Race.DRAGON, game.EntityContainer[game.CurrentPlayer.Choice.Choices[2]].Card.Race);
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(2, game.CurrentPlayer.HandZone.Count);

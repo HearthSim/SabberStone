@@ -35,10 +35,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					entities.ForEach(p =>
 					{
 						//Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+						// Force the following properties on the clone of this task.
 						Playables = new List<IPlayable> { p };
 						State = TaskState.COMPLETE;
-						Game clone = Game.Clone();
-						Game.Splits.Add(clone);
+
+						var gameClone = Game.Clone(null) as Game;
+						Game.Splits.Add(gameClone);
 					});
 				}
 				else
@@ -47,10 +49,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					sets.ForEach(p =>
 					{
 						//Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+						// Force the following properties on the clone of this task.
 						Playables = p.ToList();
 						State = TaskState.COMPLETE;
-						Game clone = Game.Clone();
-						Game.Splits.Add(clone);
+
+						var gameClone = Game.Clone(null) as Game;
+						Game.Splits.Add(gameClone);
 					});
 				}
 			}
@@ -60,7 +64,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new SplitTask(Amount, Type);
 		}

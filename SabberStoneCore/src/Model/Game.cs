@@ -90,7 +90,7 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Holds all the controllers (== players) which are attached to this game.
 		/// </summary>
-		private readonly Controller[] _players = new Controller[2];
+		internal readonly Controller[] _players = new Controller[2];
 
 		/// <summary>
 		/// Player with the first turn, alias Player 1.
@@ -166,9 +166,10 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// Gets the dictionary containing all generated entities for this game.
+		/// The <see cref="Game"/> itself and <see cref="Controller"/>s are not contained by this property!
 		/// </summary>
 		/// <value><see cref="IPlayable"/></value>
-		public Dictionary<int, IPlayable> IdEntityDic { get; private set; } = new Dictionary<int, IPlayable>();
+		public Dictionary<int, IPlayable> EntityContainer { get; private set; } = new Dictionary<int, IPlayable>();
 
 		/// <summary>
 		/// Gets the dictionary containing all generated choice sets for this game.
@@ -270,7 +271,7 @@ namespace SabberStoneCore.Model
 			{
 				Enchants.ForEach(p =>
 					p.Effects.Keys.ToList().ForEach(t =>
-						IdEntityDic.Values.ToList().ForEach(o =>
+						EntityContainer.Values.ToList().ForEach(o =>
 							PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t])))));
 
 				foreach (var controller in _players)
@@ -821,58 +822,6 @@ namespace SabberStoneCore.Model
 			}
 		}
 
-		/// <summary>
-		/// Performs a deep copy of this game instance and returns the result.
-		/// </summary>
-		/// <returns></returns>
-		public Game Clone(bool logging = false)
-		{
-			var gameConfig = _gameConfig.Clone();
-			gameConfig.Logging = logging;
-			var game = new Game(gameConfig, false)
-			{
-				CloneIndex = $"{this.CloneIndex}[{NextCloneIndex++}]"
-			};
-			game.Player1.Stamp(Player1);
-			game.Player2.Stamp(Player2);
-			game.Stamp(this);
-
-			game.TaskStack.Stamp(TaskStack);
-			game.TaskQueue.Stamp(TaskQueue);
-
-			// set indexer to avoid conflicts ...
-			game.SetIndexer(_idIndex, _oopIndex);
-
-			return game;
-		}
-
-		protected override Entity InternalClone()
-		{
-			// Logging defaults to false for cloned Games.
-			// Building Powerhistory also defaults to false.
-			GameConfig newConfig = _gameConfig.Clone();
-			newConfig.Logging = false;
-			newConfig.History = false;
-
-			var clone = new Game(newConfig, false)
-			{
-				TaskQueue = TaskQueue.Clone(),
-				TaskStack = TaskStack.Clone(),
-			};
-
-			for (int i = 0; i < _players.Length; ++i)
-			{
-				clone._players[i] = _players[i].Clone() as Controller;
-			}
-
-			return clone;
-		}
-
-		protected override void InternalStamp(IModel entity)
-		{
-			// Do nothing.
-		}
-
 		/// <summary>Builds and stores a logentry, from the specified log message.</summary>
 		/// <param name="level"><see cref="LogLevel"/></param>
 		/// <param name="block"><see cref="BlockType"/></param>
@@ -893,8 +842,14 @@ namespace SabberStoneCore.Model
 			});
 		}
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
+		/// <summary>
+		/// Dump information to the log.
+		/// This method is called when a lot of information needs to be recorded from the same processed
+		/// task.
+		/// </summary>
+		/// <param name="location"></param>
+		/// <param name="text"></param>
+		/// <seealso cref="Log(LogLevel, BlockType, String, String)"/>
 		public void Dump(string location, string text)
 		{
 			Logs.Enqueue(new LogEntry()
@@ -907,6 +862,59 @@ namespace SabberStoneCore.Model
 			});
 		}
 
+		public override string ToString()
+		{
+			return $"GAME[{CloneIndex}]";
+		}
+
+		#region IMODEL_IMPLEMENTATION
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		// newGame parameter is ignored, since WE are now creating a game clone.
+		protected override Entity InternalDeepClone(Game newGame)
+		{
+			// Logging defaults to false for cloned Games.
+			// Building Powerhistory also defaults to false.
+			GameConfig newConfig = _gameConfig.Clone();
+			newConfig.Logging = false;
+			newConfig.History = false;
+
+			var deepClone = new Game(newConfig, false)
+			{
+				CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
+			};
+
+			/* 
+			 * All cloned models MUST get their updated referenced entities from the containers of
+			 * the cloned game.
+			 */
+
+			for (int i = 0; i < _players.Length; ++i)
+			{
+				// The cloned controller will push itself into the cloned game.
+				_players[i].Clone(deepClone);
+				// Each zone will push his entities to the game.
+				// The zones are cloned by cloning each player.
+			}
+
+			// All tasks and queues need to be updated accordingly.
+			deepClone.TaskQueue = TaskQueue.Clone(deepClone);
+			deepClone.TaskStack = TaskStack.Clone(deepClone);
+
+			// DO not copy EntityChoicesMap and AllOptionsMap because these 
+			// are pending to be removed!
+
+			// set indexer to avoid conflicts ...
+			deepClone.SetIndexer(_idIndex, _oopIndex);
+
+			return deepClone;
+		}
+
+		protected override void InternalStamp(IModel entity)
+		{
+			throw new NotImplementedException();
+		}
+
 		protected override string InternalToHash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
@@ -916,6 +924,7 @@ namespace SabberStoneCore.Model
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		#endregion
 	}
 
 	public partial class Game

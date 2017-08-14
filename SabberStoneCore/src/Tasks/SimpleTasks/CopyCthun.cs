@@ -21,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
+			var proxyCthun = Game.EntityContainer[Controller.ProxyCthun];
 
 			proxyCthun.Enchants.ForEach(p => p.Activate(p.SourceId, source.Enchants, source));
 
@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalClone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new CopyCthun();
 		}

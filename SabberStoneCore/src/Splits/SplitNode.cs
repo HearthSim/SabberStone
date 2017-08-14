@@ -3,6 +3,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using System.Diagnostics;
 
 namespace SabberStoneCore.Splits
 {
@@ -46,9 +47,9 @@ namespace SabberStoneCore.Splits
 		public void Splits(ref List<SplitNode> splitNodes)
 		{
 			//var uniqSplits = new Dictionary<string, SplitNode>();
-			var splits = Game.Splits;
+			List<Game> splits = Game.Splits;
 
-			foreach (var split in splits)
+			foreach (Game split in splits)
 			{
 				var splitNode = new SplitNode(this, _root, split);
 
@@ -70,12 +71,17 @@ namespace SabberStoneCore.Splits
 			for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
 			{
 				var nextDepthNodes = new List<SplitNode>();
-				foreach (var option in depthNodes)
+				foreach (SplitNode option in depthNodes)
 				{
 					option.Splits(ref nextDepthNodes);
 				}
 
 				depthNodes.Clear();
+
+				if (nextDepthNodes.Count == 8)
+				{
+					nextDepthNodes.ForEach(p => Debug.WriteLine(p.Hash));
+				}
 
 				nextDepthNodes.ForEach(p =>
 				{
