@@ -157,6 +157,12 @@ namespace SabberStoneCore.Model
 		private int _oopIndex;
 		public int NextOop => _oopIndex++;
 
+		private int _choiceIndex = 0;
+		public int NextChoiceId => _idIndex++;
+
+		private int _optionIndex = 0;
+		public int NextOptionId => _optionIndex++;
+
 		public void SetIndexer(int id, int oop)
 		{
 			_idIndex = id;
@@ -323,8 +329,8 @@ namespace SabberStoneCore.Model
 			_gameConfig.Player2Deck?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.DeckZone));
 			if (_gameConfig.FillDecks)
 			{
-				Player1.DeckZone.Fill();
-				Player2.DeckZone.Fill();
+				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably);
+				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably);
 			}
 
 			// set gamestats

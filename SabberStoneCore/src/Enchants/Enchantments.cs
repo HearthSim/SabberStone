@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
@@ -11,36 +12,55 @@ namespace SabberStoneCore.Enchants
 
 	internal class Enchantments
 	{
-		private static Enchantments _instance;
+		/// <summary>
+		/// Approximate size of all enchantments/cards. This number can be used
+		/// when initializing collections to prevent a lot of reallocations.
+		/// </summary>
+		internal static readonly int COLLECTION_INIT_SIZE = 512;
 
-		private readonly Dictionary<string, List<Enchantment>> _entchantmentDic =
-			new Dictionary<string, List<Enchantment>>();
+		/// <summary>
+		/// Contains all defined enchantments.
+		/// The index is the CARDID of the card which enchantments are defined.
+		/// </summary>
+		private readonly Dictionary<string, List<Enchantment>> _enchantmentContainer;
 
+		// Private constructor as per Singleton pattern.
 		private Enchantments()
 		{
+			_enchantmentContainer = new Dictionary<string, List<Enchantment>>(COLLECTION_INIT_SIZE);
+
 			// Standard
-			CoreCardsGen.AddAll(_entchantmentDic);
-			Expert1CardsGen.AddAll(_entchantmentDic);
-			GangsCardsGen.AddAll(_entchantmentDic);
-			KaraCardsGen.AddAll(_entchantmentDic);
-			OgCardsGen.AddAll(_entchantmentDic);
-			UngoroCardsGen.AddAll(_entchantmentDic);
-			IcecrownCardsGen.AddAll(_entchantmentDic);
+			CoreCardsGen.AddAll(_enchantmentContainer);
+			Expert1CardsGen.AddAll(_enchantmentContainer);
+			GangsCardsGen.AddAll(_enchantmentContainer);
+			KaraCardsGen.AddAll(_enchantmentContainer);
+			OgCardsGen.AddAll(_enchantmentContainer);
+			UngoroCardsGen.AddAll(_enchantmentContainer);
+			IcecrownCardsGen.AddAll(_enchantmentContainer);
 
 			// Rest
-			HofCardsGen.AddAll(_entchantmentDic);
-			NaxxCardsGen.AddAll(_entchantmentDic);
-			GvgCardsGen.AddAll(_entchantmentDic);
-			BrmCardsGen.AddAll(_entchantmentDic);
-			TgtCardsGen.AddAll(_entchantmentDic);
-			LoeCardsGen.AddAll(_entchantmentDic);
+			HofCardsGen.AddAll(_enchantmentContainer);
+			NaxxCardsGen.AddAll(_enchantmentContainer);
+			GvgCardsGen.AddAll(_enchantmentContainer);
+			BrmCardsGen.AddAll(_enchantmentContainer);
+			TgtCardsGen.AddAll(_enchantmentContainer);
+			LoeCardsGen.AddAll(_enchantmentContainer);
 		}
 
+		private static Enchantments _instance;
+		/// <summary>
+		/// Use the Singleton pattern to provide the same enchantments to each requester.
+		/// </summary>
 		public static Enchantments Instance => _instance ?? (_instance = new Enchantments());
 
-		public Dictionary<string, List<Enchantment>> Get()
+		/// <summary>
+		/// Returns a dictionary containing all <see cref="Enchantment"/>s, indexed by the 
+		/// <see cref="Card.Id"/>.
+		/// </summary>
+		/// <returns></returns>
+		public static IReadOnlyDictionary<string, List<Enchantment>> FetchAll()
 		{
-			return _entchantmentDic;
+			return Instance._enchantmentContainer;
 		}
 	}
 }

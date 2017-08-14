@@ -9,21 +9,53 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public int StartingCards { get; set; } = 30;
 
+		/// <summary>
+		/// Array of <see cref="Card.Id"/>s which result in unpredictable test outcomes when included
+		/// in a <see cref="Controller"/>'s deck.
+		/// </summary>
+		private static string[] _unpredictableCardIDs = { "KAR_096", // Prince Malchezaar
+														};
+
 		public DeckZone(Game game, Controller controller) : base(game, controller, Zone.DECK)
 		{
 		}
 
-		public void Fill()
+		/// <summary>
+		/// Fills the deck of the current player with random cards, according to the defined format type.
+		/// </summary>
+		/// <param name="predictable">
+		/// Do not include cards which directly impact the game state because they
+		/// were simply added to the deck. (eg: Card Prince Malchezaar and Choose one cards)
+		/// This also prevents multiple copies of the same card being added to the deck.
+		/// </param>
+		public void Fill(bool predictable = false)
 		{
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
-			var cardsToAdd = StartingCards - Count;
+			IEnumerable<Card> eligibleCards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
+			int cardsToAdd = StartingCards - Count;
+
+			List<Card> cardsToChooseFrom;
+			if (predictable)
+			{
+				cardsToChooseFrom = eligibleCards.Where(c => !_unpredictableCardIDs.Contains(c.Id) && !c.Tags.ContainsKey(GameTag.CHOOSE_ONE)).ToList();
+			}
+			else
+			{
+				cardsToChooseFrom = eligibleCards.ToList();
+			}
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
-				var card = Util.Choose<Card>(cards.ToList());
-				if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
+				Card card = Util.Choose(cardsToChooseFrom);
+
+				// Check maximum allowed copies in deck.
+				int numCopies = this.Count(c => c.Card == card);
+				if ((predictable && numCopies > 0) || (numCopies >= card.MaxAllowedInDeck))
+				{
 					continue;
+				}
+
+				// Build an entity from this card and add it to this zone.
 				Entity.FromCard(Controller, card, null, this);
 				cardsToAdd--;
 			}

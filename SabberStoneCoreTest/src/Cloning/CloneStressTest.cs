@@ -29,7 +29,8 @@ namespace SabberStoneCoreTest.Cloning
 					StartPlayer = 1,
 					Player1HeroClass = classes[rnd.Next(classes.Length)],
 					Player2HeroClass = classes[rnd.Next(classes.Length)],
-					FillDecks = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 				game.StartGame();
 
@@ -59,7 +60,8 @@ namespace SabberStoneCoreTest.Cloning
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -96,7 +98,8 @@ namespace SabberStoneCoreTest.Cloning
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;

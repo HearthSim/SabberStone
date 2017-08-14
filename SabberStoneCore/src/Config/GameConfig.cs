@@ -81,6 +81,14 @@ namespace SabberStoneCore.Config
 		/// <value><c>true</c> if decks need to be filled; otherwise, <c>false</c>.</value>
 		public bool FillDecks { get; set; } = false;
 
+		/// <summary>
+		/// Gets or sets a value indicating whether the game should PREDICTABLY autofill the
+		/// decks of all players. Set this property to true for predictable test cases!
+		/// This option is only applicable when <see cref="FillDecks"/> is set to true.
+		/// </summary>
+		/// <value><c>true</c> if decks need to be filled PREDICTABLY; otherwise, <c>false</c>.</value>
+		public bool FillDecksPredictably { get; set; } = false;
+
 		public bool DrawPool { get; set; } = false;
 
 		/// <summary>
