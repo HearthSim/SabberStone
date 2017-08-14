@@ -154,13 +154,13 @@ namespace SabberStoneCore.Model
 			// CardContainer must be assigned immediately because enchantment definitions
 			// depend on access to Card objects.
 			_data = cardLoader.Load();
-			
+
 			// Here can custom cards be implemented, if desired.
 			// The container will become read-only after the LockContainer() method
 			// is executed!
 
 
-			_data.LockContainer();			
+			_data.LockContainer();
 		}
 
 		#endregion

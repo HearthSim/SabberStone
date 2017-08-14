@@ -1566,7 +1566,7 @@ namespace SabberStoneCoreTest.CardSets
 				Player1Deck = new List<Card>
 				{
 					Cards.FromName("Sen'jin Shieldmasta"), // 4-cost
-					Cards.FromName("Sen'jin Shieldmasta"), 
+					Cards.FromName("Sen'jin Shieldmasta"),
 					Cards.FromName("Grimestreet Enforcer"), // 5-cost
 					Cards.FromName("Grimestreet Enforcer"),
 					Cards.FromName("Tirion Fordring"), // 8-cost

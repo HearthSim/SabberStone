@@ -39,18 +39,18 @@ namespace SabberStoneCore.Loader
 		/// 
 		/// This collection will not accept additionall items when locked.
 		/// </summary>
-		public bool Locked {get; private set; }
+		public bool Locked { get; private set; }
 
 		internal CardContainer(int startCapacity) : base(EqualityComparer<string>.Default, 50)
 		{
-			if(startCapacity < 0)
+			if (startCapacity < 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(startCapacity));
 			}
 
 			// Setup containers
 			Wild = new Dictionary<CardClass, IEnumerable<Card>>(startCapacity);
-			Standard = new Dictionary<CardClass, IEnumerable<Card>>((startCapacity/2));
+			Standard = new Dictionary<CardClass, IEnumerable<Card>>((startCapacity / 2));
 			_allStandard = new List<Card>(startCapacity);
 			_allWild = new List<Card>(startCapacity);
 			// Unlock container.
@@ -68,7 +68,7 @@ namespace SabberStoneCore.Loader
 		internal void LockContainer()
 		{
 			// Do not setup twice.
-			if(Locked) return;
+			if (Locked) return;
 			Locked = true;
 
 			// Load all enchantments, which will be stored within each card element.
@@ -129,25 +129,25 @@ namespace SabberStoneCore.Loader
 
 		protected override void ClearItems()
 		{
-			if(Locked) throw new InvalidOperationException("CardContainer is locked!");
+			if (Locked) throw new InvalidOperationException("CardContainer is locked!");
 			base.ClearItems();
 		}
 
 		protected override void InsertItem(int index, Card item)
 		{
-			if(Locked) throw new InvalidOperationException("CardContainer is locked!");
+			if (Locked) throw new InvalidOperationException("CardContainer is locked!");
 			base.InsertItem(index, item);
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			if(Locked) throw new InvalidOperationException("CardContainer is locked!");
+			if (Locked) throw new InvalidOperationException("CardContainer is locked!");
 			base.RemoveItem(index);
 		}
 
 		protected override void SetItem(int index, Card item)
 		{
-			if(Locked) throw new InvalidOperationException("CardContainer is locked!");
+			if (Locked) throw new InvalidOperationException("CardContainer is locked!");
 			base.SetItem(index, item);
 		}
 

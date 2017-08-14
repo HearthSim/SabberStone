@@ -87,7 +87,7 @@ namespace SabberStoneCore.Config
 		/// This option is only applicable when <see cref="FillDecks"/> is set to true.
 		/// </summary>
 		/// <value><c>true</c> if decks need to be filled PREDICTABLY; otherwise, <c>false</c>.</value>
-		public bool FillDecksPredictably {get; set; } = false;
+		public bool FillDecksPredictably { get; set; } = false;
 
 		public bool DrawPool { get; set; } = false;
 
