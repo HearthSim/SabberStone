@@ -1381,10 +1381,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Hadronox_ICC_835()
 		{
-			// TODO Hadronox_ICC_835 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1395,7 +1394,30 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hadronox"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hadronox"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pompous Thespian"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stubborn Gastropod"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(3, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twisting Nether"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+			Assert.Equal(3, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID

@@ -1421,11 +1421,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_835", new List<Enchantment> {
-				// TODO [ICC_835] Hadronox && Test: Hadronox_ICC_835
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsTauntMinion),
+						new SummonCopyTask(EntityType.STACK))
 				},
 			});
 
