@@ -126,14 +126,14 @@ namespace SabberStoneCore.Tasks
 			Source = task.Source;
 			Target = task.Target;
 
-			Playables = task.Playables;
-			CardIds = task.CardIds;
-			Flag = task.Flag;
-			Number = task.Number;
-			Number1 = task.Number1;
-			Number2 = task.Number2;
-			Number3 = task.Number3;
-			Number4 = task.Number4;
+			//Playables = task.Playables;
+			//CardIds = task.CardIds;
+			//Flag = task.Flag;
+			//Number = task.Number;
+			//Number1 = task.Number1;
+			//Number2 = task.Number2;
+			//Number3 = task.Number3;
+			//Number4 = task.Number4;
 
 			//Splits = task.Splits;
 			//Sets = task.Sets;

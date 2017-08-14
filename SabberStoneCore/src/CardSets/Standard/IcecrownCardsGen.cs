@@ -1955,7 +1955,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_049", new List<Enchantment> {
-				// TODO [ICC_049] Toxic Arrow && Test: Toxic Arrow_ICC_049
 				new Enchantment
 				{
 					InfoCardId = "ICC_049e",
@@ -1963,7 +1962,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET, true),
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
-						ComplexTask.Poisonous(EntityType.TARGET))
+						new FlagTask(true, ComplexTask.Poisonous(EntityType.TARGET)))
 				},
 			});
 

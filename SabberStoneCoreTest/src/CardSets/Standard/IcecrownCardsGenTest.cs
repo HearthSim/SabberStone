@@ -1773,8 +1773,8 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toxic Arrow"));
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aberrant Berserker"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toxic Arrow"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aberrant Berserker"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
