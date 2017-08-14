@@ -1842,7 +1842,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new DamageTask(2, EntityType.ENEMIES_NOTARGET),
+					SingleTask = new DamageTask(2, EntityType.OP_MINIONS),
 				},
 			});
 

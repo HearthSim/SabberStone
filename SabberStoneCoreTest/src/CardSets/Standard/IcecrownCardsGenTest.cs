@@ -1552,7 +1552,8 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(3, ((Minion)aberrant).Health);
 			Assert.Equal(3, ((Minion)alarm).Health);
-			Assert.Equal(30, game.CurrentPlayer.Opponent.Hero.Health);
+			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
 		}
 
 		// ---------------------------------------- MINION - HUNTER
