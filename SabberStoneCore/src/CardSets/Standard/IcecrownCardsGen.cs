@@ -1426,7 +1426,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
-						new FilterStackTask(SelfCondition.IsTauntMinion),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
 						new SummonCopyTask(EntityType.STACK))
 				},
 			});

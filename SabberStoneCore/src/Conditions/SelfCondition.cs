@@ -63,7 +63,6 @@ namespace SabberStoneCore.Conditions
 
 		public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
 		public static SelfCondition IsBattlecryMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
-		public static SelfCondition IsTauntMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasTaunt);
 
 		public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.GraveyardZone.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
 
