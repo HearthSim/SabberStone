@@ -80,7 +80,7 @@ namespace SabberStoneCore.Model.Entities
 
 			// Manually push cloned entities to newGame.
 			newGame.EntityContainer[Id] = heroClone;
-			if(heroClone.Weapon != null)
+			if (heroClone.Weapon != null)
 			{
 				newGame.EntityContainer[Weapon.Id] = heroClone.Weapon;
 			}
@@ -88,7 +88,7 @@ namespace SabberStoneCore.Model.Entities
 			return heroClone;
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Hero

@@ -193,7 +193,7 @@ namespace SabberStoneCore.Model.Entities
 			var deepCopy = new Controller(newGame, Name, PlayerId, Id);
 			// Push ourselves into the new game instance, this prevents short circuits
 			// when cloning.
-			newGame._players[PlayerId-1] = deepCopy;
+			newGame._players[PlayerId - 1] = deepCopy;
 
 			// ControlledZones and Hero should ALWAYS contain a value!
 			deepCopy.Hero = Hero.Clone(newGame) as Hero;

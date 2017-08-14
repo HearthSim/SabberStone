@@ -59,7 +59,7 @@ namespace SabberStoneCore.Model.Entities
 			return new Minion(newGame.ControllerById(Controller.Id), Card, null);
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Minion

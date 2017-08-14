@@ -35,7 +35,7 @@ namespace SabberStoneCore.Model.Entities
 			return new Spell(newGame.ControllerById(Controller.Id), Card, null);
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 

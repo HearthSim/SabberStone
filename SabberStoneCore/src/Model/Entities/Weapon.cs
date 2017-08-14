@@ -30,7 +30,7 @@ namespace SabberStoneCore.Model.Entities
 			return String.Empty;
 		}
 
-		#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Weapon
