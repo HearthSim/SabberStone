@@ -1432,10 +1432,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Webweave_ICC_050()
 		{
-			// TODO Webweave_ICC_050 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1446,7 +1445,20 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Webweave"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Webweave"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).Poisonous);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).Poisonous);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+
 		}
 
 		// ------------------------------------------ SPELL - DRUID

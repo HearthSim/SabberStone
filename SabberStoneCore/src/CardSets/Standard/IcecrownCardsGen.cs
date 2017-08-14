@@ -1444,11 +1444,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_050", new List<Enchantment> {
-				// TODO [ICC_050] Webweave && Test: Webweave_ICC_050
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3")),
 				},
 			});
 
