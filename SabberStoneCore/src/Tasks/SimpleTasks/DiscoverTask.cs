@@ -320,7 +320,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//    return TaskState.STOP;
 			//}
 
-			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+			if (resultCards.Count == 0)
+			{
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
+					$"Found no potential cards to use for {DiscoverType}");
+			}
+			else
+			{
+				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+			}
+
 			return TaskState.COMPLETE;
 		}
 
