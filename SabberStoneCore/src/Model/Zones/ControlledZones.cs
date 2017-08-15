@@ -123,7 +123,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public IReadOnlyModelCollection<IZone> Clone(Game newGame)
 		{
-			var clone = new ControlledZones(newGame, newGame.ControllerById(Controller.Id));
+			var clone = new ControlledZones(newGame, Controller.ClonedFrom(newGame));
 			for (int i = 0; i < _zones.Length; ++i)
 			{
 				// Zone could be null!

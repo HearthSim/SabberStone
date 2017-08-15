@@ -121,7 +121,14 @@ namespace SabberStoneCore.Tasks
 		/// Forces the implementing class to clone itself.
 		/// </summary>
 		/// <returns></returns>
-		public abstract ISimpleTask InternalDeepClone(Game newGame);
+		protected abstract ISimpleTask InternalDeepClone(Game newGame);
+
+		/// <summary>
+		/// Forces the implementing class to identify itself through a hash.
+		/// </summary>
+		/// <param name="ignore"></param>
+		/// <returns></returns>
+		protected abstract string InternalToHash(params GameTag[] ignore);
 
 		#region IMODEL_IMPLEMENTATION
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -166,6 +173,19 @@ namespace SabberStoneCore.Tasks
 		{
 			var str = new StringBuilder();
 			str.Append("?ST?");
+			str.AppendFormat("{{S:{0}}}", State.ToString());
+
+			if (Game != null)
+			{
+				str.AppendFormat("{{G:{0}}}", Game.ToString());
+				str.AppendFormat("{{C:{0}}}", Controller.ToString());
+				str.AppendFormat("{{SRC:{0}}}", Source.ToString());
+				if (Target != null)
+				{
+					str.AppendFormat("{{T:{0}}}", Target.ToString());
+				}
+			}
+			str.Append(InternalToHash(ignore));
 			str.Append("!ST!");
 			return str.ToString();
 		}

@@ -32,6 +32,9 @@ namespace SabberStoneCore.Model
 
 		public List<int> TargetIds { get; set; }
 
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public Choice Clone(Game newGame)
 		{
 			return new Choice(newGame.ControllerById(Controller.Id))
@@ -46,8 +49,29 @@ namespace SabberStoneCore.Model
 
 		public string ToHash(params GameTag[] ignore)
 		{
-			// TODO hash
-			throw new NotImplementedException();
+			var str = new StringBuilder();
+			str.Append("??CHOICE??");
+			if (Controller != null) str.Append(Controller.ToHash());
+			str.AppendFormat("{{T:{0}}}", ChoiceType.ToString());
+			str.AppendFormat("{{A:{0}}}", ChoiceAction.ToString());
+			str.AppendFormat("{{S:{0}}}", SourceId);
+			
+			if (Choices != null)
+			{
+				str.Append("{{CH:[");
+				Choices.ForEach(c => str.Append(c.ToString()));
+				str.Append("]}}");
+			}
+
+			if (TargetIds != null)
+			{
+				str.Append("{{TID:[");
+				TargetIds.ForEach(c => str.Append(c.ToString()));
+				str.Append("]}}");
+			}
+
+			str.Append("!!CHOICE!!");
+			return str.ToString();
 		}
 
 		public void Stamp(IModel other)
@@ -65,5 +89,7 @@ namespace SabberStoneCore.Model
 		{
 			return Clone(newGame);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

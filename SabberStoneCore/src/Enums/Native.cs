@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Enums
+﻿using SabberStoneCore.Model.Zones;
+
+namespace SabberStoneCore.Enums
 {
 	public enum BlockType
 	{
@@ -885,10 +887,11 @@
 	/// Each controller has it's own set of zones, these are not shared
 	/// with other players.
 	/// 
-	/// eg: <see cref="EZone.PLAY"/>: contains all entities that are on the board.
-	/// eg: <see cref="EZone.DECK"/>: contains all entities which are not yet drawn into <see cref="EZone.HAND"/>.
+	/// eg: <see cref="PLAY"/>: contains all entities that are on the board.
+	/// eg: <see cref="DECK"/>: contains all entities which are not yet drawn into <see cref="HAND"/>.
 	/// </summary>
-	public enum Zone
+	/// <seealso cref="ControlledZones"/>
+	public enum Zone: int
 	{
 		//DISCARD = -2,
 		INVALID = 0,

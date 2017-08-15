@@ -191,6 +191,21 @@ namespace SabberStoneCore.Tasks
 		{
 			var str = new StringBuilder();
 			str.Append("?TSL?");
+
+			str.AppendFormat("{{S:{0}}}", State.ToString());
+
+			if (Game != null)
+			{
+				str.AppendFormat("{{G:{0}}}", Game.ToString());
+				str.AppendFormat("{{C:{0}}}", Controller.ToString());
+				str.AppendFormat("{{SRC:{0}}}", Source.ToString());
+				if (Target != null)
+				{
+					str.AppendFormat("{{T:{0}}}", Target.ToString());
+				}
+			}
+			ForEach(task => str.AppendFormat("[{0}]", task.ToHash(ignore)));
+
 			str.Append("!TSL!");
 			return str.ToString();
 		}
