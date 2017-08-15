@@ -1502,11 +1502,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_085", new List<Enchantment> {
-				// TODO [ICC_085] Ultimate Infestation && Test: Ultimate Infestation_ICC_085
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(5, EntityType.TARGET, true),
+						new EnqueueTask(5, new DrawTask()),
+						new ArmorTask(5),
+						new SummonTask("ICC_085t"))
 				},
 			});
 
@@ -1658,14 +1661,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICC_085t] Ghoul Infestor (*) - COST:5 [ATK:5/HP:5] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_085t", new List<Enchantment> {
-				// TODO [ICC_085t] Ghoul Infestor && Test: Ghoul Infestor_ICC_085t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_085t", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_832t3] Frost Widow (*) - COST:2 [ATK:1/HP:2] 
