@@ -1506,10 +1506,10 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultimate Infestation"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultimate Infestation"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
 			Assert.Equal(5, game.CurrentOpponent.Hero.Damage);
-			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);  //4 from starting and 5 from the spell
+			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);  //4 from starting hand and 5 from the spell
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 			Assert.Equal("ICC_085t", game.CurrentPlayer.BoardZone[0].Card.Id);
 		}
