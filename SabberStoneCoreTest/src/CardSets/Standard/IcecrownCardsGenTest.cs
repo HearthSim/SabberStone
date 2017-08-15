@@ -1493,10 +1493,9 @@ namespace SabberStoneUnitTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void UltimateInfestation_ICC_085()
 		{
-			// TODO UltimateInfestation_ICC_085 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1507,7 +1506,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultimate Infestation"));
+			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultimate Infestation"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(5, game.CurrentOpponent.Hero.Damage);
+			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);  //4 from starting and 5 from the spell
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			Assert.Equal("ICC_085t", game.CurrentPlayer.BoardZone[0].Card.Id);
 		}
 
 	}
