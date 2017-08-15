@@ -324,7 +324,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(DiscoverTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			// TODO; Check if enchantment needs to be copied.
 			return new DiscoverTask(DiscoverType, Enchantment);

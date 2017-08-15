@@ -4,6 +4,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -44,7 +45,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(BuffTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			// TODO; Check if Buff needs to be copied.
 			return new BuffTask(Buff, Type, Condition);

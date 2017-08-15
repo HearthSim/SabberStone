@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
@@ -36,7 +37,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(HealTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new HealTask(Amount, Type);
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -41,7 +42,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(AddStackTo).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new AddStackTo(Type);
 		}

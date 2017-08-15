@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -51,7 +52,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(SummonTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new SummonTask(Card, RemoveFromStack);
 		}

@@ -54,13 +54,13 @@ namespace SabberStoneCore.Model
 		public string ToHash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
-			str.Append("?TS?[PL:");
-			Playables.ForEach(pl => str.Append(pl.ToHash()));
+			str.Append("??TS??[PL:");
+			Playables?.ForEach(pl => str.Append(pl.ToHash()));
 			str.Append("][IDs:");
-			CardIds.ForEach(id => str.Append(id));
+			CardIds?.ForEach(id => str.Append(id));
 			str.AppendFormat("][FLAG:{0}]", Flag);
-			str.AppendFormat("[REG:{0}-{1}-{2}-{3}-{4}", Numbers[0], Numbers[1], Numbers[2], Numbers[3], Numbers[4]);
-			str.Append("!TS!");
+			str.AppendFormat("[REG:{0}-{1}-{2}-{3}-{4}]", Numbers[0], Numbers[1], Numbers[2], Numbers[3], Numbers[4]);
+			str.Append("!!TS!!");
 			return str.ToString();
 		}
 

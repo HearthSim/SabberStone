@@ -1,11 +1,12 @@
 ﻿using System;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public class AddCardTo : SimpleTask
+	public sealed class AddCardTo : SimpleTask
 	{
 		public IPlayable Playable { get; set; }
 
@@ -73,7 +74,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(AddCardTo).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new AddCardTo(Playable?.ClonedFrom(newGame), Card, Type);
 		}

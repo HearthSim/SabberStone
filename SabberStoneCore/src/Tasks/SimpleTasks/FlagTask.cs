@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -26,6 +27,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			TaskToDo.Controller = Controller;
 			TaskToDo.Source = Source;
 			TaskToDo.Target = Target;
+
+			// ISimpleTask is an interface for SimpleTask and PlayerTask.
+			// The first delegates it's game arguments into TaskStack, owned by Game.
+			// The second stores it's params inside the task itself, that's why we MUST
+			// keep these assignments setup.
 			TaskToDo.Playables = Playables;
 			TaskToDo.CardIds = CardIds;
 			TaskToDo.Flag = Flag;
@@ -34,10 +40,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			TaskToDo.Number2 = Number2;
 			TaskToDo.Number3 = Number3;
 			TaskToDo.Number4 = Number4;
+
 			return TaskToDo.Process();
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(FlagTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new FlagTask(CheckFlag, TaskToDo.Clone(newGame));
 		}

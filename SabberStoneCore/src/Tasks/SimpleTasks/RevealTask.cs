@@ -2,6 +2,7 @@
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -19,6 +20,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
+		// TODO; Check if this processing is still correct with each task redirecting
+		// their game state variables to Game.TaskStack
 		public override TaskState Process()
 		{
 			IPlayable playable = Generic.JoustBlock.Invoke(Controller);
@@ -62,7 +65,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask InternalDeepClone(Game newGame)
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			return typeof(RevealTask).Name;
+		}
+
+		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
 			return new RevealTask(SuccessJoustTask?.Clone(newGame), FailedJoustTask?.Clone(newGame));
 		}

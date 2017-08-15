@@ -122,13 +122,13 @@ namespace SabberStoneCore.Model
 		public string ToHash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
-			str.Append("?TQ?");
+			str.Append("??TQ??");
 			str.AppendFormat("[C:{0}]", Count);
 			str.Append("[FRONT:");
-			str.Append(CurrentTask.ToHash());
+			str.Append(CurrentTask?.ToHash());
 			str.Append("][QUEUE:");
-			TaskList.ForEach(t => str.Append(t.ToHash()));
-			str.Append("]!!TQ!");
+			TaskList?.ForEach(t => str.Append(t.ToHash()));
+			str.Append("]!!TQ!!");
 			return str.ToString();
 		}
 

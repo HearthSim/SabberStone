@@ -12,7 +12,7 @@ namespace SabberStoneCore.Tasks
 		CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
 	}
 
-	public class PlayerTask : ISimpleTask
+	public abstract class PlayerTask : ISimpleTask
 	{
 		public TaskState State { get; set; } = TaskState.READY;
 		//public ISimpleTask CurrentTask => this;
@@ -37,6 +37,9 @@ namespace SabberStoneCore.Tasks
 			get { return _targetId > -1 ? Game.EntityContainer[_targetId] : null; }
 			set { _targetId = value?.Id ?? -1; }
 		}
+
+		// TODO; Something must be done to have the following set of properties removed
+		// from this class because they are unused!
 		public List<IPlayable> Playables { get; set; }
 		public List<string> CardIds { get; set; }
 		public bool Flag { get; set; } = false;
@@ -46,27 +49,18 @@ namespace SabberStoneCore.Tasks
 		public int Number3 { get; set; } = 0;
 		public int Number4 { get; set; } = 0;
 
+		//public List<Game> Splits { get; set; } = new List<Game>();
+		//public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
+
 		public int ZonePosition { get; set; } = -1;
 		public int ChooseOne { get; set; }
-
-		public List<Game> Splits { get; set; } = new List<Game>();
-		public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
-
-		public virtual List<ISimpleTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
-		{
-			Game = game;
-			Controller = controller;
-			Source = source;
-			Target = target;
-			return new List<ISimpleTask> { this };
-		}
 
 		public virtual TaskState Process()
 		{
 			return TaskState.COMPLETE;
 		}
 
-		// TODO; Move into GUI projects.
+		// TODO; Move into GUI projects. + overriden methods from implementers.
 		public virtual string FullPrint()
 		{
 			return "PlayerTask";
@@ -77,21 +71,45 @@ namespace SabberStoneCore.Tasks
 			State = TaskState.READY;
 		}
 
+		/// <summary>
+		/// Forces implementing classes to clone themselves.
+		/// </summary>
+		/// <param name="newGame"></param>
+		/// <returns></returns>
+		protected abstract PlayerTask InternalClone(Game newGame);
+
 		#region IMODEL_IMPLEMENTATION
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public ISimpleTask Clone(Game newGame)
 		{
-			throw new NotImplementedException();
+			PlayerTask deepClone = InternalClone(newGame) ?? throw new InvalidProgramException("The implementer returned null!");
+
+			deepClone.State = State;
+
+			// If no game was set, there is no need to copy stack + task runtime information.
+			if (Game == null)
+			{
+				return deepClone;
+			}
+
+			deepClone.Game = newGame;
+			deepClone.Controller = Controller.ClonedFrom(newGame);
+			deepClone.Source = Source.ClonedFrom(newGame);
+			deepClone.Target = Target.ClonedFrom(newGame);
+
+			return deepClone;
 		}
 
 		public string ToHash(params GameTag[] ignore)
 		{
+			// TODO
 			throw new NotImplementedException();
 		}
 
 		public void Stamp(IModel other)
 		{
+			// TODO
 			throw new NotImplementedException();
 		}
 

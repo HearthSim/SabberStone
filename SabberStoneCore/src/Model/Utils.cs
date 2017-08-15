@@ -95,8 +95,12 @@ namespace SabberStoneCore.Model
 				return null;
 			}
 
-			// Write all possible types that are copied.
-			Debug.WriteLine(oldObj.GetType().Name);
+			// TODO; Whitelist of allowed object types for oldObj!
+
+			if(newGame == null)
+			{
+				return oldObj as IPlayable;
+			}
 
 			int entityID = oldObj.Id;
 			IPlayable clonedEntity;
@@ -124,6 +128,11 @@ namespace SabberStoneCore.Model
 			if (oldObj == null)
 			{
 				return null;
+			}
+
+			if(newGame == null)
+			{
+				return oldObj;
 			}
 
 			int entityID = oldObj.Id;

@@ -920,6 +920,12 @@ namespace SabberStoneCore.Model
 			var str = new StringBuilder();
 			str.Append(Player1.ToHash(ignore));
 			str.Append(Player2.ToHash(ignore));
+			
+			// Printing this causes clone tests to fail, since they encode more
+			// than ONLY GAMESTATE.
+			//str.Append(TaskStack.ToHash(ignore));
+			//str.Append(TaskQueue.ToHash(ignore));
+			
 			return str.ToString();
 		}
 
