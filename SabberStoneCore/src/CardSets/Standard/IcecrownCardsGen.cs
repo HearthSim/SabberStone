@@ -1376,12 +1376,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_807", new List<Enchantment> {
-				// TODO [ICC_807] Strongshell Scavenger && Test: Strongshell Scavenger_ICC_807
 				new Enchantment
 				{
 					InfoCardId = "ICC_807e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.MINIONS_NOSOURCE),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
+						new BuffTask(Buffs.AttackHealth(2, 2), EntityType.STACK))
 				},
 			});
 

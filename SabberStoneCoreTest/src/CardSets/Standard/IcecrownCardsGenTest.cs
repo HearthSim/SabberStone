@@ -1322,10 +1322,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void StrongshellScavenger_ICC_807()
 		{
-			// TODO StrongshellScavenger_ICC_807 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1334,9 +1333,26 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecks = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Strongshell Scavenger"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Strongshell Scavenger"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Target Dummy"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Target Dummy"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(2, ((Minion)minion1).AttackDamage);
+			Assert.Equal(4, ((Minion)minion1).Health);
+
+			Assert.Equal(2, ((Minion)minion2).AttackDamage);
+			Assert.Equal(4, ((Minion)minion2).Health);
+
+			Assert.Equal(2, ((Minion)testCard).AttackDamage);
+			Assert.Equal(3, ((Minion)testCard).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID
