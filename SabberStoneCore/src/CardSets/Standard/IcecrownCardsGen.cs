@@ -31,7 +31,8 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+							new TransformMinionTask(EntityType.MINIONS, 2))
 				},
 			});
 

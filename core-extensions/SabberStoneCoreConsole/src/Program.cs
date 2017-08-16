@@ -23,7 +23,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -36,7 +36,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			ParallelTest();
+			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -697,15 +697,23 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.SHAMAN,
+				Player2HeroClass = CardClass.SHAMAN,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ghastly Conjurer"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Thrall, Deathseer"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
 
 			ShowLog(game, LogLevel.VERBOSE);
 

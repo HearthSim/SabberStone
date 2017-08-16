@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStoneUnitTest.CardSets
 {
@@ -24,10 +25,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - ARMOR = 5
 		// - HERO_POWER = 42982
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ThrallDeathseer_ICC_481()
 		{
-			// TODO ThrallDeathseer_ICC_481 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -38,7 +38,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Thrall, Deathseer"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Thrall, Deathseer"));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(9, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
+
+			Assert.Equal("Thrall, Deathseer", game.CurrentPlayer.Hero.Card.Name);
 		}
 
 		// ------------------------------------------- HERO - ROGUE

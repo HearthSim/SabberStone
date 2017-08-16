@@ -4,9 +4,10 @@ using System.Linq;
 //using Newtonsoft.Json;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 //using SabberStoneCore.Properties;
 
-namespace SabberStoneCore.Model
+namespace SabberStoneCore.Loader
 {
 	internal class CardContainer : IEnumerable<Card>
 	{

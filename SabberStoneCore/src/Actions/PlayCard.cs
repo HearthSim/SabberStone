@@ -45,8 +45,12 @@ namespace SabberStoneCore.Actions
 				{
 					source.CardTarget = target.Id;
 				}
-
-				if (source is Minion)
+				if (source is Hero)
+				{
+					OnPlayTrigger.Invoke(c, (Hero)source);
+					PlayHero.Invoke(c, (Hero)source, target);
+				}
+				else if (source is Minion)
 				{
 					PlayMinion.Invoke(c, (Minion)source, target, zonePosition);
 				}
@@ -157,6 +161,46 @@ namespace SabberStoneCore.Actions
 					c.TotalManaSpentThisGame += cost;
 				}
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PayPhase", $"Paying {source} for {source.Cost} Mana, remaining mana is {c.RemainingMana}.");
+				return true;
+			};
+
+		public static Func<Controller, Hero, ICharacter, bool> PlayHero
+			=> delegate (Controller c, Hero hero, ICharacter target)
+			{
+				// remove from hand zone
+				if (!RemoveFromZone.Invoke(c, hero))
+					return false;
+
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", $"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
+
+				c.AddHeroAndPower(hero.Card, null, new Dictionary<GameTag, int>() {
+					[GameTag.HEALTH] = c.Hero[GameTag.HEALTH],
+					[GameTag.DAMAGE] = c.Hero[GameTag.DAMAGE],
+					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]});
+
+				// - OnPlay Phase --> OnPlay Trigger (Illidan)
+				//   (death processing, aura updates)
+				OnPlayTrigger.Invoke(c, hero);
+
+				// - BattleCry Phase --> Battle Cry Resolves
+				//   (death processing, aura updates)
+				hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+
+				// check if [LOE_077] Brann Bronzebeard aura is active
+				if (c.ExtraBattlecry)
+				//if (minion[GameTag.BATTLECRY] == 2)
+				{
+					hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+				}
+				c.Game.DeathProcessingAndAuraUpdate();
+
+				c.GraveyardZone.Add(hero);
+			
+				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
+				//   (death processing, aura updates)
+				hero.JustPlayed = false;
+				c.Game.DeathProcessingAndAuraUpdate();
+
 				return true;
 			};
 
