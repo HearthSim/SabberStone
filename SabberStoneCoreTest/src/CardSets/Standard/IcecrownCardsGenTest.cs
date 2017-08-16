@@ -52,7 +52,8 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(9, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
 
-			Assert.Equal("Thrall, Deathseer", game.CurrentPlayer.Hero.Card.Name);
+			Assert.Equal("ICC_481", game.CurrentPlayer.Hero.Card.Id);
+			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.Power.Card.Id);
 		}
 
 		// ------------------------------------------- HERO - ROGUE
