@@ -4127,21 +4127,37 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FallenSunCleric_ICC_094()
 		{
-			// TODO FallenSunCleric_ICC_094 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fallen Sun Cleric"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fallen Sun Cleric"));
+			IPlayable silenceSpell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.BoardZone[0]));
+
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silenceSpell, game.CurrentPlayer.BoardZone[0]));
+
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
