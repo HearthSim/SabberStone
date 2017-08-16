@@ -1033,10 +1033,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VilefinInquisitor_OG_006()
 		{
-			// TODO VilefinInquisitor_OG_006 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1047,7 +1046,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Vilefin Inquisitor"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vilefin Inquisitor"));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - PALADIN
