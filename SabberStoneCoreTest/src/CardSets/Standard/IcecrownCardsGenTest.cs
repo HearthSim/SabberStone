@@ -54,6 +54,10 @@ namespace SabberStoneUnitTest.CardSets
 
 			Assert.Equal("ICC_481", game.CurrentPlayer.Hero.Card.Id);
 			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.Power.Card.Id);
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].Cost);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(4, game.CurrentPlayer.BoardZone[0].Cost);
 		}
 
 		// ------------------------------------------- HERO - ROGUE

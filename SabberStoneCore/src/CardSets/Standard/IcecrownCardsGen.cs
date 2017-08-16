@@ -432,11 +432,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_481p", new List<Enchantment> {
-				// TODO [ICC_481p] Transmute Spirit && Test: Transmute Spirit_ICC_481p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new TransformMinionTask(EntityType.TARGET, 1)
 				}
 			});
 
