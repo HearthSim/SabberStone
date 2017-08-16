@@ -4902,7 +4902,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					InfoCardId = "EX1_080o",
-					Area = EnchantmentArea.SECRET,
+					Area = EnchantmentArea.SECRETS,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)

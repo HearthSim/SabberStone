@@ -95,6 +95,12 @@ namespace SabberStoneCore.Enchants
 					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
+				case EnchantmentArea.SECRETS:
+					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
+					break;
 				case EnchantmentArea.HERO:
 					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);

@@ -6101,13 +6101,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 					Cards.FromName("Arcane Explosion"),
 				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Ice Block"),
+					Cards.FromName("Mirror Image")
+				},
+				FillDecks = false,
 				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Secretkeeper"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Secretkeeper"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(1, ((Minion)testCard).AttackDamage);
 			Assert.Equal(2, ((Minion)testCard).Health);
@@ -6117,6 +6122,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
 			Assert.Equal(2, ((Minion)testCard).AttackDamage);
 			Assert.Equal(3, ((Minion)testCard).Health);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			Assert.Equal(3, ((Minion)testCard).AttackDamage);
+			Assert.Equal(4, ((Minion)testCard).Health);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			Assert.Equal(3, ((Minion)testCard).AttackDamage);
+			Assert.Equal(4, ((Minion)testCard).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
