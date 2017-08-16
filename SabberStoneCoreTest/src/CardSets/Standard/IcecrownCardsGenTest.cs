@@ -54,10 +54,6 @@ namespace SabberStoneUnitTest.CardSets
 
 			Assert.Equal("ICC_481", game.CurrentPlayer.Hero.Card.Id);
 			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.Power.Card.Id);
-
-			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].Cost);
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(4, game.CurrentPlayer.BoardZone[0].Cost);
 		}
 
 		// ------------------------------------------- HERO - ROGUE
@@ -611,10 +607,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TransmuteSpirit_ICC_481p()
 		{
-			// TODO TransmuteSpirit_ICC_481p test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -625,7 +620,15 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Transmute Spirit"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Thrall, Deathseer"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Cost);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].Cost);
 		}
 
 		// ------------------------------------- HERO_POWER - ROGUE
