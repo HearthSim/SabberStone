@@ -7,6 +7,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Entities;
 
 using Generic = SabberStoneCore.Actions.Generic;
+using System.Linq;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
@@ -1311,10 +1312,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				Shuffle = false,
+				SkipMulligan = false
 			});
+
 			game.StartGame();
+
+			// Malchezaar triggers AFTER MULLIGAN!
+			Assert.Equal(1, game.Triggers.Count);
+			Assert.Equal(30, game.CurrentPlayer.DeckZone.Count);
+
+			// Mulligan Player 1
+			game.Process(ChooseTask.Mulligan(game.CurrentPlayer, new List<int>()));
+			// Mulligan Player 2
+			game.Process(ChooseTask.Mulligan(game.CurrentOpponent, new List<int>()));
+			game.NextStep = Step.MAIN_BEGIN; // End Mulligan phase.
+
+			// Post MULLIGAN.
 			Assert.Equal(0, game.Triggers.Count);
-			Assert.Equal(31, game.CurrentPlayer.DeckZone.Count);
+			Assert.Equal(31, game.CurrentPlayer.DeckZone.Count); // 30-4(hand)+5 legendaries
+
+			// Malchezaar abides several rules; see https://hearthstone.gamepedia.com/Prince_Malchezaar#Notes
+			// Multiple Malchezaars WILL add 5 legendaries per Malchezaar to the deck, but the 
+			// none duplicate rule remains!
+			// If there are more Malchezaars than 'unique legendaries'/5, Malchezaar will NOT add 
+			// cards to the deck.
+			var allPlayables = new List<IPlayable>();
+			allPlayables.AddRange(game.CurrentPlayer.DeckZone);
+			allPlayables.AddRange(game.CurrentPlayer.HandZone);
+			var legendaries = allPlayables.Where(p => p.Card.Rarity == Rarity.LEGENDARY).ToList();
+			// Added legendaries MUST belong to the CardClass of the deck or the MultiClassGroup.
+			Assert.False(legendaries.Any(p => p.Card.Class != CardClass.NEUTRAL && (p.Card.Class != CardClass.MAGE ||
+										p.Card.MultiClassGroup != (int)MultiClassGroup.KABAL)));
+			// No duplicate legendaries are allowed!
+			Assert.Equal(legendaries.Count, legendaries.Distinct().Count());
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
