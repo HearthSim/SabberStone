@@ -5,6 +5,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using System;
 using SabberStoneCore.Loader;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model
 {
@@ -16,6 +17,30 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public class Card
 	{
+		/// <summary>
+		/// Card used to instantiate a new <see cref="Game"/> object.
+		/// </summary>
+		internal static Card CardGame => new Card()
+		{
+			Id = "Game",
+			Name = "Game",
+			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.GAME },
+			PlayRequirements = new Dictionary<PlayReq, int>(),
+		};
+
+		/// <summary>
+		/// Card used to instantiate a new <see cref="Controller"/> object.
+		/// </summary>
+		internal static Card CardPlayer => new Card()
+		{
+			Id = "Player",
+			Name = "Player",
+			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
+			PlayRequirements = new Dictionary<PlayReq, int>(),
+		};
+
+		#region PROPERTIES 
+
 		/// <summary>
 		/// Unique asset id of that card nummeric representation.
 		/// </summary>
@@ -201,19 +226,19 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool IsAffectedBySpellDamage { get; set; }
 
+		// TODO; Fix this to use the ENUM type Core.Enums.MultiClassGroup!
 		/// <summary>
 		/// Multi class group.
 		/// </summary>
 		public int MultiClassGroup => this[GameTag.MULTI_CLASS_GROUP];
 
-		/// <summary>
-		/// Returns a string representation.
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString()
-		{
-			return $"[{Name}]";
-		}
+		#endregion
+
+
+		/// <summary>Initializes a new instance of the <see cref="Card"/> class.</summary>
+		public Card() { }
+
+		// TODO; Move out of Core.
 		/// <summary>
 		/// Returns a substring of the name of this instance.
 		/// </summary>
@@ -237,6 +262,7 @@ namespace SabberStoneCore.Model
 
 		}
 
+		// TODO; Move out of Core.
 		/// <summary>
 		/// Returns a string containing all information about this instance.
 		/// </summary>
@@ -260,20 +286,30 @@ namespace SabberStoneCore.Model
 			return builder.ToString();
 		}
 
-		internal static Card CardGame => new Card()
-		{
-			Id = "Game",
-			Name = "Game",
-			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.GAME },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
-		};
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		internal static Card CardPlayer => new Card()
+		public override bool Equals(object obj)
 		{
-			Id = "Player",
-			Name = "Player",
-			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
-		};
+			var other = obj as Card;
+			if (other == null)
+			{
+				return false;
+			}
+			
+			// Card matching works by comparing the card ID.
+			return Id.Equals(other.Id);
+		}
+
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+
+		public override string ToString()
+		{
+			return $"[{Name}]";
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }
