@@ -14,12 +14,17 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new ChooseTask(controller, choices);
 		}
+
 		public static ChooseTask Pick(Controller controller, int choice)
 		{
 			return new ChooseTask(controller, new List<int> { choice });
 		}
+
 		private ChooseTask(Controller controller, List<int> choices)
 		{
+			if(controller == null) throw new ArgumentNullException(nameof(controller));
+			if(choices == null) throw new ArgumentNullException(nameof(choices)); // Empty choices are allowed!
+
 			PlayerTaskType = PlayerTaskType.CHOOSE;
 			Game = controller.Game;
 			Controller = controller;
@@ -54,7 +59,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override string FullPrint()
 		{
-			return $"ChooseTask => [{Controller.Name}] choosed {(Choices.Count > 0 ? string.Join(", ", Choices.Select(p => p.ToString()).ToList()) : "nothing to")} " +
+			return $"ChooseTask => [{Controller.Name}] choosed {(Choices.Count > 0 ? String.Join(", ", Choices.Select(p => p.ToString()).ToList()) : "nothing to")} " +
 				   $"to {(Controller.Choice?.ChoiceType == ChoiceType.MULLIGAN ? "keep" : "pick")}";
 		}
 	}
