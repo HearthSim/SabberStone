@@ -99,7 +99,7 @@ namespace SabberStoneCore.Enchants
 					[GameTag.HEALTH] = amount
 				},
 				// Health Retention task ... 
-				RemovalTask = ComplexTask.Create(
+				ImmediateRemovalTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS, new[] { EntityType.SOURCE }),
 					new FilterStackTask(EntityType.SOURCE, relaConditions.ToArray()),
 					new HealthRetentionTask(amount, EntityType.STACK))
@@ -130,7 +130,7 @@ namespace SabberStoneCore.Enchants
 					[GameTag.HEALTH] = health,
 				},
 				// Health Retention task ... 
-				RemovalTask = ComplexTask.Create(
+				ImmediateRemovalTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS, new[] { EntityType.SOURCE }),
 					new FilterStackTask(EntityType.SOURCE, relaConditions.ToArray()),
 					new HealthRetentionTask(health, EntityType.STACK))

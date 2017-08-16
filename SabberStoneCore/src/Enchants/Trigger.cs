@@ -4,10 +4,11 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Enchants
 {
-	public class Trigger : ILazyRemove
+	public class Trigger : ILazyRemove, IModel<Trigger>
 	{
 		public List<Trigger> ParentContainer { get; set; }
 
@@ -43,8 +44,6 @@ namespace SabberStoneCore.Enchants
 		//public int NextCount { get; set; } = 0;
 
 		public ISimpleTask SingleTask { get; set; }
-
-		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
 		public Trigger Copy(string sourceId, Game newGame, int turn, List<Trigger> containingList, IPlayable oldOwner)
 		{
@@ -155,6 +154,32 @@ namespace SabberStoneCore.Enchants
 		{
 			parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner));
 		}
+
+		#region IMODEL_IMPLEMENTATION
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		public Trigger Clone(Game newGame)
+		{
+			throw new NotImplementedException();
+		}
+
+		public string ToHash(params GameTag[] ignore)
+		{
+			return $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
+		}
+
+		public void Stamp(IModel other)
+		{
+			throw new NotImplementedException();
+		}
+
+		IModel IModel.Clone(Game newGame)
+		{
+			throw new NotImplementedException();
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		#endregion
 	}
 
 	public class TriggerBuilder

@@ -59,7 +59,7 @@ namespace SabberStoneCore.Enchants
 					[GameTag.HEALTH] = health
 				},
 				// Health Retention task ... 
-				RemovalTask = new HealthRetentionTask(health, EntityType.SOURCE)
+				ImmediateRemovalTask = new HealthRetentionTask(health, EntityType.SOURCE)
 			};
 		}
 
@@ -76,7 +76,7 @@ namespace SabberStoneCore.Enchants
 				},
 				// Health Retention task ... 
 				FixedValueFunc = owner => amount,
-				RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+				ImmediateRemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
 			};
 		}
 
@@ -140,7 +140,7 @@ namespace SabberStoneCore.Enchants
 					[GameTag.HEALTH] = amount
 				},
 				// Health Retention task ... 
-				RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+				ImmediateRemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
 			};
 		}
 
@@ -228,7 +228,7 @@ namespace SabberStoneCore.Enchants
 					[GameTag.HEALTH] = amount
 				},
 				// Health Retention task ... 
-				RemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
+				ImmediateRemovalTask = new HealthRetentionTask(amount, EntityType.SOURCE)
 			};
 		}
 
@@ -300,7 +300,7 @@ namespace SabberStoneCore.Enchants
 					[tag] = value
 				},
 				FixedValueFunc = func,
-				RemovalTask = removalTask
+				ImmediateRemovalTask = removalTask
 			};
 		}
 	}

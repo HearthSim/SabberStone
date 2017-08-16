@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
-	public interface ILazyRemove
-	{
-		void Remove();
-	}
-
+	/// <summary>
+	/// Class which loads and stores all <see cref="Enchantments"/> defined for each known 
+	/// <see cref="Card"/>.
+	/// </summary>
 	internal class Enchantments
 	{
 		private static Enchantments _instance;

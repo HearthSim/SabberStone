@@ -92,7 +92,7 @@ namespace SabberStoneCore.CardSets
 						{
 							[GameTag.NUM_TURNS_IN_PLAY] = 0
 						},
-						SingleTask = new DestroyTask(EntityType.TARGET)
+						PostEffectTask = new DestroyTask(EntityType.TARGET)
 					}
 				}
 			});

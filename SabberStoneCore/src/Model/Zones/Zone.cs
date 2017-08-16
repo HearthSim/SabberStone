@@ -218,9 +218,9 @@ namespace SabberStoneCore.Model.Zones
 			}
 			list.ForEach(p => str.Append(p.ToHash(ignore)));
 			str.Append($"][EN:{Enchants.Count}");
-			Enchants.ForEach(p => str.Append(p.Hash));
+			Enchants.ForEach(p => str.Append(p.ToHash(ignore)));
 			str.Append($"][TR:{Triggers.Count}");
-			Triggers.ForEach(p => str.Append(p.Hash));
+			Triggers.ForEach(p => str.Append(p.ToHash(ignore)));
 			str.Append("]");
 			return str.ToString();
 		}
@@ -235,7 +235,14 @@ namespace SabberStoneCore.Model.Zones
 				copy.Stamp(p as Entity);
 				MoveTo(copy, copy.ZonePosition);
 			});
-			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			
+			zone.Enchants.ForEach(p =>
+			{
+				Enchant clone = p.Clone(Game);
+				clone.ParentContainer = Enchants;
+				Enchants.Add(clone);
+			});
+
 			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
 		}
 
@@ -268,7 +275,14 @@ namespace SabberStoneCore.Model.Zones
 				// Is this still necessary?
 				deepClone.MoveTo(copy, copy.ZonePosition);
 			});
-			Enchants.ForEach(p => deepClone.Enchants.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Enchants, p.Owner, p.RemoveTriggers)));
+
+			Enchants.ForEach(p =>
+			{
+				Enchant clone = p.Clone(Game);
+				clone.ParentContainer = deepClone.Enchants;
+				deepClone.Enchants.Add(clone);
+			});
+
 			Triggers.ForEach(p => deepClone.Triggers.Add(p.Copy(p.SourceId, newGame, p.Turn, deepClone.Triggers, p.Owner)));
 
 			return deepClone;

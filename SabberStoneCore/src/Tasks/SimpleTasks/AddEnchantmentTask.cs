@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		protected override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			// TODO; Check if enchant needs to be copied.
+			// Enchantments are stateless and do NOT need cloning!
 			return new AddEnchantmentTask(Type, Enchantment, Activate);
 		}
 
