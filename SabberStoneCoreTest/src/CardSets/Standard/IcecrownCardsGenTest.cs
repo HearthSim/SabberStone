@@ -5012,10 +5012,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - SPELLPOWER = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TaintedZealot_ICC_913()
 		{
-			// TODO TaintedZealot_ICC_913 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5026,7 +5025,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tainted Zealot"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tainted Zealot"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
 		}
 
 	}
