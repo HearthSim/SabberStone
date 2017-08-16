@@ -1049,10 +1049,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vilefin Inquisitor"));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal("CS2_101t", game.CurrentPlayer.BoardZone.Last().Card.Id);
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal("OG_006a", game.CurrentPlayer.BoardZone.Last().Card.Id);
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
 
