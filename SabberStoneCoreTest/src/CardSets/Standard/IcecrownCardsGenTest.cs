@@ -4799,10 +4799,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SPELLPOWER = 2
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Spellweaver_ICC_856()
 		{
-			// TODO Spellweaver_ICC_856 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4813,7 +4812,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellweaver"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellweaver"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(8, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
