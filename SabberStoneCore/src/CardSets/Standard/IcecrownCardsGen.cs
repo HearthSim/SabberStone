@@ -3996,12 +3996,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_094", new List<Enchantment> {
-				// TODO [ICC_094] Fallen Sun Cleric && Test: Fallen Sun Cleric_ICC_094
 				new Enchantment
 				{
 					InfoCardId = "ICC_094e",
+					Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					Enchant = Buffs.AttackHealth(1)
 				},
 			});
 
