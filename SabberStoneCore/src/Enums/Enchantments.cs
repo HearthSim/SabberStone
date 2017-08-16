@@ -112,6 +112,11 @@
 		/// </summary>
 		SECRET,
 
+		///	<summary>
+		///	The effect will be triggered by the secrets of all controllers.
+		///	</summary>
+		SECRETS,
+
 		/// <summary>
 		/// The effect will be triggered by the HAND and BOARD of the controller.
 		/// </summary>
