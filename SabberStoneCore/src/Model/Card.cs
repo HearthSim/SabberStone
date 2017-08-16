@@ -10,9 +10,11 @@ namespace SabberStoneCore.Model
 {
 	/// <summary>
 	/// Object representing a known entity.
-	///
-	/// All properties exposed by these instances are defined by `resources/Data/CardDefs.xml`.
-	/// <see cref="CardLoader"/> for extraction procedures.
+	/// <para>
+	/// All properties exposed by these instances are defined 
+	/// by `resources/Data/CardDefs.xml`.
+	/// See <see cref="CardLoader"/> for extraction procedures.
+	/// </para>
 	/// </summary>
 	public class Card
 	{
@@ -213,51 +215,6 @@ namespace SabberStoneCore.Model
 		public override string ToString()
 		{
 			return $"[{Name}]";
-		}
-		/// <summary>
-		/// Returns a substring of the name of this instance.
-		/// </summary>
-		/// <param name="size">The maximum length of the substring in # characters.</param>
-		/// <returns></returns>
-		public string AbbreviatedName(int size)
-		{
-			if (Name.Length <= size)
-			{
-				return Name;
-			}
-			else if (!Name.Contains(" "))
-			{
-				return Name.Substring(0, size);
-			}
-			else
-			{
-				string[] strArray = Name.Split(' ');
-				return String.Join("", strArray.Select(p => p.Length > 4 ? p.Substring(0, 4) : p).ToList()).Substring(0, 7);
-			}
-
-		}
-
-		/// <summary>
-		/// Returns a string containing all information about this instance.
-		/// </summary>
-		/// <param name="gameTag"></param>
-		/// <param name="playReq"></param>
-		/// <returns></returns>
-		public string FullPrint(bool gameTag = false, bool playReq = false)
-		{
-			var builder = new StringBuilder();
-			builder.Append($"[CARD: {Name} - {Id} (Col={Collectible},Set={Set})]");
-			if (gameTag)
-			{
-				builder.Append("\n   GameTags:");
-				Tags.ToList().ForEach(pair => builder.Append($"\n   - {pair.Key} -> {pair.Value}"));
-			}
-			if (playReq)
-			{
-				builder.Append("\n   PlayReq:");
-				PlayRequirements.ToList().ForEach(pair => builder.Append($"\n   - {pair.Key} -> {pair.Value}"));
-			}
-			return builder.ToString();
 		}
 
 		internal static Card CardGame => new Card()

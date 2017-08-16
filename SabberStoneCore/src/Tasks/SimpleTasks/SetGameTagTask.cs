@@ -1,17 +1,12 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SetGameTagTask : SimpleTask
 	{
-		public SetGameTagTask(GameTag tag, int amount, EntityType entityType, bool ignoreDamage = false)
-		{
-			Tag = tag;
-			Amount = amount;
-			Type = entityType;
-			IgnoreDamage = ignoreDamage;
-		}
-
 		public GameTag Tag { get; set; }
 
 		public EntityType Type { get; set; }
@@ -20,9 +15,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool IgnoreDamage { get; set; }
 
+		public SetGameTagTask(GameTag tag, int amount, EntityType entityType, bool ignoreDamage = false)
+		{
+			Tag = tag;
+			Amount = amount;
+			Type = entityType;
+			IgnoreDamage = ignoreDamage;
+		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
 				if (IgnoreDamage)
@@ -40,11 +45,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new SetGameTagTask(Tag, Amount, Type, IgnoreDamage);
-			clone.Copy(this);
-			return clone;
+			return new SetGameTagTask(Tag, Amount, Type, IgnoreDamage);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -2,11 +2,19 @@
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class BuffTask : SimpleTask
 	{
+		public Enchant Buff { get; set; }
+
+		public EntityType Type { get; set; }
+
+		public SelfCondition Condition { get; set; }
+
 		public BuffTask(Enchant buff, EntityType type, SelfCondition condition = null)
 		{
 			Buff = buff;
@@ -14,11 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Condition = condition;
 		}
 
-		public Enchant Buff { get; set; }
-
-		public EntityType Type { get; set; }
-
-		public SelfCondition Condition { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -27,7 +31,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				return TaskState.STOP;
 			}
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (Condition != null)
 			{
@@ -39,11 +44,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new BuffTask(Buff, Type, Condition);
-			clone.Copy(this);
-			return clone;
+			// TODO; Check if Buff needs to be copied.
+			return new BuffTask(Buff, Type, Condition);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

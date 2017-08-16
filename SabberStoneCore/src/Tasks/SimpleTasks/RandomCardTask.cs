@@ -3,11 +3,18 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+		public CardType CardType { get; set; }
+		public CardClass CardClass { get; set; }
+		public CardSet CardSet { get; set; }
+		public bool Opposite { get; set; }
+
 		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, bool opposite)
 		{
 			Type = type;
@@ -43,11 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Opposite = false;
 		}
 
-		public EntityType Type { get; set; }
-		public CardType CardType { get; set; }
-		public CardClass CardClass { get; set; }
-		public CardSet CardSet { get; set; }
-		public bool Opposite { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -66,23 +69,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-			var cardsList = cards.Where(p =>
+			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			IEnumerable<Card> cardsList = cards.Where(p =>
 				(CardType == CardType.INVALID || p.Type == CardType) &&
 				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
 				(CardSet == CardSet.INVALID || p.Set == CardSet));
 
-			var randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
+			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose(cardsList.ToList()));
 			Playables.Add(randomCard);
 
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new RandomCardTask(Type, CardType, CardClass, CardSet, Opposite);
-			clone.Copy(this);
-			return clone;
+			return new RandomCardTask(Type, CardType, CardClass, CardSet, Opposite);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

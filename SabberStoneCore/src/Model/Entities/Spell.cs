@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -15,6 +16,26 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return !target.CantBeTargetedBySpells && base.TargetingRequirements(target);
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override void InternalStamp(IModel entity)
+		{
+			// Do nothing, nothing to stamp.
+		}
+
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			// Do nothing, nothing to report.
+			return String.Empty;
+		}
+
+		protected override Entity InternalDeepClone(Game newGame)
+		{
+			return new Spell(newGame.ControllerById(Controller.Id), Card, null);
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 

@@ -1,20 +1,24 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SetHealthNumberTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public SetHealthNumberTask(EntityType entityType)
 		{
 			Type = entityType;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.TrueForAll(p =>
 			{
 				var target = p as Minion;
@@ -39,11 +43,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new SetHealthNumberTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new SetHealthNumberTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

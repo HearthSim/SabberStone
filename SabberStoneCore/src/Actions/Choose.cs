@@ -27,7 +27,7 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-				var playable = c.Game.IdEntityDic[choice];
+				var playable = c.Game.EntityContainer[choice];
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
@@ -63,7 +63,7 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.ADAPT:
 						c.Choice.TargetIds.ForEach(p =>
 						{
-							var target = c.Game.IdEntityDic[p];
+							var target = c.Game.EntityContainer[p];
 							playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
 						});
 						break;
@@ -98,7 +98,7 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.KAZAKUS:
 						c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
 						{
-							c.Game.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+							c.Game.EntityContainer[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
 						});
 						//c.Setaside.Add(playable);
 						var kazakusPotions =

@@ -6,19 +6,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ControlTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public ControlTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
-				var removedEntity = p.Zone.Remove(p);
+				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller = Controller;
 				Controller.BoardZone.Add(removedEntity);
 			});
@@ -26,11 +28,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new ControlTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new ControlTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

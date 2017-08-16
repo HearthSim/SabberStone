@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -127,35 +128,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class IncludeTask : SimpleTask
 	{
+		public EntityType IncludeType { get; set; }
+		public EntityType[] ExcludeTypeArray { get; set; }
+		public bool AddFlag { get; set; }
+
 		public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
 		{
 			IncludeType = includeType;
 			ExcludeTypeArray = excludeTypeArray;
 			AddFlag = addFlag;
-		}
-
-		public EntityType IncludeType { get; set; }
-		public EntityType[] ExcludeTypeArray { get; set; }
-		public bool AddFlag { get; set; }
-
-		public override TaskState Process()
-		{
-			if (AddFlag)
-			{
-				Playables.AddRange(RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
-			}
-			else
-			{
-				Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
-			}
-			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new IncludeTask(IncludeType, ExcludeTypeArray, AddFlag);
-			clone.Copy(this);
-			return clone;
 		}
 
 		private List<IPlayable> RemoveEntities(List<IPlayable> boardGetAll, IEnumerable<EntityType> exceptArray)
@@ -366,5 +347,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 			return result;
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		public override TaskState Process()
+		{
+			if (AddFlag)
+			{
+				Playables.AddRange(RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
+			}
+			else
+			{
+				Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
+			}
+			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask InternalDeepClone(Game newGame)
+		{
+			return new IncludeTask(IncludeType, ExcludeTypeArray?.ToArray(), AddFlag);
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

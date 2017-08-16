@@ -9,6 +9,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomMinionTask : SimpleTask
 	{
+		public GameTag Tag { get; set; }
+		public int Value { get; set; }
+		public EntityType Type { get; set; }
+		public int Amount { get; set; }
+		public RelaSign RelaSign { get; set; }
+
 		private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign)
 		{
 			Tag = tag;
@@ -36,11 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			RelaSign = relaSign;
 		}
 
-		public GameTag Tag { get; set; }
-		public int Value { get; set; }
-		public EntityType Type { get; set; }
-		public int Amount { get; set; }
-		public RelaSign RelaSign { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -56,7 +58,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 			var cardsList = cards.Where(p => p.Type == CardType.MINION
 				&& (RelaSign == RelaSign.EQ && p[Tag] == Value
 				 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
@@ -69,7 +71,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var randomMinions = new List<IPlayable>();
 			while (randomMinions.Count < Amount && cardsList.Count > 0)
 			{
-				var card = Util.Choose<Card>(cardsList);
+				Card card = Util.Choose(cardsList);
 				cardsList.Remove(card);
 				randomMinions.Add(Entity.FromCard(Controller, card));
 			}
@@ -79,11 +81,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new RandomMinionTask(Tag, Value, Type, Amount, RelaSign);
-			clone.Copy(this);
-			return clone;
+			return new RandomMinionTask(Tag, Value, Type, Amount, RelaSign);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

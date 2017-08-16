@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SabberStoneCore.Model.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SabberStoneCore.Model
@@ -7,7 +9,7 @@ namespace SabberStoneCore.Model
 	/// <summary>
 	/// Provides helper methods for often used functionality.
 	/// </summary>
-	public class Util
+	public static class Util
 	{
 		/// <summary>The source of randomness.</summary>
 		public static Random Random = new Random();
@@ -76,6 +78,65 @@ namespace SabberStoneCore.Model
 				isCached = true;
 				return cachedResult;
 			};
+		}
+
+		/// <summary>
+		/// Returns the cloned entity attached to the provided new game.
+		/// The cloned entity is equivalent to the current entity through the use
+		/// of <see cref="IModel.Clone(Game)"/>.
+		/// </summary>
+		/// <param name="oldObj"></param>
+		/// <param name="newGame"></param>
+		/// <returns></returns>
+		public static IPlayable ClonedFrom(this IEntity oldObj, Game newGame)
+		{
+			if (oldObj == null)
+			{
+				return null;
+			}
+
+			// Write all possible types that are copied.
+			Debug.WriteLine(oldObj.GetType().Name);
+
+			int entityID = oldObj.Id;
+			IPlayable clonedEntity;
+			// If the entity was already cloned, simply return it.
+			// Otherwise clone it.
+			if (!newGame.EntityContainer.TryGetValue(entityID, out clonedEntity))
+			{
+				clonedEntity = oldObj.Clone(newGame) as IPlayable;
+				newGame.EntityContainer[entityID] = clonedEntity;
+			}
+
+			return clonedEntity;
+		}
+
+		/// <summary>
+		/// Returns the cloned controller attached to the provided new game.
+		/// The cloned controller is equivalent to the current controller through
+		/// the use of <see cref="IModel.Clone(Game)"/>
+		/// </summary>
+		/// <param name="oldObj"></param>
+		/// <param name="newGame"></param>
+		/// <returns></returns>
+		public static Controller ClonedFrom(this Controller oldObj, Game newGame)
+		{
+			if (oldObj == null)
+			{
+				return null;
+			}
+
+			int entityID = oldObj.Id;
+			Controller clonedEntity = newGame._players.FirstOrDefault(c => c.Id == entityID);
+			// If the entity was already cloned, simply return it.
+			// Otherwise clone it.
+			if (clonedEntity == null)
+			{
+				clonedEntity = oldObj.Clone(newGame) as Controller;
+				newGame._players[clonedEntity.PlayerId - 1] = clonedEntity;
+			}
+
+			return clonedEntity;
 		}
 
 	}

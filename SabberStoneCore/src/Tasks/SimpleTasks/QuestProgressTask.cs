@@ -6,6 +6,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class QuestProgressTask : SimpleTask
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			var source = Source as Spell;
@@ -19,11 +21,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new QuestProgressTask();
-			clone.Copy(this);
-			return clone;
+			return new QuestProgressTask();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

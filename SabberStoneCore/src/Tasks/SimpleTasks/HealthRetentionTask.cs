@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -13,6 +14,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Amount = amount;
 			Type = type;
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -36,11 +39,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new HealthRetentionTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
+			return new HealthRetentionTask(Amount, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

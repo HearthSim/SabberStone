@@ -38,9 +38,9 @@ namespace SabberStoneCoreTest.Cloning
 					var options = game.CurrentPlayer.Options();
 					var option = options[rnd.Next(options.Count)];
 					game.Process(option);
-					var cloneGame = game.Clone();
-					var str1 = game.Hash();
-					var str2 = cloneGame.Hash();
+					var cloneGame = game.Clone(null);
+					var str1 = game.ToHash();
+					var str2 = cloneGame.ToHash();
 					flag &= str1.Equals(str2);
 					if (!flag)
 					{
@@ -64,8 +64,8 @@ namespace SabberStoneCoreTest.Cloning
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var clone = game.Clone();
-			Assert.Equal(game.Hash(), clone.Hash());
+			var clone = game.Clone(null) as Game;
+			Assert.Equal(game.ToHash(), clone.ToHash());
 
 			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
 			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
@@ -85,7 +85,7 @@ namespace SabberStoneCoreTest.Cloning
 
 			var ignored = new GameTag[] { GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID };
 
-			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
+			Assert.Equal(game.ToHash(ignored), clone.ToHash(ignored));
 		}
 
 		[Fact]
@@ -101,8 +101,8 @@ namespace SabberStoneCoreTest.Cloning
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var clone = game.Clone();
-			Assert.Equal(game.Hash(), clone.Hash());
+			var clone = game.Clone(null) as Game;
+			Assert.Equal(game.ToHash(), clone.ToHash());
 
 			clone.Process(EndTurnTask.Any(clone.CurrentPlayer));
 

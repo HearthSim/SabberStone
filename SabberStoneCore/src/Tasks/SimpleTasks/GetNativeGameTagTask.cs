@@ -1,10 +1,16 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class GetNativeGameTagTask : SimpleTask
 	{
+		public GameTag Tag { get; set; }
+		public EntityType Type { get; set; }
+		public bool SelfBuffs { get; set; }
+
 		public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs)
 		{
 			Tag = tag;
@@ -12,13 +18,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			SelfBuffs = selfBuffs;
 		}
 
-		public GameTag Tag { get; set; }
-		public EntityType Type { get; set; }
-		public bool SelfBuffs { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			if (entities.Count != 1)
 			{
 				return TaskState.STOP;
@@ -34,11 +38,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs);
-			clone.Copy(this);
-			return clone;
+			return new GetNativeGameTagTask(Tag, Type, SelfBuffs);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

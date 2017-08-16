@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using System;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -55,15 +55,40 @@ namespace SabberStoneCore.Model.Entities
 			EquippedWeapon = 0;
 		}
 
-		public string FullPrint()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override void InternalStamp(IModel entity)
 		{
-			var str = new StringBuilder();
-			var mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
-			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{SpellPowerDamage}]");
-			str.Append($"[ENCH {Enchants.Count}]");
-			str.Append($"[TRIG {Triggers.Count}]");
-			return str.ToString();
+			// Do nothing, stamping was taken care of by Controller.InternalStamp
 		}
+
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			// Do nothing, toHash has been taken care of by Controller.InternalToHash
+			return String.Empty;
+		}
+
+		protected override Entity InternalDeepClone(Game newGame)
+		{
+			var heroClone = new Hero(newGame.ControllerById(Controller.Id), Card, null)
+			{
+				// Weapon could be null!
+				Weapon = Weapon?.Clone(newGame) as Weapon,
+				// Hero power should ALWAYS be set.
+				Power = Power.Clone(newGame) as HeroPower,
+			};
+
+			// Manually push cloned entities to newGame.
+			newGame.EntityContainer[Id] = heroClone;
+			if (heroClone.Weapon != null)
+			{
+				newGame.EntityContainer[Weapon.Id] = heroClone.Weapon;
+			}
+
+			return heroClone;
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Hero

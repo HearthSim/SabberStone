@@ -1,17 +1,19 @@
 ﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class BuffAttackNumberTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public BuffAttackNumberTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -22,16 +24,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var buff = new BuffTask(Buffs.Attack(Number), Type, null);
-			buff.Copy(this);
+			buff.Stamp(this);
 
 			return buff.Process();
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new BuffAttackNumberTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new BuffAttackNumberTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

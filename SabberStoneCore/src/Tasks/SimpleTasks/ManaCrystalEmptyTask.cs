@@ -1,10 +1,15 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ManaCrystalEmptyTask : SimpleTask
 	{
+		public int Amount { get; set; }
+		public bool Opponent { get; set; }
+		public bool UseNumber { get; set; }
+
 		public ManaCrystalEmptyTask(int amount, bool opponent = false, bool useNumber = false)
 		{
 			Amount = amount;
@@ -12,9 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			UseNumber = useNumber;
 		}
 
-		public int Amount { get; set; }
-		public bool Opponent { get; set; }
-		public bool UseNumber { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -23,15 +26,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Amount = Number;
 			}
 
-			var success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
+			bool success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new ManaCrystalEmptyTask(Amount, Opponent, UseNumber);
-			clone.Copy(this);
-			return clone;
+			return new ManaCrystalEmptyTask(Amount, Opponent, UseNumber);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

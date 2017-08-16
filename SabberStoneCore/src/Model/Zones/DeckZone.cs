@@ -2,12 +2,15 @@
 using SabberStoneCore.Enums;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model.Zones
 {
 	public class DeckZone : Zone<IPlayable>
 	{
 		public int StartingCards { get; set; } = 30;
+
+		public override int MaxSize => 9999;
 
 		public DeckZone(Game game, Controller controller) : base(game, controller, Zone.DECK)
 		{
@@ -43,5 +46,14 @@ namespace SabberStoneCore.Model.Zones
 				Swap(Random, Random);
 			}
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override Zone<IPlayable> InternalClone(Game newGame)
+		{
+			return new DeckZone(newGame, newGame.ControllerById(Controller.Id));
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

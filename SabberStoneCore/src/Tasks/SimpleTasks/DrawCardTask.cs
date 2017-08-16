@@ -1,9 +1,13 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawCardTask : SimpleTask
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			if (Playables.Count != 1)
@@ -11,7 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var drawedCard = Generic.Draw(Controller, Playables[0]);
+			IPlayable drawedCard = Generic.Draw(Controller, Playables[0]);
 
 			if (drawedCard == null)
 			{
@@ -21,11 +25,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new DrawCardTask();
-			clone.Copy(this);
-			return clone;
+			return new DrawCardTask();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

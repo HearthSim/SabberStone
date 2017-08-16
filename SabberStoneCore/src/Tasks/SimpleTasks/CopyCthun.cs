@@ -4,9 +4,10 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class CopyCthun : SimpleTask
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			var source = Source as IPlayable;
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
+			var proxyCthun = Game.EntityContainer[Controller.ProxyCthun];
 
 			proxyCthun.Enchants.ForEach(p => p.Activate(p.SourceId, source.Enchants, source));
 
@@ -29,11 +30,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new CopyCthun();
-			clone.Copy(this);
-			return clone;
+			return new CopyCthun();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

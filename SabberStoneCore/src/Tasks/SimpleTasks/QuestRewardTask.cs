@@ -7,6 +7,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class QuestRewardTask : SimpleTask
 	{
+		public Card Card { get; set; }
+
 		private QuestRewardTask(Card card)
 		{
 			Card = card;
@@ -17,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card = Cards.FromId(cardId);
 		}
 
-		public Card Card { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -28,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// creating reward card ...
-			var reward = Entity.FromCard(Controller, Card);
+			IPlayable reward = Entity.FromCard(Controller, Card);
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestRewardTask", $"{Controller} Quest finished, reward {reward}!");
 
 			// adding reward to hand
@@ -41,11 +43,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new QuestRewardTask(Card);
-			clone.Copy(this);
-			return clone;
+			return new QuestRewardTask(Card);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

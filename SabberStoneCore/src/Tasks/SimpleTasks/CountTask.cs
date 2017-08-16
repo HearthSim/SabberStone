@@ -1,4 +1,7 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model;
+using System.Collections.Generic;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CountTask : SimpleTask
 	{
@@ -9,18 +12,20 @@
 
 		public EntityType Type { get; set; }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			Number = entities.Count;
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new CountTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new CountTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

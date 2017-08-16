@@ -1,11 +1,19 @@
 ﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddEnchantmentTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
+		public Enchantment Enchantment { get; set; }
+
+		public bool Activate { get; set; }
+
 		public AddEnchantmentTask(EntityType type, Enchantment enchantment, bool activate = false)
 		{
 			Type = type;
@@ -13,15 +21,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Activate = activate;
 		}
 
-		public EntityType Type { get; set; }
-
-		public Enchantment Enchantment { get; set; }
-
-		public bool Activate { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
 				var minion = p as Minion;
@@ -39,11 +43,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new AddEnchantmentTask(Type, Enchantment, Activate);
-			clone.Copy(this);
-			return clone;
+			// TODO; Check if enchant needs to be copied.
+			return new AddEnchantmentTask(Type, Enchantment, Activate);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

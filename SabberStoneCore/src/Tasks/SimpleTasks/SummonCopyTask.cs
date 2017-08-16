@@ -1,22 +1,26 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SummonCopyTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public SummonCopyTask(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
 			if (Controller.BoardZone.IsFull)
 				return TaskState.STOP;
 
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count < 1)
 			{
@@ -40,11 +44,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new SummonCopyTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new SummonCopyTask(Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

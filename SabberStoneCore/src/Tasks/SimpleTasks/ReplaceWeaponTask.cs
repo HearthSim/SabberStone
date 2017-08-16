@@ -5,6 +5,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceWeaponTask : SimpleTask
 	{
+		public Card WeaponCard { get; set; }
+
 		public ReplaceWeaponTask(Card cardWeapon)
 		{
 			WeaponCard = cardWeapon;
@@ -14,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			WeaponCard = Cards.FromId(cardIdWeapon);
 		}
 
-		public Card WeaponCard { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -27,11 +29,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new ReplaceWeaponTask(WeaponCard);
-			clone.Copy(this);
-			return clone;
+			return new ReplaceWeaponTask(WeaponCard);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

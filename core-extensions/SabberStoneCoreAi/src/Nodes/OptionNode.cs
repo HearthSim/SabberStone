@@ -41,7 +41,7 @@ namespace SabberStoneCoreAi.Nodes
 		public OptionNode(OptionNode parent, Game game, int playerId, PlayerTask playerTask, IScore scoring)
 		{
 			_parent = parent;
-			_game = game.Clone(); // create clone
+			_game = game.Clone(null) as Game; // create clone
 			_playerId = playerId;
 			PlayerTask = playerTask;
 			Scoring = scoring;
@@ -67,7 +67,7 @@ namespace SabberStoneCoreAi.Nodes
 
 			_endTurn = _game.CurrentPlayer.Id != _playerId ? 1 : 0;
 
-			Hash = _game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
+			Hash = _game.ToHash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
 
 			if (IsEndTurn || !IsRunning)
 			{

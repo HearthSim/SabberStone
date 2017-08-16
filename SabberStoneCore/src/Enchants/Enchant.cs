@@ -11,7 +11,7 @@ namespace SabberStoneCore.Enchants
 {
 	public class Enchant : ILazyRemove
 	{
-		public List<Enchant> Parent { get; set; }
+		public List<Enchant> ParentContainer { get; set; }
 
 		public List<SelfCondition> EnableConditions { get; set; } = new List<SelfCondition>();
 
@@ -24,7 +24,7 @@ namespace SabberStoneCore.Enchants
 		private int _ownerId;
 		public IPlayable Owner
 		{
-			get { return Game.IdEntityDic[_ownerId]; }
+			get { return Game.EntityContainer[_ownerId]; }
 			set { _ownerId = value.Id; }
 		}
 
@@ -48,20 +48,20 @@ namespace SabberStoneCore.Enchants
 
 		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
-		public Enchant Copy(string sourceId, Game game, int turn, List<Enchant> parent, IPlayable owner, Dictionary<GameTag, int> removeTriggers)
+		public Enchant Copy(string sourceId, Game newGame, int turn, List<Enchant> containingList, IPlayable oldOwner, Dictionary<GameTag, int> removeTriggers)
 		{
 			return new Enchant()
 			{
-				Game = game,
-				Parent = parent,
-				Owner = owner,
+				Game = newGame,
+				ParentContainer = containingList,
+				Owner = oldOwner,
 				Turn = turn,
 
 				SourceId = sourceId,
 				EnableConditions = EnableConditions,
 				ApplyConditions = ApplyConditions,
-				SingleTask = SingleTask?.Clone(),
-				RemovalTask = RemovalTask?.Clone(),
+				SingleTask = SingleTask?.Clone(null),
+				RemovalTask = RemovalTask?.Clone(null),
 				Effects = new Dictionary<GameTag, int>(Effects),
 				ValueFunc = ValueFunc,
 				FixedValueFunc = FixedValueFunc,
@@ -79,7 +79,7 @@ namespace SabberStoneCore.Enchants
 				Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "enqueueuing lazy removal task here!");
 
 				// clone task here
-				var clone = SingleTask.Clone();
+				var clone = SingleTask.Clone(null) as ISimpleTask;
 				clone.Game = Owner.Controller.Game;
 				clone.Controller = Owner.Controller;
 				clone.Source = Owner;
@@ -87,7 +87,7 @@ namespace SabberStoneCore.Enchants
 
 				Owner.Controller.Game.TaskQueue.Enqueue(clone);
 			}
-			Parent.Remove(this);
+			ParentContainer.Remove(this);
 		}
 
 		public bool IsEnabled()

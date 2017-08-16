@@ -1335,7 +1335,7 @@ namespace SabberStoneCore.CardSets
 							new FuncPlayablesTask(p =>
 							{
 								var controller = p[0].Controller;
-								return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
+								return new List<IPlayable> { controller.Game.EntityContainer[controller.LastCardDrawn] };
 							}),
 							new BuffTask(Buffs.Cost(-1), EntityType.STACK)))
 						.Build()

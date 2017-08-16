@@ -1,6 +1,7 @@
 ﻿using System;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -16,14 +17,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class AuraTask : SimpleTask
 	{
+		public Enchant Aura { get; set; }
+		public AuraArea Area { get; set; }
+
 		public AuraTask(Enchant aura, AuraArea area)
 		{
 			Aura = aura;
 			Area = area;
 		}
 
-		public Enchant Aura { get; set; }
-		public AuraArea Area { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -64,11 +67,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new AuraTask(Aura, Area);
-			clone.Copy(this);
-			return clone;
+			// TODO; Check if aura needs to be copied.
+			return new AuraTask(Aura, Area);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

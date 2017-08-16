@@ -39,82 +39,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		COST_8_MORE_SUMMON,
 		OP_HERO
 	}
+
 	public class DiscoverTask : SimpleTask
 	{
-		public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
-		{
-			DiscoverType = discoverType;
-			Enchantment = enchantment;
-		}
-
 		public DiscoverType DiscoverType { get; set; }
 
 		public Enchantment Enchantment { get; set; }
 
-		public override TaskState Process()
+		public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
 		{
-			ChoiceAction choiceAction = ChoiceAction.INVALID;
-			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out choiceAction);
-
-			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
-			if (cardsToDiscover.Length == 2)
-			{
-				totcardsToDiscover.AddRange(cardsToDiscover[1]);
-				totcardsToDiscover.AddRange(cardsToDiscover[1]);
-				totcardsToDiscover.AddRange(cardsToDiscover[1]);
-				totcardsToDiscover.AddRange(cardsToDiscover[1]);
-			}
-
-			var resultCards = new List<Card>();
-
-			// standard discover takes 3 random cards from a set of cards
-			if (cardsToDiscover.Length < 3)
-			{
-				while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
-				{
-					Card discoveredCard = Util.Choose(totcardsToDiscover);
-					resultCards.Add(discoveredCard);
-					// remove all cards matching the discovered one, 
-					// need because class cards are duplicated 4 x times
-					// to have a balance to neutral cards
-					// http://hearthstone.gamepedia.com/Discover
-					if (DiscoverType == DiscoverType.TRACKING)
-					{
-						totcardsToDiscover.Remove(discoveredCard);
-					}
-					else
-					{
-						totcardsToDiscover.RemoveAll(p => p == discoveredCard);
-					}
-				}
-			}
-			else
-			{
-				// tri-class discover takes one random card from each of the three sets
-				foreach (List<Card> classDiscover in cardsToDiscover)
-				{
-					resultCards.ForEach(p => classDiscover.Remove(p));
-					resultCards.Add(Util.Choose<Card>(classDiscover));
-				}
-			}
-
-			// TODO work on it ...
-			//if (Game.Splitting)
-			//{
-			//    ProcessSplit(cardsToDiscover, choiceAction);
-			//}
-
-			if (resultCards.Count == 0)
-			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
-					$"Found no potential cards to use for {DiscoverType}");
-			}
-			else
-			{
-				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
-			}
-
-			return TaskState.COMPLETE;
+			DiscoverType = discoverType;
+			Enchantment = enchantment;
 		}
 
 		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
@@ -133,7 +68,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
 			combinations.ForEach(p =>
 			{
-				Game cloneGame = Game.Clone();
+				var cloneGame = Game.Clone(null) as Game;
 				Controller cloneController = cloneGame.ControllerById(Controller.Id);
 				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
@@ -322,11 +257,79 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return new[] { nonClassCards.ToList(), classCards.ToList() };
 		}
 
-		public override ISimpleTask Clone()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		public override TaskState Process()
 		{
-			var clone = new DiscoverTask(DiscoverType, Enchantment);
-			clone.Copy(this);
-			return clone;
+			ChoiceAction choiceAction = ChoiceAction.INVALID;
+			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out choiceAction);
+
+			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
+			if (cardsToDiscover.Length == 2)
+			{
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+			}
+
+			var resultCards = new List<Card>();
+
+			// standard discover takes 3 random cards from a set of cards
+			if (cardsToDiscover.Length < 3)
+			{
+				while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
+				{
+					Card discoveredCard = Util.Choose(totcardsToDiscover);
+					resultCards.Add(discoveredCard);
+					// remove all cards matching the discovered one, 
+					// need because class cards are duplicated 4 x times
+					// to have a balance to neutral cards
+					// http://hearthstone.gamepedia.com/Discover
+					if (DiscoverType == DiscoverType.TRACKING)
+					{
+						totcardsToDiscover.Remove(discoveredCard);
+					}
+					else
+					{
+						totcardsToDiscover.RemoveAll(p => p == discoveredCard);
+					}
+				}
+			}
+			else
+			{
+				// tri-class discover takes one random card from each of the three sets
+				foreach (List<Card> classDiscover in cardsToDiscover)
+				{
+					resultCards.ForEach(p => classDiscover.Remove(p));
+					resultCards.Add(Util.Choose(classDiscover));
+				}
+			}
+
+			// TODO work on it ...
+			//if (Game.Splitting)
+			//{
+			//    ProcessSplit(cardsToDiscover, choiceAction);
+			//}
+
+			// TODO check for the rules class specific vs. non-class specific cards, discovers, like Finders Keepers, and spell creating cards like Spellslinger generate problematic contellations.
+			//if (resultCards.Count == 0)
+			//{
+			//    Game.Log(LogLevel.ERROR, BlockType.PLAY, "DiscoverTask",
+			//        $"Found no petential cards to use for {DiscoverType}");
+			//    return TaskState.STOP;
+			//}
+
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), Enchantment);
+			return TaskState.COMPLETE;
 		}
+
+		public override ISimpleTask InternalDeepClone(Game newGame)
+		{
+			// TODO; Check if enchantment needs to be copied.
+			return new DiscoverTask(DiscoverType, Enchantment);
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -1,10 +1,18 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FilterStackTask : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
+		public SelfCondition[] SelfConditions { get; set; }
+
+		public RelaCondition[] RelaConditions { get; set; }
 
 		private FilterStackTask(EntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)
 		{
@@ -24,17 +32,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			RelaConditions = relaConditions;
 		}
 
-		public EntityType Type { get; set; }
-
-		public SelfCondition[] SelfConditions { get; set; }
-
-		public RelaCondition[] RelaConditions { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
 			if (RelaConditions != null)
 			{
-				var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+				List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 				if (entities.Count != 1)
 					return TaskState.STOP;
@@ -55,11 +59,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new FilterStackTask(Type, SelfConditions, RelaConditions);
-			clone.Copy(this);
-			return clone;
+			return new FilterStackTask(Type, SelfConditions?.ToArray(), RelaConditions?.ToArray());
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

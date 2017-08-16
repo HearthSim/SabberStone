@@ -1,17 +1,20 @@
 ﻿using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class LogTask : SimpleTask
 	{
+		public bool CardTextPrint { get; set; }
+
 		public LogTask(bool cardTextPrint = false)
 		{
 			CardTextPrint = cardTextPrint;
 		}
 
-		public bool CardTextPrint { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -20,7 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Log task is beeing processed!");
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Flag: {Flag}, Number: {Number}");
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {string.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {String.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
 			}
 
 			if (CardTextPrint)
@@ -30,11 +33,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new LogTask(CardTextPrint);
-			clone.Copy(this);
-			return clone;
+			return new LogTask(CardTextPrint);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

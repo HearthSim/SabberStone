@@ -1,20 +1,22 @@
 ﻿using System;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddStackTo : SimpleTask
 	{
+		public EntityType Type { get; set; }
+
 		public AddStackTo(EntityType type)
 		{
 			Type = type;
 		}
 
-		public EntityType Type { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
-
 			switch (Type)
 			{
 				case EntityType.DECK:
@@ -39,11 +41,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new AddStackTo(Type);
-			clone.Copy(this);
-			return clone;
+			return new AddStackTo(Type);
 		}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -10,6 +11,26 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+		protected override Entity InternalDeepClone(Game newGame)
+		{
+			return new Weapon(newGame.ControllerById(Controller.Id), Card, null);
+		}
+
+		protected override void InternalStamp(IModel entity)
+		{
+			// Do nothing, nothing to stamp.
+		}
+
+		protected override string InternalToHash(params GameTag[] ignore)
+		{
+			// Do nothing, nothing to report.
+			return String.Empty;
+		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Weapon

@@ -1,9 +1,13 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ArmorTask : SimpleTask
 	{
+		public bool UseNumber { get; set; }
+		public int Amount { get; set; }
+
 		private ArmorTask(bool useNumber, int amount)
 		{
 			UseNumber = useNumber;
@@ -28,8 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Amount = 0;
 		}
 
-		public bool UseNumber { get; set; }
-		public int Amount { get; set; }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -42,11 +45,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new ArmorTask(UseNumber, Amount);
-			clone.Copy(this);
-			return clone;
+			return new ArmorTask(UseNumber, Amount);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

@@ -4324,7 +4324,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 	{
 		public static bool CheckAdapt(Game game, Minion minion, int choice)
 		{
-			switch (game.IdEntityDic[choice].Card.Id)
+			switch (game.EntityContainer[choice].Card.Id)
 			{
 				case "UNG_999t2":  // [UNG_999t2] Living Spores
 					return minion.HasDeathrattle;

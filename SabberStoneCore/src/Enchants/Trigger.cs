@@ -9,7 +9,7 @@ namespace SabberStoneCore.Enchants
 {
 	public class Trigger : ILazyRemove
 	{
-		public List<Trigger> Parent { get; set; }
+		public List<Trigger> ParentContainer { get; set; }
 
 		public List<SelfCondition> EnableConditions { get; set; } = new List<SelfCondition>();
 
@@ -22,7 +22,7 @@ namespace SabberStoneCore.Enchants
 		private int _ownerId;
 		public IPlayable Owner
 		{
-			get { return Game.IdEntityDic[_ownerId]; }
+			get { return Game.EntityContainer[_ownerId]; }
 			set { _ownerId = value.Id; }
 		}
 
@@ -46,13 +46,13 @@ namespace SabberStoneCore.Enchants
 
 		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
 
-		public Trigger Copy(string sourceId, Game game, int turn, List<Trigger> parent, IPlayable owner)
+		public Trigger Copy(string sourceId, Game newGame, int turn, List<Trigger> containingList, IPlayable oldOwner)
 		{
 			return new Trigger
 			{
-				Game = game,
-				Parent = parent,
-				Owner = owner,
+				Game = newGame,
+				ParentContainer = containingList,
+				Owner = oldOwner,
 				Turn = turn,
 
 				SourceId = sourceId,
@@ -71,7 +71,7 @@ namespace SabberStoneCore.Enchants
 
 		public void Remove()
 		{
-			Parent.Remove(this);
+			ParentContainer.Remove(this);
 		}
 
 		public bool IsEnabled()
@@ -126,7 +126,7 @@ namespace SabberStoneCore.Enchants
 			}
 
 			// do a clone of the task
-			var clone = SingleTask.Clone();
+			var clone = SingleTask.Clone(null) as ISimpleTask;
 			clone.Game = Owner.Controller.Game;
 			clone.Controller = Owner.Controller;
 			clone.Source = Owner;

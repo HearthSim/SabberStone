@@ -246,7 +246,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Klaxxi Amber-Weaver"));
 			var buffer1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer1));
-			var proxyCthun1 = game.IdEntityDic[buffer1.Controller.ProxyCthun];
+			var proxyCthun1 = game.EntityContainer[buffer1.Controller.ProxyCthun];
 			Assert.Equal(9, ((Minion)proxyCthun1).Health);
 			Assert.Equal(9, ((Minion)proxyCthun1).AttackDamage);
 			game.CurrentPlayer.UsedMana = 0;
@@ -255,7 +255,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.CurrentPlayer.UsedMana = 0;
 			var buffer2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, buffer2));
-			var proxyCthun2 = game.IdEntityDic[buffer2.Controller.ProxyCthun];
+			var proxyCthun2 = game.EntityContainer[buffer2.Controller.ProxyCthun];
 			Assert.Equal(12, ((Minion)proxyCthun2).Health);
 			Assert.Equal(12, ((Minion)proxyCthun2).AttackDamage);
 			game.CurrentPlayer.UsedMana = 0;
@@ -319,7 +319,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Arakkoa"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			var proxyCthun = game.IdEntityDic[testCard.Controller.ProxyCthun];
+			var proxyCthun = game.EntityContainer[testCard.Controller.ProxyCthun];
 			Assert.Equal(9, ((Minion)proxyCthun).Health);
 			Assert.Equal(9, ((Minion)proxyCthun).AttackDamage);
 		}
@@ -1018,7 +1018,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("A Light in the Darkness"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			var minion = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+			var minion = game.EntityContainer[game.CurrentPlayer.Choice.Choices[0]];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(minion, game.CurrentPlayer.HandZone[4]);
 			Assert.Equal(game.CurrentPlayer.HandZone[4].Card[GameTag.ATK] + 1, ((Minion)minion).AttackDamage);

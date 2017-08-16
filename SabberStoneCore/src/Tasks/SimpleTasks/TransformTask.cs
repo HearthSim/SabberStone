@@ -6,6 +6,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class TransformTask : SimpleTask
 	{
+		public Card Card { get; set; }
+		public EntityType Type { get; set; }
+
 		public TransformTask(Card card, EntityType type)
 		{
 			Card = card;
@@ -16,8 +19,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card = Cards.FromId(cardId);
 			Type = type;
 		}
-		public Card Card { get; set; }
-		public EntityType Type { get; set; }
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
 		{
@@ -27,11 +30,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public override ISimpleTask InternalDeepClone(Game newGame)
 		{
-			var clone = new TransformTask(Card, Type);
-			clone.Copy(this);
-			return clone;
+			return new TransformTask(Card, Type);
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }
