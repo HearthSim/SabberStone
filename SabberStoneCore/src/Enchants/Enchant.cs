@@ -96,8 +96,11 @@ namespace SabberStoneCore.Enchants
 		/// <param name="effectCarrier"></param>
 		public void Activate(string cardId, List<Enchant> parentContainer, IPlayable effectCarrier)
 		{
-			Enchant clone = Clone(effectCarrier.Game);
+			Game gamereference = effectCarrier.Game;
+
+			Enchant clone = Clone(gamereference);
 			clone.CardId = cardId;
+			clone.Turn = gamereference.Turn;
 			clone.ParentContainer = parentContainer;
 			clone.EffectCarrier = effectCarrier;
 			clone.RemoveTriggers = RemoveTriggerTags.ToDictionary(p => p, p => effectCarrier.Controller[p]);
