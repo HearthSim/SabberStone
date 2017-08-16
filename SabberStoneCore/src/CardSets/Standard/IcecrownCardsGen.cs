@@ -1376,12 +1376,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_807", new List<Enchantment> {
-				// TODO [ICC_807] Strongshell Scavenger && Test: Strongshell Scavenger_ICC_807
 				new Enchantment
 				{
 					InfoCardId = "ICC_807e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.MINIONS_NOSOURCE),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
+						new BuffTask(Buffs.AttackHealth(2, 2), EntityType.STACK))
 				},
 			});
 
@@ -1421,11 +1423,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_835", new List<Enchantment> {
-				// TODO [ICC_835] Hadronox && Test: Hadronox_ICC_835
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
+						new SummonCopyTask(EntityType.STACK))
 				},
 			});
 
@@ -1442,11 +1446,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_050", new List<Enchantment> {
-				// TODO [ICC_050] Webweave && Test: Webweave_ICC_050
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3")),
 				},
 			});
 
@@ -1486,7 +1489,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "ICC_079e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new BuffTask(Buffs.AttackTurn(3), EntityType.HERO), 
+						new ArmorTask(3))
+
 				},
 			});
 
@@ -1877,11 +1883,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_243", new List<Enchantment> {
-				// TODO [ICC_243] Corpse Widow && Test: Corpse Widow_ICC_243
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask =
+						new AuraTask(
+							Auras.Cost(-99, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1))),
+							AuraArea.HAND)
 				}
 			});
 
@@ -2097,11 +2105,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_083", new List<Enchantment> {
-				// TODO [ICC_083] Doomed Apprentice && Test: Doomed Apprentice_ICC_083
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask =
+						new AuraTask(Auras.Cost(1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.OP_HAND)
 				}
 			});
 
