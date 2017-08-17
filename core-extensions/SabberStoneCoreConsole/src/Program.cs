@@ -23,13 +23,13 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
-			//GameSplitTest();
+			GameSplitTest();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
@@ -568,7 +568,7 @@ namespace SabberStoneCoreConsole
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Huge Toad
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
+				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Mad Bomber
 																									   //game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.Hand[2]));
