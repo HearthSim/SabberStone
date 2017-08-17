@@ -2,6 +2,7 @@
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -19,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count == 0)
 				return TaskState.STOP;
@@ -33,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						//Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
 						Playables = new List<IPlayable> { p };
 						State = TaskState.COMPLETE;
-						var clone = Game.Clone();
+						Game clone = Game.Clone();
 						Game.Splits.Add(clone);
 					});
 				}
@@ -42,13 +43,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					var sets = Util.GetPowerSet(entities).Where(p => p.Count() == Amount).ToList();
 					sets.ForEach(p =>
 					{
-						//Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+						Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {String.Join(";", p)}");
 						Playables = p.ToList();
 						State = TaskState.COMPLETE;
-						var clone = Game.Clone();
+						Game clone = Game.Clone();
 						Game.Splits.Add(clone);
 					});
 				}
+				Game.TaskQueue.TaskList.Clear();
+				return TaskState.STOP;
 			}
 
 			Playables = entities;

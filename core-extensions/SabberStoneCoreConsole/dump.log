@@ -1,0 +1,136 @@
+17.08.2017 10:45:47 - INFO [PLAY] - Controller: Created Controller 'Player1'
+17.08.2017 10:45:47 - INFO [PLAY] - Controller: Created Controller 'Player2'
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Hero: Anduin Wrynn (PRIEST) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - HeroPower: 'Lesser Heal[5]' (PRIEST) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Hero: Rexxar (HUNTER) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - HeroPower: 'Steady Shot[7]' (HUNTER) was created.
+17.08.2017 10:45:47 - INFO [PLAY] - Game: Starting new game now!
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone DECK in Game with Controller Player1
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Loot Hoarder[8]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Loot Hoarder[9]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Huge Toad[10]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Mad Bomber[11]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Stonetusk Boar[12]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Magma Rager[13]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'War Golem[14]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Reckless Rocketeer[15]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Wolfrider[16]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Sen'jin Shieldmasta[17]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Voodoo Doctor[18]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'River Crocolisk[19]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Oasis Snapjaw[20]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Novice Engineer[21]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Core Hound[22]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Booty Bay Bodyguard[23]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ogre Magi[24]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Chillwind Yeti[25]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Acidic Swamp Ooze[26]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ironfur Grizzly[27]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Bluegill Warrior[28]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Murloc Tidehunter[29]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Frostwolf Grunt[30]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ironforge Rifleman[31]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Kobold Geomancer[32]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Razorfen Hunter[33]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Gnomish Inventor[34]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Stormwind Knight[35]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Gurubashi Berserker[36]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Elven Archer[37]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone DECK in Game with Controller Player2
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Loot Hoarder[38]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Loot Hoarder[39]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Huge Toad[40]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Mad Bomber[41]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Stonetusk Boar[42]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Magma Rager[43]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'War Golem[44]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Reckless Rocketeer[45]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Wolfrider[46]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Sen'jin Shieldmasta[47]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Voodoo Doctor[48]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'River Crocolisk[49]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Oasis Snapjaw[50]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Novice Engineer[51]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Core Hound[52]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Booty Bay Bodyguard[53]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ogre Magi[54]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Chillwind Yeti[55]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Acidic Swamp Ooze[56]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ironfur Grizzly[57]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Bluegill Warrior[58]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Murloc Tidehunter[59]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Frostwolf Grunt[60]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Ironforge Rifleman[61]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Kobold Geomancer[62]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Razorfen Hunter[63]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Gnomish Inventor[64]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Stormwind Knight[65]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Gurubashi Berserker[66]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Minion: 'Elven Archer[67]' (NEUTRAL) was created.
+17.08.2017 10:45:47 - INFO [PLAY] - Game: Starting Player is Player1.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Game: Begin First.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Game: Begin Shuffle.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Game: Begin Draw.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player1 draws 'Loot Hoarder[8]'
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone HAND in Game with Controller Player1
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Loot Hoarder[8]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player1 draws 'Loot Hoarder[9]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Loot Hoarder[9]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player1 draws 'Huge Toad[10]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Huge Toad[10]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player2 draws 'Loot Hoarder[38]'
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone HAND in Game with Controller Player2
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Loot Hoarder[38]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player2 draws 'Loot Hoarder[39]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Loot Hoarder[39]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player2 draws 'Huge Toad[40]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Huge Toad[40]'.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player2 draws 'Mad Bomber[41]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Mad Bomber[41]'.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Spell: The Coin (NEUTRAL) was created.
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'The Coin[68]'.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Game: Main Begin.
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone PLAY in Game with Controller Player1
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone PLAY in Game with Controller Player2
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone GRAVEYARD in Game with Controller Player1
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone GRAVEYARD in Game with Controller Player2
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player1 draws 'Mad Bomber[11]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Mad Bomber[11]'.
+17.08.2017 10:45:47 - INFO [PLAY] - Game: [T:1/R:0] with CurrentPlayer Player1 [HP:30/M:1]
+17.08.2017 10:45:47 - INFO [PLAY] - Game: EndTurnTask => [Player1]
+17.08.2017 10:45:47 - INFO [PLAY] - Game: End turn proccessed by player 'Player[2]'
+17.08.2017 10:45:47 - INFO [PLAY] - Game: CurentPlayer Player2.
+17.08.2017 10:45:47 - INFO [ACTION] - DrawPhase: Player2 draws 'Stonetusk Boar[42]'
+17.08.2017 10:45:47 - INFO [PLAY] - AddHandPhase: adding to hand 'Stonetusk Boar[42]'.
+17.08.2017 10:45:47 - INFO [PLAY] - Game: [T:2/R:1] with CurrentPlayer Player2 [HP:30/M:1]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - GetSolutions: Depth: 1 --> 0 Splits! [Final: 0]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - Split: found 0 final splits of 0!
+17.08.2017 10:45:47 - INFO [PLAY] - Game: PlayCardTask => [Player2] play 'The Coin[68]'(SPELL)
+17.08.2017 10:45:47 - INFO [ACTION] - PayPhase: Paying 'The Coin[68]' for 0 Mana, remaining mana is 1.
+17.08.2017 10:45:47 - INFO [ACTION] - PlaySpell: Player2 plays Spell 'The Coin[68]' to board.
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['The Coin[68]']: 'TempManaTask' is processed!'Gain 1 Mana Crystal this turn only.'
+17.08.2017 10:45:47 - DUMP [SCRIPT] - GetSolutions: Depth: 1 --> 0 Splits! [Final: 0]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - Split: found 0 final splits of 0!
+17.08.2017 10:45:47 - INFO [PLAY] - Game: PlayCardTask => [Player2] play 'Mad Bomber[41]'(MINION)
+17.08.2017 10:45:47 - INFO [ACTION] - PayPhase: Paying 'Mad Bomber[41]' for 2 Mana, remaining mana is 0.
+17.08.2017 10:45:47 - INFO [ACTION] - PlayMinion: Player2 plays Minion 'Mad Bomber[41]' to board .
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'EnqueueTask' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'StateTaskList`1' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone SETASIDE in Game with Controller Player1
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone SECRET in Game with Controller Player1
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone SETASIDE in Game with Controller Player2
+17.08.2017 10:45:47 - VERBOSE [PLAY] - Zone: Created Zone SECRET in Game with Controller Player2
+17.08.2017 10:45:47 - INFO [ACTION] - Character: 'Anduin Wrynn[4]' took damage for 1(1). 
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'ClearStackTask' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'StateTaskList`1' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - INFO [ACTION] - Character: 'Rexxar[6]' took damage for 1(1). 
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'ClearStackTask' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'StateTaskList`1' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - INFO [ACTION] - Character: 'Anduin Wrynn[4]' took damage for 1(1). 
+17.08.2017 10:45:47 - VERBOSE [TRIGGER] - TaskQueue: LazyTask['Mad Bomber[41]']: 'ClearStackTask' is processed!'<b>Battlecry:</b> Deal 3 damage randomly split between all other characters.'
+17.08.2017 10:45:47 - DUMP [SCRIPT] - GetSolutions: Depth: 1 --> 2 Splits! [Final: 0]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - GetSolutions: Depth: 2 --> 4 Splits! [Final: 0]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - GetSolutions: Depth: 3 --> 0 Splits! [Final: 4]
+17.08.2017 10:45:47 - DUMP [SCRIPT] - Split: found 4 final splits of 8!
+17.08.2017 10:45:47 - DUMP [SCRIPT] - Split:  2,  with 0 same states
+17.08.2017 10:45:47 - DUMP [SCRIPT] - Split:  2,  with 2 same states
