@@ -15,8 +15,8 @@ only_commits:
   files:
   - '**/*.cs'
 
+# All script lines are by default interpreted as batch
 before_build:
-- cmd:
   - REM Restore packages for all projects within solution
   - nuget.exe restore
 
@@ -25,11 +25,12 @@ build:
   parallel: true
   verbosity: minimal
 
+# All script lines are by default interpreted as batch
 test_script:
-- cmd:
   - REM Run the test project (.NET Core)
   - cd ./SabberStoneCoreTest
   - dotnet xunit
+
 artifacts:
 - path: SabberStoneCore\bin\**\Release\**\SabberStoneCore.xml
   name: SabberStoneCore doc
