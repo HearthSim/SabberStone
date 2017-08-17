@@ -49,11 +49,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.Equal(9, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
 
 			Assert.Equal("ICC_481", game.CurrentPlayer.Hero.Card.Id);
 			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 		}
 
 		// ------------------------------------------- HERO - ROGUE
@@ -71,10 +72,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ValeeraTheHollow_ICC_827()
 		{
-			// TODO ValeeraTheHollow_ICC_827 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -85,7 +85,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Valeera the Hollow"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Valeera the Hollow"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal("ICC_827", game.CurrentPlayer.Hero.Card.Id);
+			Assert.Equal("ICC_827p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			Assert.True(game.CurrentPlayer.Hero[GameTag.STEALTH] == 1);
 		}
 
 		// ------------------------------------------ HERO - HUNTER

@@ -17,10 +17,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
-				var minion = p as Minion;
-				if (minion == null)
+				var character = p as ICharacter;
+				if (character == null)
 					return;
-				var buff = new BuffTask(Buffs.StealthTurn(minion.NumAttacksThisTurn), Type);
+				var buff = new BuffTask(Buffs.StealthTurn(character.NumAttacksThisTurn), Type);
 				buff.Copy(this);
 				buff.Process();
 			});

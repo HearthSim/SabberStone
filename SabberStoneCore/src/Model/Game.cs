@@ -299,7 +299,7 @@ namespace SabberStoneCore.Model
 
 			if (Splitting)
 			{
-				var finalSplits = SplitNode.GetSolutions(this, 10, 10000);
+				List<SplitNode> finalSplits = SplitNode.GetSolutions(this, 10, 10000);
 				Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState + 1)}!");
 				finalSplits.GroupBy(p => p.SameState)
 					.Select(i => new { Word = i.Key, Count = i.Count() })

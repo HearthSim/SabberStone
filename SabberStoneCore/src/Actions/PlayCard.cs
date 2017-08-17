@@ -47,7 +47,6 @@ namespace SabberStoneCore.Actions
 				}
 				if (source is Hero)
 				{
-					OnPlayTrigger.Invoke(c, (Hero)source);
 					PlayHero.Invoke(c, (Hero)source, target);
 				}
 				else if (source is Minion)
@@ -193,9 +192,7 @@ namespace SabberStoneCore.Actions
 					hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
-
-				c.GraveyardZone.Add(hero);
-			
+		
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				hero.JustPlayed = false;

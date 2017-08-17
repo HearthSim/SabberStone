@@ -27,12 +27,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HERO_POWER = 42982
 			// --------------------------------------------------------
 			cards.Add("ICC_481", new List<Enchantment> {
-				// TODO [ICC_481] Thrall, Deathseer && Test: Thrall, Deathseer_ICC_481
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-							new TransformMinionTask(EntityType.MINIONS, 2))
+					SingleTask = new TransformMinionTask(EntityType.MINIONS, 2)
 				},
 			});
 
@@ -52,12 +50,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_827", new List<Enchantment> {
-				// TODO [ICC_827] Valeera the Hollow && Test: Valeera the Hollow_ICC_827
 				new Enchantment
 				{
 					InfoCardId = "ICC_827e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new BuffStealthTask(EntityType.HERO)
 				},
 			});
 
@@ -902,14 +899,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
-			cards.Add("ICCA08_023e", new List<Enchantment> {
-				// TODO [ICCA08_023e] Plagued && Test: Plagued_ICCA08_023e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA08_023e", null);
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t2] Army of the Dead (*) - COST:6 
@@ -1529,14 +1519,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_047e", new List<Enchantment> {
-				// TODO [ICC_047e] Growth && Test: Growth_ICC_047e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_047e", null);
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_079e] Gnash (*) - COST:0 
@@ -1547,14 +1530,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_079e", new List<Enchantment> {
-				// TODO [ICC_079e] Gnash && Test: Gnash_ICC_079e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_079e", null);
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_808e] Might of Ner'ub (*) - COST:0 
@@ -1562,14 +1538,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_808e", new List<Enchantment> {
-				// TODO [ICC_808e] Might of Ner'ub && Test: Might of Ner'ub_ICC_808e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_808e", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_047t] Fatespinner (*) - COST:5 [ATK:5/HP:3] 
@@ -2031,14 +2000,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CANT_BE_SILENCED = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_828e", new List<Enchantment> {
-				// TODO [ICC_828e] Stitched && Test: Stitched_ICC_828e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_828e", null);
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_828t] Zombeast (*) - COST:0 [ATK:1/HP:1] 
@@ -2487,14 +2449,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_071e", new List<Enchantment> {
-				// TODO [ICC_071e] Dying Light && Test: Dying Light_ICC_071e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_071e", null);
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_244e] Redeemed (*) - COST:0 
@@ -2502,14 +2457,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Return this to life with 1 Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_244e", new List<Enchantment> {
-				// TODO [ICC_244e] Redeemed && Test: Redeemed_ICC_244e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_244e", null);
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_858e] Fading Light (*) - COST:0 
@@ -2517,14 +2465,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_858e", new List<Enchantment> {
-				// TODO [ICC_858e] Fading Light && Test: Fading Light_ICC_858e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_858e", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t2] Deathlord Nazgrim (*) - COST:2 [ATK:2/HP:2] 
@@ -2798,14 +2739,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stats increased.
 			// --------------------------------------------------------
-			cards.Add("ICC_210e", new List<Enchantment> {
-				// TODO [ICC_210e] Ascended && Test: Ascended_ICC_210e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_210e", null);
 
 		}
 
@@ -3019,14 +2953,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_018e", new List<Enchantment> {
-				// TODO [ICC_018e] Witty Weaponplay && Test: Witty Weaponplay_ICC_018e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_018e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_221e] Leeching Poison (*) - COST:0 
@@ -3034,14 +2961,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
-			cards.Add("ICC_221e", new List<Enchantment> {
-				// TODO [ICC_221e] Leeching Poison && Test: Leeching Poison_ICC_221e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_221e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_240e] Resilient Weapon (*) - COST:0 
@@ -3049,14 +2969,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: No durability loss.
 			// --------------------------------------------------------
-			cards.Add("ICC_240e", new List<Enchantment> {
-				// TODO [ICC_240e] Resilient Weapon && Test: Resilient Weapon_ICC_240e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_240e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_809e] Test Subject (*) - COST:0 
@@ -3067,14 +2980,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_809e", new List<Enchantment> {
-				// TODO [ICC_809e] Test Subject && Test: Test Subject_ICC_809e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_809e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_827e] Shadow Reflection (*) - COST:0 
@@ -3082,15 +2988,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Always copy your last played card.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e", new List<Enchantment> {
-				// TODO [ICC_827e] Shadow Reflection && Test: Shadow Reflection_ICC_827e
-				new Enchantment
-				{
-					InfoCardId = "ICC_827e3",
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_827e", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_827e3] Veil of Shadows (*) - COST:0 
@@ -3098,14 +2996,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b> until your next turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e3", new List<Enchantment> {
-				// TODO [ICC_827e3] Veil of Shadows && Test: Veil of Shadows_ICC_827e3
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_827e3", null);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_850e] Shaded (*) - COST:0 
@@ -3116,14 +3007,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_850e", new List<Enchantment> {
-				// TODO [ICC_850e] Shaded && Test: Shaded_ICC_850e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_850e", null);
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [ICC_827t] Shadow Reflection (*) - COST:0 
@@ -4640,14 +4524,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_028e", new List<Enchantment> {
-				// TODO [ICC_028e] Blessing of the Val'kyr && Test: Blessing of the Val'kyr_ICC_028e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_028e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_029e] Dragonscales (*) - COST:0 
@@ -4655,14 +4532,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Attack increased.
 			// --------------------------------------------------------
-			cards.Add("ICC_029e", new List<Enchantment> {
-				// TODO [ICC_029e] Dragonscales && Test: Dragonscales_ICC_029e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_029e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_031e] Awooooo! (*) - COST:0 
@@ -4670,14 +4540,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_031e", new List<Enchantment> {
-				// TODO [ICC_031e] Awooooo! && Test: Awooooo!_ICC_031e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_031e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_039e] Convinced (*) - COST:0 
@@ -4685,14 +4548,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
-			cards.Add("ICC_039e", new List<Enchantment> {
-				// TODO [ICC_039e] Convinced && Test: Convinced_ICC_039e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_039e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_049e] Toxic Arrow (*) - COST:0 
@@ -4700,14 +4556,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Poisonous.
 			// --------------------------------------------------------
-			cards.Add("ICC_049e", new List<Enchantment> {
-				// TODO [ICC_049e] Toxic Arrow && Test: Toxic Arrow_ICC_049e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_049e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_056e] Frozen Blood (*) - COST:0 
@@ -4715,14 +4564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("ICC_056e", new List<Enchantment> {
-				// TODO [ICC_056e] Frozen Blood && Test: Frozen Blood_ICC_056e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_056e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_092e] Veteran's Favor (*) - COST:0 
@@ -4730,14 +4572,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_092e", new List<Enchantment> {
-				// TODO [ICC_092e] Veteran's Favor && Test: Veteran's Favor_ICC_092e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_092e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_093e] Fresh Fish! (*) - COST:0 
@@ -4745,14 +4580,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_093e", new List<Enchantment> {
-				// TODO [ICC_093e] Fresh Fish! && Test: Fresh Fish!_ICC_093e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_093e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_094e] Cleric's Blessing (*) - COST:0 
@@ -4760,14 +4588,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_094e", new List<Enchantment> {
-				// TODO [ICC_094e] Cleric's Blessing && Test: Cleric's Blessing_ICC_094e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_094e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_096e] Me Bigger (*) - COST:0 
@@ -4775,14 +4596,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_096e", new List<Enchantment> {
-				// TODO [ICC_096e] Me Bigger && Test: Me Bigger_ICC_096e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_096e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_097e] Armed and Dangerous (*) - COST:0 
@@ -4790,14 +4604,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_097e", new List<Enchantment> {
-				// TODO [ICC_097e] Armed and Dangerous && Test: Armed and Dangerous_ICC_097e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_097e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_235e] Shadow Essence (*) - COST:0 
@@ -4805,14 +4612,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 5.
 			// --------------------------------------------------------
-			cards.Add("ICC_235e", new List<Enchantment> {
-				// TODO [ICC_235e] Shadow Essence && Test: Shadow Essence_ICC_235e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_235e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_257e] Ready to Return (*) - COST:0 
@@ -4820,14 +4620,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_257e", new List<Enchantment> {
-				// TODO [ICC_257e] Ready to Return && Test: Ready to Return_ICC_257e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_257e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_314t1e] Trapped Soul (*) - COST:0 
@@ -4835,14 +4628,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: {0}
 			// --------------------------------------------------------
-			cards.Add("ICC_314t1e", new List<Enchantment> {
-				// TODO [ICC_314t1e] Trapped Soul && Test: Trapped Soul_ICC_314t1e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_314t1e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_314t7e] Anti-Magic Shell (*) - COST:0 
@@ -4854,14 +4640,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t7e", new List<Enchantment> {
-				// TODO [ICC_314t7e] Anti-Magic Shell && Test: Anti-Magic Shell_ICC_314t7e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_314t7e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_450e] Bloodthirsty (*) - COST:0 
@@ -4869,14 +4648,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_450e", new List<Enchantment> {
-				// TODO [ICC_450e] Bloodthirsty && Test: Bloodthirsty_ICC_450e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_450e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_467e] Deathward (*) - COST:0 
@@ -4887,27 +4659,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_467e", new List<Enchantment> {
-				// TODO [ICC_467e] Deathward && Test: Deathward_ICC_467e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_467e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_483e] Frostmourne Enchantment (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_483e", new List<Enchantment> {
-				// TODO [ICC_483e] Frostmourne Enchantment && Test: Frostmourne Enchantment_ICC_483e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_483e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_705e] Bonemare's Boon (*) - COST:0 
@@ -4915,14 +4673,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +4/+4 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_705e", new List<Enchantment> {
-				// TODO [ICC_705e] Bonemare's Boon && Test: Bonemare's Boon_ICC_705e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_705e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_807e] Strongshell (*) - COST:0 
@@ -4930,14 +4681,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_807e", new List<Enchantment> {
-				// TODO [ICC_807e] Strongshell && Test: Strongshell_ICC_807e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_807e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_810e] Bloodthirsty (*) - COST:0 
@@ -4945,14 +4689,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2 from Deathaxe Punisher.
 			// --------------------------------------------------------
-			cards.Add("ICC_810e", new List<Enchantment> {
-				// TODO [ICC_810e] Bloodthirsty && Test: Bloodthirsty_ICC_810e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_810e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_832e] Fangs (*) - COST:0 
@@ -4963,14 +4700,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832e", new List<Enchantment> {
-				// TODO [ICC_832e] Fangs && Test: Fangs_ICC_832e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_832e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_833e] Frost Lich (*) - COST:0 
@@ -4981,15 +4711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833e", new List<Enchantment> {
-				// TODO [ICC_833e] Frost Lich && Test: Frost Lich_ICC_833e
-				new Enchantment
-				{
-					InfoCardId = "ICC_833e2",
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_833e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_833e2] Icy Veins (*) - COST:0 
@@ -5000,14 +4722,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833e2", new List<Enchantment> {
-				// TODO [ICC_833e2] Icy Veins && Test: Icy Veins_ICC_833e2
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_833e2", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_837e] Challenged (*) - COST:0 
@@ -5015,14 +4730,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Minion cost reduced by (2).
 			// --------------------------------------------------------
-			cards.Add("ICC_837e", new List<Enchantment> {
-				// TODO [ICC_837e] Challenged && Test: Challenged_ICC_837e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_837e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_841e] Vampiric Bite (*) - COST:0 
@@ -5030,14 +4738,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_841e", new List<Enchantment> {
-				// TODO [ICC_841e] Vampiric Bite && Test: Vampiric Bite_ICC_841e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_841e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_849e] Embraced (*) - COST:0 
@@ -5045,14 +4746,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: At the start of the next turn, lose control of this minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_849e", new List<Enchantment> {
-				// TODO [ICC_849e] Embraced && Test: Embraced_ICC_849e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_849e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_851e] Keleseth's Blessing (*) - COST:0 
@@ -5060,14 +4754,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_851e", new List<Enchantment> {
-				// TODO [ICC_851e] Keleseth's Blessing && Test: Keleseth's Blessing_ICC_851e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_851e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_852e] Taldaram's Visage (*) - COST:0 
@@ -5075,14 +4762,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 3/3.
 			// --------------------------------------------------------
-			cards.Add("ICC_852e", new List<Enchantment> {
-				// TODO [ICC_852e] Taldaram's Visage && Test: Taldaram's Visage_ICC_852e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_852e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_903t] Bloodthirst (*) - COST:0 
@@ -5090,14 +4770,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_903t", new List<Enchantment> {
-				// TODO [ICC_903t] Bloodthirst && Test: Bloodthirst_ICC_903t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_903t", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_904e] Extra Calcium (*) - COST:0 
@@ -5105,14 +4778,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_904e", new List<Enchantment> {
-				// TODO [ICC_904e] Extra Calcium && Test: Extra Calcium_ICC_904e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_904e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICCA05_002e] Bitten! (*) - COST:0 
@@ -5120,14 +4786,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2. Can't be bitten again.
 			// --------------------------------------------------------
-			cards.Add("ICCA05_002e", new List<Enchantment> {
-				// TODO [ICCA05_002e] Bitten! && Test: Bitten!_ICCA05_002e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA05_002e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICCA07_004e] Grow (*) - COST:0 
@@ -5135,44 +4794,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: The ooze is growing.
 			// --------------------------------------------------------
-			cards.Add("ICCA07_004e", new List<Enchantment> {
-				// TODO [ICCA07_004e] Grow && Test: Grow_ICCA07_004e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA07_004e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICCA08_022e] Join the Ranks Player Enchantment (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_022e", new List<Enchantment> {
-				// TODO [ICCA08_022e] Join the Ranks Player Enchantment && Test: Join the Ranks Player Enchantment_ICCA08_022e
-				new Enchantment
-				{
-					InfoCardId = "ICCA08_022e2",
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA08_022e", null);
 
-			// ---------------------------------- 
-
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICCA08_022e2] Join the Ranks (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
 			// Text: When this dies, resummon it for your oponent.
 			// --------------------------------------------------------
-			cards.Add("ICCA08_022e2", new List<Enchantment> {
-				// TODO [ICCA08_022e2] Join the Ranks && Test: Join the Ranks_ICCA08_022e2
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICCA08_022e2", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_019t] Skeletal Flayer (*) - COST:8 [ATK:8/HP:8] 

@@ -251,12 +251,16 @@ namespace SabberStoneCore.Model.Entities
 					break;
 
 				case CardType.HERO:
-					tags[GameTag.HEALTH] = card[GameTag.HEALTH];
+
+					// removing this because it's always the cards health or it is given by previous heros like for deathknight
+					//tags[GameTag.HEALTH] = card[GameTag.HEALTH];
+
 					tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 					//tags[GameTag.FACTION] = card[GameTag.FACTION];
 					tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
 					//tags[GameTag.HERO_POWER] = card[GameTag.HERO_POWER];
+
 					result = new Hero(controller, card, tags);
 					break;
 
