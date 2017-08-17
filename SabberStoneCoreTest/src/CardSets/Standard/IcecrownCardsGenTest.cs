@@ -4132,21 +4132,37 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FallenSunCleric_ICC_094()
 		{
-			// TODO FallenSunCleric_ICC_094 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.WARRIOR,
 				FillDecks = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fallen Sun Cleric"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fallen Sun Cleric"));
+			IPlayable silenceSpell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.BoardZone[0]));
+
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silenceSpell, game.CurrentPlayer.BoardZone[0]));
+
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4788,10 +4804,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SPELLPOWER = 2
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Spellweaver_ICC_856()
 		{
-			// TODO Spellweaver_ICC_856 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4802,7 +4817,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellweaver"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellweaver"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(8, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4998,10 +5017,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - SPELLPOWER = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TaintedZealot_ICC_913()
 		{
-			// TODO TaintedZealot_ICC_913 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5012,7 +5030,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tainted Zealot"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tainted Zealot"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
 		}
 
 	}
