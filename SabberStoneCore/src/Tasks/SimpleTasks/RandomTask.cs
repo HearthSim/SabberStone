@@ -94,6 +94,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				entities.Remove(randPlayable);
 				Playables.Add(randPlayable);
 			}
+
+			Game.OnRandomHappened(true);
+
 			return TaskState.COMPLETE;
 		}
 
