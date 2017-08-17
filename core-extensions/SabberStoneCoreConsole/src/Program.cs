@@ -25,13 +25,13 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
-			GameSplitTest1();
+			//GameSplitTest1();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
@@ -806,7 +806,7 @@ namespace SabberStoneCoreConsole
 
 			ShowLog(game, LogLevel.DEBUG);
 
-			Console.WriteLine(testCard[GameTag.STEALTH]);
+			Console.WriteLine(game.CurrentPlayer.Hero[GameTag.STEALTH]);
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

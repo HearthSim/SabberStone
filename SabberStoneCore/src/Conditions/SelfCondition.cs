@@ -49,7 +49,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsCthun => new SelfCondition(me => me.Card.Id.Equals("OG_280"));
 		public static SelfCondition IsSilverHandRecruit => new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
 		public static SelfCondition IsSpellDmgOnHero => new SelfCondition(me => me.Controller.Hero.SpellPowerDamage > 0);
-		public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is Minion && ((Minion)me).NumAttacksThisTurn == number);
+		public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is ICharacter && ((ICharacter)me).NumAttacksThisTurn == number);
 		public static SelfCondition IsCardId(string cardId) => new SelfCondition(me => me.Card == Cards.FromId(cardId));
 		public static SelfCondition IsNotCardClass(CardClass cardClass) => new SelfCondition(me => me.Card.Class != cardClass);
 
@@ -66,7 +66,12 @@ namespace SabberStoneCore.Conditions
 
 		public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.GraveyardZone.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
 
-		public static SelfCondition IsInZone(params Zone[] zones) => new SelfCondition(me => me.Zone != null && zones.Contains(me.Zone.Type));
+		public static SelfCondition IsInZone(params Zone[] zones)
+		{
+			// entities that don't have a real zone like Heroes are checked on the gametag value
+			return new SelfCondition(me => me.Zone == null && zones.Contains((Zone)me[GameTag.ZONE]) || me.Zone != null && zones.Contains(me.Zone.Type));
+		}
+
 		public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
 		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
 		public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.DeckZone.GroupBy(x => new { x.Card.Id }).Any(x => x.Skip(1).Any()));

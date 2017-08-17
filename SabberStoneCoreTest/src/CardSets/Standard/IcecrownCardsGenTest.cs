@@ -91,6 +91,10 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal("ICC_827p", game.CurrentPlayer.Hero.Power.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 			Assert.True(game.CurrentPlayer.Hero[GameTag.STEALTH] == 1);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.True(game.CurrentOpponent.Hero[GameTag.STEALTH] == 1);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.True(game.CurrentPlayer.Hero[GameTag.STEALTH] == 0);
 		}
 
 		// ------------------------------------------ HERO - HUNTER
