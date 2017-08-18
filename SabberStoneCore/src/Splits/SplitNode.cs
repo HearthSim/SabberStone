@@ -23,6 +23,7 @@ namespace SabberStoneCore.Splits
 		public SplitNode(SplitNode parent, Game root, Game game, bool isRoot = false)
 		{
 			_parent = parent;
+			SameState = parent?.SameState ?? 1;
 			_root = root;
 			Game = game;
 
@@ -84,7 +85,7 @@ namespace SabberStoneCore.Splits
 					{
 						if (uniqueFinalSplits.ContainsKey(p.Hash))
 						{
-							uniqueFinalSplits[p.Hash].SameState++;
+							uniqueFinalSplits[p.Hash].SameState += p.SameState;
 						}
 						else
 						{
@@ -94,19 +95,20 @@ namespace SabberStoneCore.Splits
 					else
 					{
 						if (!uniques.ContainsKey(p.Hash))
+						{
 							uniques.Add(p.Hash, p);
+						}
+						else
+							uniques[p.Hash].SameState += p.SameState;
 					}
 				});
 				depthNodes = uniques.Values.ToList();
-
 				game.Dump("GetSolutions", $"Depth: {i + 1} --> {depthNodes.Count} Splits! [Final: {uniqueFinalSplits.Values.Count}]");
 			}
-			var totalNumberStates = uniqueFinalSplits.Values.Sum(a => a.SameState);
-			foreach (var uniqueFinalSplit in uniqueFinalSplits)
-			{
-				uniqueFinalSplit.Value.Probability = uniqueFinalSplit.Value.SameState * 1.0 / totalNumberStates;
-			}
-			return uniqueFinalSplits.Values.ToList();
+			var finalStates = uniqueFinalSplits.Values.ToList();
+			var totalNumStates = finalStates.Sum(a => a.SameState);
+			finalStates.ForEach(a => a.Probability = a.SameState * 1.0 / totalNumStates);
+			return finalStates;
 		}
 
 	}

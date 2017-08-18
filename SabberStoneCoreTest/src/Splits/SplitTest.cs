@@ -30,6 +30,10 @@ namespace SabberStoneCoreTest.Splits
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(4, game.FinalSplits.Count);
 			Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState));
+			Assert.Equal(0.125, game.FinalSplits[0].Probability);
+			Assert.Equal(0.375, game.FinalSplits[1].Probability);
+			Assert.Equal(0.375, game.FinalSplits[2].Probability);
+			Assert.Equal(0.125, game.FinalSplits[3].Probability);
 		}
 
 		[Fact]
