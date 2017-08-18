@@ -489,7 +489,7 @@ namespace SabberStoneCore.CardSets.Standard
 							new IncludeTask(EntityType.SOURCE),
 							new FuncPlayablesTask(list =>
 							{
-								var controller = list[0].Controller;
+								Controller controller = list[0].Controller;
 								var basicTotem = new List<string>
 								{
 									"CS2_050",

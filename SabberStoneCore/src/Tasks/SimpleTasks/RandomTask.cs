@@ -82,15 +82,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count == 0)
 				return TaskState.STOP;
 
 			Playables = new List<IPlayable>();
-			for (var i = 0; i < Amount && entities.Count > 0; i++)
+			for (int i = 0; i < Amount && entities.Count > 0; i++)
 			{
-				var randPlayable = Util.Choose<IPlayable>(entities);
+				IPlayable randPlayable = Util.Choose<IPlayable>(entities);
 				entities.Remove(randPlayable);
 				Playables.Add(randPlayable);
 			}

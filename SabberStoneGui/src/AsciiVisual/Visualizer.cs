@@ -14,8 +14,8 @@ namespace SabberStoneGui.AsciiVisual
 
 		public static string Visualize(Game currentGame)
 		{
-			var p1 = ManaString(currentGame.Player1);
-			var p2 = ManaString(currentGame.Player2);
+			string p1 = ManaString(currentGame.Player1);
+			string p2 = ManaString(currentGame.Player2);
 
 			var handAStr = new StringBuilder();
 			handAStr.AppendLine("+-" + currentGame.Player1.Hero.Controller.Name.PadRight(10).Substring(0, 10) + "-".PadLeft(57, '-') + "[" + p1 + "]-+" + "-".PadLeft(9, '-') + "+");
@@ -44,13 +44,13 @@ namespace SabberStoneGui.AsciiVisual
 
 		private static string CreateHero(Hero hero, bool turn)
 		{
-			var cardCnt = 1;
+			int cardCnt = 1;
 
 			var zoneStr = new StringBuilder();
 
-			var spacer = new string(' ', 5 * (8 - cardCnt) + cardCnt + 1);
+			string spacer = new string(' ', 5 * (8 - cardCnt) + cardCnt + 1);
 
-			var zoneStrArray = new[]
+			StringBuilder[] zoneStrArray = new[]
 			{
 				new StringBuilder("¦" + spacer),
 				new StringBuilder("¦" + spacer),
@@ -60,7 +60,7 @@ namespace SabberStoneGui.AsciiVisual
 				new StringBuilder("¦" + spacer),
 			};
 
-			var cardAscii = new CardAsciiBuilder().Create()
+			char[][] cardAscii = new CardAsciiBuilder().Create()
 				.Name(hero.Card.Name)
 				.Exhausted(hero.IsExhausted)
 				.HeroPowerExhausted(hero.Power.IsExhausted)
@@ -73,7 +73,7 @@ namespace SabberStoneGui.AsciiVisual
 				.Windfury(hero.IsFrozen)
 				.Build();
 
-			var x = turn ? 1 : 0;
+			int x = turn ? 1 : 0;
 			zoneStrArray[0 + x].Append(new string(cardAscii[0]));
 			zoneStrArray[1 + x].Append(new string(cardAscii[1]));
 			zoneStrArray[2 + x].Append(new string(cardAscii[2]));
@@ -87,10 +87,10 @@ namespace SabberStoneGui.AsciiVisual
 			zoneStrArray[4].Append(" ");
 			zoneStrArray[5].Append(" ");
 
-			var zoneAscii = new CardAsciiBuilder().Create().ZoneCards(hero.Controller.SecretZone.Count, hero.Controller.SecretZone.Type).Build();
+			char[][] zoneAscii = new CardAsciiBuilder().Create().ZoneCards(hero.Controller.SecretZone.Count, hero.Controller.SecretZone.Type).Build();
 
-			var y = turn ? 1 : 0;
-			var backStrArray = new[] { "", "", "", "", "", "" };
+			int y = turn ? 1 : 0;
+			string[] backStrArray = new[] { "", "", "", "", "", "" };
 			backStrArray[0 + y] = new string(zoneAscii[0]);
 			backStrArray[1 + y] = new string(zoneAscii[1]);
 			backStrArray[2 + y] = new string(zoneAscii[2]);
@@ -181,7 +181,7 @@ namespace SabberStoneGui.AsciiVisual
 						.Build();
 				}
 
-				var x = turn ? 1 : 0;
+				int x = turn ? 1 : 0;
 				zoneStrArray[0 + x].Append(new string(cardAscii[0]));
 				zoneStrArray[1 + x].Append(new string(cardAscii[1]));
 				zoneStrArray[2 + x].Append(new string(cardAscii[2]));
@@ -200,10 +200,10 @@ namespace SabberStoneGui.AsciiVisual
 				}
 			}
 
-			var backStrArray = new string[] { "", "", "", "", "", "" };
+			string[] backStrArray = new string[] { "", "", "", "", "", "" };
 
-			var zoneAscii = new CardAsciiBuilder().Create().ZoneCards(outzone.Count, outzone.Type).Build();
-			var y = turn ? 1 : 0;
+			char[][] zoneAscii = new CardAsciiBuilder().Create().ZoneCards(outzone.Count, outzone.Type).Build();
+			int y = turn ? 1 : 0;
 			backStrArray[0 + y] = new string(zoneAscii[0]);
 			backStrArray[1 + y] = new string(zoneAscii[1]);
 			backStrArray[2 + y] = new string(zoneAscii[2]);

@@ -37,15 +37,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
-			var cards = Card == null
+			List<Card> cards = Card == null
 				? Cards.All.Where(p => p.Collectible && p.Rarity == Rarity).ToList()
 				: new List<Card> { Card };
 
 			entities.ForEach(p =>
 			{
-				var zone = p.Zone;
+				Model.Zones.IZone zone = p.Zone;
 				Controller.SetasideZone.Add(zone.Remove(p));
 				zone.Add(Entity.FromCard(Controller, cards.Count > 1 ? Util.RandomElement(cards) : cards.First()));
 			});

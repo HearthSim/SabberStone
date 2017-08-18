@@ -800,7 +800,7 @@ namespace SabberStoneCore.CardSets
 							new IncludeTask(EntityType.SOURCE),
 							new FuncPlayablesTask(p =>
 							{
-								var controller = p[0].Controller;
+								Controller controller = p[0].Controller;
 								return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
 							}),
 							new CopyTask(EntityType.STACK, 1),

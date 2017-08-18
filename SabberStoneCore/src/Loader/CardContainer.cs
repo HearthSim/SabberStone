@@ -31,7 +31,7 @@ namespace SabberStoneCore.Loader
 			foreach (Card c in Cards.Values)
 			{
 				List<Enchantment> list;
-				if (Enchantments.Instance.Get().TryGetValue(c.Id, out list))
+				if (Enchantments.Instance.Get.TryGetValue(c.Id, out list))
 				{
 					c.Enchantments = list;
 					c.Implemented = list == null || c.Enchantments[0].Activation != EnchantmentActivation.NONE &&

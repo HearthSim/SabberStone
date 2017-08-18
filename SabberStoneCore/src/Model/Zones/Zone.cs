@@ -201,7 +201,7 @@ namespace SabberStoneCore.Model.Zones
 			{
 				var m = p as Minion;
 				var w = p as Weapon;
-				var mStr = m != null ? $"[{m.AttackDamage}/{m.Health}]" : (w != null ? $"[{w.AttackDamage}/{w.Durability}]" : "");
+				string mStr = m != null ? $"[{m.AttackDamage}/{m.Health}]" : (w != null ? $"[{w.AttackDamage}/{w.Durability}]" : "");
 				str.Append($"[P{p.ZonePosition}]{mStr}[C{p.Cost}]{p}|");
 			});
 			str.Append($"[ENCH {Enchants.Count}]");

@@ -26,7 +26,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player2HeroClass = CardClass.DRUID,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -56,7 +57,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -86,7 +88,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -116,7 +119,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -146,7 +150,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -179,7 +184,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -210,7 +216,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -240,7 +247,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -271,7 +279,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -301,7 +310,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -327,7 +337,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -353,7 +364,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -382,7 +394,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -408,7 +421,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -434,15 +448,16 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Egg"));
+			SabberStoneCore.Model.Entities.IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Egg"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			SabberStoneCore.Model.Entities.IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal("FP1_007t", game.CurrentOpponent.BoardZone[0].Card.Id);
@@ -467,7 +482,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -494,7 +510,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -521,7 +538,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -549,7 +567,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -575,7 +594,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -602,7 +622,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -629,7 +650,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -658,7 +680,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -687,7 +710,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -714,7 +738,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -737,7 +762,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -763,7 +789,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -789,7 +816,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -816,7 +844,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -846,7 +875,8 @@ namespace SabberStoneCoreTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;

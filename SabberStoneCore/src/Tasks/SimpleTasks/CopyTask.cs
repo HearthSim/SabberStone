@@ -32,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return TaskState.STOP;
 					}
-					for (var i = 0; i < Amount; i++)
+					for (int i = 0; i < Amount; i++)
 					{
 						result.Add(Opposite ?
 							Entity.FromCard(target.Controller.Opponent, Cards.FromId(target.Card.Id)) :
@@ -45,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return TaskState.STOP;
 					}
-					for (var i = 0; i < Amount; i++)
+					for (int i = 0; i < Amount; i++)
 					{
 						result.Add(Opposite ?
 							Entity.FromCard(source.Controller.Opponent, Cards.FromId(source.Card.Id)) :
@@ -59,7 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					Playables.ForEach(p =>
 					{
-						for (var i = 0; i < Amount; i++)
+						for (int i = 0; i < Amount; i++)
 						{
 							result.Add(Opposite ?
 								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id)) :

@@ -17,8 +17,8 @@ namespace SabberStoneCoreConsole
 			cardDefsXml.Descendants("Entity").ToList().ForEach(p1 => p1.Descendants().Where(t => t.Attribute("enumID") != null).ToList().ForEach(
 				p2 =>
 				{
-					var enumId = int.Parse(p2.Attribute("enumID").Value);
-					var name = p2.Attribute("name");
+					int enumId = int.Parse(p2.Attribute("enumID").Value);
+					XAttribute name = p2.Attribute("name");
 					if (!gameTags.ContainsKey(enumId) && name != null)
 					{
 						gameTags.Add(enumId, name.Value);
@@ -96,7 +96,7 @@ namespace SabberStoneCoreConsole
 				};
 
 				// Get unique int and bool tags, ignore duplicate and string tags
-				foreach (var tag in card.Tags)
+				foreach (Tag tag in card.Tags)
 				{
 					if (c.Tags.ContainsKey(tag.GameTag))
 						continue;
@@ -123,7 +123,7 @@ namespace SabberStoneCoreConsole
 					}
 				}
 
-				foreach (var tag in card.ReferenzTag)
+				foreach (Tag tag in card.ReferenzTag)
 				{
 					if (c.RefTags.ContainsKey(tag.GameTag))
 						continue;

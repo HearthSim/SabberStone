@@ -56,7 +56,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 			var cardsList = cards.Where(p => p.Type == CardType.MINION
 				&& (RelaSign == RelaSign.EQ && p[Tag] == Value
 				 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
@@ -69,7 +69,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var randomMinions = new List<IPlayable>();
 			while (randomMinions.Count < Amount && cardsList.Count > 0)
 			{
-				var card = Util.Choose<Card>(cardsList);
+				Card card = Util.Choose<Card>(cardsList);
 				cardsList.Remove(card);
 				randomMinions.Add(Entity.FromCard(Controller, card));
 			}

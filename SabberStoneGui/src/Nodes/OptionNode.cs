@@ -59,7 +59,7 @@ namespace SabberStoneCoreGui.Nodes
 		{
 			_game.Process(PlayerTask);
 
-			var controller = _game.ControllerById(_playerId);
+			SabberStoneCore.Model.Entities.Controller controller = _game.ControllerById(_playerId);
 
 			_gameState = _game.State == State.RUNNING ? 0
 				: (controller.PlayState == PlayState.WON ? 1 : -1);
@@ -97,9 +97,9 @@ namespace SabberStoneCoreGui.Nodes
 		//}
 		public void Options(ref ConcurrentDictionary<string, OptionNode> optionNodes)
 		{
-			var options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
+			List<PlayerTask> options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
 
-			foreach (var option in options)
+			foreach (PlayerTask option in options)
 			{
 				var optionNode = new OptionNode(this, _game, _playerId, option, Scoring);
 				optionNodes.TryAdd(optionNode.Hash, optionNode);

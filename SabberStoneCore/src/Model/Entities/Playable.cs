@@ -145,10 +145,10 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// check requirments on cards here 
-				foreach (var item in Card.PlayRequirements)
+				foreach (KeyValuePair<PlayReq, int> item in Card.PlayRequirements)
 				{
-					var req = item.Key;
-					var param = item.Value;
+					PlayReq req = item.Key;
+					int param = item.Value;
 
 					Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
 
@@ -163,7 +163,7 @@ namespace SabberStoneCore.Model.Entities
 							break;
 						case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
 							var ids = Controller.BoardZone.GetAll.Select(p => p.Card.Id).ToList();
-							var containsAll = true;
+							bool containsAll = true;
 							Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
 							if (containsAll)
 							{

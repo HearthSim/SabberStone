@@ -34,16 +34,16 @@ namespace SabberStoneKettleSimulator
 			// Start the game and send the following powerhistory to the client
 			_game.StartGame();
 
-			var powerHistory = _game.PowerHistory.Last;
+			List<IPowerHistoryEntry> powerHistory = _game.PowerHistory.Last;
 
-			foreach (var h in powerHistory)
+			foreach (IPowerHistoryEntry h in powerHistory)
 				QueuePacket(KettleHistoryEntry.From(h));
 			SendQueue();
 
-			var entityChoices1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
+			PowerEntityChoices entityChoices1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
 			SendPacket(new KettleEntityChoices(entityChoices1));
 
-			var entityChoices2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
+			PowerEntityChoices entityChoices2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
 			SendPacket(new KettleEntityChoices(entityChoices2));
 
 			KettleAdapter.OnChooseEntitiesDelegate handleMulligan = null;
@@ -168,7 +168,7 @@ namespace SabberStoneKettleSimulator
 		private static List<KettleHistoryFullEntity> CreateFullEntitiesA()
 		{
 			var list = new List<KettleHistoryFullEntity>();
-			for (var i = 0; i < 60; i++)
+			for (int i = 0; i < 60; i++)
 			{
 				list.Add(CreateEntityCreate(i + 8, "", new Dictionary<int, int>
 				{

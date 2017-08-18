@@ -41,8 +41,8 @@ namespace SabberStoneGui
 			var worker = sender as BackgroundWorker;
 			var parameters = e.Argument as List<object>;
 
-			var maxDepth = (int)parameters[0];
-			var maxWidth = (int)parameters[1];
+			int maxDepth = (int)parameters[0];
+			int maxWidth = (int)parameters[1];
 			var scoring = (IScore)parameters[2];
 
 			var depthNodes = new Dictionary<string, OptionNode>
@@ -50,12 +50,12 @@ namespace SabberStoneGui
 				["root"] = new OptionNode(null, CurrentGame, CurrentGame.CurrentPlayer.Id, null, scoring)
 			};
 			var endTurnNodes = new List<OptionNode>();
-			for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
+			for (int i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
 			{
 				//var nextDepthNodes = new Dictionary<string, OptionNode>();
 				var nextDepthNodes = new ConcurrentDictionary<string, OptionNode>();
-				var countNodes = 0;
-				var countNodesTot = depthNodes.Values.Count;
+				int countNodes = 0;
+				int countNodesTot = depthNodes.Values.Count;
 				//foreach (var option in depthNodes.Values)
 				//{
 				//	countNodes++;
@@ -63,19 +63,19 @@ namespace SabberStoneGui
 				//	option.Options(ref nextDepthNodes);
 				//}
 				var tasks = new List<Task>();
-				foreach (var option in depthNodes.Values)
+				foreach (OptionNode option in depthNodes.Values)
 				{
 					tasks.Add(new Task(() =>
 					{
 						option.Options(ref nextDepthNodes);
-						var inner = Task.Factory.StartNew(() =>
+						Task inner = Task.Factory.StartNew(() =>
 						{
 							Interlocked.Increment(ref countNodes);
 							worker?.ReportProgress(countNodes, countNodesTot);
 						}, TaskCreationOptions.AttachedToParent);
 					}));
 				}
-				foreach (var task in tasks)
+				foreach (Task task in tasks)
 					task.Start();
 				Task.WaitAll(tasks.ToArray());
 
@@ -119,12 +119,12 @@ namespace SabberStoneGui
 			});
 
 			var opEndTurnNodes = new List<OptionNode>();
-			for (var i = 0; opDepthNodes.Count > 0 && i < maxDepth; i++)
+			for (int i = 0; opDepthNodes.Count > 0 && i < maxDepth; i++)
 			{
 				//var nextDepthNodes = new Dictionary<string, OptionNode>();
 				var nextDepthNodes = new ConcurrentDictionary<string, OptionNode>();
-				var countNodes = 0;
-				var countNodesTot = opDepthNodes.Values.Count;
+				int countNodes = 0;
+				int countNodesTot = opDepthNodes.Values.Count;
 				//foreach (var option in opDepthNodes.Values)
 				//{
 				//	countNodes++;
@@ -132,13 +132,13 @@ namespace SabberStoneGui
 				//	option.Options(ref nextDepthNodes);
 				//}
 				var tasks = new List<Task>();
-				foreach (var option in opDepthNodes.Values)
+				foreach (OptionNode option in opDepthNodes.Values)
 				{
 					countNodes++;
 					worker?.ReportProgress(countNodes, countNodesTot);
 					tasks.Add(new Task(() => option.Options(ref nextDepthNodes)));
 				}
-				foreach (var task in tasks)
+				foreach (Task task in tasks)
 					task.Start();
 				Task.WaitAll(tasks.ToArray());
 
@@ -159,7 +159,7 @@ namespace SabberStoneGui
 
 		private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			var test = e.ProgressPercentage;
+			int test = e.ProgressPercentage;
 
 			if (e.UserState is int)
 			{
@@ -194,7 +194,7 @@ namespace SabberStoneGui
 			CbxDeckStrategy.SelectedIndex = 1;
 			if (File.Exists(Environment.CurrentDirectory + @"\allDecks.json"))
 			{
-				var json = File.ReadAllText(Environment.CurrentDirectory + @"\allDecks.json");
+				string json = File.ReadAllText(Environment.CurrentDirectory + @"\allDecks.json");
 				AllDecks = JsonConvert.DeserializeObject<List<MetaDeck>>(json);
 			}
 			else
@@ -213,7 +213,7 @@ namespace SabberStoneGui
 			CboxDeck2.SelectedIndex = 1;
 
 
-			var help = CardAsciiBuilder.PrintHelp();
+			string[] help = CardAsciiBuilder.PrintHelp();
 			ViewBox.Text =
 				help[0] + Environment.NewLine +
 				help[1] + Environment.NewLine +
@@ -243,7 +243,7 @@ namespace SabberStoneGui
 
 			while (CurrentGame.Logs.Count > 0)
 			{
-				var logEntry = CurrentGame.Logs.Dequeue();
+				LogEntry logEntry = CurrentGame.Logs.Dequeue();
 				if (logEntry.Level <= LogLevel.INFO)
 					TxtPlayLog.Text += $"[{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}\n";
 			}
@@ -261,7 +261,7 @@ namespace SabberStoneGui
 				worker.DoWork += worker_DoWork;
 				worker.ProgressChanged += worker_ProgressChanged;
 				worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-				var scoring = CurrentGame.CurrentPlayer == CurrentGame.Player1
+				IScore scoring = CurrentGame.CurrentPlayer == CurrentGame.Player1
 					? GuiHelper.GetScoring((Strategy)CboxAi1.SelectedValue)
 					: GuiHelper.GetScoring((Strategy)CboxAi2.SelectedValue);
 				worker.RunWorkerAsync(new List<object> { (int)SlidMaxDepth.Value, (int)SlidMaxWidth.Value, scoring });
@@ -293,8 +293,8 @@ namespace SabberStoneGui
 		{
 			if (CurrentGame?.State == SabberStoneCore.Enums.State.RUNNING)
 			{
-				var curPlayer = CurrentGame.CurrentPlayer;
-				var nextTask = CurrentSolution[0];
+				SabberStoneCore.Model.Entities.Controller curPlayer = CurrentGame.CurrentPlayer;
+				PlayerTask nextTask = CurrentSolution[0];
 				CurrentSolution.Remove(nextTask);
 				CurrentGame.Process(nextTask);
 				ShowCurrentSolution();

@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// creating reward card ...
-			var reward = Entity.FromCard(Controller, Card);
+			IPlayable reward = Entity.FromCard(Controller, Card);
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestRewardTask", $"{Controller} Quest finished, reward {reward}!");
 
 			// adding reward to hand

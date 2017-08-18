@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			System.Collections.Generic.IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
 				var minions = cards.Where(t => t.Cost == p.Card.Cost + CostChange && t.Type == CardType.MINION).ToList();

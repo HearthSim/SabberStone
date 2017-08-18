@@ -17,8 +17,8 @@ namespace SabberStoneCore.Model
 
 		public override string ToString()
 		{
-			var s = GameTag.ToString() + " = ";
-			var v = TagValue.ToString();
+			string s = GameTag.ToString() + " = ";
+			string v = TagValue.ToString();
 			try
 			{
 				if (TypedTags.ContainsKey(GameTag))

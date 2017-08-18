@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
+			IPlayable proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
 
 			proxyCthun.Enchants.ForEach(p => p.Activate(p.SourceId, source.Enchants, source));
 

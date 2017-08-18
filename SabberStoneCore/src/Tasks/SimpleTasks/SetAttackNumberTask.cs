@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.TrueForAll(p =>
 			{
 				var target = p as Minion;

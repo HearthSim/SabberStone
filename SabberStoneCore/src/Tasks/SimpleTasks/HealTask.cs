@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var source = Source as IPlayable;
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
 				var target = p as ICharacter;

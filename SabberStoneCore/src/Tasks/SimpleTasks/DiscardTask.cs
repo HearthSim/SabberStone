@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => Generic.DiscardBlock.Invoke(Controller, p));
 			return TaskState.COMPLETE;
 		}

@@ -253,7 +253,7 @@ namespace SabberStoneCore.Model.Entities
 					if (!playableCard.IsPlayableByPlayer)
 						continue;
 
-					var playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
+					List<IPlayable> playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
 						? playableCard.ChooseOnePlayables.ToList()
 						: new List<IPlayable> { playableCard };
 
@@ -301,13 +301,13 @@ namespace SabberStoneCore.Model.Entities
 				if (!minion.CanAttack)
 					continue;
 
-				var targets = minion.ValidAttackTargets;
+				IEnumerable<ICharacter> targets = minion.ValidAttackTargets;
 				targets.ToList().ForEach(p => result.Add(MinionAttackTask.Any(this, minion, p)));
 			}
 
 			if (Hero.CanAttack)
 			{
-				var targets = Hero.ValidAttackTargets;
+				IEnumerable<ICharacter> targets = Hero.ValidAttackTargets;
 				targets.ToList().ForEach(p => result.Add(HeroAttackTask.Any(this, p)));
 			}
 

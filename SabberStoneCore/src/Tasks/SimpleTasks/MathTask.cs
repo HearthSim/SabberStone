@@ -24,8 +24,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var numberA = GetIndex(IndexA);
-			var numberB = GetIndex(IndexB);
+			int numberA = GetIndex(IndexA);
+			int numberB = GetIndex(IndexB);
 			switch (MathOperation)
 			{
 				case MathOperation.ADD:

@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var choiceAction = ChoiceAction.ADAPT;
+			ChoiceAction choiceAction = ChoiceAction.ADAPT;
 			var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
 			//var totAdaptCards = new List<Card>()
 			//{ 
@@ -40,12 +40,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var resultCards = new List<Card>();
 			while (resultCards.Count < 3)
 			{
-				var adaptCard = Util.Choose<Card>(totAdaptCards);
+				Card adaptCard = Util.Choose<Card>(totAdaptCards);
 				resultCards.Add(adaptCard);
 				totAdaptCards.Remove(adaptCard);
 			}
 
-			var success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
 			return TaskState.COMPLETE;
 		}
 

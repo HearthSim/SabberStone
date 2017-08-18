@@ -27,7 +27,7 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.Power.Id, "", 0, target?.Id ?? 0));
 
-				var targtTxt = target != null ? $" targeting {target}" : "";
+				string targtTxt = target != null ? $" targeting {target}" : "";
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", $"Play HeroPower {c.Hero.Power}[{c.Hero.Power.Card.Id}]{targtTxt}.");
 
 				c.Hero.Power.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);

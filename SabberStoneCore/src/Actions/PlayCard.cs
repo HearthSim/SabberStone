@@ -101,7 +101,7 @@ namespace SabberStoneCore.Actions
 				}
 
 				// set choose one option
-				var subSource = chooseOne > 0 ? source.ChooseOnePlayables[chooseOne - 1] : source;
+				IPlayable subSource = chooseOne > 0 ? source.ChooseOnePlayables[chooseOne - 1] : source;
 
 				// check if we can play this card and the target is valid
 				if (!source.IsPlayableByPlayer || !subSource.IsPlayableByCardReq || !subSource.IsValidPlayTarget(target))
@@ -151,10 +151,10 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, IPlayable source)
 			{
 				c.OverloadOwed += source.Overload;
-				var cost = source.Cost;
+				int cost = source.Cost;
 				if (cost > 0)
 				{
-					var tempUsed = Math.Min(c.TemporaryMana, cost);
+					int tempUsed = Math.Min(c.TemporaryMana, cost);
 					c.TemporaryMana -= tempUsed;
 					c.UsedMana += cost - tempUsed;
 					c.TotalManaSpentThisGame += cost;

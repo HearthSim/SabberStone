@@ -23,7 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Amount = Number;
 			}
 
-			var success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
+			bool success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
 			return TaskState.COMPLETE;
 		}
 

@@ -1032,12 +1032,12 @@ namespace SabberStoneCore.CardSets
 						{
 							if (!p.Any())
 								return new List<IPlayable>();
-							var contrA = p[0].Controller;
-							var contrB = p[0].Controller.Opponent;
-							var maxA = p.Where(t => t.Controller == contrA)
+							Controller contrA = p[0].Controller;
+							Controller contrB = p[0].Controller.Opponent;
+							IPlayable maxA = p.Where(t => t.Controller == contrA)
 								.OrderByDescending(x => ((Minion) x).AttackDamage)
 								.FirstOrDefault();
-							var maxB = p.Where(t => t.Controller == contrB)
+							IPlayable maxB = p.Where(t => t.Controller == contrB)
 								.OrderByDescending(x => ((Minion) x).AttackDamage)
 								.FirstOrDefault();
 							p.Remove(maxA);
@@ -1334,7 +1334,7 @@ namespace SabberStoneCore.CardSets
 							new IncludeTask(EntityType.SOURCE),
 							new FuncPlayablesTask(p =>
 							{
-								var controller = p[0].Controller;
+								Controller controller = p[0].Controller;
 								return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
 							}),
 							new BuffTask(Buffs.Cost(-1), EntityType.STACK)))
@@ -1712,7 +1712,7 @@ namespace SabberStoneCore.CardSets
 							new IncludeTask(EntityType.SOURCE),
 							new FuncPlayablesTask(list =>
 							{
-								var controller = list[0].Controller;
+								Controller controller = list[0].Controller;
 								var basicTotem = new List<string>
 								{
 									"CS2_050","CS2_051","CS2_052","NEW1_009"

@@ -14,10 +14,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
-				var removedEntity = p.Zone.Remove(p);
+				Model.Entities.IPlayable removedEntity = p.Zone.Remove(p);
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
 				p.Controller.SetasideZone.Add(removedEntity);
 			});

@@ -139,7 +139,7 @@ namespace SabberStoneCore.Loader
 				};
 
 				// Get unique int and bool tags, ignore duplicate and string tags
-				foreach (var tag in card.Tags)
+				foreach (Tag tag in card.Tags)
 				{
 					if (c.Tags.ContainsKey(tag.GameTag))
 						continue;
@@ -166,7 +166,7 @@ namespace SabberStoneCore.Loader
 					}
 				}
 
-				foreach (var tag in card.ReferenzTag)
+				foreach (Tag tag in card.ReferenzTag)
 				{
 					if (c.RefTags.ContainsKey(tag.GameTag))
 						continue;

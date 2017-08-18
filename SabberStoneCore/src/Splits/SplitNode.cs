@@ -46,9 +46,9 @@ namespace SabberStoneCore.Splits
 		public void Splits(ref List<SplitNode> splitNodes)
 		{
 			//var uniqSplits = new Dictionary<string, SplitNode>();
-			var splits = Game.Splits;
+			List<Game> splits = Game.Splits;
 
-			foreach (var split in splits)
+			foreach (Game split in splits)
 			{
 				var splitNode = new SplitNode(this, _root, split);
 
@@ -67,10 +67,10 @@ namespace SabberStoneCore.Splits
 			var rootGame = new SplitNode(null, game, game, true);
 			var depthNodes = new List<SplitNode> { rootGame };
 			var uniqueFinalSplits = new Dictionary<string, SplitNode>();
-			for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
+			for (int i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
 			{
 				var nextDepthNodes = new List<SplitNode>();
-				foreach (var option in depthNodes)
+				foreach (SplitNode option in depthNodes)
 				{
 					option.Splits(ref nextDepthNodes);
 				}

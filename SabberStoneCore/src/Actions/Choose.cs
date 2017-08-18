@@ -27,7 +27,7 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-				var playable = c.Game.IdEntityDic[choice];
+				IPlayable playable = c.Game.IdEntityDic[choice];
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
 
@@ -63,7 +63,7 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.ADAPT:
 						c.Choice.TargetIds.ForEach(p =>
 						{
-							var target = c.Game.IdEntityDic[p];
+							IPlayable target = c.Game.IdEntityDic[p];
 							playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
 						});
 						break;
@@ -159,7 +159,7 @@ namespace SabberStoneCore.Actions
 						mulliganList.ForEach(p =>
 						{
 							// drawing a new one
-							var playable = c.DeckZone.Remove(c.DeckZone[0]);
+							IPlayable playable = c.DeckZone.Remove(c.DeckZone[0]);
 
 							if (AddHandPhase.Invoke(c, playable))
 							{

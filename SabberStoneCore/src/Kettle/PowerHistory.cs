@@ -212,7 +212,7 @@ namespace SabberStoneCore.Kettle
 			var str = new StringBuilder();
 			str.AppendLine($"{PowerType}");
 			str.AppendLine($" - Game Entity = [{Game.Print()}]");
-			foreach (var player in Players)
+			foreach (PowerPlayer player in Players)
 			{
 				str.AppendLine($" - Player Entity = [{player.Print()}]");
 			}
@@ -347,7 +347,7 @@ namespace SabberStoneCore.Kettle
 		{
 			var str = new StringBuilder();
 			str.AppendLine($"Id={Id}, Name={Name}, Tags=[");
-			foreach (var pair in Tags)
+			foreach (KeyValuePair<GameTag, int> pair in Tags)
 			{
 				str.AppendLine(Tag.TypedTags.ContainsKey(pair.Key)
 					? $"      [{pair.Key},{Enum.GetName(Tag.TypedTags[pair.Key], (int)pair.Value)}]"
@@ -392,7 +392,7 @@ namespace SabberStoneCore.Kettle
 		{
 			var str = new StringBuilder();
 			str.AppendLine($"Id={Id} Tags=[");
-			foreach (var pair in Tags)
+			foreach (KeyValuePair<GameTag, int> pair in Tags)
 			{
 				str.AppendLine($"      [{pair.Key},{pair.Value}]");
 			}

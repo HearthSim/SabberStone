@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public override TaskState Process()
 		{
-			var success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target as ICharacter);
+			bool success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target as ICharacter);
 			Controller.Game.NextStep = Step.MAIN_CLEANUP;
 			return TaskState.COMPLETE;
 		}

@@ -58,7 +58,7 @@ namespace SabberStoneCore.Model.Entities
 		public string FullPrint()
 		{
 			var str = new StringBuilder();
-			var mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
+			string mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
 			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{SpellPowerDamage}]");
 			str.Append($"[ENCH {Enchants.Count}]");
 			str.Append($"[TRIG {Triggers.Count}]");

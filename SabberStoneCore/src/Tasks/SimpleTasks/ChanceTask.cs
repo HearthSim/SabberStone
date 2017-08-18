@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var random = Util.Random.Next(0, 2);
+			int random = Util.Random.Next(0, 2);
 
 			if (!UseFlag)
 			{

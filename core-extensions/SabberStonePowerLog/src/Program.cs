@@ -9,7 +9,7 @@ namespace SabberStonePowerLog
 		static void Main(string[] args)
 		{
 			var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\SabberStonePowerLog\Files\", "Power.log");
-			var games = interpreter.Parse(true, true);
+			System.Collections.Generic.List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
 			Console.ReadKey();
 
@@ -21,7 +21,7 @@ namespace SabberStonePowerLog
 
 				while (game.PowerHistory.Count > 0)
 				{
-					var entry = game.PowerHistory.Dequeue();
+					PowerHistoryEntry entry = game.PowerHistory.Dequeue();
 
 					Console.WriteLine($"Dequeue {entry}.");
 

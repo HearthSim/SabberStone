@@ -34,9 +34,9 @@ namespace SabberStoneCoreAi
 			const int total = 100;
 			var watch = Stopwatch.StartNew();
 
-			var turns = 0;
-			var wins = new[] { 0, 0 };
-			for (var i = 0; i < total; i++)
+			int turns = 0;
+			int[] wins = new[] { 0, 0 };
+			for (int i = 0; i < total; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -50,8 +50,8 @@ namespace SabberStoneCoreAi
 
 				while (game.State != State.COMPLETE)
 				{
-					var options = game.CurrentPlayer.Options();
-					var option = options[Rnd.Next(options.Count)];
+					List<PlayerTask> options = game.CurrentPlayer.Options();
+					PlayerTask option = options[Rnd.Next(options.Count)];
 					//Console.WriteLine(option.FullPrint());
 					game.Process(option);
 
@@ -103,13 +103,13 @@ namespace SabberStoneCoreAi
 			{
 				Console.WriteLine($"* Calculating solutions *** Player 1 ***");
 
-				var solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
+				List<OptionNode> solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
 
 				var solution = new List<PlayerTask>();
 				solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
 				Console.WriteLine($"- Player 1 - <{game.CurrentPlayer.Name}> ---------------------------");
 
-				foreach (var task in solution)
+				foreach (PlayerTask task in solution)
 				{
 					Console.WriteLine(task.FullPrint());
 					game.Process(task);
@@ -143,8 +143,8 @@ namespace SabberStoneCoreAi
 			var aiPlayer1 = new AggroScore();
 			var aiPlayer2 = new MidRangeScore();
 
-			var mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
-			var mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
+			List<int> mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
+			List<int> mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
 
 			Console.WriteLine($"Player1: Mulligan {string.Join(",", mulligan1)}");
 			Console.WriteLine($"Player2: Mulligan {string.Join(",", mulligan2)}");
@@ -164,11 +164,11 @@ namespace SabberStoneCoreAi
 				while (game.State == State.RUNNING && game.CurrentPlayer == game.Player1)
 				{
 					Console.WriteLine($"* Calculating solutions *** Player 1 ***");
-					var solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
+					List<OptionNode> solutions = OptionNode.GetSolutions(game, game.Player1.Id, aiPlayer1, 10, 500);
 					var solution = new List<PlayerTask>();
 					solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
 					Console.WriteLine($"- Player 1 - <{game.CurrentPlayer.Name}> ---------------------------");
-					foreach (var task in solution)
+					foreach (PlayerTask task in solution)
 					{
 						Console.WriteLine(task.FullPrint());
 						game.Process(task);
@@ -189,11 +189,11 @@ namespace SabberStoneCoreAi
 					//Log.Info($"[{option.FullPrint()}]");
 					//game.Process(option);
 					Console.WriteLine($"* Calculating solutions *** Player 2 ***");
-					var solutions = OptionNode.GetSolutions(game, game.Player2.Id, aiPlayer2, 10, 500);
+					List<OptionNode> solutions = OptionNode.GetSolutions(game, game.Player2.Id, aiPlayer2, 10, 500);
 					var solution = new List<PlayerTask>();
 					solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
 					Console.WriteLine($"- Player 2 - <{game.CurrentPlayer.Name}> ---------------------------");
-					foreach (var task in solution)
+					foreach (PlayerTask task in solution)
 					{
 						Console.WriteLine(task.FullPrint());
 						game.Process(task);

@@ -2280,8 +2280,8 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p =>
 						{
-							var controller = p.Controller;
-							var diffHands = 3 - controller.HandZone.Count;
+							Model.Entities.Controller controller = p.Controller;
+							int diffHands = 3 - controller.HandZone.Count;
 							return diffHands > 0 ? diffHands : 0;
 						}),
 						new EnqueueNumberTask(new DrawTask())),

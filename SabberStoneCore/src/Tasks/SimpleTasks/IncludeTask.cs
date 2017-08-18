@@ -165,7 +165,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return boardGetAll;
 			}
 			var exceptListEntities = new List<IPlayable>();
-			foreach (var excludeType in exceptArray)
+			foreach (EntityType excludeType in exceptArray)
 			{
 				exceptListEntities.AddRange(GetEntites(excludeType, Controller, Source, Target, Playables));
 			}

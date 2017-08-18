@@ -95,10 +95,10 @@ namespace SabberStoneCore.Actions
 
 				// Save defender's attack as it might change after being damaged (e.g. enrage)
 				var targetHero = target as Hero;
-				var targetAttack = targetHero != null ? 0 : target.AttackDamage;
-				var sourceAttack = hero?.TotalAttackDamage ?? source.AttackDamage;
+				int targetAttack = targetHero != null ? 0 : target.AttackDamage;
+				int sourceAttack = hero?.TotalAttackDamage ?? source.AttackDamage;
 
-				var targetDamaged = target.TakeDamage(source, sourceAttack);
+				bool targetDamaged = target.TakeDamage(source, sourceAttack);
 
 				// freeze target if attacker is freezer
 				if (targetDamaged && minion != null && minion.Freeze)
@@ -115,7 +115,7 @@ namespace SabberStoneCore.Actions
 				// ignore damage from defenders with 0 attack
 				if (targetAttack > 0)
 				{
-					var sourceDamaged = source.TakeDamage(target, targetAttack);
+					bool sourceDamaged = source.TakeDamage(target, targetAttack);
 
 					// freeze source if defender is freezer
 					var targetMinion = target as Minion;

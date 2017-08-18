@@ -223,7 +223,7 @@ namespace SabberStoneKettle
 		{
 			List<JObject> message = new List<JObject>();
 
-			foreach (var p in payload)
+			foreach (KettlePayload p in payload)
 				message.Add(p.ToPayload());
 
 			SendPacket(new JArray(message));

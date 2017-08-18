@@ -57,11 +57,11 @@ namespace SabberStoneKettleSimulator
 		public PlayerTask DoAI(List<PlayerTask> tasks)
 		{
 			IScore score = new AggroScore();
-			var currentGame = Session.Game;
+			Game currentGame = Session.Game;
 
 			if (currentGame.CurrentPlayer.Choice == null)
 			{
-				var solutions = OptionNode.GetSolutions(currentGame, currentGame.CurrentPlayer.Id, score, 10, 500);
+				List<OptionNode> solutions = OptionNode.GetSolutions(currentGame, currentGame.CurrentPlayer.Id, score, 10, 500);
 				var solution = new List<PlayerTask>();
 				solutions.OrderByDescending(p => p.Score).First().PlayerTasks(ref solution);
 				return solution.First();
@@ -91,8 +91,8 @@ namespace SabberStoneKettleSimulator
 			if (entityChoices.PlayerId != PlayerId)
 				return;
 
-			var player = PlayerId == 1 ? Session.Game.Player1 : Session.Game.Player2;
-			var Choice = player.Choice;
+			SabberStoneCore.Model.Entities.Controller player = PlayerId == 1 ? Session.Game.Player1 : Session.Game.Player2;
+			Choice Choice = player.Choice;
 			List<PlayerTask> options = new List<PlayerTask>();
 			switch (Choice.ChoiceType)
 			{
@@ -100,7 +100,7 @@ namespace SabberStoneKettleSimulator
 					Choice.Choices.ToList().ForEach(p => options.Add(ChooseTask.Pick(player, p)));
 					break;
 				case ChoiceType.MULLIGAN:
-					var choices = SabberStoneCore.Model.Util.GetPowerSet(Choice.Choices);
+					IEnumerable<IEnumerable<int>> choices = SabberStoneCore.Model.Util.GetPowerSet(Choice.Choices);
 					choices.ToList().ForEach(p => options.Add(ChooseTask.Mulligan(player, p.ToList())));
 					break;
 				default:
@@ -108,7 +108,7 @@ namespace SabberStoneKettleSimulator
 			}
 
 			// Do AI shit
-			var option = DoAI(options);
+			PlayerTask option = DoAI(options);
 
 			// Convert it to a kettle choices
 			KettleChooseEntities chooseEntities = new KettleChooseEntities();
@@ -130,16 +130,16 @@ namespace SabberStoneKettleSimulator
 			if (optionsBlock.PlayerId != PlayerId)
 				return;
 
-			var options = Session.Game.CurrentPlayer.Options();
+			List<PlayerTask> options = Session.Game.CurrentPlayer.Options();
 
 			// Do AI shit
-			var option = DoAI(options);
+			PlayerTask option = DoAI(options);
 
 			// Convert it to poweroptions
-			var poweroptions = PowerOptionsBuilder.AllOptions(Session.Game, new List<PlayerTask> { option });
+			PowerAllOptions poweroptions = PowerOptionsBuilder.AllOptions(Session.Game, new List<PlayerTask> { option });
 
 			// And create a kettle block for it
-			var chosenoption = new KettleOptionsBlock(poweroptions, Session.Game.CurrentPlayer.PlayerId).Options[0];
+			KettleOption chosenoption = new KettleOptionsBlock(poweroptions, Session.Game.CurrentPlayer.PlayerId).Options[0];
 
 			int mainOptionIndex = 0;
 			int subOptionIndex = 0;
@@ -203,7 +203,7 @@ namespace SabberStoneKettleSimulator
 			if (history[0] is KettleHistoryCreateGame)
 			{
 				KettleHistoryCreateGame kcreate = (KettleHistoryCreateGame)history[0];
-				var player = kcreate.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).First();
+				KettlePlayer player = kcreate.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).First();
 				PlayerId = player.Entity.EntityId - 1;
 			}
 		}

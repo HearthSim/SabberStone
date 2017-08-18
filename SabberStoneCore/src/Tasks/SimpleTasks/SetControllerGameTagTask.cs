@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var controller = OpFlag ? Controller.Opponent : Controller;
+			Controller controller = OpFlag ? Controller.Opponent : Controller;
 
 			controller[Tag] = Amount;
 

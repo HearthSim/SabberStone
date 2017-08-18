@@ -13,11 +13,20 @@ namespace SabberStoneCore.Enchants
 	{
 		private static Enchantments _instance;
 
-		private readonly Dictionary<string, List<Enchantment>> _entchantmentDic =
-			new Dictionary<string, List<Enchantment>>();
+		/// <summary>
+		/// Contains all defined enchantments.
+		/// The index is the CARDID of the card which enchantments are defined.
+		/// </summary>
+		private readonly Dictionary<string, List<Enchantment>> _entchantmentDic;
 
+		/// <summary>
+		// Private constructor as per Singleton pattern.
+		/// </summary>
 		private Enchantments()
 		{
+			_entchantmentDic =
+			new Dictionary<string, List<Enchantment>>();
+
 			// Standard
 			CoreCardsGen.AddAll(_entchantmentDic);
 			Expert1CardsGen.AddAll(_entchantmentDic);
@@ -36,11 +45,15 @@ namespace SabberStoneCore.Enchants
 			LoeCardsGen.AddAll(_entchantmentDic);
 		}
 
+		/// <summary>
+		/// Use the Singleton pattern to provide the same enchantments to each requester.
+		/// </summary>
 		public static Enchantments Instance => _instance ?? (_instance = new Enchantments());
 
-		public Dictionary<string, List<Enchantment>> Get()
-		{
-			return _entchantmentDic;
-		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IReadOnlyDictionary<string, List<Enchantment>> Get => _entchantmentDic;
 	}
 }

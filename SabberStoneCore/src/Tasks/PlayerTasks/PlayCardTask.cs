@@ -44,7 +44,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
-			var success = Generic.PlayCard(Controller, Source as IPlayable, Target as ICharacter, ZonePosition, ChooseOne);
+			bool success = Generic.PlayCard(Controller, Source as IPlayable, Target as ICharacter, ZonePosition, ChooseOne);
 			Controller.Game.NextStep = Step.MAIN_CLEANUP;
 			return TaskState.COMPLETE;
 		}

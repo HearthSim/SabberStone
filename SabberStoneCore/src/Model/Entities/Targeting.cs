@@ -72,10 +72,10 @@ namespace SabberStoneCore.Model.Entities
 				return false;
 			}
 
-			foreach (var item in Card.PlayRequirements)
+			foreach (KeyValuePair<PlayReq, int> item in Card.PlayRequirements)
 			{
-				var req = item.Key;
-				var param = item.Value;
+				PlayReq req = item.Key;
+				int param = item.Value;
 
 				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Targeting", $"{this} check PlayReq {req} for target {target.Card.Name} ... !");
 

@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var drawedCard = Generic.Draw(Controller);
+			Model.Entities.IPlayable drawedCard = Generic.Draw(Controller);
 
 			if (drawedCard == null)
 			{

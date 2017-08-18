@@ -282,7 +282,7 @@ namespace SabberStoneKettle
 			Options = new List<KettleOption>();
 			PlayerId = playerID;
 
-			foreach (var option in options.PowerOptionList)
+			foreach (PowerOption option in options.PowerOptionList)
 				Options.Add(new KettleOption(option));
 		}
 
@@ -305,7 +305,7 @@ namespace SabberStoneKettle
 				MainOption = new KettleSubOption(option.MainOption);
 
 			SubOptions = new List<KettleSubOption>();
-			foreach (var sub in option.SubOptions)
+			foreach (PowerSubOption sub in option.SubOptions)
 				SubOptions.Add(new KettleSubOption(sub));
 		}
 
@@ -386,7 +386,7 @@ namespace SabberStoneKettle
 			Game = new KettleEntity(p.Game);
 
 			Players = new List<KettlePlayer>();
-			foreach (var player in p.Players)
+			foreach (PowerPlayer player in p.Players)
 				Players.Add(new KettlePlayer(player));
 		}
 

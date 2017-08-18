@@ -60,7 +60,7 @@ namespace SabberStoneCoreAi.Nodes
 		{
 			_game.Process(PlayerTask);
 
-			var controller = _game.ControllerById(_playerId);
+			SabberStoneCore.Model.Entities.Controller controller = _game.ControllerById(_playerId);
 
 			_gameState = _game.State == State.RUNNING ? 0
 				: (controller.PlayState == PlayState.WON ? 1 : -1);
@@ -87,9 +87,9 @@ namespace SabberStoneCoreAi.Nodes
 
 		public void Options(ref Dictionary<string, OptionNode> optionNodes)
 		{
-			var options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
+			List<PlayerTask> options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
 
-			foreach (var option in options)
+			foreach (PlayerTask option in options)
 			{
 				var optionNode = new OptionNode(this, _game, _playerId, option, Scoring);
 				if (!optionNodes.ContainsKey(optionNode.Hash))
@@ -101,10 +101,10 @@ namespace SabberStoneCoreAi.Nodes
 		{
 			var depthNodes = new Dictionary<string, OptionNode> { ["root"] = new OptionNode(null, game, playerId, null, scoring) };
 			var endTurnNodes = new List<OptionNode>();
-			for (var i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
+			for (int i = 0; depthNodes.Count > 0 && i < maxDepth; i++)
 			{
 				var nextDepthNodes = new Dictionary<string, OptionNode>();
-				foreach (var option in depthNodes.Values)
+				foreach (OptionNode option in depthNodes.Values)
 				{
 					option.Options(ref nextDepthNodes);
 				}

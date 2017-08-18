@@ -20,7 +20,7 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Card, IPlayable> DrawCardBlock
 			=> delegate (Controller c, Card card)
 			{
-				var playable = Entity.FromCard(c, card);
+				IPlayable playable = Entity.FromCard(c, card);
 				//c.NumCardsDrawnThisTurn++;
 				AddHandPhase.Invoke(c, playable);
 				return playable;
@@ -32,7 +32,7 @@ namespace SabberStoneCore.Actions
 				if (!PreDrawPhase.Invoke(c))
 					return null;
 
-				var playable = DrawPhase.Invoke(c, cardToDraw);
+				IPlayable playable = DrawPhase.Invoke(c, cardToDraw);
 				//c.NumCardsToDraw--; 
 
 				AddHandPhase.Invoke(c, playable);
@@ -45,7 +45,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.DeckZone.IsEmpty)
 				{
-					var fatigueDamage = c.Hero.Fatigue == 0 ? 1 : c.Hero.Fatigue + 1;
+					int fatigueDamage = c.Hero.Fatigue == 0 ? 1 : c.Hero.Fatigue + 1;
 					DamageCharFunc(c.Hero, c.Hero, fatigueDamage, 0);
 					return false;
 				}
@@ -55,7 +55,7 @@ namespace SabberStoneCore.Actions
 		private static Func<Controller, IPlayable, IPlayable> DrawPhase
 			=> delegate (Controller c, IPlayable cardToDraw)
 			{
-				var playable = c.DeckZone.Remove(cardToDraw ?? c.DeckZone[0]);
+				IPlayable playable = c.DeckZone.Remove(cardToDraw ?? c.DeckZone[0]);
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", $"{c.Name} draws {playable}");
 
 				c.NumCardsDrawnThisTurn++;

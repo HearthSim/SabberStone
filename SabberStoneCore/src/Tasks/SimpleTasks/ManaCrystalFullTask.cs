@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var success = Generic.ChangeManaCrystal.Invoke(Controller, Amount, true);
+			bool success = Generic.ChangeManaCrystal.Invoke(Controller, Amount, true);
 			return TaskState.COMPLETE;
 		}
 

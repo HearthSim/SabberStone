@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (RelaConditions != null)
 			{
-				var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+				System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 				if (entities.Count != 1)
 					return TaskState.STOP;

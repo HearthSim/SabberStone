@@ -45,7 +45,7 @@ namespace SabberStoneCore.Kettle
 			var str = new StringBuilder();
 			str.AppendLine($"PowerChoice index={Index} PlayerId={PlayerId} ChoiceType={ChoiceType} CountMin={CountMin} CountMax={CountMax}");
 			str.AppendLine($" Source={SourceId}");
-			for (var i = 0; i < Entities.Count; i++)
+			for (int i = 0; i < Entities.Count; i++)
 			{
 				str.AppendLine($" Entities[{i}]=[{Entities[i]}]");
 			}

@@ -44,7 +44,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (summonEntity == null)
 				return TaskState.STOP;
 
-			var success = Generic.SummonBlock.Invoke(Controller, summonEntity, -1);
+			bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, -1);
 
 			return TaskState.COMPLETE;
 		}

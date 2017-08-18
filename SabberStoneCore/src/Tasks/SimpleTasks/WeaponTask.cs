@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var weapon = CardId != null ?
+			Weapon weapon = CardId != null ?
 				Entity.FromCard(Controller, Cards.FromId(CardId)) as Weapon :
 				Playables[0] as Weapon;
 

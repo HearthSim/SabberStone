@@ -40,7 +40,7 @@ namespace SabberStoneCore.Model
 
 		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target)
 		{
-			var clone = task.Clone();
+			ISimpleTask clone = task.Clone();
 			clone.Game = controller.Game;
 			clone.Controller = controller;
 			clone.Source = source;
@@ -89,7 +89,7 @@ namespace SabberStoneCore.Model
 			if (Game.History)
 				Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
 
-			var success = CurrentTask.Process();
+			TaskState success = CurrentTask.Process();
 
 			if (Game.History)
 				Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

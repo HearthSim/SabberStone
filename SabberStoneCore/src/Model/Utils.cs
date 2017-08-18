@@ -43,13 +43,13 @@ namespace SabberStoneCore.Model
 		public static IEnumerable<IEnumerable<T>> GetDiscoverSets<T>(List<T> list)
 		{
 			var result = new List<IEnumerable<T>>();
-			for (var i = 0; i < list.Count - 2; i++)
+			for (int i = 0; i < list.Count - 2; i++)
 			{
-				var eleA = list[i];
-				for (var j = i + 1; j < list.Count - 1; j++)
+				T eleA = list[i];
+				for (int j = i + 1; j < list.Count - 1; j++)
 				{
-					var eleB = list[j];
-					for (var k = j + 1; k < list.Count; k++)
+					T eleB = list[j];
+					for (int k = j + 1; k < list.Count; k++)
 					{
 						result.Add(new[] { eleA, eleB, list[k] });
 					}
@@ -66,7 +66,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Func<T> Remember<T>(Func<T> getValue)
 		{
-			var isCached = false;
+			bool isCached = false;
 			var cachedResult = default(T);
 
 			return () =>

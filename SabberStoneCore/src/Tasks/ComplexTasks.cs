@@ -13,8 +13,8 @@ namespace SabberStoneCore.Tasks
 	{
 		public static ISimpleTask Create(ISimpleTask task, int times)
 		{
-			var list = new ISimpleTask[times];
-			for (var i = 0; i < times; i++)
+			ISimpleTask[] list = new ISimpleTask[times];
+			for (int i = 0; i < times; i++)
 				list[i] = task;
 			return Create(list);
 		}
@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					var controller = p[0].Controller;
+					Controller controller = p[0].Controller;
 					if (controller != null)
 					{
 						controller.UsedMana =
@@ -198,8 +198,8 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					var controller = p[0].Controller;
-					var jadeGolem = controller.JadeGolem;
+					Controller controller = p[0].Controller;
+					int jadeGolem = controller.JadeGolem;
 					controller.JadeGolem++;
 					// TODO maybee better implement it with CFM_712_t + int
 					var jadeGolemStr = new List<string>
@@ -235,7 +235,7 @@ namespace SabberStoneCore.Tasks
 						"CFM_712_t29",
 						"CFM_712_t30",
 					};
-					var golemStr = jadeGolem <= jadeGolemStr.Count ? jadeGolemStr[jadeGolem] : jadeGolemStr[29];
+					string golemStr = jadeGolem <= jadeGolemStr.Count ? jadeGolemStr[jadeGolem] : jadeGolemStr[29];
 					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(golemStr)) };
 				}),
 				new SummonTask());

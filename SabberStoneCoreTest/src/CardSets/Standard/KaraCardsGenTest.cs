@@ -32,13 +32,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player2HeroClass = CardClass.DRUID,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Player1.Hero.Damage = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moonglade Portal"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moonglade Portal"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentPlayer.Hero));
 			Assert.Equal(26, game.CurrentPlayer.Hero.Health);
 			Assert.Equal(6, game.CurrentPlayer.BoardZone[0].Card.Cost);
@@ -67,13 +68,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player2HeroClass = CardClass.DRUID,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Menagerie Warden"));
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Menagerie Warden"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
@@ -94,7 +96,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player2HeroClass = CardClass.DRUID,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -126,16 +129,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentPlayer.Hero));
 			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
@@ -158,15 +162,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kindly Grandmother"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kindly Grandmother"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal("KAR_005a", game.CurrentOpponent.BoardZone[0].Card.Id);
@@ -198,12 +203,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cloaked Huntress"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cloaked Huntress"));
 			Assert.Equal(2, game.CurrentPlayer.HandZone[0].Cost);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(0, game.CurrentPlayer.HandZone[0].Cost);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 			Assert.Equal(2, game.CurrentOpponent.HandZone[0].Cost);
 		}
@@ -230,12 +235,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Firelands Portal"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Firelands Portal"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
 			Assert.Equal(25, game.CurrentOpponent.Hero.Health);
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
@@ -259,13 +265,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Babbling Book"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(CardClass.MAGE, game.CurrentPlayer.HandZone[4].Card.Class);
@@ -297,14 +304,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
-			var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh's Valet"));
+			IPlayable secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, game.CurrentOpponent.Hero));
@@ -335,13 +343,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silvermoon Portal"));
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silvermoon Portal"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
 			Assert.Equal(3, ((Minion)minion).AttackDamage);
@@ -371,12 +380,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				FillDecks = true,
+				FillDecksPredictably = true,
 				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nightbane Templar"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nightbane Templar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
@@ -403,15 +413,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.CurrentPlayer.Hero.Damage = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ivory Knight"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			var spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+			IPlayable spell = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(spell, game.CurrentPlayer.HandZone[4]);
 			Assert.Equal(20 + spell.Cost, game.CurrentPlayer.Hero.Health);
@@ -443,13 +454,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			Assert.True(((Minion)minion).HasDeathrattle);
 			Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
@@ -473,14 +485,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.CurrentPlayer.Hero.Damage = 3;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Priest of the Feast"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Priest of the Feast"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(27, game.CurrentPlayer.Hero.Health);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
@@ -504,22 +517,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Onyx Bishop"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(minion.Card.Id, game.CurrentPlayer.BoardZone[2].Card.Id);
@@ -547,13 +561,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swashburglar"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(CardClass.MAGE, game.CurrentPlayer.HandZone[4].Card.Class);
@@ -579,26 +594,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Peddler"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ethereal Peddler"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			var card1 = game.CurrentPlayer.HandZone[0];
+			IPlayable card1 = game.CurrentPlayer.HandZone[0];
 			Assert.Equal(
 				card1.Card.Class == CardClass.ROGUE ? card1.Cost : (card1.Card.Cost > 1 ? card1.Card.Cost - 2 : 0),
 				card1.Cost);
-			var card2 = game.CurrentPlayer.HandZone[1];
+			IPlayable card2 = game.CurrentPlayer.HandZone[1];
 			Assert.Equal(
 				card2.Card.Class == CardClass.ROGUE ? card2.Cost : (card2.Card.Cost > 1 ? card2.Card.Cost - 2 : 0),
 				card2.Cost);
-			var card3 = game.CurrentPlayer.HandZone[2];
+			IPlayable card3 = game.CurrentPlayer.HandZone[2];
 			Assert.Equal(
 				card3.Card.Class == CardClass.ROGUE ? card3.Cost : (card3.Card.Cost > 1 ? card3.Card.Cost - 2 : 0),
 				card3.Cost);
-			var card4 = game.CurrentPlayer.HandZone[3];
+			IPlayable card4 = game.CurrentPlayer.HandZone[3];
 			Assert.Equal(
 				card4.Card.Class == CardClass.ROGUE ? card4.Cost : (card4.Card.Cost > 1 ? card4.Card.Cost - 2 : 0),
 				card4.Cost);
@@ -622,7 +638,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -649,29 +666,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
-			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
 
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 
-			var minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-			var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Maelstrom Portal"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
@@ -695,13 +713,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Witchdoctor"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Witchdoctor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
@@ -729,18 +748,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Claws"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Claws"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, minion));
 			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 		}
@@ -766,12 +786,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kara Kazham!"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kara Kazham!"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
@@ -790,14 +811,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malchezaar's Imp"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malchezaar's Imp"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
@@ -821,7 +843,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -854,16 +877,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Protect the King!"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Protect the King!"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-			var minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
@@ -887,7 +911,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -913,7 +938,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
 				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -943,7 +969,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -969,7 +996,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -996,7 +1024,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1033,16 +1062,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 					Cards.FromName("Azure Drake")
 				},
 				FillDecks = true,
+				FillDecksPredictably = true,
 				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book Wyrm"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book Wyrm"));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
@@ -1064,13 +1094,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Anomaly"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Anomaly"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			Assert.Equal(2, ((Minion)testCard).Health);
@@ -1098,14 +1129,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
-			var secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Avian Watcher"));
+			IPlayable secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
 			Assert.Equal(3, ((Minion)testCard1).AttackDamage);
 			Assert.Equal(6, ((Minion)testCard1).Health);
@@ -1141,7 +1173,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1169,7 +1202,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1214,7 +1248,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Curator"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Curator"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(Race.BEAST, game.CurrentPlayer.HandZone[4].Card.Race);
 			Assert.Equal(Race.DRAGON, game.CurrentPlayer.HandZone[5].Card.Race);
@@ -1251,7 +1285,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Netherspite Historian"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]].Card.Race);
 			Assert.Equal(Race.DRAGON, game.IdEntityDic[game.CurrentPlayer.Choice.Choices[1]].Card.Race);
@@ -1279,7 +1313,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1311,6 +1346,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
+				FillDecksPredictably = true,
 				Shuffle = false,
 				SkipMulligan = false
 			});
@@ -1365,18 +1401,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh, the Guardian"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Medivh, the Guardian"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.True(game.CurrentPlayer.Hero.Weapon != null);
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Triggers.Count);
 			game.CurrentPlayer.UsedMana = 0;
-			var spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
@@ -1400,12 +1437,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
@@ -1430,7 +1468,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1459,7 +1498,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1482,14 +1522,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Giant"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Giant"));
 			Assert.Equal(12, testCard.Cost);
-			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
 			Assert.Equal(11, testCard.Cost);
 		}
@@ -1514,12 +1555,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Violet Illusionist"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Violet Illusionist"));
 			Assert.False(game.CurrentPlayer.Hero.IsImmune);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.True(game.CurrentPlayer.Hero.IsImmune);

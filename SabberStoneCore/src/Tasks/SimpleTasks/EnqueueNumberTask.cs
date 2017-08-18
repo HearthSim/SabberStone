@@ -21,12 +21,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var times = SpellDmg ? Number + Controller.Hero.SpellPowerDamage : Number;
+			int times = SpellDmg ? Number + Controller.Hero.SpellPowerDamage : Number;
 
-			for (var i = 0; i < times; i++)
+			for (int i = 0; i < times; i++)
 			{
 				// clone task here
-				var clone = Task.Clone();
+				ISimpleTask clone = Task.Clone();
 				clone.Game = Controller.Game;
 				clone.Controller = Controller;
 				clone.Source = Source as IPlayable;

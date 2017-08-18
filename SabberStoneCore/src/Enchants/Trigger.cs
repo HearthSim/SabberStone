@@ -76,7 +76,7 @@ namespace SabberStoneCore.Enchants
 
 		public bool IsEnabled()
 		{
-			var flag = true;
+			bool flag = true;
 			EnableConditions.ForEach(p => flag &= p.Eval(Owner));
 			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 			if (!flag)
@@ -88,7 +88,7 @@ namespace SabberStoneCore.Enchants
 
 		private bool IsApplying(IPlayable target)
 		{
-			var flag = true;
+			bool flag = true;
 			ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
 			return flag;
 		}
@@ -126,7 +126,7 @@ namespace SabberStoneCore.Enchants
 			}
 
 			// do a clone of the task
-			var clone = SingleTask.Clone();
+			ISimpleTask clone = SingleTask.Clone();
 			clone.Game = Owner.Controller.Game;
 			clone.Controller = Owner.Controller;
 			clone.Source = Owner;

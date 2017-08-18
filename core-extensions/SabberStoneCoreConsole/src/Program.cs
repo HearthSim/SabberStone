@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -67,11 +67,11 @@ namespace SabberStoneCoreConsole
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
-			var clone1 = game.Clone();
-			var clone2 = game.Clone();
-			var clone3 = game.Clone();
-			var clone4 = game.Clone();
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
+			Game clone1 = game.Clone();
+			Game clone2 = game.Clone();
+			Game clone3 = game.Clone();
+			Game clone4 = game.Clone();
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
@@ -186,7 +186,7 @@ namespace SabberStoneCoreConsole
 		{
 			var games = new List<Game>();
 
-			for (var i = 0; i < ensemble; i++)
+			for (int i = 0; i < ensemble; i++)
 				games.Add(g.Clone());
 
 			ParallelLoopResult result = Parallel.ForEach(games, game =>
@@ -200,7 +200,7 @@ namespace SabberStoneCoreConsole
 
 		private static string RandomUntilTerminal2(Game g)
 		{
-			var simcount = 0;
+			int simcount = 0;
 			while (simcount < 1000)
 			{
 
@@ -255,12 +255,12 @@ namespace SabberStoneCoreConsole
 		{
 			const int total = 5000;
 			var totCards = Cards.AllStandard.ToList();
-			var totCardsCount = totCards.Count;
-			var turns = 0;
-			var wins = new[] { 0, 0 };
+			int totCardsCount = totCards.Count;
+			int turns = 0;
+			int[] wins = new[] { 0, 0 };
 
 			var watch = Stopwatch.StartNew();
-			for (var i = 0; i < total; i++)
+			for (int i = 0; i < total; i++)
 			{
 				Console.Clear();
 				ProgressBar(i, total);
@@ -284,8 +284,8 @@ namespace SabberStoneCoreConsole
 				int prevOptionsCount = 0;
 				while (game.State != State.COMPLETE)
 				{
-					var options = game.CurrentPlayer.Options();
-					var option = options[Rnd.Next(options.Count)];
+					List<PlayerTask> options = game.CurrentPlayer.Options();
+					PlayerTask option = options[Rnd.Next(options.Count)];
 
 					if (options.Count > 1 && option is EndTurnTask)
 					{
@@ -382,7 +382,7 @@ namespace SabberStoneCoreConsole
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var options = game.CurrentPlayer.Options();
+			List<PlayerTask> options = game.CurrentPlayer.Options();
 			Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
 			options.ForEach(p => Console.WriteLine(p.FullPrint()));
 			Console.WriteLine($" *** - PowerOptions - ***");
@@ -454,14 +454,14 @@ namespace SabberStoneCoreConsole
 
 			while (game.State != State.COMPLETE)
 			{
-				var options = game.CurrentPlayer.Options();
+				List<PlayerTask> options = game.CurrentPlayer.Options();
 				Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
 				options.ForEach(p => Console.WriteLine(p.FullPrint()));
 
 				Console.WriteLine(PowerOptionsBuilder.AllOptions(game, options)?.Print());
 				PowerChoicesBuilder.EntityChoices(game, game.CurrentPlayer.Choice);
 
-				var option = options[Rnd.Next(options.Count)];
+				PlayerTask option = options[Rnd.Next(options.Count)];
 				game.Process(option);
 			}
 
@@ -717,12 +717,12 @@ namespace SabberStoneCoreConsole
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			var minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			var spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
 
 			ShowLog(game, LogLevel.VERBOSE);
@@ -731,7 +731,7 @@ namespace SabberStoneCoreConsole
 		public static void KabalCourierDiscover()
 		{
 
-			var cardSet = Cards.Standard;
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.Standard;
 
 			var mageCards =
 				cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroup != 0).ToList();
@@ -776,8 +776,8 @@ namespace SabberStoneCoreConsole
 				game.StartGame();
 				game.Player1.BaseMana = 10;
 				game.Player2.BaseMana = 10;
-				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-				var hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
+				bool hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
 				flag = hasMinion ? 1 == game.CurrentOpponent.BoardZone.Count : 0 == game.CurrentOpponent.BoardZone.Count;
@@ -827,7 +827,7 @@ namespace SabberStoneCoreConsole
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kazakus"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kazakus"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
@@ -838,14 +838,14 @@ namespace SabberStoneCoreConsole
 
 		public static void CloneSameSame()
 		{
-			var classes = new[]
+			CardClass[] classes = new[]
 			{
 				CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST,
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
-			var flag = true;
-			var total = 100;
-			for (var i = 0; i < total && flag; i++)
+			bool flag = true;
+			int total = 100;
+			for (int i = 0; i < total && flag; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -858,12 +858,12 @@ namespace SabberStoneCoreConsole
 
 				while (game.State != State.COMPLETE)
 				{
-					var options = game.CurrentPlayer.Options();
-					var option = options[Rnd.Next(options.Count)];
+					List<PlayerTask> options = game.CurrentPlayer.Options();
+					PlayerTask option = options[Rnd.Next(options.Count)];
 					game.Process(option);
-					var cloneGame = game.Clone();
-					var str1 = game.Hash();
-					var str2 = cloneGame.Hash();
+					Game cloneGame = game.Clone();
+					string str1 = game.Hash();
+					string str2 = cloneGame.Hash();
 					flag &= str1.Equals(str2);
 					if (!flag)
 					{
@@ -880,7 +880,7 @@ namespace SabberStoneCoreConsole
 
 		public static void CloneStampTest()
 		{
-			var turns = 25;
+			int turns = 25;
 
 			var game = new Game(new GameConfig
 			{
@@ -892,10 +892,10 @@ namespace SabberStoneCoreConsole
 			});
 			game.StartGame();
 
-			for (var i = 0; i < turns; i++)
+			for (int i = 0; i < turns; i++)
 			{
-				var options = game.CurrentPlayer.Options();
-				var option = options[Rnd.Next(options.Count)];
+				List<PlayerTask> options = game.CurrentPlayer.Options();
+				PlayerTask option = options[Rnd.Next(options.Count)];
 				game.Process(option);
 			}
 
@@ -905,9 +905,9 @@ namespace SabberStoneCoreConsole
 
 			const int total = 10000;
 			var watch = Stopwatch.StartNew();
-			for (var i = 0; i < total; i++)
+			for (int i = 0; i < total; i++)
 			{
-				var cloneGame = game.Clone();
+				Game cloneGame = game.Clone();
 			}
 			watch.Stop();
 
@@ -919,12 +919,12 @@ namespace SabberStoneCoreConsole
 		{
 			const int total = 5000;
 			var totCards = Cards.AllStandard.ToList();
-			var totCardsCount = totCards.Count;
-			var turns = 0;
-			var wins = new[] { 0, 0 };
+			int totCardsCount = totCards.Count;
+			int turns = 0;
+			int[] wins = new[] { 0, 0 };
 
 			var watch = Stopwatch.StartNew();
-			for (var i = 0; i < total; i++)
+			for (int i = 0; i < total; i++)
 			{
 				Console.Clear();
 				ProgressBar(i, total);
@@ -952,10 +952,10 @@ namespace SabberStoneCoreConsole
 
 				while (game.State != State.COMPLETE)
 				{
-					var options = game.CurrentPlayer.Options();
+					List<PlayerTask> options = game.CurrentPlayer.Options();
 					//try
 					//{
-					var option = options[Rnd.Next(options.Count)];
+					PlayerTask option = options[Rnd.Next(options.Count)];
 
 					if (option.PlayerTaskType == PlayerTaskType.PLAY_CARD)
 					{
@@ -996,10 +996,10 @@ namespace SabberStoneCoreConsole
 			StringBuilder str = new StringBuilder();
 			while (game.Logs.Count > 0)
 			{
-				var logEntry = game.Logs.Dequeue();
+				LogEntry logEntry = game.Logs.Dequeue();
 				if (logEntry.Level <= level)
 				{
-					var foreground = ConsoleColor.White;
+					ConsoleColor foreground = ConsoleColor.White;
 					switch (logEntry.Level)
 					{
 						case LogLevel.DUMP:

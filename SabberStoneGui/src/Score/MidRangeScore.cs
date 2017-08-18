@@ -10,7 +10,7 @@
 			if (HeroHp < 1)
 				return int.MinValue;
 
-			var result = 0;
+			int result = 0;
 
 			if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
 				result += 5000;

@@ -11,7 +11,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			var drawedCard = Generic.Draw(Controller, Playables[0]);
+			Model.Entities.IPlayable drawedCard = Generic.Draw(Controller, Playables[0]);
 
 			if (drawedCard == null)
 			{

@@ -13,18 +13,26 @@ namespace SabberStoneCore.Model.Zones
 		{
 		}
 
-		public void Fill()
+		public void Fill(List<string> excludeIds = null)
 		{
 			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
-			var cardsToAdd = StartingCards - Count;
+			int cardsToAdd = StartingCards - Count;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
-				var card = Util.Choose<Card>(cards.ToList());
+				Card card = Util.Choose<Card>(cards.ToList());
+
+				// don't add cards that have to be excluded here.
+				if (excludeIds != null && excludeIds.Contains(card.Id))
+					continue;
+
+				// don't add cards that have already reached max occurence in deck.
 				if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
 					continue;
+
 				Entity.FromCard(Controller, card, null, this);
+
 				cardsToAdd--;
 			}
 		}
@@ -38,7 +46,7 @@ namespace SabberStoneCore.Model.Zones
 			}
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} shuffling ({times}x).");
-			for (var i = 0; i < times; i++)
+			for (int i = 0; i < times; i++)
 			{
 				Swap(Random, Random);
 			}

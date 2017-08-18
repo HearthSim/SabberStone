@@ -272,7 +272,7 @@ namespace SabberStoneCore.Model
 						IdEntityDic.Values.ToList().ForEach(o =>
 							PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t])))));
 
-				foreach (var controller in _players)
+				foreach (Controller controller in _players)
 				{
 					controller.Hero.Enchants.ForEach(p =>
 						p.Effects.Keys.ToList().ForEach(t =>
@@ -323,8 +323,8 @@ namespace SabberStoneCore.Model
 			_gameConfig.Player2Deck?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.DeckZone));
 			if (_gameConfig.FillDecks)
 			{
-				Player1.DeckZone.Fill();
-				Player2.DeckZone.Fill();
+				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
+				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
 			}
 
 			// set gamestats
@@ -394,7 +394,7 @@ namespace SabberStoneCore.Model
 			_players.ToList().ForEach(p =>
 			{
 				// quest draw if there is
-				var quest = p.DeckZone.GetAll.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
+				IPlayable quest = p.DeckZone.GetAll.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
 				Generic.Draw(p, quest != null ? quest : null);
 				Generic.Draw(p);
 				Generic.Draw(p);
@@ -404,7 +404,7 @@ namespace SabberStoneCore.Model
 					// 4th card for second player
 					Generic.Draw(p);
 
-					var coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
+					IPlayable coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
 					{
 						[GameTag.ZONE] = (int)Enums.Zone.HAND,
 						[GameTag.CARDTYPE] = (int)CardType.SPELL,
@@ -489,7 +489,7 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.Hero.IsExhausted = false;
 			CurrentPlayer.Hero.Power.IsExhausted = false;
-			foreach (var e in CurrentPlayer.BoardZone)
+			foreach (Minion e in CurrentPlayer.BoardZone)
 			{
 				e.IsSummoned = false;
 				e.IsExhausted = false;
@@ -826,7 +826,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public Game Clone(bool logging = false)
 		{
-			var gameConfig = _gameConfig.Clone();
+			GameConfig gameConfig = _gameConfig.Clone();
 			gameConfig.Logging = logging;
 			var game = new Game(gameConfig, false)
 			{

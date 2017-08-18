@@ -16,9 +16,9 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(p =>
 				{
 					var result = new List<IPlayable>();
-					var controller = p[0].Controller;
-					var manaCrystal = (new[] { controller.BoardZone.MaxSize - controller.BoardZone.Count, controller.BaseMana }).Min();
-					for (var i = 0; i < manaCrystal; i++)
+					Controller controller = p[0].Controller;
+					int manaCrystal = (new[] { controller.BoardZone.MaxSize - controller.BoardZone.Count, controller.BaseMana }).Min();
+					for (int i = 0; i < manaCrystal; i++)
 					{
 						result.Add(Entity.FromCard(controller, Cards.FromId("UNG_111t1")));
 					}
@@ -49,8 +49,8 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(list =>
 				{
 					var result = new List<IPlayable>();
-					var controller = list[0].Controller;
-					var entourage = list[0].Card.Entourage;
+					Controller controller = list[0].Controller;
+					List<string> entourage = list[0].Card.Entourage;
 					entourage.ForEach(p => result.Add(Entity.FromCard(controller, Cards.FromId(p))));
 					return result;
 				}),
@@ -63,8 +63,8 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(list =>
 				{
 					var result = new List<IPlayable>();
-					var controller = list[0].Controller;
-					var entourage = controller.Hero.Power.Card.Entourage;
+					Controller controller = list[0].Controller;
+					List<string> entourage = controller.Hero.Power.Card.Entourage;
 					var notContained = new List<string>();
 					var idsOnBoard = controller.BoardZone.GetAll.Select(p => p.Card.Id).ToList();
 					entourage.ForEach(p =>
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					var controller = p[0].Controller;
+					Controller controller = p[0].Controller;
 					switch (controller.Hero.Power.Card.Id)
 					{
 						case "CS1h_001":

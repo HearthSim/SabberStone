@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Amount < 1 && RandAmount < 1)
 				return TaskState.STOP;
 
-			var spellDmgValue = 0;
+			int spellDmgValue = 0;
 			if (Source is HeroPower)
 			{
 				spellDmgValue = Controller.Hero.HeroPowerDamage;
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					: Controller.Hero.SpellPowerDamage;
 			}
 
-			var entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter,
 						Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
 						spellDmgValue));

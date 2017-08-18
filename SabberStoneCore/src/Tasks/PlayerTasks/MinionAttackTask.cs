@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
-			var success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter);
+			bool success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter);
 			Controller.Game.NextStep = Step.MAIN_CLEANUP;
 			return TaskState.COMPLETE;
 		}

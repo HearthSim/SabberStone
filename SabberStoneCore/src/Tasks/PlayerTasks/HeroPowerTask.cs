@@ -21,7 +21,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
-			var success = Generic.HeroPower(Controller, Target as ICharacter);
+			bool success = Generic.HeroPower(Controller, Target as ICharacter);
 			Controller.Game.NextStep = Step.MAIN_CLEANUP;
 			return TaskState.COMPLETE;
 		}

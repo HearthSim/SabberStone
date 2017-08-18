@@ -63,9 +63,9 @@ namespace SabberStoneKettleClient
 			switch ((ChoiceType)entityChoices.ChoiceType)
 			{
 				case ChoiceType.MULLIGAN:
-					var picks = Rand.Next(0, entityChoices.Entities.Count);
+					int picks = Rand.Next(0, entityChoices.Entities.Count);
 					pickList.AddRange(entityChoices.Entities);
-					for (var i = 0; i < picks; i++)
+					for (int i = 0; i < picks; i++)
 					{
 						pickList.Remove(pickList[Rand.Next(0, pickList.Count)]);
 					}
@@ -95,7 +95,7 @@ namespace SabberStoneKettleClient
 			Console.WriteLine("AI OnOptionsBlock called.");
 
 			int kettleOptionIndex = Rand.Next(0, optionsBlock.Options.Count);
-			var kettleOption = optionsBlock.Options[kettleOptionIndex];
+			KettleOption kettleOption = optionsBlock.Options[kettleOptionIndex];
 
 			var kettleSendOption = new KettleSendOption()
 			{
@@ -109,8 +109,8 @@ namespace SabberStoneKettleClient
 
 			if (kettleOption.SubOptions != null && kettleOption.SubOptions.Any())
 			{
-				var kettleSubOptionIndex = Rand.Next(0, kettleOption.SubOptions.Count);
-				var subOption = kettleOption.SubOptions[kettleSubOptionIndex];
+				int kettleSubOptionIndex = Rand.Next(0, kettleOption.SubOptions.Count);
+				KettleSubOption subOption = kettleOption.SubOptions[kettleSubOptionIndex];
 				kettleSendOption.SubOption = kettleSubOptionIndex;
 
 				if (subOption.Targets != null && subOption.Targets.Any())
@@ -138,10 +138,10 @@ namespace SabberStoneKettleClient
 
 		public void OnHistory(List<KettleHistoryEntry> history)
 		{
-			var createGame = history.Where(p => p is KettleHistoryCreateGame).Select(p => p as KettleHistoryCreateGame).FirstOrDefault();
+			KettleHistoryCreateGame createGame = history.Where(p => p is KettleHistoryCreateGame).Select(p => p as KettleHistoryCreateGame).FirstOrDefault();
 			if (createGame != null)
 			{
-				var player = createGame.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).First();
+				KettlePlayer player = createGame.Players.Where(p => p.AccountId == StartClient.JoinGame.AccountId).First();
 				PlayerId = player.Entity.EntityId - 1;
 
 				// TODO create the Game object here, etc

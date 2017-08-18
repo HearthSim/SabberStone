@@ -66,13 +66,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 
-			var cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-			var cardsList = cards.Where(p =>
+			System.Collections.Generic.IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			System.Collections.Generic.IEnumerable<Card> cardsList = cards.Where(p =>
 				(CardType == CardType.INVALID || p.Type == CardType) &&
 				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
 				(CardSet == CardSet.INVALID || p.Set == CardSet));
 
-			var randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
+			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
 			Playables.Add(randomCard);
 
 			return TaskState.COMPLETE;

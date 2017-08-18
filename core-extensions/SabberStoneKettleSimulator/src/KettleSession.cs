@@ -55,7 +55,7 @@ namespace SabberStoneKettleSimulator
 		public void OnConcede(int entityid)
 		{
 			Console.WriteLine($"player[{entityid}] concedes");
-			var concedingPlayer = Game.ControllerById(entityid);
+			SabberStoneCore.Model.Entities.Controller concedingPlayer = Game.ControllerById(entityid);
 			Game.Process(ConcedeTask.Any(concedingPlayer));
 			SendPowerHistory(Game.PowerHistory.Last);
 		}
@@ -64,11 +64,11 @@ namespace SabberStoneKettleSimulator
 		{
 			Console.WriteLine("simulator OnSendOption called");
 
-			var sendOptionId = sendOption.Id;
-			var sendOptionMainOption = sendOption.MainOption;
-			var sendOptionPosition = sendOption.Position - 1;
-			var sendOptionSubOption = sendOption.SubOption;
-			var sendOptionTarget = sendOption.Target;
+			int sendOptionId = sendOption.Id;
+			int sendOptionMainOption = sendOption.MainOption;
+			int sendOptionPosition = sendOption.Position - 1;
+			int sendOptionSubOption = sendOption.SubOption;
+			int sendOptionTarget = sendOption.Target;
 
 			Console.WriteLine($"Id={sendOption.Id} MainOption={sendOption.MainOption} Position={sendOption.Position} SubOption={sendOption.SubOption} Target={sendOption.Target}");
 			PlayerTask task = SabberStoneKettleSimulator.Util.KettleOptionToPlayerTask(Game, sendOptionId, sendOptionMainOption, sendOptionTarget, sendOptionPosition, sendOptionSubOption);
@@ -84,8 +84,8 @@ namespace SabberStoneKettleSimulator
 		{
 			Console.WriteLine("simulator OnChooseEntities called");
 
-			var entityChoices = Game.EntityChoicesMap[chooseEntities.Id];
-			var chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
+			PowerEntityChoices entityChoices = Game.EntityChoicesMap[chooseEntities.Id];
+			ChooseTask chooseTask = entityChoices.ChoiceType == ChoiceType.MULLIGAN
 				? ChooseTask.Mulligan(entityChoices.PlayerId == 1 ? Game.Player1 : Game.Player2, chooseEntities.Choices)
 				: ChooseTask.Pick(entityChoices.PlayerId == 1 ? Game.Player1 : Game.Player2, chooseEntities.Choices[0]);
 
@@ -123,12 +123,12 @@ namespace SabberStoneKettleSimulator
 
 		public void OnCreateGame(KettleCreateGame createGame)
 		{
-			var player1 = createGame.Players[0];
-			var player2 = createGame.Players[1];
-			var hero1 = player1.Hero;
-			var hero2 = player2.Hero;
-			var hero1Class = Cards.FromId(hero1).Class;
-			var hero2Class = Cards.FromId(hero2).Class;
+			KettleCreatePlayer player1 = createGame.Players[0];
+			KettleCreatePlayer player2 = createGame.Players[1];
+			string hero1 = player1.Hero;
+			string hero2 = player2.Hero;
+			CardClass hero1Class = Cards.FromId(hero1).Class;
+			CardClass hero2Class = Cards.FromId(hero2).Class;
 			var player1Deck = player1.Cards.Select(Cards.FromId).ToList();
 			var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
 
@@ -153,8 +153,8 @@ namespace SabberStoneKettleSimulator
 		private void SendChoicesOrOptions()
 		{
 			// getting choices mulligan choices for players ...
-			var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(Game, Game.Player1.Choice);
-			var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(Game, Game.Player2.Choice);
+			PowerEntityChoices entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(Game, Game.Player1.Choice);
+			PowerEntityChoices entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(Game, Game.Player2.Choice);
 
 			// getting options for currentPlayer ...
 			PowerAllOptions options = null;
@@ -188,7 +188,7 @@ namespace SabberStoneKettleSimulator
 		private void SendPowerHistory(List<IPowerHistoryEntry> history)
 		{
 			List<KettlePayload> message = new List<KettlePayload>();
-			foreach (var entry in history)
+			foreach (IPowerHistoryEntry entry in history)
 			{
 				message.Add(KettleHistoryEntry.From(entry));
 			}
@@ -199,10 +199,10 @@ namespace SabberStoneKettleSimulator
 		{
 			while (game.Logs.Count > 0)
 			{
-				var logEntry = game.Logs.Dequeue();
+				LogEntry logEntry = game.Logs.Dequeue();
 				if (logEntry.Level <= level)
 				{
-					var foreground = ConsoleColor.White;
+					ConsoleColor foreground = ConsoleColor.White;
 					switch (logEntry.Level)
 					{
 						case LogLevel.DUMP:

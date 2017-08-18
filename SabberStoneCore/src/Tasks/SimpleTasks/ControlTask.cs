@@ -18,7 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
-				var removedEntity = p.Zone.Remove(p);
+				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller = Controller;
 				Controller.BoardZone.Add(removedEntity);
 			});

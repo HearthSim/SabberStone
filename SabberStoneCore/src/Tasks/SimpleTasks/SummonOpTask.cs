@@ -26,14 +26,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Card == null && Playables.Count < 1)
 				return TaskState.STOP;
 
-			var summonEntity = Card != null ?
+			Minion summonEntity = Card != null ?
 				Entity.FromCard(Controller.Opponent, Card) as Minion :
 				Playables[0] as Minion;
 
 			if (summonEntity == null)
 				return TaskState.STOP;
 
-			var success = Generic.SummonBlock.Invoke(Controller.Opponent, summonEntity, -1);
+			bool success = Generic.SummonBlock.Invoke(Controller.Opponent, summonEntity, -1);
 
 			return TaskState.COMPLETE;
 		}

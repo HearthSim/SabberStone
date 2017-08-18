@@ -43,7 +43,7 @@ namespace SabberStoneKettleSimulator
 		public void OnConcede(int entityid)
 		{
 			Console.WriteLine($"player[{entityid}] concedes");
-			var concedingPlayer = _game.ControllerById(entityid);
+			SabberStoneCore.Model.Entities.Controller concedingPlayer = _game.ControllerById(entityid);
 			_game.Process(ConcedeTask.Any(concedingPlayer));
 			SendPowerHistory(_game.PowerHistory.Last);
 		}
@@ -52,7 +52,7 @@ namespace SabberStoneKettleSimulator
 		{
 			Console.WriteLine("simulator OnSendOption called");
 
-			var allOptions = _game.AllOptionsMap[sendOption.Id];
+			PowerAllOptions allOptions = _game.AllOptionsMap[sendOption.Id];
 
 			SendPowerHistory(_game.PowerHistory.Last);
 			SendChoicesOrOptions();
@@ -683,11 +683,11 @@ namespace SabberStoneKettleSimulator
 		private void SendChoicesOrOptions()
 		{
 			// getting choices mulligan choices for players ...
-			var entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
-			var entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
+			PowerEntityChoices entityChoicesPlayer1 = PowerChoicesBuilder.EntityChoices(_game, _game.Player1.Choice);
+			PowerEntityChoices entityChoicesPlayer2 = PowerChoicesBuilder.EntityChoices(_game, _game.Player2.Choice);
 
 			// getting options for currentPlayer ...
-			var options = PowerOptionsBuilder.AllOptions(_game, _game.CurrentPlayer.Options());
+			PowerAllOptions options = PowerOptionsBuilder.AllOptions(_game, _game.CurrentPlayer.Options());
 
 			if (entityChoicesPlayer1 != null)
 				SendEntityChoices(entityChoicesPlayer1);
@@ -712,7 +712,7 @@ namespace SabberStoneKettleSimulator
 		private void SendPowerHistory(List<IPowerHistoryEntry> history)
 		{
 			List<KettlePayload> message = new List<KettlePayload>();
-			foreach (var entry in history)
+			foreach (IPowerHistoryEntry entry in history)
 			{
 				message.Add(KettleHistoryEntry.From(entry));
 			}
@@ -788,7 +788,7 @@ namespace SabberStoneKettleSimulator
 		private static List<KettleHistoryFullEntity> CreateFullEntities()
 		{
 			var list = new List<KettleHistoryFullEntity>();
-			for (var i = 0; i < 60; i++)
+			for (int i = 0; i < 60; i++)
 			{
 				list.Add(FullEntityCreate(i + 4, "", new Dictionary<int, int>
 				{

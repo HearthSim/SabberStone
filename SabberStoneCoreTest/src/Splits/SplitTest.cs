@@ -5,6 +5,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreTest.Splits
 {
@@ -26,7 +27,7 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(4, game.FinalSplits.Count);
 			Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState + 1));
@@ -47,7 +48,7 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
 			//var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
@@ -56,7 +57,7 @@ namespace SabberStoneCoreTest.Splits
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
 			//var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
-			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(7, game.FinalSplits.Count);
 			Assert.Equal(20, game.FinalSplits.Sum(p => p.SameState + 1));
@@ -77,16 +78,16 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
-			var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
 			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			//var hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
 			//var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
-			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(12, game.FinalSplits.Count);
 			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState + 1));
@@ -107,16 +108,16 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
-			var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
 			//var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
 			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
-			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(20, game.FinalSplits.Count);
 			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState + 1));
@@ -137,16 +138,16 @@ namespace SabberStoneCoreTest.Splits
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.StartGame();
-			var hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder1));
-			var hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable hoarder3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, hoarder3));
-			var toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
+			IPlayable toad1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Huge Toad"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, toad1));
-			var bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
+			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(42, game.FinalSplits.Count);
 			Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState + 1));

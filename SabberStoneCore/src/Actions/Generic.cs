@@ -96,7 +96,7 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> DiscardBlock
 			=> delegate (Controller c, IPlayable playable)
 			{
-				var discard = c.HandZone.Remove(playable);
+				IPlayable discard = c.HandZone.Remove(playable);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", $"{discard} is beeing discarded.");
 				c.GraveyardZone.Add(discard);
 
@@ -151,7 +151,7 @@ namespace SabberStoneCore.Actions
 				}
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
-				var oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
+				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
 				oldMinion.Controller.SetasideZone.Add(oldEntity);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", $"{oldEntity} got transformed into {newMinion}.");
 				return true;

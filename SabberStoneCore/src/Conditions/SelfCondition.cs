@@ -135,7 +135,7 @@ namespace SabberStoneCore.Conditions
 			{
 				if (!me.Controller.SeenCthun)
 					return false;
-				var proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
+				IPlayable proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
 				return relaSign == RelaSign.EQ && proxyCthun[tag] == value
 					|| relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
 					|| relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;

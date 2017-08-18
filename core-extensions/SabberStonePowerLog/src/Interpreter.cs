@@ -49,16 +49,16 @@ namespace SabberStonePowerLog
 				Match matchLogRgx = logRgx.Match(line);
 				if (matchLogRgx.Success)
 				{
-					var entryType = matchLogRgx.Groups[1].Value;
-					var timestamp = matchLogRgx.Groups[2].Value;
-					var classType = matchLogRgx.Groups[3].Value;
-					var debugType = matchLogRgx.Groups[4].Value;
-					var content = matchLogRgx.Groups[5].Value;
+					string entryType = matchLogRgx.Groups[1].Value;
+					string timestamp = matchLogRgx.Groups[2].Value;
+					string classType = matchLogRgx.Groups[3].Value;
+					string debugType = matchLogRgx.Groups[4].Value;
+					string content = matchLogRgx.Groups[5].Value;
 
 					if (!classType.Equals("GameState") || !debugType.Equals("DebugPrintPower"))
 						continue;
 
-					var contentLine = content.Trim();
+					string contentLine = content.Trim();
 
 					cleanLog.AppendLine(content);
 
@@ -173,8 +173,8 @@ namespace SabberStonePowerLog
 						Match matchTagValueRgx = tagValueRgx.Match(contentLine);
 						if (matchTagValueRgx.Success)
 						{
-							var tag = matchTagValueRgx.Groups[1].Value;
-							var value = matchTagValueRgx.Groups[2].Value;
+							string tag = matchTagValueRgx.Groups[1].Value;
+							string value = matchTagValueRgx.Groups[2].Value;
 
 							switch (currentPowerState)
 							{
@@ -213,7 +213,7 @@ namespace SabberStonePowerLog
 
 			if (createJsonFile)
 			{
-				var jsonStr = JsonConvert.SerializeObject(powerGames, Formatting.Indented,
+				string jsonStr = JsonConvert.SerializeObject(powerGames, Formatting.Indented,
 					new JsonSerializerSettings
 					{
 						TypeNameHandling = TypeNameHandling.All
@@ -238,17 +238,17 @@ namespace SabberStonePowerLog
 
 		private PowerHistoryEntry ProcessShowEntity(PowerGame currentPowerGame, string contentLine)
 		{
-			var str = contentLine
+			string str = contentLine
 				.Replace("SHOW_ENTITY - Updating Entity=", "")
 				.Replace(" [cardType=INVALID]", "");
-			var match1 = showEntityRgx.Match(str);
+			Match match1 = showEntityRgx.Match(str);
 			if (!match1.Success)
 			{
 				Console.WriteLine("entityRgx unmatched: '" + str + "'");
 				return null;
 			}
 
-			var id = 0;
+			int id = 0;
 			if (!int.TryParse(match1.Groups[1].Value, out id))
 			{
 				id = int.Parse(match1.Groups[3].Value);
@@ -267,9 +267,9 @@ namespace SabberStonePowerLog
 
 		private PowerHistoryEntry ProcessHideEntity(PowerGame currentPowerGame, string contentLine)
 		{
-			var str = contentLine
+			string str = contentLine
 				.Replace("HIDE_ENTITY - Entity=", "");
-			var match1 = hideEntityRgx.Match(str);
+			Match match1 = hideEntityRgx.Match(str);
 			if (!match1.Success)
 			{
 				Console.WriteLine("hideEntityRgx unmatched: '" + str + "'");
@@ -298,11 +298,11 @@ namespace SabberStonePowerLog
 				return null;
 			}
 
-			var blockType = match1.Groups[1].Value;
-			var entity = match1.Groups[2].Value;
-			var effectCardId = match1.Groups[3].Value;
-			var effectIndex = match1.Groups[4].Value;
-			var target = match1.Groups[5].Value;
+			string blockType = match1.Groups[1].Value;
+			string entity = match1.Groups[2].Value;
+			string effectCardId = match1.Groups[3].Value;
+			string effectIndex = match1.Groups[4].Value;
+			string target = match1.Groups[5].Value;
 
 			int entityId = GetIdFromEntity(entity, powerGame);
 
@@ -345,8 +345,8 @@ namespace SabberStonePowerLog
 				Console.WriteLine("fullEntityRgx unmatched: '" + str + "'");
 				return null;
 			}
-			var id = int.Parse(match.Groups[1].Value);
-			var cardId = match.Groups[2].Value;
+			int id = int.Parse(match.Groups[1].Value);
+			string cardId = match.Groups[2].Value;
 
 			return new PowerFullEntity()
 			{
@@ -365,9 +365,9 @@ namespace SabberStonePowerLog
 				return null;
 			}
 
-			var tag = match1.Groups[1].Value;
-			var value = match1.Groups[2].Value;
-			var entity = match2.Groups[2].Value;
+			string tag = match1.Groups[1].Value;
+			string value = match1.Groups[2].Value;
+			string entity = match2.Groups[2].Value;
 			int id;
 			if (!int.TryParse(entity, out id))
 			{

@@ -79,7 +79,7 @@ namespace SabberStoneCore.Enchants
 				Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "enqueueuing lazy removal task here!");
 
 				// clone task here
-				var clone = SingleTask.Clone();
+				ISimpleTask clone = SingleTask.Clone();
 				clone.Game = Owner.Controller.Game;
 				clone.Controller = Owner.Controller;
 				clone.Source = Owner;
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Enchants
 
 		public bool IsEnabled()
 		{
-			var flag = true;
+			bool flag = true;
 
 			EnableConditions.ForEach(p => flag &= p.Eval(Owner));
 
@@ -116,7 +116,7 @@ namespace SabberStoneCore.Enchants
 
 		private bool IsApplying(IPlayable target)
 		{
-			var flag = true;
+			bool flag = true;
 			ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
 			return flag;
 		}
@@ -158,7 +158,7 @@ namespace SabberStoneCore.Enchants
 			Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
 
 			// apply variable effects if we have ...
-			var effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];
+			int effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];
 
 			// TODO find an elegant way for that ... check if gametag is bool
 			if (gameTag == GameTag.CHARGE || gameTag == GameTag.WINDFURY || gameTag == GameTag.IMMUNE)
@@ -172,7 +172,7 @@ namespace SabberStoneCore.Enchants
 				return value != 0 ? (value + effect) : 0;
 			}
 
-			var result = value + effect;
+			int result = value + effect;
 
 			// TODO don't allow negative values for those tags ... for all???
 			if (result < 0) // && (gameTag == GameTag.COST || gameTag == GameTag.ATK))

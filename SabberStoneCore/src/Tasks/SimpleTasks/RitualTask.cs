@@ -32,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (!Controller.SeenCthun)
 			{
-				var proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
+				IPlayable proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
 				Controller.SetasideZone.Add(proxyCthun);
 				Controller.ProxyCthun = proxyCthun.Id;

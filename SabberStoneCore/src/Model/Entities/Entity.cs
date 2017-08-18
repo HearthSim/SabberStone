@@ -171,7 +171,7 @@ namespace SabberStoneCore.Model.Entities
 				//if (Card.Name.Equals("Angry Chicken"))
 				//Game?.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} get org. data {t} = {_data[t]}");
 
-				var value = _data[t];
+				int value = _data[t];
 
 				// cumulative enchanment calculation ... priorizing game, zone, entity
 				Game?.Enchants.ForEach(p => value = p.Apply(this, t, value));
@@ -182,7 +182,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 			set
 			{
-				var oldValue = _data[t];
+				int oldValue = _data[t];
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} oldvalue {oldValue}");
 				//if (oldValue == value && t != GameTag.ZONE_POSITION)
 				//{
