@@ -22,13 +22,10 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		private ChooseTask(Controller controller, List<int> choices)
 		{
-			if(controller == null) throw new ArgumentNullException(nameof(controller));
-			if(choices == null) throw new ArgumentNullException(nameof(choices)); // Empty choices are allowed!
-
 			PlayerTaskType = PlayerTaskType.CHOOSE;
 			Game = controller.Game;
 			Controller = controller;
-			Choices = choices;
+			Choices = choices ?? throw new ArgumentNullException(nameof(choices));
 		}
 
 		public List<int> Choices { get; set; }
