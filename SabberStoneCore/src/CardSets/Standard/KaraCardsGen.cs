@@ -1028,8 +1028,8 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.GAME,
 					Activation = EnchantmentActivation.DECK_ZONE,
 					Trigger = new TriggerBuilder().Create()
-                        //.EnableConditions(SelfCondition.IsInZone(Zone.DECK))
-                        //.ApplyConditions(RelaCondition.IsSameRace)
+                        .EnableConditions(SelfCondition.IsInZone(Zone.DECK))
+                        //.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsStep(Step.MAIN_BEGIN)))
                         .TriggerEffect(GameTag.STEP, 0)
 						.MaxExecution(1)
 						.SingleTask(ComplexTask.Create(

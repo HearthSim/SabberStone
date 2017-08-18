@@ -153,9 +153,11 @@ namespace SabberStoneCore.Conditions
 									|| relaSign == RelaSign.LEQ && me.Controller.BoardZone.Count <= value);
 
 		public static SelfCondition IsOpBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
-			=> new SelfCondition(me => relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Count == value
-									|| relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Count >= value
-									|| relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Count <= value);
+		{
+			return new SelfCondition(me => relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Count == value
+												|| relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Count >= value
+												|| relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Count <= value);
+		}
 
 		public static SelfCondition IsHeroLethalPreDamaged
 			=> new SelfCondition(me =>
@@ -167,6 +169,11 @@ namespace SabberStoneCore.Conditions
 				}
 				return hero.PreDamage > 0 && hero.PreDamage >= hero.Health;
 			});
+
+		public static SelfCondition IsStep(Step step)
+		{
+			return new SelfCondition(me => me.Game.Step == step);
+		}
 
 		private readonly Func<IPlayable, bool> _function;
 

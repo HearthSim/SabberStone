@@ -103,7 +103,7 @@ namespace SabberStoneCore.Model.Zones
 		public IPlayable this[int zonePosition]
 			=> zonePosition >= 0 && zonePosition < _entitiesAsList.Count ? _entitiesAsList[zonePosition] : default(T);
 
-		public IPlayable Add(IPlayable entity, int zonePosition = -1)
+		public IPlayable Add(IPlayable entity, int zonePosition = -1, bool applyEnchantments = true)
 		{
 			if (zonePosition > _entitiesAsList.Count)
 			{
@@ -118,10 +118,13 @@ namespace SabberStoneCore.Model.Zones
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
 			// activate all zone changing enchantments
-			entity.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
-			entity.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
-			entity.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
-			entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+			if (applyEnchantments)
+			{
+				entity.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
+				entity.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
+				entity.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
+				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+			}
 
 			entity.SetOrderOfPlay(Type.ToString());
 			return entity;

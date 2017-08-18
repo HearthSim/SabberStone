@@ -131,7 +131,9 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, IPlayable playable)
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", $"adding to deck {playable}.");
-				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1));
+
+				// don't activate enchantments when shuffling cards back into the deck
+				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1), false);
 
 				// add hide entity 
 				if (c.Game.History)

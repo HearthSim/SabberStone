@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			ParallelTest();
+			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -793,20 +793,60 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar"),     // 1
+                    Cards.FromName("Loot Hoarder"),       // 2
+                    Cards.FromName("Huge Toad"),          // 3
+                    Cards.FromName("Mad Bomber"),         // 4
+                    Cards.FromName("Stonetusk Boar"),     // 5
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Prince Malchezaar"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Loot Hoarder"),		  // 1
+                    Cards.FromName("Loot Hoarder"),       // 2
+                    Cards.FromName("Huge Toad"),          // 3
+                    Cards.FromName("Mad Bomber"),         // 4
+                    Cards.FromName("Stonetusk Boar"),     // 5
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+				},
+				//FillDecks = true,
+				//FillDecksPredictably = true,
+				Shuffle = false,
+				SkipMulligan = false
 			});
+
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Valeera the Hollow"));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
+			Console.WriteLine("preMulligan GameTriggers = " + game.Triggers.Count);
 
-			ShowLog(game, LogLevel.DEBUG);
+			// Mulligan Player 1
+			game.Process(ChooseTask.Mulligan(game.CurrentPlayer, new List<int>()));
+			// Mulligan Player 2
+			game.Process(ChooseTask.Mulligan(game.CurrentOpponent, new List<int>()));
 
-			Console.WriteLine(game.CurrentPlayer.Hero[GameTag.STEALTH]);
+			// End Mulligan phase.
+			game.NextStep = Step.MAIN_BEGIN; 
+
+			ShowLog(game, LogLevel.VERBOSE);
+
+			Console.WriteLine("DeckCount = " + game.CurrentPlayer.DeckZone.Count);
+			Console.WriteLine("postMulligan GameTriggers = " + game.Triggers.Count);
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

@@ -1354,8 +1354,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 
 			// Malchezaar triggers AFTER MULLIGAN!
-			Assert.Equal(1, game.Triggers.Count);
-			Assert.Equal(30, game.CurrentPlayer.DeckZone.Count);
+			//Assert.Equal(1, game.Triggers.Count); 
+			// draws are done in this state fr mulligan
+			Assert.Equal(27, game.CurrentPlayer.DeckZone.Count);
 
 			// Mulligan Player 1
 			game.Process(ChooseTask.Mulligan(game.CurrentPlayer, new List<int>()));

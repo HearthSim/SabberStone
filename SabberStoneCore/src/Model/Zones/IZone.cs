@@ -68,7 +68,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
 		/// <returns>The entity</returns>
-		IPlayable Add(IPlayable entity, int zonePosition = -1);
+		IPlayable Add(IPlayable entity, int zonePosition = -1, bool applyEnchantments = true);
 
 		/// <summary>
 		/// Removes the specified entity from this zone.
