@@ -6,24 +6,35 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public enum PlayType { SPELL };
+
+	/// <summary>
+	/// Allows to have a playable played out in a task
+	/// </summary>
 	public class PlayTask : SimpleTask
 	{
-		public PlayTask(PlayType playType, IPlayable playable)
+		/// <summary>
+		/// Create a PlayTask to play a card as a task.
+		/// </summary>
+		/// <param name="playType">The type of playable.</param>
+		public PlayTask(PlayType playType)
 		{
 			PlayType = playType;
-			Playable = playable;
 		}
 
 		public PlayType PlayType { get; set; }
-
-		public IPlayable Playable { get; set; }
 
 		public override TaskState Process()
 		{
 			switch (PlayType)
 			{
 				case PlayType.SPELL:
-					Generic.PlaySpell.Invoke(Controller, (Spell)Playable, null);
+					Playables.ForEach(p =>
+					{
+						if (p is Spell && Generic.RemoveFromZone(Controller, p))
+						{
+							bool success = Generic.PlaySpell.Invoke(Controller, (Spell)p, null);
+						}
+					});
 					return TaskState.COMPLETE;
 
 				default:
@@ -33,7 +44,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new PlayTask(PlayType, Playable);
+			var clone = new PlayTask(PlayType);
 			clone.Copy(this);
 			return clone;
 		}
