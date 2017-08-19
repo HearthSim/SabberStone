@@ -7929,14 +7929,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void DreadCorsair_NEW1_022()
 		{
-			var game = new Game(new GameConfig
+			var gameConfig = new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
-			});
+			};
+			gameConfig.UnPredictableCardIDs.Add("CFM_637"); // don't allow patches for board count test
+			var game = new Game(gameConfig);
+			
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
