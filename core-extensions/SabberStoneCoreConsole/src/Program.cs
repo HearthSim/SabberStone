@@ -829,7 +829,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("minion2: " + (minion2 as Minion).IsDead);
 			Console.WriteLine("minion3: " + (minion3 as Minion).IsDead);
 			Console.WriteLine("all dead and hero no dmg? " + (game.CurrentOpponent.Hero.Health == 30 && (minion1 as Minion).IsDead && (minion2 as Minion).IsDead && (minion3 as Minion).IsDead));
-			Console.WriteLine("at least one not dead dead and hero has dmg? " + (game.CurrentOpponent.Hero.Health < 30 && (!(minion1 as Minion).IsDead || !(minion2 as Minion).IsDead || !(minion3 as Minion).IsDead)));
+			Console.WriteLine("at least one not dead dead and hero has dmg? " + (game.CurrentOpponent.Hero.Health == 30 || (!(minion1 as Minion).IsDead || !(minion2 as Minion).IsDead || !(minion3 as Minion).IsDead)));
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());
