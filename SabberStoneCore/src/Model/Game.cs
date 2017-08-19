@@ -79,6 +79,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public event EntityChangedEventHandler EntityChangedEvent;
 
+		public event EventHandler<bool> RandomHappenedEvent;
+
 		/// <summary>
 		/// Gets the game event manager. This object delegates the state machine of
 		/// the game.
@@ -227,6 +229,11 @@ namespace SabberStoneCore.Model
 		protected internal virtual void OnEntityChanged(Entity entity, GameTag t, int oldValue, int newValue)
 		{
 			EntityChangedEvent?.Invoke(entity, t, oldValue, newValue);
+		}
+
+		protected internal virtual void OnRandomHappened(bool isHappened)
+		{
+			RandomHappenedEvent?.Invoke(this, isHappened);
 		}
 
 		/// <summary>
