@@ -721,11 +721,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_054", new List<Enchantment> {
-				// TODO [ICC_054] Spreading Plague && Test: Spreading Plague_ICC_054
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new FuncNumberTask(p =>
+						{
+							Controller controller = p.Controller;
+							int diffMinions = controller.Opponent.BoardZone.Count - controller.BoardZone.Count;
+							return diffMinions > 0 ? diffMinions : 0;
+						}),
+						new EnqueueNumberTask(new SummonTask("ICC_832t4"))),
 				},
 			});
 

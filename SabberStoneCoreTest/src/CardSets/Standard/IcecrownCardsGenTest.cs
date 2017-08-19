@@ -883,10 +883,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpreadingPlague_ICC_054()
 		{
-			// TODO SpreadingPlague_ICC_054 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -896,9 +895,29 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spreading Plague"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spreading Plague"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			IPlayable minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
+			Assert.Equal(game.CurrentPlayer.BoardZone.Count, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
