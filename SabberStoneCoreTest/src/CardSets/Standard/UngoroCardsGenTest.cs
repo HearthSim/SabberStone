@@ -1755,6 +1755,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Mistress of Mixtures            
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal("UNG_940t8", game.CurrentPlayer.HandZone[0].Card.Id);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Amara, Warden of Hope             
 			Assert.Equal(40, game.CurrentPlayer.Hero.Health);
 		}
@@ -4277,20 +4278,40 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void EliseTheTrailblazer_UNG_851()
 		{
-			// TODO EliseTheTrailblazer_UNG_851 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Grimscale Chum"),
+					Cards.FromName("Grimscale Chum")
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Grimscale Chum"),
+					Cards.FromName("Grimscale Chum")
+				},
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise the Trailblazer"));
-			Assert.True(false); // need to test this with [UNG_851t1] Un'Goro Pack
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise the Trailblazer"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.True(game.CurrentPlayer.DeckZone.Any(p => p.Card.Id == "UNG_851t1")); // need to test this with [UNG_851t1] Un'Goro Pack
+			Assert.Equal(1, game.CurrentPlayer.DeckZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
+			Assert.Equal("UNG_851t1", game.CurrentPlayer.HandZone[4].Card.Id);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
+			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

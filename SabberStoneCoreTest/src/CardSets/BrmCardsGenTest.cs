@@ -916,9 +916,16 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Emperor Thaurissan"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			int totCost = game.CurrentPlayer.HandZone.GetAll.Sum(p => p.Cost);
+			int neg =
+				(game.CurrentPlayer.HandZone[0].Cost == 0 ? 0 : 1) +
+				(game.CurrentPlayer.HandZone[1].Cost == 0 ? 0 : 1) +
+				(game.CurrentPlayer.HandZone[2].Cost == 0 ? 0 : 1) +
+				(game.CurrentPlayer.HandZone[3].Cost == 0 ? 0 : 1);
+			
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.Equal(totCost - 4, game.CurrentOpponent.HandZone.GetAll.Sum(p => p.Cost));
+
+			Assert.Equal(totCost - neg, game.CurrentOpponent.HandZone.GetAll.Sum(p => p.Cost));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
