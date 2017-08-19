@@ -650,7 +650,7 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DruidOfTheSwarm_ICC_051()
 		{
 			// TODO DruidOfTheSwarm_ICC_051 test
@@ -663,9 +663,37 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1, 1));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).Poisonous);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).HasTaunt);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable chooseBoth = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fandral Staghelm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, chooseBoth));
+			Assert.True(game.CurrentPlayer.ChooseBoth);
+
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasTaunt);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).Poisonous);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[3]).AttackDamage);
+			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[3]).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -725,10 +753,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CryptLord_ICC_808()
 		{
-			// TODO CryptLord_ICC_808 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -738,9 +765,42 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Angry Chicken"));
+			IPlayable minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Angry Chicken"));
+
+			Assert.Equal(6, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(6, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+			Assert.Equal(7, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
+			Assert.Equal(8, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+			Assert.Equal(11, ((Minion)testCard).Health);
+			Assert.Equal(8, ((Minion)testCard2).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -851,10 +911,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpreadingPlague_ICC_054()
 		{
-			// TODO SpreadingPlague_ICC_054 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -864,9 +923,29 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spreading Plague"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spreading Plague"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			IPlayable minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+
+			Assert.Equal(game.CurrentPlayer.BoardZone.Count, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1457,10 +1536,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Coldwraith_ICC_252()
 		{
-			// TODO Coldwraith_ICC_252 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1470,9 +1548,29 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldwraith"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldwraith"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Nova"));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1485,7 +1583,7 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Sindragosa_ICC_838()
 		{
 			// TODO Sindragosa_ICC_838 test
@@ -1498,9 +1596,32 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			// This is not correct,
+			// they should spawn on
+			// either side of Sindragosa
+			Assert.Equal("ICC_838", game.CurrentPlayer.BoardZone[0].Card.Id);
+			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[1].Card.Id);
+			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[2].Card.Id);
+
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentPlayer.BoardZone[1]));
+
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.HandZone.Last().Card.Rarity);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -3782,6 +3903,188 @@ namespace SabberStoneUnitTest.CardSets
 		public void TheLichKing_ICC_314()
 		{
 			// TODO TheLichKing_ICC_314 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t3] Doom Pact (*) - COST:5 
+		// - Fac: neutral, Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: [x]Destroy all minions. 
+		//       Remove the top card 
+		//       from your deck for each
+		//       minion destroyed.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DoomPact_ICC_314t3()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t4] Death Grip (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Steal a minion from your opponent's deck and add it to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathGrip_ICC_314t4()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t5] Death Coil (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Deal $5 damage to an enemy, or restore #5 Health to a friendly character. *spelldmg
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathCoil_ICC_314t5()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t6] Obliterate (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Destroy a minion. Your hero takes damage equal to its Health.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ImmuneToSpellpower = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Obliterate_ICC_314t6()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t7] Anti-Magic Shell (*) - COST:4 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Give your minions +2/+2 and "Can't be targeted by spells or Hero Powers."
+		// --------------------------------------------------------
+		// GameTag:
+		// - CANT_BE_TARGETED_BY_SPELLS = 1
+		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void AntiMagicShell_ICC_314t7()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t8] Death and Decay (*) - COST:3 
+		// - Fac: neutral, Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Deal $3 damage to all enemies. *spelldmg
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathandDecay_ICC_314t8()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ----------------------------------- WEAPON - DEATHKNIGHT
+		// [ICC_314t1] Frostmourne (*) - COST:7 [ATK:5/HP:0] 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: <b>Deathrattle:</b> Summon every minion killed by this weapon.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DURABILITY = 3
+		// - DEATHRATTLE = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Frostmourne_ICC_314t1()
+		{
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
