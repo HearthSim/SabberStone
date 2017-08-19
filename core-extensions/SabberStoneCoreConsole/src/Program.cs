@@ -740,11 +740,11 @@ namespace SabberStoneCoreConsole
 			var warlockCards =
 				cardSet[CardClass.WARLOCK].Where(p => p.Class == CardClass.WARLOCK || p.MultiClassGroup != 0).ToList();
 
-			Stopwatch stopwatch = new Stopwatch();
+			var stopwatch = new Stopwatch();
 
 			stopwatch.Start();
 
-			List<List<Card>> cardSets = new List<List<Card>>();
+			var cardSets = new List<List<Card>>();
 			foreach (Card mageCard in mageCards)
 			{
 				foreach (Card priestCard in priestCards)
@@ -841,12 +841,13 @@ namespace SabberStoneCoreConsole
 			game.Process(ChooseTask.Mulligan(game.CurrentOpponent, new List<int>()));
 
 			// End Mulligan phase.
-			game.NextStep = Step.MAIN_BEGIN; 
+			game.NextStep = Step.MAIN_BEGIN;
 
 			ShowLog(game, LogLevel.VERBOSE);
 
-			Console.WriteLine("DeckCount = " + game.CurrentPlayer.DeckZone.Count);
-			Console.WriteLine("postMulligan GameTriggers = " + game.Triggers.Count);
+			Console.WriteLine("start ->");
+			game.CurrentPlayer.DeckCards.ForEach(p => Console.WriteLine(p.Name));
+			Console.WriteLine("<- ende");
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

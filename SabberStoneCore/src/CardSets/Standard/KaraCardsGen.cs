@@ -1033,7 +1033,7 @@ namespace SabberStoneCore.CardSets.Standard
                         .TriggerEffect(GameTag.STEP, 0)
 						.MaxExecution(1)
 						.SingleTask(ComplexTask.Create(
-							new RandomMinionTask(GameTag.RARITY, (int) Rarity.LEGENDARY, 5),
+							new RandomMinionTask(GameTag.RARITY, (int) Rarity.LEGENDARY, 5, RelaSign.EQ, true, true),
 							new AddStackTo(EntityType.DECK)))
 						.Build()
 				}

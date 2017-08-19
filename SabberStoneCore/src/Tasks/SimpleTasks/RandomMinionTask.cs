@@ -9,13 +9,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomMinionTask : SimpleTask
 	{
-		private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign)
+		private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign, bool classAndMultiOnlyFlag, bool maxInDeckFlag)
 		{
 			Tag = tag;
 			Value = value;
 			Type = type;
 			Amount = amount;
 			RelaSign = relaSign;
+			ClassAndMultiOnlyFlag = classAndMultiOnlyFlag;
+			MaxInDeckFlag = maxInDeckFlag;
 		}
 
 		public RandomMinionTask(GameTag tag, EntityType type, int amount = 1)
@@ -24,15 +26,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Value = -1;
 			Type = type;
 			Amount = amount;
+			ClassAndMultiOnlyFlag = false;
+			MaxInDeckFlag = false;
 			RelaSign = RelaSign.EQ;
 		}
 
-		public RandomMinionTask(GameTag tag, int value, int amount = 1, RelaSign relaSign = RelaSign.EQ)
+		public RandomMinionTask(GameTag tag, int value, int amount = 1, RelaSign relaSign = RelaSign.EQ, bool classAndMultiOnlyFlag = false, bool maxInDeckFlag = false)
 		{
 			Tag = tag;
 			Value = value;
 			Type = EntityType.INVALID;
 			Amount = amount;
+			ClassAndMultiOnlyFlag = classAndMultiOnlyFlag;
+			MaxInDeckFlag = maxInDeckFlag;
 			RelaSign = relaSign;
 		}
 
@@ -40,6 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int Value { get; set; }
 		public EntityType Type { get; set; }
 		public int Amount { get; set; }
+		public bool ClassAndMultiOnlyFlag { get; set; }
+		public bool MaxInDeckFlag { get; set; }
 		public RelaSign RelaSign { get; set; }
 
 		public override TaskState Process()
@@ -56,7 +64,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			IEnumerable<Card> cards;
+			if (Game.FormatType == FormatType.FT_STANDARD)
+			{
+				cards = ClassAndMultiOnlyFlag ? Controller.Standard : Cards.AllStandard;
+			}
+			else
+			{
+				cards = ClassAndMultiOnlyFlag ? Controller.Wild : Cards.AllWild;
+			}
+
 			var cardsList = cards.Where(p => p.Type == CardType.MINION
 				&& (RelaSign == RelaSign.EQ && p[Tag] == Value
 				 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
@@ -71,6 +88,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Card card = Util.Choose<Card>(cardsList);
 				cardsList.Remove(card);
+
+				// check for deck rules
+				if (MaxInDeckFlag && Controller.DeckCards.Where(p => p.Id == card.Id).Count() >= card.MaxAllowedInDeck)
+					continue;
+
 				randomMinions.Add(Entity.FromCard(Controller, card));
 			}
 
@@ -81,7 +103,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RandomMinionTask(Tag, Value, Type, Amount, RelaSign);
+			var clone = new RandomMinionTask(Tag, Value, Type, Amount, RelaSign, ClassAndMultiOnlyFlag, MaxInDeckFlag);
 			clone.Copy(this);
 			return clone;
 		}

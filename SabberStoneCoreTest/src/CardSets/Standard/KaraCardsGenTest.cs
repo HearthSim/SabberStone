@@ -1378,8 +1378,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			allPlayables.AddRange(game.CurrentPlayer.HandZone);
 			var legendaries = allPlayables.Where(p => p.Card.Rarity == Rarity.LEGENDARY).ToList();
 			// Added legendaries MUST belong to the CardClass of the deck or the MultiClassGroup.
-			Assert.False(legendaries.Any(p => p.Card.Class != CardClass.NEUTRAL && (p.Card.Class != CardClass.MAGE ||
-										p.Card.MultiClassGroup != (int)MultiClassGroup.KABAL)));
+			Assert.False(legendaries.Any(p => p.Card.Class != CardClass.NEUTRAL &&
+				p.Card.Class != CardClass.MAGE && p.Card.MultiClassGroup != (int)MultiClassGroup.KABAL));
 			// No duplicate legendaries are allowed!
 			Assert.Equal(legendaries.Count, legendaries.Distinct().Count());
 		}

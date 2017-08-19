@@ -319,8 +319,14 @@ namespace SabberStoneCore.Model
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", "Starting new game now!");
 
 			// setting up the decks ...
-			_gameConfig.Player1Deck?.ForEach(p => Entity.FromCard(Player1, p, null, Player1.DeckZone));
-			_gameConfig.Player2Deck?.ForEach(p => Entity.FromCard(Player2, p, null, Player2.DeckZone));
+			_gameConfig.Player1Deck?.ForEach(p => {
+				Player1.DeckCards.Add(p);
+				Entity.FromCard(Player1, p, null, Player1.DeckZone);
+			});
+			_gameConfig.Player2Deck?.ForEach(p => {
+				Player2.DeckCards.Add(p);
+				Entity.FromCard(Player2, p, null, Player2.DeckZone);
+			});
 			if (_gameConfig.FillDecks)
 			{
 				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);

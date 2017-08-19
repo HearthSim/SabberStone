@@ -21,6 +21,11 @@ namespace SabberStoneCore.Model.Entities
 		public string Name { get; }
 
 		/// <summary>
+		/// Initial cards that are in the deck of the controller.
+		/// </summary>
+		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+
+		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
 		public ControlledZones ControlledZones { get; }
