@@ -725,10 +725,9 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CryptLord_ICC_808()
 		{
-			// TODO CryptLord_ICC_808 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -738,9 +737,42 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crypt Lord"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Angry Chicken"));
+			IPlayable minion4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Angry Chicken"));
+
+			Assert.Equal(6, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(6, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+			Assert.Equal(7, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+
+			Assert.Equal(8, ((Minion)testCard).Health);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion4));
+
+			Assert.Equal(11, ((Minion)testCard).Health);
+			Assert.Equal(8, ((Minion)testCard2).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID

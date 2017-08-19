@@ -649,12 +649,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_808", new List<Enchantment> {
-				// TODO [ICC_808] Crypt Lord && Test: Crypt Lord_ICC_808
 				new Enchantment
 				{
 					InfoCardId = "ICC_808e",
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.BOARD,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
+						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.SingleTask(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
+						.Build()
 				}
 			});
 
