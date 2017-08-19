@@ -2217,10 +2217,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalimos, Primal Lord"));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Igneous Elemental"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			int choice = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 			Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count); // Invocation must be in graveyard ...

@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -104,7 +104,8 @@ namespace SabberStoneCoreConsole
 					Player1HeroClass = Cards.HeroClasses[i % 9],
 					Player1Deck = new List<Card>()
 					{
-						Cards.FromName("Alarm-o-Bot"),
+						//Cards.FromName("Gorehowl"),
+						//Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -138,7 +139,8 @@ namespace SabberStoneCoreConsole
 					Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
 					Player2Deck = new List<Card>()
 					{
-						Cards.FromName("Alarm-o-Bot"),
+						//Cards.FromName("Gorehowl"),
+						//Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -793,33 +795,22 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Grimscale Chum"),
-					Cards.FromName("Grimscale Chum")
-				},
-				Player2HeroClass = CardClass.MAGE,
-				Player2Deck = new List<Card>()
-				{
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Grimscale Chum"),
-					Cards.FromName("Grimscale Chum")
-				},
-				FillDecks = false
+				Player1HeroClass = CardClass.SHAMAN,
+				Player2HeroClass = CardClass.SHAMAN,
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise the Trailblazer"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalimos, Primal Lord"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Igneous Elemental"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
-
+			int choice = game.CurrentPlayer.Choice.Choices[0];
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 
 			ShowLog(game, LogLevel.VERBOSE);
 
