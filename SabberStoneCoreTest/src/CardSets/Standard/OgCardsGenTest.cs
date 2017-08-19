@@ -3828,7 +3828,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(6, game.CurrentPlayer.HandZone.Count); // 3 (starting) + 2x draw + draw DeathWing
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count); // 3 (starting) + Ancient Harbinger + 2x draw + draw DeathWing
 			Assert.Equal(game.CurrentPlayer.DeckZone.StartingCards - 6, game.CurrentPlayer.DeckZone.Count); // 30 (starting) - 6
 		}
 
