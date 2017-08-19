@@ -650,7 +650,7 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DruidOfTheSwarm_ICC_051()
 		{
 			// TODO DruidOfTheSwarm_ICC_051 test
@@ -663,9 +663,37 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1, 1));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).Poisonous);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).HasTaunt);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable chooseBoth = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fandral Staghelm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, chooseBoth));
+			Assert.True(game.CurrentPlayer.ChooseBoth);
+
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Swarm"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasTaunt);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).Poisonous);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[3]).AttackDamage);
+			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[3]).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID

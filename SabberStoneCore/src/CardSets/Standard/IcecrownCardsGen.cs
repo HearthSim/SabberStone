@@ -604,12 +604,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051", new List<Enchantment> {
-				// TODO [ICC_051] Druid of the Swarm && Test: Druid of the Swarm_ICC_051
+			cards.Add("ICC_051", new List<Enchantment>
+			{
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new TransformTask("ICC_051t3", EntityType.SOURCE)
 				}
 			});
 
@@ -855,14 +855,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t", new List<Enchantment> {
-				// TODO [ICC_051t] Druid of the Swarm && Test: Druid of the Swarm_ICC_051t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_051t",
+				null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t2] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -873,14 +867,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t2", new List<Enchantment> {
-				// TODO [ICC_051t2] Druid of the Swarm && Test: Druid of the Swarm_ICC_051t2
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_051t2",
+				null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t3] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -893,14 +881,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t3", new List<Enchantment> {
-				// TODO [ICC_051t3] Druid of the Swarm && Test: Druid of the Swarm_ICC_051t3
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_051t3",
+				null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_085t] Ghoul Infestor (*) - COST:5 [ATK:5/HP:5] 
@@ -984,9 +966,9 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [ICC_051a] Spider Form && Test: Spider Form_ICC_051a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new TransformTask("ICC_051t", EntityType.SOURCE)
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -999,9 +981,9 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [ICC_051b] Scarab Form && Test: Scarab Form_ICC_051b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new TransformTask("ICC_051t2", EntityType.SOURCE)
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
