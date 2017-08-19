@@ -2224,7 +2224,7 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Sindragosa_ICC_838()
 		{
 			// TODO Sindragosa_ICC_838 test
@@ -2237,9 +2237,22 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			// This is not correct,
+			// they should spawn on
+			// either side of Sindragosa
+			Assert.Equal("ICC_838", game.CurrentPlayer.BoardZone[0].Card.Id);
+			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[1].Card.Id);
+			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[2].Card.Id);
 		}
 
 		// ------------------------------------------- SPELL - MAGE

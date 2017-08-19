@@ -2113,11 +2113,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_838", new List<Enchantment> {
-				// TODO [ICC_838] Sindragosa && Test: Sindragosa_ICC_838
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_838t"))
 				},
 			});
 
