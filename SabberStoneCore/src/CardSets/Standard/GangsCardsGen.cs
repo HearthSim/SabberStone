@@ -1678,6 +1678,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
                     // TODO needs to show health costs, however check if there is a better way to this
+	                // TODO [CFM_699] Seadevil Stinger && Test: Seadevil Stinger_CFM_699
                     InfoCardId = "CFM_699e",
                     //Area = EnchantmentArea.HAND,
                     Activation = EnchantmentActivation.BATTLECRY,
