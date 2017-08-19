@@ -28,6 +28,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			IPlayable playable = Entity.FromCard(Controller, Util.Choose<Card>(cardsList));
 			Playables = new List<IPlayable> { playable };
 
+			Game.OnRandomHappened(true);
+
 			return TaskState.COMPLETE;
 		}
 

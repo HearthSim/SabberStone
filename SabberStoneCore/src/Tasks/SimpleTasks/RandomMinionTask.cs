@@ -98,6 +98,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			Playables = randomMinions;
 
+			Game.OnRandomHappened(true);
+
 			return TaskState.COMPLETE;
 		}
 

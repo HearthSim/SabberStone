@@ -217,7 +217,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					};
 
 				case DiscoverType.ELEMENTAL_INVOCATION:
-					choiceAction = ChoiceAction.HAND;
+					choiceAction = ChoiceAction.SPELL;
 					return new[]
 					{
 						new List<Card>

@@ -34,30 +34,46 @@ namespace SabberStoneCore.Actions
 				switch (c.Choice.ChoiceAction)
 				{
 					case ChoiceAction.HAND:
+
 						if (RemoveFromZone(c, playable))
 						{
-							c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
-							{
-								Game = c.Game,
-								Controller = c,
-								Source = playable,
-								Target = playable
-							});
+							AddHandPhase.Invoke(c, playable);
+						}
+						//if (RemoveFromZone(c, playable))
+						//{
+						//	c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+						//	{
+						//		Game = c.Game,
+						//		Controller = c,
+						//		Source = playable,
+						//		Target = playable
+						//	});
+						//}
+						break;
+
+					case ChoiceAction.SPELL:
+						if (RemoveFromZone(c, playable))
+						{
+							PlaySpell.Invoke(c, (Spell)playable, null);
 						}
 						break;
 
 					case ChoiceAction.SUMMON:
 						if (RemoveFromZone(c, playable))
 						{
-							c.Game.TaskStack.Playables.Add(playable);
-							c.Game.TaskQueue.Enqueue(new SummonTask()
-							{
-								Game = c.Game,
-								Controller = c,
-								Source = playable,
-								Target = playable
-							});
+							SummonBlock.Invoke(c, (Minion)playable, -1);
 						}
+						//if (RemoveFromZone(c, playable))
+						//{
+						//	c.Game.TaskStack.Playables.Add(playable);
+						//	c.Game.TaskQueue.Enqueue(new SummonTask()
+						//	{
+						//		Game = c.Game,
+						//		Controller = c,
+						//		Source = playable,
+						//		Target = playable
+						//	});
+						//}
 						break;
 
 					case ChoiceAction.ADAPT:
