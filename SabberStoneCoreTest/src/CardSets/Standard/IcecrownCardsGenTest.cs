@@ -2177,10 +2177,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Coldwraith_ICC_252()
 		{
-			// TODO Coldwraith_ICC_252 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2190,9 +2189,29 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldwraith"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldwraith"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Nova"));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE

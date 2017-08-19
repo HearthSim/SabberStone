@@ -2092,11 +2092,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_252", new List<Enchantment> {
-				// TODO [ICC_252] Coldwraith && Test: Coldwraith_ICC_252
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.ENEMIES),
+						new FilterStackTask(SelfCondition.IsFrozen),
+						new DrawTask())
 				},
 			});
 
