@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -104,7 +104,7 @@ namespace SabberStoneCoreConsole
 					Player1HeroClass = Cards.HeroClasses[i % 9],
 					Player1Deck = new List<Card>()
 					{
-						//Cards.FromName("Ironbark Protector"),
+						Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -138,7 +138,7 @@ namespace SabberStoneCoreConsole
 					Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
 					Player2Deck = new List<Card>()
 					{
-						//Cards.FromName("Ironbark Protector"),
+						Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -793,61 +793,28 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
+				Player1HeroClass = CardClass.HUNTER,
+				Player1Deck = new List<Card>
 				{
-					Cards.FromName("Stonetusk Boar"),     // 1
-                    Cards.FromName("Loot Hoarder"),       // 2
-                    Cards.FromName("Huge Toad"),          // 3
-                    Cards.FromName("Mad Bomber"),         // 4
-                    Cards.FromName("Stonetusk Boar"),     // 5
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Prince Malchezaar"),
+					Cards.FromName("Alarm-o-Bot"),
+					Cards.FromName("Loot Hoarder"),
+					Cards.FromName("Acolyte of Pain")
 				},
-				Player2HeroClass = CardClass.MAGE,
-				Player2Deck = new List<Card>()
-				{
-					Cards.FromName("Loot Hoarder"),		  // 1
-                    Cards.FromName("Loot Hoarder"),       // 2
-                    Cards.FromName("Huge Toad"),          // 3
-                    Cards.FromName("Mad Bomber"),         // 4
-                    Cards.FromName("Stonetusk Boar"),     // 5
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-				},
-				//FillDecks = true,
-				//FillDecksPredictably = true,
-				Shuffle = false,
-				SkipMulligan = false
+				Player2HeroClass = CardClass.WARRIOR,
+				FillDecks = false,
+				Shuffle = false
+
 			});
-
 			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
 
-			Console.WriteLine("preMulligan GameTriggers = " + game.Triggers.Count);
-
-			// Mulligan Player 1
-			game.Process(ChooseTask.Mulligan(game.CurrentPlayer, new List<int>()));
-			// Mulligan Player 2
-			game.Process(ChooseTask.Mulligan(game.CurrentOpponent, new List<int>()));
-
-			// End Mulligan phase.
-			game.NextStep = Step.MAIN_BEGIN;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			ShowLog(game, LogLevel.VERBOSE);
-
-			Console.WriteLine("start ->");
-			game.CurrentPlayer.DeckCards.ForEach(p => Console.WriteLine(p.Name));
-			Console.WriteLine("<- ende");
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

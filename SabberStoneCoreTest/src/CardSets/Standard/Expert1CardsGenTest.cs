@@ -5352,7 +5352,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 
 			// make sure that the cards are swapped into the same position 
-			Assert.Equal("Acolyte of Pain", game.CurrentPlayer.BoardZone.Last().Card.Name);
+			Assert.Equal("Acolyte of Pain", game.CurrentPlayer.BoardZone[0].Card.Name);
 			Assert.Equal("Alarm-o-Bot", game.CurrentPlayer.HandZone[0].Card.Name);
 		}
 
