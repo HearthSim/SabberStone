@@ -4389,24 +4389,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_006", new List<Enchantment>
 			{
-                // TODO Something is buggy with the implementation ... crashing on zone remove
                 new Enchantment
 				{
-                    //Area = EnchantmentArea.CONTROLLER,
-                    //Activation = EnchantmentActivation.BOARD,
-                    //Trigger = new TriggerBuilder().Create()
-                    //    .EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-                    //    .TriggerEffect(GameTag.TURN_START, 1)
-                    //    .SingleTask(ComplexTask.Create(
-                    //        new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInHand),
-                    //        new FlagTask(true, ComplexTask.Create(
-                    //            new IncludeTask(EntityType.HAND),
-                    //            new FilterStackTask(SelfCondition.IsMinion),
-                    //            new ReturnHandTask(EntityType.SOURCE),
-                    //            new RandomTask(1,EntityType.STACK),
-                    //            new RemoveFromHand(EntityType.STACK),
-                    //            new SummonTask()))))
-                    //    .Build()
+                    Area = EnchantmentArea.CONTROLLER,
+                    Activation = EnchantmentActivation.BOARD_ZONE,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(
+							SelfCondition.IsInZone(Zone.PLAY),
+							SelfCondition.IsNotSilenced)
+                        .TriggerEffect(GameTag.TURN_START, 1)
+						//.FastExecution(true)
+						.MaxExecution(1)
+                        .SingleTask(ComplexTask.Create(
+                            new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInHand, SelfCondition.IsNotDead),
+                            new FlagTask(true, ComplexTask.Create(
+                                new IncludeTask(EntityType.HAND),
+                                new FilterStackTask(SelfCondition.IsMinion),
+                                new RandomTask(1,EntityType.STACK),
+                                new RemoveFromHand(EntityType.STACK),
+								new GetGameTagTask(GameTag.ZONE_POSITION, EntityType.SOURCE),
+								new ReturnHandTask(EntityType.SOURCE),
+                                new SummonTask(null, false, true)))))
+                        .Build()
                 }
 			});
 

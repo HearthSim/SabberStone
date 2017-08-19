@@ -2886,8 +2886,12 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, 1)
-						.SingleTask(ComplexTask.SummonRandomMinion(EntityType.DECK,
-							RelaCondition.IsOther(SelfCondition.IsBaseTagValue(GameTag.COST, 10))))
+						.SingleTask(ComplexTask.Create(
+							new IncludeTask(EntityType.DECK),
+							new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsBaseTagValue(GameTag.COST, 10)),
+							new RandomTask(1, EntityType.STACK),
+							new RemoveFromDeck(EntityType.STACK),
+							new AddStackTo(EntityType.HAND)))
 						.Build()
 				}
 			});

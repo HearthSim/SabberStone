@@ -104,7 +104,7 @@ namespace SabberStoneCoreConsole
 					Player1HeroClass = Cards.HeroClasses[i % 9],
 					Player1Deck = new List<Card>()
 					{
-						//Cards.FromName("Ironbark Protector"),
+						Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -138,7 +138,7 @@ namespace SabberStoneCoreConsole
 					Player2HeroClass = Cards.HeroClasses[(i + 1) % 9],
 					Player2Deck = new List<Card>()
 					{
-						//Cards.FromName("Ironbark Protector"),
+						Cards.FromName("Alarm-o-Bot"),
 						//Cards.FromName("Ironbark Protector"),
 						//Cards.FromName("Healing Touch"),
 						//Cards.FromName("Healing Touch"),
@@ -794,60 +794,42 @@ namespace SabberStoneCoreConsole
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Stonetusk Boar"),     // 1
-                    Cards.FromName("Loot Hoarder"),       // 2
-                    Cards.FromName("Huge Toad"),          // 3
-                    Cards.FromName("Mad Bomber"),         // 4
-                    Cards.FromName("Stonetusk Boar"),     // 5
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Prince Malchezaar"),
-				},
 				Player2HeroClass = CardClass.MAGE,
-				Player2Deck = new List<Card>()
-				{
-					Cards.FromName("Loot Hoarder"),		  // 1
-                    Cards.FromName("Loot Hoarder"),       // 2
-                    Cards.FromName("Huge Toad"),          // 3
-                    Cards.FromName("Mad Bomber"),         // 4
-                    Cards.FromName("Stonetusk Boar"),     // 5
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-				},
-				//FillDecks = true,
-				//FillDecksPredictably = true,
-				Shuffle = false,
-				SkipMulligan = false
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
-
 			game.StartGame();
-
-			Console.WriteLine("preMulligan GameTriggers = " + game.Triggers.Count);
-
-			// Mulligan Player 1
-			game.Process(ChooseTask.Mulligan(game.CurrentPlayer, new List<int>()));
-			// Mulligan Player 2
-			game.Process(ChooseTask.Mulligan(game.CurrentOpponent, new List<int>()));
-
-			// End Mulligan phase.
-			game.NextStep = Step.MAIN_BEGIN;
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mogor's Champion"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
 
 			ShowLog(game, LogLevel.VERBOSE);
 
-			Console.WriteLine("start ->");
-			game.CurrentPlayer.DeckCards.ForEach(p => Console.WriteLine(p.Name));
-			Console.WriteLine("<- ende");
+			Console.WriteLine("game.CurrentOpponent.Hero.Health < 30: " + (game.CurrentOpponent.Hero.Health < 30) + "[" + game.CurrentOpponent.Hero.Health + "]");
+			Console.WriteLine("minion1: " + (minion1 as Minion).IsDead);
+			Console.WriteLine("minion2: " + (minion2 as Minion).IsDead);
+			Console.WriteLine("minion3: " + (minion3 as Minion).IsDead);
+			Console.WriteLine("all dead and hero no dmg? " + (game.CurrentOpponent.Hero.Health == 30 && (minion1 as Minion).IsDead && (minion2 as Minion).IsDead && (minion3 as Minion).IsDead));
+			Console.WriteLine("at least one not dead dead and hero has dmg? " + (game.CurrentOpponent.Hero.Health < 30 && (!(minion1 as Minion).IsDead || !(minion2 as Minion).IsDead || !(minion3 as Minion).IsDead)));
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

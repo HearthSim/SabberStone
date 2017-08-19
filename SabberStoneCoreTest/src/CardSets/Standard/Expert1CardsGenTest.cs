@@ -5352,7 +5352,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 
 			// make sure that the cards are swapped into the same position 
-			Assert.Equal("Acolyte of Pain", game.CurrentPlayer.BoardZone.Last().Card.Name);
+			Assert.Equal("Acolyte of Pain", game.CurrentPlayer.BoardZone[0].Card.Name);
 			Assert.Equal("Alarm-o-Bot", game.CurrentPlayer.HandZone[0].Card.Name);
 		}
 
@@ -7929,14 +7929,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void DreadCorsair_NEW1_022()
 		{
-			var game = new Game(new GameConfig
+			var gameConfig = new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
-			});
+			};
+			gameConfig.UnPredictableCardIDs.Add("CFM_637"); // don't allow patches for board count test
+			var game = new Game(gameConfig);
+			
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
