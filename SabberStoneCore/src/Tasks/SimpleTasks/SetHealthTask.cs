@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.TrueForAll(p =>
 			{
-				var target = p as Minion;
+				var target = p as ICharacter;
 				if (target == null)
 				{
 					return false;

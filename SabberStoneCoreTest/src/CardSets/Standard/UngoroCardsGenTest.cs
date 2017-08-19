@@ -1755,6 +1755,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Mistress of Mixtures            
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal("UNG_940t8", game.CurrentPlayer.HandZone[0].Card.Id);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Amara, Warden of Hope             
 			Assert.Equal(40, game.CurrentPlayer.Hero.Health);
 		}
