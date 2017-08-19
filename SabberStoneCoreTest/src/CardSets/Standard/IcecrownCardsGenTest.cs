@@ -3838,6 +3838,188 @@ namespace SabberStoneUnitTest.CardSets
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
 		}
 
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t3] Doom Pact (*) - COST:5 
+		// - Fac: neutral, Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: [x]Destroy all minions. 
+		//       Remove the top card 
+		//       from your deck for each
+		//       minion destroyed.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DoomPact_ICC_314t3()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t4] Death Grip (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Steal a minion from your opponent's deck and add it to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathGrip_ICC_314t4()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t5] Death Coil (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Deal $5 damage to an enemy, or restore #5 Health to a friendly character. *spelldmg
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathCoil_ICC_314t5()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t6] Obliterate (*) - COST:2 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Destroy a minion. Your hero takes damage equal to its Health.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ImmuneToSpellpower = 1
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_MINION_TARGET = 0
+		// - REQ_TARGET_TO_PLAY = 0
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Obliterate_ICC_314t6()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t7] Anti-Magic Shell (*) - COST:4 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Give your minions +2/+2 and "Can't be targeted by spells or Hero Powers."
+		// --------------------------------------------------------
+		// GameTag:
+		// - CANT_BE_TARGETED_BY_SPELLS = 1
+		// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void AntiMagicShell_ICC_314t7()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ------------------------------------ SPELL - DEATHKNIGHT
+		// [ICC_314t8] Death and Decay (*) - COST:3 
+		// - Fac: neutral, Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: Deal $3 damage to all enemies. *spelldmg
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void DeathandDecay_ICC_314t8()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
+		// ----------------------------------- WEAPON - DEATHKNIGHT
+		// [ICC_314t1] Frostmourne (*) - COST:7 [ATK:5/HP:0] 
+		// - Set: icecrown, 
+		// --------------------------------------------------------
+		// Text: <b>Deathrattle:</b> Summon every minion killed by this weapon.
+		// --------------------------------------------------------
+		// GameTag:
+		// - DURABILITY = 3
+		// - DEATHRATTLE = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Frostmourne_ICC_314t1()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+		}
+
 		// --------------------------------------- MINION - NEUTRAL
 		// [ICC_466] Saronite Chain Gang - COST:4 [ATK:2/HP:3] 
 		// - Set: icecrown, Rarity: rare
