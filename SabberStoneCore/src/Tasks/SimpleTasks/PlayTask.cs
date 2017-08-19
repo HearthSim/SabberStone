@@ -33,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new PlayTask(PlayType, Playable, Target);
+			var clone = new PlayTask(PlayType, Playable);
 			clone.Copy(this);
 			return clone;
 		}
