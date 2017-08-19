@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Log task is beeing processed!");
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Flag: {Flag}, Number: {Number}");
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {string.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {String.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
 			}
 
 			if (CardTextPrint)
