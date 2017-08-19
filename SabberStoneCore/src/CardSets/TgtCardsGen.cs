@@ -1474,16 +1474,17 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you equip a weapon, give it +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_029", new List<Enchantment> {
+				// TODO [AT_029] Buccaneer && Test: Buccaneer_AT_029
 				new Enchantment
 				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsWeapon))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(new BuffTask(Buffs.WeaponAtk(1), EntityType.TARGET))
-						.Build()
+					//Area = EnchantmentArea.HAND,
+					//Activation = EnchantmentActivation.BOARD_ZONE,
+					//Trigger = new TriggerBuilder().Create()
+					//	.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+					//	.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsWeapon))
+					//	.TriggerEffect(GameTag.JUST_PLAYED, 1)
+					//	.SingleTask(new BuffTask(Buffs.WeaponAtk(1), EntityType.TARGET))
+					//	.Build()
 				}
 			});
 
