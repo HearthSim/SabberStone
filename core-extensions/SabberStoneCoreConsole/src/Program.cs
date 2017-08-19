@@ -194,7 +194,7 @@ namespace SabberStoneCoreConsole
 			ParallelLoopResult result = Parallel.ForEach(games, game =>
 			{
 				string maliciousCard = RandomUntilTerminal2(game);
-				if (maliciousCard != string.Empty)
+				if (maliciousCard != String.Empty)
 					Console.WriteLine(maliciousCard);
 			});
 
@@ -220,11 +220,11 @@ namespace SabberStoneCoreConsole
 
 				if (g.State == State.COMPLETE)
 				{
-					return string.Empty;
+					return String.Empty;
 				}
 				simcount++;
 			}
-			return string.Empty;
+			return String.Empty;
 		}
 
 		public static void QuestDrawFirstTest()
@@ -594,7 +594,7 @@ namespace SabberStoneCoreConsole
 
 		public static void GameSplitTest1()
 		{
-			Game game = new Game(new GameConfig
+			var game = new Game(new GameConfig
 					{
 						StartPlayer = 1,
 						Player1HeroClass = CardClass.PRIEST,
@@ -999,7 +999,7 @@ namespace SabberStoneCoreConsole
 
 		private static void ShowLog(Game game, LogLevel level)
 		{
-			StringBuilder str = new StringBuilder();
+			var str = new StringBuilder();
 			while (game.Logs.Count > 0)
 			{
 				LogEntry logEntry = game.Logs.Dequeue();

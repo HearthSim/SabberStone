@@ -20,7 +20,7 @@ namespace SabberStoneCore.Enchants
 		private readonly Dictionary<string, List<Enchantment>> _entchantmentDic;
 
 		/// <summary>
-		// Private constructor as per Singleton pattern.
+		/// Private constructor as per Singleton pattern.
 		/// </summary>
 		private Enchantments()
 		{
