@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
@@ -1080,7 +1081,7 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ProfessorPutricide_ICC_204()
 		{
 			// TODO ProfessorPutricide_ICC_204 test
@@ -1093,9 +1094,43 @@ namespace SabberStoneUnitTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
+
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Freezing Trap"));
+			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snipe"));
+
+			Assert.NotEqual(10, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell3));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			// Make sure we don't mill ourselves.
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
+
+			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
+			IPlayable spell5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hidden Cache"));
+			IPlayable spell6 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Misdirection"));
+			IPlayable spell7 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomstrike Trap"));
+			IPlayable spell8 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
+
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell4));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell5));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell6));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell7));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell8));
+
+			Assert.Equal(8, game.CurrentPlayer.SecretZone.Count);
 		}
 
 		// ---------------------------------------- MINION - HUNTER

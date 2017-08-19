@@ -1086,8 +1086,14 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [ICC_204] Professor Putricide && Test: Professor Putricide_ICC_204
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.HAND,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
+						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.SingleTask(SpecificTask.RandomHunterSecretPlay)
+						.Build()
 				}
 			});
 

@@ -121,16 +121,19 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask RandomHunterSecretPlay
 			=> ComplexTask.Create(
-				new IncludeTask(EntityType.SOURCE),
+				new IncludeTask(EntityType.TARGET),
 				new FuncPlayablesTask(p =>
 				{
 					Controller controller = p[0].Controller;
 					var activeSecrets = controller.SecretZone.GetAll.Select(secret => secret.Card.Id).ToList();
+					activeSecrets.Add(p[0].Card.Id);
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
-					return  new List<IPlayable>() { Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList())) };
-				}),
-				new PlayTask(PlayType.SPELL)
+					IPlayable spell = Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
+					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
+					controller.SecretZone.Add(spell);
+					return new List<IPlayable>();
+				})
 			);
 	}
 }
