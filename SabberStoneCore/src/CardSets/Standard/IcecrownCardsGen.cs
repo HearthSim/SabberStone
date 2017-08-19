@@ -2230,11 +2230,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_838t", new List<Enchantment> {
-				// TODO [ICC_838t] Frozen Champion && Test: Frozen Champion_ICC_838t
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 

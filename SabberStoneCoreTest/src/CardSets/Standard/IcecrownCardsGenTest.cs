@@ -2242,6 +2242,9 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player2.BaseMana = 10;
 
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
+			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
@@ -2253,6 +2256,13 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal("ICC_838", game.CurrentPlayer.BoardZone[0].Card.Id);
 			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[1].Card.Id);
 			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[2].Card.Id);
+
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentPlayer.BoardZone[1]));
+
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.HandZone.Last().Card.Rarity);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
