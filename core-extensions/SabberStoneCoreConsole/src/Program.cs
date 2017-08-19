@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			ParallelTest();
+			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -793,28 +793,43 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.HUNTER,
-				Player1Deck = new List<Card>
-				{
-					Cards.FromName("Alarm-o-Bot"),
-					Cards.FromName("Loot Hoarder"),
-					Cards.FromName("Acolyte of Pain")
-				},
-				Player2HeroClass = CardClass.WARRIOR,
-				FillDecks = false,
-				Shuffle = false
-
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mogor's Champion"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			ttMin = game.CurrentOpponent.BoardZone[0];
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
 
 			ShowLog(game, LogLevel.VERBOSE);
+
+			Console.WriteLine("game.CurrentOpponent.Hero.Health < 30: " + (game.CurrentOpponent.Hero.Health < 30) + "[" + game.CurrentOpponent.Hero.Health + "]");
+			Console.WriteLine("minion1: " + (minion1 as Minion).IsDead);
+			Console.WriteLine("minion2: " + (minion2 as Minion).IsDead);
+			Console.WriteLine("minion3: " + (minion3 as Minion).IsDead);
+			Console.WriteLine("all dead and hero no dmg? " + (game.CurrentOpponent.Hero.Health == 30 && (minion1 as Minion).IsDead && (minion2 as Minion).IsDead && (minion3 as Minion).IsDead));
+			Console.WriteLine("at least one not dead dead and hero has dmg? " + (game.CurrentOpponent.Hero.Health < 30 && (!(minion1 as Minion).IsDead || !(minion2 as Minion).IsDead || !(minion3 as Minion).IsDead)));
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

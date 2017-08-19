@@ -112,7 +112,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// The actual type of a card has limitations on it's usage.
 		/// A hero card cannot be put into a deck for example.. imagine that!
-		///
+		/// Knights of the Frozen Throne , is beyond imagination? With
+		/// Deathknigth heros in the deck!
 		/// <see cref="CardType"/>
 		/// </summary>
 		public CardType Type => (CardType)this[GameTag.CARDTYPE];

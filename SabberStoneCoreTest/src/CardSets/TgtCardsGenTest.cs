@@ -3412,18 +3412,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable ttMin = game.CurrentOpponent.BoardZone[0];
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
-			bool right1 = ((Minion)ttMin).IsDead;
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			ttMin = game.CurrentOpponent.BoardZone[0];
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
-			bool right2 = ((Minion)ttMin).IsDead;
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			ttMin = game.CurrentOpponent.BoardZone[0];
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, ttMin));
-			bool right3 = ((Minion)ttMin).IsDead;
-			Assert.True(game.CurrentOpponent.Hero.Health < 30 || !right1 || !right2 || !right3);
+			Assert.True(game.CurrentOpponent.Hero.Health == 30 && (minion1 as Minion).IsDead && (minion2 as Minion).IsDead && (minion3 as Minion).IsDead);
+			Assert.True(game.CurrentOpponent.Hero.Health < 30 && (!(minion1 as Minion).IsDead || !(minion2 as Minion).IsDead || !(minion3 as Minion).IsDead));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
