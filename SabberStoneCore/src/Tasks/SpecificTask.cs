@@ -118,5 +118,19 @@ namespace SabberStoneCore.Tasks
 				}),
 				new ReplaceHeroPower()
 			);
+
+		public static ISimpleTask RandomHunterSecretPlay
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					Controller controller = p[0].Controller;
+					var activeSecrets = controller.SecretZone.GetAll.Select(secret => secret.Card.Id).ToList();
+					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
+					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
+					return  new List<IPlayable>() { Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList())) };
+				}),
+				new PlayTask(PlayType.SPELL)
+			);
 	}
 }
