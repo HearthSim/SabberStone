@@ -1,6 +1,7 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
+using System.Linq;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
 {
@@ -10,17 +11,33 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new PlayCardTask(controller, source, target, zonePosition, chooseOne);
 		}
+		public static PlayCardTask Any(Controller controller, string cardName, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
+		{
+			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, zonePosition, chooseOne);
+		}
 		public static PlayCardTask Minion(Controller controller, IEntity source, int chooseOne = 0)
 		{
 			return new PlayCardTask(controller, source, null, -1, chooseOne);
+		}
+		public static PlayCardTask Minion(Controller controller, string cardName, int chooseOne = 0)
+		{
+			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
 		}
 		public static PlayCardTask MinionTarget(Controller controller, IEntity source, IEntity target, int chooseOne = 0)
 		{
 			return new PlayCardTask(controller, source, target, -1, chooseOne);
 		}
+		public static PlayCardTask MinionTarget(Controller controller, string cardName, IEntity target, int chooseOne = 0)
+		{
+			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
+		}
 		public static PlayCardTask Spell(Controller controller, IEntity source, int chooseOne = 0)
 		{
 			return new PlayCardTask(controller, source, null, -1, chooseOne);
+		}
+		public static PlayCardTask Spell(Controller controller, string cardName, int chooseOne = 0)
+		{
+			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
 		}
 		public static PlayCardTask SpellTarget(Controller controller, IEntity source, IEntity target, int chooseOne = 0)
 		{

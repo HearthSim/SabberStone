@@ -25,13 +25,13 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
-			//GameSplitTest1();
+			GameSplitTest();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
@@ -483,111 +483,95 @@ namespace SabberStoneCoreConsole
 
 		public static void GameSplitTest()
 		{
-			Game game = null;
-			bool goOnFlag = true;
-			while (goOnFlag)
+			var game = new Game(new GameConfig
 			{
-				game =
-					new Game(new GameConfig
-					{
-						StartPlayer = 1,
-						Player1HeroClass = CardClass.PRIEST,
-						Player1Deck = new List<Card>()
-						{
-							Cards.FromName("Loot Hoarder"),       // 1
-                            Cards.FromName("Loot Hoarder"),       // 2
-                            Cards.FromName("Huge Toad"),          // 3
-                            Cards.FromName("Mad Bomber"),         // 4
-                            Cards.FromName("Stonetusk Boar"),     // 5
-                            Cards.FromName("Magma Rager"),        // 6
-                            Cards.FromName("War Golem"),          // 7
-                            Cards.FromName("Reckless Rocketeer"), // 8
-                            Cards.FromName("Wolfrider"),          // 9
-                            Cards.FromName("Sen'jin Shieldmasta"),// 10
-                            Cards.FromName("Voodoo Doctor"),      // 11
-                            Cards.FromName("River Crocolisk"),    // 12
-                            Cards.FromName("Oasis Snapjaw"),      // 13
-                            Cards.FromName("Novice Engineer"),    // 14
-                            Cards.FromName("Core Hound"),         // 15
-                            Cards.FromName("Booty Bay Bodyguard"),// 16
-                            Cards.FromName("Ogre Magi"),          // 17
-                            Cards.FromName("Chillwind Yeti"),     // 18
-                            Cards.FromName("Acidic Swamp Ooze"),  // 19
-                            Cards.FromName("Ironfur Grizzly"),    // 20
-                            Cards.FromName("Bluegill Warrior"),   // 21
-                            Cards.FromName("Murloc Tidehunter"),  // 22
-                            Cards.FromName("Frostwolf Grunt"),    // 23
-                            Cards.FromName("Ironforge Rifleman"), // 24
-                            Cards.FromName("Kobold Geomancer"),   // 25
-                            Cards.FromName("Razorfen Hunter"),    // 26
-                            Cards.FromName("Gnomish Inventor"),   // 27
-                            Cards.FromName("Stormwind Knight"),   // 28
-                            Cards.FromName("Gurubashi Berserker"),// 29
-                            Cards.FromName("Elven Archer"),       // 30
-                        },
-						Player2HeroClass = CardClass.HUNTER,
-						Player2Deck = new List<Card>()
-						{
-							Cards.FromName("Loot Hoarder"),       // 1
-                            Cards.FromName("Loot Hoarder"),       // 2
-                            Cards.FromName("Huge Toad"),          // 3
-                            Cards.FromName("Mad Bomber"),         // 4
-                            Cards.FromName("Stonetusk Boar"),     // 5
-                            Cards.FromName("Magma Rager"),        // 6
-                            Cards.FromName("War Golem"),          // 7
-                            Cards.FromName("Reckless Rocketeer"), // 8
-                            Cards.FromName("Wolfrider"),          // 9
-                            Cards.FromName("Sen'jin Shieldmasta"),// 10
-                            Cards.FromName("Voodoo Doctor"),      // 11
-                            Cards.FromName("River Crocolisk"),    // 12
-                            Cards.FromName("Oasis Snapjaw"),      // 13
-                            Cards.FromName("Novice Engineer"),    // 14
-                            Cards.FromName("Core Hound"),         // 15
-                            Cards.FromName("Booty Bay Bodyguard"),// 16
-                            Cards.FromName("Ogre Magi"),          // 17
-                            Cards.FromName("Chillwind Yeti"),     // 18
-                            Cards.FromName("Acidic Swamp Ooze"),  // 19
-                            Cards.FromName("Ironfur Grizzly"),    // 20
-                            Cards.FromName("Bluegill Warrior"),   // 21
-                            Cards.FromName("Murloc Tidehunter"),  // 22
-                            Cards.FromName("Frostwolf Grunt"),    // 23
-                            Cards.FromName("Ironforge Rifleman"), // 24
-                            Cards.FromName("Kobold Geomancer"),   // 25
-                            Cards.FromName("Razorfen Hunter"),    // 26
-                            Cards.FromName("Gnomish Inventor"),   // 27
-                            Cards.FromName("Stormwind Knight"),   // 28
-                            Cards.FromName("Gurubashi Berserker"),// 29
-                            Cards.FromName("Elven Archer"),       // 30
-                        },
-						FillDecks = false,
-						Shuffle = false,
-						Splitting = true
-					});
-				game.StartGame();
-				game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4])); // Coin
-				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
-				game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
-				game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Huge Toad
-				//game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
-				//game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[1])); // Mad Bomber
-				Console.WriteLine(game.CurrentOpponent.DeckZone.Count);
-				game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[2]));
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Loot Hoarder"),       // 1
+                    Cards.FromName("Loot Hoarder"),       // 2
+                    Cards.FromName("Huge Toad"),          // 3
+                    Cards.FromName("Mad Bomber"),         // 4
+                    Cards.FromName("Stonetusk Boar"),     // 5
+                    Cards.FromName("Magma Rager"),        // 6
+                    Cards.FromName("War Golem"),          // 7
+                    Cards.FromName("Reckless Rocketeer"), // 8
+                    Cards.FromName("Wolfrider"),          // 9
+                    Cards.FromName("Sen'jin Shieldmasta"),// 10
+                    Cards.FromName("Voodoo Doctor"),      // 11
+                    Cards.FromName("River Crocolisk"),    // 12
+                    Cards.FromName("Oasis Snapjaw"),      // 13
+                    Cards.FromName("Novice Engineer"),    // 14
+                    Cards.FromName("Core Hound"),         // 15
+                    Cards.FromName("Booty Bay Bodyguard"),// 16
+                    Cards.FromName("Ogre Magi"),          // 17
+                    Cards.FromName("Chillwind Yeti"),     // 18
+                    Cards.FromName("Acidic Swamp Ooze"),  // 19
+                    Cards.FromName("Ironfur Grizzly"),    // 20
+                    Cards.FromName("Bluegill Warrior"),   // 21
+                    Cards.FromName("Murloc Tidehunter"),  // 22
+                    Cards.FromName("Frostwolf Grunt"),    // 23
+                    Cards.FromName("Ironforge Rifleman"), // 24
+                    Cards.FromName("Kobold Geomancer"),   // 25
+                    Cards.FromName("Razorfen Hunter"),    // 26
+                    Cards.FromName("Gnomish Inventor"),   // 27
+                    Cards.FromName("Stormwind Knight"),   // 28
+                    Cards.FromName("Gurubashi Berserker"),// 29
+                    Cards.FromName("Elven Archer"),       // 30
+                 },
+				Player2HeroClass = CardClass.HUNTER,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Loot Hoarder"),       // 1
+                    Cards.FromName("Loot Hoarder"),       // 2
+                    Cards.FromName("Huge Toad"),          // 3
+                    Cards.FromName("Mad Bomber"),         // 4
+                    Cards.FromName("Stonetusk Boar"),     // 5
+                    Cards.FromName("Magma Rager"),        // 6
+                    Cards.FromName("War Golem"),          // 7
+                    Cards.FromName("Reckless Rocketeer"), // 8
+                    Cards.FromName("Wolfrider"),          // 9
+                    Cards.FromName("Sen'jin Shieldmasta"),// 10
+                    Cards.FromName("Voodoo Doctor"),      // 11
+                    Cards.FromName("River Crocolisk"),    // 12
+                    Cards.FromName("Oasis Snapjaw"),      // 13
+                    Cards.FromName("Novice Engineer"),    // 14
+                    Cards.FromName("Core Hound"),         // 15
+                    Cards.FromName("Booty Bay Bodyguard"),// 16
+                    Cards.FromName("Ogre Magi"),          // 17
+                    Cards.FromName("Chillwind Yeti"),     // 18
+                    Cards.FromName("Acidic Swamp Ooze"),  // 19
+                    Cards.FromName("Ironfur Grizzly"),    // 20
+                    Cards.FromName("Bluegill Warrior"),   // 21
+                    Cards.FromName("Murloc Tidehunter"),  // 22
+                    Cards.FromName("Frostwolf Grunt"),    // 23
+                    Cards.FromName("Ironforge Rifleman"), // 24
+                    Cards.FromName("Kobold Geomancer"),   // 25
+                    Cards.FromName("Razorfen Hunter"),    // 26
+                    Cards.FromName("Gnomish Inventor"),   // 27
+                    Cards.FromName("Stormwind Knight"),   // 28
+                    Cards.FromName("Gurubashi Berserker"),// 29
+                    Cards.FromName("Elven Archer"),       // 30
+                },
+				FillDecks = false,
+				Shuffle = false,
+				Splitting = true
+			});
+			game.StartGame();
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "The Coin"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Loot Hoarder"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Loot Hoarder"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Huge Toad"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Loot Hoarder"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Console.WriteLine(game.CurrentOpponent.DeckZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Mad Bomber"));
 
-				//game.Player1.BaseMana = 10;
-				//game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				//game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
-				//game.Process(EndTurnTask.Any(game.CurrentPlayer));
-				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
-				//Console.WriteLine(game.Player1.DeckZone.Count);
-				//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[2]));
-
-				goOnFlag = false;
-			}
 
 			ShowLog(game, LogLevel.VERBOSE);
 		}
@@ -595,10 +579,10 @@ namespace SabberStoneCoreConsole
 		public static void GameSplitTest1()
 		{
 			var game = new Game(new GameConfig
-					{
-						StartPlayer = 1,
-						Player1HeroClass = CardClass.PRIEST,
-						Player1Deck = new List<Card>()
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player1Deck = new List<Card>()
 						{
 							Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -631,8 +615,8 @@ namespace SabberStoneCoreConsole
                             Cards.FromName("Gurubashi Berserker"),// 29
                             Cards.FromName("Elven Archer"),       // 30
                         },
-						Player2HeroClass = CardClass.HUNTER,
-						Player2Deck = new List<Card>()
+				Player2HeroClass = CardClass.HUNTER,
+				Player2Deck = new List<Card>()
 						{
 							Cards.FromName("Loot Hoarder"),       // 1
                             Cards.FromName("Loot Hoarder"),       // 2
@@ -665,14 +649,18 @@ namespace SabberStoneCoreConsole
                             Cards.FromName("Gurubashi Berserker"),// 29
                             Cards.FromName("Elven Archer"),       // 30
                         },
-						FillDecks = false,
-						Shuffle = false,
-						Splitting = true
-					});
+				FillDecks = false,
+				Shuffle = false,
+				Splitting = true
+			});
 			game.StartGame();
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[4])); // Coin
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[3])); // Loot Hoarder
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "The Coin"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Loot Hoarder"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Huge Toad"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Mad Bomber"));
 
 			ShowLog(game, LogLevel.VERBOSE);
 		}
@@ -824,19 +812,19 @@ namespace SabberStoneCoreConsole
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snipe").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Cat Trick").First())); 
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Cat Trick").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Hidden Cache").First())); 
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Hidden Cache").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Misdirection").First())); 
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Misdirection").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Venomstrike Trap").First())); 
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Venomstrike Trap").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snake Trap").First())); 
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snake Trap").First()));
 			ShowLog(game, LogLevel.VERBOSE);
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());

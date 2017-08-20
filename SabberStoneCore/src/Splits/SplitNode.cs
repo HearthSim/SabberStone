@@ -23,6 +23,7 @@ namespace SabberStoneCore.Splits
 		public SplitNode(SplitNode parent, Game root, Game game, bool isRoot = false)
 		{
 			_parent = parent;
+			Probability = (_parent?.Probability ?? 1.0) * (1.0 / (_parent?.Game.Splits.Count ?? 1.0));
 			_root = root;
 			Game = game;
 
@@ -89,6 +90,8 @@ namespace SabberStoneCore.Splits
 						{
 							uniqueFinalSplits.Add(p.Hash, p);
 						}
+
+						uniqueFinalSplits[p.Hash].Probability += p.Probability;
 					}
 					else
 					{

@@ -113,7 +113,7 @@ namespace SabberStoneUnitTest.CardSets
 		// - ARMOR = 5
 		// - HERO_POWER = 43183
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DeathstalkerRexxar_ICC_828()
 		{
 			// TODO DeathstalkerRexxar_ICC_828 test
@@ -121,14 +121,29 @@ namespace SabberStoneUnitTest.CardSets
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("River Crocolisk"),
+				},
 				Player2HeroClass = CardClass.HUNTER,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Deathstalker Rexxar"),
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathstalker Rexxar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Bloodfen Raptor"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "River Crocolisk"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Deathstalker Rexxar"));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ----------------------------------------- HERO - PALADIN

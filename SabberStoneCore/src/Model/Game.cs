@@ -319,6 +319,9 @@ namespace SabberStoneCore.Model
 				finalSplits.GroupBy(p => p.SameState)
 					.Select(i => new { Word = i.Key, Count = i.Count() })
 					.ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
+				Dump("Split", $"Finalsplits ordered by probability:");
+				finalSplits.OrderByDescending(p => p.Probability).ToList()
+					.ForEach(p => Dump("Split", $"{finalSplits.IndexOf(p)}. {p.Probability.ToString("0.00%")} "));
 				FinalSplits = finalSplits;
 			}
 		}

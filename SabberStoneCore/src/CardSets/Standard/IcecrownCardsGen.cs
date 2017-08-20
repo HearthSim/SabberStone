@@ -72,12 +72,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HERO_POWER = 43183
 			// --------------------------------------------------------
 			cards.Add("ICC_828", new List<Enchantment> {
-				// TODO [ICC_828] Deathstalker Rexxar && Test: Deathstalker Rexxar_ICC_828
 				new Enchantment
 				{
 					InfoCardId = "ICC_828e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.OP_MINIONS)
 				},
 			});
 
