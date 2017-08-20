@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStonePowerLog.Model
 {
@@ -64,6 +65,7 @@ namespace SabberStonePowerLog.Model
 			Entities = new Dictionary<int, PowerEntity>();
 			PowerHistory = new Queue<PowerHistoryEntry>();
 		}
+
 
 		public PowerEntity GetEntityById(int id)
 		{

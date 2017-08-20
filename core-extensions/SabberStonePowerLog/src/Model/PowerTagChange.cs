@@ -1,4 +1,6 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStonePowerLog.Model
 {
