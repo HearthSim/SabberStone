@@ -97,13 +97,21 @@ namespace SabberStoneCore.Model
 		/// Player with the first turn, alias Player 1.
 		/// </summary>
 		/// <value><see cref="Controller"/></value>
-		public Controller Player1 => _players[0];
+		public Controller Player1
+		{
+			get => _players[0];
+			protected set => _players[0] = value;
+		}
 
 		/// <summary>
 		/// Player starting at the second turn, alias Player 2.
 		/// </summary>
 		/// <value><see cref="Controller"/></value>
-		public Controller Player2 => _players[1];
+		public Controller Player2
+		{
+			get => _players[1];
+			protected set => _players[1] = value;
+		}
 
 		private readonly GameConfig _gameConfig;
 
@@ -326,11 +334,13 @@ namespace SabberStoneCore.Model
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", "Starting new game now!");
 
 			// setting up the decks ...
-			_gameConfig.Player1Deck?.ForEach(p => {
+			_gameConfig.Player1Deck?.ForEach(p =>
+			{
 				Player1.DeckCards.Add(p);
 				Entity.FromCard(Player1, p, null, Player1.DeckZone);
 			});
-			_gameConfig.Player2Deck?.ForEach(p => {
+			_gameConfig.Player2Deck?.ForEach(p =>
+			{
 				Player2.DeckCards.Add(p);
 				Entity.FromCard(Player2, p, null, Player2.DeckZone);
 			});
