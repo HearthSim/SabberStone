@@ -96,11 +96,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_829", new List<Enchantment> {
-				// TODO [ICC_829] Uther of the Ebon Blade && Test: Uther of the Ebon Blade_ICC_829
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new WeaponTask("ICC_829t"),
 				},
 			});
 

@@ -161,22 +161,29 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void UtherOfTheEbonBlade_ICC_829()
 		{
-			// TODO UtherOfTheEbonBlade_ICC_829 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Uther of the Ebon Blade")
+				},
 				Player2HeroClass = CardClass.PALADIN,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Uther of the Ebon Blade"));
+			Assert.Null(game.CurrentPlayer.Hero.Weapon);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Uther of the Ebon Blade"));
+			Assert.NotNull(game.CurrentPlayer.Hero.Weapon);
+			Assert.Equal("ICC_829t", game.CurrentPlayer.Hero.Weapon.Card.Id);
 		}
 
 		// ------------------------------------------ HERO - PRIEST
