@@ -7,7 +7,7 @@ namespace SabberStonePowerLog.Model
 {
 	public class PowerEntity
 	{
-		public Dictionary<string, string> Data;
+		public Dictionary<String, string> Data;
 
 		public PowerEntity()
 		{
@@ -19,11 +19,14 @@ namespace SabberStonePowerLog.Model
 			if (!Data.ContainsKey(tag))
 			{
 				Data.Add(tag, value);
-				Console.WriteLine($"Tag created on entity {Id}: {tag} = {value}");
+			}
+			else if (Data[tag] == value)
+			{
+				//Console.WriteLine("Unchanged add tag submited: tag[" + tag + "] value[" + value + "]");
 			}
 			else
 			{
-				Console.WriteLine($"Tag changed on entity {Id}: {tag} ({Data[tag]} -> {value})");
+				Console.WriteLine("Changed add tag submited: tag[" + tag + "] oldvalue[" + Data[tag] + "] newvalue[" + value + "]");
 			}
 		}
 
@@ -41,11 +44,11 @@ namespace SabberStonePowerLog.Model
 
 		public string Id
 		{
-			get => GetValue("ENTITY_ID");
-			set => Add("ENTITY_ID", value);
+			get { return GetValue("ENTITY_ID"); }
+			set { Add("ENTITY_ID", value); }
 		}
 
-		public override string ToString()
+		public override String ToString()
 		{
 			var str = new StringBuilder();
 			str.AppendLine("[" + Id + "]");
