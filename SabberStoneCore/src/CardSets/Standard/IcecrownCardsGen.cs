@@ -116,11 +116,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HERO_POWER = 45397
 			// --------------------------------------------------------
 			cards.Add("ICC_830", new List<Enchantment> {
-				// TODO [ICC_830] Shadowreaper Anduin && Test: Shadowreaper Anduin_ICC_830
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.ALLMINIONS),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
+						new DestroyTask(EntityType.STACK))
 				},
 			});
 

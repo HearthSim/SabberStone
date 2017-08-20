@@ -198,22 +198,43 @@ namespace SabberStoneUnitTest.CardSets
 		// - ARMOR = 5
 		// - HERO_POWER = 45397
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ShadowreaperAnduin_ICC_830()
 		{
-			// TODO ShadowreaperAnduin_ICC_830 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Shadowreaper Anduin"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Stranglethorn Tiger")
+				},
+				Player2HeroClass = CardClass.HUNTER,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Stranglethorn Tiger"),
+					Cards.FromName("Duskboar"),
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowreaper Anduin"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stranglethorn Tiger"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Bloodfen Raptor"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stranglethorn Tiger"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Duskboar"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Shadowreaper Anduin"));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ----------------------------------------- HERO - WARLOCK
