@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case PlayType.SPELL:
 					Playables.ForEach(p =>
 					{
-						if (p is Spell && Generic.RemoveFromZone(Controller, p))
+						if (p is Spell && (p.Zone == null || Generic.RemoveFromZone(Controller, p)))
 						{
 							bool success = Generic.PlaySpell.Invoke(Controller, (Spell)p, null);
 						}
