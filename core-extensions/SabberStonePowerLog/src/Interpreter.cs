@@ -87,7 +87,7 @@ namespace SabberStonePowerLog
 					{
 						currentPowerState = PowerState.CreateGamePlayer;
 						var createGame = currentPowerHistoryEntry as PowerCreateGame;
-						Player player = new Player(currentPowerGame);
+						Player player = new Player();
 						createGame.Players.Add(player);
 						if (createGame.Players.Count == 1)
 						{

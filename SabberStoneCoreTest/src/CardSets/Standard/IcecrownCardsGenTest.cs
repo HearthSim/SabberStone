@@ -1084,12 +1084,24 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void ProfessorPutricide_ICC_204()
 		{
-			// TODO ProfessorPutricide_ICC_204 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Professor Putricide"),
+					Cards.FromName("Explosive Trap"),
+					Cards.FromName("Freezing Trap"),
+					Cards.FromName("Snipe"),
+					Cards.FromName("Cat Trick"),
+					Cards.FromName("Hidden Cache"),
+					Cards.FromName("Misdirection"),
+					Cards.FromName("Venomstrike Trap"),
+					Cards.FromName("Snake Trap"),
+				},
 				Player2HeroClass = CardClass.HUNTER,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
@@ -1098,39 +1110,28 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Professor Putricide"));
-			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
-			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Freezing Trap"));
-			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snipe"));
-
-			Assert.NotEqual(10, game.CurrentPlayer.HandZone.Count);
-
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell3));
-
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Professor Putricide").First()));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Explosive Trap").First()));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Freezing Trap").First()));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snipe").First()));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			// Make sure we don't mill ourselves.
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last()));
-
-			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
-			IPlayable spell5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hidden Cache"));
-			IPlayable spell6 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Misdirection"));
-			IPlayable spell7 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomstrike Trap"));
-			IPlayable spell8 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap"));
-
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell4));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell5));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell6));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell7));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell8));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Cat Trick").First())); 
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Hidden Cache").First())); 
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Misdirection").First())); 
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Venomstrike Trap").First())); 
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snake Trap").First())); 
 
 			Assert.Equal(8, game.CurrentPlayer.SecretZone.Count);
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ---------------------------------------- MINION - HUNTER
