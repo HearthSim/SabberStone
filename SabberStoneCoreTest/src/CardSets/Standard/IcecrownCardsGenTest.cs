@@ -1672,8 +1672,6 @@ namespace SabberStoneUnitTest.CardSets
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Sindragosa"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
 					Cards.FromName("Frostbolt")
 				},
 				Player2HeroClass = CardClass.MAGE,
