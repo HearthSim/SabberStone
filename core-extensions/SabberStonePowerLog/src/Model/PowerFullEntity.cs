@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace SabberStonePowerLog.Model
 {
@@ -30,6 +31,16 @@ namespace SabberStonePowerLog.Model
 			}
 
 			powerGame.Entities.Add(Id, PowerEntity);
+		}
+
+		public override string ToString()
+		{
+			var str = new StringBuilder();
+			str.Append($"{GetType().Name}:");
+			str.Append("Id[" + Id + "]");
+			str.Append("CardId[" + CardId + "]");
+			str.Append(PowerEntity.ToString());
+			return str.ToString();
 		}
 	}
 }

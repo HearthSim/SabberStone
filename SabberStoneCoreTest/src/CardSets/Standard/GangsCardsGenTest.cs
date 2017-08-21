@@ -3821,16 +3821,36 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Doppelgangster"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doppelgangster"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Doppelgangster", null, 1));
+
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal("Doppelgangster", game.CurrentPlayer.BoardZone[1].Card.Name);
+			Assert.Equal("Doppelgangster", game.CurrentPlayer.BoardZone[2].Card.Name);
+			Assert.Equal("Doppelgangster", game.CurrentPlayer.BoardZone[3].Card.Name);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone[4].Card.Name);
+
+			Assert.Equal(9, game.CurrentPlayer.BoardZone[0].Id);
+			Assert.Equal(69, game.CurrentPlayer.BoardZone[1].Id);
+			Assert.Equal(8, game.CurrentPlayer.BoardZone[2].Id);
+			Assert.Equal(70, game.CurrentPlayer.BoardZone[3].Id);
+			Assert.Equal(10, game.CurrentPlayer.BoardZone[4].Id);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

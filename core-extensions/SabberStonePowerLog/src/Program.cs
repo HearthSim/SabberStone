@@ -5,6 +5,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStonePowerLog.Model;
 using SabberStonePowerLog.src.Sync;
+using System.Collections.Generic;
 
 namespace SabberStonePowerLog
 {
@@ -12,10 +13,10 @@ namespace SabberStonePowerLog
 	{
 		static void Main(string[] args)
 		{
-			var interpreter = new Interpreter(@"C:\Program Files (x86)\Hearthstone\Logs\", "Power.log");
-			System.Collections.Generic.List<PowerGame> games = interpreter.Parse(true, true);
+			var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\core-extensions\SabberStonePowerLog\resources\", "initialmulli.log");
+			List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
-			//Console.ReadKey();
+			Console.ReadKey();
 
 			if (games.Any())
 			{
@@ -27,10 +28,12 @@ namespace SabberStonePowerLog
 				while (game.PowerHistory.Count > 0)
 				{
 					PowerHistoryEntry entry = game.PowerHistory.Dequeue();
-					entry.Process(game);
+					Console.WriteLine($"Dequeue {entry.ToString()}.");
+					Console.ReadKey();
+					//entry.Process(game);
 				}
-				var realGame = new SyncedGame(game);
-				realGame.Sync();
+				//var realGame = new SyncedGame(game);
+				//realGame.Sync();
 			}
 		}
 	}

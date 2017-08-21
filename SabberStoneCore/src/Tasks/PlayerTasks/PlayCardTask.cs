@@ -43,6 +43,10 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new PlayCardTask(controller, source, target, -1, chooseOne);
 		}
+		public static PlayCardTask SpellTarget(Controller controller, string cardName, IEntity target, int chooseOne = 0)
+		{
+			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
+		}
 		private PlayCardTask(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
 		{
 			PlayerTaskType = PlayerTaskType.PLAY_CARD;

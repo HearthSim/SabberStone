@@ -1,4 +1,6 @@
-﻿namespace SabberStonePowerLog.Model
+﻿using System.Text;
+
+namespace SabberStonePowerLog.Model
 {
 	internal class PowerShowEntity : PowerHistoryEntry
 	{
@@ -12,6 +14,17 @@
 		public override void Process(PowerGame powerGame)
 		{
 			powerGame.Entities[Id].Change("CARD_ID", CardId);
+		}
+
+		public override string ToString()
+		{
+			var str = new StringBuilder();
+			str.Append($"{GetType().Name}:");
+			str.Append($"Name[{Name}]");
+			str.Append($"ZonePos[{ZonePos}]");
+			str.Append($"PlayerId[{PlayerId}]");
+			str.Append($"CardId[{CardId}]");
+			return str.ToString();
 		}
 	}
 }

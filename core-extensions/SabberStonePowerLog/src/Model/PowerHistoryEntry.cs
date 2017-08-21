@@ -7,5 +7,6 @@ namespace SabberStonePowerLog.Model
 		public PowerType PowerType { get; set; }
 
 		public abstract void Process(PowerGame powerGame);
+
 	}
 }

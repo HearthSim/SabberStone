@@ -2547,11 +2547,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_110", new List<Enchantment> {
-				// TODO [GVG_110] Dr. Boom && Test: Dr. Boom_GVG_110
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new SummonTask("GVG_110t", SummonSide.LEFT),
+						new SummonTask("GVG_110t", SummonSide.RIGHT))
 				},
 			});
 
@@ -3252,11 +3253,13 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_110t", new List<Enchantment> {
-				// TODO [GVG_110t] Boom Bot && Test: Boom Bot_GVG_110t
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomTask(1, EntityType.ENEMIES),
+						new MathRandTask(1, 4),
+						new DamageNumberTask(EntityType.STACK))
 				},
 			});
 

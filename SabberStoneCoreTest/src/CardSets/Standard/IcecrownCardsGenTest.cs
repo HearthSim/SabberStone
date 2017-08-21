@@ -1665,12 +1665,19 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void Sindragosa_ICC_838()
 		{
-			// TODO Sindragosa_ICC_838 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Sindragosa"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Frostbolt")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
@@ -1679,27 +1686,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sindragosa"));
-			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 
-			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
-
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Sindragosa"));
 
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 
-			// This is not correct,
-			// they should spawn on
-			// either side of Sindragosa
-			Assert.Equal("ICC_838", game.CurrentPlayer.BoardZone[0].Card.Id);
-			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[1].Card.Id);
+			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[0].Card.Id);
+			Assert.Equal("ICC_838", game.CurrentPlayer.BoardZone[1].Card.Id);
 			Assert.Equal("ICC_838t", game.CurrentPlayer.BoardZone[2].Card.Id);
 
-			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
 
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentPlayer.BoardZone[1]));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Frostbolt", game.CurrentPlayer.BoardZone[0]));
 
-			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.HandZone.Last().Card.Rarity);
 		}
 

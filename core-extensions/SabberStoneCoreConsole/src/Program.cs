@@ -31,8 +31,8 @@ namespace SabberStoneCoreConsole
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
-			GameSplitTest();
-			//Console.WriteLine(Cards.Statistics());
+			//GameSplitTest();
+			Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();

@@ -17,7 +17,8 @@ namespace SabberStonePowerLog
 		private static Regex tagValueRgx = new Regex(@"tag=([A-Z0-9_]+)[ ]value=([A-Z0-9]+)", RegexOptions.IgnoreCase);
 		private static Regex idRgx = new Regex(@"(Entity|id)=([0-9]+|[A-Z0-9]+)", RegexOptions.IgnoreCase);
 		private static Regex blockStartRgx = new Regex(@"BLOCK_START BlockType=([A-Z]+) Entity=([0-9]+|[A-Z0-9]+|\[.*?\]) EffectCardId=([A-Z0-9_]*) EffectIndex=([-0-9]+) Target=([0-9]+|[A-Z0-9]+|\[.*?\])", RegexOptions.IgnoreCase);
-		private static Regex showEntityRgx = new Regex(@"([0-9]+|\[name=([A-Za-z ]+) id=([0-9]+) zone=([A-Z]+) zonePos=([0-9]+) cardId= player=([1-2])\] CardId=([A-Z0-9_]+))", RegexOptions.IgnoreCase);
+		private static Regex showEntityRgx1 = new Regex(@"([0-9]+) CardId=([A-Z0-9_]+)", RegexOptions.IgnoreCase);
+		private static Regex showEntityRgx2 = new Regex(@"([0-9]+|\[name=([A-Za-z ]+) id=([0-9]+) zone=([A-Z]+) zonePos=([0-9]+) cardId= player=([1-2])\] CardId=([A-Z0-9_]+))", RegexOptions.IgnoreCase);
 		private static Regex hideEntityRgx = new Regex(@"\[name=([A-Za-z ]+) id=([0-9]+) zone=([A-Z]+) zonePos=([0-9]+) cardId=([A-Za-z0-9_]+) player=([1-2])\] tag=([A-Z0-9_]+)[ ]value=([A-Z0-9]+)", RegexOptions.IgnoreCase);
 
 		private StreamReader file;
@@ -55,12 +56,12 @@ namespace SabberStonePowerLog
 					string debugType = matchLogRgx.Groups[4].Value;
 					string content = matchLogRgx.Groups[5].Value;
 
-					if (!classType.Equals("GameState") || !debugType.Equals("DebugPrintPower"))
+					if (!classType.Equals("GameState")) //|| !debugType.Equals("DebugPrintPower"))
 						continue;
 
 					string contentLine = content.Trim();
 
-					cleanLog.AppendLine(content);
+					cleanLog.AppendLine($"{("[" + debugType.ToString() + "] ").PadLeft(27)}{content}");
 
 					PowerType nextPowerType;
 					if (Enum.TryParse<PowerType>(contentLine.Split(' ')[0], out nextPowerType))
@@ -202,7 +203,7 @@ namespace SabberStonePowerLog
 					}
 					else
 					{
-						Console.WriteLine("unhandled line: '" + contentLine + "'");
+						Console.WriteLine($"[{debugType}] unhandled line: '{contentLine}'");
 					}
 				}
 				else
@@ -241,28 +242,33 @@ namespace SabberStonePowerLog
 			string str = contentLine
 				.Replace("SHOW_ENTITY - Updating Entity=", "")
 				.Replace(" [cardType=INVALID]", "");
-			Match match1 = showEntityRgx.Match(str);
-			if (!match1.Success)
+
+			Match match1 = showEntityRgx1.Match(str);
+			Match match2 = showEntityRgx2.Match(str);
+			if (match1.Success)
 			{
-				Console.WriteLine("entityRgx unmatched: '" + str + "'");
-				return null;
+				return new PowerShowEntity()
+				{
+					Id = Int32.Parse(match1.Groups[1].Value),
+					CardId = match1.Groups[2].Value
+				};
 			}
 
-			int id = 0;
-			if (!int.TryParse(match1.Groups[1].Value, out id))
+			if (match2.Success)
 			{
-				id = int.Parse(match1.Groups[3].Value);
+				return new PowerShowEntity()
+				{
+					Name = match1.Groups[2].Value,
+					Id = Int32.Parse(match1.Groups[3].Value),
+					Zone = match1.Groups[4].Value,
+					ZonePos = match1.Groups[5].Value,
+					PlayerId = match1.Groups[6].Value,
+					CardId = match1.Groups[7].Value
+				};
 			}
 
-			return new PowerShowEntity()
-			{
-				Name = match1.Groups[2].Value,
-				Id = id,
-				Zone = match1.Groups[4].Value,
-				ZonePos = match1.Groups[5].Value,
-				PlayerId = match1.Groups[6].Value,
-				CardId = match1.Groups[7].Value
-			};
+			Console.WriteLine("entityRgx unmatched: '" + str + "'");
+			return null;
 		}
 
 		private PowerHistoryEntry ProcessHideEntity(PowerGame currentPowerGame, string contentLine)

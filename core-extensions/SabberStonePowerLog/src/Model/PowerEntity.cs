@@ -7,7 +7,7 @@ namespace SabberStonePowerLog.Model
 {
 	public class PowerEntity
 	{
-		public Dictionary<String, string> Data;
+		public Dictionary<string, string> Data;
 
 		public PowerEntity()
 		{
@@ -48,9 +48,10 @@ namespace SabberStonePowerLog.Model
 			set { Add("ENTITY_ID", value); }
 		}
 
-		public override String ToString()
+		public override string ToString()
 		{
 			var str = new StringBuilder();
+			str.Append($"{GetType().Name}:");
 			str.AppendLine("[" + Id + "]");
 			Data.ToList().ForEach(p =>
 			{

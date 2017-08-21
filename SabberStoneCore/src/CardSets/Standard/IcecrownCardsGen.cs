@@ -1374,7 +1374,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(2, new SummonTask("ICC_838t"))
+					SingleTask = ComplexTask.Create(
+						new SummonTask("ICC_838t", SummonSide.LEFT),
+						new SummonTask("ICC_838t", SummonSide.RIGHT))
 				},
 			});
 
