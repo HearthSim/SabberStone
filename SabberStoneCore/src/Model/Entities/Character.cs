@@ -46,7 +46,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="source"></param>
 		/// <param name="damage"></param>
 		/// <returns></returns>
-		bool TakeDamage(IPlayable source, int damage);
+		int TakeDamage(IPlayable source, int damage);
 
 		/// <summary>
 		/// This character gets healed by a certain other entity.
@@ -148,7 +148,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="source"></param>
 		/// <param name="damage"></param>
 		/// <returns></returns>
-		public bool TakeDamage(IPlayable source, int damage)
+		public int TakeDamage(IPlayable source, int damage)
 		{
 			var hero = this as Hero;
 			var minion = this as Minion;
@@ -164,7 +164,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
 				minion.HasDivineShield = false;
-				return false;
+				return 0;
 			}
 
 			// added pre damage
@@ -173,7 +173,7 @@ namespace SabberStoneCore.Model.Entities
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
-				return false;
+				return 0;
 			}
 
 			// remove armor first from hero ....
@@ -188,7 +188,7 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			// check if there was damage done
-			bool tookDamage = PreDamage > 0;
+			int tookDamage = PreDamage;
 
 			// reset predamage
 			PreDamage = 0;
@@ -331,6 +331,11 @@ namespace SabberStoneCore.Model.Entities
 		/// Character has windfury.
 		/// </summary>
 		bool HasWindfury { get; set; }
+
+		/// <summary>
+		/// Character has lifesteal.
+		/// </summary>
+		bool HasLifeSteal { get; }
 
 		/// <summary>
 		/// Character can't be targeted by spells.
@@ -483,6 +488,12 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.WINDFURY] == 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
+		public bool HasLifeSteal
+		{
+			get { return this[GameTag.LIFESTEAL] == 1; }
+			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
 
 		public int NumAttacksThisTurn

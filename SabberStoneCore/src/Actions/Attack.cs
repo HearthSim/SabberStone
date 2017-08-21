@@ -98,24 +98,41 @@ namespace SabberStoneCore.Actions
 				int targetAttack = targetHero != null ? 0 : target.AttackDamage;
 				int sourceAttack = hero?.TotalAttackDamage ?? source.AttackDamage;
 
-				bool targetDamaged = target.TakeDamage(source, sourceAttack);
+				int targetRealDamage = target.TakeDamage(source, sourceAttack);
+				bool targetDamaged = targetRealDamage > 0;
+
+				// lifesteal attacker
+				if (targetDamaged && source.HasLifeSteal)
+				{
+					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", $"lifesteal attacker has damaged target for {targetRealDamage}.");
+					c.Hero.TakeHeal(source, targetRealDamage);
+				}
 
 				// freeze target if attacker is freezer
 				if (targetDamaged && minion != null && minion.Freeze)
 				{
+					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", $"freezer attacker has frozen target.");
 					target.IsFrozen = true;
 				}
 
 				// destroy target if attacker is poisonous
 				if (targetDamaged && targetHero == null && (minion != null && minion.Poisonous || hero?.Weapon != null && hero.Weapon.Poisonous))
 				{
+					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", $"poisonous attacker has destroyed target.");
 					target.Destroy();
 				}
 
 				// ignore damage from defenders with 0 attack
 				if (targetAttack > 0)
 				{
-					bool sourceDamaged = source.TakeDamage(target, targetAttack);
+					int sourceRealDamage = source.TakeDamage(target, targetAttack);
+					bool sourceDamaged = sourceRealDamage > 0;
+
+					// lifesteal defender
+					if (sourceDamaged && target.HasLifeSteal)
+					{
+						target.Controller.Hero.TakeHeal(target, sourceRealDamage);
+					}
 
 					// freeze source if defender is freezer
 					var targetMinion = target as Minion;
