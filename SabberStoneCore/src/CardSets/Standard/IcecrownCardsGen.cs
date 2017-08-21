@@ -1532,14 +1532,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_038", new List<Enchantment> {
-				// TODO [ICC_038] Righteous Protector && Test: Righteous Protector_ICC_038
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_038", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_245] Blackguard - COST:6 [ATK:3/HP:9] 
@@ -1569,11 +1562,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_801", new List<Enchantment> {
-				// TODO [ICC_801] Howling Commander && Test: Howling Commander_ICC_801
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion),
 				},
 			});
 

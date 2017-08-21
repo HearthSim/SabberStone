@@ -422,13 +422,20 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine("\t\t\t{");
 				str.AppendLine("\t\t\t\tStartPlayer = 1,");
 				str.AppendLine($"\t\t\t\tPlayer1HeroClass = CardClass.{heroClass1},");
+				str.AppendLine($"\t\t\t\tPlayer1Deck = new List<Card>()");
+				str.AppendLine("\t\t\t\t{");
+				str.AppendLine($"\t\t\t\t\tCards.FromName(\"{card.Name}\"),");
+				str.AppendLine("\t\t\t\t},");
 				str.AppendLine($"\t\t\t\tPlayer2HeroClass = CardClass.{heroClass2},");
-				str.AppendLine("\t\t\t\tFillDecks = true");
+				str.AppendLine("\t\t\t\tShuffle = false,");
+				str.AppendLine("\t\t\t\tFillDecks = true,");
+				str.AppendLine("\t\t\t\tFillDecksPredictably = true");
 				str.AppendLine("\t\t\t});");
 				str.AppendLine("\t\t\tgame.StartGame();");
 				str.AppendLine("\t\t\tgame.Player1.BaseMana = 10;");
 				str.AppendLine("\t\t\tgame.Player2.BaseMana = 10;");
 				str.AppendLine($"\t\t\t//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(\"{card.Name}\"));");
+				str.AppendLine($"\t\t\t//game.Process(PlayCardTask.Any(game.CurrentPlayer, \"{card.Name}\"));");
 				str.AppendLine("\t\t}");
 				str.AppendLine();
 			}

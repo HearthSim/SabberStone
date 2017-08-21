@@ -1910,22 +1910,34 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HowlingCommander_ICC_801()
 		{
-			// TODO HowlingCommander_ICC_801 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Howling Commander"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Razorfen Hunter"),
+					Cards.FromName("Razorfen Hunter"),
+					Cards.FromName("Argent Squire"),
+				},
 				Player2HeroClass = CardClass.PALADIN,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Howling Commander"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Howling Commander"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.HandZone.Last()).HasDivineShield);
 		}
 
 		// --------------------------------------- MINION - PALADIN

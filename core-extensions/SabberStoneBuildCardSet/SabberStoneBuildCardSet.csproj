@@ -9,4 +9,9 @@
     <ProjectReference Include="..\..\SabberStoneCore\SabberStoneCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CardSetsTest\" />
+    <Folder Include="CardSets\" />
+  </ItemGroup>
+
 </Project>
