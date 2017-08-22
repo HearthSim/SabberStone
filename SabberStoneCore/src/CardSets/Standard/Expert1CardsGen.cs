@@ -1104,7 +1104,8 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.ATTACKING, 1)
 						.SingleTask(ComplexTask.Secret(
-							new ReturnHandTask(EntityType.TARGET)))
+							new ReturnHandTask(EntityType.TARGET),
+							new BuffTask(Buffs.Cost(2), EntityType.TARGET)))
 						.Build()
 				},
 			});
