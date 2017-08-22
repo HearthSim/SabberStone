@@ -7138,20 +7138,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					 Cards.FromName("Harvest Golem"),
+					 Cards.FromName("Stonetusk Boar"),
+					 Cards.FromName("Stonetusk Boar"),
+					 Cards.FromName("Fireball")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					 Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Harvest Golem"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Harvest Golem"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal("skele21", game.CurrentOpponent.BoardZone[0].Card.Id);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[1]));
+			Assert.Equal(3, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal("Damaged Golem", game.CurrentOpponent.BoardZone[1].Card.Name);
+			Assert.Equal("skele21", game.CurrentOpponent.BoardZone[1].Card.Id);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

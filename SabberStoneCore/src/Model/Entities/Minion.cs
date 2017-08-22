@@ -90,5 +90,11 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.POISONOUS] == 1; }
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
 		}
+
+		public int LastBoardPosition
+		{
+			get { return this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD]; }
+			set { this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] = value; }
+		}
 	}
 }

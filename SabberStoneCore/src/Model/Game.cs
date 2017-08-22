@@ -762,6 +762,7 @@ namespace SabberStoneCore.Model
 			Minions.Where(p => p.IsDead).ToList().ForEach(p =>
 			{
 				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
+				p.LastBoardPosition = p.ZonePosition;
 				p.Zone.Remove(p);
 				if (p.HasDeathrattle)
 				{

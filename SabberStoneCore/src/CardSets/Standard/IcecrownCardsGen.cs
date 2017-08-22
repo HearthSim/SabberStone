@@ -1580,14 +1580,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_820", new List<Enchantment> {
-				// TODO [ICC_820] Chillblade Champion && Test: Chillblade Champion_ICC_820
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_820", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_858] Bolvar, Fireblood - COST:5 [ATK:1/HP:7] 
@@ -1817,14 +1810,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_212", new List<Enchantment> {
-				// TODO [ICC_212] Acolyte of Agony && Test: Acolyte of Agony_ICC_212
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_212", null);
 
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_214] Obsidian Statue - COST:9 [ATK:4/HP:8] 
@@ -1840,11 +1826,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_214", new List<Enchantment> {
-				// TODO [ICC_214] Obsidian Statue && Test: Obsidian Statue_ICC_214
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomTask(1, EntityType.OP_MINIONS),
+						new DestroyTask(EntityType.STACK)),
 				},
 			});
 
@@ -1938,7 +1925,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					//SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
 				},
 			});
 
@@ -2118,12 +2105,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_221", new List<Enchantment> {
-				// TODO [ICC_221] Leeching Poison && Test: Leeching Poison_ICC_221
 				new Enchantment
 				{
 					InfoCardId = "ICC_221e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.WEAPON),
 				},
 			});
 
@@ -3178,14 +3164,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_220", new List<Enchantment> {
-				// TODO [ICC_220] Deadscale Knight && Test: Deadscale Knight_ICC_220
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_220", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_257] Corpse Raiser - COST:5 [ATK:3/HP:3] 
@@ -3646,14 +3625,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_905", new List<Enchantment> {
-				// TODO [ICC_905] Bloodworm && Test: Bloodworm_ICC_905
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_905", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_911] Keening Banshee - COST:4 [ATK:5/HP:5] 

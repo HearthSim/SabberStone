@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 
 using Generic = SabberStoneCore.Actions.Generic;
+using System.Collections.Generic;
 
 namespace SabberStoneCoreTest.Cloning
 {
@@ -35,7 +36,7 @@ namespace SabberStoneCoreTest.Cloning
 
 				while (game.State != State.COMPLETE)
 				{
-					System.Collections.Generic.List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
+					List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
 					SabberStoneCore.Tasks.PlayerTask option = options[rnd.Next(options.Count)];
 					game.Process(option);
 					Game cloneGame = game.Clone();

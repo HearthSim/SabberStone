@@ -560,6 +560,7 @@
 		NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006,
 		NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007,
 		NUM_MURLOCS_PLAYED_THIS_GAME = 1008,
+		TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009 // position aren't changed in graveyard and setaside zone ??? obolet?
 	}
 
 	public enum GameType

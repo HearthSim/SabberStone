@@ -4475,9 +4475,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal("CFM_712_t02", game.CurrentOpponent.BoardZone[1].Card.Id);
-			Assert.Equal(2, ((Minion)game.CurrentOpponent.BoardZone[1]).AttackDamage);
-			Assert.Equal(2, ((Minion)game.CurrentOpponent.BoardZone[1]).Health);
+			Assert.Equal("CFM_712_t02", game.CurrentOpponent.BoardZone[0].Card.Id);
+			Assert.Equal(2, ((Minion)game.CurrentOpponent.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentOpponent.BoardZone[0]).Health);
 		}
 	}
 }
