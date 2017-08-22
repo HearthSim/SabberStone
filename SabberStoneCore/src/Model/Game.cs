@@ -314,8 +314,8 @@ namespace SabberStoneCore.Model
 
 			if (Splitting)
 			{
-				List<SplitNode> finalSplits = SplitNode.GetSolutions(this, 10, 10000);
-				Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState + 1)}!");
+				var finalSplits = SplitNode.GetSolutions(this, 10, 10000);
+				Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState)}!");
 				finalSplits.GroupBy(p => p.SameState)
 					.Select(i => new { Word = i.Key, Count = i.Count() })
 					.ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
@@ -1055,5 +1055,7 @@ namespace SabberStoneCore.Model
 				return list;
 			}
 		}
+
+		public double Likelihood { get; set; } = 1;
 	}
 }

@@ -30,7 +30,11 @@ namespace SabberStoneCoreTest.Splits
 			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(4, game.FinalSplits.Count);
-			Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState));
+			Assert.Equal(0.125, game.FinalSplits[0].Probability);
+			Assert.Equal(0.375, game.FinalSplits[1].Probability);
+			Assert.Equal(0.375, game.FinalSplits[2].Probability);
+			Assert.Equal(0.125, game.FinalSplits[3].Probability);
 		}
 
 		[Fact]
@@ -60,7 +64,7 @@ namespace SabberStoneCoreTest.Splits
 			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(7, game.FinalSplits.Count);
-			Assert.Equal(20, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(20, game.FinalSplits.Sum(p => p.SameState));
 		}
 
 		[Fact]
@@ -90,7 +94,7 @@ namespace SabberStoneCoreTest.Splits
 			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(12, game.FinalSplits.Count);
-			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState));
 		}
 
 		[Fact]
@@ -120,7 +124,7 @@ namespace SabberStoneCoreTest.Splits
 			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(20, game.FinalSplits.Count);
-			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState));
 		}
 
 		[Fact]
@@ -150,7 +154,7 @@ namespace SabberStoneCoreTest.Splits
 			IPlayable bomber1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mad Bomber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, bomber1));
 			Assert.Equal(42, game.FinalSplits.Count);
-			Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState + 1));
+			Assert.Equal(191, game.FinalSplits.Sum(p => p.SameState));
 		}
 	}
 }
