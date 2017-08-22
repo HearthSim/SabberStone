@@ -8,7 +8,7 @@ namespace SabberStoneCore.Actions
 {
 	public partial class Generic
 	{
-		public static Func<IPlayable, ICharacter, int, int, bool> DamageCharFunc
+		public static Func<IPlayable, ICharacter, int, int, int> DamageCharFunc
 			=> (source, target, amount, spelldmg) => target.TakeDamage(source, amount + spelldmg);
 
 		public static Func<Controller, int, bool> AddTempMana

@@ -1201,34 +1201,50 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// --------------------------------------- MINION - PALADIN
-		// [CFM_815] Wickerflame Burnbristle - COST:3 [ATK:2/HP:2] 
+		// [CFM_815] Wickerflame Burnbristle - COST:3 [ATK:2/HP:2]
 		// - Set: gangs, Rarity: legendary
 		// --------------------------------------------------------
-		// Text: [x]<b>Divine Shield</b>. <b>Taunt</b>.
-		//       Damage dealt by this minion
-		//       also heals your hero.
+		// Text: <b>Divine Shield</b>, <b>Taunt</b>, <b>Lifesteal</b>
 		// --------------------------------------------------------
 		// GameTag:
 		// - ELITE = 1
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
+		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WickerflameBurnbristle_CFM_815()
 		{
-			// TODO WickerflameBurnbristle_CFM_815 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Wickerflame Burnbristle")
+				},
 				Player2HeroClass = CardClass.PALADIN,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Consecration")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wickerflame Burnbristle"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wickerflame Burnbristle"));
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasLifeSteal);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Consecration"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(28, game.CurrentPlayer.Hero.Health);
+			Assert.False(((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
 		}
 	}
 

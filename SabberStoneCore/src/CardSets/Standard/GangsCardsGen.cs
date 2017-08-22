@@ -847,24 +847,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// [CFM_815] Wickerflame Burnbristle - COST:3 [ATK:2/HP:2]
 			// - Set: gangs, Rarity: legendary
 			// --------------------------------------------------------
-			// Text: [x]<b>Divine Shield</b>. <b>Taunt</b>.
-			//       Damage dealt by this minion
-			//       also heals your hero.
+			// Text: <b>Divine Shield</b>, <b>Taunt</b>, <b>Lifesteal</b>
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
+			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_815", new List<Enchantment>
-			{
-                // TODO [CFM_815] Wickerflame Burnbristle && Test: Wickerflame Burnbristle_CFM_815
-                new Enchantment
-				{
-                    //Activation = null,
-                    //SingleTask = null,
-                }
-			});
+			cards.Add("CFM_815", null);
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CFM_305] Smuggler's Run - COST:1
