@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace SabberStoneKettlePlugin
 {
-    /// <summary>
-    /// Object which is set on the connection information to identify the game linked
-    /// to that connection.
-    /// </summary>
-    internal class KettleGame
+	/// <summary>
+	/// Object which is set on the connection information to identify the game linked
+	/// to that connection.
+	/// </summary>
+	internal class KettleGame
     {
         /// <summary>
         /// The maximum amount of accounts playing the game.

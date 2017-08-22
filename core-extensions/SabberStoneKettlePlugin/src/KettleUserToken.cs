@@ -1,11 +1,11 @@
-﻿using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneKettlePlugin
 {
-    /// <summary>
-    /// Object which is attached to a connection to provide meta-information.
-    /// </summary>
-    class KettleUserToken
+	/// <summary>
+	/// Object which is attached to a connection to provide meta-information.
+	/// </summary>
+	class KettleUserToken
     {
 
         /// <summary>

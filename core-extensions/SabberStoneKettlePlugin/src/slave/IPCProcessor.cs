@@ -16,11 +16,11 @@ using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.slave
 {
-    /// <summary>
-    /// Handles received messages for the IPC connection, Slave side.
-    /// </summary>
-    /// <seealso cref="Kettle.Adapter.Processing.KettleIPCProcessor" />
-    internal class IPCProcessor : KettleIPCProcessor
+	/// <summary>
+	/// Handles received messages for the IPC connection, Slave side.
+	/// </summary>
+	/// <seealso cref="Kettle.Adapter.Processing.KettleIPCProcessor" />
+	internal class IPCProcessor : KettleIPCProcessor
     {
         public override event Action<ObservableCollection<KettleNack>, KettleConnectionArgs> OnNack;
         public override event Action<KettleEventBucketCreated, KettleConnectionArgs> Event_OnBucketCreated;
@@ -195,10 +195,10 @@ namespace SabberStoneKettlePlugin.slave
                 {
                     Player1HeroClass = hero1.Class,
                     Player2HeroClass = hero2.Class,
-                    DeckPlayer1 = player1Deck,
-                    DeckPlayer2 = player2Deck,
+                    Player1Deck = player1Deck,
+                    Player2Deck = player2Deck,
                     SkipMulligan = false,
-                    GameRule = gameType,
+                    FormatType = gameType,
                     // StartPlayer is 1-indexed.
                     StartPlayer = 1
                 }, false);
@@ -215,7 +215,7 @@ namespace SabberStoneKettlePlugin.slave
                 var player1ID = player1.AccountID;
                 var player2ID = player2.AccountID;
 
-                kettleGame = new KettleGame(sabberGame, player1ID, player2ID);
+                kettleGame = new KettleGame(sabberGame, player1ID, player2ID, "", "", "", "");
                 // Register game into store.
                 string gameID;
                 if(!_gameStore.RegisterGame(kettleGame, out gameID))

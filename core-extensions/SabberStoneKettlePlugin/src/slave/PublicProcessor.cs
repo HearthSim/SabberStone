@@ -3,7 +3,7 @@ using Kettle.Adapter.Processing;
 using Kettle.Framework;
 using Kettle.Protocol;
 using SabberStoneCore.Kettle;
-using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 using System.Collections.ObjectModel;
@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace SabberStoneKettlePlugin.slave
 {
-    /// <summary>
-    /// Handles received messages for the public connection.
-    /// </summary>
-    /// <seealso cref="Kettle.Adapter.Processing.KettleFrontendProcessor" />
-    internal class PublicProcessor : KettleFrontendProcessor
+	/// <summary>
+	/// Handles received messages for the public connection.
+	/// </summary>
+	/// <seealso cref="Kettle.Adapter.Processing.KettleFrontendProcessor" />
+	internal class PublicProcessor : KettleFrontendProcessor
     {
         public override event Action<ObservableCollection<KettleNack>, KettleConnectionArgs> OnNack;
         public override event Action<KettleEventBucketCreated, KettleConnectionArgs> Event_OnBucketCreated = delegate { Debug.Fail("Accessing this event is forbidden!"); };

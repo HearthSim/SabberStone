@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{261600B6-3820-499E-8186-F2589B9F5049}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneHsReplay", "core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneBuildCardSet", "core-extensions\SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{48AE839D-1944-45E9-8E38-016C5E7D399B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettlePlugin", "SabberStoneKettlePlugin\SabberStoneKettlePlugin.csproj", "{C9196023-5435-45F1-961A-ECCF660F31EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneKettlePlugin", "core-extensions\SabberStoneKettlePlugin\SabberStoneKettlePlugin.csproj", "{C9196023-5435-45F1-961A-ECCF660F31EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kettle-Code-Ref", "Kettle-Code-Ref", "{77888B3D-61AF-4962-B1B5-0417D7CB6970}"
 EndProject
@@ -253,12 +253,13 @@ Global
 		{FF3B4BE2-040E-4962-B2CB-8250437D7AD2} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
 		{34049E7A-325F-4C9F-871E-B7656CD6AD4B} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
 		{48AE839D-1944-45E9-8E38-016C5E7D399B} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
+		{C9196023-5435-45F1-961A-ECCF660F31EC} = {1CB803D0-BDFB-4C7E-A547-F6BF4BB290DD}
 		{E6FAA01D-FECA-4C51-994B-5068DEBDDD79} = {77888B3D-61AF-4962-B1B5-0417D7CB6970}
 		{3A1CE298-F4A6-44B4-A4AE-8D0316764D43} = {77888B3D-61AF-4962-B1B5-0417D7CB6970}
 		{645A7469-6105-4ED9-8A71-B25881D0DC99} = {77888B3D-61AF-4962-B1B5-0417D7CB6970}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {FA3771F8-9411-4FE3-A2C0-6EE7CFF48B17}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
