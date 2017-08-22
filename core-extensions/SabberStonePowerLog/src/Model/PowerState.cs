@@ -13,5 +13,6 @@
 		HideEntity,
 		ShowEntity,
 		MetaData,
+		EntityChoices
 	}
 }

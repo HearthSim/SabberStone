@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SabberStoneCore.Enums;
 
 namespace SabberStonePowerLog.Model
 {
 	public class PowerEntity
 	{
 		public Dictionary<string, string> Data;
+		private IEnumerable<PowerEntity> _currentChoices;
 
 		public PowerEntity()
 		{
@@ -60,5 +62,16 @@ namespace SabberStonePowerLog.Model
 			return str.ToString();
 		}
 
+		public bool ValueEquals(GameTag tag, string value)
+		{
+			if (!Data.ContainsKey(tag.ToString()))
+				return false;
+			return Data[tag.ToString()] == value;
+		}
+
+		public void SetChoices(IEnumerable<PowerEntity> choices)
+		{
+			_currentChoices = choices;
+		}
 	}
 }

@@ -12,7 +12,7 @@ namespace SabberStonePowerLog.Model
 
 		public override void Process(PowerGame powerGame)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 	}
 }

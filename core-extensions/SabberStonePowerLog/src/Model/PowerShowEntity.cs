@@ -20,6 +20,7 @@ namespace SabberStonePowerLog.Model
 		{
 			var str = new StringBuilder();
 			str.Append($"{GetType().Name}:");
+			str.Append("Id[" + Id + "]");
 			str.Append($"Name[{Name}]");
 			str.Append($"ZonePos[{ZonePos}]");
 			str.Append($"PlayerId[{PlayerId}]");
