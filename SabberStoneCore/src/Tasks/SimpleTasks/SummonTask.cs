@@ -5,7 +5,21 @@ using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public enum SummonSide { DEFAULT, LEFT, RIGHT, DEATHRATTLE, NUMBER,	SPELL }
+	public enum SummonSide {
+		// summoning on the last position on the right side
+		DEFAULT,
+		// summoning left of the minion
+		LEFT,
+		// summoning right of the minion
+		RIGHT,
+		// summoning at the last position of the source
+		DEATHRATTLE,
+		// summoning at a given position in the stack number
+		NUMBER,
+		// summoning by spell, currently like default
+		SPELL
+	}
+
 	public class SummonTask : SimpleTask
 	{
 		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false)
