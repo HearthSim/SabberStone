@@ -704,7 +704,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3")),
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3", SummonSide.SPELL)),
 				},
 			});
 
@@ -730,7 +730,7 @@ namespace SabberStoneCore.CardSets.Standard
 							int diffMinions = controller.Opponent.BoardZone.Count - controller.BoardZone.Count;
 							return diffMinions > 0 ? diffMinions : 0;
 						}),
-						new EnqueueNumberTask(new SummonTask("ICC_832t4"))),
+						new EnqueueNumberTask(new SummonTask("ICC_832t4", SummonSide.SPELL))),
 				},
 			});
 
@@ -775,7 +775,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new DamageTask(5, EntityType.TARGET, true),
 						new EnqueueTask(5, new DrawTask()),
 						new ArmorTask(5),
-						new SummonTask("ICC_085t"))
+						new SummonTask("ICC_085t", SummonSide.SPELL))
 				},
 			});
 
@@ -1240,7 +1240,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DEFENDING, 1)
 						.SingleTask(ComplexTask.Secret(
-							new EnqueueTask(1, new SummonTask("EX1_170"))))
+							new EnqueueTask(1, new SummonTask("EX1_170", SummonSide.SPELL))))
 						.Build()
 				},
 			});
@@ -2877,7 +2877,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("ICC_025t"),
+					SingleTask = new SummonTask("ICC_025t", SummonSide.RIGHT),
 				},
 				new Enchantment
 				{
@@ -2899,7 +2899,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(2, new SummonTask("ICC_026t"))
+					SingleTask = ComplexTask.Create(
+						new SummonTask("ICC_026t", SummonSide.LEFT),
+						new SummonTask("ICC_026t", SummonSide.RIGHT))
 				}
 			});
 
@@ -3236,7 +3238,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("ICC_466"),
+					SingleTask = new SummonTask("ICC_466", SummonSide.RIGHT),
 				},
 			});
 

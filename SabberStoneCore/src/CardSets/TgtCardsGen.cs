@@ -100,7 +100,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("CS2_101t"))
+					SingleTask = new EnqueueTask(2, new SummonTask("CS2_101t", SummonSide.SPELL))
 				}
 			});
 
@@ -416,7 +416,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("AT_037t"), false)
+					SingleTask = new EnqueueTask(2, new SummonTask("AT_037t", SummonSide.SPELL), false)
 				}
 			});
 
@@ -565,7 +565,7 @@ namespace SabberStoneCore.CardSets
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DEFENDING, 1)
 						.SingleTask(ComplexTask.Secret(
-							new SummonTask("CS2_125")))
+							new SummonTask("CS2_125", SummonSide.SPELL)))
 						.Build()
 				}
 			});
@@ -606,7 +606,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, new SummonTask("FP1_011"))
+					SingleTask = new EnqueueTask(3, new SummonTask("FP1_011", SummonSide.SPELL))
 				},
 			});
 
@@ -1561,7 +1561,7 @@ namespace SabberStoneCore.CardSets
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new AddCardTo("AT_036", EntityType.HAND),
-						new SummonTask("AT_036t"))
+						new SummonTask("AT_036t", SummonSide.DEATHRATTLE))
 				},
 			});
 
@@ -1962,7 +1962,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new SummonTask("AT_019"),
+					SingleTask = new SummonTask("AT_019", SummonSide.DEATHRATTLE),
 				},
 			});
 
@@ -2709,7 +2709,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = EnchantmentArea.CONTROLLER,
 					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("AT_099t"))
+					Trigger = Triggers.Inspire(new SummonTask("AT_099t", SummonSide.RIGHT))
 				}
 			});
 
@@ -2727,7 +2727,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = EnchantmentArea.CONTROLLER,
 					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("CS2_101t"))
+					Trigger = Triggers.Inspire(new SummonTask("CS2_101t", SummonSide.RIGHT))
 				}
 			});
 

@@ -91,7 +91,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new SummonTask("KAR_005a"),
+					SingleTask = new SummonTask("KAR_005a", SummonSide.DEATHRATTLE),
 				},
 			});
 
@@ -139,7 +139,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Secret(
-							new SummonTask("KAR_004a")))
+							new SummonTask("KAR_004a", SummonSide.SPELL)))
 						.Build()
 				}
 			});
@@ -255,7 +255,9 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
-						new FlagTask(true, new EnqueueTask(2, new SummonTask("KAR_010a")))),
+						new FlagTask(true, ComplexTask.Create(
+							new SummonTask("KAR_010a", SummonSide.LEFT),
+							new SummonTask("KAR_010a", SummonSide.RIGHT)))),
 				},
 			});
 
@@ -606,9 +608,9 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						new SummonTask("KAR_025a"),
-						new SummonTask("KAR_025b"),
-						new SummonTask("KAR_025c")),
+						new SummonTask("KAR_025a", SummonSide.SPELL),
+						new SummonTask("KAR_025b", SummonSide.SPELL),
+						new SummonTask("KAR_025c", SummonSide.SPELL)),
 				},
 			});
 		}
@@ -684,7 +686,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new CountTask(EntityType.OP_MINIONS),
-						new EnqueueNumberTask(new SummonTask("KAR_026t")))
+						new EnqueueNumberTask(new SummonTask("KAR_026t", SummonSide.SPELL)))
 				},
 			});
 
@@ -804,7 +806,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("KAR_030"),
+					SingleTask = new SummonTask("KAR_030", SummonSide.RIGHT),
 				},
 			});
 
@@ -934,7 +936,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(new SummonTask("KAR_044a"))
+						.SingleTask(new SummonTask("KAR_044a", SummonSide.RIGHT))
 						.Build()
 				}
 			});
@@ -1127,7 +1129,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("KAR_710m"),
+					SingleTask = new SummonTask("KAR_710m", SummonSide.RIGHT),
 				},
 			});
 

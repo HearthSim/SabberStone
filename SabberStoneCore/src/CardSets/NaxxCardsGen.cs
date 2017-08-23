@@ -378,7 +378,7 @@ namespace SabberStoneCore.CardSets
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new SummonTask("FP1_007t"),
+					SingleTask = new SummonTask("FP1_007t", SummonSide.DEATHRATTLE),
 				},
 			});
 

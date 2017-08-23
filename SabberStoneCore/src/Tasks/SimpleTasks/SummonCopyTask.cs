@@ -45,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			entities.ForEach(p =>
 			{
 				// clone task here
-				var task = new SummonTask(p.Card)
+				var task = new SummonTask(SummonSide.DEFAULT, p.Card)
 				{
 					Game = Controller.Game,
 					Controller = Controller,

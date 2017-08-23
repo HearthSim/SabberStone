@@ -529,7 +529,7 @@ namespace SabberStoneCore.CardSets
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new SummonTask("BRM_006t"))
+						.SingleTask(new SummonTask("BRM_006t", SummonSide.RIGHT))
 						.Build()
 				}
 			});
@@ -602,7 +602,7 @@ namespace SabberStoneCore.CardSets
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new SummonTask("BRM_019"))
+						.SingleTask(new SummonTask("BRM_019", SummonSide.RIGHT))
 						.Build()
 				}
 			});
@@ -636,7 +636,7 @@ namespace SabberStoneCore.CardSets
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new SummonTask("BRM_004t"))
+						.SingleTask(new SummonTask("BRM_004t", SummonSide.RIGHT))
 						.Build()
 				}
 			});

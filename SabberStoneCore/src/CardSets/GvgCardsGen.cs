@@ -706,7 +706,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						new EnqueueTask(3, new SummonTask("CS2_101t")),
+						new EnqueueTask(3, new SummonTask("CS2_101t", SummonSide.SPELL)),
 						new WeaponTask("CS2_091"))
 				},
 			});

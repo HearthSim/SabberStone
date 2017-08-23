@@ -696,7 +696,7 @@ namespace SabberStoneCore.CardSets
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(new SummonTask("LOE_009t"))
+						.SingleTask(new SummonTask("LOE_009t", SummonSide.RIGHT))
 						.Build()
 				}
 			});
@@ -1052,9 +1052,9 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
-							new SummonTask("LOE_089t"),
-							new SummonTask("LOE_089t2"),
-							new SummonTask("LOE_089t3"))
+							new SummonTask("LOE_089t", SummonSide.DEATHRATTLE),
+							new SummonTask("LOE_089t2", SummonSide.DEATHRATTLE),
+							new SummonTask("LOE_089t3", SummonSide.DEATHRATTLE))
 				},
 			});
 
@@ -1207,7 +1207,7 @@ namespace SabberStoneCore.CardSets
 			   new Enchantment
 			   {
 				   Activation = EnchantmentActivation.SPELL,
-				   SingleTask = new EnqueueTask(7, new SummonTask("LOEA16_5t"))
+				   SingleTask = new EnqueueTask(7, new SummonTask("LOEA16_5t", SummonSide.SPELL))
 			   },
 			});
 

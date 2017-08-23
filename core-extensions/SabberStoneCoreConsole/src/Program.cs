@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 

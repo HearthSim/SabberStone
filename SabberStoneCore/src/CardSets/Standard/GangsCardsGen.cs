@@ -45,7 +45,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.SummonJadeGolem(),
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.RIGHT),
 				}
 			});
 
@@ -164,7 +164,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						ComplexTask.SummonJadeGolem(),
+						ComplexTask.SummonJadeGolem(SummonSide.SPELL),
 						new ManaCrystalEmptyTask(1))
 				},
 			});
@@ -233,7 +233,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.SummonJadeGolem()
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.SPELL)
 				},
 			});
 
@@ -269,7 +269,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("CFM_315t")
+					SingleTask = new SummonTask("CFM_315t", SummonSide.RIGHT)
 				},
 			});
 
@@ -291,7 +291,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
-						new EnqueueNumberTask(new SummonTask("CFM_316t")))
+						new EnqueueNumberTask(new SummonTask("CFM_316t", SummonSide.DEATHRATTLE)))
 				},
 			});
 
@@ -448,7 +448,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
 						.TriggerEffect(GameTag.ATTACKING, -1)
-						.SingleTask(new SummonTask("CFM_337t"))
+						.SingleTask(new SummonTask("CFM_337t", SummonSide.DEFAULT))
 						.Build()
 				}
 			});
@@ -995,7 +995,7 @@ namespace SabberStoneCore.CardSets.Standard
 							SelfCondition.IsNotDead,
 							SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.DAMAGE, -1)
-						.SingleTask(new SummonTask("CFM_606t"))
+						.SingleTask(new SummonTask("CFM_606t", SummonSide.RIGHT))
 						.Build()
 				}
 			});
@@ -1231,7 +1231,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.SummonJadeGolem(),
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.DEATHRATTLE),
 				},
 			});
 
@@ -1359,7 +1359,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET),
-						ComplexTask.SummonJadeGolem())
+						ComplexTask.SummonJadeGolem(SummonSide.SPELL))
 				},
 			});
 		}
@@ -1429,7 +1429,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						ComplexTask.SummonJadeGolem(),
+						ComplexTask.SummonJadeGolem(SummonSide.RIGHT),
 						ComplexTask.Taunt(EntityType.STACK)),
 				},
 			});
@@ -1491,7 +1491,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(4, new SummonTask("CFM_310t")),
+					SingleTask = new EnqueueTask(4, new SummonTask("CFM_310t",  SummonSide.SPELL)),
 				},
 			});
 
@@ -1554,7 +1554,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(4, EntityType.TARGET, true),
-						ComplexTask.SummonJadeGolem()),
+						ComplexTask.SummonJadeGolem(SummonSide.SPELL)),
 				},
 			});
 
@@ -1580,7 +1580,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.SummonJadeGolem(),
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.DEFAULT),
 				},
 			});
 		}
@@ -2462,7 +2462,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("CFM_648t")
+					SingleTask = new SummonTask("CFM_648t", SummonSide.RIGHT)
 				},
 			});
 
@@ -2856,7 +2856,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.SummonJadeGolem(),
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.SPELL),
 				},
 			});
 
@@ -3147,12 +3147,12 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.SummonJadeGolem()
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.RIGHT)
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.SummonJadeGolem()
+					SingleTask = ComplexTask.SummonJadeGolem(SummonSide.DEATHRATTLE)
 				},
 			});
 		}
@@ -3452,7 +3452,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(2, new SummonTask("CFM_668t2"))
+					SingleTask = ComplexTask.Create(
+						new SummonTask("CFM_668t2", SummonSide.LEFT),
+						new SummonTask("CFM_668t2", SummonSide.RIGHT))
 				},
 			});
 
@@ -3470,7 +3472,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(2, new SummonTask("CFM_668t2"))
+					SingleTask = ComplexTask.Create(
+						new SummonTask("CFM_668t2", SummonSide.LEFT),
+						new SummonTask("CFM_668t2", SummonSide.RIGHT))
 				},
 			});
 
@@ -3765,7 +3769,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("CFM_621_m4"),
+					SingleTask = new SummonTask("CFM_621_m4", SummonSide.SPELL),
 				},
 			});
 
@@ -3935,7 +3939,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("CFM_621_m2"),
+					SingleTask = new SummonTask("CFM_621_m2", SummonSide.SPELL),
 				}
 			});
 
@@ -4095,7 +4099,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("CFM_621_m3"),
+					SingleTask = new SummonTask("CFM_621_m3", SummonSide.SPELL),
 				}
 			});
 

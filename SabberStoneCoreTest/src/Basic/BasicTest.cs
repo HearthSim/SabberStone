@@ -625,6 +625,47 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
+		public void SecretOrderOfPlay()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Vaporize"),
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Stonetusk Boar")
+				},
+				Player2HeroClass = CardClass.HUNTER,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Freezing Trap"),
+					Cards.FromName("Explosive Trap")
+				},
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Vaporize"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Ice Barrier"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(8, game.CurrentOpponent.Hero.Armor);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Freezing Trap"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
+		}
+
+		[Fact]
 		public void Aura_LoopBug()
 		{
 			var game = new Game(new GameConfig

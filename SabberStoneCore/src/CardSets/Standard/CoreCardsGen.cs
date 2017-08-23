@@ -223,7 +223,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("CS2_101t")
+					SingleTask = new SummonTask("CS2_101t", SummonSide.DEFAULT)
 				}
 			});
 
@@ -914,7 +914,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("CS2_mirror"), false)
+					SingleTask = new EnqueueTask(2, new SummonTask("CS2_mirror", SummonSide.SPELL), false)
 				}
 			});
 
@@ -2716,7 +2716,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("CS2_boar")
+					SingleTask = new SummonTask("CS2_boar",  SummonSide.RIGHT)
 				}
 			});
 
@@ -2896,7 +2896,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("EX1_025t")
+					SingleTask = new SummonTask("EX1_025t", SummonSide.RIGHT)
 				}
 			});
 
@@ -2953,7 +2953,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("EX1_506a")
+					SingleTask = new SummonTask("EX1_506a", SummonSide.RIGHT)
 				}
 			});
 

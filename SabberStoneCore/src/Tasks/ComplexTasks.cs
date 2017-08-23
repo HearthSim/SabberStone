@@ -192,7 +192,7 @@ namespace SabberStoneCore.Tasks
 				new DrawStackTask());
 		}
 
-		public static ISimpleTask SummonJadeGolem()
+		public static ISimpleTask SummonJadeGolem(SummonSide side)
 		{
 			return Create(
 				new IncludeTask(EntityType.SOURCE),
@@ -238,7 +238,7 @@ namespace SabberStoneCore.Tasks
 					string golemStr = jadeGolem <= jadeGolemStr.Count ? jadeGolemStr[jadeGolem] : jadeGolemStr[29];
 					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(golemStr)) };
 				}),
-				new SummonTask());
+				new SummonTask(side));
 		}
 
 		public static ISimpleTask Secret(params ISimpleTask[] list)
