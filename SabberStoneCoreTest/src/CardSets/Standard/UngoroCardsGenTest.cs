@@ -3618,10 +3618,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GentleMegasaur_UNG_089()
 		{
-			// TODO GentleMegasaur_UNG_089 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3633,7 +3632,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gentle Megasaur"));
+			//	Player 1
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gentle Megasaur"));
+			var testCard2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gentle Megasaur"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowflipper Penguin"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Null(game.CurrentPlayer.Choice);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
+			Assert.False(testCard2.AttackDamage != 5 || testCard2.Health != 4 || testCard2.HasDivineShield || testCard2.HasDeathrattle || testCard2.CantBeTargetedByHeroPowers || testCard2.HasTaunt || minion3.HasWindfury || testCard2.HasStealth || testCard2.Poisonous);
+			Assert.True(minion1.AttackDamage != 2 || minion1.Health != 1 || minion1.HasDivineShield || minion1.HasDeathrattle || minion1.CantBeTargetedByHeroPowers || minion1.HasTaunt || minion1.HasWindfury || minion1.HasStealth || minion1.Poisonous);
+			Assert.True(minion2.AttackDamage != 2 || minion2.Health != 1 || minion2.HasDivineShield || minion2.HasDeathrattle || minion2.CantBeTargetedByHeroPowers || minion2.HasTaunt || minion2.HasWindfury || minion2.HasStealth || minion2.Poisonous);
+			Assert.False(minion3.AttackDamage != 1 || minion3.Health != 1 || minion3.HasDivineShield || minion3.HasDeathrattle || minion3.CantBeTargetedByHeroPowers || minion3.HasTaunt || minion3.HasWindfury || minion3.HasStealth || minion3.Poisonous);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
