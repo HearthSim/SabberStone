@@ -143,8 +143,12 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+                        //new CopyTask(EntityType.STACK, 1),
+                        new SummonCopyTask(EntityType.STACK))
+				}
 			});
 
 			// ------------------------------------------- HERO - DRUID
@@ -217,11 +221,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HERO_POWER = 45585
 			// --------------------------------------------------------
 			cards.Add("ICC_834", new List<Enchantment> {
-				// TODO [ICC_834] Scourgelord Garrosh && Test: Scourgelord Garrosh_ICC_834
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new WeaponTask("ICC_834w"),
 				},
 			});
 		}

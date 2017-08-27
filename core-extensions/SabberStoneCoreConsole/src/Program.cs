@@ -25,7 +25,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			ParallelTest();
+			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
@@ -784,10 +784,7 @@ namespace SabberStoneCoreConsole
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Wickerflame Burnbristle")
-				},
+
 				Player2HeroClass = CardClass.HUNTER,
 				Player2Deck = new List<Card>()
 				{
@@ -798,16 +795,11 @@ namespace SabberStoneCoreConsole
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wickerflame Burnbristle"));
-
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Arcane Shot", game.CurrentOpponent.Hero));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
-
+			while(game.State != State.COMPLETE)
+			{
+				var options = game.CurrentPlayer.Options();
+				game.Process(options.First());
+			}
 			ShowLog(game, LogLevel.VERBOSE);
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
