@@ -5888,8 +5888,9 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "NEW1_017e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						new DestroyTask(EntityType.TARGET),
-						new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.MURLOC)),
+						new FlagTask(true, new DestroyTask(EntityType.TARGET)),
+						new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
 				},
 			});
 

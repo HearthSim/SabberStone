@@ -844,10 +844,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			// player 1 draws and plays explosive Trap
+			// player 1 draws and plays explosive Trap and Cat Trick
 			IPlayable explosiveTrap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
+			IPlayable catTrick = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, explosiveTrap));
-			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, catTrick));
+			Assert.Equal(2, game.CurrentPlayer.SecretZone.Count);
 
 			// player 1 draws and plays WorgenInfiltrator_EX1_010 (stealth)
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
@@ -864,11 +866,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.False(((Minion)minion).HasStealth);
 			Assert.Equal(0, game.CurrentPlayer.Opponent.SecretZone.Count);
 
-			// play a charge minion to test deactivated Secret
+			// play a charge minion to test deactivated Secret and check if Cat Trick was not activated
 			IPlayable chargeMinion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, chargeMinion));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, chargeMinion, game.CurrentOpponent.Hero));
 			Assert.Equal(29, game.CurrentPlayer.Opponent.Hero.Health);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -7770,10 +7773,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_WITH_RACE = 14
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HungryCrab_NEW1_017()
 		{
-			// TODO HungryCrab_NEW1_017 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -7785,7 +7787,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hungry Crab"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hungry Crab"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hungry Crab"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Warleader"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard1, minion));
+			Assert.True(((Minion)minion).IsDead);
+			Assert.Equal(3, ((Minion)testCard1).AttackDamage);
+			Assert.Equal(4, ((Minion)testCard1).Health);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+			Assert.Equal(1, ((Minion)testCard2).AttackDamage);
+			Assert.Equal(2, ((Minion)testCard2).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
