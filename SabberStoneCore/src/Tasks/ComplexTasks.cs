@@ -6,6 +6,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Tasks
 {
@@ -23,6 +24,10 @@ namespace SabberStoneCore.Tasks
 		{
 			return StateTaskList<ISimpleTask>.Chain(list);
 		}
+
+		
+		internal static ISimpleTask LifeSteal(EntityType entityType)
+			=> new SetGameTagTask(GameTag.LIFESTEAL, 1, entityType);
 
 		public static ISimpleTask Freeze(EntityType entityType)
 			=> new SetGameTagTask(GameTag.FROZEN, 1, entityType);

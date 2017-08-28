@@ -286,22 +286,30 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MalfurionThePestilent_ICC_832()
 		{
-			// TODO MalfurionThePestilent_ICC_832 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Malfurion the Pestilent")
+				},
 				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malfurion the Pestilent"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -2, 0));
+			Assert.Equal("ICC_832", game.CurrentPlayer.Hero.Card.Id);
+			Assert.Equal("ICC_832p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// -------------------------------------------- HERO - MAGE

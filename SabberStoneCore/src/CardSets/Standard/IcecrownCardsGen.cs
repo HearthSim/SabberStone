@@ -170,43 +170,48 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832", new List<Enchantment> {
-				// TODO [ICC_832] Malfurion the Pestilent && Test: Malfurion the Pestilent_ICC_832
-				new Enchantment
-				{
-					InfoCardId = "ICC_832e",
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_832",                
+                //CHOOSE_ONE
+                null);
 
-			// -------------------------------------------- HERO - MAGE
-			// [ICC_833] Frost Lich Jaina - COST:9 [ATK:0/HP:30] 
-			// - Set: icecrown, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: [x]<b>Battlecry:</b> Summon a
-			//       3/6 Water Elemental.
-			//       Your Elementals have
-			//       <b>Lifesteal</b> this game.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - BATTLECRY = 1
-			// - ARMOR = 5
-			// - HERO_POWER = 42944
-			// --------------------------------------------------------
-			// RefTag:
-			// - LIFESTEAL = 1
-			// --------------------------------------------------------
-			cards.Add("ICC_833", new List<Enchantment> {
-				// TODO [ICC_833] Frost Lich Jaina && Test: Frost Lich Jaina_ICC_833
+            // -------------------------------------------- HERO - MAGE
+            // [ICC_833] Frost Lich Jaina - COST:9 [ATK:0/HP:30] 
+            // - Set: icecrown, Rarity: legendary
+            // --------------------------------------------------------
+            // Text: [x]<b>Battlecry:</b> Summon a
+            //       3/6 Water Elemental.
+            //       Your Elementals have
+            //       <b>Lifesteal</b> this game.
+            // --------------------------------------------------------
+            // GameTag:
+            // - ELITE = 1
+            // - BATTLECRY = 1
+            // - ARMOR = 5
+            // - HERO_POWER = 42944
+            // --------------------------------------------------------
+            // RefTag:
+            // - LIFESTEAL = 1
+            // --------------------------------------------------------
+            cards.Add("ICC_833", new List<Enchantment> {
 				new Enchantment
 				{
 					InfoCardId = "ICC_833e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("ICC_833t", SummonSide.SPELL),
 				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .ApplyConditions(RelaCondition.IsMe(SelfCondition.IsRace(Race.ELEMENTAL)))
+                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
+                        .SingleTask(ComplexTask.Secret(
+                            ComplexTask.LifeSteal(EntityType.TARGET)))
+                        .Build()
+                }
+            });
 
 			// ----------------------------------------- HERO - WARRIOR
 			// [ICC_834] Scourgelord Garrosh - COST:8 [ATK:0/HP:30] 
@@ -370,26 +375,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_832p", new List<Enchantment> {
-				// TODO [ICC_832p] Plague Lord && Test: Plague Lord_ICC_832p
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_832p",               
+                //CHOOSE_ONE
+                null);
 
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICC_833h] Icy Touch (*) - COST:2 
-			// - Set: icecrown, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//        Deal $1 damage. If this kills a minion, summon a Water Elemental. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("ICC_833h", new List<Enchantment> {
+            // ----------------------------------- HERO_POWER - NEUTRAL
+            // [ICC_833h] Icy Touch (*) - COST:2 
+            // - Set: icecrown, 
+            // --------------------------------------------------------
+            // Text: <b>Hero Power</b>
+            //        Deal $1 damage. If this kills a minion, summon a Water Elemental. *spelldmg
+            // --------------------------------------------------------
+            // PlayReq:
+            // - REQ_TARGET_TO_PLAY = 0
+            // --------------------------------------------------------
+            cards.Add("ICC_833h", new List<Enchantment> {
 				// TODO [ICC_833h] Icy Touch && Test: Icy Touch_ICC_833h
 				new Enchantment
 				{
@@ -817,7 +817,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICC_047t] Fatespinner (*) - COST:5 [ATK:5/HP:3] 
 			// - Set: icecrown, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Secret Deathrattle:</b> Deal 3 damage to all minions; or Give them +2/+2.@<b>Secret Deathrattle:</b> Give +2/+2 to all minions.@<b>Secret Deathrattle:</b> Deal 3 damage to all minions.
+			// Text: <b>Secret Deathrattle:</b> Deal 3 damage to all minions; or Give them +2/+2.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DEATHRATTLE = 1
@@ -858,8 +858,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t",
-				null);
+			cards.Add("ICC_051t", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t2] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -870,8 +869,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t2",
-				null);
+			cards.Add("ICC_051t2", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t3] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -884,8 +882,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t3",
-				null);
+			cards.Add("ICC_051t3", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_085t] Ghoul Infestor (*) - COST:5 [ATK:5/HP:5] 
@@ -902,14 +899,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832t3", new List<Enchantment> {
-				// TODO [ICC_832t3] Frost Widow && Test: Frost Widow_ICC_832t3
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_832t3", null);
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_832t4] Scarab Beetle (*) - COST:2 [ATK:1/HP:5] 
@@ -920,14 +910,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832t4", new List<Enchantment> {
-				// TODO [ICC_832t4] Scarab Beetle && Test: Scarab Beetle_ICC_832t4
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_832t4", null);
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_047a] Growth (*) - COST:0 
@@ -940,7 +923,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					//SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS),
 				},
 			});
 
@@ -996,11 +979,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Summon two 1/5 Scarabs with <b>Taunt</b>.
 			// --------------------------------------------------------
 			cards.Add("ICC_832a", new List<Enchantment> {
-				// TODO [ICC_832a] Scarab Plague && Test: Scarab Plague_ICC_832a
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t4", SummonSide.DEFAULT))
 				},
 			});
 
@@ -1012,12 +994,11 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Spiders with <b>Poisonous</b>.
 			// --------------------------------------------------------
 			cards.Add("ICC_832b", new List<Enchantment> {
-				// TODO [ICC_832b] Spider Plague && Test: Spider Plague_ICC_832b
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					Activation = EnchantmentActivation.BATTLECRY,
+                    SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3", SummonSide.DEFAULT))
+                },
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -1027,12 +1008,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +3 Armor.
 			// --------------------------------------------------------
 			cards.Add("ICC_832pa", new List<Enchantment> {
-				// TODO [ICC_832pa] Scarab Shell && Test: Scarab Shell_ICC_832pa
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new ArmorTask(3),
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -1042,12 +1022,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +3 Attack.
 			// --------------------------------------------------------
 			cards.Add("ICC_832pb", new List<Enchantment> {
-				// TODO [ICC_832pb] Spider Fangs && Test: Spider Fangs_ICC_832pb
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+					SingleTask = new BuffTask(Buffs.AttackTurn(3), EntityType.HERO),
+				}
 			});
 
 		}
@@ -1243,7 +1222,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DEFENDING, 1)
 						.SingleTask(ComplexTask.Secret(
-							new EnqueueTask(1, new SummonTask("EX1_170", SummonSide.SPELL))))
+							new SummonTask("EX1_170", SummonSide.SPELL)))
 						.Build()
 				},
 			});
@@ -1393,13 +1372,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_082", new List<Enchantment> {
-				// TODO [ICC_082] Frozen Clone && Test: Frozen Clone_ICC_082
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+                new Enchantment
+                {
+                    Area = EnchantmentArea.OP_BOARD,
+                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
+                    Trigger = new TriggerBuilder().Create()
+                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
+                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
+                        .SingleTask(ComplexTask.Secret(
+                            new IncludeTask(EntityType.TARGET),
+                            new EnqueueTask(2, new AddStackTo(EntityType.HAND))))
+                        .Build()
+                },
+            });
 
 			// ------------------------------------------- SPELL - MAGE
 			// [ICC_086] Glacial Mysteries - COST:8 
@@ -1455,7 +1440,10 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+                        new RandomTask(1, EntityType.OP_MINIONS),
+                        new DamageTask(2, EntityType.STACK, true),
+                        ComplexTask.Freeze(EntityType.STACK))
 				},
 			});
 
@@ -1472,14 +1460,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833t", new List<Enchantment> {
-				// TODO [ICC_833t] Water Elemental && Test: Water Elemental_ICC_833t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_833t", null);
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_838t] Frozen Champion (*) - COST:1 [ATK:0/HP:1] 

@@ -147,7 +147,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="heroCard">The card to derive the hero entity from.</param>
 		/// <param name="powerCard">The heropower card to derive the hero power entity from.</param>
 		/// <param name="tags">The inherited tags</param>
-		public void AddHeroAndPower(Card heroCard, Card powerCard = null, Dictionary<GameTag, int> tags = null)
+		public void AddHeroAndPower(Card heroCard, Card powerCard = null, Dictionary<GameTag, int> tags = null, int id = -1)
 		{
 			// remove hero and place it to the setaside zone
 			if  (Hero != null)
@@ -159,7 +159,7 @@ namespace SabberStoneCore.Model.Entities
 				//Hero[GameTag.REVEALED] = 1;
 			}
 
-			Hero = FromCard(this, heroCard, tags) as Hero;
+			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
 			HeroId = Hero.Id;
 			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;

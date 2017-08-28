@@ -292,23 +292,27 @@ namespace SabberStoneCore.Model.Entities
 
 			if (result.ChooseOne)
 			{
-				result.ChooseOnePlayables[0] = id < 0 ? FromCard(controller,
-					Cards.FromId(result.Card.Id + "a"),
-					new Dictionary<GameTag, int>
-					{
-						[GameTag.CREATOR] = result.Id,
-						[GameTag.PARENT_CARD] = result.Id
-					},
-					controller.SetasideZone) : controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+				result.ChooseOnePlayables[0] =
+					id < 0 ? FromCard(controller,
+						Cards.FromId(result.Card.Id + "a"),
+						new Dictionary<GameTag, int>
+						{
+							[GameTag.CREATOR] = result.Id,
+							[GameTag.PARENT_CARD] = result.Id
+						},
+						controller.SetasideZone) :
+						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
 
-				result.ChooseOnePlayables[1] = id < 0 ? FromCard(controller,
-					Cards.FromId(result.Card.Id + "b"),
-					new Dictionary<GameTag, int>
-					{
-						[GameTag.CREATOR] = result.Id,
-						[GameTag.PARENT_CARD] = result.Id
-					},
-					controller.SetasideZone) : controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+				result.ChooseOnePlayables[1] =
+					id < 0 ? FromCard(controller,
+						Cards.FromId(result.Card.Id + "b"),
+						new Dictionary<GameTag, int>
+						{
+							[GameTag.CREATOR] = result.Id,
+							[GameTag.PARENT_CARD] = result.Id
+						},
+						controller.SetasideZone) :
+						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
 			}
 
 			return result;

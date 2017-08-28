@@ -172,10 +172,13 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", $"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
+				// removing the current Id, to readd it as hero
+				c.Game.IdEntityDic.Remove(hero.Id);
+
 				c.AddHeroAndPower(hero.Card, null, new Dictionary<GameTag, int>() {
 					[GameTag.HEALTH] = c.Hero[GameTag.HEALTH],
 					[GameTag.DAMAGE] = c.Hero[GameTag.DAMAGE],
-					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]});
+					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]}, hero.Id);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)

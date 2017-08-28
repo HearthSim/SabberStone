@@ -783,23 +783,21 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-
-				Player2HeroClass = CardClass.HUNTER,
-				Player2Deck = new List<Card>()
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Arcane Shot")
+					Cards.FromName("Malfurion the Pestilent")
 				},
+				Player2HeroClass = CardClass.DRUID,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			while(game.State != State.COMPLETE)
-			{
-				var options = game.CurrentPlayer.Options();
-				game.Process(options.First());
-			}
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -2, 1));
+
 			ShowLog(game, LogLevel.VERBOSE);
 
 			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
