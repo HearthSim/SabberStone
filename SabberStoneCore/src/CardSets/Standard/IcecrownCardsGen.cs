@@ -174,44 +174,43 @@ namespace SabberStoneCore.CardSets.Standard
                 //CHOOSE_ONE
                 null);
 
-            // -------------------------------------------- HERO - MAGE
-            // [ICC_833] Frost Lich Jaina - COST:9 [ATK:0/HP:30] 
-            // - Set: icecrown, Rarity: legendary
-            // --------------------------------------------------------
-            // Text: [x]<b>Battlecry:</b> Summon a
-            //       3/6 Water Elemental.
-            //       Your Elementals have
-            //       <b>Lifesteal</b> this game.
-            // --------------------------------------------------------
-            // GameTag:
-            // - ELITE = 1
-            // - BATTLECRY = 1
-            // - ARMOR = 5
-            // - HERO_POWER = 42944
-            // --------------------------------------------------------
-            // RefTag:
-            // - LIFESTEAL = 1
-            // --------------------------------------------------------
-            cards.Add("ICC_833", new List<Enchantment> {
+			// -------------------------------------------- HERO - MAGE
+			// [ICC_833] Frost Lich Jaina - COST:9 [ATK:0/HP:30] 
+			// - Set: icecrown, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: [x]<b>Battlecry:</b> Summon a
+			//       3/6 Water Elemental.
+			//       Your Elementals have
+			//       <b>Lifesteal</b> this game.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// - ARMOR = 5
+			// - HERO_POWER = 42944
+			// --------------------------------------------------------
+			// RefTag:
+			// - LIFESTEAL = 1
+			// --------------------------------------------------------
+			cards.Add("ICC_833", new List<Enchantment> {
 				new Enchantment
 				{
 					InfoCardId = "ICC_833e",
+					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SummonTask("ICC_833t", SummonSide.SPELL),
-				},
-                new Enchantment
-                {
-                    Area = EnchantmentArea.BOARD,
-                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                        .ApplyConditions(RelaCondition.IsMe(SelfCondition.IsRace(Race.ELEMENTAL)))
-                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
-                        .SingleTask(ComplexTask.Secret(
-                            ComplexTask.LifeSteal(EntityType.TARGET)))
-                        .Build()
-                }
-            });
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY))
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.ELEMENTAL)))
+						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.SingleTask(new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.TARGET))
+						.Build(),
+					SingleTask = ComplexTask.Create(
+						new SummonTask("ICC_833t", SummonSide.SPELL),
+						new IncludeTask(EntityType.MINIONS),
+						new FilterStackTask(SelfCondition.IsRace(Race.ELEMENTAL)),
+						new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.STACK))
+				}
+			});
 
 			// ----------------------------------------- HERO - WARRIOR
 			// [ICC_834] Scourgelord Garrosh - COST:8 [ATK:0/HP:30] 
@@ -329,11 +328,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_830p", new List<Enchantment> {
-				// TODO [ICC_830p] Voidform && Test: Voidform_ICC_830p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.SPELL,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsTagValue(GameTag.ZONE, 1))
+						.TriggerEffect(GameTag.NUM_CARDS_PLAYED_THIS_TURN, 1)
+						.SingleTask(new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER))
+						.Build(),
+					SingleTask = new DamageTask(2, EntityType.TARGET, false)
 				}
 			});
 
@@ -379,22 +383,24 @@ namespace SabberStoneCore.CardSets.Standard
                 //CHOOSE_ONE
                 null);
 
-            // ----------------------------------- HERO_POWER - NEUTRAL
-            // [ICC_833h] Icy Touch (*) - COST:2 
-            // - Set: icecrown, 
-            // --------------------------------------------------------
-            // Text: <b>Hero Power</b>
-            //        Deal $1 damage. If this kills a minion, summon a Water Elemental. *spelldmg
-            // --------------------------------------------------------
-            // PlayReq:
-            // - REQ_TARGET_TO_PLAY = 0
-            // --------------------------------------------------------
-            cards.Add("ICC_833h", new List<Enchantment> {
-				// TODO [ICC_833h] Icy Touch && Test: Icy Touch_ICC_833h
+			// ----------------------------------- HERO_POWER - NEUTRAL
+			// [ICC_833h] Icy Touch (*) - COST:2 
+			// - Set: icecrown, 
+			// --------------------------------------------------------
+			// Text: <b>Hero Power</b>
+			//        Deal $1 damage. If this kills a minion, summon a Water Elemental. *spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("ICC_833h", new List<Enchantment> {
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(1, EntityType.TARGET, false),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+						new FlagTask(true, new SummonTask("ICC_833t", SummonSide.DEFAULT)))
 				}
 			});
 

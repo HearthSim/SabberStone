@@ -209,7 +209,11 @@ namespace SabberStoneUnitTest.CardSets
 				{
 					Cards.FromName("Shadowreaper Anduin"),
 					Cards.FromName("Bloodfen Raptor"),
-					Cards.FromName("Stranglethorn Tiger")
+					Cards.FromName("Stranglethorn Tiger"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp")
 				},
 				Player2HeroClass = CardClass.HUNTER,
 				Player2Deck = new List<Card>()
@@ -235,6 +239,21 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Shadowreaper Anduin"));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(2, game.CurrentOpponent.Hero.Damage);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
+			Assert.False(game.CurrentPlayer.Hero.Power.IsExhausted);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Generic.Draw(game.CurrentPlayer);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(10, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// ----------------------------------------- HERO - WARLOCK
@@ -330,10 +349,9 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FrostLichJaina_ICC_833()
 		{
-			// TODO FrostLichJaina_ICC_833 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -345,7 +363,27 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Lich Jaina"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frost Lich Jaina"));
+			var tarCreeper = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Creeper"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(game.CurrentPlayer.BoardZone.First().HasLifeSteal);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable opponentWisp = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, opponentWisp));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, tarCreeper));
+			Assert.True(tarCreeper.HasLifeSteal);
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, opponentWisp));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			var playerWisp = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, playerWisp));
+			Assert.False(playerWisp.HasLifeSteal);
 		}
 
 		// ----------------------------------------- HERO - WARRIOR
@@ -521,7 +559,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact(Skip = "ignore")]
 		public void Voidform_ICC_830p()
 		{
-			// TODO Voidform_ICC_830p test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -614,7 +651,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact(Skip = "ignore")]
 		public void IcyTouch_ICC_833h()
 		{
-			// TODO IcyTouch_ICC_833h test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
