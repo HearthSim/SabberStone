@@ -135,5 +135,19 @@ namespace SabberStoneCore.Tasks
 					return new List<IPlayable>();
 				})
 			);
+
+		public static ISimpleTask Simulacrum
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.HAND),
+				new FilterStackTask(SelfCondition.IsMinion),
+				new FuncPlayablesTask(list =>
+				{
+					int minCost = list.Min(p => p.Cost);
+					list.Where(p => p.Cost == minCost).ToList();
+					return list.Where(p => p.Cost == minCost).ToList();
+				}),
+				new RandomTask(1, EntityType.STACK),
+				new CopyTask(EntityType.STACK, 1),
+				new AddStackTo(EntityType.HAND));
 	}
 }

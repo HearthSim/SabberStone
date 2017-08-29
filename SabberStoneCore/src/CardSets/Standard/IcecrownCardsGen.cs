@@ -1103,7 +1103,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					SingleTask =
 						new AuraTask(
-							Auras.Cost(-99, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1))),
+							Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1))),
 							AuraArea.HAND)
 				}
 			});
@@ -1425,7 +1425,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = SpecificTask.Simulacrum,
 				},
 			});
 

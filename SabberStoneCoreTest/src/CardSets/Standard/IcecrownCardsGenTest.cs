@@ -1236,7 +1236,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void CorpseWidow_ICC_243()
 		{
-			// TODO CorpseWidow_ICC_243 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1255,6 +1254,10 @@ namespace SabberStoneUnitTest.CardSets
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			Assert.Equal(minion1.Card.Cost-2, minion1.Cost);
+			Assert.Equal(minion2.Card.Cost-2, minion2.Cost);
+
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
@@ -1810,22 +1813,37 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Copy the lowest Cost minion in your hand.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Simulacrum_ICC_823()
 		{
-			// TODO Simulacrum_ICC_823 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Simulacrum"),
+					Cards.FromName("Simulacrum"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Alexstrasza"),
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Simulacrum"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Simulacrum"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(2, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Stonetusk Boar").Count());
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Simulacrum"));
+			Assert.Equal(2, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Alexstrasza").Count());
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
