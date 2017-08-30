@@ -1,6 +1,10 @@
 ﻿namespace SabberStoneCore.Enums
 {
+	/// <summary>
+	/// Enumeration used WITHIN HISTORY data, interpreted by the real HS client;
+	/// </summary>
 	public enum BlockType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		ATTACK = 1,
 		JOUST = 2,
@@ -13,8 +17,13 @@
 		RITUAL = 9,
 		ACTION = 99,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum BnetGameType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BGT_UNKNOWN = 0,
 		BGT_FRIENDS = 1,
@@ -38,8 +47,13 @@
 		BGT_FSG_BRAWL_1P_VERSUS_AI = 42,
 		BGT_FSG_BRAWL_2P_COOP = 43
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum BnetRegion
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		REGION_UNINITIALIZED = -1,
 		REGION_UNKNOWN = 0,
@@ -51,8 +65,13 @@
 		REGION_LIVE_VERIFICATION = 40,
 		REGION_PTR_LOC = 41
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum Booster
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		CLASSIC = 1,
@@ -65,6 +84,7 @@
 		UNGORO = 20,
 		FROZEN_THRONE = 21
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Class of a card.
@@ -73,6 +93,7 @@
 	/// class and neutral cards are allowed in that deck.
 	/// </summary>
 	public enum CardClass
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		DEATHKNIGHT = 1,
@@ -88,11 +109,13 @@
 		DREAM = 11,
 		NEUTRAL = 12,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Mutual exclusive sets to which cards can belong.
 	/// </summary>
 	public enum CardSet
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		TEST_TEMPORARY = 1,
@@ -124,6 +147,7 @@
 		UNGORO = 27,
 		ICECROWN = 1001
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Meta information about a card.
@@ -131,6 +155,7 @@
 	/// Cards CAN BE heroes or hero powers or minions or spells..
 	/// </summary>
 	public enum CardType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		GAME = 1,
@@ -144,6 +169,7 @@
 		TOKEN = 9,
 		HERO_POWER = 10,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates the context in which a player has choose between entities.
@@ -154,13 +180,19 @@
 	/// A 'performed' choice can consist of 0 or more picked entities.
 	/// </summary>
 	public enum ChoiceType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		MULLIGAN = 1,
 		GENERAL = 2,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum DeckType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		UNKNOWN_DECK_TYPE = 0,
 		NORMAL_DECK = 1,
@@ -171,25 +203,33 @@
 		FSG_BRAWL_DECK = 7,
 		HIDDEN_DECK = 1000,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// TODO;
+	/// </summary>
 	public enum EnchantmentVisual
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		POSITIVE = 1,
 		NEGATIVE = 2,
 		NEUTRAL = 3,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Another mutual exclusive classification of cards.
 	/// </summary>
 	public enum Faction
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		HORDE = 1,
 		ALLIANCE = 2,
 		NEUTRAL = 3,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates the format of decks, which limits 
@@ -199,22 +239,25 @@
 	/// to be put into a deck of type WILD.
 	/// </summary>
 	public enum FormatType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		FT_UNKNOWN = 0,
 		FT_WILD = 1,
 		FT_STANDARD = 2,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// These tags represent properties of entities. They must be seen as noncomplex and have
 	/// no relation with each other.
 	/// 
-	/// eg: <see cref="EGameTag.HEALTH"/>: holds the maximum health of this entity, including buffs.
-	/// eg: <see cref="EGameTag.DAMAGE"/>: holds the amount of damage inflicted onto this entity.
+	/// eg: <see cref="HEALTH"/>: holds the maximum health of this entity, including buffs.
+	/// eg: <see cref="DAMAGE"/>: holds the amount of damage inflicted onto this entity.
 	/// Both properties have no relation with each other and the available amount of health is calculated
 	/// from these properties and others.
 	/// </summary>
 	public enum GameTag
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		IGNORE_DAMAGE = 1,
 		TAG_SCRIPT_DATA_NUM_1 = 2,
@@ -562,8 +605,13 @@
 		NUM_MURLOCS_PLAYED_THIS_GAME = 1008,
 		TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009 // position aren't changed in graveyard and setaside zone ??? obolet?
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum GameType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		GT_UNKNOWN = 0,
 		GT_VS_AI = 1,
@@ -578,8 +626,13 @@
 		GT_TB_2P_COOP = 18,
 		GT_LAST = 19,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// TODO;
+	/// </summary>
 	public enum GoldRewardState
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		ELIGIBLE = 1,
@@ -590,8 +643,13 @@
 		SHORT_GAME_BY_TIME = 5,
 		OVER_CAIS = 6,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum Locale
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		UNKNOWN = -1,
 		enUS = 0,
@@ -611,8 +669,13 @@
 		jaJP = 14,
 		thTH = 15,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// Enumeration used WITHIN HISTORY data, interpreted by the real HS client.
+	/// </summary>
 	public enum MetaDataType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		META_TARGET = 0,
 		TARGET = 0,
@@ -628,6 +691,7 @@
 		OVERRIDE_HISTORY = 8,
 		HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// State in which a player resides when the game is in Mulligan phase.
@@ -635,6 +699,7 @@
 	/// is also a state machine.
 	/// </summary>
 	public enum Mulligan
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		INPUT = 1,
@@ -642,6 +707,7 @@
 		WAITING = 3,
 		DONE = 4,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// A multiclassgroup is a set of cards which spans multiple 
@@ -650,12 +716,14 @@
 	/// ex; GRIMMY_GOONS contains Paladin+Hunter+Warrior classes.
 	/// </summary>
 	public enum MultiClassGroup
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		GRIMY_GOONS = 1,
 		JADE_LOTUS = 2,
 		KABAL = 3,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates the type of choice a player can pick from a set of options.
@@ -665,11 +733,13 @@
 	/// A player MUST always pick EXACTLY ONE of the offered options.
 	/// </summary>
 	public enum OptionType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		PASS = 1,
 		END_TURN = 2,
 		POWER = 3,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Requirements which have to be met before a card can be player.
@@ -678,6 +748,7 @@
 	/// A card can have multiple play requirements.
 	/// </summary>
 	public enum PlayReq
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		REQ_MINION_TARGET = 1,
 		REQ_FRIENDLY_TARGET = 2,
@@ -751,12 +822,14 @@
 		REQ_HAND_NOT_FULL = 70,
 		REQ_DRAG_TO_PLAY = 71
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// State information about controllers in a game. A controller represents 
 	/// one player.
 	/// </summary>
 	public enum PlayState
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		PLAYING = 1,
@@ -769,8 +842,13 @@
 		QUIT = 8,
 		CONCEDED = 8,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// Enumeration for building HISTORY which can be interpreted by the real HS client.
+	/// </summary>
 	public enum PowerType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		FULL_ENTITY = 1,
 		SHOW_ENTITY = 2,
@@ -782,6 +860,7 @@
 		META_DATA = 8,
 		CHANGE_ENTITY = 9,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Another classification for cards which is mutual exclusive.
@@ -789,6 +868,7 @@
 	/// dragons in hand.
 	/// </summary>
 	public enum Race
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		BLOODELF = 1,
@@ -816,11 +896,13 @@
 		PIRATE = 23,
 		DRAGON = 24,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Rarity of a card. This reflects the drop rate from card packs.
 	/// </summary>
 	public enum Rarity
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		COMMON = 1,
@@ -830,22 +912,26 @@
 		LEGENDARY = 5,
 		UNKNOWN_6 = 6,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates the state of the Game entity.
 	/// </summary>
 	public enum State
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		LOADING = 1,
 		RUNNING = 2,
 		COMPLETE = 3,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates in which state the Game's state machine is in.
 	/// </summary>
 	public enum Step
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		INVALID = 0,
 		BEGIN_FIRST = 1,
@@ -866,8 +952,13 @@
 		MAIN_CLEANUP = 16,
 		MAIN_START_TRIGGERS = 17,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
 	public enum Type
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		LOCSTRING = -2,
 		UNKNOWN = 0,
@@ -880,16 +971,18 @@
 		ENTITY_DEFINITION = 7,
 		STRING = 8,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Abstract area where entities reside during the game.
 	/// Each controller has it's own set of zones, these are not shared
 	/// with other players.
 	/// 
-	/// eg: <see cref="EZone.PLAY"/>: contains all entities that are on the board.
-	/// eg: <see cref="EZone.DECK"/>: contains all entities which are not yet drawn into <see cref="EZone.HAND"/>.
+	/// eg: <see cref="PLAY"/>: contains all entities that are on the board.
+	/// eg: <see cref="DECK"/>: contains all entities which are not yet drawn into <see cref="HAND"/>.
 	/// </summary>
 	public enum Zone
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		//DISCARD = -2,
 		INVALID = 0,
@@ -901,5 +994,6 @@
 		SETASIDE = 6,
 		SECRET = 7,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 }

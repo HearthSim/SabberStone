@@ -8,6 +8,7 @@
 	/// for the effect to execute.
 	/// </summary>
 	public enum EnchantmentActivation
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BATTLECRY,
 		DEATHRATTLE,
@@ -21,6 +22,7 @@
 		SETASIDE_ZONE,
 		NONE
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 	/// <summary>
 	/// Indicates which (group of) entities the effect will influence.

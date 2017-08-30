@@ -5,12 +5,18 @@ using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	/// <summary>
+	/// Summon a copy of one (or more) existing entity.
+	/// </summary>
+	/// <seealso cref="SimpleTask" />
 	public class SummonCopyTask : SimpleTask
 	{
 		/// <summary>
 		/// Summons a copy of the choosen entitytype.
 		/// </summary>
-		/// <param name="type"></param>
+		/// <param name="type">Selector of entity to copy.</param>
+		/// <param name="randomFlag"><c>true</c> if the copies need to be summoned
+		/// in random order, <c>false</c> otherwise.</param>
 		public SummonCopyTask(EntityType type, bool randomFlag = false)
 		{
 			Type = type;
@@ -27,6 +33,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		public bool RandomFlag { get; set; }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override TaskState Process()
 		{
 			if (Controller.BoardZone.IsFull)
@@ -40,7 +48,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// shuffle list randomly if needed
-			entities = RandomFlag ? entities.OrderBy (x => Util.Random.Next()).ToList() : entities;
+			entities = RandomFlag ? entities.OrderBy(x => Util.Random.Next()).ToList() : entities;
 
 			entities.ForEach(p =>
 			{
@@ -65,5 +73,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			clone.Copy(this);
 			return clone;
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

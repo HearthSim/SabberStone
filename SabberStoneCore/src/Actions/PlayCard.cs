@@ -9,6 +9,7 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0)
 		{
@@ -175,10 +176,12 @@ namespace SabberStoneCore.Actions
 				// removing the current Id, to readd it as hero
 				c.Game.IdEntityDic.Remove(hero.Id);
 
-				c.AddHeroAndPower(hero.Card, null, new Dictionary<GameTag, int>() {
+				c.AddHeroAndPower(hero.Card, null, new Dictionary<GameTag, int>()
+				{
 					[GameTag.HEALTH] = c.Hero[GameTag.HEALTH],
 					[GameTag.DAMAGE] = c.Hero[GameTag.DAMAGE],
-					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]}, hero.Id);
+					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]
+				}, hero.Id);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
@@ -195,7 +198,7 @@ namespace SabberStoneCore.Actions
 					hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
-		
+
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				hero.JustPlayed = false;
@@ -332,4 +335,5 @@ namespace SabberStoneCore.Actions
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

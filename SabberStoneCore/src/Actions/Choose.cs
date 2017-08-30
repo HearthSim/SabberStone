@@ -11,6 +11,7 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<Controller, int, bool> ChoicePick
 			=> delegate (Controller c, int choice)
@@ -258,4 +259,5 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

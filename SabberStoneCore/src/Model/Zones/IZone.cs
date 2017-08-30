@@ -67,6 +67,8 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
+		/// <param name="applyEnchantments"><c>true</c> if all zone changing enchantments have to be
+		/// executed, <c>false</c> otherwise.</param>
 		/// <returns>The entity</returns>
 		IPlayable Add(IPlayable entity, int zonePosition = -1, bool applyEnchantments = true);
 

@@ -3,7 +3,12 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Conditions
 {
+	/// <summary>
+	/// Container for all conditions about the relation between 2 <see cref="IPlayable"/>
+	/// instances.
+	/// </summary>
 	public class RelaCondition
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		private readonly Func<IPlayable, IPlayable, bool> _function;
 
@@ -31,4 +36,5 @@ namespace SabberStoneCore.Conditions
 		}
 
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

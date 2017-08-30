@@ -8,6 +8,9 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
+	/// <summary>
+	/// Whispers of the Old Gods cardset.
+	/// </summary>
 	public class OgCardsGen
 	{
 		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
@@ -3580,7 +3583,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_319", null);
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			HeroPowers(cards);
 			Druid(cards);
