@@ -7,6 +7,7 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	//message AllOptions
 	//{
@@ -196,3 +197,4 @@ namespace SabberStoneCore.Kettle
 		public List<int> Targets { get; set; }
 	}
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

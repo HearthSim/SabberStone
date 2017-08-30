@@ -6,6 +6,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	public class PowerHistoryBuilder
 	{
@@ -401,3 +402,4 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
