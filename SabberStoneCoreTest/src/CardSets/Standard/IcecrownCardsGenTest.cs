@@ -324,7 +324,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -2, 0));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -1, 2));
 			Assert.Equal("ICC_832", game.CurrentPlayer.Hero.Card.Id);
 			Assert.Equal("ICC_832p", game.CurrentPlayer.Hero.Power.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
