@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SabberStonePowerLog.Model
 {
-	internal class PowerFullEntity : PowerHistoryEntry
+	public class PowerFullEntity : PowerHistoryEntry
 	{
 		public PowerEntity PowerEntity { get; set; }
 		public PowerFullEntity()

@@ -14,7 +14,7 @@ namespace SabberStonePowerLog
 	{
 		private static Regex logRgx = new Regex(@"([D])[ ]([0-9.:]{16})[ ]([A-Z]+)[.]([A-Z]+)[\(\)]+[ ][-][ ](.+)", RegexOptions.IgnoreCase);
 		private static Regex fullEntityRgx = new Regex(@"FULL_ENTITY - Creating ID=([0-9]+)[ ]CardID=([A-Z0-9_]*)", RegexOptions.IgnoreCase);
-		private static Regex tagValueRgx = new Regex(@"tag=([A-Z0-9_]+)[ ]value=([A-Z0-9]+)", RegexOptions.IgnoreCase);
+		private static Regex tagValueRgx = new Regex(@"tag=([A-Z0-9_]+)[ ]value=([A-Z0-9_]+)", RegexOptions.IgnoreCase);
 		private static Regex idRgx = new Regex(@"(Entity|id)=([0-9]+|[A-Z0-9]+)", RegexOptions.IgnoreCase);
 		private static Regex blockStartRgx = new Regex(@"BLOCK_START BlockType=([A-Z]+) Entity=([0-9]+|[A-Z0-9]+|\[.*?\]) EffectCardId=([A-Z0-9_]*) EffectIndex=([-0-9]+) Target=([0-9]+|[A-Z0-9]+|\[.*?\])", RegexOptions.IgnoreCase);
 		private static Regex showEntityRgx1 = new Regex(@"([0-9]+) CardId=([A-Z0-9_]+)", RegexOptions.IgnoreCase);
@@ -40,6 +40,7 @@ namespace SabberStonePowerLog
 			PowerState currentPowerState = PowerState.Start;
 			PowerGame currentPowerGame = null;
 			PowerType currentPowerType = 0;
+			PowerChoicesEntity currentEntityChoices = null;
 			Dictionary<string, int> currentNameToIdDict;
 			PowerHistoryEntry currentPowerHistoryEntry = null;
 			StringBuilder cleanLog = new StringBuilder();
@@ -87,8 +88,8 @@ namespace SabberStonePowerLog
 					else if (contentLine.StartsWith("Player"))
 					{
 						currentPowerState = PowerState.CreateGamePlayer;
+						Player player = new Player(currentPowerGame, int.Parse(new Regex(@"PlayerID=(\d)").Match(contentLine).Groups[1].Value));
 						var createGame = currentPowerHistoryEntry as PowerCreateGame;
-						Player player = new Player();
 						createGame.Players.Add(player);
 						if (createGame.Players.Count == 1)
 						{
@@ -200,6 +201,17 @@ namespace SabberStonePowerLog
 						{
 							Console.WriteLine("Found uninterpreted contentLine: '" + contentLine + "'");
 						}
+					}
+					else if (debugType == "DebugPrintEntityChoices")
+					{
+						if (currentPowerState != PowerState.EntityChoices)
+						{
+							currentEntityChoices = new PowerChoicesEntity(contentLine);
+							currentPowerGame.PowerHistory.Enqueue(currentEntityChoices);
+						}
+						else
+							currentEntityChoices.AddChoiceLine(contentLine);
+						currentPowerState = PowerState.EntityChoices;
 					}
 					else
 					{

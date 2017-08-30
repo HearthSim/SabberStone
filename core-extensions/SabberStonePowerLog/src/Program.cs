@@ -13,28 +13,28 @@ namespace SabberStonePowerLog
 	{
 		static void Main(string[] args)
 		{
-			var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\core-extensions\SabberStonePowerLog\resources\", "initialmulli.log");
+			var interpreter = new Interpreter(@"D:\git\SabberStone\core-extensions\SabberStonePowerLogTest\Logs\", "initialmulli.log");
 			List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
 			Console.ReadKey();
 
 			if (games.Any())
 			{
-				PowerGame game = games.Last();
-				
+				var game = games.Last();
 
 				Console.WriteLine($"Starting a syncronized PowerGame!");
 
 				while (game.PowerHistory.Count > 0)
 				{
-					PowerHistoryEntry entry = game.PowerHistory.Dequeue();
-					Console.WriteLine($"Dequeue {entry.ToString()}.");
-					Console.ReadKey();
-					//entry.Process(game);
+					var entry = game.PowerHistory.Dequeue();
+					Console.WriteLine($"Dequeue {entry}.");
+					//Console.ReadKey();
+					entry.Process(game);
 				}
 				//var realGame = new SyncedGame(game);
 				//realGame.Sync();
 			}
+			Console.ReadKey();
 		}
 	}
 }
