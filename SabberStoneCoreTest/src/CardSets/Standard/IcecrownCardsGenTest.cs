@@ -1889,22 +1889,37 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArrogantCrusader_ICC_034()
 		{
-			// TODO ArrogantCrusader_ICC_034 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Arrogant Crusader"),
+				},
 				Player2HeroClass = CardClass.PALADIN,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Arrogant Crusader"),
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arrogant Crusader"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arrogant Crusader"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arrogant Crusader"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count());
+			Assert.Equal("ICC_900t", game.CurrentOpponent.BoardZone[0].Card.Id);
 		}
 
 		// --------------------------------------- MINION - PALADIN

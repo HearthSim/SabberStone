@@ -1503,11 +1503,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_034", new List<Enchantment> {
-				// TODO [ICC_034] Arrogant Crusader && Test: Arrogant Crusader_ICC_034
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+							new ConditionTask(EntityType.HERO, SelfCondition.IsOpTurn),
+							new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE))
+						),
 				},
 			});
 
