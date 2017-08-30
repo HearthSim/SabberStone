@@ -61,6 +61,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition MinionsPlayedThisTurn(int number) => new SelfCondition(me => me.Controller.NumMinionsPlayedThisTurn == number);
 		public static SelfCondition ElementalPlayedLastTurn => new SelfCondition(me => me.Controller.NumElementalsPlayedLastTurn > 0);
 
+		public static SelfCondition HasMinionInDeck(GameTag tag) => new SelfCondition(me => me.Controller.DeckZone.Any(p => p is Minion && p[tag] > 0));
 		public static SelfCondition HasSpellInDeck => new SelfCondition(me => me.Controller.DeckZone.Any(p => p is Spell));
 		public static SelfCondition HasMinionInHand => new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static SelfCondition HasMyHeroAttackedThisTurn => new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);

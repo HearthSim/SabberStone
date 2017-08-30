@@ -4911,22 +4911,34 @@ namespace SabberStoneUnitTest.CardSets
 		// - DIVINE_SHIELD = 1
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Corpsetaker_ICC_912()
 		{
-			// TODO Corpsetaker_ICC_912 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Corpsetaker")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corpsetaker"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corpsetaker"));
+			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasTaunt), ((Minion)game.CurrentPlayer.BoardZone[0]).HasTaunt);
+			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasDivineShield), ((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasLifeSteal), ((Minion)game.CurrentPlayer.BoardZone[0]).HasLifeSteal);
+			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasWindfury), ((Minion)game.CurrentPlayer.BoardZone[0]).HasWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

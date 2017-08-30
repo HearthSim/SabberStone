@@ -3658,11 +3658,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_912", new List<Enchantment> {
-				// TODO [ICC_912] Corpsetaker && Test: Corpsetaker_ICC_912
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.TAUNT)),
+						new FlagTask(true, ComplexTask.Taunt(EntityType.SOURCE)),
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.DIVINE_SHIELD)),
+						new FlagTask(true, ComplexTask.DivineShield(EntityType.SOURCE)),
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.LIFESTEAL)),
+						new FlagTask(true, ComplexTask.LifeSteal(EntityType.SOURCE)),
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.WINDFURY)),
+						new FlagTask(true, ComplexTask.WindFury(EntityType.SOURCE)))
 				},
 			});
 
