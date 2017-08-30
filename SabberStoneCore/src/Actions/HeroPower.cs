@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static bool HeroPower(Controller c, ICharacter target = null)
 		{
@@ -42,5 +43,5 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 	}
-
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

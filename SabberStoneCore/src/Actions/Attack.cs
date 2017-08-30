@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<Controller, ICharacter, ICharacter, bool> AttackBlock
 			=> delegate (Controller c, ICharacter source, ICharacter target)
@@ -84,7 +85,8 @@ namespace SabberStoneCore.Actions
 				var minion = source as Minion;
 				source.ProposedAttacker = source.Id;
 				IPlayable proposedDefender;
-				if (!c.Game.IdEntityDic.TryGetValue(source.ProposedDefender, out proposedDefender)) {
+				if (!c.Game.IdEntityDic.TryGetValue(source.ProposedDefender, out proposedDefender))
+				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");
 					return false;
 				}
@@ -182,4 +184,5 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

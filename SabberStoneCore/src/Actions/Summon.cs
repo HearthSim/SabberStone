@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Entities;
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<Controller, Minion, int, bool> SummonBlock
 			=> delegate (Controller c, Minion minion, int zonePosition)
@@ -38,4 +39,5 @@ namespace SabberStoneCore.Actions
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
