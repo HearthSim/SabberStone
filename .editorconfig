@@ -1,4 +1,4 @@
-﻿# EditorConfig is awesome:http://EditorConfig.org
+# EditorConfig is awesome:http://EditorConfig.org
 
 # The intention of this file is to 'force' a specific codestyle
 # for all SabberStone projects.
@@ -47,7 +47,7 @@ csharp_style_var_when_type_is_apparent                             = true : sugg
 csharp_style_var_elsewhere                                         = false : warning
 
 # Prefer method-like constructs to have a block body
-csharp_style_expression_bodied_methods                             = false : warning
+csharp_style_expression_bodied_methods                             = false : suggestion
 csharp_style_expression_bodied_constructors                        = false : error
 csharp_style_expression_bodied_operators                           = true : suggestion
 

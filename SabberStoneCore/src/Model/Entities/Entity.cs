@@ -76,7 +76,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Minion"/>
 	/// <seealso cref="Spell"/>
 	/// </summary>
-	/// <seealso cref="SabberStoneCore.Model.IEntity" />
+	/// <seealso cref="IEntity" />
 	public partial class Entity : IEntity
 	{
 		/// <summary>
@@ -86,18 +86,34 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		internal readonly EntityData _data;
 
+		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
+		/// <value>The ranking order.</value>
 		public int OrderOfPlay { get; protected set; }
 
+		/// <summary>Gets or sets the owner of this entity, the controller who played the entity.</summary>
+		/// <value>The controller/owner object.</value>
 		public Controller Controller { get; set; }
 
+		/// <summary>Gets or sets the game instance from which this entity is part of.</summary>
+		/// <value>The game instance.</value>
 		public Game Game { get; set; }
 
+		/// <summary>Gets or sets the zone in which the entity exists.</summary>
+		/// <value>The zone, <see cref="T:SabberStoneCore.Model.Zones.IZone" />.</value>
 		public IZone Zone { get; set; }
 
+		/// <summary>Gets the card from which this entity was derived from.</summary>
+		/// <value>The card object.</value>
 		public Card Card => _data.Card;
 
+		/// <summary>Get all enchantments hooked onto this entity.</summary>
+		/// <value>
+		/// The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.
+		/// </value>
 		public List<Enchant> Enchants { get; } = new List<Enchant>();
 
+		/// <summary>Gets all triggers hooked onto this entity.</summary>
+		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
 		public List<Trigger> Triggers { get; } = new List<Trigger>();
 
 		/// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>
@@ -110,6 +126,8 @@ namespace SabberStoneCore.Model.Entities
 			Game = game;
 			_data = new EntityData(card, tags);
 		}
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public virtual void Stamp(Entity entity)
 		{
@@ -132,6 +150,8 @@ namespace SabberStoneCore.Model.Entities
 			str.Append("]");
 			return str.ToString();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
 		/// Gets the native value with out any enchanment or aura applied.
@@ -318,6 +338,8 @@ namespace SabberStoneCore.Model.Entities
 			return result;
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 		public override string ToString()
 		{
 			return $"'{Card.Name}[{Id}]'";
@@ -332,6 +354,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return GetEnumerator();
 		}
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Entity

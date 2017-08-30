@@ -4,6 +4,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Kettle
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	//message EntityChoices
 	//{
@@ -76,3 +77,4 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

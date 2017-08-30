@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Config
 {

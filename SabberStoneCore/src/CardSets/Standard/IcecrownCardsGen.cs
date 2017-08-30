@@ -10,6 +10,9 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
+	/// <summary>
+	/// Knights of the Frozen Throne cardset.
+	/// </summary>
 	public class IcecrownCardsGen
 	{
 		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
@@ -3982,7 +3985,9 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Heroes(cards);
 			HeroPowers(cards);

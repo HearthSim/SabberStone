@@ -7,6 +7,9 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
+	/// <summary>
+	/// Mean streets of Gadgetzan cardset.
+	/// </summary>
 	public class GangsCardsGen
 	{
 		private static void Druid(IDictionary<string, List<Enchantment>> cards)
@@ -4368,7 +4371,9 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Druid(cards);
 			DruidNonCollect(cards);

@@ -7,6 +7,9 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.CardSets
 {
+	/// <summary>
+	/// Goblins VS Gnomes cardset.
+	/// </summary>
 	public class GvgCardsGen
 	{
 		private static void Druid(IDictionary<string, List<Enchantment>> cards)
@@ -3285,7 +3288,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Druid(cards);
 			DruidNonCollect(cards);

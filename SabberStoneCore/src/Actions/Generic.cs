@@ -6,7 +6,12 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
+	/// <summary>
+	/// Container of game logic functionality, which is invoked by processing a selected option
+	/// through <see cref="Game.Process(Tasks.PlayerTask)"/>.
+	/// </summary>
 	public partial class Generic
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<IPlayable, ICharacter, int, int, int> DamageCharFunc
 			=> (source, target, amount, spelldmg) => target.TakeDamage(source, amount + spelldmg);
@@ -159,4 +164,5 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

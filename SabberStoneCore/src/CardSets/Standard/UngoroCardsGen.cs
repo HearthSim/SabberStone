@@ -8,6 +8,9 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.CardSets.Standard
 {
+	/// <summary>
+	/// Ungoro cardset.
+	/// </summary>
 	public class UngoroCardsGen
 	{
 		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
@@ -4131,7 +4134,9 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			HeroPowers(cards);
 			Druid(cards);

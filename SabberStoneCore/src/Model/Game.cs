@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Splits;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Splits;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
@@ -34,7 +36,7 @@ namespace SabberStoneCore.Model
 	/// This is THE MOST IMPORTANT type, since it provides a simple interface for handling/processing 
 	/// game data.
 	/// </summary>
-	/// <seealso cref="SabberStoneCore.Model.Entity" />
+	/// <seealso cref="Entity" />
 	public partial class Game : Entity
 	{
 		/// <summary>
@@ -79,6 +81,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public event EntityChangedEventHandler EntityChangedEvent;
 
+		/// <summary>Occurs when a random event was processed by this game.</summary>
 		public event EventHandler<bool> RandomHappenedEvent;
 
 		/// <summary>
@@ -162,11 +165,20 @@ namespace SabberStoneCore.Model
 		public Queue<ILazyRemove> LazyRemoves { get; set; } = new Queue<ILazyRemove>();
 
 		private int _idIndex = 4;
+		/// <summary>Gets the next entity identifier.</summary>
+		/// <value>The next entity id.</value>
 		public int NextId => _idIndex++;
 
 		private int _oopIndex;
+		/// <summary>Gets the next order of play index.</summary>
+		/// <value>The next oop index.</value>
 		public int NextOop => _oopIndex++;
 
+		/// <summary>Ovewrites the internal index (multiple) values.
+		/// This method is relevant when cloning games.
+		/// </summary>
+		/// <param name="id">The nex entity ID.</param>
+		/// <param name="oop">The next OOP index.</param>
 		public void SetIndexer(int id, int oop)
 		{
 			_idIndex = id;
@@ -239,6 +251,8 @@ namespace SabberStoneCore.Model
 			EntityChangedEvent?.Invoke(entity, t, oldValue, newValue);
 		}
 
+		/// <summary>Call this method to invode the <see cref="RandomHappenedEvent"/>.</summary>
+		/// <param name="isHappened">TODO</param>
 		protected internal virtual void OnRandomHappened(bool isHappened)
 		{
 			RandomHappenedEvent?.Invoke(this, isHappened);
@@ -258,9 +272,9 @@ namespace SabberStoneCore.Model
 		/// The game will execute the desired task and all effects coupled either
 		/// directly or indirectly in synchronous manner.
 		/// 
-		/// Call <see cref="Controller.Options(bool)"/> on the <see cref="CurrentPlayer"/> 
+		/// Call <see cref="Controller.Options(Boolean)"/> on the <see cref="CurrentPlayer"/> 
 		/// instance for tasks which are accepted as arguments.
-		/// After this method returns, check <see cref="Controller.Options(bool)"/>
+		/// After this method returns, check <see cref="Controller.Options(Boolean)"/>
 		/// again until only <see cref="EndTurnTask"/> remains, which will
 		/// start the turn of <see cref="CurrentOpponent"/>. 
 		/// </summary>
@@ -359,7 +373,7 @@ namespace SabberStoneCore.Model
 
 			// starting mulligan draw block
 			if (History)
-				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
+				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Id, "", -1, 0));
 
 			// getting first player
 			FirstPlayer = _gameConfig.StartPlayer < 0
@@ -421,7 +435,7 @@ namespace SabberStoneCore.Model
 			{
 				// quest draw if there is
 				IPlayable quest = p.DeckZone.GetAll.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
-				Generic.Draw(p, quest != null ? quest : null);
+				Generic.Draw(p, quest ?? null);
 				Generic.Draw(p);
 				Generic.Draw(p);
 
@@ -462,7 +476,7 @@ namespace SabberStoneCore.Model
 
 			// starting mulligan draw block
 			if (History)
-				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, this.Id, "", -1, 0));
+				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Id, "", -1, 0));
 
 			Player1.MulliganState = Mulligan.INPUT;
 			Player2.MulliganState = Mulligan.INPUT;
@@ -650,7 +664,7 @@ namespace SabberStoneCore.Model
 		public void MainNext()
 		{
 			if (History)
-				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, this.Id, "", -1, 0);
+				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, Id, "", -1, 0);
 
 			CurrentPlayer.NumTurnsLeft = 0;
 			CurrentOpponent.NumTurnsLeft = 1;
@@ -857,7 +871,7 @@ namespace SabberStoneCore.Model
 			gameConfig.Logging = logging;
 			var game = new Game(gameConfig, false)
 			{
-				CloneIndex = $"{this.CloneIndex}[{NextCloneIndex++}]"
+				CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
 			};
 			game.Player1.Stamp(Player1);
 			game.Player2.Stamp(Player2);
@@ -1003,7 +1017,7 @@ namespace SabberStoneCore.Model
 			=> Player1[GameTag.CURRENT_PLAYER] == 1 ? Player2 : Player2[GameTag.CURRENT_PLAYER] == 1 ? Player1 : null;
 
 		/// <summary>
-		/// Gets or sets the CURRENT step. These steps occur within <see cref="EState.RUNNING"/> and
+		/// Gets or sets the CURRENT step. These steps occur within <see cref="State.RUNNING"/> and
 		/// indicate states which are used to process actions.
 		/// </summary>
 		/// <value><see cref="Step"/></value>
@@ -1033,8 +1047,12 @@ namespace SabberStoneCore.Model
 			set { this[GameTag.NUM_MINIONS_KILLED_THIS_TURN] = value; }
 		}
 
+		/// <summary>Gets the heroes.</summary>
+		/// <value><see cref="Hero"/></value>
 		public List<Hero> Heroes => new List<Hero> { Game.Player1.Hero, Game.Player2.Hero };
 
+		/// <summary>Gets ALL minions (from both sides of the board).</summary>
+		/// <value><see cref="Minion"/></value>
 		public List<Minion> Minions
 		{
 			get
@@ -1046,6 +1064,8 @@ namespace SabberStoneCore.Model
 			}
 		}
 
+		/// <summary>Gets ALL characters.</summary>
+		/// <value><see cref="ICharacter"/></value>
 		public List<ICharacter> Characters
 		{
 			get
