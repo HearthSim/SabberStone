@@ -6,9 +6,11 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
+	/// <summary>
+	/// Naxxramas cardset.
+	/// </summary>
 	public class NaxxCardsGen
 	{
-
 		private static void Druid(IDictionary<string, List<Enchantment>> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
@@ -800,7 +802,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Druid(cards);
 			DruidNonCollect(cards);

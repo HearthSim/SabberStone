@@ -10,6 +10,9 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.CardSets
 {
+	/// <summary>
+	/// The Grand Tournament cardset.
+	/// </summary>
 	public class TgtCardsGen
 	{
 		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
@@ -3477,7 +3480,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			HeroPowers(cards);
 			Druid(cards);

@@ -7,6 +7,9 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
+	/// <summary>
+	/// Hall of Fame cardset.
+	/// </summary>
 	public class HofCardsGen
 	{
 		private static void Mage(IDictionary<string, List<Enchantment>> cards)
@@ -437,7 +440,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Mage(cards);
 			Rogue(cards);
