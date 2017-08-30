@@ -16,7 +16,7 @@ namespace SabberStoneCore.Splits
 
 		public int SameState { get; set; }
 
-		public double Probability { get; set; }
+		public double Probability { get; private set; }
 
 		public string Hash;
 
@@ -27,7 +27,7 @@ namespace SabberStoneCore.Splits
 			_root = root;
 			Game = game;
 
-			SameState = 0;
+			SameState = 1;
 
 			if (!isRoot)
 				Execute();
