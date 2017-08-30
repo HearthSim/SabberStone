@@ -6,7 +6,12 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Conditions
 {
+	/// <summary>
+	/// Container for all conditions about the subject <see cref="IPlayable"/>
+	/// instance.
+	/// </summary>
 	public class SelfCondition
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static SelfCondition IsDead => new SelfCondition(me => me is ICharacter && me.ToBeDestroyed);
 		public static SelfCondition IsNotImmune => new SelfCondition(me => me is ICharacter && !((ICharacter)me).IsImmune);
@@ -88,7 +93,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsSecretOrQuestActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
 		public static SelfCondition IsQuestDone => new SelfCondition(me => me[GameTag.QUEST_PROGRESS] == me[GameTag.QUEST_PROGRESS_TOTAL]);
 		public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);
-		public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me =>  me.Game.IdEntityDic.ContainsKey(me.Controller.Hero.ProposedDefender) && me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
+		public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me => me.Game.IdEntityDic.ContainsKey(me.Controller.Hero.ProposedDefender) && me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
 		public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.HandZone.Count < me.Controller.Opponent.HandZone.Count);
 
 		public static SelfCondition AnyNonClassCardInHand(CardClass cardClass)
@@ -188,5 +193,5 @@ namespace SabberStoneCore.Conditions
 		}
 
 	}
-
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
