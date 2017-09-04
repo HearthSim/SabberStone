@@ -5957,7 +5957,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(new DamageTask(1, EntityType.ALLMINIONS))
 						.Build()
 				}

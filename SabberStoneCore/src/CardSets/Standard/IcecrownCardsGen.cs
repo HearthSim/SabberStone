@@ -669,7 +669,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
 						.Build()
 				}
@@ -1082,7 +1082,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(SpecificTask.RandomHunterSecretPlay)
 						.Build()
 				}
