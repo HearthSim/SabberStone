@@ -2933,7 +2933,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER))
 						.Build()
 				}
