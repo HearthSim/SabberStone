@@ -3631,11 +3631,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you play a card, remove the top 3 cards of_your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_911", new List<Enchantment> {
-				// TODO [ICC_911] Keening Banshee && Test: Keening Banshee_ICC_911
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.HAND_AND_BOARD,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsNotSelf)
+						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.SingleTask(ComplexTask.Create(
+							new RandomTask(3, EntityType.DECK),
+							//new RemoveFromDeck(EntityType.STACK),
+							new MoveToGraveYard(EntityType.STACK)))
+						.Build()
 				}
 			});
 

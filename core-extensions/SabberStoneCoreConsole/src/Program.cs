@@ -783,20 +783,29 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.DRUID,
+				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Malfurion the Pestilent")
+					Cards.FromName("Keening Banshee"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Fireball"),
+					Cards.FromName("Fireball"),
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Ice Barrier")
 				},
-				Player2HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -2, 1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Keening Banshee"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
 
 			ShowLog(game, LogLevel.VERBOSE);
 

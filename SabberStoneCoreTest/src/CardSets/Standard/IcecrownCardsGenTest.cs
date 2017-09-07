@@ -4875,22 +4875,39 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever you play a card, remove the top 3 cards of_your deck.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KeeningBanshee_ICC_911()
 		{
-			// TODO KeeningBanshee_ICC_911 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Keening Banshee"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Fireball"),
+					Cards.FromName("Fireball"),
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Ice Barrier")
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
+				Shuffle = false,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Keening Banshee"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Keening Banshee"));
+			Assert.Equal(5, game.CurrentPlayer.DeckZone.Count());
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			Assert.Equal(2, game.CurrentPlayer.DeckZone.Count());
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			Assert.Equal(0, game.CurrentPlayer.DeckZone.Count());
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
