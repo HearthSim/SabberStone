@@ -3604,12 +3604,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_904", new List<Enchantment> {
-				// TODO [ICC_904] Wicked Skeleton && Test: Wicked Skeleton_ICC_904
 				new Enchantment
 				{
 					InfoCardId = "ICC_904e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagGameTask(GameTag.NUM_MINIONS_KILLED_THIS_TURN),
+						new BuffAttackHealthNumberTask(EntityType.SOURCE)),
 				},
 			});
 
@@ -3641,7 +3642,6 @@ namespace SabberStoneCore.CardSets.Standard
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Create(
 							new RandomTask(3, EntityType.DECK),
-							//new RemoveFromDeck(EntityType.STACK),
 							new MoveToGraveYard(EntityType.STACK)))
 						.Build()
 				}

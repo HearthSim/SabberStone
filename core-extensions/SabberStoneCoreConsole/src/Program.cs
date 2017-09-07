@@ -786,26 +786,20 @@ namespace SabberStoneCoreConsole
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Keening Banshee"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Murloc Raider"),
-					Cards.FromName("Fireball"),
-					Cards.FromName("Fireball"),
-					Cards.FromName("Ice Barrier"),
-					Cards.FromName("Ice Barrier")
+					Cards.FromName("Wicked Skeleton"),
+					Cards.FromName("Wicked Skeleton")
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = false,
+				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Keening Banshee"));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
 
 			ShowLog(game, LogLevel.VERBOSE);
 

@@ -4824,22 +4824,34 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WickedSkeleton_ICC_904()
 		{
-			// TODO WickedSkeleton_ICC_904 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Wicked Skeleton"),
+					Cards.FromName("Wicked Skeleton")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wicked Skeleton"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
+			Assert.Equal(1, ((Minion) (game.CurrentPlayer.BoardZone[0])).AttackDamage);
+			Assert.Equal(1, ((Minion) (game.CurrentPlayer.BoardZone[0])).Health);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
+			Assert.Equal(2, ((Minion) (game.CurrentPlayer.BoardZone[0])).AttackDamage);
+			Assert.Equal(2, ((Minion) (game.CurrentPlayer.BoardZone[0])).Health);
+			
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
