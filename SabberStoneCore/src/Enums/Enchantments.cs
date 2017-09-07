@@ -133,5 +133,15 @@
 		/// The effect will be triggered by the HERO and BOARD of all controllers.
 		/// </summary>
 		BOARDS_HEROES,
+
+		/// <summary>
+		/// This effect will be triggered by the GRAVEYARD of the controller.
+		/// </summary>
+		GRAVEYARD,
+
+		/// <summary>
+		/// This effect will be triggered by the GRAVEYARD of the opponent controller.
+		/// </summary>
+		OP_GRAVEYARD
 	}
 }

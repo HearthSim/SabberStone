@@ -669,7 +669,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.SUMMONED, 1)
 						.SingleTask(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
 						.Build()
 				}
@@ -1077,12 +1077,12 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [ICC_204] Professor Putricide && Test: Professor Putricide_ICC_204
 				new Enchantment
 				{
-					Area = EnchantmentArea.HAND,
+					Area = EnchantmentArea.GRAVEYARD,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(SpecificTask.RandomHunterSecretPlay)
 						.Build()
 				}
