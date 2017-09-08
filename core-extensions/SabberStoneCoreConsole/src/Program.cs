@@ -783,12 +783,13 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.DRUID,
+				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Malfurion the Pestilent")
+					Cards.FromName("Wicked Skeleton"),
+					Cards.FromName("Wicked Skeleton")
 				},
-				Player2HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -796,7 +797,9 @@ namespace SabberStoneCoreConsole
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -2, 1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
 
 			ShowLog(game, LogLevel.VERBOSE);
 

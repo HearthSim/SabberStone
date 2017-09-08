@@ -235,6 +235,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = new AddEnchantmentTask(EntityType.MINIONS,
 						new Enchantment
 						{
+							InfoCardId = "EX1_158e",
 							Activation = EnchantmentActivation.DEATHRATTLE,
 							SingleTask = new SummonTask("EX1_158t", SummonSide.DEATHRATTLE)
 						})
@@ -2305,7 +2306,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						new RandomTask(2, EntityType.OP_HAND),
+						new RandomTask(2, EntityType.OP_DECK),
 						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.HAND))
 				},
@@ -5952,12 +5953,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.HAND,
+					Area = EnchantmentArea.GRAVEYARD,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(new DamageTask(1, EntityType.ALLMINIONS))
 						.Build()
 				}

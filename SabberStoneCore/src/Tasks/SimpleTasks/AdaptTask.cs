@@ -46,6 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+			if (!success)
+				return TaskState.STOP;
 			return TaskState.COMPLETE;
 		}
 

@@ -1,4 +1,7 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class MoveToGraveYard : SimpleTask
 	{
@@ -11,7 +14,7 @@
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => p.Controller.GraveyardZone.Add(p.Zone.Remove(p)));
 			return TaskState.COMPLETE;
 		}
