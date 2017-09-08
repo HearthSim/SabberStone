@@ -5,6 +5,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+
 	public class RemoveFromDeck : SimpleTask
 	{
 		public RemoveFromDeck(EntityType type)

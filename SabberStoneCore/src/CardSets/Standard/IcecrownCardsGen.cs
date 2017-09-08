@@ -434,11 +434,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Remove the top 5 cards of your deck. Summon any minions removed.
 			// --------------------------------------------------------
 			cards.Add("ICC_314t2", new List<Enchantment> {
-				// TODO [ICC_314t2] Army of the Dead && Test: Army of the Dead_ICC_314t2
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(5, ComplexTask.Create(
+						new RemoveFromDeckTopCard(),
+						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
+						new FlagTask(true, new SummonTask(SummonSide.DEFAULT, null, true)),
+						new FlagTask(false, new MoveToGraveYard(EntityType.STACK))
+						)),
 				},
 			});
 
