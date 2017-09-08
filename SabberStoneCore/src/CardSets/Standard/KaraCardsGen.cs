@@ -135,7 +135,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.OP_GRAVEYARD,
+					Area = EnchantmentArea.OP_GRAVEYARD_AND_OP_SECRET,
 					Activation = EnchantmentActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)

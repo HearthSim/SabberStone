@@ -16,6 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			IndexA = indexA;
 			IndexB = indexB;
+			MathOperation = mathOperation;
 		}
 
 		public int IndexA { get; set; }

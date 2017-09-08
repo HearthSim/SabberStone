@@ -434,11 +434,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Remove the top 5 cards of your deck. Summon any minions removed.
 			// --------------------------------------------------------
 			cards.Add("ICC_314t2", new List<Enchantment> {
-				// TODO [ICC_314t2] Army of the Dead && Test: Army of the Dead_ICC_314t2
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(5, ComplexTask.Create(
+						new IncludeTask(EntityType.TOPCARDFROMDECK),
+						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
+						new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
+						new FlagTask(true, new SummonTask()),
+						new FlagTask(false, new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty)),
+						new FlagTask(false, new MoveToGraveYard(EntityType.STACK))))
 				},
 			});
 
@@ -452,11 +457,17 @@ namespace SabberStoneCore.CardSets.Standard
 			//       minion destroyed.
 			// --------------------------------------------------------
 			cards.Add("ICC_314t3", new List<Enchantment> {
-				// TODO [ICC_314t3] Doom Pact && Test: Doom Pact_ICC_314t3
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new CountTask(EntityType.ALLMINIONS),
+						new DestroyTask(EntityType.ALLMINIONS),
+						new EnqueueNumberTask(ComplexTask.Create(
+							//new RandomTask(1, EntityType.DECK),
+							new IncludeTask(EntityType.TOPCARDFROMDECK),
+							new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
+							new FlagTask(false, new MoveToGraveYard(EntityType.STACK)))))
 				},
 			});
 
@@ -467,11 +478,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Steal a minion from your opponent's deck and add it to your hand.
 			// --------------------------------------------------------
 			cards.Add("ICC_314t4", new List<Enchantment> {
-				// TODO [ICC_314t4] Death Grip && Test: Death Grip_ICC_314t4
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomTask(1, EntityType.OP_DECK),
+						new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
+						new FlagTask(false, new FuncPlayablesTask(p =>
+						{
+							p[0].Controller.DeckZone.Remove(p[0]);
+							p[0].Controller = p[0].Controller.Opponent;
+							return p;
+						})),
+						new FlagTask(false, new AddStackTo(EntityType.HAND)))
 				},
 			});
 
@@ -485,11 +504,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_314t5", new List<Enchantment> {
-				// TODO [ICC_314t5] Death Coil && Test: Death Coil_ICC_314t5
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, RelaCondition.IsFriendly),
+						new FlagTask(false, new DamageTask(5, EntityType.TARGET, true)),
+						new FlagTask(true, new HealTask(5, EntityType.TARGET)))
 				},
 			});
 
@@ -507,11 +528,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_314t6", new List<Enchantment> {
-				// TODO [ICC_314t6] Obliterate && Test: Obliterate_ICC_314t6
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+						new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 1),
+						new MathNumberIndexTask(1, 2, MathOperation.SUB),
+						new DestroyTask(EntityType.TARGET),
+						new DamageNumberTask(EntityType.HERO))
 				},
 			});
 
@@ -526,12 +551,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_314t7", new List<Enchantment> {
-				// TODO [ICC_314t7] Anti-Magic Shell && Test: Anti-Magic Shell_ICC_314t7
+				// TODO Test: Anti-Magic Shell_ICC_314t7
 				new Enchantment
 				{
 					InfoCardId = "ICC_314t7e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.MINIONS),
+						new BuffTask(Buffs.AttackHealth(2), EntityType.STACK),
+						new SetGameTagTask(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, 1, EntityType.STACK),
+						new SetGameTagTask(GameTag.CANT_BE_TARGETED_BY_SPELLS, 1, EntityType.STACK))
 				},
 			});
 
@@ -542,11 +571,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Deal $3 damage to all enemies. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("ICC_314t8", new List<Enchantment> {
-				// TODO [ICC_314t8] Death and Decay && Test: Death and Decay_ICC_314t8
+				// TODO Test: Death and Decay_ICC_314t8
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DamageTask(3, EntityType.ENEMIES, true)
 				},
 			});
 
@@ -561,18 +590,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_314t1", new List<Enchantment> {
-				// TODO [ICC_314t1] Frostmourne && Test: Frostmourne_ICC_314t1
 				new Enchantment
 				{
-					InfoCardId = "ICC_314t1e",
+					Area = EnchantmentArea.OP_BOARD,
 					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsWeaponEquiped)
+						.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+						.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
+						.SingleTask(ComplexTask.Create(
+							new GetGameTagTask(GameTag.ENTITY_ID, EntityType.SOURCE),
+							new SetGameTagNumberTask(GameTag.LAST_AFFECTED_BY, EntityType.TARGET)))
+						.Build()
 				},
 				new Enchantment
 				{
 					InfoCardId = "ICC_314t1e",
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = SpecificTask.Frostmourne
 				},
 			});
 
@@ -1077,7 +1112,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [ICC_204] Professor Putricide && Test: Professor Putricide_ICC_204
 				new Enchantment
 				{
-					Area = EnchantmentArea.GRAVEYARD,
+					Area = EnchantmentArea.SECRET,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
@@ -3144,11 +3179,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_099", new List<Enchantment> {
-				// TODO [ICC_099] Ticking Abomination && Test: Ticking Abomination_ICC_099
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(5, EntityType.MINIONS)
 				},
 			});
 
@@ -3209,12 +3243,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_314", new List<Enchantment> {
-				// TODO [ICC_314] The Lich King && Test: The Lich King_ICC_314
 				new Enchantment
 				{
 					InfoCardId = "ICC_314t1e",
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(ComplexTask.Create(
+							new RandomEntourageTask(),
+							new AddStackTo(EntityType.HAND)))
+						.Build()
 				}
 			});
 
@@ -3499,11 +3539,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_854", new List<Enchantment> {
-				// TODO [ICC_854] Arfus && Test: Arfus_ICC_854
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+							new RandomEntourageTask(),
+							new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -3640,9 +3681,10 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf)
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(ComplexTask.Create(
-							new RandomTask(3, EntityType.DECK),
-							new MoveToGraveYard(EntityType.STACK)))
+						.SingleTask(new EnqueueTask(3, ComplexTask.Create(
+								new IncludeTask(EntityType.TOPCARDFROMDECK),
+								new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
+								new FlagTask(false, new MoveToGraveYard(EntityType.STACK)))))
 						.Build()
 				}
 			});

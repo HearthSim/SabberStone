@@ -53,6 +53,9 @@ namespace SabberStoneCore.Model
 		/// <value>The entity IDs.</value>
 		public List<int> TargetIds { get; set; }
 
+		/// <summary>Gets or sets the remaining choices for the controller.</summary>
+		public Queue<Choice> ChoiceQueue { get; set; } = new Queue<Choice>();
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public void Stamp(Choice choice)

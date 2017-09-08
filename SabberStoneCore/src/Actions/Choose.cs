@@ -142,8 +142,14 @@ namespace SabberStoneCore.Actions
 				// set displayed creator at least for discover
 				//playable[GameTag.DISPLAYED_CREATOR] = c.LastCardPlayed;
 
-				// reset choice it's done
-				c.Choice = null;
+				//	Start next Choice if any choice is queueing up
+				if (c.Choice.ChoiceQueue.Any())
+					c.Choice = c.Choice.ChoiceQueue.Dequeue();
+				else
+				{
+					// reset choice it's done
+					c.Choice = null;
+				}
 
 				return true;
 			};
@@ -227,11 +233,11 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
 			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
 			{
-				if (c.Choice != null)
-				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
-					return false;
-				}
+				//if (c.Choice != null)
+				//{
+				//	c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
+				//	return false;
+				//}
 
 				var choicesIds = new List<int>();
 				choices.ForEach(p =>
@@ -247,7 +253,7 @@ namespace SabberStoneCore.Actions
 					choicesIds.Add(choiceEntity.Id);
 				});
 
-				c.Choice = new Choice(c)
+				var choice = new Choice(c)
 				{
 					ChoiceType = type,
 					ChoiceAction = action,
@@ -256,6 +262,14 @@ namespace SabberStoneCore.Actions
 					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>()
 				};
 
+				if (c.Choice != null)
+				{
+					c.Choice.ChoiceQueue.Enqueue(choice);
+				}
+				else
+				{
+					c.Choice = choice;
+				}
 				return true;
 			};
 	}

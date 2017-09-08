@@ -2306,7 +2306,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						new RandomTask(2, EntityType.OP_HAND),
+						new RandomTask(2, EntityType.OP_DECK),
 						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.HAND))
 				},
