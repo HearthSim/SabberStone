@@ -366,7 +366,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 
 				case EntityType.TOPCARDFROMDECK:
-					result.Add(controller.DeckZone[0]);
+					if (controller.DeckZone.Count > 0)
+					{
+						result.Add(controller.DeckZone[0]);
+					}
 					break;
 
 				default:

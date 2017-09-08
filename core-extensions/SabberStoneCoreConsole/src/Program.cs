@@ -25,14 +25,14 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			Console.WriteLine(Cards.Statistics());
+			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();
@@ -786,20 +786,19 @@ namespace SabberStoneCoreConsole
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Wicked Skeleton"),
-					Cards.FromName("Wicked Skeleton")
+					Cards.FromName("Stonetusk Boar")
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wicked Skeleton"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			IPlayable doomPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t3"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, doomPact));
 
 			ShowLog(game, LogLevel.VERBOSE);
 

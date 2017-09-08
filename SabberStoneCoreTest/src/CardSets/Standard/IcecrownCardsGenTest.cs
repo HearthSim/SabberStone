@@ -4176,21 +4176,32 @@ namespace SabberStoneUnitTest.CardSets
 		//       from your deck for each
 		//       minion destroyed.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DoomPact_ICC_314t3()
 		{
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count());
+			Assert.Equal(26, game.CurrentPlayer.DeckZone.Count());
+			IPlayable doomPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t3"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, doomPact));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Equal(25, game.CurrentPlayer.DeckZone.Count());
 		}
 
 		// ------------------------------------ SPELL - DEATHKNIGHT
@@ -4199,7 +4210,7 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Steal a minion from your opponent's deck and add it to your hand.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DeathGrip_ICC_314t4()
 		{
 			var game = new Game(new GameConfig
@@ -4207,13 +4218,30 @@ namespace SabberStoneUnitTest.CardSets
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Bloodfen Raptor"),
+					//Cards.FromName("Bloodfen Raptor"),
+				},
+				Shuffle = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
+			Assert.Equal(0, game.CurrentPlayer.HandZone.Count);
+			IPlayable deathGrip1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t4"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, deathGrip1));
+			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
+			IPlayable deathGrip2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t4"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, deathGrip2));
+			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
+
 		}
 
 		// ------------------------------------ SPELL - DEATHKNIGHT
