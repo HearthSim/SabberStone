@@ -168,7 +168,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			// added pre damage
-			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : hero.Armor - damage;
+			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : 0;
 
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{

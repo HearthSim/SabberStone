@@ -142,7 +142,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HERO_POWER = 43181
 			// --------------------------------------------------------
 			cards.Add("ICC_831", new List<Enchantment> {
-				// TODO [ICC_831] Bloodreaver Gul'dan && Test: Bloodreaver Gul'dan_ICC_831
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
@@ -359,11 +358,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_831p", new List<Enchantment> {
-				// TODO [ICC_831p] Siphon Life && Test: Siphon Life_ICC_831p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DamageTask(3, EntityType.TARGET, false)
 				}
 			});
 

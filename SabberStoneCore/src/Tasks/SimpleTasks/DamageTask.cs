@@ -1,4 +1,6 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
@@ -50,8 +52,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p => {
 				int amount = Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0);
-				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, spellDmgValue);
 
+				Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", $"Amount is {amount} damage of {Source}.");
+
+				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, spellDmgValue);
+				if ((Source as IPlayable).HasLifeSteal)
+				{
+					Controller.Hero.TakeHeal((Source as IPlayable), damage);
+				}
 			});
 			return TaskState.COMPLETE;
 		}

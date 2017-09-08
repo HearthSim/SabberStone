@@ -2682,6 +2682,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>
 				{
 					Cards.FromName("Fiery War Axe"),
+					Cards.FromName("Grimestreet Pawnbroker"),
 					Cards.FromName("Murloc Raider"),
 					Cards.FromName("Murloc Raider"),
 					Cards.FromName("Bloodfen Raptor"),
@@ -2697,10 +2698,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Pawnbroker"));
 			Assert.Equal(3, ((Weapon)game.CurrentPlayer.HandZone[0]).AttackDamage);
 			Assert.Equal(2, ((Weapon)game.CurrentPlayer.HandZone[0]).Durability);
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Grimestreet Pawnbroker"));
 			Assert.Equal(4, ((Weapon)game.CurrentPlayer.HandZone[0]).AttackDamage);
 			Assert.Equal(3, ((Weapon)game.CurrentPlayer.HandZone[0]).Durability);
 		}

@@ -268,22 +268,43 @@ namespace SabberStoneUnitTest.CardSets
 		// - ARMOR = 5
 		// - HERO_POWER = 43181
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BloodreaverGuldan_ICC_831()
 		{
-			// TODO BloodreaverGuldan_ICC_831 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player2HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Bloodreaver Gul'dan")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodreaver Gul'dan"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodreaver Gul'dan"));
+			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+			Assert.Equal("ICC_831", game.CurrentPlayer.Hero.Card.Id);
+			Assert.Equal("ICC_831p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(29, game.CurrentOpponent.Hero.Health);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(4, game.CurrentPlayer.Hero.Armor);
+			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(27, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
 		}
 
 		// ------------------------------------------- HERO - DRUID
