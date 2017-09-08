@@ -2928,7 +2928,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.GRAVEYARD,
+					Area = EnchantmentArea.GRAVEYARD_AND_SECRET,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)

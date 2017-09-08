@@ -1423,12 +1423,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.GRAVEYARD,
+					Area = EnchantmentArea.HAND,
 					Activation = EnchantmentActivation.WEAPON,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-						.TriggerEffect(GameTag.JUST_PLAYED, -1)
+						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Create(
 							new RandomMinionNumberTask(GameTag.COST),
 							new SummonTask(),

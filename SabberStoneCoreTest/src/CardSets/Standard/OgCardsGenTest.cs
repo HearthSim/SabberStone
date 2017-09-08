@@ -811,9 +811,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
-			Assert.False(((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+			Assert.False(((Minion)minion2).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
-			Assert.True(((Minion)minion1).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
+			Assert.True(((Minion)minion2).IsFrozen || game.CurrentOpponent.Hero.IsFrozen);
 		}
 
 		// ------------------------------------------ MINION - MAGE
