@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -46,10 +47,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					: Controller.Hero.SpellPowerDamage;
 			}
 
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter,
-						Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0),
-						spellDmgValue));
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			entities.ForEach(p => {
+				int amount = Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0);
+				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, spellDmgValue);
+
+			});
 			return TaskState.COMPLETE;
 		}
 

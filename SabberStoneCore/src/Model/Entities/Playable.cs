@@ -13,17 +13,50 @@ namespace SabberStoneCore.Model.Entities
 		bool IsIgnoreDamage { get; set; }
 		bool Combo { get; }
 		int Cost { get; set; }
-		int ZonePosition { get; set; }
 		int NumTurnsInPlay { get; set; }
 		IPlayable Destroy();
 		bool ToBeDestroyed { get; }
 		bool TurnStart { get; set; }
 		void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null);
 		void SetOrderOfPlay(string type);
-		bool IsSummoned { get; set; }
-		bool JustPlayed { get; set; }
-		int Overload { get; set; }
+		
 		int CardTarget { get; set; }
+
+
+		/// <summary>
+		/// Playable zoneposition.
+		/// </summary>
+		int ZonePosition { get; set; }
+
+		/// <summary>
+		/// Playable has just been played.
+		/// </summary>
+		bool JustPlayed { get; set; }
+
+		/// <summary>
+		/// Playable has been summoned.
+		/// </summary>
+		bool IsSummoned { get; set; }
+
+		/// <summary>
+		/// Playable is exhausted.
+		/// </summary>
+		bool IsExhausted { get; set; }
+
+		/// <summary>
+		/// Playable is overloading mana.
+		/// </summary>
+		int Overload { get; set; }
+
+		/// <summary>
+		/// Playable has deathrattle.
+		/// </summary>
+		bool HasDeathrattle { get; set; }
+
+		/// <summary>
+		/// Playable has lifesteal.
+		/// </summary>
+		bool HasLifeSteal { get; set; }
 
 		IPlayable[] ChooseOnePlayables { get; }
 
@@ -246,5 +279,51 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
+	}
+
+
+	public abstract partial class Playable<T>
+	{
+		public int ZonePosition
+		{
+			get { return this[GameTag.ZONE_POSITION] - 1; }
+			set { this[GameTag.ZONE_POSITION] = value + 1; }
+		}
+
+		public bool JustPlayed
+		{
+			get { return this[GameTag.JUST_PLAYED] == 1; }
+			set { this[GameTag.JUST_PLAYED] = value ? 1 : 0; }
+		}
+
+		public bool IsSummoned
+		{
+			get { return this[GameTag.SUMMONED] == 1; }
+			set { this[GameTag.SUMMONED] = value ? 1 : 0; }
+		}
+
+		public bool IsExhausted
+		{
+			get { return this[GameTag.EXHAUSTED] == 1; }
+			set { this[GameTag.EXHAUSTED] = value ? 1 : 0; }
+		}
+
+		public int Overload
+		{
+			get { return this[GameTag.OVERLOAD]; }
+			set { this[GameTag.OVERLOAD] = value; }
+		}
+
+		public bool HasDeathrattle
+		{
+			get { return this[GameTag.DEATHRATTLE] == 1; }
+			set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
+		}
+
+		public bool HasLifeSteal
+		{
+			get { return this[GameTag.LIFESTEAL] == 1; }
+			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
+		}
 	}
 }

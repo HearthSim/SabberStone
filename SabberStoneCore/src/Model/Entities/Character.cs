@@ -333,11 +333,6 @@ namespace SabberStoneCore.Model.Entities
 		bool HasWindfury { get; set; }
 
 		/// <summary>
-		/// Character has lifesteal.
-		/// </summary>
-		bool HasLifeSteal { get; }
-
-		/// <summary>
 		/// Character can't be targeted by spells.
 		/// </summary>
 		bool CantBeTargetedBySpells { get; set; }
@@ -488,12 +483,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.WINDFURY] == 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
-		}
-
-		public bool HasLifeSteal
-		{
-			get { return this[GameTag.LIFESTEAL] == 1; }
-			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
 
 		public int NumAttacksThisTurn

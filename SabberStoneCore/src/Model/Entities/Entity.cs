@@ -376,12 +376,6 @@ namespace SabberStoneCore.Model.Entities
 			this[GameTag.TURN_START] = 0;
 		}
 
-		public int Overload
-		{
-			get { return this[GameTag.OVERLOAD]; }
-			set { this[GameTag.OVERLOAD] = value; }
-		}
-
 		public int Cost
 		{
 			get { return this[GameTag.COST]; }
@@ -402,28 +396,10 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
 		}
 
-		public int ZonePosition
-		{
-			get { return this[GameTag.ZONE_POSITION] - 1; }
-			set { this[GameTag.ZONE_POSITION] = value + 1; }
-		}
-
 		public int NumTurnsInPlay
 		{
 			get { return this[GameTag.NUM_TURNS_IN_PLAY]; }
 			set { this[GameTag.NUM_TURNS_IN_PLAY] = value; }
-		}
-
-		public bool IsExhausted
-		{
-			get { return this[GameTag.EXHAUSTED] == 1; }
-			set { this[GameTag.EXHAUSTED] = value ? 1 : 0; }
-		}
-
-		public bool IsSummoned
-		{
-			get { return this[GameTag.SUMMONED] == 1; }
-			set { this[GameTag.SUMMONED] = value ? 1 : 0; }
 		}
 
 		public bool IsIgnoreDamage
@@ -438,22 +414,10 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.JADE_GOLEM] = value; }
 		}
 
-		public bool JustPlayed
-		{
-			get { return this[GameTag.JUST_PLAYED] == 1; }
-			set { this[GameTag.JUST_PLAYED] = value ? 1 : 0; }
-		}
-
 		public int CardTarget
 		{
 			get { return this[GameTag.CARD_TARGET]; }
 			set { this[GameTag.CARD_TARGET] = value; }
-		}
-
-		public bool HasDeathrattle
-		{
-			get { return this[GameTag.DEATHRATTLE] == 1; }
-			set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

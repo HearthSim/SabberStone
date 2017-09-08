@@ -415,11 +415,10 @@ namespace SabberStoneCore.CardSets.Standard
 			//        Deal $1 damage to all_minions. *spelldmg
 			// --------------------------------------------------------
 			cards.Add("ICC_834h", new List<Enchantment> {
-				// TODO [ICC_834h] Bladestorm && Test: Bladestorm_ICC_834h
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS)
 				}
 			});
 
