@@ -438,7 +438,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = new EnqueueTask(5, ComplexTask.Create(
-						new RemoveFromDeckTopCard(),
+						new IncludeTask(EntityType.TOPCARDFROMDECK),
 						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
 						new FlagTask(true, new SummonTask(SummonSide.DEFAULT, null, true)),
 						new FlagTask(false, new MoveToGraveYard(EntityType.STACK))
@@ -463,7 +463,6 @@ namespace SabberStoneCore.CardSets.Standard
 						new CountTask(EntityType.ALLMINIONS),
 						new DestroyTask(EntityType.ALLMINIONS),
 						new EnqueueNumberTask(ComplexTask.Create(
-							//new RandomTask(1, EntityType.DECK),
 							new IncludeTask(EntityType.TOPCARDFROMDECK),
 							new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
 							new FlagTask(false, new MoveToGraveYard(EntityType.STACK)))))
@@ -3680,10 +3679,9 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf)
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(new EnqueueTask(3, ComplexTask.Create(
-								new IncludeTask(EntityType.TOPCARDFROMDECK),
-								new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
-								new FlagTask(false, new MoveToGraveYard(EntityType.STACK)))))
+						.SingleTask(ComplexTask.Create(
+								new RandomTask(3, EntityType.DECK),
+								new MoveToGraveYard(EntityType.STACK)))
 						.Build()
 				}
 			});
