@@ -23,6 +23,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsHandFull => new SelfCondition(me => me.Controller.HandZone.IsFull);
 		public static SelfCondition IsOpHandEmpty => new SelfCondition(me => me.Controller.Opponent.HandZone.IsEmpty);
 		public static SelfCondition IsOpHandFull => new SelfCondition(me => me.Controller.Opponent.HandZone.IsFull);
+		public static SelfCondition IsStackEmpty => new SelfCondition(me => me == null);
 
 		public static SelfCondition IsCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
 		public static SelfCondition IsNotCurrentPlayer => new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);

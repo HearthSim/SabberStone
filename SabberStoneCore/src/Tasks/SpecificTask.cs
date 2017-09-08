@@ -126,7 +126,7 @@ namespace SabberStoneCore.Tasks
 				{
 					Controller controller = p[0].Controller;
 					var activeSecrets = controller.SecretZone.GetAll.Select(secret => secret.Card.Id).ToList();
-					activeSecrets.Add(p[0].Card.Id);
+					//activeSecrets.Add(p[0].Card.Id);
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
 					IPlayable spell = Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
@@ -149,5 +149,17 @@ namespace SabberStoneCore.Tasks
 				new RandomTask(1, EntityType.STACK),
 				new CopyTask(EntityType.STACK, 1),
 				new AddStackTo(EntityType.HAND));
+
+		public static ISimpleTask Frostmourne
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					return p[0].Controller.Opponent.GraveyardZone.GetAll.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
+				}),
+				new SummonCopyTask(EntityType.STACK));
 	}
 }
+
+
+			

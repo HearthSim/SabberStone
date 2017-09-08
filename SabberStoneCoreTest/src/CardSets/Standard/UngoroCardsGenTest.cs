@@ -1204,8 +1204,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightfused Stegodon"));
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightfused Stegodon"));
+			//IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
+			Assert.Null(game.CurrentPlayer.Choice);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			int choice1 = game.CurrentPlayer.Choice.Choices[0];
@@ -1213,6 +1215,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[0], choice1));
 			Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[1], choice1));
 			Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)game.CurrentPlayer.BoardZone[2], choice1));
+
+			
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -2461,10 +2465,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void RavenousPterrordax_UNG_047()
 		{
-			// TODO RavenousPterrordax_UNG_047 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2476,7 +2479,25 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravenous Pterrordax"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravenous Pterrordax"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Null(game.CurrentPlayer.Choice);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravenous Pterrordax"));
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ticking Abomination"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard3));
+			Assert.Null(game.CurrentPlayer.Choice);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable testCard4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravenous Pterrordax"));
+			IPlayable testCard5 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard5));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard4, testCard5));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
+			Assert.Null(game.CurrentPlayer.Choice);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3147,10 +3168,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Volcanosaur_UNG_002()
 		{
-			// TODO Volcanosaur_UNG_002 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3162,7 +3182,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Volcanosaur"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Volcanosaur"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.True(game.CurrentPlayer.Choice != null);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
+			Assert.True(game.CurrentPlayer.Choice != null);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
+			Assert.True(game.CurrentPlayer.Choice == null);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3644,11 +3670,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
-			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices.First()));
-			Assert.False(testCard2.AttackDamage != 5 || testCard2.Health != 4 || testCard2.HasDivineShield || testCard2.HasDeathrattle || testCard2.CantBeTargetedByHeroPowers || testCard2.HasTaunt || minion3.HasWindfury || testCard2.HasStealth || testCard2.Poisonous);
-			Assert.True(minion1.AttackDamage != 2 || minion1.Health != 1 || minion1.HasDivineShield || minion1.HasDeathrattle || minion1.CantBeTargetedByHeroPowers || minion1.HasTaunt || minion1.HasWindfury || minion1.HasStealth || minion1.Poisonous);
-			Assert.True(minion2.AttackDamage != 2 || minion2.Health != 1 || minion2.HasDivineShield || minion2.HasDeathrattle || minion2.CantBeTargetedByHeroPowers || minion2.HasTaunt || minion2.HasWindfury || minion2.HasStealth || minion2.Poisonous);
-			Assert.False(minion3.AttackDamage != 1 || minion3.Health != 1 || minion3.HasDivineShield || minion3.HasDeathrattle || minion3.CantBeTargetedByHeroPowers || minion3.HasTaunt || minion3.HasWindfury || minion3.HasStealth || minion3.Poisonous);
+			int choice = game.CurrentPlayer.Choice.Choices.First();
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+			Assert.False(UngoroGenerics.CheckAdapt(game, testCard2, choice));
+			Assert.True(UngoroGenerics.CheckAdapt(game, minion1, choice));
+			Assert.True(UngoroGenerics.CheckAdapt(game, minion2, choice));
+			Assert.False(UngoroGenerics.CheckAdapt(game, minion3, choice));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

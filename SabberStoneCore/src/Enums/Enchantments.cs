@@ -142,6 +142,11 @@
 		/// <summary>
 		/// This effect will be triggered by the GRAVEYARD of the opponent controller.
 		/// </summary>
-		OP_GRAVEYARD
+		OP_GRAVEYARD,
+
+		/// <summary>
+		/// This effect will be triggered by the GRAVEYARD and SECRET of the opponent controller.
+		/// </summary>
+		OP_GRAVEYARD_AND_OP_SECRET
 	}
 }

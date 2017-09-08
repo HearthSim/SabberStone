@@ -122,7 +122,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <summary>
 		///  All heroes
 		/// </summary>
-		HEROES
+		HEROES,
+		/// <summary>
+		/// The top card from the player's deck
+		/// </summary>
+		TOPCARDFROMDECK
 	}
 
 	public class IncludeTask : SimpleTask
@@ -359,6 +363,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						result.AddRange(controller.BoardZone.GetAll);
 					}
 					result.Remove(source as IPlayable);
+					break;
+
+				case EntityType.TOPCARDFROMDECK:
+					result.Add(controller.DeckZone[0]);
 					break;
 
 				default:

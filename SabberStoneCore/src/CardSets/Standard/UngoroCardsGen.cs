@@ -1120,9 +1120,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.MINIONS),
+						new IncludeTask(EntityType.MINIONS_NOSOURCE),
 						new FilterStackTask(SelfCondition.IsSilverHandRecruit),
-						new AdaptTask(EntityType.STACK)),
+						new ConditionTask(EntityType.STACK, SelfCondition.IsNotDead),
+						new FlagTask(true, new AdaptTask(EntityType.STACK)))
 				},
 			});
 
@@ -2328,8 +2329,11 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						new DestroyTask(EntityType.TARGET),
-						new EnqueueTask(2, new AdaptTask(EntityType.SOURCE)))
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsMinion),
+						new FlagTask(true, new DestroyTask(EntityType.TARGET)),
+						new EnqueueTask(1, ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotSilenced),
+							new FlagTask(true, new EnqueueTask(2, new AdaptTask(EntityType.SOURCE))))))
 				},
 			});
 
@@ -3278,10 +3282,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.MINIONS_NOSOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.MURLOC)),
 						new IncludeTask(EntityType.MINIONS_NOSOURCE),
-						new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
-						new AdaptTask(EntityType.STACK))
+						new FlagTask(true, new FilterStackTask(SelfCondition.IsRace(Race.MURLOC))),
+						new FlagTask(true, new AdaptTask(EntityType.STACK)))
 				},
 			});
 
