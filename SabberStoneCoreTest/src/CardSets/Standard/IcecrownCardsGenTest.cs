@@ -4098,7 +4098,7 @@ namespace SabberStoneUnitTest.CardSets
 					Cards.FromName("Sylvanas Windrunner"),
 					Cards.FromName("Archmage Antonidas"),
 					Cards.FromName("Frostbolt"),
-					Cards.FromId("ICC_314t5")
+					Cards.FromName("Stonetusk Boar")
 				},
 				FillDecks = false,
 				Shuffle = false
@@ -4126,11 +4126,12 @@ namespace SabberStoneUnitTest.CardSets
 			IPlayable fireBall = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, fireBall, game.CurrentPlayer.Hero));
 			Assert.Equal(24, game.CurrentPlayer.Hero.Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last(), game.CurrentPlayer.Hero));
-			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			IPlayable deathCoil = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t5"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, deathCoil, game.CurrentPlayer.Hero));
+			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+			IPlayable deathCoil2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t5"));
 			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, game.CurrentPlayer.HandZone.Last(), game.CurrentOpponent.Hero));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, deathCoil2, game.CurrentOpponent.Hero));
 			Assert.Equal(25, game.CurrentOpponent.Hero.Health);
 			game.CurrentPlayer.UsedMana = 0;
 			var injuredBlademaster = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
@@ -4163,8 +4164,8 @@ namespace SabberStoneUnitTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Lich King"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
-			Assert.StartsWith("ICC_314t", game.CurrentOpponent.HandZone[4].Card.Id);
+			Assert.Equal(6, game.CurrentOpponent.HandZone.Count);
+			Assert.StartsWith("ICC_314t", game.CurrentOpponent.HandZone[5].Card.Id);
 		}
 
 		// ------------------------------------ SPELL - DEATHKNIGHT

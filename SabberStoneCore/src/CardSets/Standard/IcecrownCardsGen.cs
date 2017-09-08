@@ -440,6 +440,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = new EnqueueTask(5, ComplexTask.Create(
 						new IncludeTask(EntityType.TOPCARDFROMDECK),
 						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
+						new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
 						new FlagTask(true, new SummonTask(SummonSide.DEFAULT, null, true)),
 						new FlagTask(false, new MoveToGraveYard(EntityType.STACK))
 						)),
@@ -486,6 +487,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new FuncPlayablesTask(p => {
 							if (p.Count == 0)
 								return new List<IPlayable>();
+							p[0].Controller.DeckZone.Remove(p[0]);
 							p[0].Controller = p[0].Controller.Opponent;
 							return new List<IPlayable>() { p[0] };
 						}),

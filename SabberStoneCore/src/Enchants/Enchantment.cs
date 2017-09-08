@@ -147,6 +147,12 @@ namespace SabberStoneCore.Enchants
 					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
 					break;
+				case EnchantmentArea.GRAVEYARD_AND_SECRET:
+					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
+					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
+					break;
 				case EnchantmentArea.OP_GRAVEYARD:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
