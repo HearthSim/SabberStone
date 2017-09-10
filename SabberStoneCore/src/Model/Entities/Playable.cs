@@ -5,21 +5,79 @@ using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Model.Entities
 {
+	/// <summary>
+	/// Interface for an entity which can be played from <see cref="Zone.HAND"/> into
+	/// <see cref="Zone.PLAY"/>, in other words: the entity can be 'played'.
+	/// </summary>
+	/// <seealso cref="ITargeting" />
 	public interface IPlayable : ITargeting
 	{
+		/// <summary>Gets a value indicating whether this entity is playable. Some entities require specific
+		/// requirements before they can be played. This method will process the requirements and produce
+		/// a result for the current state of the game.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
 		bool IsPlayable { get; }
+
+		/// <summary>Gets a value indicating whether this entity is playable by player. Dynamic requirements
+		/// are checked, eg: If a spell costs health instead of mana, this method will return <c>false</c>
+		/// if the health cost would be higher than the available health.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable by player; otherwise, <c>false</c>.</value>
 		bool IsPlayableByPlayer { get; }
+
+		/// <summary>Gets a value indicating whether this entity is playable by card requirements.
+		/// Static requirements are checked.</summary>
+		/// <value><c>true</c> if this entity is playable by card requirements; otherwise, <c>false</c>.</value>
 		bool IsPlayableByCardReq { get; }
+
+		/// <summary>Gets or sets a value indicating whether this entity is ignoring damage.
+		/// This is usefull when damage related tags have to be edited without causing
+		///	side-effects on this entities health and destruction status.
+		/// </summary>
+		/// <value><c>true</c> if this instance is ignoring damage; otherwise, <c>false</c>.</value>
 		bool IsIgnoreDamage { get; set; }
+
+		/// <summary>Gets a value indicating whether this <see cref="IPlayable"/> has a combo effect.</summary>
+		/// <value><c>true</c> if combo; otherwise, <c>false</c>.</value>
 		bool Combo { get; }
+
+		/// <summary>Gets or sets the amount of resources this entity costs to play.</summary>
+		/// <value>The cost.</value>
 		int Cost { get; set; }
+
+		/// <summary>Gets or sets the number of turns this entity is in <see cref="Zone.PLAY"/>.</summary>
+		/// <value>The number of turns in play.</value>
 		int NumTurnsInPlay { get; set; }
+
+		/// <summary>Mark this entity for destruction.</summary>
+		/// <returns>Returns itself.</returns>
 		IPlayable Destroy();
+
+		/// <summary>
+		/// Gets a value indicating whether this entity will be destroyed during the next cleanup
+		/// phase.
+		/// </summary>
+		/// <value><c>true</c> if pending destruction; otherwise, <c>false</c>.</value>
 		bool ToBeDestroyed { get; }
-		bool TurnStart { get; set; }
+
+		// Unused
+		// bool TurnStart { get; set; }
+
+		/// <summary>Applies on of the enchantments defined on this entity.</summary>
+		/// <param name="activation">The activation trigger for the enchants.</param>
+		/// <param name="zoneType">Type of the zone the enchant will perform on.</param>
+		/// <param name="target">The target, mostly of type <see cref="ICharacter"/>.</param>
 		void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null);
+
+		/// <summary>Stores the next Order Of Play index held by the <see cref="Game"/> instance.
+		///	Order of play is important because it's the order in which effects are resolved.
+		/// </summary>
+		/// <param name="type">The type of this entity, stringified.</param>
 		void SetOrderOfPlay(string type);
-		
+
+		/// <summary>Gets or sets the entity ID target.</summary>
+		/// <value><see cref="IEntity.Id"/></value>
 		int CardTarget { get; set; }
 
 
@@ -61,13 +119,36 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		bool HasLifeSteal { get; set; }
 
+		/// <summary>Gets the set of playables necessary for the 'choose one' action
+		/// invoked by this entity. This list is hardcoded into the card data of this
+		/// entity.
+		/// The controller must have chosen one of these playables
+		/// before this entity can be moved into <see cref="Zone.PLAY"/>.
+		/// </summary>
+		/// <value>Playables to choose from.</value>
 		IPlayable[] ChooseOnePlayables { get; }
 
+		/// <summary>Gets or sets the enchantments attached to this entity.
+		/// These enchantments are hardcoded into the card data, from which this entity
+		/// is constructed.
+		/// </summary>
+		/// <value><see cref="Enchantment"/></value>
 		List<Enchantment> Enchantments { get; set; }
 	}
 
+	/// <summary>
+	/// Base implementation of the <see cref="IPlayable"/> interface.
+	/// </summary>
+	/// <typeparam name="T">Instance deriving from <see cref="Entity"/></typeparam>
+	/// <seealso cref="Targeting" />
+	/// <seealso cref="IPlayable" />
 	public abstract partial class Playable<T> : Targeting, IPlayable where T : Entity
 	{
+		/// <summary>Initializes a new instance of the <see cref="Playable{T}"/> class.</summary>
+		/// <param name="controller">The controller.</param>
+		/// <param name="card">The card.</param>
+		/// <param name="tags">The tags.</param>
+		/// <autogeneratedoc />
 		protected Playable(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
@@ -78,10 +159,33 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
+		/// <summary>
+		/// Gets the set of playables necessary for the 'choose one' action
+		/// invoked by this entity. This list is hardcoded into the card data of this
+		/// entity.
+		/// The controller must have chosen one of these playables
+		/// before this entity can be moved into <see cref="F:SabberStoneCore.Enums.Zone.PLAY" />.
+		/// </summary>
+		/// <value>Playables to choose from.</value>
+		/// <autogeneratedoc />
 		public IPlayable[] ChooseOnePlayables { get; } = new IPlayable[2];
 
+		/// <summary>
+		/// Gets or sets the enchantments attached to this entity.
+		/// These enchantments are hardcoded into the card data, from which this entity
+		/// is constructed.
+		/// </summary>
+		/// <value>
+		/// <see cref="T:SabberStoneCore.Enchants.Enchantment" />
+		/// </value>
+		/// <autogeneratedoc />
 		public List<Enchantment> Enchantments { get; set; } = new List<Enchantment>();
 
+		/// <summary>Applies on of the enchantments defined on this entity.</summary>
+		/// <param name="activation">The activation trigger for the enchants.</param>
+		/// <param name="zoneType">Type of the zone the enchant will perform on.</param>
+		/// <param name="target">The target, mostly of type <see cref="T:SabberStoneCore.Model.Entities.ICharacter" />.</param>
+		/// <autogeneratedoc />
 		public virtual void ApplyEnchantments(EnchantmentActivation activation, Zone zoneType, IPlayable target = null)
 		{
 			var removeEnchantments = new List<Enchantment>();
@@ -101,6 +205,12 @@ namespace SabberStoneCore.Model.Entities
 			removeEnchantments.ForEach(p => Enchantments.Remove(p));
 		}
 
+		/// <summary>
+		/// Stores the next Order Of Play index held by the <see cref="T:SabberStoneCore.Model.Game" /> instance.
+		/// Order of play is important because it's the order in which effects are resolved.
+		/// </summary>
+		/// <param name="type">The type of this entity, stringified.</param>
+		/// <autogeneratedoc />
 		public void SetOrderOfPlay(string type)
 		{
 			if (type.Equals("PLAY")
@@ -111,6 +221,9 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
+		/// <summary>Mark this entity for destruction.</summary>
+		/// <returns>Returns itself.</returns>
+		/// <autogeneratedoc />
 		public IPlayable Destroy()
 		{
 			ToBeDestroyed = true;
@@ -118,8 +231,22 @@ namespace SabberStoneCore.Model.Entities
 			return this;
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether this entity is playable. Some entities require specific
+		/// requirements before they can be played. This method will process the requirements and produce
+		/// a result for the current state of the game.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
+		/// <autogeneratedoc />
 		public virtual bool IsPlayable => IsPlayableByPlayer && IsPlayableByCardReq;
 
+		/// <summary>
+		/// Gets a value indicating whether this entity is playable by player. Dynamic requirements
+		/// are checked, eg: If a spell costs health instead of mana, this method will return <c>false</c>
+		/// if the health cost would be higher than the available health.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable by player; otherwise, <c>false</c>.</value>
+		/// <autogeneratedoc />
 		public virtual bool IsPlayableByPlayer
 		{
 			get
@@ -169,6 +296,12 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether this entity is playable by card requirements.
+		/// Static requirements are checked.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable by card requirements; otherwise, <c>false</c>.</value>
+		/// <autogeneratedoc />
 		public virtual bool IsPlayableByCardReq
 		{
 			get
@@ -286,6 +419,7 @@ namespace SabberStoneCore.Model.Entities
 
 
 	public abstract partial class Playable<T>
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public int ZonePosition
 		{
@@ -329,4 +463,5 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
