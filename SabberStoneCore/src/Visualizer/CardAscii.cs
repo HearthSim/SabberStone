@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using SabberStoneCore.Enums;
+using System;
 
 namespace SabberStoneCore.Visualizer
 {
-
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	public class CardAsciiBuilder
 	{
 		private readonly char[][] _baseCardArray = new char[6][]
@@ -52,7 +53,7 @@ namespace SabberStoneCore.Visualizer
 
 		public CardAsciiBuilder SpellText(string text)
 		{
-			char[] strArray = string.Join("", text.Split(' ').Select(p => p).ToList()).PadRight(15).ToCharArray();
+			char[] strArray = String.Join("", text.Split(' ').Select(p => p).ToList()).PadRight(15).ToCharArray();
 			_generatedcard[1][1] = strArray[0];
 			_generatedcard[1][2] = strArray[1];
 			_generatedcard[1][3] = strArray[2];
@@ -492,4 +493,5 @@ namespace SabberStoneCore.Visualizer
 			return result;
 		}
 	}
+	#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
