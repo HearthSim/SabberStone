@@ -4551,22 +4551,30 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ShallowGravedigger_ICC_702()
 		{
-			// TODO ShallowGravedigger_ICC_702 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Shallow Gravedigger")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shallow Gravedigger"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Shallow Gravedigger"));
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.True(((Minion)game.CurrentPlayer.HandZone[3]).HasDeathrattle);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

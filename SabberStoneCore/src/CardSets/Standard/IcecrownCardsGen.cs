@@ -3361,11 +3361,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_702", new List<Enchantment> {
-				// TODO [ICC_702] Shallow Gravedigger && Test: Shallow Gravedigger_ICC_702
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomCardTask(CardType.INVALID, CardClass.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE}),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
