@@ -39,7 +39,10 @@ namespace SabberStoneCore.Model.Entities
 		bool IsSummoned { get; set; }
 
 		/// <summary>
-		/// Playable is exhausted.
+		/// Playable is exhausted. <c>true</c> indicates that the entity cannot
+		/// perform it's effect anymore.
+		/// eg: <see cref="Minion"/>s cannot attack when exhausted.
+		/// eg: <see cref="HeroPower"/>s cannot be triggered when exhausted.
 		/// </summary>
 		bool IsExhausted { get; set; }
 
