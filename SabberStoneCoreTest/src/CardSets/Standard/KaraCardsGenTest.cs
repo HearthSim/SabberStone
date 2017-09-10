@@ -594,8 +594,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Mimic Pod"),	// Rogue - 3 cost
+					Cards.FromName("Sprint"),		// Rogue - 7 cost
+					Cards.FromName("Redemption"),   // Paladin - 1 cost
+					Cards.FromName("Blizzard"),		// Mage - 6 cost
+				},
+				Shuffle = true,
+				FillDecks = false,
+				FillDecksPredictably = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
