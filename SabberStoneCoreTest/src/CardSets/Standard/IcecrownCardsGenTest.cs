@@ -4586,7 +4586,7 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Bonemare_ICC_705()
 		{
 			var game = new Game(new GameConfig

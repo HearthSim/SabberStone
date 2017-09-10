@@ -3391,8 +3391,9 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "ICC_705e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					Enchant = Buffs.AttackHealth(4),
-					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
+					SingleTask = ComplexTask.Create(
+						new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
+						ComplexTask.Taunt(EntityType.TARGET))
 				},
 			});
 
