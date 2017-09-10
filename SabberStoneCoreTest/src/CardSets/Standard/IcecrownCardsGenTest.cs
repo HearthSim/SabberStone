@@ -4589,11 +4589,10 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact(Skip = "ignore")]
 		public void Bonemare_ICC_705()
 		{
-			// TODO Bonemare_ICC_705 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -4601,7 +4600,23 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bonemare"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(1, ((ICharacter)minion).Health);
+			Assert.Equal(1, ((ICharacter)minion).AttackDamage);
+			Assert.False(((ICharacter)minion).HasTaunt);
+
+			IPlayable bonemare = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bonemare"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, bonemare, minion));
+
+			Assert.Equal(5, ((ICharacter)minion).Health);
+			Assert.Equal(5, ((ICharacter)minion).AttackDamage);
+			Assert.True(((ICharacter)minion).HasTaunt);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
