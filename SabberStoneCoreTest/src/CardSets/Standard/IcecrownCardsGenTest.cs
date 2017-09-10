@@ -3632,22 +3632,36 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BoneDrake_ICC_027()
 		{
-			// TODO BoneDrake_ICC_027 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Bone Drake")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bone Drake"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bone Drake"));
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(4, game.CurrentOpponent.HandZone.Count);
+			Assert.True(((Minion)game.CurrentOpponent.HandZone[3]).Race == Race.DRAGON);
+
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4574,7 +4588,7 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
-			Assert.True(((Minion)game.CurrentPlayer.HandZone[3]).HasDeathrattle);
+			Assert.True(((IPlayable)game.CurrentPlayer.HandZone[3]).HasDeathrattle);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

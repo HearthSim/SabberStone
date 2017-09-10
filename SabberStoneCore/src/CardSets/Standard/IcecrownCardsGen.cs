@@ -2943,11 +2943,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_027", new List<Enchantment> {
-				// TODO [ICC_027] Bone Drake && Test: Bone Drake_ICC_027
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.DRAGON),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -3365,7 +3366,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
-						new RandomCardTask(CardType.INVALID, CardClass.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE}),
+						new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE}),
 						new AddStackTo(EntityType.HAND))
 				},
 			});
