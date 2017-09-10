@@ -1,11 +1,21 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
+	/// <summary>
+	/// Interface for instances which support delayed removal.
+	/// This interface is used to remove <see cref="Enchant"/>s after various
+	/// effects were calculated.
+	/// </summary>
+	/// <seealso cref="Game.LazyRemoves"/>
 	public interface ILazyRemove
 	{
+		/// <summary>Initiates removal of the implemented type.
+		/// The instance will remove itself from the game.
+		/// </summary>
 		void Remove();
 	}
 

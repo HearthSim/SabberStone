@@ -303,11 +303,6 @@ namespace SabberStoneCore.Model.Entities
 		bool ShouldExitCombat { get; set; }
 
 		/// <summary>
-		/// Character is exhausted.
-		/// </summary>
-		bool IsExhausted { get; set; }
-
-		/// <summary>
 		/// Character is frozen.
 		/// </summary>
 		bool IsFrozen { get; set; }
