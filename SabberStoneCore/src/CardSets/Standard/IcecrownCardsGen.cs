@@ -3387,12 +3387,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_705", new List<Enchantment> {
-				// TODO [ICC_705] Bonemare && Test: Bonemare_ICC_705
 				new Enchantment
 				{
 					InfoCardId = "ICC_705e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					Enchant = Buffs.AttackHealth(4),
+					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
 				},
 			});
 
