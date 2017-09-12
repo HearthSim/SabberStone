@@ -2727,10 +2727,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AuchenaiSoulpriest_EX1_591()
 		{
-			// TODO AuchenaiSoulpriest_EX1_591 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2742,7 +2741,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Auchenai Soulpriest"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Auchenai Soulpriest"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(28, game.CurrentOpponent.Hero.Health);
+			IPlayable pain = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, pain, testCard));
+			game.CurrentPlayer.Hero.Power.IsExhausted = false;
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

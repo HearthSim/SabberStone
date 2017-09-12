@@ -1161,12 +1161,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("OG_104", new List<Enchantment>
 			{
-                // TODO [OG_104] Embrace the Shadow && Test: Embrace the Shadow_OG_104
                 new Enchantment
 				{
 					InfoCardId = "OG_104e",
+					Area = EnchantmentArea.CONTROLLER,
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new SetGameTagTask(GameTag.RESTORE_TO_DAMAGE, 1, EntityType.HERO),
+					Trigger = new TriggerBuilder().Create()
+						.TurnsActive(0)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(new SetGameTagTask(GameTag.RESTORE_TO_DAMAGE, 0, EntityType.HERO))
+						.Build()
 				},
 			});
 		}
@@ -2308,7 +2313,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
-						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+						new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
                         //new CopyTask(EntityType.STACK, 1),
                         new SummonCopyTask(EntityType.STACK))
 				}

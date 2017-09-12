@@ -37,7 +37,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		ELEMENTAL_INVOCATION,
 		OWN_SPELL,
 		COST_8_MORE_SUMMON,
-		OP_HERO
+		OP_HERO,
+		DIED_THIS_GAME
 	}
 	public class DiscoverTask : SimpleTask
 	{
@@ -292,6 +293,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case DiscoverType.OP_HERO:
 					choiceAction = ChoiceAction.HAND;
 					return GetClassCard(Controller.Opponent.HeroClass, list => list);
+
+				case DiscoverType.DIED_THIS_GAME:
+					choiceAction = ChoiceAction.SUMMON;
+					return new[] { Controller.GraveyardZone.Where(p => p.ToBeDestroyed && p.Card.Type == CardType.MINION).Select(p => p.Card).ToList() };
 
 				default:
 					throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);

@@ -1519,22 +1519,38 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CuriousGlimmerroot_UNG_035()
 		{
-			// TODO CuriousGlimmerroot_UNG_035 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield")
+				},
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curious Glimmerroot"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curious Glimmerroot"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			IEnumerable<IPlayable> choices = game.CurrentPlayer.Choice.Choices.Select(i => game.IdEntityDic[i]);
+			Assert.True(choices.Select(p => p.Card.Name).Contains("Power Word: Shield"));
+			Assert.True(choices.All(p => p.Card.Class == CardClass.PRIEST));
 		}
 
 		// ---------------------------------------- MINION - PRIEST

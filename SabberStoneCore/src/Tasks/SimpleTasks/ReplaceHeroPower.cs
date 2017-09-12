@@ -59,6 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Power[GameTag.CREATOR] = Controller.Hero.Id;
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower", $"{Controller.Hero} power replaced by {Power}");
 
+			Controller.SetasideZone.MoveTo(Controller.Hero.Power, Controller.SetasideZone.Count);
 			Controller.Hero.Power = Power;
 
 			return TaskState.COMPLETE;

@@ -337,6 +337,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsTagValue(GameTag.ZONE, 1))
 						.TriggerEffect(GameTag.NUM_CARDS_PLAYED_THIS_TURN, 1)
+						.MaxExecution(1)
 						.SingleTask(new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER))
 						.Build(),
 					SingleTask = new DamageTask(2, EntityType.TARGET, false)
@@ -462,8 +463,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new DestroyTask(EntityType.ALLMINIONS),
 						new EnqueueNumberTask(ComplexTask.Create(
 							new IncludeTask(EntityType.TOPCARDFROMDECK),
-							//new ConditionTask(EntityType.STACK, SelfCondition.IsStackEmpty),
-							new FlagTask(false, new MoveToGraveYard(EntityType.STACK)))))
+							new MoveToGraveYard(EntityType.STACK))))
 				},
 			});
 
@@ -728,7 +728,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
-						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1), SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
 						new SummonCopyTask(EntityType.STACK))
 				},
 			});
@@ -1820,12 +1820,19 @@ namespace SabberStoneCore.CardSets.Standard
 			//       friendly minion +1/+1.
 			// --------------------------------------------------------
 			cards.Add("ICC_210", new List<Enchantment> {
-				// TODO [ICC_210] Shadow Ascendant && Test: Shadow Ascendant_ICC_210
+				// TODO Test: Shadow Ascendant_ICC_210
 				new Enchantment
 				{
 					InfoCardId = "ICC_210e",
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(ComplexTask.Create(
+							new RandomTask(1, EntityType.MINIONS_NOSOURCE),
+							new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)))
+						.Build()
 				}
 			});
 
@@ -1889,11 +1896,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copy 3 cards in your opponent's deck and add them to your hand.
 			// --------------------------------------------------------
 			cards.Add("ICC_207", new List<Enchantment> {
-				// TODO [ICC_207] Devour Mind && Test: Devour Mind_ICC_207
+				// TODO Test: Devour Mind_ICC_207
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomTask(3, EntityType.OP_DECK),
+						new CopyTask(EntityType.STACK, 1, true),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -1911,11 +1921,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_213", new List<Enchantment> {
-				// TODO [ICC_213] Eternal Servitude && Test: Eternal Servitude_ICC_213
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new DiscoverTask(DiscoverType.DIED_THIS_GAME)
 				},
 			});
 
@@ -1929,12 +1938,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_235", new List<Enchantment> {
-				// TODO [ICC_235] Shadow Essence && Test: Shadow Essence_ICC_235
 				new Enchantment
 				{
 					InfoCardId = "ICC_235e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsMinion),
+						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
+						new BuffTask(Buffs.AttackHealthFix(5), EntityType.STACK),
+						new SummonTask())
 				},
 			});
 
@@ -1949,12 +1963,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_802", new List<Enchantment> {
-				// TODO [ICC_802] Spirit Lash && Test: Spirit Lash_ICC_802
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					//SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
-				},
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
+				}
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1971,12 +1984,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_849", new List<Enchantment> {
-				// TODO [ICC_849] Embrace Darkness && Test: Embrace Darkness_ICC_849
 				new Enchantment
 				{
 					InfoCardId = "ICC_849e",
+					Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Enchant = new Enchant
+					{
+						TurnsActive = 1,
+						EnableConditions = new List<SelfCondition>
+						{
+							//SelfCondition.IsNotSilenced,
+							SelfCondition.IsInZone(Zone.PLAY)
+						},
+						Effects = new Dictionary<GameTag, int>
+						{
+							[GameTag.NUM_TURNS_IN_PLAY] = 0,
+						},
+						RemovalTask = new ControlTask(EntityType.TARGET, true)
+					}
 				},
 			});
 
@@ -3344,11 +3370,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_701", new List<Enchantment> {
-				// TODO [ICC_701] Skulking Geist && Test: Skulking Geist_ICC_701
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
+						new MoveToGraveYard(EntityType.STACK),
+						new IncludeTask(EntityType.HAND),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
+						new MoveToGraveYard(EntityType.STACK),
+						new IncludeTask(EntityType.OP_DECK),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
+						new MoveToGraveYard(EntityType.STACK),
+						new IncludeTask(EntityType.OP_HAND),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
+						new MoveToGraveYard(EntityType.STACK)),
 				},
 			});
 
@@ -3682,9 +3719,9 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf)
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(ComplexTask.Create(
-								new RandomTask(3, EntityType.DECK),
-								new MoveToGraveYard(EntityType.STACK)))
+						.SingleTask(new EnqueueTask(3, ComplexTask.Create(
+							new IncludeTask(EntityType.TOPCARDFROMDECK),
+							new MoveToGraveYard(EntityType.STACK))))
 						.Build()
 				}
 			});

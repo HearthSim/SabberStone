@@ -96,6 +96,11 @@ namespace SabberStoneCore.Enchants
 		public void Change(Entity entity, GameTag gameTag, int oldValue, int newValue)
 		{
 
+			if (Owner.Game.LazyRemoves.Contains(this))
+			{
+				return;
+			}
+
 			var target = entity as IPlayable;
 
 			//Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger", $"{entity} {gameTag} {oldValue} {newValue}");
@@ -148,7 +153,8 @@ namespace SabberStoneCore.Enchants
 
 			if (MaxExecutions != 0 && Executions >= MaxExecutions)
 			{
-				Remove();
+				//Remove();
+				Owner.Game.LazyRemoves.Enqueue(this);
 			}
 		}
 

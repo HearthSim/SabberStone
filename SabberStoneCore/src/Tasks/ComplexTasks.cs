@@ -175,7 +175,7 @@ namespace SabberStoneCore.Tasks
 		{
 			return Create(
 				new IncludeTask(EntityType.GRAVEYARD),
-				new FilterStackTask(SelfCondition.IsMinion, selfCondition),
+				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
 				new RandomTask(1, EntityType.STACK),
 				new CopyTask(EntityType.STACK, 1),
 				new SummonTask());

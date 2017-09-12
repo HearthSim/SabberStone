@@ -234,7 +234,9 @@ namespace SabberStoneCore.Model
 			if (setupHeroes)
 			{
 				_players[0].AddHeroAndPower(Cards.HeroCard(gameConfig.Player1HeroClass));
+				_players[0].BaseClass = _players[0].HeroClass;
 				_players[1].AddHeroAndPower(Cards.HeroCard(gameConfig.Player2HeroClass));
+				_players[1].BaseClass = _players[1].HeroClass;
 			}
 
 			TaskQueue = new TaskQueue(this);
@@ -775,6 +777,12 @@ namespace SabberStoneCore.Model
 			// check for dead minions to carry to the graveyard
 			Minions.Where(p => p.IsDead).ToList().ForEach(p =>
 			{
+				//	TODO : Issue to be fixed, suspect: SummonTask?
+				if (p.Zone == p.Controller.GraveyardZone)
+				{
+					p.Controller.BoardZone.Remove(p);
+					return;
+				}
 				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
 				p.LastBoardPosition = p.ZonePosition;
 				p.Zone.Remove(p);

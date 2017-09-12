@@ -6,12 +6,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ControlTask : SimpleTask
 	{
-		public ControlTask(EntityType type)
+		public ControlTask(EntityType type, bool opposite = false)
 		{
 			Type = type;
+			Opposite = opposite;
 		}
 
 		public EntityType Type { get; set; }
+
+		public bool Opposite { get; set; }
 
 		public override TaskState Process()
 		{
@@ -19,8 +22,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
 				IPlayable removedEntity = p.Zone.Remove(p);
-				removedEntity.Controller = Controller;
-				Controller.BoardZone.Add(removedEntity);
+				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
+				//removedEntity.Controller.BoardZone.Add(removedEntity);
+				removedEntity.Controller.BoardZone.MoveTo(removedEntity, removedEntity.Controller.BoardZone.Count);
 			});
 
 			return TaskState.COMPLETE;
@@ -28,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new ControlTask(Type);
+			var clone = new ControlTask(Type, Opposite);
 			clone.Copy(this);
 			return clone;
 		}

@@ -72,6 +72,8 @@ namespace SabberStoneCore.Actions
 					//   (death processing, aura updates)
 					OnPlayTrigger.Invoke(c, (Spell)source);
 
+					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
+
 					// remove from hand zone
 					if (!RemoveFromZone.Invoke(c, source))
 						return false;
@@ -281,6 +283,7 @@ namespace SabberStoneCore.Actions
 				if (spell.IsCountered)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
+					spell.JustPlayed = false;
 					c.GraveyardZone.Add(spell);
 				}
 				else if (spell.IsSecret || spell.IsQuest)

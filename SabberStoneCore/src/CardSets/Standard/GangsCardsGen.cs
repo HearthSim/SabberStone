@@ -947,12 +947,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_020", new List<Enchantment>
 			{
-                // TODO [CFM_020] Raza the Chained && Test: Raza the Chained_CFM_020
-                new Enchantment
+				new Enchantment
 				{
-					InfoCardId = "CFM_020e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
+						new FlagTask(true, SpecificTask.RazaTheChained))
 				},
 			});
 
@@ -1067,12 +1067,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_603", new List<Enchantment>
 			{
-                // TODO [CFM_603] Potion of Madness && Test: Potion of Madness_CFM_603
-                new Enchantment
+				new Enchantment
 				{
 					InfoCardId = "CFM_603e",
+					Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ControlTask(EntityType.TARGET),
+					Enchant = new Enchant
+					{
+						TurnsActive = 0,
+						EnableConditions = new List<SelfCondition>
+						{
+							//SelfCondition.IsNotSilenced,
+							SelfCondition.IsInZone(Zone.PLAY)
+						},
+						Effects = new Dictionary<GameTag, int>
+						{
+							[GameTag.CHARGE] = 1,
+							[GameTag.NUM_TURNS_IN_PLAY] = 0,
+						},
+						RemovalTask = new ControlTask(EntityType.TARGET, true)
+					}
 				},
 			});
 
@@ -2751,18 +2766,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_670", new List<Enchantment>
 			{
+				//	TODO: Not working properly
 				new Enchantment
 				{
 					Area = EnchantmentArea.BOARDS,
 					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, 1)
-						.SingleTask(ComplexTask.Secret(
-						   new IncludeTask(EntityType.ALL),
-						   new RandomTask(1, EntityType.STACK),
-						   new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
-						.Build()
+					//Trigger = new TriggerBuilder().Create()
+					//	.EnableConditions(SelfCondition.IsNotSilenced, SelfCondition.IsInZone(Zone.PLAY))
+					//	.TriggerEffect(GameTag.ATTACKING, 1)
+					//	.SingleTask(ComplexTask.Secret(
+					//	   new IncludeTask(EntityType.ALL),
+					//	   new RandomTask(1, EntityType.STACK),
+					//	   new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+					//	.Build()
 				}
 			});
 

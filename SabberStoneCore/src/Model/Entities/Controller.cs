@@ -26,6 +26,11 @@ namespace SabberStoneCore.Model.Entities
 		public List<Card> DeckCards { get; internal set; } = new List<Card>();
 
 		/// <summary>
+		/// Base class of the controller.
+		/// </summary>
+		public CardClass BaseClass { get; internal set; }
+
+		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
 		public ControlledZones ControlledZones { get; }
@@ -151,19 +156,27 @@ namespace SabberStoneCore.Model.Entities
 		public void AddHeroAndPower(Card heroCard, Card powerCard = null, Dictionary<GameTag, int> tags = null, int id = -1)
 		{
 			// remove hero and place it to the setaside zone
+			Weapon weapon = null;
 			if  (Hero != null)
 			{
 				SetasideZone.Add(Hero);
+				SetasideZone.Add(Hero.Power);
 				//Hero[GameTag.EXHAUSTED] = 0;
 				//Hero[GameTag.NUM_ATTACKS_THIS_TURN ] = 0;
 				//Hero[GameTag.DAMAGE] = 0;
 				//Hero[GameTag.REVEALED] = 1;
+				if (Hero.Weapon != null)
+				{
+					weapon = Hero.Weapon;
+				}
 			}
+
 
 			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
 			HeroId = Hero.Id;
 			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+			Hero.Weapon = weapon;
 		}
 
 		/// <summary>
@@ -173,6 +186,8 @@ namespace SabberStoneCore.Model.Entities
 		public void Stamp(Controller controller)
 		{
 			ControlledZones.Stamp(controller.ControlledZones);
+			DeckCards.AddRange(controller.DeckCards);
+			BaseClass = controller.BaseClass;
 			base.Stamp(controller);
 			Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
 			Hero.Stamp(controller.Hero);

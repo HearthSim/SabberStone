@@ -1264,10 +1264,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_NUM_MINION_SLOTS = 1
 		// - REQ_TARGET_MAX_ATTACK = 2
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PotionOfMadness_CFM_603()
 		{
-			// TODO PotionOfMadness_CFM_603 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1279,7 +1278,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Potion of Madness"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion1));
+			Assert.True(minion1.Controller == game.CurrentPlayer);
+			Assert.True(minion1.HasCharge);
+			Assert.True(minion1.Zone == game.CurrentPlayer.BoardZone);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.True(minion1.Controller == game.CurrentPlayer);
+			Assert.True(minion1.Zone == game.CurrentPlayer.BoardZone);
+			Assert.False(minion1.HasCharge);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard3, minion1));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, minion2));
+			Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Where(p => p.Card.Type == CardType.MINION).Count());
+			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion3));
+			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silence, minion3));
+			//Assert.False(minion3.Controller == game.CurrentPlayer);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -1407,22 +1432,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void RazaTheChained_CFM_020()
 		{
-			// TODO RazaTheChained_CFM_020 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Raza the Chained"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Raza the Chained"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+			Assert.Equal(5, game.CurrentPlayer.RemainingMana);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable death = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, death, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

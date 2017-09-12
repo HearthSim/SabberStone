@@ -1411,11 +1411,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_035", new List<Enchantment>
 			{
-                // TODO [UNG_035] Curious Glimmerroot && Test: Curious Glimmerroot_UNG_035
                 new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = SpecificTask.CuriousGlimmerroot
 				},
 			});
 
