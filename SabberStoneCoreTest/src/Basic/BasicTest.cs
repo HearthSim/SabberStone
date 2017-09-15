@@ -635,6 +635,7 @@ namespace SabberStoneCoreTest.Basic
 				{
 					Cards.FromName("Vaporize"),
 					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Stonetusk Boar"),
 					Cards.FromName("Stonetusk Boar")
 				},
 				Player2HeroClass = CardClass.HUNTER,
@@ -642,7 +643,12 @@ namespace SabberStoneCoreTest.Basic
 				{
 					Cards.FromName("Stonetusk Boar"),
 					Cards.FromName("Freezing Trap"),
-					Cards.FromName("Explosive Trap")
+					Cards.FromName("Explosive Trap"),
+					Cards.FromName("Freezing Trap"),
+					Cards.FromName("Explosive Trap"),
+					Cards.FromName("Misdirection"),
+					Cards.FromName("Explosive Trap"),
+					Cards.FromName("Misdirection")
 				},
 				Shuffle = false,
 				FillDecks = true,
@@ -656,13 +662,43 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(8, game.CurrentOpponent.Hero.Armor);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Freezing Trap"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
-			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
+			Assert.Equal(6, game.CurrentPlayer.Hero.Armor);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Freezing Trap"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
+			Assert.Equal(4, game.CurrentPlayer.Hero.Armor);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Misdirection"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(3, game.CurrentPlayer.Hero.Armor);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Misdirection"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.Hero.Armor);
 		}
 
 		[Fact]

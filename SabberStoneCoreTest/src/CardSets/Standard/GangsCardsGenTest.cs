@@ -3556,7 +3556,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 
-			Assert.Equal(2, game.CurrentPlayer.Hero.TotalAttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -251,7 +251,8 @@ namespace SabberStoneCore.Tasks
 			var secretList = list.ToList();
 			secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
 			secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
-			return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
+			var checkIsOpponentTurnTask = new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn);
+			return Create(checkIsOpponentTurnTask, new FlagTask(true, StateTaskList<ISimpleTask>.Chain(secretList.ToArray())));
 		}
 
 		public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)

@@ -1461,6 +1461,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Create(
 							new RandomCardTask(CardType.SPELL, CardClass.PRIEST),
+							new FilterStackTask(SelfCondition.IsTagValue(GameTag.QUEST, 0)),
 							new AddStackTo(EntityType.HAND)))
 						.Build()
 				}

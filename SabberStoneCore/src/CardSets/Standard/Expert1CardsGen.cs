@@ -911,12 +911,15 @@ namespace SabberStoneCore.CardSets.Standard
 						.ApplyConditions(RelaCondition.IsMyHeroAttacked,
 							RelaCondition.IsMe(SelfCondition.IsAnyNotImmune))
 						.TriggerEffect(GameTag.ATTACKING, 1)
-						.FastExecution(true)
-						.SingleTask(ComplexTask.Secret(
-							new IncludeTask(EntityType.ALL, new[] {EntityType.TARGET, EntityType.OP_HERO}),
-							new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
-							new RandomTask(1, EntityType.STACK),
-							new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+						//.FastExecution(true)
+						.SingleTask(ComplexTask.Create(
+								new IncludeTask(EntityType.ALL, new EntityType[] { EntityType.TARGET, EntityType.HERO }),
+								new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
+								new ConditionTask(EntityType.STACK, SelfCondition.IsInZone(Zone.PLAY)),
+								new FlagTask(true, new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY))),
+								new FlagTask(true, ComplexTask.Secret(
+									new RandomTask(1, EntityType.STACK),
+									new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))))
 						.Build()
 				}
 			});
@@ -1077,11 +1080,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.HERO,
+					Area = EnchantmentArea.OP_BOARD,
 					Activation = EnchantmentActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-						.TriggerEffect(GameTag.DEFENDING, 1)
+						.ApplyConditions(RelaCondition.IsMyHeroAttacked)
+						.TriggerEffect(GameTag.ATTACKING, 1)
 						.SingleTask(ComplexTask.Secret(
 							new DamageTask(2, EntityType.ENEMIES, true)))
 						.Build()
@@ -1107,10 +1111,12 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.ATTACKING, 1)
-						.SingleTask(ComplexTask.Secret(
-							new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
-							new ReturnHandTask(EntityType.TARGET),
-							new BuffTask(Buffs.Cost(2), EntityType.TARGET)))
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+							new FlagTask(true, ComplexTask.Secret(
+								new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
+								new ReturnHandTask(EntityType.TARGET),
+								new BuffTask(Buffs.Cost(2), EntityType.TARGET)))))
 						.Build()
 				},
 			});

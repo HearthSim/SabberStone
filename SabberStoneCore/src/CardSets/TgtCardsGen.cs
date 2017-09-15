@@ -989,8 +989,13 @@ namespace SabberStoneCore.CardSets
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.TURN_START, 1)
-						.SingleTask(ComplexTask.Secret(
-							new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)))
+						.FastExecution(true)
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.MINIONS, SelfCondition.IsInZone(Zone.PLAY)),
+							new FlagTask(true, ComplexTask.Create(
+								new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE),
+								new MoveToGraveYard(EntityType.SOURCE),
+								new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)))))
 						.Build()
 				}
 			});
