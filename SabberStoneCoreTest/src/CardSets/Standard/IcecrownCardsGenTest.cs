@@ -1859,6 +1859,8 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+			if (game.CurrentPlayer.HandZone[0][GameTag.QUEST] == 1)
+				Generic.Draw(game.CurrentPlayer);
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Simulacrum"));
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
@@ -4167,7 +4169,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void TheLichKing_ICC_314()
 		{
-			// TODO TheLichKing_ICC_314 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

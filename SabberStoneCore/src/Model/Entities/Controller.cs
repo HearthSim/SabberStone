@@ -159,8 +159,8 @@ namespace SabberStoneCore.Model.Entities
 			Weapon weapon = null;
 			if  (Hero != null)
 			{
-				SetasideZone.Add(Hero);
-				SetasideZone.Add(Hero.Power);
+				SetasideZone.MoveTo(Hero, SetasideZone.Count);
+				SetasideZone.MoveTo(Hero.Power, SetasideZone.Count);
 				//Hero[GameTag.EXHAUSTED] = 0;
 				//Hero[GameTag.NUM_ATTACKS_THIS_TURN ] = 0;
 				//Hero[GameTag.DAMAGE] = 0;

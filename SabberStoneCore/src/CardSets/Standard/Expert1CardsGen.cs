@@ -5466,12 +5466,12 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					InfoCardId = "EX1_509e",
-					Area = EnchantmentArea.HAND,
+					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
-						.TriggerEffect(GameTag.ZONE, 1)
+						.TriggerEffect(GameTag.SUMMONED, 1)
 						.SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
 						.Build()
 				}

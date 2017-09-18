@@ -39,11 +39,15 @@ namespace SabberStoneCore.Actions
 			{
 				if (c != source.Controller || c == target.Controller)
 				{
+					if (source[GameTag.AUTOATTACK] == 1)
+						return true;
 					c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "wrong controller in phase.");
 					return false;
 				}
 				if (!source.CanAttack || !source.IsValidAttackTarget(target))
 				{
+					if (source[GameTag.AUTOATTACK] == 1)
+						return true;
 					c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "can't attack with this card.");
 					return false;
 				}

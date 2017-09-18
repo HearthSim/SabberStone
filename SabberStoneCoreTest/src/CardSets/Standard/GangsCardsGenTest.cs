@@ -1284,16 +1284,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion1));
 			Assert.True(minion1.Controller == game.CurrentPlayer);
 			Assert.True(minion1.HasCharge);
 			Assert.True(minion1.Zone == game.CurrentPlayer.BoardZone);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.True(minion1.Controller == game.CurrentPlayer);
 			Assert.True(minion1.Zone == game.CurrentPlayer.BoardZone);
 			Assert.False(minion1.HasCharge);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard3, minion1));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, minion2));
@@ -1301,6 +1304,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			//	TODO:
 			//IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
 			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion3));
 			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silence, minion3));
@@ -1451,10 +1456,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(5, game.CurrentPlayer.RemainingMana);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable death = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Death"));
+			IPlayable mindControl = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mind Control"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, mindControl, testCard));
+			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, death, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
 			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
+			IPlayable shadowreaperAnduin = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowreaper Anduin"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, shadowreaperAnduin));
+			Assert.Equal(2, game.CurrentPlayer.RemainingMana);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(2, game.CurrentPlayer.RemainingMana);
+			game.CurrentPlayer.UsedMana = 0;
+			IPlayable shadowform = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowform"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, shadowform));
+			Assert.Equal(7, game.CurrentPlayer.RemainingMana);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(7, game.CurrentPlayer.RemainingMana);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

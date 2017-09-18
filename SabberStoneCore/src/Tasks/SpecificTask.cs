@@ -208,23 +208,20 @@ namespace SabberStoneCore.Tasks
 							new Enchants.Enchant
 							{
 								Game = p[0].Game,
-								Owner = p[0],
-								EnableConditions = new List<SelfCondition>
-								{
-									SelfCondition.IsMinion
-								},
+								Owner = p[0].Controller.Hero,
 								ApplyConditions = new List<RelaCondition>
 								{
 									RelaCondition.IsOther(SelfCondition.IsHeroPower),
 									RelaCondition.IsFriendly
 								},
+
 								Effects = new Dictionary<GameTag, int>
 								{
 									[GameTag.COST] = 0
 								},
 								FixedValueFunc = owner => 0
 							});
-					return p;
+					return new List<IPlayable>();
 				}));
 	}
 }

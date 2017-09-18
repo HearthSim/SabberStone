@@ -20,11 +20,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
 				IPlayable removedEntity = p.Zone.Remove(p);
+				removedEntity.Controller.SetasideZone.MoveTo(removedEntity, removedEntity.Controller.SetasideZone.Count);
+				removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());
+				removedEntity.Game.AuraUpdate();
 				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
-				//removedEntity.Controller.BoardZone.Add(removedEntity);
-				removedEntity.Controller.BoardZone.MoveTo(removedEntity, removedEntity.Controller.BoardZone.Count);
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
+
+				removedEntity.Controller.BoardZone.Add(removedEntity.Zone.Remove(removedEntity));
 			});
 
 			return TaskState.COMPLETE;

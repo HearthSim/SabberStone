@@ -2427,22 +2427,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_NUM_MINION_SLOTS = 1
 		// - REQ_TARGET_MAX_ATTACK = 3
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ShadowMadness_EX1_334()
 		{
-			// TODO ShadowMadness_EX1_334 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Frostbolt")
+				},
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Holy Smite")
+				},
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Madness"));
+			IPlayable apprentice = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sorcerer's Apprentice"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, apprentice));
+			Assert.Equal(1, game.CurrentPlayer.HandZone[0].Cost);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shadow Madness"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, apprentice));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(2, game.CurrentOpponent.HandZone[0].Cost);
+			IPlayable shield = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
+			Assert.Equal(0, game.CurrentPlayer.HandZone[0].Cost);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, shield, apprentice));
+			Assert.Equal(4, ((ICharacter)apprentice).Health);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(4, ((ICharacter)apprentice).Health);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -4180,15 +4206,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Bloodfen Raptor"));
 			Minion minionA = ((Minion)game.CurrentPlayer.BoardZone[0]);
 			Minion minionB = ((Minion)game.CurrentPlayer.BoardZone[1]);
 			Assert.Equal(1, minionA.AttackDamage);
 			Assert.Equal(1, minionA.Health);
 			Assert.Equal(3, minionB.AttackDamage);
 			Assert.Equal(2, minionB.Health);
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0], null, 1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Void Terror", null, 1));
 			Minion minion = ((Minion)game.CurrentPlayer.BoardZone[0]);
 			Assert.True(minionA.IsDead);
 			Assert.True(minionB.IsDead);
@@ -7744,8 +7770,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;

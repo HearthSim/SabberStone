@@ -14,7 +14,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-
+			Playables.ForEach(p => p[Enums.GameTag.DISPLAYED_CREATOR] = Source.Id);
 			switch (Type)
 			{
 				case EntityType.DECK:

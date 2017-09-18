@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (drawedCard == null)
 			{
-				return TaskState.STOP;
+				return TaskState.COMPLETE;
 			}
 
 			if (ToStack)

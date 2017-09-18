@@ -251,7 +251,7 @@ namespace SabberStoneCore.Actions
 				choices.ForEach(p =>
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, p);
-					choiceEntity[GameTag.CREATOR] = source.Id;
+					((Entity)choiceEntity).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, source.Id);
 					// add after discover enchantment
 					if (enchantment != null)
 					{

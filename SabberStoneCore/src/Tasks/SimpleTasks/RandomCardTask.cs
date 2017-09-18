@@ -102,7 +102,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))));
 
 			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
-			Playables.Add(randomCard);
+			Playables = new List<IPlayable> { randomCard };
 
 			Game.OnRandomHappened(true);
 

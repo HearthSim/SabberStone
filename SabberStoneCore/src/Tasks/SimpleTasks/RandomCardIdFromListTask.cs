@@ -11,6 +11,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 
 			IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(CardIds)));
+			Playables.Clear();
 			Playables.Add(randomCard);
 
 			Game.OnRandomHappened(true);

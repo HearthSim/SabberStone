@@ -597,22 +597,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SwampKingDred_UNG_919()
 		{
-			// TODO SwampKingDred_UNG_919 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Giant Wasp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			Assert.Equal(8, ((ICharacter)testCard).Health);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			Assert.Equal(6, ((ICharacter)testCard).Health);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable dirtyRat = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, dirtyRat));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

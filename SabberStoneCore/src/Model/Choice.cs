@@ -65,6 +65,16 @@ namespace SabberStoneCore.Model
 			Choices = new List<int>(choice.Choices);
 			SourceId = choice.SourceId;
 			TargetIds = new List<int>(choice.TargetIds);
+			if (choice.ChoiceQueue.Count != 0)
+			{
+				foreach (Choice item in choice.ChoiceQueue)
+				{
+					var clone = new Choice(Controller);
+					clone.Stamp(item);
+					ChoiceQueue.Enqueue(item);
+				}
+			}
+			
 		}
 
 		public string FullPrint()

@@ -390,7 +390,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.LAST_AFFECTED_BY] = value; }
 		}
 
-		public int AttackDamage
+		public virtual int AttackDamage
 		{
 			get { return this[GameTag.ATK]; }
 			set { this[GameTag.ATK] = value; }

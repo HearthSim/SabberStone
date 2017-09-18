@@ -3315,6 +3315,9 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(2, game.CurrentPlayer.Hero.Power.Cost);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.Hero.Power.Cost);
+			IPlayable fireball = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, fireball, testCard));
+			Assert.Equal(2, game.CurrentPlayer.Hero.Power.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
