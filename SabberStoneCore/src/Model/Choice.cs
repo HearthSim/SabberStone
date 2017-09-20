@@ -12,7 +12,7 @@ namespace SabberStoneCore.Model
 	public enum ChoiceAction
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL
+		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL, GLIMMERROOT
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -65,6 +65,16 @@ namespace SabberStoneCore.Model
 			Choices = new List<int>(choice.Choices);
 			SourceId = choice.SourceId;
 			TargetIds = new List<int>(choice.TargetIds);
+			if (choice.ChoiceQueue.Count != 0)
+			{
+				foreach (Choice item in choice.ChoiceQueue)
+				{
+					var clone = new Choice(Controller);
+					clone.Stamp(item);
+					ChoiceQueue.Enqueue(item);
+				}
+			}
+			
 		}
 
 		public string FullPrint()

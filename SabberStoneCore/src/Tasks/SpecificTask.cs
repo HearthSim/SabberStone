@@ -132,6 +132,7 @@ namespace SabberStoneCore.Tasks
 					IPlayable spell = Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
 					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
 					controller.SecretZone.Add(spell);
+					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();
 				})
 			);
@@ -142,6 +143,8 @@ namespace SabberStoneCore.Tasks
 				new FilterStackTask(SelfCondition.IsMinion),
 				new FuncPlayablesTask(list =>
 				{
+					if (!list.Any())
+						return new List<IPlayable>();
 					int minCost = list.Min(p => p.Cost);
 					list.Where(p => p.Cost == minCost).ToList();
 					return list.Where(p => p.Cost == minCost).ToList();
@@ -158,6 +161,68 @@ namespace SabberStoneCore.Tasks
 					return p[0].Controller.Opponent.GraveyardZone.GetAll.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
 				}),
 				new SummonCopyTask(EntityType.STACK));
+
+		public static ISimpleTask CuriousGlimmerroot
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					IEntity source = p[0];
+					Controller controller = p[0].Controller;
+					Controller opponent = p[0].Controller.Opponent;
+					var opStartDeckClassCards = opponent.DeckCards.Where(c => c.Class == opponent.BaseClass).ToList();
+					List<Card> allClassCards = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList();
+					List<Card> exclusives = allClassCards.Select(c => c.AssetId).Except(opStartDeckClassCards.Select(c => c.AssetId)).Select(i => Cards.FromAssetId(i)).ToList();
+					var result = new List<Card>
+					{
+						Util.Choose(opStartDeckClassCards),
+						Util.Choose(exclusives),
+					};
+					while (true)
+					{
+						Card item = Util.Choose(exclusives);
+						if (item.AssetId != result[1].AssetId)
+						{
+							result.Add(item);
+							break;
+						}
+					}
+					for (int i = 0; i < 3; i++)
+					{
+						int j = Util.Random.Next(i, 3);
+						Card temp = result[i];
+						result[i] = result[j];
+						result[j] = temp;
+					}
+					Actions.Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.GLIMMERROOT, result, null);
+					controller.Game.OnRandomHappened(true);
+					return p;
+				}));
+
+		public static ISimpleTask RazaTheChained
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					p[0].Game.Enchants.Add(
+							new Enchants.Enchant
+							{
+								Game = p[0].Game,
+								Owner = p[0].Controller.Hero,
+								ApplyConditions = new List<RelaCondition>
+								{
+									RelaCondition.IsOther(SelfCondition.IsHeroPower),
+									RelaCondition.IsFriendly
+								},
+
+								Effects = new Dictionary<GameTag, int>
+								{
+									[GameTag.COST] = 0
+								},
+								FixedValueFunc = owner => 0
+							});
+					return new List<IPlayable>();
+				}));
 	}
 }
 

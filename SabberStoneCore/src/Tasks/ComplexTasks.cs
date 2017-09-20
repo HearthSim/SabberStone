@@ -175,7 +175,7 @@ namespace SabberStoneCore.Tasks
 		{
 			return Create(
 				new IncludeTask(EntityType.GRAVEYARD),
-				new FilterStackTask(SelfCondition.IsMinion, selfCondition),
+				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
 				new RandomTask(1, EntityType.STACK),
 				new CopyTask(EntityType.STACK, 1),
 				new SummonTask());
@@ -251,7 +251,8 @@ namespace SabberStoneCore.Tasks
 			var secretList = list.ToList();
 			secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
 			secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
-			return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
+			var checkIsOpponentTurnTask = new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn);
+			return Create(checkIsOpponentTurnTask, new FlagTask(true, StateTaskList<ISimpleTask>.Chain(secretList.ToArray())));
 		}
 
 		public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)

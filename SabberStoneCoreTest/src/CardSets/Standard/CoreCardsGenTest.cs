@@ -2841,16 +2841,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 
-			Assert.Equal(3, game.CurrentPlayer.Hero.TotalAttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.Equal(3, game.CurrentPlayer.Hero.TotalAttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 
-			Assert.Equal(0, game.CurrentPlayer.Hero.TotalAttackDamage);
+			Assert.Equal(0, game.CurrentPlayer.Hero.AttackDamage);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

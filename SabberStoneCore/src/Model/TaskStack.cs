@@ -32,7 +32,7 @@ namespace SabberStoneCore.Model
 			Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
 			CardIds = taskStack.CardIds;
 			Flag = taskStack.Flag;
-			Numbers = taskStack.Numbers;
+			Numbers = new List<int>(taskStack.Numbers).ToArray();
 		}
 	}
 }

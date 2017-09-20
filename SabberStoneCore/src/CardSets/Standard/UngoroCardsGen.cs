@@ -549,11 +549,29 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_919", new List<Enchantment>
 			{
-                // TODO [UNG_919] Swamp King Dred && Test: Swamp King Dred_UNG_919
                 new Enchantment
 				{
-                    //Activation = null,
-                    //SingleTask = null,
+					Area = EnchantmentArea.OP_BOARD,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
+						.SingleTask(ComplexTask.Create(
+							new IncludeTask(EntityType.SOURCE),
+							new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE),
+							new IncludeTask(EntityType.TARGET, addFlag: true),
+							new FuncPlayablesTask(plist =>
+							{
+								var source = (Model.Entities.ICharacter)plist[0];
+								var target = (Model.Entities.ICharacter)plist[1];
+								source.ProposedAttacker = source.Id;
+								source.ProposedDefender = target.Id;
+								source[GameTag.AUTOATTACK] = 1;
+								Actions.Generic.AttackBlock.Invoke(source.Controller, source, target);
+								return plist;
+							}),
+							new SetGameTagTask(GameTag.AUTOATTACK, 0, EntityType.SOURCE)))
+						.Build()
                 }
 			});
 
@@ -1411,11 +1429,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_035", new List<Enchantment>
 			{
-                // TODO [UNG_035] Curious Glimmerroot && Test: Curious Glimmerroot_UNG_035
                 new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = SpecificTask.CuriousGlimmerroot
 				},
 			});
 
@@ -1462,6 +1479,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Create(
 							new RandomCardTask(CardType.SPELL, CardClass.PRIEST),
+							new FilterStackTask(SelfCondition.IsTagValue(GameTag.QUEST, 0)),
 							new AddStackTo(EntityType.HAND)))
 						.Build()
 				}

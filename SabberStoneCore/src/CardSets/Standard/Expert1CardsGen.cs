@@ -911,12 +911,15 @@ namespace SabberStoneCore.CardSets.Standard
 						.ApplyConditions(RelaCondition.IsMyHeroAttacked,
 							RelaCondition.IsMe(SelfCondition.IsAnyNotImmune))
 						.TriggerEffect(GameTag.ATTACKING, 1)
-						.FastExecution(true)
-						.SingleTask(ComplexTask.Secret(
-							new IncludeTask(EntityType.ALL, new[] {EntityType.TARGET, EntityType.OP_HERO}),
-							new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
-							new RandomTask(1, EntityType.STACK),
-							new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
+						//.FastExecution(true)
+						.SingleTask(ComplexTask.Create(
+								new IncludeTask(EntityType.ALL, new EntityType[] { EntityType.TARGET, EntityType.HERO }),
+								new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
+								new ConditionTask(EntityType.STACK, SelfCondition.IsInZone(Zone.PLAY)),
+								new FlagTask(true, new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY))),
+								new FlagTask(true, ComplexTask.Secret(
+									new RandomTask(1, EntityType.STACK),
+									new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))))
 						.Build()
 				}
 			});
@@ -1077,11 +1080,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.HERO,
+					Area = EnchantmentArea.OP_BOARD,
 					Activation = EnchantmentActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-						.TriggerEffect(GameTag.DEFENDING, 1)
+						.ApplyConditions(RelaCondition.IsMyHeroAttacked)
+						.TriggerEffect(GameTag.ATTACKING, 1)
 						.SingleTask(ComplexTask.Secret(
 							new DamageTask(2, EntityType.ENEMIES, true)))
 						.Build()
@@ -1107,10 +1111,12 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.ATTACKING, 1)
-						.SingleTask(ComplexTask.Secret(
-							new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
-							new ReturnHandTask(EntityType.TARGET),
-							new BuffTask(Buffs.Cost(2), EntityType.TARGET)))
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+							new FlagTask(true, ComplexTask.Secret(
+								new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
+								new ReturnHandTask(EntityType.TARGET),
+								new BuffTask(Buffs.Cost(2), EntityType.TARGET)))))
 						.Build()
 				},
 			});
@@ -2195,11 +2201,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_591", new List<Enchantment>
 			{
-                // TODO [EX1_591] Auchenai Soulpriest && Test: Auchenai Soulpriest_EX1_591
-                new Enchantment
+				new Enchantment
 				{
-                    //Activation = null,
-                    //SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask =
+						new AuraTask(new Enchant
+						{
+							EnableConditions = new List<SelfCondition>
+							{
+								SelfCondition.IsInZone(Zone.PLAY),
+								SelfCondition.IsNotSilenced
+							},
+							Effects = new Dictionary<GameTag, int>
+							{
+								{GameTag.RESTORE_TO_DAMAGE, 1 }
+							},
+							ApplyConditions = new List<RelaCondition>
+							{
+								RelaCondition.IsOther(SelfCondition.IsHero)
+							}
+						},
+						AuraArea.HERO)
                 }
 			});
 
@@ -2285,12 +2307,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_334", new List<Enchantment>
 			{
-                // TODO [EX1_334] Shadow Madness && Test: Shadow Madness_EX1_334
+                // TODO Test: Shadow Madness_EX1_334
                 new Enchantment
 				{
 					InfoCardId = "EX1_334e",
+					Area = EnchantmentArea.TARGET,
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ControlTask(EntityType.TARGET),
+					Enchant = new Enchant
+					{
+						TurnsActive = 0,
+						EnableConditions = new List<SelfCondition>
+						{
+							//SelfCondition.IsNotSilenced,
+							SelfCondition.IsInZone(Zone.PLAY)
+						},
+						Effects = new Dictionary<GameTag, int>
+						{
+							[GameTag.CHARGE] = 1,
+							[GameTag.NUM_TURNS_IN_PLAY] = 0,
+						},
+						RemovalTask = new ControlTask(EntityType.TARGET, true)
+					}
 				},
 			});
 
@@ -2307,7 +2345,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(2, EntityType.OP_DECK),
-						new CopyTask(EntityType.STACK, 1),
+						new CopyTask(EntityType.STACK, 1, true),
 						new AddStackTo(EntityType.HAND))
 				},
 			});
@@ -2385,6 +2423,8 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPowerCard("EX1_625t")),
+						ComplexTask.True(new ReplaceHeroPower(Cards.FromId("EX1_625t2"))),
+						new FlagTask(false, new ConditionTask(EntityType.SOURCE, SelfCondition.IsHeroPowerCard("ICC_830p"))),
 						ComplexTask.True(new ReplaceHeroPower(Cards.FromId("EX1_625t2"))),
 						ComplexTask.False(new ReplaceHeroPower(Cards.FromId("EX1_625t"))))
 				},
@@ -5426,12 +5466,12 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					InfoCardId = "EX1_509e",
-					Area = EnchantmentArea.HAND,
+					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
-						.TriggerEffect(GameTag.ZONE, 1)
+						.TriggerEffect(GameTag.SUMMONED, 1)
 						.SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
 						.Build()
 				}

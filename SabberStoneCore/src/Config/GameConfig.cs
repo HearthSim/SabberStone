@@ -96,6 +96,7 @@ namespace SabberStoneCore.Config
 		/// </summary>
 		public List<string> UnPredictableCardIDs = new List<string> {
 			"KAR_096", // Prince Malchezaar
+			"CFM_637", // Patches the Pirate
 		};
 
 		/// <summary>

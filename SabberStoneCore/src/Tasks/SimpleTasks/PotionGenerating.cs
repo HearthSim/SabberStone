@@ -56,10 +56,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// create card ...
-			Card baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
-			Card spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[1]);
-			Card spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[2]);
-			baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
+			Card baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Clone();
+			var ordered = ScriptTags.Skip(1).OrderBy(p => p).ToList();
+			Card spell1 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[0]);
+			Card spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[1]);
+			//baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
+			baseCard.Text = spell1.Text + "\n" + spell2.Text;
 			baseCard.Enchantments = new List<Enchantment>();
 			baseCard.Enchantments.AddRange(spell1.Enchantments);
 			spell1.PlayRequirements.ToList().ForEach(p =>
@@ -101,7 +103,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//&& !p.Id.Equals("CFM_621t13")
 			&& !p.Id.Equals("CFM_621t14")
 			&& !p.Id.Equals("CFM_621t15")
-			).ToList();
+			).Select(p => p.Clone()).ToList();
 
 			return list;
 		}

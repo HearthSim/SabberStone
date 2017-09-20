@@ -39,11 +39,15 @@ namespace SabberStoneCore.Actions
 			{
 				if (c != source.Controller || c == target.Controller)
 				{
+					if (source[GameTag.AUTOATTACK] == 1)
+						return true;
 					c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "wrong controller in phase.");
 					return false;
 				}
 				if (!source.CanAttack || !source.IsValidAttackTarget(target))
 				{
+					if (source[GameTag.AUTOATTACK] == 1)
+						return true;
 					c.Game.Log(LogLevel.ERROR, BlockType.ATTACK, "PreAttackPhase", "can't attack with this card.");
 					return false;
 				}
@@ -88,6 +92,8 @@ namespace SabberStoneCore.Actions
 				if (!c.Game.IdEntityDic.TryGetValue(source.ProposedDefender, out proposedDefender))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", "target wasn't found by proposed defender call.");
+					source.IsAttacking = false;
+					source.IsDefending = false;
 					return false;
 				}
 
@@ -98,8 +104,8 @@ namespace SabberStoneCore.Actions
 
 				// Save defender's attack as it might change after being damaged (e.g. enrage)
 				var targetHero = target as Hero;
-				int targetAttack = targetHero != null ? 0 : target.AttackDamage;
-				int sourceAttack = hero?.TotalAttackDamage ?? source.AttackDamage;
+				int targetAttack = /*targetHero != null ? 0 : */target.AttackDamage;
+				int sourceAttack = /*hero?.TotalAttackDamage ?? */source.AttackDamage;
 
 				int targetRealDamage = target.TakeDamage(source, sourceAttack);
 				bool targetDamaged = targetRealDamage > 0;

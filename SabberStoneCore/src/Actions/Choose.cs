@@ -135,6 +135,14 @@ namespace SabberStoneCore.Actions
 						}
 						break;
 
+					case ChoiceAction.GLIMMERROOT:
+						if (c.Opponent.DeckCards.Select(p => p.Id).Contains(playable.Card.Id))
+						{
+							if (RemoveFromZone(c, playable))
+								AddHandPhase.Invoke(c, playable);
+						}
+						break;
+
 					default:
 						throw new NotImplementedException();
 				}
@@ -243,7 +251,7 @@ namespace SabberStoneCore.Actions
 				choices.ForEach(p =>
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, p);
-					choiceEntity[GameTag.CREATOR] = source.Id;
+					((Entity)choiceEntity).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, source.Id);
 					// add after discover enchantment
 					if (enchantment != null)
 					{

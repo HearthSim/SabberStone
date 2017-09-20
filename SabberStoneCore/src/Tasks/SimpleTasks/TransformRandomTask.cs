@@ -29,6 +29,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			});
 
+			Game.OnRandomHappened(true);
+
 			return TaskState.COMPLETE;
 		}
 

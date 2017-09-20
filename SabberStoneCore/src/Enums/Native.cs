@@ -589,6 +589,8 @@
 
 
 		// more or less guessed gametags
+		RESTORE_TO_DAMAGE = 326,
+		CONTROLLER_CHANGED_THIS_TURN = 333,	//	Potion of Madness, Shadow Madness, Embrace Darkness
 		EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry
 		NUM_SPELLS_PLAYED_THIS_TURN = 430, // need to implement it ^^
 		NUM_CARDS_TO_DRAW = 467,

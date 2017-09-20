@@ -194,9 +194,19 @@ namespace SabberStoneCore.Model.Entities
 				int value = _data[t];
 
 				// cumulative enchanment calculation ... priorizing game, zone, entity
-				Game?.Enchants.ForEach(p => value = p.Apply(this, t, value));
-				Zone?.Enchants.ForEach(p => value = p.Apply(this, t, value));
-				Enchants.ForEach(p => value = p.Apply(this, t, value));
+				//if (Zone != null)
+				//	Zone.Enchants.ForEach(p => value = p.Apply(this, t, value));
+				//else
+				//	Game.Enchants.ForEach(p => value = p.Apply(this, t, value));
+				//Enchants.ForEach(p => value = p.Apply(this, t, value));
+				if (Zone != null)
+					for (int i = 0; i < Zone.Enchants.Count; i++)
+						value = Zone.Enchants[i].Apply(this, t, value);
+				else
+					for (int i = 0; i < Game.Enchants.Count; i++)
+						value = Game.Enchants[i].Apply(this, t, value);
+				for (int i = 0; i < Enchants.Count; i++)
+					value = Enchants[i].Apply(this, t, value);
 
 				return value;
 			}
@@ -222,9 +232,19 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// trigger here
-				Game?.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
-				Zone?.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
-				Triggers.ForEach(p => p.Change(this, t, oldValue, value));
+				//if (Zone != null)
+				//	Zone.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
+				//else
+				//	Game.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
+				//Triggers.ForEach(p => p.Change(this, t, oldValue, value));
+				if (Zone != null)
+					for (int i = 0; i < Zone.Triggers.Count; i++)
+						Zone.Triggers[i].Change(this, t, oldValue, value);
+				else
+					for (int i = 0; i < Game.Triggers.Count; i++)
+						Game.Triggers[i].Change(this, t, oldValue, value);
+				for (int i = 0; i < Triggers.Count; i++)
+					Triggers[i].Change(this, t, oldValue, value);
 			}
 		}
 

@@ -234,7 +234,9 @@ namespace SabberStoneCore.Model
 			if (setupHeroes)
 			{
 				_players[0].AddHeroAndPower(Cards.HeroCard(gameConfig.Player1HeroClass));
+				_players[0].BaseClass = _players[0].HeroClass;
 				_players[1].AddHeroAndPower(Cards.HeroCard(gameConfig.Player2HeroClass));
+				_players[1].BaseClass = _players[1].HeroClass;
 			}
 
 			TaskQueue = new TaskQueue(this);
@@ -775,6 +777,12 @@ namespace SabberStoneCore.Model
 			// check for dead minions to carry to the graveyard
 			Minions.Where(p => p.IsDead).ToList().ForEach(p =>
 			{
+				//	TODO : Issue to be fixed, suspect: SummonTask?
+				if (p.Zone == p.Controller.GraveyardZone)
+				{
+					p.Controller.BoardZone.Remove(p);
+					return;
+				}
 				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
 				p.LastBoardPosition = p.ZonePosition;
 				p.Zone.Remove(p);
@@ -805,38 +813,68 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
-			Enchants.ForEach(p => p.IsEnabled());
-			Triggers.ForEach(p => p.IsEnabled());
+			//Enchants.ForEach(p => p.IsEnabled());
+			//Triggers.ForEach(p => p.IsEnabled());
 
-			CurrentPlayer.Hero.Enchants.ForEach(p => p.IsEnabled());
-			CurrentPlayer.Hero.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.Hero.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.Hero.Triggers.ForEach(p => p.IsEnabled());
+			int i = 0;
+			for (i = 0; i < CurrentPlayer.Hero.Enchants.Count; i++)
+				CurrentPlayer.Hero.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentPlayer.Hero.Triggers.Count; i++)
+				CurrentPlayer.Hero.Triggers[i].IsEnabled();
 
 			//CurrentPlayer.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
 			//CurrentPlayer.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-			CurrentPlayer.BoardZone.Enchants.ForEach(p => p.IsEnabled());
-			CurrentPlayer.BoardZone.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.BoardZone.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.BoardZone.Triggers.ForEach(p => p.IsEnabled());
+			for (i = 0; i < CurrentPlayer.BoardZone.Enchants.Count; i++)
+				CurrentPlayer.BoardZone.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentPlayer.BoardZone.Triggers.Count; i++)
+				CurrentPlayer.BoardZone.Triggers[i].IsEnabled();
 
-			CurrentPlayer.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
-			CurrentPlayer.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentPlayer.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
+			for (i = 0; i < CurrentPlayer.GraveyardZone.Enchants.Count; i++)
+				CurrentPlayer.GraveyardZone.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentPlayer.GraveyardZone.Triggers.Count; i++)
+				CurrentPlayer.GraveyardZone.Triggers[i].IsEnabled();
 
-			CurrentOpponent.Hero.Enchants.ForEach(p => p.IsEnabled());
-			CurrentOpponent.Hero.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.Hero.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.Hero.Triggers.ForEach(p => p.IsEnabled());
+			for (i = 0; i < CurrentOpponent.Hero.Enchants.Count; i++)
+				CurrentOpponent.Hero.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentOpponent.Hero.Triggers.Count; i++)
+				CurrentOpponent.Hero.Triggers[i].IsEnabled();
 
 			//CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
 			//CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-			CurrentOpponent.BoardZone.Enchants.ForEach(p => p.IsEnabled());
-			CurrentOpponent.BoardZone.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.BoardZone.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.BoardZone.Triggers.ForEach(p => p.IsEnabled());
+			for (i = 0; i < CurrentOpponent.BoardZone.Enchants.Count; i++)
+				CurrentOpponent.BoardZone.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentOpponent.BoardZone.Triggers.Count; i++)
+				CurrentOpponent.BoardZone.Triggers[i].IsEnabled();
 
-			CurrentOpponent.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
-			CurrentOpponent.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
+			//CurrentOpponent.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
+			for (i = 0; i < CurrentOpponent.GraveyardZone.Enchants.Count; i++)
+				CurrentOpponent.GraveyardZone.Enchants[i].IsEnabled();
+			for (i = 0; i < CurrentOpponent.GraveyardZone.Triggers.Count; i++)
+				CurrentOpponent.GraveyardZone.Triggers[i].IsEnabled();
 
-			Characters.ForEach(p1 => p1.Enchants.ForEach(p2 => p2.IsEnabled()));
-			Characters.ForEach(p1 => p1.Triggers.ForEach(p2 => p2.IsEnabled()));
+			//Characters.ForEach(p1 => p1.Enchants.ForEach(p2 => p2.IsEnabled()));
+			//Characters.ForEach(p1 => p1.Triggers.ForEach(p2 => p2.IsEnabled()));
 
-			LazyRemoves.ToList().ForEach(p => p.Remove());
-			LazyRemoves.Clear();
+			//LazyRemoves.ToList().ForEach(p => p.Remove());
+			//LazyRemoves.Clear();
+			for (i = 0; i < LazyRemoves.Count;)
+			{
+				ILazyRemove item = LazyRemoves.Dequeue();
+				item.Remove();
+			}
 		}
 
 		/// <summary>

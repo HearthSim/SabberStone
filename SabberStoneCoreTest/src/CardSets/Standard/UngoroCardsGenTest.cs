@@ -597,22 +597,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SwampKingDred_UNG_919()
 		{
-			// TODO SwampKingDred_UNG_919 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Giant Wasp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			Assert.Equal(8, ((ICharacter)testCard).Health);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			Assert.Equal(6, ((ICharacter)testCard).Health);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable dirtyRat = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, dirtyRat));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1519,22 +1545,38 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CuriousGlimmerroot_UNG_035()
 		{
-			// TODO CuriousGlimmerroot_UNG_035 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Power Word: Shield")
+				},
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curious Glimmerroot"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curious Glimmerroot"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			IEnumerable<IPlayable> choices = game.CurrentPlayer.Choice.Choices.Select(i => game.IdEntityDic[i]);
+			Assert.True(choices.Select(p => p.Card.Name).Contains("Power Word: Shield"));
+			Assert.True(choices.All(p => p.Card.Class == CardClass.PRIEST));
 		}
 
 		// ---------------------------------------- MINION - PRIEST

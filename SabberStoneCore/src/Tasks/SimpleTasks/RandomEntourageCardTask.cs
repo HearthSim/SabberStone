@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -15,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
-			Playables.Add(randomCard);
+			Playables = new List<IPlayable> { randomCard };
 
 			Game.OnRandomHappened(true);
 

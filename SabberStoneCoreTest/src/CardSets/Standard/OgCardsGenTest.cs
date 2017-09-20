@@ -1331,7 +1331,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: This turn, your healing effects deal damage instead.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EmbraceTheShadow_OG_104()
 		{
 			// TODO EmbraceTheShadow_OG_104 test
@@ -1346,7 +1346,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Embrace the Shadow"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Embrace the Shadow"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(28, game.CurrentOpponent.Hero.Health);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -2924,10 +2931,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>
-				{
-					Cards.FromName("Nerubian Prophet")
-				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true,
@@ -2937,8 +2940,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Prophet"));
-			Assert.Equal(testCard.Card.Name, game.CurrentPlayer.HandZone[0].Card.Name);
-			Assert.Equal(testCard.Cost - 1, game.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(testCard.Card.Name, game.CurrentPlayer.HandZone[4].Card.Name);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Prophet"));
+			Assert.Equal(testCard2.Cost - 1, game.CurrentPlayer.HandZone[4].Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

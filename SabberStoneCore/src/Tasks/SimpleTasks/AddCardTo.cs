@@ -42,24 +42,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.DECK:
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller, Card);
+					((Entity)Playable).SetNativeGameTag(Enums.GameTag.DISPLAYED_CREATOR, Source.Id);
 					Generic.ShuffleIntoDeck.Invoke(Controller, Playable);
 					return TaskState.COMPLETE;
 
 				case EntityType.HAND:
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller, Card);
+					((Entity)Playable).SetNativeGameTag(Enums.GameTag.DISPLAYED_CREATOR, Source.Id);
 					Generic.AddHandPhase.Invoke(Controller, Playable);
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_HAND:
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller.Opponent, Card);
+					((Entity)Playable).SetNativeGameTag(Enums.GameTag.DISPLAYED_CREATOR, Source.Id);
 					Generic.AddHandPhase.Invoke(Controller.Opponent, Playable);
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_DECK:
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller.Opponent, Card);
+					((Entity)Playable).SetNativeGameTag(Enums.GameTag.DISPLAYED_CREATOR, Source.Id);
 					Generic.ShuffleIntoDeck.Invoke(Controller.Opponent, Playable);
 					return TaskState.COMPLETE;
 
@@ -69,7 +73,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		public override ISimpleTask Clone()
-		{
+		{ 
 			var clone = new AddCardTo(Playable, Card, Type);
 			clone.Copy(this);
 			return clone;

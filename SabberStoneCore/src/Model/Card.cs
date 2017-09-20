@@ -276,5 +276,17 @@ namespace SabberStoneCore.Model
 			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
 			PlayRequirements = new Dictionary<PlayReq, int>(),
 		};
+
+		public Card Clone()
+		{
+			var clone = (Card)MemberwiseClone();
+			clone.Tags = new Dictionary<GameTag, int>(Tags);
+			clone.RefTags = new Dictionary<GameTag, int>(RefTags);
+			clone.PlayRequirements = new Dictionary<PlayReq, int>(PlayRequirements);
+			if (Enchantments != null)
+				clone.Enchantments = new List<Enchantment>(Enchantments);
+			return clone;
+		}
+
 	}
 }

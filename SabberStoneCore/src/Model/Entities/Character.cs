@@ -212,6 +212,11 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="heal"></param>
 		public void TakeHeal(IPlayable source, int heal)
 		{
+			if (source.Controller.Hero[GameTag.RESTORE_TO_DAMAGE] == 1)
+			{
+				TakeDamage(source, heal);
+				return;
+			}
 			// we don't heal undamaged entities
 			if (Damage == 0)
 			{
@@ -385,7 +390,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.LAST_AFFECTED_BY] = value; }
 		}
 
-		public int AttackDamage
+		public virtual int AttackDamage
 		{
 			get { return this[GameTag.ATK]; }
 			set { this[GameTag.ATK] = value; }
