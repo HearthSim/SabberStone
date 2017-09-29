@@ -159,6 +159,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsNotSelf)
 						.TriggerEffect(GameTag.SUMMONED, 1)
 						.SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET))
 						.Build()
@@ -2177,11 +2178,13 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(ComplexTask.Create(
-							new IncludeTask(EntityType.DECK),
-							new FilterStackTask(SelfCondition.IsMinion),
-							new RandomTask(1, EntityType.STACK),
-							new RemoveFromDeck(EntityType.STACK),
-							new SummonTask()))
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+							new FlagTask(true, ComplexTask.Create(
+								new IncludeTask(EntityType.DECK),
+								new FilterStackTask(SelfCondition.IsMinion),
+								new RandomTask(1, EntityType.STACK),
+								new RemoveFromDeck(EntityType.STACK),
+								new SummonTask()))))
 						.Build()
 				}
 			});
@@ -2314,8 +2317,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
-                        //new CopyTask(EntityType.STACK, 1),
-                        new SummonCopyTask(EntityType.STACK))
+                        new SummonCopyTask(EntityType.STACK, true))
 				}
 			});
 
@@ -2964,11 +2966,9 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.HAND),
-						new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
-						new RemoveFromHand(EntityType.STACK),
-                        // TODO this will summon copies instead of the hand minions, fix!!!
-                        new SummonCopyTask(EntityType.STACK))
+							new IncludeTask(EntityType.HAND),
+							new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
+							new SummonStackTask(removeFromZone: true))
 				}
 			});
 

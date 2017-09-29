@@ -1080,7 +1080,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.OP_BOARD,
+					Area = EnchantmentArea.OP_BOARD_AND_OP_HERO,
 					Activation = EnchantmentActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
@@ -1803,6 +1803,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+						.MaxExecution(1)
 						.SingleTask(ComplexTask.Secret(
 							new CopyTask(EntityType.TARGET, 1),
 							new FuncPlayablesTask(list =>

@@ -729,7 +729,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1), SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
-						new SummonCopyTask(EntityType.STACK))
+						new SummonCopyTask(EntityType.STACK, true))
 				},
 			});
 
@@ -1831,7 +1831,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(ComplexTask.Create(
 							new RandomTask(1, EntityType.MINIONS_NOSOURCE),
-							new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)))
+							new BuffTask(Buffs.AttackHealth(1), EntityType.STACK)))
 						.Build()
 				}
 			});
@@ -3004,12 +3004,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, give another random friendly minion +3 Attack.
 			// --------------------------------------------------------
 			cards.Add("ICC_029", new List<Enchantment> {
-				// TODO [ICC_029] Cobalt Scalebane && Test: Cobalt Scalebane_ICC_029
+				// TODO Test: Cobalt Scalebane_ICC_029
 				new Enchantment
 				{
 					InfoCardId = "ICC_029e",
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(ComplexTask.Create(
+							new RandomTask(1, EntityType.MINIONS_NOSOURCE),
+							new BuffTask(Buffs.Attack(3), EntityType.STACK)))
+						.Build()
 				}
 			});
 
@@ -3351,11 +3358,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new List<Enchantment> {
-				// TODO [ICC_700] Happy Ghoul && Test: Happy Ghoul_ICC_700
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.HERO,
+					Activation = EnchantmentActivation.HAND_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.FastExecution(true)
+						.TriggerEffect(GameTag.DAMAGE, 1)
+						.SingleTask(new BuffTask(Buffs.CostFix(0, true), EntityType.SOURCE))
+						.Build()
 				}
 			});
 

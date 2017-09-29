@@ -487,7 +487,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.HAND,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced, SelfCondition.IsNotBoardFull)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsSpell))
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
 						.SingleTask(ComplexTask.Create(
@@ -1426,7 +1426,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.GRAVEYARD_AND_SECRET,
 					Activation = EnchantmentActivation.WEAPON,
 					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
+						.EnableConditions(SelfCondition.IsThisWeaponEquiped, SelfCondition.IsNotBoardFull)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(ComplexTask.Create(

@@ -710,7 +710,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = SpecificTask.AnimalCompanion
+					SingleTask = ComplexTask.Create(
+						new RandomEntourageTask(),
+						new SummonTask())
 				}
 			});
 		}

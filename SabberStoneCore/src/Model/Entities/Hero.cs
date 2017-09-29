@@ -33,7 +33,7 @@ namespace SabberStoneCore.Model.Entities
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public override int AttackDamage => base.AttackDamage + (IsExhausted || Game.CurrentPlayer != Controller ? 0 : Weapon?.AttackDamage ?? 0);
+		public override int AttackDamage => base.AttackDamage + (Game.CurrentPlayer != Controller ? 0 : Weapon?.AttackDamage ?? 0);
 
 		public int TotalAttackDamage => AttackDamage/* + (Weapon?.AttackDamage ?? 0)*/;
 

@@ -72,7 +72,7 @@ namespace SabberStoneCore.Model.Zones
 			{
 				IPlayable copy = Entity.FromCard(Controller, p.Card, null, null, p.Id);
 				copy.Stamp(p as Entity);
-				MoveTo(copy, copy.ZonePosition);
+				MoveTo(copy, ((Entity)copy).GetNativeGameTag(GameTag.ZONE_POSITION) - 1);
 			});
 			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
 			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
@@ -136,8 +136,9 @@ namespace SabberStoneCore.Model.Zones
 			{
 				throw new ZoneException("Couldn't remove entity from zone.");
 			}
-			RePosition(entity.ZonePosition);
+			RePosition(((Entity)entity).GetNativeGameTag(GameTag.ZONE_POSITION) - 1);
 			entity.Zone = null;
+			//((Entity)entity).SetNativeGameTag(GameTag.ZONE, (int)Zone.INVALID);
 			//entity[GameTag.ZONE] = (int) Zone.INVALID;
 			//entity.ZonePosition = 0;
 			return entity;
@@ -147,7 +148,8 @@ namespace SabberStoneCore.Model.Zones
 		{
 			_entitiesAsList.Insert(zonePosition, (T)entity);
 			entity.Zone = this;
-			entity[GameTag.ZONE] = (int)Type;
+			((Entity)entity).SetNativeGameTag(GameTag.ZONE, (int)Type);
+			//entity.ZonePosition = zonePosition;
 			RePosition(zonePosition);
 		}
 
@@ -165,10 +167,10 @@ namespace SabberStoneCore.Model.Zones
 				throw new ZoneException("Swap not possible because of zone missmatch.");
 			}
 
-			int oldPos = oldEntity.ZonePosition;
-			int newPos = newEntity.ZonePosition;
-			newEntity.ZonePosition = oldPos;
-			oldEntity.ZonePosition = newPos;
+			int oldPos = ((Entity)oldEntity).GetNativeGameTag(GameTag.ZONE_POSITION) - 1;
+			int newPos = ((Entity)newEntity).GetNativeGameTag(GameTag.ZONE_POSITION) - 1;
+			((Entity)newEntity).SetNativeGameTag(GameTag.ZONE_POSITION, oldPos + 1);
+			((Entity)oldEntity).SetNativeGameTag(GameTag.ZONE_POSITION, newPos + 1);
 			_entitiesAsList[newPos] = (T)oldEntity;
 			_entitiesAsList[oldPos] = (T)newEntity;
 		}
@@ -177,7 +179,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			for (int i = zonePosition; i < _entitiesAsList.Count; i++)
 			{
-				_entitiesAsList[i].ZonePosition = i;
+				((Entity)(IPlayable)_entitiesAsList[i]).SetNativeGameTag(GameTag.ZONE_POSITION, i + 1);
 			}
 		}
 

@@ -121,9 +121,17 @@ namespace SabberStoneCore.Enchants
 		{
 			bool flag = true;
 
-			EnableConditions.ForEach(p => flag &= p.Eval(Owner));
+			//EnableConditions.ForEach(p => flag &= p.Eval(Owner));
 
-			RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] <= p.Value);
+			//RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] <= p.Value);
+
+
+			for (int i = 0; i < EnableConditions.Count; i++)
+				flag &= EnableConditions[i].Eval(Owner); 
+			foreach (KeyValuePair<GameTag, int> kvp in RemoveTriggers)
+				flag &= Owner.Controller[kvp.Key] <= kvp.Value;
+			
+
 
 			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 
@@ -144,7 +152,9 @@ namespace SabberStoneCore.Enchants
 		private bool IsApplying(IPlayable target)
 		{
 			bool flag = true;
-			ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+			//ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+			for (int i = 0; i < ApplyConditions.Count; i++)
+				flag &= ApplyConditions[i].Eval(Owner, target);
 			return flag;
 		}
 
