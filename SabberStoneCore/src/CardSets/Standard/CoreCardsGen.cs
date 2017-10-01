@@ -418,14 +418,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// [EX1_169] Innervate - COST:0
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: Gain 2 Mana Crystals this turn only.
+			// Text: Gain 1 Mana Crystals this turn only.
 			// --------------------------------------------------------
 			cards.Add("EX1_169", new List<Enchantment>
 			{
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new TempManaTask(2)
+					SingleTask = new TempManaTask(1)
 				}
 			});
 
@@ -1838,7 +1838,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_246] Hex - COST:3
+			// [EX1_246] Hex - COST:4
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
@@ -2350,7 +2350,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0]
+			// [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0]
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// GameTag:

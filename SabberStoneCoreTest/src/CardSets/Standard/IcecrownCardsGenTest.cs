@@ -1012,7 +1012,7 @@ namespace SabberStoneUnitTest.CardSets
 		}
 
 		// ------------------------------------------ SPELL - DRUID
-		// [ICC_054] Spreading Plague - COST:5 
+		// [ICC_054] Spreading Plague - COST:6 
 		// - Set: icecrown, Rarity: rare
 		// --------------------------------------------------------
 		// Text: Summon a 1/5 Scarab with <b>Taunt</b>. If your_opponent has more minions, cast this again.

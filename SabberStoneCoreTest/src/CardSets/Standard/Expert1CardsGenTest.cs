@@ -7121,7 +7121,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3] 
 		// - Race: murloc, Fac: neutral, Set: expert1, Rarity: epic
 		// --------------------------------------------------------
-		// Text: Your other Murlocs have +2/+1.
+		// Text: Your other Murlocs have +2 Attack.
 		// --------------------------------------------------------
 		// GameTag:
 		// - AURA = 1

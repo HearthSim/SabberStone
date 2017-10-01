@@ -4060,7 +4060,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blackwater Pirate"));
 			IPlayable weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(0, weapon.Cost);
+			Assert.Equal(1, weapon.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

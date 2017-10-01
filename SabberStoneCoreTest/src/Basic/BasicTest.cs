@@ -540,7 +540,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-			Assert.Equal(5, ((ICharacter)minion1).Health);
+			Assert.Equal(4, ((ICharacter)minion1).Health);
 			Assert.Equal(4, ((ICharacter)minion2).Health);
 			Assert.Equal(6, ((ICharacter)minion3).Health);
 

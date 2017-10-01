@@ -5439,7 +5439,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3] 
 			// - Race: murloc, Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
-			// Text: Your other Murlocs have +2/+1.
+			// Text: Your other Murlocs have +2 Attack.
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
@@ -5451,7 +5451,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "EX1_507e",
 					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.AttackHealth(2, 1, RelaCondition.IsSameRace)
+					Enchant = Auras.Attack(2, RelaCondition.IsSameRace)
 				}
 			});
 
@@ -6481,7 +6481,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [EX1_507e] Mrgglaargl! (*) - COST:0 
 			// - Set: expert1, 
 			// --------------------------------------------------------
-			// Text: +2/+1 from Murloc Warleader.
+			// Text: +2 Attack from Murloc Warleader.
 			// --------------------------------------------------------
 			cards.Add("EX1_507e", null);
 

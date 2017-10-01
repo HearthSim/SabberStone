@@ -8,6 +8,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Entities;
 
 using Generic = SabberStoneCore.Actions.Generic;
+using System.Collections.Generic;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
@@ -892,7 +893,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			game.CurrentPlayer.BaseMana = 8;
+			game.CurrentPlayer.BaseMana = 9;
 			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Innervate"));
 			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
 			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
@@ -909,7 +910,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// [EX1_169] Innervate - COST:0 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
-		// Text: Gain 2 Mana Crystals this turn only.
+		// Text: Gain 1 Mana Crystals this turn only.
 		// --------------------------------------------------------
 		[Fact]
 		public void Innervate_EX1_169()
@@ -931,7 +932,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Innervate"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 
-			Assert.Equal(3, game.CurrentPlayer.RemainingMana);
+			Assert.Equal(2, game.CurrentPlayer.RemainingMana);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -3443,7 +3444,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN
-		// [EX1_246] Hex - COST:3 
+		// [EX1_246] Hex - COST:4 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
 		// Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
@@ -4416,7 +4417,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
-		// [CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0] 
+		// [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0] 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
 		// GameTag:
@@ -4430,18 +4431,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				{
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.WARRIOR,
+					Player1Deck = new List<Card>
+					{
+						Cards.FromName("Fiery War Axe")
+					},
 					Player2HeroClass = CardClass.MAGE,
+					Shuffle = false,
 					FillDecks = true,
 					FillDecksPredictably = true
 				});
 			game.StartGame();
 
-			IPlayable weapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fiery War Axe"));
 
 			Assert.False(game.CurrentPlayer.Hero.IsExhausted);
 			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
