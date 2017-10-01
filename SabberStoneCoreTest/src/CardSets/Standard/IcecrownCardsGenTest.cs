@@ -4574,14 +4574,13 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Costs (0) if your hero was healed this turn.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HappyGhoul_ICC_700()
 		{
-			// TODO HappyGhoul_ICC_700 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -4589,7 +4588,11 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Happy Ghoul"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Happy Ghoul"));
+			IPlayable healer = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Earthen Ring Farseer"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, healer, game.CurrentPlayer.Hero));
+			Assert.Equal(0, testCard.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

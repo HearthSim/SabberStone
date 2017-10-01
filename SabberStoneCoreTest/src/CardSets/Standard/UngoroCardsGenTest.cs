@@ -1756,7 +1756,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 					Cards.FromName("Loot Hoarder"),
 					Cards.FromName("Loot Hoarder"),
 					Cards.FromName("Harvest Golem"),
-					Cards.FromName("Harvest Golem"),
 					Cards.FromName("Leper Gnome"),
 					Cards.FromName("Leper Gnome"),
 					Cards.FromName("Mistress of Mixtures"),
@@ -1790,7 +1789,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Loot Hoarder
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Harvest Golem
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Harvest Golem
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Whirlwind
@@ -3433,7 +3431,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ADAPT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ViciousFledgling_UNG_075()
 		{
 			// TODO ViciousFledgling_UNG_075 test
@@ -3448,7 +3446,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vicious Fledgling"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vicious Fledgling"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			int choice = game.CurrentPlayer.Choice.Choices[0];
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
+			Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

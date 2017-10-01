@@ -813,63 +813,33 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
-			//Enchants.ForEach(p => p.IsEnabled());
-			//Triggers.ForEach(p => p.IsEnabled());
+			int i;
+			int j;
 
-			//CurrentPlayer.Hero.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentPlayer.Hero.Triggers.ForEach(p => p.IsEnabled());
-			int i = 0;
-			for (i = 0; i < CurrentPlayer.Hero.Enchants.Count; i++)
-				CurrentPlayer.Hero.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentPlayer.Hero.Triggers.Count; i++)
-				CurrentPlayer.Hero.Triggers[i].IsEnabled();
+			for (i = 0; i < 2; i++)
+			{
+				for (j = 0; j < _players[i].Triggers.Count; j++)
+					_players[i].Triggers[j].IsEnabled();
 
-			//CurrentPlayer.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentPlayer.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
+				for (j = 0; j < _players[i].Hero.Enchants.Count; j++)
+					_players[i].Hero.Enchants[j].IsEnabled();
+				for (j = 0; j < _players[i].Hero.Triggers.Count; j++)
+					_players[i].Hero.Triggers[j].IsEnabled();
 
-			//CurrentPlayer.BoardZone.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentPlayer.BoardZone.Triggers.ForEach(p => p.IsEnabled());
-			for (i = 0; i < CurrentPlayer.BoardZone.Enchants.Count; i++)
-				CurrentPlayer.BoardZone.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentPlayer.BoardZone.Triggers.Count; i++)
-				CurrentPlayer.BoardZone.Triggers[i].IsEnabled();
+				for (j = 0; j < _players[i].BoardZone.Enchants.Count; j++)
+					_players[i].BoardZone.Enchants[j].IsEnabled();
+				for (j = 0; j < _players[i].BoardZone.Triggers.Count; j++)
+					_players[i].BoardZone.Triggers[j].IsEnabled();
 
-			//CurrentPlayer.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentPlayer.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
-			for (i = 0; i < CurrentPlayer.GraveyardZone.Enchants.Count; i++)
-				CurrentPlayer.GraveyardZone.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentPlayer.GraveyardZone.Triggers.Count; i++)
-				CurrentPlayer.GraveyardZone.Triggers[i].IsEnabled();
+				for (j = 0; j < _players[i].SecretZone.Triggers.Count; j++)
+					_players[i].SecretZone.Triggers[j].IsEnabled();
 
-			//CurrentOpponent.Hero.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentOpponent.Hero.Triggers.ForEach(p => p.IsEnabled());
-			for (i = 0; i < CurrentOpponent.Hero.Enchants.Count; i++)
-				CurrentOpponent.Hero.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentOpponent.Hero.Triggers.Count; i++)
-				CurrentOpponent.Hero.Triggers[i].IsEnabled();
+				for (j = 0; j < _players[i].GraveyardZone.Triggers.Count; j++)
+					_players[i].GraveyardZone.Triggers[j].IsEnabled();
+				//for (j = 0; j < _players[j].GraveyardZone.Enchants.Count; j++)
+				//	_players[j].GraveyardZone.Enchants[j].IsEnabled();
+			}
 
-			//CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
-
-			//CurrentOpponent.BoardZone.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentOpponent.BoardZone.Triggers.ForEach(p => p.IsEnabled());
-			for (i = 0; i < CurrentOpponent.BoardZone.Enchants.Count; i++)
-				CurrentOpponent.BoardZone.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentOpponent.BoardZone.Triggers.Count; i++)
-				CurrentOpponent.BoardZone.Triggers[i].IsEnabled();
-
-			//CurrentOpponent.GraveyardZone.Enchants.ForEach(p => p.IsEnabled());
-			//CurrentOpponent.GraveyardZone.Triggers.ForEach(p => p.IsEnabled());
-			for (i = 0; i < CurrentOpponent.GraveyardZone.Enchants.Count; i++)
-				CurrentOpponent.GraveyardZone.Enchants[i].IsEnabled();
-			for (i = 0; i < CurrentOpponent.GraveyardZone.Triggers.Count; i++)
-				CurrentOpponent.GraveyardZone.Triggers[i].IsEnabled();
-
-			//Characters.ForEach(p1 => p1.Enchants.ForEach(p2 => p2.IsEnabled()));
-			//Characters.ForEach(p1 => p1.Triggers.ForEach(p2 => p2.IsEnabled()));
-
-			//LazyRemoves.ToList().ForEach(p => p.Remove());
-			//LazyRemoves.Clear();
 			for (i = 0; i < LazyRemoves.Count;)
 			{
 				ILazyRemove item = LazyRemoves.Dequeue();
@@ -1036,14 +1006,19 @@ namespace SabberStoneCore.Model
 		{
 			get
 			{
-				return Player1[GameTag.CURRENT_PLAYER] == 1
+				//return Player1[GameTag.CURRENT_PLAYER] == 1
+				//	? Player1
+				//	: Player2[GameTag.CURRENT_PLAYER] == 1 ? Player2 : null;
+				return Player1.GetNativeGameTag(GameTag.CURRENT_PLAYER) == 1
 					? Player1
-					: Player2[GameTag.CURRENT_PLAYER] == 1 ? Player2 : null;
+					: Player2;
 			}
 			set
 			{
-				value.Opponent[GameTag.CURRENT_PLAYER] = 0;
-				value[GameTag.CURRENT_PLAYER] = 1;
+				//value.Opponent[GameTag.CURRENT_PLAYER] = 0;
+				//value[GameTag.CURRENT_PLAYER] = 1;
+				value.Opponent.SetNativeGameTag(GameTag.CURRENT_PLAYER, 0);
+				value.SetNativeGameTag(GameTag.CURRENT_PLAYER, 1);
 			}
 		}
 

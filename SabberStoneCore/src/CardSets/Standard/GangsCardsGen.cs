@@ -1727,9 +1727,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new FlagTask(true, ComplexTask.Create(
 							new IncludeTask(EntityType.HAND),
 							new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
-							new RemoveFromHand(EntityType.STACK),
-                            // TODO this will summon copies instead of the hand minions, fix!!!
-                            new SummonCopyTask(EntityType.STACK))))
+							new SummonStackTask(removeFromZone: true))))
 				}
 			});
 

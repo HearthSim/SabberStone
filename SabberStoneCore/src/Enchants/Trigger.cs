@@ -77,7 +77,9 @@ namespace SabberStoneCore.Enchants
 		public bool IsEnabled()
 		{
 			bool flag = true;
-			EnableConditions.ForEach(p => flag &= p.Eval(Owner));
+			//EnableConditions.ForEach(p => flag &= p.Eval(Owner));
+			for (int i = 0; i < EnableConditions.Count; i++)
+				flag &= EnableConditions[i].Eval(Owner);
 			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 			if (!flag)
 			{
@@ -89,7 +91,9 @@ namespace SabberStoneCore.Enchants
 		private bool IsApplying(IPlayable target)
 		{
 			bool flag = true;
-			ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+			//ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+			for (int i = 0; i < ApplyConditions.Count; i++)
+				flag &= ApplyConditions[i].Eval(Owner, target);
 			return flag;
 		}
 

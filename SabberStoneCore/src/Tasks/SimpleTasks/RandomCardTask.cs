@@ -99,7 +99,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
 				(CardSet == CardSet.INVALID || p.Set == CardSet) &&
 				(Race == Race.INVALID || p.Race == Race) &&
-				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))));
+				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))) &&
+				(p[GameTag.QUEST] == 0));
 
 			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
 			Playables = new List<IPlayable> { randomCard };
