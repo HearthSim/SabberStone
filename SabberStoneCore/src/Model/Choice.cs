@@ -12,7 +12,7 @@ namespace SabberStoneCore.Model
 	public enum ChoiceAction
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL, GLIMMERROOT
+		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL, GLIMMERROOT, BUILDABEAST
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -55,6 +55,10 @@ namespace SabberStoneCore.Model
 
 		/// <summary>Gets or sets the remaining choices for the controller.</summary>
 		public Queue<Choice> ChoiceQueue { get; set; } = new Queue<Choice>();
+
+		/// <summary>Gets or sets the ID of the last chosen entity.</summary>
+		/// <value>The entity Id.</value>
+		public int LastChoice { get; set; }
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 

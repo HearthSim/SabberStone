@@ -286,11 +286,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_828p", new List<Enchantment> {
-				// TODO [ICC_828p] Build-A-Beast && Test: Build-A-Beast_ICC_828p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = SpecificTask.BuildABeast
 				}
 			});
 
@@ -3519,12 +3518,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_851", new List<Enchantment> {
-				// TODO [ICC_851] Prince Keleseth && Test: Prince Keleseth_ICC_851
 				new Enchantment
 				{
 					InfoCardId = "ICC_851e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(2)),
+						new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.DECK, SelfCondition.IsMinion)))
 				},
 			});
 
@@ -3567,11 +3567,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_853", new List<Enchantment> {
-				// TODO [ICC_853] Prince Valanar && Test: Prince Valanar_ICC_853
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(4)),
+						new FlagTask(true, ComplexTask.Create(
+							new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.SOURCE),
+							new SetGameTagTask(GameTag.TAUNT, 1, EntityType.SOURCE))))
 				},
 			});
 

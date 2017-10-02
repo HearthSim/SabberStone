@@ -223,6 +223,63 @@ namespace SabberStoneCore.Tasks
 							});
 					return new List<IPlayable>();
 				}));
+
+		public static ISimpleTask BuildABeast
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					Controller controller = p[0].Controller;
+					IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) : Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
+					var firstBeasts = new List<Card>();
+					var secondBeasts = new List<Card>();
+					foreach (Card card in all)
+					{
+						if (card.Enchantments != null)
+							firstBeasts.Add(card);
+						else
+							secondBeasts.Add(card);
+					}
+
+					var first = new List<Card>();
+					var second = new List<Card>();
+					int numToSelect = 3;
+					int numLeft = firstBeasts.Count;
+					foreach (Card item in firstBeasts)
+					{
+						double prob = numToSelect / (double)numLeft;
+						if (Util.Random.NextDouble() < prob)
+						{
+							first.Add(item);
+							numToSelect--;
+							if (numToSelect == 0)
+								break;
+						}
+						numLeft--;
+					}
+					numToSelect = 3;
+					numLeft = secondBeasts.Count;
+					foreach (Card item in secondBeasts)
+					{
+						double prob = numToSelect / (double)numLeft;
+						if (Util.Random.NextDouble() < prob)
+						{
+							second.Add(item);
+							numToSelect--;
+							if (numToSelect == 0)
+								break;
+						}
+						numLeft--;
+					}
+
+
+					Actions.Generic.CreateChoiceCards.Invoke(controller, p[0], null, ChoiceType.GENERAL,
+						ChoiceAction.BUILDABEAST, first, null);
+					Actions.Generic.CreateChoiceCards.Invoke(controller, p[0], null, ChoiceType.GENERAL,
+						ChoiceAction.BUILDABEAST, second, null);
+
+					return p;
+				}));
 	}
 }
 

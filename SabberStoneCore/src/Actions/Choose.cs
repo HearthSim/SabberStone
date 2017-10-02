@@ -143,6 +143,38 @@ namespace SabberStoneCore.Actions
 						}
 						break;
 
+					case ChoiceAction.BUILDABEAST:
+						if (!c.Choice.ChoiceQueue.Any())
+						{
+							Card firstCard = c.Game.IdEntityDic[c.Choice.LastChoice].Card.Clone();
+							Card secondCard = playable.Card;
+							firstCard.Tags[GameTag.ATK] += secondCard[GameTag.ATK];
+							firstCard.Tags[GameTag.HEALTH] += secondCard[GameTag.HEALTH];
+							firstCard.Tags[GameTag.COST] += secondCard[GameTag.COST];
+							if (secondCard.Tags.ContainsKey(GameTag.TAUNT))
+								firstCard.Tags[GameTag.TAUNT] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.POISONOUS))
+								firstCard.Tags[GameTag.POISONOUS] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.STEALTH))
+								firstCard.Tags[GameTag.STEALTH] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.WINDFURY))
+								firstCard.Tags[GameTag.WINDFURY] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.CHARGE))
+								firstCard.Tags[GameTag.CHARGE] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.LIFESTEAL))
+								firstCard.Tags[GameTag.LIFESTEAL] = 1;
+							firstCard.Name = "Zombeast";
+							firstCard.Text = secondCard.Text + "\n" + firstCard.Text;
+
+							IPlayable zombeast = Entity.FromCard(c, firstCard);
+
+							AddHandPhase.Invoke(c, zombeast);
+							break;
+						}
+						else
+							break;
+
+
 					default:
 						throw new NotImplementedException();
 				}
@@ -152,7 +184,10 @@ namespace SabberStoneCore.Actions
 
 				//	Start next Choice if any choice is queueing up
 				if (c.Choice.ChoiceQueue.Any())
+				{
 					c.Choice = c.Choice.ChoiceQueue.Dequeue();
+					c.Choice.LastChoice = choice;
+				}
 				else
 				{
 					// reset choice it's done

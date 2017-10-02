@@ -116,7 +116,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void DeathstalkerRexxar_ICC_828()
 		{
-			// TODO DeathstalkerRexxar_ICC_828 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -132,8 +131,7 @@ namespace SabberStoneUnitTest.CardSets
 					Cards.FromName("Deathstalker Rexxar"),
 				},
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -144,6 +142,14 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Deathstalker Rexxar"));
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Count);	//	The Coin and created Zombeast
+			Assert.True(game.CurrentPlayer.HandZone[1].Card.Race == Race.BEAST);
 		}
 
 		// ----------------------------------------- HERO - PALADIN
@@ -521,7 +527,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact(Skip = "ignore")]
 		public void BuildABeast_ICC_828p()
 		{
-			// TODO BuildABeast_ICC_828p test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4834,22 +4839,42 @@ namespace SabberStoneUnitTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PrinceKeleseth_ICC_851()
 		{
-			// TODO PrinceKeleseth_ICC_851 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Mana Wyrm"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				Shuffle = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Keleseth"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Keleseth"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[3]));
+			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[3]).AttackDamage);
+			Assert.Equal(4, ((ICharacter)game.CurrentPlayer.HandZone[3]).Health);
+			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[4]).AttackDamage);
+			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[4]).Health);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
+			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.BoardZone[1]).Health);
+
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4898,22 +4923,38 @@ namespace SabberStoneUnitTest.CardSets
 		// - TAUNT = 1
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PrinceValanar_ICC_853()
 		{
-			// TODO PrinceValanar_ICC_853 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Arcane Intellect"),
+					Cards.FromName("Polymorph"),
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				Shuffle = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Valanar"));
+			var testCard = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Valanar"));
+			var testCard2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Valanar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.False(testCard.HasTaunt);
+			Assert.False(testCard.HasLifeSteal);
+			game.Player1.UsedMana = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arcane Intellect"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.True(testCard2.HasTaunt);
+			Assert.True(testCard2.HasLifeSteal);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
