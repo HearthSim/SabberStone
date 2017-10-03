@@ -182,7 +182,8 @@ namespace SabberStoneCore.Actions
 				{
 					[GameTag.HEALTH] = c.Hero[GameTag.HEALTH],
 					[GameTag.DAMAGE] = c.Hero[GameTag.DAMAGE],
-					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR]
+					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR],
+					[GameTag.EXHAUSTED] = c.Hero[GameTag.EXHAUSTED]
 				}, hero.Id);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)

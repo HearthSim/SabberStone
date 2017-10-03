@@ -78,6 +78,7 @@ namespace SabberStoneCore.Model
 					ChoiceQueue.Enqueue(item);
 				}
 			}
+			LastChoice = choice.LastChoice;
 			
 		}
 

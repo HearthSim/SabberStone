@@ -4585,18 +4585,22 @@ namespace SabberStoneUnitTest.CardSets
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARLOCK,
-				Player2HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.PRIEST,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+			IPlayable fireball = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, fireball, game.CurrentOpponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(6, game.CurrentPlayer.Hero.Damage);
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Happy Ghoul"));
-			IPlayable healer = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Earthen Ring Farseer"));
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, healer, game.CurrentPlayer.Hero));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+			Assert.Equal(4, game.CurrentPlayer.Hero.Damage);
 			Assert.Equal(0, testCard.Cost);
 		}
 

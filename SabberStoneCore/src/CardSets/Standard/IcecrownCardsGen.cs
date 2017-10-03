@@ -3362,8 +3362,9 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.HERO,
 					Activation = EnchantmentActivation.HAND_ZONE,
 					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
 						.FastExecution(true)
-						.TriggerEffect(GameTag.DAMAGE, 1)
+						.TriggerEffect(GameTag.DAMAGE, -1)
 						.SingleTask(new BuffTask(Buffs.CostFix(0, true), EntityType.SOURCE))
 						.Build()
 				}

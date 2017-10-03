@@ -579,9 +579,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crackling Razormaw"));
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crackling Razormaw"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
-			int choice1 = game.CurrentPlayer.Choice.Choices[0];
-			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
-			Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice1));
+			//int choice1 = game.CurrentPlayer.Choice.Choices[0];
+			//game.Process(ChooseTask.Pick(game.CurrentPlayer, choice1));
+			//Assert.False(UngoroGenerics.CheckAdapt(game, (Minion)testCard1, choice1));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard1));
 			int choice2 = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice2));
@@ -3434,7 +3434,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void ViciousFledgling_UNG_075()
 		{
-			// TODO ViciousFledgling_UNG_075 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3455,6 +3454,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			int choice = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 			Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)testCard, choice));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion));
+			Assert.Null(game.CurrentPlayer.Choice);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

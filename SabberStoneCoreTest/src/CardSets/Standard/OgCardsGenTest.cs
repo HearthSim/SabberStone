@@ -1989,6 +1989,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(4, testCard.Cost);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			Assert.Equal(3, testCard.Cost);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(6, testCard.Cost);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

@@ -1320,11 +1320,11 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Area = EnchantmentArea.TARGET,
-					Activation = EnchantmentActivation.SPELL,
+					Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, -1)
+						.TriggerEffect(GameTag.ATTACKING, 1)
 						.SingleTask(ComplexTask.Create(
 							new RandomCardTask(EntityType.OP_HERO),
 							new AddStackTo(EntityType.HAND)))
@@ -2896,11 +2896,13 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.OP_HAND),
-						new FilterStackTask(SelfCondition.IsMinion),
-						new RandomTask(1, EntityType.STACK),
-						new RemoveFromHand(EntityType.STACK),
-						new SummonOpTask())
+						new ConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
+						new FlagTask(true, ComplexTask.Create(
+							new IncludeTask(EntityType.OP_HAND),
+							new FilterStackTask(SelfCondition.IsMinion),
+							new RandomTask(1, EntityType.STACK),
+							new RemoveFromHand(EntityType.STACK),
+							new SummonOpTask())))
 				},
 			});
 

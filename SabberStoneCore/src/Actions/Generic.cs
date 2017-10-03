@@ -158,6 +158,12 @@ namespace SabberStoneCore.Actions
 				}
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
+
+				newMinion.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
+				newMinion.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
+				newMinion.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
+				newMinion.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+
 				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
 				oldMinion.Controller.SetasideZone.Add(oldEntity);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", $"{oldEntity} got transformed into {newMinion}.");
