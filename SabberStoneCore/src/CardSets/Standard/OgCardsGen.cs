@@ -1565,6 +1565,17 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Area = EnchantmentArea.BOARD,
+					Activation = EnchantmentActivation.DECK_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.DECK))
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.TOTEM)))
+						.TriggerEffect(GameTag.SUMMONED, 1)
+						.SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
+						.Build()
+				},
+				new Enchantment
+				{
+					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.HAND_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))

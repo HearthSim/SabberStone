@@ -1902,22 +1902,25 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - STEALTH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ShakuTheCollector_CFM_781()
 		{
-			// TODO ShakuTheCollector_CFM_781 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shaku, the Collector"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Shaku, the Collector"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+			Assert.Equal(CardClass.MAGE, game.CurrentPlayer.HandZone[0].Card.Class);
 		}
 	}
 

@@ -22,6 +22,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			ChoiceAction choiceAction = ChoiceAction.ADAPT;
 			var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
+
+			if (!targets.Any())
+				return TaskState.STOP;
+
 			//var totAdaptCards = new List<Card>()
 			//{ 
 			//    Cards.FromId("UNG_999t2"),  // [UNG_999t2] Living Spores

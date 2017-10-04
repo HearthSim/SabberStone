@@ -161,7 +161,7 @@ namespace SabberStoneCore.Enchants
 			return new Enchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
-				EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND) },
+				EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND, Zone.DECK) },
 				Effects = new Dictionary<GameTag, int>
 				{
 					[GameTag.COST] = amount

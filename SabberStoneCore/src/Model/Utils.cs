@@ -124,13 +124,13 @@ namespace SabberStoneCore.Model
 			return Instance.Next();
 		}
 
-		/// <summary>See <see cref="Random.Next(int)" /></summary> 
+		/// <summary>See <see cref="Random.Next(Int32)" /></summary> 
 		public static int Next(int maxValue)
 		{
 			return Instance.Next(maxValue);
 		}
 
-		/// <summary>See <see cref="Random.Next(int, int)" /></summary> 
+		/// <summary>See <see cref="Random.Next(Int32, Int32)" /></summary> 
 		public static int Next(int minValue, int maxValue)
 		{
 			return Instance.Next(minValue, maxValue);
@@ -142,7 +142,7 @@ namespace SabberStoneCore.Model
 			return Instance.NextDouble();
 		}
 
-		/// <summary>See <see cref="Random.NextBytes(byte[])" /></summary> 
+		/// <summary>See <see cref="Random.NextBytes(Byte[])" /></summary> 
 		public static void NextBytes(byte[] buffer)
 		{
 			Instance.NextBytes(buffer);

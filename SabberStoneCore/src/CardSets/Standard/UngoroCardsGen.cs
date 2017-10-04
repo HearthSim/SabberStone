@@ -3087,9 +3087,10 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, 1)
-						.FastExecution(true)
-						.SingleTask(new AdaptTask(EntityType.SOURCE))
+						.TriggerEffect(GameTag.ATTACKING, -1)
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsProposedDefender(CardType.HERO)),
+							new FlagTask(true, new AdaptTask(EntityType.SOURCE))))
 						.Build()
 				}
 			});
