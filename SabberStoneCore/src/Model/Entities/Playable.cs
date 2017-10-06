@@ -227,7 +227,8 @@ namespace SabberStoneCore.Model.Entities
 		public IPlayable Destroy()
 		{
 			ToBeDestroyed = true;
-			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
+			if (Game.Logging)
+				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
 			return this;
 		}
 
@@ -254,7 +255,8 @@ namespace SabberStoneCore.Model.Entities
 				// check if player is on turn
 				if (Controller != Game.CurrentPlayer)
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						$"{this} isn't playable, because player not on turn.");
 					return false;
 				}
@@ -262,7 +264,8 @@ namespace SabberStoneCore.Model.Entities
 				// check if entity is in hand to be played
 				if (Zone != Controller.HandZone && !(this is HeroPower))
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						$"{this} isn't playable, because card not in hand.");
 					return false;
 				}
@@ -270,7 +273,8 @@ namespace SabberStoneCore.Model.Entities
 				// check if player has enough mana to play card
 				if (Controller.RemainingMana < Cost)
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						$"{this} isn't playable, because not enough mana to pay cost.");
 					return false;
 				}
@@ -278,7 +282,8 @@ namespace SabberStoneCore.Model.Entities
 				// check if we got a slot on board for minions
 				if (Controller.BoardZone.IsFull && this is Minion)
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						$"{this} isn't playable, because not enough place on board.");
 					return false;
 				}
@@ -287,7 +292,8 @@ namespace SabberStoneCore.Model.Entities
 				var spell = this as Spell;
 				if (spell != null && spell.IsSecret && Controller.SecretZone.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						$"{this} isn't playable, because secret already active on controller.");
 					return false;
 				}
@@ -309,7 +315,8 @@ namespace SabberStoneCore.Model.Entities
 				// check if we need a target and there are some
 				if (Card.RequiresTarget && !ValidPlayTargets.Any())
 				{
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
+					if (Game.Logging)
+						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
 					return false;
 				}
 
@@ -319,7 +326,8 @@ namespace SabberStoneCore.Model.Entities
 					PlayReq req = item.Key;
 					int param = item.Value;
 
-					Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
+					if (Game.Logging)
+						Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
 
 					switch (req)
 					{

@@ -1204,7 +1204,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)
 				}
 			});

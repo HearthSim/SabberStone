@@ -124,7 +124,8 @@ namespace SabberStoneCore.Enchants
 			if (!IsApplying(target))
 			{
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Owner: {Owner}, Target: {target}");
+				if (Game.Logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Owner: {Owner}, Target: {target}");
 				return;
 			}
 

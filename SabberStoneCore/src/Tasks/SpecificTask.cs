@@ -171,22 +171,20 @@ namespace SabberStoneCore.Tasks
 					Controller controller = p[0].Controller;
 					Controller opponent = p[0].Controller.Opponent;
 					var opStartDeckClassCards = opponent.DeckCards.Where(c => c.Class == opponent.BaseClass).ToList();
-					List<Card> allClassCards = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList();
-					List<Card> exclusives = allClassCards.Select(c => c.AssetId).Except(opStartDeckClassCards.Select(c => c.AssetId)).Select(i => Cards.FromAssetId(i)).ToList();
-					var result = new List<Card>
+					var allClassCards = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList();
+					var result = new List<Card> { Util.Choose(opStartDeckClassCards) };
+					IEnumerable<string> Ids = opStartDeckClassCards.Select(c => c.Id);
+					while (result.Count < 3)
 					{
-						Util.Choose(opStartDeckClassCards),
-						Util.Choose(exclusives),
-					};
-					while (true)
-					{
-						Card item = Util.Choose(exclusives);
-						if (item.AssetId != result[1].AssetId)
+						Card pick = Util.Choose(allClassCards);
+						if (Ids.Contains(pick.Id) || result.Contains(pick))
 						{
-							result.Add(item);
-							break;
+							allClassCards.Remove(pick);
+							continue;
 						}
+						result.Add(pick);
 					}
+					
 					for (int i = 0; i < 3; i++)
 					{
 						int j = Util.Random.Next(i, 3);

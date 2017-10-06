@@ -1272,7 +1272,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new ReturnHandTask(EntityType.TARGET)
 				}
 			});
@@ -1935,6 +1935,11 @@ namespace SabberStoneCore.CardSets.Standard
 				{
                     //Activation = null,
                     //SingleTask = null,
+					//Trigger = new TriggerBuilder().Create()
+					//	.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+					//	.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsProposedDefender(CardType.MINION)))
+					//	.TriggerEffect(GameTag.PREDAMAGE, 1)
+					//	.
                 }
 			});
 			// ---------------------------------------- SPELL - WARRIOR

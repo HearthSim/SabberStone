@@ -18,6 +18,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
+		private static readonly List<Card> TotalAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
+
 		public override TaskState Process()
 		{
 			ChoiceAction choiceAction = ChoiceAction.ADAPT;
@@ -39,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//    Cards.FromId("UNG_999t13"), // [UNG_999t13] Poison Spit
 			//    Cards.FromId("UNG_999t14"), // [UNG_999t14] Volcanic Might
 			//};
-			var totAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
+			var totAdaptCards = new List<Card>(TotalAdaptCards);
 
 			var resultCards = new List<Card>();
 			while (resultCards.Count < 3)

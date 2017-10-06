@@ -2512,7 +2512,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new SummonTask("EX1_131t", SummonSide.RIGHT)
 				}
 			});
@@ -2534,7 +2534,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new DamageTask(2, EntityType.TARGET)
 				}
 			});
@@ -2568,7 +2568,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
 				{
 					InfoCardId = "EX1_613e",
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
 						new MathSubstractionTask(1),
@@ -2596,7 +2596,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new ReturnHandTask(EntityType.TARGET)
 				}
 			});

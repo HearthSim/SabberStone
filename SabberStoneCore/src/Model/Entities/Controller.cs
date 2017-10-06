@@ -283,7 +283,7 @@ namespace SabberStoneCore.Model.Entities
 						if (!t.IsPlayableByCardReq)
 							continue;
 
-						var targets = t.ValidPlayTargets.ToList();
+						IEnumerable<ICharacter> targets = t.ValidPlayTargets;
 						var subResult = new List<PlayCardTask>();
 						if (!targets.Any())
 						{
@@ -291,11 +291,16 @@ namespace SabberStoneCore.Model.Entities
 								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
 						}
 
-						subResult.AddRange(
-							targets.Select(
-								target =>
-									PlayCardTask.Any(this, playableCard, target, -1,
-										playables.Count == 1 ? 0 : playables.IndexOf(t) + 1)));
+						//subResult.AddRange(
+						//	targets.Select(
+						//		target =>
+						//			PlayCardTask.Any(this, playableCard, target, -1,
+						//				playables.Count == 1 ? 0 : playables.IndexOf(t) + 1)));
+						foreach (ICharacter target in targets)
+						{
+							subResult.Add(PlayCardTask.Any(this, playableCard, target, -1,
+								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
+						}
 
 						if (minion != null)
 						{
@@ -323,21 +328,24 @@ namespace SabberStoneCore.Model.Entities
 					continue;
 
 				IEnumerable<ICharacter> targets = minion.ValidAttackTargets;
-				targets.ToList().ForEach(p => result.Add(MinionAttackTask.Any(this, minion, p)));
+				foreach (ICharacter target in targets)
+					result.Add(MinionAttackTask.Any(this, minion, target));
 			}
 
 			if (Hero.CanAttack)
 			{
 				IEnumerable<ICharacter> targets = Hero.ValidAttackTargets;
-				targets.ToList().ForEach(p => result.Add(HeroAttackTask.Any(this, p)));
+				foreach (ICharacter target in targets)
+					result.Add(HeroAttackTask.Any(this, target));
 			}
 
 			if (Hero.Power.IsPlayable)
 			{
-				var targets = Hero.Power.GetValidPlayTargets().ToList();
+				IEnumerable<ICharacter> targets = Hero.Power.GetValidPlayTargets();
 				if (targets.Any())
 				{
-					targets.ToList().ForEach(p => result.Add(HeroPowerTask.Any(this, p)));
+					foreach (ICharacter target in targets)
+						result.Add(HeroPowerTask.Any(this, target));
 				}
 				else
 				{
@@ -430,8 +438,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int BaseMana
 		{
-			get { return this[GameTag.RESOURCES]; }
-			set { this[GameTag.RESOURCES] = value; }
+			//get { return this[GameTag.RESOURCES]; }
+			//set { this[GameTag.RESOURCES] = value; }
+			get { return GetNativeGameTag(GameTag.RESOURCES); }
+			set { SetNativeGameTag(GameTag.RESOURCES, value); }
 		}
 
 		/// <summary>
@@ -441,8 +451,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int UsedMana
 		{
-			get { return this[GameTag.RESOURCES_USED]; }
-			set { this[GameTag.RESOURCES_USED] = value; }
+			//get { return this[GameTag.RESOURCES_USED]; }
+			//set { this[GameTag.RESOURCES_USED] = value; }
+			get { return GetNativeGameTag(GameTag.RESOURCES_USED); }
+			set { SetNativeGameTag(GameTag.RESOURCES_USED, value); }
 		}
 
 		/// <summary>
@@ -450,8 +462,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int TemporaryMana
 		{
-			get { return this[GameTag.TEMP_RESOURCES]; }
-			set { this[GameTag.TEMP_RESOURCES] = value; }
+			//get { return this[GameTag.TEMP_RESOURCES]; }
+			//set { this[GameTag.TEMP_RESOURCES] = value; }
+			get { return GetNativeGameTag(GameTag.TEMP_RESOURCES); }
+			set { SetNativeGameTag(GameTag.TEMP_RESOURCES, value); }
 		}
 
 		/// <summary>
@@ -461,8 +475,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool IsComboActive
 		{
-			get { return this[GameTag.COMBO_ACTIVE] == 1; }
-			set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
+			//get { return this[GameTag.COMBO_ACTIVE] == 1; }
+			//set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
+			get { return GetNativeGameTag(GameTag.COMBO_ACTIVE) == 1; }
+			set { SetNativeGameTag(GameTag.COMBO_ACTIVE, value ? 1 : 0); }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -613,8 +629,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadLocked
 		{
-			get { return this[GameTag.OVERLOAD_LOCKED]; }
-			set { this[GameTag.OVERLOAD_LOCKED] = value; }
+			//get { return this[GameTag.OVERLOAD_LOCKED]; }
+			//set { this[GameTag.OVERLOAD_LOCKED] = value; }
+			get { return GetNativeGameTag(GameTag.OVERLOAD_LOCKED); }
+			set { SetNativeGameTag(GameTag.OVERLOAD_LOCKED, value); }
 		}
 
 		/// <summary>

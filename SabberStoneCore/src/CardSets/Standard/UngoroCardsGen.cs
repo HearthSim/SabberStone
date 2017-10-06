@@ -1677,7 +1677,7 @@ namespace SabberStoneCore.CardSets.Standard
                 new Enchantment
 				{
 					InfoCardId = "UNG_063e",
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
 						new MathSubstractionTask(1),
@@ -1704,7 +1704,7 @@ namespace SabberStoneCore.CardSets.Standard
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new DestroyTask(EntityType.TARGET)
 				}
 			});

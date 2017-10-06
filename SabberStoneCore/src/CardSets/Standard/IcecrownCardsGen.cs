@@ -2075,12 +2075,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_809", new List<Enchantment> {
-				// TODO [ICC_809] Plague Scientist && Test: Plague Scientist_ICC_809
+				// Combo
 				new Enchantment
 				{
 					InfoCardId = "ICC_809e",
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.COMBO,
+					SingleTask = new BuffTask(Buffs.Simple(GameTag.POISONOUS, 1), EntityType.TARGET)
 				}
 			});
 

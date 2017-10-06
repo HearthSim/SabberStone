@@ -96,16 +96,51 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private static List<Card> GetKazakusPotionSpells()
 		{
-			var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t")
-			&& !p.Id.Equals("CFM_621t")
-			//&& !p.Id.Equals("CFM_621t11")
-			//&& !p.Id.Equals("CFM_621t12")
-			//&& !p.Id.Equals("CFM_621t13")
-			&& !p.Id.Equals("CFM_621t14")
-			&& !p.Id.Equals("CFM_621t15")
-			).Select(p => p.Clone()).ToList();
+			//var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t")
+			//&& !p.Id.Equals("CFM_621t")
+			////&& !p.Id.Equals("CFM_621t11")
+			////&& !p.Id.Equals("CFM_621t12")
+			////&& !p.Id.Equals("CFM_621t13")
+			//&& !p.Id.Equals("CFM_621t14")
+			//&& !p.Id.Equals("CFM_621t15")
+			//).Select(p => p.Clone()).ToList();
+			//return list;
 
-			return list;
+			return new List<Card>
+			{
+				Cards.FromId("CFM_621t2").Clone(),
+				Cards.FromId("CFM_621t3").Clone(),
+				Cards.FromId("CFM_621t4").Clone(),
+				Cards.FromId("CFM_621t5").Clone(),
+				Cards.FromId("CFM_621t6").Clone(),
+				Cards.FromId("CFM_621t8").Clone(),
+				Cards.FromId("CFM_621t9").Clone(),
+				Cards.FromId("CFM_621t10").Clone(),
+				Cards.FromId("CFM_621t11").Clone(),
+				Cards.FromId("CFM_621t12").Clone(),
+				Cards.FromId("CFM_621t13").Clone(),
+				Cards.FromId("CFM_621t16").Clone(),
+				Cards.FromId("CFM_621t17").Clone(),
+				Cards.FromId("CFM_621t18").Clone(),
+				Cards.FromId("CFM_621t19").Clone(),
+				Cards.FromId("CFM_621t20").Clone(),
+				Cards.FromId("CFM_621t21").Clone(),
+				Cards.FromId("CFM_621t22").Clone(),
+				Cards.FromId("CFM_621t23").Clone(),
+				Cards.FromId("CFM_621t24").Clone(),
+				Cards.FromId("CFM_621t25").Clone(),
+				Cards.FromId("CFM_621t26").Clone(),
+				Cards.FromId("CFM_621t27").Clone(),
+				Cards.FromId("CFM_621t28").Clone(),
+				Cards.FromId("CFM_621t29").Clone(),
+				Cards.FromId("CFM_621t30").Clone(),
+				Cards.FromId("CFM_621t31").Clone(),
+				Cards.FromId("CFM_621t32").Clone(),
+				Cards.FromId("CFM_621t33").Clone(),
+				Cards.FromId("CFM_621t37").Clone(),
+				Cards.FromId("CFM_621t38").Clone(),
+				Cards.FromId("CFM_621t39").Clone(),
+			};
 		}
 
 		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
