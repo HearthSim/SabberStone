@@ -115,7 +115,8 @@ namespace SabberStoneCore.Model.Zones
 				entity.Reset();
 
 			MoveTo(entity, zonePosition < 0 ? _entitiesAsList.Count : zonePosition);
-			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+			if (Game.Logging)
+				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
 			// activate all zone changing enchantments
 			if (applyEnchantments)

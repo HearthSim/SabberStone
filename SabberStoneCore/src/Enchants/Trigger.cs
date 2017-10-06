@@ -111,7 +111,8 @@ namespace SabberStoneCore.Enchants
 
 			if (!Effects.ContainsKey(gameTag))
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"GameTag {gameTag} not concerned by this enchanting(change) ...");
+				if (Game.Logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"GameTag {gameTag} not concerned by this enchanting(change) ...");
 				return;
 			}
 

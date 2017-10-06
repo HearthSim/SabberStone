@@ -143,16 +143,16 @@ namespace SabberStoneCoreTest.Basic
 
 			string deckString1 = game.Player1.DeckZone.FullPrint();
 
-			game.Player1.DeckZone.Shuffle(0);
+			//game.Player1.DeckZone.Shuffle(0);
 
-			string deckString2 = game.Player1.DeckZone.FullPrint();
+			//string deckString2 = game.Player1.DeckZone.FullPrint();
 
-			game.Player1.DeckZone.Shuffle(10);
+			game.Player1.DeckZone.Shuffle(/*10*/);
 
 			string deckString3 = game.Player1.DeckZone.FullPrint();
 
-			Assert.Equal(deckString1, deckString2);
-			Assert.NotEqual(deckString2, deckString3); // Shuffling didn't changed the positions in deck
+			//Assert.Equal(deckString1, deckString2);
+			Assert.NotEqual(deckString1, deckString3); // Shuffling didn't changed the positions in deck
 		}
 
 		[Fact]
