@@ -91,6 +91,9 @@ namespace SabberStoneCore.Model
 
 			//Log.Debug("AllWild:");
 			AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList().AsReadOnly();
+
+			StandardCostMinionCards = AllStandard.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.AsEnumerable());
+			WildCostMinionCards = AllWild.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.AsEnumerable());
 		}
 
 		#endregion
@@ -160,6 +163,17 @@ namespace SabberStoneCore.Model
 		{
 			return All.Where(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO"));
 		}
+
+		/// <summary>
+		/// Retrieves the specified set of cards, sorted by <see cref="GameTag.COST"/>.
+		/// </summary>
+		/// <param name="formatType"></param>
+		/// <returns></returns>
+		public static Dictionary<int, IEnumerable<Card>> CostMinionCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? StandardCostMinionCards : WildCostMinionCards;
+
+		private static readonly Dictionary<int, IEnumerable<Card>> StandardCostMinionCards = new Dictionary<int, IEnumerable<Card>>();
+		private static readonly Dictionary<int, IEnumerable<Card>> WildCostMinionCards = new Dictionary<int, IEnumerable<Card>>();
+
 
 		/// <summary>
 		/// Return a specific card from the given ID.

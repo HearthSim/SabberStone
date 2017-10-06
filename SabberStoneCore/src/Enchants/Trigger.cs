@@ -118,22 +118,26 @@ namespace SabberStoneCore.Enchants
 
 			if (!IsEnabled())
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", "Trigger isn't enabled!");
+				if (Game.Logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", "Trigger isn't enabled!");
 				return;
 			}
 
 			if (!IsApplying(target))
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
 				if (Game.Logging)
+				{
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Owner: {Owner}, Target: {target}");
+				}
 				return;
 			}
 
 			if (Effects[gameTag] > 0 && oldValue >= newValue
 			 || Effects[gameTag] < 0 && oldValue <= newValue)
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
+				if (Game.Logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
 				return;
 			}
 

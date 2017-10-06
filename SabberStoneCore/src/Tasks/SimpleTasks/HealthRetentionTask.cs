@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					int baseHealth = target.Card.Tags[Enums.GameTag.HEALTH];
 					target.IsIgnoreDamage = true;
 					if (target.Health >= baseHealth)
-						target.Health = target.Card.Tags[Enums.GameTag.HEALTH];
+						target.Health = baseHealth;
 					else
 						target.Damage -= Amount;
 					target.IsIgnoreDamage = false;
