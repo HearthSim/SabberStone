@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			System.Collections.Generic.IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
-				var minions = cards.Where(t => t.Cost == p.Card.Cost + CostChange && t.Type == CardType.MINION).ToList();
+				var minions = cards.Where(t => t.Type == CardType.MINION && t.Cost == p.Card.Cost + CostChange);
 				if (minions.Any())
 				{
 					Generic.TransformBlock.Invoke(p.Controller, Util.RandomElement(minions), p as Minion);
