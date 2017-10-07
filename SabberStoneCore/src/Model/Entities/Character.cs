@@ -108,14 +108,16 @@ namespace SabberStoneCore.Model.Entities
 			// got target but isn't contained in valid targets
 			if (!ValidAttackTargets.Contains(target))
 			{
-				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"{this} has an invalid target {target}.");
+				if (Game.Logging)
+					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"{this} has an invalid target {target}.");
 				return false;
 			}
 
 			var hero = target as Hero;
 			if (CantAttackHeroes && (hero != null))
 			{
-				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"Can't attack Heroes!");
+				if (Game.Logging)
+					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"Can't attack Heroes!");
 				return false;
 			}
 
@@ -129,13 +131,36 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				var allTargets = Controller.Opponent.BoardZone.Where(x => !x.HasStealth).ToList<ICharacter>();
-				var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
+				//var allTargets = Controller.Opponent.BoardZone.Where(x => !x.HasStealth).ToList<ICharacter>();
+				//var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
+				//if (!CantAttackHeroes)
+				//{
+				//	allTargets.Add(Controller.Opponent.Hero);
+				//}
+				//return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
+				var allTargets = new List<ICharacter>();
+				var allTargetsTaunt = new List<ICharacter>();
+				foreach (Minion minion in Controller.Opponent.BoardZone)
+				{
+					if (!minion.HasStealth)
+					{
+						if (minion.HasTaunt)
+						{
+							allTargetsTaunt.Add(minion);
+							continue;
+						}
+						allTargets.Add(minion);
+					}
+				}
+				if (allTargetsTaunt.Any())
+					return allTargetsTaunt;
+
 				if (!CantAttackHeroes)
 				{
 					allTargets.Add(Controller.Opponent.Hero);
 				}
-				return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
+				return allTargets;
+
 			}
 		}
 
@@ -162,7 +187,8 @@ namespace SabberStoneCore.Model.Entities
 
 			if (minion != null && minion.HasDivineShield)
 			{
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
+				if (Game.Logging)
+					Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
 				minion.HasDivineShield = false;
 				return 0;
 			}
@@ -172,7 +198,8 @@ namespace SabberStoneCore.Model.Entities
 
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
+				if (Game.Logging)
+					Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
 				return 0;
 			}
 
@@ -185,7 +212,8 @@ namespace SabberStoneCore.Model.Entities
 			// final damage is beeing accumulated
 			Damage += PreDamage;
 
-			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			// check if there was damage done
 			int tookDamage = PreDamage;
@@ -224,7 +252,8 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			int amount = Damage > heal ? heal : Damage;
-			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
 			Damage -= amount;
 		}
 
@@ -235,7 +264,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="armor"></param>
 		public void GainArmor(IPlayable source, int armor)
 		{
-			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
 			Armor += armor;
 		}
 	}

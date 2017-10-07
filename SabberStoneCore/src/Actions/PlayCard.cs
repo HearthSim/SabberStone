@@ -162,7 +162,8 @@ namespace SabberStoneCore.Actions
 					c.UsedMana += cost - tempUsed;
 					c.TotalManaSpentThisGame += cost;
 				}
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PayPhase", $"Paying {source} for {source.Cost} Mana, remaining mana is {c.RemainingMana}.");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PayPhase", $"Paying {source} for {source.Cost} Mana, remaining mana is {c.RemainingMana}.");
 				return true;
 			};
 
@@ -173,7 +174,8 @@ namespace SabberStoneCore.Actions
 				if (!RemoveFromZone.Invoke(c, hero))
 					return false;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", $"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", $"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
 				// removing the current Id, to readd it as hero
 				c.Game.IdEntityDic.Remove(hero.Id);
@@ -223,7 +225,8 @@ namespace SabberStoneCore.Actions
 				if (!minion.HasCharge)
 					minion.IsExhausted = true;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", $"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", $"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
@@ -238,6 +241,8 @@ namespace SabberStoneCore.Actions
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
 				minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+				if (minion.Combo && c.IsComboActive)
+					minion.ApplyEnchantments(EnchantmentActivation.COMBO, Zone.PLAY, target);
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
@@ -273,7 +278,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Spell, ICharacter, bool> PlaySpell
 			=> delegate (Controller c, Spell spell, ICharacter target)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
 				// trigger Spellbender Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", "trigger Spellbender Phase (not implemented)");
@@ -283,7 +289,8 @@ namespace SabberStoneCore.Actions
 
 				if (spell.IsCountered)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
+					if (c.Game.Logging)
+						c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", $"Spell {spell} has been countred.");
 					spell.JustPlayed = false;
 					c.GraveyardZone.Add(spell);
 				}
@@ -316,7 +323,8 @@ namespace SabberStoneCore.Actions
 			{
 				c.Hero.AddWeapon(weapon);
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
 				// activate battlecry
 				weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, Zone.PLAY);

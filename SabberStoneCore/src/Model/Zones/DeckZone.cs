@@ -39,18 +39,30 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		public void Shuffle(int times = 100)
-		{
-			// no need to shuffle something that has no or only one entity ...
-			if (Count < 2)
-			{
-				return;
-			}
+		//public void Shuffle(int times = 100)
+		//{
+		//	// no need to shuffle something that has no or only one entity ...
+		//	if (Count < 2)
+		//	{
+		//		return;
+		//	}
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} shuffling ({times}x).");
-			for (int i = 0; i < times; i++)
+		//	Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} shuffling ({times}x).");
+		//	for (int i = 0; i < times; i++)
+		//	{
+		//		Swap(Random, Random);
+		//	}
+		//}
+
+		public void Shuffle()
+		{
+			int n = Count;
+
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"{Controller.Name} shuffles its deck.");
+			for (int i = 0; i < n; i++)
 			{
-				Swap(Random, Random);
+				int r = i + Util.Random.Next(n - i);
+				Swap(this[i], this[r]);
 			}
 		}
 	}

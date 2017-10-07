@@ -31,7 +31,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			Game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask", $"{attacker} target {attacker.ProposedDefender} changed to {newDefender.Id}.");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask", $"{attacker} target {attacker.ProposedDefender} changed to {newDefender.Id}.");
 
 			attacker.ProposedDefender = newDefender.Id;
 			return TaskState.COMPLETE;

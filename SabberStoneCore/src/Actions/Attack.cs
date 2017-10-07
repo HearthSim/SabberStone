@@ -53,9 +53,10 @@ namespace SabberStoneCore.Actions
 				}
 				var hero = source as Hero;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "PreAttackPhase", $"[PreAttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
-					$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}is attacking " +
-					$"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "PreAttackPhase", $"[PreAttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
+						$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}is attacking " +
+						$"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 
 				// attack block
 				if (c.Game.History)
@@ -180,13 +181,15 @@ namespace SabberStoneCore.Actions
 				if (source.NumAttacksThisTurn > 0 && !source.HasWindfury ||
 					source.NumAttacksThisTurn > 1 && source.HasWindfury)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"{source} is now exhausted.");
+					if (c.Game.Logging)
+						c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"{source} is now exhausted.");
 					source.IsExhausted = true;
 				}
 
-				c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
-					$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}attacked " +
-					$"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
+				if (c.Game.Logging)
+					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", $"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
+						$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}attacked " +
+						$"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 				return true;
 			};
 	}

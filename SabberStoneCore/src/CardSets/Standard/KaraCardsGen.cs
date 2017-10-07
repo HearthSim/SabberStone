@@ -282,7 +282,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = new DiscoverTask(DiscoverType.SPELL,
 						new Enchantment()
 						{

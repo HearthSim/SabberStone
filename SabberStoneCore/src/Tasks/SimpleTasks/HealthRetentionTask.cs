@@ -27,8 +27,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var target = p as ICharacter;
 				if (target != null)
 				{
+					int baseHealth = target.Card.Tags[Enums.GameTag.HEALTH];
 					target.IsIgnoreDamage = true;
-					target.Damage -= Amount;
+					if (target.Health >= baseHealth)
+						target.Health = baseHealth;
+					else
+						target.Damage -= Amount;
 					target.IsIgnoreDamage = false;
 				}
 			});

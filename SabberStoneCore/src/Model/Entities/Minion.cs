@@ -18,7 +18,8 @@ namespace SabberStoneCore.Model.Entities
 		public Minion(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
+			if (Game.Logging)
+				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Minion", $"{this} ({Card.Class}) was created.");
 		}
 
 		/// <summary>Character can attack.</summary>
@@ -53,7 +54,8 @@ namespace SabberStoneCore.Model.Entities
 
 			IsSilenced = true;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", $"{this} got silenced!");
 		}
 	}
 

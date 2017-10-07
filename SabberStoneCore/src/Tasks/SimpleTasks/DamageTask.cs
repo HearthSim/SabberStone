@@ -53,7 +53,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			entities.ForEach(p => {
 				int amount = Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0);
 
-				Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", $"Amount is {amount} damage of {Source}.");
+				if (Controller.Game.Logging)
+					Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", $"Amount is {amount} damage of {Source}.");
 
 				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, spellDmgValue);
 				if ((Source as IPlayable).HasLifeSteal)

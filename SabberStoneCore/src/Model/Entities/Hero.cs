@@ -67,7 +67,8 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Weapon.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
 			}
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 			Weapon = null;
 			EquippedWeapon = 0;

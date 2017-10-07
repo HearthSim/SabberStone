@@ -131,6 +131,12 @@ namespace SabberStoneCore.Model
 		/// <value><c>true</c> if splitting is intended; otherwise, <c>false</c>.</value>
 		public bool Splitting => _gameConfig.Splitting;
 
+		/// <summary>Gets a value indicating whether this <see cref="Game"/> records debug logs.
+		/// When TRUE, detailed information each process step will be saved in <see cref="Logs"/>
+		/// in a form of <see cref="LogEntry"/>.
+		/// </summary>
+		public bool Logging => _gameConfig.Logging;
+
 		/// <summary>Gets or sets the power history container. 
 		/// This object facilitates building POWER blocks to send to the hearthstone client.
 		/// </summary>
@@ -286,7 +292,8 @@ namespace SabberStoneCore.Model
 			// start with no splits ...
 			Splits = new List<Game>();
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", gameTask.FullPrint());
+			if (Logging)
+				Log(LogLevel.INFO, BlockType.PLAY, "Game", gameTask.FullPrint());
 
 			// clear last power history
 			PowerHistory.Last.Clear();
@@ -623,7 +630,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainStart()
 		{
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
+			if (Logging)
+				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
 					 $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
 
@@ -644,7 +652,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainEnd()
 		{
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
+			if (Logging)
+				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"End turn proccessed by player {CurrentPlayer}");
 
 			if (History)
 				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
@@ -675,14 +684,19 @@ namespace SabberStoneCore.Model
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 
 			// don't have summoning sickness (or do have Charge) and have not attacked
 			// that turn.
-			CurrentPlayer.BoardZone.GetAll.ForEach(p =>
+			//CurrentPlayer.BoardZone.GetAll.ForEach(p =>
+			//{
+			//	var minion = p as Minion;
+			//	if (minion != null && minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
+			//	{
+			//		minion.IsFrozen = false;
+			//	}
+			//});
+			foreach (Minion minion in CurrentPlayer.BoardZone)
 			{
-				var minion = p as Minion;
-				if (minion != null && minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
-				{
+				if (minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
 					minion.IsFrozen = false;
-				}
-			});
+			}
 			if (CurrentPlayer.Hero.IsFrozen && CurrentPlayer.Hero.NumAttacksThisTurn == 0)
 			{
 				CurrentPlayer.Hero.IsFrozen = false;
@@ -694,7 +708,8 @@ namespace SabberStoneCore.Model
 			// count next turn
 			Turn++;
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", $"CurentPlayer {CurrentPlayer.Name}.");
+			if (Logging)
+				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"CurentPlayer {CurrentPlayer.Name}.");
 
 			if (History)
 				PowerHistoryBuilder.BlockEnd();
@@ -755,10 +770,14 @@ namespace SabberStoneCore.Model
 		public void FinalGameOver()
 		{
 			State = State.COMPLETE;
-			_players.ToList().ForEach(p =>
+			if (Logging)
 			{
-				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
-			});
+				_players.ToList().ForEach(p =>
+				{
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p.Name} has {p.PlayState} the Game!");
+				});
+			}
+
 		}
 
 		#endregion
@@ -775,7 +794,7 @@ namespace SabberStoneCore.Model
 			heroesBadWeapons.ForEach(p => p.RemoveWeapon());
 
 			// check for dead minions to carry to the graveyard
-			Minions.Where(p => p.IsDead).ToList().ForEach(p =>
+			Minions.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1/*p.IsDead*/).ToList().ForEach(p =>
 			{
 				//	TODO : Issue to be fixed, suspect: SummonTask?
 				if (p.Zone == p.Controller.GraveyardZone)
@@ -783,7 +802,8 @@ namespace SabberStoneCore.Model
 					p.Controller.BoardZone.Remove(p);
 					return;
 				}
-				Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
+				if (Logging)
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
 				p.LastBoardPosition = p.ZonePosition;
 				p.Zone.Remove(p);
 				if (p.HasDeathrattle)
@@ -803,7 +823,13 @@ namespace SabberStoneCore.Model
 			});
 
 			// check for dead heroes
-			var deadHeroes = Heroes.Where(p => p.IsDead).ToList();
+			//var deadHeroes = Heroes.Where(p => p.IsDead).ToList();
+			var deadHeroes = new List<Hero>();
+			foreach (Controller player in _players)
+			{
+				if (player.Hero.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1)
+					deadHeroes.Add(player.Hero);
+			}
 			deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? PlayState.TIED : PlayState.LOSING);
 		}
 
@@ -814,32 +840,27 @@ namespace SabberStoneCore.Model
 		public void AuraUpdate()
 		{
 			int i;
-			int j;
-
-			for (i = 0; i < 2; i++)
+			foreach (Controller player in _players)
 			{
-				for (j = 0; j < _players[i].Triggers.Count; j++)
-					_players[i].Triggers[j].IsEnabled();
+				for (i = 0; i < player.Triggers.Count; i++)
+					player.Triggers[i].IsEnabled();
 
-				for (j = 0; j < _players[i].Hero.Enchants.Count; j++)
-					_players[i].Hero.Enchants[j].IsEnabled();
-				for (j = 0; j < _players[i].Hero.Triggers.Count; j++)
-					_players[i].Hero.Triggers[j].IsEnabled();
+				for (i = 0; i < player.Hero.Enchants.Count; i++)
+					player.Hero.Enchants[i].IsEnabled();
+				for (i = 0; i < player.Hero.Triggers.Count; i++)
+					player.Hero.Triggers[i].IsEnabled();
 
-				for (j = 0; j < _players[i].BoardZone.Enchants.Count; j++)
-					_players[i].BoardZone.Enchants[j].IsEnabled();
-				for (j = 0; j < _players[i].BoardZone.Triggers.Count; j++)
-					_players[i].BoardZone.Triggers[j].IsEnabled();
+				for (i = 0; i < player.BoardZone.Enchants.Count; i++)
+					player.BoardZone.Enchants[i].IsEnabled();
+				for (i = 0; i < player.BoardZone.Triggers.Count; i++)
+					player.BoardZone.Triggers[i].IsEnabled();
 
-				for (j = 0; j < _players[i].SecretZone.Triggers.Count; j++)
-					_players[i].SecretZone.Triggers[j].IsEnabled();
+				for (i = 0; i < player.SecretZone.Triggers.Count; i++)
+					player.SecretZone.Triggers[i].IsEnabled();
 
-				for (j = 0; j < _players[i].GraveyardZone.Triggers.Count; j++)
-					_players[i].GraveyardZone.Triggers[j].IsEnabled();
-				//for (j = 0; j < _players[j].GraveyardZone.Enchants.Count; j++)
-				//	_players[j].GraveyardZone.Enchants[j].IsEnabled();
+				for (i = 0; i < player.GraveyardZone.Triggers.Count; i++)
+					player.GraveyardZone.Triggers[i].IsEnabled();
 			}
-
 			for (i = 0; i < LazyRemoves.Count;)
 			{
 				ILazyRemove item = LazyRemoves.Dequeue();
@@ -1036,7 +1057,9 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="Step"/></value>
 		public Step Step
 		{
-			get { return (Step)this[GameTag.STEP]; }
+			//get { return (Step)this[GameTag.STEP]; }
+			//set { this[GameTag.STEP] = (int)value; }
+			get { return (Step)GetNativeGameTag(GameTag.STEP); }
 			set { this[GameTag.STEP] = (int)value; }
 		}
 
@@ -1046,8 +1069,13 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="Step"/></value>
 		public Step NextStep
 		{
-			get { return (Step)this[GameTag.NEXT_STEP]; }
-			set { this[GameTag.NEXT_STEP] = (int)value; }
+			//get { return (Step)this[GameTag.NEXT_STEP]; }
+			//set { this[GameTag.NEXT_STEP] = (int)value; }
+			get { return (Step)GetNativeGameTag(GameTag.NEXT_STEP); }
+			set
+			{
+				GamesEventManager.NextStepEvent(this, value);
+			}
 		}
 
 		/// <summary>

@@ -194,11 +194,6 @@ namespace SabberStoneCore.Model.Entities
 				int value = _data[t];
 
 				// cumulative enchanment calculation ... priorizing game, zone, entity
-				//if (Zone != null)
-				//	Zone.Enchants.ForEach(p => value = p.Apply(this, t, value));
-				//else
-				//	Game.Enchants.ForEach(p => value = p.Apply(this, t, value));
-				//Enchants.ForEach(p => value = p.Apply(this, t, value));
 				if (Zone != null)
 					for (int i = 0; i < Zone.Enchants.Count; i++)
 						value = Zone.Enchants[i].Apply(this, t, value);
@@ -213,7 +208,8 @@ namespace SabberStoneCore.Model.Entities
 			set
 			{
 				int oldValue = _data[t];
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} oldvalue {oldValue}");
+				if (Game.Logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} oldvalue {oldValue}");
 				//if (oldValue == value && t != GameTag.ZONE_POSITION)
 				//{
 				//    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");
@@ -232,11 +228,6 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// trigger here
-				//if (Zone != null)
-				//	Zone.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
-				//else
-				//	Game.Triggers.ForEach(p => p.Change(this, t, oldValue, value));
-				//Triggers.ForEach(p => p.Change(this, t, oldValue, value));
 				if (Zone != null)
 					for (int i = 0; i < Zone.Triggers.Count; i++)
 						Zone.Triggers[i].Change(this, t, oldValue, value);
@@ -402,7 +393,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.COST] = value; }
 		}
 
-		public bool Combo => this[GameTag.COMBO] == 1;
+		public bool Combo => GetNativeGameTag(GameTag.COMBO) == 1;
 
 		public bool ChooseOne
 		{

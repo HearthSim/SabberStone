@@ -2587,7 +2587,7 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PlagueScientist_ICC_809()
 		{
 			// TODO PlagueScientist_ICC_809 test
@@ -2602,7 +2602,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Plague Scientist"));
+			var testCard = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Plague Scientist"));
+			var testCard2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Plague Scientist"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.False(testCard.Poisonous);
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard2, testCard));
+			Assert.True(testCard.Poisonous);
 		}
 
 		// ----------------------------------------- MINION - ROGUE

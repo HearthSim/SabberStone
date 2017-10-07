@@ -17,15 +17,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-			var cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number).ToList();
-			if (!cardsList.Any())
+			IEnumerable<Card> cardsList;
+			if (Tag == GameTag.COST)
 			{
-				return TaskState.STOP;
+				Cards.CostMinionCards(Game.FormatType).TryGetValue(Number, out cardsList);
+				if (cardsList == null)
+					return TaskState.STOP;
+			}
+			else
+			{
+				IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+				cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number);
+				if (!cardsList.Any())
+					return TaskState.STOP;
 			}
 
-			IPlayable playable = Entity.FromCard(Controller, Util.Choose<Card>(cardsList));
+			IPlayable playable = Entity.FromCard(Controller, Util.RandomElement(cardsList));
 			Playables = new List<IPlayable> { playable };
 
 			Game.OnRandomHappened(true);

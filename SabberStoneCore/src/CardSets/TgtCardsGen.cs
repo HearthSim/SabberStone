@@ -1470,7 +1470,7 @@ namespace SabberStoneCore.CardSets
                 // Combo
                 new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.SOURCE)
 				}
 			});
@@ -1512,7 +1512,7 @@ namespace SabberStoneCore.CardSets
                 // Combo
 				new Enchantment
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = EnchantmentActivation.COMBO,
 					SingleTask = new DamageTask(1, EntityType.TARGET)
 				}
 			});
