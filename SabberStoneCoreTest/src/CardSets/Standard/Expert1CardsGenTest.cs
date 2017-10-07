@@ -6360,6 +6360,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
 			Assert.Equal(3, ((Minion)testCard).AttackDamage);
 			Assert.Equal(4, ((Minion)testCard).Health);
+			game.CurrentPlayer.BaseMana = 10;
+			IPlayable frostbolt = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, frostbolt, testCard));
+			Assert.Equal(3, ((Minion)testCard).AttackDamage);
+			Assert.Equal(1, ((Minion)testCard).Health);
+			IPlayable ironbeakowl = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbeak Owl"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, ironbeakowl, testCard));
+			Assert.Equal(1, ((Minion)testCard).AttackDamage);
+			Assert.Equal(1, ((Minion)testCard).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
