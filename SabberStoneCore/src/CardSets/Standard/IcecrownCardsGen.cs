@@ -3614,11 +3614,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_855", new List<Enchantment> {
-				// TODO [ICC_855] Hyldnir Frostrider && Test: Hyldnir Frostrider_ICC_855
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Freeze(EntityType.MINIONS_NOSOURCE)
 				},
 			});
 

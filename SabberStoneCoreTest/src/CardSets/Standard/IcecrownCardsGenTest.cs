@@ -5007,7 +5007,7 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HyldnirFrostrider_ICC_855()
 		{
 			// TODO HyldnirFrostrider_ICC_855 test
@@ -5015,14 +5015,35 @@ namespace SabberStoneUnitTest.CardSets
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>() {
+					Cards.FromName("Hyldnir Frostrider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>() {
+					Cards.FromName("Hyldnir Frostrider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hyldnir Frostrider"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Hyldnir Frostrider"));
+			Assert.False(((Minion)game.CurrentOpponent.BoardZone[0]).IsFrozen);
+			Assert.False(((Minion)game.CurrentOpponent.BoardZone[1]).IsFrozen);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).IsFrozen);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).IsFrozen);
+			Assert.False(((Minion)game.CurrentPlayer.BoardZone[2]).IsFrozen);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
