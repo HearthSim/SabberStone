@@ -3083,12 +3083,52 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(1, minion2.Cost);
 
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, game.CurrentOpponent.Hero));
+			Assert.Equal(1, game.CurrentOpponent.Hero.Damage);
+
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowstep"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion2));
 
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(0, minion2.Cost);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+			Assert.True(((Minion)minion2).CanAttack);
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, game.CurrentOpponent.Hero));
+			Assert.Equal(2, game.CurrentOpponent.Hero.Damage);
+
+
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowstep"));
+			IPlayable agent = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("SI:7 Agent"));
+
+			Assert.True(game.CurrentPlayer.IsComboActive);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, agent, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell2, agent));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, agent.Cost);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, agent, game.CurrentOpponent.Hero));
+			Assert.Equal(6, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable agent2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("SI:7 Agent"));
+			Assert.False(game.CurrentPlayer.IsComboActive);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, agent2));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(6, game.CurrentOpponent.Hero.Damage);
+
+			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadowstep"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell3, agent2));
+			Assert.True(game.CurrentPlayer.IsComboActive);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, agent2, game.CurrentOpponent.Hero));
+			Assert.Equal(8, game.CurrentOpponent.Hero.Damage);
+
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

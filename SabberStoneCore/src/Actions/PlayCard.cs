@@ -131,7 +131,7 @@ namespace SabberStoneCore.Actions
 				}
 
 				// replace enchantments with the no combo or combo one ..
-				if (source.Combo)
+				if (source.Combo && !(source is Minion))
 				{
 					if (source.Enchantments.Count > 1)
 					{
