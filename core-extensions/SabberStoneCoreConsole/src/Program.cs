@@ -25,14 +25,14 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			//Console.WriteLine(Cards.Statistics());
+			Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();

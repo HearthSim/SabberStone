@@ -3848,22 +3848,39 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Vryghoul_ICC_067()
 		{
-			// TODO Vryghoul_ICC_067 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Vryghoul")
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Vryghoul")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vryghoul"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Vryghoul"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Vryghoul"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count());
+			Assert.Equal("ICC_900t", game.CurrentOpponent.BoardZone[0].Card.Id);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

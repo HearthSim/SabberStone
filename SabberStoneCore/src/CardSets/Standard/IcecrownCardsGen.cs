@@ -3059,11 +3059,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_067", new List<Enchantment> {
-				// TODO [ICC_067] Vryghoul && Test: Vryghoul_ICC_067
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
+						new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE))),
 				},
 			});
 
