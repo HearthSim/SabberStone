@@ -68,7 +68,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public void Stamp(IZone zone)
 		{
-			zone.GetAll.ToList().ForEach(p =>
+			zone.GetAll.ForEach(p =>
 			{
 				IPlayable copy = Entity.FromCard(Controller, p.Card, null, null, p.Id);
 				copy.Stamp(p as Entity);

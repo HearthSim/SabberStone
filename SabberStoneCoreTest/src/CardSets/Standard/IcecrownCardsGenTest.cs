@@ -2652,22 +2652,42 @@ namespace SabberStoneUnitTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_FOR_COMBO = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpectralPillager_ICC_910()
 		{
-			// TODO SpectralPillager_ICC_910 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spectral Pillager"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spectral Pillager"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2680,22 +2700,36 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void RollTheBones_ICC_201()
 		{
-			// TODO RollTheBones_ICC_201 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Undercity Huckster"),
+					Cards.FromName("Undercity Huckster"),
+					Cards.FromName("Undercity Huckster"),
+					Cards.FromName("Undercity Huckster"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Roll the Bones"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Roll the Bones"));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

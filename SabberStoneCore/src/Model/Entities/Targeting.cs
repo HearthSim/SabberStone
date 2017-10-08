@@ -115,7 +115,24 @@ namespace SabberStoneCore.Model.Entities
 		protected internal virtual IEnumerable<ICharacter> GetValidPlayTargets()
 		{
 			// If this is an untargeted card, return an empty list
-			return !NeedsTargetList ? new List<ICharacter>() : Game.Characters.Where(TargetingRequirements);
+			var output = new List<ICharacter>(2);
+			if (!NeedsTargetList)
+				return output;
+
+			if (TargetingRequirements(Game.Player1.Hero))
+				output.Add(Game.Player1.Hero);
+			if (TargetingRequirements(Game.Player2.Hero))
+				output.Add(Game.Player2.Hero);
+			foreach (Minion minion in Game.Player1.BoardZone)
+				if (TargetingRequirements(minion))
+					output.Add(minion);
+			foreach (Minion minion in Game.Player2.BoardZone)
+				if (TargetingRequirements(minion))
+					output.Add(minion);
+
+			return output;
+
+			//return !NeedsTargetList ? new List<ICharacter>() : Game.Characters.Where(TargetingRequirements);
 		}
 
 		/// <summary>Calculates if a target is valid by testing the game state for each hardcoded requirement.

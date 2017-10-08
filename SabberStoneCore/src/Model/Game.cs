@@ -273,7 +273,8 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public Controller ControllerById(int entityID)
 		{
-			return _players.First(p => p.Id == entityID);
+			//return _players.First(p => p.Id == entityID);
+			return entityID == 2 ? _players[0] : _players[1];
 		}
 
 		/// <summary>Process the specified task.
@@ -788,49 +789,56 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void GraveYard()
 		{
-			// remove dead weapons
-			var heroesBadWeapons =
-				Heroes.Where(p => p.Weapon != null && (p.Weapon.Durability == 0 || p.Weapon.ToBeDestroyed)).ToList();
-			heroesBadWeapons.ForEach(p => p.RemoveWeapon());
-
-			// check for dead minions to carry to the graveyard
-			Minions.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1/*p.IsDead*/).ToList().ForEach(p =>
-			{
-				//	TODO : Issue to be fixed, suspect: SummonTask?
-				if (p.Zone == p.Controller.GraveyardZone)
-				{
-					p.Controller.BoardZone.Remove(p);
-					return;
-				}
-				if (Logging)
-					Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{p} is Dead! Graveyard say 'Hello'!");
-				p.LastBoardPosition = p.ZonePosition;
-				p.Zone.Remove(p);
-				if (p.HasDeathrattle)
-				{
-					p.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
-				}
-				if (History)
-					PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
-				p.IsExhausted = false;
-				p.Controller.GraveyardZone.Add(p);
-				p.Controller.NumFriendlyMinionsThatDiedThisTurn++;
-				CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
-				NumMinionsKilledThisTurn++;
-				p.Damage = 0;
-				if (History)
-					PowerHistoryBuilder.BlockEnd();
-			});
-
-			// check for dead heroes
-			//var deadHeroes = Heroes.Where(p => p.IsDead).ToList();
+			var heroesBadWeapons = new List<Weapon>();
 			var deadHeroes = new List<Hero>();
+
+
 			foreach (Controller player in _players)
 			{
+				// remove dead weapons
+				if (player.Hero.Weapon != null && (player.Hero.Weapon.Durability == 0 || player.Hero.Weapon.ToBeDestroyed))
+					player.Hero.RemoveWeapon();
+
+				// check for dead minions to carry to the graveyard
+				foreach (Minion minion in new List<Minion>(player.BoardZone.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1)))
+				{
+					//	TODO : Issue to be fixed, suspect: SummonTask?
+					if (minion.Zone == minion.Controller.GraveyardZone)
+					{
+						player.BoardZone.Remove(minion);
+						return;
+					}
+
+					if (Logging)
+						Log(LogLevel.INFO, BlockType.PLAY, "Game", $"{minion} is Dead! Graveyard say 'Hello'!");
+
+					minion.LastBoardPosition = minion.ZonePosition;
+					minion.Zone.Remove(minion);
+
+					if (minion.HasDeathrattle)
+						minion.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+
+					if (History)
+						PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
+
+					minion.IsExhausted = false;
+					player.GraveyardZone.Add(minion);
+					player.NumFriendlyMinionsThatDiedThisTurn++;
+					CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
+					NumMinionsKilledThisTurn++;
+					minion.Damage = 0;
+
+					if (History)
+						PowerHistoryBuilder.BlockEnd();
+				}
+
+				// check for dead heroes
 				if (player.Hero.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1)
 					deadHeroes.Add(player.Hero);
 			}
-			deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? PlayState.TIED : PlayState.LOSING);
+
+			if (deadHeroes.Count > 0)
+				deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? PlayState.TIED : PlayState.LOSING);
 		}
 
 		/// <summary>

@@ -77,7 +77,15 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		public int this[GameTag t]
 		{
-			get { return Tags.ContainsKey(t) ? Tags[t] : (Card.Tags.ContainsKey(t) ? Card[t] : 0); }
+			//get { return Tags.ContainsKey(t) ? Tags[t] : (Card.Tags.ContainsKey(t) ? Card[t] : 0); }
+			get
+			{
+				if (Tags.TryGetValue(t, out int value))
+					return value;
+				else if (Card.Tags.TryGetValue(t, out value))
+					return value;
+				return 0;
+			}
 			set { Tags[t] = value; }
 		}
 

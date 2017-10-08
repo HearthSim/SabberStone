@@ -1782,7 +1782,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KirinTorMage_EX1_612()
 		{
 			// TODO KirinTorMage_EX1_612 test
@@ -1790,14 +1790,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Ice Block")
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
+			game.Player1.BaseMana = 3;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kirin Tor Mage"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kirin Tor Mage"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ice Barrier"));
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ice Block"));
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -3137,10 +3146,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: The next spell you cast this turn costs (3) less.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Preparation_EX1_145()
 		{
-			// TODO Preparation_EX1_145 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3152,7 +3160,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Preparation"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Preparation"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Preparation"));
+			IPlayable sprint = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sprint"));
+			IPlayable eviscerate = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eviscerate"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(4, sprint.Cost);
+			Assert.Equal(0, eviscerate.Cost);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, sprint));
+			Assert.Equal(2, eviscerate.Cost);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Equal(0, eviscerate.Cost);
 		}
 
 		// ----------------------------------------- MINION - ROGUE

@@ -2788,12 +2788,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_145", new List<Enchantment>
 			{
-                // TODO [EX1_145] Preparation && Test: Preparation_EX1_145
                 new Enchantment
 				{
 					InfoCardId = "EX1_145o",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					Area = EnchantmentArea.HAND,
+					Enchant = Buffs.TillTagChangeActive(
+						GameTag.NUM_SPELLS_PLAYED_THIS_GAME,
+						SelfCondition.IsSpell,
+						GameTag.COST,
+						-3,
+						null,
+						true)
 				},
 			});
 

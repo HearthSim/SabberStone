@@ -2118,11 +2118,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_910", new List<Enchantment> {
-				// TODO [ICC_910] Spectral Pillager && Test: Spectral Pillager_ICC_910
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.COMBO,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
+						new MathSubstractionTask(1),
+						new DamageNumberTask(EntityType.TARGET))
 				}
 			});
 
@@ -2137,11 +2139,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_201", new List<Enchantment> {
-				// TODO [ICC_201] Roll the Bones && Test: Roll the Bones_ICC_201
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = /*null*/
+					ComplexTask.RecursiveSpellTask(
+						new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleMinion),
+						new DrawTask(true))
 				},
 			});
 
@@ -2599,7 +2603,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = null
 				},
 			});
 
