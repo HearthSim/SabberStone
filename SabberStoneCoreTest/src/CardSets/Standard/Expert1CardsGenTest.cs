@@ -5259,7 +5259,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
 
-			Assert.True(((ICharacter)minion1).IsSilenced);
 			Assert.Equal(costA, game.CurrentPlayer.HandZone[0].Cost);
 		}
 

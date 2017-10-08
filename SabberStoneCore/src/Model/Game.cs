@@ -293,7 +293,7 @@ namespace SabberStoneCore.Model
 			// start with no splits ...
 			Splits = new List<Game>();
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":gameTask.FullPrint());
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : gameTask.FullPrint());
 
 			// clear last power history
 			PowerHistory.Last.Clear();
@@ -357,7 +357,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void StartGame()
 		{
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":"Starting new game now!");
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
 
 			// setting up the decks ...
 			_gameConfig.Player1Deck?.ForEach(p =>
@@ -390,7 +390,7 @@ namespace SabberStoneCore.Model
 				: _players[_gameConfig.StartPlayer - 1];
 			CurrentPlayer = FirstPlayer;
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"Starting Player is {CurrentPlayer.Name}.");
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"Starting Player is {CurrentPlayer.Name}.");
 
 			// first turn
 			Turn = 1;
@@ -405,7 +405,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void BeginFirst()
 		{
-			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging? "":$"Begin First.");
+			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging ? "" : $"Begin First.");
 
 			// set next step
 			NextStep = Step.BEGIN_SHUFFLE;
@@ -417,7 +417,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void BeginShuffle()
 		{
-			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging? "":$"Begin Shuffle.");
+			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging ? "" : $"Begin Shuffle.");
 
 			if (_gameConfig.Shuffle)
 			{
@@ -435,7 +435,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void BeginDraw()
 		{
-			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging? "":$"Begin Draw.");
+			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging ? "" : $"Begin Draw.");
 
 			//FirstPlayer.NumCardsToDraw = 3;
 			//FirstPlayer.Opponent.NumCardsToDraw = 4;
@@ -481,7 +481,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void BeginMulligan()
 		{
-			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging? "":$"Begin Mulligan.");
+			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging ? "" : $"Begin Mulligan.");
 
 			// starting mulligan draw block
 			if (History)
@@ -504,7 +504,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainBegin()
 		{
-			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging? "":$"Main Begin.");
+			Log(LogLevel.VERBOSE, BlockType.PLAY, "Game", !Logging ? "" : $"Main Begin.");
 
 			// and a coin
 			//Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
@@ -630,7 +630,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainStart()
 		{
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
 					 $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
 
@@ -651,7 +651,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainEnd()
 		{
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"End turn proccessed by player {CurrentPlayer}");
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"End turn proccessed by player {CurrentPlayer}");
 
 			if (History)
 				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
@@ -706,7 +706,7 @@ namespace SabberStoneCore.Model
 			// count next turn
 			Turn++;
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"CurentPlayer {CurrentPlayer.Name}.");
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"CurentPlayer {CurrentPlayer.Name}.");
 
 			if (History)
 				PowerHistoryBuilder.BlockEnd();
@@ -771,7 +771,7 @@ namespace SabberStoneCore.Model
 			{
 				_players.ToList().ForEach(p =>
 				{
-					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"{p.Name} has {p.PlayState} the Game!");
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{p.Name} has {p.PlayState} the Game!");
 				});
 			}
 
@@ -805,7 +805,7 @@ namespace SabberStoneCore.Model
 						return;
 					}
 
- 				 Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":$"{minion} is Dead! Graveyard say 'Hello'!");
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
 
 					minion.LastBoardPosition = minion.ZonePosition;
 					minion.Zone.Remove(minion);
@@ -842,7 +842,13 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
+
 			int i;
+			for (i = 0; i < Enchants.Count; i++)
+				Enchants[i].IsEnabled();
+			for (i = 0; i < Triggers.Count; i++)
+				Triggers[i].IsEnabled();
+
 			foreach (Controller player in _players)
 			{
 				for (i = 0; i < player.Triggers.Count; i++)
@@ -858,17 +864,34 @@ namespace SabberStoneCore.Model
 				for (i = 0; i < player.BoardZone.Triggers.Count; i++)
 					player.BoardZone.Triggers[i].IsEnabled();
 
+				for (i = 0; i < player.HandZone.Enchants.Count; i++)
+					player.HandZone.Enchants[i].IsEnabled();
+				for (i = 0; i < player.HandZone.Triggers.Count; i++)
+					player.HandZone.Triggers[i].IsEnabled();
+
 				for (i = 0; i < player.SecretZone.Triggers.Count; i++)
 					player.SecretZone.Triggers[i].IsEnabled();
 
 				for (i = 0; i < player.GraveyardZone.Triggers.Count; i++)
 					player.GraveyardZone.Triggers[i].IsEnabled();
 			}
+
+			foreach (Minion minion in Minions)
+			{
+				for (i = 0; i < minion.Enchants.Count; i++)
+					minion.Enchants[i].IsEnabled();
+				for (i = 0; i < minion.Triggers.Count; i++)
+					minion.Triggers[i].IsEnabled();
+			}
+
 			for (i = 0; i < LazyRemoves.Count;)
 			{
 				ILazyRemove item = LazyRemoves.Dequeue();
 				item.Remove();
 			}
+
+			// reset silence flag on minions
+			Minions.ForEach(p => p.IsSilenced = false);
 		}
 
 		/// <summary>
@@ -885,7 +908,7 @@ namespace SabberStoneCore.Model
 			{
 				if (TaskQueue.Process() != TaskState.COMPLETE)
 				{
-					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging? "":"Something really bad happend during proccessing, please analyze!");
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Something really bad happend during proccessing, please analyze!");
 				}
 				GraveYard();
 

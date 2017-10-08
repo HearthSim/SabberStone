@@ -364,7 +364,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
-					FillDecks = true, FillDecksPredictably = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -394,7 +395,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PRIEST,
 					Player2HeroClass = CardClass.HUNTER,
-					FillDecks = true, FillDecksPredictably = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -421,7 +423,8 @@ namespace SabberStoneCoreTest.Basic
 					StartPlayer = 1,
 					Player1HeroClass = CardClass.PALADIN,
 					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true, FillDecksPredictably = true
+					FillDecks = true,
+					FillDecksPredictably = true
 				});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -473,7 +476,8 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				FillDecks = true, FillDecksPredictably = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -520,7 +524,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true, FillDecksPredictably = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -571,7 +576,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true, FillDecksPredictably = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -612,7 +618,8 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.HUNTER,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true, FillDecksPredictably = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -707,7 +714,8 @@ namespace SabberStoneCoreTest.Basic
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				FillDecks = true, FillDecksPredictably = true
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -742,7 +750,8 @@ namespace SabberStoneCoreTest.Basic
 					{
 						Cards.FromName("The Marsh Queen")
 					},
-					FillDecks = true, FillDecksPredictably = true,
+					FillDecks = true,
+					FillDecksPredictably = true,
 					Shuffle = true,
 					SkipMulligan = false
 				});
@@ -758,6 +767,38 @@ namespace SabberStoneCoreTest.Basic
 				IPlayable t = game.IdEntityDic[p];
 				return !(t is Spell) || !((Spell)t).IsQuest;
 			})); // we have a no quest in mulligan! player 2
+		}
+
+		[Fact]
+		public void SilenceRebuffTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Silence"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Murloc Tinyfin"),
+					Cards.FromName("Power Word: Shield")
+				},
+				Player2HeroClass = CardClass.PRIEST,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
+			Assert.Equal(1, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(3, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(1, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(3, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
 	}

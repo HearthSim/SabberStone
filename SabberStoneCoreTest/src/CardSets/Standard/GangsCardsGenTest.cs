@@ -1306,10 +1306,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			//	TODO:
-			//IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
-			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion3));
-			//game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silence, minion3));
-			//Assert.False(minion3.Controller == game.CurrentPlayer);
+			IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion3));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silence, minion3));
+			Assert.False(minion3.Controller == game.CurrentPlayer);
+
+			IPlayable testCard4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard4, minion3));
+			Assert.True(minion3.Controller == game.CurrentPlayer);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.True(minion3.Controller == game.CurrentPlayer);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST

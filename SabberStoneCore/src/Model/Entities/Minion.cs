@@ -50,6 +50,7 @@ namespace SabberStoneCore.Model.Entities
 			HasBattleCry = false;
 			HasInspire = false;
 			HasLifeSteal = false;
+			//IsImmune = false;
 
 			IsSilenced = true;
 

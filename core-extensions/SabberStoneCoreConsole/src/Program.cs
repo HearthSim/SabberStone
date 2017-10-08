@@ -780,43 +780,34 @@ namespace SabberStoneCoreConsole
 
 		public static void CardsTest()
 		{
-			var game = new Game(new GameConfig
+var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PRIEST,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Secretkeeper"),
-					Cards.FromName("Mirror Entity")
+					Cards.FromName("Silence"),
+					Cards.FromName("Power Word: Shield"),
+					Cards.FromName("Murloc Tinyfin"),
+					Cards.FromName("Power Word: Shield")
 				},
-				Player2HeroClass = CardClass.MAGE,
-				Player2Deck = new List<Card>()
-				{
-					Cards.FromName("Ice Block"),
-					Cards.FromName("Frostbolt"),
-					Cards.FromName("Ironbeak Owl")
-				},
-				FillDecks = false,
-				Shuffle = false
+				Player2HeroClass = CardClass.PRIEST,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Secretkeeper")); // [1/2]
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Mirror Entity")); // [2/3]
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Ice Block")); // [3/4]
-			game.CurrentPlayer.BaseMana = 10;
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Frostbolt", game.CurrentOpponent.BoardZone[0]));
-			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Ironbeak Owl", game.CurrentOpponent.BoardZone[0]));
-
-			ShowLog(game, LogLevel.DEBUG);
-
-			Console.WriteLine($"{game.CurrentOpponent.BoardZone[0]} => " +
-				$"BaseHealth[{((Minion)game.CurrentOpponent.BoardZone[0]).BaseHealth}] - " +
-				$"Damage[{((Minion)game.CurrentOpponent.BoardZone[0]).Damage}] = " +
-				$"Health[{((Minion)game.CurrentOpponent.BoardZone[0]).Health}]");
-			
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
+			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
+			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
+			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
+			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			ShowLog(game, LogLevel.VERBOSE);	
 
 			Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());

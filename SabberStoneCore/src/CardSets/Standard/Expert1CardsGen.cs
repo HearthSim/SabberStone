@@ -2320,7 +2320,7 @@ namespace SabberStoneCore.CardSets.Standard
 						TurnsActive = 0,
 						EnableConditions = new List<SelfCondition>
 						{
-							//SelfCondition.IsNotSilenced,
+							SelfCondition.IsNotSilenced,
 							SelfCondition.IsInZone(Zone.PLAY)
 						},
 						Effects = new Dictionary<GameTag, int>
