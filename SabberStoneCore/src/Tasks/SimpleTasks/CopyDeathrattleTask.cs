@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var source = Source as Minion;
 			var target = Target as Minion;
 
-			Game.Log(LogLevel.INFO, BlockType.SCRIPT, "CopyDeathrattleTask", "Inside the Task.");
+			Game.Log(LogLevel.INFO, BlockType.SCRIPT, "CopyDeathrattleTask", !Game.Logging? "":"Inside the Task.");
 
 			if (source == null || target == null)
 			{

@@ -111,33 +111,27 @@ namespace SabberStoneCore.Enchants
 
 			if (!Effects.ContainsKey(gameTag))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"GameTag {gameTag} not concerned by this enchanting(change) ...");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"GameTag {gameTag} not concerned by this enchanting(change) ...");
 				return;
 			}
 
 			if (!IsEnabled())
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", "Trigger isn't enabled!");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":"Trigger isn't enabled!");
 				return;
 			}
 
 			if (!IsApplying(target))
 			{
-				if (Game.Logging)
-				{
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Trigger conditions not meet.");
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Owner: {Owner}, Target: {target}");
-				}
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Trigger conditions not meet.");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Owner: {Owner}, Target: {target}");
 				return;
 			}
 
 			if (Effects[gameTag] > 0 && oldValue >= newValue
 			 || Effects[gameTag] < 0 && oldValue <= newValue)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", $"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
 				return;
 			}
 

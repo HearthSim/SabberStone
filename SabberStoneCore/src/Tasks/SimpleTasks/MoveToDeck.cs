@@ -21,8 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller = Controller;
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck", $"{Controller.Name} is taking control of {p} and shuffled into his deck.");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck", !Game.Logging? "":$"{Controller.Name} is taking control of {p} and shuffled into his deck.");
 				Generic.ShuffleIntoDeck.Invoke(Controller, p);
 			});
 			return TaskState.COMPLETE;

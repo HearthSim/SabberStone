@@ -25,14 +25,14 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			Console.WriteLine(Cards.Statistics());
+			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();
@@ -783,38 +783,42 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARLOCK,
+				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Bloodreaver Gul'dan")
+					Cards.FromName("Secretkeeper"),
+					Cards.FromName("Mirror Entity")
 				},
 				Player2HeroClass = CardClass.MAGE,
-				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Ice Block"),
+					Cards.FromName("Frostbolt"),
+					Cards.FromName("Ironbeak Owl")
+				},
+				FillDecks = false,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Secretkeeper")); // [1/2]
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Mirror Entity")); // [2/3]
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Ice Block")); // [3/4]
+			game.CurrentPlayer.BaseMana = 10;
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Frostbolt", game.CurrentOpponent.BoardZone[0]));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Ironbeak Owl", game.CurrentOpponent.BoardZone[0]));
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			ShowLog(game, LogLevel.DEBUG);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Console.WriteLine($"{game.CurrentOpponent.BoardZone[0]} => " +
+				$"BaseHealth[{((Minion)game.CurrentOpponent.BoardZone[0]).BaseHealth}] - " +
+				$"Damage[{((Minion)game.CurrentOpponent.BoardZone[0]).Damage}] = " +
+				$"Health[{((Minion)game.CurrentOpponent.BoardZone[0]).Health}]");
+			
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodreaver Gul'dan"));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-			ShowLog(game, LogLevel.VERBOSE);
-
-			//Console.WriteLine(game.CurrentPlayer.BoardZone.FullPrint());
+			Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.DeckZone.FullPrint());
 		}

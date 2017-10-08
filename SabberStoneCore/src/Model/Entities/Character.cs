@@ -108,16 +108,14 @@ namespace SabberStoneCore.Model.Entities
 			// got target but isn't contained in valid targets
 			if (!ValidAttackTargets.Contains(target))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"{this} has an invalid target {target}.");
+				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} has an invalid target {target}.");
 				return false;
 			}
 
 			var hero = target as Hero;
 			if (CantAttackHeroes && (hero != null))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", $"Can't attack Heroes!");
+				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging? "":$"Can't attack Heroes!");
 				return false;
 			}
 
@@ -187,8 +185,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (minion != null && minion.HasDivineShield)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} divine shield absorbed incoming damage.");
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} divine shield absorbed incoming damage.");
 				minion.HasDivineShield = false;
 				return 0;
 			}
@@ -198,8 +195,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} is immune.");
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");
 				return 0;
 			}
 
@@ -212,8 +208,7 @@ namespace SabberStoneCore.Model.Entities
 			// final damage is beeing accumulated
 			Damage += PreDamage;
 
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
+			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			// check if there was damage done
 			int tookDamage = PreDamage;
@@ -264,8 +259,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="armor"></param>
 		public void GainArmor(IPlayable source, int armor)
 		{
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} gaining armor for {armor}.");
+			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} gaining armor for {armor}.");
 			Armor += armor;
 		}
 	}
@@ -437,12 +431,14 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.DAMAGE]; }
 			set
 			{
-				if (this[GameTag.HEALTH] <= value)
+				if (!IsIgnoreDamage && this[GameTag.HEALTH] <= value)
 				{
 					ToBeDestroyed = true;
 				}
+
 				// don't allow negative values
 				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
+
 			}
 		}
 

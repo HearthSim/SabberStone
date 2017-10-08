@@ -19,8 +19,7 @@ namespace SabberStoneCore.Model.Entities
 		public Weapon(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", $"{this} ({Card.Class}) was created.");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", !Game.Logging? "":$"{this} ({Card.Class}) was created.");
 		}
 	}
 

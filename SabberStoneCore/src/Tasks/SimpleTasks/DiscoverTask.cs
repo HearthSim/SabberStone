@@ -108,7 +108,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (resultCards.Count == 0)
 			{
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
-					$"Found no potential cards to use for {DiscoverType}");
+					!Game.Logging? "":$"Found no potential cards to use for {DiscoverType}");
 			}
 			else
 			{
@@ -131,7 +131,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 			var combinations = Util.GetDiscoverSets(uniqueList).ToList();
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", !Game.Logging? "":$"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
 			combinations.ForEach(p =>
 			{
 				Game cloneGame = Game.Clone();

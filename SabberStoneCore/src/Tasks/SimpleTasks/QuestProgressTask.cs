@@ -15,8 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			source.QuestProgress++;
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestProgressTask", $"{Controller} {source}'s Quest {source.QuestProgress} / {source.QuestTotalProgress} progress!");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestProgressTask", !Game.Logging? "":$"{Controller} {source}'s Quest {source.QuestProgress} / {source.QuestTotalProgress} progress!");
 			return TaskState.COMPLETE;
 		}
 

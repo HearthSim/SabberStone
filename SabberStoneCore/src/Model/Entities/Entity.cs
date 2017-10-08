@@ -208,8 +208,7 @@ namespace SabberStoneCore.Model.Entities
 			set
 			{
 				int oldValue = _data[t];
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} oldvalue {oldValue}");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value} oldvalue {oldValue}");
 				//if (oldValue == value && t != GameTag.ZONE_POSITION)
 				//{
 				//    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");

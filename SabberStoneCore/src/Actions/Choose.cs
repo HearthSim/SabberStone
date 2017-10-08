@@ -18,19 +18,19 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.Choice.ChoiceType != ChoiceType.GENERAL)
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick in a non-pick choice!");
+					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", !c.Game.Logging? "":$"Choice failed, trying to pick in a non-pick choice!");
 					return false;
 				}
 
 				if (!c.Choice.Choices.Contains(choice))
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", $"Choice failed, trying to pick a card that doesn't exist in this choice!");
+					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoicePick", !c.Game.Logging? "":$"Choice failed, trying to pick a card that doesn't exist in this choice!");
 					return false;
 				}
 
 				IPlayable playable = c.Game.IdEntityDic[choice];
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", $"{c.Name} Picks {playable.Card.Name} as choice!");
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "ChoicePick", !c.Game.Logging? "":$"{c.Name} Picks {playable.Card.Name} as choice!");
 
 				switch (c.Choice.ChoiceAction)
 				{
@@ -202,13 +202,13 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.Choice.ChoiceType != ChoiceType.MULLIGAN)
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan in a non-mulligan choice!");
+					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", !c.Game.Logging? "":$"Choice failed, trying to mulligan in a non-mulligan choice!");
 					return false;
 				}
 
 				if (!choices.TrueForAll(p => c.Choice.Choices.Contains(p)))
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", $"Choice failed, trying to mulligan a card that doesn't exist in this choice!");
+					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "ChoiceMulligan", !c.Game.Logging? "":$"Choice failed, trying to mulligan a card that doesn't exist in this choice!");
 					return false;
 				}
 
@@ -259,7 +259,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.Choice != null)
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", $"there is an unresolved choice, can't add a new one!");
+					c.Game.Log(LogLevel.WARNING, BlockType.ACTION, "CreateChoice", !c.Game.Logging? "":$"there is an unresolved choice, can't add a new one!");
 					return false;
 				}
 

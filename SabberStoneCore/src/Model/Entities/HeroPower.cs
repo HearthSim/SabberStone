@@ -17,8 +17,7 @@ namespace SabberStoneCore.Model.Entities
 		public HeroPower(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			if (Game.Logging)
-				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", $"{this} ({ Card.Class}) was created.");
+			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", !Game.Logging? "":$"{this} ({ Card.Class}) was created.");
 		}
 
 		/// <summary>Targetings the requirements.</summary>

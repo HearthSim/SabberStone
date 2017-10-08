@@ -5,6 +5,7 @@ using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -32,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			}
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "PotionGenerating", $"Current scripttags = {string.Join(",", ScriptTags)}");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "PotionGenerating", !Game.Logging? "":$"Current scripttags = {String.Join(",", ScriptTags)}");
 
 			if (ScriptTags.Count < 3)
 			{

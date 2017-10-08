@@ -28,7 +28,7 @@ namespace SabberStoneCore.Model.Entities
 		public Hero(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", $"{card.Name} ({card.Class}) was created.");
+			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", !Game.Logging? "":$"{card.Name} ({card.Class}) was created.");
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -67,8 +67,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Weapon.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
 			}
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", $"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 			Weapon = null;
 			EquippedWeapon = 0;
