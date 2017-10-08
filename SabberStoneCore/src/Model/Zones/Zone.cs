@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Zones
 			Game = game;
 			Controller = controller;
 			Type = type;
-			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Zone", $"Created Zone {type} in Game with Controller {controller.Name}");
+			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Zone", !Game.Logging? "":$"Created Zone {type} in Game with Controller {controller.Name}");
 		}
 
 		public void Stamp(IZone zone)
@@ -115,8 +115,7 @@ namespace SabberStoneCore.Model.Zones
 				entity.Reset();
 
 			MoveTo(entity, zonePosition < 0 ? _entitiesAsList.Count : zonePosition);
-			if (Game.Logging)
-				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging? "":$"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
 			// activate all zone changing enchantments
 			if (applyEnchantments)

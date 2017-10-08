@@ -18,7 +18,7 @@ namespace SabberStoneCore.Model.Zones
 			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
 			int cardsToAdd = StartingCards - Count;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging? "":$"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
 				Card card = Util.Choose<Card>(cards.ToList());
@@ -58,7 +58,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			int n = Count;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"{Controller.Name} shuffles its deck.");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging? "":$"{Controller.Name} shuffles its deck.");
 			for (int i = 0; i < n; i++)
 			{
 				int r = i + Util.Random.Next(n - i);

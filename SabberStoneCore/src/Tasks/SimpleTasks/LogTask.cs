@@ -18,15 +18,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (true)
 			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Log task is beeing processed!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Flag: {Flag}, Number: {Number}");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"Playables: {String.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Log task is beeing processed!");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "": $"Flag: {Flag}, Number: {Number}");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Playables: {String.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
 			}
 
 			if (CardTextPrint)
 			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", $"{Source.Card.Text}");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"{Source.Card.Text}");
 			}
 			return TaskState.COMPLETE;
 		}

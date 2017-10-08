@@ -227,8 +227,7 @@ namespace SabberStoneCore.Model.Entities
 		public IPlayable Destroy()
 		{
 			ToBeDestroyed = true;
-			if (Game.Logging)
-				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} just got set to be destroyed.");
+			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"{this} just got set to be destroyed.");
 			return this;
 		}
 
@@ -255,36 +254,32 @@ namespace SabberStoneCore.Model.Entities
 				// check if player is on turn
 				if (Controller != Game.CurrentPlayer)
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
-						$"{this} isn't playable, because player not on turn.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because player not on turn.");
 					return false;
 				}
 
 				// check if entity is in hand to be played
 				if (Zone != Controller.HandZone && !(this is HeroPower))
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
-						$"{this} isn't playable, because card not in hand.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because card not in hand.");
 					return false;
 				}
 
 				// check if player has enough mana to play card
 				if (Controller.RemainingMana < Cost)
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
-						$"{this} isn't playable, because not enough mana to pay cost.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because not enough mana to pay cost.");
 					return false;
 				}
 
 				// check if we got a slot on board for minions
 				if (Controller.BoardZone.IsFull && this is Minion)
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
-						$"{this} isn't playable, because not enough place on board.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because not enough place on board.");
 					return false;
 				}
 
@@ -292,9 +287,8 @@ namespace SabberStoneCore.Model.Entities
 				var spell = this as Spell;
 				if (spell != null && spell.IsSecret && Controller.SecretZone.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
-						$"{this} isn't playable, because secret already active on controller.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because secret already active on controller.");
 					return false;
 				}
 
@@ -315,8 +309,7 @@ namespace SabberStoneCore.Model.Entities
 				// check if we need a target and there are some
 				if (Card.RequiresTarget && !ValidPlayTargets.Any())
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"{this} isn't playable, because need valid target and we don't have one.");
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"{this} isn't playable, because need valid target and we don't have one.");
 					return false;
 				}
 
@@ -326,15 +319,14 @@ namespace SabberStoneCore.Model.Entities
 					PlayReq req = item.Key;
 					int param = item.Value;
 
-					if (Game.Logging)
-						Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", $"{this} check PlayReq {req} ... !");
+					Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", !Game.Logging? "":$"{this} check PlayReq {req} ... !");
 
 					switch (req)
 					{
 						case PlayReq.REQ_NUM_MINION_SLOTS:
 							if (Controller.BoardZone.IsFull)
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Board is full can't summon new minion.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"Board is full can't summon new minion.");
 								return false;
 							}
 							break;
@@ -344,35 +336,35 @@ namespace SabberStoneCore.Model.Entities
 							Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
 							if (containsAll)
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"All ready all entourageing cards summoned.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"All ready all entourageing cards summoned.");
 								return false;
 							}
 							break;
 						case PlayReq.REQ_WEAPON_EQUIPPED:
 							if (Controller.Hero.Weapon == null)
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need a weapon to play this card.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"Need a weapon to play this card.");
 								return false;
 							}
 							break;
 						case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
 							if (Controller.Opponent.BoardZone.Count < param)
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need at least {param} enemy minions to play this card.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"Need at least {param} enemy minions to play this card.");
 								return false;
 							}
 							break;
 						case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
 							if (Controller.BoardZone.Count + Controller.Opponent.BoardZone.Count < param)
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need at least {param} minions to play this card.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"Need at least {param} minions to play this card.");
 								return false;
 							}
 							break;
 						case PlayReq.REQ_STEADY_SHOT:
 							if (!Controller.Hero.Power.Card.Id.Equals("DS1h_292"))
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"Need steady shoot to be used.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"Need steady shoot to be used.");
 								return false;
 							}
 							break;
@@ -380,7 +372,7 @@ namespace SabberStoneCore.Model.Entities
 						case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
 							if (!Controller.GraveyardZone.GetAll.Exists(p => p is Minion))
 							{
-								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", $"No friendly minions died this game.");
+								Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging? "":$"No friendly minions died this game.");
 								return false;
 							}
 							break;
@@ -413,7 +405,7 @@ namespace SabberStoneCore.Model.Entities
 							break;
 
 						default:
-							Game.Log(LogLevel.ERROR, BlockType.PLAY, "Playable", $"PlayReq {req} not in switch needs to be added (Playable)!");
+							Game.Log(LogLevel.ERROR, BlockType.PLAY, "Playable", !Game.Logging? "":$"PlayReq {req} not in switch needs to be added (Playable)!");
 							break;
 					}
 				}

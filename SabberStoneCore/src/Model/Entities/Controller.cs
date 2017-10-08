@@ -143,7 +143,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Name = name;
 			ControlledZones = new ControlledZones(game, this);
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", $"Created Controller '{name}'");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
 
 		/// <summary>

@@ -100,8 +100,7 @@ namespace SabberStoneCore.Enchants
 		{
 			if (SingleTask != null)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "enqueueuing lazy removal task here!");
+				Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", !Game.Logging? "":"enqueueuing lazy removal task here!");
 
 				// clone task here
 				ISimpleTask clone = SingleTask.Clone();
@@ -126,14 +125,15 @@ namespace SabberStoneCore.Enchants
 
 			//RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] <= p.Value);
 
-
+			// check if all conditions are still meet
 			for (int i = 0; i < EnableConditions.Count; i++)
-				flag &= EnableConditions[i].Eval(Owner); 
+				flag &= EnableConditions[i].Eval(Owner);
+
+			// check if there is any remove trigger activated
 			foreach (KeyValuePair<GameTag, int> kvp in RemoveTriggers)
 				flag &= Owner.Controller[kvp.Key] <= kvp.Value;
 			
-
-
+			// check if turn activation is still okay
 			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 
 			if (!flag && !Owner.Game.LazyRemoves.Contains(this))
@@ -142,8 +142,7 @@ namespace SabberStoneCore.Enchants
 				// execute removal task here, ex. health rentantion   
 				if (RemovalTask != null)
 				{
-					if (Game.Logging)
-						Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", "executing removal task priority here");
+					Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", !Game.Logging? "":"executing removal task priority here");
 					Owner.Controller.Game.TaskQueue.Execute(RemovalTask, Owner.Controller, Owner, Owner);
 				}
 			}
@@ -181,34 +180,29 @@ namespace SabberStoneCore.Enchants
 
 			if (!Effects.ContainsKey(gameTag))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"GameTag {gameTag} not concerned by this enchanting ...");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"GameTag {gameTag} not concerned by this enchanting ...");
 				return value;
 			}
 
 			if (!IsEnabled())
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Enchant from {Owner} isn't enabled! {target}");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Enchant from {Owner} isn't enabled! {target}");
 				return value;
 			}
 
 			if (!IsApplying(target))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Enchant conditions not meet.");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Enchant conditions not meet.");
 				return value;
 			}
 
 			if (FixedValueFunc != null)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
 				return FixedValueFunc.Invoke(Owner);
 			}
 
-			if (Game.Logging)
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", $"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
+			Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
 
 			// apply variable effects if we have ...
 			int effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];

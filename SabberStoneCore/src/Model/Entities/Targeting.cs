@@ -82,24 +82,21 @@ namespace SabberStoneCore.Model.Entities
 			// check if the current target is legit
 			if (NeedsTargetList && target == null && ValidPlayTargets.Any())
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} hasn't a target and there are valid targets for this card.");
+				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} hasn't a target and there are valid targets for this card.");
 				return false;
 			}
 
 			// target reqiuired for this card
 			if (Card.RequiresTarget && target == null)
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} requires a target.");
+				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} requires a target.");
 				return false;
 			}
 
 			// got target but isn't contained in valid targets
 			if (target != null && !ValidPlayTargets.Contains(target))
 			{
-				if (Game.Logging)
-					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", $"{this} has an invalid target {target}.");
+				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} has an invalid target {target}.");
 				return false;
 			}
 
@@ -153,8 +150,7 @@ namespace SabberStoneCore.Model.Entities
 				PlayReq req = item.Key;
 				int param = item.Value;
 
-				if (Game.Logging)
-					Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Targeting", $"{this} check PlayReq {req} for target {target.Card.Name} ... !");
+				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} check PlayReq {req} for target {target.Card.Name} ... !");
 
 				switch (req)
 				{
@@ -334,11 +330,11 @@ namespace SabberStoneCore.Model.Entities
 					case PlayReq.REQ_SECRET_ZONE_CAP:
 					case PlayReq.REQ_TARGET_EXACT_COST:
 					case PlayReq.REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT:
-						Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", $"PlayReq {req} not implemented right now!");
+						Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", !Game.Logging? "":$"PlayReq {req} not implemented right now!");
 						break;
 
 					default:
-						Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", $"PlayReq {req} not in switch needs to be added!");
+						Game.Log(LogLevel.ERROR, BlockType.PLAY, "Targeting", !Game.Logging? "":$"PlayReq {req} not in switch needs to be added!");
 						break;
 				}
 			}

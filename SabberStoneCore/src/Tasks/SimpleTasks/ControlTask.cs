@@ -25,8 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());
 				removedEntity.Game.AuraUpdate();
 				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", $"{Controller.Name} is taking control of {p}.");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", !Game.Logging? "":$"{Controller.Name} is taking control of {p}.");
 
 				removedEntity.Controller.BoardZone.Add(removedEntity.Zone.Remove(removedEntity));
 			});

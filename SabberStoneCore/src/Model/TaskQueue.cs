@@ -45,8 +45,7 @@ namespace SabberStoneCore.Model
 			clone.Controller = controller;
 			clone.Source = source;
 			clone.Target = target;
-			if (Game.Logging)
-				Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
+			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
 					 $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
 
 			// power block
@@ -82,8 +81,7 @@ namespace SabberStoneCore.Model
 		{
 			CurrentTask = TaskList.OrderBy(p => p.Source.OrderOfPlay).First();
 			TaskList.Remove(CurrentTask);
-			if (Game.Logging)
-				Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", $"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
+			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
 										$"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
 
 

@@ -31,14 +31,13 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.BaseMana + amount > c.MaxResources)
 				{
-					if (c.Game.Logging)
-						c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", $"{c.Name} is already capped in {c.MaxResources} mana crystals.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging? "":$"{c.Name} is already capped in {c.MaxResources} mana crystals.");
 					c.UsedMana += c.MaxResources - c.BaseMana;
 					c.BaseMana = c.MaxResources;
 				}
 				else if (c.BaseMana + amount < 0)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", $"{c.Name} is back to minimum of 0 mana crystals.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging? "":$"{c.Name} is back to minimum of 0 mana crystals.");
 					c.BaseMana = 0;
 				}
 				else
@@ -64,8 +63,7 @@ namespace SabberStoneCore.Actions
 				// reset minion
 				minion.Reset();
 
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReturnToHandBlock", $"{c.Name} gets {minion} returned.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReturnToHandBlock", !c.Game.Logging? "":$"{c.Name} gets {minion} returned.");
 
 				if (!AddHandPhase.Invoke(c, minion))
 					return false;
@@ -85,8 +83,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.HandZone.IsFull)
 				{
-					if (c.Game.Logging)
-						c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"Hand ist full. Card {playable} drawn is burnt to graveyard.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging? "":$"Hand ist full. Card {playable} drawn is burnt to graveyard.");
 					c.GraveyardZone.Add(playable);
 					return false;
 				}
@@ -95,8 +92,7 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History && playable != null)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
 
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", $"adding to hand {playable}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging? "":$"adding to hand {playable}.");
 				c.HandZone.Add(playable);
 
 				return true;
@@ -106,8 +102,7 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, IPlayable playable)
 			{
 				IPlayable discard = c.HandZone.Remove(playable);
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", $"{discard} is beeing discarded.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging? "":$"{discard} is beeing discarded.");
 				c.GraveyardZone.Add(discard);
 
 				c.LastCardDiscarded = discard.Id;
@@ -131,8 +126,7 @@ namespace SabberStoneCore.Actions
 				IPlayable card = Util.Choose<IPlayable>(c.DeckZone.GetAll);
 				IPlayable cardOp = Util.Choose<IPlayable>(c.Opponent.DeckZone.GetAll);
 				bool success = card.Cost > cardOp.Cost;
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
+				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging? "":$"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 
 				// TODO shuffle deck .... or ... just let it be?
 				return success ? card : null;
@@ -141,8 +135,7 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> ShuffleIntoDeck
 			=> delegate (Controller c, IPlayable playable)
 			{
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", $"adding to deck {playable}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging? "":$"adding to deck {playable}.");
 
 				// don't activate enchantments when shuffling cards back into the deck
 				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1), false);
@@ -160,7 +153,7 @@ namespace SabberStoneCore.Actions
 				var newMinion = Entity.FromCard(c, card) as Minion;
 				if (newMinion == null)
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", $"missing final tranformation.");
+					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"missing final tranformation.");
 					return false;
 				}
 				if (!newMinion.HasCharge)
@@ -173,8 +166,7 @@ namespace SabberStoneCore.Actions
 
 				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
 				oldMinion.Controller.SetasideZone.Add(oldEntity);
-				if (c.Game.Logging)
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", $"{oldEntity} got transformed into {newMinion}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldEntity} got transformed into {newMinion}.");
 				return true;
 			};
 	}

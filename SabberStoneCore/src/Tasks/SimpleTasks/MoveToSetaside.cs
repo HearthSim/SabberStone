@@ -18,8 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			entities.ForEach(p =>
 			{
 				Model.Entities.IPlayable removedEntity = p.Zone.Remove(p);
-				if (Game.Logging)
-					Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", !Game.Logging? "":$"{p.Controller.Name}'s {p} is moved to the setaside zone.");
 				p.Controller.SetasideZone.Add(removedEntity);
 			});
 			return TaskState.COMPLETE;
