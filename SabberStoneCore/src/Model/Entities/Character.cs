@@ -129,15 +129,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				//var allTargets = Controller.Opponent.BoardZone.Where(x => !x.HasStealth).ToList<ICharacter>();
-				//var allTargetsTaunt = allTargets.Where(x => x.HasTaunt).ToList();
-				//if (!CantAttackHeroes)
-				//{
-				//	allTargets.Add(Controller.Opponent.Hero);
-				//}
-				//return allTargetsTaunt.Any() ? allTargetsTaunt : allTargets;
-				var allTargets = new List<ICharacter>();
-				var allTargetsTaunt = new List<ICharacter>();
+				var allTargets = new List<ICharacter>(8);
+				var allTargetsTaunt = new List<ICharacter>(4);
 				foreach (Minion minion in Controller.Opponent.BoardZone)
 				{
 					if (!minion.HasStealth)

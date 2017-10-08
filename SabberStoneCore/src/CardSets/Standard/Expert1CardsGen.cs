@@ -2328,7 +2328,7 @@ namespace SabberStoneCore.CardSets.Standard
 							[GameTag.CHARGE] = 1,
 							[GameTag.NUM_TURNS_IN_PLAY] = 0,
 						},
-						RemovalTask = new ControlTask(EntityType.TARGET, true)
+						SingleTask = new ControlTask(EntityType.TARGET, true)
 					}
 				},
 			});
