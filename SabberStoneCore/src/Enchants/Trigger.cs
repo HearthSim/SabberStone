@@ -147,10 +147,20 @@ namespace SabberStoneCore.Enchants
 			if (FastExecution)
 			{
 				Owner.Controller.Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, target);
+				if (Effects.ContainsKey(GameTag.TURN_START) && Effects[GameTag.TURN_START] < 0
+					&& Owner.Controller.ExtraEndTurnEffect)
+				{
+					Owner.Controller.Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, target);
+				}
 			}
 			else
 			{
 				Owner.Controller.Game.TaskQueue.Enqueue(clone);
+				if (Effects.ContainsKey(GameTag.TURN_START) && Effects[GameTag.TURN_START] < 0
+					&& Owner.Controller.ExtraEndTurnEffect)
+				{
+					Owner.Controller.Game.TaskQueue.Enqueue(clone);
+				}
 			}
 
 			Executions++;

@@ -3670,11 +3670,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_901", new List<Enchantment> {
-				// TODO [ICC_901] Drakkari Enchanter && Test: Drakkari Enchanter_ICC_901
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SimpleInclSelf(GameTag.EXTRA_END_TURN_EFFECT, 1)
 				}
 			});
 

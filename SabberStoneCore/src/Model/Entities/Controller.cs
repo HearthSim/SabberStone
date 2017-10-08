@@ -694,6 +694,16 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// Returns true if for this player all end turn effects should be executed another time.
+		/// This is applicable when Drakkari Enchanter is in play.
+		/// </summary>
+		public bool ExtraEndTurnEffect
+		{
+			get { return this[GameTag.EXTRA_END_TURN_EFFECT] == 1; }
+			set { this[GameTag.EXTRA_END_TURN_EFFECT] = value ? 1 : 0; }
+		}
+
+		/// <summary>
 		/// Returns true if this player automatically gets both options instead of having to
 		/// choose one.
 		/// This is applicable when Fandral Staghelm is in play.
