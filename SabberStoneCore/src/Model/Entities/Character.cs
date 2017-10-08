@@ -488,8 +488,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsSilenced
 		{
-			get { return this[GameTag.SILENCED] == 1; }
-			set { this[GameTag.SILENCED] = value ? 1 : 0; }
+			get { return GetNativeGameTag(GameTag.SILENCED) == 1; }
+			set { SetNativeGameTag(GameTag.SILENCED, value ? 1 : 0); }
 		}
 
 		public bool HasTaunt

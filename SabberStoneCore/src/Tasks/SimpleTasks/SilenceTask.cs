@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -12,19 +13,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count > 0)
 			{
 				entities.ForEach(p =>
 				{
-					((Minion)p).Silence();
+					var minion = p as Minion;
+					minion.Silence();
+
+					minion.Enchants.ForEach(z => z.IsEnabled());
+					minion.Triggers.ForEach(z => z.IsEnabled());
 				});
 
-				foreach (Minion minion in Game.Player1.BoardZone)
-					minion.Enchants.ForEach(p => p.IsEnabled());
-				foreach (Minion minion in Game.Player2.BoardZone)
-					minion.Enchants.ForEach(p => p.IsEnabled());
 				Game.AuraUpdate();
 
 				entities.ForEach(p =>
