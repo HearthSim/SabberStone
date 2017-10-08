@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IEnumerable<Card> cardsList;
+			List<Card> cardsList;
 			if (Tag == GameTag.COST)
 			{
 				Cards.CostMinionCards(Game.FormatType).TryGetValue(Number, out cardsList);
@@ -27,12 +27,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 			{
 				IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-				cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number);
+				cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number).ToList();
 				if (!cardsList.Any())
 					return TaskState.STOP;
 			}
 
-			IPlayable playable = Entity.FromCard(Controller, Util.RandomElement(cardsList));
+			IPlayable playable = Entity.FromCard(Controller, Util.Choose(cardsList));
 			Playables = new List<IPlayable> { playable };
 
 			Game.OnRandomHappened(true);

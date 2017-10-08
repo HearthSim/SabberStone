@@ -1413,16 +1413,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_082", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
-                        .SingleTask(ComplexTask.Secret(
-                            new IncludeTask(EntityType.TARGET),
-                            new EnqueueTask(2, new AddStackTo(EntityType.HAND))))
+				new Enchantment
+				{
+					Area = EnchantmentArea.OP_BOARD,
+					Activation = EnchantmentActivation.SECRET_OR_QUEST,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
+						.SingleTask(ComplexTask.Secret(
+							new IncludeTask(EntityType.TARGET),
+							new CopyTask(EntityType.STACK, 2),
+                            new AddStackTo(EntityType.HAND)))
                         .Build()
                 },
             });
@@ -2118,11 +2119,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_910", new List<Enchantment> {
-				// TODO [ICC_910] Spectral Pillager && Test: Spectral Pillager_ICC_910
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.COMBO,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
+						new MathSubstractionTask(1),
+						new DamageNumberTask(EntityType.TARGET))
 				}
 			});
 
@@ -2137,11 +2140,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_201", new List<Enchantment> {
-				// TODO [ICC_201] Roll the Bones && Test: Roll the Bones_ICC_201
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = /*null*/
+					ComplexTask.RecursiveSpellTask(
+						new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleMinion),
+						new DrawTask(true))
 				},
 			});
 
@@ -2599,7 +2604,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = null
 				},
 			});
 

@@ -25,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				//var minions = cards.Where(t => t.Type == CardType.MINION && t.Cost == p.Card.Cost + CostChange);
 				int cost = p.Card.Cost + CostChange;
-				Cards.CostMinionCards(Game.FormatType).TryGetValue(cost, out IEnumerable<Card> minions);
+				Cards.CostMinionCards(Game.FormatType).TryGetValue(cost, out List<Card> minions);
 				if (minions != null)
 				{
 					Generic.TransformBlock.Invoke(p.Controller, Util.RandomElement(minions), p as Minion);

@@ -262,5 +262,21 @@ namespace SabberStoneCore.Tasks
 				new SummonTask());
 		}
 
+		public static ISimpleTask RecursiveSpellTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
+		{
+			var taskList = tasks.ToList();
+			taskList.Add(repeatCondition);
+			taskList.Add(
+				new FlagTask(true,
+					new EnqueueTask(1, Create(
+						new IncludeTask(EntityType.SOURCE),
+						new FuncPlayablesTask(p =>
+						{
+							p[0].ApplyEnchantments(EnchantmentActivation.SPELL, Zone.GRAVEYARD);
+							return p;
+						}
+				)))));
+			return StateTaskList<ISimpleTask>.Chain(taskList.ToArray());
+		}
 	}
 }

@@ -50,6 +50,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// shuffle list randomly if needed
 			entities = RandomFlag ? entities.OrderBy(x => Util.Random.Next()).ToList() : entities;
 
+			if (RandomFlag)
+				Game.OnRandomHappened(true);
+
 			int space = Controller.BoardZone.MaxSize - Controller.BoardZone.Count;
 			if (space < Playables.Count)
 				Playables = Playables.Take(space).ToList();

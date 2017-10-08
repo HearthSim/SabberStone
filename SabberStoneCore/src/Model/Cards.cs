@@ -92,8 +92,8 @@ namespace SabberStoneCore.Model
 			//Log.Debug("AllWild:");
 			AllWild = All.Where(c => c.Collectible && c.Type != CardType.HERO).ToList().AsReadOnly();
 
-			StandardCostMinionCards = AllStandard.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.AsEnumerable());
-			WildCostMinionCards = AllWild.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.AsEnumerable());
+			StandardCostMinionCards = AllStandard.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.ToList());
+			WildCostMinionCards = AllWild.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.ToList());
 		}
 
 		#endregion
@@ -169,10 +169,10 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<int, IEnumerable<Card>> CostMinionCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? StandardCostMinionCards : WildCostMinionCards;
+		public static Dictionary<int, List<Card>> CostMinionCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? StandardCostMinionCards : WildCostMinionCards;
 
-		private static readonly Dictionary<int, IEnumerable<Card>> StandardCostMinionCards = new Dictionary<int, IEnumerable<Card>>();
-		private static readonly Dictionary<int, IEnumerable<Card>> WildCostMinionCards = new Dictionary<int, IEnumerable<Card>>();
+		private static readonly Dictionary<int, List<Card>> StandardCostMinionCards = new Dictionary<int, List<Card>>();
+		private static readonly Dictionary<int, List<Card>> WildCostMinionCards = new Dictionary<int, List<Card>>();
 
 
 		/// <summary>

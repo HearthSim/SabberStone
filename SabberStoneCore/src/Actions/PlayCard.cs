@@ -131,7 +131,7 @@ namespace SabberStoneCore.Actions
 				}
 
 				// replace enchantments with the no combo or combo one ..
-				if (source.Combo)
+				if (source.Combo && !(source is Minion))
 				{
 					if (source.Enchantments.Count > 1)
 					{
@@ -291,13 +291,14 @@ namespace SabberStoneCore.Actions
 				}
 				else if (spell.IsSecret || spell.IsQuest)
 				{
+					c.NumSpellsPlayedThisGame++;
+					c.NumSecretsPlayedThisGame++;
 					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
 					c.SecretZone.Add(spell);
-
-					c.NumSecretsPlayedThisGame++;
 				}
 				else
 				{
+					c.NumSpellsPlayedThisGame++;
 					spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
 					c.GraveyardZone.Add(spell);
 				}
@@ -308,7 +309,7 @@ namespace SabberStoneCore.Actions
 				spell.JustPlayed = false;
 				c.Game.DeathProcessingAndAuraUpdate();
 
-				c.NumSpellsPlayedThisGame++;
+
 
 				return true;
 			};
