@@ -796,7 +796,7 @@ namespace SabberStoneCore.Model
 					player.Hero.RemoveWeapon();
 
 				// check for dead minions to carry to the graveyard
-				foreach (Minion minion in new List<Minion>(player.BoardZone.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1)))
+				foreach (Minion minion in player.BoardZone.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1).ToList())
 				{
 					//	TODO : Issue to be fixed, suspect: SummonTask?
 					if (minion.Zone == minion.Controller.GraveyardZone)
@@ -842,7 +842,6 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
-
 			int i;
 			for (i = 0; i < Enchants.Count; i++)
 				Enchants[i].IsEnabled();
@@ -863,7 +862,7 @@ namespace SabberStoneCore.Model
 					player.BoardZone.Enchants[i].IsEnabled();
 				for (i = 0; i < player.BoardZone.Triggers.Count; i++)
 					player.BoardZone.Triggers[i].IsEnabled();
-
+					
 				for (i = 0; i < player.HandZone.Enchants.Count; i++)
 					player.HandZone.Enchants[i].IsEnabled();
 				for (i = 0; i < player.HandZone.Triggers.Count; i++)
@@ -876,22 +875,11 @@ namespace SabberStoneCore.Model
 					player.GraveyardZone.Triggers[i].IsEnabled();
 			}
 
-			foreach (Minion minion in Minions)
-			{
-				for (i = 0; i < minion.Enchants.Count; i++)
-					minion.Enchants[i].IsEnabled();
-				for (i = 0; i < minion.Triggers.Count; i++)
-					minion.Triggers[i].IsEnabled();
-			}
-
 			for (i = 0; i < LazyRemoves.Count;)
 			{
 				ILazyRemove item = LazyRemoves.Dequeue();
 				item.Remove();
 			}
-
-			// reset silence flag on minions
-			Minions.ForEach(p => p.IsSilenced = false);
 		}
 
 		/// <summary>

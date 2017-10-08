@@ -13,12 +13,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 		{
 			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
-			{
-				var minion = p as Minion;
-				minion?.Silence();
-			});
 
+			if (entities.Count > 0)
+			{
+				entities.ForEach(p =>
+				{
+					((Minion)p).Silence();
+				});
+
+				foreach (Minion minion in Game.Player1.BoardZone)
+					minion.Enchants.ForEach(p => p.IsEnabled());
+				foreach (Minion minion in Game.Player2.BoardZone)
+					minion.Enchants.ForEach(p => p.IsEnabled());
+				Game.AuraUpdate();
+
+				entities.ForEach(p =>
+				{
+					((Minion)p).IsSilenced = false;
+				});
+			}
 			return TaskState.COMPLETE;
 		}
 
