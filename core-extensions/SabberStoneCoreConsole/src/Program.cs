@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using SabberStoneCore.Model.Entities;
 using System.Text;
 using System.IO;
+using SabberStoneCore.Enchants;
 
 namespace SabberStoneCoreConsole
 {
@@ -25,7 +26,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -46,12 +47,47 @@ namespace SabberStoneCoreConsole
 			//var test = TestLoader.Load();
 			//Console.WriteLine(test.Count());
 
+			GatherTagsUsedByEnchantsOrTriggers();
+
 			//Console.WriteLine(Cards.AllStandard.Where(p => p.Race == Race.BEAST && p.Collectible).Count());
 
 			//Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
 			Console.WriteLine("Finished! Press key now.");
 			Console.ReadKey();
+		}
+
+		private static void GatherTagsUsedByEnchantsOrTriggers()
+		{
+			var gameTagCounts = new Dictionary<GameTag, int>();
+			foreach (Card card in Cards.All)
+			{
+				if (card.Enchantments != null)
+				{
+					foreach (Enchantment enchantment in card.Enchantments)
+					{
+						if (enchantment.Enchant?.Effects != null)
+						{
+							foreach (KeyValuePair<GameTag, int> keyValue in enchantment.Enchant.Effects)
+							{
+								if (gameTagCounts.ContainsKey(keyValue.Key))
+								{
+									gameTagCounts[keyValue.Key] += 1;
+								}
+								else
+								{
+									gameTagCounts[keyValue.Key] = 1;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			foreach (KeyValuePair<GameTag, int> keyValue in gameTagCounts)
+			{
+				Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
+			}
 		}
 
 		static void CloneAdapt()
@@ -780,7 +816,7 @@ namespace SabberStoneCoreConsole
 
 		public static void CardsTest()
 		{
-var game = new Game(new GameConfig
+			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
@@ -800,14 +836,14 @@ var game = new Game(new GameConfig
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
-			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion) game.CurrentPlayer.BoardZone[0]).Health);
-			ShowLog(game, LogLevel.VERBOSE);	
+			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			ShowLog(game, LogLevel.VERBOSE);
 
 			Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
 			//Console.WriteLine(game.CurrentPlayer.HandZone.FullPrint());
