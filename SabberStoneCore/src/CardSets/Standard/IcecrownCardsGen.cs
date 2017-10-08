@@ -1413,16 +1413,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_082", new List<Enchantment> {
-                new Enchantment
-                {
-                    Area = EnchantmentArea.OP_BOARD,
-                    Activation = EnchantmentActivation.SECRET_OR_QUEST,
-                    Trigger = new TriggerBuilder().Create()
-                        .EnableConditions(SelfCondition.IsSecretOrQuestActive)
-                        .TriggerEffect(GameTag.JUST_PLAYED, -1)
-                        .SingleTask(ComplexTask.Secret(
-                            new IncludeTask(EntityType.TARGET),
-                            new EnqueueTask(2, new AddStackTo(EntityType.HAND))))
+				new Enchantment
+				{
+					Area = EnchantmentArea.OP_BOARD,
+					Activation = EnchantmentActivation.SECRET_OR_QUEST,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
+						.SingleTask(ComplexTask.Secret(
+							new IncludeTask(EntityType.TARGET),
+							new CopyTask(EntityType.STACK, 2),
+                            new AddStackTo(EntityType.HAND)))
                         .Build()
                 },
             });

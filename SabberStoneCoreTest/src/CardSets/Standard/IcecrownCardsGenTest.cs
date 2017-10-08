@@ -1787,22 +1787,33 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FrozenClone_ICC_082()
 		{
-			// TODO FrozenClone_ICC_082 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frozen Clone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frozen Clone"));
+			IPlayable mirrorEntity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, mirrorEntity));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion));
+
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(2, game.CurrentOpponent.HandZone.Count);
+			Assert.True(game.CurrentOpponent.HandZone.GetAll.TrueForAll(p => p.Card.Name == "Stonetusk Boar" && p.Id != minion.Id && p.Id != game.CurrentOpponent.BoardZone[0].Id));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
