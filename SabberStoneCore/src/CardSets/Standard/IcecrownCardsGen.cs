@@ -2186,11 +2186,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_233", new List<Enchantment> {
-				// TODO [ICC_233] Doomerang && Test: Doomerang_ICC_233
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
+						new DamageNumberTask(EntityType.TARGET)),
 				},
 			});
 

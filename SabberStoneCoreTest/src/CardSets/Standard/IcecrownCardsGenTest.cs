@@ -2787,22 +2787,34 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_WEAPON_EQUIPPED = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Doomerang_ICC_233()
 		{
-			// TODO Doomerang_ICC_233 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Doomerang"),
+					Cards.FromName("N'Zoth's First Mate")
+				},
 				Player2HeroClass = CardClass.ROGUE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Doomerang"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "N'Zoth's First Mate"));
+			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count());
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Doomerang", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
 		}
 
 		// ----------------------------------------- WEAPON - ROGUE
