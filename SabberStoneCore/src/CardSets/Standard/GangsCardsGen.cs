@@ -635,7 +635,7 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							[GameTag.COST] = 0
 						},
-						ValueFunc = owner => -owner.Controller.NumSecretsPlayedThisGame
+						ValueFunc = owner => -2 * owner.Controller.NumSecretsPlayedThisGame
 					}
 				}
 			});
