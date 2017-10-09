@@ -1083,13 +1083,13 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="Step"/></value>
 		public Step NextStep
 		{
-			//get { return (Step)this[GameTag.NEXT_STEP]; }
-			//set { this[GameTag.NEXT_STEP] = (int)value; }
-			get { return (Step)GetNativeGameTag(GameTag.NEXT_STEP); }
+			get { return (Step)this[GameTag.NEXT_STEP]; }
+			set { this[GameTag.NEXT_STEP] = (int)value; }
+			/*get { return (Step)GetNativeGameTag(GameTag.NEXT_STEP); }
 			set
 			{
 				GamesEventManager.NextStepEvent(this, value);
-			}
+			}*/
 		}
 
 		/// <summary>
