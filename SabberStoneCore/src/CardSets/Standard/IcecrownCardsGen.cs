@@ -3685,11 +3685,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Hero Powers are disabled.
 			// --------------------------------------------------------
 			cards.Add("ICC_902", new List<Enchantment> {
-				// TODO [ICC_902] Mindbreaker && Test: Mindbreaker_ICC_902
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+                    Area = EnchantmentArea.CONTROLLERS,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SimpleInclSelf(GameTag.HERO_POWER_DISABLED, 1)
 				}
 			});
 

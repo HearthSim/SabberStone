@@ -38,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//PowerHistoryTest();
 			//ChooseOneTest();
 			//Kazakus();
-			//BrainDeadTest();
+			BrainDeadTest();
 			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
@@ -47,7 +47,7 @@ namespace SabberStoneCoreConsole
 			//var test = TestLoader.Load();
 			//Console.WriteLine(test.Count());
 
-			GatherTagsUsedByEnchantsOrTriggers();
+			//GatherTagsUsedByEnchantsOrTriggers();
 
 			//Console.WriteLine(Cards.AllStandard.Where(p => p.Race == Race.BEAST && p.Collectible).Count());
 

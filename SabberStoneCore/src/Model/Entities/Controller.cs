@@ -704,6 +704,15 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// Returns true if for this player hero power is disabled.
+		/// </summary>
+		public bool HeroPowerDisabled
+		{
+			get { return this[GameTag.HERO_POWER_DISABLED] == 1; }
+			set { this[GameTag.HERO_POWER_DISABLED] = value ? 1 : 0; }
+		}
+
+		/// <summary>
 		/// Returns true if this player automatically gets both options instead of having to
 		/// choose one.
 		/// This is applicable when Fandral Staghelm is in play.

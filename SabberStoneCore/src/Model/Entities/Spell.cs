@@ -17,7 +17,7 @@ namespace SabberStoneCore.Model.Entities
 		public Spell(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Spell", !Game.Logging? "":$"{card.Name} ({card.Class}) was created.");
+			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Spell", !Game.Logging ? "" : $"{card.Name} ({card.Class}) was created.");
 		}
 
 		/// <summary>
@@ -29,6 +29,28 @@ namespace SabberStoneCore.Model.Entities
 		public override bool TargetingRequirements(ICharacter target)
 		{
 			return !target.CantBeTargetedBySpells && base.TargetingRequirements(target);
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this entity is playable by the player. Some entities require specific
+		/// requirements before they can be played. This method will process the requirements and produce
+		/// a result for the current state of the game.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
+		public override bool IsPlayableByPlayer {
+			get
+			{
+				// check if we can play this secret
+				var spell = this as Spell;
+				if (spell != null && spell.IsSecret && Controller.SecretZone.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
+				{
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because secret already active on controller.");
+					return false;
+				}
+
+				return base.IsPlayableByPlayer;
+			}
 		}
 	}
 

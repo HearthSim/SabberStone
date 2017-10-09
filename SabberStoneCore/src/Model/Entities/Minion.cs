@@ -56,6 +56,27 @@ namespace SabberStoneCore.Model.Entities
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", !Game.Logging? "":$"{this} got silenced!");
 		}
+
+		/// <summary>
+		/// Gets a value indicating whether this entity is playable by the player. Some entities require specific
+		/// requirements before they can be played. This method will process the requirements and produce
+		/// a result for the current state of the game.
+		/// </summary>
+		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
+		public override bool IsPlayableByPlayer {
+			get
+			{
+				// check if we got a slot on board for minions
+				if (Controller.BoardZone.IsFull)
+				{
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging? "":$"{this} isn't playable, because not enough place on board.");
+					return false;
+				}
+
+				return base.IsPlayableByPlayer;
+			}
+		}
 	}
 
 	public partial class Minion
