@@ -4271,7 +4271,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinionThatDied())
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(amount: 2)
 				}
 			});
 
@@ -4289,7 +4289,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, ComplexTask.SummonRandomMinionThatDied())
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(amount: 3)
 				}
 			});
 

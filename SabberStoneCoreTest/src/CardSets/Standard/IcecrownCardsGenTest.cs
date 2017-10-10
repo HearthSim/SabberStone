@@ -2812,9 +2812,9 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count());
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Doomerang", game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
-			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
+			Assert.Null(game.CurrentPlayer.Hero.Weapon);
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Equal("Rusty Hook", game.CurrentPlayer.HandZone.Last().Card.Name);
 		}
 
 		// ----------------------------------------- WEAPON - ROGUE
