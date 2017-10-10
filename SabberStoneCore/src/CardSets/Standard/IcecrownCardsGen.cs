@@ -2191,7 +2191,10 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
-						new DamageNumberTask(EntityType.TARGET)),
+						new DamageNumberTask(EntityType.TARGET),
+						new CopyTask(EntityType.WEAPON, 1),
+						new MoveWeaponToSetaside(),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 

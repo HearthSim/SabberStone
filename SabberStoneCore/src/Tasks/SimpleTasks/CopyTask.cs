@@ -70,6 +70,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.OP_HERO_POWER:
 					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.Power.Card.Id)));
 					break;
+				case EntityType.WEAPON:
+					var weapon = Controller.Hero.Weapon as Weapon;
+					if (weapon == null)
+					{
+						return TaskState.STOP;
+					}
+					for (int i = 0; i < Amount; i++)
+					{
+						result.Add(Entity.FromCard(Controller, Cards.FromId(weapon.Card.Id)));
+					}
+					break;
 				default:
 					throw new NotImplementedException();
 			}

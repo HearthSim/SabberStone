@@ -56,6 +56,9 @@ namespace SabberStoneCore.Model.Entities
 			EquippedWeapon = weapon.Id;
 		}
 
+		/// <summary>
+		/// Removing a weapon to the graveyard. Triggering deathrattle events on the weapon.
+		/// </summary>
 		public void RemoveWeapon()
 		{
 			if (Weapon == null)
@@ -69,6 +72,13 @@ namespace SabberStoneCore.Model.Entities
 			}
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
+		}
+
+		/// <summary>
+		/// Clears wepon information on Hero.
+		/// </summary>
+		public void ClearWeapon()
+		{
 			Weapon = null;
 			EquippedWeapon = 0;
 		}
