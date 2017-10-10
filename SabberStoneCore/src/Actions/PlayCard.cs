@@ -292,7 +292,8 @@ namespace SabberStoneCore.Actions
 				else if (spell.IsSecret || spell.IsQuest)
 				{
 					c.NumSpellsPlayedThisGame++;
-					c.NumSecretsPlayedThisGame++;
+					if (spell.IsSecret)
+						c.NumSecretsPlayedThisGame++;
 					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
 					c.SecretZone.Add(spell);
 				}

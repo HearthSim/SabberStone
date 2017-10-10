@@ -118,9 +118,9 @@ namespace SabberStoneCore.Model.Zones
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging? "":$"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
 
 			// activate all zone changing enchantments
-			if (applyEnchantments)
+			if (applyEnchantments && Type != Zone.GRAVEYARD && Type != Zone.SETASIDE)
 			{
-				entity.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
+				//entity.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
 				entity.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
 				entity.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
 				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);

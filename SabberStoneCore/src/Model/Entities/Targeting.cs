@@ -53,14 +53,23 @@ namespace SabberStoneCore.Model.Entities
 		/// Gets a value indicating whether the entity requires a target list to be calculated before being played.
 		/// </summary>
 		/// <value><c>true</c> if a target list must be calculated; otherwise, <c>false</c>.</value>
-		protected internal virtual bool NeedsTargetList =>
-			Card.RequiresTarget
-			|| Card.RequiresTargetForCombo
-			|| Card.RequiresTargetIfAvailable
-			|| Card.RequiresTargetIfAvailableAndDragonInHand // && Controller.DragonInHand 
-			|| Card.RequiresTargetIfAvailableAndElementalPlayedLastTurn // && Controller.NumElementalsPlayedLastTurn > 0
-			|| Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions // && Controller.Board.Count >= 4
-			|| Card.RequiresTargetIfAvailableAndMinimumFriendlySecrets; // && Controller.Secrets.Count > 0;
+		
+		protected internal virtual bool NeedsTargetList
+		{
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+			get
+			{
+				return
+					Card.RequiresTarget
+					|| Card.RequiresTargetForCombo
+					|| Card.RequiresTargetIfAvailable
+					|| Card.RequiresTargetIfAvailableAndDragonInHand // && Controller.DragonInHand 
+					|| Card.RequiresTargetIfAvailableAndElementalPlayedLastTurn // && Controller.NumElementalsPlayedLastTurn > 0
+					|| Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions // && Controller.Board.Count >= 4
+					|| Card.RequiresTargetIfAvailableAndMinimumFriendlySecrets; // && Controller.Secrets.Count > 0;
+			}
+		}
+
 
 		/// <summary>Gets all characters which can be targetted when playing this entity.</summary>
 		/// <value>
@@ -80,7 +89,8 @@ namespace SabberStoneCore.Model.Entities
 		public virtual bool IsValidPlayTarget(ICharacter target = null)
 		{
 			// check if the current target is legit
-			if (NeedsTargetList && target == null && ValidPlayTargets.Any())
+			IEnumerable<ICharacter> vpt = ValidPlayTargets;
+			if (NeedsTargetList && target == null && vpt.Any())
 			{
 				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} hasn't a target and there are valid targets for this card.");
 				return false;
@@ -94,7 +104,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			// got target but isn't contained in valid targets
-			if (target != null && !ValidPlayTargets.Contains(target))
+			if (target != null && !vpt.Contains(target))
 			{
 				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Targeting", !Game.Logging? "":$"{this} has an invalid target {target}.");
 				return false;
@@ -303,12 +313,10 @@ namespace SabberStoneCore.Model.Entities
 					// implemented in playable ... 
 					case PlayReq.REQ_NUM_MINION_SLOTS:
 					case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
-						break;
 
 					// already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
 					case PlayReq.REQ_TARGET_TO_PLAY:
 					case PlayReq.REQ_TARGET_IF_AVAILABLE:
-						break;
 
 					// TODO still haven't implemented all playerreq ...
 					case PlayReq.REQ_NONSTEALTH_ENEMY_TARGET: // Enemy target cannot be stealthed.

@@ -171,12 +171,12 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new SummonOpTask()));
 		}
 
-		public static ISimpleTask SummonRandomMinionThatDied(SelfCondition selfCondition = null)
+		public static ISimpleTask SummonRandomMinionThatDied(SelfCondition selfCondition = null, int amount = 1)
 		{
 			return Create(
 				new IncludeTask(EntityType.GRAVEYARD),
 				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
-				new RandomTask(1, EntityType.STACK),
+				new RandomTask(amount, EntityType.STACK),
 				new CopyTask(EntityType.STACK, 1),
 				new SummonTask());
 		}

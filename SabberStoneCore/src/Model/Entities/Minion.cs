@@ -132,8 +132,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public int LastBoardPosition
 		{
-			get { return this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD]; }
-			set { this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] = value; }
+			//get { return this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD]; }
+			//set { this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] = value; }
+			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }
+			set { SetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD, value); }
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

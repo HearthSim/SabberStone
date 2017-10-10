@@ -919,7 +919,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(6, testCard.Cost);
 			IPlayable secret = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mirror Entity"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, secret));
-			Assert.Equal(5, testCard.Cost);
+			Assert.Equal(4, testCard.Cost);
 		}
 	}
 

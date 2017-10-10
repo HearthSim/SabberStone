@@ -792,14 +792,18 @@ namespace SabberStoneCore.Model
 			foreach (Controller player in _players)
 			{
 				// remove dead weapons
-				if (player.Hero.Weapon != null && (player.Hero.Weapon.Durability == 0 || player.Hero.Weapon.ToBeDestroyed))
+				if (player.Hero.Weapon != null && (player.Hero.Weapon.Durability == 0 || player.Hero.Weapon.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1))
 					player.Hero.RemoveWeapon();
 
 				// check for dead minions to carry to the graveyard
-				foreach (Minion minion in player.BoardZone.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1).ToList())
+				BoardZone board = player.BoardZone;
+				for (int i = board.Count; i > 0;)
 				{
+					var minion = (Minion)board[--i];
+					if (minion.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 0)
+						continue;
 					//	TODO : Issue to be fixed, suspect: SummonTask?
-					if (minion.Zone == minion.Controller.GraveyardZone)
+					if (minion.Zone.Type == Enums.Zone.GRAVEYARD)
 					{
 						player.BoardZone.Remove(minion);
 						return;
@@ -807,7 +811,7 @@ namespace SabberStoneCore.Model
 
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
 
-					minion.LastBoardPosition = minion.ZonePosition;
+					minion.LastBoardPosition = minion.GetNativeGameTag(GameTag.ZONE_POSITION) - 1;
 					minion.Zone.Remove(minion);
 
 					if (minion.HasDeathrattle)

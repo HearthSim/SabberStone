@@ -635,7 +635,7 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							[GameTag.COST] = 0
 						},
-						ValueFunc = owner => -owner.Controller.NumSecretsPlayedThisGame
+						ValueFunc = owner => -2 * owner.Controller.NumSecretsPlayedThisGame
 					}
 				}
 			});
@@ -4271,7 +4271,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinionThatDied())
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(amount: 2)
 				}
 			});
 
@@ -4289,7 +4289,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, ComplexTask.SummonRandomMinionThatDied())
+					SingleTask = ComplexTask.SummonRandomMinionThatDied(amount: 3)
 				}
 			});
 
