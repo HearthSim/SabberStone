@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Conditions;
@@ -170,18 +171,32 @@ namespace SabberStoneCore.Tasks
 					IEntity source = p[0];
 					Controller controller = p[0].Controller;
 					Controller opponent = p[0].Controller.Opponent;
-					var opStartDeckClassCards = opponent.DeckCards.Where(c => c.Class == opponent.BaseClass).ToList();
-					var allClassCards = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList();
-					var result = new List<Card> { Util.Choose(opStartDeckClassCards) };
-					IEnumerable<string> Ids = opStartDeckClassCards.Select(c => c.Id);
+					if (GlimmerrootMemory1 == null)
+					{
+						lock (locker)
+						{
+							var opClassCards = new List<Card>();
+							GlimmerrootMemory2 = new HashSet<int>();
+							GlimmerrootMemory3 = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList().AsReadOnly();
+							foreach (Card card in opponent.DeckCards)
+							{
+								if (card.Class != opponent.BaseClass)
+									continue;
+								if (GlimmerrootMemory2.Contains(card.AssetId))
+									continue;
+								opClassCards.Add(card);
+								GlimmerrootMemory2.Add(card.AssetId);
+							}
+							GlimmerrootMemory1 = opClassCards.AsReadOnly();
+						}
+					}
+
+					var result = new List<Card> { Util.Choose(GlimmerrootMemory1) };
 					while (result.Count < 3)
 					{
-						Card pick = Util.Choose(allClassCards);
-						if (Ids.Contains(pick.Id) || result.Contains(pick))
-						{
-							allClassCards.Remove(pick);
+						Card pick = Util.Choose(GlimmerrootMemory3);
+						if (GlimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick))
 							continue;
-						}
 						result.Add(pick);
 					}
 					
@@ -196,6 +211,11 @@ namespace SabberStoneCore.Tasks
 					controller.Game.OnRandomHappened(true);
 					return p;
 				}));
+		private static ReadOnlyCollection<Card> GlimmerrootMemory1;
+		private static HashSet<int> GlimmerrootMemory2;
+		private static ReadOnlyCollection<Card> GlimmerrootMemory3;
+		private static readonly object locker = new object();
+
 
 		public static ISimpleTask RazaTheChained
 			=> ComplexTask.Create(

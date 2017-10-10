@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -76,6 +77,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public List<GameTag> GameTagFilter { get; set; }
 		public bool Opposite { get; set; }
 
+		private static ConcurrentDictionary<int, List<Card>> MemorisedCards = new ConcurrentDictionary<int, List<Card>>();
+
 		public override TaskState Process()
 		{
 
@@ -94,15 +97,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-			IEnumerable<Card> cardsList = cards.Where(p =>
+
+			MemorisedCards.TryGetValue(Source.Card.AssetId, out List<Card> cardsList);
+			if (cardsList == null)
+			{
+				cardsList = cards.Where(p =>
 				(CardType == CardType.INVALID || p.Type == CardType) &&
 				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
 				(CardSet == CardSet.INVALID || p.Set == CardSet) &&
 				(Race == Race.INVALID || p.Race == Race) &&
 				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))) &&
-				(p[GameTag.QUEST] == 0));
+				(p[GameTag.QUEST] == 0)).ToList();
 
-			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose<Card>(cardsList.ToList()));
+				MemorisedCards.TryAdd(Source.Card.AssetId, cardsList);
+			}
+
+
+			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
 			Playables = new List<IPlayable> { randomCard };
 
 			Game.OnRandomHappened(true);

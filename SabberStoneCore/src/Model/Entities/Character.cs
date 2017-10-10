@@ -505,8 +505,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
-			set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
+			//get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
+			//set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
+			get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
 		}
 
 		public int PreDamage

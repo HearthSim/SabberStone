@@ -79,7 +79,17 @@ namespace SabberStoneCore.Model
 
 		public TaskState Process()
 		{
-			CurrentTask = TaskList.OrderBy(p => p.Source.OrderOfPlay).First();
+			//CurrentTask = TaskList.OrderBy(p => p.Source.OrderOfPlay).First();
+			int oop = System.Int32.MaxValue;
+			foreach (ISimpleTask task in TaskList)
+			{
+				int temp = task.Source.OrderOfPlay;
+				if (oop > temp)
+				{
+					oop = temp;
+					CurrentTask = task;
+				}
+			}
 			TaskList.Remove(CurrentTask);
 			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
 										$"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");

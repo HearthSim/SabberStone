@@ -39,17 +39,41 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (entities.Count != 1)
 					return TaskState.STOP;
 
-				Playables = Playables
-					.Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
-					.ToList();
+				//Playables = Playables
+				//	.Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
+				//	.ToList();
+				var filtered = new System.Collections.Generic.List<Model.Entities.IPlayable>();
+				foreach(Model.Entities.IPlayable p in Playables)
+				{
+					bool flag = true;
+					for (int i = 0; i < RelaConditions.Length; i++)
+						flag = flag && RelaConditions[i].Eval(entities[0], p);
+					if (flag)
+						filtered.Add(p);
+				}
+				Playables = new System.Collections.Generic.List<Model.Entities.IPlayable>(filtered);
 			}
 
 			if (SelfConditions != null)
 			{
-				var selfConditionList = SelfConditions.Where(x => x != null).ToList();
-				Playables = Playables
-					.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
-					.ToList();
+				//var selfConditionList = SelfConditions.Where(x => x != null).ToList();
+				//Playables = Playables
+				//	.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
+				//	.ToList();
+				var filtered = new System.Collections.Generic.List<Model.Entities.IPlayable>();
+				foreach (Model.Entities.IPlayable p in Playables)
+				{
+					bool flag = true;
+					for (int i = 0; i < SelfConditions.Length; i++)
+					{
+						if (SelfConditions[i] != null)
+							flag = flag && SelfConditions[i].Eval(p);
+					}
+
+					if (flag)
+						filtered.Add(p);
+				}
+				Playables = new System.Collections.Generic.List<Model.Entities.IPlayable>(filtered);
 			}
 
 			return TaskState.COMPLETE;

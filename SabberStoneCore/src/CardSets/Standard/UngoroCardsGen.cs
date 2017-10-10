@@ -256,32 +256,44 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_116", new List<Enchantment>
 			{
-                // TODO Write test for it ...
                 // Quest Contributor Trigger
-                new Enchantment
+				//new Enchantment
+				//{
+				//	Area = EnchantmentArea.HAND,
+				//	Activation = EnchantmentActivation.SECRET_OR_QUEST,
+				//	SingleTask = ComplexTask.Create(
+				//		new IncludeTask(EntityType.HAND),
+				//		new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
+				//		new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
+				//	Trigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsSecretOrQuestActive)
+				//		.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)))
+				//		.TriggerEffect(GameTag.ZONE_POSITION, 0)
+				//		.SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
+				//		.Build()
+				//},
+                // Quest Progress Trigger
+				//new Enchantment
+				//{
+				//	Area = EnchantmentArea.HAND_AND_BOARD,
+				//	Activation = EnchantmentActivation.SECRET_OR_QUEST,
+				//	Trigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsSecretOrQuestActive)
+				//		.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
+				//		.TriggerEffect(GameTag.JUST_PLAYED, 1)
+				//		.SingleTask(new QuestProgressTask())
+				//		.Build()
+				//},
+
+				// Quest Progress Trigger
+				new Enchantment
 				{
-					Area = EnchantmentArea.HAND,
+					Area = EnchantmentArea.BOARD,
 					Activation = EnchantmentActivation.SECRET_OR_QUEST,
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.HAND),
-						new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
-						new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.STACK)),
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)))
-						.TriggerEffect(GameTag.ZONE_POSITION, 0)
-						.SingleTask(new SetGameTagTask(GameTag.QUEST_CONTRIBUTOR, 1, EntityType.TARGET))
-						.Build()
-				},
-                // Quest Progress Trigger
-                new Enchantment
-				{
-					Area = EnchantmentArea.HAND_AND_BOARD,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.QUEST_CONTRIBUTOR, 1)))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
+						.TriggerEffect(GameTag.SUMMONED, 1)
 						.SingleTask(new QuestProgressTask())
 						.Build()
 				},
