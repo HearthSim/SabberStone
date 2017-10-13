@@ -72,6 +72,8 @@ namespace SabberStoneCore.Model.Entities
 			}
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
+
+			ClearWeapon();
 		}
 
 		/// <summary>
