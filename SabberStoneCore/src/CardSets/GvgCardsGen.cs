@@ -543,11 +543,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Add a random minion to your hand. It costs (3) less.
 			// --------------------------------------------------------
 			cards.Add("GVG_003", new List<Enchantment> {
-				// TODO [GVG_003] Unstable Portal && Test: Unstable Portal_GVG_003
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new RandomCardTask(CardType.MINION, CardClass.INVALID),
+						new AddStackTo(EntityType.HAND),
+						new BuffTask(Buffs.Cost(-3), EntityType.STACK))
 				},
 			});
 
