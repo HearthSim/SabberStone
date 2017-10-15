@@ -801,5 +801,35 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(3, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
+		[Fact]
+		public void AfterCastTriggerTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Violet Teacher"),
+					Cards.FromName("Mindgames"),
+				},
+				Player2HeroClass = CardClass.PALADIN,
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wild Pyromancer")
+				},
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Violet Teacher"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mindgames"));
+		}
 	}
 }

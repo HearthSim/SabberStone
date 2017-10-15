@@ -37,11 +37,11 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsDamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
 		public static SelfCondition IsUndamaged => new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage == 0);
 
-		public static SelfCondition IsControllingRace(Race race) => new SelfCondition(me => me.Controller.BoardZone.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == race));
+		public static SelfCondition IsControllingRace(Race race) => new SelfCondition(me => me.Controller.BoardZone.Any(p => (Race)p.GetNativeGameTag(GameTag.CARDRACE) == race));
 		public static SelfCondition IsControllingSecret => new SelfCondition(me => me.Controller.SecretZone.Count > 0);
 
-		public static SelfCondition IsDragonInHand => new SelfCondition(me => me.Controller.HandZone.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
-		public static SelfCondition Is5PlusAtkInHand => new SelfCondition(me => me.Controller.HandZone.GetAll.Exists(p => p is ICharacter && ((ICharacter)p).AttackDamage >= 5));
+		public static SelfCondition IsDragonInHand => new SelfCondition(me => me.Controller.HandZone.Any(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
+		public static SelfCondition Is5PlusAtkInHand => new SelfCondition(me => me.Controller.HandZone.Any(p => p is ICharacter && ((ICharacter)p).AttackDamage >= 5));
 		public static SelfCondition IsRace(params Race[] races) => new SelfCondition(me => me is ICharacter && races.Contains(((ICharacter)me).Race));
 		public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter && !races.Contains(((ICharacter)me).Race));
 		public static SelfCondition IsMinion => new SelfCondition(me => me is Minion);
@@ -71,7 +71,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsDeathrattleMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
 		public static SelfCondition IsBattlecryMinion => new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
 
-		public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.GraveyardZone.GetAll.Exists(p => p.Card.Id.Equals("OG_280")));
+		public static SelfCondition IsCthunDead => new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
 		public static SelfCondition IsInZone(params Zone[] zones)
 		{
@@ -103,7 +103,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.HandZone.Count < me.Controller.Opponent.HandZone.Count);
 
 		public static SelfCondition AnyNonClassCardInHand(CardClass cardClass)
-			=> new SelfCondition(me => me.Controller.HandZone.GetAll.Any(p => p.Card.Class != cardClass));
+			=> new SelfCondition(me => me.Controller.HandZone.Any(p => p.Card.Class != cardClass));
 
 		public static SelfCondition IsZoneCount(Zone zone, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>

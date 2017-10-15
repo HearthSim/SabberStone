@@ -796,10 +796,14 @@ namespace SabberStoneCore.Model
 					player.Hero.RemoveWeapon();
 
 				// check for dead minions to carry to the graveyard
-				foreach (Minion minion in player.BoardZone.Where(p => p.ToBeDestroyed).ToList())
+				BoardZone board = player.BoardZone;
+				for (int i = board.Count; i > 0;)
 				{
+					var minion = (Minion)board[--i];
+					if (!minion.ToBeDestroyed)
+						continue;
 					//	TODO : Issue to be fixed, suspect: SummonTask?
-					if (minion.Zone == minion.Controller.GraveyardZone)
+					if (minion.Zone.Type == Enums.Zone.GRAVEYARD)
 					{
 						player.BoardZone.Remove(minion);
 						return;
