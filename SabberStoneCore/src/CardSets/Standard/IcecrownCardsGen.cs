@@ -2446,11 +2446,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_078", new List<Enchantment> {
-				// TODO [ICC_078] Avalanche && Test: Avalanche_ICC_078
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						ComplexTask.Freeze(EntityType.TARGET),
+						new IncludeTask(EntityType.OP_MINIONS),
+						new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+						new DamageTask(3, EntityType.STACK, true))
 				},
 			});
 
