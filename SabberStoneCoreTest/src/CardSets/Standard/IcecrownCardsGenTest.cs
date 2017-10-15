@@ -3259,22 +3259,32 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SanguineReveler_ICC_903()
 		{
-			// TODO SanguineReveler_ICC_903 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Sanguine Reveler")
+				},
 				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sanguine Reveler"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Sanguine Reveler", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Sanguine Reveler", ((Minion)game.CurrentPlayer.BoardZone[0]).Card.Name);
+			Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

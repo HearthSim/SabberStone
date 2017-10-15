@@ -2585,12 +2585,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_903", new List<Enchantment> {
-				// TODO [ICC_903] Sanguine Reveler && Test: Sanguine Reveler_ICC_903
 				new Enchantment
 				{
 					InfoCardId = "ICC_903t",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new DestroyTask(EntityType.TARGET),
+						new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
 				},
 			});
 
