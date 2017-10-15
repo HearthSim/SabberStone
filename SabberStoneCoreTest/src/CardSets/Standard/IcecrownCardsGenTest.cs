@@ -3022,22 +3022,31 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Cryostasis_ICC_056()
 		{
-			// TODO Cryostasis_ICC_056 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Cryostasis")
+				},
 				Player2HeroClass = CardClass.SHAMAN,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cryostasis"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Cryostasis", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).IsFrozen);
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN

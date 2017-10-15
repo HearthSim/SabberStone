@@ -2422,12 +2422,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_056", new List<Enchantment> {
-				// TODO [ICC_056] Cryostasis && Test: Cryostasis_ICC_056
 				new Enchantment
 				{
 					InfoCardId = "ICC_056e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET),
+						ComplexTask.Freeze(EntityType.TARGET)),
 				},
 			});
 
