@@ -535,22 +535,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - SILENCE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KeeperOfTheGrove_EX1_166()
 		{
-			// TODO KeeperOfTheGrove_EX1_166 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Keeper of the Grove"),
+					Cards.FromName("Mark of the Wild"),
+					Cards.FromName("Keeper of the Grove")
+				},
 				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Keeper of the Grove"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Keeper of the Grove", game.CurrentOpponent.Hero, 1));
+			Assert.Equal(28, game.CurrentOpponent.Hero.Health);
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Mark of the Wild", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(4, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Keeper of the Grove", game.CurrentPlayer.BoardZone[0], 2));
+			Assert.Equal(2, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID
