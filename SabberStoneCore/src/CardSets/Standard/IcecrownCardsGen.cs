@@ -2646,11 +2646,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_206", new List<Enchantment> {
-				// TODO [ICC_206] Treachery && Test: Treachery_ICC_206
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = new ControlTask(EntityType.TARGET, true)
 				},
 			});
 

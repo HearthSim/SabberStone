@@ -3355,22 +3355,31 @@ namespace SabberStoneUnitTest.CardSets
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Treachery_ICC_206()
 		{
-			// TODO Treachery_ICC_206 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Treachery")
+				},
 				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Treachery"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Murloc Raider"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Treachery", game.CurrentPlayer.BoardZone[0]));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.True(game.CurrentOpponent.BoardZone[0].Controller == game.CurrentOpponent);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
