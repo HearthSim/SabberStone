@@ -152,11 +152,12 @@ namespace SabberStoneCore.Model.Entities
 		protected Playable(Controller controller, Card card, Dictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-
 			if (Card.Enchantments != null)
-			{
-				Enchantments.AddRange(Card.Enchantments);
-			}
+				Enchantments = new List<Enchantment>(Card.Enchantments);
+			//if (Card.Enchantments != null)
+			//{
+			//	Enchantments.AddRange(Card.Enchantments);
+			//}
 		}
 
 		/// <summary>

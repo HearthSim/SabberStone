@@ -75,7 +75,7 @@ namespace SabberStoneCore.Model
 				{
 					var clone = new Choice(Controller);
 					clone.Stamp(item);
-					ChoiceQueue.Enqueue(item);
+					ChoiceQueue.Enqueue(clone);
 				}
 			}
 			LastChoice = choice.LastChoice;

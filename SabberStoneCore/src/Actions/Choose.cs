@@ -163,10 +163,15 @@ namespace SabberStoneCore.Actions
 								firstCard.Tags[GameTag.CHARGE] = 1;
 							if (secondCard.Tags.ContainsKey(GameTag.LIFESTEAL))
 								firstCard.Tags[GameTag.LIFESTEAL] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS))
+								firstCard.Tags[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = 1;
+							if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_SPELLS))
+								firstCard.Tags[GameTag.CANT_BE_TARGETED_BY_SPELLS] = 1;
 							firstCard.Name = "Zombeast";
 							firstCard.Text = secondCard.Text + "\n" + firstCard.Text;
 
 							IPlayable zombeast = Entity.FromCard(c, firstCard);
+							((Entity)zombeast).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, ((Entity)playable).GetNativeGameTag(GameTag.DISPLAYED_CREATOR));
 
 							AddHandPhase.Invoke(c, zombeast);
 							break;
