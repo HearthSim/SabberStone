@@ -310,16 +310,13 @@ namespace SabberStoneCore.Model.Entities
 					switch (req)
 					{
 						case PlayReq.REQ_NUM_MINION_SLOTS:
-							{
 								if (Controller.BoardZone.IsFull)
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Board is full can't summon new minion.");
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
-							{
 								var ids = Controller.BoardZone.GetAll.Select(p => p.Card.Id).ToList();
 								bool containsAll = true;
 								Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
@@ -329,52 +326,41 @@ namespace SabberStoneCore.Model.Entities
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_WEAPON_EQUIPPED:
-							{
 								if (Controller.Hero.Weapon == null)
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need a weapon to play this card.");
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
-							{
 								if (Controller.Opponent.BoardZone.Count < param)
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} enemy minions to play this card.");
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
-							{
 								if (Controller.BoardZone.Count + Controller.Opponent.BoardZone.Count < param)
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} minions to play this card.");
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_STEADY_SHOT:
-							{
 								if (!Controller.Hero.Power.Card.Id.Equals("DS1h_292"))
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need steady shoot to be used.");
 									return false;
 								}
 								break;
-							}
 						case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
-							{
 								if (!Controller.GraveyardZone.Any(p => p is Minion))
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"No friendly minions died this game.");
 									return false;
 								}
 								break;
-							}
 
 						// implemented in Targeting
 						case PlayReq.REQ_TARGET_FOR_COMBO:
