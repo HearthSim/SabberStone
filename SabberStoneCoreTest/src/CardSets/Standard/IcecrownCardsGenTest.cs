@@ -3425,22 +3425,33 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MountainfireArmor_ICC_062()
 		{
-			// TODO MountainfireArmor_ICC_062 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Mountainfire Armor")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mountainfire Armor"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Mountainfire Armor"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(6, game.CurrentOpponent.Hero.Armor);
 		}
 
 		// --------------------------------------- MINION - WARRIOR

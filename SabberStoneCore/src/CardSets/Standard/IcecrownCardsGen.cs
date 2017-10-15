@@ -2694,11 +2694,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_062", new List<Enchantment> {
-				// TODO [ICC_062] Mountainfire Armor && Test: Mountainfire Armor_ICC_062
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
+						new FlagTask(true, new ArmorTask(6))),
 				},
 			});
 
