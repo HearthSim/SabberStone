@@ -2818,7 +2818,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 weapons from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_281", new List<Enchantment> {
-				// TODO [ICC_281] Forge of Souls && Test: Forge of Souls_ICC_281
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
@@ -2857,21 +2856,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_064", new List<Enchantment> {
-				// TODO [ICC_064] Blood Razor && Test: Blood Razor_ICC_064
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
 				},
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
 				},
 			});
 
