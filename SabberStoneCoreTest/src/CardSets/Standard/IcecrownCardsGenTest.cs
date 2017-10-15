@@ -3571,22 +3571,30 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DeathRevenant_ICC_450()
 		{
-			// TODO DeathRevenant_ICC_450 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.WARRIOR,
+				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.WARRIOR,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Death Revenant")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Death Revenant"));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Death Revenant"));
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR

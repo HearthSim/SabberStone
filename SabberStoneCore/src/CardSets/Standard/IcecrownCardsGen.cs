@@ -2783,12 +2783,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_450", new List<Enchantment> {
-				// TODO [ICC_450] Death Revenant && Test: Death Revenant_ICC_450
 				new Enchantment
 				{
 					InfoCardId = "ICC_450e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.FRIENDS),
+						new FilterStackTask(SelfCondition.IsDamaged),
+						new CountTask(EntityType.STACK),
+						new BuffAttackHealthNumberTask(EntityType.SOURCE))
 				},
 			});
 
