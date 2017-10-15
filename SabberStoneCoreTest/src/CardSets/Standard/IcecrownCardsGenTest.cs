@@ -3490,22 +3490,36 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Rotface_ICC_405()
 		{
-			// TODO Rotface_ICC_405 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Rotface")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Rotface"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Rotface"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(Rarity.LEGENDARY, game.CurrentOpponent.BoardZone[1].Card.Rarity);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - WARRIOR

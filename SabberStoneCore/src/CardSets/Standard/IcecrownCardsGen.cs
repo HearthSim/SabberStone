@@ -2731,11 +2731,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_405", new List<Enchantment> {
-				// TODO [ICC_405] Rotface && Test: Rotface_ICC_405
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsNotDead))
+						.TriggerEffect(GameTag.DAMAGE, 1)
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+							new FlagTask(true,
+								ComplexTask.Create(
+									new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
+									new SummonTask()))))
+						.Build()
 				}
 			});
 
