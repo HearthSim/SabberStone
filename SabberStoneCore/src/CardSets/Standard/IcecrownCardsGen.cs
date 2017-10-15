@@ -2822,7 +2822,9 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						ComplexTask.DrawFromDeck(SelfCondition.IsWeapon),
+						ComplexTask.DrawFromDeck(SelfCondition.IsWeapon))
 				},
 			});
 
