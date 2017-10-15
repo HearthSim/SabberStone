@@ -2802,11 +2802,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Shuffle a copy of your hand into your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_091", new List<Enchantment> {
-				// TODO [ICC_091] Dead Man's Hand && Test: Dead Man's Hand_ICC_091
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.HAND),
+						new AddStackTo(EntityType.DECK))
 				},
 			});
 

@@ -3603,22 +3603,29 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Shuffle a copy of your hand into your deck.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DeadMansHand_ICC_091()
 		{
-			// TODO DeadMansHand_ICC_091 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Dead Man's Hand")
+				},
 				Player2HeroClass = CardClass.WARRIOR,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dead Man's Hand"));
+			Assert.Equal(26, game.CurrentPlayer.DeckZone.Count);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Dead Man's Hand"));
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(29, game.CurrentPlayer.DeckZone.Count);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
