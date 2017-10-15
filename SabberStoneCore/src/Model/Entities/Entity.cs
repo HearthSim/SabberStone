@@ -402,7 +402,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool ToBeDestroyed
 		{
-			get { return this[GameTag.TO_BE_DESTROYED] == 1; }
+			get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
 			set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
 		}
 

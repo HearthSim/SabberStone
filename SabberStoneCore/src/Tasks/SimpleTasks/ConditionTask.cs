@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -35,7 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 			if (entities.Count == 0)
 			{
@@ -44,9 +45,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			var source = (IPlayable)Source;
 
-			Flag = entities.TrueForAll(p =>
-				SelfConditions.ToList().TrueForAll(c => c.Eval(p)) &&
-				RelaConditions.ToList().TrueForAll(c => c.Eval(source, p)));
+			//Flag = entities.TrueForAll(p =>
+			//	SelfConditions.ToList().TrueForAll(c => c.Eval(p)) &&
+			//	RelaConditions.ToList().TrueForAll(c => c.Eval(source, p)));
+
+			int i;
+			Flag = true;
+			//Flag = SelfConditions.Length != 0 || RelaConditions.Length != 0;
+			foreach (IPlayable p in entities)
+			{
+				for (i = 0; i < SelfConditions.Length; i++)
+					Flag = Flag && SelfConditions[i].Eval(p);
+
+				for (i = 0; i < RelaConditions.Length; i++)
+					Flag = Flag && RelaConditions[i].Eval(source, p);
+			}
+
 
 			return TaskState.COMPLETE;
 		}

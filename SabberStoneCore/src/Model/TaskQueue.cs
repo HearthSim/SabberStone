@@ -4,6 +4,7 @@ using SabberStoneCore.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model
 {
@@ -79,11 +80,13 @@ namespace SabberStoneCore.Model
 
 		public TaskState Process()
 		{
-			CurrentTask = TaskList.OrderBy(p => p.Source.OrderOfPlay).First();
+
+			CurrentTask = FirstByOrderOfPlay(TaskList);
+
 			TaskList.Remove(CurrentTask);
+
 			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
 										$"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
-
 
 			// power block
 			if (Game.History)
@@ -104,5 +107,22 @@ namespace SabberStoneCore.Model
 			//}
 			return success;
 		}
+
+		private ISimpleTask FirstByOrderOfPlay(List<ISimpleTask> list)
+		{
+			ISimpleTask result = null;
+			int oop = Int32.MaxValue;
+			foreach (ISimpleTask task in list)
+			{
+				int temp = task.Source.OrderOfPlay;
+				if (oop > temp)
+				{
+					oop = temp;
+					result = task;
+				}
+			}
+			return result;
+		}
+
 	}
 }

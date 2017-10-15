@@ -129,8 +129,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				var allTargets = new List<ICharacter>(8);
-				var allTargetsTaunt = new List<ICharacter>(4);
+				var allTargets = new List<ICharacter>(4);
+				var allTargetsTaunt = new List<ICharacter>(2);
 				foreach (Minion minion in Controller.Opponent.BoardZone)
 				{
 					if (!minion.HasStealth)
@@ -143,7 +143,7 @@ namespace SabberStoneCore.Model.Entities
 						allTargets.Add(minion);
 					}
 				}
-				if (allTargetsTaunt.Any())
+				if (allTargetsTaunt.Count > 0)
 					return allTargetsTaunt;
 
 				if (!CantAttackHeroes)
@@ -506,8 +506,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get { return this[GameTag.NUM_ATTACKS_THIS_TURN]; }
-			set { this[GameTag.NUM_ATTACKS_THIS_TURN] = value; }
+			get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
 		}
 
 		public int PreDamage

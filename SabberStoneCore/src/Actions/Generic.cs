@@ -159,7 +159,7 @@ namespace SabberStoneCore.Actions
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				newMinion.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
+				//newMinion.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
 				newMinion.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
 				newMinion.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
 				newMinion.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);

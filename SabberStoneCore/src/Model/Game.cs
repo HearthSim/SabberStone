@@ -796,7 +796,7 @@ namespace SabberStoneCore.Model
 					player.Hero.RemoveWeapon();
 
 				// check for dead minions to carry to the graveyard
-				foreach (Minion minion in player.BoardZone.Where(p => p.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1).ToList())
+				foreach (Minion minion in player.BoardZone.Where(p => p.ToBeDestroyed).ToList())
 				{
 					//	TODO : Issue to be fixed, suspect: SummonTask?
 					if (minion.Zone == minion.Controller.GraveyardZone)
@@ -828,7 +828,7 @@ namespace SabberStoneCore.Model
 				}
 
 				// check for dead heroes
-				if (player.Hero.GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1)
+				if (player.Hero.ToBeDestroyed)
 					deadHeroes.Add(player.Hero);
 			}
 

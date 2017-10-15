@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using SabberStoneCore.Conditions;
+using System.Collections.Generic;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -34,22 +36,46 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (RelaConditions != null)
 			{
-				System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+				List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 
 				if (entities.Count != 1)
 					return TaskState.STOP;
 
-				Playables = Playables
-					.Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
-					.ToList();
+				//Playables = Playables
+				//	.Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
+				//	.ToList();
+				var filtered = new List<IPlayable>();
+				foreach (IPlayable p in Playables)
+				{
+					bool flag = true;
+					for (int i = 0; i < RelaConditions.Length; i++)
+						flag = flag && RelaConditions[i].Eval(entities[0], p);
+					if (flag)
+						filtered.Add(p);
+				}
+				Playables = new List<IPlayable>(filtered);
 			}
 
 			if (SelfConditions != null)
 			{
-				var selfConditionList = SelfConditions.Where(x => x != null).ToList();
-				Playables = Playables
-					.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
-					.ToList();
+				//var selfConditionList = SelfConditions.Where(x => x != null).ToList();
+				//Playables = Playables
+				//	.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
+				//	.ToList();
+				var filtered = new List<IPlayable>();
+				foreach (IPlayable p in Playables)
+				{
+					bool flag = true;
+					for (int i = 0; i < SelfConditions.Length; i++)
+					{
+						if (SelfConditions[i] != null)
+							flag = flag && SelfConditions[i].Eval(p);
+					}
+
+					if (flag)
+						filtered.Add(p);
+				}
+				Playables = new List<IPlayable>(filtered);
 			}
 
 			return TaskState.COMPLETE;

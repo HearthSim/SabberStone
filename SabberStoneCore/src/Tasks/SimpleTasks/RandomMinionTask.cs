@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
@@ -9,12 +10,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomMinionTask : SimpleTask
 	{
+		private static ConcurrentDictionary<int, List<Card>> CachedCards = new ConcurrentDictionary<int, List<Card>>();
+
 		private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign, bool classAndMultiOnlyFlag, bool maxInDeckFlag)
 		{
 			Tag = tag;
 			Value = value;
-			Type = type;
 			Amount = amount;
+			Type = type;
 			RelaSign = relaSign;
 			ClassAndMultiOnlyFlag = classAndMultiOnlyFlag;
 			MaxInDeckFlag = maxInDeckFlag;
@@ -24,8 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Tag = tag;
 			Value = -1;
-			Type = type;
 			Amount = amount;
+			Type = type;
 			ClassAndMultiOnlyFlag = false;
 			MaxInDeckFlag = false;
 			RelaSign = RelaSign.EQ;
@@ -35,8 +38,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Tag = tag;
 			Value = value;
+			Amount = amount; 
 			Type = EntityType.INVALID;
-			Amount = amount;
 			ClassAndMultiOnlyFlag = classAndMultiOnlyFlag;
 			MaxInDeckFlag = maxInDeckFlag;
 			RelaSign = relaSign;
@@ -52,11 +55,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
+			List<Card> cardsList = null;
 			if (Type != EntityType.INVALID)
 			{
 				if (Type == EntityType.TARGET && Tag == GameTag.COST)
 				{
 					Value = ((IPlayable)Target).Cost;
+					cardsList = Cards.CostMinionCards(Game.FormatType)[Value];
 				}
 				else
 				{
@@ -64,37 +69,53 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-			IEnumerable<Card> cards;
-			if (Game.FormatType == FormatType.FT_STANDARD)
-			{
-				cards = ClassAndMultiOnlyFlag ? Controller.Standard : Cards.AllStandard;
-			}
-			else
-			{
-				cards = ClassAndMultiOnlyFlag ? Controller.Wild : Cards.AllWild;
-			}
+			if (cardsList == null && Tag == GameTag.COST && RelaSign == RelaSign.EQ)
+				cardsList = Cards.CostMinionCards(Game.FormatType)[Value];
 
-			var cardsList = cards.Where(p => p.Type == CardType.MINION
+			if (cardsList == null && !CachedCards.TryGetValue(Source.Card.AssetId, out cardsList))
+			{
+				IEnumerable<Card> cards;
+				if (Game.FormatType == FormatType.FT_STANDARD)
+				{
+					cards = ClassAndMultiOnlyFlag ? Controller.Standard : Cards.AllStandard;
+				}
+				else
+				{
+					cards = ClassAndMultiOnlyFlag ? Controller.Wild : Cards.AllWild;
+				}
+
+				cardsList = cards.Where(p => p.Type == CardType.MINION
 				&& (RelaSign == RelaSign.EQ && p[Tag] == Value
 				 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
 				 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
-			if (!cardsList.Any())
+
+				CachedCards.TryAdd(Source.Card.AssetId, cardsList);
+			}
+
+			if (cardsList.Count == 0)
 			{
 				return TaskState.STOP;
 			}
-
 			var randomMinions = new List<IPlayable>();
-			while (randomMinions.Count < Amount && cardsList.Count > 0)
+			if (Amount > 1)
 			{
-				Card card = Util.Choose<Card>(cardsList);
-				cardsList.Remove(card);
+				var list = new List<Card>(cardsList);
+				while (randomMinions.Count < Amount && cardsList.Count > 0)
+				{
+					Card card = Util.Choose<Card>(cardsList);
+					list.Remove(card);
 
-				// check for deck rules
-				if (MaxInDeckFlag && Controller.DeckCards.Where(p => p.Id == card.Id).Count() >= card.MaxAllowedInDeck)
-					continue;
+					// check for deck rules
+					if (MaxInDeckFlag && Controller.DeckCards.Where(p => p.Id == card.Id).Count() >= card.MaxAllowedInDeck)
+						continue;
 
-				randomMinions.Add(Entity.FromCard(Controller, card));
+					randomMinions.Add(Entity.FromCard(Controller, card));
+				}
+
 			}
+			else
+				randomMinions.Add(Entity.FromCard(Controller, Util.Choose(cardsList)));
+
 
 			Playables = randomMinions;
 
