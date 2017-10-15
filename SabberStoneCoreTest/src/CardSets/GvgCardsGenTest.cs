@@ -2,6 +2,9 @@
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+using Generic = SabberStoneCore.Actions.Generic;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets
 {
@@ -490,10 +493,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Add a random minion to your hand. It costs (3) less.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void UnstablePortal_GVG_003()
 		{
-			// TODO UnstablePortal_GVG_003 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -505,7 +507,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Unstable Portal"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unstable Portal"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			IPlayable lastCardDrawn = game.CurrentPlayer.HandZone[4];
+			Assert.Equal(lastCardDrawn.Card.Cost > 2 ? lastCardDrawn.Card.Cost - 3 : 0, lastCardDrawn.Cost);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
