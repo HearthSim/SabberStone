@@ -2367,14 +2367,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_088", new List<Enchantment> {
-				// TODO [ICC_088] Voodoo Hexxer && Test: Voodoo Hexxer_ICC_088
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("ICC_088", null);
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_090] Snowfury Giant - COST:11 [ATK:8/HP:8] 
