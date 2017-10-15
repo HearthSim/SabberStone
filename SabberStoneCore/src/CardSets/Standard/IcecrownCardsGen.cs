@@ -2464,11 +2464,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 Murlocs from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_089", new List<Enchantment> {
-				// TODO [ICC_089] Ice Fishing && Test: Ice Fishing_ICC_089
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)),
+						ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
 				},
 			});
 
