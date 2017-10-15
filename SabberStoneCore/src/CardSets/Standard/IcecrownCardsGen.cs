@@ -2665,11 +2665,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("ICC_469", new List<Enchantment> {
-				// TODO [ICC_469] Unwilling Sacrifice && Test: Unwilling Sacrifice_ICC_469
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new DestroyTask(EntityType.TARGET),
+						ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS))
 				},
 			});
 
