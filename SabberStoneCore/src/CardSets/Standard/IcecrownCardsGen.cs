@@ -2907,11 +2907,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_019", new List<Enchantment> {
-				// TODO [ICC_019] Skelemancer && Test: Skelemancer_ICC_019
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
+						new FlagTask(true, new SummonTask("ICC_019t", SummonSide.DEATHRATTLE))),
 				},
 			});
 
