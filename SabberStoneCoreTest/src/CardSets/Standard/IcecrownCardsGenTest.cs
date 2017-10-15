@@ -2870,22 +2870,27 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Brrrloc_ICC_058()
 		{
-			// TODO Brrrloc_ICC_058 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Brrrloc")
+				},
 				Player2HeroClass = CardClass.SHAMAN,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brrrloc"));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, "Brrrloc", game.CurrentOpponent.Hero));
+			Assert.True(game.CurrentOpponent.Hero.IsFrozen);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

@@ -300,8 +300,8 @@ namespace SabberStoneCoreConsole
 			var watch = Stopwatch.StartNew();
 			for (int i = 0; i < total; i++)
 			{
-				Console.Clear();
-				ProgressBar(i, total);
+				//Console.Clear();
+				//ProgressBar(i, total);
 				var game = new Game(new GameConfig
 				{
 					//StartPlayer = 1,
@@ -314,9 +314,9 @@ namespace SabberStoneCoreConsole
 				});
 				game.StartGame();
 
-				Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns, " +
-								  $"{totCards.Count} Stand. -> " +
-								  $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
+				//Console.WriteLine($"{(i > 0 ? turns / i : 0)} AVG. Turns, " +
+				//				  $"{totCards.Count} Stand. -> " +
+				//				  $"{game.Player1.HeroClass} vs. {game.Player2.HeroClass}");
 
 				int loopCount = 0;
 				int prevOptionsCount = 0;

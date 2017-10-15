@@ -2335,11 +2335,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_058", new List<Enchantment> {
-				// TODO [ICC_058] Brrrloc && Test: Brrrloc_ICC_058
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Freeze(EntityType.TARGET)
 				},
 			});
 
