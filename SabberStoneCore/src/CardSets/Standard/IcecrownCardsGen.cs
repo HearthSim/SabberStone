@@ -2758,11 +2758,18 @@ namespace SabberStoneCore.CardSets.Standard
 			//       summon a 2/2 Ghoul.
 			// --------------------------------------------------------
 			cards.Add("ICC_408", new List<Enchantment> {
-				// TODO [ICC_408] Val'kyr Soulclaimer && Test: Val'kyr Soulclaimer_ICC_408
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.SELF,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsNotDead))
+						.TriggerEffect(GameTag.DAMAGE, 1)
+						.SingleTask(ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+							new FlagTask(true, new SummonTask("ICC_900t", SummonSide.RIGHT))))
+						.Build()
 				}
 			});
 

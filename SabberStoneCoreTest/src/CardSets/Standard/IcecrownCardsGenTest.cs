@@ -3530,22 +3530,36 @@ namespace SabberStoneUnitTest.CardSets
 		//       survives damage,
 		//       summon a 2/2 Ghoul.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ValkyrSoulclaimer_ICC_408()
 		{
-			// TODO ValkyrSoulclaimer_ICC_408 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
-				Player2HeroClass = CardClass.WARRIOR,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Val'kyr Soulclaimer")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Fireball")
+				},
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Val'kyr Soulclaimer"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Val'kyr Soulclaimer"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal("Ghoul", game.CurrentOpponent.BoardZone[1].Card.Name);
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[0]));
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - WARRIOR
