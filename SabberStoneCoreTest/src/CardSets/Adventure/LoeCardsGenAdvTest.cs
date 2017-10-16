@@ -3621,34 +3621,6 @@ namespace SabberStoneCoreTest.CardSets.Adventure
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ancient Shade"));
 		}
 
-		// --------------------------------------- MINION - NEUTRAL
-		// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
-		// - Race: murloc, Set: loe, Rarity: common
-		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
-		public void MurlocTinyfin_LOEA10_3()
-		{
-			// TODO MurlocTinyfin_LOEA10_3 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Murloc Tinyfin"),
-				},
-				Player2HeroClass = CardClass.MAGE,
-				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Tinyfin"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
-		}
-
 	}
 
 }

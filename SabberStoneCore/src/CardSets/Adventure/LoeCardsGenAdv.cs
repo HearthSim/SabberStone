@@ -1165,14 +1165,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
 			// - Race: murloc, Set: loe, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("LOEA10_3", new List<Enchantment> {
-				// TODO [LOEA10_3] Murloc Tinyfin && Test: Murloc Tinyfin_LOEA10_3
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			// implemented in non-adventure !!!
 
 		}
 
@@ -2299,14 +2292,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOEA16_5t] Mummy Zombie (*) - COST:3 [ATK:3/HP:3] 
 			// - Set: loe, 
 			// --------------------------------------------------------
-			cards.Add("LOEA16_5t", new List<Enchantment> {
-				// TODO [LOEA16_5t] Mummy Zombie && Test: Mummy Zombie_LOEA16_5t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA02_03] Wish for Power (*) - COST:0 
@@ -2935,15 +2921,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA16_3", new List<Enchantment> {
-				// TODO [LOEA16_3] Lantern of Power && Test: Lantern of Power_LOEA16_3
-				new Enchantment
-				{
-					InfoCardId = "LOEA16_3e",
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_4] Timepiece of Horror (*) - COST:10 
@@ -2954,14 +2932,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_4", new List<Enchantment> {
-				// TODO [LOEA16_4] Timepiece of Horror && Test: Timepiece of Horror_LOEA16_4
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_5] Mirror of Doom (*) - COST:10 
@@ -2972,14 +2943,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_5", new List<Enchantment> {
-				// TODO [LOEA16_5] Mirror of Doom && Test: Mirror of Doom_LOEA16_5
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_6] Shard of Sulfuras (*) - COST:0 
@@ -2987,14 +2951,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to ALL characters. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("LOEA16_6", new List<Enchantment> {
-				// TODO [LOEA16_6] Shard of Sulfuras && Test: Shard of Sulfuras_LOEA16_6
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_7] Benediction Splinter (*) - COST:0 
@@ -3002,14 +2959,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Restore #10 Health to ALL characters.
 			// --------------------------------------------------------
-			cards.Add("LOEA16_7", new List<Enchantment> {
-				// TODO [LOEA16_7] Benediction Splinter && Test: Benediction Splinter_LOEA16_7
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_8] Putress' Vial (*) - COST:0 
@@ -3017,15 +2967,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("LOEA16_8", new List<Enchantment> {
-				// TODO [LOEA16_8] Putress' Vial && Test: Putress' Vial_LOEA16_8
-				new Enchantment
-				{
-					InfoCardId = "LOEA16_8a",
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA16_9] Lothar's Left Greave (*) - COST:0 
@@ -3033,14 +2975,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemies. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("LOEA16_9", new List<Enchantment> {
-				// TODO [LOEA16_9] Lothar's Left Greave && Test: Lothar's Left Greave_LOEA16_9
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
+			// implemented in non-adventure !!!
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOEA_01] Looming Presence (*) - COST:3 

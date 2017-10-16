@@ -65,10 +65,10 @@ namespace SabberStoneCore.Enchants
 			// * ADV SET!!!
 			// ****************************************
 			// Adventure
-			//BrmCardsGenAdv.AddAll(_entchantmentDic);
-			//LoeCardsGenAdv.AddAll(_entchantmentDic);
-			//KaraCardsGenAdv.AddAll(_entchantmentDic);
-			//IcecrownCardsGenAdv.AddAll(_entchantmentDic);
+			BrmCardsGenAdv.AddAll(_entchantmentDic);
+			LoeCardsGenAdv.AddAll(_entchantmentDic);
+			KaraCardsGenAdv.AddAll(_entchantmentDic);
+			IcecrownCardsGenAdv.AddAll(_entchantmentDic);
 		}
 
 		/// <summary>
