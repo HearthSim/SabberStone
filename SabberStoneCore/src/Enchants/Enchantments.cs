@@ -2,6 +2,7 @@
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
 using SabberStoneCore.Model;
+using SabberStoneCoreTest.CardSets.TavernBrawl;
 
 namespace SabberStoneCore.Enchants
 {
@@ -53,6 +54,9 @@ namespace SabberStoneCore.Enchants
 			BrmCardsGen.AddAll(_entchantmentDic);
 			TgtCardsGen.AddAll(_entchantmentDic);
 			LoeCardsGen.AddAll(_entchantmentDic);
+
+			// Tavern Brawl
+			TbCardsGen.AddAll(_entchantmentDic);
 		}
 
 		/// <summary>
