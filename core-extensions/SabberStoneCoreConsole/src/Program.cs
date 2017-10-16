@@ -29,11 +29,11 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			//CloneSameSame();
+			CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			Console.WriteLine(Cards.Statistics());
+			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();

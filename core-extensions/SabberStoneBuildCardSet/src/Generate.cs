@@ -54,7 +54,7 @@ namespace SabberStoneBuildCardSet
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			CardSet[] cardSets = new[] { CardSet.NAXX  };
+			CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
@@ -423,10 +423,13 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
+			string idString = MapCardSetAdventureString(set);
 			IOrderedEnumerable<Card> valuesOrdered = values.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
-							&& (cardClass == CardClass.INVALID || p.Class == cardClass)).OrderBy(p => p.Type.ToString());
+							&& (cardClass == CardClass.INVALID || p.Class == cardClass)
+							&& (idString == String.Empty || Adventure && p.Id.StartsWith(idString) || !Adventure && !p.Id.StartsWith(idString)))
+							.OrderBy(p => p.Type.ToString());
 			if (!valuesOrdered.Any())
 			{
 				return null;

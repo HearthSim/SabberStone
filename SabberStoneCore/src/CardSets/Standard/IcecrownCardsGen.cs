@@ -3229,7 +3229,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
-						new RandomCardTask(EntityType.STACK),
+						new RandomTask(1, EntityType.STACK),
 						new AddStackTo(EntityType.HAND))
 				},
 			});
