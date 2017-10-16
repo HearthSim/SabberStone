@@ -30,7 +30,7 @@ namespace SabberStoneBuildCardSet
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			CardSet[] cardSets = new[] { CardSet.GANGS};
+			CardSet[] cardSets = new[] { CardSet.TB };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
@@ -61,7 +61,7 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Tasks;");
 			str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
 			str.AppendLine();
-			str.AppendLine("namespace SabberStoneCore.CardSets.Standard");
+			str.AppendLine("namespace SabberStoneCoreTest.CardSets.Undefined");
 			str.AppendLine("{");
 			str.AppendLine($"\tpublic class {className}");
 			str.AppendLine("\t{");
@@ -102,6 +102,7 @@ namespace SabberStoneBuildCardSet
 					str.AppendLine();
 				}
 			}
+
 			string neutralClassString = CreateMethode(UpperCaseFirst(CardClass.NEUTRAL.ToString()), values, true, cardSet,
 				CardType.INVALID, CardClass.NEUTRAL);
 			if (neutralClassString != null)
@@ -337,8 +338,9 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Model;");
 			str.AppendLine("using SabberStoneCore.Model.Zones;");
 			str.AppendLine("using SabberStoneCore.Model.Entities;");
+			str.AppendLine("using System.Collections.Generic;");
 			str.AppendLine();
-			str.AppendLine("namespace SabberStoneUnitTest.CardSets");
+			str.AppendLine("namespace SabberStoneCoreTest.CardSets.Undefined");
 			str.AppendLine("{");
 
 			string heroes = CreateMethodeTest("Heroes", values, null, cardSet, CardType.HERO, CardClass.INVALID);
@@ -485,6 +487,47 @@ namespace SabberStoneBuildCardSet
 				.Replace(paragraphSeparator, " ")
 				.Replace("[x]", String.Empty).Trim()
 				;
+		}
+
+		internal static void NamingConventions(IEnumerable<Card> cardsValues)
+		{
+			var str = new StringBuilder();
+
+			var dict = new Dictionary<string, int>();
+
+			foreach (Card card in cardsValues)
+			{
+				string[] splits = card.Id.Split('_');
+
+				if (dict.ContainsKey(splits[0]))
+				{
+					dict[splits[0]]++;
+				}
+				else
+				{
+					dict[splits[0]] = 1;
+				}
+
+
+				//str.AppendLine($"{card.Id}|{card.Implemented}|{card.Set}|{(Cards.StandardSets.Contains(card.Set) ? "S" : "W")}|{card.Type}|{card.Class}|{card.Name}|{RemoveLineEndings(card.Text)}");
+
+				//if (!card.Collectible || card.Implemented)
+				//    continue;
+				//str.AppendLine($"{card.AssetId}");
+			}
+
+			foreach(KeyValuePair<string, int> keyValue in dict.OrderBy(x => x.Key))
+			{
+				Console.WriteLine($"key: {keyValue.Key} -> {keyValue.Value}");
+			}
+
+			//string path = Path + @"\Statistics\";
+			//string file = path + "echantmentsleft.csv";
+			//if (!Directory.Exists(path))
+			//	Directory.CreateDirectory(path);
+			//Console.WriteLine($"Writing statistics: {file}.");
+			//File.WriteAllText(file, str.ToString());
+			Console.ReadKey();
 		}
 	}
 }
