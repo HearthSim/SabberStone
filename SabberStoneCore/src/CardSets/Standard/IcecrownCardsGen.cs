@@ -2710,11 +2710,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After you play a minion, deal 1 damage to it.
 			// --------------------------------------------------------
 			cards.Add("ICC_238", new List<Enchantment> {
-				// TODO [ICC_238] Animated Berserker && Test: Animated Berserker_ICC_238
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.BOARD,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsMinion))
+						.TriggerEffect(GameTag.SUMMONED, 1)
+						.SingleTask(new DamageTask(1, EntityType.TARGET))
+						.Build()
 				}
 			});
 

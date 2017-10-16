@@ -3460,22 +3460,29 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: After you play a minion, deal 1 damage to it.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AnimatedBerserker_ICC_238()
 		{
-			// TODO AnimatedBerserker_ICC_238 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Animated Berserker"),
+					Cards.FromName("Public Defender")
+				},
 				Player2HeroClass = CardClass.WARRIOR,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Animated Berserker"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Animated Berserker"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Public Defender"));
+			Assert.Equal(6, ((Minion) game.CurrentPlayer.BoardZone[1]).Health);
 		}
 
 		// --------------------------------------- MINION - WARRIOR

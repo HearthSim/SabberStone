@@ -38,4 +38,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\CardSets\Adventure\" />
+  </ItemGroup>
+
 </Project>
