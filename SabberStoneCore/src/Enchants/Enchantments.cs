@@ -2,7 +2,8 @@
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
 using SabberStoneCore.Model;
-using SabberStoneCoreTest.CardSets.TavernBrawl;
+using SabberStoneCore.CardSets.TavernBrawl;
+using SabberStoneCore.CardSets.Adventure;
 
 namespace SabberStoneCore.Enchants
 {
@@ -57,6 +58,17 @@ namespace SabberStoneCore.Enchants
 
 			// Tavern Brawl
 			TbCardsGen.AddAll(_entchantmentDic);
+
+			// ****************************************
+			// * DO NOT UNCOMMENT THEM BEFORE REMOVING
+			// * REDUNDANT CARD IMPLEMENTATIONS IN THE
+			// * ADV SET!!!
+			// ****************************************
+			// Adventure
+			//BrmCardsGenAdv.AddAll(_entchantmentDic);
+			//LoeCardsGenAdv.AddAll(_entchantmentDic);
+			//KaraCardsGenAdv.AddAll(_entchantmentDic);
+			//IcecrownCardsGenAdv.AddAll(_entchantmentDic);
 		}
 
 		/// <summary>

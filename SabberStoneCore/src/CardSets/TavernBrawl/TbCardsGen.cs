@@ -8,7 +8,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCoreTest.CardSets.TavernBrawl
+namespace SabberStoneCore.CardSets.TavernBrawl
 {
 	public class TbCardsGen
 	{

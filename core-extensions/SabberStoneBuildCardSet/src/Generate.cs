@@ -14,6 +14,25 @@ namespace SabberStoneBuildCardSet
 		private static readonly string Path = Directory.GetCurrentDirectory(); // @"C:\Users\admin\Source\Repos\";
 		private static readonly Regex Rgx = new Regex("[^a-zA-Z0-9 -]");
 
+		private static bool Adventure = false;
+
+		private static string MapCardSetAdventureString(CardSet cardSet)
+		{
+			switch(cardSet)
+			{
+				case CardSet.BRM:
+					return "BRMA";
+				case CardSet.LOE:
+					return "LOEA";
+				case CardSet.KARA:
+					return "KARA";
+				case CardSet.ICECROWN:
+					return "ICCA";
+				default:
+					return String.Empty;
+			}
+		}
+
 		private static string UpperCaseFirst(string s)
 		{
 			if (String.IsNullOrEmpty(s))
@@ -25,18 +44,21 @@ namespace SabberStoneBuildCardSet
 			return new string(a);
 		}
 
-		public static void CardSetFile(IEnumerable<Card> values)
+		public static void CardSetFile(IEnumerable<Card> values, bool adventure = false)
 		{
+			// set static for adventure implementation ... ugly impl. who cares!!!
+			Adventure = adventure;
+
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			CardSet[] cardSets = new[] { CardSet.TB };
+			CardSet[] cardSets = new[] { CardSet.BRM, CardSet.LOE, CardSet.KARA  };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
-				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen";
+				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen" + (adventure?"Adv":"");
 				string path = Path + @"\CardSets\";
-				string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGenTest";
+				string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGen"+ (adventure?"Adv":"") +"Test";
 				string pathTest = Path + @"\CardSetsTest\";
 
 				WriteCardSetFile(cardSet, className, path, values);
@@ -61,7 +83,7 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Tasks;");
 			str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
 			str.AppendLine();
-			str.AppendLine("namespace SabberStoneCoreTest.CardSets.Undefined");
+			str.AppendLine("namespace SabberStoneCore.CardSets.Undefined");
 			str.AppendLine("{");
 			str.AppendLine($"\tpublic class {className}");
 			str.AppendLine("\t{");
@@ -140,12 +162,18 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
+			string idString = MapCardSetAdventureString(set);
 			IOrderedEnumerable<Card> valuesOrdered = values
 				.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
-							&& (cardClass == CardClass.INVALID || p.Class == cardClass))
+							&& (cardClass == CardClass.INVALID || p.Class == cardClass)
+							&& (idString == String.Empty || Adventure && p.Id.StartsWith(idString) || !Adventure && !p.Id.StartsWith(idString)))
 							.OrderBy(p => p.Type.ToString());
+
+
+
+
 
 			if (!valuesOrdered.Any())
 			{
