@@ -2505,11 +2505,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, deal 1 damage to all enemy minions.
 			// --------------------------------------------------------
 			cards.Add("ICC_075", new List<Enchantment> {
-				// TODO [ICC_075] Despicable Dreadlord && Test: Despicable Dreadlord_ICC_075
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(new DamageTask(1, EntityType.OP_MINIONS))
+						.Build()
 				}
 			});
 
