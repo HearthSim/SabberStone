@@ -28,14 +28,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		/// <param name="type">EntityType to choose the random card from.</param>
 		/// <param name="opposite">If the card is for the opponent</param>
-		public RandomCardTask(EntityType type, bool opposite = false)
+		public RandomCardTask(EntityType type, List<GameTag> gameTagFilter = null, bool opposite = false)
 		{
 			Type = type;
 			CardType = CardType.INVALID;
 			CardSet = CardSet.INVALID;
 			CardClass = CardClass.INVALID;
 			Race = Race.INVALID;
-			GameTagFilter = null;
+			GameTagFilter = gameTagFilter;
 			Opposite = opposite;
 		}
 

@@ -3218,11 +3218,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_098", new List<Enchantment> {
-				// TODO [ICC_098] Tomb Lurker && Test: Tomb Lurker_ICC_098
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+						new RandomCardTask(EntityType.STACK),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
