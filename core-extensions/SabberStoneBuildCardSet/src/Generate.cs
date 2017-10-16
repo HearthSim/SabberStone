@@ -22,6 +22,8 @@ namespace SabberStoneBuildCardSet
 			{
 				case CardSet.BRM:
 					return "BRMA";
+				case CardSet.NAXX:
+					return "NAX";
 				case CardSet.LOE:
 					return "LOEA";
 				case CardSet.KARA:
@@ -52,7 +54,7 @@ namespace SabberStoneBuildCardSet
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			CardSet[] cardSets = new[] { CardSet.BRM, CardSet.LOE, CardSet.KARA  };
+			CardSet[] cardSets = new[] { CardSet.NAXX  };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{

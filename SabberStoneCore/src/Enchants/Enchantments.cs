@@ -66,6 +66,7 @@ namespace SabberStoneCore.Enchants
 			// ****************************************
 			// Adventure
 			BrmCardsGenAdv.AddAll(_entchantmentDic);
+			NaxxCardsGenAdv.AddAll(_entchantmentDic);
 			LoeCardsGenAdv.AddAll(_entchantmentDic);
 			KaraCardsGenAdv.AddAll(_entchantmentDic);
 			IcecrownCardsGenAdv.AddAll(_entchantmentDic);

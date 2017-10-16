@@ -12,6 +12,7 @@
   <ItemGroup>
     <Folder Include="CardSetsTest\" />
     <Folder Include="CardSets\" />
+    <Folder Include="Statistics\" />
   </ItemGroup>
 
 </Project>
