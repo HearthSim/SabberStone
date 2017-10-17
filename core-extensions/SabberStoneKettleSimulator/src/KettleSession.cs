@@ -127,17 +127,19 @@ namespace SabberStoneKettleSimulator
 			KettleCreatePlayer player2 = createGame.Players[1];
 			string hero1 = player1.Hero;
 			string hero2 = player2.Hero;
-			CardClass hero1Class = Cards.FromId(hero1).Class;
-			CardClass hero2Class = Cards.FromId(hero2).Class;
+			Card hero1Card = Cards.FromId(hero1);
+			Card hero2Card = Cards.FromId(hero2);
 			var player1Deck = player1.Cards.Select(Cards.FromId).ToList();
 			var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
 
 			Console.WriteLine("creating game");
 			Game = new Game(new GameConfig
 			{
-				Player1HeroClass = hero1Class,
+				Player1HeroClass = hero1Card.Class,
+				Player1HeroCard = hero1Card,
 				Player1Deck = player1Deck,
-				Player2HeroClass = hero2Class,
+				Player2HeroClass = hero2Card.Class,
+				Player2HeroCard = hero2Card,
 				Player2Deck = player2Deck,
 				SkipMulligan = false,
 			});
