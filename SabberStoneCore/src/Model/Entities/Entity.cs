@@ -396,8 +396,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool ChooseOne
 		{
-			get { return this[GameTag.CHOOSE_ONE] == 1; }
-			set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
+			//get { return this[GameTag.CHOOSE_ONE] == 1; }
+			//set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
+			get { return _data[GameTag.CHOOSE_ONE] == 1; }
+			set { SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0); }
 		}
 
 		public bool ToBeDestroyed

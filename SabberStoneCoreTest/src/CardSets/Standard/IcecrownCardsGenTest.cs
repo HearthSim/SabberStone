@@ -2444,7 +2444,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void SpiritLash_ICC_802()
 		{
-			// TODO SpiritLash_ICC_802 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2601,7 +2600,6 @@ namespace SabberStoneUnitTest.CardSets
 		[Fact]
 		public void PlagueScientist_ICC_809()
 		{
-			// TODO PlagueScientist_ICC_809 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

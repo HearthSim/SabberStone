@@ -880,10 +880,7 @@ namespace SabberStoneCore.Model
 			}
 
 			for (i = 0; i < LazyRemoves.Count;)
-			{
-				ILazyRemove item = LazyRemoves.Dequeue();
-				item.Remove();
-			}
+				LazyRemoves.Dequeue().Remove();
 		}
 
 		/// <summary>

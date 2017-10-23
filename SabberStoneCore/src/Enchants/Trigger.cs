@@ -77,23 +77,34 @@ namespace SabberStoneCore.Enchants
 		public bool IsEnabled()
 		{
 			bool flag = true;
-			//EnableConditions.ForEach(p => flag &= p.Eval(Owner));
+
 			for (int i = 0; i < EnableConditions.Count; i++)
-				flag &= EnableConditions[i].Eval(Owner);
-			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
-			if (!flag)
 			{
-				Owner.Game.LazyRemoves.Enqueue(this);
+				flag &= EnableConditions[i].Eval(Owner);
+				if (!flag)
+					break;
 			}
+
+			if (flag)
+				flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
+
+			if (!flag)
+				Owner.Game.LazyRemoves.Enqueue(this);
+
 			return flag;
 		}
 
 		private bool IsApplying(IPlayable target)
 		{
 			bool flag = true;
-			//ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+
 			for (int i = 0; i < ApplyConditions.Count; i++)
+			{
 				flag &= ApplyConditions[i].Eval(Owner, target);
+				if (!flag)
+					break;
+			}
+
 			return flag;
 		}
 
