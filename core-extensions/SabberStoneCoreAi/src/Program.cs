@@ -146,8 +146,8 @@ namespace SabberStoneCoreAi
 			List<int> mulligan1 = aiPlayer1.MulliganRule().Invoke(game.Player1.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
 			List<int> mulligan2 = aiPlayer2.MulliganRule().Invoke(game.Player2.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList());
 
-			Console.WriteLine($"Player1: Mulligan {string.Join(",", mulligan1)}");
-			Console.WriteLine($"Player2: Mulligan {string.Join(",", mulligan2)}");
+			Console.WriteLine($"Player1: Mulligan {String.Join(",", mulligan1)}");
+			Console.WriteLine($"Player2: Mulligan {String.Join(",", mulligan2)}");
 
 			game.Process(ChooseTask.Mulligan(game.Player1, mulligan1));
 			game.Process(ChooseTask.Mulligan(game.Player2, mulligan2));

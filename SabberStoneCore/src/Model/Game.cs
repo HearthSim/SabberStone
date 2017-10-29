@@ -321,11 +321,11 @@ namespace SabberStoneCore.Model
 					//CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
 					//CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-					controller.ControlledZones.Where(z => z != null).ToList().ForEach(z =>
-						z.Enchants.ForEach(p =>
-							p.Effects.Keys.ToList().ForEach(t =>
-								z.GetAll.ForEach(o =>
-									PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
+					//controller.ControlledZones.Where(z => z != null).ToList().ForEach(z =>
+					//	z.Enchants.ForEach(p =>
+					//		p.Effects.Keys.ToList().ForEach(t =>
+					//			z.GetAll.ForEach(o =>
+					//				PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
 
 				}
 
@@ -443,7 +443,7 @@ namespace SabberStoneCore.Model
 			_players.ToList().ForEach(p =>
 			{
 				// quest draw if there is
-				IPlayable quest = p.DeckZone.GetAll.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
+				IPlayable quest = p.DeckZone.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
 				Generic.Draw(p, quest ?? null);
 				Generic.Draw(p);
 				Generic.Draw(p);
@@ -796,10 +796,9 @@ namespace SabberStoneCore.Model
 					player.Hero.RemoveWeapon();
 
 				// check for dead minions to carry to the graveyard
-				BoardZone board = player.BoardZone;
-				for (int i = board.Count; i > 0;)
+				for (int i = player.BoardZone.Count; i > 0;)
 				{
-					var minion = (Minion)board[--i];
+					Minion minion = player.BoardZone[--i];
 					if (!minion.ToBeDestroyed)
 						continue;
 					//	TODO : Issue to be fixed, suspect: SummonTask?

@@ -1226,28 +1226,17 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Professor Putricide").First()));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Explosive Trap").First()));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Freezing Trap").First()));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snipe").First()));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Cat Trick").First())); 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Hidden Cache").First())); 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Misdirection").First())); 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Venomstrike Trap").First())); 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Snake Trap").First())); 
-
-			Assert.Equal(8, game.CurrentPlayer.SecretZone.Count);
-			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.CurrentPlayer.Hero.Power.IsExhausted = true;
+			for (int i = 0; i < 5; i++)
+				Generic.Draw(game.CurrentPlayer);
+			
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone.Where(p => p.Card.Name == "Professor Putricide").First()));
+			game.Process(game.CurrentPlayer.Options().Last());
+			Assert.Equal(2, game.CurrentPlayer.SecretZone.Count);
+			game.Process(game.CurrentPlayer.Options().Last());
+			Assert.Equal(4, game.CurrentPlayer.SecretZone.Count);
+			game.Process(game.CurrentPlayer.Options().Last());
+			Assert.Equal(5, game.CurrentPlayer.SecretZone.Count);
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -1359,7 +1348,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Null(game.CurrentPlayer.Choice);
 			Assert.Equal("Murloc Raider", game.CurrentPlayer.HandZone[5].Card.Name);
-			Assert.False(game.CurrentPlayer.DeckZone.GetAll.Exists(p => p is Minion));
+			Assert.False(game.CurrentPlayer.DeckZone.Any(p => p is Minion));
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stitched Tracker"));
 			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
@@ -1813,7 +1802,7 @@ namespace SabberStoneUnitTest.CardSets
 
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(2, game.CurrentOpponent.HandZone.Count);
-			Assert.True(game.CurrentOpponent.HandZone.GetAll.TrueForAll(p => p.Card.Name == "Stonetusk Boar" && p.Id != minion.Id && p.Id != game.CurrentOpponent.BoardZone[0].Id));
+			Assert.True(game.CurrentOpponent.HandZone.ToList().TrueForAll(p => p.Card.Name == "Stonetusk Boar" && p.Id != minion.Id && p.Id != game.CurrentOpponent.BoardZone[0].Id));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1880,11 +1869,11 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Simulacrum"));
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(2, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Stonetusk Boar").Count());
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Where(p => p.Card.Name == "Stonetusk Boar").Count());
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Simulacrum"));
-			Assert.Equal(2, game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Name == "Alexstrasza").Count());
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Where(p => p.Card.Name == "Alexstrasza").Count());
 			Assert.Equal(2, game.CurrentPlayer.HandZone.Count);
 		}
 
@@ -5482,10 +5471,10 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corpsetaker"));
-			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasTaunt), ((Minion)game.CurrentPlayer.BoardZone[0]).HasTaunt);
-			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasDivineShield), ((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
-			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasLifeSteal), ((Minion)game.CurrentPlayer.BoardZone[0]).HasLifeSteal);
-			Assert.Equal(game.CurrentPlayer.DeckZone.GetAll.Any(p => p is Minion && ((Minion)p).HasWindfury), ((Minion)game.CurrentPlayer.BoardZone[0]).HasWindfury);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasTaunt), ((Minion)game.CurrentPlayer.BoardZone[0]).HasTaunt);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasDivineShield), ((Minion)game.CurrentPlayer.BoardZone[0]).HasDivineShield);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasLifeSteal), ((Minion)game.CurrentPlayer.BoardZone[0]).HasLifeSteal);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasWindfury), ((Minion)game.CurrentPlayer.BoardZone[0]).HasWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

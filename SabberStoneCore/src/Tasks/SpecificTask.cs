@@ -68,7 +68,7 @@ namespace SabberStoneCore.Tasks
 					Controller controller = list[0].Controller;
 					List<string> entourage = controller.Hero.Power.Card.Entourage;
 					var notContained = new List<string>();
-					var idsOnBoard = controller.BoardZone.GetAll.Select(p => p.Card.Id).ToList();
+					var idsOnBoard = controller.BoardZone.Select(p => p.Card.Id).ToList();
 					entourage.ForEach(p =>
 					{
 						if (!idsOnBoard.Contains(p))
@@ -127,7 +127,7 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(p =>
 				{
 					Controller controller = p[0].Controller;
-					var activeSecrets = controller.SecretZone.GetAll.Select(secret => secret.Card.Id).ToList();
+					var activeSecrets = controller.SecretZone.Select(secret => secret.Card.Id).ToList();
 					//activeSecrets.Add(p[0].Card.Id);
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
@@ -160,7 +160,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					return p[0].Controller.Opponent.GraveyardZone.GetAll.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
+					return p[0].Controller.Opponent.GraveyardZone.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
 				}),
 				new SummonCopyTask(EntityType.STACK));
 

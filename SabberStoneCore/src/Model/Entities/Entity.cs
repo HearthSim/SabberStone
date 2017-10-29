@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
 		/// <value>The ranking order.</value>
-		int OrderOfPlay { get; }
+		int OrderOfPlay { get; set; }
 
 		/// <summary>Gets or sets the game instance from which this entity is part of.</summary>
 		/// <value>The game instance.</value>
@@ -88,7 +89,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
 		/// <value>The ranking order.</value>
-		public int OrderOfPlay { get; protected set; }
+		public int OrderOfPlay { get; set; }
 
 		/// <summary>Gets or sets the owner of this entity, the controller who played the entity.</summary>
 		/// <value>The controller/owner object.</value>
@@ -100,7 +101,20 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets or sets the zone in which the entity exists.</summary>
 		/// <value>The zone, <see cref="T:SabberStoneCore.Model.Zones.IZone" />.</value>
-		public IZone Zone { get; set; }
+		public IZone Zone
+		{
+			get => _Zone;
+
+			set
+			{
+				_Zone = value;
+				if (value != null)
+					SetNativeGameTag(GameTag.ZONE, (int)value.Type);
+				//else
+				//	SetNativeGameTag(GameTag.ZONE, 0);
+			}
+		}
+		private IZone _Zone;
 
 		/// <summary>Gets the card from which this entity was derived from.</summary>
 		/// <value>The card object.</value>
@@ -194,6 +208,8 @@ namespace SabberStoneCore.Model.Entities
 				int value = _data[t];
 
 				// cumulative enchanment calculation ... priorizing game, zone, entity
+
+
 				if (Zone != null)
 					for (int i = 0; i < Zone.Enchants.Count; i++)
 						value = Zone.Enchants[i].Apply(this, t, value);
@@ -331,7 +347,7 @@ namespace SabberStoneCore.Model.Entities
 							[GameTag.PARENT_CARD] = result.Id
 						},
 						controller.SetasideZone) :
-						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
 
 				result.ChooseOnePlayables[1] =
 					id < 0 ? FromCard(controller,
@@ -342,7 +358,7 @@ namespace SabberStoneCore.Model.Entities
 							[GameTag.PARENT_CARD] = result.Id
 						},
 						controller.SetasideZone) :
-						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
 			}
 
 			return result;
@@ -431,6 +447,7 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.CARD_TARGET]; }
 			set { this[GameTag.CARD_TARGET] = value; }
 		}
+
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

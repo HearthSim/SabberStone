@@ -803,7 +803,7 @@ namespace SabberStoneCoreConsole
 				game.Player1.BaseMana = 10;
 				game.Player2.BaseMana = 10;
 				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-				bool hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
+				bool hasMinion = game.CurrentOpponent.HandZone.Any(p => p is Minion);
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
 				flag = hasMinion ? 1 == game.CurrentOpponent.BoardZone.Count : 0 == game.CurrentOpponent.BoardZone.Count;

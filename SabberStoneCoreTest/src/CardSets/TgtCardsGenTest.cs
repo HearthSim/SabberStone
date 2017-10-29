@@ -2482,7 +2482,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Mistcaller"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			var minionsHand = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).ToList();
+			var minionsHand = game.CurrentPlayer.HandZone.Where(p => p is Minion).ToList();
 			if (minionsHand.Any())
 			{
 				int count = minionsHand.Count();
@@ -2493,7 +2493,7 @@ namespace SabberStoneCoreTest.CardSets
 				int oHp = minionsHand.Sum(p => ((Minion)p).Card[GameTag.HEALTH]);
 				Assert.Equal(oHp + count, nHp);
 			}
-			var minionsDeck = game.CurrentPlayer.DeckZone.GetAll.Where(p => p is Minion).ToList();
+			var minionsDeck = game.CurrentPlayer.DeckZone.Where(p => p is Minion).ToList();
 			if (minionsDeck.Any())
 			{
 				int count = minionsDeck.Count();

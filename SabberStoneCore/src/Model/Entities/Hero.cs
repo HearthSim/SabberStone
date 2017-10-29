@@ -44,7 +44,8 @@ namespace SabberStoneCore.Model.Entities
 		public void AddWeapon(Weapon weapon)
 		{
 			RemoveWeapon();
-			weapon.SetOrderOfPlay("WEAPON");
+			//weapon.SetOrderOfPlay("WEAPON");
+			weapon.OrderOfPlay = Game.NextOop;
 			Weapon = weapon;
 			Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			Weapon[GameTag.ZONE_POSITION] = 0;

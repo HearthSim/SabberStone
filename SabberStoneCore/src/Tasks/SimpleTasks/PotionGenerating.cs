@@ -87,7 +87,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Controller.Game.TaskQueue.Enqueue(task);
 
 			// remove tag script from used kazakus entities
-			foreach (IPlayable playables in Controller.SetasideZone.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621")))
+			foreach (IPlayable playables in Controller.SetasideZone.Where(p => p.Card.Id.StartsWith("CFM_621")))
 			{
 				playables[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
 			}

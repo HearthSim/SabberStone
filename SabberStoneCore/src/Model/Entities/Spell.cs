@@ -42,11 +42,16 @@ namespace SabberStoneCore.Model.Entities
 			{
 				// check if we can play this secret
 				var spell = this as Spell;
-				if (spell != null && spell.IsSecret && Controller.SecretZone.GetAll.Exists(p => p.Card.Id == spell.Card.Id))
+				if (spell != null && spell.IsSecret && (Controller.SecretZone.IsFull || Controller.SecretZone.Any(p => p.Card.Id == spell.Card.Id)))
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						!Game.Logging? "":$"{this} isn't playable, because secret already active on controller.");
 					return false;
+				}
+				else if (spell != null && spell.IsQuest && Controller.SecretZone.Quest != null)
+				{
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging ? "" : $"{this} isn't playable, because controller already has a quest in play.");
 				}
 
 				return base.IsPlayableByPlayer;
@@ -59,9 +64,9 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 
-		public bool IsSecret => this[GameTag.SECRET] == 1;
+		public bool IsSecret => Card[GameTag.SECRET] == 1;
 
-		public bool IsQuest => this[GameTag.QUEST] == 1;
+		public bool IsQuest => Card[GameTag.QUEST] == 1;
 
 		public bool IsCountered
 		{
