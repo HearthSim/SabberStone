@@ -96,7 +96,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character can attack.
 		/// </summary>
-		public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
+		public virtual bool CanAttack => !IsExhausted && !IsFrozen && ValidAttackTargets.Any() && !CantAttack;
 
 		/// <summary>
 		/// Indicates if the provided character can be attacked by this character.
@@ -129,6 +129,10 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
+				if (Controller.CalculatingOptions && Controller.VATCache != null)
+					return Controller.VATCache;
+
+				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
 				var allTargetsTaunt = new List<ICharacter>(2);
 				foreach (Minion minion in Controller.Opponent.BoardZone)
@@ -138,20 +142,23 @@ namespace SabberStoneCore.Model.Entities
 						if (minion.HasTaunt)
 						{
 							allTargetsTaunt.Add(minion);
+							tauntFlag = true;
 							continue;
 						}
-						allTargets.Add(minion);
+						if (!tauntFlag)
+							allTargets.Add(minion);
 					}
 				}
-				if (allTargetsTaunt.Count > 0)
+				if (tauntFlag)
 					return allTargetsTaunt;
 
 				if (!CantAttackHeroes)
-				{
 					allTargets.Add(Controller.Opponent.Hero);
-				}
-				return allTargets;
 
+				if (Controller.CalculatingOptions)
+					Controller.VATCache = allTargets;
+
+				return allTargets;
 			}
 		}
 

@@ -2816,6 +2816,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.HAND),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.DECK))
 				},
 			});
@@ -3234,6 +3235,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.HAND))
 				},
 			});

@@ -52,6 +52,7 @@ namespace SabberStoneCore.Model.Entities
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						!Game.Logging ? "" : $"{this} isn't playable, because controller already has a quest in play.");
+					return false;
 				}
 
 				return base.IsPlayableByPlayer;

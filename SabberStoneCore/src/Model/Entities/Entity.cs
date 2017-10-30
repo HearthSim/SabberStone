@@ -110,8 +110,6 @@ namespace SabberStoneCore.Model.Entities
 				_Zone = value;
 				if (value != null)
 					SetNativeGameTag(GameTag.ZONE, (int)value.Type);
-				//else
-				//	SetNativeGameTag(GameTag.ZONE, 0);
 			}
 		}
 		private IZone _Zone;
@@ -420,7 +418,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool ToBeDestroyed
 		{
-			get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
+			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
+			get
+			{
+				return _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
+			}
 			set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
 		}
 

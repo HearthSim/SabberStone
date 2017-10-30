@@ -123,8 +123,8 @@ namespace SabberStoneCore.Actions
 					return null;
 				}
 
-				IPlayable card = Util.RandomElement(c.DeckZone);
-				IPlayable cardOp = Util.RandomElement(c.Opponent.DeckZone);
+				IPlayable card = c.DeckZone.Random;
+				IPlayable cardOp = c.Opponent.DeckZone.Random;
 				bool success = card.Cost > cardOp.Cost;
 				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging? "":$"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 

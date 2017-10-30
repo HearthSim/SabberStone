@@ -898,13 +898,22 @@ namespace SabberStoneCoreConsole
 					List<PlayerTask> options = game.CurrentPlayer.Options();
 					PlayerTask option = options[Rnd.Next(options.Count)];
 					game.Process(option);
-					Game cloneGame = game.Clone();
-					string str1 = game.Hash();
-					string str2 = cloneGame.Hash();
-					flag &= str1.Equals(str2);
+					try
+					{
+						Game cloneGame = game.Clone();
+						string str1 = game.Hash();
+						string str2 = cloneGame.Hash();
+						flag &= str1.Equals(str2);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e.Message);
+						flag = false;
+					}
 					if (!flag)
 					{
 						Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
+						ShowLog(game, LogLevel.VERBOSE);
 						break;
 					}
 				}

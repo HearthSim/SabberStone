@@ -321,11 +321,11 @@ namespace SabberStoneCore.Model
 					//CurrentOpponent.Hero.Weapon?.Enchants.ForEach(p => p.IsEnabled());
 					//CurrentOpponent.Hero.Weapon?.Triggers.ForEach(p => p.IsEnabled());
 
-					//controller.ControlledZones.Where(z => z != null).ToList().ForEach(z =>
-					//	z.Enchants.ForEach(p =>
-					//		p.Effects.Keys.ToList().ForEach(t =>
-					//			z.GetAll.ForEach(o =>
-					//				PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
+					controller.ControlledZones.Where(z => z != null).ToList().ForEach(z =>
+						z.Enchants.ForEach(p =>
+							p.Effects.Keys.ToList().ForEach(t =>
+								z.GetAll.ForEach(o =>
+									PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t]))))));
 
 				}
 
