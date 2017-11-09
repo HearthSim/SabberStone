@@ -50,7 +50,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <param name="applyEnchantments"><c>true</c> if all zone changing enchantments have to be
 		/// executed, <c>false</c> otherwise.</param>
 		/// <returns>The entity</returns>
-		void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true);
+		void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantments = true);
 
 		/// <summary>
 		/// Removes the specified entity from this zone.

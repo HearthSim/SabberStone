@@ -412,18 +412,15 @@ namespace SabberStoneCore.Model.Entities
 		{
 			//get { return this[GameTag.CHOOSE_ONE] == 1; }
 			//set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
-			get { return _data[GameTag.CHOOSE_ONE] == 1; }
-			set { SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0); }
+			get => _data[GameTag.CHOOSE_ONE] == 1;
+			set => SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0);
 		}
 
 		public bool ToBeDestroyed
 		{
 			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
-			get
-			{
-				return _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
-			}
-			set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
+			get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
+			set => this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
 		}
 
 		public int NumTurnsInPlay

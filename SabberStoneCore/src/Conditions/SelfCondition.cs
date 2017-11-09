@@ -77,8 +77,8 @@ namespace SabberStoneCore.Conditions
 		{
 			// entities that don't have a real zone like Heroes are checked on the gametag value
 			return new SelfCondition(me =>
-			(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1) ||
-			(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1));
+			(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1) ||
+			(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
 		}
 
 		public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);

@@ -23,7 +23,7 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 100 && flag; i++)
+			for (int i = 0; i < 10 && flag; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -39,8 +39,6 @@ namespace SabberStoneCoreTest.Cloning
 					List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
 					SabberStoneCore.Tasks.PlayerTask option = options[rnd.Next(options.Count)];
 					game.Process(option);
-					if (game.CurrentPlayer.GraveyardZone.Any(p => p.Zone.Type == Zone.HAND) || game.CurrentOpponent.GraveyardZone.Any(p => p.Zone.Type == Zone.HAND))
-						;
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();

@@ -14,19 +14,19 @@ namespace SabberStoneCore.Model.Zones
 	/// Base implementation of IZone.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <seealso cref="Model.Zones.IZone" />
-	/// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
+	/// <seealso cref="T:SabberStoneCore.Model.Zones.IZone" />
+	/// <seealso cref="T:System.Collections.Generic.IEnumerable`1" />
 	public abstract class Zone<T> : IZone, IEnumerable<T> where T : IPlayable
 	{
 		/// <summary>Gets the game which contains the zone.</summary>
 		/// <value><see cref="Model.Game"/></value>
-		public Game Game;
+		protected Game Game;
 
 		/// <summary>
 		/// Gets the owner of the zone.
 		/// </summary>
 		/// <value><see cref="Entities.Controller"/></value>
-		public Controller Controller;
+		protected Controller Controller;
 
 		protected IList<T> _entities;
 
@@ -52,6 +52,9 @@ namespace SabberStoneCore.Model.Zones
 		/// <value><c>true</c> if this zone is empty; otherwise, <c>false</c>.</value>
 		public bool IsEmpty => _entities[0] == null;
 
+		/// <summary>
+		/// Get the number of entities in this zone.
+		/// </summary>
 		public int Count => _count;
 
 		public List<Enchant> Enchants { get; } = new List<Enchant>();

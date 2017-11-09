@@ -241,7 +241,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		public List<PlayerTask> Options(bool playCards = true)
 		{
-			CalculatingOptions = true;
+			//CalculatingOptions = true;
 
 			var result = new List<PlayerTask>();
 
@@ -361,14 +361,14 @@ namespace SabberStoneCore.Model.Entities
 				}
 			}
 
-			CalculatingOptions = false;
-			VATCache = null;
+			//CalculatingOptions = false;
+			//VATCache = null;
 
 			return result;
 		}
 
-		public bool CalculatingOptions { get; private set; }
-		public IEnumerable<ICharacter> VATCache { get; set; }
+		//public bool CalculatingOptions { get; set; }
+		//public IEnumerable<ICharacter> VATCache { get; set; }
 
 		/// <summary>
 		/// Returns a string which dumps information about this player.

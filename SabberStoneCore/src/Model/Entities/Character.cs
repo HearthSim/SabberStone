@@ -129,8 +129,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (Controller.CalculatingOptions && Controller.VATCache != null)
-					return Controller.VATCache;
+				//if (Controller.CalculatingOptions && Controller.VATCache != null)
+				//	return Controller.VATCache;
 
 				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
@@ -155,8 +155,8 @@ namespace SabberStoneCore.Model.Entities
 				if (!CantAttackHeroes)
 					allTargets.Add(Controller.Opponent.Hero);
 
-				if (Controller.CalculatingOptions)
-					Controller.VATCache = allTargets;
+				//if (Controller.CalculatingOptions)
+				//	Controller.VATCache = allTargets;
 
 				return allTargets;
 			}
@@ -513,7 +513,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			//get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			get
+			{
+				if (_data.Tags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value))
+					return value;
+				return 0;
+			}
 			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
 		}
 
