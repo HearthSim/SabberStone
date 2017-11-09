@@ -13,7 +13,7 @@ namespace SabberStoneCoreConsole
 		public static void GetGameTags()
 		{
 			var gameTags = new Dictionary<int, string>();
-			var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
+			var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\resources\Data\CardDefs.xml");
 			cardDefsXml.Descendants("Entity").ToList().ForEach(p1 => p1.Descendants().Where(t => t.Attribute("enumID") != null).ToList().ForEach(
 				p2 =>
 				{
@@ -32,7 +32,7 @@ namespace SabberStoneCoreConsole
 		public static List<Card> Load()
 		{
 			// Get XML definitions from assembly embedded resource
-			var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
+			var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\resources\Data\CardDefs.xml");
 			// Parse XML
 			var cardDefs = (from r in cardDefsXml.Descendants("Entity")
 							select new

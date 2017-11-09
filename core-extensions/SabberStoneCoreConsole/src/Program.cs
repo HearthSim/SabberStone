@@ -29,7 +29,7 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			CloneSameSame();
+			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
@@ -44,8 +44,8 @@ namespace SabberStoneCoreConsole
 			//QuestDrawFirstTest();
 
 			//TestLoader.GetGameTags();
-			//var test = TestLoader.Load();
-			//Console.WriteLine(test.Count());
+			var test = TestLoader.Load();
+			Console.WriteLine(test.Count());
 
 			//GatherTagsUsedByEnchantsOrTriggers();
 
