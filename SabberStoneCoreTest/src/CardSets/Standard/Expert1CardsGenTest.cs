@@ -2763,10 +2763,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ProphetVelen_EX1_350()
 		{
-			// TODO ProphetVelen_EX1_350 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2778,7 +2777,51 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Prophet Velen"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Prophet Velen"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Northshire Cleric"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			//	the effect shouldn't be applied to spells unaffected by spelldmg
+			IPlayable betrayal = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Betrayal"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, betrayal, minion1));
+			Assert.Equal(1, ((Minion) minion2).Health);
+
+			IPlayable spiritLash = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
+			game.CurrentPlayer.Hero.Damage = 20;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spiritLash));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(8, game.CurrentPlayer.Hero.Damage);
+
+			IPlayable thalnos = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, thalnos));
+			Assert.Equal(0, game.CurrentOpponent.Hero.Damage);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+			Assert.Equal(6, game.CurrentOpponent.Hero.Damage);
+
+			game.CurrentPlayer.UsedMana = 0;
+
+			IPlayable secondVelen = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prophet Velen"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, secondVelen));
+			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell3, game.CurrentOpponent.Hero));
+			Assert.Equal(18, game.CurrentOpponent.Hero.Damage);	// 6 + ((2 + 1) * 2 * 2) = 18
 		}
 
 		// ---------------------------------------- MINION - PRIEST

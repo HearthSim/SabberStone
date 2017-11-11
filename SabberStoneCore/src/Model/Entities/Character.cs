@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 
@@ -228,6 +229,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="heal"></param>
 		public void TakeHeal(IPlayable source, int heal)
 		{
+			//	TODO: Power Word: Glory interaction https://hearthstone.gamepedia.com/Healing#Advanced_rules
+			if ((source is Spell || source is HeroPower) && source.Controller[GameTag.HEALING_DOUBLE] > 0)
+			{
+				heal *= (int) Math.Pow(2, source.Controller[GameTag.HEALING_DOUBLE]);
+			}
+
 			if (source.Controller.Hero[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
 				TakeDamage(source, heal);
