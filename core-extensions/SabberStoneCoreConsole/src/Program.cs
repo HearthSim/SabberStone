@@ -39,13 +39,13 @@ namespace SabberStoneCoreConsole
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
-			//ParallelTest();
+			ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
 
 			//TestLoader.GetGameTags();
-			var test = TestLoader.Load();
-			Console.WriteLine(test.Count());
+			//var test = TestLoader.Load();
+			//Console.WriteLine(test.Count());
 
 			//GatherTagsUsedByEnchantsOrTriggers();
 

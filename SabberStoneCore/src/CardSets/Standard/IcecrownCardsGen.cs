@@ -3516,12 +3516,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_810", new List<Enchantment> {
-				// TODO [ICC_810] Deathaxe Punisher && Test: Deathaxe Punisher_ICC_810
 				new Enchantment
 				{
 					InfoCardId = "ICC_810e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.HAND),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1, RelaSign.EQ)),
+						new RandomTask(1, EntityType.STACK),
+						new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)),
 				},
 			});
 
@@ -3588,6 +3591,12 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "ICC_852e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = null,
+					//ComplexTask.Create(
+					//	new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),
+					//	new FlagTask(true, ComplexTask.Create(
+					//		new IncludeTask(EntityType.TARGET),
+					//		//new TransformTask()
+					//		))),
 				},
 			});
 

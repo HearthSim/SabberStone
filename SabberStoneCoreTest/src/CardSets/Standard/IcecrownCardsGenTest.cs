@@ -4960,21 +4960,42 @@ namespace SabberStoneUnitTest.CardSets
 		// RefTag:
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DeathaxePunisher_ICC_810()
 		{
-			// TODO DeathaxePunisher_ICC_810 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Deathaxe Punisher"),
+					Cards.FromName("Deathaxe Punisher"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Murloc Raider"),
+					Cards.FromName("Bloodworm"),
+				},
 				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Deathaxe Punisher"));
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count());
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.HandZone[2]).AttackDamage);
+			Assert.Equal(1, ((Minion)game.CurrentPlayer.HandZone[2]).Health);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal("Bloodworm", game.CurrentPlayer.HandZone[3].Card.Name);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[3]).AttackDamage);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[3]).Health);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Deathaxe Punisher"));
+			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[2]).AttackDamage);
+			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[2]).Health);
+			
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Deathaxe Punisher"));
 		}
 
