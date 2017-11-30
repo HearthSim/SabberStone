@@ -195,15 +195,21 @@ namespace SabberStoneCore.Model.Entities
 			DeckCards.AddRange(controller.DeckCards);
 			BaseClass = controller.BaseClass;
 			base.Stamp(controller);
-			Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
-			Hero.Stamp(controller.Hero);
-			Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
-			Hero.Power.Stamp(controller.Hero.Power);
+
+			//Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
+			//Hero.Stamp(controller.Hero);
+			Hero = (Hero) controller.Hero.Clone(this);
+
+			//Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
+			//Hero.Power.Stamp(controller.Hero.Power);
+			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
+
 			if (controller.Hero.Weapon != null)
 			{
-				Hero.Weapon =
-					FromCard(this, controller.Hero.Weapon.Card, null, null, controller.Hero.Weapon.Id) as Weapon;
-				Hero.Weapon.Stamp(controller.Hero.Weapon);
+				//Hero.Weapon =
+				//	FromCard(this, controller.Hero.Weapon.Card, null, null, controller.Hero.Weapon.Id) as Weapon;
+				//Hero.Weapon.Stamp(controller.Hero.Weapon);
+				Hero.Weapon = (Weapon) controller.Hero.Weapon.Clone(this);
 			}
 
 			if (controller.Choice != null)

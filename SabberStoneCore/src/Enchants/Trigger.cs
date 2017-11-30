@@ -154,6 +154,7 @@ namespace SabberStoneCore.Enchants
 			clone.Target = target;
 			// let the change move into the task
 			clone.Number = newValue - oldValue;
+			clone.IsTrigger = true;
 
 			if (FastExecution)
 			{

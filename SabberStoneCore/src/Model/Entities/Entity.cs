@@ -101,18 +101,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets or sets the zone in which the entity exists.</summary>
 		/// <value>The zone, <see cref="T:SabberStoneCore.Model.Zones.IZone" />.</value>
-		public IZone Zone
-		{
-			get => _Zone;
-
-			set
-			{
-				_Zone = value;
-				if (value != null)
-					SetNativeGameTag(GameTag.ZONE, (int)value.Type);
-			}
-		}
-		private IZone _Zone;
+		public IZone Zone { get; set; }
 
 		/// <summary>Gets the card from which this entity was derived from.</summary>
 		/// <value>The card object.</value>
@@ -336,6 +325,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (result.ChooseOne)
 			{
+				result.ChooseOnePlayables = new IPlayable[2];
 				result.ChooseOnePlayables[0] =
 					id < 0 ? FromCard(controller,
 						Cards.FromId(result.Card.Id + "a"),
@@ -419,9 +409,16 @@ namespace SabberStoneCore.Model.Entities
 		public bool ToBeDestroyed
 		{
 			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
-			get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
-			set => this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
+			//get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
+			get => _toBeDestroyed;
+			set
+			{
+				this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
+				_toBeDestroyed = value;
+			}
 		}
+
+		private bool _toBeDestroyed;
 
 		public int NumTurnsInPlay
 		{

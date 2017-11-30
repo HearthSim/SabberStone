@@ -5,20 +5,21 @@ using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class SecretZone : Zone<Spell>
+	public class SecretZone : LimitedZone<Spell>
 	{
 		/// <summary>
 		/// An unique field for Quest.
 		/// Gets or sets the quest in this SecretZone.
 		/// null means absence.
 		/// </summary>
-		public Spell Quest
-		{
-			get => _entities[5];
-			set => _entities[5] = value;
-		}
+		//public Spell Quest
+		//{
+		//	get => Entities[5];
+		//	set => Entities[5] = value;
+		//}
+		public Spell Quest { get; set; }
 
-		public override bool IsFull => _entities[MaxSize - 2] != null;
+		//public override bool IsFull => Entities[MaxSize - 2] != null;
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
 		{
@@ -38,28 +39,24 @@ namespace SabberStoneCore.Model.Zones
 				return;
 			}
 
-			if (zonePosition > _count)
-				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
-
-			MoveTo((Spell)entity, zonePosition < 0 ? _count : zonePosition);
-			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+			base.Add(entity, zonePosition);
 
 			entity.OrderOfPlay = Game.NextOop;
 		}
 
-		public SecretZone(Game game, Controller controller)
+		public SecretZone(Controller controller)
 		{
-			Game = game;
+			Game = controller.Game;
 			Controller = controller;
-			MaxSize = 6;
-			_entities = new Spell[MaxSize];
+			MaxSize = 5;
+			Entities = new Spell[MaxSize];
 			Type = Zone.SECRET;
 		}
 
 		public override IEnumerator<Spell> GetEnumerator()
 		{
 			for (int i = 0; i < _count; i++)
-				yield return _entities[i];
+				yield return Entities[i];
 			if (Quest != null)
 				yield return Quest;
 		}

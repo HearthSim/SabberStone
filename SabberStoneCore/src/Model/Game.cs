@@ -914,7 +914,8 @@ namespace SabberStoneCore.Model
 			gameConfig.Logging = logging;
 			var game = new Game(gameConfig, false)
 			{
-				CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
+				//CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
+				CloneIndex = CloneIndex + "[" + NextCloneIndex++ + "]"
 			};
 			game.Player1.Stamp(Player1);
 			game.Player2.Stamp(Player2);

@@ -132,6 +132,8 @@ namespace SabberStoneCore.Tasks
 			State = TaskState.READY;
 		}
 
+		public bool IsTrigger { get; set; }
+
 		public static StateTaskList<ISimpleTask> Chain(params ISimpleTask[] list)
 		{
 			var newList = new StateTaskList<ISimpleTask>();

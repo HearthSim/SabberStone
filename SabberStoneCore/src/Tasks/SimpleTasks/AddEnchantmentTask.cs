@@ -27,9 +27,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var minion = p as Minion;
 				if (minion != null)
 				{
-
 					minion.HasDeathrattle = Enchantment.Activation == EnchantmentActivation.DEATHRATTLE ? true : false;
-					minion.Enchantments.Add(Enchantment);
+					if (minion.Enchantments == null)
+						minion.Enchantments = new System.Collections.Generic.List<Enchantment> { Enchantment };
+					else
+						minion.Enchantments.Add(Enchantment);
 					if (Activate)
 					{
 						Enchantment.Activate(Controller, minion);

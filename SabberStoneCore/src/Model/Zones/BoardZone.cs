@@ -4,17 +4,13 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class BoardZone : Zone<Minion>
+	public class BoardZone : PositioningZone<Minion>
 	{
-		public override bool IsFull => _entities[MaxSize - 1] != null;
+		//public override bool IsFull => Entities[MaxSize - 1] != null;
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
 		{
-			if (zonePosition > _count)
-				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
-
-			MoveTo((Minion)entity, zonePosition < 0 ? _count : zonePosition);
-			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+			base.Add(entity, zonePosition);
 
 			if (applyEnchantment)
 				entity.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
@@ -22,12 +18,12 @@ namespace SabberStoneCore.Model.Zones
 			entity.OrderOfPlay = Game.NextOop;
 		}
 
-		public BoardZone(Game game, Controller controller)
+		public BoardZone(Controller controller)
 		{
-			Game = game;
+			Game = controller.Game;
 			Controller = controller;
 			MaxSize = Game.MAX_MINIONS_ON_BOARD;
-			_entities = new Minion[MaxSize];
+			Entities = new Minion[MaxSize];
 			Type = Zone.PLAY;
 		}
 	}

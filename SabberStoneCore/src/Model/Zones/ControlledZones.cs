@@ -31,12 +31,12 @@ namespace SabberStoneCore.Model.Zones
 		{
 			Game = game;
 			Controller = controller;
-			Controller.DeckZone = new DeckZone(Game, Controller);
-			Controller.HandZone = new HandZone(Game, Controller);
-			Controller.BoardZone = new BoardZone(Game, Controller);
-			Controller.SecretZone = new SecretZone(Game, Controller);
-			Controller.GraveyardZone = new GraveyardZone(Game, Controller);
-			Controller.SetasideZone = new SetasideZone(Game, Controller);
+			Controller.DeckZone = new DeckZone(Controller);
+			Controller.HandZone = new HandZone(Controller);
+			Controller.BoardZone = new BoardZone(Controller);
+			Controller.SecretZone = new SecretZone(Controller);
+			Controller.GraveyardZone = new GraveyardZone(Controller);
+			Controller.SetasideZone = new SetasideZone(Controller);
 		}
 
 		/// <summary>Gets the <see cref="IZone"/> matching the zone identifier.</summary>

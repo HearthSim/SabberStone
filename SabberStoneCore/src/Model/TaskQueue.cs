@@ -90,7 +90,9 @@ namespace SabberStoneCore.Model
 
 			// power block
 			if (Game.History)
-				Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
+			{
+				Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(CurrentTask.IsTrigger ? BlockType.TRIGGER : BlockType.POWER, CurrentTask.Source.Id, "", -1, CurrentTask.Target?.Id ?? 0));
+			}
 
 			TaskState success = CurrentTask.Process();
 

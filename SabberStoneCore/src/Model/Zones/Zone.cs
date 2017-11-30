@@ -10,6 +10,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {
+	/// <inheritdoc cref="IZone" />
 	/// <summary>
 	/// Base implementation of IZone.
 	/// </summary>
@@ -25,23 +26,15 @@ namespace SabberStoneCore.Model.Zones
 		/// <summary>
 		/// Gets the owner of the zone.
 		/// </summary>
-		/// <value><see cref="Entities.Controller"/></value>
+		/// <value><see cref="SabberStoneCore.Model.Entities.Controller"/></value>
 		protected Controller Controller;
 
-		protected IList<T> _entities;
+		protected IList<T> Entities;
 
-		protected int _count;
-
-		public Zone Type { get; set; }
+		public Zone Type { get; protected set; }
 
 		/// <summary>
-		/// Gets the maximum amount of entities this zone can hold.
-		/// </summary>
-		/// <value>The maximum size.</value>
-		public int MaxSize { get; protected set; }
-
-		/// <summary>
-		/// Gets a value indicating whether this zone is full. <seealso cref="MaxSize"/>
+		/// Gets a value indicating whether this zone is full.
 		/// </summary>
 		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
 		public abstract bool IsFull { get; }
@@ -50,12 +43,14 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets a value indicating whether this contains entities or not.
 		/// </summary>
 		/// <value><c>true</c> if this zone is empty; otherwise, <c>false</c>.</value>
-		public bool IsEmpty => _entities[0] == null;
+		//public bool IsEmpty => Entities[0] == null;
+		public bool IsEmpty => Count == 0;
 
+		/// <inheritdoc />
 		/// <summary>
 		/// Get the number of entities in this zone.
 		/// </summary>
-		public int Count => _count;
+		public abstract int Count { get; }
 
 		public List<Enchant> Enchants { get; } = new List<Enchant>();
 
@@ -66,7 +61,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <summary>
 		/// Gets a random entity in this zone.
 		/// </summary>
-		public T Random => _entities[Util.Random.Next(_count)];
+		public T Random => Entities[Util.Random.Next(Count)];
 
 		/// <summary>
 		/// Gets the <see cref="IPlayable"/> with the specified zone position.
@@ -74,38 +69,19 @@ namespace SabberStoneCore.Model.Zones
 		/// <value>The <see cref="IPlayable"/>.</value>
 		/// <param name="zonePosition">The position inside the zone.</param>
 		/// <returns></returns>
-		public T this[int zonePosition] => _entities[zonePosition];
+		public T this[int zonePosition] => Entities[zonePosition];
 
 		public abstract void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true);
 
-		public IPlayable Remove(IPlayable entity)
-		{
-			if (entity.Zone == null || entity.Zone.Type != Type)
-				throw new ZoneException("Couldn't remove entity from zone.");
-
-			int pos = entity.ZonePosition;
-			_entities[pos] = default(T);
-
-			int i;
-			for (i = pos; i < _count - 1; i++)
-				_entities[i] = _entities[i + 1];
-
-			_entities[i] = default(T);
-
-			_count--;
-
-			Reposition(pos);
-			entity.Zone = null;
-
-			return entity;
-		}
+		public abstract IPlayable Remove(IPlayable entity);
 
 		public IPlayable Replace(IPlayable oldEntity, IPlayable newEntity)
 		{
 			int pos = oldEntity.ZonePosition;
-			_entities[pos] = (T)newEntity;
+			Entities[pos] = (T)newEntity;
 			newEntity.ZonePosition = pos;
 			newEntity.Zone = this;
+			((Entity) newEntity).SetNativeGameTag(GameTag.ZONE, (int) Type);
 			oldEntity.Zone = null;
 			return oldEntity;
 		}
@@ -115,27 +91,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
-		public void MoveTo(T entity, int zonePosition)
-		{
-			if (_entities is Array)
-			{
-				if (zonePosition == _count)
-					_entities[zonePosition] = entity;
-				else
-				{
-					for (int i = _count - 1; i >= zonePosition; --i)
-						_entities[i + 1] = _entities[i];
-					_entities[zonePosition] = entity;
-				}
-			}
-			else
-				_entities.Insert(zonePosition, entity);
-
-			_count++;
-
-			entity.Zone = this;
-			Reposition(zonePosition);
-		}
+		public abstract void MoveTo(T entity, int zonePosition);
 
 		/// <summary>
 		/// Swaps the positions of both entities in this zone.
@@ -152,14 +108,8 @@ namespace SabberStoneCore.Model.Zones
 			int newPos = newEntity.ZonePosition;
 			newEntity.ZonePosition = oldPos;
 			oldEntity.ZonePosition = newPos;
-			_entities[newPos] = oldEntity;
-			_entities[oldPos] = newEntity;
-		}
-
-		void Reposition(int zonePosition = 0)
-		{
-			for (int i = _count - 1; i >= zonePosition; --i)
-				_entities[i].ZonePosition = i;
+			Entities[newPos] = oldEntity;
+			Entities[oldPos] = newEntity;
 		}
 
 		/// <summary>
@@ -170,9 +120,9 @@ namespace SabberStoneCore.Model.Zones
 		/// <returns></returns>
 		public bool Any(Func<T, bool> predicate)
 		{
-			for (int i = 0; i < _count; i++)
+			for (int i = 0; i < Count; i++)
 			{
-				if (predicate(_entities[i]))
+				if (predicate(Entities[i]))
 					return true;
 			}
 			return false;
@@ -182,17 +132,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Copy data from the specified zone into this one.
 		/// </summary>
 		/// <param name="zone">The other zone object.</param>
-		public void Stamp(Zone<T> zone)
-		{
-			foreach (T p in zone)
-			{
-				var copy = (T)Entity.FromCard(Controller, p.Card, null, null, p.Id);
-				copy.Stamp(p as Entity);
-				MoveTo(copy, copy.ZonePosition);
-			};
-			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
-		}
+		public abstract void Stamp(Zone<T> zone);
 
 		public string Hash(params GameTag[] ignore)
 		{
@@ -221,11 +161,7 @@ namespace SabberStoneCore.Model.Zones
 			return $"[ZONE {Type} '{Controller.Name}']";
 		}
 
-		public virtual IEnumerator<T> GetEnumerator()
-		{
-			for (int i = 0; i < _count; i++)
-				yield return _entities[i];
-		}
+		public abstract IEnumerator<T> GetEnumerator();
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
@@ -236,7 +172,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			var str = new StringBuilder();
 			str.Append($"{this}|");
-			foreach (IPlayable p in this)
+			foreach (T p in this)
 			{
 				var m = p as Minion;
 				var w = p as Weapon;
@@ -246,6 +182,193 @@ namespace SabberStoneCore.Model.Zones
 			str.Append($"[ENCH {Enchants.Count}]");
 			str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
+		}
+	}
+
+	public abstract class UnlimitedZone : Zone<IPlayable>
+	{
+		public override int Count => Entities.Count;
+
+		public override bool IsFull => false;
+
+		protected UnlimitedZone(Controller controller)
+		{
+			Entities = new List<IPlayable>();
+			Game = controller.Game;
+			Controller = controller;
+		}
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		{
+			MoveTo(entity, zonePosition);
+			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}'.");
+		}
+
+		public override IPlayable Remove(IPlayable entity)
+		{
+			if (entity.Zone == null || entity.Zone.Type != Type)
+				throw new ZoneException("Couldn't remove entity from zone.");
+
+			Entities.Remove(entity);
+
+			return entity;
+		}
+
+		public override void MoveTo(IPlayable entity, int zonePosition)
+		{
+			Entities.Add(entity);
+			entity.Zone = this;
+			((Entity) entity).SetNativeGameTag(GameTag.ZONE, (int) Type);
+		}
+
+		public override void Stamp(Zone<IPlayable> zone)
+		{
+			foreach (IPlayable p in zone)
+			{
+				IPlayable copy = p.Clone(Controller);
+				Entities.Add(copy);
+				copy.Zone = this;
+			}
+
+			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+		}
+
+		public override IEnumerator<IPlayable> GetEnumerator()
+		{
+			return Entities.GetEnumerator();
+		}
+	}
+
+	public abstract class LimitedZone<T> : Zone<T> where T: IPlayable
+	{
+		/// <summary>
+		/// Gets the maximum amount of entities this zone can hold.
+		/// </summary>
+		/// <value>The maximum size.</value>
+		public int MaxSize { get; protected set; }
+
+		public override bool IsFull => _count == MaxSize;
+
+		public override int Count => _count;
+
+		protected int _count;
+
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		{
+			if (zonePosition > _count)
+				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
+
+			MoveTo((T)entity, zonePosition < 0 ? _count : zonePosition);
+
+			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+		}
+
+		public override void MoveTo(T entity, int zonePosition = -1)
+		{
+			if (entity == null)
+				throw new ZoneException();
+
+			if (zonePosition < 0)
+				zonePosition = _count;
+
+			if (zonePosition == _count)
+				Entities[zonePosition] = entity;
+			else
+			{
+				for (int i = _count - 1; i >= zonePosition; --i)
+					Entities[i + 1] = Entities[i];
+				Entities[zonePosition] = entity;
+			}
+
+			_count++;
+
+			entity.Zone = this;
+			((Entity)(IPlayable)entity).SetNativeGameTag(GameTag.ZONE, (int)Type);
+		}
+
+		public override IPlayable Remove(IPlayable entity)
+		{
+			if (entity.Zone == null || entity.Zone.Type != Type)
+				throw new ZoneException("Couldn't remove entity from zone.");
+
+			int pos = Array.IndexOf((Array)Entities, entity);
+			Entities[pos] = default(T);
+
+			int i;
+			for (i = pos; i < _count - 1; i++)
+				Entities[i] = Entities[i + 1];
+
+			Entities[i] = default(T);
+
+			_count--;
+
+			entity.Zone = null;
+
+			return entity;
+		}
+
+		public override void Stamp(Zone<T> zone)
+		{
+			foreach (T entity in zone)
+			{
+				var copy = (T) entity.Clone(Controller);
+				copy.Zone = this;
+				Entities[_count] = copy;
+				_count++;
+			}
+
+			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+		}
+
+		public override IEnumerator<T> GetEnumerator()
+		{
+			for (int i = 0; i < _count; i++)
+				yield return Entities[i];
+		}
+	}
+
+	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
+	{
+		private void Reposition(int zonePosition = 0)
+		{
+			if (zonePosition < 0)
+				zonePosition = _count - 1;
+
+			for (int i = _count - 1; i >= zonePosition; --i)
+				Entities[i].ZonePosition = i;
+		}
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		{
+			base.Add(entity, zonePosition, applyEnchantment);
+
+			Reposition(zonePosition);
+		}
+
+		public override IPlayable Remove(IPlayable entity)
+		{
+			if (entity.Zone == null || entity.Zone.Type != Type)
+				throw new ZoneException("Couldn't remove entity from zone.");
+
+			int pos = entity.ZonePosition;
+			Entities[pos] = default(T);
+
+			int i;
+			for (i = pos; i < _count - 1; i++)
+				Entities[i] = Entities[i + 1];
+
+			Entities[i] = default(T);
+
+			_count--;
+
+			Reposition(pos);
+
+			entity.Zone = null;
+
+			return entity;
 		}
 	}
 }

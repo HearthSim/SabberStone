@@ -38,6 +38,19 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
 				new FlagTask(true, new SummonTask())
 			);
+		//public static ISimpleTask PatchesThePirate
+		//	=> ComplexTask.Create(
+		//		new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
+		//		new IncludeTask(EntityType.SOURCE),
+		//		new FlagTask(true, new FuncPlayablesTask(p =>
+		//		{
+		//			var entity = p[0] as Entity;
+		//			entity.SetNativeGameTag(GameTag.REVEALED, 1);
+
+
+		//			return p;
+		//		}))
+		//	);
 
 		public static ISimpleTask FrostwolfBanner
 			=> ComplexTask.Create(
@@ -249,22 +262,34 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(p =>
 				{
 					Controller controller = p[0].Controller;
-					IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) : Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
-					var firstBeasts = new List<Card>();
-					var secondBeasts = new List<Card>();
-					foreach (Card card in all)
+
+					if (firstBeastsMemory == null)
 					{
-						if (card.Enchantments != null)
-							firstBeasts.Add(card);
-						else
-							secondBeasts.Add(card);
+						lock (locker)
+						{
+							IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) : Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
+							var firstBeasts = new List<Card>();
+							var secondBeasts = new List<Card>();
+							foreach (Card card in all)
+							{
+								if (card.Enchantments != null)
+									firstBeasts.Add(card);
+								else
+									secondBeasts.Add(card);
+							}
+
+							firstBeastsMemory = firstBeasts.AsReadOnly();
+							secondBeastsMemory = secondBeasts.AsReadOnly();
+						}
 					}
+
+
 
 					var first = new List<Card>();
 					var second = new List<Card>();
 					int numToSelect = 3;
-					int numLeft = firstBeasts.Count;
-					foreach (Card item in firstBeasts)
+					int numLeft = firstBeastsMemory.Count;
+					foreach (Card item in firstBeastsMemory)
 					{
 						double prob = numToSelect / (double)numLeft;
 						if (Util.Random.NextDouble() < prob)
@@ -277,8 +302,8 @@ namespace SabberStoneCore.Tasks
 						numLeft--;
 					}
 					numToSelect = 3;
-					numLeft = secondBeasts.Count;
-					foreach (Card item in secondBeasts)
+					numLeft = secondBeastsMemory.Count;
+					foreach (Card item in secondBeastsMemory)
 					{
 						double prob = numToSelect / (double)numLeft;
 						if (Util.Random.NextDouble() < prob)
@@ -299,6 +324,8 @@ namespace SabberStoneCore.Tasks
 
 					return p;
 				}));
+		private static ReadOnlyCollection<Card> firstBeastsMemory;
+		private static ReadOnlyCollection<Card> secondBeastsMemory;
 	}
 }
 

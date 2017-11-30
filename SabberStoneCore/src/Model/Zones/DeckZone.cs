@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
@@ -7,28 +8,25 @@ using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class DeckZone : Zone<IPlayable>
+	public class DeckZone : LimitedZone<IPlayable>
 	{
-		public override bool IsFull => _entities[MaxSize - 1] != null;
+		//public override bool IsFull => Entities[MaxSize - 1] != null;
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
 		{
-			if (zonePosition > _count)
-				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
-
-			MoveTo(entity, zonePosition < 0 ? _count : zonePosition);
-			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+			base.Add(entity, zonePosition);
 
 			if (applyEnchantment)
 				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
 		}
 
-		public DeckZone(Game game, Controller controller)
+
+		public DeckZone(Controller controller)
 		{
-			Game = game;
+			Game = controller.Game;
 			Controller = controller;
 			MaxSize = 60;
-			_entities = new IPlayable[MaxSize];
+			Entities = new IPlayable[MaxSize];
 			Type = Zone.DECK;
 		}
 
@@ -67,8 +65,12 @@ namespace SabberStoneCore.Model.Zones
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 			for (int i = 0; i < n; i++)
 			{
-				int r = i + Util.Random.Next(n - i);
-				Swap(this[i], this[r]);
+				//int r = i + Util.Random.Next(n - i);
+				//Swap(this[i], this[r]);
+				int r = Util.Random.Next(i, n);
+				IPlayable temp = Entities[i];
+				Entities[i] = Entities[r];
+				Entities[r] = temp;
 			}
 		}
 	}

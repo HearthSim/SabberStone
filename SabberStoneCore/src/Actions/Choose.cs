@@ -60,7 +60,7 @@ namespace SabberStoneCore.Actions
 						break;
 
 					case ChoiceAction.SUMMON:
-						if (RemoveFromZone(c, playable))
+						if (!c.BoardZone.IsFull && RemoveFromZone(c, playable))
 						{
 							SummonBlock.Invoke(c, (Minion)playable, -1);
 						}
@@ -290,12 +290,19 @@ namespace SabberStoneCore.Actions
 				var choicesIds = new List<int>();
 				choices.ForEach(p =>
 				{
-					IPlayable choiceEntity = Entity.FromCard(c, p);
-					((Entity)choiceEntity).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, source.Id);
+					IPlayable choiceEntity = Entity.FromCard(c, p,
+						new Dictionary<GameTag, int>
+						{
+							{GameTag.CREATOR, source.Id},
+							{GameTag.DISPLAYED_CREATOR, source.Id }
+						});
 					// add after discover enchantment
 					if (enchantment != null)
 					{
-						choiceEntity.Enchantments.Add(enchantment);
+						if (choiceEntity.Enchantments == null)
+							choiceEntity.Enchantments = new List<Enchantment> { enchantment };
+						else
+							choiceEntity.Enchantments.Add(enchantment);
 					}
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);
