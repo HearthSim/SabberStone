@@ -50,6 +50,16 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// A copy constructor. This constructor is only used to the inherited copy constructors.
+		/// </summary>
+		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
+		/// <param name="targeting">The source <see cref="Targeting"/> entity.</param>
+		protected Targeting(Controller controller, Targeting targeting) : base(controller.Game, targeting)
+		{
+			Controller = controller;
+		}
+
+		/// <summary>
 		/// Gets a value indicating whether the entity requires a target list to be calculated before being played.
 		/// </summary>
 		/// <value><c>true</c> if a target list must be calculated; otherwise, <c>false</c>.</value>

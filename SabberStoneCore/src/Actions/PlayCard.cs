@@ -121,6 +121,8 @@ namespace SabberStoneCore.Actions
 					&& !source.Card.Id.Equals("BRM_010") // OG_044b, using choose one 0 option
 					&& !source.Card.Id.Equals("AT_042")) // OG_044c, using choose one 0 option
 					{
+						if (source.Enchantments == null)
+							source.Enchantments = new List<Enchantment>();
 						source.Enchantments.AddRange(source.ChooseOnePlayables[0].Enchantments);
 						source.Enchantments.AddRange(source.ChooseOnePlayables[1].Enchantments);
 					}
@@ -143,7 +145,8 @@ namespace SabberStoneCore.Actions
 					}
 					else
 					{
-						source.Enchantments = new List<Enchantment> { };
+						//source.Enchantments = new List<Enchantment> { };
+						source.Enchantments = null;
 					}
 				}
 
@@ -283,6 +286,8 @@ namespace SabberStoneCore.Actions
 				// trigger SpellText Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger SpellText Phase (not implemented)");
 
+				spell[GameTag.ZONE] = (int)Zone.PLAY;
+
 				if (spell.IsCountered)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"Spell {spell} has been countred.");
@@ -307,7 +312,9 @@ namespace SabberStoneCore.Actions
 
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
+
 				spell.JustPlayed = false;
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 

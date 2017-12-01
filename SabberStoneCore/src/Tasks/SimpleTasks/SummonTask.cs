@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					var m = Playables[0] as Minion;
 					if (m.Zone == null && m.GetNativeGameTag(Enums.GameTag.ZONE) != 0)
-					Playables[0].Controller.GraveyardZone.Add(Playables[0]);
+						Playables[0].Controller.GraveyardZone.Add(Playables[0]);
 				}
 				return TaskState.STOP;
 			}

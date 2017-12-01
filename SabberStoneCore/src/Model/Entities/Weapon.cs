@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 using System.Collections.Generic;
+using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -20,6 +21,18 @@ namespace SabberStoneCore.Model.Entities
 			: base(controller, card, tags)
 		{
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", !Game.Logging? "":$"{this} ({Card.Class}) was created.");
+		}
+
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">A target <see cref="Controller"/> instance.</param>
+		/// <param name="weapon">A source <see cref="Weapon"/>.</param>
+		private Weapon(Controller controller, Weapon weapon) : base(controller, weapon) { }
+
+		public override IPlayable Clone(Controller controller)
+		{
+			return new Weapon(controller, this);
 		}
 	}
 

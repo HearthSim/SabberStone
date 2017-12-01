@@ -110,7 +110,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(entity1, game.Player1.BoardZone[entity1.ZonePosition]);
 			Assert.Equal(entity2, game.Player1.BoardZone[entity2.ZonePosition]);
 
-			game.Player1.BoardZone.Swap(entity1, entity2);
+			game.Player1.BoardZone.Swap((Minion)entity1, (Minion)entity2);
 
 			Assert.Equal(entity1, game.Player1.BoardZone[entity1.ZonePosition]);
 			Assert.Equal(entity2, game.Player1.BoardZone[entity2.ZonePosition]);

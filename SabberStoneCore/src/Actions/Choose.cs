@@ -60,7 +60,7 @@ namespace SabberStoneCore.Actions
 						break;
 
 					case ChoiceAction.SUMMON:
-						if (RemoveFromZone(c, playable))
+						if (!c.BoardZone.IsFull && RemoveFromZone(c, playable))
 						{
 							SummonBlock.Invoke(c, (Minion)playable, -1);
 						}
@@ -119,7 +119,7 @@ namespace SabberStoneCore.Actions
 						});
 						//c.Setaside.Add(playable);
 						var kazakusPotions =
-							c.SetasideZone.GetAll.Where(p => p.Card.Id.StartsWith("CFM_621"))
+							c.SetasideZone.Where(p => p.Card.Id.StartsWith("CFM_621"))
 								.Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 								.Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
 								.ToList();
@@ -226,7 +226,7 @@ namespace SabberStoneCore.Actions
 						if (c.Game.History)
 							c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, c.Id, "", 6, 0));
 
-						var mulliganList = c.HandZone.GetAll.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
+						var mulliganList = c.HandZone.Where(p => !choices.Contains(p.Id) && !p.Card.Id.Equals("GAME_005")).ToList();
 						mulliganList.ForEach(p =>
 						{
 							// drawing a new one
@@ -290,12 +290,19 @@ namespace SabberStoneCore.Actions
 				var choicesIds = new List<int>();
 				choices.ForEach(p =>
 				{
-					IPlayable choiceEntity = Entity.FromCard(c, p);
-					((Entity)choiceEntity).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, source.Id);
+					IPlayable choiceEntity = Entity.FromCard(c, p,
+						new Dictionary<GameTag, int>
+						{
+							{GameTag.CREATOR, source.Id},
+							{GameTag.DISPLAYED_CREATOR, source.Id }
+						});
 					// add after discover enchantment
 					if (enchantment != null)
 					{
-						choiceEntity.Enchantments.Add(enchantment);
+						if (choiceEntity.Enchantments == null)
+							choiceEntity.Enchantments = new List<Enchantment> { enchantment };
+						else
+							choiceEntity.Enchantments.Add(enchantment);
 					}
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);

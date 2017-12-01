@@ -40,8 +40,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var entities = new List<IPlayable> { Game.IdEntityDic[Controller.ProxyCthun] };
-			entities.AddRange(Controller.BoardZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
-			entities.AddRange(Controller.HandZone.GetAll.Where(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(Controller.BoardZone.Where(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(Controller.HandZone.Where(p => p.Card.Id.Equals("OG_280")));
 
 			if (Enchant != null)
 			{

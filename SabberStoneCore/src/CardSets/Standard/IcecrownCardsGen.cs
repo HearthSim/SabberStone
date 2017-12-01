@@ -1112,7 +1112,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.SECRET,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ))
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(SpecificTask.RandomHunterSecretPlay)
@@ -2816,6 +2816,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.HAND),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.DECK))
 				},
 			});
@@ -3234,6 +3235,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.HAND))
 				},
 			});

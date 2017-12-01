@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Any(Controller controller, string cardName, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
 		{
-			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, zonePosition, chooseOne);
+			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, zonePosition, chooseOne);
 		}
 		public static PlayCardTask Minion(Controller controller, IEntity source, int chooseOne = 0)
 		{
@@ -21,7 +21,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Minion(Controller controller, string cardName, int chooseOne = 0)
 		{
-			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
+			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
 		}
 		public static PlayCardTask MinionTarget(Controller controller, IEntity source, IEntity target, int chooseOne = 0)
 		{
@@ -29,7 +29,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask MinionTarget(Controller controller, string cardName, IEntity target, int chooseOne = 0)
 		{
-			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
+			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
 		}
 		public static PlayCardTask Spell(Controller controller, IEntity source, int chooseOne = 0)
 		{
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Spell(Controller controller, string cardName, int chooseOne = 0)
 		{
-			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
+			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), null, -1, chooseOne);
 		}
 		public static PlayCardTask SpellTarget(Controller controller, IEntity source, IEntity target, int chooseOne = 0)
 		{
@@ -45,7 +45,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask SpellTarget(Controller controller, string cardName, IEntity target, int chooseOne = 0)
 		{
-			return new PlayCardTask(controller, controller.HandZone.GetAll.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
+			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
 		}
 		private PlayCardTask(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
 		{

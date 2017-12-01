@@ -248,7 +248,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elder Longneck"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			if (game.CurrentPlayer.HandZone.GetAll.Exists(p => p is Minion && ((Minion)p).AttackDamage >= 5))
+			if (game.CurrentPlayer.HandZone.Any(p => p is Minion && ((Minion)p).AttackDamage >= 5))
 			{
 				int choice = game.CurrentPlayer.Choice.Choices[0];
 				game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
@@ -317,7 +317,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			int choice = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-			game.CurrentPlayer.BoardZone.GetAll.ForEach(p =>
+			game.CurrentPlayer.BoardZone.ToList().ForEach(p =>
 			{
 				Assert.True(UngoroGenerics.CheckAdapt(game, (Minion)p, choice));
 			});
@@ -3092,10 +3092,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fire Plume's Heart"));
-			Assert.True(game.CurrentPlayer.HandZone.GetAll.TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
+			Assert.True(game.CurrentPlayer.HandZone.ToList().TrueForAll(p => p[GameTag.QUEST_CONTRIBUTOR] == 0));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
-			Assert.True(game.CurrentPlayer.HandZone.GetAll.OfType<Minion>().ToList()
+			//Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			Assert.NotNull(game.CurrentPlayer.SecretZone.Quest);
+			Assert.True(game.CurrentPlayer.HandZone.OfType<Minion>().ToList()
 				.TrueForAll(p => p.HasTaunt && p[GameTag.QUEST_CONTRIBUTOR] == 1 || p[GameTag.QUEST_CONTRIBUTOR] == 0));
 			Assert.Equal(0, testCard[GameTag.QUEST_PROGRESS]);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Acolyte of Pain

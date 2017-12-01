@@ -3232,11 +3232,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Windfury"));
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, m2));
 
 			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
 
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, m2, game.CurrentOpponent.Hero));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, m2));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, m2, game.CurrentOpponent.Hero));
 
 			Assert.Equal(2, ((ICharacter)m2)[GameTag.NUM_ATTACKS_THIS_TURN]);

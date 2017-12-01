@@ -11,10 +11,10 @@ namespace SabberStoneCoreAi.Score
 		public override int Rate()
 		{
 			if (OpHeroHp < 1)
-				return int.MaxValue;
+				return Int32.MaxValue;
 
 			if (HeroHp < 1)
-				return int.MinValue;
+				return Int32.MinValue;
 
 			int result = 0;
 

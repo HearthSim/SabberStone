@@ -1,12 +1,14 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class GraveyardZone : Zone<IPlayable>
+	public class GraveyardZone : UnlimitedZone
 	{
-		public GraveyardZone(Game game, Controller controller, Zone type) : base(game, controller, type)
+		public GraveyardZone(Controller controller) : base(controller)
 		{
+			Type = Zone.GRAVEYARD;
 		}
 	}
 }

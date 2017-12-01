@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 
@@ -31,6 +32,13 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", !Game.Logging? "":$"{card.Name} ({card.Class}) was created.");
 		}
 
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
+		/// <param name="hero">The source <see cref="T:SabberStoneCore.Model.Entities.Hero" />.</param>
+		private Hero(Controller controller, Hero hero) : base(controller, hero) { }
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override int AttackDamage => base.AttackDamage + (Game.CurrentPlayer != Controller ? 0 : Weapon?.AttackDamage ?? 0);
@@ -44,7 +52,8 @@ namespace SabberStoneCore.Model.Entities
 		public void AddWeapon(Weapon weapon)
 		{
 			RemoveWeapon();
-			weapon.SetOrderOfPlay("WEAPON");
+			//weapon.SetOrderOfPlay("WEAPON");
+			weapon.OrderOfPlay = Game.NextOop;
 			Weapon = weapon;
 			Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			Weapon[GameTag.ZONE_POSITION] = 0;
@@ -83,6 +92,12 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Weapon = null;
 			EquippedWeapon = 0;
+		}
+
+		/// <inheritdoc cref="Playable{T}.Clone(Controller)" />
+		public override IPlayable Clone(Controller controller)
+		{
+			return new Hero(controller, this);
 		}
 
 		public string FullPrint()
