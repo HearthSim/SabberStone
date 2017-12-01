@@ -33,7 +33,19 @@ namespace SabberStoneCore.Tasks
 			=> new SetGameTagTask(GameTag.FROZEN, 1, entityType);
 
 		public static ISimpleTask WindFury(EntityType entityType)
-			=> new SetGameTagTask(GameTag.WINDFURY, 1, entityType);
+			=> Create(
+				new SetGameTagTask(GameTag.WINDFURY, 1, entityType),
+				new IncludeTask(entityType),
+				new FuncPlayablesTask(playables =>
+				{
+					playables.ForEach(p =>
+					{
+						var m = p as Minion;
+						if (m.NumAttacksThisTurn == 1 && m.IsExhausted)
+							m.IsExhausted = false;
+					});
+					return playables;
+				}));
 
 		public static ISimpleTask Taunt(EntityType entityType)
 			=> new SetGameTagTask(GameTag.TAUNT, 1, entityType);

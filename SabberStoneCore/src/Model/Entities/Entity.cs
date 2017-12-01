@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
 		/// <value>The ranking order.</value>
-		int OrderOfPlay { get; }
+		int OrderOfPlay { get; set; }
 
 		/// <summary>Gets or sets the game instance from which this entity is part of.</summary>
 		/// <value>The game instance.</value>
@@ -88,7 +89,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
 		/// <value>The ranking order.</value>
-		public int OrderOfPlay { get; protected set; }
+		public int OrderOfPlay { get; set; }
 
 		/// <summary>Gets or sets the owner of this entity, the controller who played the entity.</summary>
 		/// <value>The controller/owner object.</value>
@@ -125,7 +126,36 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game = game;
 			_data = new EntityData(card, tags);
+			Id = _data.Tags[GameTag.ENTITY_ID];
 		}
+
+		/// <summary>
+		/// A copy constructor. This constructor is only used to the inherited copy constructors.
+		/// </summary>
+		/// <param name="game"><see cref="Model.Game"/> instance of a copied entity.</param>
+		/// <param name="entity">A source <see cref="Entity"/>.</param>
+		protected Entity(Game game, Entity entity)
+		{
+			Game = game;
+			_data = new EntityData(entity._data);
+			Id = entity.Id;
+			OrderOfPlay = entity.OrderOfPlay;
+
+
+			if (game == null) return;
+
+			for (int i = 0; i < entity.Enchants.Count; i++)
+			{
+				Enchant p = entity.Enchants[i];
+				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
+			}
+			for (int i = 0; i < entity.Triggers.Count; i++)
+			{
+				Trigger p = entity.Triggers[i];
+				Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner));
+			}
+		}
+
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -194,6 +224,8 @@ namespace SabberStoneCore.Model.Entities
 				int value = _data[t];
 
 				// cumulative enchanment calculation ... priorizing game, zone, entity
+
+
 				if (Zone != null)
 					for (int i = 0; i < Zone.Enchants.Count; i++)
 						value = Zone.Enchants[i].Apply(this, t, value);
@@ -265,7 +297,7 @@ namespace SabberStoneCore.Model.Entities
 			tags[GameTag.ZONE] = zone != null ? (int)zone.Type : 0;
 			//tags[GameTag.CARD_ID] = card.AssetId;
 
-			IPlayable result = null;
+			IPlayable result;
 			switch (card.Type)
 			{
 				case CardType.MINION:
@@ -322,6 +354,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (result.ChooseOne)
 			{
+				result.ChooseOnePlayables = new IPlayable[2];
 				result.ChooseOnePlayables[0] =
 					id < 0 ? FromCard(controller,
 						Cards.FromId(result.Card.Id + "a"),
@@ -331,7 +364,7 @@ namespace SabberStoneCore.Model.Entities
 							[GameTag.PARENT_CARD] = result.Id
 						},
 						controller.SetasideZone) :
-						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
 
 				result.ChooseOnePlayables[1] =
 					id < 0 ? FromCard(controller,
@@ -342,7 +375,7 @@ namespace SabberStoneCore.Model.Entities
 							[GameTag.PARENT_CARD] = result.Id
 						},
 						controller.SetasideZone) :
-						controller.SetasideZone.GetAll.Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
 			}
 
 			return result;
@@ -373,7 +406,8 @@ namespace SabberStoneCore.Model.Entities
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public int Id => _data[GameTag.ENTITY_ID];
+		//public int Id => _data[GameTag.ENTITY_ID];
+		public int Id { get; }
 
 		public bool TurnStart
 		{
@@ -396,15 +430,25 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool ChooseOne
 		{
-			get { return this[GameTag.CHOOSE_ONE] == 1; }
-			set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
+			//get { return this[GameTag.CHOOSE_ONE] == 1; }
+			//set { this[GameTag.CHOOSE_ONE] = value ? 1 : 0; }
+			get => _data[GameTag.CHOOSE_ONE] == 1;
+			set => SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0);
 		}
 
 		public bool ToBeDestroyed
 		{
-			get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
-			set { this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0; }
+			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
+			//get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
+			get => _toBeDestroyed;
+			set
+			{
+				this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
+				_toBeDestroyed = value;
+			}
 		}
+
+		private bool _toBeDestroyed;
 
 		public int NumTurnsInPlay
 		{
@@ -429,6 +473,7 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.CARD_TARGET]; }
 			set { this[GameTag.CARD_TARGET] = value; }
 		}
+
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

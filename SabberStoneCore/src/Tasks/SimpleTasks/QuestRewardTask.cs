@@ -37,7 +37,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			source[GameTag.REVEALED] = 1;
 
 			// moving quest to graveyard
-			Controller.GraveyardZone.Add(source.Zone.Remove(source));
+			Controller.SecretZone.Quest = null;
+			Controller.GraveyardZone.Add(source);
+			//Controller.GraveyardZone.Add(source.Zone.Remove(source));
 
 			return TaskState.COMPLETE;
 		}

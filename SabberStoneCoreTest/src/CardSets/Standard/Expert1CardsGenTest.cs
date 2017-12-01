@@ -1968,7 +1968,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Player1.HandZone.GetAll.ForEach(p => Generic.DiscardBlock(game.Player1, p));
+			game.Player1.HandZone.ToList().ForEach(p => Generic.DiscardBlock(game.Player1, p));
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Divine Favor"));
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));

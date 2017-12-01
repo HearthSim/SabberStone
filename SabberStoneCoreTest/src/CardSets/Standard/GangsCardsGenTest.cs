@@ -947,13 +947,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Smuggler's Run"));
-			int totAtk = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
-			int totHp = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
+			int totAtk = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
+			int totHp = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.NotEqual(totAtk,
-				game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
+				game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
 			Assert.NotEqual(totHp,
-				game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
+				game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -1094,13 +1094,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Enforcer"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			int totAtk = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
-			int totHp = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
+			int totAtk = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
+			int totHp = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.NotEqual(totAtk,
-				game.CurrentOpponent.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
+				game.CurrentOpponent.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
 			Assert.NotEqual(totHp,
-				game.CurrentOpponent.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
+				game.CurrentOpponent.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1164,13 +1164,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimestreet Outfitter"));
-			int totAtk = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
-			int totHp = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
+			int totAtk = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage);
+			int totHp = game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.NotEqual(totAtk,
-				game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
+				game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).AttackDamage));
 			Assert.NotEqual(totHp,
-				game.CurrentPlayer.HandZone.GetAll.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
+				game.CurrentPlayer.HandZone.Where(p => p is Minion).Sum(p => ((Minion)p).Health));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2671,7 +2671,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hobart Grapplehammer"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			var weaponsHand = game.CurrentPlayer.HandZone.GetAll.Where(p => p is Weapon).ToList();
+			var weaponsHand = game.CurrentPlayer.HandZone.Where(p => p is Weapon).ToList();
 			if (weaponsHand.Any())
 			{
 				int count = weaponsHand.Count();
@@ -2679,7 +2679,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				int oAtk = weaponsHand.Sum(p => ((Weapon)p).Card[GameTag.ATK]);
 				Assert.Equal(oAtk + count, nAtk);
 			}
-			var weaponsDeck = game.CurrentPlayer.DeckZone.GetAll.Where(p => p is Weapon).ToList();
+			var weaponsDeck = game.CurrentPlayer.DeckZone.Where(p => p is Weapon).ToList();
 			if (weaponsDeck.Any())
 			{
 				int count = weaponsDeck.Count();
@@ -2711,16 +2711,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Grimy Gadgeteer"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			int totAtk = game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Type == CardType.MINION)
+			int totAtk = game.CurrentPlayer.HandZone.Where(p => p.Card.Type == CardType.MINION)
 				.Sum(p => ((Minion)p).AttackDamage);
-			int totHp = game.CurrentPlayer.HandZone.GetAll.Where(p => p.Card.Type == CardType.MINION)
+			int totHp = game.CurrentPlayer.HandZone.Where(p => p.Card.Type == CardType.MINION)
 				.Sum(p => ((Minion)p).Health);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(totAtk != 0 ? totAtk + 2 : 0,
-				game.CurrentOpponent.HandZone.GetAll.Where(p => p.Card.Type == CardType.MINION)
+				game.CurrentOpponent.HandZone.Where(p => p.Card.Type == CardType.MINION)
 					.Sum(p => ((Minion)p).AttackDamage));
 			Assert.Equal(totHp != 0 ? totHp + 2 : 0,
-				game.CurrentOpponent.HandZone.GetAll.Where(p => p.Card.Type == CardType.MINION)
+				game.CurrentOpponent.HandZone.Where(p => p.Card.Type == CardType.MINION)
 					.Sum(p => ((Minion)p).Health));
 		}
 
@@ -3403,7 +3403,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodsail Cultist"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-			if (game.CurrentPlayer.HandZone.GetAll.Any(p => p.Card.Name.Equals("Patches the Pirate")))
+			if (game.CurrentPlayer.HandZone.Any(p => p.Card.Name.Equals("Patches the Pirate")))
 			{
 				Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 				Assert.Equal(0, game.CurrentPlayer.BoardZone.Triggers.Count);
@@ -4148,7 +4148,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
 			Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
-			bool hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
+			bool hasMinion = game.CurrentOpponent.HandZone.Any(p => p is Minion);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(hasMinion ? 1 : 0, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(hasMinion ? 4 : 5, game.CurrentOpponent.HandZone.Count);
@@ -4242,8 +4242,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Player1.HandZone.GetAll.ForEach(p => Generic.DiscardBlock(game.Player1, p));
-			game.Player2.HandZone.GetAll.ForEach(p => Generic.DiscardBlock(game.Player2, p));
+			game.Player1.HandZone.ToList().ForEach(p => Generic.DiscardBlock(game.Player1, p));
+			game.Player2.HandZone.ToList().ForEach(p => Generic.DiscardBlock(game.Player2, p));
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Genzo, the Shark"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -4286,7 +4286,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tanaris Hogchopper"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard1));
 			Assert.False(((Minion)testCard1).HasCharge);
-			game.Player2.HandZone.GetAll.ForEach(p => Generic.DiscardBlock(game.Player2, p));
+			game.Player2.HandZone.ToList().ForEach(p => Generic.DiscardBlock(game.Player2, p));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2));
 			Assert.True(((Minion)testCard2).HasCharge);
 		}

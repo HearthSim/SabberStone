@@ -121,20 +121,29 @@ namespace SabberStoneCore.Enchants
 		{
 			bool flag = true;
 
-			//EnableConditions.ForEach(p => flag &= p.Eval(Owner));
-
-			//RemoveTriggers.ToList().ForEach(p => flag &= Owner.Controller[p.Key] <= p.Value);
-
 			// check if all conditions are still meet
 			for (int i = 0; i < EnableConditions.Count; i++)
+			{
 				flag &= EnableConditions[i].Eval(Owner);
+				if (!flag)
+					break;
+			}
+
+			// check if turn activation is still okay
+			if (flag)
+				flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
 
 			// check if there is any remove trigger activated
-			foreach (KeyValuePair<GameTag, int> kvp in RemoveTriggers)
-				flag &= Owner.Controller[kvp.Key] <= kvp.Value;
-			
-			// check if turn activation is still okay
-			flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
+			if (flag)
+			{
+				foreach (KeyValuePair<GameTag, int> kvp in RemoveTriggers)
+				{
+					flag &= Owner.Controller[kvp.Key] <= kvp.Value;
+					if (!flag)
+						break;
+				}
+			}
+
 
 			if (!flag && !Owner.Game.LazyRemoves.Contains(this))
 			{
@@ -153,9 +162,14 @@ namespace SabberStoneCore.Enchants
 		private bool IsApplying(IPlayable target)
 		{
 			bool flag = true;
-			//ApplyConditions.ForEach(p => flag &= p.Eval(Owner, target));
+
 			for (int i = 0; i < ApplyConditions.Count; i++)
+			{
 				flag &= ApplyConditions[i].Eval(Owner, target);
+				if (!flag)
+					break;
+			}
+
 			return flag;
 		}
 

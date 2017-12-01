@@ -84,10 +84,15 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
-		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
-			: base(controller, card, tags)
-		{
-		}
+		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags, bool addEnchantments = true)
+			: base(controller, card, tags, addEnchantments) { }
+
+		/// <summary>
+		/// A copy constructor. This constructor is only used to the inherited copy constructors.
+		/// </summary>
+		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
+		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
+		protected Character(Controller controller, Character<T> character) : base(controller, character) { }
 
 		/// <summary>
 		/// Character is dead or destroyed.
@@ -97,7 +102,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character can attack.
 		/// </summary>
-		public virtual bool CanAttack => !CantAttack && !IsExhausted && !IsFrozen && ValidAttackTargets.Any();
+		public virtual bool CanAttack => !IsExhausted && !IsFrozen && ValidAttackTargets.Any() && !CantAttack;
 
 		/// <summary>
 		/// Indicates if the provided character can be attacked by this character.
@@ -130,6 +135,10 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
+				//if (Controller.CalculatingOptions && Controller.VATCache != null)
+				//	return Controller.VATCache;
+
+				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
 				var allTargetsTaunt = new List<ICharacter>(2);
 				foreach (Minion minion in Controller.Opponent.BoardZone)
@@ -139,20 +148,23 @@ namespace SabberStoneCore.Model.Entities
 						if (minion.HasTaunt)
 						{
 							allTargetsTaunt.Add(minion);
+							tauntFlag = true;
 							continue;
 						}
-						allTargets.Add(minion);
+						if (!tauntFlag)
+							allTargets.Add(minion);
 					}
 				}
-				if (allTargetsTaunt.Count > 0)
+				if (tauntFlag)
 					return allTargetsTaunt;
 
 				if (!CantAttackHeroes)
-				{
 					allTargets.Add(Controller.Opponent.Hero);
-				}
-				return allTargets;
 
+				//if (Controller.CalculatingOptions)
+				//	Controller.VATCache = allTargets;
+
+				return allTargets;
 			}
 		}
 
@@ -513,7 +525,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			//get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
+			get
+			{
+				if (_data.Tags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value))
+					return value;
+				return 0;
+			}
 			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
 		}
 

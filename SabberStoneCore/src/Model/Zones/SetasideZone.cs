@@ -1,12 +1,15 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class SetasideZone : Zone<IPlayable>
+	public class SetasideZone : UnlimitedZone
 	{
-		public SetasideZone(Game game, Controller controller, Zone type) : base(game, controller, type)
+		public SetasideZone(Controller controller) : base(controller)
 		{
+			Type = Zone.SETASIDE;
 		}
 	}
 }
