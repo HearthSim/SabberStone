@@ -23,6 +23,13 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
+		/// <param name="spell">The source <see cref="Spell"/>.</param>
+		private Spell(Controller controlller, Spell spell) : base(controlller, spell) { }
+
+		/// <summary>
 		/// Calculates if a target is valid by testing the game state for each hardcoded requirement.
 		/// </summary>
 		/// <param name="target">The proposed target.</param>
@@ -64,22 +71,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override IPlayable Clone(Controller controller)
 		{
-			var copy = new Spell(controller, Card, new Dictionary<GameTag, int>(_data.Tags), false);
-			controller.Game.IdEntityDic.Add(Id, copy);
-			if (Enchantments != null)
-				copy.Enchantments = new List<Enchantment>(Enchantments);
-			copy.OrderOfPlay = OrderOfPlay;
-			for (int i = 0; i < Enchants.Count; i++)
-			{
-				Enchant p = Enchants[i];
-				copy.Enchants.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Enchants, p.Owner, p.RemoveTriggers));
-			}
-			for (int i = 0; i < Triggers.Count; i++)
-			{
-				Trigger p = Triggers[i];
-				copy.Triggers.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Triggers, p.Owner));
-			}
-			return copy;
+			return new Spell(controller, this);
 		}
 	}
 

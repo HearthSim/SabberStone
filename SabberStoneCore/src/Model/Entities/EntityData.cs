@@ -25,6 +25,16 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// A copy constructor. This constructor is only used for copying an <see cref="Entity"/>.
+		/// </summary>
+		/// <param name="entityData">The source <see cref="EntityData"/>.</param>
+		internal EntityData(EntityData entityData)
+		{
+			Card = entityData.Card;
+			Tags = new Dictionary<GameTag, int>(entityData.Tags);
+		}
+
+		/// <summary>
 		/// Copies data from the other object into this one.
 		/// </summary>
 		/// <param name="data">The data.</param>

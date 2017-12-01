@@ -85,9 +85,14 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
 		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags, bool addEnchantments = true)
-			: base(controller, card, tags, addEnchantments)
-		{
-		}
+			: base(controller, card, tags, addEnchantments) { }
+
+		/// <summary>
+		/// A copy constructor. This constructor is only used to the inherited copy constructors.
+		/// </summary>
+		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
+		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
+		protected Character(Controller controller, Character<T> character) : base(controller, character) { }
 
 		/// <summary>
 		/// Character is dead or destroyed.

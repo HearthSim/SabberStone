@@ -12,14 +12,8 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets or sets the quest in this SecretZone.
 		/// null means absence.
 		/// </summary>
-		//public Spell Quest
-		//{
-		//	get => Entities[5];
-		//	set => Entities[5] = value;
-		//}
 		public Spell Quest { get; set; }
 
-		//public override bool IsFull => Entities[MaxSize - 2] != null;
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
 		{

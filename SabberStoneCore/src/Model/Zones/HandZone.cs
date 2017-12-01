@@ -8,8 +8,17 @@ namespace SabberStoneCore.Model.Zones
 	/// Zone for all entities which are held 'in hand'.
 	/// </summary>
 	public class HandZone : PositioningZone<IPlayable>
-	{
-		//public override bool IsFull => Entities[MaxSize - 1] != null;
+	{ 
+		public HandZone(Controller controller)
+		{
+			Game = controller.Game;
+			Controller = controller;
+			//MaxSize = Controller.MaxHandSize;
+			MaxSize = 10;
+			Entities = new IPlayable[MaxSize];
+			Type = Zone.HAND;
+		}
+
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
 		{
@@ -17,15 +26,6 @@ namespace SabberStoneCore.Model.Zones
 
 			if (applyEnchantment)
 				entity.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
-		}
-
-		public HandZone(Controller controller)
-		{
-			Game = controller.Game;
-			Controller = controller;
-			MaxSize = Controller.MaxHandSize;
-			Entities = new IPlayable[MaxSize];
-			Type = Zone.HAND;
 		}
 	}
 }

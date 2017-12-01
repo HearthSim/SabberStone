@@ -21,6 +21,13 @@ namespace SabberStoneCore.Model.Entities
 				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", !Game.Logging? "":$"{this} ({ Card.Class}) was created.");
 		}
 
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
+		/// <param name="heroPower">The source <see cref="T:SabberStoneCore.Model.Entities.HeroPower" />.</param>
+		private HeroPower(Controller controller, HeroPower heroPower) : base(controller, heroPower) { }
+
 		/// <summary>Targetings the requirements.</summary>
 		/// <param name="target">The target.</param>
 		/// <returns></returns>
@@ -39,22 +46,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override IPlayable Clone(Controller controller)
 		{
-			var copy = new HeroPower(controller, Card, new Dictionary<GameTag, int>(_data.Tags), false);
-			controller.Game.IdEntityDic.Add(Id, copy);
-			if (Enchantments != null)
-				copy.Enchantments = new List<Enchantment>(Enchantments);
-			copy.OrderOfPlay = OrderOfPlay;
-			for (int i = 0; i < Enchants.Count; i++)
-			{
-				Enchant p = Enchants[i];
-				copy.Enchants.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Enchants, p.Owner, p.RemoveTriggers));
-			}
-			for (int i = 0; i < Triggers.Count; i++)
-			{
-				Trigger p = Triggers[i];
-				copy.Triggers.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Triggers, p.Owner));
-			}
-			return copy;
+			return new HeroPower(controller, this);
 		}
 	}
 }

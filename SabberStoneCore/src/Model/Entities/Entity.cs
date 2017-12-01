@@ -126,7 +126,36 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game = game;
 			_data = new EntityData(card, tags);
+			Id = _data.Tags[GameTag.ENTITY_ID];
 		}
+
+		/// <summary>
+		/// A copy constructor. This constructor is only used to the inherited copy constructors.
+		/// </summary>
+		/// <param name="game"><see cref="Model.Game"/> instance of a copied entity.</param>
+		/// <param name="entity">A source <see cref="Entity"/>.</param>
+		protected Entity(Game game, Entity entity)
+		{
+			Game = game;
+			_data = new EntityData(entity._data);
+			Id = entity.Id;
+			OrderOfPlay = entity.OrderOfPlay;
+
+
+			if (game == null) return;
+
+			for (int i = 0; i < entity.Enchants.Count; i++)
+			{
+				Enchant p = entity.Enchants[i];
+				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
+			}
+			for (int i = 0; i < entity.Triggers.Count; i++)
+			{
+				Trigger p = entity.Triggers[i];
+				Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner));
+			}
+		}
+
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -268,7 +297,7 @@ namespace SabberStoneCore.Model.Entities
 			tags[GameTag.ZONE] = zone != null ? (int)zone.Type : 0;
 			//tags[GameTag.CARD_ID] = card.AssetId;
 
-			IPlayable result = null;
+			IPlayable result;
 			switch (card.Type)
 			{
 				case CardType.MINION:
@@ -377,7 +406,8 @@ namespace SabberStoneCore.Model.Entities
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public int Id => _data[GameTag.ENTITY_ID];
+		//public int Id => _data[GameTag.ENTITY_ID];
+		public int Id { get; }
 
 		public bool TurnStart
 		{

@@ -22,7 +22,8 @@ namespace SabberStoneCore.Model.Zones
 		{
 			Game = controller.Game;
 			Controller = controller;
-			MaxSize = Game.MAX_MINIONS_ON_BOARD;
+			//MaxSize = Game.MAX_MINIONS_ON_BOARD;
+			MaxSize = 7;
 			Entities = new Minion[MaxSize];
 			Type = Zone.PLAY;
 		}

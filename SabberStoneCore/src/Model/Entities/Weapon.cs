@@ -26,22 +26,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override IPlayable Clone(Controller controller)
 		{
-			var copy = new Weapon(controller, Card, new Dictionary<GameTag, int>(_data.Tags), false);
-			controller.Game.IdEntityDic.Add(Id, copy);
-			if (Enchantments != null)
-				copy.Enchantments = new List<Enchantment>(Enchantments);
-			copy.OrderOfPlay = OrderOfPlay;
-			for (int i = 0; i < Enchants.Count; i++)
-			{
-				Enchant p = Enchants[i];
-				copy.Enchants.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Enchants, p.Owner, p.RemoveTriggers));
-			}
-			for (int i = 0; i < Triggers.Count; i++)
-			{
-				Trigger p = Triggers[i];
-				copy.Triggers.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Triggers, p.Owner));
-			}
-			return copy;
+			return new Weapon(controller, this);
 		}
 	}
 
@@ -70,6 +55,15 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.POISONOUS] == 1; }
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
+		}
+
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">A target <see cref="Controller"/> instance.</param>
+		/// <param name="weapon">A source <see cref="Weapon"/>.</param>
+		private Weapon(Controller controller, Weapon weapon) : base(controller, weapon)
+		{
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

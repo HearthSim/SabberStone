@@ -33,6 +33,13 @@ namespace SabberStoneCore.Model.Entities
 				Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", !Game.Logging? "":$"{card.Name} ({card.Class}) was created.");
 		}
 
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
+		/// <param name="hero">The source <see cref="T:SabberStoneCore.Model.Entities.Hero" />.</param>
+		private Hero(Controller controller, Hero hero) : base(controller, hero) { }
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override int AttackDamage => base.AttackDamage + (Game.CurrentPlayer != Controller ? 0 : Weapon?.AttackDamage ?? 0);
@@ -88,6 +95,12 @@ namespace SabberStoneCore.Model.Entities
 			EquippedWeapon = 0;
 		}
 
+		/// <inheritdoc cref="Playable{T}.Clone(Controller)" />
+		public override IPlayable Clone(Controller controller)
+		{
+			return new Hero(controller, this);
+		}
+
 		public string FullPrint()
 		{
 			var str = new StringBuilder();
@@ -96,26 +109,6 @@ namespace SabberStoneCore.Model.Entities
 			str.Append($"[ENCH {Enchants.Count}]");
 			str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
-		}
-
-		public override IPlayable Clone(Controller controller)
-		{
-			var copy = new Hero(controller, Card, new Dictionary<GameTag, int>(_data.Tags), false);
-			controller.Game.IdEntityDic.Add(Id, copy);
-			if (Enchantments != null)
-				copy.Enchantments = new List<Enchantment>(Enchantments);
-			copy.OrderOfPlay = OrderOfPlay;
-			for (int i = 0; i < Enchants.Count; i++)
-			{
-				Enchant p = Enchants[i];
-				copy.Enchants.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Enchants, p.Owner, p.RemoveTriggers));
-			}
-			for (int i = 0; i < Triggers.Count; i++)
-			{
-				Trigger p = Triggers[i];
-				copy.Triggers.Add(p.Copy(p.SourceId, controller.Game, p.Turn, copy.Triggers, p.Owner));
-			}
-			return copy;
 		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

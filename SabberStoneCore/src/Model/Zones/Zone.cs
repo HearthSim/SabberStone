@@ -34,12 +34,6 @@ namespace SabberStoneCore.Model.Zones
 		public Zone Type { get; protected set; }
 
 		/// <summary>
-		/// Gets a value indicating whether this zone is full.
-		/// </summary>
-		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
-		public abstract bool IsFull { get; }
-
-		/// <summary>
 		/// Gets a value indicating whether this contains entities or not.
 		/// </summary>
 		/// <value><c>true</c> if this zone is empty; otherwise, <c>false</c>.</value>
@@ -75,6 +69,13 @@ namespace SabberStoneCore.Model.Zones
 
 		public abstract IPlayable Remove(IPlayable entity);
 
+		/// <summary>
+		/// Replaces an entity in this zone to new entity and returns the old entity.
+		/// The position of the new entity is the same position the old entity had.
+		/// </summary>
+		/// <param name="oldEntity">The entity to be replaced.</param>
+		/// <param name="newEntity">The new entity.</param>
+		/// <returns></returns>
 		public IPlayable Replace(IPlayable oldEntity, IPlayable newEntity)
 		{
 			int pos = oldEntity.ZonePosition;
@@ -185,11 +186,13 @@ namespace SabberStoneCore.Model.Zones
 		}
 	}
 
+	/// <summary>
+	/// Base implementation of <see cref="GraveyardZone"/> and <see cref="SetasideZone"/>.
+	/// This kind of zones never be full.
+	/// </summary>
 	public abstract class UnlimitedZone : Zone<IPlayable>
 	{
 		public override int Count => Entities.Count;
-
-		public override bool IsFull => false;
 
 		protected UnlimitedZone(Controller controller)
 		{
@@ -240,6 +243,10 @@ namespace SabberStoneCore.Model.Zones
 		}
 	}
 
+	/// <summary>
+	/// Base implementation of zones which have a maximum size.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class LimitedZone<T> : Zone<T> where T: IPlayable
 	{
 		/// <summary>
@@ -248,7 +255,11 @@ namespace SabberStoneCore.Model.Zones
 		/// <value>The maximum size.</value>
 		public int MaxSize { get; protected set; }
 
-		public override bool IsFull => _count == MaxSize;
+		/// <summary>
+		/// Gets a value indicating whether this zone is full.
+		/// </summary>
+		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
+		public bool IsFull => _count == MaxSize;
 
 		public override int Count => _count;
 
@@ -330,6 +341,10 @@ namespace SabberStoneCore.Model.Zones
 		}
 	}
 
+	/// <summary>
+	/// Base implementation of zones performing strict recalculation of its containing entities' ZonePosition when any member comes and goes.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
 	{
 		private void Reposition(int zonePosition = 0)

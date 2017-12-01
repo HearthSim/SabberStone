@@ -249,6 +249,40 @@ namespace SabberStoneCore.Model
 			TaskStack = new TaskStack(this);
 		}
 
+		private Game(Game game, bool logging = false) : base(null, game)
+		{
+			Game = this;
+
+			for (int i = 0; i < game.Enchants.Count; i++)
+			{
+				Enchant p = game.Enchants[i];
+				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
+			}
+			for (int i = 0; i < game.Triggers.Count; i++)
+			{
+				Trigger p = game.Triggers[i];
+				Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner));
+			}
+
+			GamesEventManager = new GameEventManager(this);
+
+			_gameConfig = game._gameConfig.Clone();
+			_gameConfig.Logging = logging;
+
+			CloneIndex = CloneIndex + $"[{NextCloneIndex++}]";
+
+			Player1 = game.Player1.Clone(this);
+			Player2 = game.Player2.Clone(this);
+
+			TaskStack = new TaskStack(this);
+			TaskStack.Stamp(game.TaskStack);
+
+			TaskQueue = new TaskQueue(this);
+			TaskQueue.Stamp(game.TaskQueue);
+
+			SetIndexer(game._idIndex, game._oopIndex);
+		}
+
 		/// <summary>Method which is called when an entity wants to notify that one of it's tags changed value.</summary>
 		/// <param name="entity">The entity which has changed.</param>
 		/// <param name="t">The game tag which value changed.</param>
@@ -910,24 +944,25 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public Game Clone(bool logging = false)
 		{
-			GameConfig gameConfig = _gameConfig.Clone();
-			gameConfig.Logging = logging;
-			var game = new Game(gameConfig, false)
-			{
-				//CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
-				CloneIndex = CloneIndex + "[" + NextCloneIndex++ + "]"
-			};
-			game.Player1.Stamp(Player1);
-			game.Player2.Stamp(Player2);
-			game.Stamp(this);
+			//GameConfig gameConfig = _gameConfig.Clone();
+			//gameConfig.Logging = logging;
+			//var game = new Game(gameConfig, false)
+			//{
+			//	CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
+			//};
+			//game.Player1.Stamp(Player1);
+			//game.Player2.Stamp(Player2);
+			//game.Stamp(this);
 
-			game.TaskStack.Stamp(TaskStack);
-			game.TaskQueue.Stamp(TaskQueue);
+			//game.TaskStack.Stamp(TaskStack);
+			//game.TaskQueue.Stamp(TaskQueue);
 
-			// set indexer to avoid conflicts ...
-			game.SetIndexer(_idIndex, _oopIndex);
+			//// set indexer to avoid conflicts ...
+			//game.SetIndexer(_idIndex, _oopIndex);
 
-			return game;
+			//return game;
+
+			return new Game(this, logging);
 		}
 
 		/// <summary>Builds and stores a logentry, from the specified log message.</summary>

@@ -10,15 +10,7 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class DeckZone : LimitedZone<IPlayable>
 	{
-		//public override bool IsFull => Entities[MaxSize - 1] != null;
-
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
-		{
-			base.Add(entity, zonePosition);
-
-			if (applyEnchantment)
-				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
-		}
+		public int StartingCards { get; set; } = 30;
 
 
 		public DeckZone(Controller controller)
@@ -30,7 +22,14 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.DECK;
 		}
 
-		public int StartingCards { get; set; } = 30;
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		{
+			base.Add(entity, zonePosition);
+
+			if (applyEnchantment)
+				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+		}
 
 		public void Fill(List<string> excludeIds = null)
 		{
@@ -62,12 +61,13 @@ namespace SabberStoneCore.Model.Zones
 		{
 			int n = _count;
 
+			Random rnd = Util.Random;
+
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
+
 			for (int i = 0; i < n; i++)
 			{
-				//int r = i + Util.Random.Next(n - i);
-				//Swap(this[i], this[r]);
-				int r = Util.Random.Next(i, n);
+				int r = rnd.Next(i, n);
 				IPlayable temp = Entities[i];
 				Entities[i] = Entities[r];
 				Entities[r] = temp;

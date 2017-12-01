@@ -30,7 +30,9 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public CardClass BaseClass { get; internal set; }
 
-
+		/// <summary>
+		/// Available zones for this player.
+		/// </summary>
 		public ControlledZones ControlledZones;
 
 		/// <summary>
@@ -41,7 +43,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>
 		/// The hand of this player.
-		/// This zone contains cards which were drawn from deck or generated 
+		/// This zone contains cards which were drawn from deck or generated.
 		/// during the game. Can be empty.
 		/// </summary>
 		public HandZone HandZone;
@@ -67,7 +69,7 @@ namespace SabberStoneCore.Model.Entities
 		/// The zone containing all entities that need to be chosen by the player.
 		/// Before an option set is created, it's entities are built and stored in the this zone.
 		/// The picked entity will move from that zone into the hand zone.
-		/// 
+		///
 		/// Unpicked entities will remain in the setaside zone.
 		/// </summary>
 		public SetasideZone SetasideZone;
@@ -144,6 +146,51 @@ namespace SabberStoneCore.Model.Entities
 			ControlledZones = new ControlledZones(Game, this);
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
+		}
+
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="game">The target <see cref="Game"/> instance.</param>
+		/// <param name="controller">The source <see cref="Controller"/></param>
+		private Controller(Game game, Controller controller) : base(game, controller)
+		{
+			Name = controller.Name;
+			ControlledZones = new ControlledZones(Game, this);
+			SetasideZone.Stamp(controller.SetasideZone);
+			BoardZone.Stamp(controller.BoardZone);
+			DeckZone.Stamp(controller.DeckZone);
+			HandZone.Stamp(controller.HandZone);
+			GraveyardZone.Stamp(controller.GraveyardZone);
+			SecretZone.Stamp(controller.SecretZone);
+
+			DeckCards = controller.DeckCards;
+			BaseClass = controller.BaseClass;
+
+			Hero = (Hero) controller.Hero.Clone(this);
+			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
+
+			if (controller.Hero.Weapon != null)
+			{
+				Hero.Weapon = (Weapon)controller.Hero.Weapon.Clone(this);
+			}
+
+			if (controller.Choice != null)
+			{
+				Choice = new Choice(this);
+				Choice.Stamp(controller.Choice);
+			}
+		}
+
+		/// <summary>
+		/// Performs a deep copy of this <see cref="Controller"/> instance and returns the result.
+		/// Copied instance and all entities in its zones are deep copied to the target <see cref="Game"/> instance.
+		/// </summary>
+		/// <param name="game">The target Game.</param>
+		/// <returns></returns>
+		public Controller Clone(Game game)
+		{
+			return new Controller(game, this);
 		}
 
 		/// <summary>
