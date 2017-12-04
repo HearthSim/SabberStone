@@ -8226,14 +8226,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BloodsailCorsair_NEW1_025()
 		{
 			// TODO BloodsailCorsair_NEW1_025 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -8241,7 +8241,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodsail Corsair"));
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodsail Corsair"));
+			Assert.Equal(2, game.CurrentOpponent.Hero.Weapon.Durability);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentOpponent.Hero.Weapon.Durability);
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodsail Corsair"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Null(game.CurrentOpponent.Hero.Weapon);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

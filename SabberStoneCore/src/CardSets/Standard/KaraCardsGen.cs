@@ -1295,10 +1295,7 @@ namespace SabberStoneCore.CardSets.Standard
 							new GetGameTagTask(GameTag.TAG_LAST_KNOWN_COST_IN_HAND, EntityType.TARGET),
 							new RandomMinionNumberTask(GameTag.COST),
 							new SummonTask(),
-							ComplexTask.Create(
-								new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
-								new MathSubstractionTask(1),
-								new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON))
+							new DamageWeaponTask(false)
 						))
 						.Build()
 				}

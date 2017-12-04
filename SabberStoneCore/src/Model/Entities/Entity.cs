@@ -317,9 +317,9 @@ namespace SabberStoneCore.Model.Entities
 					// removing this because it's always the cards health or it is given by previous heros like for deathknight
 					//tags[GameTag.HEALTH] = card[GameTag.HEALTH];
 
-					tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
+					//tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 					//tags[GameTag.FACTION] = card[GameTag.FACTION];
-					tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
+					//tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
 					//tags[GameTag.HERO_POWER] = card[GameTag.HERO_POWER];
 
@@ -327,10 +327,10 @@ namespace SabberStoneCore.Model.Entities
 					break;
 
 				case CardType.HERO_POWER:
-					tags[GameTag.COST] = card[GameTag.COST];
+					//tags[GameTag.COST] = card[GameTag.COST];
 					tags[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 					//tags[GameTag.FACTION] = card[GameTag.FACTION];
-					tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
+					//tags[GameTag.CARDTYPE] = card[GameTag.CARDTYPE];
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
 					//tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = card[GameTag.COST];
 					result = new HeroPower(controller, card, tags);

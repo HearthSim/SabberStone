@@ -220,6 +220,7 @@ namespace SabberStoneCore.Model.Entities
 
 
 			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
+			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;

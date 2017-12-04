@@ -163,9 +163,10 @@ namespace SabberStoneCore.Actions
 				}
 
 				// remove durability from weapon if hero attack
-				if (hero?.Weapon != null)
+				if (hero?.Weapon != null && !hero.Weapon.IsImmune)
 				{
-					hero.Weapon.Durability -= hero.Weapon.Durability > 0 ? 1 : 0;
+					//hero.Weapon.Durability -= hero.Weapon.Durability > 0 ? 1 : 0;
+					hero.Weapon.Damage += 1;
 				}
 
 				source.IsAttacking = false;

@@ -2551,7 +2551,7 @@ namespace SabberStoneUnitTest.CardSets
 		// GameTag:
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void RuneforgeHaunter_ICC_240()
 		{
 			// TODO RuneforgeHaunter_ICC_240 test
@@ -2566,7 +2566,13 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Runeforge Haunter"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Runeforge Haunter"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+
+			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
 		}
 
 		// ----------------------------------------- MINION - ROGUE

@@ -2053,8 +2053,22 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					InfoCardId = "ICC_240e",
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask = new AuraTask(
+						new Enchant
+						{
+							EnableConditions = new List<SelfCondition>
+							{
+								SelfCondition.IsInZone(Zone.PLAY),
+								SelfCondition.IsNotSilenced
+							},
+							ApplyConditions = new List<RelaCondition>
+							{
+								RelaCondition.IsMyWeapon,
+								RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.EXHAUSTED, 0))
+							},
+							Effects = new Dictionary<GameTag, int>{ {GameTag.IMMUNE, 1} },
+						}, AuraArea.GAME)
 				}
 			});
 
