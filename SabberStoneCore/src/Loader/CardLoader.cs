@@ -34,8 +34,8 @@ namespace SabberStoneCore.Loader
 																		   }).ToList()
 													   }).ToList()
 								}).ToList();
-			List<int> result = new List<int>();
-			playReqOrder[0].DefaultReqOrder[0].PlayReqOrder.ForEach(p => result.Add(int.Parse(p.ReqId)));
+			var result = new List<int>();
+			playReqOrder[0].DefaultReqOrder[0].PlayReqOrder.ForEach(p => result.Add(Int32.Parse(p.ReqId)));
 			return result;
 		}
 
@@ -53,17 +53,17 @@ namespace SabberStoneCore.Loader
 													   PlayReqDesc = (from reqDesc in r.Descendants("PlayRequirement")
 																	  select new PlayerReqDesc()
 																	  {
-																		  ReqId = int.Parse(reqDesc.Attribute("reqID").Value),
+																		  ReqId = Int32.Parse(reqDesc.Attribute("reqID").Value),
 																		  Name = reqDesc.Attribute("name").Value,
 																		  Description = reqDesc.Attribute("description").Value,
-																		  AlwaysReq = bool.Parse(reqDesc.Attribute("alwaysRequired").Value),
-																		  HasParam = bool.Parse(reqDesc.Attribute("hasParam").Value),
-																		  IsTargetDetail = bool.Parse(reqDesc.Attribute("isTargetDetail").Value)
+																		  AlwaysReq = Boolean.Parse(reqDesc.Attribute("alwaysRequired").Value),
+																		  HasParam = Boolean.Parse(reqDesc.Attribute("hasParam").Value),
+																		  IsTargetDetail = Boolean.Parse(reqDesc.Attribute("isTargetDetail").Value)
 																	  }
 													   ).ToDictionary(x => x.ReqId, x => x)
 												   }).ToList()
 							   }).ToList();
-			Dictionary<int, PlayerReqDesc> dict = new Dictionary<int, PlayerReqDesc>();
+			var dict = new Dictionary<int, PlayerReqDesc>();
 			playReqDesc[0].Requirements[0].PlayReqDesc.Values.ToList().ForEach(p => dict.Add(p.ReqId, p));
 			return dict;
 		}
@@ -90,7 +90,7 @@ namespace SabberStoneCore.Loader
 											gameTag: (GameTag)Enum.Parse(typeof(GameTag), tag.Attribute("enumID").Value),
 											tagValue:
 											tag.Attribute("value") != null
-												? (TagValue)int.Parse(tag.Attribute("value").Value)
+												? (TagValue)Int32.Parse(tag.Attribute("value").Value)
 												: (tag.Attribute("type").Value == "String"
 													? (TagValue)tag.Value
 													: (tag.Attribute("type").Value == "LocString"
@@ -101,8 +101,9 @@ namespace SabberStoneCore.Loader
 												select new
 												{
 													Req = (PlayReq)Enum.Parse(typeof(PlayReq), req.Attribute("reqID").Value),
-													Param = (req.Attribute("param").Value != "" ? int.Parse(req.Attribute("param").Value) : 0)
-												}).ToDictionary(x => x.Req, x => x.Param),
+													Param = (req.Attribute("param").Value != "" ? Int32.Parse(req.Attribute("param").Value) : 0)
+												}).Distinct() // avoiding duplicate playrequirment unsure if it is intended or not ...
+												.ToDictionary(x => x.Req, x => x.Param),
 								Entourage = (from ent in r.Descendants("EntourageCard")
 											 select ent.Attribute("cardID").Value).ToList(),
 								ReferenzTag = (from rtag in r.Descendants("ReferencedTag")
@@ -110,7 +111,7 @@ namespace SabberStoneCore.Loader
 												   gameTag: (GameTag)Enum.Parse(typeof(GameTag), rtag.Attribute("enumID").Value),
 												   tagValue:
 												   rtag.Attribute("value") != null
-													   ? (TagValue)int.Parse(rtag.Attribute("value").Value)
+													   ? (TagValue)Int32.Parse(rtag.Attribute("value").Value)
 													   : (rtag.Attribute("type").Value == "String"
 														   ? (TagValue)rtag.Value
 														   : (rtag.Attribute("type").Value == "LocString"
@@ -131,7 +132,7 @@ namespace SabberStoneCore.Loader
 				var c = new Card()
 				{
 					Id = card.Id,
-					AssetId = int.Parse(card.AssetId),
+					AssetId = Int32.Parse(card.AssetId),
 					Tags = new Dictionary<GameTag, int>(),
 					PlayRequirements = card.Requirements,
 					Entourage = card.Entourage,

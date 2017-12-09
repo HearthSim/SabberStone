@@ -47,7 +47,7 @@ namespace SabberStoneCoreConsole
 											gameTag: (GameTag)Enum.Parse(typeof(GameTag), tag.Attribute("enumID").Value),
 											tagValue:
 											tag.Attribute("value") != null
-												? (TagValue)int.Parse(tag.Attribute("value").Value)
+												? (TagValue)Int32.Parse(tag.Attribute("value").Value)
 												: (tag.Attribute("type").Value == "String"
 													? (TagValue)tag.Value
 													: (tag.Attribute("type").Value == "LocString"
@@ -58,8 +58,10 @@ namespace SabberStoneCoreConsole
 												select new
 												{
 													Req = (PlayReq)Enum.Parse(typeof(PlayReq), req.Attribute("reqID").Value),
-													Param = (req.Attribute("param").Value != "" ? int.Parse(req.Attribute("param").Value) : 0)
-												}).ToDictionary(x => x.Req, x => x.Param),
+													Param = (req.Attribute("param").Value != "" ? Int32.Parse(req.Attribute("param").Value) : 0)
+												})
+												.Distinct() // avoiding duplicate playrequirment unsure iff it is intended or not ...
+												.ToDictionary(x => x.Req, x => x.Param),
 								Entourage = (from ent in r.Descendants("EntourageCard")
 											 select ent.Attribute("cardID").Value).ToList(),
 								ReferenzTag = (from rtag in r.Descendants("ReferencedTag")
@@ -67,7 +69,7 @@ namespace SabberStoneCoreConsole
 												   gameTag: (GameTag)Enum.Parse(typeof(GameTag), rtag.Attribute("enumID").Value),
 												   tagValue:
 												   rtag.Attribute("value") != null
-													   ? (TagValue)int.Parse(rtag.Attribute("value").Value)
+													   ? (TagValue)Int32.Parse(rtag.Attribute("value").Value)
 													   : (rtag.Attribute("type").Value == "String"
 														   ? (TagValue)rtag.Value
 														   : (rtag.Attribute("type").Value == "LocString"

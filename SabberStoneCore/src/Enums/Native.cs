@@ -15,6 +15,7 @@
 		PLAY = 7,
 		FATIGUE = 8,
 		RITUAL = 9,
+		REVEAL_CARD = 10,
 		ACTION = 99,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -82,7 +83,20 @@
 		SIGNUP_INCENTIVE = 18,
 		MEAN_STREETS = 19,
 		UNGORO = 20,
-		FROZEN_THRONE = 21
+		FROZEN_THRONE = 21,
+		GOLDEN_CLASSIC_PACK = 23,
+		KOBOLDS_AND_CATACOMBS = 30
+	}
+	/// <summary>
+	/// UNUSED
+	/// </summary>
+	public enum BrawlType
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+	{
+		BRAWL_TYPE_UNKNOWN = 0,
+		BRAWL_TYPE_TAVERN_BRAWL = 1,
+		BRAWL_TYPE_FIRESIDE_GATHERING = 2,
+		BRAWL_TYPE_COUNT = 3
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -145,7 +159,8 @@
 		GANGS = 25,
 		GANGS_RESERVE = 26,
 		UNGORO = 27,
-		ICECROWN = 1001
+		ICECROWN = 1001,
+		LOOTAPALOOZA = 1004
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -194,6 +209,7 @@
 	public enum DeckType
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		CLIENT_ONLY_DECK = -1,
 		UNKNOWN_DECK_TYPE = 0,
 		NORMAL_DECK = 1,
 		AI_DECK = 2,
@@ -205,6 +221,17 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// UNUSED
+	/// </summary>
+	public enum DungeonRewardOption
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+	{
+		INVALID = 0,
+		LOOT = 1,
+		TREASURE = 2
+	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary>
 	/// TODO;
 	/// </summary>
@@ -423,6 +450,7 @@
 		//323 EnchantmentTag, true ... when weapon equipped
 		//324 EnchantmentTag
 		TARGETING_ARROW_TEXT = 325,
+		DATABASE_ID = 327,
 		ENCHANTMENT_BIRTH_VISUAL = 330,
 		ENCHANTMENT_IDLE_VISUAL = 331,
 		CANT_BE_TARGETED_BY_HERO_POWERS = 332,
@@ -436,7 +464,7 @@
 		//341 MinionTag, true/false
 		ARTISTNAME = 342,
 		LocalizationNotes = 344,
-		HAND_REVEALED = 348,
+		ZONES_REVEALED = 348,
 		ImmuneToSpellpower = 349,
 		ADJACENT_BUFF = 350,
 		FLAVORTEXT = 351,
@@ -567,10 +595,21 @@
 		SHIFTING_WEAPON = 550,
 		DEATH_KNIGHT = 554,
 		BOSS = 556,
+		TREASURE = 557,
+		TREASURE_DEFINTIONAL_ATTACK = 558,
+		TREASURE_DEFINTIONAL_COST = 559,
+		TREASURE_DEFINTIONAL_HEALTH = 560,
+		ACTS_LIKE_A_SPELL = 561,
 		STAMPEDE = 564,
+		EMPOWERED_TREASURE = 646,
+		ONE_SIDED_GHOSTLY = 648,
+		CURRENT_NEGATIVE_SPELLPOWER = 651,
 		// 676, true on quests cards ???
 		IS_VAMPIRE = 680,
 		CORRUPTED = 681,
+		HIDE_HEALTH = 682,
+		HIDE_ATTACK = 683,
+		HIDE_COST = 684,
 		LIFESTEAL = 685,
 		OVERRIDE_EMOTE_0 = 740,
 		OVERRIDE_EMOTE_1 = 741,
@@ -579,14 +618,23 @@
 		OVERRIDE_EMOTE_4 = 744,
 		OVERRIDE_EMOTE_5 = 745,
 		SCORE_FOOTERID = 751,
-		// 755 IMPLEMENTED 
+		// 755 IMPLEMENTED
+		RECRUIT = 763,
+		LOOT_CARD_1 = 764,
+		LOOT_CARD_2 = 765,
+		LOOT_CARD_3 = 766,
 		HERO_POWER_DISABLED = 777,
 		VALEERASHADOW = 779,
 		OVERRIDECARDNAME = 781,
 		OVERRIDECARDTEXTBUILDER = 782,
+		DUNGEON_PASSIVE_BUFF = 783,
 		HIDDEN_CHOICE = 813,
 		ZOMBEAST = 823,
-
+		HERO_EMOTE_SILENCED = 832,
+		MINION_IN_HAND_BUFF = 845,
+		IGNORE_HIDE_STATS_FOR_BIG_CARD = 857,
+		REAL_TIME_TRANSFORM = 859,
+		WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860,
 
 
 		// more or less guessed gametags
@@ -622,7 +670,7 @@
 		GT_VS_FRIEND = 2,
 		GT_TUTORIAL = 4,
 		GT_ARENA = 5,
-		GT_TEST = 6,
+		GT_TEST_AI_VS_AI = 6,
 		GT_RANKED = 7,
 		GT_CASUAL = 8,
 		GT_TAVERNBRAWL = 16,
@@ -681,11 +729,8 @@
 	public enum MetaDataType
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		META_TARGET = 0,
 		TARGET = 0,
-		META_DAMAGE = 1,
 		DAMAGE = 1,
-		META_HEALING = 2,
 		HEALING = 2,
 		JOUST = 3,
 		CLIENT_HISTORY = 4,
@@ -693,7 +738,11 @@
 		EFFECT_TIMING = 6,
 		HISTORY_TARGET = 7,
 		OVERRIDE_HISTORY = 8,
-		HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9
+		HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9,
+		BEGIN_ARTIFICIAL_HISTORY_TILE = 10,
+		BEGIN_ARTIFICIAL_HISTORY_TRIGGER_TILE = 11,
+		END_ARTIFICIAL_HISTORY_TILE = 12,
+		START_DRAW = 13
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -899,6 +948,7 @@
 		NERUBIAN = 22,
 		PIRATE = 23,
 		DRAGON = 24,
+		BLANK = 25
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

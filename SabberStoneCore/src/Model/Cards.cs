@@ -20,15 +20,36 @@ namespace SabberStoneCore.Model
 		/// Specifies which card sets combine into the STANDARD set.
 		/// </summary>
 		public static CardSet[] StandardSets { get; } = {
-			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO, CardSet.ICECROWN
+			CardSet.CORE,
+			CardSet.EXPERT1,
+			CardSet.OG,
+			CardSet.KARA,
+			CardSet.GANGS,
+			CardSet.UNGORO,
+			CardSet.ICECROWN,
+			CardSet.LOOTAPALOOZA
 		};
 
 		/// <summary>
 		/// Specifies which card sets combine into the WILD set.
 		/// </summary>
 		public static CardSet[] WildSets { get; } = {
-			CardSet.CORE, CardSet.EXPERT1, CardSet.OG, CardSet.KARA, CardSet.GANGS, CardSet.UNGORO,
-			CardSet.BRM, CardSet.GVG, CardSet.HOF, CardSet.NAXX, CardSet.LOE, CardSet.TGT
+			// standard
+			CardSet.CORE,
+			CardSet.EXPERT1,
+			CardSet.OG,
+			CardSet.KARA,
+			CardSet.GANGS,
+			CardSet.UNGORO,
+			CardSet.ICECROWN,
+			CardSet.LOOTAPALOOZA,
+			// wild
+			CardSet.BRM,
+			CardSet.GVG,
+			CardSet.HOF,
+			CardSet.NAXX,
+			CardSet.LOE,
+			CardSet.TGT
 		};
 
 		/// <summary>
@@ -36,9 +57,15 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public static CardClass[] HeroClasses => new[]
 		{
-			CardClass.DRUID, CardClass.HUNTER, CardClass.PALADIN,
-			CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK,
-			CardClass.MAGE, CardClass.PRIEST, CardClass.WARRIOR
+			CardClass.DRUID,
+			CardClass.HUNTER,
+			CardClass.PALADIN,
+			CardClass.ROGUE,
+			CardClass.SHAMAN,
+			CardClass.WARLOCK,
+			CardClass.MAGE,
+			CardClass.PRIEST,
+			CardClass.WARRIOR
 		};
 
 		#region CARD_SETUP
@@ -244,6 +271,8 @@ namespace SabberStoneCore.Model
 					return "Journey to Un\'Goro";
 				case CardSet.ICECROWN:
 					return "Knights of the Frozen Throne";
+				case CardSet.LOOTAPALOOZA:
+					return "Kobolds and Catacombs";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}
