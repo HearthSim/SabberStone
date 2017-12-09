@@ -47,6 +47,7 @@ namespace SabberStoneCore.Enchants
 			OgCardsGen.AddAll(_entchantmentDic);
 			UngoroCardsGen.AddAll(_entchantmentDic);
 			IcecrownCardsGen.AddAll(_entchantmentDic);
+			LootapaloozaCardsGen.AddAll(_entchantmentDic);
 
 			// Rest
 			HofCardsGen.AddAll(_entchantmentDic);
@@ -70,6 +71,7 @@ namespace SabberStoneCore.Enchants
 			LoeCardsGenAdv.AddAll(_entchantmentDic);
 			KaraCardsGenAdv.AddAll(_entchantmentDic);
 			IcecrownCardsGenAdv.AddAll(_entchantmentDic);
+			LootapaloozaCardsGenAdv.AddAll(_entchantmentDic);
 		}
 
 		/// <summary>

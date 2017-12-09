@@ -20,6 +20,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
+				if ((!Opposite && Controller.BoardZone.IsFull) || (Opposite && Controller.Opponent.BoardZone.IsFull))
+				{
+					p.Destroy();
+					return;
+				}
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller.SetasideZone.MoveTo(removedEntity, removedEntity.Controller.SetasideZone.Count);
 				removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());

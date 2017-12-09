@@ -1780,7 +1780,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DAMAGE, 1)
 						.SingleTask(ComplexTask.Secret(
-							new DamageNumberTask(EntityType.OP_HERO)))
+							new DamageNumberTask(EntityType.OP_HERO, true)))
 						.Build()
 				},
 			});
@@ -1930,7 +1930,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new DrawTask(true),
 						new GetGameTagTask(GameTag.COST, EntityType.STACK),
-						new DamageNumberTask(EntityType.TARGET))
+						new DamageNumberTask(EntityType.TARGET, true))
 				}
 			});
 
@@ -2186,9 +2186,16 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [EX1_350] Prophet Velen && Test: Prophet Velen_EX1_350
                 new Enchantment
 				{
-                    //Activation = null,
-                    //SingleTask = null,
-                }
+					Area = EnchantmentArea.CONTROLLER,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Enchant = Auras.SimpleInclSelf(new Dictionary<GameTag, int>
+					{
+						[GameTag.SPELLPOWER_DOUBLE] = 1,
+						[GameTag.HEALING_DOUBLE] = 1,
+						[GameTag.HERO_POWER_DOUBLE] = 1
+					})
+				}
+					
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -3430,7 +3437,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
 						new DestroyTask(EntityType.TARGET),
-						new DamageNumberTask(EntityType.OP_MINIONS))
+						new DamageNumberTask(EntityType.OP_MINIONS, true))
 				},
 			});
 
@@ -3918,11 +3925,11 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.WEAPON,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
-						.TriggerEffect(GameTag.DURABILITY, 0)
+						.TriggerEffect(GameTag.DAMAGE, 0)
 						.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
 						.FastExecution(true)
 						.SingleTask(ComplexTask.Create(
-							new SetNativeGameTagTask(GameTag.DURABILITY, 1, EntityType.SOURCE),
+							new DamageWeaponTask(false, -1),
 							new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 							new MathSubstractionTask(1),
 							new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE)))
@@ -6121,10 +6128,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "NEW1_025e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
-						new MathSubstractionTask(1),
-						new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.OP_WEAPON))
+					SingleTask = new DamageWeaponTask()
 				},
 			});
 

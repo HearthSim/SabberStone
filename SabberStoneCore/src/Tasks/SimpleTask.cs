@@ -32,6 +32,8 @@ namespace SabberStoneCore.Tasks
 		TaskState Process();
 
 		void ResetState();
+
+		bool IsTrigger { get; set; }
 	}
 
 	public abstract class SimpleTask : ISimpleTask
@@ -143,6 +145,8 @@ namespace SabberStoneCore.Tasks
 		{
 			State = TaskState.READY;
 		}
+
+		public bool IsTrigger { get; set; }
 	}
 
 	public enum PlayerTaskType
@@ -187,8 +191,8 @@ namespace SabberStoneCore.Tasks
 		public int ZonePosition { get; set; } = -1;
 		public int ChooseOne { get; set; }
 
-		public List<Game> Splits { get; set; } = new List<Game>();
-		public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
+		//public List<Game> Splits { get; set; } = new List<Game>();
+		//public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
 
 		public virtual List<ISimpleTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
 		{
@@ -218,6 +222,8 @@ namespace SabberStoneCore.Tasks
 		{
 			State = TaskState.READY;
 		}
+
+		public bool IsTrigger { get; set; }
 	}
 
 }

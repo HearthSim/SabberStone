@@ -1112,7 +1112,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = EnchantmentArea.SECRET,
 					Activation = EnchantmentActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ))
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
 						.SingleTask(SpecificTask.RandomHunterSecretPlay)
@@ -1966,7 +1966,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
+					SingleTask = new DamageTask(1, EntityType.ALLMINIONS, true)
 				}
 			});
 
@@ -2053,8 +2053,22 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					InfoCardId = "ICC_240e",
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					SingleTask = new AuraTask(
+						new Enchant
+						{
+							EnableConditions = new List<SelfCondition>
+							{
+								SelfCondition.IsInZone(Zone.PLAY),
+								SelfCondition.IsNotSilenced
+							},
+							ApplyConditions = new List<RelaCondition>
+							{
+								RelaCondition.IsMyWeapon,
+								RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.EXHAUSTED, 0))
+							},
+							Effects = new Dictionary<GameTag, int>{ {GameTag.IMMUNE, 1} },
+						}, AuraArea.GAME)
 				}
 			});
 
@@ -2816,6 +2830,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.HAND),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.DECK))
 				},
 			});
@@ -3234,6 +3249,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
 						new AddStackTo(EntityType.HAND))
 				},
 			});
@@ -3516,12 +3532,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_810", new List<Enchantment> {
-				// TODO [ICC_810] Deathaxe Punisher && Test: Deathaxe Punisher_ICC_810
 				new Enchantment
 				{
 					InfoCardId = "ICC_810e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.HAND),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1, RelaSign.EQ)),
+						new RandomTask(1, EntityType.STACK),
+						new BuffTask(Buffs.AttackHealth(2), EntityType.STACK)),
 				},
 			});
 
@@ -3588,6 +3607,12 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "ICC_852e",
 					Activation = EnchantmentActivation.BATTLECRY,
 					SingleTask = null,
+					//ComplexTask.Create(
+					//	new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),
+					//	new FlagTask(true, ComplexTask.Create(
+					//		new IncludeTask(EntityType.TARGET),
+					//		//new TransformTask()
+					//		))),
 				},
 			});
 

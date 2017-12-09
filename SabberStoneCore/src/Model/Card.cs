@@ -274,7 +274,7 @@ namespace SabberStoneCore.Model
 			Id = "Game",
 			Name = "Game",
 			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.GAME },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			//PlayRequirements = new Dictionary<PlayReq, int>(),
 		};
 
 		internal static Card CardPlayer => new Card()
@@ -282,7 +282,7 @@ namespace SabberStoneCore.Model
 			Id = "Player",
 			Name = "Player",
 			Tags = new Dictionary<GameTag, int> { [GameTag.CARDTYPE] = (int)CardType.PLAYER },
-			PlayRequirements = new Dictionary<PlayReq, int>(),
+			//PlayRequirements = new Dictionary<PlayReq, int>(),
 		};
 
 		public Card Clone()

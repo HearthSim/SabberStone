@@ -189,10 +189,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MarkOfNature_EX1_155()
 		{
-			// TODO MarkOfNature_EX1_155 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -204,7 +203,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of Nature"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of Nature"));
+			var minion = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion, 1));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mark of Nature"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2, 2));
+
+			Assert.Equal(5, minion.AttackDamage);
+			Assert.Equal(1, minion.Health);
+
+			Assert.Equal(1, minion2.AttackDamage);
+			Assert.Equal(5, minion2.Health);
+			Assert.True(minion2.HasTaunt);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -1968,7 +1982,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Player1.HandZone.GetAll.ForEach(p => Generic.DiscardBlock(game.Player1, p));
+			game.Player1.HandZone.ToList().ForEach(p => Generic.DiscardBlock(game.Player1, p));
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Divine Favor"));
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
@@ -2763,10 +2777,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ProphetVelen_EX1_350()
 		{
-			// TODO ProphetVelen_EX1_350 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2778,7 +2791,51 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Prophet Velen"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Prophet Velen"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentOpponent.Hero.Damage);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Northshire Cleric"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			//	the effect shouldn't be applied to spells unaffected by spelldmg
+			IPlayable betrayal = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Betrayal"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, betrayal, minion1));
+			Assert.Equal(1, ((Minion) minion2).Health);
+
+			IPlayable spiritLash = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
+			game.CurrentPlayer.Hero.Damage = 20;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spiritLash));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(8, game.CurrentPlayer.Hero.Damage);
+
+			IPlayable thalnos = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
+			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, thalnos));
+			Assert.Equal(0, game.CurrentOpponent.Hero.Damage);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
+			Assert.Equal(6, game.CurrentOpponent.Hero.Damage);
+
+			game.CurrentPlayer.UsedMana = 0;
+
+			IPlayable secondVelen = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prophet Velen"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, secondVelen));
+			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell3, game.CurrentOpponent.Hero));
+			Assert.Equal(18, game.CurrentOpponent.Hero.Damage);	// 6 + ((2 + 1) * 2 * 2) = 18
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -8183,14 +8240,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BloodsailCorsair_NEW1_025()
 		{
 			// TODO BloodsailCorsair_NEW1_025 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -8198,7 +8255,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodsail Corsair"));
+
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bloodsail Corsair"));
+			Assert.Equal(2, game.CurrentOpponent.Hero.Weapon.Durability);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentOpponent.Hero.Weapon.Durability);
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodsail Corsair"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Null(game.CurrentOpponent.Hero.Weapon);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

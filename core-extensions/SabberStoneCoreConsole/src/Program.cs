@@ -29,11 +29,11 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			CloneSameSame();
+			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			//Console.WriteLine(Cards.Statistics());
+			Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();
@@ -803,7 +803,7 @@ namespace SabberStoneCoreConsole
 				game.Player1.BaseMana = 10;
 				game.Player2.BaseMana = 10;
 				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-				bool hasMinion = game.CurrentOpponent.HandZone.GetAll.Any(p => p is Minion);
+				bool hasMinion = game.CurrentOpponent.HandZone.Any(p => p is Minion);
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 
 				flag = hasMinion ? 1 == game.CurrentOpponent.BoardZone.Count : 0 == game.CurrentOpponent.BoardZone.Count;
@@ -898,13 +898,22 @@ namespace SabberStoneCoreConsole
 					List<PlayerTask> options = game.CurrentPlayer.Options();
 					PlayerTask option = options[Rnd.Next(options.Count)];
 					game.Process(option);
-					Game cloneGame = game.Clone();
-					string str1 = game.Hash();
-					string str2 = cloneGame.Hash();
-					flag &= str1.Equals(str2);
+					try
+					{
+						Game cloneGame = game.Clone();
+						string str1 = game.Hash();
+						string str2 = cloneGame.Hash();
+						flag &= str1.Equals(str2);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e.Message);
+						flag = false;
+					}
 					if (!flag)
 					{
 						Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
+						ShowLog(game, LogLevel.VERBOSE);
 						break;
 					}
 				}

@@ -107,7 +107,7 @@ namespace SabberStoneGui.AsciiVisual
 			return zoneStr.ToString();
 		}
 
-		private static string CreateZone(IZone zone, IZone outzone, bool turn)
+		private static string CreateZone<T>(Zone<T> zone, IZone outzone, bool turn) where T : IPlayable
 		{
 			var zoneStr = new StringBuilder();
 

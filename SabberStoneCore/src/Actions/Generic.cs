@@ -13,8 +13,25 @@ namespace SabberStoneCore.Actions
 	public partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static Func<IPlayable, ICharacter, int, int, int> DamageCharFunc
-			=> (source, target, amount, spelldmg) => target.TakeDamage(source, amount + spelldmg);
+		public static Func<IPlayable, ICharacter, int, bool, int> DamageCharFunc
+			=> (source, target, amount, applySpellDmg) =>
+			{
+				if (applySpellDmg)
+				{
+					amount += ((Spell)source).ReceveivesDoubleSpellDamage
+						? source.Controller.Hero.SpellPowerDamage * 2
+						: source.Controller.Hero.SpellPowerDamage;
+					if (source.Controller[GameTag.SPELLPOWER_DOUBLE] > 0)
+						amount *= (int)Math.Pow(2, source.Controller[GameTag.SPELLPOWER_DOUBLE]);
+				}
+				else if (source is HeroPower)
+				{
+					amount += source.Controller.Hero.HeroPowerDamage;
+					if (source.Controller[GameTag.HERO_POWER_DOUBLE] > 0)
+						amount *= (int) Math.Pow(2, source.Controller[GameTag.HERO_POWER_DOUBLE]);
+				}
+				return target.TakeDamage(source, amount);
+			};
 
 		public static Func<Controller, int, bool> AddTempMana
 			=> delegate (Controller c, int amount)
@@ -123,8 +140,8 @@ namespace SabberStoneCore.Actions
 					return null;
 				}
 
-				IPlayable card = Util.Choose<IPlayable>(c.DeckZone.GetAll);
-				IPlayable cardOp = Util.Choose<IPlayable>(c.Opponent.DeckZone.GetAll);
+				IPlayable card = c.DeckZone.Random;
+				IPlayable cardOp = c.Opponent.DeckZone.Random;
 				bool success = card.Cost > cardOp.Cost;
 				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging? "":$"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 

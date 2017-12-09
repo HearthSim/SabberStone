@@ -20,7 +20,18 @@ namespace SabberStoneCore.Model.Entities
 		internal EntityData(Card card, Dictionary<GameTag, int> tags)
 		{
 			Card = card;
-			Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
+			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
+			Tags = tags ?? new Dictionary<GameTag, int>(13);
+		}
+
+		/// <summary>
+		/// A copy constructor. This constructor is only used for copying an <see cref="Entity"/>.
+		/// </summary>
+		/// <param name="entityData">The source <see cref="EntityData"/>.</param>
+		internal EntityData(EntityData entityData)
+		{
+			Card = entityData.Card;
+			Tags = new Dictionary<GameTag, int>(entityData.Tags);
 		}
 
 		/// <summary>

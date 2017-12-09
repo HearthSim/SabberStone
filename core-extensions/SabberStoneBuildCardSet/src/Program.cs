@@ -6,8 +6,8 @@ namespace SabberStoneBuildCardSet
 	{
 		static void Main(string[] args)
 		{
-			//Generate.CardSetFile(Cards.All, true);
-			Generate.EnchantmentLeftOver(Cards.All);
+			Generate.CardSetFile(Cards.All, true);
+			//Generate.EnchantmentLeftOver(Cards.All);
 			//Generate.NamingConventions(Cards.All);
 		}
 	}

@@ -30,6 +30,8 @@ namespace SabberStoneBuildCardSet
 					return "KARA";
 				case CardSet.ICECROWN:
 					return "ICCA";
+				case CardSet.LOOTAPALOOZA:
+					return "LOOTA";
 				default:
 					return String.Empty;
 			}
@@ -54,7 +56,8 @@ namespace SabberStoneBuildCardSet
 			//var cardSets = new[] // {CardSet.EXPERT1}; //Enum.GetValues(typeof(CardSet));
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
-			CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
+			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
+			CardSet[] cardSets = new[] { CardSet.LOOTAPALOOZA };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{

@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 using System.Collections.Generic;
+using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -21,6 +22,18 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Weapon", !Game.Logging? "":$"{this} ({Card.Class}) was created.");
 		}
+
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="controller">A target <see cref="Controller"/> instance.</param>
+		/// <param name="weapon">A source <see cref="Weapon"/>.</param>
+		private Weapon(Controller controller, Weapon weapon) : base(controller, weapon) { }
+
+		public override IPlayable Clone(Controller controller)
+		{
+			return new Weapon(controller, this);
+		}
 	}
 
 	public partial class Weapon
@@ -32,9 +45,15 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.ATK] = value; }
 		}
 
+		public int Damage
+		{
+			get { return this[GameTag.DAMAGE]; }
+			set { this[GameTag.DAMAGE] = value; }
+		}
+
 		public int Durability
 		{
-			get { return this[GameTag.DURABILITY]; }
+			get { return this[GameTag.DURABILITY] - this[GameTag.DAMAGE]; }
 			set { this[GameTag.DURABILITY] = value; }
 		}
 
@@ -42,6 +61,12 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.WINDFURY] == 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
+		public bool IsImmune
+		{
+			get { return this[GameTag.IMMUNE] == 1; }
+			set { this[GameTag.IMMUNE] = value ? 1 : 0; }
 		}
 
 		public bool Poisonous

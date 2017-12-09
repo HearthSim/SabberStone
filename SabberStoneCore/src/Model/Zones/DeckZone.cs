@@ -1,24 +1,42 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SabberStoneCore.Enums;
-using System.Collections.Generic;
+using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+
 
 namespace SabberStoneCore.Model.Zones
 {
-	public class DeckZone : Zone<IPlayable>
+	public class DeckZone : LimitedZone<IPlayable>
 	{
 		public int StartingCards { get; set; } = 30;
 
-		public DeckZone(Game game, Controller controller) : base(game, controller, Zone.DECK)
+
+		public DeckZone(Controller controller)
 		{
+			Game = controller.Game;
+			Controller = controller;
+			MaxSize = 60;
+			Entities = new IPlayable[MaxSize];
+			Type = Zone.DECK;
+		}
+
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		{
+			base.Add(entity, zonePosition);
+
+			if (applyEnchantment)
+				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
 		}
 
 		public void Fill(List<string> excludeIds = null)
 		{
 			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
-			int cardsToAdd = StartingCards - Count;
+			int cardsToAdd = StartingCards - _count;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging? "":$"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
 				Card card = Util.Choose<Card>(cards.ToList());
@@ -39,30 +57,20 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		//public void Shuffle(int times = 100)
-		//{
-		//	// no need to shuffle something that has no or only one entity ...
-		//	if (Count < 2)
-		//	{
-		//		return;
-		//	}
-
-		//	Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", $"Deck[{Game.FormatType}] from {Controller.Name} shuffling ({times}x).");
-		//	for (int i = 0; i < times; i++)
-		//	{
-		//		Swap(Random, Random);
-		//	}
-		//}
-
 		public void Shuffle()
 		{
-			int n = Count;
+			int n = _count;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging? "":$"{Controller.Name} shuffles its deck.");
+			Random rnd = Util.Random;
+
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
+
 			for (int i = 0; i < n; i++)
 			{
-				int r = i + Util.Random.Next(n - i);
-				Swap(this[i], this[r]);
+				int r = rnd.Next(i, n);
+				IPlayable temp = Entities[i];
+				Entities[i] = Entities[r];
+				Entities[r] = temp;
 			}
 		}
 	}
