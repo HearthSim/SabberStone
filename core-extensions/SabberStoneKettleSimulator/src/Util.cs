@@ -42,7 +42,10 @@ namespace SabberStoneKettleSimulator
 						switch (source.Card.Type)
 						{
 							case CardType.HERO:
-								task = HeroAttackTask.Any(Game.CurrentPlayer, target);
+								if (target != null)
+									task = HeroAttackTask.Any(Game.CurrentPlayer, target);
+								else
+									task = PlayCardTask.Any(Game.CurrentPlayer, source);
 								break;
 							case CardType.HERO_POWER:
 								task = HeroPowerTask.Any(Game.CurrentPlayer, target);

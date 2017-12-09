@@ -45,9 +45,15 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.ATK] = value; }
 		}
 
+		public int Damage
+		{
+			get { return this[GameTag.DAMAGE]; }
+			set { this[GameTag.DAMAGE] = value; }
+		}
+
 		public int Durability
 		{
-			get { return this[GameTag.DURABILITY]; }
+			get { return this[GameTag.DURABILITY] - this[GameTag.DAMAGE]; }
 			set { this[GameTag.DURABILITY] = value; }
 		}
 
@@ -55,6 +61,12 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.WINDFURY] == 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
+		public bool IsImmune
+		{
+			get { return this[GameTag.IMMUNE] == 1; }
+			set { this[GameTag.IMMUNE] = value ? 1 : 0; }
 		}
 
 		public bool Poisonous

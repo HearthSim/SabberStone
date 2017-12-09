@@ -397,7 +397,7 @@ namespace SabberStoneCore.Model.Entities
 
 						case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
 							{
-								if (!Controller.GraveyardZone.Any(p => p is Minion))
+								if (!Controller.GraveyardZone.Any(p => p is Minion && p.ToBeDestroyed))
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"No friendly minions died this game.");
 									return false;

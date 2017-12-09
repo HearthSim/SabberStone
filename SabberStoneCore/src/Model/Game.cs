@@ -571,6 +571,8 @@ namespace SabberStoneCore.Model
 			});
 
 			CurrentPlayer.Hero.IsExhausted = false;
+			if (CurrentPlayer.Hero.Weapon != null)
+				CurrentPlayer.Hero.Weapon.IsExhausted = false;
 			CurrentPlayer.Hero.Power.IsExhausted = false;
 			foreach (Minion e in CurrentPlayer.BoardZone)
 			{
@@ -604,10 +606,11 @@ namespace SabberStoneCore.Model
 		public void MainStartTriggers()
 		{
 			CurrentPlayer.TurnStart = true;
-			DeathProcessingAndAuraUpdate();
 
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0));
+
+			DeathProcessingAndAuraUpdate();
 
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
@@ -691,6 +694,8 @@ namespace SabberStoneCore.Model
 				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
 
 			CurrentPlayer.TurnStart = false;
+			if (CurrentPlayer.Hero.Weapon != null)
+				CurrentPlayer.Hero.Weapon.IsExhausted = true;
 			DeathProcessingAndAuraUpdate();
 
 			if (History)

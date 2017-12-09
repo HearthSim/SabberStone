@@ -3925,11 +3925,11 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = EnchantmentActivation.WEAPON,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
-						.TriggerEffect(GameTag.DURABILITY, 0)
+						.TriggerEffect(GameTag.DAMAGE, 0)
 						.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
 						.FastExecution(true)
 						.SingleTask(ComplexTask.Create(
-							new SetNativeGameTagTask(GameTag.DURABILITY, 1, EntityType.SOURCE),
+							new DamageWeaponTask(false, -1),
 							new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 							new MathSubstractionTask(1),
 							new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE)))
@@ -6128,10 +6128,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "NEW1_025e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
-						new MathSubstractionTask(1),
-						new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.OP_WEAPON))
+					SingleTask = new DamageWeaponTask()
 				},
 			});
 

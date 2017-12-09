@@ -2598,10 +2598,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
-						new MathSubstractionTask(1),
-						new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.OP_WEAPON)),
+					SingleTask = new DamageWeaponTask()
 				},
 			});
 
