@@ -189,10 +189,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MarkOfNature_EX1_155()
 		{
-			// TODO MarkOfNature_EX1_155 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -204,7 +203,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of Nature"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mark of Nature"));
+			var minion = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion, 1));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mark of Nature"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2, 2));
+
+			Assert.Equal(5, minion.AttackDamage);
+			Assert.Equal(1, minion.Health);
+
+			Assert.Equal(1, minion2.AttackDamage);
+			Assert.Equal(5, minion2.Health);
+			Assert.True(minion2.HasTaunt);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
