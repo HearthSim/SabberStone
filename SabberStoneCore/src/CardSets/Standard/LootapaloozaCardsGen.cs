@@ -44,11 +44,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_056", new List<Enchantment> {
-				// TODO [LOOT_056] Astral Tiger && Test: Astral Tiger_LOOT_056
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new AddCardTo("LOOT_056", EntityType.DECK)
 				},
 			});
 
@@ -86,11 +85,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 717 = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_329", new List<Enchantment> {
-				// TODO [LOOT_329] Ixlid, Fungal Lord && Test: Ixlid, Fungal Lord_LOOT_329
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Area = EnchantmentArea.BOARD,
+					Activation = EnchantmentActivation.BOARD_ZONE,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
+						.TriggerEffect(GameTag.JUST_PLAYED, -1)
+						.SingleTask(ComplexTask.Create(
+							new CopyTask(EntityType.TARGET, 1),
+							new SummonTask()))
+						.Build()
 				}
 			});
 

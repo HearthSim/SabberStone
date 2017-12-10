@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 using Generic = SabberStoneCore.Actions.Generic;
 using System.Linq;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
@@ -129,10 +130,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - 717 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void IxlidFungalLord_LOOT_329()
 		{
-			// TODO IxlidFungalLord_LOOT_329 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -140,6 +140,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Ixlid, Fungal Lord"),
+					Cards.FromName("Murloc Raider")
 				},
 				Player2HeroClass = CardClass.DRUID,
 				Shuffle = false,
@@ -149,8 +150,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ixlid, Fungal Lord"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ixlid, Fungal Lord"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ixlid, Fungal Lord"));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Raider"));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- MINION - DRUID
