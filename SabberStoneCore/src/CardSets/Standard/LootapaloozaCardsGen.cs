@@ -402,11 +402,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_077", new List<Enchantment> {
-				// TODO [LOOT_077] Flanking Strike && Test: Flanking Strike_LOOT_077
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(3, EntityType.TARGET, true),
+						new EnqueueTask(3, new SummonTask("LOOT_077t", SummonSide.SPELL)))
 				},
 			});
 
@@ -535,14 +536,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [LOOT_077t] Wolf (*) - COST:3 [ATK:3/HP:3] 
 			// - Race: beast, Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOT_077t", new List<Enchantment> {
-				// TODO [LOOT_077t] Wolf && Test: Wolf_LOOT_077t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
-			});
+			cards.Add("LOOT_077t", null);
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [LOOT_080t2] Emerald Spellstone (*) - COST:5 
