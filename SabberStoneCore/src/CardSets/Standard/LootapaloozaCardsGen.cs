@@ -128,12 +128,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_047", new List<Enchantment> {
-				// TODO [LOOT_047] Barkskin && Test: Barkskin_LOOT_047
 				new Enchantment
 				{
 					InfoCardId = "LOOT_047e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new BuffTask(Buffs.Health(3), EntityType.TARGET), 
+						new ArmorTask(3))
 				},
 			});
 
