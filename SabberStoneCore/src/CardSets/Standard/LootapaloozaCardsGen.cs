@@ -520,11 +520,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("LOOT_222", new List<Enchantment> {
-				// TODO [LOOT_222] Candleshot && Test: Candleshot_LOOT_222
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
+					SingleTask =
+						new AuraTask(Auras.Immune(RelaCondition.IsOther(SelfCondition.IsAttacking)), AuraArea.HERO),
 				},
 			});
 
