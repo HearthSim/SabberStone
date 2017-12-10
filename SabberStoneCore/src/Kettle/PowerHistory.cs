@@ -90,6 +90,8 @@ namespace SabberStoneCore.Kettle
 			GameTag.TAUNT,
 			GameTag.STEALTH,
 			GameTag.DIVINE_SHIELD,
+			GameTag.POISONOUS,
+			GameTag.LIFESTEAL,
 			GameTag.CHARGE,
 			GameTag.FACTION,
 			GameTag.CARDTYPE,
