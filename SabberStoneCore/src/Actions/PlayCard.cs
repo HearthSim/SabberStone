@@ -37,9 +37,9 @@ namespace SabberStoneCore.Actions
 
 				c.LastCardPlayed = source.Id;
 
-				// show entity
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
+				//// show entity
+				//if (c.Game.History)
+				//	c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
 
 				// target is beeing set onto this gametag
 				if (target != null)
@@ -178,16 +178,23 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !c.Game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
-				// removing the current Id, to readd it as hero
-				c.Game.IdEntityDic.Remove(hero.Id);
 
-				c.AddHeroAndPower(hero.Card, null, new Dictionary<GameTag, int>()
-				{
-					[GameTag.HEALTH] = c.Hero[GameTag.HEALTH],
-					[GameTag.DAMAGE] = c.Hero[GameTag.DAMAGE],
-					[GameTag.ARMOR] = c.Hero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR],
-					[GameTag.EXHAUSTED] = c.Hero[GameTag.EXHAUSTED]
-				}, hero.Id);
+				Hero oldHero = c.Hero;
+				hero[GameTag.ZONE] = (int)Zone.PLAY;
+				//hero[GameTag.LINKED_ENTITY] = c.Hero.Id;
+				hero[GameTag.HEALTH] = oldHero[GameTag.HEALTH];
+				hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
+				hero[GameTag.ARMOR] = oldHero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR];
+				hero[GameTag.EXHAUSTED] = oldHero[GameTag.EXHAUSTED];
+
+				c.SetasideZone.Add(oldHero);
+				//oldHero[GameTag.REVEALED] = 1;
+				//c[GameTag.HERO_ENTITY] = hero.Id;
+				hero.Weapon = oldHero.Weapon;
+				c.SetasideZone.Add(oldHero.Power);
+				hero.Power = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+
+				c.Hero = hero;
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
