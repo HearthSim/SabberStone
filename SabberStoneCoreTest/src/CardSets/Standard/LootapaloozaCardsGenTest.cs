@@ -1618,10 +1618,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TwilightsCall_LOOT_187()
 		{
-			// TODO TwilightsCall_LOOT_187 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1629,6 +1628,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Twilight's Call"),
+					Cards.FromName("Bloodmage Thalnos"),
+					Cards.FromName("Spirit Lash"),
+					Cards.FromName("Spirit Lash")
 				},
 				Player2HeroClass = CardClass.PRIEST,
 				Shuffle = false,
@@ -1638,8 +1640,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight's Call"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight's Call"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodmage Thalnos"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spirit Lash"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spirit Lash"));
+			game.CurrentPlayer.UsedMana = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST

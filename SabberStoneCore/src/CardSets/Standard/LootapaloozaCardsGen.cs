@@ -1370,7 +1370,11 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "LOOT_187e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
+						new RandomTask(2, EntityType.STACK),
+						new SummonCopyTask(EntityType.STACK))
 				},
 			});
 
@@ -1403,11 +1407,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copy a spell in your opponent's deck and add it to your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOT_353", new List<Enchantment> {
-				// TODO [LOOT_353] Psionic Probe && Test: Psionic Probe_LOOT_353
+				// TODO Test: Psionic Probe_LOOT_353
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.OP_DECK),
+						new FilterStackTask(SelfCondition.IsSpell),
+						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -3692,10 +3701,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_539", new List<Enchantment> {
 				// TODO [LOOT_539] Spiteful Summoner && Test: Spiteful Summoner_LOOT_539
+				// TODO Generic.RevealCardBlock
+				// only functional part of the card is implemented for now
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsSpell),
+						new RandomTask(1, EntityType.STACK),
+						new GetNativeGameTagTask(GameTag.COST, EntityType.STACK, false),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask())
 				},
 			});
 
