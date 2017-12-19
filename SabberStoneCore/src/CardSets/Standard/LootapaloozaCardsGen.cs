@@ -3150,11 +3150,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_144", new List<Enchantment> {
-				// TODO [LOOT_144] Hoarding Dragon && Test: Hoarding Dragon_LOOT_144
+				// TODO Test: Hoarding Dragon_LOOT_144
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new AddCardTo("GAME_005", EntityType.OP_HAND))
 				},
 			});
 
