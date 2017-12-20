@@ -239,9 +239,10 @@ namespace SabberStoneCore.Model
 
 			if (setupHeroes)
 			{
-				_players[0].AddHeroAndPower(Cards.HeroCard(gameConfig.Player1HeroClass));
+				_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
 				_players[0].BaseClass = _players[0].HeroClass;
-				_players[1].AddHeroAndPower(Cards.HeroCard(gameConfig.Player2HeroClass));
+
+				_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
 				_players[1].BaseClass = _players[1].HeroClass;
 			}
 
