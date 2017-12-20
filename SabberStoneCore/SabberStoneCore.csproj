@@ -7,7 +7,7 @@
     <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.3\SabberStoneCore.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
