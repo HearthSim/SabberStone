@@ -5,16 +5,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class GetNativeGameTagTask : SimpleTask
 	{
-		public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs)
+		public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs, int numberIndex = 0)
 		{
 			Tag = tag;
 			Type = entityType;
 			SelfBuffs = selfBuffs;
+			_index = numberIndex;
 		}
 
 		public GameTag Tag { get; set; }
 		public EntityType Type { get; set; }
 		public bool SelfBuffs { get; set; }
+		private readonly int _index;
 
 		public override TaskState Process()
 		{
@@ -24,11 +26,33 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			Number = ((Entity)entities[0]).GetNativeGameTag(Tag);
+			int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
 
 			if (SelfBuffs)
 			{
-				entities[0].Enchants.ForEach(p => Number = p.Apply((Entity)entities[0], Tag, Number));
+				entities[0].Enchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
+			}
+
+			switch (_index)
+			{
+				case 0:
+					Number = num;
+					break;
+				case 1:
+					Number1 = num;
+					break;
+				case 2:
+					Number2 = num;
+					break;
+				case 3:
+					Number3 = num;
+					break;
+				case 4:
+					Number4 = num;
+					break;
+				default:
+					Number = num;
+					break;
 			}
 
 			return TaskState.COMPLETE;
@@ -36,7 +60,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs);
+			var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs, _index);
 			clone.Copy(this);
 			return clone;
 		}

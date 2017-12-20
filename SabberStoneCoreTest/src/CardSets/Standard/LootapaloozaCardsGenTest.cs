@@ -1022,7 +1022,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DURABILITY = 3
 		// - InvisibleDeathrattle = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Aluneth_LOOT_108()
 		{
 			// TODO Aluneth_LOOT_108 test
@@ -1042,10 +1042,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aluneth"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Aluneth"));
-		}
 
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Aluneth"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(6, game.CurrentOpponent.HandZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(10, game.CurrentOpponent.HandZone.Count);
+		}
 	}
 
 	public class PaladinLootapaloozaTest
@@ -1416,10 +1421,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_ENEMY_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Duskbreaker_LOOT_410()
 		{
-			// TODO Duskbreaker_LOOT_410 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1427,6 +1431,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Duskbreaker"),
+					Cards.FromName("Drakonid Operative")
 				},
 				Player2HeroClass = CardClass.PRIEST,
 				Shuffle = false,
@@ -1436,8 +1441,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Duskbreaker"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Duskbreaker"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("River Crocolisk"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lorewalker Cho"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Duskbreaker"));
+			Assert.True(minion1.ToBeDestroyed);
+			Assert.Equal(1, minion2.Health);
+
+			game.CurrentPlayer.UsedMana = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Drakonid Operative"));
+			var testCard2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Duskbreaker"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Duskbreaker"));
+			Assert.Equal(1, minion2.Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1454,17 +1475,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TwilightAcolyte_LOOT_528()
 		{
-			// TODO TwilightAcolyte_LOOT_528 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Twilight Acolyte"),
+					Cards.FromName("Twilight Drake")
 				},
 				Player2HeroClass = CardClass.PRIEST,
 				Shuffle = false,
@@ -1474,8 +1494,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight Acolyte"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight Acolyte"));
+
+			var testCard = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight Acolyte"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var testTarget = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ysera"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testTarget));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, testTarget));
+			Assert.Equal(2, testTarget.AttackDamage);
+			Assert.Equal(4, testCard.AttackDamage);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1589,10 +1618,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TwilightsCall_LOOT_187()
 		{
-			// TODO TwilightsCall_LOOT_187 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1600,6 +1628,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Twilight's Call"),
+					Cards.FromName("Bloodmage Thalnos"),
+					Cards.FromName("Spirit Lash"),
+					Cards.FromName("Spirit Lash")
 				},
 				Player2HeroClass = CardClass.PRIEST,
 				Shuffle = false,
@@ -1609,8 +1640,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight's Call"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twilight's Call"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodmage Thalnos"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spirit Lash"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spirit Lash"));
+			game.CurrentPlayer.UsedMana = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twilight's Call"));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -3632,10 +3670,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Costs (1) less whenever a minion dies while this is_in_your hand.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CorridorCreeper_LOOT_149()
 		{
-			// TODO CorridorCreeper_LOOT_149 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3643,6 +3680,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Corridor Creeper"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
@@ -3652,7 +3692,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corridor Creeper"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corridor Creeper"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			IPlayable aoe = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, aoe));
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(3, testCard.Card.Cost - testCard.Cost);
+
+
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corridor Creeper"));
 		}
 

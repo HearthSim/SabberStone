@@ -749,11 +749,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_108", new List<Enchantment> {
-				// TODO [LOOT_108] Aluneth && Test: Aluneth_LOOT_108
 				new Enchantment
 				{
+					Area = EnchantmentArea.CONTROLLER,
 					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY))
+						.TriggerEffect(GameTag.TURN_START, -1)
+						.SingleTask(new DrawTask(count: 3))
+						.Build()
 				},
 			});
 
@@ -1251,11 +1255,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_410", new List<Enchantment> {
-				// TODO [LOOT_410] Duskbreaker && Test: Duskbreaker_LOOT_410
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+						new FlagTask(true,
+							new DamageTask(3, EntityType.ALLMINIONS_NOSOURCE)))
 				},
 			});
 
@@ -1274,12 +1280,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_528", new List<Enchantment> {
-				// TODO [LOOT_528] Twilight Acolyte && Test: Twilight Acolyte_LOOT_528
 				new Enchantment
 				{
 					InfoCardId = "LOOT_528e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+						new FlagTask(true,
+							ComplexTask.Create(
+								new GetNativeGameTagTask(GameTag.ATK, EntityType.TARGET, true, 0),
+								new GetNativeGameTagTask(GameTag.ATK, EntityType.SOURCE, true, 1),
+								new SetAttackNumberTask(EntityType.SOURCE),
+								new FuncNumberTask(p => 0),
+								new MathNumberIndexTask(1, 2, MathOperation.ADD),
+								new SetAttackNumberTask(EntityType.TARGET))))
 				},
 			});
 
@@ -1356,7 +1370,11 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					InfoCardId = "LOOT_187e",
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.GRAVEYARD),
+						new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
+						new RandomTask(2, EntityType.STACK),
+						new SummonCopyTask(EntityType.STACK))
 				},
 			});
 
@@ -1389,11 +1407,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copy a spell in your opponent's deck and add it to your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOT_353", new List<Enchantment> {
-				// TODO [LOOT_353] Psionic Probe && Test: Psionic Probe_LOOT_353
+				// TODO Test: Psionic Probe_LOOT_353
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.OP_DECK),
+						new FilterStackTask(SelfCondition.IsSpell),
+						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
+						new AddStackTo(EntityType.HAND))
 				},
 			});
 
@@ -3127,11 +3150,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_144", new List<Enchantment> {
-				// TODO [LOOT_144] Hoarding Dragon && Test: Hoarding Dragon_LOOT_144
+				// TODO Test: Hoarding Dragon_LOOT_144
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(2, new AddCardTo("GAME_005", EntityType.OP_HAND))
 				},
 			});
 
@@ -3142,12 +3165,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less whenever a minion dies while this is_in_your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOT_149", new List<Enchantment> {
-				// TODO [LOOT_149] Corridor Creeper && Test: Corridor Creeper_LOOT_149
 				new Enchantment
 				{
 					InfoCardId = "LOOT_149e",
-					//Activation = null,
+					Area = EnchantmentArea.BOARDS,
+					Activation = EnchantmentActivation.HAND_ZONE,
 					//SingleTask = null,
+					Trigger = new TriggerBuilder().Create()
+						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
+						.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
+						.SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)))
+						.Build()
 				}
 			});
 
@@ -3673,10 +3701,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_539", new List<Enchantment> {
 				// TODO [LOOT_539] Spiteful Summoner && Test: Spiteful Summoner_LOOT_539
+				// TODO Generic.RevealCardBlock
+				// only functional part of the card is implemented for now
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsSpell),
+						new RandomTask(1, EntityType.STACK),
+						new GetNativeGameTagTask(GameTag.COST, EntityType.STACK, false),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask())
 				},
 			});
 
