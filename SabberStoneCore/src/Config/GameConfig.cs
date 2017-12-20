@@ -58,13 +58,13 @@ namespace SabberStoneCore.Config
 		/// Gets or sets the card class of the player with index 1.
 		/// </summary>
 		/// <value><see cref="CardClass"/></value>
-		public Card Player1HeroCard { get; set; } = Cards.HeroCard(CardClass.HUNTER);
+		public Card Player1HeroCard { get; set; }
 
 		/// <summary>
 		/// Gets or sets the card class of the player with index 2.
 		/// </summary>
 		/// <value><see cref="CardClass"/></value>
-		public Card Player2HeroCard { get; set; } = Cards.HeroCard(CardClass.HUNTER);
+		public Card Player2HeroCard { get; set; }
 
 		/// <summary>
 		/// Gets or sets the format of the game.
