@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -999,11 +1000,22 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_04p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_04p] Sculpt Wax && Test: Sculpt Wax_LOOTA_BOSS_04p
+				// TODO Test: Sculpt Wax_LOOTA_BOSS_04p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+							new FuncPlayablesTask(list =>
+							{
+								var target = list[0] as ICharacter;
+								if (target == null)
+									return list;
+								target.Health = 1;
+								target.AttackDamage = 1;
+								return list;
+							}),
+							new SummonTask())
 				}
 			});
 
@@ -1018,11 +1030,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_05p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_05p] Unstable Explosion && Test: Unstable Explosion_LOOTA_BOSS_05p
+				// TODO Test: Unstable Explosion_LOOTA_BOSS_05p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1, false),
 				}
 			});
 
@@ -1039,11 +1051,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_06p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_06p] Evolvomancy && Test: Evolvomancy_LOOTA_BOSS_06p
+				// TODO Test: Evolvomancy_LOOTA_BOSS_06p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new TransformMinionTask(EntityType.TARGET, 1),
 				}
 			});
 
@@ -1060,11 +1072,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_09p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_09p] Freeze && Test: Freeze_LOOTA_BOSS_09p
+				// TODO Test: Freeze_LOOTA_BOSS_09p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Freeze(EntityType.TARGET),
 				}
 			});
 
@@ -1076,11 +1088,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Restore 2 Health to all minions.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_10p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_10p] Light's Will && Test: Light's Will_LOOTA_BOSS_10p
+				// TODO Test: Light's Will_LOOTA_BOSS_10p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new HealTask(2, EntityType.ALLMINIONS),
 				}
 			});
 
@@ -1097,11 +1109,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_11p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_11p] Cruel Words && Test: Cruel Words_LOOTA_BOSS_11p
+				// TODO Test: Cruel Words_LOOTA_BOSS_11p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(1, 0, EntityType.TARGET),
+						new BuffTask(Buffs.Attack(2), EntityType.TARGET))
 				}
 			});
 
@@ -1118,11 +1132,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_12p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_12p] Charge! && Test: Charge!_LOOTA_BOSS_12p
+				// TODO Test: Charge!_LOOTA_BOSS_12p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Charge(EntityType.TARGET),
 				}
 			});
 
@@ -1142,8 +1156,8 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO [LOOTA_BOSS_13p] Tactical Retreat && Test: Tactical Retreat_LOOTA_BOSS_13p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new ReturnHandTask(EntityType.TARGET),
 				}
 			});
 
@@ -1159,11 +1173,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_15p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_15p] Divinity && Test: Divinity_LOOTA_BOSS_15p
+				// TODO Test: Divinity_LOOTA_BOSS_15p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DivineShield(EntityType.MINIONS),
 				}
 			});
 
@@ -1178,7 +1192,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_16p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_16p] Totem of the Dead && Test: Totem of the Dead_LOOTA_BOSS_16p
+				// TODO Test: Totem of the Dead_LOOTA_BOSS_16p
 				new Enchantment
 				{
 					//Activation = null,
@@ -1218,11 +1232,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_18p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_18p] Rat Race && Test: Rat Race_LOOTA_BOSS_18p
+				// TODO Test: Rat Race_LOOTA_BOSS_18p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new EnqueueTask(2, new SummonTask("CFM_316t", SummonSide.SPELL))
 				}
 			});
 
@@ -1252,11 +1266,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       <b>Silence</b> your minions.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_20p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_20p] Dispel Ward && Test: Dispel Ward_LOOTA_BOSS_20p
+				// TODO Test: Dispel Ward_LOOTA_BOSS_20p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new SilenceTask(EntityType.MINIONS),
 				}
 			});
 
@@ -1271,11 +1285,22 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_21p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_21p] Swallow Whole && Test: Swallow Whole_LOOTA_BOSS_21p
+				// TODO Test: Swallow Whole_LOOTA_BOSS_21p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.OP_MINIONS),
+						new FuncPlayablesTask(p =>
+						{
+							if (!p.Any())
+								return new List<IPlayable>();
+							IPlayable max = p.OrderByDescending(x => ((Minion) x).AttackDamage)
+								.FirstOrDefault();
+							p.RemoveRange(1, p.Count - 1);
+							return p;
+						}),
+						new DestroyTask(EntityType.STACK))
 				}
 			});
 
@@ -1294,11 +1319,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_22p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_22p] Catch and Release && Test: Catch and Release_LOOTA_BOSS_22p
+				// TODO Test: Catch and Release_LOOTA_BOSS_22p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+							new FlagTask(true, ComplexTask.Create(
+								new IncludeTask(EntityType.DECK),
+								new FilterStackTask(SelfCondition.IsMinion),
+								new RandomTask(1, EntityType.STACK),
+								new RemoveFromDeck(EntityType.STACK),
+								new SummonTask()))),
 				}
 			});
 
@@ -1313,11 +1345,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_23p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_23p] Hunter's Call && Test: Hunter's Call_LOOTA_BOSS_23p
+				// TODO Test: Hunter's Call_LOOTA_BOSS_23p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffTask(Buffs.Cost(-1), EntityType.HAND),
 				}
 			});
 
@@ -1332,11 +1364,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_24p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_24p] Gloop && Test: Gloop_LOOTA_BOSS_24p
+				// TODO Test: Gloop_LOOTA_BOSS_24p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
 				}
 			});
 
@@ -1393,11 +1425,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_27p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_27p] Harden Sculpture && Test: Harden Sculpture_LOOTA_BOSS_27p
+				// TODO Test: Harden Sculpture_LOOTA_BOSS_27p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new CopyTask(EntityType.TARGET, 1),
 				}
 			});
 
@@ -1412,11 +1444,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_28p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_28p] Unstable Demolition && Test: Unstable Demolition_LOOTA_BOSS_28p
+				// TODO Test: Unstable Demolition_LOOTA_BOSS_28p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.DamageRandomTargets(3, EntityType.ENEMIES, 2),
 				}
 			});
 
@@ -1433,11 +1465,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_29p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_29p] Greater Evolution && Test: Greater Evolution_LOOTA_BOSS_29p
+				// TODO Greater Evolution_LOOTA_BOSS_29p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new TransformMinionTask(EntityType.TARGET, 3),
 				}
 			});
 
@@ -1454,11 +1486,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_30p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_30p] Searing Lash && Test: Searing Lash_LOOTA_BOSS_30p
+				// Test: Searing Lash_LOOTA_BOSS_30p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new DamageTask(1, 0, EntityType.TARGET),
+						new BuffTask(Buffs.Attack(5), EntityType.TARGET)),
 				}
 			});
 
@@ -1506,11 +1540,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_34p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_34p] Devour && Test: Devour_LOOTA_BOSS_34p
+				// TODO Test: Devour_LOOTA_BOSS_34p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new EnqueueTask(2, new DestroyTask(EntityType.TOPCARDFROMDECK)),
 				}
 			});
 
@@ -1522,11 +1556,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Put a 'Counterspell' <b>Secret</b> into the battlefield.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_35p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_35p] Dampen Magic && Test: Dampen Magic_LOOTA_BOSS_35p
+				// TODO Test: Dampen Magic_LOOTA_BOSS_35p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new AddCardTo("EX1_287", EntityType.STACK),
+						new SummonTask()),
 				}
 			});
 
@@ -1546,11 +1582,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_36p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_36p] Sprouting Spore && Test: Sprouting Spore_LOOTA_BOSS_36p
+				// TODO Test: Sprouting Spore_LOOTA_BOSS_36p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new SummonTask("LOOTA_105", SummonSide.DEFAULT),
 				}
 			});
 
@@ -1562,11 +1598,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Add 'Arcane Missiles' to your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_37p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_37p] Arcane Infusion && Test: Arcane Infusion_LOOTA_BOSS_37p
+				// TODO Test: Arcane Infusion_LOOTA_BOSS_37p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new AddCardTo("EX1_277", EntityType.HAND),
 				}
 			});
 
@@ -1597,11 +1633,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Deal 1 damage to all enemy minions.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_39p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_39p] Giant Stomp && Test: Giant Stomp_LOOTA_BOSS_39p
+				// TODO Test: Giant Stomp_LOOTA_BOSS_39p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DamageTask(1, EntityType.OP_MINIONS),
 				}
 			});
 
@@ -1619,12 +1655,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_MIN_ATTACK = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_40p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_40p] Fading Light && Test: Fading Light_LOOTA_BOSS_40p
+				// TODO Test: Fading Light_LOOTA_BOSS_40p
 				new Enchantment
 				{
 					InfoCardId = "LOOTA_BOSS_40pe",
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffTask(Buffs.Attack(-1), EntityType.TARGET),
 				}
 			});
 
@@ -1661,11 +1697,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Gain 3 Armor.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_42p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_42p] Mystic Barrier && Test: Mystic Barrier_LOOTA_BOSS_42p
+				// TODO Test: Mystic Barrier_LOOTA_BOSS_42p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new ArmorTask(3),
 				}
 			});
 
@@ -1683,8 +1719,10 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO [LOOTA_BOSS_43p] Three Wee Wishes && Test: Three Wee Wishes_LOOTA_BOSS_43p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new EnqueueTask(3, new DrawCardTask()),
+						new EnqueueTask(3, new DrawOpTask()))
 				}
 			});
 
@@ -1699,11 +1737,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_44p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_44p] Baby Breath && Test: Baby Breath_LOOTA_BOSS_44p
+				// Test: Baby Breath_LOOTA_BOSS_44p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DamageTask(2, EntityType.TARGET),
 				}
 			});
 
@@ -1718,11 +1756,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_45p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_45p] Coin && Test: Coin_LOOTA_BOSS_45p
+				// TODO Test: Coin_LOOTA_BOSS_45p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new TempManaTask(1),
 				}
 			});
 
@@ -1734,12 +1772,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Give your minions +1/+1.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_46p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_46p] Fungal Infection && Test: Fungal Infection_LOOTA_BOSS_46p
+				// TODO Test: Fungal Infection_LOOTA_BOSS_46p
 				new Enchantment
 				{
 					InfoCardId = "LOOTA_BOSS_46pe",
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS),
 				}
 			});
 
@@ -1789,11 +1827,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_49p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_49p] Encroaching Darkness && Test: Encroaching Darkness_LOOTA_BOSS_49p
+				// TODO Test: Encroaching Darkness_LOOTA_BOSS_49p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new SummonTask("LOOTA_BOSS_49t", SummonSide.DEFAULT),
 				}
 			});
 
@@ -1836,11 +1874,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_MAX_ATTACK = 2
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_51p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_51p] Alluring Tune && Test: Alluring Tune_LOOTA_BOSS_51p
+				// TODO Test: Alluring Tune_LOOTA_BOSS_51p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new ControlTask(EntityType.TARGET),
 				}
 			});
 
@@ -1855,11 +1893,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_52p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_52p] Doors Are Closing && Test: Doors Are Closing_LOOTA_BOSS_52p
+				// TODO Test: Doors Are Closing_LOOTA_BOSS_52p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = new DestroyTask(EntityType.HERO),
 				}
 			});
 
@@ -1909,11 +1947,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Entourage: LOOTA_819, LOOTA_821, LOOTA_835, LOOTA_842b, LOOTA_806, LOOTA_812, LOOTA_823, LOOTA_847, LOOTA_836, LOOTA_839, LOOTA_816, LOOTA_827, LOOTA_843, LOOTA_826, LOOT_998k, LOOTA_838
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_99p", new List<Enchantment> {
-				// TODO [LOOTA_BOSS_99p] Magic Candle && Test: Magic Candle_LOOTA_BOSS_99p
+				// TODO Test: Magic Candle_LOOTA_BOSS_99p
 				new Enchantment
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Activation = EnchantmentActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new RandomEntourageTask(),
+						new AddStackTo(EntityType.HAND))
 				}
 			});
 
