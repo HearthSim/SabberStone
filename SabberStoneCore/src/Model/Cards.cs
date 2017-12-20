@@ -179,7 +179,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card HeroCard(CardClass cardClass)
 		{
-			return All.FirstOrDefault(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
+			return All.FirstOrDefault(c => c.Type == CardType.HERO && c.Class == cardClass);
 		}
 
 		/// <summary>
