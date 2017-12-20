@@ -26,6 +26,8 @@ cache:
 install: # We only accomodate .NET Core + .NET Standard projects.
   - dotnet restore
 
+before_script: "unset _JAVA_OPTIONS"
+
 # `script` DOES NOT immediately fail when one command returns != 0
 # so the one-liner trick is used.
 script:
