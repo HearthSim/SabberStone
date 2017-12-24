@@ -222,6 +222,11 @@ namespace SabberStoneCore.Model.Entities
 			// reset predamage
 			PreDamage = 0;
 
+			LastAffectedBy = source.Id;
+
+			// broadcast damaging trigger
+			Game.TriggerManager.OnDamageTriggered(this);
+
 			return tookDamage;
 		}
 

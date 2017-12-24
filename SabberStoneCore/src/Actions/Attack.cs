@@ -73,6 +73,9 @@ namespace SabberStoneCore.Actions
 			{
 				source.IsAttacking = true;
 				target.IsDefending = true;
+
+				// Invoke onAttackTrigger
+
 				c.Game.DeathProcessingAndAuraUpdate();
 				if (source.IsDead || target.IsDead)
 				{

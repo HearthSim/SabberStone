@@ -20,21 +20,22 @@ namespace SabberStoneCore.Model.Entities
 			IsOneTurnActive = card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 		}
 
-		public Enchantment GetInstance(Controller controller, IPlayable creator, IPlayable target, Card card)
+		public static Enchantment GetInstance(Controller controller, IPlayable creator, IPlayable target, Card card)
 		{
-			Controller = controller;
-			Creator = creator;
-			Target = target;
-
 			var tags = new Dictionary<GameTag, int>
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
 				{GameTag.CONTROLLER, controller.Id},
 				{GameTag.ENTITY_ID, controller.Game.NextId}
 			};
-			var instance = new Enchantment(controller.Game, card, tags);
 
-			//Controller = controller;
+			var instance = new Enchantment(controller.Game, card, tags)
+			{
+				Controller = controller,
+				Creator = creator,
+				Target = target
+			};
+
 			controller.Game.IdEntityDic.Add(instance.Id, instance);
 
 			if (controller.Game.History)

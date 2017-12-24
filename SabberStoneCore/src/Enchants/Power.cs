@@ -15,9 +15,11 @@ namespace SabberStoneCore.Enchants
 
 		public OldEnchant OldEnchant { get; set; }
 
+		public OldTrigger OldTrigger { get; set; }
+
 		public Enchant Enchant { get; set; }
 
-		public OldTrigger OldTrigger { get; set; }
+		public Trigger Trigger { get; set; }
 
 		public ISimpleTask SingleTask { get; set; }
 

@@ -2,6 +2,7 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -3088,16 +3089,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_399", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "EX1_399e",
+				//	Area = PowerArea.SELF,
+				//	Activation = PowerActivation.BOARD_ZONE,
+				//	OldTrigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
+				//		.TriggerEffect(GameTag.DAMAGE, 1)
+				//		.SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
+				//		.Build()
+				//}
 				new Power
 				{
-					InfoCardId = "EX1_399e",
-					Area = PowerArea.SELF,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.DAMAGE,
+						SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE)
+					}
 				}
 			});
 
