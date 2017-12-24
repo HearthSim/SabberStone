@@ -45,15 +45,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private static ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>> CachedDiscoverySets = new ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>>();
 
-		public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
+		public DiscoverTask(DiscoverType discoverType, Power power = null)
 		{
 			DiscoverType = discoverType;
-			Enchantment = enchantment;
+			Power = power;
 		}
 
 		public DiscoverType DiscoverType { get; set; }
 
-		public Enchantment Enchantment { get; set; }
+		public Power Power { get; set; }
 
 		public override TaskState Process()
 		{
@@ -115,7 +115,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 			else
 			{
-				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, Enchantment);
+				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, Power);
 			}
 
 			return TaskState.COMPLETE;
@@ -498,7 +498,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new DiscoverTask(DiscoverType, Enchantment);
+			var clone = new DiscoverTask(DiscoverType, Power);
 			clone.Copy(this);
 			return clone;
 		}

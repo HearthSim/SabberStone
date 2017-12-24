@@ -537,7 +537,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
-		/// Indicates if combo enchantment effects of next cards should be executed or not.
+		/// Indicates if combo power effects of next cards should be executed or not.
 		/// 
 		/// Combo is active if at least one card has been played this turn.
 		/// </summary>

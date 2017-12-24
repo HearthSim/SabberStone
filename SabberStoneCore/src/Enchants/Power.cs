@@ -5,13 +5,13 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	public class Enchantment
+	public class Power
 	{
 		public string InfoCardId { get; set; } = null;
 
-		public EnchantmentArea Area { get; set; } = EnchantmentArea.NONE;
+		public PowerArea Area { get; set; } = PowerArea.NONE;
 
-		public EnchantmentActivation Activation { get; set; } = EnchantmentActivation.NONE;
+		public PowerActivation Activation { get; set; } = PowerActivation.NONE;
 
 		public Enchant Enchant { get; set; }
 
@@ -44,100 +44,100 @@ namespace SabberStoneCore.Enchants
 
 			switch (Area)
 			{
-				case EnchantmentArea.TARGET:
+				case PowerArea.TARGET:
 					if (target != null)
 					{
 						Enchant?.Activate(source.Card.Id, target.Enchants, target);
 						Trigger?.Activate(source.Card.Id, target.Triggers, target);
 					}
 					break;
-				case EnchantmentArea.HAND:
+				case PowerArea.HAND:
 					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
-				case EnchantmentArea.OP_HAND:
+				case PowerArea.OP_HAND:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
-				case EnchantmentArea.HANDS:
+				case PowerArea.HANDS:
 					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
-				case EnchantmentArea.HAND_AND_BOARD:
+				case PowerArea.HAND_AND_BOARD:
 					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
-				case EnchantmentArea.BOARD:
+				case PowerArea.BOARD:
 					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
 					break;
-				case EnchantmentArea.OP_BOARD:
+				case PowerArea.OP_BOARD:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
-				case EnchantmentArea.OP_BOARD_AND_OP_HERO:
+				case PowerArea.OP_BOARD_AND_OP_HERO:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
-				case EnchantmentArea.BOARDS:
+				case PowerArea.BOARDS:
 					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
-				case EnchantmentArea.SECRET:
+				case PowerArea.SECRET:
 					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
-				case EnchantmentArea.SECRETS:
+				case PowerArea.SECRETS:
 					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
 					break;
-				case EnchantmentArea.HERO:
+				case PowerArea.HERO:
 					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
 					break;
-				case EnchantmentArea.OP_HERO:
+				case PowerArea.OP_HERO:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
-				case EnchantmentArea.HEROES:
+				case PowerArea.HEROES:
 					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
-				case EnchantmentArea.SELF:
+				case PowerArea.SELF:
 					Enchant?.Activate(source.Card.Id, source.Enchants, source);
 					Trigger?.Activate(source.Card.Id, source.Triggers, source);
 					break;
-				case EnchantmentArea.CONTROLLER:
+				case PowerArea.CONTROLLER:
 					Enchant?.Activate(source.Card.Id, controller.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Triggers, source);
 					break;
-				case EnchantmentArea.OP_CONTROLLER:
+				case PowerArea.OP_CONTROLLER:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
 					break;
-				case EnchantmentArea.CONTROLLERS:
+				case PowerArea.CONTROLLERS:
 					Enchant?.Activate(source.Card.Id, controller.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
 					break;
-				case EnchantmentArea.GAME:
+				case PowerArea.GAME:
 					Enchant?.Activate(source.Card.Id, controller.Game.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Game.Triggers, source);
 					break;
-				case EnchantmentArea.BOARDS_HEROES:
+				case PowerArea.BOARDS_HEROES:
 					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
@@ -147,21 +147,21 @@ namespace SabberStoneCore.Enchants
 					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
-				case EnchantmentArea.GRAVEYARD:
+				case PowerArea.GRAVEYARD:
 					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
 					break;
-				case EnchantmentArea.GRAVEYARD_AND_SECRET:
+				case PowerArea.GRAVEYARD_AND_SECRET:
 					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
-				case EnchantmentArea.OP_GRAVEYARD:
+				case PowerArea.OP_GRAVEYARD:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
 					break;
-				case EnchantmentArea.OP_GRAVEYARD_AND_OP_SECRET:
+				case PowerArea.OP_GRAVEYARD_AND_OP_SECRET:
 					Enchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
 					Trigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
 					Enchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);

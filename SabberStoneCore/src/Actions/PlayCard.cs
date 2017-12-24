@@ -112,7 +112,7 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-				// copy choose one enchantment to the actual source
+				// copy choose one power to the actual source
 				if (source.ChooseOne)
 				{
 					// [OG_044] Fandral Staghelm, Aura active 
@@ -121,32 +121,32 @@ namespace SabberStoneCore.Actions
 					&& !source.Card.Id.Equals("BRM_010") // OG_044b, using choose one 0 option
 					&& !source.Card.Id.Equals("AT_042")) // OG_044c, using choose one 0 option
 					{
-						if (source.Enchantments == null)
-							source.Enchantments = new List<Enchantment>();
-						source.Enchantments.AddRange(source.ChooseOnePlayables[0].Enchantments);
-						source.Enchantments.AddRange(source.ChooseOnePlayables[1].Enchantments);
+						if (source.Powers == null)
+							source.Powers = new List<Power>();
+						source.Powers.AddRange(source.ChooseOnePlayables[0].Powers);
+						source.Powers.AddRange(source.ChooseOnePlayables[1].Powers);
 					}
 					else
 					{
-						source.Enchantments = subSource.Enchantments;
+						source.Powers = subSource.Powers;
 					}
 				}
 
-				// replace enchantments with the no combo or combo one ..
+				// replace powers with the no combo or combo one ..
 				if (source.Combo && !(source is Minion))
 				{
-					if (source.Enchantments.Count > 1)
+					if (source.Powers.Count > 1)
 					{
-						source.Enchantments = new List<Enchantment> { source.Enchantments[c.IsComboActive ? 1 : 0] };
+						source.Powers = new List<Power> { source.Powers[c.IsComboActive ? 1 : 0] };
 					}
-					else if (c.IsComboActive && source.Enchantments.Count > 0)
+					else if (c.IsComboActive && source.Powers.Count > 0)
 					{
-						source.Enchantments = new List<Enchantment> { source.Enchantments[0] };
+						source.Powers = new List<Power> { source.Powers[0] };
 					}
 					else
 					{
-						//source.Enchantments = new List<Enchantment> { };
-						source.Enchantments = null;
+						//source.Powers = new List<Power> { };
+						source.Powers = null;
 					}
 				}
 
@@ -202,13 +202,13 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+				hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+					hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -247,14 +247,14 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+				minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 				if (minion.Combo && c.IsComboActive)
-					minion.ApplyEnchantments(EnchantmentActivation.COMBO, Zone.PLAY, target);
+					minion.ApplyPowers(PowerActivation.COMBO, Zone.PLAY, target);
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+					minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -306,13 +306,13 @@ namespace SabberStoneCore.Actions
 					c.NumSpellsPlayedThisGame++;
 					if (spell.IsSecret)
 						c.NumSecretsPlayedThisGame++;
-					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
+					spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
 					c.SecretZone.Add(spell);
 				}
 				else
 				{
 					c.NumSpellsPlayedThisGame++;
-					spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
+					spell.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
 					c.GraveyardZone.Add(spell);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
@@ -337,8 +337,8 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
 				// activate battlecry
-				weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, Zone.PLAY);
-				weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY);
+				weapon.ApplyPowers(PowerActivation.WEAPON, Zone.PLAY);
+				weapon.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY);
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumWeaponsPlayedThisGame++;

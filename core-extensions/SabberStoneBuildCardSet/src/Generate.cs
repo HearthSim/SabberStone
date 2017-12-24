@@ -147,7 +147,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine();
 			}
 
-			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, List<Enchantment>> cards)");
+			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, List<Power>> cards)");
 			str.AppendLine("\t\t{");
 			methods.ForEach(p => str.AppendLine($"\t\t\t{p}(cards);"));
 			str.AppendLine("\t\t}");
@@ -184,7 +184,7 @@ namespace SabberStoneBuildCardSet
 				return null;
 			}
 			var str = new StringBuilder();
-			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, List<Enchantment>> cards)");
+			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, List<Power>> cards)");
 			str.AppendLine("\t\t{");
 			foreach (Card card in valuesOrdered)
 			{
@@ -329,13 +329,13 @@ namespace SabberStoneBuildCardSet
 			if (card[GameTag.DEATHRATTLE] == 1)
 				activations.Add("EnchantmentActivation.DEATHRATTLE");
 
-			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new List<Enchantment> {{");
+			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new List<Power> {{");
 			str.AppendLine($"\t\t\t\t// TODO [{card.Id}] {card.Name} && Test: {card.Name}_{card.Id}");
 			if (activations.Count > 0)
 			{
 				activations.ForEach(p =>
 				{
-					str.AppendLine($"\t\t\t\tnew Enchantment");
+					str.AppendLine($"\t\t\t\tnew Power");
 					str.AppendLine($"\t\t\t\t{{");
 					if (enchantId != null)
 						str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");
@@ -346,7 +346,7 @@ namespace SabberStoneBuildCardSet
 			}
 			else
 			{
-				str.AppendLine($"\t\t\t\tnew Enchantment");
+				str.AppendLine($"\t\t\t\tnew Power");
 				str.AppendLine($"\t\t\t\t{{");
 				if (enchantId != null)
 					str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");

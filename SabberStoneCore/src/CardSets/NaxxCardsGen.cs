@@ -11,7 +11,7 @@ namespace SabberStoneCore.CardSets
 	/// </summary>
 	public class NaxxCardsGen
 	{
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+		private static void Druid(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [FP1_019] Poison Seeds - COST:4 
@@ -19,26 +19,26 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Destroy all minions and summon 2/2 Treants to replace them.
 			// --------------------------------------------------------
-			cards.Add("FP1_019", new List<Enchantment> {
+			cards.Add("FP1_019", new List<Power> {
 				// TODO [FP1_019] Poison Seeds && Test: Poison Seeds_FP1_019
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [FP1_019t] Treant (*) - COST:1 [ATK:2/HP:2] 
 			// - Set: naxx, 
 			// --------------------------------------------------------
-			cards.Add("FP1_019t", new List<Enchantment> {
+			cards.Add("FP1_019t", new List<Power> {
 				// TODO [FP1_019t] Treant && Test: Treant_FP1_019t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -47,7 +47,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
+		private static void Hunter(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [FP1_011] Webspinner - COST:1 [ATK:1/HP:1] 
@@ -58,10 +58,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_011", new List<Enchantment> {
-				new Enchantment
+			cards.Add("FP1_011", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
 						new AddStackTo(EntityType.HAND))
@@ -69,7 +69,7 @@ namespace SabberStoneCore.CardSets
 			});
 		}
 
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [FP1_018] Duplicate - COST:3 
@@ -80,18 +80,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_018", new List<Enchantment> {
+			cards.Add("FP1_018", new List<Power> {
 				// TODO [FP1_018] Duplicate && Test: Duplicate_FP1_018
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
+		private static void Paladin(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - PALADIN
 			// [FP1_020] Avenge - COST:1 
@@ -102,18 +102,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_020", new List<Enchantment> {
+			cards.Add("FP1_020", new List<Power> {
 				// TODO [FP1_020] Avenge && Test: Avenge_FP1_020
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [FP1_020e] Vengeance (*) - COST:0 
@@ -121,9 +121,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+2.
 			// --------------------------------------------------------
-			cards.Add("FP1_020e", new List<Enchantment> {
+			cards.Add("FP1_020e", new List<Power> {
 				// TODO [FP1_020e] Vengeance && Test: Vengeance_FP1_020e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -132,7 +132,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Priest(IDictionary<string, List<Enchantment>> cards)
+		private static void Priest(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [FP1_023] Dark Cultist - COST:3 [ATK:3/HP:4] 
@@ -143,18 +143,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_023", new List<Enchantment> {
+			cards.Add("FP1_023", new List<Power> {
 				// TODO [FP1_023] Dark Cultist && Test: Dark Cultist_FP1_023
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [FP1_023e] Power of the Ziggurat (*) - COST:0 
@@ -162,9 +162,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
-			cards.Add("FP1_023e", new List<Enchantment> {
+			cards.Add("FP1_023e", new List<Power> {
 				// TODO [FP1_023e] Power of the Ziggurat && Test: Power of the Ziggurat_FP1_023e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -173,7 +173,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [FP1_026] Anub'ar Ambusher - COST:4 [ATK:5/HP:5] 
@@ -187,18 +187,18 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_026", new List<Enchantment> {
+			cards.Add("FP1_026", new List<Power> {
 				// TODO [FP1_026] Anub'ar Ambusher && Test: Anub'ar Ambusher_FP1_026
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
+		private static void Shaman(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - SHAMAN
 			// [FP1_025] Reincarnate - COST:2 
@@ -210,18 +210,18 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("FP1_025", new List<Enchantment> {
+			cards.Add("FP1_025", new List<Power> {
 				// TODO [FP1_025] Reincarnate && Test: Reincarnate_FP1_025
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [FP1_022] Voidcaller - COST:4 [ATK:3/HP:4] 
@@ -232,18 +232,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_022", new List<Enchantment> {
+			cards.Add("FP1_022", new List<Power> {
 				// TODO [FP1_022] Voidcaller && Test: Voidcaller_FP1_022
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
+		private static void Warrior(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- WEAPON - WARRIOR
 			// [FP1_021] Death's Bite - COST:4 [ATK:4/HP:0] 
@@ -255,23 +255,23 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 2
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_021", new List<Enchantment> {
+			cards.Add("FP1_021", new List<Power> {
 				// TODO [FP1_021] Death's Bite && Test: Death's Bite_FP1_021
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [FP1_001] Zombie Chow - COST:1 [ATK:2/HP:3] 
@@ -282,11 +282,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_001", new List<Enchantment> {
+			cards.Add("FP1_001", new List<Power> {
 				// TODO [FP1_001] Zombie Chow && Test: Zombie Chow_FP1_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -300,11 +300,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_002", new List<Enchantment> {
+			cards.Add("FP1_002", new List<Power> {
 				// TODO [FP1_002] Haunted Creeper && Test: Haunted Creeper_FP1_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -318,11 +318,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_003", new List<Enchantment> {
+			cards.Add("FP1_003", new List<Power> {
 				// TODO [FP1_003] Echoing Ooze && Test: Echoing Ooze_FP1_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -339,11 +339,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_004", new List<Enchantment> {
+			cards.Add("FP1_004", new List<Power> {
 				// TODO [FP1_004] Mad Scientist && Test: Mad Scientist_FP1_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -357,9 +357,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_005", new List<Enchantment> {
+			cards.Add("FP1_005", new List<Power> {
 				// TODO [FP1_005] Shade of Naxxramas && Test: Shade of Naxxramas_FP1_005
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -375,11 +375,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_007", new List<Enchantment> {
+			cards.Add("FP1_007", new List<Power> {
 
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new SummonTask("FP1_007t", SummonSide.DEATHRATTLE),
 				},
 			});
@@ -394,9 +394,9 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_ABILITIES = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_008", new List<Enchantment> {
+			cards.Add("FP1_008", new List<Power> {
 				// TODO [FP1_008] Spectral Knight && Test: Spectral Knight_FP1_008
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -413,11 +413,11 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_009", new List<Enchantment> {
+			cards.Add("FP1_009", new List<Power> {
 				// TODO [FP1_009] Deathlord && Test: Deathlord_FP1_009
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -432,9 +432,9 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_010", new List<Enchantment> {
+			cards.Add("FP1_010", new List<Power> {
 				// TODO [FP1_010] Maexxna && Test: Maexxna_FP1_010
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -452,11 +452,11 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_012", new List<Enchantment> {
+			cards.Add("FP1_012", new List<Power> {
 				// TODO [FP1_012] Sludge Belcher && Test: Sludge Belcher_FP1_012
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -470,9 +470,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_013", new List<Enchantment> {
+			cards.Add("FP1_013", new List<Power> {
 				// TODO [FP1_013] Kel'Thuzad && Test: Kel'Thuzad_FP1_013
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -489,11 +489,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_014", new List<Enchantment> {
+			cards.Add("FP1_014", new List<Power> {
 				// TODO [FP1_014] Stalagg && Test: Stalagg_FP1_014
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -508,11 +508,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_015", new List<Enchantment> {
+			cards.Add("FP1_015", new List<Power> {
 				// TODO [FP1_015] Feugen && Test: Feugen_FP1_015
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -529,11 +529,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_016", new List<Enchantment> {
+			cards.Add("FP1_016", new List<Power> {
 				// TODO [FP1_016] Wailing Soul && Test: Wailing Soul_FP1_016
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -550,9 +550,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_017", new List<Enchantment> {
+			cards.Add("FP1_017", new List<Power> {
 				// TODO [FP1_017] Nerub'ar Weblord && Test: Nerub'ar Weblord_FP1_017
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -569,11 +569,11 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_024", new List<Enchantment> {
+			cards.Add("FP1_024", new List<Power> {
 				// TODO [FP1_024] Unstable Ghoul && Test: Unstable Ghoul_FP1_024
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -584,9 +584,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, restore this minion to full Health.
 			// --------------------------------------------------------
-			cards.Add("FP1_027", new List<Enchantment> {
+			cards.Add("FP1_027", new List<Power> {
 				// TODO [FP1_027] Stoneskin Gargoyle && Test: Stoneskin Gargoyle_FP1_027
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -602,9 +602,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_028", new List<Enchantment> {
+			cards.Add("FP1_028", new List<Power> {
 				// TODO [FP1_028] Undertaker && Test: Undertaker_FP1_028
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -620,11 +620,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_029", new List<Enchantment> {
+			cards.Add("FP1_029", new List<Power> {
 				// TODO [FP1_029] Dancing Swords && Test: Dancing Swords_FP1_029
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -639,11 +639,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_030", new List<Enchantment> {
+			cards.Add("FP1_030", new List<Power> {
 				// TODO [FP1_030] Loatheb && Test: Loatheb_FP1_030
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -661,9 +661,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_031", new List<Enchantment> {
+			cards.Add("FP1_031", new List<Power> {
 				// TODO [FP1_031] Baron Rivendare && Test: Baron Rivendare_FP1_031
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -672,7 +672,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 
 
@@ -682,9 +682,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("FP1_005e", new List<Enchantment> {
+			cards.Add("FP1_005e", new List<Power> {
 				// TODO [FP1_005e] Consume && Test: Consume_FP1_005e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -697,9 +697,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("FP1_028e", new List<Enchantment> {
+			cards.Add("FP1_028e", new List<Power> {
 				// TODO [FP1_028e] Darkness Calls && Test: Darkness Calls_FP1_028e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -712,9 +712,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
-			cards.Add("FP1_030e", new List<Enchantment> {
+			cards.Add("FP1_030e", new List<Power> {
 				// TODO [FP1_030e] Necrotic Aura && Test: Necrotic Aura_FP1_030e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -725,9 +725,9 @@ namespace SabberStoneCore.CardSets
 			// [FP1_002t] Spectral Spider (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: naxx, 
 			// --------------------------------------------------------
-			cards.Add("FP1_002t", new List<Enchantment> {
+			cards.Add("FP1_002t", new List<Power> {
 				// TODO [FP1_002t] Spectral Spider && Test: Spectral Spider_FP1_002t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -744,11 +744,11 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_006", new List<Enchantment> {
+			cards.Add("FP1_006", new List<Power> {
 				// TODO [FP1_006] Deathcharger && Test: Deathcharger_FP1_006
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -757,9 +757,9 @@ namespace SabberStoneCore.CardSets
 			// [FP1_007t] Nerubian (*) - COST:4 [ATK:4/HP:4] 
 			// - Set: naxx, Rarity: rare
 			// --------------------------------------------------------
-			cards.Add("FP1_007t", new List<Enchantment> {
+			cards.Add("FP1_007t", new List<Power> {
 				// TODO [FP1_007t] Nerubian && Test: Nerubian_FP1_007t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -775,9 +775,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_012t", new List<Enchantment> {
+			cards.Add("FP1_012t", new List<Power> {
 				// TODO [FP1_012t] Slime && Test: Slime_FP1_012t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -791,9 +791,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_014t", new List<Enchantment> {
+			cards.Add("FP1_014t", new List<Power> {
 				// TODO [FP1_014t] Thaddius && Test: Thaddius_FP1_014t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -803,7 +803,7 @@ namespace SabberStoneCore.CardSets
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Druid(cards);

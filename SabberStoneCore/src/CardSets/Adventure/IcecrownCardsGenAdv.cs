@@ -12,7 +12,7 @@ namespace SabberStoneCore.CardSets.Adventure
 {
 	public class IcecrownCardsGenAdv
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
 			// [ICCA01_001] The Lich King (*) - COST:0 [ATK:0/HP:30] 
@@ -21,9 +21,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42457
 			// --------------------------------------------------------
-			cards.Add("ICCA01_001", new List<Enchantment> {
+			cards.Add("ICCA01_001", new List<Power> {
 				// TODO [ICCA01_001] The Lich King && Test: The Lich King_ICCA01_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -36,9 +36,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: ICC_314t2, ICC_314t3, ICC_314t4, ICC_314t1, ICC_314t6, ICC_314t5, ICC_314t7, ICC_314t8
 			// --------------------------------------------------------
-			cards.Add("ICCA01_013", new List<Enchantment> {
+			cards.Add("ICCA01_013", new List<Power> {
 				// TODO [ICCA01_013] Tirion Fordring && Test: Tirion Fordring_ICCA01_013
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -49,9 +49,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA03_001] Secrets of the Citadel (*) - COST:0 [ATK:0/HP:100] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA03_001", new List<Enchantment> {
+			cards.Add("ICCA03_001", new List<Power> {
 				// TODO [ICCA03_001] Secrets of the Citadel && Test: Secrets of the Citadel_ICCA03_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -65,9 +65,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 45627
 			// --------------------------------------------------------
-			cards.Add("ICCA04_001", new List<Enchantment> {
+			cards.Add("ICCA04_001", new List<Power> {
 				// TODO [ICCA04_001] Sindragosa && Test: Sindragosa_ICCA04_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -81,9 +81,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 43194
 			// --------------------------------------------------------
-			cards.Add("ICCA05_001", new List<Enchantment> {
+			cards.Add("ICCA05_001", new List<Power> {
 				// TODO [ICCA05_001] Blood-Queen Lana'thel && Test: Blood-Queen Lana'thel_ICCA05_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -97,9 +97,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42447
 			// --------------------------------------------------------
-			cards.Add("ICCA06_001", new List<Enchantment> {
+			cards.Add("ICCA06_001", new List<Power> {
 				// TODO [ICCA06_001] Lord Marrowgar && Test: Lord Marrowgar_ICCA06_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -113,9 +113,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42876
 			// --------------------------------------------------------
-			cards.Add("ICCA07_001", new List<Enchantment> {
+			cards.Add("ICCA07_001", new List<Power> {
 				// TODO [ICCA07_001] Professor Putricide && Test: Professor Putricide_ICCA07_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -129,9 +129,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42876
 			// --------------------------------------------------------
-			cards.Add("ICCA07_001h2", new List<Enchantment> {
+			cards.Add("ICCA07_001h2", new List<Power> {
 				// TODO [ICCA07_001h2] Professor Putricide && Test: Professor Putricide_ICCA07_001h2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -145,9 +145,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42876
 			// --------------------------------------------------------
-			cards.Add("ICCA07_001h3", new List<Enchantment> {
+			cards.Add("ICCA07_001h3", new List<Power> {
 				// TODO [ICCA07_001h3] Professor Putricide && Test: Professor Putricide_ICCA07_001h3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -161,9 +161,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 42457
 			// --------------------------------------------------------
-			cards.Add("ICCA08_001", new List<Enchantment> {
+			cards.Add("ICCA08_001", new List<Power> {
 				// TODO [ICCA08_001] The Lich King && Test: The Lich King_ICCA08_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -177,9 +177,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 43038
 			// --------------------------------------------------------
-			cards.Add("ICCA09_002", new List<Enchantment> {
+			cards.Add("ICCA09_002", new List<Power> {
 				// TODO [ICCA09_002] Deathbringer Saurfang && Test: Deathbringer Saurfang_ICCA09_002
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -193,9 +193,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 45605
 			// --------------------------------------------------------
-			cards.Add("ICCA10_009", new List<Enchantment> {
+			cards.Add("ICCA10_009", new List<Power> {
 				// TODO [ICCA10_009] Lady Deathwhisper && Test: Lady Deathwhisper_ICCA10_009
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -204,7 +204,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICCA04_008p] Frost Breath (*) - COST:0 
@@ -216,9 +216,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA04_008p", new List<Enchantment> {
+			cards.Add("ICCA04_008p", new List<Power> {
 				// TODO [ICCA04_008p] Frost Breath && Test: Frost Breath_ICCA04_008p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -232,9 +232,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Triggered Power</b>
 			//       At 20 Health, transforms all enemy minions into blocks of ice.
 			// --------------------------------------------------------
-			cards.Add("ICCA04_009p", new List<Enchantment> {
+			cards.Add("ICCA04_009p", new List<Power> {
 				// TODO [ICCA04_009p] Frost Breath && Test: Frost Breath_ICCA04_009p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -248,9 +248,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Triggered Power</b>
 			//       At 10 Health, transforms all enemy minions into blocks of ice.
 			// --------------------------------------------------------
-			cards.Add("ICCA04_010p", new List<Enchantment> {
+			cards.Add("ICCA04_010p", new List<Power> {
 				// TODO [ICCA04_010p] Frost Breath && Test: Frost Breath_ICCA04_010p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -267,9 +267,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA04_011p", new List<Enchantment> {
+			cards.Add("ICCA04_011p", new List<Power> {
 				// TODO [ICCA04_011p] Ice Claw && Test: Ice Claw_ICCA04_011p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -288,9 +288,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_NOT_VAMPIRE = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA05_002p", new List<Enchantment> {
+			cards.Add("ICCA05_002p", new List<Power> {
 				// TODO [ICCA05_002p] Vampiric Bite && Test: Vampiric Bite_ICCA05_002p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -311,9 +311,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA05_004p", new List<Enchantment> {
+			cards.Add("ICCA05_004p", new List<Power> {
 				// TODO [ICCA05_004p] Vampiric Leech && Test: Vampiric Leech_ICCA05_004p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -327,9 +327,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Restore your hero to full Health.
 			// --------------------------------------------------------
-			cards.Add("ICCA06_002p", new List<Enchantment> {
+			cards.Add("ICCA06_002p", new List<Power> {
 				// TODO [ICCA06_002p] Skeletal Reconstruction && Test: Skeletal Reconstruction_ICCA06_002p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -346,9 +346,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA07_002p", new List<Enchantment> {
+			cards.Add("ICCA07_002p", new List<Power> {
 				// TODO [ICCA07_002p] Mad Science && Test: Mad Science_ICCA07_002p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -365,9 +365,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA07_003p", new List<Enchantment> {
+			cards.Add("ICCA07_003p", new List<Power> {
 				// TODO [ICCA07_003p] Madder Science && Test: Madder Science_ICCA07_003p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -388,9 +388,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA07_005p", new List<Enchantment> {
+			cards.Add("ICCA07_005p", new List<Power> {
 				// TODO [ICCA07_005p] Maddest Science && Test: Maddest Science_ICCA07_005p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -407,9 +407,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_002p", new List<Enchantment> {
+			cards.Add("ICCA08_002p", new List<Power> {
 				// TODO [ICCA08_002p] The Scourge && Test: The Scourge_ICCA08_002p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -427,9 +427,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_030p", new List<Enchantment> {
+			cards.Add("ICCA08_030p", new List<Power> {
 				// TODO [ICCA08_030p] Remorseless Winter && Test: Remorseless Winter_ICCA08_030p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -446,9 +446,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_032p", new List<Enchantment> {
+			cards.Add("ICCA08_032p", new List<Power> {
 				// TODO [ICCA08_032p] Harvest of Souls && Test: Harvest of Souls_ICCA08_032p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -465,9 +465,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA09_001p", new List<Enchantment> {
+			cards.Add("ICCA09_001p", new List<Power> {
 				// TODO [ICCA09_001p] Blood Rune && Test: Blood Rune_ICCA09_001p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -486,9 +486,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA10_009p", new List<Enchantment> {
+			cards.Add("ICCA10_009p", new List<Power> {
 				// TODO [ICCA10_009p] Whisper of Death && Test: Whisper of Death_ICCA10_009p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -497,7 +497,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void DeathknightNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DeathknightNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------ ENCHANTMENT - DEATHKNIGHT
 			// [ICCA08_023e] Plagued (*) - COST:0 
@@ -505,9 +505,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
-			cards.Add("ICCA08_023e", new List<Enchantment> {
+			cards.Add("ICCA08_023e", new List<Power> {
 				// TODO [ICCA08_023e] Plagued && Test: Plagued_ICCA08_023e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -520,11 +520,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: The next spell you cast this turn costs (0).
 			// --------------------------------------------------------
-			cards.Add("ICCA01_003", new List<Enchantment> {
+			cards.Add("ICCA01_003", new List<Power> {
 				// TODO [ICCA01_003] Blood Tap && Test: Blood Tap_ICCA01_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -535,11 +535,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon seven 3/3 Ghouls with <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICCA01_004", new List<Enchantment> {
+			cards.Add("ICCA01_004", new List<Power> {
 				// TODO [ICCA01_004] Army of the Dead && Test: Army of the Dead_ICCA01_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -553,11 +553,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_021", new List<Enchantment> {
+			cards.Add("ICCA08_021", new List<Power> {
 				// TODO [ICCA08_021] The True Lich && Test: The True Lich_ICCA08_021
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -571,12 +571,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_022", new List<Enchantment> {
+			cards.Add("ICCA08_022", new List<Power> {
 				// TODO [ICCA08_022] Fallen Champions && Test: Fallen Champions_ICCA08_022
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICCA08_022e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -590,12 +590,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_023", new List<Enchantment> {
+			cards.Add("ICCA08_023", new List<Power> {
 				// TODO [ICCA08_023] Necrotic Plague && Test: Necrotic Plague_ICCA08_023
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICCA08_023e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -609,11 +609,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_024", new List<Enchantment> {
+			cards.Add("ICCA08_024", new List<Power> {
 				// TODO [ICCA08_024] The Hunted && Test: The Hunted_ICCA08_024
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -627,11 +627,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_025", new List<Enchantment> {
+			cards.Add("ICCA08_025", new List<Power> {
 				// TODO [ICCA08_025] Purge the Weak && Test: Purge the Weak_ICCA08_025
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -648,11 +648,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA08_026", new List<Enchantment> {
+			cards.Add("ICCA08_026", new List<Power> {
 				// TODO [ICCA08_026] Soul Reaper && Test: Soul Reaper_ICCA08_026
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -666,11 +666,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_027", new List<Enchantment> {
+			cards.Add("ICCA08_027", new List<Power> {
 				// TODO [ICCA08_027] The True King && Test: The True King_ICCA08_027
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -684,11 +684,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_028", new List<Enchantment> {
+			cards.Add("ICCA08_028", new List<Power> {
 				// TODO [ICCA08_028] The Price of Power && Test: The Price of Power_ICCA08_028
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -702,11 +702,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_029", new List<Enchantment> {
+			cards.Add("ICCA08_029", new List<Power> {
 				// TODO [ICCA08_029] Shut up, Priest && Test: Shut up, Priest_ICCA08_029
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -718,11 +718,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("ICCA01_005", new List<Enchantment> {
+			cards.Add("ICCA01_005", new List<Power> {
 				// TODO [ICCA01_005] Frostmourne && Test: Frostmourne_ICCA01_005
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -740,23 +740,23 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - CANT_BE_DESTROYED = 1
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_020", new List<Enchantment> {
+			cards.Add("ICCA08_020", new List<Power> {
 				// TODO [ICCA08_020] Frostmourne && Test: Frostmourne_ICCA08_020
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [ICCA04_002] Unchained Magic (*) - COST:1 
@@ -767,18 +767,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA04_002", new List<Enchantment> {
+			cards.Add("ICCA04_002", new List<Power> {
 				// TODO [ICCA04_002] Unchained Magic && Test: Unchained Magic_ICCA04_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
 			// [ICCA05_020] Bite of the Blood-Queen (*) - COST:1 
@@ -789,11 +789,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA05_020", new List<Enchantment> {
+			cards.Add("ICCA05_020", new List<Power> {
 				// TODO [ICCA05_020] Bite of the Blood-Queen && Test: Bite of the Blood-Queen_ICCA05_020
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -804,18 +804,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Transform 2 random minions in your opponent's hand into spells.
 			// --------------------------------------------------------
-			cards.Add("ICCA05_021", new List<Enchantment> {
+			cards.Add("ICCA05_021", new List<Power> {
 				// TODO [ICCA05_021] Blood Essence && Test: Blood Essence_ICCA05_021
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICCA05_002e] Bitten! (*) - COST:0 
@@ -823,9 +823,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: +2/+2. Can't be bitten again.
 			// --------------------------------------------------------
-			cards.Add("ICCA05_002e", new List<Enchantment> {
+			cards.Add("ICCA05_002e", new List<Power> {
 				// TODO [ICCA05_002e] Bitten! && Test: Bitten!_ICCA05_002e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -838,9 +838,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: The ooze is growing.
 			// --------------------------------------------------------
-			cards.Add("ICCA07_004e", new List<Enchantment> {
+			cards.Add("ICCA07_004e", new List<Power> {
 				// TODO [ICCA07_004e] Grow && Test: Grow_ICCA07_004e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -851,9 +851,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA08_022e] Join the Ranks Player Enchantment (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_022e", new List<Enchantment> {
+			cards.Add("ICCA08_022e", new List<Power> {
 				// TODO [ICCA08_022e] Join the Ranks Player Enchantment && Test: Join the Ranks Player Enchantment_ICCA08_022e
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICCA08_022e2",
 					//Activation = null,
@@ -867,9 +867,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: When this dies, resummon it for your oponent.
 			// --------------------------------------------------------
-			cards.Add("ICCA08_022e2", new List<Enchantment> {
+			cards.Add("ICCA08_022e2", new List<Power> {
 				// TODO [ICCA08_022e2] Join the Ranks && Test: Join the Ranks_ICCA08_022e2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -885,9 +885,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA01_004t", new List<Enchantment> {
+			cards.Add("ICCA01_004t", new List<Power> {
 				// TODO [ICCA01_004t] Ghoul && Test: Ghoul_ICCA01_004t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -900,9 +900,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deals no damage while attacking.
 			// --------------------------------------------------------
-			cards.Add("ICCA01_007", new List<Enchantment> {
+			cards.Add("ICCA01_007", new List<Power> {
 				// TODO [ICCA01_007] Eager Rogue && Test: Eager Rogue_ICCA01_007
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -913,9 +913,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA01_008] Terrible Tank (*) - COST:2 [ATK:2/HP:3] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA01_008", new List<Enchantment> {
+			cards.Add("ICCA01_008", new List<Power> {
 				// TODO [ICCA01_008] Terrible Tank && Test: Terrible Tank_ICCA01_008
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -928,9 +928,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, add a Coin to your hand.
 			// --------------------------------------------------------
-			cards.Add("ICCA01_009", new List<Enchantment> {
+			cards.Add("ICCA01_009", new List<Power> {
 				// TODO [ICCA01_009] Needy Hunter && Test: Needy Hunter_ICCA01_009
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -947,9 +947,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ELITE = 1
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA01_010", new List<Enchantment> {
+			cards.Add("ICCA01_010", new List<Power> {
 				// TODO [ICCA01_010] A. F. Kay && Test: A. F. Kay_ICCA01_010
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -962,9 +962,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 1 damage to this minion.
 			// --------------------------------------------------------
-			cards.Add("ICCA01_011", new List<Enchantment> {
+			cards.Add("ICCA01_011", new List<Power> {
 				// TODO [ICCA01_011] Warlock on Fire && Test: Warlock on Fire_ICCA01_011
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -979,9 +979,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA04_004", new List<Enchantment> {
+			cards.Add("ICCA04_004", new List<Power> {
 				// TODO [ICCA04_004] Block of Ice && Test: Block of Ice_ICCA04_004
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -992,9 +992,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA05_003] Sleeping Acolyte (*) - COST:1 [ATK:0/HP:10] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA05_003", new List<Enchantment> {
+			cards.Add("ICCA05_003", new List<Power> {
 				// TODO [ICCA05_003] Sleeping Acolyte && Test: Sleeping Acolyte_ICCA05_003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1007,9 +1007,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 15 damage to the enemy hero.
 			// --------------------------------------------------------
-			cards.Add("ICCA06_005", new List<Enchantment> {
+			cards.Add("ICCA06_005", new List<Power> {
 				// TODO [ICCA06_005] Bone Spike && Test: Bone Spike_ICCA06_005
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1022,9 +1022,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: At the start of your turn, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICCA07_004", new List<Enchantment> {
+			cards.Add("ICCA07_004", new List<Power> {
 				// TODO [ICCA07_004] Growing Ooze && Test: Growing Ooze_ICCA07_004
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICCA07_004e",
 					//Activation = null,
@@ -1041,9 +1041,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA07_008", new List<Enchantment> {
+			cards.Add("ICCA07_008", new List<Power> {
 				// TODO [ICCA07_008] Festergut && Test: Festergut_ICCA07_008
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1054,9 +1054,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA08_002t] Ghoul (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_002t", new List<Enchantment> {
+			cards.Add("ICCA08_002t", new List<Power> {
 				// TODO [ICCA08_002t] Ghoul && Test: Ghoul_ICCA08_002t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1069,9 +1069,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy a random enemy minion and this one.
 			// --------------------------------------------------------
-			cards.Add("ICCA08_017", new List<Enchantment> {
+			cards.Add("ICCA08_017", new List<Power> {
 				// TODO [ICCA08_017] Val'kyr Shadowguard && Test: Val'kyr Shadowguard_ICCA08_017
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1082,9 +1082,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [ICCA08_033] Trapped Soul (*) - COST:3 [ATK:2/HP:6] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICCA08_033", new List<Enchantment> {
+			cards.Add("ICCA08_033", new List<Power> {
 				// TODO [ICCA08_033] Trapped Soul && Test: Trapped Soul_ICCA08_033
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1097,9 +1097,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: At the start of your turn, restore 3 Health to your hero.
 			// --------------------------------------------------------
-			cards.Add("ICCA09_001t1", new List<Enchantment> {
+			cards.Add("ICCA09_001t1", new List<Power> {
 				// TODO [ICCA09_001t1] Blood Beast && Test: Blood Beast_ICCA09_001t1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1119,9 +1119,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA10_001", new List<Enchantment> {
+			cards.Add("ICCA10_001", new List<Power> {
 				// TODO [ICCA10_001] Valithria Dreamwalker && Test: Valithria Dreamwalker_ICCA10_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1138,11 +1138,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA11_001", new List<Enchantment> {
+			cards.Add("ICCA11_001", new List<Power> {
 				// TODO [ICCA11_001] Skeletal Knight && Test: Skeletal Knight_ICCA11_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -1157,11 +1157,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA06_004", new List<Enchantment> {
+			cards.Add("ICCA06_004", new List<Power> {
 				// TODO [ICCA06_004] Bone Storm && Test: Bone Storm_ICCA06_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1176,11 +1176,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DURABILITY = 6
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA06_003", new List<Enchantment> {
+			cards.Add("ICCA06_003", new List<Power> {
 				// TODO [ICCA06_003] Bryn'troll, the Bone Arbiter && Test: Bryn'troll, the Bone Arbiter_ICCA06_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -1192,18 +1192,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 6
 			// --------------------------------------------------------
-			cards.Add("ICCA07_020", new List<Enchantment> {
+			cards.Add("ICCA07_020", new List<Power> {
 				// TODO [ICCA07_020] Tentacles && Test: Tentacles_ICCA07_020
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

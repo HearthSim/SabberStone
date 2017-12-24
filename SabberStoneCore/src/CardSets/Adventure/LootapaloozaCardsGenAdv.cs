@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -13,7 +12,7 @@ namespace SabberStoneCore.CardSets.Adventure
 {
 	public class LootapaloozaCardsGenAdv
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ HERO - HUNTER
 			// [LOOTA_BOSS_04h] Waxmancer Sturmi (*) - COST:0 [ATK:0/HP:30] 
@@ -27,9 +26,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46149
 			// - 793 = 946
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_04h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_04h", new List<Power> {
 				// TODO [LOOTA_BOSS_04h] Waxmancer Sturmi && Test: Waxmancer Sturmi_LOOTA_BOSS_04h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -48,9 +47,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46151
 			// - 793 = 1465
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_05h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_05h", new List<Power> {
 				// TODO [LOOTA_BOSS_05h] Pathmaker Hamm && Test: Pathmaker Hamm_LOOTA_BOSS_05h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -67,9 +66,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46153
 			// - 793 = 1466
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_06h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_06h", new List<Power> {
 				// TODO [LOOTA_BOSS_06h] Blackseed && Test: Blackseed_LOOTA_BOSS_06h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -86,9 +85,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46159
 			// - 793 = 27
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_09h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_09h", new List<Power> {
 				// TODO [LOOTA_BOSS_09h] Frostfur && Test: Frostfur_LOOTA_BOSS_09h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -105,9 +104,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46161
 			// - 793 = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_10h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_10h", new List<Power> {
 				// TODO [LOOTA_BOSS_10h] Graves the Cleric && Test: Graves the Cleric_LOOTA_BOSS_10h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -124,9 +123,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46163
 			// - 793 = 1473
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_11h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_11h", new List<Power> {
 				// TODO [LOOTA_BOSS_11h] Overseer Mogark && Test: Overseer Mogark_LOOTA_BOSS_11h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -143,9 +142,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46165
 			// - 793 = 1467
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_12h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_12h", new List<Power> {
 				// TODO [LOOTA_BOSS_12h] Candlebeard && Test: Candlebeard_LOOTA_BOSS_12h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -162,9 +161,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46167
 			// - 793 = 1259
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_13h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_13h", new List<Power> {
 				// TODO [LOOTA_BOSS_13h] Thaddock the Thief && Test: Thaddock the Thief_LOOTA_BOSS_13h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -181,9 +180,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46170
 			// - 793 = 1475
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_15h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_15h", new List<Power> {
 				// TODO [LOOTA_BOSS_15h] George and Karl && Test: George and Karl_LOOTA_BOSS_15h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -200,9 +199,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46172
 			// - 793 = 1261
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_16h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_16h", new List<Power> {
 				// TODO [LOOTA_BOSS_16h] Spiritspeaker Azun && Test: Spiritspeaker Azun_LOOTA_BOSS_16h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -219,9 +218,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46174
 			// - 793 = 1567
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_17h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_17h", new List<Power> {
 				// TODO [LOOTA_BOSS_17h] Battlecrier Jin'zo && Test: Battlecrier Jin'zo_LOOTA_BOSS_17h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -238,9 +237,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 45894
 			// - 793 = 1557
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_18h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_18h", new List<Power> {
 				// TODO [LOOTA_BOSS_18h] Giant Rat && Test: Giant Rat_LOOTA_BOSS_18h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -257,9 +256,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46205
 			// - 793 = 1455
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_19h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_19h", new List<Power> {
 				// TODO [LOOTA_BOSS_19h] Gutmook && Test: Gutmook_LOOTA_BOSS_19h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -277,9 +276,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46208
 			// - 793 = 1456
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_20h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_20h", new List<Power> {
 				// TODO [LOOTA_BOSS_20h] Brimstone Warden && Test: Brimstone Warden_LOOTA_BOSS_20h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -296,9 +295,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46242
 			// - 793 = 1458
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_21h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_21h", new List<Power> {
 				// TODO [LOOTA_BOSS_21h] Gnosh the Greatworm && Test: Gnosh the Greatworm_LOOTA_BOSS_21h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -315,9 +314,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46250
 			// - 793 = 1462
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_22h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_22h", new List<Power> {
 				// TODO [LOOTA_BOSS_22h] Tad && Test: Tad_LOOTA_BOSS_22h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -334,9 +333,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46342
 			// - 793 = 1577
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_23h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_23h", new List<Power> {
 				// TODO [LOOTA_BOSS_23h] Bristlesnarl && Test: Bristlesnarl_LOOTA_BOSS_23h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -354,9 +353,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46346
 			// - 793 = 1468
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_24h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_24h", new List<Power> {
 				// TODO [LOOTA_BOSS_24h] The Mothergloop && Test: The Mothergloop_LOOTA_BOSS_24h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -373,9 +372,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46350
 			// - 793 = 1469
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_25h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_25h", new List<Power> {
 				// TODO [LOOTA_BOSS_25h] Vustrasz the Ancient && Test: Vustrasz the Ancient_LOOTA_BOSS_25h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -392,9 +391,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47428
 			// - 793 = 1568
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26h", new List<Power> {
 				// TODO [LOOTA_BOSS_26h] Xol the Unscathed && Test: Xol the Unscathed_LOOTA_BOSS_26h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -413,9 +412,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46267
 			// - 793 = 946
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_27h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_27h", new List<Power> {
 				// TODO [LOOTA_BOSS_27h] Waxmancer Sturmi && Test: Waxmancer Sturmi_LOOTA_BOSS_27h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -434,9 +433,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46271
 			// - 793 = 1465
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_28h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_28h", new List<Power> {
 				// TODO [LOOTA_BOSS_28h] Pathmaker Hamm && Test: Pathmaker Hamm_LOOTA_BOSS_28h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -453,9 +452,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46282
 			// - 793 = 1466
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_29h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_29h", new List<Power> {
 				// TODO [LOOTA_BOSS_29h] Blackseed && Test: Blackseed_LOOTA_BOSS_29h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -472,9 +471,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46314
 			// - 793 = 1473
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_30h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_30h", new List<Power> {
 				// TODO [LOOTA_BOSS_30h] Overseer Mogark && Test: Overseer Mogark_LOOTA_BOSS_30h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -491,9 +490,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46319
 			// - 793 = 1467
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_31h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_31h", new List<Power> {
 				// TODO [LOOTA_BOSS_31h] Candlebeard && Test: Candlebeard_LOOTA_BOSS_31h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -510,9 +509,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 2740
 			// - 793 = 1475
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_32h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_32h", new List<Power> {
 				// TODO [LOOTA_BOSS_32h] Karl and George && Test: Karl and George_LOOTA_BOSS_32h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -529,9 +528,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46331
 			// - 793 = 1455
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_33h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_33h", new List<Power> {
 				// TODO [LOOTA_BOSS_33h] Gutmook && Test: Gutmook_LOOTA_BOSS_33h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -549,9 +548,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46353
 			// - 793 = 1560
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_34h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_34h", new List<Power> {
 				// TODO [LOOTA_BOSS_34h] Azari, the Devourer && Test: Azari, the Devourer_LOOTA_BOSS_34h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -568,9 +567,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46358
 			// - 793 = 13
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_35h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_35h", new List<Power> {
 				// TODO [LOOTA_BOSS_35h] Elder Brandlemar && Test: Elder Brandlemar_LOOTA_BOSS_35h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -587,9 +586,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46363
 			// - 793 = 1471
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_36h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_36h", new List<Power> {
 				// TODO [LOOTA_BOSS_36h] Ixlid && Test: Ixlid_LOOTA_BOSS_36h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -606,9 +605,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46368
 			// - 793 = 1472
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_37h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_37h", new List<Power> {
 				// TODO [LOOTA_BOSS_37h] Lyris the Wild Mage && Test: Lyris the Wild Mage_LOOTA_BOSS_37h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -625,9 +624,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47000
 			// - 793 = 1531
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_38h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_38h", new List<Power> {
 				// TODO [LOOTA_BOSS_38h] Voodoomaster Vex && Test: Voodoomaster Vex_LOOTA_BOSS_38h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -644,9 +643,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47257
 			// - 793 = 1543
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_39h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_39h", new List<Power> {
 				// TODO [LOOTA_BOSS_39h] Kraxx && Test: Kraxx_LOOTA_BOSS_39h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -665,9 +664,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47260
 			// - 793 = 1544
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_40h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_40h", new List<Power> {
 				// TODO [LOOTA_BOSS_40h] Seriona && Test: Seriona_LOOTA_BOSS_40h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -684,9 +683,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47302
 			// - 793 = 1545
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_41h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_41h", new List<Power> {
 				// TODO [LOOTA_BOSS_41h] Whompwhisker && Test: Whompwhisker_LOOTA_BOSS_41h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -704,9 +703,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47304
 			// - 793 = 1546
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_42h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_42h", new List<Power> {
 				// TODO [LOOTA_BOSS_42h] Elder Jari && Test: Elder Jari_LOOTA_BOSS_42h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -723,9 +722,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47306
 			// - 793 = 1547
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_43h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_43h", new List<Power> {
 				// TODO [LOOTA_BOSS_43h] Jeeru && Test: Jeeru_LOOTA_BOSS_43h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -742,9 +741,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47308
 			// - 793 = 1548
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_44h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_44h", new List<Power> {
 				// TODO [LOOTA_BOSS_44h] Wee Whelp && Test: Wee Whelp_LOOTA_BOSS_44h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -761,9 +760,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47315
 			// - 793 = 1549
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_45h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_45h", new List<Power> {
 				// TODO [LOOTA_BOSS_45h] Bink the Burglar && Test: Bink the Burglar_LOOTA_BOSS_45h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -780,9 +779,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47319
 			// - 793 = 1550
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_46h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_46h", new List<Power> {
 				// TODO [LOOTA_BOSS_46h] Fungalmancer Flurgl && Test: Fungalmancer Flurgl_LOOTA_BOSS_46h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -799,9 +798,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47321
 			// - 793 = 1551
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_47h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_47h", new List<Power> {
 				// TODO [LOOTA_BOSS_47h] Lava-Filled Chamber && Test: Lava-Filled Chamber_LOOTA_BOSS_47h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -818,9 +817,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47327
 			// - 793 = 1553
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_48h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_48h", new List<Power> {
 				// TODO [LOOTA_BOSS_48h] Trapped Room && Test: Trapped Room_LOOTA_BOSS_48h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -837,9 +836,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47332
 			// - 793 = 1552
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_49h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_49h", new List<Power> {
 				// TODO [LOOTA_BOSS_49h] The Darkness && Test: The Darkness_LOOTA_BOSS_49h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -857,9 +856,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47360
 			// - 793 = 1555
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_50h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_50h", new List<Power> {
 				// TODO [LOOTA_BOSS_50h] Mushhuckster Max && Test: Mushhuckster Max_LOOTA_BOSS_50h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -876,9 +875,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47363
 			// - 793 = 1556
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_51h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_51h", new List<Power> {
 				// TODO [LOOTA_BOSS_51h] Russell the Bard && Test: Russell the Bard_LOOTA_BOSS_51h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -897,9 +896,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - APPEAR_FUNCTIONALLY_DEAD = 1
 			// - 793 = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_52h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_52h", new List<Power> {
 				// TODO [LOOTA_BOSS_52h] Treasure Vault && Test: Treasure Vault_LOOTA_BOSS_52h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -918,9 +917,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47474
 			// - 793 = 1470
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_53h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_53h", new List<Power> {
 				// TODO [LOOTA_BOSS_53h] Chronomancer Inara && Test: Chronomancer Inara_LOOTA_BOSS_53h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -935,9 +934,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47474
 			// - 793 = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_53h2", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_53h2", new List<Power> {
 				// TODO [LOOTA_BOSS_53h2] Inara the Mage && Test: Inara the Mage_LOOTA_BOSS_53h2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -955,9 +954,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47494
 			// - 793 = 1572
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_54h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_54h", new List<Power> {
 				// TODO [LOOTA_BOSS_54h] A. F. Kay && Test: A. F. Kay_LOOTA_BOSS_54h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -974,9 +973,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 47209
 			// - 793 = 1569
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_99h", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_99h", new List<Power> {
 				// TODO [LOOTA_BOSS_99h] King Togwaggle && Test: King Togwaggle_LOOTA_BOSS_99h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -985,7 +984,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [LOOTA_BOSS_04p] Sculpt Wax (*) - COST:1 
@@ -999,23 +998,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_04p", new List<Enchantment> {
-				// TODO Test: Sculpt Wax_LOOTA_BOSS_04p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_04p", new List<Power> {
+				// TODO [LOOTA_BOSS_04p] Sculpt Wax && Test: Sculpt Wax_LOOTA_BOSS_04p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-							new FuncPlayablesTask(list =>
-							{
-								var target = list[0] as ICharacter;
-								if (target == null)
-									return list;
-								target.Health = 1;
-								target.AttackDamage = 1;
-								return list;
-							}),
-							new SummonTask())
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1029,12 +1017,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_05p", new List<Enchantment> {
-				// TODO Test: Unstable Explosion_LOOTA_BOSS_05p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_05p", new List<Power> {
+				// TODO [LOOTA_BOSS_05p] Unstable Explosion && Test: Unstable Explosion_LOOTA_BOSS_05p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1, false),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1050,12 +1038,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_06p", new List<Enchantment> {
-				// TODO Test: Evolvomancy_LOOTA_BOSS_06p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_06p", new List<Power> {
+				// TODO [LOOTA_BOSS_06p] Evolvomancy && Test: Evolvomancy_LOOTA_BOSS_06p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new TransformMinionTask(EntityType.TARGET, 1),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1071,12 +1059,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_09p", new List<Enchantment> {
-				// TODO Test: Freeze_LOOTA_BOSS_09p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_09p", new List<Power> {
+				// TODO [LOOTA_BOSS_09p] Freeze && Test: Freeze_LOOTA_BOSS_09p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Freeze(EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1087,12 +1075,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Restore 2 Health to all minions.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_10p", new List<Enchantment> {
-				// TODO Test: Light's Will_LOOTA_BOSS_10p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_10p", new List<Power> {
+				// TODO [LOOTA_BOSS_10p] Light's Will && Test: Light's Will_LOOTA_BOSS_10p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new HealTask(2, EntityType.ALLMINIONS),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1108,14 +1096,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_11p", new List<Enchantment> {
-				// TODO Test: Cruel Words_LOOTA_BOSS_11p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_11p", new List<Power> {
+				// TODO [LOOTA_BOSS_11p] Cruel Words && Test: Cruel Words_LOOTA_BOSS_11p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DamageTask(1, 0, EntityType.TARGET),
-						new BuffTask(Buffs.Attack(2), EntityType.TARGET))
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1131,12 +1117,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_12p", new List<Enchantment> {
-				// TODO Test: Charge!_LOOTA_BOSS_12p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_12p", new List<Power> {
+				// TODO [LOOTA_BOSS_12p] Charge! && Test: Charge!_LOOTA_BOSS_12p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Charge(EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1152,12 +1138,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_13p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_13p", new List<Power> {
 				// TODO [LOOTA_BOSS_13p] Tactical Retreat && Test: Tactical Retreat_LOOTA_BOSS_13p
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ReturnHandTask(EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1172,12 +1158,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_15p", new List<Enchantment> {
-				// TODO Test: Divinity_LOOTA_BOSS_15p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_15p", new List<Power> {
+				// TODO [LOOTA_BOSS_15p] Divinity && Test: Divinity_LOOTA_BOSS_15p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.DivineShield(EntityType.MINIONS),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1191,9 +1177,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_16p", new List<Enchantment> {
-				// TODO Test: Totem of the Dead_LOOTA_BOSS_16p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_16p", new List<Power> {
+				// TODO [LOOTA_BOSS_16p] Totem of the Dead && Test: Totem of the Dead_LOOTA_BOSS_16p
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1210,9 +1196,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_17p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_17p", new List<Power> {
 				// TODO [LOOTA_BOSS_17p] Battle Totem && Test: Battle Totem_LOOTA_BOSS_17p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1231,12 +1217,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_18p", new List<Enchantment> {
-				// TODO Test: Rat Race_LOOTA_BOSS_18p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_18p", new List<Power> {
+				// TODO [LOOTA_BOSS_18p] Rat Race && Test: Rat Race_LOOTA_BOSS_18p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("CFM_316t", SummonSide.SPELL))
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1249,9 +1235,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			//        opponent casts a spell,
 			//       summon a Tunnel Trogg.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_19p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_19p", new List<Power> {
 				// TODO [LOOTA_BOSS_19p] Digest Magic && Test: Digest Magic_LOOTA_BOSS_19p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1265,12 +1251,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       <b>Silence</b> your minions.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_20p", new List<Enchantment> {
-				// TODO Test: Dispel Ward_LOOTA_BOSS_20p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_20p", new List<Power> {
+				// TODO [LOOTA_BOSS_20p] Dispel Ward && Test: Dispel Ward_LOOTA_BOSS_20p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SilenceTask(EntityType.MINIONS),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1284,23 +1270,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_21p", new List<Enchantment> {
-				// TODO Test: Swallow Whole_LOOTA_BOSS_21p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_21p", new List<Power> {
+				// TODO [LOOTA_BOSS_21p] Swallow Whole && Test: Swallow Whole_LOOTA_BOSS_21p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.OP_MINIONS),
-						new FuncPlayablesTask(p =>
-						{
-							if (!p.Any())
-								return new List<IPlayable>();
-							IPlayable max = p.OrderByDescending(x => ((Minion) x).AttackDamage)
-								.FirstOrDefault();
-							p.RemoveRange(1, p.Count - 1);
-							return p;
-						}),
-						new DestroyTask(EntityType.STACK))
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1318,19 +1293,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_22p", new List<Enchantment> {
-				// TODO Test: Catch and Release_LOOTA_BOSS_22p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_22p", new List<Power> {
+				// TODO [LOOTA_BOSS_22p] Catch and Release && Test: Catch and Release_LOOTA_BOSS_22p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-							new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
-							new FlagTask(true, ComplexTask.Create(
-								new IncludeTask(EntityType.DECK),
-								new FilterStackTask(SelfCondition.IsMinion),
-								new RandomTask(1, EntityType.STACK),
-								new RemoveFromDeck(EntityType.STACK),
-								new SummonTask()))),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1344,12 +1312,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_23p", new List<Enchantment> {
-				// TODO Test: Hunter's Call_LOOTA_BOSS_23p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_23p", new List<Power> {
+				// TODO [LOOTA_BOSS_23p] Hunter's Call && Test: Hunter's Call_LOOTA_BOSS_23p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.Cost(-1), EntityType.HAND),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1363,12 +1331,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_24p", new List<Enchantment> {
-				// TODO Test: Gloop_LOOTA_BOSS_24p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_24p", new List<Power> {
+				// TODO [LOOTA_BOSS_24p] Gloop && Test: Gloop_LOOTA_BOSS_24p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1386,9 +1354,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_25p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_25p", new List<Power> {
 				// TODO [LOOTA_BOSS_25p] Vindictive Breath && Test: Vindictive Breath_LOOTA_BOSS_25p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1404,9 +1372,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOOTA_BOSS_26p2, LOOTA_BOSS_26p3, LOOTA_BOSS_26p4, LOOTA_BOSS_26p5, LOOTA_BOSS_26p6, LOOTA_BOSS_26p7
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p8", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p8", new List<Power> {
 				// TODO [LOOTA_BOSS_26p8] Beam Me Up! && Test: Beam Me Up!_LOOTA_BOSS_26p8
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1424,12 +1392,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_27p", new List<Enchantment> {
-				// TODO Test: Harden Sculpture_LOOTA_BOSS_27p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_27p", new List<Power> {
+				// TODO [LOOTA_BOSS_27p] Harden Sculpture && Test: Harden Sculpture_LOOTA_BOSS_27p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new CopyTask(EntityType.TARGET, 1),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1443,12 +1411,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_28p", new List<Enchantment> {
-				// TODO Test: Unstable Demolition_LOOTA_BOSS_28p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_28p", new List<Power> {
+				// TODO [LOOTA_BOSS_28p] Unstable Demolition && Test: Unstable Demolition_LOOTA_BOSS_28p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.DamageRandomTargets(3, EntityType.ENEMIES, 2),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1464,12 +1432,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_29p", new List<Enchantment> {
-				// TODO Greater Evolution_LOOTA_BOSS_29p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_29p", new List<Power> {
+				// TODO [LOOTA_BOSS_29p] Greater Evolution && Test: Greater Evolution_LOOTA_BOSS_29p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new TransformMinionTask(EntityType.TARGET, 3),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1485,14 +1453,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_30p", new List<Enchantment> {
-				// Test: Searing Lash_LOOTA_BOSS_30p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_30p", new List<Power> {
+				// TODO [LOOTA_BOSS_30p] Searing Lash && Test: Searing Lash_LOOTA_BOSS_30p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DamageTask(1, 0, EntityType.TARGET),
-						new BuffTask(Buffs.Attack(5), EntityType.TARGET)),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1503,9 +1469,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Passive Hero Power</b>
 			//       After you play a minion, give it <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_31p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_31p", new List<Power> {
 				// TODO [LOOTA_BOSS_31p] Charrrrrge! && Test: Charrrrrge!_LOOTA_BOSS_31p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1519,9 +1485,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever your opponent casts a spell, draw a card. It costs (1).
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_33p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_33p", new List<Power> {
 				// TODO [LOOTA_BOSS_33p] Metabolized Magic && Test: Metabolized Magic_LOOTA_BOSS_33p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1539,12 +1505,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_34p", new List<Enchantment> {
-				// TODO Test: Devour_LOOTA_BOSS_34p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_34p", new List<Power> {
+				// TODO [LOOTA_BOSS_34p] Devour && Test: Devour_LOOTA_BOSS_34p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new DestroyTask(EntityType.TOPCARDFROMDECK)),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1555,14 +1521,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Put a 'Counterspell' <b>Secret</b> into the battlefield.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_35p", new List<Enchantment> {
-				// TODO Test: Dampen Magic_LOOTA_BOSS_35p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_35p", new List<Power> {
+				// TODO [LOOTA_BOSS_35p] Dampen Magic && Test: Dampen Magic_LOOTA_BOSS_35p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new AddCardTo("EX1_287", EntityType.STACK),
-						new SummonTask()),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1581,12 +1545,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_36p", new List<Enchantment> {
-				// TODO Test: Sprouting Spore_LOOTA_BOSS_36p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_36p", new List<Power> {
+				// TODO [LOOTA_BOSS_36p] Sprouting Spore && Test: Sprouting Spore_LOOTA_BOSS_36p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("LOOTA_105", SummonSide.DEFAULT),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1597,12 +1561,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Add 'Arcane Missiles' to your hand.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_37p", new List<Enchantment> {
-				// TODO Test: Arcane Infusion_LOOTA_BOSS_37p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_37p", new List<Power> {
+				// TODO [LOOTA_BOSS_37p] Arcane Infusion && Test: Arcane Infusion_LOOTA_BOSS_37p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new AddCardTo("EX1_277", EntityType.HAND),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1616,9 +1580,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_38p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_38p", new List<Power> {
 				// TODO [LOOTA_BOSS_38p] Totem of Chaos && Test: Totem of Chaos_LOOTA_BOSS_38p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1632,12 +1596,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Deal 1 damage to all enemy minions.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_39p", new List<Enchantment> {
-				// TODO Test: Giant Stomp_LOOTA_BOSS_39p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_39p", new List<Power> {
+				// TODO [LOOTA_BOSS_39p] Giant Stomp && Test: Giant Stomp_LOOTA_BOSS_39p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(1, EntityType.OP_MINIONS),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1654,13 +1618,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_TARGET_MIN_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_40p", new List<Enchantment> {
-				// TODO Test: Fading Light_LOOTA_BOSS_40p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_40p", new List<Power> {
+				// TODO [LOOTA_BOSS_40p] Fading Light && Test: Fading Light_LOOTA_BOSS_40p
+				new Power
 				{
 					InfoCardId = "LOOTA_BOSS_40pe",
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.Attack(-1), EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1680,9 +1644,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - RECRUIT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_41p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_41p", new List<Power> {
 				// TODO [LOOTA_BOSS_41p] Join the Fray && Test: Join the Fray_LOOTA_BOSS_41p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1696,12 +1660,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Gain 3 Armor.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_42p", new List<Enchantment> {
-				// TODO Test: Mystic Barrier_LOOTA_BOSS_42p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_42p", new List<Power> {
+				// TODO [LOOTA_BOSS_42p] Mystic Barrier && Test: Mystic Barrier_LOOTA_BOSS_42p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ArmorTask(3),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1715,14 +1679,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_43p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_43p", new List<Power> {
 				// TODO [LOOTA_BOSS_43p] Three Wee Wishes && Test: Three Wee Wishes_LOOTA_BOSS_43p
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new EnqueueTask(3, new DrawCardTask()),
-						new EnqueueTask(3, new DrawOpTask()))
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1736,12 +1698,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_44p", new List<Enchantment> {
-				// Test: Baby Breath_LOOTA_BOSS_44p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_44p", new List<Power> {
+				// TODO [LOOTA_BOSS_44p] Baby Breath && Test: Baby Breath_LOOTA_BOSS_44p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(2, EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1755,12 +1717,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_45p", new List<Enchantment> {
-				// TODO Test: Coin_LOOTA_BOSS_45p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_45p", new List<Power> {
+				// TODO [LOOTA_BOSS_45p] Coin && Test: Coin_LOOTA_BOSS_45p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new TempManaTask(1),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1771,13 +1733,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Give your minions +1/+1.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_46p", new List<Enchantment> {
-				// TODO Test: Fungal Infection_LOOTA_BOSS_46p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_46p", new List<Power> {
+				// TODO [LOOTA_BOSS_46p] Fungal Infection && Test: Fungal Infection_LOOTA_BOSS_46p
+				new Power
 				{
 					InfoCardId = "LOOTA_BOSS_46pe",
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1788,9 +1750,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Passive Hero Power</b>
 			//       After a minion is played, deal 2 damage to_it.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_47p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_47p", new List<Power> {
 				// TODO [LOOTA_BOSS_47p] The Floor is Lava && Test: The Floor is Lava_LOOTA_BOSS_47p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1804,9 +1766,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever you reveal a <b>Secret</b>, summon a 3/3 Sawblade.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_48p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_48p", new List<Power> {
 				// TODO [LOOTA_BOSS_48p] Alarm && Test: Alarm_LOOTA_BOSS_48p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1826,12 +1788,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_49p", new List<Enchantment> {
-				// TODO Test: Encroaching Darkness_LOOTA_BOSS_49p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_49p", new List<Power> {
+				// TODO [LOOTA_BOSS_49p] Encroaching Darkness && Test: Encroaching Darkness_LOOTA_BOSS_49p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SummonTask("LOOTA_BOSS_49t", SummonSide.DEFAULT),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1850,9 +1812,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_50p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_50p", new List<Power> {
 				// TODO [LOOTA_BOSS_50p] Mushroom, Mushroom && Test: Mushroom, Mushroom_LOOTA_BOSS_50p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1873,12 +1835,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_TARGET_MAX_ATTACK = 2
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_51p", new List<Enchantment> {
-				// TODO Test: Alluring Tune_LOOTA_BOSS_51p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_51p", new List<Power> {
+				// TODO [LOOTA_BOSS_51p] Alluring Tune && Test: Alluring Tune_LOOTA_BOSS_51p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ControlTask(EntityType.TARGET),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1892,12 +1854,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_52p", new List<Enchantment> {
-				// TODO Test: Doors Are Closing_LOOTA_BOSS_52p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_52p", new List<Power> {
+				// TODO [LOOTA_BOSS_52p] Doors Are Closing && Test: Doors Are Closing_LOOTA_BOSS_52p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DestroyTask(EntityType.HERO),
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
@@ -1912,9 +1874,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_53p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_53p", new List<Power> {
 				// TODO [LOOTA_BOSS_53p] Stolen Time && Test: Stolen Time_LOOTA_BOSS_53p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1928,9 +1890,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Do nothing.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_54p", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_54p", new List<Power> {
 				// TODO [LOOTA_BOSS_54p] Idle && Test: Idle_LOOTA_BOSS_54p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1946,20 +1908,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOOTA_819, LOOTA_821, LOOTA_835, LOOTA_842b, LOOTA_806, LOOTA_812, LOOTA_823, LOOTA_847, LOOTA_836, LOOTA_839, LOOTA_816, LOOTA_827, LOOTA_843, LOOTA_826, LOOT_998k, LOOTA_838
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_99p", new List<Enchantment> {
-				// TODO Test: Magic Candle_LOOTA_BOSS_99p
-				new Enchantment
+			cards.Add("LOOTA_BOSS_99p", new List<Power> {
+				// TODO [LOOTA_BOSS_99p] Magic Candle && Test: Magic Candle_LOOTA_BOSS_99p
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new RandomEntourageTask(),
-						new AddStackTo(EntityType.HAND))
+					//Activation = null,
+					//SingleTask = null,
 				}
 			});
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [LOOTA_820e] Mysterious Power (*) - COST:0 
@@ -1967,9 +1927,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_820e", new List<Enchantment> {
+			cards.Add("LOOTA_820e", new List<Power> {
 				// TODO [LOOTA_820e] Mysterious Power && Test: Mysterious Power_LOOTA_820e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1982,11 +1942,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_169, CS2_013, AT_038, LOOT_351, GVG_032, CFM_616, OG_202, LOOT_392, EX1_164, AT_043
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_01", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_01", new List<Power> {
 				// TODO [LOOTA_Druid_01] Mana Growth && Test: Mana Growth_LOOTA_Druid_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1997,11 +1957,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: KAR_300, OG_048, AT_042, AT_039, GVG_080, UNG_100, CFM_816, KAR_065, AT_041, ICC_854, EX1_028, UNG_075, UNG_086, LOE_050
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_02", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_02", new List<Power> {
 				// TODO [LOOTA_Druid_02] Jungle King && Test: Jungle King_LOOTA_Druid_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2012,11 +1972,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS2_005, UNG_108, LOOT_051, LOOT_047, OG_047, ICC_079, LOOT_054, LOOT_048, LOOT_309, ICC_085, LOOT_413
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_03", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_03", new List<Power> {
 				// TODO [LOOTA_Druid_03] Natural Defense && Test: Natural Defense_LOOTA_Druid_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2027,11 +1987,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_902, CFM_343, CFM_715, CFM_602, CFM_713
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_04", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_04", new List<Power> {
 				// TODO [LOOTA_Druid_04] Jade Fangs && Test: Jade Fangs_LOOTA_Druid_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2042,11 +2002,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_037, CFM_614, EX1_160, CS2_011, ICC_808, EX1_571, UNG_111, ICC_047, LOOT_329, FP1_002, EX1_158, UNG_075, ICC_051, UNG_809
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_05", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_05", new List<Power> {
 				// TODO [LOOTA_Druid_05] Stampede && Test: Stampede_LOOTA_Druid_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2057,11 +2017,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_116, UNG_078, CFM_617, UNG_109, EX1_014, LOOT_233, UNG_101, KAR_065, EX1_028, BRM_010, CFM_308, UNG_852
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_06", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_06", new List<Power> {
 				// TODO [LOOTA_Druid_06] Jungle Quest && Test: Jungle Quest_LOOTA_Druid_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2072,11 +2032,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_293, OG_281, OG_162, OG_286, OG_283, OG_321, OG_131, OG_280, OG_255, OG_188
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_07", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_07", new List<Power> {
 				// TODO [LOOTA_Druid_07] Cult of C'thun && Test: Cult of C'thun_LOOTA_Druid_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2087,11 +2047,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_037, LOE_115, GVG_030, EX1_154, LOOT_054, EX1_166, ICC_047, EX1_164, GVG_041, EX1_178, OG_195, EX1_573, OG_044
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_08", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_08", new List<Power> {
 				// TODO [LOOTA_Druid_08] Wise Decisions && Test: Wise Decisions_LOOTA_Druid_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2102,11 +2062,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS2_008, EX1_154, NEW1_007, EX1_173, EX1_012, EX1_284, FP1_019, EX1_563, CS2_012
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_09", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_09", new List<Power> {
 				// TODO [LOOTA_Druid_09] Balance && Test: Balance_LOOTA_Druid_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2117,11 +2077,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_161, AT_044, CS2_007, KAR_075, GVG_031, GVG_033, CFM_120, CS2_117, AT_111, GVG_069
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_10", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_10", new List<Power> {
 				// TODO [LOOTA_Druid_10] Restoration && Test: Restoration_LOOTA_Druid_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2132,11 +2092,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: ICC_051, ICC_808, ICC_807, EX1_165, ICC_054, ICC_832, LOOT_314, CS2_232, ICC_835, UNG_072, LOOT_383, KAR_061, UNG_848
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_11", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_11", new List<Power> {
 				// TODO [LOOTA_Druid_11] Taunt && Test: Taunt_LOOTA_Druid_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2147,18 +2107,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_086, AT_045, CFM_308, UNG_852, EX1_298, ICC_314, UNG_848, OG_340, EX1_572, NEW1_030, OG_042, GVG_114, CFM_811
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Druid_12", new List<Enchantment> {
+			cards.Add("LOOTA_Druid_12", new List<Power> {
 				// TODO [LOOTA_Druid_12] Stomp && Test: Stomp_LOOTA_Druid_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - HUNTER
 			// [LOOTA_Hunter_01] Wee Beasts (*) - COST:0 
@@ -2169,11 +2129,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_01", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_01", new List<Power> {
 				// TODO [LOOTA_Hunter_01] Wee Beasts && Test: Wee Beasts_LOOTA_Hunter_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2187,11 +2147,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_02", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_02", new List<Power> {
 				// TODO [LOOTA_Hunter_02] Big Beasts && Test: Big Beasts_LOOTA_Hunter_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2205,11 +2165,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_03", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_03", new List<Power> {
 				// TODO [LOOTA_Hunter_03] Shots && Test: Shots_LOOTA_Hunter_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2223,11 +2183,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_04", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_04", new List<Power> {
 				// TODO [LOOTA_Hunter_04] Summoner && Test: Summoner_LOOTA_Hunter_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2241,11 +2201,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_05", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_05", new List<Power> {
 				// TODO [LOOTA_Hunter_05] Secrets && Test: Secrets_LOOTA_Hunter_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2259,11 +2219,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_06", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_06", new List<Power> {
 				// TODO [LOOTA_Hunter_06] Beast Training && Test: Beast Training_LOOTA_Hunter_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2277,11 +2237,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_07", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_07", new List<Power> {
 				// TODO [LOOTA_Hunter_07] Weapons && Test: Weapons_LOOTA_Hunter_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2295,11 +2255,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_08", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_08", new List<Power> {
 				// TODO [LOOTA_Hunter_08] Tracker && Test: Tracker_LOOTA_Hunter_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2313,11 +2273,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_09", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_09", new List<Power> {
 				// TODO [LOOTA_Hunter_09] Deathrattle && Test: Deathrattle_LOOTA_Hunter_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2331,11 +2291,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_10", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_10", new List<Power> {
 				// TODO [LOOTA_Hunter_10] Legendary && Test: Legendary_LOOTA_Hunter_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2349,11 +2309,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_11", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_11", new List<Power> {
 				// TODO [LOOTA_Hunter_11] Defense && Test: Defense_LOOTA_Hunter_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2367,18 +2327,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Hunter_12", new List<Enchantment> {
+			cards.Add("LOOTA_Hunter_12", new List<Power> {
 				// TODO [LOOTA_Hunter_12] Smugglers && Test: Smugglers_LOOTA_Hunter_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [LOOTA_Mage_20] Chaos (*) - COST:0 
@@ -2386,11 +2346,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOOT_104, KAR_009, UNG_028, UNG_941, GVG_003, AT_007, OG_090, LOE_003, OG_090, UNG_024, CFM_649, LOOT_537
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_20", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_20", new List<Power> {
 				// TODO [LOOTA_Mage_20] Chaos && Test: Chaos_LOOTA_Mage_20
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2404,11 +2364,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_21", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_21", new List<Power> {
 				// TODO [LOOTA_Mage_21] Elementals && Test: Elementals_LOOTA_Mage_21
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2422,11 +2382,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_22", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_22", new List<Power> {
 				// TODO [LOOTA_Mage_22] Magical Friends && Test: Magical Friends_LOOTA_Mage_22
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2440,11 +2400,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_23", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_23", new List<Power> {
 				// TODO [LOOTA_Mage_23] Frost && Test: Frost_LOOTA_Mage_23
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2458,11 +2418,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_24", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_24", new List<Power> {
 				// TODO [LOOTA_Mage_24] Fire && Test: Fire_LOOTA_Mage_24
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2476,11 +2436,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_25", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_25", new List<Power> {
 				// TODO [LOOTA_Mage_25] Heroic Power && Test: Heroic Power_LOOTA_Mage_25
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2494,11 +2454,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_27", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_27", new List<Power> {
 				// TODO [LOOTA_Mage_27] Big Spells && Test: Big Spells_LOOTA_Mage_27
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2512,11 +2472,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_28", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_28", new List<Power> {
 				// TODO [LOOTA_Mage_28] Arcane && Test: Arcane_LOOTA_Mage_28
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2530,11 +2490,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_29", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_29", new List<Power> {
 				// TODO [LOOTA_Mage_29] Lost Secrets && Test: Lost Secrets_LOOTA_Mage_29
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2548,11 +2508,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_30", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_30", new List<Power> {
 				// TODO [LOOTA_Mage_30] Giant Army && Test: Giant Army_LOOTA_Mage_30
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2566,11 +2526,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_31", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_31", new List<Power> {
 				// TODO [LOOTA_Mage_31] Defense && Test: Defense_LOOTA_Mage_31
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2584,18 +2544,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Mage_32", new List<Enchantment> {
+			cards.Add("LOOTA_Mage_32", new List<Power> {
 				// TODO [LOOTA_Mage_32] Unique && Test: Unique_LOOTA_Mage_32
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [LOOTA_BOSS_15e] George and Karl Enchantment (*) - COST:0 
@@ -2605,9 +2565,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 46170
 			// - 793 = 1475
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_15e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_15e", new List<Power> {
 				// TODO [LOOTA_BOSS_15e] George and Karl Enchantment && Test: George and Karl Enchantment_LOOTA_BOSS_15e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2623,11 +2583,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 46170
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_110", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_110", new List<Power> {
 				// TODO [LOOTA_BOSS_110] Tag Team && Test: Tag Team_LOOTA_BOSS_110
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2641,11 +2601,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_01", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_01", new List<Power> {
 				// TODO [LOOTA_Paladin_01] Secrets && Test: Secrets_LOOTA_Paladin_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2659,11 +2619,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_04", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_04", new List<Power> {
 				// TODO [LOOTA_Paladin_04] Healing && Test: Healing_LOOTA_Paladin_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2677,11 +2637,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_05", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_05", new List<Power> {
 				// TODO [LOOTA_Paladin_05] Divine Shield && Test: Divine Shield_LOOTA_Paladin_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2695,11 +2655,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_09", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_09", new List<Power> {
 				// TODO [LOOTA_Paladin_09] Justice && Test: Justice_LOOTA_Paladin_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2713,11 +2673,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_11", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_11", new List<Power> {
 				// TODO [LOOTA_Paladin_11] Helping Hand && Test: Helping Hand_LOOTA_Paladin_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2731,11 +2691,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_12", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_12", new List<Power> {
 				// TODO [LOOTA_Paladin_12] Dragonmaster && Test: Dragonmaster_LOOTA_Paladin_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2749,11 +2709,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_14", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_14", new List<Power> {
 				// TODO [LOOTA_Paladin_14] Silver Hand && Test: Silver Hand_LOOTA_Paladin_14
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2767,11 +2727,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_16", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_16", new List<Power> {
 				// TODO [LOOTA_Paladin_16] Legendary && Test: Legendary_LOOTA_Paladin_16
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2785,11 +2745,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_19", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_19", new List<Power> {
 				// TODO [LOOTA_Paladin_19] Taunt && Test: Taunt_LOOTA_Paladin_19
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2803,11 +2763,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_20", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_20", new List<Power> {
 				// TODO [LOOTA_Paladin_20] Sacred Arms && Test: Sacred Arms_LOOTA_Paladin_20
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2821,11 +2781,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_21", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_21", new List<Power> {
 				// TODO [LOOTA_Paladin_21] Murlocs && Test: Murlocs_LOOTA_Paladin_21
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2839,18 +2799,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Paladin_22", new List<Enchantment> {
+			cards.Add("LOOTA_Paladin_22", new List<Power> {
 				// TODO [LOOTA_Paladin_22] Many Blessings && Test: Many Blessings_LOOTA_Paladin_22
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - PRIEST
 			// [LOOTA_Priest_01] Holy (*) - COST:0 
@@ -2858,11 +2818,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_621, AT_055, GVG_012, CS2_235, AT_011, CS1_112, OG_234, EX1_624, EX1_001, EX1_350, KAR_035, GVG_008
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_01", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_01", new List<Power> {
 				// TODO [LOOTA_Priest_01] Holy && Test: Holy_LOOTA_Priest_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2873,11 +2833,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOE_006, FP1_002, FP1_009, ICC_702, FP1_031, GVG_096, UNG_900, OG_147, FP1_012, ICC_098, EX1_110, OG_133, FP1_023, UNG_032, UNG_037, OG_335, ICC_214, LOOT_161, KAR_114, UNG_940, LOOT_187, LOOT_161
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_02", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_02", new List<Power> {
 				// TODO [LOOTA_Priest_02] Last Rites && Test: Last Rites_LOOTA_Priest_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2888,11 +2848,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_032, CS2_003, CFM_603, UNG_035, EX1_339, EX1_345, EX1_334, OG_335, ICC_207, EX1_091, ICC_849, ICC_215, CS1_113, LOOT_541, LOE_104, LOOT_353
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_03", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_03", new List<Power> {
 				// TODO [LOOTA_Priest_03] Domination && Test: Domination_LOOTA_Priest_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2903,11 +2863,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: BRM_017, ICC_213, KAR_204, LOOT_507, CS2_181, FP1_013, LOOT_187, EX1_016, UNG_037, ICC_214
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_04", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_04", new List<Power> {
 				// TODO [LOOTA_Priest_04] Resurrection && Test: Resurrection_LOOTA_Priest_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2918,11 +2878,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_661, CS2_234, ICC_802, AT_015, GVG_011, EX1_622, LOE_111, GVG_008, LOOT_008, LOE_104, ICC_214, LOE_079, UNG_851, OG_100, CFM_657, CFM_807
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_05", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_05", new List<Power> {
 				// TODO [LOOTA_Priest_05] Bag of Tricks && Test: Bag of Tricks_LOOTA_Priest_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2933,11 +2893,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: ICC_210, UNG_022, AT_014, EX1_625, LOOT_529, LOOT_526, GVG_014, OG_316, ICC_235, ICC_830, ICC_212, ICC_802, EX1_591, FP1_001
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_06", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_06", new List<Power> {
 				// TODO [LOOTA_Priest_06] Shadow && Test: Shadow_LOOTA_Priest_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2948,11 +2908,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: BRM_004, AT_116, LOOT_410, CFM_605, CFM_662, KAR_062, BRM_033, LOOT_144, EX1_043, AT_017, EX1_284, KAR_033, ICC_027, EX1_572, OG_317, EX1_563, LOOT_137, LOOT_540, BRM_034
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_07", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_07", new List<Power> {
 				// TODO [LOOTA_Priest_07] Dragon Priest && Test: Dragon Priest_LOOTA_Priest_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2963,11 +2923,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS1_129, CS2_236, GVG_010, LOOT_278, AT_131, AT_129, UNG_843, LOE_053, CS2_004
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_08", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_08", new List<Power> {
 				// TODO [LOOTA_Priest_08] Discipline && Test: Discipline_LOOTA_Priest_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2978,11 +2938,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_020, CFM_621, LOE_011
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_10", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_10", new List<Power> {
 				// TODO [LOOTA_Priest_10] Unique && Test: Unique_LOOTA_Priest_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2993,11 +2953,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_032, UNG_034, EX1_335, UNG_963, UNG_928, UNG_070, UNG_816, UNG_847, UNG_907, EX1_298, UNG_809
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_12", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_12", new List<Power> {
 				// TODO [LOOTA_Priest_12] Elementals && Test: Elementals_LOOTA_Priest_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3008,11 +2968,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_334, OG_096, OG_281, OG_162, OG_286, OG_283, OG_321, OG_131, OG_280, OG_255
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_13", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_13", new List<Power> {
 				// TODO [LOOTA_Priest_13] Cult of C'Thun && Test: Cult of C'Thun_LOOTA_Priest_13
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3023,18 +2983,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOOT_209, UNG_034, UNG_029, KAR_035, UNG_963, NEW1_020, NEW1_026, LOOT_414, CS2_004, ICC_830
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Priest_9", new List<Enchantment> {
+			cards.Add("LOOTA_Priest_9", new List<Power> {
 				// TODO [LOOTA_Priest_9] Combo Caster && Test: Combo Caster_LOOTA_Priest_9
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
 			// [LOOTA_Rogue_01] Adrenaline Rush (*) - COST:0 
@@ -3042,11 +3002,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_630, EX1_145, EX1_613, UNG_065, OG_080, ICC_910, EX1_044, NEW1_026, EX1_095, UNG_057, EX1_614, CS2_077, UNG_060
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_01", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_01", new List<Power> {
 				// TODO [LOOTA_Rogue_01] Adrenaline Rush && Test: Adrenaline Rush_LOOTA_Rogue_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3057,11 +3017,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_809, EX1_049, CFM_693, EX1_144, EX1_015, LOOT_204, EX1_145, LOOT_165, UNG_067, NEW1_004
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_02", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_02", new List<Power> {
 				// TODO [LOOTA_Rogue_02] Evasive && Test: Evasive_LOOTA_Rogue_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3072,11 +3032,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS2_074, ICC_233, LOOT_542, GVG_023, ICC_221, UNG_823, ICC_850, CS2_233, ICC_240, GVG_022, ICC_097, LOOT_033, LOOT_389, ICC_096
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_03", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_03", new List<Power> {
 				// TODO [LOOTA_Rogue_03] Blademaster && Test: Blademaster_LOOTA_Rogue_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3087,11 +3047,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_072, ICC_201, LOE_019, EX1_012, ICC_702, ICC_854, FP1_031, OG_249, GVG_096, UNG_900, OG_272, FP1_012, OG_133, EX1_016, OG_080, OG_330, LOOT_503, LOOT_161
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_04", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_04", new List<Power> {
 				// TODO [LOOTA_Rogue_04] Death Dealer && Test: Death Dealer_LOOTA_Rogue_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3102,11 +3062,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_690, CFM_691, CFM_715, CFM_902
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_05", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_05", new List<Power> {
 				// TODO [LOOTA_Rogue_05] Jade Lotus && Test: Jade Lotus_LOOTA_Rogue_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3117,11 +3077,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_630, AT_031, LOE_012, EX1_096, CFM_808, CFM_669, LOOT_357, EX1_050, EX1_284, LOOT_211, EX1_012
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_07", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_07", new List<Power> {
 				// TODO [LOOTA_Rogue_07] Greed && Test: Greed_LOOTA_Rogue_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3132,11 +3092,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_856, KAR_069, OG_330, AT_033, CFM_781, ICC_811, UNG_061, KAR_070, GVG_028, EX1_100
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_09", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_09", new List<Power> {
 				// TODO [LOOTA_Rogue_09] Thief && Test: Thief_LOOTA_Rogue_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3147,11 +3107,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS2_072, CS2_073, EX1_124, EX1_278, EX1_129, OG_176, CS2_076, BRM_008, EX1_522, EX1_134, UNG_064, ICC_809
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_10", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_10", new List<Power> {
 				// TODO [LOOTA_Rogue_10] Assassin && Test: Assassin_LOOTA_Rogue_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3162,11 +3122,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_029, GVG_025, AT_032, OG_267, CFM_342, CFM_637, CFM_325, CS2_146, NEW1_018, NEW1_027, NEW1_022, ICC_018, NEW1_024, CFM_651, GVG_075
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_11", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_11", new List<Power> {
 				// TODO [LOOTA_Rogue_11] Outlaws && Test: Outlaws_LOOTA_Rogue_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3177,11 +3137,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_126, LOOT_210, LOOT_214, BRM_007, AT_035, UNG_060, LOOT_026, OG_291, OG_073, EX1_145, EX1_144, ICC_827
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_13", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_13", new List<Power> {
 				// TODO [LOOTA_Rogue_13] Bag of Tricks && Test: Bag of Tricks_LOOTA_Rogue_13
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3195,11 +3155,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_15", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_15", new List<Power> {
 				// TODO [LOOTA_Rogue_15] Cult of C'thun && Test: Cult of C'thun_LOOTA_Rogue_15
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3210,18 +3170,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_144, NEW1_004, LOE_077, FP1_009, EX1_014, EX1_581, EX1_050, KAR_712, BRM_007
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Rogue_16", new List<Enchantment> {
+			cards.Add("LOOTA_Rogue_16", new List<Power> {
 				// TODO [LOOTA_Rogue_16] Exhaustion && Test: Exhaustion_LOOTA_Rogue_16
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void ShamanNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - SHAMAN
 			// [LOOTA_Shaman_01] Destruction (*) - COST:0 
@@ -3229,11 +3189,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_025, KAR_073, OG_206, EX1_259, AT_051, GVG_038, LOOT_060, BRM_011, EX1_238, EX1_241
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_01", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_01", new List<Power> {
 				// TODO [LOOTA_Shaman_01] Destruction && Test: Destruction_LOOTA_Shaman_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3244,11 +3204,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: ICC_058, ICC_056, ICC_236, ICC_078, ICC_088, UNG_205, ICC_289, ICC_855, UNG_079
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_02", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_02", new List<Power> {
 				// TODO [LOOTA_Shaman_02] Frost && Test: Frost_LOOTA_Shaman_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3259,11 +3219,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: LOOT_373, CS2_041, GVG_069, CFM_061, CFM_120, GVG_039, UNG_817, UNG_938, OG_209, AT_048
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_03", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_03", new List<Power> {
 				// TODO [LOOTA_Shaman_03] Restoration && Test: Restoration_LOOTA_Shaman_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3274,11 +3234,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_027, LOOT_504, CFM_696, EX1_246, OG_328, ICC_481, EX1_083, OG_174, LOOT_150, CFM_697
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_04", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_04", new List<Power> {
 				// TODO [LOOTA_Shaman_04] Mutations && Test: Mutations_LOOTA_Shaman_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3289,11 +3249,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_054, CS2_042, UNG_202, LOOT_358, LOOT_517, UNG_072, ICC_466, EX1_284, CFM_668, FP1_030, CFM_852, ICC_705, EX1_112, LOOT_357, BRM_012, LOE_077
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_05", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_05", new List<Power> {
 				// TODO [LOOTA_Shaman_05] Battlecrier && Test: Battlecrier_LOOTA_Shaman_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3304,11 +3264,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_211, UNG_816, UNG_928, UNG_070, UNG_907, UNG_809, UNG_202, UNG_847, UNG_845, LOOT_517, NEW1_010, EX1_298, UNG_208
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_06", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_06", new List<Power> {
 				// TODO [LOOTA_Shaman_06] Elementals && Test: Elementals_LOOTA_Shaman_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3319,11 +3279,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: UNG_942, ICC_089, CFM_310, GVG_040, LOE_113, ICC_220, EX1_509, EX1_506, CS2_173, EX1_506, UNG_073, EX1_050, EX1_103, UNG_937, UNG_089, EX1_062, CFM_344, EX1_507
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_07", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_07", new List<Power> {
 				// TODO [LOOTA_Shaman_07] Murlocs && Test: Murlocs_LOOTA_Shaman_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3334,11 +3294,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_313, LOE_018, AT_053, BRM_011, OG_026, ICC_081, EX1_248, EX1_258, OG_024, EX1_250, LOOT_064, ICC_090, AT_052, LOE_018, BRM_011, OG_026, EX1_567
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_08", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_08", new List<Power> {
 				// TODO [LOOTA_Shaman_08] Overload && Test: Overload_LOOTA_Shaman_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3349,11 +3309,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_023, LOOT_062, LOOT_518, LOOT_344, EX1_575, AT_046, KAR_021, AT_049, OG_028, AT_052, EX1_565
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_09", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_09", new List<Power> {
 				// TODO [LOOTA_Shaman_09] Totems && Test: Totems_LOOTA_Shaman_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3364,11 +3324,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_717, CFM_707, CFM_312, CFM_715, CFM_902
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_11", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_11", new List<Power> {
 				// TODO [LOOTA_Shaman_11] Jade Lotus && Test: Jade Lotus_LOOTA_Shaman_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3382,11 +3342,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_12", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_12", new List<Power> {
 				// TODO [LOOTA_Shaman_12] Farseer && Test: Farseer_LOOTA_Shaman_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3397,18 +3357,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: GVG_036, GVG_085, EX1_556, GVG_096, GVG_105, GVG_107, OG_145, GVG_105, GVG_114, GVG_006, GVG_006, GVG_103, LOE_039, GVG_037
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Shaman_13", new List<Enchantment> {
+			cards.Add("LOOTA_Shaman_13", new List<Power> {
 				// TODO [LOOTA_Shaman_13] Mechanized && Test: Mechanized_LOOTA_Shaman_13
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
 			// [LOOTA_Warlock_01] Little Legion (*) - COST:0 
@@ -3419,11 +3379,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_01", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_01", new List<Power> {
 				// TODO [LOOTA_Warlock_01] Little Legion && Test: Little Legion_LOOTA_Warlock_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3437,11 +3397,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_02", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_02", new List<Power> {
 				// TODO [LOOTA_Warlock_02] Cult of C'thun && Test: Cult of C'thun_LOOTA_Warlock_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3455,11 +3415,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_03", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_03", new List<Power> {
 				// TODO [LOOTA_Warlock_03] Unique && Test: Unique_LOOTA_Warlock_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3473,11 +3433,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_04", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_04", new List<Power> {
 				// TODO [LOOTA_Warlock_04] Discard && Test: Discard_LOOTA_Warlock_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3491,11 +3451,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_05", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_05", new List<Power> {
 				// TODO [LOOTA_Warlock_05] Lifesteal && Test: Lifesteal_LOOTA_Warlock_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3509,11 +3469,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_06", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_06", new List<Power> {
 				// TODO [LOOTA_Warlock_06] Taunt && Test: Taunt_LOOTA_Warlock_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3527,11 +3487,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_07", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_07", new List<Power> {
 				// TODO [LOOTA_Warlock_07] Swarm && Test: Swarm_LOOTA_Warlock_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3545,11 +3505,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_08", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_08", new List<Power> {
 				// TODO [LOOTA_Warlock_08] Destruction && Test: Destruction_LOOTA_Warlock_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3563,11 +3523,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_09", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_09", new List<Power> {
 				// TODO [LOOTA_Warlock_09] Sacrifice && Test: Sacrifice_LOOTA_Warlock_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3581,11 +3541,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_10", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_10", new List<Power> {
 				// TODO [LOOTA_Warlock_10] Blood && Test: Blood_LOOTA_Warlock_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3599,11 +3559,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_11", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_11", new List<Power> {
 				// TODO [LOOTA_Warlock_11] Dire Demons && Test: Dire Demons_LOOTA_Warlock_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3617,18 +3577,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warlock_12", new List<Enchantment> {
+			cards.Add("LOOTA_Warlock_12", new List<Power> {
 				// TODO [LOOTA_Warlock_12] Huge Hand && Test: Huge Hand_LOOTA_Warlock_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
 			// [LOOTA_Warrior_01] Berserker (*) - COST:0 
@@ -3636,11 +3596,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_607, EX1_603, EX1_604, ICC_408, BRM_016, OG_218, ICC_405, EX1_007, OG_318, BRM_019, CS2_108, EX1_414, GVG_052, FP1_021, CS2_104
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_01", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_01", new List<Power> {
 				// TODO [LOOTA_Warrior_01] Berserker && Test: Berserker_LOOTA_Warrior_01
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3651,11 +3611,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_400, EX1_392, NEW1_036, CFM_716, OG_276, GVG_050, OG_149, ICC_064, FP1_021, EX1_407, UNG_927, UNG_933, FP1_024, UNG_848, CS2_108, ICC_834
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_02", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_02", new List<Power> {
 				// TODO [LOOTA_Warrior_02] Everybody Hurts && Test: Everybody Hurts_LOOTA_Warrior_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3666,11 +3626,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CS2_103, NEW1_011, EX1_414, CS2_146, AT_087, EX1_116, EX1_067, AT_070, UNG_099, AT_125, CFM_637
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_03", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_03", new List<Power> {
 				// TODO [LOOTA_Warrior_03] Charge! && Test: Charge!_LOOTA_Warrior_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3681,11 +3641,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_409, CS2_106, ICC_281, AT_066, CS2_112, OG_033, EX1_411, LOOT_203, OG_220, LOOT_389, ICC_097, ICC_064, FP1_021, LOOT_118, ICC_096
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_04", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_04", new List<Power> {
 				// TODO [LOOTA_Warrior_04] Weapons && Test: Weapons_LOOTA_Warrior_04
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3696,11 +3656,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: EX1_410, EX1_402, LOOT_044, ICC_837, LOOT_367, ICC_062, EX1_606, CFM_756, LOOT_365, KAR_091, LOOT_364, GVG_053, LOOT_285, LOOT_519, AT_064
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_05", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_05", new List<Power> {
 				// TODO [LOOTA_Warrior_05] Armor && Test: Armor_LOOTA_Warrior_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3711,11 +3671,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_312, OG_315, CFM_637, CFM_325, NEW1_018, GVG_075, NEW1_027, NEW1_022, CFM_651, NEW1_024, AT_070
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_06", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_06", new List<Power> {
 				// TODO [LOOTA_Warrior_06] Pirates && Test: Pirates_LOOTA_Warrior_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3726,11 +3686,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_940, UNG_926, LOE_022, AT_065, OG_218, UNG_957, LOE_009, UNG_072, FP1_012, OG_340, KAR_061, UNG_848, ICC_314, LOOT_383, LOOT_137, UNG_934
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_07", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_07", new List<Power> {
 				// TODO [LOOTA_Warrior_07] Taunt && Test: Taunt_LOOTA_Warrior_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3741,11 +3701,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: OG_314, CS2_108, CS2_105, EX1_391, AT_064, EX1_408, KAR_028, GVG_052, CS2_114
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_08", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_08", new List<Power> {
 				// TODO [LOOTA_Warrior_08] Smash! && Test: Smash!_LOOTA_Warrior_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3756,11 +3716,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: CFM_643, CFM_755, CFM_631, CFM_754, CFM_853, BRM_028, CFM_685
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_09", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_09", new List<Power> {
 				// TODO [LOOTA_Warrior_09] Re-Enforcer && Test: Re-Enforcer_LOOTA_Warrior_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3771,11 +3731,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_072, LOE_079, LOOT_516, UNG_851, FP1_030, AT_127, EX1_110, UNG_840, AT_132, LOOT_357, EX1_016, EX1_249, NEW1_038, FP1_013, EX1_298, GVG_114, OG_300, ICC_314, LOE_092
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_10", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_10", new List<Power> {
 				// TODO [LOOTA_Warrior_10] Legendary && Test: Legendary_LOOTA_Warrior_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3786,11 +3746,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: AT_071, KAR_062, BRM_033, LOOT_144, BRM_026, EX1_284, BRM_034, KAR_033, BRM_024, CFM_806, AT_123, BRM_030, EX1_572, NEW1_030, OG_317, AT_017, EX1_043, UNG_848, LOOT_137, LOOT_540
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_12", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_12", new List<Power> {
 				// TODO [LOOTA_Warrior_12] Dragon Heart && Test: Dragon Heart_LOOTA_Warrior_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -3801,18 +3761,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Entourage: ICC_091, LOOT_370, LOOT_380, LOOT_184, LOOT_375, CFM_672, OG_042, LOOT_519, LOOT_521
 			// --------------------------------------------------------
-			cards.Add("LOOTA_Warrior_13", new List<Enchantment> {
+			cards.Add("LOOTA_Warrior_13", new List<Power> {
 				// TODO [LOOTA_Warrior_13] Recruiter && Test: Recruiter_LOOTA_Warrior_13
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [LOOTA_109e] Delicious Magic (*) - COST:0 
@@ -3820,9 +3780,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Increased Attack and Health.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_109e", new List<Enchantment> {
+			cards.Add("LOOTA_109e", new List<Power> {
 				// TODO [LOOTA_109e] Delicious Magic && Test: Delicious Magic_LOOTA_109e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3838,9 +3798,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_802e", new List<Enchantment> {
+			cards.Add("LOOTA_802e", new List<Power> {
 				// TODO [LOOTA_802e] Justicar's Ring Enchantment && Test: Justicar's Ring Enchantment_LOOTA_802e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3854,9 +3814,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_803e", new List<Enchantment> {
+			cards.Add("LOOTA_803e", new List<Power> {
 				// TODO [LOOTA_803e] Scepter of Summoning Enchantment && Test: Scepter of Summoning Enchantment_LOOTA_803e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3873,9 +3833,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAG_ONE_TURN_EFFECT = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_812e", new List<Enchantment> {
+			cards.Add("LOOTA_812e", new List<Power> {
 				// TODO [LOOTA_812e] Boots of Haste Enchantment && Test: Boots of Haste Enchantment_LOOTA_812e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3889,9 +3849,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_818e", new List<Enchantment> {
+			cards.Add("LOOTA_818e", new List<Power> {
 				// TODO [LOOTA_818e] Grom's Amguards Enchantment && Test: Grom's Amguards Enchantment_LOOTA_818e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3907,9 +3867,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_824e", new List<Enchantment> {
+			cards.Add("LOOTA_824e", new List<Power> {
 				// TODO [LOOTA_824e] Khadgar's Scrying Orb Enchantment && Test: Khadgar's Scrying Orb Enchantment_LOOTA_824e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3926,9 +3886,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - SPELLPOWER = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_825e", new List<Enchantment> {
+			cards.Add("LOOTA_825e", new List<Power> {
 				// TODO [LOOTA_825e] Robe of the Magi Enchantment && Test: Robe of the Magi Enchantment_LOOTA_825e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3944,9 +3904,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_828e", new List<Enchantment> {
+			cards.Add("LOOTA_828e", new List<Power> {
 				// TODO [LOOTA_828e] Banner of Inspiration && Test: Banner of Inspiration_LOOTA_828e
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_828e2",
 					//Activation = null,
@@ -3964,9 +3924,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AURA = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_828e2", new List<Enchantment> {
+			cards.Add("LOOTA_828e2", new List<Power> {
 				// TODO [LOOTA_828e2] Banner of Inspiration Player Enchant && Test: Banner of Inspiration Player Enchant_LOOTA_828e2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3983,9 +3943,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AURA = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_828e3", new List<Enchantment> {
+			cards.Add("LOOTA_828e3", new List<Power> {
 				// TODO [LOOTA_828e3] Banner of Inspiration && Test: Banner of Inspiration_LOOTA_828e3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4001,9 +3961,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_831e", new List<Enchantment> {
+			cards.Add("LOOTA_831e", new List<Power> {
 				// TODO [LOOTA_831e] Glyph of Warding Enchantment && Test: Glyph of Warding Enchantment_LOOTA_831e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4019,9 +3979,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_832e", new List<Enchantment> {
+			cards.Add("LOOTA_832e", new List<Power> {
 				// TODO [LOOTA_832e] Invisible && Test: Invisible_LOOTA_832e
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_832e2",
 					//Activation = null,
@@ -4037,9 +3997,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AURA = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_832e2", new List<Enchantment> {
+			cards.Add("LOOTA_832e2", new List<Power> {
 				// TODO [LOOTA_832e2] Cloak of Invisiblity Player Enchant && Test: Cloak of Invisiblity Player Enchant_LOOTA_832e2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4056,9 +4016,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DURABILITY = 4
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_842be", new List<Enchantment> {
+			cards.Add("LOOTA_842be", new List<Power> {
 				// TODO [LOOTA_842be] Armed? && Test: Armed?_LOOTA_842be
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4071,9 +4031,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_04e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_04e", new List<Power> {
 				// TODO [LOOTA_BOSS_04e] Waxed && Test: Waxed_LOOTA_BOSS_04e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4086,9 +4046,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_11e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_11e", new List<Power> {
 				// TODO [LOOTA_BOSS_11e] Whipped Into Shape && Test: Whipped Into Shape_LOOTA_BOSS_11e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4099,9 +4059,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOOTA_BOSS_12e] Charge! (*) - COST:0 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_12e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_12e", new List<Power> {
 				// TODO [LOOTA_BOSS_12e] Charge! && Test: Charge!_LOOTA_BOSS_12e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4114,9 +4074,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_24e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_24e", new List<Power> {
 				// TODO [LOOTA_BOSS_24e] Glooped && Test: Glooped_LOOTA_BOSS_24e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4129,9 +4089,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: +5 Attack.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_30e", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_30e", new List<Power> {
 				// TODO [LOOTA_BOSS_30e] Whipped into Frenzy && Test: Whipped into Frenzy_LOOTA_BOSS_30e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4144,9 +4104,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Attack reduced.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_40pe", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_40pe", new List<Power> {
 				// TODO [LOOTA_BOSS_40pe] Fading && Test: Fading_LOOTA_BOSS_40pe
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4159,9 +4119,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Stats increased.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_46pe", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_46pe", new List<Power> {
 				// TODO [LOOTA_BOSS_46pe] Infected && Test: Infected_LOOTA_BOSS_46pe
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4177,9 +4137,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_102", new List<Enchantment> {
+			cards.Add("LOOTA_102", new List<Power> {
 				// TODO [LOOTA_102] Starving Crab && Test: Starving Crab_LOOTA_102
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4198,11 +4158,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_103", new List<Enchantment> {
+			cards.Add("LOOTA_103", new List<Power> {
 				// TODO [LOOTA_103] Sunken Chest && Test: Sunken Chest_LOOTA_103
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4217,9 +4177,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_104", new List<Enchantment> {
+			cards.Add("LOOTA_104", new List<Power> {
 				// TODO [LOOTA_104] Reverberating Ooze && Test: Reverberating Ooze_LOOTA_104
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4237,9 +4197,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - POISONOUS = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_105", new List<Enchantment> {
+			cards.Add("LOOTA_105", new List<Power> {
 				// TODO [LOOTA_105] Deadly Spore && Test: Deadly Spore_LOOTA_105
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4258,9 +4218,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - 886 = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_107", new List<Enchantment> {
+			cards.Add("LOOTA_107", new List<Power> {
 				// TODO [LOOTA_107] Shroomsayer && Test: Shroomsayer_LOOTA_107
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4276,9 +4236,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_109", new List<Enchantment> {
+			cards.Add("LOOTA_109", new List<Power> {
 				// TODO [LOOTA_109] Gluttonous Trogg && Test: Gluttonous Trogg_LOOTA_109
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_109e",
 					//Activation = null,
@@ -4292,9 +4252,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random minion of the same Cost.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_816", new List<Enchantment> {
+			cards.Add("LOOTA_816", new List<Power> {
 				// TODO [LOOTA_816] Party Portal && Test: Party Portal_LOOTA_816
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4314,9 +4274,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - CANT_ATTACK = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_826", new List<Enchantment> {
+			cards.Add("LOOTA_826", new List<Power> {
 				// TODO [LOOTA_826] Portable Ice Wall && Test: Portable Ice Wall_LOOTA_826
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4334,9 +4294,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAUNT = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_829", new List<Enchantment> {
+			cards.Add("LOOTA_829", new List<Power> {
 				// TODO [LOOTA_829] Loyal Sidekick && Test: Loyal Sidekick_LOOTA_829
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4353,11 +4313,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_840", new List<Enchantment> {
+			cards.Add("LOOTA_840", new List<Power> {
 				// TODO [LOOTA_840] Wax Rager && Test: Wax Rager_LOOTA_840
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4369,9 +4329,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 45894
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_18t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_18t", new List<Power> {
 				// TODO [LOOTA_BOSS_18t] Rat && Test: Rat_LOOTA_BOSS_18t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4390,11 +4350,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - CANT_ATTACK = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_20t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_20t", new List<Power> {
 				// TODO [LOOTA_BOSS_20t] Stone Golem && Test: Stone Golem_LOOTA_BOSS_20t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4403,9 +4363,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOOTA_BOSS_48t] Sawblade (*) - COST:3 [ATK:3/HP:3] 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_48t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_48t", new List<Power> {
 				// TODO [LOOTA_BOSS_48t] Sawblade && Test: Sawblade_LOOTA_BOSS_48t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4416,9 +4376,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOOTA_BOSS_49t] Darkspawn (*) - COST:5 [ATK:5/HP:5] 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_49t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_49t", new List<Power> {
 				// TODO [LOOTA_BOSS_49t] Darkspawn && Test: Darkspawn_LOOTA_BOSS_49t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4434,11 +4394,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_52t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_52t", new List<Power> {
 				// TODO [LOOTA_BOSS_52t] Treasure Coffer && Test: Treasure Coffer_LOOTA_BOSS_52t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4456,11 +4416,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_800", new List<Enchantment> {
+			cards.Add("LOOTA_800", new List<Power> {
 				// TODO [LOOTA_800] Potion of Vitality && Test: Potion of Vitality_LOOTA_800
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4477,11 +4437,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_801", new List<Enchantment> {
+			cards.Add("LOOTA_801", new List<Power> {
 				// TODO [LOOTA_801] Crystal Gem && Test: Crystal Gem_LOOTA_801
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4498,12 +4458,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_802", new List<Enchantment> {
+			cards.Add("LOOTA_802", new List<Power> {
 				// TODO [LOOTA_802] Justicar's Ring && Test: Justicar's Ring_LOOTA_802
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_802e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4522,12 +4482,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_803", new List<Enchantment> {
+			cards.Add("LOOTA_803", new List<Power> {
 				// TODO [LOOTA_803] Scepter of Summoning && Test: Scepter of Summoning_LOOTA_803
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_803e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4544,11 +4504,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_804", new List<Enchantment> {
+			cards.Add("LOOTA_804", new List<Power> {
 				// TODO [LOOTA_804] Small Backpacks && Test: Small Backpacks_LOOTA_804
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4568,11 +4528,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_805", new List<Enchantment> {
+			cards.Add("LOOTA_805", new List<Power> {
 				// TODO [LOOTA_805] Amulet of Domination && Test: Amulet of Domination_LOOTA_805
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4590,11 +4550,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_806", new List<Enchantment> {
+			cards.Add("LOOTA_806", new List<Power> {
 				// TODO [LOOTA_806] Wand of Disintegration && Test: Wand of Disintegration_LOOTA_806
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4612,11 +4572,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_811", new List<Enchantment> {
+			cards.Add("LOOTA_811", new List<Power> {
 				// TODO [LOOTA_811] Orb of Destruction && Test: Orb of Destruction_LOOTA_811
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4634,12 +4594,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_812", new List<Enchantment> {
+			cards.Add("LOOTA_812", new List<Power> {
 				// TODO [LOOTA_812] Boots of Haste && Test: Boots of Haste_LOOTA_812
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_812e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4658,11 +4618,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_813", new List<Enchantment> {
+			cards.Add("LOOTA_813", new List<Power> {
 				// TODO [LOOTA_813] Magic Mirror && Test: Magic Mirror_LOOTA_813
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4680,11 +4640,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_814", new List<Enchantment> {
+			cards.Add("LOOTA_814", new List<Power> {
 				// TODO [LOOTA_814] Wish && Test: Wish_LOOTA_814
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4708,11 +4668,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - ADAPT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_817", new List<Enchantment> {
+			cards.Add("LOOTA_817", new List<Power> {
 				// TODO [LOOTA_817] Primordial Wand && Test: Primordial Wand_LOOTA_817
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4729,12 +4689,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_818", new List<Enchantment> {
+			cards.Add("LOOTA_818", new List<Power> {
 				// TODO [LOOTA_818] Grommash's Armguards && Test: Grommash's Armguards_LOOTA_818
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_818e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4750,12 +4710,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_820", new List<Enchantment> {
+			cards.Add("LOOTA_820", new List<Power> {
 				// TODO [LOOTA_820] Aleatoric Cube && Test: Aleatoric Cube_LOOTA_820
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_820e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4773,11 +4733,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_822", new List<Enchantment> {
+			cards.Add("LOOTA_822", new List<Power> {
 				// TODO [LOOTA_822] Rod of Roasting && Test: Rod of Roasting_LOOTA_822
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4795,11 +4755,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_823", new List<Enchantment> {
+			cards.Add("LOOTA_823", new List<Power> {
 				// TODO [LOOTA_823] Bag of Stuffing && Test: Bag of Stuffing_LOOTA_823
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4816,12 +4776,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_824", new List<Enchantment> {
+			cards.Add("LOOTA_824", new List<Power> {
 				// TODO [LOOTA_824] Khadgar's Scrying Orb && Test: Khadgar's Scrying Orb_LOOTA_824
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_824e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4841,12 +4801,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_825", new List<Enchantment> {
+			cards.Add("LOOTA_825", new List<Power> {
 				// TODO [LOOTA_825] Robe of the Magi && Test: Robe of the Magi_LOOTA_825
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_825e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4857,11 +4817,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Shoot three fireballs at random enemies that deal $8 damage each. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("LOOTA_827", new List<Enchantment> {
+			cards.Add("LOOTA_827", new List<Power> {
 				// TODO [LOOTA_827] Embers of Ragnaros && Test: Embers of Ragnaros_LOOTA_827
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4879,12 +4839,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - RITUAL = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_828", new List<Enchantment> {
+			cards.Add("LOOTA_828", new List<Power> {
 				// TODO [LOOTA_828] Captured Flag && Test: Captured Flag_LOOTA_828
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_828e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4901,11 +4861,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_830", new List<Enchantment> {
+			cards.Add("LOOTA_830", new List<Power> {
 				// TODO [LOOTA_830] Shifting Hourglass && Test: Shifting Hourglass_LOOTA_830
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4922,12 +4882,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_831", new List<Enchantment> {
+			cards.Add("LOOTA_831", new List<Power> {
 				// TODO [LOOTA_831] Glyph of Warding && Test: Glyph of Warding_LOOTA_831
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_831e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4947,12 +4907,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_832", new List<Enchantment> {
+			cards.Add("LOOTA_832", new List<Power> {
 				// TODO [LOOTA_832] Cloak of Invisibility && Test: Cloak of Invisibility_LOOTA_832
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_832e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4972,11 +4932,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_833", new List<Enchantment> {
+			cards.Add("LOOTA_833", new List<Power> {
 				// TODO [LOOTA_833] Mysterious Tome && Test: Mysterious Tome_LOOTA_833
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -4990,11 +4950,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_834", new List<Enchantment> {
+			cards.Add("LOOTA_834", new List<Power> {
 				// TODO [LOOTA_834] Gloves of Mugging && Test: Gloves of Mugging_LOOTA_834
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5008,11 +4968,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_836", new List<Enchantment> {
+			cards.Add("LOOTA_836", new List<Power> {
 				// TODO [LOOTA_836] Bag of Coins && Test: Bag of Coins_LOOTA_836
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5029,11 +4989,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - RECRUIT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_837", new List<Enchantment> {
+			cards.Add("LOOTA_837", new List<Power> {
 				// TODO [LOOTA_837] Horn of Cenarius && Test: Horn of Cenarius_LOOTA_837
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5047,11 +5007,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_838", new List<Enchantment> {
+			cards.Add("LOOTA_838", new List<Power> {
 				// TODO [LOOTA_838] Dr. Boom's Boombox && Test: Dr. Boom's Boombox_LOOTA_838
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5065,11 +5025,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_839", new List<Enchantment> {
+			cards.Add("LOOTA_839", new List<Power> {
 				// TODO [LOOTA_839] Scroll of Confusion && Test: Scroll of Confusion_LOOTA_839
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5083,11 +5043,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_841", new List<Enchantment> {
+			cards.Add("LOOTA_841", new List<Power> {
 				// TODO [LOOTA_841] Portable Forge && Test: Portable Forge_LOOTA_841
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5105,12 +5065,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_842b", new List<Enchantment> {
+			cards.Add("LOOTA_842b", new List<Power> {
 				// TODO [LOOTA_842b] Hilt of Quel'Delar && Test: Hilt of Quel'Delar_LOOTA_842b
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_842be",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5119,11 +5079,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [LOOTA_842t] Forging Quel'Delar (*) - COST:0 
 			// - Fac: neutral, Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOTA_842t", new List<Enchantment> {
+			cards.Add("LOOTA_842t", new List<Power> {
 				// TODO [LOOTA_842t] Forging Quel'Delar && Test: Forging Quel'Delar_LOOTA_842t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5137,11 +5097,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_843", new List<Enchantment> {
+			cards.Add("LOOTA_843", new List<Power> {
 				// TODO [LOOTA_843] THE CANDLE && Test: THE CANDLE_LOOTA_843
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5161,11 +5121,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_845", new List<Enchantment> {
+			cards.Add("LOOTA_845", new List<Power> {
 				// TODO [LOOTA_845] Totem of the Dead && Test: Totem of the Dead_LOOTA_845
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5185,11 +5145,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOTA_846", new List<Enchantment> {
+			cards.Add("LOOTA_846", new List<Power> {
 				// TODO [LOOTA_846] Battle Totem && Test: Battle Totem_LOOTA_846
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5208,11 +5168,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOOTA_847", new List<Enchantment> {
+			cards.Add("LOOTA_847", new List<Power> {
 				// TODO [LOOTA_847] Mask of Mimicry && Test: Mask of Mimicry_LOOTA_847
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5223,11 +5183,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> a random enemy minion and the minions next to it.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p2", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p2", new List<Power> {
 				// TODO [LOOTA_BOSS_26p2] Beam of Frost && Test: Beam of Frost_LOOTA_BOSS_26p2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5238,11 +5198,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Destroy all damaged enemy minions.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p3", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p3", new List<Power> {
 				// TODO [LOOTA_BOSS_26p3] Beam of Death && Test: Beam of Death_LOOTA_BOSS_26p3
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5253,11 +5213,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Take control of a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p4", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p4", new List<Power> {
 				// TODO [LOOTA_BOSS_26p4] Beam of Confusion && Test: Beam of Confusion_LOOTA_BOSS_26p4
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5268,11 +5228,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Shuffle a random enemy minion into your opponent's deck.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p5", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p5", new List<Power> {
 				// TODO [LOOTA_BOSS_26p5] Beam of Fear && Test: Beam of Fear_LOOTA_BOSS_26p5
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5283,11 +5243,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all enemy minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p6", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p6", new List<Power> {
 				// TODO [LOOTA_BOSS_26p6] Beam of Fire && Test: Beam of Fire_LOOTA_BOSS_26p6
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5298,11 +5258,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Destroy 1 of your_opponent's Mana_Crystal.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_26p7", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_26p7", new List<Power> {
 				// TODO [LOOTA_BOSS_26p7] Beam of Decay && Test: Beam of Decay_LOOTA_BOSS_26p7
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5313,11 +5273,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Destroy all Darkspawns.
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_49t2", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_49t2", new List<Power> {
 				// TODO [LOOTA_BOSS_49t2] Luminous Candle && Test: Luminous Candle_LOOTA_BOSS_49t2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5329,11 +5289,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_50t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_50t", new List<Power> {
 				// TODO [LOOTA_BOSS_50t] Mushroom Potion && Test: Mushroom Potion_LOOTA_BOSS_50t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5348,11 +5308,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - 793 = 1569
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_99t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_99t", new List<Power> {
 				// TODO [LOOTA_BOSS_99t] Rakanishu && Test: Rakanishu_LOOTA_BOSS_99t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5369,11 +5329,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DURABILITY = 3
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_819", new List<Enchantment> {
+			cards.Add("LOOTA_819", new List<Power> {
 				// TODO [LOOTA_819] Archmage Staff && Test: Archmage Staff_LOOTA_819
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -5391,11 +5351,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - POISONOUS = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_821", new List<Enchantment> {
+			cards.Add("LOOTA_821", new List<Power> {
 				// TODO [LOOTA_821] Vorpal Dagger && Test: Vorpal Dagger_LOOTA_821
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -5409,11 +5369,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("LOOTA_835", new List<Enchantment> {
+			cards.Add("LOOTA_835", new List<Power> {
 				// TODO [LOOTA_835] Greedy Pickaxe && Test: Greedy Pickaxe_LOOTA_835
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -5428,12 +5388,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DURABILITY = 6
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_842", new List<Enchantment> {
+			cards.Add("LOOTA_842", new List<Power> {
 				// TODO [LOOTA_842] Quel'Delar && Test: Quel'Delar_LOOTA_842
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "LOOTA_842be",
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -5445,11 +5405,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("LOOTA_842a", new List<Enchantment> {
+			cards.Add("LOOTA_842a", new List<Power> {
 				// TODO [LOOTA_842a] Blade of Quel'Delar && Test: Blade of Quel'Delar_LOOTA_842a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -5467,18 +5427,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DURABILITY = 1
 			// - HERO_POWER = 229
 			// --------------------------------------------------------
-			cards.Add("LOOTA_BOSS_22t", new List<Enchantment> {
+			cards.Add("LOOTA_BOSS_22t", new List<Power> {
 				// TODO [LOOTA_BOSS_22t] Tad's Pole && Test: Tad's Pole_LOOTA_BOSS_22t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

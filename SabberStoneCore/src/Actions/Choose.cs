@@ -81,7 +81,7 @@ namespace SabberStoneCore.Actions
 						c.Choice.TargetIds.ForEach(p =>
 						{
 							IPlayable target = c.Game.IdEntityDic[p];
-							playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
+							playable.Powers.ForEach(t => t.Activate(c, playable, target));
 						});
 						// Need to move the chosen adaptation to the Graveyard
 						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE)
@@ -293,8 +293,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
+		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Power, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Power power)
 			{
 				//if (c.Choice != null)
 				//{
@@ -311,13 +311,13 @@ namespace SabberStoneCore.Actions
 							{GameTag.CREATOR, source.Id},
 							{GameTag.DISPLAYED_CREATOR, source.Id }
 						});
-					// add after discover enchantment
-					if (enchantment != null)
+					// add after discover power
+					if (power != null)
 					{
-						if (choiceEntity.Enchantments == null)
-							choiceEntity.Enchantments = new List<Enchantment> { enchantment };
+						if (choiceEntity.Powers == null)
+							choiceEntity.Powers = new List<Power> { power };
 						else
-							choiceEntity.Enchantments.Add(enchantment);
+							choiceEntity.Powers.Add(power);
 					}
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);

@@ -284,7 +284,7 @@ namespace SabberStoneCore.Tasks
 						new IncludeTask(EntityType.SOURCE),
 						new FuncPlayablesTask(p =>
 						{
-							p[0].ApplyEnchantments(EnchantmentActivation.SPELL, Zone.GRAVEYARD);
+							p[0].ApplyPowers(PowerActivation.SPELL, Zone.GRAVEYARD);
 							return p;
 						}
 				)))));

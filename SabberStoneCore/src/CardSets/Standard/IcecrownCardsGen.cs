@@ -15,7 +15,7 @@ namespace SabberStoneCore.CardSets.Standard
 	/// </summary>
 	public class IcecrownCardsGen
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ HERO - SHAMAN
 			// [ICC_481] Thrall, Deathseer - COST:5 [ATK:0/HP:30] 
@@ -29,10 +29,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 5
 			// - HERO_POWER = 42982
 			// --------------------------------------------------------
-			cards.Add("ICC_481", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_481", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformMinionTask(EntityType.MINIONS, 2)
 				},
 			});
@@ -52,11 +52,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_827", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_827", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_827e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new BuffStealthTask(EntityType.HERO)
 				},
 			});
@@ -74,11 +74,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 5
 			// - HERO_POWER = 43183
 			// --------------------------------------------------------
-			cards.Add("ICC_828", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_828", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_828e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new DamageTask(2, EntityType.OP_MINIONS)
 				},
 			});
@@ -98,10 +98,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_829", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new WeaponTask("ICC_829t"),
 				},
 			});
@@ -118,10 +118,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 5
 			// - HERO_POWER = 45397
 			// --------------------------------------------------------
-			cards.Add("ICC_830", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_830", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.ALLMINIONS),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
@@ -141,10 +141,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 5
 			// - HERO_POWER = 43181
 			// --------------------------------------------------------
-			cards.Add("ICC_831", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_831", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
@@ -194,12 +194,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_833", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_833e",
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.BATTLECRY,
+					Area = PowerArea.BOARD,
+					Activation = PowerActivation.BATTLECRY,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY))
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.ELEMENTAL)))
@@ -226,16 +226,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 5
 			// - HERO_POWER = 45585
 			// --------------------------------------------------------
-			cards.Add("ICC_834", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_834", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new WeaponTask("ICC_834w"),
 				},
 			});
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_481p] Transmute Spirit (*) - COST:2 
@@ -248,10 +248,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_481p", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_481p", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new TransformMinionTask(EntityType.TARGET, 1)
 				}
 			});
@@ -266,9 +266,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_827p", new List<Enchantment> {
+			cards.Add("ICC_827p", new List<Power> {
 				// TODO [ICC_827p] Death's Shadow && Test: Death's Shadow_ICC_827p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -285,10 +285,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_828p", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_828p", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = SpecificTask.BuildABeast
 				}
 			});
@@ -307,9 +307,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829p", new List<Enchantment> {
+			cards.Add("ICC_829p", new List<Power> {
 				// TODO [ICC_829p] The Four Horsemen && Test: The Four Horsemen_ICC_829p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -328,11 +328,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_830p", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_830p", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.SPELL,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.SPELL,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsTagValue(GameTag.ZONE, 1))
 						.TriggerEffect(GameTag.NUM_CARDS_PLAYED_THIS_TURN, 1)
@@ -357,10 +357,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_831p", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_831p", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DamageTask(3, EntityType.TARGET, false)
 				}
 			});
@@ -394,10 +394,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_833h", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_833h", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(1, EntityType.TARGET, false),
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
@@ -412,17 +412,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Hero Power</b>
 			//        Deal $1 damage to all_minions. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_834h", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_834h", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DamageTask(1, EntityType.ALLMINIONS)
 				}
 			});
 
 		}
 
-		private static void DeathknightNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DeathknightNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t2] Army of the Dead (*) - COST:6 
@@ -430,10 +430,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Remove the top 5 cards of your deck. Summon any minions removed.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t2", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t2", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new EnqueueTask(5, ComplexTask.Create(
 						new IncludeTask(EntityType.TOPCARDFROMDECK),
 						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
@@ -453,10 +453,10 @@ namespace SabberStoneCore.CardSets.Standard
 			//       from your deck for each
 			//       minion destroyed.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t3", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t3", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new CountTask(EntityType.ALLMINIONS),
 						new DestroyTask(EntityType.ALLMINIONS),
@@ -472,10 +472,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Steal a minion from your opponent's deck and add it to your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t4", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t4", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.OP_DECK),
 						new FilterStackTask(SelfCondition.IsMinion),
@@ -500,10 +500,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t5", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t5", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, RelaCondition.IsFriendly),
 						new FlagTask(false, new DamageTask(5, EntityType.TARGET, true)),
@@ -524,10 +524,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t6", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t6", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
 						new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 1),
@@ -547,12 +547,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t7", new List<Enchantment> {
+			cards.Add("ICC_314t7", new List<Power> {
 				// TODO Test: Anti-Magic Shell_ICC_314t7
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_314t7e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.MINIONS),
 						new BuffTask(Buffs.AttackHealth(2), EntityType.STACK),
@@ -567,11 +567,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemies. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_314t8", new List<Enchantment> {
+			cards.Add("ICC_314t8", new List<Power> {
 				// TODO Test: Death and Decay_ICC_314t8
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DamageTask(3, EntityType.ENEMIES, true)
 				},
 			});
@@ -586,11 +586,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t1", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314t1", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.OP_BOARD,
-					Activation = EnchantmentActivation.WEAPON,
+					Area = PowerArea.OP_BOARD,
+					Activation = PowerActivation.WEAPON,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsWeaponEquiped)
 						.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
@@ -600,17 +600,17 @@ namespace SabberStoneCore.CardSets.Standard
 							new SetGameTagNumberTask(GameTag.LAST_AFFECTED_BY, EntityType.TARGET)))
 						.Build()
 				},
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_314t1e",
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = SpecificTask.Frostmourne
 				},
 			});
 
 		}
 
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+		private static void Druid(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_047] Fatespinner - COST:5 [ATK:5/HP:3] 
@@ -625,9 +625,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047", new List<Enchantment> {
+			cards.Add("ICC_047", new List<Power> {
 				// TODO [ICC_047] Fatespinner && Test: Fatespinner_ICC_047
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_047e",
 					//Activation = null,
@@ -648,11 +648,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051", new List<Enchantment>
+			cards.Add("ICC_051", new List<Power>
 			{
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("ICC_051t3", EntityType.SOURCE)
 				}
 			});
@@ -669,11 +669,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_807", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_807", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_807e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.MINIONS_NOSOURCE),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
@@ -692,12 +692,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_808", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_808", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_808e",
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.BOARD,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
@@ -721,10 +721,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_835", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_835", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1), SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
@@ -744,10 +744,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_050", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_050", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3", SummonSide.SPELL)),
 				},
 			});
@@ -764,10 +764,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_054", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_054", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(new FuncNumberTask(p =>
 						{
 							Controller controller = p.Controller;
@@ -787,12 +787,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_079", new List<Enchantment> {
+			cards.Add("ICC_079", new List<Power> {
 				// TODO [ICC_079] Gnash && Test: Gnash_ICC_079
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_079e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new BuffTask(Buffs.AttackTurn(3), EntityType.HERO), 
 						new ArmorTask(3))
@@ -811,10 +811,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_085", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_085", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(5, EntityType.TARGET, true),
 						new EnqueueTask(5, new DrawTask()),
@@ -825,7 +825,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_047e] Growth (*) - COST:0 
@@ -863,11 +863,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047t", new List<Enchantment> {
+			cards.Add("ICC_047t", new List<Power> {
 				// TODO [ICC_047t] Fatespinner && Test: Fatespinner_ICC_047t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -881,11 +881,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047t2", new List<Enchantment> {
+			cards.Add("ICC_047t2", new List<Power> {
 				// TODO [ICC_047t2] Fatespinner && Test: Fatespinner_ICC_047t2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -959,11 +959,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give all minions +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_047a", new List<Enchantment> {
+			cards.Add("ICC_047a", new List<Power> {
 				// TODO [ICC_047a] Growth && Test: Growth_ICC_047a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					//SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS),
 				},
 			});
@@ -974,11 +974,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 3 damage to all minions.
 			// --------------------------------------------------------
-			cards.Add("ICC_047b", new List<Enchantment> {
+			cards.Add("ICC_047b", new List<Power> {
 				// TODO [ICC_047b] Decay && Test: Decay_ICC_047b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -989,11 +989,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
-			cards.Add("ICC_051a", new List<Enchantment> {
+			cards.Add("ICC_051a", new List<Power> {
 				// TODO [ICC_051a] Spider Form && Test: Spider Form_ICC_051a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("ICC_051t", EntityType.SOURCE)
 				}
 			});
@@ -1004,11 +1004,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_051b", new List<Enchantment> {
+			cards.Add("ICC_051b", new List<Power> {
 				// TODO [ICC_051b] Scarab Form && Test: Scarab Form_ICC_051b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("ICC_051t2", EntityType.SOURCE)
 				}
 			});
@@ -1019,10 +1019,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Summon two 1/5 Scarabs with <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_832a", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_832a", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t4", SummonSide.DEFAULT))
 				},
 			});
@@ -1034,10 +1034,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: [x]Summon two 1/2
 			//       Spiders with <b>Poisonous</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_832b", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_832b", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
                     SingleTask = new EnqueueTask(2, new SummonTask("ICC_832t3", SummonSide.DEFAULT))
                 },
 			});
@@ -1048,10 +1048,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3 Armor.
 			// --------------------------------------------------------
-			cards.Add("ICC_832pa", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_832pa", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new ArmorTask(3),
 				}
 			});
@@ -1062,17 +1062,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_832pb", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_832pb", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new BuffTask(Buffs.AttackTurn(3), EntityType.HERO),
 				}
 			});
 
 		}
 
-		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
+		private static void Hunter(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_021] Exploding Bloatbat - COST:4 [ATK:2/HP:1] 
@@ -1084,10 +1084,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_021", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_021", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new DamageTask(2, EntityType.OP_MINIONS),
 				},
 			});
@@ -1105,12 +1105,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_204", new List<Enchantment> {
+			cards.Add("ICC_204", new List<Power> {
 				// TODO [ICC_204] Professor Putricide && Test: Professor Putricide_ICC_204
-				new Enchantment
+				new Power
 				{
-					Area = EnchantmentArea.SECRET,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SECRET,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ))
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSecret))
@@ -1132,10 +1132,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_243", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_243", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = PowerActivation.BOARD_ZONE,
 					SingleTask =
 						new AuraTask(
 							Auras.Cost(-2, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.DEATHRATTLE, 1))),
@@ -1155,10 +1155,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_415", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_415", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new DiscoverTask(DiscoverType.DECK_MINION)
 				},
 			});
@@ -1186,10 +1186,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_825", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_825", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.SummonRandomMinionThatDied(SelfCondition.IsRace(Race.BEAST)),
 				},
 			});
@@ -1207,11 +1207,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_049", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_049", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_049e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET, true),
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
@@ -1234,11 +1234,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_052", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_052", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ActivateEnchantment(EntityType.TARGET, EnchantmentActivation.DEATHRATTLE),
+					Activation = PowerActivation.SPELL,
+					SingleTask = new ActivateEnchantment(EntityType.TARGET, PowerActivation.DEATHRATTLE),
 				},
 			});
 
@@ -1254,11 +1254,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_200", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_200", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
+					Area = PowerArea.BOARD,
+					Activation = PowerActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DEFENDING, 1)
@@ -1270,7 +1270,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [ICC_828e] Stitched (*) - COST:0 
@@ -1290,9 +1290,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("ICC_828t", new List<Enchantment> {
+			cards.Add("ICC_828t", new List<Power> {
 				// TODO [ICC_828t] Zombeast && Test: Zombeast_ICC_828t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1301,7 +1301,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_068] Ice Walker - COST:2 [ATK:1/HP:3] 
@@ -1312,9 +1312,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_068", new List<Enchantment> {
+			cards.Add("ICC_068", new List<Power> {
 				// TODO [ICC_068] Ice Walker && Test: Ice Walker_ICC_068
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1330,10 +1330,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_069", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_069", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new AddCardTo("CS2_027", EntityType.HAND)
 				},
 			});
@@ -1347,10 +1347,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_083", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_083", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = PowerActivation.BOARD_ZONE,
 					SingleTask =
 						new AuraTask(Auras.Cost(1, RelaCondition.IsOther(SelfCondition.IsSpell)), AuraArea.OP_HAND)
 				}
@@ -1372,10 +1372,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_252", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_252", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.ENEMIES),
 						new FilterStackTask(SelfCondition.IsFrozen),
@@ -1393,10 +1393,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_838", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_838", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new SummonTask("ICC_838t", SummonSide.LEFT),
 						new SummonTask("ICC_838t", SummonSide.RIGHT))
@@ -1412,11 +1412,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_082", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_082", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.OP_BOARD,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
+					Area = PowerArea.OP_BOARD,
+					Activation = PowerActivation.SECRET_OR_QUEST,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
@@ -1441,11 +1441,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_086", new List<Enchantment> {
+			cards.Add("ICC_086", new List<Power> {
 				// TODO [ICC_086] Glacial Mysteries && Test: Glacial Mysteries_ICC_086
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1456,11 +1456,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Copy the lowest Cost minion in your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_823", new List<Enchantment> {
+			cards.Add("ICC_823", new List<Power> {
 				// TODO [ICC_823] Simulacrum && Test: Simulacrum_ICC_823
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = SpecificTask.Simulacrum,
 				},
 			});
@@ -1477,11 +1477,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_836", new List<Enchantment> {
+			cards.Add("ICC_836", new List<Power> {
 				// TODO [ICC_836] Breath of Sindragosa && Test: Breath of Sindragosa_ICC_836
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
                         new RandomTask(1, EntityType.OP_MINIONS),
                         new DamageTask(2, EntityType.STACK, true),
@@ -1491,7 +1491,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_833t] Water Elemental (*) - COST:4 [ATK:3/HP:6] 
@@ -1515,10 +1515,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_838t", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_838t", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
 						new AddStackTo(EntityType.HAND))
@@ -1527,7 +1527,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
+		private static void Paladin(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_034] Arrogant Crusader - COST:4 [ATK:5/HP:2] 
@@ -1538,10 +1538,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_034", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_034", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 							new ConditionTask(EntityType.HERO, SelfCondition.IsOpTurn),
 							new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE))
@@ -1568,9 +1568,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever your hero is healed, deal that much damage to a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_245", new List<Enchantment> {
+			cards.Add("ICC_245", new List<Power> {
 				// TODO [ICC_245] Blackguard && Test: Blackguard_ICC_245
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1589,10 +1589,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_801", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_801", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion),
 				},
 			});
@@ -1621,9 +1621,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_858", new List<Enchantment> {
+			cards.Add("ICC_858", new List<Power> {
 				// TODO [ICC_858] Bolvar, Fireblood && Test: Bolvar, Fireblood_ICC_858
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_858e",
 					//Activation = null,
@@ -1641,12 +1641,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_039", new List<Enchantment> {
+			cards.Add("ICC_039", new List<Power> {
 				// TODO [ICC_039] Dark Conviction && Test: Dark Conviction_ICC_039
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_039e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1664,12 +1664,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_244", new List<Enchantment> {
+			cards.Add("ICC_244", new List<Power> {
 				// TODO [ICC_244] Desperate Stand && Test: Desperate Stand_ICC_244
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_244e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1686,19 +1686,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_071", new List<Enchantment> {
+			cards.Add("ICC_071", new List<Power> {
 				// TODO [ICC_071] Light's Sorrow && Test: Light's Sorrow_ICC_071
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_071e",
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_071e] Dying Light (*) - COST:0 
@@ -1731,9 +1731,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t2", new List<Enchantment> {
+			cards.Add("ICC_829t2", new List<Power> {
 				// TODO [ICC_829t2] Deathlord Nazgrim && Test: Deathlord Nazgrim_ICC_829t2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1747,9 +1747,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t3", new List<Enchantment> {
+			cards.Add("ICC_829t3", new List<Power> {
 				// TODO [ICC_829t3] Thoras Trollbane && Test: Thoras Trollbane_ICC_829t3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1763,9 +1763,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t4", new List<Enchantment> {
+			cards.Add("ICC_829t4", new List<Power> {
 				// TODO [ICC_829t4] Inquisitor Whitemane && Test: Inquisitor Whitemane_ICC_829t4
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1779,9 +1779,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t5", new List<Enchantment> {
+			cards.Add("ICC_829t5", new List<Power> {
 				// TODO [ICC_829t5] Darion Mograine && Test: Darion Mograine_ICC_829t5
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1798,18 +1798,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t", new List<Enchantment> {
+			cards.Add("ICC_829t", new List<Power> {
 				// TODO [ICC_829t] Grave Vengeance && Test: Grave Vengeance_ICC_829t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Priest(IDictionary<string, List<Enchantment>> cards)
+		private static void Priest(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_210] Shadow Ascendant - COST:2 [ATK:2/HP:2] 
@@ -1819,13 +1819,13 @@ namespace SabberStoneCore.CardSets.Standard
 			//       give another random
 			//       friendly minion +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_210", new List<Enchantment> {
+			cards.Add("ICC_210", new List<Power> {
 				// TODO Test: Shadow Ascendant_ICC_210
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_210e",
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
@@ -1860,10 +1860,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_214", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_214", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.OP_MINIONS),
 						new DestroyTask(EntityType.STACK)),
@@ -1880,11 +1880,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_215", new List<Enchantment> {
+			cards.Add("ICC_215", new List<Power> {
 				// TODO [ICC_215] Archbishop Benedictus && Test: Archbishop Benedictus_ICC_215
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1895,11 +1895,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Copy 3 cards in your opponent's deck and add them to your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_207", new List<Enchantment> {
+			cards.Add("ICC_207", new List<Power> {
 				// TODO Test: Devour Mind_ICC_207
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(3, EntityType.OP_DECK),
 						new CopyTask(EntityType.STACK, 1, true),
@@ -1920,10 +1920,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_213", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_213", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DiscoverTask(DiscoverType.DIED_THIS_GAME)
 				},
 			});
@@ -1937,11 +1937,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_235", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_235", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_235e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.DECK),
 						new FilterStackTask(SelfCondition.IsMinion),
@@ -1962,10 +1962,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_802", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_802", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DamageTask(1, EntityType.ALLMINIONS, true)
 				}
 			});
@@ -1983,12 +1983,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_849", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_849", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_849e",
-					Area = EnchantmentArea.TARGET,
-					Activation = EnchantmentActivation.SPELL,
+					Area = PowerArea.TARGET,
+					Activation = PowerActivation.SPELL,
 					Enchant = new Enchant
 					{
 						TurnsActive = 1,
@@ -2008,7 +2008,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [ICC_210e] Ascended (*) - COST:0 
@@ -2020,7 +2020,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_065] Bone Baron - COST:5 [ATK:5/HP:5] 
@@ -2031,10 +2031,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_065", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_065", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new EnqueueTask(2, new AddCardTo("ICC_026t", EntityType.HAND))
 				},
 			});
@@ -2048,12 +2048,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_240", new List<Enchantment> {
+			cards.Add("ICC_240", new List<Power> {
 				// TODO [ICC_240] Runeforge Haunter && Test: Runeforge Haunter_ICC_240
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_240e",
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = PowerActivation.BOARD_ZONE,
 					SingleTask = new AuraTask(
 						new Enchant
 						{
@@ -2089,12 +2089,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_809", new List<Enchantment> {
+			cards.Add("ICC_809", new List<Power> {
 				// Combo
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_809e",
-					Activation = EnchantmentActivation.COMBO,
+					Activation = PowerActivation.COMBO,
 					SingleTask = new BuffTask(Buffs.Simple(GameTag.POISONOUS, 1), EntityType.TARGET)
 				}
 			});
@@ -2109,11 +2109,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_811", new List<Enchantment> {
+			cards.Add("ICC_811", new List<Power> {
 				// TODO [ICC_811] Lilian Voss && Test: Lilian Voss_ICC_811
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2132,10 +2132,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_910", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_910", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.COMBO,
+					Activation = PowerActivation.COMBO,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
 						new MathSubstractionTask(1),
@@ -2153,10 +2153,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_201", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_201", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = /*null*/
 					ComplexTask.RecursiveSpellTask(
 						new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleMinion),
@@ -2176,11 +2176,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_221", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_221", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_221e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.WEAPON),
 				},
 			});
@@ -2199,10 +2199,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_233", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_233", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
 						new DamageNumberTask(EntityType.TARGET),
@@ -2225,25 +2225,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_850", new List<Enchantment> {
+			cards.Add("ICC_850", new List<Power> {
 				// TODO [ICC_850] Shadowblade && Test: Shadowblade_ICC_850
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_850e",
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_850e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_018e] Witty Weaponplay (*) - COST:0 
@@ -2319,18 +2319,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MUST_PLAY_OTHER_CARD_FIRST = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_827t", new List<Enchantment> {
+			cards.Add("ICC_827t", new List<Power> {
 				// TODO [ICC_827t] Shadow Reflection && Test: Shadow Reflection_ICC_827t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
+		private static void Shaman(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_058] Brrrloc - COST:2 [ATK:2/HP:2] 
@@ -2348,10 +2348,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_058", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_058", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Freeze(EntityType.TARGET)
 				},
 			});
@@ -2392,9 +2392,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_090", new List<Enchantment> {
+			cards.Add("ICC_090", new List<Power> {
 				// TODO [ICC_090] Snowfury Giant && Test: Snowfury Giant_ICC_090
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2413,9 +2413,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_289", new List<Enchantment> {
+			cards.Add("ICC_289", new List<Power> {
 				// TODO [ICC_289] Moorabi && Test: Moorabi_ICC_289
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2435,11 +2435,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_056", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_056", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_056e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET),
 						ComplexTask.Freeze(EntityType.TARGET)),
@@ -2459,10 +2459,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_078", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_078", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						ComplexTask.Freeze(EntityType.TARGET),
 						new IncludeTask(EntityType.OP_MINIONS),
@@ -2477,10 +2477,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Draw 2 Murlocs from your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_089", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_089", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)),
 						ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
@@ -2499,18 +2499,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_236", new List<Enchantment> {
+			cards.Add("ICC_236", new List<Power> {
 				// TODO [ICC_236] Ice Breaker && Test: Ice Breaker_ICC_236
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_075] Despicable Dreadlord - COST:5 [ATK:4/HP:5] 
@@ -2518,11 +2518,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 1 damage to all enemy minions.
 			// --------------------------------------------------------
-			cards.Add("ICC_075", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_075", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
@@ -2537,9 +2537,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, discard a_random card.
 			// --------------------------------------------------------
-			cards.Add("ICC_218", new List<Enchantment> {
+			cards.Add("ICC_218", new List<Power> {
 				// TODO [ICC_218] Howlfiend && Test: Howlfiend_ICC_218
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2556,11 +2556,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_407", new List<Enchantment> {
+			cards.Add("ICC_407", new List<Power> {
 				// TODO [ICC_407] Gnomeferatu && Test: Gnomeferatu_ICC_407
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2578,9 +2578,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_841", new List<Enchantment> {
+			cards.Add("ICC_841", new List<Power> {
 				// TODO [ICC_841] Blood-Queen Lana'thel && Test: Blood-Queen Lana'thel_ICC_841
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_841e",
 					//Activation = null,
@@ -2602,11 +2602,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_903", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_903", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_903t",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new DestroyTask(EntityType.TARGET),
 						new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
@@ -2619,11 +2619,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. If any die, cast this again. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_041", new List<Enchantment> {
+			cards.Add("ICC_041", new List<Power> {
 				// TODO [ICC_041] Defile && Test: Defile_ICC_041
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null
 				},
 			});
@@ -2643,11 +2643,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_055", new List<Enchantment> {
+			cards.Add("ICC_055", new List<Power> {
 				// TODO [ICC_055] Drain Soul && Test: Drain Soul_ICC_055
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2663,10 +2663,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_206", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_206", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new ControlTask(EntityType.TARGET, true)
 				},
 			});
@@ -2682,10 +2682,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_469", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_469", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DestroyTask(EntityType.TARGET),
 						ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS))
@@ -2694,12 +2694,12 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 
 		}
 
-		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
+		private static void Warrior(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_062] Mountainfire Armor - COST:3 [ATK:4/HP:3] 
@@ -2711,10 +2711,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_062", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_062", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 						new FlagTask(true, new ArmorTask(6))),
@@ -2727,11 +2727,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: After you play a minion, deal 1 damage to it.
 			// --------------------------------------------------------
-			cards.Add("ICC_238", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_238", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.BOARD,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsMinion))
@@ -2753,11 +2753,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_405", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_405", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsNotDead))
@@ -2780,11 +2780,11 @@ namespace SabberStoneCore.CardSets.Standard
 			//       survives damage,
 			//       summon a 2/2 Ghoul.
 			// --------------------------------------------------------
-			cards.Add("ICC_408", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_408", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsNotDead))
@@ -2805,11 +2805,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_450", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_450", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_450e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.FRIENDS),
 						new FilterStackTask(SelfCondition.IsDamaged),
@@ -2824,10 +2824,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Shuffle a copy of your hand into your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_091", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_091", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.HAND),
 						new CopyTask(EntityType.STACK, 1),
@@ -2841,10 +2841,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Draw 2 weapons from your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_281", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_281", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						ComplexTask.DrawFromDeck(SelfCondition.IsWeapon),
 						ComplexTask.DrawFromDeck(SelfCondition.IsWeapon))
@@ -2857,12 +2857,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Gain 10 Armor. Reduce the Cost of minions in your opponent's hand by (2).
 			// --------------------------------------------------------
-			cards.Add("ICC_837", new List<Enchantment> {
+			cards.Add("ICC_837", new List<Power> {
 				// TODO [ICC_837] Bring It On! && Test: Bring It On!_ICC_837
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_837e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2879,22 +2879,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_064", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_064", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new DamageTask(1, EntityType.ALLMINIONS),
 				},
 			});
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- WEAPON - WARRIOR
 			// [ICC_834w] Shadowmourne (*) - COST:8 [ATK:4/HP:0] 
@@ -2905,18 +2905,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("ICC_834w", new List<Enchantment> {
+			cards.Add("ICC_834w", new List<Power> {
 				// TODO [ICC_834w] Shadowmourne && Test: Shadowmourne_ICC_834w
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_018] Phantom Freebooter - COST:4 [ATK:3/HP:3] 
@@ -2927,12 +2927,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_018", new List<Enchantment> {
+			cards.Add("ICC_018", new List<Power> {
 				// TODO [ICC_018] Phantom Freebooter && Test: Phantom Freebooter_ICC_018
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_018e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2946,10 +2946,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_019", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_019", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 						new FlagTask(true, new SummonTask("ICC_019t", SummonSide.DEATHRATTLE))),
@@ -2975,15 +2975,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_025", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_025", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new SummonTask("ICC_025t", SummonSide.RIGHT),
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new SummonOpTask("ICC_025t"),
 				},
 			});
@@ -2997,10 +2997,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_026", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_026", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new SummonTask("ICC_026t", SummonSide.LEFT),
 						new SummonTask("ICC_026t", SummonSide.RIGHT))
@@ -3016,10 +3016,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_027", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_027", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.DRAGON),
 						new AddStackTo(EntityType.HAND))
@@ -3035,12 +3035,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_028", new List<Enchantment> {
+			cards.Add("ICC_028", new List<Power> {
 				// TODO [ICC_028] Sunborne Val'kyr && Test: Sunborne Val'kyr_ICC_028
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_028e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3051,13 +3051,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another random friendly minion +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_029", new List<Enchantment> {
+			cards.Add("ICC_029", new List<Power> {
 				// TODO Test: Cobalt Scalebane_ICC_029
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_029e",
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
@@ -3075,9 +3075,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes
 			//       damage, gain +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_031", new List<Enchantment> {
+			cards.Add("ICC_031", new List<Power> {
 				// TODO [ICC_031] Night Howler && Test: Night Howler_ICC_031
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_031e",
 					//Activation = null,
@@ -3107,10 +3107,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_067", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_067", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 						new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE))),
@@ -3131,12 +3131,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_092", new List<Enchantment> {
+			cards.Add("ICC_092", new List<Power> {
 				// TODO [ICC_092] Acherus Veteran && Test: Acherus Veteran_ICC_092
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_092e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3158,12 +3158,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_093", new List<Enchantment> {
+			cards.Add("ICC_093", new List<Power> {
 				// TODO [ICC_093] Tuskarr Fisherman && Test: Tuskarr Fisherman_ICC_093
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_093e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3182,12 +3182,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_094", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_094", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_094e",
-					Area = EnchantmentArea.TARGET,
-					Activation = EnchantmentActivation.BATTLECRY,
+					Area = PowerArea.TARGET,
+					Activation = PowerActivation.BATTLECRY,
 					Enchant = Buffs.AttackHealth(1)
 				},
 			});
@@ -3201,12 +3201,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_096", new List<Enchantment> {
+			cards.Add("ICC_096", new List<Power> {
 				// TODO [ICC_096] Furnacefire Colossus && Test: Furnacefire Colossus_ICC_096
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_096e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3217,9 +3217,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever your weapon is destroyed, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_097", new List<Enchantment> {
+			cards.Add("ICC_097", new List<Power> {
 				// TODO [ICC_097] Grave Shambler && Test: Grave Shambler_ICC_097
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_097e",
 					//Activation = null,
@@ -3241,10 +3241,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_098", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_098", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
 						new FilterStackTask(SelfCondition.IsDeathrattleMinion),
@@ -3263,10 +3263,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_099", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_099", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new DamageTask(5, EntityType.MINIONS)
 				},
 			});
@@ -3302,12 +3302,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_257", new List<Enchantment> {
+			cards.Add("ICC_257", new List<Power> {
 				// TODO [ICC_257] Corpse Raiser && Test: Corpse Raiser_ICC_257
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_257e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3327,12 +3327,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_314", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_314t1e",
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
@@ -3354,10 +3354,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_466", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_466", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new SummonTask("ICC_466", SummonSide.RIGHT),
 				},
 			});
@@ -3379,12 +3379,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_467", new List<Enchantment> {
+			cards.Add("ICC_467", new List<Power> {
 				// TODO [ICC_467] Deathspeaker && Test: Deathspeaker_ICC_467
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_467e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3395,9 +3395,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, deal 2 damage to_the enemy hero.
 			// --------------------------------------------------------
-			cards.Add("ICC_468", new List<Enchantment> {
+			cards.Add("ICC_468", new List<Power> {
 				// TODO [ICC_468] Wretched Tiller && Test: Wretched Tiller_ICC_468
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3410,11 +3410,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_700", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_700", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.HAND_ZONE,
+					Area = PowerArea.HERO,
+					Activation = PowerActivation.HAND_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
 						.FastExecution(true)
@@ -3434,10 +3434,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_701", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_701", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.DECK),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
@@ -3463,10 +3463,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_702", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_702", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE}),
 						new AddStackTo(EntityType.HAND))
@@ -3490,11 +3490,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_705", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_705", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_705e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
 						ComplexTask.Taunt(EntityType.TARGET))
@@ -3510,9 +3510,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_706", new List<Enchantment> {
+			cards.Add("ICC_706", new List<Power> {
 				// TODO [ICC_706] Nerubian Unraveler && Test: Nerubian Unraveler_ICC_706
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3531,11 +3531,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_810", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_810", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_810e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.HAND),
 						new FilterStackTask(SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1, RelaSign.EQ)),
@@ -3556,11 +3556,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_812", new List<Enchantment> {
+			cards.Add("ICC_812", new List<Power> {
 				// TODO [ICC_812] Meat Wagon && Test: Meat Wagon_ICC_812
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -3575,11 +3575,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_851", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_851", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_851e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(2)),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.DECK, SelfCondition.IsMinion)))
@@ -3600,12 +3600,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_852", new List<Enchantment> {
+			cards.Add("ICC_852", new List<Power> {
 				// TODO [ICC_852] Prince Taldaram && Test: Prince Taldaram_ICC_852
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "ICC_852e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 					//ComplexTask.Create(
 					//	new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),
@@ -3630,10 +3630,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_853", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_853", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(4)),
 						new FlagTask(true, ComplexTask.Create(
@@ -3654,10 +3654,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_854", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_854", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 							new RandomEntourageTask(),
 							new AddStackTo(EntityType.HAND))
@@ -3676,10 +3676,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_855", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_855", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Freeze(EntityType.MINIONS_NOSOURCE)
 				},
 			});
@@ -3693,11 +3693,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("ICC_856", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_856", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.HERO,
+					Activation = PowerActivation.BOARD_ZONE,
 					Enchant = Auras.SpellPowerDamage(2)
 				}
 			});
@@ -3708,9 +3708,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever one of your other minions dies, summon a 2/2 Ghoul.
 			// --------------------------------------------------------
-			cards.Add("ICC_900", new List<Enchantment> {
+			cards.Add("ICC_900", new List<Power> {
 				// TODO [ICC_900] Necrotic Geist && Test: Necrotic Geist_ICC_900
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3726,11 +3726,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_901", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_901", new List<Power> {
+				new Power
 				{
-                    Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+                    Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Enchant = Auras.SimpleInclSelf(GameTag.EXTRA_END_TURN_EFFECT, 1)
 				}
 			});
@@ -3741,11 +3741,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Hero Powers are disabled.
 			// --------------------------------------------------------
-			cards.Add("ICC_902", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_902", new List<Power> {
+				new Power
 				{
-                    Area = EnchantmentArea.CONTROLLERS,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+                    Area = PowerArea.CONTROLLERS,
+					Activation = PowerActivation.BOARD_ZONE,
 					Enchant = Auras.SimpleInclSelf(GameTag.HERO_POWER_DISABLED, 1)
 				}
 			});
@@ -3759,11 +3759,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_904", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_904", new List<Power> {
+				new Power
 				{
 					InfoCardId = "ICC_904e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagGameTask(GameTag.NUM_MINIONS_KILLED_THIS_TURN),
 						new BuffAttackHealthNumberTask(EntityType.SOURCE)),
@@ -3787,11 +3787,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, remove the top 3 cards of_your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_911", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_911", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.HAND_AND_BOARD,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.HAND_AND_BOARD,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf)
@@ -3821,10 +3821,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_912", new List<Enchantment> {
-				new Enchantment
+			cards.Add("ICC_912", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.TAUNT)),
 						new FlagTask(true, ComplexTask.Taunt(EntityType.SOURCE)),
@@ -3848,19 +3848,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_913", new List<Enchantment> {
+			cards.Add("ICC_913", new List<Power> {
 
-				new Enchantment
+				new Power
 				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.HERO,
+					Activation = PowerActivation.BOARD_ZONE,
 					Enchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_028e] Blessing of the Val'kyr (*) - COST:0 
@@ -4157,7 +4157,7 @@ namespace SabberStoneCore.CardSets.Standard
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Heroes(cards);

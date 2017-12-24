@@ -201,9 +201,9 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// Holds a list of Buffs/Debuffs on this card instance.
-		/// <seealso cref="Enchantment"/>
+		/// <seealso cref="Power"/>
 		/// </summary>
-		public List<Enchantment> Enchantments { get; set; } = new List<Enchantment>();
+		public List<Power> Powers { get; set; } = new List<Power>();
 
 		/// <summary>
 		/// True if this card increases it's owners spell damage.
@@ -291,8 +291,8 @@ namespace SabberStoneCore.Model
 			clone.Tags = new Dictionary<GameTag, int>(Tags);
 			clone.RefTags = new Dictionary<GameTag, int>(RefTags);
 			clone.PlayRequirements = new Dictionary<PlayReq, int>(PlayRequirements);
-			if (Enchantments != null)
-				clone.Enchantments = new List<Enchantment>(Enchantments);
+			if (Powers != null)
+				clone.Powers = new List<Power>(Powers);
 			return clone;
 		}
 

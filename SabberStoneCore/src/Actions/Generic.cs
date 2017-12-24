@@ -154,7 +154,7 @@ namespace SabberStoneCore.Actions
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging? "":$"adding to deck {playable}.");
 
-				// don't activate enchantments when shuffling cards back into the deck
+				// don't activate powers when shuffling cards back into the deck
 				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1), false);
 
 				// add hide entity 
@@ -176,10 +176,10 @@ namespace SabberStoneCore.Actions
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				//newMinion.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
-				newMinion.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
-				newMinion.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
-				newMinion.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+				//newMinion.ApplyPowers(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
+				newMinion.ApplyPowers(PowerActivation.BOARD_ZONE, Zone.PLAY);
+				newMinion.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
+				newMinion.ApplyPowers(PowerActivation.DECK_ZONE, Zone.DECK);
 
 				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
 				oldMinion.Controller.SetasideZone.Add(oldEntity);

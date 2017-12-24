@@ -8,12 +8,12 @@ namespace SabberStoneCore.Model.Zones
 	{
 		//public override bool IsFull => Entities[MaxSize - 1] != null;
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition);
 
-			if (applyEnchantment)
-				entity.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
+			if (applyPowers)
+				entity.ApplyPowers(PowerActivation.BOARD_ZONE, Zone.PLAY);
 
 			entity.OrderOfPlay = Game.NextOop;
 		}

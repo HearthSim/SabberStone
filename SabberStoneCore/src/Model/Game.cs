@@ -337,7 +337,7 @@ namespace SabberStoneCore.Model
 			gameTask.Game = this;
 			gameTask.Process();
 
-			// add enchantment and buff tag changes
+			// add power and buff tag changes
 			if (History)
 			{
 				Enchants.ForEach(p =>
@@ -854,7 +854,7 @@ namespace SabberStoneCore.Model
 					minion.Zone.Remove(minion);
 
 					if (minion.HasDeathrattle)
-						minion.ApplyEnchantments(EnchantmentActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+						minion.ApplyPowers(PowerActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
 
 					if (History)
 						PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);

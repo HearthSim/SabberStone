@@ -12,7 +12,7 @@ namespace SabberStoneCore.CardSets
 	/// </summary>
 	public class GvgCardsGen
 	{
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+		private static void Druid(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [GVG_031] Recycle - COST:6 
@@ -25,13 +25,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_031", new List<Enchantment> {
+			cards.Add("GVG_031", new List<Power> {
 
-				new Enchantment
+				new Power
 				{
                     // http://hearthstone.gamepedia.com/Recycle
 
-                    Activation = EnchantmentActivation.SPELL,
+                    Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, 1),
 						new AddStackTo(EntityType.OP_DECK),
@@ -45,10 +45,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Restore all characters to full Health.
 			// --------------------------------------------------------
-			cards.Add("GVG_033", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_033", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new HealFullTask(EntityType.ALL)
 				},
 			});
@@ -69,11 +69,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_041", new List<Enchantment> {
+			cards.Add("GVG_041", new List<Power> {
 				// TODO [GVG_041] Dark Wispers && Test: Dark Wispers_GVG_041
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -89,9 +89,9 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_030", new List<Enchantment> {
+			cards.Add("GVG_030", new List<Power> {
 				// TODO [GVG_030] Anodized Robo Cub && Test: Anodized Robo Cub_GVG_030
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -107,9 +107,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_032", new List<Enchantment> {
+			cards.Add("GVG_032", new List<Power> {
 				// TODO [GVG_032] Grove Tender && Test: Grove Tender_GVG_032
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -127,9 +127,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_034", new List<Enchantment> {
+			cards.Add("GVG_034", new List<Power> {
 				// TODO [GVG_034] Mech-Bear-Cat && Test: Mech-Bear-Cat_GVG_034
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -146,10 +146,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_035", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_035", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new AddCardTo("GVG_035", EntityType.DECK)
 				},
 			});
@@ -163,10 +163,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_080", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_080", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
 						new FlagTask(true, new TransformTask("GVG_080t", EntityType.SOURCE)))
@@ -175,7 +175,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [GVG_030a] Attack Mode (*) - COST:0 
@@ -183,11 +183,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_030a", new List<Enchantment> {
+			cards.Add("GVG_030a", new List<Power> {
 				// TODO [GVG_030a] Attack Mode && Test: Attack Mode_GVG_030a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -198,11 +198,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
-			cards.Add("GVG_030b", new List<Enchantment> {
+			cards.Add("GVG_030b", new List<Power> {
 				// TODO [GVG_030b] Tank Mode && Test: Tank Mode_GVG_030b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -213,11 +213,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Give each player a Mana Crystal.
 			// --------------------------------------------------------
-			cards.Add("GVG_032a", new List<Enchantment> {
+			cards.Add("GVG_032a", new List<Power> {
 				// TODO [GVG_032a] Gift of Mana && Test: Gift of Mana_GVG_032a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -228,11 +228,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Each player draws a card.
 			// --------------------------------------------------------
-			cards.Add("GVG_032b", new List<Enchantment> {
+			cards.Add("GVG_032b", new List<Power> {
 				// TODO [GVG_032b] Gift of Cards && Test: Gift of Cards_GVG_032b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -247,11 +247,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_041a", new List<Enchantment> {
+			cards.Add("GVG_041a", new List<Power> {
 				// TODO [GVG_041a] Dark Wispers && Test: Dark Wispers_GVG_041a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -266,11 +266,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_041b", new List<Enchantment> {
+			cards.Add("GVG_041b", new List<Power> {
 				// TODO [GVG_041b] Dark Wispers && Test: Dark Wispers_GVG_041b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -281,9 +281,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_030ae", new List<Enchantment> {
+			cards.Add("GVG_030ae", new List<Power> {
 				// TODO [GVG_030ae] Attack Mode && Test: Attack Mode_GVG_030ae
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -296,9 +296,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
-			cards.Add("GVG_030be", new List<Enchantment> {
+			cards.Add("GVG_030be", new List<Power> {
 				// TODO [GVG_030be] Tank Mode && Test: Tank Mode_GVG_030be
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -311,9 +311,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +5/+5 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("GVG_041c", new List<Enchantment> {
+			cards.Add("GVG_041c", new List<Power> {
 				// TODO [GVG_041c] Dark Wispers && Test: Dark Wispers_GVG_041c
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -328,7 +328,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
+		private static void Hunter(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - HUNTER
 			// [GVG_017] Call Pet - COST:2 
@@ -337,11 +337,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw a card.
 			//       If it's a Beast, it costs (4) less.
 			// --------------------------------------------------------
-			cards.Add("GVG_017", new List<Enchantment> {
+			cards.Add("GVG_017", new List<Power> {
 				// TODO [GVG_017] Call Pet && Test: Call Pet_GVG_017
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -355,11 +355,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_026", new List<Enchantment> {
+			cards.Add("GVG_026", new List<Power> {
 				// TODO [GVG_026] Feign Death && Test: Feign Death_GVG_026
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -374,10 +374,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_073", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_073", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
 						new DamageTask(3, EntityType.OP_HERO, true))
@@ -395,11 +395,11 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_046", new List<Enchantment> {
+			cards.Add("GVG_046", new List<Power> {
 				// TODO [GVG_046] King of Beasts && Test: King of Beasts_GVG_046
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -413,11 +413,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_048", new List<Enchantment> {
+			cards.Add("GVG_048", new List<Power> {
 				// TODO [GVG_048] Metaltooth Leaper && Test: Metaltooth Leaper_GVG_048
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -431,9 +431,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_049", new List<Enchantment> {
+			cards.Add("GVG_049", new List<Power> {
 				// TODO [GVG_049] Gahz'rilla && Test: Gahz'rilla_GVG_049
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -446,9 +446,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your Hero Power can target minions.
 			// --------------------------------------------------------
-			cards.Add("GVG_087", new List<Enchantment> {
+			cards.Add("GVG_087", new List<Power> {
 				// TODO [GVG_087] Steamwheedle Sniper && Test: Steamwheedle Sniper_GVG_087
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -465,23 +465,23 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 2
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_043", new List<Enchantment> {
+			cards.Add("GVG_043", new List<Power> {
 				// TODO [GVG_043] Glaivezooka && Test: Glaivezooka_GVG_043
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [GVG_043e] Glaivezooka (*) - COST:0 
@@ -517,7 +517,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [GVG_001] Flamecannon - COST:2 
@@ -528,10 +528,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_001", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_001", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4, true)
 				},
 			});
@@ -542,10 +542,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Add a random minion to your hand. It costs (3) less.
 			// --------------------------------------------------------
-			cards.Add("GVG_003", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_003", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new RandomCardTask(CardType.MINION, CardClass.INVALID),
 						new AddStackTo(EntityType.HAND),
@@ -559,11 +559,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Put a copy of each friendly minion into your hand.
 			// --------------------------------------------------------
-			cards.Add("GVG_005", new List<Enchantment> {
+			cards.Add("GVG_005", new List<Power> {
 				// TODO [GVG_005] Echo of Medivh && Test: Echo of Medivh_GVG_005
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -577,9 +577,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_002", new List<Enchantment> {
+			cards.Add("GVG_002", new List<Power> {
 				// TODO [GVG_002] Snowchugger && Test: Snowchugger_GVG_002
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -595,11 +595,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_004", new List<Enchantment> {
+			cards.Add("GVG_004", new List<Power> {
 				// TODO [GVG_004] Goblin Blastmage && Test: Goblin Blastmage_GVG_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -614,9 +614,9 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_007", new List<Enchantment> {
+			cards.Add("GVG_007", new List<Power> {
 				// TODO [GVG_007] Flame Leviathan && Test: Flame Leviathan_GVG_007
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -632,9 +632,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_122", new List<Enchantment> {
+			cards.Add("GVG_122", new List<Power> {
 				// TODO [GVG_122] Wee Spellstopper && Test: Wee Spellstopper_GVG_122
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -650,18 +650,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_123", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_123", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.HERO,
+					Activation = PowerActivation.BOARD_ZONE,
 					Enchant = Auras.SpellPowerDamage(1)
 				},
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [GVG_123e] Overclocked (*) - COST:0 
@@ -672,9 +672,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("GVG_123e", new List<Enchantment> {
+			cards.Add("GVG_123e", new List<Power> {
 				// TODO [GVG_123e] Overclocked && Test: Overclocked_GVG_123e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -683,7 +683,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
+		private static void Paladin(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - PALADIN
 			// [GVG_057] Seal of Light - COST:2 
@@ -691,11 +691,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Restore #4 Health to your hero and gain +2 Attack this turn.
 			// --------------------------------------------------------
-			cards.Add("GVG_057", new List<Enchantment> {
+			cards.Add("GVG_057", new List<Power> {
 				// TODO [GVG_057] Seal of Light && Test: Seal of Light_GVG_057
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -706,10 +706,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
 			// --------------------------------------------------------
-			cards.Add("GVG_061", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_061", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new EnqueueTask(3, new SummonTask("CS2_101t", SummonSide.SPELL)),
 						new WeaponTask("CS2_091"))
@@ -725,9 +725,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_058", new List<Enchantment> {
+			cards.Add("GVG_058", new List<Power> {
 				// TODO [GVG_058] Shielded Minibot && Test: Shielded Minibot_GVG_058
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -743,11 +743,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_060", new List<Enchantment> {
+			cards.Add("GVG_060", new List<Power> {
 				// TODO [GVG_060] Quartermaster && Test: Quartermaster_GVG_060
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -761,9 +761,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_062", new List<Enchantment> {
+			cards.Add("GVG_062", new List<Power> {
 				// TODO [GVG_062] Cobalt Guardian && Test: Cobalt Guardian_GVG_062
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -779,9 +779,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_063", new List<Enchantment> {
+			cards.Add("GVG_063", new List<Power> {
 				// TODO [GVG_063] Bolvar Fordragon && Test: Bolvar Fordragon_GVG_063
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -800,11 +800,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_101", new List<Enchantment> {
+			cards.Add("GVG_101", new List<Power> {
 				// TODO [GVG_101] Scarlet Purifier && Test: Scarlet Purifier_GVG_101
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -823,23 +823,23 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_059", new List<Enchantment> {
+			cards.Add("GVG_059", new List<Power> {
 				// TODO [GVG_059] Coghammer && Test: Coghammer_GVG_059
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [GVG_060e] Well Equipped (*) - COST:0 
@@ -859,7 +859,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Priest(IDictionary<string, List<Enchantment>> cards)
+		private static void Priest(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - PRIEST
 			// [GVG_008] Lightbomb - COST:6 
@@ -870,11 +870,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_008", new List<Enchantment> {
+			cards.Add("GVG_008", new List<Power> {
 				// TODO [GVG_008] Lightbomb && Test: Lightbomb_GVG_008
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -892,11 +892,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_010", new List<Enchantment> {
+			cards.Add("GVG_010", new List<Power> {
 				// TODO [GVG_010] Velen's Chosen && Test: Velen's Chosen_GVG_010
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -910,11 +910,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_012", new List<Enchantment> {
+			cards.Add("GVG_012", new List<Power> {
 				// TODO [GVG_012] Light of the Naaru && Test: Light of the Naaru_GVG_012
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -928,11 +928,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_009", new List<Enchantment> {
+			cards.Add("GVG_009", new List<Power> {
 				// TODO [GVG_009] Shadowbomber && Test: Shadowbomber_GVG_009
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -950,11 +950,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_011", new List<Enchantment> {
+			cards.Add("GVG_011", new List<Power> {
 				// TODO [GVG_011] Shrinkmeister && Test: Shrinkmeister_GVG_011
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -973,11 +973,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_014", new List<Enchantment> {
+			cards.Add("GVG_014", new List<Power> {
 				// TODO [GVG_014] Vol'jin && Test: Vol'jin_GVG_014
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -988,9 +988,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever a character is healed, deal 1 damage to a random enemy.
 			// --------------------------------------------------------
-			cards.Add("GVG_072", new List<Enchantment> {
+			cards.Add("GVG_072", new List<Power> {
 				// TODO [GVG_072] Shadowboxer && Test: Shadowboxer_GVG_072
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1012,18 +1012,18 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_WITH_RACE = 17
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_083", new List<Enchantment> {
+			cards.Add("GVG_083", new List<Power> {
 				// TODO [GVG_083] Upgraded Repair Bot && Test: Upgraded Repair Bot_GVG_083
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [GVG_014a] Shadowed (*) - COST:0 
@@ -1031,9 +1031,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Health was swapped.
 			// --------------------------------------------------------
-			cards.Add("GVG_014a", new List<Enchantment> {
+			cards.Add("GVG_014a", new List<Power> {
 				// TODO [GVG_014a] Shadowed && Test: Shadowed_GVG_014a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1046,9 +1046,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4 Health.
 			// --------------------------------------------------------
-			cards.Add("GVG_069a", new List<Enchantment> {
+			cards.Add("GVG_069a", new List<Power> {
 				// TODO [GVG_069a] Repairs! && Test: Repairs!_GVG_069a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1057,7 +1057,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
 			// [GVG_022] Tinker's Sharpsword Oil - COST:4 
@@ -1071,11 +1071,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_022", new List<Enchantment> {
+			cards.Add("GVG_022", new List<Power> {
 				// TODO [GVG_022] Tinker's Sharpsword Oil && Test: Tinker's Sharpsword Oil_GVG_022
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1093,11 +1093,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_047", new List<Enchantment> {
+			cards.Add("GVG_047", new List<Power> {
 				// TODO [GVG_047] Sabotage && Test: Sabotage_GVG_047
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1111,11 +1111,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_023", new List<Enchantment> {
+			cards.Add("GVG_023", new List<Power> {
 				// TODO [GVG_023] Goblin Auto-Barber && Test: Goblin Auto-Barber_GVG_023
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1129,9 +1129,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_025", new List<Enchantment> {
+			cards.Add("GVG_025", new List<Power> {
 				// TODO [GVG_025] One-eyed Cheat && Test: One-eyed Cheat_GVG_025
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1144,9 +1144,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another friendly Mech +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_027", new List<Enchantment> {
+			cards.Add("GVG_027", new List<Power> {
 				// TODO [GVG_027] Iron Sensei && Test: Iron Sensei_GVG_027
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1162,9 +1162,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_028", new List<Enchantment> {
+			cards.Add("GVG_028", new List<Power> {
 				// TODO [GVG_028] Trade Prince Gallywix && Test: Trade Prince Gallywix_GVG_028
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1182,9 +1182,9 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - FORGETFUL = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_088", new List<Enchantment> {
+			cards.Add("GVG_088", new List<Power> {
 				// TODO [GVG_088] Ogre Ninja && Test: Ogre Ninja_GVG_088
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1201,18 +1201,18 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 3
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_024", new List<Enchantment> {
+			cards.Add("GVG_024", new List<Power> {
 				// TODO [GVG_024] Cogmaster's Wrench && Test: Cogmaster's Wrench_GVG_024
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [GVG_027e] Ironed Out (*) - COST:0 
@@ -1220,9 +1220,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("GVG_027e", new List<Enchantment> {
+			cards.Add("GVG_027e", new List<Power> {
 				// TODO [GVG_027e] Ironed Out && Test: Ironed Out_GVG_027e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1231,7 +1231,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
+		private static void Shaman(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - SHAMAN
 			// [GVG_029] Ancestor's Call - COST:4 
@@ -1239,11 +1239,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Put a random minion from each player's hand into the battlefield.
 			// --------------------------------------------------------
-			cards.Add("GVG_029", new List<Enchantment> {
+			cards.Add("GVG_029", new List<Power> {
 				// TODO [GVG_029] Ancestor's Call && Test: Ancestor's Call_GVG_029
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1261,11 +1261,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_038", new List<Enchantment> {
+			cards.Add("GVG_038", new List<Power> {
 				// TODO [GVG_038] Crackle && Test: Crackle_GVG_038
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1279,9 +1279,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_037", new List<Enchantment> {
+			cards.Add("GVG_037", new List<Power> {
 				// TODO [GVG_037] Whirling Zap-o-matic && Test: Whirling Zap-o-matic_GVG_037
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1294,9 +1294,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 4 Health to your hero.
 			// --------------------------------------------------------
-			cards.Add("GVG_039", new List<Enchantment> {
+			cards.Add("GVG_039", new List<Power> {
 				// TODO [GVG_039] Vitality Totem && Test: Vitality Totem_GVG_039
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1313,9 +1313,9 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD = 1
 			// - OVERLOAD_OWED = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_040", new List<Enchantment> {
+			cards.Add("GVG_040", new List<Power> {
 				// TODO [GVG_040] Siltfin Spiritwalker && Test: Siltfin Spiritwalker_GVG_040
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1334,11 +1334,11 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// - OVERLOAD_OWED = 3
 			// --------------------------------------------------------
-			cards.Add("GVG_042", new List<Enchantment> {
+			cards.Add("GVG_042", new List<Power> {
 				// TODO [GVG_042] Neptulon && Test: Neptulon_GVG_042
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1356,9 +1356,9 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD_OWED = 1
 			// - FORGETFUL = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_066", new List<Enchantment> {
+			cards.Add("GVG_066", new List<Power> {
 				// TODO [GVG_066] Dunemaul Shaman && Test: Dunemaul Shaman_GVG_066
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1375,23 +1375,23 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 2
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_036", new List<Enchantment> {
+			cards.Add("GVG_036", new List<Power> {
 				// TODO [GVG_036] Powermace && Test: Powermace_GVG_036
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void ShamanNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [GVG_036e] Powered (*) - COST:0 
@@ -1399,9 +1399,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_036e", new List<Enchantment> {
+			cards.Add("GVG_036e", new List<Power> {
 				// TODO [GVG_036e] Powered && Test: Powered_GVG_036e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1410,7 +1410,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
 			// [GVG_015] Darkbomb - COST:2 
@@ -1421,11 +1421,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_015", new List<Enchantment> {
+			cards.Add("GVG_015", new List<Power> {
 				// TODO [GVG_015] Darkbomb && Test: Darkbomb_GVG_015
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1440,11 +1440,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_019", new List<Enchantment> {
+			cards.Add("GVG_019", new List<Power> {
 				// TODO [GVG_019] Demonheart && Test: Demonheart_GVG_019
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1459,11 +1459,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_045", new List<Enchantment> {
+			cards.Add("GVG_045", new List<Power> {
 				// TODO [GVG_045] Imp-losion && Test: Imp-losion_GVG_045
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1474,9 +1474,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion deals damage, restore that much Health to your hero.
 			// --------------------------------------------------------
-			cards.Add("GVG_018", new List<Enchantment> {
+			cards.Add("GVG_018", new List<Power> {
 				// TODO [GVG_018] Mistress of Pain && Test: Mistress of Pain_GVG_018
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1489,9 +1489,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to a non-Mech minion.
 			// --------------------------------------------------------
-			cards.Add("GVG_020", new List<Enchantment> {
+			cards.Add("GVG_020", new List<Power> {
 				// TODO [GVG_020] Fel Cannon && Test: Fel Cannon_GVG_020
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1512,9 +1512,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_021", new List<Enchantment> {
+			cards.Add("GVG_021", new List<Power> {
 				// TODO [GVG_021] Mal'Ganis && Test: Mal'Ganis_GVG_021
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1527,9 +1527,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of each turn, destroy this minion if it's your only one.
 			// --------------------------------------------------------
-			cards.Add("GVG_077", new List<Enchantment> {
+			cards.Add("GVG_077", new List<Power> {
 				// TODO [GVG_077] Anima Golem && Test: Anima Golem_GVG_077
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1542,9 +1542,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your hero takes damage on your turn, gain +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_100", new List<Enchantment> {
+			cards.Add("GVG_100", new List<Power> {
 				// TODO [GVG_100] Floating Watcher && Test: Floating Watcher_GVG_100
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1553,7 +1553,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [GVG_019e] Demonheart (*) - COST:0 
@@ -1561,9 +1561,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +5/+5.
 			// --------------------------------------------------------
-			cards.Add("GVG_019e", new List<Enchantment> {
+			cards.Add("GVG_019e", new List<Power> {
 				// TODO [GVG_019e] Demonheart && Test: Demonheart_GVG_019e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1576,9 +1576,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Mal'Ganis is granting +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_021e", new List<Enchantment> {
+			cards.Add("GVG_021e", new List<Power> {
 				// TODO [GVG_021e] Grasp of Mal'Ganis && Test: Grasp of Mal'Ganis_GVG_021e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1591,9 +1591,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("GVG_100e", new List<Enchantment> {
+			cards.Add("GVG_100e", new List<Power> {
 				// TODO [GVG_100e] Brow Furrow && Test: Brow Furrow_GVG_100e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1604,9 +1604,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_045t] Imp (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: demon, Set: pe1, 
 			// --------------------------------------------------------
-			cards.Add("GVG_045t", new List<Enchantment> {
+			cards.Add("GVG_045t", new List<Power> {
 				// TODO [GVG_045t] Imp && Test: Imp_GVG_045t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1615,7 +1615,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
+		private static void Warrior(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
 			// [GVG_050] Bouncing Blade - COST:3 
@@ -1626,11 +1626,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_050", new List<Enchantment> {
+			cards.Add("GVG_050", new List<Power> {
 				// TODO [GVG_050] Bouncing Blade && Test: Bouncing Blade_GVG_050
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1645,11 +1645,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_052", new List<Enchantment> {
+			cards.Add("GVG_052", new List<Power> {
 				// TODO [GVG_052] Crush && Test: Crush_GVG_052
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1663,9 +1663,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_051", new List<Enchantment> {
+			cards.Add("GVG_051", new List<Power> {
 				// TODO [GVG_051] Warbot && Test: Warbot_GVG_051
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1681,11 +1681,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_053", new List<Enchantment> {
+			cards.Add("GVG_053", new List<Power> {
 				// TODO [GVG_053] Shieldmaiden && Test: Shieldmaiden_GVG_053
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1704,11 +1704,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_WITH_RACE = 17
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_055", new List<Enchantment> {
+			cards.Add("GVG_055", new List<Power> {
 				// TODO [GVG_055] Screwjank Clunker && Test: Screwjank Clunker_GVG_055
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1723,11 +1723,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_056", new List<Enchantment> {
+			cards.Add("GVG_056", new List<Power> {
 				// TODO [GVG_056] Iron Juggernaut && Test: Iron Juggernaut_GVG_056
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1738,9 +1738,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you gain Armor, give this minion +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_086", new List<Enchantment> {
+			cards.Add("GVG_086", new List<Power> {
 				// TODO [GVG_086] Siege Engine && Test: Siege Engine_GVG_086
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1756,18 +1756,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("GVG_054", new List<Enchantment> {
+			cards.Add("GVG_054", new List<Power> {
 				// TODO [GVG_054] Ogre Warmaul && Test: Ogre Warmaul_GVG_054
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
 			// [GVG_056t] Burrowing Mine (*) - COST:0 
@@ -1779,11 +1779,11 @@ namespace SabberStoneCore.CardSets
 			// - ImmuneToSpellpower = 1
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_056t", new List<Enchantment> {
+			cards.Add("GVG_056t", new List<Power> {
 				// TODO [GVG_056t] Burrowing Mine && Test: Burrowing Mine_GVG_056t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1794,9 +1794,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack
 			// --------------------------------------------------------
-			cards.Add("GVG_051e", new List<Enchantment> {
+			cards.Add("GVG_051e", new List<Power> {
 				// TODO [GVG_051e] Enraged && Test: Enraged_GVG_051e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1812,9 +1812,9 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_055e", new List<Enchantment> {
+			cards.Add("GVG_055e", new List<Power> {
 				// TODO [GVG_055e] Screwy Jank && Test: Screwy Jank_GVG_055e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1827,9 +1827,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_086e", new List<Enchantment> {
+			cards.Add("GVG_086e", new List<Power> {
 				// TODO [GVG_086e] Armor Plated && Test: Armor Plated_GVG_086e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1838,7 +1838,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3] 
@@ -1849,9 +1849,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_006", new List<Enchantment> {
+			cards.Add("GVG_006", new List<Power> {
 				// TODO [GVG_006] Mechwarper && Test: Mechwarper_GVG_006
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1867,9 +1867,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_013", new List<Enchantment> {
+			cards.Add("GVG_013", new List<Power> {
 				// TODO [GVG_013] Cogmaster && Test: Cogmaster_GVG_013
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1882,9 +1882,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your opponent plays a card, remove the top 3 cards of your deck.
 			// --------------------------------------------------------
-			cards.Add("GVG_016", new List<Enchantment> {
+			cards.Add("GVG_016", new List<Power> {
 				// TODO [GVG_016] Fel Reaver && Test: Fel Reaver_GVG_016
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1895,9 +1895,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4] 
 			// - Race: mechanical, Set: pe1, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("GVG_044", new List<Enchantment> {
+			cards.Add("GVG_044", new List<Power> {
 				// TODO [GVG_044] Spider Tank && Test: Spider Tank_GVG_044
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1908,9 +1908,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2] 
 			// - Race: murloc, Set: pe1, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("GVG_064", new List<Enchantment> {
+			cards.Add("GVG_064", new List<Power> {
 				// TODO [GVG_064] Puddlestomper && Test: Puddlestomper_GVG_064
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1926,9 +1926,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - FORGETFUL = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_065", new List<Enchantment> {
+			cards.Add("GVG_065", new List<Power> {
 				// TODO [GVG_065] Ogre Brute && Test: Ogre Brute_GVG_065
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1941,9 +1941,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_067", new List<Enchantment> {
+			cards.Add("GVG_067", new List<Power> {
 				// TODO [GVG_067] Stonesplinter Trogg && Test: Stonesplinter Trogg_GVG_067
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1956,9 +1956,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_068", new List<Enchantment> {
+			cards.Add("GVG_068", new List<Power> {
 				// TODO [GVG_068] Burly Rockjaw Trogg && Test: Burly Rockjaw Trogg_GVG_068
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -1974,11 +1974,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_069", new List<Enchantment> {
+			cards.Add("GVG_069", new List<Power> {
 				// TODO [GVG_069] Antique Healbot && Test: Antique Healbot_GVG_069
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -1987,9 +1987,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_070] Salty Dog - COST:5 [ATK:7/HP:4] 
 			// - Race: pirate, Set: pe1, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("GVG_070", new List<Enchantment> {
+			cards.Add("GVG_070", new List<Power> {
 				// TODO [GVG_070] Salty Dog && Test: Salty Dog_GVG_070
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2000,9 +2000,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_071] Lost Tallstrider - COST:4 [ATK:5/HP:4] 
 			// - Race: beast, Set: pe1, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("GVG_071", new List<Enchantment> {
+			cards.Add("GVG_071", new List<Power> {
 				// TODO [GVG_071] Lost Tallstrider && Test: Lost Tallstrider_GVG_071
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2021,11 +2021,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_074", new List<Enchantment> {
+			cards.Add("GVG_074", new List<Power> {
 				// TODO [GVG_074] Kezan Mystic && Test: Kezan Mystic_GVG_074
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2036,9 +2036,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you summon a Pirate, deal 2 damage to a random enemy.
 			// --------------------------------------------------------
-			cards.Add("GVG_075", new List<Enchantment> {
+			cards.Add("GVG_075", new List<Power> {
 				// TODO [GVG_075] Ship's Cannon && Test: Ship's Cannon_GVG_075
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2054,11 +2054,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_076", new List<Enchantment> {
+			cards.Add("GVG_076", new List<Power> {
 				// TODO [GVG_076] Explosive Sheep && Test: Explosive Sheep_GVG_076
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2075,11 +2075,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_078", new List<Enchantment> {
+			cards.Add("GVG_078", new List<Power> {
 				// TODO [GVG_078] Mechanical Yeti && Test: Mechanical Yeti_GVG_078
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2093,9 +2093,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_079", new List<Enchantment> {
+			cards.Add("GVG_079", new List<Power> {
 				// TODO [GVG_079] Force-Tank MAX && Test: Force-Tank MAX_GVG_079
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2111,9 +2111,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_081", new List<Enchantment> {
+			cards.Add("GVG_081", new List<Power> {
 				// TODO [GVG_081] Gilblin Stalker && Test: Gilblin Stalker_GVG_081
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2132,11 +2132,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_082", new List<Enchantment> {
+			cards.Add("GVG_082", new List<Power> {
 				// TODO [GVG_082] Clockwork Gnome && Test: Clockwork Gnome_GVG_082
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2150,9 +2150,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_084", new List<Enchantment> {
+			cards.Add("GVG_084", new List<Power> {
 				// TODO [GVG_084] Flying Machine && Test: Flying Machine_GVG_084
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2170,9 +2170,9 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_085", new List<Enchantment> {
+			cards.Add("GVG_085", new List<Power> {
 				// TODO [GVG_085] Annoy-o-Tron && Test: Annoy-o-Tron_GVG_085
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2188,9 +2188,9 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET_OR_QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_089", new List<Enchantment> {
+			cards.Add("GVG_089", new List<Power> {
 				// TODO [GVG_089] Illuminator && Test: Illuminator_GVG_089
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2206,11 +2206,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_090", new List<Enchantment> {
+			cards.Add("GVG_090", new List<Power> {
 				// TODO [GVG_090] Madder Bomber && Test: Madder Bomber_GVG_090
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2227,9 +2227,9 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_ABILITIES = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_091", new List<Enchantment> {
+			cards.Add("GVG_091", new List<Power> {
 				// TODO [GVG_091] Arcane Nullifier X-21 && Test: Arcane Nullifier X-21_GVG_091
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2245,11 +2245,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_092", new List<Enchantment> {
+			cards.Add("GVG_092", new List<Power> {
 				// TODO [GVG_092] Gnomish Experimenter && Test: Gnomish Experimenter_GVG_092
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2263,9 +2263,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_093", new List<Enchantment> {
+			cards.Add("GVG_093", new List<Power> {
 				// TODO [GVG_093] Target Dummy && Test: Target Dummy_GVG_093
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2278,10 +2278,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of each player's turn, that player draws until they have 3 cards.
 			// --------------------------------------------------------
-			cards.Add("GVG_094", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_094", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p =>
 						{
@@ -2302,9 +2302,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_095", new List<Enchantment> {
+			cards.Add("GVG_095", new List<Power> {
 				// TODO [GVG_095] Goblin Sapper && Test: Goblin Sapper_GVG_095
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2320,11 +2320,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_096", new List<Enchantment> {
+			cards.Add("GVG_096", new List<Power> {
 				// TODO [GVG_096] Piloted Shredder && Test: Piloted Shredder_GVG_096
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2343,11 +2343,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_097", new List<Enchantment> {
+			cards.Add("GVG_097", new List<Power> {
 				// TODO [GVG_097] Lil' Exorcist && Test: Lil' Exorcist_GVG_097
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2363,9 +2363,9 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_098", new List<Enchantment> {
+			cards.Add("GVG_098", new List<Power> {
 				// TODO [GVG_098] Gnomeregan Infantry && Test: Gnomeregan Infantry_GVG_098
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2381,11 +2381,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_099", new List<Enchantment> {
+			cards.Add("GVG_099", new List<Power> {
 				// TODO [GVG_099] Bomb Lobber && Test: Bomb Lobber_GVG_099
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2402,11 +2402,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_102", new List<Enchantment> {
+			cards.Add("GVG_102", new List<Power> {
 				// TODO [GVG_102] Tinkertown Technician && Test: Tinkertown Technician_GVG_102
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2417,9 +2417,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of each turn, gain +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_103", new List<Enchantment> {
+			cards.Add("GVG_103", new List<Power> {
 				// TODO [GVG_103] Micro Machine && Test: Micro Machine_GVG_103
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2432,9 +2432,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you play a 1-Attack minion, give it +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_104", new List<Enchantment> {
+			cards.Add("GVG_104", new List<Power> {
 				// TODO [GVG_104] Hobgoblin && Test: Hobgoblin_GVG_104
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2450,11 +2450,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_105", new List<Enchantment> {
+			cards.Add("GVG_105", new List<Power> {
 				// TODO [GVG_105] Piloted Sky Golem && Test: Piloted Sky Golem_GVG_105
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2465,9 +2465,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever a friendly Mech dies, gain +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_106", new List<Enchantment> {
+			cards.Add("GVG_106", new List<Power> {
 				// TODO [GVG_106] Junkbot && Test: Junkbot_GVG_106
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2489,11 +2489,11 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_107", new List<Enchantment> {
+			cards.Add("GVG_107", new List<Power> {
 				// TODO [GVG_107] Enhance-o Mechano && Test: Enhance-o Mechano_GVG_107
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2512,11 +2512,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_108", new List<Enchantment> {
+			cards.Add("GVG_108", new List<Power> {
 				// TODO [GVG_108] Recombobulator && Test: Recombobulator_GVG_108
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2532,9 +2532,9 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_109", new List<Enchantment> {
+			cards.Add("GVG_109", new List<Power> {
 				// TODO [GVG_109] Mini-Mage && Test: Mini-Mage_GVG_109
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2551,10 +2551,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_110", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_110", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new SummonTask("GVG_110t", SummonSide.LEFT),
 						new SummonTask("GVG_110t", SummonSide.RIGHT))
@@ -2570,9 +2570,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_111", new List<Enchantment> {
+			cards.Add("GVG_111", new List<Power> {
 				// TODO [GVG_111] Mimiron's Head && Test: Mimiron's Head_GVG_111
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2588,9 +2588,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_112", new List<Enchantment> {
+			cards.Add("GVG_112", new List<Power> {
 				// TODO [GVG_112] Mogor the Ogre && Test: Mogor the Ogre_GVG_112
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2606,9 +2606,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_113", new List<Enchantment> {
+			cards.Add("GVG_113", new List<Power> {
 				// TODO [GVG_113] Foe Reaper 4000 && Test: Foe Reaper 4000_GVG_113
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2625,11 +2625,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_114", new List<Enchantment> {
+			cards.Add("GVG_114", new List<Power> {
 				// TODO [GVG_114] Sneed's Old Shredder && Test: Sneed's Old Shredder_GVG_114
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2648,16 +2648,16 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_115", new List<Enchantment> {
+			cards.Add("GVG_115", new List<Power> {
 				// TODO [GVG_115] Toshley && Test: Toshley_GVG_115
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -2671,9 +2671,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_116", new List<Enchantment> {
+			cards.Add("GVG_116", new List<Power> {
 				// TODO [GVG_116] Mekgineer Thermaplugg && Test: Mekgineer Thermaplugg_GVG_116
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2689,9 +2689,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_117", new List<Enchantment> {
+			cards.Add("GVG_117", new List<Power> {
 				// TODO [GVG_117] Gazlowe && Test: Gazlowe_GVG_117
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2707,9 +2707,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_118", new List<Enchantment> {
+			cards.Add("GVG_118", new List<Power> {
 				// TODO [GVG_118] Troggzor the Earthinator && Test: Troggzor the Earthinator_GVG_118
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2726,11 +2726,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_119", new List<Enchantment> {
+			cards.Add("GVG_119", new List<Power> {
 				// TODO [GVG_119] Blingtron 3000 && Test: Blingtron 3000_GVG_119
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2749,11 +2749,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_WITH_RACE = 20
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_120", new List<Enchantment> {
+			cards.Add("GVG_120", new List<Power> {
 				// TODO [GVG_120] Hemet Nesingwary && Test: Hemet Nesingwary_GVG_120
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -2764,9 +2764,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each card in your opponent's hand.
 			// --------------------------------------------------------
-			cards.Add("GVG_121", new List<Enchantment> {
+			cards.Add("GVG_121", new List<Power> {
 				// TODO [GVG_121] Clockwork Giant && Test: Clockwork Giant_GVG_121
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2775,7 +2775,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [GVG_028t] Gallywix's Coin (*) - COST:0 
@@ -2784,11 +2784,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Gain 1 Mana Crystal this turn only.
 			//       <i>(Won't trigger Gallywix.)</i>
 			// --------------------------------------------------------
-			cards.Add("GVG_028t", new List<Enchantment> {
+			cards.Add("GVG_028t", new List<Power> {
 				// TODO [GVG_028t] Gallywix's Coin && Test: Gallywix's Coin_GVG_028t
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2806,11 +2806,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PART_001", new List<Enchantment> {
+			cards.Add("PART_001", new List<Power> {
 				// TODO [PART_001] Armor Plating && Test: Armor Plating_PART_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2829,11 +2829,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PART_002", new List<Enchantment> {
+			cards.Add("PART_002", new List<Power> {
 				// TODO [PART_002] Time Rewinder && Test: Time Rewinder_PART_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2854,11 +2854,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("PART_003", new List<Enchantment> {
+			cards.Add("PART_003", new List<Power> {
 				// TODO [PART_003] Rusty Horn && Test: Rusty Horn_PART_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2880,11 +2880,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("PART_004", new List<Enchantment> {
+			cards.Add("PART_004", new List<Power> {
 				// TODO [PART_004] Finicky Cloakfield && Test: Finicky Cloakfield_PART_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2903,11 +2903,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PART_005", new List<Enchantment> {
+			cards.Add("PART_005", new List<Power> {
 				// TODO [PART_005] Emergency Coolant && Test: Emergency Coolant_PART_005
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2925,11 +2925,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PART_006", new List<Enchantment> {
+			cards.Add("PART_006", new List<Power> {
 				// TODO [PART_006] Reversing Switch && Test: Reversing Switch_PART_006
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2947,11 +2947,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PART_007", new List<Enchantment> {
+			cards.Add("PART_007", new List<Power> {
 				// TODO [PART_007] Whirling Blades && Test: Whirling Blades_PART_007
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2962,9 +2962,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+4 and <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
-			cards.Add("GVG_010b", new List<Enchantment> {
+			cards.Add("GVG_010b", new List<Power> {
 				// TODO [GVG_010b] Velen's Chosen && Test: Velen's Chosen_GVG_010b
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2980,9 +2980,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OneTurnEffect = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_011a", new List<Enchantment> {
+			cards.Add("GVG_011a", new List<Power> {
 				// TODO [GVG_011a] Shrink Ray && Test: Shrink Ray_GVG_011a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -2995,9 +2995,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_022a", new List<Enchantment> {
+			cards.Add("GVG_022a", new List<Power> {
 				// TODO [GVG_022a] Tinker's Sharpsword Oil && Test: Tinker's Sharpsword Oil_GVG_022a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3010,9 +3010,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_022b", new List<Enchantment> {
+			cards.Add("GVG_022b", new List<Power> {
 				// TODO [GVG_022b] Tinker's Sharpsword Oil && Test: Tinker's Sharpsword Oil_GVG_022b
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3025,9 +3025,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_023a", new List<Enchantment> {
+			cards.Add("GVG_023a", new List<Power> {
 				// TODO [GVG_023a] Extra Sharp && Test: Extra Sharp_GVG_023a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3043,9 +3043,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - OneTurnEffect = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_057a", new List<Enchantment> {
+			cards.Add("GVG_057a", new List<Power> {
 				// TODO [GVG_057a] Seal of Light && Test: Seal of Light_GVG_057a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3058,9 +3058,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack
 			// --------------------------------------------------------
-			cards.Add("GVG_063a", new List<Enchantment> {
+			cards.Add("GVG_063a", new List<Power> {
 				// TODO [GVG_063a] Retribution && Test: Retribution_GVG_063a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3076,9 +3076,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_067a", new List<Enchantment> {
+			cards.Add("GVG_067a", new List<Power> {
 				// TODO [GVG_067a] Metabolized Magic && Test: Metabolized Magic_GVG_067a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3094,9 +3094,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_068a", new List<Enchantment> {
+			cards.Add("GVG_068a", new List<Power> {
 				// TODO [GVG_068a] Metabolized Magic && Test: Metabolized Magic_GVG_068a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3109,9 +3109,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("GVG_076a", new List<Enchantment> {
+			cards.Add("GVG_076a", new List<Power> {
 				// TODO [GVG_076a] Pistons && Test: Pistons_GVG_076a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3124,9 +3124,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("GVG_102e", new List<Enchantment> {
+			cards.Add("GVG_102e", new List<Power> {
 				// TODO [GVG_102e] Might of Tinkertown && Test: Might of Tinkertown_GVG_102e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3139,9 +3139,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("GVG_104a", new List<Enchantment> {
+			cards.Add("GVG_104a", new List<Power> {
 				// TODO [GVG_104a] HERE, TAKE BUFF. && Test: HERE, TAKE BUFF._GVG_104a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3154,9 +3154,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("GVG_106e", new List<Enchantment> {
+			cards.Add("GVG_106e", new List<Power> {
 				// TODO [GVG_106e] Junked Up && Test: Junked Up_GVG_106e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3172,9 +3172,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_001e", new List<Enchantment> {
+			cards.Add("PART_001e", new List<Power> {
 				// TODO [PART_001e] Armor Plating && Test: Armor Plating_PART_001e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3190,9 +3190,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_004e", new List<Enchantment> {
+			cards.Add("PART_004e", new List<Power> {
 				// TODO [PART_004e] Cloaked && Test: Cloaked_PART_004e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3208,9 +3208,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_006a", new List<Enchantment> {
+			cards.Add("PART_006a", new List<Power> {
 				// TODO [PART_006a] Switched && Test: Switched_PART_006a
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3226,9 +3226,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_007e", new List<Enchantment> {
+			cards.Add("PART_007e", new List<Power> {
 				// TODO [PART_007e] Whirling Blades && Test: Whirling Blades_PART_007e
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3239,9 +3239,9 @@ namespace SabberStoneCore.CardSets
 			// [GVG_092t] Chicken (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: pe1, 
 			// --------------------------------------------------------
-			cards.Add("GVG_092t", new List<Enchantment> {
+			cards.Add("GVG_092t", new List<Power> {
 				// TODO [GVG_092t] Chicken && Test: Chicken_GVG_092t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3257,10 +3257,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_110t", new List<Enchantment> {
-				new Enchantment
+			cards.Add("GVG_110t", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.ENEMIES),
 						new MathRandTask(1, 4),
@@ -3279,9 +3279,9 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_111t", new List<Enchantment> {
+			cards.Add("GVG_111t", new List<Power> {
 				// TODO [GVG_111t] V-07-TR-0N && Test: V-07-TR-0N_GVG_111t
-				new Enchantment
+				new Power
 				(
 					//Activation = null,
 					//SingleTask = null,
@@ -3291,7 +3291,7 @@ namespace SabberStoneCore.CardSets
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Druid(cards);

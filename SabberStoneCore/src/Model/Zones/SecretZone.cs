@@ -15,7 +15,7 @@ namespace SabberStoneCore.Model.Zones
 		public Spell Quest { get; set; }
 
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			if (entity.Card[GameTag.QUEST] == 1)
 			{

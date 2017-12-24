@@ -12,7 +12,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 {
 	public class TbCardsGen
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
 			// [FB_LK008h] Blood-Queen Lana'thel (*) - COST:0 [ATK:0/HP:30] 
@@ -21,9 +21,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 43194
 			// --------------------------------------------------------
-			cards.Add("FB_LK008h", new List<Enchantment> {
+			cards.Add("FB_LK008h", new List<Power> {
 				// TODO [FB_LK008h] Blood-Queen Lana'thel && Test: Blood-Queen Lana'thel_FB_LK008h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -37,9 +37,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 42447
 			// --------------------------------------------------------
-			cards.Add("FB_LK_012h", new List<Enchantment> {
+			cards.Add("FB_LK_012h", new List<Power> {
 				// TODO [FB_LK_012h] Lord Marrowgar && Test: Lord Marrowgar_FB_LK_012h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -53,9 +53,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 42876
 			// --------------------------------------------------------
-			cards.Add("FB_LK_013h", new List<Enchantment> {
+			cards.Add("FB_LK_013h", new List<Power> {
 				// TODO [FB_LK_013h] Professor Putricide && Test: Professor Putricide_FB_LK_013h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -69,9 +69,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 45627
 			// --------------------------------------------------------
-			cards.Add("FB_LK_014h", new List<Enchantment> {
+			cards.Add("FB_LK_014h", new List<Power> {
 				// TODO [FB_LK_014h] Sindragosa && Test: Sindragosa_FB_LK_014h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -85,9 +85,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 42457
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Raid_Hero", new List<Enchantment> {
+			cards.Add("FB_LK_Raid_Hero", new List<Power> {
 				// TODO [FB_LK_Raid_Hero] Supreme Lich King && Test: Supreme Lich King_FB_LK_Raid_Hero
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -101,9 +101,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 42457
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Raid_Hero_Battledamaged", new List<Enchantment> {
+			cards.Add("FB_LK_Raid_Hero_Battledamaged", new List<Power> {
 				// TODO [FB_LK_Raid_Hero_Battledamaged] Supreme Lich King && Test: Supreme Lich King_FB_LK_Raid_Hero_Battledamaged
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -117,9 +117,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 40086
 			// --------------------------------------------------------
-			cards.Add("KAR_a10_Boss1H_TB", new List<Enchantment> {
+			cards.Add("KAR_a10_Boss1H_TB", new List<Power> {
 				// TODO [KAR_a10_Boss1H_TB] White King && Test: White King_KAR_a10_Boss1H_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -133,9 +133,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 40086
 			// --------------------------------------------------------
-			cards.Add("KAR_a10_Boss1H_TB22", new List<Enchantment> {
+			cards.Add("KAR_a10_Boss1H_TB22", new List<Power> {
 				// TODO [KAR_a10_Boss1H_TB22] White King && Test: White King_KAR_a10_Boss1H_TB22
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -150,9 +150,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - HERO_POWER = 39801
 			// - CANT_BE_FATIGUED = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_a10_Boss2H_TB", new List<Enchantment> {
+			cards.Add("KAR_a10_Boss2H_TB", new List<Power> {
 				// TODO [KAR_a10_Boss2H_TB] Black King && Test: Black King_KAR_a10_Boss2H_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -166,9 +166,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_001", new List<Enchantment> {
+			cards.Add("TB_BossRumble_001", new List<Power> {
 				// TODO [TB_BossRumble_001] Han'Cho && Test: Han'Cho_TB_BossRumble_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -182,9 +182,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_002", new List<Enchantment> {
+			cards.Add("TB_BossRumble_002", new List<Power> {
 				// TODO [TB_BossRumble_002] Aya Blackpaw && Test: Aya Blackpaw_TB_BossRumble_002
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -198,9 +198,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_003", new List<Enchantment> {
+			cards.Add("TB_BossRumble_003", new List<Power> {
 				// TODO [TB_BossRumble_003] Kazakus && Test: Kazakus_TB_BossRumble_003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -214,9 +214,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 40221
 			// --------------------------------------------------------
-			cards.Add("TB_CoopHero_H_001", new List<Enchantment> {
+			cards.Add("TB_CoopHero_H_001", new List<Power> {
 				// TODO [TB_CoopHero_H_001] Coop Boss && Test: Coop Boss_TB_CoopHero_H_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -230,9 +230,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 2660
 			// --------------------------------------------------------
-			cards.Add("TB_FW_Rag", new List<Enchantment> {
+			cards.Add("TB_FW_Rag", new List<Power> {
 				// TODO [TB_FW_Rag] Ragnaros the Firelord && Test: Ragnaros the Firelord_TB_FW_Rag
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -246,9 +246,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_H_1", new List<Enchantment> {
+			cards.Add("TB_KTRAF_H_1", new List<Power> {
 				// TODO [TB_KTRAF_H_1] Kel'Thuzad && Test: Kel'Thuzad_TB_KTRAF_H_1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -262,9 +262,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39236
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_H_2", new List<Enchantment> {
+			cards.Add("TB_KTRAF_H_2", new List<Power> {
 				// TODO [TB_KTRAF_H_2] Rafaam && Test: Rafaam_TB_KTRAF_H_2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -275,9 +275,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_MechWar_Boss1] Annoy-o-Tron (*) - COST:0 [ATK:0/HP:30] 
 			// - Fac: neutral, Set: tb, Rarity: free
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_Boss1", new List<Enchantment> {
+			cards.Add("TB_MechWar_Boss1", new List<Power> {
 				// TODO [TB_MechWar_Boss1] Annoy-o-Tron && Test: Annoy-o-Tron_TB_MechWar_Boss1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -288,9 +288,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_MechWar_Boss2] Boom Bot (*) - COST:0 [ATK:0/HP:30] 
 			// - Fac: neutral, Set: tb, Rarity: free
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_Boss2", new List<Enchantment> {
+			cards.Add("TB_MechWar_Boss2", new List<Power> {
 				// TODO [TB_MechWar_Boss2] Boom Bot && Test: Boom Bot_TB_MechWar_Boss2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -304,9 +304,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39537
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Boss", new List<Enchantment> {
+			cards.Add("TB_SPT_Boss", new List<Power> {
 				// TODO [TB_SPT_Boss] City of Stormwind && Test: City of Stormwind_TB_SPT_Boss
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -320,9 +320,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 42156
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromo_Hero", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromo_Hero", new List<Power> {
 				// TODO [TB_SPT_DPromo_Hero] Dark Wanderer && Test: Dark Wanderer_TB_SPT_DPromo_Hero
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -337,9 +337,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - InvisibleDeathrattle = 1
 			// - HERO_POWER = 42156
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromo_Hero2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromo_Hero2", new List<Power> {
 				// TODO [TB_SPT_DPromo_Hero2] The Cow King && Test: The Cow King_TB_SPT_DPromo_Hero2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -353,9 +353,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39537
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Boss", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Boss", new List<Power> {
 				// TODO [TB_SPT_MTH_Boss] Decorated Stormwind && Test: Decorated Stormwind_TB_SPT_MTH_Boss
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -369,9 +369,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39537
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Boss0", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Boss0", new List<Power> {
 				// TODO [TB_SPT_MTH_Boss0] City of Stormwind && Test: City of Stormwind_TB_SPT_MTH_Boss0
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -385,9 +385,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39537
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Boss2", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Boss2", new List<Power> {
 				// TODO [TB_SPT_MTH_Boss2] Partytown Stormwind && Test: Partytown Stormwind_TB_SPT_MTH_Boss2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -401,9 +401,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39537
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Boss3", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Boss3", new List<Power> {
 				// TODO [TB_SPT_MTH_Boss3] Party Capital && Test: Party Capital_TB_SPT_MTH_Boss3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -417,9 +417,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 2660
 			// --------------------------------------------------------
-			cards.Add("TBA01_1", new List<Enchantment> {
+			cards.Add("TBA01_1", new List<Power> {
 				// TODO [TBA01_1] Ragnaros the Firelord && Test: Ragnaros the Firelord_TBA01_1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -433,9 +433,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 2653
 			// --------------------------------------------------------
-			cards.Add("TBA01_4", new List<Enchantment> {
+			cards.Add("TBA01_4", new List<Power> {
 				// TODO [TBA01_4] Nefarian && Test: Nefarian_TBA01_4
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -444,7 +444,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [BRMA01_2H_2_TB] Pile On!!! (*) - COST:2 
@@ -456,9 +456,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA01_2H_2_TB", new List<Enchantment> {
+			cards.Add("BRMA01_2H_2_TB", new List<Power> {
 				// TODO [BRMA01_2H_2_TB] Pile On!!! && Test: Pile On!!!_BRMA01_2H_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -475,9 +475,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA02_2_2_TB", new List<Enchantment> {
+			cards.Add("BRMA02_2_2_TB", new List<Power> {
 				// TODO [BRMA02_2_2_TB] Jeering Crowd && Test: Jeering Crowd_BRMA02_2_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -494,9 +494,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA06_2H_TB", new List<Enchantment> {
+			cards.Add("BRMA06_2H_TB", new List<Power> {
 				// TODO [BRMA06_2H_TB] The Majordomo && Test: The Majordomo_BRMA06_2H_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -513,9 +513,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA07_2_2_TB", new List<Enchantment> {
+			cards.Add("BRMA07_2_2_TB", new List<Power> {
 				// TODO [BRMA07_2_2_TB] ME SMASH && Test: ME SMASH_BRMA07_2_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -532,9 +532,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_2_TB", new List<Enchantment> {
+			cards.Add("BRMA09_2_TB", new List<Power> {
 				// TODO [BRMA09_2_TB] Open the Gates && Test: Open the Gates_BRMA09_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -548,9 +548,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Each player draws 3 cards. Gain a Mana Crystal.
 			// --------------------------------------------------------
-			cards.Add("BRMA11_2H_2_TB", new List<Enchantment> {
+			cards.Add("BRMA11_2H_2_TB", new List<Power> {
 				// TODO [BRMA11_2H_2_TB] Essence of the Red && Test: Essence of the Red_BRMA11_2H_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -564,9 +564,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Put a random spell from your opponent's class into your hand.
 			// --------------------------------------------------------
-			cards.Add("BRMA13_4_2_TB", new List<Enchantment> {
+			cards.Add("BRMA13_4_2_TB", new List<Power> {
 				// TODO [BRMA13_4_2_TB] Wild Magic && Test: Wild Magic_BRMA13_4_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -585,9 +585,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA14_10H_TB", new List<Enchantment> {
+			cards.Add("BRMA14_10H_TB", new List<Power> {
 				// TODO [BRMA14_10H_TB] Activate! && Test: Activate!_BRMA14_10H_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -604,9 +604,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA17_5_TB", new List<Enchantment> {
+			cards.Add("BRMA17_5_TB", new List<Power> {
 				// TODO [BRMA17_5_TB] Bone Minions && Test: Bone Minions_BRMA17_5_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -623,9 +623,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_tk33_2_TB", new List<Enchantment> {
+			cards.Add("EX1_tk33_2_TB", new List<Power> {
 				// TODO [EX1_tk33_2_TB] INFERNO! && Test: INFERNO!_EX1_tk33_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -642,9 +642,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK005", new List<Enchantment> {
+			cards.Add("FB_LK005", new List<Power> {
 				// TODO [FB_LK005] Remorseless Winter && Test: Remorseless Winter_FB_LK005
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -661,9 +661,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK007p", new List<Enchantment> {
+			cards.Add("FB_LK007p", new List<Power> {
 				// TODO [FB_LK007p] Freezing Blast && Test: Freezing Blast_FB_LK007p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -677,9 +677,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Deal 1 damage to all enemy minions. If any die, summon a slime.
 			// --------------------------------------------------------
-			cards.Add("NAX11_02H_2_TB", new List<Enchantment> {
+			cards.Add("NAX11_02H_2_TB", new List<Power> {
 				// TODO [NAX11_02H_2_TB] Poison Cloud && Test: Poison Cloud_NAX11_02H_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -696,9 +696,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX12_02H_2_TB", new List<Enchantment> {
+			cards.Add("NAX12_02H_2_TB", new List<Power> {
 				// TODO [NAX12_02H_2_TB] Decimate && Test: Decimate_NAX12_02H_2_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -715,9 +715,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX3_02_TB", new List<Enchantment> {
+			cards.Add("NAX3_02_TB", new List<Power> {
 				// TODO [NAX3_02_TB] Web Wrap && Test: Web Wrap_NAX3_02_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -731,9 +731,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Draw a card. Gain a Mana Crystal.
 			// --------------------------------------------------------
-			cards.Add("NAX8_02H_TB", new List<Enchantment> {
+			cards.Add("NAX8_02H_TB", new List<Power> {
 				// TODO [NAX8_02H_TB] Harvest && Test: Harvest_NAX8_02H_TB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -747,9 +747,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Increase your weapon's attack by 1
 			// --------------------------------------------------------
-			cards.Add("TB_BlingBrawl_Hero1p", new List<Enchantment> {
+			cards.Add("TB_BlingBrawl_Hero1p", new List<Power> {
 				// TODO [TB_BlingBrawl_Hero1p] Sharpen && Test: Sharpen_TB_BlingBrawl_Hero1p
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -766,9 +766,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_001hp", new List<Enchantment> {
+			cards.Add("TB_BossRumble_001hp", new List<Power> {
 				// TODO [TB_BossRumble_001hp] Smuggle && Test: Smuggle_TB_BossRumble_001hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -785,9 +785,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_002hp", new List<Enchantment> {
+			cards.Add("TB_BossRumble_002hp", new List<Power> {
 				// TODO [TB_BossRumble_002hp] Construct Golem && Test: Construct Golem_TB_BossRumble_002hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -804,9 +804,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 39240
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble_003hp", new List<Enchantment> {
+			cards.Add("TB_BossRumble_003hp", new List<Power> {
 				// TODO [TB_BossRumble_003hp] Brew Potion && Test: Brew Potion_TB_BossRumble_003hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -823,9 +823,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_BRMA01_2H_2", new List<Enchantment> {
+			cards.Add("TB_BRMA01_2H_2", new List<Power> {
 				// TODO [TB_BRMA01_2H_2] Pile On!!! && Test: Pile On!!!_TB_BRMA01_2H_2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -839,9 +839,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Give all Corrupted Eggs +1 Health, then summon one.
 			// --------------------------------------------------------
-			cards.Add("TB_BRMA10_3H", new List<Enchantment> {
+			cards.Add("TB_BRMA10_3H", new List<Power> {
 				// TODO [TB_BRMA10_3H] The Rookery && Test: The Rookery_TB_BRMA10_3H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -857,9 +857,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 2379
 			// --------------------------------------------------------
-			cards.Add("TB_CoopHero_HP_001", new List<Enchantment> {
+			cards.Add("TB_CoopHero_HP_001", new List<Power> {
 				// TODO [TB_CoopHero_HP_001] Madness && Test: Madness_TB_CoopHero_HP_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -873,9 +873,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Add a random Naxxramas minion to your hand. It costs (3) less.
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_HP_KT_3", new List<Enchantment> {
+			cards.Add("TB_KTRAF_HP_KT_3", new List<Power> {
 				// TODO [TB_KTRAF_HP_KT_3] Necromancy && Test: Necromancy_TB_KTRAF_HP_KT_3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -888,9 +888,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add a random rare card to your hand. It costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_HP_RAF3", new List<Enchantment> {
+			cards.Add("TB_KTRAF_HP_RAF3", new List<Power> {
 				// TODO [TB_KTRAF_HP_RAF3] Staff, First Piece && Test: Staff, First Piece_TB_KTRAF_HP_RAF3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -903,9 +903,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add a random epic card to your hand. It costs (3) less.
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_HP_RAF4", new List<Enchantment> {
+			cards.Add("TB_KTRAF_HP_RAF4", new List<Power> {
 				// TODO [TB_KTRAF_HP_RAF4] Staff, Two Pieces && Test: Staff, Two Pieces_TB_KTRAF_HP_RAF4
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -918,9 +918,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add a random legendary minion to your hand. It costs (4) less.
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_HP_RAF5", new List<Enchantment> {
+			cards.Add("TB_KTRAF_HP_RAF5", new List<Power> {
 				// TODO [TB_KTRAF_HP_RAF5] Staff of Origination && Test: Staff of Origination_TB_KTRAF_HP_RAF5
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -933,9 +933,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Level up all the spells in your hand and deck.
 			// --------------------------------------------------------
-			cards.Add("TB_LevelUp_001", new List<Enchantment> {
+			cards.Add("TB_LevelUp_001", new List<Power> {
 				// TODO [TB_LevelUp_001] Level Up! && Test: Level Up!_TB_LevelUp_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -949,9 +949,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Give each player a random card. It costs (0).
 			// --------------------------------------------------------
-			cards.Add("TB_LOEA13_2", new List<Enchantment> {
+			cards.Add("TB_LOEA13_2", new List<Power> {
 				// TODO [TB_LOEA13_2] Ancient Power && Test: Ancient Power_TB_LOEA13_2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -966,9 +966,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			//       Create *{0}* |4(decoration, decorations) for the Tavern.
 			//       Progress: {1}/25
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_hp001", new List<Enchantment> {
+			cards.Add("TB_MammothParty_hp001", new List<Power> {
 				// TODO [TB_MammothParty_hp001] Decorate && Test: Decorate_TB_MammothParty_hp001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -982,9 +982,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage to the Piñata.
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_hp002", new List<Enchantment> {
+			cards.Add("TB_MammothParty_hp002", new List<Power> {
 				// TODO [TB_MammothParty_hp002] Pelt && Test: Pelt_TB_MammothParty_hp002
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1002,9 +1002,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_Boss1_HeroPower", new List<Enchantment> {
+			cards.Add("TB_MechWar_Boss1_HeroPower", new List<Power> {
 				// TODO [TB_MechWar_Boss1_HeroPower] Hello! Hello! Hello! && Test: Hello! Hello! Hello!_TB_MechWar_Boss1_HeroPower
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1018,9 +1018,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Deal 2 damage randomly split among all enemies.
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_Boss2_HeroPower", new List<Enchantment> {
+			cards.Add("TB_MechWar_Boss2_HeroPower", new List<Power> {
 				// TODO [TB_MechWar_Boss2_HeroPower] Boom Bot Jr. && Test: Boom Bot Jr._TB_MechWar_Boss2_HeroPower
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1037,9 +1037,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_BossHeroPower", new List<Enchantment> {
+			cards.Add("TB_SPT_BossHeroPower", new List<Power> {
 				// TODO [TB_SPT_BossHeroPower] Barracks && Test: Barracks_TB_SPT_BossHeroPower
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1058,9 +1058,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoHP", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoHP", new List<Power> {
 				// TODO [TB_SPT_DPromoHP] Diabolical Powers && Test: Diabolical Powers_TB_SPT_DPromoHP
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1076,9 +1076,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 38981
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoHP2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoHP2", new List<Power> {
 				// TODO [TB_SPT_DPromoHP2] So Many... && Test: So Many..._TB_SPT_DPromoHP2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1095,9 +1095,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_BossHeroPower", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_BossHeroPower", new List<Power> {
 				// TODO [TB_SPT_MTH_BossHeroPower] Party Barracks && Test: Party Barracks_TB_SPT_MTH_BossHeroPower
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1111,9 +1111,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Add a random spell from any class to your hand. It costs (0).
 			// --------------------------------------------------------
-			cards.Add("TBA01_5", new List<Enchantment> {
+			cards.Add("TBA01_5", new List<Power> {
 				// TODO [TBA01_5] Wild Magic && Test: Wild Magic_TBA01_5
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1127,9 +1127,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Summon a 5/1 Magma Rager.
 			// --------------------------------------------------------
-			cards.Add("TBA01_6", new List<Enchantment> {
+			cards.Add("TBA01_6", new List<Power> {
 				// TODO [TBA01_6] Molten Rage && Test: Molten Rage_TBA01_6
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1142,9 +1142,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy your weapon, gaining a random one.
 			// --------------------------------------------------------
-			cards.Add("TP_Bling_HP2", new List<Enchantment> {
+			cards.Add("TP_Bling_HP2", new List<Power> {
 				// TODO [TP_Bling_HP2] Cash In && Test: Cash In_TP_Bling_HP2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1153,7 +1153,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 
 		}
 
-		private static void DeathknightNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DeathknightNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [FB_LK001] Soldiers of the Cold Dark (*) - COST:0 
@@ -1161,11 +1161,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Draw 4 cards.
 			// --------------------------------------------------------
-			cards.Add("FB_LK001", new List<Enchantment> {
+			cards.Add("FB_LK001", new List<Power> {
 				// TODO [FB_LK001] Soldiers of the Cold Dark && Test: Soldiers of the Cold Dark_FB_LK001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1177,18 +1177,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: You aren't worth the Lich King's time. 
 			//        Summon a different Frozen Throne boss.
 			// --------------------------------------------------------
-			cards.Add("FB_LK006", new List<Enchantment> {
+			cards.Add("FB_LK006", new List<Power> {
 				// TODO [FB_LK006] To My Aid Underling! && Test: To My Aid Underling!_FB_LK006
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [FB_LK_Druid_Ench_copy] Next Hero: Druid Ench Copy (*) - COST:0 
@@ -1198,9 +1198,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_017
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Druid_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Druid_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Druid_Ench_copy] Next Hero: Druid Ench Copy && Test: Next Hero: Druid Ench Copy_FB_LK_Druid_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1215,9 +1215,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_017
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Druid_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Druid_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Druid_Ench] Next Hero: Druid Ench && Test: Next Hero: Druid Ench_FB_TagTeam_Druid_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1233,11 +1233,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Druid_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Druid_copy", new List<Power> {
 				// TODO [FB_LK_Druid_copy] Druid && Test: Druid_FB_LK_Druid_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1248,11 +1248,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Druid cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Druid", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Druid", new List<Power> {
 				// TODO [TB_ClassRandom_Druid] Second Class: Druid && Test: Second Class: Druid_TB_ClassRandom_Druid
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1266,18 +1266,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Druid", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Druid", new List<Power> {
 				// TODO [TB_TagTeam_Druid] Rumble in the Jungle && Test: Rumble in the Jungle_TB_TagTeam_Druid
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [FB_LK_Hunter_Ench_copy] Next Hero: Hunter Ench Copy (*) - COST:0 
@@ -1287,9 +1287,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: DS1h_292
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Hunter_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Hunter_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Hunter_Ench_copy] Next Hero: Hunter Ench Copy && Test: Next Hero: Hunter Ench Copy_FB_LK_Hunter_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1304,9 +1304,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: DS1h_292
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Hunter_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Hunter_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Hunter_Ench] Next Hero: Hunter Ench && Test: Next Hero: Hunter Ench_FB_TagTeam_Hunter_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1322,11 +1322,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Hunter_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Hunter_copy", new List<Power> {
 				// TODO [FB_LK_Hunter_copy] Hunter && Test: Hunter_FB_LK_Hunter_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1337,11 +1337,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Hunter cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Hunter", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Hunter", new List<Power> {
 				// TODO [TB_ClassRandom_Hunter] Second Class: Hunter && Test: Second Class: Hunter_TB_ClassRandom_Hunter
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1355,18 +1355,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Hunter", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Hunter", new List<Power> {
 				// TODO [TB_TagTeam_Hunter] Unleash the Beasts && Test: Unleash the Beasts_TB_TagTeam_Hunter
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [FB_LK_Mage_Ench_copy] Next Hero: Mage Ench Copy (*) - COST:0 
@@ -1376,9 +1376,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_034
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Mage_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Mage_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Mage_Ench_copy] Next Hero: Mage Ench Copy && Test: Next Hero: Mage Ench Copy_FB_LK_Mage_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1393,9 +1393,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_034
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Mage_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Mage_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Mage_Ench] Next Hero: Mage Ench && Test: Next Hero: Mage Ench_FB_TagTeam_Mage_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1408,9 +1408,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b> this turn.
 			// --------------------------------------------------------
-			cards.Add("TagTeamIceBlock", new List<Enchantment> {
+			cards.Add("TagTeamIceBlock", new List<Power> {
 				// TODO [TagTeamIceBlock] Tag Team Ice Block && Test: Tag Team Ice Block_TagTeamIceBlock
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1423,11 +1423,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Death does not feel fatigue, replace your deck with a fresh one.
 			// --------------------------------------------------------
-			cards.Add("FB_LK002", new List<Enchantment> {
+			cards.Add("FB_LK002", new List<Power> {
 				// TODO [FB_LK002] Relentless March && Test: Relentless March_FB_LK002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1441,11 +1441,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Mage_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Mage_copy", new List<Power> {
 				// TODO [FB_LK_Mage_copy] Mage && Test: Mage_FB_LK_Mage_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1456,11 +1456,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Mage cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Mage", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Mage", new List<Power> {
 				// TODO [TB_ClassRandom_Mage] Second Class: Mage && Test: Second Class: Mage_TB_ClassRandom_Mage
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1474,11 +1474,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_LevelUp_002", new List<Enchantment> {
+			cards.Add("TB_LevelUp_002", new List<Power> {
 				// TODO [TB_LevelUp_002] Fireblast && Test: Fireblast_TB_LevelUp_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1492,18 +1492,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Mage", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Mage", new List<Power> {
 				// TODO [TB_TagTeam_Mage] Elemental Secrets && Test: Elemental Secrets_TB_TagTeam_Mage
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [FB_LK_Paladin_Ench_copy] Next Hero: Paladin Ench Copy (*) - COST:0 
@@ -1513,9 +1513,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_101
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Paladin_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Paladin_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Paladin_Ench_copy] Next Hero: Paladin Ench Copy && Test: Next Hero: Paladin Ench Copy_FB_LK_Paladin_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1530,9 +1530,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_101
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Paladin_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Paladin_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Paladin_Ench] Next Hero: Paladin Ench && Test: Next Hero: Paladin Ench_FB_TagTeam_Paladin_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1548,11 +1548,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Paladin_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Paladin_copy", new List<Power> {
 				// TODO [FB_LK_Paladin_copy] Paladin && Test: Paladin_FB_LK_Paladin_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1563,11 +1563,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Paladin cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Paladin", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Paladin", new List<Power> {
 				// TODO [TB_ClassRandom_Paladin] Second Class: Paladin && Test: Second Class: Paladin_TB_ClassRandom_Paladin
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1578,11 +1578,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Change the Attack of all other minions to 1.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_200", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_200", new List<Power> {
 				// TODO [TB_CoOpv3_200] Follow MY Rules! && Test: Follow MY Rules!_TB_CoOpv3_200
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1596,18 +1596,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Paladin", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Paladin", new List<Power> {
 				// TODO [TB_TagTeam_Paladin] Dark Light && Test: Dark Light_TB_TagTeam_Paladin
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [FB_LK_Priest_Ench_copy] Next Hero: Priest Ench Copy (*) - COST:0 
@@ -1617,9 +1617,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS1h_001
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Priest_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Priest_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Priest_Ench_copy] Next Hero: Priest Ench Copy && Test: Next Hero: Priest Ench Copy_FB_LK_Priest_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1634,9 +1634,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS1h_001
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Priest_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Priest_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Priest_Ench] Next Hero: Priest Ench && Test: Next Hero: Priest Ench_FB_TagTeam_Priest_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1652,11 +1652,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Priest_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Priest_copy", new List<Power> {
 				// TODO [FB_LK_Priest_copy] Priest && Test: Priest_FB_LK_Priest_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1667,11 +1667,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Priest cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Priest", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Priest", new List<Power> {
 				// TODO [TB_ClassRandom_Priest] Second Class: Priest && Test: Second Class: Priest_TB_ClassRandom_Priest
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1682,11 +1682,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Restore 30 health to Nefarian. Deal 30 damage to all other minions.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_002", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_002", new List<Power> {
 				// TODO [TB_CoOpv3_002] Twisted Light && Test: Twisted Light_TB_CoOpv3_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1697,11 +1697,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Each player draws 2 cards; or Restore 8 Health to each hero.
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_102", new List<Enchantment> {
+			cards.Add("TB_Coopv3_102", new List<Power> {
 				// TODO [TB_Coopv3_102] Shadow or Light? && Test: Shadow or Light?_TB_Coopv3_102
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1715,11 +1715,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_102a", new List<Enchantment> {
+			cards.Add("TB_Coopv3_102a", new List<Power> {
 				// TODO [TB_Coopv3_102a] Secrets of Shadow && Test: Secrets of Shadow_TB_Coopv3_102a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1733,11 +1733,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_102b", new List<Enchantment> {
+			cards.Add("TB_Coopv3_102b", new List<Power> {
 				// TODO [TB_Coopv3_102b] Alms of Light && Test: Alms of Light_TB_Coopv3_102b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1751,18 +1751,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Priest", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Priest", new List<Power> {
 				// TODO [TB_TagTeam_Priest] Unbreakable && Test: Unbreakable_TB_TagTeam_Priest
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [FB_LK_Rogue_Ench_copy] Next Hero: Rogue Ench Copy (*) - COST:0 
@@ -1772,9 +1772,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_083b
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Rogue_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Rogue_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Rogue_Ench_copy] Next Hero: Rogue Ench Copy && Test: Next Hero: Rogue Ench Copy_FB_LK_Rogue_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1789,9 +1789,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_083b
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Rogue_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Rogue_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Rogue_Ench] Next Hero: Rogue Ench && Test: Next Hero: Rogue Ench_FB_TagTeam_Rogue_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1804,9 +1804,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: +1 Attack
 			// --------------------------------------------------------
-			cards.Add("TB_BlingBrawl_Hero1e", new List<Enchantment> {
+			cards.Add("TB_BlingBrawl_Hero1e", new List<Power> {
 				// TODO [TB_BlingBrawl_Hero1e] Sharpened && Test: Sharpened_TB_BlingBrawl_Hero1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1819,9 +1819,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: The next legend you cast this turn costs (3) less.
 			// --------------------------------------------------------
-			cards.Add("TB_Superfriends001e", new List<Enchantment> {
+			cards.Add("TB_Superfriends001e", new List<Power> {
 				// TODO [TB_Superfriends001e] Facilitated && Test: Facilitated_TB_Superfriends001e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1834,9 +1834,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Draw Offensive Play on first, third, and fifth turn
 			// --------------------------------------------------------
-			cards.Add("TB_Superfriends002e", new List<Enchantment> {
+			cards.Add("TB_Superfriends002e", new List<Power> {
 				// TODO [TB_Superfriends002e] Draw Offensive Play && Test: Draw Offensive Play_TB_Superfriends002e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1852,11 +1852,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Rogue_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Rogue_copy", new List<Power> {
 				// TODO [FB_LK_Rogue_copy] Rogue && Test: Rogue_FB_LK_Rogue_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1867,11 +1867,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Rogue cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Rogue", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Rogue", new List<Power> {
 				// TODO [TB_ClassRandom_Rogue] Second Class: Rogue && Test: Second Class: Rogue_TB_ClassRandom_Rogue
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1882,11 +1882,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy all undamaged minions. Return the rest to their owner's hand.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_201", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_201", new List<Power> {
 				// TODO [TB_CoOpv3_201] Cast from Shadow && Test: Cast from Shadow_TB_CoOpv3_201
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1900,18 +1900,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Rogue", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Rogue", new List<Power> {
 				// TODO [TB_TagTeam_Rogue] The Saint && Test: The Saint_TB_TagTeam_Rogue
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void ShamanNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [FB_LK_Shaman_Ench_copy] Next Hero: Shaman Ench Copy (*) - COST:0 
@@ -1921,9 +1921,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_049
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Shaman_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Shaman_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Shaman_Ench_copy] Next Hero: Shaman Ench Copy && Test: Next Hero: Shaman Ench Copy_FB_LK_Shaman_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1938,9 +1938,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_049
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Shaman_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Shaman_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Shaman_Ench] Next Hero: Shaman Ench && Test: Next Hero: Shaman Ench_FB_TagTeam_Shaman_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1956,11 +1956,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Shaman_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Shaman_copy", new List<Power> {
 				// TODO [FB_LK_Shaman_copy] Shaman && Test: Shaman_FB_LK_Shaman_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1971,11 +1971,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Shaman cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Shaman", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Shaman", new List<Power> {
 				// TODO [TB_ClassRandom_Shaman] Second Class: Shaman && Test: Second Class: Shaman_TB_ClassRandom_Shaman
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1986,11 +1986,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Deal 4-6 damage to all other minions.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_006", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_006", new List<Power> {
 				// TODO [TB_CoOpv3_006] Elemental Eruption && Test: Elemental Eruption_TB_CoOpv3_006
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2004,18 +2004,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Shaman", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Shaman", new List<Power> {
 				// TODO [TB_TagTeam_Shaman] Totems Versus Secrets && Test: Totems Versus Secrets_TB_TagTeam_Shaman
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [FB_LK_Warlock_Ench_copy] Next Hero: Warlock Ench Copy (*) - COST:0 
@@ -2025,9 +2025,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_056
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Warlock_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Warlock_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Warlock_Ench_copy] Next Hero: Warlock Ench Copy && Test: Next Hero: Warlock Ench Copy_FB_LK_Warlock_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2042,9 +2042,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_056
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Warlock_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Warlock_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Warlock_Ench] Next Hero: Warlock Ench && Test: Next Hero: Warlock Ench_FB_TagTeam_Warlock_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2060,11 +2060,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Warlock_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Warlock_copy", new List<Power> {
 				// TODO [FB_LK_Warlock_copy] Warlock && Test: Warlock_FB_LK_Warlock_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2075,11 +2075,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Warlock cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Warlock", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Warlock", new List<Power> {
 				// TODO [TB_ClassRandom_Warlock] Second Class: Warlock && Test: Second Class: Warlock_TB_ClassRandom_Warlock
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2090,11 +2090,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: This doesn't look like Twisting Nether...
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DpromoEX1_312", new List<Enchantment> {
+			cards.Add("TB_SPT_DpromoEX1_312", new List<Power> {
 				// TODO [TB_SPT_DpromoEX1_312] Twisting Nether? && Test: Twisting Nether?_TB_SPT_DpromoEX1_312
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2108,18 +2108,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Warlock", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Warlock", new List<Power> {
 				// TODO [TB_TagTeam_Warlock] Death Becomes && Test: Death Becomes_TB_TagTeam_Warlock
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [FB_LK_Warrior_Ench_copy] Next Hero: Warrior Ench Copy (*) - COST:0 
@@ -2129,9 +2129,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_102
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Warrior_Ench_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Warrior_Ench_copy", new List<Power> {
 				// TODO [FB_LK_Warrior_Ench_copy] Next Hero: Warrior Ench Copy && Test: Next Hero: Warrior Ench Copy_FB_LK_Warrior_Ench_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2146,9 +2146,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS2_102
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_Warrior_Ench", new List<Enchantment> {
+			cards.Add("FB_TagTeam_Warrior_Ench", new List<Power> {
 				// TODO [FB_TagTeam_Warrior_Ench] Next Hero: Warrior Ench && Test: Next Hero: Warrior Ench_FB_TagTeam_Warrior_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2161,9 +2161,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Has <b>Charge</b>
 			// --------------------------------------------------------
-			cards.Add("TB_MP_01e", new List<Enchantment> {
+			cards.Add("TB_MP_01e", new List<Power> {
 				// TODO [TB_MP_01e] Charge! && Test: Charge!_TB_MP_01e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2179,11 +2179,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("FB_LK_Warrior_copy", new List<Enchantment> {
+			cards.Add("FB_LK_Warrior_copy", new List<Power> {
 				// TODO [FB_LK_Warrior_copy] Warrior && Test: Warrior_FB_LK_Warrior_copy
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2194,11 +2194,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add Warrior cards to your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Warrior", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Warrior", new List<Power> {
 				// TODO [TB_ClassRandom_Warrior] Second Class: Warrior && Test: Second Class: Warrior_TB_ClassRandom_Warrior
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2212,12 +2212,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecre8", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecre8", new List<Power> {
 				// TODO [TB_SPT_DPromoSecre8] Visions of the Assassin && Test: Visions of the Assassin_TB_SPT_DPromoSecre8
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_DPromoSecre8e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2231,11 +2231,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret1", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret1", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret1] Visions of the Barbarian && Test: Visions of the Barbarian_TB_SPT_DPromoSecret1
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2249,11 +2249,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret10", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret10", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret10] Visions of Hate && Test: Visions of Hate_TB_SPT_DPromoSecret10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2268,11 +2268,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret2", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret2] Visions of the Crusader && Test: Visions of the Crusader_TB_SPT_DPromoSecret2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2286,11 +2286,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret3", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret3", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret3] Visions of Valor && Test: Visions of Valor_TB_SPT_DPromoSecret3
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2304,11 +2304,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret4", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret4", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret4] Visions of Fate && Test: Visions of Fate_TB_SPT_DPromoSecret4
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2322,11 +2322,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret5", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret5", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret5] Visions of the Amazon && Test: Visions of the Amazon_TB_SPT_DPromoSecret5
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2340,11 +2340,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret6", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret6", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret6] Visions of the Sorcerer && Test: Visions of the Sorcerer_TB_SPT_DPromoSecret6
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2358,11 +2358,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret7", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret7", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret7] Visions of the Necromancer && Test: Visions of the Necromancer_TB_SPT_DPromoSecret7
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2376,12 +2376,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret9", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret9", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret9] Visions of Knowledge && Test: Visions of Knowledge_TB_SPT_DPromoSecret9
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_DPromoSecret9e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -2395,18 +2395,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_Warrior", new List<Enchantment> {
+			cards.Add("TB_TagTeam_Warrior", new List<Power> {
 				// TODO [TB_TagTeam_Warrior] The Rock && Test: The Rock_TB_TagTeam_Warrior
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void DreamNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DreamNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DREAM
 			// [TB_MP_02e] Repurposed (*) - COST:0 
@@ -2414,9 +2414,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw a card.
 			// --------------------------------------------------------
-			cards.Add("TB_MP_02e", new List<Enchantment> {
+			cards.Add("TB_MP_02e", new List<Power> {
 				// TODO [TB_MP_02e] Repurposed && Test: Repurposed_TB_MP_02e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2425,7 +2425,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [BRMC_100e] Living Bomb (*) - COST:0 
@@ -2433,9 +2433,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: On Ragnaros' turn, deal 5 damage to this side of the board.
 			// --------------------------------------------------------
-			cards.Add("BRMC_100e", new List<Enchantment> {
+			cards.Add("BRMC_100e", new List<Power> {
 				// TODO [BRMC_100e] Living Bomb && Test: Living Bomb_BRMC_100e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2448,9 +2448,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("BRMC_86e", new List<Enchantment> {
+			cards.Add("BRMC_86e", new List<Power> {
 				// TODO [BRMC_86e] I Hear You... && Test: I Hear You..._BRMC_86e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2463,9 +2463,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("BRMC_97e", new List<Enchantment> {
+			cards.Add("BRMC_97e", new List<Power> {
 				// TODO [BRMC_97e] Burning Adrenaline && Test: Burning Adrenaline_BRMC_97e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2478,9 +2478,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("BRMC_98e", new List<Enchantment> {
+			cards.Add("BRMC_98e", new List<Power> {
 				// TODO [BRMC_98e] Dragonlust && Test: Dragonlust_BRMC_98e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2491,9 +2491,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [FB_LK003] Check for Hero Death in Lich King Raid (*) - COST:0 
 			// - Fac: neutral, Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("FB_LK003", new List<Enchantment> {
+			cards.Add("FB_LK003", new List<Power> {
 				// TODO [FB_LK003] Check for Hero Death in Lich King Raid && Test: Check for Hero Death in Lich King Raid_FB_LK003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2504,9 +2504,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [FB_LK009] Swap Hero With Death Knight (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("FB_LK009", new List<Enchantment> {
+			cards.Add("FB_LK009", new List<Power> {
 				// TODO [FB_LK009] Swap Hero With Death Knight && Test: Swap Hero With Death Knight_FB_LK009
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2519,9 +2519,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LK_Warrior_copy, FB_LK_Druid_copy, FB_LK_Hunter_copy, FB_LK_Mage_copy, FB_LK_Paladin_copy, FB_LK_Priest_copy, FB_LK_Rogue_copy, FB_LK_Shaman_copy, FB_LK_Warlock_copy
 			// --------------------------------------------------------
-			cards.Add("FB_LK_GetClass_copy", new List<Enchantment> {
+			cards.Add("FB_LK_GetClass_copy", new List<Power> {
 				// TODO [FB_LK_GetClass_copy] Discover Next Class Copy && Test: Discover Next Class Copy_FB_LK_GetClass_copy
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2532,9 +2532,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [FB_LK_WaitForDiscover] Wait for Discover (*) - COST:0 
 			// - Fac: neutral, Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("FB_LK_WaitForDiscover", new List<Enchantment> {
+			cards.Add("FB_LK_WaitForDiscover", new List<Power> {
 				// TODO [FB_LK_WaitForDiscover] Wait for Discover && Test: Wait for Discover_FB_LK_WaitForDiscover
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2549,9 +2549,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats001a, FB_LKStats002
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats001", new List<Enchantment> {
+			cards.Add("FB_LKStats001", new List<Power> {
 				// TODO [FB_LKStats001] Innkeeper Tools && Test: Innkeeper Tools_FB_LKStats001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2564,9 +2564,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats002a, FB_LKStats002b, FB_LKStats002c
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats002ench", new List<Enchantment> {
+			cards.Add("FB_LKStats002ench", new List<Power> {
 				// TODO [FB_LKStats002ench] Lich King Modifications Copy && Test: Lich King Modifications Copy_FB_LKStats002ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2577,9 +2577,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [FB_TagTeam_WaitForDiscover] Wait for Discover (*) - COST:0 
 			// - Fac: neutral, Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("FB_TagTeam_WaitForDiscover", new List<Enchantment> {
+			cards.Add("FB_TagTeam_WaitForDiscover", new List<Power> {
 				// TODO [FB_TagTeam_WaitForDiscover] Wait for Discover && Test: Wait for Discover_FB_TagTeam_WaitForDiscover
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2592,9 +2592,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("HRW02_1e", new List<Enchantment> {
+			cards.Add("HRW02_1e", new List<Power> {
 				// TODO [HRW02_1e] Overclock && Test: Overclock_HRW02_1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2610,9 +2610,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_19e", new List<Enchantment> {
+			cards.Add("KARA_13_19e", new List<Power> {
 				// TODO [KARA_13_19e] Saddened && Test: Saddened_KARA_13_19e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2625,9 +2625,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: BRMA14_10, BRMA14_10H, BRMA09_4, BRMA09_4H, BRMA17_5, BRMA17_5H, NAX15_04, NAX15_04H, NAX12_02, NAX12_02H, BRM_027p, BRM_027pH, BRMA09_5, BRMA09_5H, BRMA16_2, BRMA16_2H, NAX5_02, NAX5_02H, BRMA11_2, BRMA11_2H, BRMA17_8, BRMA17_8H, NAX15_02, NAX15_02H, NAX14_02, NAX8_02, NAX8_02H, NAX10_03, NAX10_03H, BRMA05_2, BRMA05_2H, BRMA02_2, BRMA02_2H, BRMA04_2, BRMA07_2, BRMA07_2H, NAX6_02, NAX6_02H, BRMA09_2, BRMA09_2H, BRMA01_2, BRMA01_2H, NAX11_02, NAX11_02H, NAX13_02, NAX2_03, NAX2_03H, NAX1_04, NAX1h_04, BRMA06_2, BRMA06_2H, BRMA10_3, BRMA10_3H, NAX7_03, NAX7_03H, NAX9_06, NAX3_02, NAX3_02H, BRMA13_4, BRMA13_4H
 			// --------------------------------------------------------
-			cards.Add("TB_001", new List<Enchantment> {
+			cards.Add("TB_001", new List<Power> {
 				// TODO [TB_001] Boss HP Swapper && Test: Boss HP Swapper_TB_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2640,9 +2640,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Has +2/+2.
 			// --------------------------------------------------------
-			cards.Add("TB_006e", new List<Enchantment> {
+			cards.Add("TB_006e", new List<Power> {
 				// TODO [TB_006e] Big Banana && Test: Big Banana_TB_006e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2655,9 +2655,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Deviate Banana.
 			// --------------------------------------------------------
-			cards.Add("TB_007e", new List<Enchantment> {
+			cards.Add("TB_007e", new List<Power> {
 				// TODO [TB_007e] Deviate Switch && Test: Deviate Switch_TB_007e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2670,9 +2670,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FP1_020, EX1_287, FP1_018, EX1_610, EX1_132, EX1_611, EX1_289, EX1_295, EX1_294, EX1_533, EX1_130, EX1_136, EX1_379, EX1_554, EX1_609, tt_010, EX1_594
 			// --------------------------------------------------------
-			cards.Add("TB_009", new List<Enchantment> {
+			cards.Add("TB_009", new List<Power> {
 				// TODO [TB_009] Create 15 Secrets && Test: Create 15 Secrets_TB_009
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2683,9 +2683,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_010] Deckbuilding Enchant (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_010", new List<Enchantment> {
+			cards.Add("TB_010", new List<Power> {
 				// TODO [TB_010] Deckbuilding Enchant && Test: Deckbuilding Enchant_TB_010
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_010e",
 					//Activation = null,
@@ -2697,9 +2697,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_010e] Choose One of Three (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_010e", new List<Enchantment> {
+			cards.Add("TB_010e", new List<Power> {
 				// TODO [TB_010e] Choose One of Three && Test: Choose One of Three_TB_010e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2712,9 +2712,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Playing a spell summons a minion of that type.
 			// --------------------------------------------------------
-			cards.Add("TB_100th_001", new List<Enchantment> {
+			cards.Add("TB_100th_001", new List<Power> {
 				// TODO [TB_100th_001] Valeera's Bag Enchant && Test: Valeera's Bag Enchant_TB_100th_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2727,9 +2727,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Spawn Banana
 			// --------------------------------------------------------
-			cards.Add("TB_100th_BananaPlayerEnchant", new List<Enchantment> {
+			cards.Add("TB_100th_BananaPlayerEnchant", new List<Power> {
 				// TODO [TB_100th_BananaPlayerEnchant] Bananas on Death && Test: Bananas on Death_TB_100th_BananaPlayerEnchant
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2742,9 +2742,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: This minion is granted <b>Taunt</b> and <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_AllMinionsTauntCharge", new List<Enchantment> {
+			cards.Add("TB_AllMinionsTauntCharge", new List<Power> {
 				// TODO [TB_AllMinionsTauntCharge] Give Taunt and Charge && Test: Give Taunt and Charge_TB_AllMinionsTauntCharge
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2757,9 +2757,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: When this breaks, randomly summon a new weapon.
 			// --------------------------------------------------------
-			cards.Add("TB_BlingBrawl_Blade1e", new List<Enchantment> {
+			cards.Add("TB_BlingBrawl_Blade1e", new List<Power> {
 				// TODO [TB_BlingBrawl_Blade1e] Blingtron's Blade && Test: Blingtron's Blade_TB_BlingBrawl_Blade1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2770,9 +2770,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_BlingBrawl_Blade2e] Blingtron's Blade HERO (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_BlingBrawl_Blade2e", new List<Enchantment> {
+			cards.Add("TB_BlingBrawl_Blade2e", new List<Power> {
 				// TODO [TB_BlingBrawl_Blade2e] Blingtron's Blade HERO && Test: Blingtron's Blade HERO_TB_BlingBrawl_Blade2e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2783,9 +2783,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_Blizzcon2016_GoonsEnchant] The Grimy Goons (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_Blizzcon2016_GoonsEnchant", new List<Enchantment> {
+			cards.Add("TB_Blizzcon2016_GoonsEnchant", new List<Power> {
 				// TODO [TB_Blizzcon2016_GoonsEnchant] The Grimy Goons && Test: The Grimy Goons_TB_Blizzcon2016_GoonsEnchant
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2796,9 +2796,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_Blizzcon2016_KabalEnchant] The Kabal (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_Blizzcon2016_KabalEnchant", new List<Enchantment> {
+			cards.Add("TB_Blizzcon2016_KabalEnchant", new List<Power> {
 				// TODO [TB_Blizzcon2016_KabalEnchant] The Kabal && Test: The Kabal_TB_Blizzcon2016_KabalEnchant
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2809,9 +2809,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_Blizzcon2016_LotusEnchant] The Jade Lotus (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_Blizzcon2016_LotusEnchant", new List<Enchantment> {
+			cards.Add("TB_Blizzcon2016_LotusEnchant", new List<Power> {
 				// TODO [TB_Blizzcon2016_LotusEnchant] The Jade Lotus && Test: The Jade Lotus_TB_Blizzcon2016_LotusEnchant
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2824,9 +2824,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("TB_BoomAnnoy_001e", new List<Enchantment> {
+			cards.Add("TB_BoomAnnoy_001e", new List<Power> {
 				// TODO [TB_BoomAnnoy_001e] Loves Annoy-o-tron && Test: Loves Annoy-o-tron_TB_BoomAnnoy_001e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2839,9 +2839,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 1-4 damage to a random enemy.
 			// --------------------------------------------------------
-			cards.Add("TB_BoomBotFestival_001e", new List<Enchantment> {
+			cards.Add("TB_BoomBotFestival_001e", new List<Power> {
 				// TODO [TB_BoomBotFestival_001e] Boom Bot Attached && Test: Boom Bot Attached_TB_BoomBotFestival_001e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2854,9 +2854,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_ClassRandom_Warrior, TB_ClassRandom_Warlock, TB_ClassRandom_Shaman, TB_ClassRandom_Rogue, TB_ClassRandom_Priest, TB_ClassRandom_Paladin, TB_ClassRandom_Mage, TB_ClassRandom_Hunter, TB_ClassRandom_Druid
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_Pick2nd_100th", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_Pick2nd_100th", new List<Power> {
 				// TODO [TB_ClassRandom_Pick2nd_100th] Pick your second class && Test: Pick your second class_TB_ClassRandom_Pick2nd_100th
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2869,9 +2869,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_ClassRandom_Warrior, TB_ClassRandom_Warlock, TB_ClassRandom_Shaman, TB_ClassRandom_Rogue, TB_ClassRandom_Priest, TB_ClassRandom_Paladin, TB_ClassRandom_Mage, TB_ClassRandom_Hunter, TB_ClassRandom_Druid
 			// --------------------------------------------------------
-			cards.Add("TB_ClassRandom_PickSecondClass", new List<Enchantment> {
+			cards.Add("TB_ClassRandom_PickSecondClass", new List<Power> {
 				// TODO [TB_ClassRandom_PickSecondClass] Pick your second class && Test: Pick your second class_TB_ClassRandom_PickSecondClass
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2887,9 +2887,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_009e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_009e", new List<Power> {
 				// TODO [TB_CoOpv3_009e] Going Nova && Test: Going Nova_TB_CoOpv3_009e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2902,9 +2902,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Immune</b> ahile attacking
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_101e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_101e", new List<Power> {
 				// TODO [TB_CoOpv3_101e] Team Player Enchantment && Test: Team Player Enchantment_TB_CoOpv3_101e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2917,9 +2917,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: +2/+2
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_104e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_104e", new List<Power> {
 				// TODO [TB_CoOpv3_104e] Unity && Test: Unity_TB_CoOpv3_104e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2935,9 +2935,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_BOSS2e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_BOSS2e", new List<Power> {
 				// TODO [TB_CoOpv3_BOSS2e] Getting Angry.... && Test: Getting Angry...._TB_CoOpv3_BOSS2e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2953,9 +2953,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_BOSS3e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_BOSS3e", new List<Power> {
 				// TODO [TB_CoOpv3_BOSS3e] Enough! && Test: Enough!_TB_CoOpv3_BOSS3e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2971,9 +2971,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_BOSS4e", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_BOSS4e", new List<Power> {
 				// TODO [TB_CoOpv3_BOSS4e] Cowed && Test: Cowed_TB_CoOpv3_BOSS4e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2986,9 +2986,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Now he's REALLY mad....
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_BOSSe", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_BOSSe", new List<Power> {
 				// TODO [TB_CoOpv3_BOSSe] WHY WON'T YOU DIE!? && Test: WHY WON'T YOU DIE!?_TB_CoOpv3_BOSSe
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -2999,9 +2999,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_DeckRecipe_MyDeckID] My Deck ID (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_DeckRecipe_MyDeckID", new List<Enchantment> {
+			cards.Add("TB_DeckRecipe_MyDeckID", new List<Power> {
 				// TODO [TB_DeckRecipe_MyDeckID] My Deck ID && Test: My Deck ID_TB_DeckRecipe_MyDeckID
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3012,9 +3012,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_DiscoverMyDeck_Enchantment] Discover My Deck Enchant (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_DiscoverMyDeck_Enchantment", new List<Enchantment> {
+			cards.Add("TB_DiscoverMyDeck_Enchantment", new List<Power> {
 				// TODO [TB_DiscoverMyDeck_Enchantment] Discover My Deck Enchant && Test: Discover My Deck Enchant_TB_DiscoverMyDeck_Enchantment
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3027,9 +3027,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("TB_EndlessMinions01", new List<Enchantment> {
+			cards.Add("TB_EndlessMinions01", new List<Power> {
 				// TODO [TB_EndlessMinions01] Endless Enchantment && Test: Endless Enchantment_TB_EndlessMinions01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3042,9 +3042,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: This minion is safe from attacks and cannot have taunt.
 			// --------------------------------------------------------
-			cards.Add("TB_Face_Ench1", new List<Enchantment> {
+			cards.Add("TB_Face_Ench1", new List<Power> {
 				// TODO [TB_Face_Ench1] Safe && Test: Safe_TB_Face_Ench1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3057,9 +3057,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Gains Attack for each minion killed.
 			// --------------------------------------------------------
-			cards.Add("TB_FireFestEnch", new List<Enchantment> {
+			cards.Add("TB_FireFestEnch", new List<Power> {
 				// TODO [TB_FireFestEnch] Conflagrate && Test: Conflagrate_TB_FireFestEnch
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3072,9 +3072,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: This card's cost is reduced.
 			// --------------------------------------------------------
-			cards.Add("TB_GiftExchange_Enchantment", new List<Enchantment> {
+			cards.Add("TB_GiftExchange_Enchantment", new List<Power> {
 				// TODO [TB_GiftExchange_Enchantment] Cheap Gift && Test: Cheap Gift_TB_GiftExchange_Enchantment
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3091,9 +3091,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_GP_01e", new List<Enchantment> {
+			cards.Add("TB_GP_01e", new List<Power> {
 				// TODO [TB_GP_01e] Shadow Tower Power && Test: Shadow Tower Power_TB_GP_01e
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_GP_01e_copy1",
 					//Activation = null,
@@ -3111,9 +3111,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_GP_01e_copy1", new List<Enchantment> {
+			cards.Add("TB_GP_01e_copy1", new List<Power> {
 				// TODO [TB_GP_01e_copy1] Shadow Tower Give My minions Stealth && Test: Shadow Tower Give My minions Stealth_TB_GP_01e_copy1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3126,9 +3126,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_GP_01e_v2", new List<Enchantment> {
+			cards.Add("TB_GP_01e_v2", new List<Power> {
 				// TODO [TB_GP_01e_v2] Shadow Tower Stealth && Test: Shadow Tower Stealth_TB_GP_01e_v2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3139,9 +3139,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_GreatCurves_01] TB_ClockworkCardDealer (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_GreatCurves_01", new List<Enchantment> {
+			cards.Add("TB_GreatCurves_01", new List<Power> {
 				// TODO [TB_GreatCurves_01] TB_ClockworkCardDealer && Test: TB_ClockworkCardDealer_TB_GreatCurves_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3157,9 +3157,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KaraPortal_003", new List<Enchantment> {
+			cards.Add("TB_KaraPortal_003", new List<Power> {
 				// TODO [TB_KaraPortal_003] Saddened Hero Enchant && Test: Saddened Hero Enchant_TB_KaraPortal_003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3172,9 +3172,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Granted power from Noth
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_10e", new List<Enchantment> {
+			cards.Add("TB_KTRAF_10e", new List<Power> {
 				// TODO [TB_KTRAF_10e] Dark Power && Test: Dark Power_TB_KTRAF_10e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3189,9 +3189,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_LethalSetup001a, TB_LethalSetup001b
 			// --------------------------------------------------------
-			cards.Add("TB_LethalSetup02", new List<Enchantment> {
+			cards.Add("TB_LethalSetup02", new List<Power> {
 				// TODO [TB_LethalSetup02] Brawl Progress Saved && Test: Brawl Progress Saved_TB_LethalSetup02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3207,9 +3207,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s002ee", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s002ee", new List<Power> {
 				// TODO [TB_MammothParty_s002ee] Raucous && Test: Raucous_TB_MammothParty_s002ee
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3222,9 +3222,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: GVG_069, GVG_079, GVG_034, GVG_048, GVG_049, GVG_088
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_CommonCards", new List<Enchantment> {
+			cards.Add("TB_MechWar_CommonCards", new List<Power> {
 				// TODO [TB_MechWar_CommonCards] TBMechWarCommonCards && Test: TBMechWarCommonCards_TB_MechWar_CommonCards
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3237,9 +3237,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Mini-sized, set to 1/1
 			// --------------------------------------------------------
-			cards.Add("TB_Mini_1e", new List<Enchantment> {
+			cards.Add("TB_Mini_1e", new List<Power> {
 				// TODO [TB_Mini_1e] Miniature && Test: Miniature_TB_Mini_1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3252,9 +3252,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_PickYourFate_9, TB_PickYourFate_10, TB_PickYourFate_11b, TB_PickYourFate_8
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate", new List<Enchantment> {
+			cards.Add("TB_PickYourFate", new List<Power> {
 				// TODO [TB_PickYourFate] Pick Your Fate Build Around && Test: Pick Your Fate Build Around_TB_PickYourFate
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate7Ench",
 					//Activation = null,
@@ -3266,9 +3266,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate7Ench] Fate 7 Ench Get a Coin (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate7Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate7Ench", new List<Power> {
 				// TODO [TB_PickYourFate7Ench] Fate 7 Ench Get a Coin && Test: Fate 7 Ench Get a Coin_TB_PickYourFate7Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3279,9 +3279,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_10_Ench] Fate (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_10_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_10_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_10_Ench] Fate && Test: Fate_TB_PickYourFate_10_Ench
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_10_EnchMinion",
 					//Activation = null,
@@ -3295,9 +3295,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Your <b>Battlecry</b> minions have +1/+1.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_10_EnchMinion", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_10_EnchMinion", new List<Power> {
 				// TODO [TB_PickYourFate_10_EnchMinion] Bonus && Test: Bonus_TB_PickYourFate_10_EnchMinion
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3308,9 +3308,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_11_Ench] Fate 11 Ench. Murloc (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_11_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_11_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_11_Ench] Fate 11 Ench. Murloc && Test: Fate 11 Ench. Murloc_TB_PickYourFate_11_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3321,9 +3321,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_12_Ench] Fate 12 Ench, Confuse (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_12_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_12_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_12_Ench] Fate 12 Ench, Confuse && Test: Fate 12 Ench, Confuse_TB_PickYourFate_12_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3334,9 +3334,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_1_Ench] Pick Your Fate 1 Ench (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_1_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_1_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_1_Ench] Pick Your Fate 1 Ench && Test: Pick Your Fate 1 Ench_TB_PickYourFate_1_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3347,9 +3347,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_2_Ench] Pick Your Fate 2 Ench (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_2_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_2_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_2_Ench] Pick Your Fate 2 Ench && Test: Pick Your Fate 2 Ench_TB_PickYourFate_2_Ench
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_2_EnchMinion",
 					//Activation = null,
@@ -3366,11 +3366,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_2_EnchMinion", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_2_EnchMinion", new List<Power> {
 				// TODO [TB_PickYourFate_2_EnchMinion] Fate && Test: Fate_TB_PickYourFate_2_EnchMinion
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -3381,9 +3381,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_PickYourFate_1, TB_PickYourFate_4, TB_PickYourFate_7_2nd, TB_PickYourFate_3, TB_PickYourFate_6_2nd, TB_PickYourFate_11rand
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_2nd", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_2nd", new List<Power> {
 				// TODO [TB_PickYourFate_2nd] Pick Your Fate Randon 2nd && Test: Pick Your Fate Randon 2nd_TB_PickYourFate_2nd
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3394,9 +3394,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_3_Ench] Pick Your Fate 3 Ench (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_3_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_3_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_3_Ench] Pick Your Fate 3 Ench && Test: Pick Your Fate 3 Ench_TB_PickYourFate_3_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3407,9 +3407,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_4_Ench] Pick Your Fate 4 Ench (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_4_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_4_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_4_Ench] Pick Your Fate 4 Ench && Test: Pick Your Fate 4 Ench_TB_PickYourFate_4_Ench
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_4_EnchMinion",
 					//Activation = null,
@@ -3426,11 +3426,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_4_EnchMinion", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_4_EnchMinion", new List<Power> {
 				// TODO [TB_PickYourFate_4_EnchMinion] Fate && Test: Fate_TB_PickYourFate_4_EnchMinion
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -3439,9 +3439,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_5_Ench] Pick Your Fate 5 Ench (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_5_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_5_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_5_Ench] Pick Your Fate 5 Ench && Test: Pick Your Fate 5 Ench_TB_PickYourFate_5_Ench
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3452,9 +3452,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_7_Ench_2nd] Fate 7 Ench 2nd (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_7_Ench_2nd", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_7_Ench_2nd", new List<Power> {
 				// TODO [TB_PickYourFate_7_Ench_2nd] Fate 7 Ench 2nd && Test: Fate 7 Ench 2nd_TB_PickYourFate_7_Ench_2nd
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3467,9 +3467,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> random card in owner's hand costs (0).
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_7_EnchMiniom2nd", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_7_EnchMiniom2nd", new List<Power> {
 				// TODO [TB_PickYourFate_7_EnchMiniom2nd] Fate && Test: Fate_TB_PickYourFate_7_EnchMiniom2nd
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3482,9 +3482,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Your owner gets a coin.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_7_EnchMinion", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_7_EnchMinion", new List<Power> {
 				// TODO [TB_PickYourFate_7_EnchMinion] Fate && Test: Fate_TB_PickYourFate_7_EnchMinion
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3495,9 +3495,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_8_Ench] Fate 8 Get Armor (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_8_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_8_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_8_Ench] Fate 8 Get Armor && Test: Fate 8 Get Armor_TB_PickYourFate_8_Ench
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_8_EnchRand",
 					//Activation = null,
@@ -3509,9 +3509,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_8_EnchRand] Fate 8 Rand 2 armor each turn (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_8_EnchRand", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_8_EnchRand", new List<Power> {
 				// TODO [TB_PickYourFate_8_EnchRand] Fate 8 Rand 2 armor each turn && Test: Fate 8 Rand 2 armor each turn_TB_PickYourFate_8_EnchRand
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3522,9 +3522,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_PickYourFate_9_Ench] Fate 9 Ench. Deathrattle bonus (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_9_Ench", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_9_Ench", new List<Power> {
 				// TODO [TB_PickYourFate_9_Ench] Fate 9 Ench. Deathrattle bonus && Test: Fate 9 Ench. Deathrattle bonus_TB_PickYourFate_9_Ench
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_9_EnchMinion",
 					//Activation = null,
@@ -3538,9 +3538,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Your <b>Deathrattle</b> minions have +1/+1.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_9_EnchMinion", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_9_EnchMinion", new List<Power> {
 				// TODO [TB_PickYourFate_9_EnchMinion] Bonus && Test: Bonus_TB_PickYourFate_9_EnchMinion
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3553,9 +3553,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Attack and Health swap at end of each turn.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_Confused", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_Confused", new List<Power> {
 				// TODO [TB_PickYourFate_Confused] Fate && Test: Fate_TB_PickYourFate_Confused
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3568,9 +3568,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: This minion has <b>Windfury</b>
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_Windfury", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_Windfury", new List<Power> {
 				// TODO [TB_PickYourFate_Windfury] Fate && Test: Fate_TB_PickYourFate_Windfury
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3583,9 +3583,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_PickYourFate_12, TB_PickYourFate_2, TB_PickYourFate_8rand, TB_PickYourFate_6, TB_PickYourFate_5, TB_PickYourFate_7
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFateRandom", new List<Enchantment> {
+			cards.Add("TB_PickYourFateRandom", new List<Power> {
 				// TODO [TB_PickYourFateRandom] Pick Your Fate Random && Test: Pick Your Fate Random_TB_PickYourFateRandom
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3598,9 +3598,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Who could it be?!
 			// --------------------------------------------------------
-			cards.Add("TB_Pilot1", new List<Enchantment> {
+			cards.Add("TB_Pilot1", new List<Power> {
 				// TODO [TB_Pilot1] Mystery Pilot && Test: Mystery Pilot_TB_Pilot1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3611,9 +3611,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_RandCardCost] TBRandomCardCost (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_RandCardCost", new List<Enchantment> {
+			cards.Add("TB_RandCardCost", new List<Power> {
 				// TODO [TB_RandCardCost] TBRandomCardCost && Test: TBRandomCardCost_TB_RandCardCost
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3626,9 +3626,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: BRMA07_2_2_TB, BRMA01_2H_2_TB, BRMA17_5_TB, NAX12_02H_2_TB, BRMA02_2_2_TB, NAX11_02H_2_TB, BRMA13_4_2_TB, BRMA09_2_TB, BRMA14_10H_TB, BRMA06_2H_TB, NAX3_02_TB, NAX8_02H_TB
 			// --------------------------------------------------------
-			cards.Add("TB_RandHero2_001", new List<Enchantment> {
+			cards.Add("TB_RandHero2_001", new List<Power> {
 				// TODO [TB_RandHero2_001] TB_EnchWhosTheBossNow && Test: TB_EnchWhosTheBossNow_TB_RandHero2_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3639,9 +3639,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_RMC_001] TB_EnchRandomManaCost (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_RMC_001", new List<Enchantment> {
+			cards.Add("TB_RMC_001", new List<Power> {
 				// TODO [TB_RMC_001] TB_EnchRandomManaCost && Test: TB_EnchRandomManaCost_TB_RMC_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3652,9 +3652,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_Spellwrite_001] SpellCaster (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_Spellwrite_001", new List<Enchantment> {
+			cards.Add("TB_Spellwrite_001", new List<Power> {
 				// TODO [TB_Spellwrite_001] SpellCaster && Test: SpellCaster_TB_Spellwrite_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3667,9 +3667,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Attack changed to 1.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoEnch3", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoEnch3", new List<Power> {
 				// TODO [TB_SPT_DPromoEnch3] Shield Glare && Test: Shield Glare_TB_SPT_DPromoEnch3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3682,9 +3682,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecre8e", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecre8e", new List<Power> {
 				// TODO [TB_SPT_DPromoSecre8e] Assassin's Stealth && Test: Assassin's Stealth_TB_SPT_DPromoSecre8e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3697,9 +3697,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSecret9e", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSecret9e", new List<Power> {
 				// TODO [TB_SPT_DPromoSecret9e] Knowledge && Test: Knowledge_TB_SPT_DPromoSecret9e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3712,9 +3712,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Minion has <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpellBovine1e", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpellBovine1e", new List<Power> {
 				// TODO [TB_SPT_DPromoSpellBovine1e] Herding && Test: Herding_TB_SPT_DPromoSpellBovine1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3727,9 +3727,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Stormwind is granting this card Health.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion1e", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion1e", new List<Power> {
 				// TODO [TB_SPT_Minion1e] Will of Stormwind && Test: Will of Stormwind_TB_SPT_Minion1e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3742,9 +3742,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Standard Bearer is granting +2 Attack to this minion.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion2e", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion2e", new List<Power> {
 				// TODO [TB_SPT_Minion2e] Emboldened && Test: Emboldened_TB_SPT_Minion2e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3757,9 +3757,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Stormwind is granting this card Attack and Health.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion3e", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion3e", new List<Power> {
 				// TODO [TB_SPT_Minion3e] Strength of Stormwind && Test: Strength of Stormwind_TB_SPT_Minion3e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3770,9 +3770,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_SwapBossHeroPowerByClass] Swap Boss Hero Power by Class (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_SwapBossHeroPowerByClass", new List<Enchantment> {
+			cards.Add("TB_SwapBossHeroPowerByClass", new List<Power> {
 				// TODO [TB_SwapBossHeroPowerByClass] Swap Boss Hero Power by Class && Test: Swap Boss Hero Power by Class_TB_SwapBossHeroPowerByClass
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3783,9 +3783,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_SwapHeroWithDeathKnight] Swap Hero With Death Knight (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_SwapHeroWithDeathKnight", new List<Enchantment> {
+			cards.Add("TB_SwapHeroWithDeathKnight", new List<Power> {
 				// TODO [TB_SwapHeroWithDeathKnight] Swap Hero With Death Knight && Test: Swap Hero With Death Knight_TB_SwapHeroWithDeathKnight
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3796,9 +3796,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_TagTeam] Check for Hero Death (*) - COST:0 
 			// - Fac: neutral, Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam", new List<Enchantment> {
+			cards.Add("TB_TagTeam", new List<Power> {
 				// TODO [TB_TagTeam] Check for Hero Death && Test: Check for Hero Death_TB_TagTeam
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_TagTeam_GetClass",
 					//Activation = null,
@@ -3812,9 +3812,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TB_TagTeam_Paladin, TB_TagTeam_Shaman, TB_TagTeam_Warlock, TB_TagTeam_Druid, TB_TagTeam_Hunter, TB_TagTeam_Mage, TB_TagTeam_Priest, TB_TagTeam_Rogue, TB_TagTeam_Warrior
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_GetClass", new List<Enchantment> {
+			cards.Add("TB_TagTeam_GetClass", new List<Power> {
 				// TODO [TB_TagTeam_GetClass] Discover Next Class && Test: Discover Next Class_TB_TagTeam_GetClass
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3825,9 +3825,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_YoggServant_Enchant] Yogg Servant Hero Enchant (*) - COST:0 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_YoggServant_Enchant", new List<Enchantment> {
+			cards.Add("TB_YoggServant_Enchant", new List<Power> {
 				// TODO [TB_YoggServant_Enchant] Yogg Servant Hero Enchant && Test: Yogg Servant Hero Enchant_TB_YoggServant_Enchant
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3842,9 +3842,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: TBST_003, TBST_002, TBST_001
 			// --------------------------------------------------------
-			cards.Add("TBST_006", new List<Enchantment> {
+			cards.Add("TBST_006", new List<Power> {
 				// TODO [TBST_006] OLDTBST Push Common Card && Test: OLDTBST Push Common Card_TBST_006
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3859,9 +3859,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: CS1_042, CS2_171
 			// --------------------------------------------------------
-			cards.Add("TBUD_1", new List<Enchantment> {
+			cards.Add("TBUD_1", new List<Power> {
 				// TODO [TBUD_1] TBUD Summon Early Minion && Test: TBUD Summon Early Minion_TBUD_1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3877,11 +3877,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_84", new List<Enchantment> {
+			cards.Add("BRMC_84", new List<Power> {
 				// TODO [BRMC_84] Dragonkin Spellcaster && Test: Dragonkin Spellcaster_BRMC_84
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3896,11 +3896,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_85", new List<Enchantment> {
+			cards.Add("BRMC_85", new List<Power> {
 				// TODO [BRMC_85] Lucifron && Test: Lucifron_BRMC_85
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -3914,9 +3914,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_86", new List<Enchantment> {
+			cards.Add("BRMC_86", new List<Power> {
 				// TODO [BRMC_86] Atramedes && Test: Atramedes_BRMC_86
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "BRMC_86e",
 					//Activation = null,
@@ -3934,11 +3934,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_87", new List<Enchantment> {
+			cards.Add("BRMC_87", new List<Power> {
 				// TODO [BRMC_87] Moira Bronzebeard && Test: Moira Bronzebeard_BRMC_87
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -3949,9 +3949,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Also damages the minions next to whomever he attacks.
 			// --------------------------------------------------------
-			cards.Add("BRMC_88", new List<Enchantment> {
+			cards.Add("BRMC_88", new List<Power> {
 				// TODO [BRMC_88] Drakonid Slayer && Test: Drakonid Slayer_BRMC_88
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3967,9 +3967,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_89", new List<Enchantment> {
+			cards.Add("BRMC_89", new List<Power> {
 				// TODO [BRMC_89] Whirling Ash && Test: Whirling Ash_BRMC_89
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -3985,9 +3985,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_90", new List<Enchantment> {
+			cards.Add("BRMC_90", new List<Power> {
 				// TODO [BRMC_90] Living Lava && Test: Living Lava_BRMC_90
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4006,11 +4006,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("BRMC_91", new List<Enchantment> {
+			cards.Add("BRMC_91", new List<Power> {
 				// TODO [BRMC_91] Son of the Flame && Test: Son of the Flame_BRMC_91
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4026,11 +4026,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_92", new List<Enchantment> {
+			cards.Add("BRMC_92", new List<Power> {
 				// TODO [BRMC_92] Coren Direbrew && Test: Coren Direbrew_BRMC_92
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4044,9 +4044,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_95", new List<Enchantment> {
+			cards.Add("BRMC_95", new List<Power> {
 				// TODO [BRMC_95] Golemagg && Test: Golemagg_BRMC_95
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4059,9 +4059,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of each turn, summon all Core Hound Pups that died this turn.
 			// --------------------------------------------------------
-			cards.Add("BRMC_95he", new List<Enchantment> {
+			cards.Add("BRMC_95he", new List<Power> {
 				// TODO [BRMC_95he] Core Hound Pup && Test: Core Hound Pup_BRMC_95he
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4077,9 +4077,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_96", new List<Enchantment> {
+			cards.Add("BRMC_96", new List<Power> {
 				// TODO [BRMC_96] High Justice Grimstone && Test: High Justice Grimstone_BRMC_96
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4095,9 +4095,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_97", new List<Enchantment> {
+			cards.Add("BRMC_97", new List<Power> {
 				// TODO [BRMC_97] Vaelastrasz && Test: Vaelastrasz_BRMC_97
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "BRMC_97e",
 					//Activation = null,
@@ -4114,9 +4114,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_98", new List<Enchantment> {
+			cards.Add("BRMC_98", new List<Power> {
 				// TODO [BRMC_98] Razorgore && Test: Razorgore_BRMC_98
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "BRMC_98e",
 					//Activation = null,
@@ -4136,9 +4136,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_99", new List<Enchantment> {
+			cards.Add("BRMC_99", new List<Power> {
 				// TODO [BRMC_99] Garr && Test: Garr_BRMC_99
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4154,9 +4154,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_99e", new List<Enchantment> {
+			cards.Add("BRMC_99e", new List<Power> {
 				// TODO [BRMC_99e] Rock Elemental && Test: Rock Elemental_BRMC_99e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4175,9 +4175,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("HRW02_1", new List<Enchantment> {
+			cards.Add("HRW02_1", new List<Power> {
 				// TODO [HRW02_1] Gearmaster Mechazod && Test: Gearmaster Mechazod_HRW02_1
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "HRW02_1e",
 					//Activation = null,
@@ -4195,9 +4195,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("HRW02_2", new List<Enchantment> {
+			cards.Add("HRW02_2", new List<Power> {
 				// TODO [HRW02_2] Gearmaster Mechazod && Test: Gearmaster Mechazod_HRW02_2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4213,9 +4213,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("HRW02_3", new List<Enchantment> {
+			cards.Add("HRW02_3", new List<Power> {
 				// TODO [HRW02_3] Kill Objective: Anub'arak && Test: Kill Objective: Anub'arak_HRW02_3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4234,9 +4234,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - HIDE_STATS = 1
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_15", new List<Enchantment> {
+			cards.Add("KARA_13_15", new List<Power> {
 				// TODO [KARA_13_15] Wanda Wonderhooves && Test: Wanda Wonderhooves_KARA_13_15
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4255,9 +4255,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - HIDE_STATS = 1
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_16", new List<Enchantment> {
+			cards.Add("KARA_13_16", new List<Power> {
 				// TODO [KARA_13_16] Susie Sizzlesong && Test: Susie Sizzlesong_KARA_13_16
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4276,9 +4276,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - HIDE_STATS = 1
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_17", new List<Enchantment> {
+			cards.Add("KARA_13_17", new List<Power> {
 				// TODO [KARA_13_17] Mark Moonwalker && Test: Mark Moonwalker_KARA_13_17
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4296,12 +4296,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_19", new List<Enchantment> {
+			cards.Add("KARA_13_19", new List<Power> {
 				// TODO [KARA_13_19] Red Riding Hood && Test: Red Riding Hood_KARA_13_19
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_13_19e",
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4312,9 +4312,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Comes with a party!
 			// --------------------------------------------------------
-			cards.Add("KARA_13_20", new List<Enchantment> {
+			cards.Add("KARA_13_20", new List<Power> {
 				// TODO [KARA_13_20] Party Elemental && Test: Party Elemental_KARA_13_20
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4327,9 +4327,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Always <b>silenced</b>.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_22", new List<Enchantment> {
+			cards.Add("KARA_13_22", new List<Power> {
 				// TODO [KARA_13_22] Mime && Test: Mime_KARA_13_22
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4345,9 +4345,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_23", new List<Enchantment> {
+			cards.Add("KARA_13_23", new List<Power> {
 				// TODO [KARA_13_23] Romulo && Test: Romulo_KARA_13_23
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4358,9 +4358,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_015] Pirate (*) - COST:2 [ATK:2/HP:3] 
 			// - Race: pirate, Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_015", new List<Enchantment> {
+			cards.Add("TB_015", new List<Power> {
 				// TODO [TB_015] Pirate && Test: Pirate_TB_015
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4374,9 +4374,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Boss</b>
 			//       At the beginning of each turn, Mechazod strikes!
 			// --------------------------------------------------------
-			cards.Add("TB_CoOp_Mechazod2", new List<Enchantment> {
+			cards.Add("TB_CoOp_Mechazod2", new List<Power> {
 				// TODO [TB_CoOp_Mechazod2] Overloaded Mechazod && Test: Overloaded Mechazod_TB_CoOp_Mechazod2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4394,9 +4394,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOp_Mechazod_OLD", new List<Enchantment> {
+			cards.Add("TB_CoOp_Mechazod_OLD", new List<Power> {
 				// TODO [TB_CoOp_Mechazod_OLD] Gearmaster Mechazod && Test: Gearmaster Mechazod_TB_CoOp_Mechazod_OLD
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4414,9 +4414,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOp_Mechazod_V2", new List<Enchantment> {
+			cards.Add("TB_CoOp_Mechazod_V2", new List<Power> {
 				// TODO [TB_CoOp_Mechazod_V2] Gearmaster Mechazod && Test: Gearmaster Mechazod_TB_CoOp_Mechazod_V2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4432,9 +4432,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 40221
 			// --------------------------------------------------------
-			cards.Add("TB_CoopHero_001", new List<Enchantment> {
+			cards.Add("TB_CoopHero_001", new List<Power> {
 				// TODO [TB_CoopHero_001] Netherspite Infernal && Test: Netherspite Infernal_TB_CoopHero_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4450,9 +4450,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_009t", new List<Enchantment> {
+			cards.Add("TB_Coopv3_009t", new List<Power> {
 				// TODO [TB_Coopv3_009t] Explosive Rune && Test: Explosive Rune_TB_Coopv3_009t
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4468,9 +4468,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_100", new List<Enchantment> {
+			cards.Add("TB_Coopv3_100", new List<Power> {
 				// TODO [TB_Coopv3_100] Dragonscale Warrior && Test: Dragonscale Warrior_TB_Coopv3_100
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4483,9 +4483,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of your turn, switch sides.
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_101", new List<Enchantment> {
+			cards.Add("TB_Coopv3_101", new List<Power> {
 				// TODO [TB_Coopv3_101] Freewheeling Skulker && Test: Freewheeling Skulker_TB_Coopv3_101
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4498,9 +4498,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Whenever ANY player plays a card, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_103", new List<Enchantment> {
+			cards.Add("TB_Coopv3_103", new List<Power> {
 				// TODO [TB_Coopv3_103] Intrepid Dragonstalker && Test: Intrepid Dragonstalker_TB_Coopv3_103
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4516,11 +4516,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_104", new List<Enchantment> {
+			cards.Add("TB_Coopv3_104", new List<Power> {
 				// TODO [TB_Coopv3_104] Main Tank && Test: Main Tank_TB_Coopv3_104
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4534,11 +4534,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_104_NewClasses", new List<Enchantment> {
+			cards.Add("TB_Coopv3_104_NewClasses", new List<Power> {
 				// TODO [TB_Coopv3_104_NewClasses] Main Tank && Test: Main Tank_TB_Coopv3_104_NewClasses
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4549,9 +4549,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Whenever your hero is healed, also heal your teammate for that much.
 			// --------------------------------------------------------
-			cards.Add("TB_Coopv3_105", new List<Enchantment> {
+			cards.Add("TB_Coopv3_105", new List<Power> {
 				// TODO [TB_Coopv3_105] Raid Healer && Test: Raid Healer_TB_Coopv3_105
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4570,9 +4570,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_Boss", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_Boss", new List<Power> {
 				// TODO [TB_CoOpv3_Boss] Nefarian && Test: Nefarian_TB_CoOpv3_Boss
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4591,9 +4591,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_Boss_FB", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_Boss_FB", new List<Power> {
 				// TODO [TB_CoOpv3_Boss_FB] Nefarian && Test: Nefarian_TB_CoOpv3_Boss_FB
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4612,9 +4612,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_Boss_NewClasses", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_Boss_NewClasses", new List<Power> {
 				// TODO [TB_CoOpv3_Boss_NewClasses] Nefarian && Test: Nefarian_TB_CoOpv3_Boss_NewClasses
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4635,9 +4635,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Dorothee_001", new List<Enchantment> {
+			cards.Add("TB_Dorothee_001", new List<Power> {
 				// TODO [TB_Dorothee_001] Dorothee && Test: Dorothee_TB_Dorothee_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4652,9 +4652,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FireFestival_Brazier", new List<Enchantment> {
+			cards.Add("TB_FireFestival_Brazier", new List<Power> {
 				// TODO [TB_FireFestival_Brazier] Brazier && Test: Brazier_TB_FireFestival_Brazier
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4669,9 +4669,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FireFestival_Fireworks", new List<Enchantment> {
+			cards.Add("TB_FireFestival_Fireworks", new List<Power> {
 				// TODO [TB_FireFestival_Fireworks] Fireworks && Test: Fireworks_TB_FireFestival_Fireworks
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4690,9 +4690,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - CANT_ATTACK = 1
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FireFestival_MRag", new List<Enchantment> {
+			cards.Add("TB_FireFestival_MRag", new List<Power> {
 				// TODO [TB_FireFestival_MRag] Mini-Rag && Test: Mini-Rag_TB_FireFestival_MRag
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4710,11 +4710,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - DEATHRATTLE = 1
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Frost_Rag", new List<Enchantment> {
+			cards.Add("TB_Frost_Rag", new List<Power> {
 				// TODO [TB_Frost_Rag] Ragnaros? && Test: Ragnaros?_TB_Frost_Rag
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4729,11 +4729,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FW_DrBoomMega", new List<Enchantment> {
+			cards.Add("TB_FW_DrBoomMega", new List<Power> {
 				// TODO [TB_FW_DrBoomMega] Dr. Boom Boom Boom Boom && Test: Dr. Boom Boom Boom Boom_TB_FW_DrBoomMega
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4749,11 +4749,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - DIVINE_SHIELD = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FW_ImbaTron", new List<Enchantment> {
+			cards.Add("TB_FW_ImbaTron", new List<Power> {
 				// TODO [TB_FW_ImbaTron] Annoy-o-p-Tron && Test: Annoy-o-p-Tron_TB_FW_ImbaTron
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4764,9 +4764,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, deal 1-4 damage to a random enemy.
 			// --------------------------------------------------------
-			cards.Add("TB_FW_Mortar", new List<Enchantment> {
+			cards.Add("TB_FW_Mortar", new List<Power> {
 				// TODO [TB_FW_Mortar] Dwarf Demolitionist && Test: Dwarf Demolitionist_TB_FW_Mortar
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4784,11 +4784,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - DIVINE_SHIELD = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FW_OmegaMax", new List<Enchantment> {
+			cards.Add("TB_FW_OmegaMax", new List<Power> {
 				// TODO [TB_FW_OmegaMax] Force-Tank OMEGA MAX && Test: Force-Tank OMEGA MAX_TB_FW_OmegaMax
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4802,9 +4802,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("TB_FW_Warper", new List<Enchantment> {
+			cards.Add("TB_FW_Warper", new List<Power> {
 				// TODO [TB_FW_Warper] Omegawarper && Test: Omegawarper_TB_FW_Warper
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4820,11 +4820,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_GiftExchange_Treasure", new List<Enchantment> {
+			cards.Add("TB_GiftExchange_Treasure", new List<Power> {
 				// TODO [TB_GiftExchange_Treasure] Winter's Veil Gift && Test: Winter's Veil Gift_TB_GiftExchange_Treasure
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -4839,9 +4839,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("TB_GP_03", new List<Enchantment> {
+			cards.Add("TB_GP_03", new List<Power> {
 				// TODO [TB_GP_03] Shadow Tower New && Test: Shadow Tower New_TB_GP_03
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4852,9 +4852,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// [TB_KaraPortals_003] Party Elemental (*) - COST:3 [ATK:3/HP:2] 
 			// - Set: tb, 
 			// --------------------------------------------------------
-			cards.Add("TB_KaraPortals_003", new List<Enchantment> {
+			cards.Add("TB_KaraPortals_003", new List<Power> {
 				// TODO [TB_KaraPortals_003] Party Elemental && Test: Party Elemental_TB_KaraPortals_003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4870,9 +4870,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_1", new List<Enchantment> {
+			cards.Add("TB_KTRAF_1", new List<Power> {
 				// TODO [TB_KTRAF_1] Anub'Rekhan && Test: Anub'Rekhan_TB_KTRAF_1
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_KTRAF_10e",
 					//Activation = null,
@@ -4889,9 +4889,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_10", new List<Enchantment> {
+			cards.Add("TB_KTRAF_10", new List<Power> {
 				// TODO [TB_KTRAF_10] Noth the Plaguebringer && Test: Noth the Plaguebringer_TB_KTRAF_10
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_KTRAF_10e",
 					//Activation = null,
@@ -4911,9 +4911,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_11", new List<Enchantment> {
+			cards.Add("TB_KTRAF_11", new List<Power> {
 				// TODO [TB_KTRAF_11] Sapphiron && Test: Sapphiron_TB_KTRAF_11
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4930,11 +4930,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_12", new List<Enchantment> {
+			cards.Add("TB_KTRAF_12", new List<Power> {
 				// TODO [TB_KTRAF_12] Patchwerk && Test: Patchwerk_TB_KTRAF_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4949,11 +4949,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_2", new List<Enchantment> {
+			cards.Add("TB_KTRAF_2", new List<Power> {
 				// TODO [TB_KTRAF_2] Lady Blaumeux && Test: Lady Blaumeux_TB_KTRAF_2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -4970,9 +4970,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_2s", new List<Enchantment> {
+			cards.Add("TB_KTRAF_2s", new List<Power> {
 				// TODO [TB_KTRAF_2s] Sir Zeliek && Test: Sir Zeliek_TB_KTRAF_2s
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -4990,9 +4990,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_3", new List<Enchantment> {
+			cards.Add("TB_KTRAF_3", new List<Power> {
 				// TODO [TB_KTRAF_3] Gluth && Test: Gluth_TB_KTRAF_3
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5009,11 +5009,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_4", new List<Enchantment> {
+			cards.Add("TB_KTRAF_4", new List<Power> {
 				// TODO [TB_KTRAF_4] Gothik the Harvester && Test: Gothik the Harvester_TB_KTRAF_4
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5027,9 +5027,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_4m", new List<Enchantment> {
+			cards.Add("TB_KTRAF_4m", new List<Power> {
 				// TODO [TB_KTRAF_4m] Spectral Gothik && Test: Spectral Gothik_TB_KTRAF_4m
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5045,9 +5045,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_5", new List<Enchantment> {
+			cards.Add("TB_KTRAF_5", new List<Power> {
 				// TODO [TB_KTRAF_5] Grand Widow Faerlina && Test: Grand Widow Faerlina_TB_KTRAF_5
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5066,9 +5066,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_6", new List<Enchantment> {
+			cards.Add("TB_KTRAF_6", new List<Power> {
 				// TODO [TB_KTRAF_6] Grobbulus && Test: Grobbulus_TB_KTRAF_6
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5084,9 +5084,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_6m", new List<Enchantment> {
+			cards.Add("TB_KTRAF_6m", new List<Power> {
 				// TODO [TB_KTRAF_6m] Fallout Slime && Test: Fallout Slime_TB_KTRAF_6m
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5102,9 +5102,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_7", new List<Enchantment> {
+			cards.Add("TB_KTRAF_7", new List<Power> {
 				// TODO [TB_KTRAF_7] Heigan the Unclean && Test: Heigan the Unclean_TB_KTRAF_7
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5121,11 +5121,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_8", new List<Enchantment> {
+			cards.Add("TB_KTRAF_8", new List<Power> {
 				// TODO [TB_KTRAF_8] Instructor Razuvious && Test: Instructor Razuvious_TB_KTRAF_8
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5139,9 +5139,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_Under", new List<Enchantment> {
+			cards.Add("TB_KTRAF_Under", new List<Power> {
 				// TODO [TB_KTRAF_Under] Understudy && Test: Understudy_TB_KTRAF_Under
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5162,9 +5162,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - BOSS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_Boss002", new List<Enchantment> {
+			cards.Add("TB_MammothParty_Boss002", new List<Power> {
 				// TODO [TB_MammothParty_Boss002] Piñata Golem && Test: Piñata Golem_TB_MammothParty_Boss002
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5182,9 +5182,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - AUTOATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_m001", new List<Enchantment> {
+			cards.Add("TB_MammothParty_m001", new List<Power> {
 				// TODO [TB_MammothParty_m001] Party Crasher && Test: Party Crasher_TB_MammothParty_m001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5202,9 +5202,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - AUTOATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_m001_alt", new List<Enchantment> {
+			cards.Add("TB_MammothParty_m001_alt", new List<Power> {
 				// TODO [TB_MammothParty_m001_alt] Party Crasher && Test: Party Crasher_TB_MammothParty_m001_alt
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5220,9 +5220,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MechWar_Minion1", new List<Enchantment> {
+			cards.Add("TB_MechWar_Minion1", new List<Power> {
 				// TODO [TB_MechWar_Minion1] Mech Fan && Test: Mech Fan_TB_MechWar_Minion1
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5239,9 +5239,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MnkWf01", new List<Enchantment> {
+			cards.Add("TB_MnkWf01", new List<Power> {
 				// TODO [TB_MnkWf01] Nadia, Mankrik's Wife && Test: Nadia, Mankrik's Wife_TB_MnkWf01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5257,11 +5257,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoCrate1", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoCrate1", new List<Power> {
 				// TODO [TB_SPT_DPromoCrate1] Weapon Rack && Test: Weapon Rack_TB_SPT_DPromoCrate1
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5275,11 +5275,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoCrate2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoCrate2", new List<Power> {
 				// TODO [TB_SPT_DPromoCrate2] Discarded Armor && Test: Discarded Armor_TB_SPT_DPromoCrate2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5293,11 +5293,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoCrate3", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoCrate3", new List<Power> {
 				// TODO [TB_SPT_DPromoCrate3] Chest of Gold! && Test: Chest of Gold!_TB_SPT_DPromoCrate3
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5311,11 +5311,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoMinion", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoMinion", new List<Power> {
 				// TODO [TB_SPT_DPromoMinion] Hell Bovine && Test: Hell Bovine_TB_SPT_DPromoMinion
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5332,9 +5332,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - AUTOATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoMinion2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoMinion2", new List<Power> {
 				// TODO [TB_SPT_DPromoMinion2] Guardian && Test: Guardian_TB_SPT_DPromoMinion2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5352,11 +5352,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoMinionChamp", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoMinionChamp", new List<Power> {
 				// TODO [TB_SPT_DPromoMinionChamp] Hell Bovine Champion && Test: Hell Bovine Champion_TB_SPT_DPromoMinionChamp
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5371,16 +5371,16 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoMinionInit", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoMinionInit", new List<Power> {
 				// TODO [TB_SPT_DPromoMinionInit] Hell Bovine && Test: Hell Bovine_TB_SPT_DPromoMinionInit
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -5396,11 +5396,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - IMMUNE = 1
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DpromoPortal", new List<Enchantment> {
+			cards.Add("TB_SPT_DpromoPortal", new List<Power> {
 				// TODO [TB_SPT_DpromoPortal] Enigmatic Portal && Test: Enigmatic Portal_TB_SPT_DpromoPortal
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5416,12 +5416,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion1", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion1", new List<Power> {
 				// TODO [TB_SPT_Minion1] Shieldsman && Test: Shieldsman_TB_SPT_Minion1
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_Minion1e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5436,9 +5436,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ADJACENT_BUFF = 1
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion2", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion2", new List<Power> {
 				// TODO [TB_SPT_Minion2] Battle Standard && Test: Battle Standard_TB_SPT_Minion2
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_Minion2e",
 					//Activation = null,
@@ -5455,12 +5455,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_Minion3", new List<Enchantment> {
+			cards.Add("TB_SPT_Minion3", new List<Power> {
 				// TODO [TB_SPT_Minion3] Swordsman && Test: Swordsman_TB_SPT_Minion3
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_Minion3e",
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5476,11 +5476,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Minion1", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Minion1", new List<Power> {
 				// TODO [TB_SPT_MTH_Minion1] Happy Partygoer && Test: Happy Partygoer_TB_SPT_MTH_Minion1
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5495,9 +5495,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ADJACENT_BUFF = 1
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Minion2", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Minion2", new List<Power> {
 				// TODO [TB_SPT_MTH_Minion2] Party Banner && Test: Party Banner_TB_SPT_MTH_Minion2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5513,11 +5513,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_Minion3", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_Minion3", new List<Power> {
 				// TODO [TB_SPT_MTH_Minion3] Ornery Partygoer && Test: Ornery Partygoer_TB_SPT_MTH_Minion3
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
@@ -5531,9 +5531,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TBST_001", new List<Enchantment> {
+			cards.Add("TBST_001", new List<Power> {
 				// TODO [TBST_001] OLDN3wb Tank && Test: OLDN3wb Tank_TBST_001
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5546,9 +5546,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 1 damage to random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("TBST_002", new List<Enchantment> {
+			cards.Add("TBST_002", new List<Power> {
 				// TODO [TBST_002] OLDN3wb Mage && Test: OLDN3wb Mage_TBST_002
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5561,9 +5561,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of your turn, heal 2 damage from adjacent minions.
 			// --------------------------------------------------------
-			cards.Add("TBST_003", new List<Enchantment> {
+			cards.Add("TBST_003", new List<Power> {
 				// TODO [TBST_003] OLDN3wb Healer && Test: OLDN3wb Healer_TBST_003
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5576,9 +5576,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a random friendly minion that died this turn.
 			// --------------------------------------------------------
-			cards.Add("TBST_004", new List<Enchantment> {
+			cards.Add("TBST_004", new List<Power> {
 				// TODO [TBST_004] OLDLegit Healer && Test: OLDLegit Healer_TBST_004
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5595,9 +5595,9 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("TBST_005", new List<Enchantment> {
+			cards.Add("TBST_005", new List<Power> {
 				// TODO [TBST_005] OLDPvP Rogue && Test: OLDPvP Rogue_TBST_005
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -5611,11 +5611,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: <b>Hero Power</b>
 			//       Put two minions from your deck and one from your opponent's into the battlefield.
 			// --------------------------------------------------------
-			cards.Add("BRMA01_2H_2c_TB", new List<Enchantment> {
+			cards.Add("BRMA01_2H_2c_TB", new List<Power> {
 				// TODO [BRMA01_2H_2c_TB] Pile On!!! && Test: Pile On!!!_BRMA01_2H_2c_TB
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5629,11 +5629,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA02_2_2c_TB", new List<Enchantment> {
+			cards.Add("BRMA02_2_2c_TB", new List<Power> {
 				// TODO [BRMA02_2_2c_TB] Jeering Crowd && Test: Jeering Crowd_BRMA02_2_2c_TB
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5644,11 +5644,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("BRMA07_2_2c_TB", new List<Enchantment> {
+			cards.Add("BRMA07_2_2c_TB", new List<Power> {
 				// TODO [BRMA07_2_2c_TB] ME SMASH && Test: ME SMASH_BRMA07_2_2c_TB
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5664,12 +5664,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRMC_100", new List<Enchantment> {
+			cards.Add("BRMC_100", new List<Power> {
 				// TODO [BRMC_100] Living Bomb && Test: Living Bomb_BRMC_100
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "BRMC_100e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5680,11 +5680,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Fill your board with 2/2 Whelps.
 			// --------------------------------------------------------
-			cards.Add("BRMC_83", new List<Enchantment> {
+			cards.Add("BRMC_83", new List<Power> {
 				// TODO [BRMC_83] Open the Gates && Test: Open the Gates_BRMC_83
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5697,11 +5697,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: BRMA14_3, BRMA14_5, BRMA14_7, BRMA14_9
 			// --------------------------------------------------------
-			cards.Add("BRMC_93", new List<Enchantment> {
+			cards.Add("BRMC_93", new List<Power> {
 				// TODO [BRMC_93] Omnotron Defense System && Test: Omnotron Defense System_BRMC_93
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5712,11 +5712,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Summon two 2/4 Core Hound Pups.
 			// --------------------------------------------------------
-			cards.Add("BRMC_95h", new List<Enchantment> {
+			cards.Add("BRMC_95h", new List<Power> {
 				// TODO [BRMC_95h] Core Hound Puppies && Test: Core Hound Puppies_BRMC_95h
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5727,11 +5727,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Choose the next Hero.
 			// --------------------------------------------------------
-			cards.Add("FB_LK004", new List<Enchantment> {
+			cards.Add("FB_LK004", new List<Power> {
 				// TODO [FB_LK004] Calling for Backup && Test: Calling for Backup_FB_LK004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5742,11 +5742,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Show The Lich King your true form!
 			// --------------------------------------------------------
-			cards.Add("FB_LK010", new List<Enchantment> {
+			cards.Add("FB_LK010", new List<Power> {
 				// TODO [FB_LK010] The Final Battle && Test: The Final Battle_FB_LK010
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5757,11 +5757,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy all minions. Nice try, Uther!
 			// --------------------------------------------------------
-			cards.Add("FB_LK011", new List<Enchantment> {
+			cards.Add("FB_LK011", new List<Power> {
 				// TODO [FB_LK011] Cancelling the Apocalypse! && Test: Cancelling the Apocalypse!_FB_LK011
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5772,11 +5772,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy all minions. Drain all Mana.
 			// --------------------------------------------------------
-			cards.Add("FB_LK_ClearBoard", new List<Enchantment> {
+			cards.Add("FB_LK_ClearBoard", new List<Power> {
 				// TODO [FB_LK_ClearBoard] A New Hero Approaches && Test: A New Hero Approaches_FB_LK_ClearBoard
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5787,11 +5787,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: A new Hero takes position.
 			// --------------------------------------------------------
-			cards.Add("FB_LK_NewHeroCards", new List<Enchantment> {
+			cards.Add("FB_LK_NewHeroCards", new List<Power> {
 				// TODO [FB_LK_NewHeroCards] New Hero! && Test: New Hero!_FB_LK_NewHeroCards
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5802,11 +5802,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Change boss to phase 2
 			// --------------------------------------------------------
-			cards.Add("FB_LKDebug001", new List<Enchantment> {
+			cards.Add("FB_LKDebug001", new List<Power> {
 				// TODO [FB_LKDebug001] LK Phase 2 Debug && Test: LK Phase 2 Debug_FB_LKDebug001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5817,11 +5817,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Change boss to phase 3
 			// --------------------------------------------------------
-			cards.Add("FB_LKDebug002", new List<Enchantment> {
+			cards.Add("FB_LKDebug002", new List<Power> {
 				// TODO [FB_LKDebug002] LK Phase 3 Debug && Test: LK Phase 3 Debug_FB_LKDebug002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5832,11 +5832,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Continue playing normally.
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats001a", new List<Enchantment> {
+			cards.Add("FB_LKStats001a", new List<Power> {
 				// TODO [FB_LKStats001a] Fight the Lich King! && Test: Fight the Lich King!_FB_LKStats001a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5849,11 +5849,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats002a, FB_LKStats002b, FB_LKStats002c
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats001d", new List<Enchantment> {
+			cards.Add("FB_LKStats001d", new List<Power> {
 				// TODO [FB_LKStats001d] Modify the Lich King && Test: Modify the Lich King_FB_LKStats001d
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5864,12 +5864,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Increase or Decrease the maximum health of The Lich King.
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats002", new List<Enchantment> {
+			cards.Add("FB_LKStats002", new List<Power> {
 				// TODO [FB_LKStats002] Lich King Modifications && Test: Lich King Modifications_FB_LKStats002
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "FB_LKStats002ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5882,11 +5882,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats002a, FB_LKStats002b, FB_LKStats002c
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats002a", new List<Enchantment> {
+			cards.Add("FB_LKStats002a", new List<Power> {
 				// TODO [FB_LKStats002a] Increase Health && Test: Increase Health_FB_LKStats002a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5899,11 +5899,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats002a, FB_LKStats002b, FB_LKStats002c
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats002b", new List<Enchantment> {
+			cards.Add("FB_LKStats002b", new List<Power> {
 				// TODO [FB_LKStats002b] Decrease Health && Test: Decrease Health_FB_LKStats002b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5916,11 +5916,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Entourage: FB_LKStats001a, 00000011-f9e0-4b0b-852d-9f932641109f
 			// --------------------------------------------------------
-			cards.Add("FB_LKStats002c", new List<Enchantment> {
+			cards.Add("FB_LKStats002c", new List<Power> {
 				// TODO [FB_LKStats002c] Modifications Complete && Test: Modifications Complete_FB_LKStats002c
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5931,11 +5931,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Change the Health of enemy minions to 1.
 			// --------------------------------------------------------
-			cards.Add("NAX12_02H_2c_TB", new List<Enchantment> {
+			cards.Add("NAX12_02H_2c_TB", new List<Power> {
 				// TODO [NAX12_02H_2c_TB] Decimate && Test: Decimate_NAX12_02H_2c_TB
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5950,12 +5950,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_006", new List<Enchantment> {
+			cards.Add("TB_006", new List<Power> {
 				// TODO [TB_006] Big Banana && Test: Big Banana_TB_006
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_006e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5970,12 +5970,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_007", new List<Enchantment> {
+			cards.Add("TB_007", new List<Power> {
 				// TODO [TB_007] Deviate Banana && Test: Deviate Banana_TB_007
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_007e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -5992,11 +5992,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_008", new List<Enchantment> {
+			cards.Add("TB_008", new List<Power> {
 				// TODO [TB_008] Rotten Banana && Test: Rotten Banana_TB_008
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6007,11 +6007,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Gain 1 Mana Crystal this turn only.
 			// --------------------------------------------------------
-			cards.Add("TB_011", new List<Enchantment> {
+			cards.Add("TB_011", new List<Power> {
 				// TODO [TB_011] Tarnished Coin && Test: Tarnished Coin_TB_011
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6022,11 +6022,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Look at 3 random cards. Choose one and shuffle it into your deck.
 			// --------------------------------------------------------
-			cards.Add("TB_012", new List<Enchantment> {
+			cards.Add("TB_012", new List<Power> {
 				// TODO [TB_012] Choose a New Card! && Test: Choose a New Card!_TB_012
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6037,11 +6037,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Look at 3 random cards. Choose one and put it into your hand.
 			// --------------------------------------------------------
-			cards.Add("TB_014", new List<Enchantment> {
+			cards.Add("TB_014", new List<Power> {
 				// TODO [TB_014] Choose a New Card! && Test: Choose a New Card!_TB_014
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6052,11 +6052,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Deal Attack damage to biggest minion.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_1", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_1", new List<Power> {
 				// TODO [TB_CoOpBossSpell_1] Prioritize && Test: Prioritize_TB_CoOpBossSpell_1
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6067,11 +6067,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Deal Attack damage to up to 3 random targets.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_2", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_2", new List<Power> {
 				// TODO [TB_CoOpBossSpell_2] Bomb Salvo && Test: Bomb Salvo_TB_CoOpBossSpell_2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6083,11 +6083,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// Text: Freeze and deal Attack damage to all minions.
 			//       Gain 2 Attack.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_3", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_3", new List<Power> {
 				// TODO [TB_CoOpBossSpell_3] Release Coolant && Test: Release Coolant_TB_CoOpBossSpell_3
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6098,11 +6098,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Gain 2 Attack.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_4", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_4", new List<Power> {
 				// TODO [TB_CoOpBossSpell_4] Overclock && Test: Overclock_TB_CoOpBossSpell_4
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6113,11 +6113,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Deal Attack damage to both players.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_5", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_5", new List<Power> {
 				// TODO [TB_CoOpBossSpell_5] Double Zap && Test: Double Zap_TB_CoOpBossSpell_5
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6128,11 +6128,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy Lorewalker Cho.
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpBossSpell_6", new List<Enchantment> {
+			cards.Add("TB_CoOpBossSpell_6", new List<Power> {
 				// TODO [TB_CoOpBossSpell_6] Kill the Lorewalker && Test: Kill the Lorewalker_TB_CoOpBossSpell_6
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6146,11 +6146,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - HERO_POWER = 2379
 			// --------------------------------------------------------
-			cards.Add("TB_CoopHero_002", new List<Enchantment> {
+			cards.Add("TB_CoopHero_002", new List<Power> {
 				// TODO [TB_CoopHero_002] Power (Spell) && Test: Power (Spell)_TB_CoopHero_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6164,11 +6164,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_001", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_001", new List<Power> {
 				// TODO [TB_CoOpv3_001] Glorious Finale && Test: Glorious Finale_TB_CoOpv3_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6182,11 +6182,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_003", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_003", new List<Power> {
 				// TODO [TB_CoOpv3_003] Bamboozle && Test: Bamboozle_TB_CoOpv3_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6200,11 +6200,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_004", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_004", new List<Power> {
 				// TODO [TB_CoOpv3_004] Cleave && Test: Cleave_TB_CoOpv3_004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6218,11 +6218,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_005", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_005", new List<Power> {
 				// TODO [TB_CoOpv3_005] Cleave && Test: Cleave_TB_CoOpv3_005
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6236,11 +6236,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_007", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_007", new List<Power> {
 				// TODO [TB_CoOpv3_007] Flame Missiles && Test: Flame Missiles_TB_CoOpv3_007
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6254,11 +6254,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_008", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_008", new List<Power> {
 				// TODO [TB_CoOpv3_008] Flame Missiles && Test: Flame Missiles_TB_CoOpv3_008
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6272,12 +6272,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_009", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_009", new List<Power> {
 				// TODO [TB_CoOpv3_009] Explosive Rune && Test: Explosive Rune_TB_CoOpv3_009
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_CoOpv3_009e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6291,11 +6291,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_010", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_010", new List<Power> {
 				// TODO [TB_CoOpv3_010] Explosive Runes && Test: Explosive Runes_TB_CoOpv3_010
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6309,11 +6309,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_011", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_011", new List<Power> {
 				// TODO [TB_CoOpv3_011] Don't Push Me! && Test: Don't Push Me!_TB_CoOpv3_011
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6327,11 +6327,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_012", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_012", new List<Power> {
 				// TODO [TB_CoOpv3_012] Immolate && Test: Immolate_TB_CoOpv3_012
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6345,11 +6345,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_013", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_013", new List<Power> {
 				// TODO [TB_CoOpv3_013] Immolate && Test: Immolate_TB_CoOpv3_013
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6363,11 +6363,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_202", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_202", new List<Power> {
 				// TODO [TB_CoOpv3_202] Vicious Swipe && Test: Vicious Swipe_TB_CoOpv3_202
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6381,11 +6381,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_CoOpv3_203", new List<Enchantment> {
+			cards.Add("TB_CoOpv3_203", new List<Power> {
 				// TODO [TB_CoOpv3_203] Meddling Fool! && Test: Meddling Fool!_TB_CoOpv3_203
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6399,11 +6399,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("TB_DiscoverMyDeck_Discovery", new List<Enchantment> {
+			cards.Add("TB_DiscoverMyDeck_Discovery", new List<Power> {
 				// TODO [TB_DiscoverMyDeck_Discovery] Peruse && Test: Peruse_TB_DiscoverMyDeck_Discovery
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6414,11 +6414,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Return 3 random enemy minions to your opponent's hand.
 			// --------------------------------------------------------
-			cards.Add("TB_GiftExchange_Snowball", new List<Enchantment> {
+			cards.Add("TB_GiftExchange_Snowball", new List<Power> {
 				// TODO [TB_GiftExchange_Snowball] Hardpacked Snowballs && Test: Hardpacked Snowballs_TB_GiftExchange_Snowball
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6432,11 +6432,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("TB_GiftExchange_Treasure_Spell", new List<Enchantment> {
+			cards.Add("TB_GiftExchange_Treasure_Spell", new List<Power> {
 				// TODO [TB_GiftExchange_Treasure_Spell] Stolen Winter's Veil Gift && Test: Stolen Winter's Veil Gift_TB_GiftExchange_Treasure_Spell
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6450,11 +6450,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TB_KaraPortal_001", new List<Enchantment> {
+			cards.Add("TB_KaraPortal_001", new List<Power> {
 				// TODO [TB_KaraPortal_001] Party Portal! && Test: Party Portal!_TB_KaraPortal_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6468,11 +6468,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TB_KaraPortal_002", new List<Enchantment> {
+			cards.Add("TB_KaraPortal_002", new List<Power> {
 				// TODO [TB_KaraPortal_002] Call Mediva && Test: Call Mediva_TB_KaraPortal_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6488,11 +6488,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_101", new List<Enchantment> {
+			cards.Add("TB_KTRAF_101", new List<Power> {
 				// TODO [TB_KTRAF_101] Darkness Calls && Test: Darkness Calls_TB_KTRAF_101
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6503,11 +6503,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Add another piece to your Hero Power.
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_104", new List<Enchantment> {
+			cards.Add("TB_KTRAF_104", new List<Power> {
 				// TODO [TB_KTRAF_104] Uncover Staff Piece && Test: Uncover Staff Piece_TB_KTRAF_104
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6518,11 +6518,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Seems simple enough.
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal002", new List<Enchantment> {
+			cards.Add("TB_Lethal002", new List<Power> {
 				// TODO [TB_Lethal002] Puzzle 1 && Test: Puzzle 1_TB_Lethal002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6533,11 +6533,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Survival percentage is 32.33 repeating of course.
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal003", new List<Enchantment> {
+			cards.Add("TB_Lethal003", new List<Power> {
 				// TODO [TB_Lethal003] Puzzle 2 && Test: Puzzle 2_TB_Lethal003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6548,11 +6548,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Go Go Malygos!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal004", new List<Enchantment> {
+			cards.Add("TB_Lethal004", new List<Power> {
 				// TODO [TB_Lethal004] Puzzle 5 && Test: Puzzle 5_TB_Lethal004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6563,11 +6563,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Heal em to death!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal005", new List<Enchantment> {
+			cards.Add("TB_Lethal005", new List<Power> {
 				// TODO [TB_Lethal005] Puzzle 6 && Test: Puzzle 6_TB_Lethal005
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6578,11 +6578,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: An inspiration to totems everywhere!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal006", new List<Enchantment> {
+			cards.Add("TB_Lethal006", new List<Power> {
 				// TODO [TB_Lethal006] Puzzle 7 && Test: Puzzle 7_TB_Lethal006
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6593,11 +6593,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: BY PUZZLE BE PURGED!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal007", new List<Enchantment> {
+			cards.Add("TB_Lethal007", new List<Power> {
 				// TODO [TB_Lethal007] Puzzle 3 && Test: Puzzle 3_TB_Lethal007
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6608,11 +6608,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: What!? This again?
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal008", new List<Enchantment> {
+			cards.Add("TB_Lethal008", new List<Power> {
 				// TODO [TB_Lethal008] Puzzle 9 && Test: Puzzle 9_TB_Lethal008
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6623,11 +6623,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Beasts, Beasts and more Beasts!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal009", new List<Enchantment> {
+			cards.Add("TB_Lethal009", new List<Power> {
 				// TODO [TB_Lethal009] Puzzle 4 && Test: Puzzle 4_TB_Lethal009
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6638,11 +6638,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: A chilly challenge!
 			// --------------------------------------------------------
-			cards.Add("TB_Lethal010", new List<Enchantment> {
+			cards.Add("TB_Lethal010", new List<Power> {
 				// TODO [TB_Lethal010] Puzzle 8 && Test: Puzzle 8_TB_Lethal010
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6653,11 +6653,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Continue from where you left off.
 			// --------------------------------------------------------
-			cards.Add("TB_LethalSetup001a", new List<Enchantment> {
+			cards.Add("TB_LethalSetup001a", new List<Power> {
 				// TODO [TB_LethalSetup001a] Continue && Test: Continue_TB_LethalSetup001a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6668,11 +6668,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Start again at the beginning.
 			// --------------------------------------------------------
-			cards.Add("TB_LethalSetup001b", new List<Enchantment> {
+			cards.Add("TB_LethalSetup001b", new List<Power> {
 				// TODO [TB_LethalSetup001b] Restart && Test: Restart_TB_LethalSetup001b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6686,11 +6686,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_301", new List<Enchantment> {
+			cards.Add("TB_MammothParty_301", new List<Power> {
 				// TODO [TB_MammothParty_301] Rock Candy && Test: Rock Candy_TB_MammothParty_301
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6704,11 +6704,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_302", new List<Enchantment> {
+			cards.Add("TB_MammothParty_302", new List<Power> {
 				// TODO [TB_MammothParty_302] Regenerative Cookies && Test: Regenerative Cookies_TB_MammothParty_302
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6722,11 +6722,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_303", new List<Enchantment> {
+			cards.Add("TB_MammothParty_303", new List<Power> {
 				// TODO [TB_MammothParty_303] Divine Sweets && Test: Divine Sweets_TB_MammothParty_303
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6740,11 +6740,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s004", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s004", new List<Power> {
 				// TODO [TB_MammothParty_s004] Something in the Punch && Test: Something in the Punch_TB_MammothParty_s004
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6755,11 +6755,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: <b>Choose One - </b> Destroy a random Party Crasher; or Each player draws a card.
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s101", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s101", new List<Power> {
 				// TODO [TB_MammothParty_s101] Party Supplies && Test: Party Supplies_TB_MammothParty_s101
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6773,11 +6773,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s101a", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s101a", new List<Power> {
 				// TODO [TB_MammothParty_s101a] Fruit Plate && Test: Fruit Plate_TB_MammothParty_s101a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6791,11 +6791,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s101b", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s101b", new List<Power> {
 				// TODO [TB_MammothParty_s101b] Like a Sore Thumb && Test: Like a Sore Thumb_TB_MammothParty_s101b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6809,11 +6809,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_MammothParty_s998", new List<Enchantment> {
+			cards.Add("TB_MammothParty_s998", new List<Power> {
 				// TODO [TB_MammothParty_s998] Noise Complaint && Test: Noise Complaint_TB_MammothParty_s998
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6824,12 +6824,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: All minions have <b>Taunt</b> and <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_1", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_1", new List<Power> {
 				// TODO [TB_PickYourFate_1] Dire Fate: Taunt and Charge && Test: Dire Fate: Taunt and Charge_TB_PickYourFate_1
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_10_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6840,12 +6840,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Your <b>Battlecry</b> minions have +1/+1.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_10", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_10", new List<Power> {
 				// TODO [TB_PickYourFate_10] Battlecry Bonus && Test: Battlecry Bonus_TB_PickYourFate_10
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_10_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6856,11 +6856,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Summon a 1/1 Murloc at the end of your turn.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_11b", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_11b", new List<Power> {
 				// TODO [TB_PickYourFate_11b] Murloc Bonus && Test: Murloc Bonus_TB_PickYourFate_11b
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6871,11 +6871,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Turn each minion in play into a 1/1 Murloc.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_11rand", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_11rand", new List<Power> {
 				// TODO [TB_PickYourFate_11rand] Dire Fate: Murlocs && Test: Dire Fate: Murlocs_TB_PickYourFate_11rand
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6886,12 +6886,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: At the end of each turn, swap all minions' Attack and Health.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_12", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_12", new List<Power> {
 				// TODO [TB_PickYourFate_12] Fate: Confusion && Test: Fate: Confusion_TB_PickYourFate_12
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_12_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6902,12 +6902,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: When a minion dies, its owner gets a (1) mana Banana.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_2", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_2", new List<Power> {
 				// TODO [TB_PickYourFate_2] Fate: Bananas && Test: Fate: Bananas_TB_PickYourFate_2
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_2_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6918,12 +6918,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: All minions have <b>Windfury</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_3", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_3", new List<Power> {
 				// TODO [TB_PickYourFate_3] Dire Fate: Windfury && Test: Dire Fate: Windfury_TB_PickYourFate_3
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_3_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6934,12 +6934,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: When a minion dies, its owner draws a card.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_4", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_4", new List<Power> {
 				// TODO [TB_PickYourFate_4] Dire Fate: Card && Test: Dire Fate: Card_TB_PickYourFate_4
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_4_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6950,12 +6950,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Spells cost (1) less.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_5", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_5", new List<Power> {
 				// TODO [TB_PickYourFate_5] Fate: Spells && Test: Fate: Spells_TB_PickYourFate_5
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_5_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6966,11 +6966,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Shuffle 10 Unstable Portals into each player's deck.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_6", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_6", new List<Power> {
 				// TODO [TB_PickYourFate_6] Fate: Portals && Test: Fate: Portals_TB_PickYourFate_6
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6981,11 +6981,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Place 3 Unstable Portals in each player's hand.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_6_2nd", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_6_2nd", new List<Power> {
 				// TODO [TB_PickYourFate_6_2nd] Dire Fate: Unstable Portals && Test: Dire Fate: Unstable Portals_TB_PickYourFate_6_2nd
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -6996,12 +6996,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: When a minion dies, its owner gets a Coin.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_7", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_7", new List<Power> {
 				// TODO [TB_PickYourFate_7] Fate: Coin && Test: Fate: Coin_TB_PickYourFate_7
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_7_Ench_2nd",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7012,11 +7012,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Minions gain <b>Deathrattle:</b> Random card in owner's hand costs (0).
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_7_2nd", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_7_2nd", new List<Power> {
 				// TODO [TB_PickYourFate_7_2nd] Dire Fate: Manaburst && Test: Dire Fate: Manaburst_TB_PickYourFate_7_2nd
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7027,12 +7027,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain 3 Armor.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_8", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_8", new List<Power> {
 				// TODO [TB_PickYourFate_8] Spell Bonus && Test: Spell Bonus_TB_PickYourFate_8
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_8_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7043,11 +7043,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Each player gains 2 Armor on the start of their turn.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_8rand", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_8rand", new List<Power> {
 				// TODO [TB_PickYourFate_8rand] Fate: Armor && Test: Fate: Armor_TB_PickYourFate_8rand
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7058,12 +7058,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Your <b>Deathrattle</b> minions have +1/+1.
 			// --------------------------------------------------------
-			cards.Add("TB_PickYourFate_9", new List<Enchantment> {
+			cards.Add("TB_PickYourFate_9", new List<Power> {
 				// TODO [TB_PickYourFate_9] Deathrattle Bonus && Test: Deathrattle Bonus_TB_PickYourFate_9
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_PickYourFate_9_Ench",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7078,11 +7078,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - ELITE = 1
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Presents_001", new List<Enchantment> {
+			cards.Add("TB_Presents_001", new List<Power> {
 				// TODO [TB_Presents_001] Present! && Test: Present!_TB_Presents_001
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7096,11 +7096,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Presents_002", new List<Enchantment> {
+			cards.Add("TB_Presents_002", new List<Power> {
 				// TODO [TB_Presents_002] Card Present && Test: Card Present_TB_Presents_002
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7114,11 +7114,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("TB_Presents_003", new List<Enchantment> {
+			cards.Add("TB_Presents_003", new List<Power> {
 				// TODO [TB_Presents_003] Zombie Present && Test: Zombie Present_TB_Presents_003
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7129,11 +7129,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Through the Nether and into...
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromo_EnterPortal", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromo_EnterPortal", new List<Power> {
 				// TODO [TB_SPT_DPromo_EnterPortal] The Portal Opens && Test: The Portal Opens_TB_SPT_DPromo_EnterPortal
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7147,11 +7147,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpell1", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpell1", new List<Power> {
 				// TODO [TB_SPT_DPromoSpell1] Lightning && Test: Lightning_TB_SPT_DPromoSpell1
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7165,11 +7165,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpell2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpell2", new List<Power> {
 				// TODO [TB_SPT_DPromoSpell2] Summon Guardians && Test: Summon Guardians_TB_SPT_DPromoSpell2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7180,12 +7180,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Summon 3 Hell Bovines. Give all Hell Bovines <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpellBovine1", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpellBovine1", new List<Power> {
 				// TODO [TB_SPT_DPromoSpellBovine1] Moo... && Test: Moo..._TB_SPT_DPromoSpellBovine1
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_SPT_DPromoSpellBovine1e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7199,11 +7199,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpellPortal", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpellPortal", new List<Power> {
 				// TODO [TB_SPT_DPromoSpellPortal] The Portal Opens && Test: The Portal Opens_TB_SPT_DPromoSpellPortal
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7214,11 +7214,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Summon 2 Hell Bovines. Give all Hell Bovines <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_DPromoSpellPortal2", new List<Enchantment> {
+			cards.Add("TB_SPT_DPromoSpellPortal2", new List<Power> {
 				// TODO [TB_SPT_DPromoSpellPortal2] Stampede && Test: Stampede_TB_SPT_DPromoSpellPortal2
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7229,12 +7229,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: The next Legendary minion you play and all your other copies cost (3) less.
 			// --------------------------------------------------------
-			cards.Add("TB_Superfriends001", new List<Enchantment> {
+			cards.Add("TB_Superfriends001", new List<Power> {
 				// TODO [TB_Superfriends001] Offensive Play && Test: Offensive Play_TB_Superfriends001
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "TB_Superfriends001e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7245,11 +7245,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: Destroy all minions. Drain all Mana. Gain 5 Health.
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_ClearBoard", new List<Enchantment> {
+			cards.Add("TB_TagTeam_ClearBoard", new List<Power> {
 				// TODO [TB_TagTeam_ClearBoard] Your Next Victim Comes && Test: Your Next Victim Comes_TB_TagTeam_ClearBoard
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7260,11 +7260,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// --------------------------------------------------------
 			// Text: A new Hero takes position.
 			// --------------------------------------------------------
-			cards.Add("TB_TagTeam_NewHeroCards", new List<Enchantment> {
+			cards.Add("TB_TagTeam_NewHeroCards", new List<Power> {
 				// TODO [TB_TagTeam_NewHeroCards] New Hero! && Test: New Hero!_TB_TagTeam_NewHeroCards
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -7279,16 +7279,16 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// - DURABILITY = 6
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BRMC_94", new List<Enchantment> {
+			cards.Add("BRMC_94", new List<Power> {
 				// TODO [BRMC_94] Sulfuras && Test: Sulfuras_BRMC_94
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -7300,11 +7300,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("TB_BlingBrawl_Weapon", new List<Enchantment> {
+			cards.Add("TB_BlingBrawl_Weapon", new List<Power> {
 				// TODO [TB_BlingBrawl_Weapon] Foam Sword && Test: Foam Sword_TB_BlingBrawl_Weapon
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -7318,11 +7318,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("TB_KTRAF_08w", new List<Enchantment> {
+			cards.Add("TB_KTRAF_08w", new List<Power> {
 				// TODO [TB_KTRAF_08w] Massive Runeblade && Test: Massive Runeblade_TB_KTRAF_08w
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -7336,11 +7336,11 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DURABILITY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_BossWeapon", new List<Enchantment> {
+			cards.Add("TB_SPT_BossWeapon", new List<Power> {
 				// TODO [TB_SPT_BossWeapon] Armory && Test: Armory_TB_SPT_BossWeapon
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -7354,18 +7354,18 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 			// GameTag:
 			// - DURABILITY = 1
 			// --------------------------------------------------------
-			cards.Add("TB_SPT_MTH_BossWeapon", new List<Enchantment> {
+			cards.Add("TB_SPT_MTH_BossWeapon", new List<Power> {
 				// TODO [TB_SPT_MTH_BossWeapon] Party Armory && Test: Party Armory_TB_SPT_MTH_BossWeapon
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

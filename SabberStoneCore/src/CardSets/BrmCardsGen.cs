@@ -13,7 +13,7 @@ namespace SabberStoneCore.CardSets
 	/// </summary>
 	public class BrmCardsGen
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
 			// [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8] 
@@ -26,7 +26,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [BRM_027p] DIE, INSECT! (*) - COST:2 
@@ -35,10 +35,10 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_027p", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_027p", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
 				}
 			});
@@ -50,17 +50,17 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. TWICE. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_027pH", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_027pH", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
 				}
 			});
 
 		}
 
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+		private static void Druid(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8] 
@@ -72,11 +72,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_009", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_009", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.HAND_ZONE,
 					Enchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
@@ -92,18 +92,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_010", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_010", new List<Power> {
+				new Power
 				{
                     // CHOOSE_ONE, Choose Both option
-                    Activation = EnchantmentActivation.BATTLECRY,
+                    Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("OG_044b", EntityType.SOURCE)
 				}
 			});
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void DruidNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [BRM_010a] Firecat Form (*) - COST:0 
@@ -111,10 +111,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Transform into a 5/2 minion.
 			// --------------------------------------------------------
-			cards.Add("BRM_010a", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_010a", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("BRM_010t", EntityType.SOURCE)
 				},
 			});
@@ -125,10 +125,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Transform into a 2/5 minion.
 			// --------------------------------------------------------
-			cards.Add("BRM_010b", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_010b", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new TransformTask("BRM_010t2", EntityType.SOURCE)
 				}
 			});
@@ -153,7 +153,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
+		private static void Hunter(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - HUNTER
 			// [BRM_013] Quick Shot - COST:2 
@@ -168,10 +168,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_013", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_013", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
@@ -188,10 +188,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_014", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_014", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE)))
@@ -200,7 +200,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [BRM_014e] Power Rager (*) - COST:0 
@@ -212,7 +212,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [BRM_003] Dragon's Breath - COST:5 
@@ -223,18 +223,18 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_003", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_003", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.HAND_ZONE,
 					Enchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new DamageTask(4, EntityType.TARGET, true)
 				}
 			});
@@ -245,11 +245,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 2 damage randomly split among all enemies.
 			// --------------------------------------------------------
-			cards.Add("BRM_002", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_002", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.GRAVEYARD_AND_SECRET,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.GRAVEYARD_AND_SECRET,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
@@ -261,7 +261,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [BRM_003e] Dragon's Might (*) - COST:0 
@@ -276,7 +276,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
+		private static void Paladin(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - PALADIN
 			// [BRM_001] Solemn Vigil - COST:5 
@@ -284,18 +284,18 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
-			cards.Add("BRM_001", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_001", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.HAND_ZONE,
 					Enchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				},
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = new EnqueueTask(2, new DrawTask())
 				},
 			});
@@ -309,18 +309,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_018", new List<Enchantment> {
+			cards.Add("BRM_018", new List<Power> {
 				// TODO [BRM_018] Dragon Consort && Test: Dragon Consort_BRM_018
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [BRM_018e] Unchained! (*) - COST:0 
@@ -332,7 +332,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Priest(IDictionary<string, List<Enchantment>> cards)
+		private static void Priest(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - PRIEST
 			// [BRM_017] Resurrect - COST:2 
@@ -344,10 +344,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_017", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_017", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.SummonRandomMinionThatDied(),
 				},
 			});
@@ -361,10 +361,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_004", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_004", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new BuffTask(Buffs.Health(2), EntityType.SOURCE)))
@@ -373,7 +373,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [BRM_001e] Melt (*) - COST:0 
@@ -388,7 +388,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
 			// [BRM_007] Gang Up - COST:2 
@@ -400,10 +400,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_007", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_007", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, 3),
 						new AddStackTo(EntityType.DECK))
@@ -419,10 +419,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_008", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_008", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.OP_MINIONS),
 						new FilterStackTask(SelfCondition.IsUndamaged),
@@ -432,7 +432,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
+		private static void Shaman(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- SPELL - SHAMAN
 			// [BRM_011] Lava Shock - COST:2 
@@ -447,10 +447,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_011", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_011", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET),
 						new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0)),
@@ -468,10 +468,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// - OVERLOAD_OWED = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_012", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_012", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new MathRandTask(1,4),
 						new BuffAttackNumberTask(EntityType.SOURCE))
@@ -480,7 +480,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void ShamanNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [BRM_011t] Lava Shock (*) - COST:0 
@@ -495,7 +495,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
 			// [BRM_005] Demonwrath - COST:3 
@@ -506,10 +506,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_005", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_005", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.ALLMINIONS),
 						new FilterStackTask(SelfCondition.IsNotRace(Race.DEMON)),
@@ -523,11 +523,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 1/1 Imp.
 			// --------------------------------------------------------
-			cards.Add("BRM_006", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_006", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
@@ -539,7 +539,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [BRM_006t] Imp (*) - COST:1 [ATK:1/HP:1] 
@@ -549,7 +549,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
+		private static void Warrior(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
 			// [BRM_015] Revenge - COST:2 
@@ -557,10 +557,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. If you have 12 or less Health, deal $3 damage instead. *spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_015", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_015", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
 				},
@@ -572,11 +572,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, deal 2 damage to the enemy hero.
 			// --------------------------------------------------------
-			cards.Add("BRM_016", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_016", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
@@ -588,7 +588,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3] 
@@ -596,11 +596,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion survives damage, summon another Grim Patron.
 			// --------------------------------------------------------
-			cards.Add("BRM_019", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_019", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
@@ -616,11 +616,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("BRM_020", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_020", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.HAND,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = Triggers.FriendlySpellTargetingMe(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
 				}
 			});
@@ -631,11 +631,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 2/1 Whelp.
 			// --------------------------------------------------------
-			cards.Add("BRM_022", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_022", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.DAMAGE, 1)
@@ -653,10 +653,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_024", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_024", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
@@ -669,11 +669,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
-			cards.Add("BRM_025", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_025", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
+					Area = PowerArea.SELF,
+					Activation = PowerActivation.HAND_ZONE,
 					Enchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
@@ -689,10 +689,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_026", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_026", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new RandomMinionTask(GameTag.COST, 1),
 						new SummonOpTask()),
@@ -709,10 +709,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_027", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_027", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
 				},
 			});
@@ -726,11 +726,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_028", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_028", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
@@ -754,10 +754,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// - REQ_LEGENDARY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_029", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_029", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new DestroyTask(EntityType.TARGET)
 				},
 			});
@@ -772,10 +772,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_030", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_030", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Activation = PowerActivation.BOARD_ZONE,
 					SingleTask = new EnqueueTask(2, ComplexTask.Create(
 						new RandomCardTask(EntityType.OP_HERO),
 						new AddStackTo(EntityType.HAND))),
@@ -791,11 +791,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_031", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_031", new List<Power> {
+				new Power
 				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
+					Area = PowerArea.CONTROLLER,
+					Activation = PowerActivation.BOARD_ZONE,
 					Trigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
@@ -821,10 +821,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_033", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_033", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)))
@@ -843,10 +843,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_034", new List<Enchantment> {
-				new Enchantment
+			cards.Add("BRM_034", new List<Power> {
+				new Power
 				{
-					Activation = EnchantmentActivation.BATTLECRY,
+					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new DamageTask(3, EntityType.TARGET)))
@@ -855,7 +855,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [BRM_004t] Whelp (*) - COST:1 [ATK:1/HP:1] 
@@ -872,7 +872,7 @@ namespace SabberStoneCore.CardSets
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 		{
 			Heroes(cards);

@@ -4,18 +4,18 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public class AddEnchantmentTask : SimpleTask
+	public class AddPowerTask : SimpleTask
 	{
-		public AddEnchantmentTask(EntityType type, Enchantment enchantment, bool activate = false)
+		public AddPowerTask(EntityType type, Power power, bool activate = false)
 		{
 			Type = type;
-			Enchantment = enchantment;
+			Power = power;
 			Activate = activate;
 		}
 
 		public EntityType Type { get; set; }
 
-		public Enchantment Enchantment { get; set; }
+		public Power Power { get; set; }
 
 		public bool Activate { get; set; }
 
@@ -27,14 +27,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var minion = p as Minion;
 				if (minion != null)
 				{
-					minion.HasDeathrattle = Enchantment.Activation == EnchantmentActivation.DEATHRATTLE ? true : false;
-					if (minion.Enchantments == null)
-						minion.Enchantments = new System.Collections.Generic.List<Enchantment> { Enchantment };
+					minion.HasDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
+					if (minion.Powers == null)
+						minion.Powers = new System.Collections.Generic.List<Power> { Power };
 					else
-						minion.Enchantments.Add(Enchantment);
+						minion.Powers.Add(Power);
 					if (Activate)
 					{
-						Enchantment.Activate(Controller, minion);
+						Power.Activate(Controller, minion);
 					}
 				}
 			});
@@ -43,7 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new AddEnchantmentTask(Type, Enchantment, Activate);
+			var clone = new AddPowerTask(Type, Power, Activate);
 			clone.Copy(this);
 			return clone;
 		}

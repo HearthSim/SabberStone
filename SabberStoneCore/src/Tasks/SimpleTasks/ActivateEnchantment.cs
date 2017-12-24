@@ -5,7 +5,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ActivateEnchantment : SimpleTask
 	{
-		public ActivateEnchantment(EntityType entityType, EnchantmentActivation activation)
+		public ActivateEnchantment(EntityType entityType, PowerActivation activation)
 		{
 			Type = entityType;
 			Activation = activation;
@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public EnchantmentActivation Activation { get; set; }
+		public PowerActivation Activation { get; set; }
 
 		public override TaskState Process()
 		{
@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			entities.ForEach(p =>
 			{
-				p.Enchantments.ForEach(t =>
+				p.Powers.ForEach(t =>
 				{
 					if (t.Activation == Activation)
 					{

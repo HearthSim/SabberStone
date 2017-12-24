@@ -20,11 +20,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			target.Enchantments.ForEach(p =>
+			target.Powers.ForEach(p =>
 			{
-				if (p.Activation == EnchantmentActivation.DEATHRATTLE)
+				if (p.Activation == PowerActivation.DEATHRATTLE)
 				{
-					source.Enchantments.Add(p);
+					source.Powers.Add(p);
 					source.HasDeathrattle = true;
 				}
 			});

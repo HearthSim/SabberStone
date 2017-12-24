@@ -65,7 +65,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <returns></returns>
 		public T this[int zonePosition] => Entities[zonePosition];
 
-		public abstract void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true);
+		public abstract void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true);
 
 		public abstract IPlayable Remove(IPlayable entity);
 
@@ -201,7 +201,7 @@ namespace SabberStoneCore.Model.Zones
 			Controller = controller;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			MoveTo(entity, zonePosition);
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}'.");
@@ -266,7 +266,7 @@ namespace SabberStoneCore.Model.Zones
 		protected int _count;
 
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			if (zonePosition > _count)
 				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
@@ -356,9 +356,9 @@ namespace SabberStoneCore.Model.Zones
 				Entities[i].ZonePosition = i;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
-			base.Add(entity, zonePosition, applyEnchantment);
+			base.Add(entity, zonePosition, applyPowers);
 
 			Reposition(zonePosition);
 		}

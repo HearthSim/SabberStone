@@ -12,7 +12,7 @@ namespace SabberStoneCore.CardSets.Adventure
 {
 	public class KaraCardsGenAdv
 	{
-		private static void Heroes(IDictionary<string, List<Enchantment>> cards)
+		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
 			// [KARA_00_01] Prince Malchezaar (*) - COST:0 [ATK:0/HP:30] 
@@ -21,9 +21,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39753
 			// --------------------------------------------------------
-			cards.Add("KARA_00_01", new List<Enchantment> {
+			cards.Add("KARA_00_01", new List<Power> {
 				// TODO [KARA_00_01] Prince Malchezaar && Test: Prince Malchezaar_KARA_00_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -37,9 +37,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40080
 			// --------------------------------------------------------
-			cards.Add("KARA_00_01H", new List<Enchantment> {
+			cards.Add("KARA_00_01H", new List<Power> {
 				// TODO [KARA_00_01H] Prince Malchezaar && Test: Prince Malchezaar_KARA_00_01H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -53,9 +53,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40081
 			// --------------------------------------------------------
-			cards.Add("KARA_00_03", new List<Enchantment> {
+			cards.Add("KARA_00_03", new List<Power> {
 				// TODO [KARA_00_03] Medivh && Test: Medivh_KARA_00_03
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -66,9 +66,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [KARA_00_03c] Medivh (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_00_03c", new List<Enchantment> {
+			cards.Add("KARA_00_03c", new List<Power> {
 				// TODO [KARA_00_03c] Medivh && Test: Medivh_KARA_00_03c
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -82,9 +82,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39756
 			// --------------------------------------------------------
-			cards.Add("KARA_00_03H", new List<Enchantment> {
+			cards.Add("KARA_00_03H", new List<Power> {
 				// TODO [KARA_00_03H] Medivh && Test: Medivh_KARA_00_03H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -98,9 +98,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39281
 			// --------------------------------------------------------
-			cards.Add("KARA_04_01h", new List<Enchantment> {
+			cards.Add("KARA_04_01h", new List<Power> {
 				// TODO [KARA_04_01h] The Crone && Test: The Crone_KARA_04_01h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -114,9 +114,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39281
 			// --------------------------------------------------------
-			cards.Add("KARA_04_01heroic", new List<Enchantment> {
+			cards.Add("KARA_04_01heroic", new List<Power> {
 				// TODO [KARA_04_01heroic] The Crone && Test: The Crone_KARA_04_01heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -130,9 +130,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39298
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01b", new List<Enchantment> {
+			cards.Add("KARA_05_01b", new List<Power> {
 				// TODO [KARA_05_01b] Kindly Grandmother && Test: Kindly Grandmother_KARA_05_01b
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -146,9 +146,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39298
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01h", new List<Enchantment> {
+			cards.Add("KARA_05_01h", new List<Power> {
 				// TODO [KARA_05_01h] Big Bad Wolf && Test: Big Bad Wolf_KARA_05_01h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -162,9 +162,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40266
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01hheroic", new List<Enchantment> {
+			cards.Add("KARA_05_01hheroic", new List<Power> {
 				// TODO [KARA_05_01hheroic] Big Bad Wolf && Test: Big Bad Wolf_KARA_05_01hheroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -178,9 +178,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39563
 			// --------------------------------------------------------
-			cards.Add("KARA_06_02", new List<Enchantment> {
+			cards.Add("KARA_06_02", new List<Power> {
 				// TODO [KARA_06_02] Julianne && Test: Julianne_KARA_06_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -194,9 +194,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40276
 			// --------------------------------------------------------
-			cards.Add("KARA_06_02heroic", new List<Enchantment> {
+			cards.Add("KARA_06_02heroic", new List<Power> {
 				// TODO [KARA_06_02heroic] Julianne && Test: Julianne_KARA_06_02heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -210,9 +210,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39641
 			// --------------------------------------------------------
-			cards.Add("KARA_07_01", new List<Enchantment> {
+			cards.Add("KARA_07_01", new List<Power> {
 				// TODO [KARA_07_01] Curator && Test: Curator_KARA_07_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -226,9 +226,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39641
 			// --------------------------------------------------------
-			cards.Add("KARA_07_01heroic", new List<Enchantment> {
+			cards.Add("KARA_07_01heroic", new List<Power> {
 				// TODO [KARA_07_01heroic] Curator && Test: Curator_KARA_07_01heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -242,9 +242,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39680
 			// --------------------------------------------------------
-			cards.Add("KARA_08_01", new List<Enchantment> {
+			cards.Add("KARA_08_01", new List<Power> {
 				// TODO [KARA_08_01] Netherspite && Test: Netherspite_KARA_08_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -258,9 +258,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40062
 			// --------------------------------------------------------
-			cards.Add("KARA_08_01H", new List<Enchantment> {
+			cards.Add("KARA_08_01H", new List<Power> {
 				// TODO [KARA_08_01H] Netherspite && Test: Netherspite_KARA_08_01H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -274,9 +274,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39645
 			// --------------------------------------------------------
-			cards.Add("KARA_09_01", new List<Enchantment> {
+			cards.Add("KARA_09_01", new List<Power> {
 				// TODO [KARA_09_01] Terestian Illhoof && Test: Terestian Illhoof_KARA_09_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -290,9 +290,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39645
 			// --------------------------------------------------------
-			cards.Add("KARA_09_01heroic", new List<Enchantment> {
+			cards.Add("KARA_09_01heroic", new List<Power> {
 				// TODO [KARA_09_01heroic] Terestian Illhoof && Test: Terestian Illhoof_KARA_09_01heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -306,9 +306,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39645
 			// --------------------------------------------------------
-			cards.Add("KARA_09_02", new List<Enchantment> {
+			cards.Add("KARA_09_02", new List<Power> {
 				// TODO [KARA_09_02] Curator && Test: Curator_KARA_09_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -322,9 +322,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39667
 			// --------------------------------------------------------
-			cards.Add("KARA_11_01", new List<Enchantment> {
+			cards.Add("KARA_11_01", new List<Power> {
 				// TODO [KARA_11_01] Nightbane && Test: Nightbane_KARA_11_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -338,9 +338,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39667
 			// --------------------------------------------------------
-			cards.Add("KARA_11_01heroic", new List<Enchantment> {
+			cards.Add("KARA_11_01heroic", new List<Power> {
 				// TODO [KARA_11_01heroic] Nightbane && Test: Nightbane_KARA_11_01heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -354,9 +354,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39669
 			// --------------------------------------------------------
-			cards.Add("KARA_12_01", new List<Enchantment> {
+			cards.Add("KARA_12_01", new List<Power> {
 				// TODO [KARA_12_01] Shade of Aran && Test: Shade of Aran_KARA_12_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -370,9 +370,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40107
 			// --------------------------------------------------------
-			cards.Add("KARA_12_01H", new List<Enchantment> {
+			cards.Add("KARA_12_01H", new List<Power> {
 				// TODO [KARA_12_01H] Shade of Aran && Test: Shade of Aran_KARA_12_01H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -386,9 +386,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 39771
 			// --------------------------------------------------------
-			cards.Add("KARA_13_01", new List<Enchantment> {
+			cards.Add("KARA_13_01", new List<Power> {
 				// TODO [KARA_13_01] Nazra Wildaxe && Test: Nazra Wildaxe_KARA_13_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -402,9 +402,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40733
 			// --------------------------------------------------------
-			cards.Add("KARA_13_01H", new List<Enchantment> {
+			cards.Add("KARA_13_01H", new List<Power> {
 				// TODO [KARA_13_01H] Nazra Wildaxe && Test: Nazra Wildaxe_KARA_13_01H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -420,9 +420,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40563
 			// --------------------------------------------------------
-			cards.Add("KARA_13_06", new List<Enchantment> {
+			cards.Add("KARA_13_06", new List<Power> {
 				// TODO [KARA_13_06] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -438,9 +438,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HERO_POWER = 40763
 			// --------------------------------------------------------
-			cards.Add("KARA_13_06H", new List<Enchantment> {
+			cards.Add("KARA_13_06H", new List<Power> {
 				// TODO [KARA_13_06H] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -449,7 +449,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, List<Power>> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [KARA_00_02] Legion (*) - COST:2 
@@ -458,9 +458,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Summon a 6/6 Abyssal.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_02", new List<Enchantment> {
+			cards.Add("KARA_00_02", new List<Power> {
 				// TODO [KARA_00_02] Legion && Test: Legion_KARA_00_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -474,9 +474,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Summon a 6/6 Abyssal.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_02H", new List<Enchantment> {
+			cards.Add("KARA_00_02H", new List<Power> {
 				// TODO [KARA_00_02H] Legion && Test: Legion_KARA_00_02H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -490,9 +490,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Draw 3 cards.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_04", new List<Enchantment> {
+			cards.Add("KARA_00_04", new List<Power> {
 				// TODO [KARA_00_04] Brilliance && Test: Brilliance_KARA_00_04
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -506,9 +506,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Draw 3 cards.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_04H", new List<Enchantment> {
+			cards.Add("KARA_00_04H", new List<Power> {
 				// TODO [KARA_00_04H] Brilliance && Test: Brilliance_KARA_00_04H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -522,9 +522,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Deal 100 damage. Can't be used if Dorothee is alive.
 			// --------------------------------------------------------
-			cards.Add("KARA_04_02hp", new List<Enchantment> {
+			cards.Add("KARA_04_02hp", new List<Power> {
 				// TODO [KARA_04_02hp] Twister && Test: Twister_KARA_04_02hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -540,9 +540,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01hp", new List<Enchantment> {
+			cards.Add("KARA_05_01hp", new List<Power> {
 				// TODO [KARA_05_01hp] Trembling && Test: Trembling_KARA_05_01hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -558,9 +558,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01hpheroic", new List<Enchantment> {
+			cards.Add("KARA_05_01hpheroic", new List<Power> {
 				// TODO [KARA_05_01hpheroic] Trembling && Test: Trembling_KARA_05_01hpheroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -580,9 +580,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KARA_06_03hp", new List<Enchantment> {
+			cards.Add("KARA_06_03hp", new List<Power> {
 				// TODO [KARA_06_03hp] True Love && Test: True Love_KARA_06_03hp
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -602,9 +602,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KARA_06_03hpheroic", new List<Enchantment> {
+			cards.Add("KARA_06_03hpheroic", new List<Power> {
 				// TODO [KARA_06_03hpheroic] True Love && Test: True Love_KARA_06_03hpheroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -621,9 +621,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_07_02", new List<Enchantment> {
+			cards.Add("KARA_07_02", new List<Power> {
 				// TODO [KARA_07_02] Gallery Protection && Test: Gallery Protection_KARA_07_02
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_07_02e",
 					//Activation = null,
@@ -643,9 +643,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02", new List<Enchantment> {
+			cards.Add("KARA_08_02", new List<Power> {
 				// TODO [KARA_08_02] Nether Rage && Test: Nether Rage_KARA_08_02
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_02e",
 					//Activation = null,
@@ -665,9 +665,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02H", new List<Enchantment> {
+			cards.Add("KARA_08_02H", new List<Power> {
 				// TODO [KARA_08_02H] Nether Rage && Test: Nether Rage_KARA_08_02H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -684,9 +684,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_04", new List<Enchantment> {
+			cards.Add("KARA_09_04", new List<Power> {
 				// TODO [KARA_09_04] Dark Pact && Test: Dark Pact_KARA_09_04
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -703,9 +703,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_11_02", new List<Enchantment> {
+			cards.Add("KARA_11_02", new List<Power> {
 				// TODO [KARA_11_02] Manastorm && Test: Manastorm_KARA_11_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -723,9 +723,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_12_02", new List<Enchantment> {
+			cards.Add("KARA_12_02", new List<Power> {
 				// TODO [KARA_12_02] Ley Lines && Test: Ley Lines_KARA_12_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -743,9 +743,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_12_02H", new List<Enchantment> {
+			cards.Add("KARA_12_02H", new List<Power> {
 				// TODO [KARA_12_02H] Ley Lines && Test: Ley Lines_KARA_12_02H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -759,9 +759,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: [x]<b>Hero Power</b>
 			//       Summon a 3/2 Orc.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_02", new List<Enchantment> {
+			cards.Add("KARA_13_02", new List<Power> {
 				// TODO [KARA_13_02] The Horde && Test: The Horde_KARA_13_02
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -776,9 +776,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       Summon a 3/3 Orc
 			//       with <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_02H", new List<Enchantment> {
+			cards.Add("KARA_13_02H", new List<Power> {
 				// TODO [KARA_13_02H] The Horde && Test: The Horde_KARA_13_02H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -795,9 +795,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - AI_MUST_PLAY = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_13", new List<Enchantment> {
+			cards.Add("KARA_13_13", new List<Power> {
 				// TODO [KARA_13_13] Legion && Test: Legion_KARA_13_13
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -811,9 +811,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: <b>Hero Power</b>
 			//       Summon two 6/6 Abyssals.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_13H", new List<Enchantment> {
+			cards.Add("KARA_13_13H", new List<Power> {
 				// TODO [KARA_13_13H] Legion && Test: Legion_KARA_13_13H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -822,7 +822,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [KARA_00_08] Archmage's Apprentice (*) - COST:2 [ATK:2/HP:4] 
@@ -830,9 +830,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, shuffle a copy of it into your deck.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_08", new List<Enchantment> {
+			cards.Add("KARA_00_08", new List<Power> {
 				// TODO [KARA_00_08] Archmage's Apprentice && Test: Archmage's Apprentice_KARA_00_08
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -845,12 +845,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Your spells cost (0) this turn.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_05", new List<Enchantment> {
+			cards.Add("KARA_00_05", new List<Power> {
 				// TODO [KARA_00_05] Archmage's Insight && Test: Archmage's Insight_KARA_00_05
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_00_05e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -864,12 +864,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_06", new List<Enchantment> {
+			cards.Add("KARA_00_06", new List<Power> {
 				// TODO [KARA_00_06] Arcane Power && Test: Arcane Power_KARA_00_06
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_00_06e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -883,11 +883,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_07", new List<Enchantment> {
+			cards.Add("KARA_00_07", new List<Power> {
 				// TODO [KARA_00_07] Astral Portal && Test: Astral Portal_KARA_00_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -898,11 +898,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Gain 10 Armor.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_09", new List<Enchantment> {
+			cards.Add("KARA_00_09", new List<Power> {
 				// TODO [KARA_00_09] Mage Armor && Test: Mage Armor_KARA_00_09
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -919,11 +919,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_10", new List<Enchantment> {
+			cards.Add("KARA_00_10", new List<Power> {
 				// TODO [KARA_00_10] Mysterious Rune && Test: Mysterious Rune_KARA_00_10
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -934,11 +934,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Gain 5 Mana Crystals this turn only.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_11", new List<Enchantment> {
+			cards.Add("KARA_00_11", new List<Power> {
 				// TODO [KARA_00_11] Evocation && Test: Evocation_KARA_00_11
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -953,11 +953,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - SECRET = 1
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_12_03", new List<Enchantment> {
+			cards.Add("KARA_12_03", new List<Power> {
 				// TODO [KARA_12_03] Flame Wreath && Test: Flame Wreath_KARA_12_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -972,26 +972,26 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - SECRET = 1
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_12_03H", new List<Enchantment> {
+			cards.Add("KARA_12_03H", new List<Power> {
 				// TODO [KARA_12_03H] Flame Wreath && Test: Flame Wreath_KARA_12_03H
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [KARA_00_02a] Abyssal (*) - COST:6 [ATK:6/HP:6] 
 			// - Race: demon, Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_00_02a", new List<Enchantment> {
+			cards.Add("KARA_00_02a", new List<Power> {
 				// TODO [KARA_00_02a] Abyssal && Test: Abyssal_KARA_00_02a
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1007,9 +1007,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_08", new List<Enchantment> {
+			cards.Add("KARA_09_08", new List<Power> {
 				// TODO [KARA_09_08] Kil'rek && Test: Kil'rek_KARA_09_08
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1025,9 +1025,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_08_heroic", new List<Enchantment> {
+			cards.Add("KARA_09_08_heroic", new List<Power> {
 				// TODO [KARA_09_08_heroic] Kil'rek && Test: Kil'rek_KARA_09_08_heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1036,15 +1036,15 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [KARA_13_03] Orc Warrior (*) - COST:2 [ATK:3/HP:2] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_13_03", new List<Enchantment> {
+			cards.Add("KARA_13_03", new List<Power> {
 				// TODO [KARA_13_03] Orc Warrior && Test: Orc Warrior_KARA_13_03
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1060,9 +1060,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_03H", new List<Enchantment> {
+			cards.Add("KARA_13_03H", new List<Power> {
 				// TODO [KARA_13_03H] Orc Warrior && Test: Orc Warrior_KARA_13_03H
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1071,7 +1071,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, List<Power>> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KARA_00_05e] Insightful (*) - COST:0 
@@ -1082,9 +1082,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_05e", new List<Enchantment> {
+			cards.Add("KARA_00_05e", new List<Power> {
 				// TODO [KARA_00_05e] Insightful && Test: Insightful_KARA_00_05e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1103,9 +1103,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_06e", new List<Enchantment> {
+			cards.Add("KARA_00_06e", new List<Power> {
 				// TODO [KARA_00_06e] Arcanely Powerful && Test: Arcanely Powerful_KARA_00_06e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1118,9 +1118,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Shrunk to a 1/1.
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01e", new List<Enchantment> {
+			cards.Add("KARA_05_01e", new List<Power> {
 				// TODO [KARA_05_01e] Trembling Before the Wolf && Test: Trembling Before the Wolf_KARA_05_01e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1133,9 +1133,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Julianne is <b>immune</b>.
 			// --------------------------------------------------------
-			cards.Add("KARA_06_01e", new List<Enchantment> {
+			cards.Add("KARA_06_01e", new List<Power> {
 				// TODO [KARA_06_01e] Death-Marked Love && Test: Death-Marked Love_KARA_06_01e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1146,9 +1146,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// [KARA_07_02e] Protecting the Gallery (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_07_02e", new List<Enchantment> {
+			cards.Add("KARA_07_02e", new List<Power> {
 				// TODO [KARA_07_02e] Protecting the Gallery && Test: Protecting the Gallery_KARA_07_02e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1161,9 +1161,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02e", new List<Enchantment> {
+			cards.Add("KARA_08_02e", new List<Power> {
 				// TODO [KARA_08_02e] Nether Rage && Test: Nether Rage_KARA_08_02e
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_02eH",
 					//Activation = null,
@@ -1177,9 +1177,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: +8 Attack.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02eH", new List<Enchantment> {
+			cards.Add("KARA_08_02eH", new List<Power> {
 				// TODO [KARA_08_02eH] Nether Rage && Test: Nether Rage_KARA_08_02eH
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1192,9 +1192,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Health changed to 1.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_03e", new List<Enchantment> {
+			cards.Add("KARA_08_03e", new List<Power> {
 				// TODO [KARA_08_03e] Nether Breath && Test: Nether Breath_KARA_08_03e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1207,9 +1207,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Only take 1 damage at a time.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_06e2", new List<Enchantment> {
+			cards.Add("KARA_08_06e2", new List<Power> {
 				// TODO [KARA_08_06e2] Blue Beam && Test: Blue Beam_KARA_08_06e2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1222,9 +1222,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Has <b>Windfury</b>.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_08e2", new List<Enchantment> {
+			cards.Add("KARA_08_08e2", new List<Power> {
 				// TODO [KARA_08_08e2] Red Beam && Test: Red Beam_KARA_08_08e2
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1237,9 +1237,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Health changed to 1.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_11e", new List<Enchantment> {
+			cards.Add("KARA_13_11e", new List<Power> {
 				// TODO [KARA_13_11e] Enfeeble && Test: Enfeeble_KARA_13_11e
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1256,9 +1256,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAUNT = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_04_01", new List<Enchantment> {
+			cards.Add("KARA_04_01", new List<Power> {
 				// TODO [KARA_04_01] Dorothee && Test: Dorothee_KARA_04_01
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1274,9 +1274,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_04_05", new List<Enchantment> {
+			cards.Add("KARA_04_05", new List<Power> {
 				// TODO [KARA_04_05] Flying Monkey && Test: Flying Monkey_KARA_04_05
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1292,9 +1292,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_04_05h", new List<Enchantment> {
+			cards.Add("KARA_04_05h", new List<Power> {
 				// TODO [KARA_04_05h] Flying Monkey && Test: Flying Monkey_KARA_04_05h
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1310,9 +1310,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_06_01", new List<Enchantment> {
+			cards.Add("KARA_06_01", new List<Power> {
 				// TODO [KARA_06_01] Romulo && Test: Romulo_KARA_06_01
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_06_01e",
 					//Activation = null,
@@ -1329,9 +1329,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_06_01heroic", new List<Enchantment> {
+			cards.Add("KARA_06_01heroic", new List<Power> {
 				// TODO [KARA_06_01heroic] Romulo && Test: Romulo_KARA_06_01heroic
-				new Enchantment
+				new Power
 				{
 					//Activation = null,
 					//SingleTask = null,
@@ -1348,9 +1348,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_STATS = 1
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_06", new List<Enchantment> {
+			cards.Add("KARA_08_06", new List<Power> {
 				// TODO [KARA_08_06] Blue Portal && Test: Blue Portal_KARA_08_06
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_06e2",
 					//Activation = null,
@@ -1371,9 +1371,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_08", new List<Enchantment> {
+			cards.Add("KARA_08_08", new List<Power> {
 				// TODO [KARA_08_08] Red Portal && Test: Red Portal_KARA_08_08
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_08e2",
 					//Activation = null,
@@ -1390,11 +1390,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_03a", new List<Enchantment> {
+			cards.Add("KARA_09_03a", new List<Power> {
 				// TODO [KARA_09_03a] Icky Imp && Test: Icky Imp_KARA_09_03a
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -1408,11 +1408,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_03a_heroic", new List<Enchantment> {
+			cards.Add("KARA_09_03a_heroic", new List<Power> {
 				// TODO [KARA_09_03a_heroic] Icky Imp && Test: Icky Imp_KARA_09_03a_heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
+					Activation = PowerActivation.DEATHRATTLE,
 					SingleTask = null,
 				},
 			});
@@ -1423,11 +1423,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Murloc.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_03", new List<Enchantment> {
+			cards.Add("KARA_07_03", new List<Power> {
 				// TODO [KARA_07_03] Murloc Escaping! && Test: Murloc Escaping!_KARA_07_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1438,11 +1438,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon two random Murlocs.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_03heroic", new List<Enchantment> {
+			cards.Add("KARA_07_03heroic", new List<Power> {
 				// TODO [KARA_07_03heroic] Murlocs Escaping! && Test: Murlocs Escaping!_KARA_07_03heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1453,11 +1453,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Beast.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_05", new List<Enchantment> {
+			cards.Add("KARA_07_05", new List<Power> {
 				// TODO [KARA_07_05] Stampeding Beast! && Test: Stampeding Beast!_KARA_07_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1468,11 +1468,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Beast.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_05heroic", new List<Enchantment> {
+			cards.Add("KARA_07_05heroic", new List<Power> {
 				// TODO [KARA_07_05heroic] Stampeding Beast! && Test: Stampeding Beast!_KARA_07_05heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1483,11 +1483,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Demon.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_06", new List<Enchantment> {
+			cards.Add("KARA_07_06", new List<Power> {
 				// TODO [KARA_07_06] Demons Loose! && Test: Demons Loose!_KARA_07_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1498,11 +1498,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Demon.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_06heroic", new List<Enchantment> {
+			cards.Add("KARA_07_06heroic", new List<Power> {
 				// TODO [KARA_07_06heroic] Demons Loose! && Test: Demons Loose!_KARA_07_06heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1513,11 +1513,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Mech.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_07", new List<Enchantment> {
+			cards.Add("KARA_07_07", new List<Power> {
 				// TODO [KARA_07_07] Haywire Mech! && Test: Haywire Mech!_KARA_07_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1528,11 +1528,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Mech.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_07heroic", new List<Enchantment> {
+			cards.Add("KARA_07_07heroic", new List<Power> {
 				// TODO [KARA_07_07heroic] Haywire Mech! && Test: Haywire Mech!_KARA_07_07heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1543,11 +1543,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Dragon.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_08", new List<Enchantment> {
+			cards.Add("KARA_07_08", new List<Power> {
 				// TODO [KARA_07_08] Dragons Free! && Test: Dragons Free!_KARA_07_08
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1558,11 +1558,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon a random Dragon.
 			// --------------------------------------------------------
-			cards.Add("KARA_07_08heroic", new List<Enchantment> {
+			cards.Add("KARA_07_08heroic", new List<Power> {
 				// TODO [KARA_07_08heroic] Dragons Free! && Test: Dragons Free!_KARA_07_08heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1574,12 +1574,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: [x]Change the Health of
 			//       all enemy minions to 1.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_03", new List<Enchantment> {
+			cards.Add("KARA_08_03", new List<Power> {
 				// TODO [KARA_08_03] Nether Breath && Test: Nether Breath_KARA_08_03
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_03e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1591,11 +1591,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: [x]Change the Health of
 			//       all enemy minions to 1.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_03H", new List<Enchantment> {
+			cards.Add("KARA_08_03H", new List<Power> {
 				// TODO [KARA_08_03H] Nether Breath && Test: Nether Breath_KARA_08_03H
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1606,12 +1606,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Give your hero +8 Attack this turn.
 			// --------------------------------------------------------
-			cards.Add("KARA_08_04", new List<Enchantment> {
+			cards.Add("KARA_08_04", new List<Power> {
 				// TODO [KARA_08_04] Empowerment && Test: Empowerment_KARA_08_04
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_08_04e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1628,11 +1628,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_05", new List<Enchantment> {
+			cards.Add("KARA_08_05", new List<Power> {
 				// TODO [KARA_08_05] Terrifying Roar && Test: Terrifying Roar_KARA_08_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1649,11 +1649,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_05H", new List<Enchantment> {
+			cards.Add("KARA_08_05H", new List<Power> {
 				// TODO [KARA_08_05H] Terrifying Roar && Test: Terrifying Roar_KARA_08_05H
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1664,11 +1664,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon 2 Icky Imps.
 			// --------------------------------------------------------
-			cards.Add("KARA_09_03", new List<Enchantment> {
+			cards.Add("KARA_09_03", new List<Power> {
 				// TODO [KARA_09_03] Many Imps! && Test: Many Imps!_KARA_09_03
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1679,11 +1679,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Summon 2 Icky Imps.
 			// --------------------------------------------------------
-			cards.Add("KARA_09_03heroic", new List<Enchantment> {
+			cards.Add("KARA_09_03heroic", new List<Power> {
 				// TODO [KARA_09_03heroic] Many Imps! && Test: Many Imps!_KARA_09_03heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1697,11 +1697,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_05", new List<Enchantment> {
+			cards.Add("KARA_09_05", new List<Power> {
 				// TODO [KARA_09_05] Summon Kil'rek && Test: Summon Kil'rek_KARA_09_05
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1715,11 +1715,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_05heroic", new List<Enchantment> {
+			cards.Add("KARA_09_05heroic", new List<Power> {
 				// TODO [KARA_09_05heroic] Summon Kil'rek && Test: Summon Kil'rek_KARA_09_05heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1730,11 +1730,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all non-Demon minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("KARA_09_06", new List<Enchantment> {
+			cards.Add("KARA_09_06", new List<Power> {
 				// TODO [KARA_09_06] Shadow Volley && Test: Shadow Volley_KARA_09_06
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1745,11 +1745,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all non-Demon minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("KARA_09_06heroic", new List<Enchantment> {
+			cards.Add("KARA_09_06heroic", new List<Power> {
 				// TODO [KARA_09_06heroic] Shadow Volley && Test: Shadow Volley_KARA_09_06heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1763,11 +1763,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KARA_09_07", new List<Enchantment> {
+			cards.Add("KARA_09_07", new List<Power> {
 				// TODO [KARA_09_07] Steal Life && Test: Steal Life_KARA_09_07
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1781,11 +1781,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KARA_09_07heroic", new List<Enchantment> {
+			cards.Add("KARA_09_07heroic", new List<Power> {
 				// TODO [KARA_09_07heroic] Steal Life && Test: Steal Life_KARA_09_07heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1799,12 +1799,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 2
 			// --------------------------------------------------------
-			cards.Add("KARA_13_11", new List<Enchantment> {
+			cards.Add("KARA_13_11", new List<Power> {
 				// TODO [KARA_13_11] Shadow Bolt Volley && Test: Shadow Bolt Volley_KARA_13_11
-				new Enchantment
+				new Power
 				{
 					InfoCardId = "KARA_13_11e",
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1816,11 +1816,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: Draw 2 cards.
 			//       Gain 10 Armor.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_12", new List<Enchantment> {
+			cards.Add("KARA_13_12", new List<Power> {
 				// TODO [KARA_13_12] Demonic Presence && Test: Demonic Presence_KARA_13_12
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1832,11 +1832,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: Draw 3 cards.
 			//       Gain 10 Armor.
 			// --------------------------------------------------------
-			cards.Add("KARA_13_12H", new List<Enchantment> {
+			cards.Add("KARA_13_12H", new List<Power> {
 				// TODO [KARA_13_12H] Demonic Presence && Test: Demonic Presence_KARA_13_12H
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.SPELL,
+					Activation = PowerActivation.SPELL,
 					SingleTask = null,
 				},
 			});
@@ -1848,11 +1848,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("KARA_05_02", new List<Enchantment> {
+			cards.Add("KARA_05_02", new List<Power> {
 				// TODO [KARA_05_02] Big Bad Claws && Test: Big Bad Claws_KARA_05_02
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -1864,11 +1864,11 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("KARA_05_02heroic", new List<Enchantment> {
+			cards.Add("KARA_05_02heroic", new List<Power> {
 				// TODO [KARA_05_02heroic] Big Bad Claws && Test: Big Bad Claws_KARA_05_02heroic
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
@@ -1885,18 +1885,18 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("KARA_13_26", new List<Enchantment> {
+			cards.Add("KARA_13_26", new List<Power> {
 				// TODO [KARA_13_26] Atiesh && Test: Atiesh_KARA_13_26
-				new Enchantment
+				new Power
 				{
-					Activation = EnchantmentActivation.WEAPON,
+					Activation = PowerActivation.WEAPON,
 					SingleTask = null,
 				},
 			});
 
 		}
 
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
+		public static void AddAll(Dictionary<string, List<Power>> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

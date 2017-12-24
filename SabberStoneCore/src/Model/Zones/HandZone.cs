@@ -20,12 +20,12 @@ namespace SabberStoneCore.Model.Zones
 		}
 
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition);
 
-			if (applyEnchantment)
-				entity.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
+			if (applyPowers)
+				entity.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
 		}
 	}
 }

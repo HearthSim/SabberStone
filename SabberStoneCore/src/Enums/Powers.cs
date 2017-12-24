@@ -2,12 +2,12 @@
 {
 	/// <summary>
 	/// Indicates the event that must happen in order to trigger the effect
-	/// of the attached enchantment.
+	/// of the attached power.
 	/// 
 	/// eg: <see cref="DEATHRATTLE"/>: The entity has to be destroyed in order
 	/// for the effect to execute.
 	/// </summary>
-	public enum EnchantmentActivation
+	public enum PowerActivation
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		BATTLECRY,
@@ -28,7 +28,7 @@
 	/// <summary>
 	/// Indicates which (group of) entities the effect will influence.
 	/// </summary>
-	public enum EnchantmentArea
+	public enum PowerArea
 	{
 		/// <summary>
 		/// There will be no effect.

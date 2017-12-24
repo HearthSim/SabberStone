@@ -132,7 +132,7 @@ namespace SabberStoneCore.Tasks
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
 					IPlayable spell = Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
-					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
+					spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
 					controller.SecretZone.Add(spell);
 					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();
@@ -259,7 +259,7 @@ namespace SabberStoneCore.Tasks
 							var secondBeasts = new List<Card>();
 							foreach (Card card in all)
 							{
-								if (card.Enchantments != null)
+								if (card.Powers != null)
 									firstBeasts.Add(card);
 								else
 									secondBeasts.Add(card);

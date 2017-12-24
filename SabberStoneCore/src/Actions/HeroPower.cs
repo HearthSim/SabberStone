@@ -31,7 +31,7 @@ namespace SabberStoneCore.Actions
 				string targtTxt = target != null ? $" targeting {target}" : "";
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.Power}[{c.Hero.Power.Card.Id}]{targtTxt}.");
 
-				c.Hero.Power.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
+				c.Hero.Power.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
 
 				c.Hero.Power.IsExhausted = true;
 				c.HeroPowerActivationsThisTurn++;

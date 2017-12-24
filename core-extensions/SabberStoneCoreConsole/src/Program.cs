@@ -62,13 +62,13 @@ namespace SabberStoneCoreConsole
 			var gameTagCounts = new Dictionary<GameTag, int>();
 			foreach (Card card in Cards.All)
 			{
-				if (card.Enchantments != null)
+				if (card.Powers != null)
 				{
-					foreach (Enchantment enchantment in card.Enchantments)
+					foreach (Power power in card.Powers)
 					{
-						if (enchantment.Enchant?.Effects != null)
+						if (power.Enchant?.Effects != null)
 						{
-							foreach (KeyValuePair<GameTag, int> keyValue in enchantment.Enchant.Effects)
+							foreach (KeyValuePair<GameTag, int> keyValue in power.Enchant.Effects)
 							{
 								if (gameTagCounts.ContainsKey(keyValue.Key))
 								{

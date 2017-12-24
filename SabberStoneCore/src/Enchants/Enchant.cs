@@ -185,7 +185,7 @@ namespace SabberStoneCore.Enchants
 		public int Apply(Entity entity, GameTag gameTag, int value)
 		{
 
-			// only allow enchantments on playable entitys ...
+			// only allow powers on playable entitys ...
 			var target = entity as IPlayable;
 			//if (target == null && !(entity is Controller))
 			//{
