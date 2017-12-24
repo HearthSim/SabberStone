@@ -28,13 +28,13 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the list of enchantments attached to this zone.
 		/// </summary>
 		/// <value>The list of enchantments.</value>
-		List<Enchant> Enchants { get; }
+		List<OldEnchant> Enchants { get; }
 
 		/// <summary>
 		/// Gets the list of triggers attacked to this zone.
 		/// </summary>
 		/// <value>The list of triggers.</value>
-		List<Trigger> Triggers { get; }
+		List<OldTrigger> Triggers { get; }
 
 		/// <summary>
 		/// Gets <see cref="List{T}"/> that contains all entities in this zone.

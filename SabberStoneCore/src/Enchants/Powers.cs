@@ -9,7 +9,7 @@ namespace SabberStoneCore.Enchants
 {
 	/// <summary>
 	/// Interface for instances which support delayed removal.
-	/// This interface is used to remove <see cref="Enchant"/>s after various
+	/// This interface is used to remove <see cref="OldEnchant"/>s after various
 	/// effects were calculated.
 	/// </summary>
 	/// <seealso cref="Game.LazyRemoves"/>

@@ -655,7 +655,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				},
 			});
 

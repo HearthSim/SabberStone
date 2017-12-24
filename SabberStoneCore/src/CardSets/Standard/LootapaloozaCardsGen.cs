@@ -89,7 +89,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsMinion))
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
@@ -753,7 +753,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.WEAPON,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY))
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(new DrawTask(count: 3))
@@ -3171,7 +3171,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = PowerArea.BOARDS,
 					Activation = PowerActivation.HAND_ZONE,
 					//SingleTask = null,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
 						.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
 						.SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)))

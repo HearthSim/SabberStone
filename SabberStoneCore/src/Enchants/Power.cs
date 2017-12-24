@@ -13,9 +13,11 @@ namespace SabberStoneCore.Enchants
 
 		public PowerActivation Activation { get; set; } = PowerActivation.NONE;
 
+		public OldEnchant OldEnchant { get; set; }
+
 		public Enchant Enchant { get; set; }
 
-		public Trigger Trigger { get; set; }
+		public OldTrigger OldTrigger { get; set; }
 
 		public ISimpleTask SingleTask { get; set; }
 
@@ -37,7 +39,7 @@ namespace SabberStoneCore.Enchants
 			}
 
 			// only apply enchant and triggers if there is ...
-			if (Enchant == null && Trigger == null)
+			if (OldEnchant == null && OldTrigger == null)
 			{
 				return;
 			}
@@ -47,125 +49,125 @@ namespace SabberStoneCore.Enchants
 				case PowerArea.TARGET:
 					if (target != null)
 					{
-						Enchant?.Activate(source.Card.Id, target.Enchants, target);
-						Trigger?.Activate(source.Card.Id, target.Triggers, target);
+						OldEnchant?.Activate(source.Card.Id, target.Enchants, target);
+						OldTrigger?.Activate(source.Card.Id, target.Triggers, target);
 					}
 					break;
 				case PowerArea.HAND:
-					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
 				case PowerArea.OP_HAND:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
 				case PowerArea.HANDS:
-					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.HandZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.HandZone.Triggers, source);
 					break;
 				case PowerArea.HAND_AND_BOARD:
-					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.HandZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.HandZone.Triggers, source);
 					break;
 				case PowerArea.BOARD:
-					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
 					break;
 				case PowerArea.OP_BOARD:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 				case PowerArea.OP_BOARD_AND_OP_HERO:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
 				case PowerArea.BOARDS:
-					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 				case PowerArea.SECRET:
-					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
 				case PowerArea.SECRETS:
-					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
 					break;
 				case PowerArea.HERO:
-					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
 					break;
 				case PowerArea.OP_HERO:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
 				case PowerArea.HEROES:
-					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
 					break;
 				case PowerArea.SELF:
-					Enchant?.Activate(source.Card.Id, source.Enchants, source);
-					Trigger?.Activate(source.Card.Id, source.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, source.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, source.Triggers, source);
 					break;
 				case PowerArea.CONTROLLER:
-					Enchant?.Activate(source.Card.Id, controller.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Triggers, source);
 					break;
 				case PowerArea.OP_CONTROLLER:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
 					break;
 				case PowerArea.CONTROLLERS:
-					Enchant?.Activate(source.Card.Id, controller.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Triggers, source);
 					break;
 				case PowerArea.GAME:
-					Enchant?.Activate(source.Card.Id, controller.Game.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Game.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Game.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Game.Triggers, source);
 					break;
 				case PowerArea.BOARDS_HEROES:
-					Enchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.Hero.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.Hero.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.BoardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.BoardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.BoardZone.Triggers, source);
 					break;
 				case PowerArea.GRAVEYARD:
-					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
 					break;
 				case PowerArea.GRAVEYARD_AND_SECRET:
-					Enchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.GraveyardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.GraveyardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.SecretZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.SecretZone.Triggers, source);
 					break;
 				case PowerArea.OP_GRAVEYARD:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
 					break;
 				case PowerArea.OP_GRAVEYARD_AND_OP_SECRET:
-					Enchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
-					Enchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
-					Trigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.GraveyardZone.Triggers, source);
+					OldEnchant?.Activate(source.Card.Id, controller.Opponent.SecretZone.Enchants, source);
+					OldTrigger?.Activate(source.Card.Id, controller.Opponent.SecretZone.Triggers, source);
 					break;
 
 				default:

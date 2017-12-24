@@ -143,7 +143,7 @@ namespace SabberStoneCore.Tasks
 				}));
 		}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
+		public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
 		{
 			return Create(
 				new IncludeTask(type),
@@ -152,7 +152,7 @@ namespace SabberStoneCore.Tasks
 				new BuffTask(buff, EntityType.STACK));
 		}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params RelaCondition[] list)
+		public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
 		{
 			return Create(
 				new IncludeTask(type),

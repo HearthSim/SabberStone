@@ -286,7 +286,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
 				}
 			});
 
@@ -324,7 +324,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.HAND_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.BEAST)))
 						.TriggerEffect(GameTag.SUMMONED, 1)
@@ -369,7 +369,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = new Enchant
+					OldEnchant = new OldEnchant
 					{
 						EnableConditions = new List<SelfCondition>
 						{
@@ -564,7 +564,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.DEFENDING, 1)
 						.SingleTask(ComplexTask.Secret(
@@ -584,7 +584,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND,
 					Activation = PowerActivation.SPELL,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
 						.TurnsActive(0)
 						.FastExecution(true)
@@ -691,7 +691,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
 						new FlagTask(true, new DamageTask(2, EntityType.OP_HERO))))
 				}
@@ -711,7 +711,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.BOARDS,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(
 							SelfCondition.IsNotDead,
 							SelfCondition.IsNotSilenced)
@@ -735,7 +735,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE))
@@ -803,7 +803,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 								.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 								.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
 								.SingleTask(ComplexTask.Secret(
@@ -873,7 +873,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.HeroPowerDamage(1)
+					OldEnchant = Auras.HeroPowerDamage(1)
 				}
 			});
 
@@ -891,7 +891,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new AuraTask(Auras.SpellPowerDamage(1), AuraArea.HERO))
+					OldTrigger = OldTriggers.Inspire(new AuraTask(Auras.SpellPowerDamage(1), AuraArea.HERO))
 				}
 			});
 
@@ -986,7 +986,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
 						.TriggerEffect(GameTag.TURN_START, 1)
 						.FastExecution(true)
@@ -1070,7 +1070,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsSilverHandRecruit))
+					OldEnchant = Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsSilverHandRecruit))
 				}
 			});
 
@@ -1088,7 +1088,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						new RandomMinionTask(GameTag.CARDRACE, (int)Race.MURLOC),
 						new SummonTask()))
 				}
@@ -1221,7 +1221,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.SPELL,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.ATTACKING, 1)
 						.SingleTask(ComplexTask.Create(
@@ -1293,7 +1293,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.BOARDS_HEROES,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(
 							SelfCondition.IsNotDead,
 							SelfCondition.IsNotSilenced)
@@ -1317,7 +1317,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						new DamageTask(4, EntityType.HERO),
 						new DamageTask(4, EntityType.OP_HERO)))
 				}
@@ -1334,7 +1334,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf)
 						.TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
@@ -1365,7 +1365,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
 						new SummonTask()))
 				}
@@ -1528,7 +1528,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.MinionAttacksAndTarget(
+					OldTrigger = OldTriggers.MinionAttacksAndTarget(
 						new ConditionTask(EntityType.STACK, SelfCondition.IsHero),
 						new FlagTask(true, new AddCardTo("GAME_005", EntityType.HAND)))
 				}
@@ -1771,7 +1771,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Attack(2), EntityType.MINIONS, SelfCondition.IsRace(Race.TOTEM)))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.Attack(2), EntityType.MINIONS, SelfCondition.IsRace(Race.TOTEM)))
 				}
 			});
 
@@ -1858,7 +1858,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(new HealTask(1, EntityType.MINIONS))
@@ -1891,7 +1891,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				},
 			});
 
@@ -1991,7 +1991,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.LAST_CARD_DISCARDED, 0)
 						.SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
@@ -2013,7 +2013,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						ComplexTask.DestroyRandomTargets(1, EntityType.MINIONS),
 						ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)))
 				}
@@ -2030,7 +2030,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
@@ -2132,7 +2132,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))
 				}
 			});
 
@@ -2353,7 +2353,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = new Enchant
+					OldEnchant = new OldEnchant
 					{
 						EnableConditions = new List<SelfCondition>
 						{
@@ -2397,7 +2397,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
 				}
 			});
 
@@ -2419,7 +2419,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.WindFuryTurn(), EntityType.SOURCE))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.WindFuryTurn(), EntityType.SOURCE))
 				}
 			});
 
@@ -2459,7 +2459,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.GAME,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = new Enchant
+					OldEnchant = new OldEnchant
 					{
 						EnableConditions = new List<SelfCondition>
 						{
@@ -2494,7 +2494,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Activation = PowerActivation.BATTLECRY,
 					SingleTask = new BuffTask(
-									new Enchant
+									new OldEnchant
 									{
 										TurnsActive = 1,
 										Effects = new Dictionary<GameTag, int> { [GameTag.COST] = 5 }
@@ -2529,7 +2529,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.ATTACKING, 1)
 						.FastExecution(true)
@@ -2556,7 +2556,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
 				}
 			});
 
@@ -2574,7 +2574,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS_NOSOURCE))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS_NOSOURCE))
 				}
 			});
 
@@ -2592,7 +2592,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new HealTask(2, EntityType.HERO))
+					OldTrigger = OldTriggers.Inspire(new HealTask(2, EntityType.HERO))
 				}
 			});
 
@@ -2616,7 +2616,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				},
 			});
 
@@ -2717,7 +2717,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("AT_099t", SummonSide.RIGHT))
+					OldTrigger = OldTriggers.Inspire(new SummonTask("AT_099t", SummonSide.RIGHT))
 				}
 			});
 
@@ -2735,7 +2735,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("CS2_101t", SummonSide.RIGHT))
+					OldTrigger = OldTriggers.Inspire(new SummonTask("CS2_101t", SummonSide.RIGHT))
 				}
 			});
 
@@ -2849,7 +2849,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(
+					OldTrigger = OldTriggers.Inspire(
 						new BuffTask(Buffs.Simple(GameTag.CANT_ATTACK, -1, true), EntityType.SOURCE))
 				}
 			});
@@ -2868,7 +2868,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(
+					OldTrigger = OldTriggers.Inspire(
 						new ReturnHandTask(EntityType.SOURCE))
 				}
 			});
@@ -2929,7 +2929,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new AddCardTo("CS2_152", EntityType.HAND))
+					OldTrigger = OldTriggers.Inspire(new AddCardTo("CS2_152", EntityType.HAND))
 				}
 			});
 
@@ -3016,7 +3016,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
+					OldTrigger = OldTriggers.Inspire(new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
 				}
 			});
 
@@ -3031,7 +3031,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
+					OldEnchant = Auras.CostFunc(
 						owner => -owner.Controller.NumTimesHeroPowerUsedThisGame)
 				}
 			});
@@ -3050,7 +3050,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND_AND_BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.BATTLECRY, 1)))
 						.TriggerEffect(GameTag.JUST_PLAYED, 1)
@@ -3138,7 +3138,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area =  PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Buffs.Simple(GameTag.CANNOT_ATTACK_HEROES, 1)
+					OldEnchant = Buffs.Simple(GameTag.CANNOT_ATTACK_HEROES, 1)
 				}
 			});
 
@@ -3157,7 +3157,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
+					OldTrigger = OldTriggers.Inspire(ComplexTask.Create(
 						new RandomCardTask(CardType.SPELL, CardClass.INVALID),
 						new AddStackTo(EntityType.HAND)))
 				}
@@ -3200,7 +3200,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.FriendlySpellTargetingMe(ComplexTask.DivineShield(EntityType.SOURCE))
+					OldTrigger = OldTriggers.FriendlySpellTargetingMe(ComplexTask.DivineShield(EntityType.SOURCE))
 				}
 			});
 
@@ -3218,7 +3218,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.FriendlySpellTargetingMe(new DamageTask(3, EntityType.ENEMIES))
+					OldTrigger = OldTriggers.FriendlySpellTargetingMe(new DamageTask(3, EntityType.ENEMIES))
 				}
 			});
 

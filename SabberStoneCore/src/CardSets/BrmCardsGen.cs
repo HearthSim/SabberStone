@@ -77,7 +77,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
+					OldEnchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				}
@@ -228,7 +228,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
+					OldEnchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				},
@@ -250,7 +250,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.GRAVEYARD_AND_SECRET,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
 						.TriggerEffect(GameTag.JUST_PLAYED, -1)
@@ -289,7 +289,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
+					OldEnchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				},
@@ -528,7 +528,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
@@ -577,7 +577,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
@@ -601,7 +601,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
 						.TriggerEffect(GameTag.DAMAGE, 1)
@@ -621,7 +621,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HAND,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = Triggers.FriendlySpellTargetingMe(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
+					OldTrigger = OldTriggers.FriendlySpellTargetingMe(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
 				}
 			});
 
@@ -636,7 +636,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.DAMAGE, 1)
 						.SingleTask(new SummonTask("BRM_004t", SummonSide.RIGHT))
@@ -674,7 +674,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
+					OldEnchant = Auras.CostFunc(
 						owner => -(owner.Controller.NumFriendlyMinionsThatDiedThisTurn +
 								   owner.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn))
 				}
@@ -731,7 +731,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.HAND))
@@ -796,7 +796,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
 						.SingleTask(ComplexTask.Create(

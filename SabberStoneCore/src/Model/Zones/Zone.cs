@@ -46,9 +46,9 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public abstract int Count { get; }
 
-		public List<Enchant> Enchants { get; } = new List<Enchant>();
+		public List<OldEnchant> Enchants { get; } = new List<OldEnchant>();
 
-		public List<Trigger> Triggers { get; } = new List<Trigger>();
+		public List<OldTrigger> Triggers { get; } = new List<OldTrigger>();
 
 		public List<IPlayable> GetAll => this.Cast<IPlayable>().ToList();
 

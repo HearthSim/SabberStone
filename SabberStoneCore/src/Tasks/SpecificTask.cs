@@ -224,7 +224,7 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(p =>
 				{
 					p[0].Game.Enchants.Add(
-							new Enchants.Enchant
+							new Enchants.OldEnchant
 							{
 								Game = p[0].Game,
 								Owner = p[0].Controller.Hero,

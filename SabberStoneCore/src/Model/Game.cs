@@ -256,12 +256,12 @@ namespace SabberStoneCore.Model
 
 			for (int i = 0; i < game.Enchants.Count; i++)
 			{
-				Enchant p = game.Enchants[i];
+				OldEnchant p = game.Enchants[i];
 				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
 			}
 			for (int i = 0; i < game.Triggers.Count; i++)
 			{
-				Trigger p = game.Triggers[i];
+				OldTrigger p = game.Triggers[i];
 				Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner));
 			}
 

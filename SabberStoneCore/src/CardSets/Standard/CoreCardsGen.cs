@@ -2,8 +2,10 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using static SabberStoneCore.Enchants.Enchants;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -462,7 +464,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_005o", null);
+			cards.Add("CS2_005o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_005o")
+				}
+			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [CS2_009e] Mark of the Wild (*) - COST:0
@@ -470,7 +478,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("CS2_009e", null);
+			cards.Add("CS2_009e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_005o")
+				}
+			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [CS2_011o] Savage Roar (*) - COST:0
@@ -481,7 +495,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_011o", null);
+			cards.Add("CS2_011o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_011o")
+				}
+			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [CS2_017o] Claws (*) - COST:0
@@ -492,7 +512,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_017o", null);
+			cards.Add("CS2_017o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_017o")
+				}
+			});
+
 			// ------------------------------------------ SPELL - DRUID
 			// [CS2_013t] Excess Mana (*) - COST:0
 			// - Set: core,
@@ -523,7 +550,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
 						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
 						.TriggerEffect(GameTag.SUMMONED, 1)
@@ -557,7 +584,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.BATTLECRY,
 					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-					Enchant = Buffs.AttackHealth(2)
+					OldEnchant = Buffs.AttackHealth(2)
 				}
 			});
 
@@ -578,7 +605,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
 					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-					Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
+					OldEnchant = Auras.Attack(1, RelaCondition.IsSameRace)
 				}
 			});
 
@@ -598,7 +625,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "DS1_178e",
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
+					OldEnchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
 				}
 			});
 			// ----------------------------------------- SPELL - HUNTER
@@ -725,7 +752,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has 1 Health.
 			// --------------------------------------------------------
-			cards.Add("CS2_084e", null);
+			cards.Add("CS2_084e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant
+					{
+						Effects = new []
+						{
+							new Effect
+							{
+								Tag = GameTag.HEALTH,
+								Operator = EffectOperator.SET,
+								Value = 1
+							}
+						}
+					}
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [DS1_070o] Master's Presence (*) - COST:0
@@ -733,7 +777,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("DS1_070o", null);
+			cards.Add("DS1_070o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("DS1_070o")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [DS1_175o] Furious Howl (*) - COST:0
@@ -741,7 +791,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack from Timber Wolf.
 			// --------------------------------------------------------
-			cards.Add("DS1_175o", null);
+			cards.Add("DS1_175o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("DS1_175o")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [DS1_178e] Charge (*) - COST:0
@@ -749,7 +805,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Tundra Rhino grants <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("DS1_178e", null);
+			cards.Add("DS1_178e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("DS1_178e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [NEW1_033o] Eye In The Sky (*) - COST:0
@@ -757,7 +819,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Leokk is granting this minion +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("NEW1_033o", null);
+			cards.Add("NEW1_033o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("NEW1_033o")
+				}
+			});
+
 			// ---------------------------------------- MINION - HUNTER
 			// [NEW1_032] Misha (*) - COST:3 [ATK:4/HP:4]
 			// - Race: beast, Set: core, Rarity: common
@@ -1180,7 +1249,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.WEAPON,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
 						.TriggerEffect(GameTag.ATTACKING, -1)
 						.SingleTask(new HealTask(2, EntityType.TARGET))
@@ -1197,7 +1266,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("CS2_087e", null);
+			cards.Add("CS2_087e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_087e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [CS2_092e] Blessing of Kings (*) - COST:0
@@ -1205,7 +1280,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +4/+4.
 			// --------------------------------------------------------
-			cards.Add("CS2_092e", null);
+			cards.Add("CS2_092e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_092e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [EX1_360e] Humility (*) - COST:0
@@ -1213,7 +1294,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Attack has been changed to 1.
 			// --------------------------------------------------------
-			cards.Add("EX1_360e", null);
+			cards.Add("EX1_360e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant
+					{
+						Effects = new []
+						{
+							new Effect
+							{
+								Tag = GameTag.ATK,
+								Operator = EffectOperator.SET,
+								Value = 1
+							}
+						}
+					}
+				}
+			});
 
 			// --------------------------------------- MINION - PALADIN
 			// [CS2_101t] Silver Hand Recruit (*) - COST:1 [ATK:1/HP:1]
@@ -1236,7 +1334,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.BOARDS,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(
 							SelfCondition.IsNotDead,
 							SelfCondition.IsNotSilenced)
@@ -1426,7 +1524,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("CS2_004e", null);
+			cards.Add("CS2_004e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_004e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [CS2_236e] Divine Spirit (*) - COST:0
@@ -1434,7 +1538,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has double Health.
 			// --------------------------------------------------------
-			cards.Add("CS2_236e", null);
+			cards.Add("CS2_236e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant
+					{
+						Effects = new []
+						{
+							new Effect
+							{
+								Tag = GameTag.HEALTH,
+								Operator = EffectOperator.MUL,
+								Value = 2
+							}
+						}
+					}
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [EX1_019e] Cleric's Blessing (*) - COST:0
@@ -1442,7 +1563,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("EX1_019e", null);
+			cards.Add("EX1_019e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("EX1_019e")
+				}
+			});
 		}
 
 		private static void Rogue(IDictionary<string, List<Power>> cards)
@@ -1683,7 +1810,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "EX1_565o",
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.Attack(2, RelaCondition.IsSideBySide)
+					OldEnchant = Auras.Attack(2, RelaCondition.IsSideBySide)
 				}
 			});
 
@@ -1874,7 +2001,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_041e", null);
+			cards.Add("CS2_041e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_041e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [CS2_045e] Rockbiter Weapon (*) - COST:0
@@ -1885,7 +2018,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_045e", null);
+			cards.Add("CS2_045e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_045e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [CS2_046e] Bloodlust (*) - COST:0
@@ -1896,7 +2035,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_046e", null);
+			cards.Add("CS2_046e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("CS2_046e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [EX1_244e] Totemic Might (*) - COST:0
@@ -1904,7 +2049,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("EX1_244e", null);
+			cards.Add("EX1_244e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("EX1_244e")
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [EX1_246e] Hexxed (*) - COST:0
@@ -1923,7 +2074,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack from Flametongue Totem.
 			// --------------------------------------------------------
-			cards.Add("EX1_565o", null);
+			cards.Add("EX1_565o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = GetAutoEnchantFromText("EX1_565o")
+				}
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [CS2_050] Searing Totem (*) - COST:1 [ATK:1/HP:1]
@@ -1957,7 +2114,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
@@ -1973,7 +2130,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(new HealTask(1, EntityType.MINIONS))
@@ -2103,7 +2260,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "CS2_063e",
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.SPELL,
-					Enchant = new Enchant
+					OldEnchant = new OldEnchant
 					{
 						TurnsActive = 1,
 						EnableConditions = new List<SelfCondition>
@@ -2458,7 +2615,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "CS2_122e",
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.Attack(1)
+					OldEnchant = Auras.Attack(1)
 				}
 			});
 
@@ -2543,7 +2700,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
@@ -2602,7 +2759,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
@@ -2740,7 +2897,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				}
 			});
 
@@ -2783,7 +2940,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "CS2_222o",
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.AttackHealth(1, 1)
+					OldEnchant = Auras.AttackHealth(1, 1)
 				}
 			});
 
@@ -2883,7 +3040,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.BATTLECRY,
-					Enchant = Buffs.AttackHealth(1)
+					OldEnchant = Buffs.AttackHealth(1)
 				}
 			});
 
@@ -2936,7 +3093,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "EX1_399e",
 					Area = PowerArea.SELF,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.DAMAGE, 1)
 						.SingleTask(new BuffTask(Buffs.Attack(3), EntityType.SOURCE))
@@ -2975,7 +3132,7 @@ namespace SabberStoneCore.CardSets.Standard
 					InfoCardId = "EX1_508o",
 					Area = PowerArea.BOARD,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.Attack(1, RelaCondition.IsSameRace)
+					OldEnchant = Auras.Attack(1, RelaCondition.IsSameRace)
 				}
 			});
 
@@ -2994,7 +3151,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				}
 			});
 

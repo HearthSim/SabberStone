@@ -13,7 +13,7 @@ namespace SabberStonePowerLog
 	{
 		static void Main(string[] args)
 		{
-			var interpreter = new Interpreter(@"C:\Users\admin\Source\Repos\SabberStone\core-extensions\SabberStonePowerLog\resources\", "initialmulli.log");
+			var interpreter = new Interpreter(@"C:\Program Files (x86)\Hearthstone\Logs\", "Power.log");
 			List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
 			Console.ReadKey();

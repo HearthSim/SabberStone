@@ -16,13 +16,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class AuraTask : SimpleTask
 	{
-		public AuraTask(Enchant aura, AuraArea area)
+		public AuraTask(OldEnchant aura, AuraArea area)
 		{
 			Aura = aura;
 			Area = area;
 		}
 
-		public Enchant Aura { get; set; }
+		public OldEnchant Aura { get; set; }
 		public AuraArea Area { get; set; }
 
 		public override TaskState Process()

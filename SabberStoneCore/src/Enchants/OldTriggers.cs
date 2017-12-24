@@ -7,9 +7,9 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	internal class Triggers
+	internal class OldTriggers
 	{
-		public static Trigger Inspire(ISimpleTask task)
+		public static OldTrigger Inspire(ISimpleTask task)
 		{
 			return new TriggerBuilder().Create()
 				.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
@@ -18,7 +18,7 @@ namespace SabberStoneCore.Enchants
 				.Build();
 		}
 
-		public static Trigger FriendlySpellTargetingMe(ISimpleTask task)
+		public static OldTrigger FriendlySpellTargetingMe(ISimpleTask task)
 		{
 			return new TriggerBuilder().Create()
 				.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
@@ -29,7 +29,7 @@ namespace SabberStoneCore.Enchants
 				.Build();
 		}
 
-		public static Trigger MinionAttacksAndTarget(params ISimpleTask[] list)
+		public static OldTrigger MinionAttacksAndTarget(params ISimpleTask[] list)
 		{
 			var taskList = new List<ISimpleTask>
 			{

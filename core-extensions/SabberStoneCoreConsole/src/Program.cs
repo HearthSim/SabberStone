@@ -66,9 +66,9 @@ namespace SabberStoneCoreConsole
 				{
 					foreach (Power power in card.Powers)
 					{
-						if (power.Enchant?.Effects != null)
+						if (power.OldEnchant?.Effects != null)
 						{
-							foreach (KeyValuePair<GameTag, int> keyValue in power.Enchant.Effects)
+							foreach (KeyValuePair<GameTag, int> keyValue in power.OldEnchant.Effects)
 							{
 								if (gameTagCounts.ContainsKey(keyValue.Key))
 								{

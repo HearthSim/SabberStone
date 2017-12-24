@@ -7,14 +7,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class BuffTask : SimpleTask
 	{
-		public BuffTask(Enchant buff, EntityType type, SelfCondition condition = null)
+		public BuffTask(OldEnchant buff, EntityType type, SelfCondition condition = null)
 		{
 			Buff = buff;
 			Type = type;
 			Condition = condition;
 		}
 
-		public Enchant Buff { get; set; }
+		public OldEnchant Buff { get; set; }
 
 		public EntityType Type { get; set; }
 

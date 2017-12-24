@@ -22,12 +22,12 @@ namespace SabberStoneCore.Model
 		public static CardSet[] StandardSets { get; } = {
 			CardSet.CORE,
 			CardSet.EXPERT1,
-			CardSet.OG,
-			CardSet.KARA,
-			CardSet.GANGS,
-			CardSet.UNGORO,
-			CardSet.ICECROWN,
-			CardSet.LOOTAPALOOZA
+			//CardSet.OG,
+			//CardSet.KARA,
+			//CardSet.GANGS,
+			//CardSet.UNGORO,
+			//CardSet.ICECROWN,
+			//CardSet.LOOTAPALOOZA
 		};
 
 		/// <summary>

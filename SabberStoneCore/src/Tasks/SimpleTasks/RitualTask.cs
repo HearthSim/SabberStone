@@ -10,13 +10,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RitualTask : SimpleTask
 	{
 
-		public RitualTask(Enchant enchant = null, bool taunt = false)
+		public RitualTask(OldEnchant enchant = null, bool taunt = false)
 		{
 			Enchant = enchant;
 			Taunt = taunt;
 		}
 
-		public Enchant Enchant { get; set; }
+		public OldEnchant Enchant { get; set; }
 
 		public bool Taunt { get; set; }
 

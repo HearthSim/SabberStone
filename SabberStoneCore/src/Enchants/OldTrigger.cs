@@ -1,0 +1,256 @@
+﻿using System.Collections.Generic;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Conditions;
+using SabberStoneCore.Model;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Model.Entities;
+
+namespace SabberStoneCore.Enchants
+{
+	public class OldTrigger : ILazyRemove
+	{
+		public List<OldTrigger> Parent { get; set; }
+
+		public List<SelfCondition> EnableConditions { get; set; } = new List<SelfCondition>();
+
+		public List<RelaCondition> ApplyConditions { get; set; } = new List<RelaCondition>();
+
+		public string SourceId { get; set; }
+
+		public Game Game { get; set; }
+
+		private int _ownerId;
+		public IPlayable Owner
+		{
+			get { return Game.IdEntityDic[_ownerId]; }
+			set { _ownerId = value.Id; }
+		}
+
+		public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
+
+		public int TurnsActive { get; set; } = -1;
+
+		public int Turn { get; set; }
+
+		public bool FastExecution { get; set; } = false;
+
+		public int Executions { get; set; } = 0;
+
+		public int MaxExecutions { get; set; } = 0;
+
+		//public GameTag NextCountGameTag { get; set; } = GameTag.NUM_CARDS_PLAYED_THIS_TURN;
+
+		//public int NextCount { get; set; } = 0;
+
+		public ISimpleTask SingleTask { get; set; }
+
+		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
+
+		public OldTrigger Copy(string sourceId, Game game, int turn, List<OldTrigger> parent, IPlayable owner)
+		{
+			return new OldTrigger
+			{
+				Game = game,
+				Parent = parent,
+				Owner = owner,
+				Turn = turn,
+
+				SourceId = sourceId,
+				EnableConditions = EnableConditions,
+				ApplyConditions = ApplyConditions,
+				SingleTask = SingleTask,
+				Effects = Effects,
+				TurnsActive = TurnsActive,
+				FastExecution = FastExecution,
+				Executions = Executions,
+				MaxExecutions = MaxExecutions,
+				//NextCountGameTag = NextCountGameTag,
+				//NextCount = owner[NextCountGameTag]
+			};
+		}
+
+		public void Remove()
+		{
+			Parent.Remove(this);
+		}
+
+		public bool IsEnabled()
+		{
+			bool flag = true;
+
+			for (int i = 0; i < EnableConditions.Count; i++)
+			{
+				flag &= EnableConditions[i].Eval(Owner);
+				if (!flag)
+					break;
+			}
+
+			if (flag)
+				flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
+
+			if (!flag)
+				Owner.Game.LazyRemoves.Enqueue(this);
+
+			return flag;
+		}
+
+		private bool IsApplying(IPlayable target)
+		{
+			bool flag = true;
+
+			for (int i = 0; i < ApplyConditions.Count; i++)
+			{
+				flag &= ApplyConditions[i].Eval(Owner, target);
+				if (!flag)
+					break;
+			}
+
+			return flag;
+		}
+
+		public void Change(Entity entity, GameTag gameTag, int oldValue, int newValue)
+		{
+
+			if (Owner.Game.LazyRemoves.Contains(this))
+			{
+				return;
+			}
+
+			var target = entity as IPlayable;
+
+			//Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger", $"{entity} {gameTag} {oldValue} {newValue}");
+
+			if (!Effects.ContainsKey(gameTag))
+			{
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"GameTag {gameTag} not concerned by this enchanting(change) ...");
+				return;
+			}
+
+			if (!IsEnabled())
+			{
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":"Trigger isn't enabled!");
+				return;
+			}
+
+			if (!IsApplying(target))
+			{
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Trigger conditions not meet.");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Owner: {Owner}, Target: {target}");
+				return;
+			}
+
+			if (Effects[gameTag] > 0 && oldValue >= newValue
+			 || Effects[gameTag] < 0 && oldValue <= newValue)
+			{
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger", !Game.Logging? "":$"Enchant(change) on {gameTag} conditions not meet positiv or negativ. {Effects[gameTag]} && {oldValue} == {newValue}");
+				return;
+			}
+
+			// do a clone of the task
+			ISimpleTask clone = SingleTask.Clone();
+			clone.Game = Owner.Controller.Game;
+			clone.Controller = Owner.Controller;
+			clone.Source = Owner;
+			clone.Target = target;
+			// let the change move into the task
+			clone.Number = newValue - oldValue;
+			clone.IsTrigger = true;
+
+			if (FastExecution)
+			{
+				Owner.Controller.Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, target);
+				if (Effects.ContainsKey(GameTag.TURN_START) && Effects[GameTag.TURN_START] < 0
+					&& Owner.Controller.ExtraEndTurnEffect)
+				{
+					Owner.Controller.Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, target);
+				}
+			}
+			else
+			{
+				Owner.Controller.Game.TaskQueue.Enqueue(clone);
+				if (Effects.ContainsKey(GameTag.TURN_START) && Effects[GameTag.TURN_START] < 0
+					&& Owner.Controller.ExtraEndTurnEffect)
+				{
+					Owner.Controller.Game.TaskQueue.Enqueue(clone);
+				}
+			}
+
+			Executions++;
+
+			if (MaxExecutions != 0 && Executions >= MaxExecutions)
+			{
+				//Remove();
+				Owner.Game.LazyRemoves.Enqueue(this);
+			}
+		}
+
+		public void Activate(string sourceId, List<OldTrigger> parent, IPlayable owner)
+		{
+			parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner));
+		}
+	}
+
+	public class TriggerBuilder
+	{
+		private OldTrigger _oldTrigger;
+
+		public TriggerBuilder Create()
+		{
+			_oldTrigger = new OldTrigger();
+			return this;
+		}
+
+		public TriggerBuilder EnableConditions(params SelfCondition[] list)
+		{
+			_oldTrigger.EnableConditions.AddRange(list);
+			return this;
+		}
+
+		public TriggerBuilder ApplyConditions(params RelaCondition[] list)
+		{
+			_oldTrigger.ApplyConditions.AddRange(list);
+			return this;
+		}
+
+		public TriggerBuilder SingleTask(ISimpleTask task)
+		{
+			_oldTrigger.SingleTask = task;
+			return this;
+		}
+
+		public TriggerBuilder TriggerEffect(GameTag tag, int change)
+		{
+			_oldTrigger.Effects.Add(tag, change);
+			return this;
+		}
+
+		public TriggerBuilder TurnsActive(int value)
+		{
+			_oldTrigger.TurnsActive = value;
+			return this;
+		}
+
+		public TriggerBuilder FastExecution(bool fastExecution)
+		{
+			_oldTrigger.FastExecution = fastExecution;
+			return this;
+		}
+
+		public TriggerBuilder MaxExecution(int maxExecutions)
+		{
+			_oldTrigger.MaxExecutions = maxExecutions;
+			return this;
+		}
+
+		//public TriggerBuilder NextCountGameTag(GameTag nextCountGameTag)
+		//{
+		//    _trigger.NextCountGameTag = nextCountGameTag;
+		//    return this;
+		//}
+
+		public OldTrigger Build()
+		{
+			return _oldTrigger;
+		}
+	}
+}

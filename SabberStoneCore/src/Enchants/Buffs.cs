@@ -15,9 +15,9 @@ namespace SabberStoneCore.Enchants
 			SelfCondition.IsNotSilenced,
 		};
 
-		public static Enchant Simple(GameTag tag, int amount, bool oneTurnActive = false)
+		public static OldEnchant Simple(GameTag tag, int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -28,9 +28,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant SimpleFix(GameTag tag, int amount, bool oneTurnActive = false)
+		public static OldEnchant SimpleFix(GameTag tag, int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -42,14 +42,14 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant AttackHealth(int amount, bool oneTurnActive = false)
+		public static OldEnchant AttackHealth(int amount, bool oneTurnActive = false)
 		{
 			return AttackHealth(amount, amount, oneTurnActive);
 		}
 
-		public static Enchant AttackHealth(int atk, int health, bool oneTurnActive = false)
+		public static OldEnchant AttackHealth(int atk, int health, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -63,9 +63,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant AttackHealthFix(int amount, bool oneTurnActive = false)
+		public static OldEnchant AttackHealthFix(int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -80,9 +80,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant Attack(int amount)
+		public static OldEnchant Attack(int amount)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = -1,
 				EnableConditions = SelfBuffConditions,
@@ -93,9 +93,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant AttackTurn(int amount)
+		public static OldEnchant AttackTurn(int amount)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = 0,
 				Effects = new Dictionary<GameTag, int>
@@ -105,9 +105,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant WindFuryTurn()
+		public static OldEnchant WindFuryTurn()
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = 0,
 				Effects = new Dictionary<GameTag, int>
@@ -117,9 +117,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant ImmuneTurn()
+		public static OldEnchant ImmuneTurn()
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = 0,
 				Effects = new Dictionary<GameTag, int>
@@ -129,9 +129,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant Health(int amount, bool oneTurnActive = false)
+		public static OldEnchant Health(int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -144,9 +144,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant WeaponAtk(int amount, bool oneTurnActive = false)
+		public static OldEnchant WeaponAtk(int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				Effects = new Dictionary<GameTag, int>
@@ -156,9 +156,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant Cost(int amount, bool oneTurnActive = false)
+		public static OldEnchant Cost(int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND, Zone.DECK) },
@@ -169,9 +169,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant CostFix(int amount, bool oneTurnActive = false)
+		public static OldEnchant CostFix(int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = new List<SelfCondition> { SelfCondition.IsInZone(Zone.HAND, Zone.DECK) },
@@ -183,9 +183,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant StealthTurn(int attackedThisTurn)
+		public static OldEnchant StealthTurn(int attackedThisTurn)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = 1,
 				EnableConditions = new List<SelfCondition>
@@ -212,9 +212,9 @@ namespace SabberStoneCore.Enchants
 		//        },
 		//    };
 		//}
-		public static Enchant CthunAttackHealth(int amount)
+		public static OldEnchant CthunAttackHealth(int amount)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = -1,
 				EnableConditions = new List<SelfCondition>
@@ -268,9 +268,9 @@ namespace SabberStoneCore.Enchants
 		//    };
 		//}
 
-		public static Enchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
+		public static OldEnchant OnlyOpponentTurn(GameTag tag, int amount, bool oneTurnActive = false)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				EnableConditions = SelfBuffConditions,
@@ -282,9 +282,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func = null, bool oneTurnActive = false, ISimpleTask removalTask = null)
+		public static OldEnchant TillTagChangeActive(GameTag changeTriggerTag, SelfCondition applyCondiction, GameTag tag, int value, Func<object, int> func = null, bool oneTurnActive = false, ISimpleTask removalTask = null)
 		{
-			return new Enchant()
+			return new OldEnchant()
 			{
 				TurnsActive = oneTurnActive ? 0 : -1,
 				RemoveTriggerTags =

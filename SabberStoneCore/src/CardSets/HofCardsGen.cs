@@ -83,7 +83,7 @@ namespace SabberStoneCore.CardSets
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.SPELL,
 					SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
-					Enchant = new Enchant
+					OldEnchant = new OldEnchant
 					{
 						TurnsActive = 0,
 						EnableConditions = new List<SelfCondition>
@@ -184,7 +184,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.HERO,
 					Activation = PowerActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
+					OldEnchant = Auras.SpellPowerDamage(1)
 				},
 				new Power
 				{
@@ -208,7 +208,7 @@ namespace SabberStoneCore.CardSets
 				{
 					Area = PowerArea.CONTROLLER,
 					Activation = PowerActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
+					OldTrigger = new TriggerBuilder().Create()
 						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
 						.TriggerEffect(GameTag.TURN_START, -1)
 						.SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))

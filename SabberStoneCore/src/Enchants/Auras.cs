@@ -12,7 +12,7 @@ namespace SabberStoneCore.Enchants
 	internal class Auras
 	{
 
-		public static Enchant SimpleInclSelf(GameTag tag, int amount, params RelaCondition[] list)
+		public static OldEnchant SimpleInclSelf(GameTag tag, int amount, params RelaCondition[] list)
 		{
 			// health is only allowed with the HealthRetentionTask
 			if (tag == GameTag.HEALTH)
@@ -20,7 +20,7 @@ namespace SabberStoneCore.Enchants
 				throw new NotSupportedException();
 			}
 
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant SimpleInclSelf(Dictionary<GameTag, int> effects, params RelaCondition[] list)
+		public static OldEnchant SimpleInclSelf(Dictionary<GameTag, int> effects, params RelaCondition[] list)
 		{
 			// health is only allowed with the HealthRetentionTask
 			if (effects.Keys.Contains(GameTag.HEALTH))
@@ -44,7 +44,7 @@ namespace SabberStoneCore.Enchants
 				throw new NotSupportedException();
 			}
 
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -57,9 +57,9 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant Attack(int amount, params RelaCondition[] list)
+		public static OldEnchant Attack(int amount, params RelaCondition[] list)
 		{
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -79,14 +79,14 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant Health(int amount, params RelaCondition[] list)
+		public static OldEnchant Health(int amount, params RelaCondition[] list)
 		{
 			var relaConditions = new List<RelaCondition>
 			{
 				RelaCondition.IsNotSelf
 			};
 			relaConditions.AddRange(list);
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -108,7 +108,7 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant AttackHealth(int atk, int health, params RelaCondition[] list)
+		public static OldEnchant AttackHealth(int atk, int health, params RelaCondition[] list)
 		{
 			var relaConditions = new List<RelaCondition>
 			{
@@ -116,7 +116,7 @@ namespace SabberStoneCore.Enchants
 			};
 			relaConditions.AddRange(list);
 
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -139,9 +139,9 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant SpellPowerDamage(int amount)
+		public static OldEnchant SpellPowerDamage(int amount)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -155,9 +155,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant HeroPowerDamage(int amount)
+		public static OldEnchant HeroPowerDamage(int amount)
 		{
-			return new Enchant
+			return new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -171,11 +171,11 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant Cost(int amount, params RelaCondition[] list)
+		public static OldEnchant Cost(int amount, params RelaCondition[] list)
 		{
 			var relaConditions = new List<RelaCondition>();
 			relaConditions.AddRange(list);
-			return new Enchant
+			return new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -192,11 +192,11 @@ namespace SabberStoneCore.Enchants
 
 
 
-		public static Enchant CostTurn(int amount, params RelaCondition[] list)
+		public static OldEnchant CostTurn(int amount, params RelaCondition[] list)
 		{
 			var relaConditions = new List<RelaCondition>();
 			relaConditions.AddRange(list);
-			return new Enchant
+			return new OldEnchant
 			{
 				TurnsActive = 1,
 				EnableConditions = new List<SelfCondition>
@@ -212,11 +212,11 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant CostFunc(Func<IPlayable, int> function, params RelaCondition[] list)
+		public static OldEnchant CostFunc(Func<IPlayable, int> function, params RelaCondition[] list)
 		{
 			var relaConditions = new List<RelaCondition>();
 			relaConditions.AddRange(list);
-			return new Enchant
+			return new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -231,9 +231,9 @@ namespace SabberStoneCore.Enchants
 			};
 		}
 
-		public static Enchant WeaponAttack(int amount, params RelaCondition[] list)
+		public static OldEnchant WeaponAttack(int amount, params RelaCondition[] list)
 		{
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
@@ -248,9 +248,9 @@ namespace SabberStoneCore.Enchants
 			return result;
 		}
 
-		public static Enchant Immune(params RelaCondition[] list)
+		public static OldEnchant Immune(params RelaCondition[] list)
 		{
-			var result = new Enchant
+			var result = new OldEnchant
 			{
 				EnableConditions = new List<SelfCondition>
 				{
