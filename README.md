@@ -9,7 +9,7 @@
 
 # Overview
 
-**State of Implementation: 91% (Knights of the Frozen Throne 39%) of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(30.08.2017)***
+**State of Implementation: 83% (Kobolds and Catacombs 14%) of current Standard Cards (Year of the ... Maaaaaamooouth)!** ***(24.12.2017)***
 
 SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/extensions/SabberStoneGui)). If also implemented a few current decks of the "JANUARY 2017, SEASON 34", like the PirateAggroWarrior and the MidrangeJadeShaman.
 
@@ -62,7 +62,7 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 **Basic & Classic**
 * **100% Basic (142 Cards)**
-* 96% Classic (239 Cards)
+* 98% Classic (239 Cards)
 * 60% Hall of Fame (10 Cards)
 
 **Adventures**
@@ -71,11 +71,12 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 * 97% The League of Explorers (45 Cards)
 
 **Expensions**
+* 14% Kobolds and Catacombs (135 Cards)
+* 74% Knights of the Frozen Throne (135 Cards)
+* 88% Journey to Un'Goro (135 cards)
 * 91% The Grand Tournament (132 Cards)
-* 93% Whispers of the Old Gods (134 Cards)
-* 96% Mean Streets of Gadgetzan (132 Cards)
-* 86% Journey to Un'Goro (135 cards)
-* 39% Knights of the Frozen Throne (135 cards)
+* 94% Whispers of the Old Gods (134 Cards)
+* 97% Mean Streets of Gadgetzan (132 Cards)
 * 8% Goblins vs Gnomes (123 cards)
 * 6% Curse of Naxxramas (30 cards)
 
