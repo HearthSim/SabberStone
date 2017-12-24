@@ -60,7 +60,9 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Get all enchantments hooked onto this entity.</summary>
 		/// <value>The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.</value>
-		List<OldEnchant> Enchants { get; }
+		List<OldEnchant> OldEnchants { get; }
+
+		List<string> Enchants { get; }
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -111,7 +113,9 @@ namespace SabberStoneCore.Model.Entities
 		/// <value>
 		/// The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.
 		/// </value>
-		public List<OldEnchant> Enchants { get; } = new List<OldEnchant>();
+		public List<OldEnchant> OldEnchants { get; } = new List<OldEnchant>();
+
+		public List<Enchant> Enchants { get; } = new List<Enchant>();
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -144,10 +148,10 @@ namespace SabberStoneCore.Model.Entities
 
 			if (game == null) return;
 
-			for (int i = 0; i < entity.Enchants.Count; i++)
+			for (int i = 0; i < entity.OldEnchants.Count; i++)
 			{
-				OldEnchant p = entity.Enchants[i];
-				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
+				OldEnchant p = entity.OldEnchants[i];
+				OldEnchants.Add(p.Copy(p.SourceId, Game, p.Turn, OldEnchants, p.Owner, p.RemoveTriggers));
 			}
 			for (int i = 0; i < entity.Triggers.Count; i++)
 			{
@@ -163,7 +167,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			OrderOfPlay = entity.OrderOfPlay;
 			_data.Stamp(entity._data);
-			entity.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			entity.OldEnchants.ForEach(p => OldEnchants.Add(p.Copy(p.SourceId, Game, p.Turn, OldEnchants, p.Owner, p.RemoveTriggers)));
 			entity.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
 		}
 
@@ -173,8 +177,8 @@ namespace SabberStoneCore.Model.Entities
 			str.Append(_data.Hash(ignore));
 			str.Append("[O:");
 			str.Append(OrderOfPlay.ToString());
-			str.Append($"][EN:{Enchants.Count}");
-			Enchants.ForEach(p => str.Append(p.Hash));
+			str.Append($"][EN:{OldEnchants.Count}");
+			OldEnchants.ForEach(p => str.Append(p.Hash));
 			str.Append($"][TR:{Triggers.Count}");
 			Triggers.ForEach(p => str.Append(p.Hash));
 			str.Append("]");
@@ -230,10 +234,10 @@ namespace SabberStoneCore.Model.Entities
 					for (int i = 0; i < Zone.Enchants.Count; i++)
 						value = Zone.Enchants[i].Apply(this, t, value);
 				else
-					for (int i = 0; i < Game.Enchants.Count; i++)
-						value = Game.Enchants[i].Apply(this, t, value);
-				for (int i = 0; i < Enchants.Count; i++)
-					value = Enchants[i].Apply(this, t, value);
+					for (int i = 0; i < Game.OldEnchants.Count; i++)
+						value = Game.OldEnchants[i].Apply(this, t, value);
+				for (int i = 0; i < OldEnchants.Count; i++)
+					value = OldEnchants[i].Apply(this, t, value);
 
 				return value;
 			}
@@ -277,7 +281,7 @@ namespace SabberStoneCore.Model.Entities
 		public virtual void Reset()
 		{
 			_data.Reset();
-			Enchants.Clear();
+			OldEnchants.Clear();
 			Triggers.Clear();
 		}
 

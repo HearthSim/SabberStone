@@ -223,7 +223,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					p[0].Game.Enchants.Add(
+					p[0].Game.OldEnchants.Add(
 							new Enchants.OldEnchant
 							{
 								Game = p[0].Game,

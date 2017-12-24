@@ -1293,7 +1293,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
 			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
-			Assert.Equal(1, game.CurrentPlayer.Hero.Enchants.Count);
+			Assert.Equal(1, game.CurrentPlayer.Hero.OldEnchants.Count);
 		}
 
 		// ---------------------------------------- WEAPON - HUNTER

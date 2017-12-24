@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				// work around attack buffs
-				p.Enchants.ForEach(t =>
+				p.OldEnchants.ForEach(t =>
 				{
 					if (t.Effects.ContainsKey(GameTag.ATK))
 					{

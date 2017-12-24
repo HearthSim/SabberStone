@@ -3609,7 +3609,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Second-Rate Bruiser"));
-			Assert.Equal(1, testCard.Enchants.Count);
+			Assert.Equal(1, testCard.OldEnchants.Count);
 			Assert.Equal(5, testCard.Cost);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));

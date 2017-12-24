@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				// work around health buffs
-				p.Enchants.ForEach(t =>
+				p.OldEnchants.ForEach(t =>
 				{
 					if (t.Effects.ContainsKey(GameTag.HEALTH))
 					{

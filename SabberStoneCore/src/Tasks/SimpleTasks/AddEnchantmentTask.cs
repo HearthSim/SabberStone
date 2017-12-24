@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    {
 			    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
 
-				//	should make this as a method of Enchantment
+				//	should make this as a method of Enchantment, Power or Enchant
 			    foreach (Power power in enchantment.Powers)
 			    {
 				    for (int i = 0; i < power.Enchant.Effects.Length; i++)

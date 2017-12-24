@@ -256,10 +256,10 @@ namespace SabberStoneCore.Model
 		{
 			Game = this;
 
-			for (int i = 0; i < game.Enchants.Count; i++)
+			for (int i = 0; i < game.OldEnchants.Count; i++)
 			{
-				OldEnchant p = game.Enchants[i];
-				Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers));
+				OldEnchant p = game.OldEnchants[i];
+				OldEnchants.Add(p.Copy(p.SourceId, Game, p.Turn, OldEnchants, p.Owner, p.RemoveTriggers));
 			}
 			for (int i = 0; i < game.Triggers.Count; i++)
 			{
@@ -342,14 +342,14 @@ namespace SabberStoneCore.Model
 			// add power and buff tag changes
 			if (History)
 			{
-				Enchants.ForEach(p =>
+				OldEnchants.ForEach(p =>
 					p.Effects.Keys.ToList().ForEach(t =>
 						IdEntityDic.Values.ToList().ForEach(o =>
 							PowerHistory.Add(PowerHistoryBuilder.TagChange(o.Id, t, o[t])))));
 
 				foreach (Controller controller in _players)
 				{
-					controller.Hero.Enchants.ForEach(p =>
+					controller.Hero.OldEnchants.ForEach(p =>
 						p.Effects.Keys.ToList().ForEach(t =>
 							PowerHistory.Add(PowerHistoryBuilder.TagChange(Game.CurrentPlayer.Hero.Id, t, Game.CurrentPlayer.Hero[t]))));
 
@@ -367,7 +367,7 @@ namespace SabberStoneCore.Model
 				}
 
 				Characters.ForEach(c =>
-					c.Enchants.ForEach(p =>
+					c.OldEnchants.ForEach(p =>
 						p.Effects.Keys.ToList().ForEach(t =>
 							PowerHistory.Add(PowerHistoryBuilder.TagChange(c.Id, t, c[t])))));
 			}
@@ -888,8 +888,8 @@ namespace SabberStoneCore.Model
 		public void AuraUpdate()
 		{
 			int i;
-			for (i = 0; i < Enchants.Count; i++)
-				Enchants[i].IsEnabled();
+			for (i = 0; i < OldEnchants.Count; i++)
+				OldEnchants[i].IsEnabled();
 			for (i = 0; i < Triggers.Count; i++)
 				Triggers[i].IsEnabled();
 
@@ -898,8 +898,8 @@ namespace SabberStoneCore.Model
 				for (i = 0; i < player.Triggers.Count; i++)
 					player.Triggers[i].IsEnabled();
 
-				for (i = 0; i < player.Hero.Enchants.Count; i++)
-					player.Hero.Enchants[i].IsEnabled();
+				for (i = 0; i < player.Hero.OldEnchants.Count; i++)
+					player.Hero.OldEnchants[i].IsEnabled();
 				for (i = 0; i < player.Hero.Triggers.Count; i++)
 					player.Hero.Triggers[i].IsEnabled();
 

@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					var minion = p as Minion;
 					minion.Silence();
 
-					minion.Enchants.ForEach(z => z.IsEnabled());
+					minion.OldEnchants.ForEach(z => z.IsEnabled());
 					minion.Triggers.ForEach(z => z.IsEnabled());
 				});
 

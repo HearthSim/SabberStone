@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				entities = entities.Where(p => Condition.Eval(p)).ToList();
 			}
 
-			entities.ForEach(p => Buff.Activate(source.Card.Id, p.Enchants, p));
+			entities.ForEach(p => Buff.Activate(source.Card.Id, p.OldEnchants, p));
 
 			return TaskState.COMPLETE;
 		}

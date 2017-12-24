@@ -757,18 +757,13 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant
-					{
-						Effects = new []
-						{
+					Enchant = new Enchant(
 							new Effect
 							{
 								Tag = GameTag.HEALTH,
 								Operator = EffectOperator.SET,
 								Value = 1
-							}
-						}
-					}
+							})
 				}
 			});
 
@@ -1299,18 +1294,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant
-					{
-						Effects = new []
-						{
-							new Effect
+					Enchant = new Enchant(new Effect
 							{
 								Tag = GameTag.ATK,
 								Operator = EffectOperator.SET,
 								Value = 1
-							}
-						}
-					}
+							})
 				}
 			});
 
@@ -1543,18 +1532,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant
+					Enchant = new Enchant(new Effect
 					{
-						Effects = new []
-						{
-							new Effect
-							{
-								Tag = GameTag.HEALTH,
-								Operator = EffectOperator.MUL,
-								Value = 2
-							}
-						}
-					}
+						Tag = GameTag.HEALTH,
+						Operator = EffectOperator.MUL,
+						Value = 2
+					})
 				}
 			});
 
@@ -3105,8 +3088,17 @@ namespace SabberStoneCore.CardSets.Standard
 					Trigger = new Trigger
 					{
 						TriggerType = TriggerType.DAMAGE,
-						SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE)
+						SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE),
+						RemoveAfterTriggered = true
 					}
+				}
+			});
+
+			cards.Add("EX1_399e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.Attack_N(3))
 				}
 			});
 

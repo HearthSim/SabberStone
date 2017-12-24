@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (SelfBuffs)
 			{
-				entities[0].Enchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
+				entities[0].OldEnchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
 			}
 
 			switch (_index)

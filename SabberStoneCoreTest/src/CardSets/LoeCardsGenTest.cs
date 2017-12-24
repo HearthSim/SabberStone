@@ -1570,7 +1570,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eerie Statue"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(1, testCard.Enchants.Count);
+			Assert.Equal(1, testCard.OldEnchants.Count);
 			Assert.Equal(0, testCard[GameTag.CANT_ATTACK]);
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));

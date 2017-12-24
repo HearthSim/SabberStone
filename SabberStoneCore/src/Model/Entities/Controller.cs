@@ -432,7 +432,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			var str = new StringBuilder();
 			str.Append($"{Name}[Mana:{RemainingMana}/{OverloadOwed}/{BaseMana}][{OverloadLocked}]");
-			str.Append($"[ENCH {Enchants.Count}]");
+			str.Append($"[ENCH {OldEnchants.Count}]");
 			str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
 		}

@@ -7,8 +7,18 @@ using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {
-	public class Enchantment : Entity, IPlayable
+	public class Enchantment : IPlayable
 	{
+		public Controller Controller;
+
+		public Card Card;
+
+		public int Id;
+
+		public List<Enchant> Enchants;
+
+		public Game Game;
+
 		public bool IsOneTurnActive;
 
 		public IPlayable Target { get; private set; }
