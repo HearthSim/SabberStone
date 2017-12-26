@@ -7,15 +7,15 @@ using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {
-	public class Enchantment : IPlayable
-	{
+	public class Enchantment
+	{ 
 		public Controller Controller;
 
 		public Card Card;
 
 		public int Id;
 
-		public List<Enchant> Enchants;
+		public List<string> Enchants;
 
 		public Game Game;
 
@@ -25,7 +25,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public IPlayable Creator { get; private set; }
 
-		public Enchantment(Game game, Card card, Dictionary<GameTag, int> tags) : base(game, card, tags)
+		public Enchantment(Game game, Card card, Dictionary<GameTag, int> tags) /*: base(game, card, tags)*/
 		{
 			IsOneTurnActive = card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 		}
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Model.Entities
 				Target = target
 			};
 
-			controller.Game.IdEntityDic.Add(instance.Id, instance);
+			//controller.Game.IdEntityDic.Add(instance.Id, instance);
 
 			if (controller.Game.History)
 			{
@@ -97,7 +97,7 @@ namespace SabberStoneCore.Model.Entities
 				});
 			}
 
-			instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
+			//instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			//	323 = 1
 
 			return instance;

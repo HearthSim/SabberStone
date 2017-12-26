@@ -63,6 +63,19 @@ namespace SabberStoneCore.Model.Entities
 			CantBeTargetedBySpells = false;
 			//IsImmune = false;
 
+			OngoingEffect = null;
+
+			AttackDamage = Card[GameTag.ATK];
+			if (Health > Card[GameTag.HEALTH])
+			{
+				Health = Card[GameTag.HEALTH];
+			}
+			else
+			{
+				this[GameTag.HEALTH] = Card[GameTag.HEALTH];
+			}
+
+
 			IsSilenced = true;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", !Game.Logging? "":$"{this} got silenced!");

@@ -13,7 +13,7 @@ namespace SabberStoneCore.CardSets.Standard
 	/// <summary>
 	/// Core cardset.
 	/// </summary>
-	public class CoreCardsGen
+	public static class CoreCardsGen
 	{
 		private static void Heroes(IDictionary<string, List<Power>> cards)
 		{
@@ -129,13 +129,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_017", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_017o",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = ComplexTask.Create(
+				//		new ArmorTask(1),
+				//		new BuffTask(Buffs.AttackTurn(1), EntityType.HERO))
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_017o",
-					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new ArmorTask(1),
-						new BuffTask(Buffs.AttackTurn(1), EntityType.HERO))
+					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_017o"), EntityType.HERO)
 				}
 			});
 
@@ -3089,7 +3093,6 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						TriggerType = TriggerType.DAMAGE,
 						SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE),
-						RemoveAfterTriggered = true
 					}
 				}
 			});
@@ -3098,7 +3101,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant(Effects.Attack_N(3))
+					Enchant = new OngoingEffect(Effects.Attack_N(3))
 				}
 			});
 

@@ -24,16 +24,16 @@ namespace SabberStoneCore.Enchants
 
 			if (attackHealth.Success)
 			{
-				effects.Add(Effects.Attack_N(Int32.Parse(attackHealth.Captures[0].Value)));
-				effects.Add(Effects.Health_N(Int32.Parse(attackHealth.Captures[1].Value)));
+				effects.Add(Effects.Attack_N(Int32.Parse(attackHealth.Groups[1].Value)));
+				effects.Add(Effects.Health_N(Int32.Parse(attackHealth.Groups[2].Value)));
 			}
 		    else if (attack.Success)
 		    {
-			    effects.Add(Effects.Attack_N(Int32.Parse(attack.Captures[0].Value)));
+			    effects.Add(Effects.Attack_N(Int32.Parse(attack.Groups[1].Value)));
 		    }
 		    else if (health.Success)
 		    {
-			    effects.Add(Effects.Health_N(Int32.Parse(attack.Captures[0].Value)));
+			    effects.Add(Effects.Health_N(Int32.Parse(health.Groups[1].Value)));
 		    }
 
 		    if (text.Contains(@"<b>Taunt</b>"))

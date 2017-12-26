@@ -25,22 +25,33 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    foreach (IPlayable entity in entities)
 		    {
-			    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
+			 //   if (entity.ZONE = ZONE.PLAY && Game.History)
+			 //   {
+				//    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+				//	//enchantment.
+				//}
 
-				//	should make this as a method of Enchantment, Power or Enchant
-			    foreach (Power power in enchantment.Powers)
+			    foreach (Power power in _enchantmentCard.Powers)
 			    {
-				    for (int i = 0; i < power.Enchant.Effects.Length; i++)
-					    power.Enchant.Effects[i].Apply(entity);
-			    }
-		    }
+				    if (power.Enchant is OngoingEffect && entity.OngoingEffect != null)
+				    {
+					    entity.OngoingEffect.Count++;
+				    }
+					else
+					{
+						power.Enchant.ActivateTo(entity);
+						entity.Enchants.Add(_enchantmentCard.Id);
+					}
+				}
+			}
 
 			return TaskState.COMPLETE;
 	    }
 
 		public override ISimpleTask Clone()
 		{
-			throw new NotImplementedException();
+			var clone = new AddEnchantmentTask(_enchantmentCard, _entityType);
+			return clone;
 		}
 	}
 }

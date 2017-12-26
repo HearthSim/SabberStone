@@ -9,36 +9,99 @@ namespace SabberStoneCore.Enchants
 {
     public class Enchant
     {
+		public Game Game;
 	    public string EnchantmentId;
 		public Controller Controller;
+	    public int ControllerId;
 	    public int TargetId;
 	    public Effect[] Effects;
-		public Trigger UpdateTrigger;
-	    public bool IsStacking;
+		//public Trigger UpdateTrigger;
+	    //public bool IsStacking;
 
 		private IPlayable Target;
 
-	    internal int Count = 1;
-
 		public Enchant() { }
 
-	    public Enchant(Effect effect, bool isStacking = false)
+	    public Enchant(Effect effect)
 	    {
 		    Effects = new[] {effect};
-			IsStacking = isStacking;
 	    }
 
-	    public void ActivateTo(IPlayable entity)
+	    public virtual void ActivateTo(IEntity entity)
 	    {
-		    if (!IsStacking || !entity.Enchants.Contains(EnchantmentId))
-			    entity.Enchants.Add(EnchantmentId);
-
 		    for (int i = 0; i < Effects.Length; i++)
 			    Effects[i].Apply(entity);
 	    }
-
-
     }
+
+	public class OngoingEffect : Enchant
+	{
+		private int _count;
+		private int _targetId;
+		private IEntity _target;
+		public TriggerType UpdateTrigger;
+
+
+		public int Count
+		{
+			get => _count;
+			set
+			{
+				_count = value;
+				ToBeUpdated = true;
+			}
+		}
+
+		public IEntity Target
+		{
+			get => _target ?? (_target = Game.IdEntityDic[_targetId]);
+			set
+			{
+				_targetId = value.Id;
+				_target = value;
+			}
+		}
+
+		public bool ToBeUpdated { get; internal set; }
+
+		public OngoingEffect(Effect effect, TriggerType updateTrigger = TriggerType.NONE) : base(effect)
+		{
+			UpdateTrigger = updateTrigger;
+		}
+
+		private OngoingEffect(OngoingEffect ongoingEffect)
+		{
+			Effects = ongoingEffect.Effects;
+			UpdateTrigger = ongoingEffect.UpdateTrigger;
+		}
+
+		public override void ActivateTo(IEntity entity)
+		{
+			var instance = new OngoingEffect(this)
+			{
+				Game = entity.Game,
+				Controller = entity.Controller,
+				ControllerId = entity.Controller.Id,
+				Target = entity
+			};
+			entity.OngoingEffect = instance;
+			entity.Game.Auras.Add(instance);
+
+			base.ActivateTo(entity);
+		}
+
+		public void Update()
+		{
+			if (!ToBeUpdated) return;
+
+			base.ActivateTo(Target);
+		}
+	}
+
+	public enum AuraType
+	{
+		NONE, SELF, ADJACENT, ALL, EXCEPT_SOURCE
+	}
 
 	public struct Effect
 	{
@@ -46,23 +109,42 @@ namespace SabberStoneCore.Enchants
 		public EffectOperator Operator;
 		public int Value;
 
-		public void Apply(IPlayable playable)
+		public void Apply(IEntity entity)
 		{
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
-					playable[Tag] += Value;
+					entity[Tag] += Value;
 					return;
 				case EffectOperator.SUB:
-					playable[Tag] -= Value;
-					if (playable[Tag] < 0)
-						playable[Tag] = 0;
+					entity[Tag] -= Value;
+					if (entity[Tag] < 0)
+						entity[Tag] = 0;
 					return;
 				case EffectOperator.MUL:
-					playable[Tag] *= Value;
+					entity[Tag] *= Value;
 					return;
 				case EffectOperator.SET:
-					playable[Tag] = Value;
+					if (entity[Tag] != Value)
+						entity[Tag] = Value;
+					return;
+			}
+		}
+
+		public void Remove(IEntity entity)
+		{
+			switch (Operator)
+			{
+				case EffectOperator.ADD:
+					entity[Tag] -= Value;
+					return;
+				case EffectOperator.SUB:
+					entity[Tag] += Value;
+					return;
+				case EffectOperator.MUL:
+					throw new NotImplementedException();
+				case EffectOperator.SET:
+					entity[Tag] = 0;
 					return;
 			}
 		}

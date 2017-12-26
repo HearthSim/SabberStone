@@ -2049,7 +2049,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_240", new List<Power> {
-				// TODO [ICC_240] Runeforge Haunter && Test: Runeforge Haunter_ICC_240
 				new Power
 				{
 					InfoCardId = "ICC_240e",

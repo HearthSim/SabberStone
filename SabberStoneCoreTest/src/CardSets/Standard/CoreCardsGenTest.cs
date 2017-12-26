@@ -5621,27 +5621,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gurubashi Berserker"));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, (ICharacter)minion1));
+			Minion minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gurubashi Berserker"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(2, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(2, minion1.AttackDamage);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(5, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(5, minion1.AttackDamage);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(8, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(8, minion1.AttackDamage);
 
-			((ICharacter)minion1).IsSilenced = true;
+			minion1.Silence();
 
-			Assert.Equal(2, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(2, minion1.AttackDamage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -46,19 +46,26 @@ namespace SabberStoneCore.Actions
 				{
 					source.CardTarget = target.Id;
 				}
-				if (source is Hero)
+
+				foreach (Power power in source.Card.Powers)
 				{
-					PlayHero.Invoke(c, (Hero)source, target);
+					if (power.Trigger.TriggerActivation == TriggerActivation.PLAY)
+						power.Trigger.Activate(c.Game, source.Id);
 				}
-				else if (source is Minion)
+
+				if (source is Hero hero)
 				{
-					PlayMinion.Invoke(c, (Minion)source, target, zonePosition);
+					PlayHero.Invoke(c, hero, target);
 				}
-				else if (source is Weapon)
+				else if (source is Minion minion)
+				{
+					PlayMinion.Invoke(c, minion, target, zonePosition);
+				}
+				else if (source is Weapon weapon)
 				{
 					// - OnPlay Phase --> OnPlay Trigger (Illidan)
 					//   (death processing, aura updates)
-					OnPlayTrigger.Invoke(c, (Weapon)source);
+					OnPlayTrigger.Invoke(c, weapon);
 
 					if (!RemoveFromZone.Invoke(c, source))
 						return false;

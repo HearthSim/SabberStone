@@ -80,7 +80,6 @@ namespace SabberStoneCore.Model
 
 		public TaskState Process()
 		{
-
 			CurrentTask = FirstByOrderOfPlay(TaskList);
 
 			TaskList.Remove(CurrentTask);
