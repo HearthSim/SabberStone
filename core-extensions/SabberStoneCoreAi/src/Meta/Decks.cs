@@ -346,5 +346,17 @@ namespace SabberStoneCoreAi.Meta
 			Cards.FromName("Sylvanas Windrunner"),
 			Cards.FromName("Alexstrasza")
 		};
+
+		public static List<Card> DebugDeck => new List<Card>()
+		{
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+			Cards.FromName("No Way!"),
+		};
 	}
 }
