@@ -50,7 +50,6 @@ namespace SabberStoneCoreAi.POGame
 			Game game = new Game(gameConfig, setupHeroes);
 			AbstractAgent currentAgent;
 			Stopwatch currentStopwatch;
-			Controller lastController = null;
 			PartialObservationGame poGame;
 			Stopwatch[] watches = new[] {new Stopwatch(), new Stopwatch()};
 			
