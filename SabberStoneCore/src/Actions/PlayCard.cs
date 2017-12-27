@@ -47,11 +47,15 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 				}
 
-				foreach (Power power in source.Card.Powers)
+				if (source.Card.Powers != null)
 				{
-					if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-						power.Trigger.Activate(c.Game, source.Id);
+					foreach (Power power in source.Card.Powers)
+					{
+						if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+							power.Trigger.Activate(c.Game, source.Id);
+					}
 				}
+
 
 				if (source is Hero hero)
 				{

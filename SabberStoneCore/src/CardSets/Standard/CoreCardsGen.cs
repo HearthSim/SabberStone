@@ -298,13 +298,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_005", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_005o",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = ComplexTask.Create(
+				//		new ArmorTask(2),
+				//		new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_005o",
 					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ArmorTask(2),
-						new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
+						new AddEnchantmentTask(Cards.FromId("CS2_005o"), EntityType.HERO))
 				}
 			});
 
@@ -360,13 +367,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_009", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_009e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = ComplexTask.Create(
+				//		ComplexTask.Taunt(EntityType.TARGET),
+				//		new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET))
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_009e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						ComplexTask.Taunt(EntityType.TARGET),
-						new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET))
+					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_009e"), EntityType.TARGET)
 				}
 			});
 
@@ -378,11 +390,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_011", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_011o",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = new BuffTask(Buffs.AttackTurn(2), EntityType.FRIENDS)
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_011o",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackTurn(2), EntityType.FRIENDS)
+					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_011o"), EntityType.FRIENDS)
 				}
 			});
 
@@ -476,7 +493,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_005o")
+					Enchant = GetAutoEnchantFromText("CS2_005o"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
 				}
 			});
 
@@ -490,7 +508,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_005o")
+					Enchant = GetAutoEnchantFromText("CS2_009e")
 				}
 			});
 
@@ -507,7 +525,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_011o")
+					Enchant = GetAutoEnchantFromText("CS2_011o"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
 				}
 			});
 
@@ -555,16 +574,26 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_237", new List<Power>
 			{
+				//new Power
+				//{
+				//	Area = PowerArea.BOARD,
+				//	Activation = PowerActivation.BOARD_ZONE,
+				//	OldTrigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
+				//		.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
+				//		.TriggerEffect(GameTag.SUMMONED, 1)
+				//		.SingleTask(new DrawTask())
+				//		.Build()
+				//}
 				new Power
 				{
-					Area = PowerArea.BOARD,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsSameRace)
-						.TriggerEffect(GameTag.SUMMONED, 1)
-						.SingleTask(new DrawTask())
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerSource = TriggerSource.MINIONS_EXCEPT_SELF,
+						TriggerType = TriggerType.SUMMON,
+						Condition = SelfCondition.IsRace(Race.BEAST),
+						SingleTask = new DrawTask()
+					}
 				}
 			});
 
@@ -587,13 +616,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("DS1_070", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "DS1_070o",
+				//	Area = PowerArea.TARGET,
+				//	Activation = PowerActivation.BATTLECRY,
+				//	SingleTask = ComplexTask.Taunt(EntityType.TARGET),
+				//	OldEnchant = Buffs.AttackHealth(2)
+				//}
 				new Power
 				{
-					InfoCardId = "DS1_070o",
-					Area = PowerArea.TARGET,
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-					OldEnchant = Buffs.AttackHealth(2)
+					SingleTask = new AddEnchantmentTask(Cards.FromId("DS1_070o"), EntityType.TARGET)
 				}
 			});
 
@@ -1998,7 +2032,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_045e")
+					Enchant = GetAutoEnchantFromText("CS2_045e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
 				}
 			});
 
@@ -2015,7 +2050,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_046e")
+					Enchant = GetAutoEnchantFromText("CS2_046e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
 				}
 			});
 
@@ -2522,7 +2558,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_105e", null);
+			cards.Add("CS2_105e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.Attack_N(4)),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_084e] Charge (*) - COST:0

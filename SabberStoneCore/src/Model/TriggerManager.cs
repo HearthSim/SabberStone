@@ -14,14 +14,21 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler EndTurnTrigger;
 
-	    public void OnDamage(IEntity sender)
+	    public event TriggerHandler SummonTrigger;
+
+	    public void OnDamageTrigger(IEntity sender)
 	    {
 		    DamageTrigger?.Invoke(sender);
 	    }
 
-	    public void OnEndTurn(IEntity sender)
+	    public void OnEndTurnTrigger(IEntity sender)
 	    {
 		    EndTurnTrigger?.Invoke(sender);
+	    }
+
+	    public void OnSummonTrigger(IEntity sender)
+	    {
+		    SummonTrigger?.Invoke(sender);
 	    }
     }
 }

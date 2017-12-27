@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Conditions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
@@ -14,7 +16,7 @@ namespace SabberStoneCore.Enchants
 
 	public enum TriggerSource
 	{
-		GAME, SELF, MINIONS, OP_MINIONS, ALL_MINIONS, HERO, OP_HERO, ALL_CHARACTERS, SPELLS
+		GAME, SELF, MINIONS, MINIONS_EXCEPT_SELF, OP_MINIONS, ALL_MINIONS, HERO, OP_HERO, ALL_CHARACTERS, SPELLS
 	}
 
 	public enum TriggerActivation
@@ -31,6 +33,7 @@ namespace SabberStoneCore.Enchants
 	    public TriggerType TriggerType;
 		public TriggerSource TriggerSource;
 		public ISimpleTask SingleTask;
+	    public SelfCondition Condition;
 	    public bool FastExecution;
 	    public bool RemoveAfterTriggered;
 
@@ -46,10 +49,19 @@ namespace SabberStoneCore.Enchants
 				case TriggerSource.SELF:
 					if (source.Id != SourceId) return;
 					break;
-				//case TriggerSource.MINIONS:
+				case TriggerSource.MINIONS_EXCEPT_SELF:
+					if (!(source is Minion) || source.Id == SourceId || source.Zone.Type != Zone.PLAY)
+						return;
+					break;
 		    }
 
-		    var taskInstance = SingleTask.Clone();
+		    if (Condition != null)
+		    {
+				if (!Condition.Eval((IPlayable)source))
+					return;
+		    }
+
+		    ISimpleTask taskInstance = SingleTask.Clone();
 			taskInstance.Game = Game;
 			taskInstance.Controller = Source.Controller;
 			taskInstance.Source = Source;
@@ -66,22 +78,33 @@ namespace SabberStoneCore.Enchants
 			    Remove();
 	    }
 
-	    public void Activate(Game game, int sourceID)
+	    public void Activate(Game game, int sourceId)
 	    {
-			Game = game;
-		    SourceId = sourceID;
+		    var instance = new Trigger()
+		    {
+			    Game = game,
+			    SourceId = sourceId,
+				TriggerType = TriggerType,
+				TriggerSource = TriggerSource,
+				Condition = Condition,
+				SingleTask = SingleTask,
+				FastExecution = FastExecution,
+				RemoveAfterTriggered = RemoveAfterTriggered,
+		    };
+
 
 		    switch (TriggerType)
 		    {
 			    case TriggerType.DAMAGE:
-				    game.TriggerManager.DamageTrigger += Process;
+				    game.TriggerManager.DamageTrigger += instance.Process;
 				    break;
-				case TriggerType.TURN_END:
-					game.TriggerManager.EndTurnTrigger += Process;
-					break;
+			    case TriggerType.TURN_END:
+				    game.TriggerManager.EndTurnTrigger += instance.Process;
+				    break;
+			    case TriggerType.SUMMON:
+				    game.TriggerManager.SummonTrigger += instance.Process;
+				    break;
 		    }
-
-		    //Source.Triggers.Add(this);
 	    }
 
 	    public void Remove()
@@ -94,9 +117,10 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.TURN_END:
 				    Game.TriggerManager.EndTurnTrigger -= Process;
 				    break;
+			    case TriggerType.SUMMON:
+				    Game.TriggerManager.SummonTrigger -= Process;
+				    break;
 			}
-
-		    //Source.Triggers.Remove(this);
 	    }
     }
 }

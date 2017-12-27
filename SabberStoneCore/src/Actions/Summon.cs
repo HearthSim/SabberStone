@@ -35,7 +35,8 @@ namespace SabberStoneCore.Actions
 		private static Action<Controller, Minion> AfterSummonTrigger
 			=> delegate (Controller c, Minion minion)
 			{
-				minion.IsSummoned = true;
+				//minion.IsSummoned = true;
+				c.Game.TriggerManager.OnSummonTrigger(minion);
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}

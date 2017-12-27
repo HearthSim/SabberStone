@@ -191,7 +191,15 @@ namespace SabberStoneCore.Model.Entities
 		public bool HasDeathrattle { get; set; }
 		public bool HasLifeSteal { get; set; }
 		public IPlayable[] ChooseOnePlayables { get; set; }
-		public List<Power> Powers { get; set; }
+
+		public List<Power> Powers
+		{
+			get => Card.Powers;
+			set
+			{
+				return;
+			}
+		}
 		public IPlayable Clone(Controller controller)
 		{
 			throw new NotImplementedException();

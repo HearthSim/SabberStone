@@ -12,9 +12,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    {
 		    if (Source is Enchantment enchantment)
 			    foreach (Effect effect in enchantment.EffectsToBeRemoved)
-			    {
 				    effect.Remove(enchantment.Target);
-			    }
 		    else
 			    throw new NotImplementedException();
 
@@ -23,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override ISimpleTask Clone()
 	    {
-			return this;
+		    return new RemoveEnchantmentTask();
 	    }
     }
 }

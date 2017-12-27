@@ -700,7 +700,7 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.TurnStart = false;
 
-			TriggerManager.OnEndTurn(this);
+			TriggerManager.OnEndTurnTrigger(this);
 
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = true;
