@@ -23,7 +23,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Initial cards that are in the deck of the controller.
 		/// </summary>
-		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+		public List<Card> DeckCards { get;  set; } = new List<Card>();
 
 		/// <summary>
 		/// Base class of the controller.
