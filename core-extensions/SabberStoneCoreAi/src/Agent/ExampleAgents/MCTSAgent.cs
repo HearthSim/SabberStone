@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Tasks;
+using SabberStoneCoreAi.POGame;
 using SabberStoneCoreAi.src.POGame;
 
-namespace SabberStoneCoreAi.src.Agent.ExampleAgents
+namespace SabberStoneCoreAi.Agent
 {
 	class MCTSAgent : AbstractAgent
 	{
