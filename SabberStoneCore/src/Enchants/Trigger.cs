@@ -9,12 +9,12 @@ namespace SabberStoneCore.Enchants
 {
 	public enum TriggerType
 	{
-		NONE, DEATH, INSPIRE, DAMAGE, ATTACK, SUMMON,
+		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, ATTACK, SUMMON,
 	}
 
 	public enum TriggerSource
 	{
-		SELF, MINIONS, OP_MINIONS, ALL_MINIONS, HERO, OP_HERO, ALL_CHARACTERS, SPELLS
+		GAME, SELF, MINIONS, OP_MINIONS, ALL_MINIONS, HERO, OP_HERO, ALL_CHARACTERS, SPELLS
 	}
 
 	public enum TriggerActivation
@@ -76,6 +76,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.DAMAGE:
 				    game.TriggerManager.DamageTrigger += Process;
 				    break;
+				case TriggerType.TURN_END:
+					game.TriggerManager.EndTurnTrigger += Process;
+					break;
 		    }
 
 		    //Source.Triggers.Add(this);
@@ -83,14 +86,15 @@ namespace SabberStoneCore.Enchants
 
 	    public void Remove()
 	    {
-		    TriggerManager manager = Game.TriggerManager;
-
 			switch (TriggerType)
 		    {
 				case TriggerType.DAMAGE:
-					manager.DamageTrigger -= Process;
+					Game.TriggerManager.DamageTrigger -= Process;
 					break;
-		    }
+			    case TriggerType.TURN_END:
+				    Game.TriggerManager.EndTurnTrigger -= Process;
+				    break;
+			}
 
 		    //Source.Triggers.Remove(this);
 	    }

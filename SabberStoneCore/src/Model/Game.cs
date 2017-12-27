@@ -699,6 +699,9 @@ namespace SabberStoneCore.Model
 				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
 
 			CurrentPlayer.TurnStart = false;
+
+			TriggerManager.OnEndTurn(this);
+
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = true;
 			DeathProcessingAndAuraUpdate();

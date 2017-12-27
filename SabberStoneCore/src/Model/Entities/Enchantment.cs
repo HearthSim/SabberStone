@@ -1,34 +1,35 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Model.Entities
 {
-	public class Enchantment
-	{ 
-		public Controller Controller;
-
-		public Card Card;
-
-		public int Id;
-
-		public List<string> Enchants;
-
-		public Game Game;
+	public partial class Enchantment : IPlayable
+	{
+		private readonly Dictionary<GameTag, int> _tags;
 
 		public bool IsOneTurnActive;
+
+
+		public Enchantment(Game game, Card card, Dictionary<GameTag, int> tags)
+		{
+			Game = game;
+			Card = card;
+			_tags = tags;
+			IsOneTurnActive = card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
+			Id = tags[GameTag.ENTITY_ID];
+		}
 
 		public IPlayable Target { get; private set; }
 
 		public IPlayable Creator { get; private set; }
 
-		public Enchantment(Game game, Card card, Dictionary<GameTag, int> tags) /*: base(game, card, tags)*/
-		{
-			IsOneTurnActive = card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
-		}
+		public Effect[] EffectsToBeRemoved { get; set; }
 
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IPlayable target, Card card)
 		{
@@ -43,10 +44,11 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Controller = controller,
 				Creator = creator,
-				Target = target
+				Target = target,
+
 			};
 
-			//controller.Game.IdEntityDic.Add(instance.Id, instance);
+			controller.Game.IdEntityDic.Add(instance.Id, (IPlayable)instance);
 
 			if (controller.Game.History)
 			{
@@ -107,26 +109,80 @@ namespace SabberStoneCore.Model.Entities
 		{
 
 		}
+		public ComplexEffects CostEffects { get; }
+	}
 
+	public partial class Enchantment
+	{
+
+		public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		public int Id { get; }
+		public int OrderOfPlay { get; set; }
+		public Game Game { get; set; }
+		public Card Card { get; }
+
+		public Controller Controller { get; set; }
+		public IZone Zone { get; set; }
+
+		public int this[GameTag t]
+		{
+			get => _tags[t];
+			set => _tags[t] = value;
+		}
+
+		public void Reset()
+		{
+			_tags.Clear();
+		}
+
+		public void Stamp(Entity entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public string Hash(params GameTag[] ignore)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<OldEnchant> OldEnchants { get; }
+		public OngoingEffect OngoingEffect { get; set; }
+		public List<OldTrigger> Triggers { get; }
 		public IEnumerable<ICharacter> ValidPlayTargets { get; }
 		public bool IsValidPlayTarget(ICharacter target)
 		{
 			throw new NotImplementedException();
 		}
 
+		public bool ChooseOne { get; set; }
 		public bool IsPlayable { get; }
 		public bool IsPlayableByPlayer { get; }
 		public bool IsPlayableByCardReq { get; }
+		public bool IsIgnoreDamage { get; set; }
+		public bool Combo { get; }
+		public int Cost { get; set; }
+		public int NumTurnsInPlay { get; set; }
 		public void Destroy()
 		{
 			throw new NotImplementedException();
 		}
 
+		public bool ToBeDestroyed { get; set; }
 		public void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null)
 		{
 			throw new NotImplementedException();
 		}
 
+		public int CardTarget { get; set; }
 		public int ZonePosition { get; set; }
 		public bool JustPlayed { get; set; }
 		public bool IsSummoned { get; set; }

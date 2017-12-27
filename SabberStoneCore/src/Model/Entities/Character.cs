@@ -225,7 +225,7 @@ namespace SabberStoneCore.Model.Entities
 			LastAffectedBy = source.Id;
 
 			// broadcast damaging trigger
-			Game.TriggerManager.OnDamageTriggered(this);
+			Game.TriggerManager.OnDamage(this);
 
 			return tookDamage;
 		}

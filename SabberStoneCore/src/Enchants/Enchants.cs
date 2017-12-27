@@ -17,6 +17,7 @@ namespace SabberStoneCore.Enchants
 	    {
 			string text = Cards.FromId(cardId).Text;
 		    var effects = new List<Effect>();
+			bool oneTurn = false;
 
 		    Match attackHealth = AttackHealth.Match(text);
 		    Match attack = Attack.Match(text);
@@ -51,9 +52,15 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(Effects.Charge);
 		    }
 
-		    return new Enchant
+		    if (text.Contains("this turn"))
 		    {
-			    Effects = effects.ToArray()
+				oneTurn = true;
+		    }
+
+			return new Enchant
+			{
+				Effects = effects.ToArray(),
+				IsOneTurnEffect = oneTurn
 		    };
 
 		    throw new Exception();
@@ -64,43 +71,18 @@ namespace SabberStoneCore.Enchants
 	{
 		internal static Effect Attack_N(int n)
 		{
-			return new Effect
-			{
-				Tag = GameTag.ATK,
-				Operator = EffectOperator.ADD,
-				Value = n
-			};
+			return new Effect(GameTag.ATK, EffectOperator.ADD, n);
 		}
 
 		internal static Effect Health_N(int n)
 		{
-			return new Effect
-			{
-				Tag = GameTag.HEALTH,
-				Operator = EffectOperator.ADD,
-				Value = n
-			};
+			return new Effect(GameTag.HEALTH, EffectOperator.ADD, n);
 		}
 
-		internal static Effect Taunt => new Effect
-		{
-			Tag = GameTag.TAUNT,
-			Operator = EffectOperator.SET,
-			Value = 1
-		};
+		internal static Effect Taunt => new Effect(GameTag.TAUNT, EffectOperator.SET, 1);
 
-		internal static Effect Windfury => new Effect
-		{
-			Tag = GameTag.WINDFURY,
-			Operator = EffectOperator.SET,
-			Value = 1
-		};
+		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 
-		internal static Effect Charge => new Effect
-		{
-			Tag = GameTag.CHARGE,
-			Operator = EffectOperator.SET,
-			Value = 1
-		};
+		internal static Effect Charge => new Effect(GameTag.CHARGE, EffectOperator.SET, 1);
 	}
 }

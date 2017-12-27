@@ -25,22 +25,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    foreach (IPlayable entity in entities)
 		    {
-			 //   if (entity.ZONE = ZONE.PLAY && Game.History)
-			 //   {
-				//    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
-				//	//enchantment.
-				//}
 
-			    foreach (Power power in _enchantmentCard.Powers)
-			    {
-				    if (power.Enchant is OngoingEffect && entity.OngoingEffect != null)
+				Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+
+				foreach (Power power in _enchantmentCard.Powers)
+				{
+					power.Trigger?.Activate(Game, enchantment.Id);
+
+					if (power.Enchant is OngoingEffect && entity.OngoingEffect != null)
 				    {
 					    entity.OngoingEffect.Count++;
 				    }
 					else
 					{
-						power.Enchant.ActivateTo(entity);
-						entity.Enchants.Add(_enchantmentCard.Id);
+						power.Enchant.ActivateTo(entity, enchantment);
 					}
 				}
 			}

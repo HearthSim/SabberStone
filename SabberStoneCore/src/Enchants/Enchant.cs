@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
@@ -7,7 +8,90 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-    public class Enchant
+	public enum AuraType
+	{
+		NONE, SELF, ADJACENT, ALL, EXCEPT_SOURCE
+	}
+
+	public enum EffectOperator
+	{
+		ADD, SUB, MUL, SET
+	}
+
+	public struct Effect : IEquatable<Effect>
+	{
+		public readonly GameTag Tag;
+		public readonly EffectOperator Operator;
+		public readonly int Value;
+
+		public Effect(GameTag tag, EffectOperator @operator, int value)
+		{
+			Tag = tag;
+			Operator = @operator;
+			Value = value;
+		}
+
+		public void Apply(IEntity entity)
+		{
+			switch (Operator)
+			{
+				case EffectOperator.ADD:
+					entity[Tag] += Value;
+					return;
+				case EffectOperator.SUB:
+					entity[Tag] -= Value;
+					return;
+				case EffectOperator.MUL:
+					entity[Tag] *= Value;
+					return;
+				case EffectOperator.SET:
+					entity[Tag] = Value;
+					return;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public void Remove(IEntity entity)
+		{
+			switch (Operator)
+			{
+				case EffectOperator.ADD:
+					entity[Tag] -= Value;
+					return;
+				case EffectOperator.SUB:
+					entity[Tag] += Value;
+					return;
+				case EffectOperator.SET:
+					entity[Tag] = 0;
+					return;
+			}
+		}
+
+		public bool Equals(Effect other)
+		{
+			return Tag == other.Tag && Operator == other.Operator && Value == other.Value;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is null) return false;
+			return obj is Effect effect && Equals(effect);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = (int) Tag;
+				hashCode = (hashCode * 397) ^ (int) Operator;
+				hashCode = (hashCode * 397) ^ Value;
+				return hashCode;
+			}
+		}
+	}
+
+	public class Enchant
     {
 		public Game Game;
 	    public string EnchantmentId;
@@ -15,22 +99,38 @@ namespace SabberStoneCore.Enchants
 	    public int ControllerId;
 	    public int TargetId;
 	    public Effect[] Effects;
-		//public Trigger UpdateTrigger;
-	    //public bool IsStacking;
-
 		private IPlayable Target;
+	    //private bool _oneTurnEffect;
 
 		public Enchant() { }
+
+	    //public Enchant(Effect effect)
+	    //{
+		   // Effects = new[] {effect};
+	    //}
+
+	    public Enchant(GameTag tag, EffectOperator @operator, int value)
+	    {
+		    Effects = new[] {new Effect(tag, @operator, value)};
+	    }
 
 	    public Enchant(Effect effect)
 	    {
 		    Effects = new[] {effect};
 	    }
 
-	    public virtual void ActivateTo(IEntity entity)
+
+		public bool IsOneTurnEffect { get; set; }
+
+		public virtual void ActivateTo(IEntity entity, Enchantment enchantment)
 	    {
 		    for (int i = 0; i < Effects.Length; i++)
+		    {
 			    Effects[i].Apply(entity);
+		    }
+
+		    if (IsOneTurnEffect)
+			    enchantment.EffectsToBeRemoved = Effects;
 	    }
     }
 
@@ -75,7 +175,7 @@ namespace SabberStoneCore.Enchants
 			UpdateTrigger = ongoingEffect.UpdateTrigger;
 		}
 
-		public override void ActivateTo(IEntity entity)
+		public override void ActivateTo(IEntity entity, Enchantment enchantment)
 		{
 			var instance = new OngoingEffect(this)
 			{
@@ -87,71 +187,64 @@ namespace SabberStoneCore.Enchants
 			entity.OngoingEffect = instance;
 			entity.Game.Auras.Add(instance);
 
-			base.ActivateTo(entity);
+			base.ActivateTo(entity, enchantment);
 		}
 
 		public void Update()
 		{
 			if (!ToBeUpdated) return;
 
-			base.ActivateTo(Target);
+			base.ActivateTo(Target, null);
 		}
 	}
 
-	public enum AuraType
+	public class ComplexEffects : ICollection<Effect>
 	{
-		NONE, SELF, ADJACENT, ALL, EXCEPT_SOURCE
-	}
+		private readonly GameTag _tag;
 
-	public struct Effect
-	{
-		public GameTag Tag;
-		public EffectOperator Operator;
-		public int Value;
+		private readonly List<Effect> _effects = new List<Effect>();
 
-		public void Apply(IEntity entity)
+		public ComplexEffects(GameTag tag)
 		{
-			switch (Operator)
-			{
-				case EffectOperator.ADD:
-					entity[Tag] += Value;
-					return;
-				case EffectOperator.SUB:
-					entity[Tag] -= Value;
-					if (entity[Tag] < 0)
-						entity[Tag] = 0;
-					return;
-				case EffectOperator.MUL:
-					entity[Tag] *= Value;
-					return;
-				case EffectOperator.SET:
-					if (entity[Tag] != Value)
-						entity[Tag] = Value;
-					return;
-			}
+			_tag = tag;
 		}
 
-		public void Remove(IEntity entity)
+		public void Add(Effect effect)
 		{
-			switch (Operator)
-			{
-				case EffectOperator.ADD:
-					entity[Tag] -= Value;
-					return;
-				case EffectOperator.SUB:
-					entity[Tag] += Value;
-					return;
-				case EffectOperator.MUL:
-					throw new NotImplementedException();
-				case EffectOperator.SET:
-					entity[Tag] = 0;
-					return;
-			}
+			_effects.Add(effect);
 		}
-	}
 
-	public enum EffectOperator
-	{
-		ADD, SUB, MUL, SET
+		public void Clear()
+		{
+			_effects.Clear();
+		}
+
+		public bool Contains(Effect item)
+		{
+			return _effects.Contains(item);
+		}
+
+		public void CopyTo(Effect[] array, int arrayIndex)
+		{
+			_effects.CopyTo(array, arrayIndex);
+		}
+
+		public bool Remove(Effect item)
+		{
+			return _effects.Remove(item);
+		}
+
+		public int Count => _effects.Count;
+		public bool IsReadOnly => false;
+
+		public IEnumerator<Effect> GetEnumerator()
+		{
+			return _effects.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
 	}
 }

@@ -145,6 +145,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
 		/// <returns></returns>
 		IPlayable Clone(Controller controller);
+
+		ComplexEffects CostEffects { get; }
 	}
 
 	/// <summary>
@@ -450,6 +452,33 @@ namespace SabberStoneCore.Model.Entities
 	public abstract partial class Playable<T>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		private int _nativeCost = -1;
+		private int _enchantCostVariation;
+		private ComplexEffects _costEffects;
+
+		public ComplexEffects CostEffects => _costEffects ?? (_costEffects = new ComplexEffects(GameTag.COST));
+
+		public int Cost
+		{
+			get
+			{
+				if (_nativeCost < 0)
+					if (!Card.Tags.TryGetValue(GameTag.COST, out _nativeCost))
+						return -1;
+
+				//if (_enchantCostVariation)
+
+				int cost = _nativeCost + _enchantCostVariation;
+				return cost > 0 ? cost : 0;
+			}
+			set
+			{
+				_nativeCost = value;
+				if (Game.History)
+					this[GameTag.COST] = value;
+			}
+		}
+
 		public int ZonePosition
 		{
 			//get { return this[GameTag.ZONE_POSITION] - 1; }

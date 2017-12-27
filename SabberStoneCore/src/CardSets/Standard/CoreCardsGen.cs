@@ -139,7 +139,10 @@ namespace SabberStoneCore.CardSets.Standard
 				//}
 				new Power
 				{
-					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_017o"), EntityType.HERO)
+					Activation = PowerActivation.SPELL,
+					SingleTask = ComplexTask.Create(
+						new ArmorTask(1),
+						new AddEnchantmentTask(Cards.FromId("CS2_017o"), EntityType.HERO))
 				}
 			});
 
@@ -521,7 +524,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = GetAutoEnchantFromText("CS2_017o")
+					Enchant = GetAutoEnchantFromText("CS2_017o"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger
 				}
 			});
 
@@ -761,13 +765,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant(
-							new Effect
-							{
-								Tag = GameTag.HEALTH,
-								Operator = EffectOperator.SET,
-								Value = 1
-							})
+					Enchant = new Enchant(GameTag.HEALTH, EffectOperator.SET, 1)
 				}
 			});
 
@@ -1298,12 +1296,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant(new Effect
-							{
-								Tag = GameTag.ATK,
-								Operator = EffectOperator.SET,
-								Value = 1
-							})
+					Enchant = new Enchant(GameTag.ATK, EffectOperator.SET, 1)
 				}
 			});
 
@@ -1536,12 +1529,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new Enchant(new Effect
-					{
-						Tag = GameTag.HEALTH,
-						Operator = EffectOperator.MUL,
-						Value = 2
-					})
+					Enchant = new Enchant(GameTag.HEALTH, EffectOperator.MUL, 2)
 				}
 			});
 

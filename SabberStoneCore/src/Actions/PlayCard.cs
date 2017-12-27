@@ -49,7 +49,7 @@ namespace SabberStoneCore.Actions
 
 				foreach (Power power in source.Card.Powers)
 				{
-					if (power.Trigger.TriggerActivation == TriggerActivation.PLAY)
+					if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
 						power.Trigger.Activate(c.Game, source.Id);
 				}
 

@@ -62,9 +62,11 @@ namespace SabberStoneCore.Model.Entities
 		/// <value>The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.</value>
 		List<OldEnchant> OldEnchants { get; }
 
-		List<string> Enchants { get; }
+		//List<string> Enchants { get; }
 
 		OngoingEffect OngoingEffect { get; set; }
+
+		
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -117,11 +119,15 @@ namespace SabberStoneCore.Model.Entities
 		/// </value>
 		public List<OldEnchant> OldEnchants { get; } = new List<OldEnchant>();
 
-		public List<string> Enchants { get; } = new List<string>();
+		//public List<string> Enchants { get; } = new List<string>();
 
 		public OngoingEffect OngoingEffect { get; set; }
 
-		public List<Enchant> OneTurnEffects { get; }
+		//public Stack<Enchant> OneTurnEffects => _effects ?? (_effects = new Stack<Enchant>());
+
+		public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
+
+		private Stack<(GameTag, int)> _effects;
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -428,12 +434,6 @@ namespace SabberStoneCore.Model.Entities
 		public void TurnEnd()
 		{
 			this[GameTag.TURN_START] = 0;
-		}
-
-		public int Cost
-		{
-			get { return this[GameTag.COST]; }
-			set { this[GameTag.COST] = value; }
 		}
 
 		public bool Combo => GetNativeGameTag(GameTag.COMBO) == 1;
