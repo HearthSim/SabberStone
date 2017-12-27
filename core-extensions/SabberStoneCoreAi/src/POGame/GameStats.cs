@@ -10,7 +10,6 @@ namespace SabberStoneCoreAi.src.POGame
 {
 	class GameStats
 	{
-		private Game game;
 		private int turns = 0;
 		private int nr_games = 0;
 		private int[] wins = new[] { 0, 0 };
