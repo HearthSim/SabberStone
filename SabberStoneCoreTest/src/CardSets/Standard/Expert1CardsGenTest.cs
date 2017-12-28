@@ -155,10 +155,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Wrath_EX1_154()
 		{
-			// TODO Wrath_EX1_154 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -170,7 +169,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wrath"));
+
+			Minion player1Minon = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ultrasaur"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, player1Minon));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wrath"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wrath"));
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, player1Minon, 1));
+			Assert.Equal(11, player1Minon.Health);
+			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
+
+			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, player1Minon, 2));
+			Assert.Equal(10, player1Minon.Health);
+			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
