@@ -83,6 +83,21 @@ namespace SabberStoneCore.Actions
 							IPlayable target = c.Game.IdEntityDic[p];
 							playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
 						});
+						// Need to move the chosen adaptation to the Graveyard
+						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE)
+						{
+							Game = c.Game,
+							Controller = c,
+							Source = playable,
+							Target = playable
+						});
+						// Send metadata to the client to hide the card
+						c.Game.PowerHistory.Add(new PowerHistoryMetaData
+						{
+							Type = MetaDataType.SHOW_BIG_CARD,
+							Data = 2,
+							Info = new List<int> { choice }
+						});
 						break;
 
 					case ChoiceAction.TRACKING:
