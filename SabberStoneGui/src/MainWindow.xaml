@@ -79,96 +79,146 @@
             <TabItem Header="Decks">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="15*"/>
-                        <ColumnDefinition Width="1171*"/>
+                        <ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="CbxClassCard" HorizontalAlignment="Left" Margin="549,376,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxClassCard_SelectionChanged" Grid.Column="1"/>
-                    <ComboBox x:Name="CbxFormat" HorizontalAlignment="Left" Margin="549,349,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxFormat_SelectionChanged" Grid.Column="1"/>
-                    <DataGrid x:Name="DtGrTest" ItemsSource="{Binding Source=Card}" Margin="10,10,700,10" AutoGenerateColumns="False" SelectionChanged="DtGrTest_SelectionChanged" FontSize="10" GridLinesVisibility="None" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalContentAlignment="Center" Grid.ColumnSpan="2">
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Implemented}" Value="True">
-                                        <Setter Property="IsEnabled" Value="True"></Setter>
-                                        <Setter Property="Background" Value="#FFD5F5D0"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Implemented}" Value="False">
-                                        <Setter Property="IsEnabled" Value="False"></Setter>
-                                        <Setter Property="Background" Value="#FFF5D0D0"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
+					
+					<DataGrid x:Name="DtGrTest" ItemsSource="{Binding Source=Card}" Margin="10,10,10,10" AutoGenerateColumns="False" SelectionChanged="DtGrTest_SelectionChanged" FontSize="10" GridLinesVisibility="None" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalContentAlignment="Center" Grid.Column ="0">
+						<DataGrid.RowStyle>
+							<Style TargetType="DataGridRow">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Implemented}" Value="True">
+										<Setter Property="IsEnabled" Value="True"></Setter>
+										<Setter Property="Background" Value="#FFD5F5D0"></Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding Implemented}" Value="False">
+										<Setter Property="IsEnabled" Value="False"></Setter>
+										<Setter Property="Background" Value="#FFF5D0D0"></Setter>
+									</DataTrigger>
+								</Style.Triggers>
 
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Id"   Width="50" Binding="{Binding Path=Id}"/>
-                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Name}"/>
-                            <DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=Type}"/>
-                            <DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=Cost}"/>
-                            <DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=Class}"/>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="BtnAddCard" Click="BtnAddCard_Click">ADD</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <DataGrid x:Name="DtGrDeck" ItemsSource="{Binding Source=Card}" Margin="733,280,10,10" AutoGenerateColumns="False" FontSize="10" SelectionChanged="DtGrDeck_SelectionChanged" IsReadOnly="True" BorderThickness="0" GridLinesVisibility="None" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" HorizontalContentAlignment="Center" Grid.Column="1" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=(model:Card.Name)}"/>
-                            <DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=(model:Card.Type)}"/>
-                            <DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=(model:Card.Cost)}"/>
-                            <DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=(model:Card.Class)}"/>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="BtnRemoveCard" Click="BtnRemoveCard_Click">REMOVE</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Image x:Name="ImgCard" Margin="476,-34,0,0" Height="378" Width="236" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" />
-                    <DataGrid x:Name="DtDeckFiles" ItemsSource="{Binding Source=MetaDeck}" HorizontalAlignment="Left" Height="265" Margin="884,10,0,0" VerticalAlignment="Top" Width="277" AutoGenerateColumns="False" GridLinesVisibility="None" CanUserResizeColumns="False" CanUserResizeRows="False" FontSize="10" HorizontalContentAlignment="Center" IsReadOnly="True" Grid.Column="1">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=(deck:MetaDeck.Name)}"/>
-                            <DataGridTextColumn Header="Class" Width="50" Binding="{Binding Path=(deck:MetaDeck.HeroClass)}"/>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="BtnLoadDeck" Click="BtnLoadDeck_Click">LOAD</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Name="BtnDeleteDeck" Click="BtnDeleteDeck_Click">DELETE</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button x:Name="BtSave" Content="SAVE DECK" HorizontalAlignment="Left" Margin="750,53,0,0" VerticalAlignment="Top" Width="103" Click="BtSave_Click" Height="42" FontSize="15" FontWeight="Bold" Grid.Column="1"/>
-                    <TextBox x:Name="TxDeckname" HorizontalAlignment="Left" Height="23" Margin="476,443,0,0" Text="" VerticalAlignment="Top" Width="252" RenderTransformOrigin="0.358,0.087" MaxLength="25" MaxLines="1" Grid.Column="1"/>
-                    <TextBox x:Name="TxDeckLink" HorizontalAlignment="Left" Height="23" Margin="559,543,0,0" Text="" VerticalAlignment="Top" Width="169" MaxLines="1" Grid.Column="1"/>
-                    <Label x:Name="LbDeckName" Content="Name" Height="23" HorizontalAlignment="Left" Margin="476,419,0,0" VerticalAlignment="Top" Width="78" Grid.Column="1"/>
-                    <Label x:Name="LbDeckLink" Content="Link" Height="23" HorizontalAlignment="Left" Margin="476,543,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.052,0.538" HorizontalContentAlignment="Right" Width="78" Grid.Column="1"/>
-                    <ComboBox x:Name="CbxDeckStrategy" HorizontalAlignment="Left" Margin="608,571,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <Label x:Name="LbDeckStrategy" Content="Strategy" Height="30" HorizontalAlignment="Left" Margin="535,571,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.052,0.538" HorizontalContentAlignment="Right" Width="68" Grid.Column="1"/>
-                    <GroupBox x:Name="DeckInfo" Header="Deck Info" HorizontalAlignment="Left" Height="138" Margin="733,137,0,0" VerticalAlignment="Top" Width="146" Grid.Column="1">
-                        <Grid>
-                            <Label x:Name="LbCardCount" Content="Cards:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.769"/>
-                            <Label x:Name="LbCardCountValue" Content="0" HorizontalAlignment="Left" Margin="66,10,0,0" VerticalAlignment="Top" Width="24"/>
-                        </Grid>
-                    </GroupBox>
-                    <Label x:Name="LbDescription" Content="Description" HorizontalAlignment="Left" Margin="476,467,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.346" Width="78" Grid.Column="1"/>
-                    <TextBox x:Name="TxDescription" HorizontalAlignment="Left" Height="45" Margin="476,493,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" FontSize="10.667" MaxLines="3" Grid.Column="1"/>
+							</Style>
+						</DataGrid.RowStyle>
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Id"   Width="50" Binding="{Binding Path=Id}"/>
+							<DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Name}"/>
+							<DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=Type}"/>
+							<DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=Cost}"/>
+							<DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=Class}"/>
+							<DataGridTemplateColumn>
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Button Name="BtnAddCard" Click="BtnAddCard_Click">ADD</Button>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+
+					<Grid Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Image x:Name="ImgCard" Margin="10,-34,0,0" Height="378" Width="236" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" />
+						<ComboBox x:Name="CbxFormat" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxFormat_SelectionChanged" Grid.Row="1"/>
+						<ComboBox x:Name="CbxClassCard" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbxClassCard_SelectionChanged" Grid.Row="2"/>
+
+						<Label x:Name="LbDeckName" Content="Name" Height="23" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Grid.Row="3"/>
+						<TextBox x:Name="TxDeckname" HorizontalAlignment="Left" Height="23" Margin="10,2,0,0" Text="" VerticalAlignment="Top" Width="252" MaxLength="25" MaxLines="1"  Grid.Row="4"/>
+
+						<Label x:Name="LbDescription" Content="Description" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Grid.Row="5"/>
+						<TextBox x:Name="TxDescription" HorizontalAlignment="Left" Height="45" Margin="10,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" FontSize="10.667" MaxLines="3"  Grid.Row="6"/>
+
+						<Grid Grid.Row="7" Margin="5,5,0,0">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+								<Label x:Name="LbDeckLink" Content="Link" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+								<TextBox x:Name="TxDeckLink" HorizontalAlignment="Left" Height="23" Text="" VerticalAlignment="Top" Width="169" MaxLines="1"/>
+							</StackPanel>
+						</Grid>
+
+						<Grid Grid.Row="8" Margin="5,5,0,0">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+								<Label x:Name="LbDeckStrategy" Content="Strategy" HorizontalAlignment="Left"  VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+								<ComboBox x:Name="CbxDeckStrategy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
+							</StackPanel>
+						</Grid>
+					</Grid>
+					
+					<Grid Grid.Column="2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom">
+							<Button x:Name="BtSave" Content="SAVE DECK" HorizontalAlignment="Center" Margin="10,10,0,30" VerticalAlignment="Top" Width="103" Click="BtSave_Click" Height="42" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="0"/>
+							<GroupBox x:Name="DeckInfo" Header="Deck Info" HorizontalAlignment="Left" Height="138" Margin="10,10,0,0" Width="146">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Label x:Name="LbCardCount" Content="Cards:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.769" Grid.Column="0"/>
+									<Label x:Name="LbCardCountValue" Content="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="24" Grid.Column="1"/>
+								</Grid>
+							</GroupBox>
+						</StackPanel>
+						
+						<DataGrid x:Name="DtDeckFiles" ItemsSource="{Binding Source=MetaDeck}" HorizontalAlignment="Left" Height="265" Margin="10,10,10,0" VerticalAlignment="Top" Width="277" AutoGenerateColumns="False" GridLinesVisibility="None" CanUserResizeColumns="False" CanUserResizeRows="False" FontSize="10" HorizontalContentAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="0">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=(deck:MetaDeck.Name)}"/>
+								<DataGridTextColumn Header="Class" Width="50" Binding="{Binding Path=(deck:MetaDeck.HeroClass)}"/>
+								<DataGridTemplateColumn>
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<Button Name="BtnLoadDeck" Click="BtnLoadDeck_Click">LOAD</Button>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+								</DataGridTemplateColumn>
+								<DataGridTemplateColumn>
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<Button Name="BtnDeleteDeck" Click="BtnDeleteDeck_Click">DELETE</Button>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+								</DataGridTemplateColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+
+						<DataGrid x:Name="DtGrDeck" ItemsSource="{Binding Source=Card}" Margin="10,10,10,10" AutoGenerateColumns="False" FontSize="10" SelectionChanged="DtGrDeck_SelectionChanged" IsReadOnly="True" BorderThickness="0" GridLinesVisibility="None" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" HorizontalContentAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" >
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=(model:Card.Name)}"/>
+								<DataGridTextColumn Header="Type" Width="75" Binding="{Binding Path=(model:Card.Type)}"/>
+								<DataGridTextColumn Header="Cost" Width="40" Binding="{Binding Path=(model:Card.Cost)}"/>
+								<DataGridTextColumn Header="Class" Width="75" Binding="{Binding Path=(model:Card.Class)}"/>
+								<DataGridTemplateColumn>
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<Button Name="BtnRemoveCard" Click="BtnRemoveCard_Click">REMOVE</Button>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+								</DataGridTemplateColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+
+					</Grid>
                 </Grid>
             </TabItem>
-
 
         </TabControl>
     </Grid>
