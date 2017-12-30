@@ -1488,7 +1488,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(0, game.CurrentOpponent.Hero.Triggers.Count);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
