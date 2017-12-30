@@ -110,6 +110,8 @@ namespace SabberStoneCore.Model.Entities
 
 		}
 		public ComplexEffects CostEffects { get; }
+		public AuraEffects AuraEffects { get; set; }
+		public Dictionary<GameTag, int> NativeTags { get; }
 	}
 
 	public partial class Enchantment

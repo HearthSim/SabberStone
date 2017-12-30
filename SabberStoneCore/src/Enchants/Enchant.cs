@@ -2,20 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Enchants
 {
 	public enum AuraType
 	{
-		NONE, SELF, ADJACENT, ALL, EXCEPT_SOURCE
+		SELF, ADJACENT, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER
 	}
 
 	public enum EffectOperator
 	{
 		ADD, SUB, MUL, SET
+	}
+
+	public interface IAura
+	{
+		void Update();
 	}
 
 	public struct Effect : IEquatable<Effect>
@@ -36,19 +43,37 @@ namespace SabberStoneCore.Enchants
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
-					entity[Tag] += Value;
+					entity.NativeTags[Tag] += Value;
 					return;
 				case EffectOperator.SUB:
-					entity[Tag] -= Value;
+					entity.NativeTags[Tag] -= Value;
 					return;
 				case EffectOperator.MUL:
-					entity[Tag] *= Value;
+					entity.NativeTags[Tag] *= Value;
 					return;
 				case EffectOperator.SET:
-					entity[Tag] = Value;
+					entity.NativeTags[Tag] = Value;
 					return;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new ArgumentException();
+			}
+		}
+
+		public void Apply(AuraEffects auraEffects)
+		{
+			switch (Operator)
+			{
+				case EffectOperator.ADD:
+					auraEffects[Tag] += Value;
+					return;
+				case EffectOperator.SUB:
+					auraEffects[Tag] += Value;
+					return;
+				case EffectOperator.SET:
+					auraEffects[Tag] = Value;
+					return;
+				default:
+					throw new NotImplementedException();
 			}
 		}
 
@@ -64,6 +89,22 @@ namespace SabberStoneCore.Enchants
 					return;
 				case EffectOperator.SET:
 					entity[Tag] = 0;
+					return;
+			}
+		}
+
+		public void Remove(AuraEffects auraEffects)
+		{
+			switch (Operator)
+			{
+				case EffectOperator.ADD:
+					auraEffects[Tag] -= Value;
+					return;
+				case EffectOperator.SUB:
+					auraEffects[Tag] += Value;
+					return;
+				case EffectOperator.SET:
+					auraEffects[Tag] = 0;
 					return;
 			}
 		}
@@ -94,29 +135,18 @@ namespace SabberStoneCore.Enchants
 	public class Enchant
     {
 		public Game Game;
-	    public string EnchantmentId;
-		public Controller Controller;
-	    public int ControllerId;
-	    public int TargetId;
-	    public Effect[] Effects;
-		private IPlayable Target;
-	    //private bool _oneTurnEffect;
+	    public readonly Effect[] Effects;
 
 		public Enchant() { }
-
-	    //public Enchant(Effect effect)
-	    //{
-		   // Effects = new[] {effect};
-	    //}
 
 	    public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
 		    Effects = new[] {new Effect(tag, @operator, value)};
 	    }
 
-	    public Enchant(Effect effect)
+	    public Enchant(params Effect[] effects)
 	    {
-		    Effects = new[] {effect};
+			Effects = effects;
 	    }
 
 
@@ -134,13 +164,16 @@ namespace SabberStoneCore.Enchants
 	    }
     }
 
-	public class OngoingEffect : Enchant
+	public class OngoingEffect : Enchant, IAura
 	{
 		private int _count;
 		private int _targetId;
+		private int _controllerId;
 		private IEntity _target;
-		public TriggerType UpdateTrigger;
+		private Controller _controller;
 
+		public OngoingEffect(params Effect[] effects) : base(effects) { }
+		private OngoingEffect() { }
 
 		public int Count
 		{
@@ -162,26 +195,24 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		public Controller Controller
+		{
+			get => _controller ?? (_controller = Game.ControllerById(_controllerId));
+			set
+			{
+				_controllerId = Controller.Id;
+				_controller = Controller;
+			}
+		}
+
 		public bool ToBeUpdated { get; internal set; }
-
-		public OngoingEffect(Effect effect, TriggerType updateTrigger = TriggerType.NONE) : base(effect)
-		{
-			UpdateTrigger = updateTrigger;
-		}
-
-		private OngoingEffect(OngoingEffect ongoingEffect)
-		{
-			Effects = ongoingEffect.Effects;
-			UpdateTrigger = ongoingEffect.UpdateTrigger;
-		}
 
 		public override void ActivateTo(IEntity entity, Enchantment enchantment)
 		{
-			var instance = new OngoingEffect(this)
+			var instance = new OngoingEffect(Effects)
 			{
 				Game = entity.Game,
-				Controller = entity.Controller,
-				ControllerId = entity.Controller.Id,
+				//Controller = entity.Controller,
 				Target = entity
 			};
 			entity.OngoingEffect = instance;
@@ -195,6 +226,188 @@ namespace SabberStoneCore.Enchants
 			if (!ToBeUpdated) return;
 
 			base.ActivateTo(Target, null);
+		}
+	}
+
+	public class Aura : IAura
+	{
+		private readonly int _ownerId;
+		private IPlayable _owner;
+		private List<int> _appliedEntities = new List<int>();
+		private List<IPlayable> _tempList;
+		private bool _toBeUpdated;
+		private bool _on;
+		private readonly Effect[] Effects;
+		public readonly Game Game;
+		public readonly AuraType Type;
+		public SelfCondition Condition;
+		public Card EnchantmentCard;
+
+		public Aura(AuraType type, params Effect[] effects)
+		{
+			Type = type;
+			Effects = effects;
+		}
+
+		private Aura(Aura prototype, IPlayable owner)
+		{
+			Type = prototype.Type;
+			Effects = prototype.Effects;
+			Game = owner.Game;
+			_on = true;
+			_appliedEntities = new List<int>();
+			_owner = owner;
+			_ownerId = owner.Id;
+			_toBeUpdated = true;
+
+			Game.Auras.Add(this);
+		}
+
+		public IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_ownerId]);
+
+		public void Activate(IPlayable owner)
+		{
+			var instance = new Aura(this, owner);
+			if (owner.Game.History)
+			{
+				switch (Type)
+				{
+					case AuraType.BOARD_EXCEPT_SOURCE:
+						_tempList = new List<IPlayable>();
+						foreach (var minion in (BoardZone)owner.Zone)
+						{
+							if (minion == owner) continue;
+							if (Condition != null && Condition.Eval(minion))
+							{
+								Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							}
+
+							_tempList.Add(minion);
+						}
+						break;
+				}
+			}
+			
+		}
+
+		public void Update()
+		{
+			if (!_toBeUpdated) return;
+
+			if (_on)
+			{
+				switch (Type)
+				{
+					case AuraType.BOARD_EXCEPT_SOURCE:
+						if (_tempList != null)
+						{
+							for (int i = 0; i < _tempList.Count; i++)
+							{
+								var minion = _tempList[i];
+
+								if (minion.AuraEffects == null)
+									minion.AuraEffects = new AuraEffects();
+
+								foreach (Effect effect in Effects)
+								{
+									effect.Apply(minion.AuraEffects);
+								}
+
+								minion.AuraEffects.Update(minion);
+
+								_appliedEntities.Add(minion.Id);
+							}
+						}
+						foreach (Minion minion in Owner.Controller.BoardZone)
+						{
+							if (Condition != null && !Condition.Eval(minion))
+								continue;
+
+							if (!_appliedEntities.Contains(minion.Id) && minion.Id != _ownerId)
+							{
+
+								if (minion.AuraEffects == null)
+									minion.AuraEffects = new AuraEffects();
+
+								foreach (Effect effect in Effects)
+								{
+									effect.Apply(minion.AuraEffects);
+								}
+
+								minion.AuraEffects.Update(minion);
+
+								_appliedEntities.Add(minion.Id);
+							}
+						}
+						return;
+				}
+			}
+			else
+			{
+				foreach (var i in _appliedEntities)
+				{
+					var minion = Game.IdEntityDic[i];
+
+					foreach (var effect in Effects)
+					{
+						effect.Remove(minion.AuraEffects);
+					}
+
+					minion.AuraEffects.Update(minion);
+				}
+			}
+		}
+	}
+
+	public class AuraEffects
+	{
+		private int ATK;
+		private int HEALTH;
+		private int COST;
+		private int SPELLPOWER;
+		private int CHARGE;
+
+		public int this[GameTag t]
+		{
+			get
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						return ATK;
+					case GameTag.HEALTH:
+						return HEALTH;
+					default:
+						return 0;
+				}
+			}
+			set
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						ATK = value;
+						return;
+					case GameTag.HEALTH:
+						HEALTH = value;
+						return;
+					case GameTag.CHARGE:
+						CHARGE = value;
+						return;
+					default:
+						return;
+				}
+			}
+		}
+
+		public void Update(IPlayable p)
+		{
+			p[GameTag.ATK] = p.NativeTags[GameTag.ATK] + ATK;
+			p[GameTag.HEALTH] = p.NativeTags[GameTag.HEALTH] + HEALTH;
+			p[GameTag.COST] = p.NativeTags[GameTag.COST] + COST;
+			p[GameTag.SPELLPOWER] = p.NativeTags[GameTag.SPELLPOWER] + SPELLPOWER;
+			if (p.NativeTags[GameTag.CHARGE] == 0)
+				p[GameTag.CHARGE] = CHARGE;
 		}
 	}
 

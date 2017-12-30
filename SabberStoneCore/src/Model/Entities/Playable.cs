@@ -145,8 +145,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
 		/// <returns></returns>
 		IPlayable Clone(Controller controller);
-
-		ComplexEffects CostEffects { get; }
 	}
 
 	/// <summary>

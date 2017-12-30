@@ -642,13 +642,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("DS1_175", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "DS1_175o",
+				//	Area = PowerArea.BOARD,
+				//	Activation = PowerActivation.BOARD_ZONE,
+				//	SingleTask = ComplexTask.Taunt(EntityType.TARGET),
+				//	OldEnchant = Auras.Attack(1, RelaCondition.IsSameRace)
+				//}
 				new Power
 				{
-					InfoCardId = "DS1_175o",
-					Area = PowerArea.BOARD,
-					Activation = PowerActivation.BOARD_ZONE,
-					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-					OldEnchant = Auras.Attack(1, RelaCondition.IsSameRace)
+					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, Effects.Attack_N(1))
+					{
+						Condition = SelfCondition.IsRace(Race.BEAST),
+						EnchantmentCard = Cards.FromId("DS1_175o")
+					}
 				}
 			});
 

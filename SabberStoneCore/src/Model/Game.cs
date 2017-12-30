@@ -165,7 +165,7 @@ namespace SabberStoneCore.Model
 
 		public TriggerManager TriggerManager { get; } = new TriggerManager();
 
-		public List<OngoingEffect> Auras = new List<OngoingEffect>();
+		public List<IAura> Auras = new List<IAura>();
 
 		/// <summary>
 		/// Gets or sets the list of enchantments or triggers which need to be removed (lazily) 

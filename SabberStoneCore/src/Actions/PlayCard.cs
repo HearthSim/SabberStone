@@ -250,6 +250,16 @@ namespace SabberStoneCore.Actions
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
 				//   (death processing, aura updates)
 				c.BoardZone.Add(minion, zonePosition);
+
+				if (minion.Powers != null)
+				{
+					foreach (Power power in minion.Powers)
+					{
+						power.Aura?.Activate(minion);
+					}
+				}
+
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)

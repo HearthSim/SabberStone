@@ -57,9 +57,8 @@ namespace SabberStoneCore.Enchants
 				oneTurn = true;
 		    }
 
-			return new Enchant
+			return new Enchant (effects.ToArray())
 			{
-				Effects = effects.ToArray(),
 				IsOneTurnEffect = oneTurn
 		    };
 

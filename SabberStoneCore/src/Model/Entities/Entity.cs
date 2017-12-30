@@ -66,7 +66,9 @@ namespace SabberStoneCore.Model.Entities
 
 		OngoingEffect OngoingEffect { get; set; }
 
-		
+		AuraEffects AuraEffects { get; set; }
+
+		Dictionary<GameTag, int> NativeTags { get; }
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -120,14 +122,13 @@ namespace SabberStoneCore.Model.Entities
 		public List<OldEnchant> OldEnchants { get; } = new List<OldEnchant>();
 
 		//public List<string> Enchants { get; } = new List<string>();
-
 		public OngoingEffect OngoingEffect { get; set; }
-
 		//public Stack<Enchant> OneTurnEffects => _effects ?? (_effects = new Stack<Enchant>());
-
 		public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
-
 		private Stack<(GameTag, int)> _effects;
+		public AuraEffects AuraEffects { get; set; }
+		public Dictionary<GameTag, int> NativeTags => _data.Tags;
+		public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -234,55 +235,33 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				//if (Card.Name.Equals("Angry Chicken"))
-				//Game?.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} get org. data {t} = {_data[t]}");
-
-				int value = _data[t];
-
-				// cumulative enchanment calculation ... priorizing game, zone, entity
-
-
-				if (Zone != null)
-					for (int i = 0; i < Zone.Enchants.Count; i++)
-						value = Zone.Enchants[i].Apply(this, t, value);
-				else
-					for (int i = 0; i < Game.OldEnchants.Count; i++)
-						value = Game.OldEnchants[i].Apply(this, t, value);
-				for (int i = 0; i < OldEnchants.Count; i++)
-					value = OldEnchants[i].Apply(this, t, value);
+				if (!Tags.TryGetValue(t, out int value))
+				{
+					if (!NativeTags.TryGetValue(t, out value))
+					{
+						value = Card[t];
+						NativeTags[t] = value;
+					}
+					Tags[t] = value;
+				}
 
 				return value;
 			}
 			set
 			{
-				int oldValue = _data[t];
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value} oldvalue {oldValue}");
-				//if (oldValue == value && t != GameTag.ZONE_POSITION)
-				//{
-				//    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", $"{this} set data {t} to {value} obsolet as value is already that value.");
-				//    return;
-				//}
 
-				SetNativeGameTag(t, value);
+				Game.OnEntityChanged(this, t, 0, value);
 
-				Game.OnEntityChanged(this, t, oldValue, value);
-
-
-				// don't trigger on explicit turned off heals or predamage changes ....
-				if ((t == GameTag.DAMAGE || t == GameTag.PREDAMAGE) && IsIgnoreDamage)
+				if (!NativeTags.TryGetValue(t, out int oldValue))
 				{
-					return;
+					oldValue = Card[t];
+					NativeTags[t] = oldValue;
 				}
 
-				// trigger here
-				if (Zone != null)
-					for (int i = 0; i < Zone.Triggers.Count; i++)
-						Zone.Triggers[i].Change(this, t, oldValue, value);
-				else
-					for (int i = 0; i < Game.Triggers.Count; i++)
-						Game.Triggers[i].Change(this, t, oldValue, value);
-				for (int i = 0; i < Triggers.Count; i++)
-					Triggers[i].Change(this, t, oldValue, value);
+				
+
+
 			}
 		}
 

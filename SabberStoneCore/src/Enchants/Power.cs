@@ -17,6 +17,8 @@ namespace SabberStoneCore.Enchants
 
 		public OldTrigger OldTrigger { get; set; }
 
+		public Aura Aura { get; set; }
+
 		public Enchant Enchant { get; set; }
 
 		public Trigger Trigger { get; set; }
