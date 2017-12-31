@@ -356,6 +356,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(3, ((Minion)minion).AttackDamage);
 			Assert.Equal(3, ((Minion)minion).Health);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			// This test rarely fails when the summoned minion has Aura, for example, Dire Wolf Alpha can interrupt this test.
 		}
 
 		// --------------------------------------- MINION - PALADIN

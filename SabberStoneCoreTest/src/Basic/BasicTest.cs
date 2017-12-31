@@ -583,7 +583,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
+			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap")); // Spawns 3
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
@@ -594,18 +594,17 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, minion1));
 
 			Assert.Equal(4, game.CurrentOpponent.BoardZone.Count);
-			if (game.CurrentPlayer.BoardZone.Count == 0)
+			if (minion1.Damage == 0)
 			{
-				// Minion was destroyed, so it's moved to graveyard with tags reset.
+				// Minion was destroyed by Knife Juggler, so it's moved to graveyard with tags reset.
 				Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count);
-				Assert.Equal(game.CurrentOpponent.Hero.BaseHealth, game.CurrentOpponent.Hero.Health);
 				Assert.Equal(game.CurrentPlayer.Hero.BaseHealth - 2, game.CurrentPlayer.Hero.Health);
 			}
 			else
 			{
-				// Minion was NOT destroyed, so it continued it's attack.
-				Assert.Equal(0, game.CurrentPlayer.GraveyardZone.Count);
-				Assert.Equal(game.CurrentOpponent.Hero.BaseHealth - 1, game.CurrentOpponent.Hero.Health);
+				// Minion was NOT destroyed by Knife Juggler, so it continued it's attack.
+				Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count);
+				Assert.Equal(minion1.BaseHealth - 1, minion1.Health);
 				Assert.Equal(game.CurrentPlayer.Hero.BaseHealth - 3, game.CurrentPlayer.Hero.Health);
 			}
 		}
