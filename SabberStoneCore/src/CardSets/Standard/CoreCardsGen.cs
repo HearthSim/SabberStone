@@ -142,7 +142,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ArmorTask(1),
-						new AddEnchantmentTask(Cards.FromId("CS2_017o"), EntityType.HERO))
+						new AddEnchantmentTask("CS2_017o", EntityType.HERO))
 				}
 			});
 
@@ -311,7 +311,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
 						new ArmorTask(2),
-						new AddEnchantmentTask(Cards.FromId("CS2_005o"), EntityType.HERO))
+						new AddEnchantmentTask("CS2_005o", EntityType.HERO))
 				}
 			});
 
@@ -378,7 +378,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_009e"), EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("CS2_009e", EntityType.TARGET)
 				}
 			});
 
@@ -399,7 +399,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new AddEnchantmentTask(Cards.FromId("CS2_011o"), EntityType.FRIENDS)
+					SingleTask = new AddEnchantmentTask("CS2_011o", EntityType.FRIENDS)
 				}
 			});
 
@@ -627,7 +627,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = new AddEnchantmentTask(Cards.FromId("DS1_070o"), EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("DS1_070o", EntityType.TARGET)
 				}
 			});
 
@@ -652,10 +652,9 @@ namespace SabberStoneCore.CardSets.Standard
 				//}
 				new Power
 				{
-					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, Effects.Attack_N(1))
+					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "DS1_175o")
 					{
-						Condition = SelfCondition.IsRace(Race.BEAST),
-						EnchantmentCard = Cards.FromId("DS1_175o")
+						Condition = SelfCondition.IsRace(Race.BEAST)
 					}
 				}
 			});
@@ -671,12 +670,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("DS1_178", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "DS1_178e",
+				//	Area = PowerArea.BOARD,
+				//	Activation = PowerActivation.BOARD_ZONE,
+				//	OldEnchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
+				//}
 				new Power
 				{
-					InfoCardId = "DS1_178e",
-					Area = PowerArea.BOARD,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldEnchant = Auras.SimpleInclSelf(GameTag.CHARGE, 1, RelaCondition.IsSameRace)
+					Aura = new Aura(AuraType.BOARD, Effects.Charge)
+					{
+						Condition = SelfCondition.IsRace(Race.BEAST)
+					}
 				}
 			});
 			// ----------------------------------------- SPELL - HUNTER
@@ -691,11 +697,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_084", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_084e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = new SetHealthTask(1, EntityType.TARGET)
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_084e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new SetHealthTask(1, EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("CS2_084e", EntityType.TARGET)
 				}
 			});
 
@@ -886,11 +897,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_033", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "NEW1_033o",
+				//	Activation = PowerActivation.BOARD_ZONE,
+				//	SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsNotSelf), AuraArea.BOARD)
+				//}
 				new Power
 				{
-					InfoCardId = "NEW1_033o",
-					Activation = PowerActivation.BOARD_ZONE,
-					SingleTask = new AuraTask(Auras.Attack(1, RelaCondition.IsNotSelf), AuraArea.BOARD)
+					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "NEW1_033O")
 				}
 			});
 
@@ -951,7 +966,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new DrawTask())
+					SingleTask = new DrawTask(count: 2)
 				}
 			});
 
@@ -1140,11 +1155,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_087", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_087e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_087e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("CS2_087e", EntityType.TARGET)
 				}
 			});
 
@@ -1178,11 +1198,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_092", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_092e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET)
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_092e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("CS2_092e", EntityType.TARGET)
 				}
 			});
 
@@ -1234,11 +1259,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_360", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "EX1_360e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = new SetAttackTask(1, EntityType.TARGET)
+				//}
 				new Power
 				{
-					InfoCardId = "EX1_360e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new SetAttackTask(1, EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("EX1_360e", EntityType.TARGET)
 				}
 			});
 
@@ -1285,15 +1315,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_097", new List<Power>
 			{
+				//new Power
+				//{
+				//	Area = PowerArea.HERO,
+				//	Activation = PowerActivation.WEAPON,
+				//	OldTrigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsThisWeaponEquiped)
+				//		.TriggerEffect(GameTag.ATTACKING, -1)
+				//		.SingleTask(new HealTask(2, EntityType.TARGET))
+				//		.Build()
+				//}
 				new Power
 				{
-					Area = PowerArea.HERO,
-					Activation = PowerActivation.WEAPON,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
-						.TriggerEffect(GameTag.ATTACKING, -1)
-						.SingleTask(new HealTask(2, EntityType.TARGET))
-						.Build()
+					Trigger = new Trigger()
+					{
+						TriggerSource = TriggerSource.HERO,
+						TriggerType = TriggerType.ATTACK,
+						SingleTask = new HealTask(2, EntityType.HERO)
+					}
 				}
 			});
 		}
@@ -1456,13 +1495,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_004", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_004e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = ComplexTask.Create(
+				//		new DrawTask(),
+				//		new BuffTask(Buffs.Health(2), EntityType.TARGET))
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_004e",
 					Activation = PowerActivation.SPELL,
 					SingleTask = ComplexTask.Create(
-						new DrawTask(),
-						new BuffTask(Buffs.Health(2), EntityType.TARGET))
+						new AddEnchantmentTask("CS2_004e", EntityType.TARGET),
+						new DrawTask())
 				}
 			});
 
@@ -1498,14 +1544,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_236", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "CS2_236e",
+				//	Activation = PowerActivation.SPELL,
+				//	SingleTask = ComplexTask.Create(
+				//		new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
+				//		new MathSubstractionTask(GameTag.DAMAGE, EntityType.TARGET),
+				//		new BuffHealthNumberTask(EntityType.TARGET))
+				//}
 				new Power
 				{
-					InfoCardId = "CS2_236e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
-						new MathSubstractionTask(GameTag.DAMAGE, EntityType.TARGET),
-						new BuffHealthNumberTask(EntityType.TARGET))
+					SingleTask = new AddEnchantmentTask("CS2_236e", EntityType.TARGET)
 				}
 			});
 
@@ -3140,7 +3191,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = new OngoingEffect(Effects.Attack_N(3))
+					Enchant = new OngoingEnchant(Effects.Attack_N(3))
 				}
 			});
 

@@ -1378,25 +1378,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.StartGame();
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 
-			Assert.Equal(1, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(1, minion1.AttackDamage);
 
-			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Timber Wolf"));
+			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Timber Wolf"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 
-			Assert.Equal(2, ((ICharacter)minion1).AttackDamage);
+			Assert.Equal(2, minion1.AttackDamage);
 
-			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
-			Assert.Equal(2, ((ICharacter)minion2).AttackDamage);
+			Assert.Equal(2, minion2.AttackDamage);
 
-			((ICharacter)minion3).IsSilenced = true;
+			IPlayable silencer = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbeak Owl"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silencer, minion3));
 
-			Assert.Equal(1, ((ICharacter)minion1).AttackDamage);
-			Assert.Equal(1, ((ICharacter)minion2).AttackDamage);
+			Assert.Equal(1, minion1.AttackDamage);
+			Assert.Equal(1, minion2.AttackDamage);
 		}
 
 		// ---------------------------------------- MINION - HUNTER

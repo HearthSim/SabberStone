@@ -157,7 +157,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public List<OldEnchant> OldEnchants { get; }
-		public OngoingEffect OngoingEffect { get; set; }
+		public IAura OngoingEffect { get; set; }
 		public List<OldTrigger> Triggers { get; }
 		public IEnumerable<ICharacter> ValidPlayTargets { get; }
 		public bool IsValidPlayTarget(ICharacter target)

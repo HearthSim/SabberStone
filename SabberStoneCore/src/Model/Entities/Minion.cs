@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Entities
 			CantBeTargetedBySpells = false;
 			//IsImmune = false;
 
-			OngoingEffect = null;
+			OngoingEffect?.Remove();
 
 			AttackDamage = Card[GameTag.ATK];
 			if (Health > Card[GameTag.HEALTH])

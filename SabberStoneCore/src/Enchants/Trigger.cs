@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -50,8 +51,10 @@ namespace SabberStoneCore.Enchants
 					if (source.Id != SourceId) return;
 					break;
 				case TriggerSource.MINIONS_EXCEPT_SELF:
-					if (!(source is Minion) || source.Id == SourceId || source.Zone.Type != Zone.PLAY)
-						return;
+					if (!(source is Minion) || source.Id == SourceId || source.Zone.Type != Zone.PLAY) return;
+					break;
+				case TriggerSource.HERO:
+					if (!(source is Hero) || source.Controller.Id != ControllerId) return;
 					break;
 		    }
 
@@ -78,12 +81,13 @@ namespace SabberStoneCore.Enchants
 			    Remove();
 	    }
 
-	    public void Activate(Game game, int sourceId)
+	    public void Activate(Game game, IEntity source)
 	    {
 		    var instance = new Trigger()
 		    {
 			    Game = game,
-			    SourceId = sourceId,
+			    SourceId = source.Id,
+				ControllerId = source.Controller.Id,
 				TriggerType = TriggerType,
 				TriggerSource = TriggerSource,
 				Condition = Condition,
@@ -104,6 +108,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.SUMMON:
 				    game.TriggerManager.SummonTrigger += instance.Process;
 				    break;
+				case TriggerType.ATTACK:
+					game.TriggerManager.AttackTrigger += instance.Process;
+					break;
 		    }
 	    }
 
@@ -120,6 +127,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.SUMMON:
 				    Game.TriggerManager.SummonTrigger -= Process;
 				    break;
+				case TriggerType.ATTACK:
+					Game.TriggerManager.AttackTrigger -= Process;
+					break;
 			}
 	    }
     }

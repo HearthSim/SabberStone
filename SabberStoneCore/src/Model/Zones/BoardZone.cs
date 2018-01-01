@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 
@@ -14,6 +15,10 @@ namespace SabberStoneCore.Model.Zones
 
 			if (applyPowers)
 				entity.ApplyPowers(PowerActivation.BOARD_ZONE, Zone.PLAY);
+
+			if (entity.Powers != null)
+				foreach (Power power in entity.Powers)
+					power.Aura?.Activate(entity);
 
 			entity.OrderOfPlay = Game.NextOop;
 		}

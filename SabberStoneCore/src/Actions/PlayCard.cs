@@ -52,7 +52,7 @@ namespace SabberStoneCore.Actions
 					foreach (Power power in source.Card.Powers)
 					{
 						if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-							power.Trigger.Activate(c.Game, source.Id);
+							power.Trigger.Activate(c.Game, source);
 					}
 				}
 
@@ -250,14 +250,6 @@ namespace SabberStoneCore.Actions
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
 				//   (death processing, aura updates)
 				c.BoardZone.Add(minion, zonePosition);
-
-				if (minion.Powers != null)
-				{
-					foreach (Power power in minion.Powers)
-					{
-						power.Aura?.Activate(minion);
-					}
-				}
 
 
 				c.Game.DeathProcessingAndAuraUpdate();

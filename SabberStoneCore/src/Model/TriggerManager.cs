@@ -16,6 +16,8 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler SummonTrigger;
 
+	    public event TriggerHandler AttackTrigger;
+
 	    public void OnDamageTrigger(IEntity sender)
 	    {
 		    DamageTrigger?.Invoke(sender);
@@ -29,6 +31,11 @@ namespace SabberStoneCore.Model
 	    public void OnSummonTrigger(IEntity sender)
 	    {
 		    SummonTrigger?.Invoke(sender);
+	    }
+
+	    public void OnAttackTrigger(IEntity sender)
+	    {
+		    AttackTrigger?.Invoke(sender);
 	    }
     }
 }

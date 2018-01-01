@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -12,7 +13,7 @@ namespace SabberStoneCore.Enchants
 {
 	public enum AuraType
 	{
-		SELF, ADJACENT, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER
+		SELF, ADJACENT, BOARD, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER
 	}
 
 	public enum EffectOperator
@@ -23,6 +24,7 @@ namespace SabberStoneCore.Enchants
 	public interface IAura
 	{
 		void Update();
+		void Remove();
 	}
 
 	public struct Effect : IEquatable<Effect>
@@ -40,20 +42,23 @@ namespace SabberStoneCore.Enchants
 
 		public void Apply(IEntity entity)
 		{
+			if (!entity.NativeTags.ContainsKey(Tag))
+				entity.NativeTags.Add(Tag, entity.Card[Tag]);
+
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
 					entity.NativeTags[Tag] += Value;
-					return;
+					break;
 				case EffectOperator.SUB:
 					entity.NativeTags[Tag] -= Value;
-					return;
+					break;
 				case EffectOperator.MUL:
 					entity.NativeTags[Tag] *= Value;
-					return;
+					break;
 				case EffectOperator.SET:
 					entity.NativeTags[Tag] = Value;
-					return;
+					break;
 				default:
 					throw new ArgumentException();
 			}
@@ -164,16 +169,17 @@ namespace SabberStoneCore.Enchants
 	    }
     }
 
-	public class OngoingEffect : Enchant, IAura
+	public class OngoingEnchant : Enchant, IAura
 	{
 		private int _count;
+		private int _lastCount;
 		private int _targetId;
 		private int _controllerId;
 		private IEntity _target;
 		private Controller _controller;
 
-		public OngoingEffect(params Effect[] effects) : base(effects) { }
-		private OngoingEffect() { }
+		public OngoingEnchant(params Effect[] effects) : base(effects) { }
+		private OngoingEnchant() { }
 
 		public int Count
 		{
@@ -209,7 +215,7 @@ namespace SabberStoneCore.Enchants
 
 		public override void ActivateTo(IEntity entity, Enchantment enchantment)
 		{
-			var instance = new OngoingEffect(Effects)
+			var instance = new OngoingEnchant(Effects)
 			{
 				Game = entity.Game,
 				//Controller = entity.Controller,
@@ -227,6 +233,12 @@ namespace SabberStoneCore.Enchants
 
 			base.ActivateTo(Target, null);
 		}
+
+		public void Remove()
+		{
+			Target.OngoingEffect = null;
+			Target.Game.Auras.Remove(this);
+		}
 	}
 
 	public class Aura : IAura
@@ -237,11 +249,11 @@ namespace SabberStoneCore.Enchants
 		private List<IPlayable> _tempList;
 		private bool _toBeUpdated;
 		private bool _on;
-		private readonly Effect[] Effects;
+		private Effect[] Effects;
 		public readonly Game Game;
 		public readonly AuraType Type;
 		public SelfCondition Condition;
-		public Card EnchantmentCard;
+		public readonly Card EnchantmentCard;
 
 		public Aura(AuraType type, params Effect[] effects)
 		{
@@ -249,10 +261,17 @@ namespace SabberStoneCore.Enchants
 			Effects = effects;
 		}
 
+		public Aura(AuraType type, string enchantmentId)
+		{
+			Type = type;
+			EnchantmentCard = Cards.FromId(enchantmentId);
+		}
+
 		private Aura(Aura prototype, IPlayable owner)
 		{
 			Type = prototype.Type;
 			Effects = prototype.Effects;
+			Condition = prototype.Condition;
 			Game = owner.Game;
 			_on = true;
 			_appliedEntities = new List<int>();
@@ -261,12 +280,14 @@ namespace SabberStoneCore.Enchants
 			_toBeUpdated = true;
 
 			Game.Auras.Add(this);
+			owner.OngoingEffect = this;
 		}
 
 		public IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_ownerId]);
 
 		public void Activate(IPlayable owner)
 		{
+			Effects = EnchantmentCard.Powers[0].Enchant.Effects;
 			var instance = new Aura(this, owner);
 			if (owner.Game.History)
 			{
@@ -296,49 +317,26 @@ namespace SabberStoneCore.Enchants
 
 			if (_on)
 			{
+				if (_tempList != null)
+				{
+					for (int i = 0; i < _tempList.Count; i++)
+					{
+						var minion = _tempList[i];
+
+						Apply(minion);
+					}
+				}
 				switch (Type)
 				{
-					case AuraType.BOARD_EXCEPT_SOURCE:
-						if (_tempList != null)
-						{
-							for (int i = 0; i < _tempList.Count; i++)
-							{
-								var minion = _tempList[i];
-
-								if (minion.AuraEffects == null)
-									minion.AuraEffects = new AuraEffects();
-
-								foreach (Effect effect in Effects)
-								{
-									effect.Apply(minion.AuraEffects);
-								}
-
-								minion.AuraEffects.Update(minion);
-
-								_appliedEntities.Add(minion.Id);
-							}
-						}
+					case AuraType.BOARD:
 						foreach (Minion minion in Owner.Controller.BoardZone)
-						{
-							if (Condition != null && !Condition.Eval(minion))
-								continue;
+							Apply(minion);
+						break;
 
-							if (!_appliedEntities.Contains(minion.Id) && minion.Id != _ownerId)
-							{
-
-								if (minion.AuraEffects == null)
-									minion.AuraEffects = new AuraEffects();
-
-								foreach (Effect effect in Effects)
-								{
-									effect.Apply(minion.AuraEffects);
-								}
-
-								minion.AuraEffects.Update(minion);
-
-								_appliedEntities.Add(minion.Id);
-							}
-						}
+					case AuraType.BOARD_EXCEPT_SOURCE:
+						foreach (Minion minion in Owner.Controller.BoardZone)
+							if (minion != Owner)
+								Apply(minion);
 						return;
 				}
 			}
@@ -349,13 +347,34 @@ namespace SabberStoneCore.Enchants
 					var minion = Game.IdEntityDic[i];
 
 					foreach (var effect in Effects)
-					{
 						effect.Remove(minion.AuraEffects);
-					}
-
-					minion.AuraEffects.Update(minion);
 				}
+
+				Game.Auras.Remove(this);
 			}
+		}
+
+		public void Remove()
+		{
+			_on = false;
+			_toBeUpdated = true;
+			Owner.OngoingEffect = null;
+		}
+
+		private void Apply(IPlayable entity)
+		{
+			if (_appliedEntities.Contains(entity.Id)) return;
+
+			if (Condition != null)
+				if (!Condition.Eval(entity))
+					return;
+
+			for (int i = 0; i < Effects.Length; i++)
+				Effects[i].Apply(entity.AuraEffects);
+
+			// history
+
+			_appliedEntities.Add(entity.Id);
 		}
 	}
 
@@ -377,6 +396,8 @@ namespace SabberStoneCore.Enchants
 						return ATK;
 					case GameTag.HEALTH:
 						return HEALTH;
+					case GameTag.CHARGE:
+						return CHARGE;
 					default:
 						return 0;
 				}
@@ -402,12 +423,12 @@ namespace SabberStoneCore.Enchants
 
 		public void Update(IPlayable p)
 		{
-			p[GameTag.ATK] = p.NativeTags[GameTag.ATK] + ATK;
-			p[GameTag.HEALTH] = p.NativeTags[GameTag.HEALTH] + HEALTH;
-			p[GameTag.COST] = p.NativeTags[GameTag.COST] + COST;
-			p[GameTag.SPELLPOWER] = p.NativeTags[GameTag.SPELLPOWER] + SPELLPOWER;
-			if (p.NativeTags[GameTag.CHARGE] == 0)
-				p[GameTag.CHARGE] = CHARGE;
+			//p[GameTag.ATK] = p.NativeTags[GameTag.ATK] + ATK;
+			//p[GameTag.HEALTH] = p.NativeTags[GameTag.HEALTH] + HEALTH;
+			//p[GameTag.COST] = p.NativeTags[GameTag.COST] + COST;
+			//p[GameTag.SPELLPOWER] = p.NativeTags[GameTag.SPELLPOWER] + SPELLPOWER;
+			//if (p.NativeTags[GameTag.CHARGE] == 0)
+			//	p[GameTag.CHARGE] = CHARGE;
 		}
 	}
 

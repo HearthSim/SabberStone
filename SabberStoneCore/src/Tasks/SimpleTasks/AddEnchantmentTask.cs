@@ -10,8 +10,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class AddEnchantmentTask : SimpleTask
     {
 	    private readonly Card _enchantmentCard;
-
 		private readonly EntityType _entityType;
+
+	    public AddEnchantmentTask(string enchantmentId, EntityType entityType)
+	    {
+		    _enchantmentCard = Cards.FromId(enchantmentId);
+		    _entityType = entityType;
+	    }
 
 	    public AddEnchantmentTask(Card enchantmentCard, EntityType entityType)
 	    {
@@ -19,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    _entityType = entityType;
 	    }
 
-	    public override TaskState Process()
+		public override TaskState Process()
 	    {
 		    List<IPlayable> entities = IncludeTask.GetEntites(_entityType, Controller, Source, Target, Playables);
 
@@ -30,12 +35,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				foreach (Power power in _enchantmentCard.Powers)
 				{
-					power.Trigger?.Activate(Game, enchantment.Id);
+					power.Trigger?.Activate(Game, enchantment);
 
-					if (power.Enchant is OngoingEffect && entity.OngoingEffect != null)
-				    {
-					    entity.OngoingEffect.Count++;
-				    }
+					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+					{
+						((OngoingEnchant) entity.OngoingEffect).Count++;
+					}
 					else
 					{
 						power.Enchant.ActivateTo(entity, enchantment);

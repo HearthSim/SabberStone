@@ -64,7 +64,7 @@ namespace SabberStoneCore.Model.Entities
 
 		//List<string> Enchants { get; }
 
-		OngoingEffect OngoingEffect { get; set; }
+		IAura OngoingEffect { get; set; }
 
 		AuraEffects AuraEffects { get; set; }
 
@@ -120,15 +120,6 @@ namespace SabberStoneCore.Model.Entities
 		/// The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.
 		/// </value>
 		public List<OldEnchant> OldEnchants { get; } = new List<OldEnchant>();
-
-		//public List<string> Enchants { get; } = new List<string>();
-		public OngoingEffect OngoingEffect { get; set; }
-		//public Stack<Enchant> OneTurnEffects => _effects ?? (_effects = new Stack<Enchant>());
-		public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
-		private Stack<(GameTag, int)> _effects;
-		public AuraEffects AuraEffects { get; set; }
-		public Dictionary<GameTag, int> NativeTags => _data.Tags;
-		public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
 
 		/// <summary>Gets all triggers hooked onto this entity.</summary>
 		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
@@ -235,33 +226,20 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!Tags.TryGetValue(t, out int value))
-				{
-					if (!NativeTags.TryGetValue(t, out value))
-					{
-						value = Card[t];
-						NativeTags[t] = value;
-					}
-					Tags[t] = value;
-				}
+				if (!NativeTags.TryGetValue(t, out int value))
+					value = Card[t];
+
+				value += AuraEffects[t];
 
 				return value;
 			}
 			set
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value} oldvalue {oldValue}");
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value}");
 
 				Game.OnEntityChanged(this, t, 0, value);
 
-				if (!NativeTags.TryGetValue(t, out int oldValue))
-				{
-					oldValue = Card[t];
-					NativeTags[t] = oldValue;
-				}
-
-				
-
-
+				NativeTags[t] = value;
 			}
 		}
 
@@ -466,5 +444,18 @@ namespace SabberStoneCore.Model.Entities
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	}
+
+	public partial class Entity
+	{
+		public IAura OngoingEffect { get; set; }
+
+		public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
+		private Stack<(GameTag, int)> _effects;
+
+		public AuraEffects AuraEffects { get; set; } = new AuraEffects();
+
+		public Dictionary<GameTag, int> NativeTags => _data.Tags;
+		public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
 	}
 }
