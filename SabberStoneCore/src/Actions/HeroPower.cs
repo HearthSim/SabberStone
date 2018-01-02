@@ -3,6 +3,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Actions
 {
@@ -17,23 +18,24 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, ICharacter, bool> HeroPowerBlock
 			=> delegate (Controller c, ICharacter target)
 			{
-				if (!c.Hero.Power.IsPlayable || !c.Hero.Power.IsValidPlayTarget(target))
+				if (!c.Hero.HeroPower.IsPlayable || !c.Hero.HeroPower.IsValidPlayTarget(target))
 				{
 					return false;
 				}
 
-				PayPhase.Invoke(c, c.Hero.Power);
+				PayPhase.Invoke(c, c.Hero.HeroPower);
 
 				// play block
 				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.Power.Id, "", 0, target?.Id ?? 0));
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.HeroPower.Id, "", 0, target?.Id ?? 0));
 
 				string targtTxt = target != null ? $" targeting {target}" : "";
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.Power}[{c.Hero.Power.Card.Id}]{targtTxt}.");
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{targtTxt}.");
 
-				c.Hero.Power.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
+				//c.Hero.HeroPower.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
+				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target);
 
-				c.Hero.Power.IsExhausted = true;
+				c.Hero.HeroPower.IsExhausted = true;
 				c.HeroPowerActivationsThisTurn++;
 				c.NumTimesHeroPowerUsedThisGame++;
 

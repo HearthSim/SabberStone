@@ -167,23 +167,18 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Card, Minion, bool> TransformBlock
 			=> delegate (Controller c, Card card, Minion oldMinion)
 			{
-				var newMinion = Entity.FromCard(c, card) as Minion;
-				if (newMinion == null)
+				if (!(Entity.FromCard(c, card) is Minion newMinion))
 				{
 					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"missing final tranformation.");
 					return false;
 				}
+
+				c.BoardZone.Replace(oldMinion, newMinion);
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				//newMinion.ApplyPowers(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
-				newMinion.ApplyPowers(PowerActivation.BOARD_ZONE, Zone.PLAY);
-				newMinion.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
-				newMinion.ApplyPowers(PowerActivation.DECK_ZONE, Zone.DECK);
-
-				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
-				oldMinion.Controller.SetasideZone.Add(oldEntity);
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldEntity} got transformed into {newMinion}.");
+				oldMinion.Controller.SetasideZone.Add(oldMinion);
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
 				return true;
 			};
 	}

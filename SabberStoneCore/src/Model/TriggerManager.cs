@@ -12,7 +12,11 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler DamageTrigger;
 
+	    public event TriggerHandler HealTrigger;
+
 	    public event TriggerHandler EndTurnTrigger;
+
+	    public event TriggerHandler TurnStartTrigger;
 
 	    public event TriggerHandler SummonTrigger;
 
@@ -23,9 +27,19 @@ namespace SabberStoneCore.Model
 		    DamageTrigger?.Invoke(sender);
 	    }
 
+	    public void OnHealTrigger(IEntity sender)
+	    {
+		    HealTrigger?.Invoke(sender);
+	    }
+
 	    public void OnEndTurnTrigger(IEntity sender)
 	    {
 		    EndTurnTrigger?.Invoke(sender);
+	    }
+
+	    public void OnTurnStartTrigger(IEntity sender)
+	    {
+		    TurnStartTrigger?.Invoke(sender);
 	    }
 
 	    public void OnSummonTrigger(IEntity sender)

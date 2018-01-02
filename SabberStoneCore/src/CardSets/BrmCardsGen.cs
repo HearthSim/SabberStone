@@ -39,7 +39,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
+					PowerTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
 				}
 			});
 
@@ -54,7 +54,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
+					PowerTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
 				}
 			});
 
@@ -97,7 +97,7 @@ namespace SabberStoneCore.CardSets
 				{
                     // CHOOSE_ONE, Choose Both option
                     Activation = PowerActivation.BATTLECRY,
-					SingleTask = new TransformTask("OG_044b", EntityType.SOURCE)
+					PowerTask = new TransformTask("OG_044b", EntityType.SOURCE)
 				}
 			});
 
@@ -115,7 +115,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = new TransformTask("BRM_010t", EntityType.SOURCE)
+					PowerTask = new TransformTask("BRM_010t", EntityType.SOURCE)
 				},
 			});
 
@@ -129,7 +129,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = new TransformTask("BRM_010t2", EntityType.SOURCE)
+					PowerTask = new TransformTask("BRM_010t2", EntityType.SOURCE)
 				}
 			});
 
@@ -172,7 +172,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
 						new FlagTask(true, new DrawTask()))
@@ -192,7 +192,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE)))
 				},
@@ -235,7 +235,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new DamageTask(4, EntityType.TARGET, true)
+					PowerTask = new DamageTask(4, EntityType.TARGET, true)
 				}
 			});
 
@@ -296,7 +296,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new DrawTask())
+					PowerTask = new EnqueueTask(2, new DrawTask())
 				},
 			});
 
@@ -314,7 +314,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -348,7 +348,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.SummonRandomMinionThatDied(),
+					PowerTask = ComplexTask.SummonRandomMinionThatDied(),
 				},
 			});
 
@@ -365,7 +365,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new BuffTask(Buffs.Health(2), EntityType.SOURCE)))
 				},
@@ -404,7 +404,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, 3),
 						new AddStackTo(EntityType.DECK))
 				},
@@ -423,7 +423,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new IncludeTask(EntityType.OP_MINIONS),
 						new FilterStackTask(SelfCondition.IsUndamaged),
 						new DamageTask(2, EntityType.STACK))
@@ -451,7 +451,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET),
 						new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0)),
 				},
@@ -472,7 +472,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new MathRandTask(1,4),
 						new BuffAttackNumberTask(EntityType.SOURCE))
 				},
@@ -510,7 +510,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new IncludeTask(EntityType.ALLMINIONS),
 						new FilterStackTask(SelfCondition.IsNotRace(Race.DEMON)),
 						new DamageTask(2, EntityType.STACK, true))
@@ -561,7 +561,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
 				},
 			});
@@ -657,7 +657,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE)))
 				},
@@ -693,7 +693,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new RandomMinionTask(GameTag.COST, 1),
 						new SummonOpTask()),
 				},
@@ -713,7 +713,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
+					PowerTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
 				},
 			});
 
@@ -758,7 +758,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = new DestroyTask(EntityType.TARGET)
+					PowerTask = new DestroyTask(EntityType.TARGET)
 				},
 			});
 
@@ -776,7 +776,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BOARD_ZONE,
-					SingleTask = new EnqueueTask(2, ComplexTask.Create(
+					PowerTask = new EnqueueTask(2, ComplexTask.Create(
 						new RandomCardTask(EntityType.OP_HERO),
 						new AddStackTo(EntityType.HAND))),
 				}
@@ -825,7 +825,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE)))
 				},
@@ -847,7 +847,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new DamageTask(3, EntityType.TARGET)))
 				},

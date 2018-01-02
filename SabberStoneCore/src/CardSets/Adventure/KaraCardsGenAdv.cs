@@ -851,7 +851,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "KARA_00_05e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -870,7 +870,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "KARA_00_06e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -888,7 +888,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -903,7 +903,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -924,7 +924,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -939,7 +939,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -958,7 +958,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -977,7 +977,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1395,7 +1395,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1413,7 +1413,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1428,7 +1428,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1443,7 +1443,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1458,7 +1458,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1473,7 +1473,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1488,7 +1488,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1503,7 +1503,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1518,7 +1518,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1533,7 +1533,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1548,7 +1548,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1563,7 +1563,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1580,7 +1580,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "KARA_08_03e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1596,7 +1596,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1612,7 +1612,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "KARA_08_04e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1633,7 +1633,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1654,7 +1654,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1669,7 +1669,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1684,7 +1684,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1702,7 +1702,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1720,7 +1720,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1735,7 +1735,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1750,7 +1750,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1768,7 +1768,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1786,7 +1786,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1805,7 +1805,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "KARA_13_11e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1821,7 +1821,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1837,7 +1837,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1853,7 +1853,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1869,7 +1869,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1890,7 +1890,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 

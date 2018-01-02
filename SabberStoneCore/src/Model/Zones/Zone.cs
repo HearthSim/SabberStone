@@ -70,24 +70,6 @@ namespace SabberStoneCore.Model.Zones
 		public abstract IPlayable Remove(IPlayable entity);
 
 		/// <summary>
-		/// Replaces an entity in this zone to new entity and returns the old entity.
-		/// The position of the new entity is the same position the old entity had.
-		/// </summary>
-		/// <param name="oldEntity">The entity to be replaced.</param>
-		/// <param name="newEntity">The new entity.</param>
-		/// <returns></returns>
-		public IPlayable Replace(IPlayable oldEntity, IPlayable newEntity)
-		{
-			int pos = oldEntity.ZonePosition;
-			Entities[pos] = (T)newEntity;
-			newEntity.ZonePosition = pos;
-			newEntity.Zone = this;
-			((Entity) newEntity).SetNativeGameTag(GameTag.ZONE, (int) Type);
-			oldEntity.Zone = null;
-			return oldEntity;
-		}
-
-		/// <summary>
 		/// Moves the specified entity to a new position.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
@@ -347,6 +329,8 @@ namespace SabberStoneCore.Model.Zones
 	/// <typeparam name="T"></typeparam>
 	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
 	{
+		public readonly List<Aura> Auras = new List<Aura>();
+
 		private void Reposition(int zonePosition = 0)
 		{
 			if (zonePosition < 0)
@@ -354,6 +338,9 @@ namespace SabberStoneCore.Model.Zones
 
 			for (int i = _count - 1; i >= zonePosition; --i)
 				Entities[i].ZonePosition = i;
+
+			for (int i = 0; i < Auras.Count; i++)
+				Auras[i].ToBeUpdated = true;
 		}
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)

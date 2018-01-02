@@ -35,7 +35,7 @@ namespace SabberStoneCore.Loader
 				{
 					c.Powers = list;
 					c.Implemented = list == null || c.Powers[0].Activation != PowerActivation.NONE &&
-									(c.Powers[0].SingleTask != null || c.Powers[0].OldEnchant != null ||
+									(c.Powers[0].PowerTask != null || c.Powers[0].OldEnchant != null ||
 									 c.Powers[0].OldTrigger != null);
 				}
 			}

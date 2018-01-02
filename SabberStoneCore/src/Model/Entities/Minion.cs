@@ -72,6 +72,10 @@ namespace SabberStoneCore.Model.Entities
 			}
 			else
 			{
+				int cardBaseHealth = Card[GameTag.HEALTH];
+				int delta = BaseHealth - cardBaseHealth;
+				if (delta > 0)
+					Damage -= delta;
 				this[GameTag.HEALTH] = Card[GameTag.HEALTH];
 			}
 

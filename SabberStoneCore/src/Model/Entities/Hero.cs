@@ -14,8 +14,8 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Hero : Character<Hero>
 	{
 		/// <summary>Gets or sets the hero power entity.</summary>
-		/// <value><see cref="HeroPower"/></value>
-		public HeroPower Power { get; set; }
+		/// <value><see cref="Entities.HeroPower"/></value>
+		public HeroPower HeroPower { get; set; }
 
 		/// <summary>Gets or sets the weapon entity equipped on the Hero.</summary>
 		/// <value><see cref="Entities.Weapon"/></value>
@@ -77,7 +77,8 @@ namespace SabberStoneCore.Model.Entities
 
 			if (Weapon.HasDeathrattle)
 			{
-				Weapon.ApplyPowers(PowerActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+				//Weapon.ApplyPowers(PowerActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 			}
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
@@ -117,11 +118,7 @@ namespace SabberStoneCore.Model.Entities
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public int SpellPowerDamage
-		{
-			get { return this[GameTag.SPELLPOWER]; }
-			set { this[GameTag.SPELLPOWER] = value; }
-		}
+		public int SpellPowerDamage => this[GameTag.CURRENT_SPELLPOWER];
 
 		public int EquippedWeapon
 		{

@@ -187,6 +187,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 
 				case EntityType.TARGET:
+					if (source is Enchantment e)
+					{
+						result.Add(e.Target);
+						break;
+					}
 					var t = target as IPlayable;
 					if (t != null)
 					{
@@ -212,11 +217,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 
 				case EntityType.HERO_POWER:
-					result.Add(controller.Hero.Power);
+					result.Add(controller.Hero.HeroPower);
 					break;
 
 				case EntityType.OP_HERO_POWER:
-					result.Add(controller.Opponent.Hero.Power);
+					result.Add(controller.Opponent.Hero.HeroPower);
 					break;
 
 				case EntityType.WEAPON:

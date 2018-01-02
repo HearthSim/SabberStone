@@ -47,15 +47,14 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 				}
 
-				if (source.Card.Powers != null)
-				{
-					foreach (Power power in source.Card.Powers)
-					{
-						if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-							power.Trigger.Activate(c.Game, source);
-					}
-				}
-
+				//if (source.Card.Powers != null)
+				//{
+				//	foreach (Power power in source.Card.Powers)
+				//	{
+				//		if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+				//			power.Trigger.Activate(source);
+				//	}
+				//}
 
 				if (source is Hero hero)
 				{
@@ -74,7 +73,7 @@ namespace SabberStoneCore.Actions
 					if (!RemoveFromZone.Invoke(c, source))
 						return false;
 
-					PlayWeapon.Invoke(c, (Weapon)source);
+					PlayWeapon.Invoke(c, (Weapon)source, target);
 				}
 				else if (source is Spell)
 				{
@@ -202,10 +201,16 @@ namespace SabberStoneCore.Actions
 				//oldHero[GameTag.REVEALED] = 1;
 				//c[GameTag.HERO_ENTITY] = hero.Id;
 				hero.Weapon = oldHero.Weapon;
-				c.SetasideZone.Add(oldHero.Power);
-				hero.Power = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+				c.SetasideZone.Add(oldHero.HeroPower);
+				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
 
 				c.Hero = hero;
+
+				foreach (Power power in hero.Card.Powers)
+				{
+					if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+						power.Trigger.Activate(hero);
+				}
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
@@ -213,13 +218,15 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+				//hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+				hero.ActivateTask(PowerActivation.POWER, target);
 
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+					//hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+					hero.ActivateTask(PowerActivation.POWER, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -260,14 +267,17 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+				//minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+
 				if (minion.Combo && c.IsComboActive)
-					minion.ApplyPowers(PowerActivation.COMBO, Zone.PLAY, target);
+					minion.ActivateTask(PowerActivation.POWER, target);
+				else
+					minion.ActivateTask(PowerActivation.POWER, target);
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
+					minion.ActivateTask(PowerActivation.POWER, target);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -319,13 +329,15 @@ namespace SabberStoneCore.Actions
 					c.NumSpellsPlayedThisGame++;
 					if (spell.IsSecret)
 						c.NumSecretsPlayedThisGame++;
-					spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
+					spell.ActivateTask(PowerActivation.SECRET_OR_QUEST);
 					c.SecretZone.Add(spell);
 				}
 				else
 				{
 					c.NumSpellsPlayedThisGame++;
-					spell.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
+					//spell.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
+					spell.ActivateTask(PowerActivation.POWER, target);
+
 					c.GraveyardZone.Add(spell);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
@@ -342,16 +354,25 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Weapon, bool> PlayWeapon
-			=> delegate (Controller c, Weapon weapon)
+		public static Func<Controller, Weapon, ICharacter, bool> PlayWeapon
+			=> delegate (Controller c, Weapon weapon, ICharacter target)
 			{
 				c.Hero.AddWeapon(weapon);
+
+				if (weapon.Powers != null)
+				{
+					foreach (Power power in weapon.Card.Powers)
+					{
+						if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+							power.Trigger.Activate(weapon);
+					}
+				}
+
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
 				// activate battlecry
-				weapon.ApplyPowers(PowerActivation.WEAPON, Zone.PLAY);
-				weapon.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY);
+				weapon.ActivateTask(PowerActivation.POWER, target);
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumWeaponsPlayedThisGame++;

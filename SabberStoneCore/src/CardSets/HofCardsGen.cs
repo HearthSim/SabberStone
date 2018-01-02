@@ -30,7 +30,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
 						ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
 						ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
@@ -54,7 +54,7 @@ namespace SabberStoneCore.CardSets
 				{
 					InfoCardId = "EX1_128e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = new BuffStealthTask(EntityType.MINIONS)
+					PowerTask = new BuffStealthTask(EntityType.MINIONS)
 				},
 			});
 		}
@@ -82,7 +82,7 @@ namespace SabberStoneCore.CardSets
 					InfoCardId = "EX1_316e",
 					Area = PowerArea.TARGET,
 					Activation = PowerActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
+					PowerTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
 					OldEnchant = new OldEnchant
 					{
 						TurnsActive = 0,
@@ -123,7 +123,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.Create(
+					PowerTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.OP_MINIONS),
 						new ControlTask(EntityType.STACK))
 				}
@@ -165,7 +165,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -189,7 +189,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = new DrawTask()
+					PowerTask = new DrawTask()
 				}
 			});
 
@@ -230,7 +230,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -251,7 +251,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -396,7 +396,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -414,7 +414,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -434,7 +434,7 @@ namespace SabberStoneCore.CardSets
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 

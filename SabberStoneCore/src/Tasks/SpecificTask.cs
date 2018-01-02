@@ -66,7 +66,7 @@ namespace SabberStoneCore.Tasks
 				{
 					var result = new List<IPlayable>();
 					Controller controller = list[0].Controller;
-					List<string> entourage = controller.Hero.Power.Card.Entourage;
+					List<string> entourage = controller.Hero.HeroPower.Card.Entourage;
 					var notContained = new List<string>();
 					var idsOnBoard = controller.BoardZone.Select(p => p.Card.Id).ToList();
 					entourage.ForEach(p =>
@@ -95,7 +95,7 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(p =>
 				{
 					Controller controller = p[0].Controller;
-					switch (controller.Hero.Power.Card.Id)
+					switch (controller.Hero.HeroPower.Card.Id)
 					{
 						case "CS1h_001":
 							return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId("AT_132_PRIEST")) };
@@ -131,8 +131,9 @@ namespace SabberStoneCore.Tasks
 					//activeSecrets.Add(p[0].Card.Id);
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
-					IPlayable spell = Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
-					spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
+					var spell = (Spell) Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
+					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
+					spell.ActivateTask(PowerActivation.SECRET_OR_QUEST);
 					controller.SecretZone.Add(spell);
 					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();

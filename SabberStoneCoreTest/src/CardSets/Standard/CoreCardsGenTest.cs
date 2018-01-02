@@ -3438,7 +3438,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(healthTot1 + 2, ((ICharacter)game.CurrentPlayer.BoardZone[1]).Health);
 			Assert.Equal(healthTot2 + 2, ((ICharacter)game.CurrentPlayer.BoardZone[2]).Health);
 			Assert.Equal(7, ((ICharacter)minion1).Health);
-			((ICharacter)game.CurrentPlayer.BoardZone[1]).IsSilenced = true;
+
+			IPlayable silencer = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silencer, game.CurrentPlayer.BoardZone[1]));
 
 			Assert.Equal(healthTot1, ((ICharacter)game.CurrentPlayer.BoardZone[1]).Health);
 			Assert.Equal(healthTot2 + 2, ((ICharacter)game.CurrentPlayer.BoardZone[2]).Health);
@@ -4376,14 +4378,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, ((Minion)minion2).AttackDamage);
 			Assert.Equal(4, ((Minion)minion3).AttackDamage);
 
-			((Minion)minion2).Silence();
+			IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silence, minion2));
 
 			Assert.Equal(2, ((Minion)minion).AttackDamage);
 			Assert.Equal(2, ((Minion)minion1).AttackDamage);
 			Assert.Equal(1, ((Minion)minion2).AttackDamage);
 			Assert.Equal(4, ((Minion)minion3).AttackDamage);
 
-			((Minion)minion).Silence();
+			IPlayable silence2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silence2, minion));
 
 			Assert.Equal(2, ((Minion)minion1).AttackDamage);
 			Assert.Equal(1, ((Minion)minion2).AttackDamage);
@@ -5527,7 +5531,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, ((ICharacter)minion1).AttackDamage);
 			Assert.Equal(2, ((ICharacter)minion1).Health);
 
-			((ICharacter)minion1).IsSilenced = true;
+			IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silence, minion1));
 
 			Assert.Equal(1, ((ICharacter)minion1).AttackDamage);
 			Assert.Equal(1, ((ICharacter)minion1).Health);

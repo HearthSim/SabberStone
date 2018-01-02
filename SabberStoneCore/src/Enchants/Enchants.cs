@@ -61,8 +61,6 @@ namespace SabberStoneCore.Enchants
 			{
 				IsOneTurnEffect = oneTurn
 		    };
-
-		    throw new Exception();
 	    }
     }
 

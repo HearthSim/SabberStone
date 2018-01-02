@@ -27,8 +27,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (applyPowers)
-				entity.ApplyPowers(PowerActivation.DECK_ZONE, Zone.DECK);
+
 		}
 
 		public void Fill(List<string> excludeIds = null)

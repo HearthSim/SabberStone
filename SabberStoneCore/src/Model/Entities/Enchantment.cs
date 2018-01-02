@@ -16,7 +16,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool IsOneTurnActive;
 
 
-		public Enchantment(Game game, Card card, Dictionary<GameTag, int> tags)
+		private Enchantment(Game game, Card card, Dictionary<GameTag, int> tags)
 		{
 			Game = game;
 			Card = card;
@@ -110,6 +110,7 @@ namespace SabberStoneCore.Model.Entities
 
 		}
 		public ComplexEffects CostEffects { get; }
+		public Trigger ActivatedTrigger { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
 	}
@@ -179,10 +180,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public bool ToBeDestroyed { get; set; }
-		public void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null)
-		{
-			throw new NotImplementedException();
-		}
 
 		public int CardTarget { get; set; }
 		public int ZonePosition { get; set; }

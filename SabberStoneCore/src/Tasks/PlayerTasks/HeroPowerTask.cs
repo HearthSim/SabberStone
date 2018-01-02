@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override string FullPrint()
 		{
-			return $"HeroPowerTask => [{Controller.Name}] using {Controller.Hero.Power}" +
+			return $"HeroPowerTask => [{Controller.Name}] using {Controller.Hero.HeroPower}" +
 				   $"{(Target != null ? $" attack {Target}" : "")}";
 		}
 	}

@@ -578,7 +578,7 @@ namespace SabberStoneCore.Model
 			CurrentPlayer.Hero.IsExhausted = false;
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = false;
-			CurrentPlayer.Hero.Power.IsExhausted = false;
+			CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 			foreach (Minion e in CurrentPlayer.BoardZone)
 			{
 				e.IsSummoned = false;
@@ -611,6 +611,8 @@ namespace SabberStoneCore.Model
 		public void MainStartTriggers()
 		{
 			CurrentPlayer.TurnStart = true;
+
+			TriggerManager.OnTurnStartTrigger(this);
 
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 8, 0));
@@ -861,7 +863,7 @@ namespace SabberStoneCore.Model
 					minion.Zone.Remove(minion);
 
 					if (minion.HasDeathrattle)
-						minion.ApplyPowers(PowerActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
+						minion.ActivateTask(PowerActivation.DEATHRATTLE);
 
 					if (History)
 						PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);

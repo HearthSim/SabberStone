@@ -55,7 +55,7 @@ namespace SabberStoneUnitTest.CardSets
 			Assert.Equal(9, game.CurrentPlayer.BoardZone.Sum(p => p.Card.Cost));
 
 			Assert.Equal("ICC_481", game.CurrentPlayer.Hero.Card.Id);
-			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal("ICC_481p", game.CurrentPlayer.Hero.HeroPower.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 		}
 
@@ -91,7 +91,7 @@ namespace SabberStoneUnitTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Valeera the Hollow"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.Equal("ICC_827", game.CurrentPlayer.Hero.Card.Id);
-			Assert.Equal("ICC_827p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal("ICC_827p", game.CurrentPlayer.Hero.HeroPower.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 			Assert.True(game.CurrentPlayer.Hero[GameTag.STEALTH] == 1);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -253,7 +253,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			Assert.Equal(2, game.CurrentOpponent.Hero.Damage);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
-			Assert.False(game.CurrentPlayer.Hero.Power.IsExhausted);
+			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsExhausted);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wisp"));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
@@ -303,7 +303,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodreaver Gul'dan"));
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			Assert.Equal("ICC_831", game.CurrentPlayer.Hero.Card.Id);
-			Assert.Equal("ICC_831p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal("ICC_831p", game.CurrentPlayer.Hero.HeroPower.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(29, game.CurrentOpponent.Hero.Health);
@@ -356,7 +356,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Malfurion the Pestilent", null, -1, 2));
 			Assert.Equal("ICC_832", game.CurrentPlayer.Hero.Card.Id);
-			Assert.Equal("ICC_832p", game.CurrentPlayer.Hero.Power.Card.Id);
+			Assert.Equal("ICC_832p", game.CurrentPlayer.Hero.HeroPower.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 		}
@@ -1226,7 +1226,7 @@ namespace SabberStoneUnitTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			game.CurrentPlayer.Hero.Power.IsExhausted = true;
+			game.CurrentPlayer.Hero.HeroPower.IsExhausted = true;
 			for (int i = 0; i < 5; i++)
 				Generic.Draw(game.CurrentPlayer);
 			

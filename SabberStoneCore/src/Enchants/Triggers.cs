@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
@@ -16,4 +18,16 @@ namespace SabberStoneCore.Enchants
 	    };
 
     }
+
+	internal delegate bool Condition(IEntity e);
+
+	internal static class Conditions
+	{
+		internal static Condition IsRace(Race race)
+		{
+			return e => e is Minion m && m.Race == race;
+		}
+
+		internal static Condition IsMyTurn => e => e.Game.CurrentPlayer == e.Controller;
+	}
 }

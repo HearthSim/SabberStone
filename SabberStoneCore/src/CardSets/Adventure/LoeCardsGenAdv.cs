@@ -1403,7 +1403,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "LOEA01_11he",
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1422,7 +1422,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "LOEA01_11he",
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1440,7 +1440,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1458,7 +1458,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1807,7 +1807,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1825,7 +1825,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1846,7 +1846,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "LOEA09_7e",
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1866,7 +1866,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1920,7 +1920,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1938,7 +1938,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2308,7 +2308,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2326,7 +2326,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2344,7 +2344,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2359,7 +2359,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2377,7 +2377,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2392,7 +2392,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2410,7 +2410,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2425,7 +2425,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2440,7 +2440,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2455,7 +2455,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2470,7 +2470,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2485,7 +2485,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2500,7 +2500,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2515,7 +2515,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2530,7 +2530,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2545,7 +2545,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2560,7 +2560,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2582,7 +2582,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "LOEA06_03e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2600,7 +2600,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2621,7 +2621,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2642,7 +2642,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2660,7 +2660,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2675,7 +2675,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2690,7 +2690,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2705,7 +2705,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2723,7 +2723,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2738,7 +2738,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2753,7 +2753,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2768,7 +2768,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2783,7 +2783,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2802,7 +2802,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2820,7 +2820,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2835,7 +2835,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2853,7 +2853,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2868,7 +2868,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2883,7 +2883,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2907,7 +2907,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "LOEA16_20e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2988,7 +2988,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3003,7 +3003,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3021,7 +3021,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3039,7 +3039,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 

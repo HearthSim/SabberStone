@@ -23,17 +23,21 @@ namespace SabberStoneCore.Enchants
 
 		public Trigger Trigger { get; set; }
 
-		public ISimpleTask SingleTask { get; set; }
+		public ISimpleTask PowerTask { get; set; }
+
+		public ISimpleTask DeathrattleTask { get; set; }
+
+		public ISimpleTask ComboTask { get; set; }
 
 		public bool RemoveAfterActivation { get; set; } = false;
 
 		public void Activate(Controller controller, IPlayable source, IPlayable target = null)
 		{
 			// execute task straight over
-			if (SingleTask != null)
+			if (PowerTask != null)
 			{
 				// clone task here
-				ISimpleTask clone = SingleTask.Clone();
+				ISimpleTask clone = PowerTask.Clone();
 				clone.Game = controller.Game;
 				clone.Controller = controller;
 				clone.Source = source;

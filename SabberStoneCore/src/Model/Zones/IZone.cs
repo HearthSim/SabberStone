@@ -60,14 +60,6 @@ namespace SabberStoneCore.Model.Zones
 		IPlayable Remove(IPlayable entity);
 
 		/// <summary>
-		/// Replaces the specified entity with another one.
-		/// </summary>
-		/// <param name="oldEntity">The old entity.</param>
-		/// <param name="newEntity">The new entity.</param>
-		/// <returns>The old entity</returns>
-		IPlayable Replace(IPlayable oldEntity, IPlayable newEntity);
-
-		/// <summary>
 		/// Returns a string which contains a hash unique to this zone object.
 		/// </summary>
 		/// <param name="ignore">The <see cref="GameTag"/>s to ignore during hash creation.</param>

@@ -66,6 +66,8 @@ namespace SabberStoneCore.Model.Entities
 
 		IAura OngoingEffect { get; set; }
 
+		Trigger ActivatedTrigger { get; set; }
+
 		AuraEffects AuraEffects { get; set; }
 
 		Dictionary<GameTag, int> NativeTags { get; }
@@ -226,8 +228,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(t, out int value))
-					value = Card[t];
+				int value = _data[t];
 
 				value += AuraEffects[t];
 
@@ -239,7 +240,7 @@ namespace SabberStoneCore.Model.Entities
 
 				Game.OnEntityChanged(this, t, 0, value);
 
-				NativeTags[t] = value;
+				_data[t] = value;
 			}
 		}
 
@@ -450,12 +451,14 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public IAura OngoingEffect { get; set; }
 
-		public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
-		private Stack<(GameTag, int)> _effects;
+		//public Stack<(GameTag Tag, int LastValue)> OneTurnEffects => _effects ?? (_effects = new Stack<(GameTag, int)>());
+		//private Stack<(GameTag, int)> _effects;
 
 		public AuraEffects AuraEffects { get; set; } = new AuraEffects();
 
+		public Trigger ActivatedTrigger { get; set; }
+
 		public Dictionary<GameTag, int> NativeTags => _data.Tags;
-		public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
+		//public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
 	}
 }

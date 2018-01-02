@@ -1341,7 +1341,7 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.NotNull(game.CurrentPlayer.Choice);
 			int choice = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
-			Assert.Equal(choice, game.CurrentPlayer.Hero.Power.Id);
+			Assert.Equal(choice, game.CurrentPlayer.Hero.HeroPower.Id);
 
 		}
 

@@ -134,7 +134,7 @@ namespace SabberStoneCore.Kettle
 					OptionType = OptionType.POWER,
 					MainOption = new PowerSubOption
 					{
-						EntityId = heroPowers.First().Controller.Hero.Power.Id,
+						EntityId = heroPowers.First().Controller.Hero.HeroPower.Id,
 						Targets = targets.Any() ? targets.Select(p => p.Target.Id).Distinct().ToList() : null
 					}
 				};

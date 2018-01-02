@@ -82,7 +82,7 @@ namespace SabberStoneCore.Conditions
 		}
 
 		public static SelfCondition IsFrozen => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
-		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.Power.Card.Id.Equals(cardId));
+		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.HeroPower.Card.Id.Equals(cardId));
 		public static SelfCondition IsNoDupeInDeck => new SelfCondition(me => !me.Controller.DeckZone.GroupBy(x => new { x.Card.Id }).Any(x => x.Skip(1).Any()));
 		public static SelfCondition HasNoSpecficCostCardsInDeck(int cost) => new SelfCondition(me => !me.Controller.DeckZone.Any(x => x.Cost == cost));
 		public static SelfCondition IsManaCrystalFull => new SelfCondition(me => me.Controller.BaseMana == 10);
@@ -96,6 +96,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsAnyNotImmune => new SelfCondition(me => me.Game.Characters.Exists(p => !p.IsImmune));
 		public static SelfCondition IsOpNotBoardFull => new SelfCondition(me => !me.Controller.Opponent.BoardZone.IsFull);
 		public static SelfCondition IsOpTurn => new SelfCondition(me => me.Controller != me.Game.CurrentPlayer);
+		public static SelfCondition IsMyTurn => new SelfCondition(me => me.Controller == me.Game.CurrentPlayer);
 		public static SelfCondition IsSecretOrQuestActive => new SelfCondition(me => me.Zone.Type == Zone.SECRET);
 		public static SelfCondition IsQuestDone => new SelfCondition(me => me[GameTag.QUEST_PROGRESS] == me[GameTag.QUEST_PROGRESS_TOTAL]);
 		public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[((ICharacter)me).ProposedDefender].Card.Type == cardType);

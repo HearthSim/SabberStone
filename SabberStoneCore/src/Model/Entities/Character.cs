@@ -267,6 +267,8 @@ namespace SabberStoneCore.Model.Entities
 			if (Game.Logging)
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
 			Damage -= amount;
+
+			source.Game.TriggerManager.OnHealTrigger(this);
 		}
 
 		/// <summary>

@@ -1166,7 +1166,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1182,7 +1182,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1238,7 +1238,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1253,7 +1253,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1271,7 +1271,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1327,7 +1327,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1342,7 +1342,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1360,7 +1360,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1428,7 +1428,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1446,7 +1446,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1461,7 +1461,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1479,7 +1479,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1497,7 +1497,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1553,7 +1553,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1568,7 +1568,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1583,7 +1583,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1601,7 +1601,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1657,7 +1657,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1672,7 +1672,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1687,7 +1687,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1702,7 +1702,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1720,7 +1720,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1738,7 +1738,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1756,7 +1756,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1857,7 +1857,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1872,7 +1872,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1887,7 +1887,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1905,7 +1905,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1961,7 +1961,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1976,7 +1976,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1991,7 +1991,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2009,7 +2009,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2065,7 +2065,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2080,7 +2080,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2095,7 +2095,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2113,7 +2113,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2184,7 +2184,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2199,7 +2199,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2218,7 +2218,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_SPT_DPromoSecre8e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2236,7 +2236,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2254,7 +2254,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2273,7 +2273,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2291,7 +2291,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2309,7 +2309,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2327,7 +2327,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2345,7 +2345,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2363,7 +2363,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2382,7 +2382,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_SPT_DPromoSecret9e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2400,7 +2400,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3371,7 +3371,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3431,7 +3431,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3882,7 +3882,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3901,7 +3901,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -3939,7 +3939,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4011,7 +4011,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4031,7 +4031,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4302,7 +4302,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "KARA_13_19e",
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4521,7 +4521,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4539,7 +4539,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4715,7 +4715,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4734,7 +4734,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4754,7 +4754,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4789,7 +4789,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4825,7 +4825,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4935,7 +4935,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -4954,7 +4954,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5014,7 +5014,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5126,7 +5126,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5262,7 +5262,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5280,7 +5280,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5298,7 +5298,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5316,7 +5316,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5357,7 +5357,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5376,12 +5376,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5401,7 +5401,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5422,7 +5422,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_SPT_Minion1e",
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5461,7 +5461,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_SPT_Minion3e",
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5481,7 +5481,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5518,7 +5518,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.BATTLECRY,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5616,7 +5616,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5634,7 +5634,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5649,7 +5649,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5670,7 +5670,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "BRMC_100e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5685,7 +5685,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5702,7 +5702,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5717,7 +5717,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5732,7 +5732,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5747,7 +5747,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5762,7 +5762,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5777,7 +5777,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5792,7 +5792,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5807,7 +5807,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5822,7 +5822,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5837,7 +5837,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5854,7 +5854,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5870,7 +5870,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "FB_LKStats002ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5887,7 +5887,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5904,7 +5904,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5921,7 +5921,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5936,7 +5936,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5956,7 +5956,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_006e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5976,7 +5976,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_007e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -5997,7 +5997,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6012,7 +6012,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6027,7 +6027,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6042,7 +6042,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6057,7 +6057,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6072,7 +6072,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6088,7 +6088,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6103,7 +6103,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6118,7 +6118,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6133,7 +6133,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6151,7 +6151,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6169,7 +6169,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6187,7 +6187,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6205,7 +6205,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6223,7 +6223,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6241,7 +6241,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6259,7 +6259,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6278,7 +6278,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_CoOpv3_009e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6296,7 +6296,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6314,7 +6314,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6332,7 +6332,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6350,7 +6350,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6368,7 +6368,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6386,7 +6386,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6404,7 +6404,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6419,7 +6419,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6437,7 +6437,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6455,7 +6455,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6473,7 +6473,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6493,7 +6493,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6508,7 +6508,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6523,7 +6523,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6538,7 +6538,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6553,7 +6553,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6568,7 +6568,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6583,7 +6583,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6598,7 +6598,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6613,7 +6613,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6628,7 +6628,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6643,7 +6643,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6658,7 +6658,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6673,7 +6673,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6691,7 +6691,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6709,7 +6709,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6727,7 +6727,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6745,7 +6745,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6760,7 +6760,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6778,7 +6778,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6796,7 +6796,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6814,7 +6814,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6830,7 +6830,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_10_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6846,7 +6846,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_10_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6861,7 +6861,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6876,7 +6876,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6892,7 +6892,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_12_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6908,7 +6908,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_2_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6924,7 +6924,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_3_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6940,7 +6940,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_4_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6956,7 +6956,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_5_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6971,7 +6971,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -6986,7 +6986,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7002,7 +7002,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_7_Ench_2nd",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7017,7 +7017,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7033,7 +7033,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_8_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7048,7 +7048,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7064,7 +7064,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_PickYourFate_9_Ench",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7083,7 +7083,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7101,7 +7101,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7119,7 +7119,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7134,7 +7134,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7152,7 +7152,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7170,7 +7170,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7186,7 +7186,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_SPT_DPromoSpellBovine1e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7204,7 +7204,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7219,7 +7219,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7235,7 +7235,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				{
 					InfoCardId = "TB_Superfriends001e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7250,7 +7250,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7265,7 +7265,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7284,12 +7284,12 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7305,7 +7305,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7323,7 +7323,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7341,7 +7341,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -7359,7 +7359,7 @@ namespace SabberStoneCore.CardSets.TavernBrawl
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 

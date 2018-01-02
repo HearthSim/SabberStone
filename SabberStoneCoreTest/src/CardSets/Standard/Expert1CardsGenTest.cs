@@ -2880,7 +2880,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(28, game.CurrentOpponent.Hero.Health);
 			IPlayable pain = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Word: Pain"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, pain, testCard));
-			game.CurrentPlayer.Hero.Power.IsExhausted = false;
+			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			Assert.Equal(30, game.CurrentOpponent.Hero.Health);
 		}

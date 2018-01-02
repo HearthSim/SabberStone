@@ -1439,7 +1439,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX6_03te",
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1475,7 +1475,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1508,7 +1508,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1541,7 +1541,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1700,7 +1700,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1718,7 +1718,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1741,7 +1741,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX11_04e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1757,7 +1757,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX12_04e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1773,7 +1773,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX13_03e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1791,7 +1791,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1806,7 +1806,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1825,7 +1825,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1840,7 +1840,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1855,7 +1855,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1875,7 +1875,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX6_03te",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1890,7 +1890,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1905,7 +1905,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1921,7 +1921,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX9_07e",
 					Activation = PowerActivation.SPELL,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1940,12 +1940,12 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1966,12 +1966,12 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 				new Power
 				{
 					Activation = PowerActivation.DEATHRATTLE,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -1993,7 +1993,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				{
 					InfoCardId = "NAX12_03e",
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2014,7 +2014,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2032,7 +2032,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2050,7 +2050,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2068,7 +2068,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 
@@ -2086,7 +2086,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				new Power
 				{
 					Activation = PowerActivation.WEAPON,
-					SingleTask = null,
+					PowerTask = null,
 				},
 			});
 

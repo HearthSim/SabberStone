@@ -168,7 +168,7 @@ namespace SabberStoneCore.Model.Entities
 			BaseClass = controller.BaseClass;
 
 			Hero = (Hero) controller.Hero.Clone(this);
-			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
+			Hero.HeroPower = (HeroPower) controller.Hero.HeroPower.Clone(this);
 
 			if (controller.Hero.Weapon != null)
 			{
@@ -207,7 +207,7 @@ namespace SabberStoneCore.Model.Entities
 			if  (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
-				SetasideZone.MoveTo(Hero.Power, SetasideZone.Count);
+				SetasideZone.MoveTo(Hero.HeroPower, SetasideZone.Count);
 				//Hero[GameTag.EXHAUSTED] = 0;
 				//Hero[GameTag.NUM_ATTACKS_THIS_TURN ] = 0;
 				//Hero[GameTag.DAMAGE] = 0;
@@ -222,7 +222,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
-			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
+			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
 		}
@@ -250,7 +250,7 @@ namespace SabberStoneCore.Model.Entities
 
 			//Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
 			//Hero.Power.Stamp(controller.Hero.Power);
-			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
+			Hero.HeroPower = (HeroPower) controller.Hero.HeroPower.Clone(this);
 
 			if (controller.Hero.Weapon != null)
 			{
@@ -280,7 +280,7 @@ namespace SabberStoneCore.Model.Entities
 			str.Append("]");
 			str.Append(base.Hash(ignore));
 			str.Append(Hero.Hash(ignore));
-			str.Append(Hero.Power.Hash(ignore));
+			str.Append(Hero.HeroPower.Hash(ignore));
 			if (Hero.Weapon != null)
 				str.Append(Hero.Weapon.Hash(ignore));
 			str.Append(ControlledZones.Hash(ignore));
@@ -401,9 +401,9 @@ namespace SabberStoneCore.Model.Entities
 					result.Add(HeroAttackTask.Any(this, target));
 			}
 
-			if (Hero.Power.IsPlayable)
+			if (Hero.HeroPower.IsPlayable)
 			{
-				IEnumerable<ICharacter> targets = Hero.Power.GetValidPlayTargets();
+				IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
 				if (targets.Any())
 				{
 					foreach (ICharacter target in targets)

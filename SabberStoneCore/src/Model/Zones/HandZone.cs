@@ -24,8 +24,8 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (applyPowers)
-				entity.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
+			//if (applyPowers)
+			//	entity.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
 		}
 	}
 }
