@@ -638,6 +638,7 @@
 
 
 		// more or less guessed gametags
+		HEADCRACK_COMBO = 298,
 		RESTORE_TO_DAMAGE = 326,
 		CONTROLLER_CHANGED_THIS_TURN = 333,	//	Potion of Madness, Shadow Madness, Embrace Darkness
 		EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry

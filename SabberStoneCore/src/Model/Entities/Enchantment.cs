@@ -6,6 +6,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -13,21 +14,25 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private readonly Dictionary<GameTag, int> _tags;
 
-		public bool IsOneTurnActive;
-
-
 		private Enchantment(Game game, Card card, Dictionary<GameTag, int> tags)
 		{
 			Game = game;
 			Card = card;
 			_tags = tags;
-			IsOneTurnActive = card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 			Id = tags[GameTag.ENTITY_ID];
+		}
+
+		public int this[GameTag t]
+		{
+			get => _tags[t];
+			set => _tags[t] = value;
 		}
 
 		public IPlayable Target { get; private set; }
 
 		public IPlayable Creator { get; private set; }
+
+		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 
 		public Effect[] EffectsToBeRemoved { get; set; }
 
@@ -36,7 +41,7 @@ namespace SabberStoneCore.Model.Entities
 			var tags = new Dictionary<GameTag, int>
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
-				{GameTag.CONTROLLER, controller.Id},
+				{GameTag.CONTROLLER, controller.PlayerId},
 				{GameTag.ENTITY_ID, controller.Game.NextId}
 			};
 
@@ -45,8 +50,9 @@ namespace SabberStoneCore.Model.Entities
 				Controller = controller,
 				Creator = creator,
 				Target = target,
-
 			};
+
+			target.RemoveEnchantments += instance.Remove;
 
 			controller.Game.IdEntityDic.Add(instance.Id, (IPlayable)instance);
 
@@ -69,7 +75,7 @@ namespace SabberStoneCore.Model.Entities
 						Name = instance.Card.Name,
 						Tags = new Dictionary<GameTag, int>
 						{
-							{GameTag.CONTROLLER, controller.Id},
+							{GameTag.CONTROLLER, controller.PlayerId},
 							{GameTag.CARDTYPE, (int) CardType.ENCHANTMENT},
 							{GameTag.PREMIUM, creator[GameTag.PREMIUM]},
 							{GameTag.ATTACHED, target.Id},
@@ -100,6 +106,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			//instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
+			instance.Zone = controller.BoardZone;
 			//	323 = 1
 
 			return instance;
@@ -107,40 +114,48 @@ namespace SabberStoneCore.Model.Entities
 
 		public void Remove()
 		{
+			if (Game.History)
+			{
+				Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(this));
+				this[GameTag.ZONE] = (int)Enums.Zone.REMOVEDFROMGAME;
+			}
 
+			//if (EffectsToBeRemoved != null)
+			//{
+			//	for (int i = 0; i < EffectsToBeRemoved.Length; i++)
+			//		EffectsToBeRemoved[i].Remove(Target);
+			//}
+
+			if (Powers[0].DeathrattleTask != null && Target.Zone is GraveyardZone)
+			{
+				ISimpleTask clone = Powers[0].DeathrattleTask.Clone();
+				clone.Game = Game;
+				clone.Controller = Controller;
+				clone.Source = Target;
+				clone.Target = null;
+
+				Game.TaskQueue.Enqueue(clone);
+			}
+
+			Powers[0].Trigger?.Remove();
+
+			Target.RemoveEnchantments -= Remove;
 		}
 		public ComplexEffects CostEffects { get; }
 		public Trigger ActivatedTrigger { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
+		public Action RemoveEnchantments { get; set; }
 	}
 
 	public partial class Enchantment
 	{
-
-		public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
-		{
-			throw new NotImplementedException();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
 		public int Id { get; }
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }
 		public Card Card { get; }
-
 		public Controller Controller { get; set; }
 		public IZone Zone { get; set; }
-
-		public int this[GameTag t]
-		{
-			get => _tags[t];
-			set => _tags[t] = value;
-		}
 
 		public void Reset()
 		{
@@ -202,6 +217,16 @@ namespace SabberStoneCore.Model.Entities
 		public IPlayable Clone(Controller controller)
 		{
 			throw new NotImplementedException();
+		}
+
+		public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

@@ -367,7 +367,7 @@ namespace SabberStoneCore.Model.Zones
 			_count--;
 
 			Reposition(pos);
-
+			//entity.ZonePosition = 0;
 			entity.Zone = null;
 
 			return entity;

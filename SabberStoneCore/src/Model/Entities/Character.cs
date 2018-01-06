@@ -211,6 +211,8 @@ namespace SabberStoneCore.Model.Entities
 				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
 			}
 
+			PreDamageTrigger?.Invoke(this);
+
 			// final damage is beeing accumulated
 			Damage += PreDamage;
 
@@ -252,7 +254,7 @@ namespace SabberStoneCore.Model.Entities
 				heal *= (int) Math.Pow(2, source.Controller[GameTag.HEALING_DOUBLE]);
 			}
 
-			if (source.Controller.Hero[GameTag.RESTORE_TO_DAMAGE] == 1)
+			if (source.Controller[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
 				TakeDamage(source, heal);
 				return;
@@ -281,6 +283,8 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} gaining armor for {armor}.");
 			Armor += armor;
 		}
+
+		public event Action<IEntity> PreDamageTrigger;
 	}
 
 	public partial interface ICharacter

@@ -2,30 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Enchants
 {
-	public enum AuraType
-	{
-		SELF, ADJACENT, BOARD, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER, SPELLPOWER
-	}
-
 	public enum EffectOperator
 	{
 		ADD, SUB, MUL, SET
 	}
 
-	public interface IAura
-	{
-		void Update();
-		void Remove();
-	}
+
 
 	public struct Effect : IEquatable<Effect>
 	{
@@ -142,6 +132,7 @@ namespace SabberStoneCore.Enchants
 		public Game Game;
 	    public readonly Effect[] Effects;
 	    public bool UseScriptTag;
+	    public ISimpleTask TaskToDoWhenThisIsRemoved;
 		
 	    public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
@@ -156,17 +147,20 @@ namespace SabberStoneCore.Enchants
 
 		public bool IsOneTurnEffect { get; set; }
 
-		public virtual void ActivateTo(IEntity entity, Enchantment enchantment)
+		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num = 0)
 		{
 			if (!UseScriptTag)
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Apply(entity);
-			else
+			else if (enchantment != null)
 				for (int i = 0; i < Effects.Length; i++)
 					new Effect(Effects[i].Tag, Effects[i].Operator, enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
+			else
+				for (int i = 0; i < Effects.Length; i++)
+					new Effect(Effects[i].Tag, Effects[i].Operator, num).Apply(entity);
 
-			if (IsOneTurnEffect)
-			    enchantment.EffectsToBeRemoved = Effects;
+			//if (IsOneTurnEffect)
+			//	enchantment.EffectsToBeRemoved = Effects;
 		}
     }
 
@@ -191,7 +185,6 @@ namespace SabberStoneCore.Enchants
 				ToBeUpdated = true;
 			}
 		}
-
 		public IEntity Target
 		{
 			get => _target ?? (_target = Game.IdEntityDic[_targetId]);
@@ -201,7 +194,6 @@ namespace SabberStoneCore.Enchants
 				_target = value;
 			}
 		}
-
 		public Controller Controller
 		{
 			get => _controller ?? (_controller = Game.ControllerById(_controllerId));
@@ -211,15 +203,14 @@ namespace SabberStoneCore.Enchants
 				_controller = Controller;
 			}
 		}
-
 		public bool ToBeUpdated { get; internal set; }
+		public string EnchantmentCardId => "";
 
-		public override void ActivateTo(IEntity entity, Enchantment enchantment)
+		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num = 0)
 		{
 			var instance = new OngoingEnchant(Effects)
 			{
 				Game = entity.Game,
-				//Controller = entity.Controller,
 				Target = entity
 			};
 			entity.OngoingEffect = instance;
@@ -242,228 +233,79 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class Aura : IAura
+	public class AdaptiveEffect : Aura
 	{
-		private readonly int _ownerId;
-		private IPlayable _owner;
-		private readonly List<int> _appliedEntityIds = new List<int>();
-		private List<IPlayable> _appliedEntities;
-		private List<IPlayable> _tempList;
-		private bool _on;
-		private Effect[] Effects;
-		public readonly Game Game;
-		public readonly AuraType Type;
-		public SelfCondition Condition;
-		public readonly Card EnchantmentCard;
-		public bool Restless;
-		private bool _toBeUpdated = true;
+		private readonly Func<IPlayable, int> _predicate;
+		private readonly GameTag _tag;
+		private readonly EffectOperator _operator;
+		private int _lastValue;
 
-		public Aura(AuraType type, params Effect[] effects)
+		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.SELF)
 		{
-			Type = type;
-			Effects = effects;
+			_predicate = predicate;
+			_tag = tag;
+			_operator = @operator;
 		}
 
-		public Aura(AuraType type, string enchantmentId)
+		private AdaptiveEffect(AdaptiveEffect prototype, IPlayable owner) : base (prototype, owner)
 		{
-			Type = type;
-			EnchantmentCard = Cards.FromId(enchantmentId);
+			_predicate = prototype._predicate;
+			_tag = prototype._tag;
+			_operator = prototype._operator;
 		}
 
-		private Aura(Aura prototype, IPlayable owner)
+		public override void Activate(IPlayable owner)
 		{
-			Type = prototype.Type;
-			Effects = prototype.Effects;
-			Condition = prototype.Condition;
-			Game = owner.Game;
-			Restless = prototype.Restless;
-			_on = true;
-			_appliedEntityIds = new List<int>();
-			_owner = owner;
-			_ownerId = owner.Id;
+			var instance = new AdaptiveEffect(this, owner);
+		}
 
-			Game.Auras.Add(this);
-			owner.OngoingEffect = this;
-
-			switch (Type)
+		public override void Update()
+		{
+			switch (_operator)
 			{
-				case AuraType.BOARD:
-				case AuraType.BOARD_EXCEPT_SOURCE:
-				case AuraType.ADJACENT:
-					Owner.Controller.BoardZone.Auras.Add(this);
-					break;
-				case AuraType.HAND:
-					Owner.Controller.HandZone.Auras.Add(this);
-					break;
-				case AuraType.OP_HAND:
-					Owner.Controller.Opponent.HandZone.Auras.Add(this);
-					break;
-			}
-		}
-
-		public bool ToBeUpdated
-		{
-			set => _toBeUpdated = value;
-		}
-
-		public IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_ownerId]);
-
-		public List<IPlayable> AppliedEntities
-		{
-			get
-			{
-				if (_appliedEntities != null)
-					return _appliedEntities;
-				_appliedEntities = new List<IPlayable>(_appliedEntityIds.Count);
-				for (int i = 0; i < _appliedEntityIds.Count; i++)
-					_appliedEntities.Add(Game.IdEntityDic[_appliedEntityIds[i]]);
-				return _appliedEntities;
-			}
-		}
-
-		public void Activate(IPlayable owner)
-		{
-			Effects = EnchantmentCard.Powers[0].Enchant.Effects;
-			var instance = new Aura(this, owner);
-			if (owner.Game.History)
-			{
-				switch (Type)
+				case EffectOperator.ADD:
 				{
-					case AuraType.BOARD_EXCEPT_SOURCE:
-						_tempList = new List<IPlayable>();
-						foreach (Minion minion in (BoardZone)owner.Zone)
-						{
-							if (minion == owner) continue;
-							if (Condition != null && Condition.Eval(minion))
-							{
-								Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
-							}
-
-							_tempList.Add(minion);
-						}
-						break;
-
-				}
-			}
-		}
-
-		public void Update()
-		{
-			if (!_toBeUpdated) return;
-
-			if (_on)
-			{
-				if (_tempList != null)
-				{
-					for (int i = 0; i < _tempList.Count; i++)
-					{
-						var minion = _tempList[i];
-
-						Apply(minion);
-					}
-				}
-				switch (Type)
-				{
-					case AuraType.BOARD:
-						foreach (Minion minion in Owner.Controller.BoardZone)
-							Apply(minion);
-						break;
-
-					case AuraType.BOARD_EXCEPT_SOURCE:
-						foreach (Minion minion in Owner.Controller.BoardZone)
-							if (minion != Owner)
-								Apply(minion);
-						return;
-
-					case AuraType.ADJACENT:
-						int pos = Owner.ZonePosition;
-						for (int i = 0; i < AppliedEntities.Count; i++)
-						{
-							if (Math.Abs(pos - AppliedEntities[i].ZonePosition) == 1) continue;
-
-							for (int j = 0; j < Effects.Length; j++)
-								Effects[i].Remove(AppliedEntities[i].AuraEffects);
-						}
-						if (pos > 0)
-							Apply(Owner.Controller.BoardZone[pos - 1]);
-						if (pos < Owner.Controller.BoardZone.Count - 1)
-							Apply(Owner.Controller.BoardZone[pos + 1]);
-						break;
-
-					case AuraType.SPELLPOWER:
-						Apply(Owner.Controller.Hero);
-						break;	
-				}
-			}
-			else
-			{
-				foreach (IPlayable entity in AppliedEntities)
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Remove(entity.AuraEffects);
-
-				Game.Auras.Remove(this);
-			}
-
-			if (!Restless)
-				_toBeUpdated = false;
-		}
-
-		public void Remove()
-		{
-			_on = false;
-			_toBeUpdated = true;
-			Owner.OngoingEffect = null;
-		}
-
-		public void EntityRemoved(Minion m)
-		{
-			if (AppliedEntities.Remove(m))
-			{
-				_appliedEntityIds.Remove(m.Id);
-			}
-			else if (m == Owner)
-			{
-				Remove();
-			}
-		}
-
-		private void Apply(IPlayable entity)
-		{
-			if (_appliedEntityIds.Contains(entity.Id))
-			{
-				if (!Restless || Condition.Eval(entity)) return;
-
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Remove(entity.AuraEffects);
-
-				_appliedEntityIds.Remove(entity.Id);
-				AppliedEntities.Remove(entity);
-
-				return;
-			}
-
-			if (Condition != null)
-				if (!Condition.Eval(entity))
+					Owner.AuraEffects[_tag] -= _lastValue;
+					int val = _predicate(Owner);
+					Owner.AuraEffects[_tag] += val;
+					_lastValue = val;
 					return;
-
-			for (int i = 0; i < Effects.Length; i++)
-				Effects[i].Apply(entity.AuraEffects);
-
-			// history
-
-			AppliedEntities.Add(entity);
-			_appliedEntityIds.Add(entity.Id);
+				}
+				case EffectOperator.SUB:
+				{
+					Owner.AuraEffects[_tag] += _lastValue;
+					int val = _predicate(Owner);
+					Owner.AuraEffects[_tag] -= val;
+					_lastValue = val;
+					return;
+				}
+				case EffectOperator.SET:
+					_lastValue += Owner.AuraEffects[_tag];
+					Owner.AuraEffects[_tag] = 0;
+					Owner[_tag] = _predicate(Owner);
+					return;
+			}
 		}
-	}
 
-	public class SpellPowerAura : Aura
-	{
-		public SpellPowerAura(int spellPwrAmount) : base(AuraType.SPELLPOWER, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, spellPwrAmount))
+		public override void Remove()
 		{
+			Owner.OngoingEffect = null;
 
+			switch (_operator)
+			{
+				case EffectOperator.ADD:
+					Owner.AuraEffects[_tag] -= _lastValue;
+					return;
+				case EffectOperator.SUB:
+					Owner.AuraEffects[_tag] += _lastValue;
+					return;
+				case EffectOperator.SET:
+					Owner.AuraEffects[_tag] = _lastValue;
+					return;
+			}
 		}
 	}
-
+	
 	public class AuraEffects
 	{
 		private int ATK;
@@ -471,6 +313,9 @@ namespace SabberStoneCore.Enchants
 		private int COST;
 		private int SPELLPOWER;
 		private int CHARGE;
+
+		private int SPD;
+		private int RESTORE_TO_DAMAGE;
 
 		public int this[GameTag t]
 		{
@@ -486,6 +331,12 @@ namespace SabberStoneCore.Enchants
 						return CHARGE;
 					case GameTag.CURRENT_SPELLPOWER:
 						return SPELLPOWER;
+					case GameTag.RESTORE_TO_DAMAGE:
+						return RESTORE_TO_DAMAGE;
+					case GameTag.HERO_POWER_DOUBLE:
+					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELLPOWER_DOUBLE:
+						return SPD;
 					default:
 						return 0;
 				}
@@ -505,6 +356,14 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.CURRENT_SPELLPOWER:
 						SPELLPOWER = value;
+						return;
+					case GameTag.RESTORE_TO_DAMAGE:
+						RESTORE_TO_DAMAGE = value;
+						return;
+					case GameTag.HERO_POWER_DOUBLE:
+					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELLPOWER_DOUBLE:
+						SPD = value;
 						return;
 					default:
 						return;

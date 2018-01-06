@@ -126,7 +126,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <summary>
 		/// The top card from the player's deck
 		/// </summary>
-		TOPCARDFROMDECK
+		TOPCARDFROMDECK,
+		/// <summary>
+		/// The Controller entity of the player
+		/// </summary>
+		CONTROLLER
 	}
 
 	public class IncludeTask : SimpleTask

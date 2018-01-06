@@ -52,6 +52,11 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(Effects.Charge);
 		    }
 
+		    if (text.Contains("@<b>Immune</b>"))
+		    {
+			    effects.Add(Effects.Immune);
+		    }
+
 		    if (text.Contains("this turn"))
 		    {
 				oneTurn = true;
@@ -76,10 +81,32 @@ namespace SabberStoneCore.Enchants
 			return new Effect(GameTag.HEALTH, EffectOperator.ADD, n);
 		}
 
+		internal static Effect[] AttackHealth_N(int n)
+		{
+			return new[] {Attack_N(n), Health_N(n)};
+		}
+
+		internal static Effect SetAttack(int n)
+		{
+			return new Effect(GameTag.ATK, EffectOperator.SET, n);
+		}
+
+		internal static Effect SetMaxHealth(int n)
+		{
+			return new Effect(GameTag.HEALTH, EffectOperator.SET, n);
+		}
+
+		internal static Effect ReduceCost(int n)
+		{
+			return new Effect(GameTag.COST, EffectOperator.SUB, n);
+		}
+
 		internal static Effect Taunt => new Effect(GameTag.TAUNT, EffectOperator.SET, 1);
 
 		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 
 		internal static Effect Charge => new Effect(GameTag.CHARGE, EffectOperator.SET, 1);
+
+		internal static Effect Immune => new Effect(GameTag.IMMUNE, EffectOperator.SET, 1);
 	}
 }

@@ -148,6 +148,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
 		/// <returns></returns>
 		IPlayable Clone(Controller controller);
+
+		Action RemoveEnchantments { get; set; }
 	}
 
 	/// <summary>
@@ -479,6 +481,8 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public abstract IPlayable Clone(Controller controller);
+
+		public Action RemoveEnchantments { get; set; }
 	}
 
 

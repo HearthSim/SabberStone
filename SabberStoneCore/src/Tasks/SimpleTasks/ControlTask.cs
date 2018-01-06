@@ -26,10 +26,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return;
 				}
 				IPlayable removedEntity = p.Zone.Remove(p);
-				removedEntity.Controller.SetasideZone.MoveTo(removedEntity, removedEntity.Controller.SetasideZone.Count);
-				removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());
-				removedEntity.Game.AuraUpdate();
+				//removedEntity.Controller.SetasideZone.MoveTo(removedEntity, removedEntity.Controller.SetasideZone.Count);
+				//removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());
+				//removedEntity.Game.AuraUpdate();
 				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
+				removedEntity[GameTag.CONTROLLER] = removedEntity.Controller.PlayerId;
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", !Game.Logging? "":$"{Controller.Name} is taking control of {p}.");
 
 				removedEntity.Controller.BoardZone.Add(removedEntity.Zone.Remove(removedEntity));

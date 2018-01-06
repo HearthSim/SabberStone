@@ -9,11 +9,11 @@ namespace SabberStoneCore.Enchants
 {
     public static class Triggers
     {
-	    public static Trigger OneTurnEffectRemovalTrigger => new Trigger
+	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId) => new Trigger
 	    {
 		    TriggerActivation = TriggerActivation.PLAY,
 		    TriggerType = TriggerType.TURN_END,
-		    SingleTask = new RemoveEnchantmentTask(),
+		    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
 			RemoveAfterTriggered = true
 	    };
 

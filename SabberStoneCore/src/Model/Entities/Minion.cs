@@ -64,6 +64,7 @@ namespace SabberStoneCore.Model.Entities
 			//IsImmune = false;
 
 			OngoingEffect?.Remove();
+			RemoveEnchantments?.Invoke();
 
 			AttackDamage = Card[GameTag.ATK];
 			if (Health > Card[GameTag.HEALTH])

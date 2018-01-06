@@ -476,7 +476,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_005o"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_005o")
 				}
 			});
 
@@ -508,7 +508,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_011o"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_011o")
 				}
 			});
 
@@ -526,7 +526,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_017o"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_017o")
 				}
 			});
 
@@ -2078,7 +2078,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_045e"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_045e")
 				}
 			});
 
@@ -2096,7 +2096,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_046e"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_046e")
 				}
 			});
 
@@ -2641,7 +2641,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Power
 				{
 					Enchant = GetAutoEnchantFromText("CS2_105e"),
-					Trigger = Triggers.OneTurnEffectRemovalTrigger
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_105e")
 				}
 			});
 

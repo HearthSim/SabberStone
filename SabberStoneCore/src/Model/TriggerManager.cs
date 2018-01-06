@@ -11,45 +11,64 @@ namespace SabberStoneCore.Model
 	    public delegate void TriggerHandler(IEntity sender);
 
 	    public event TriggerHandler DamageTrigger;
-
 	    public event TriggerHandler HealTrigger;
-
 	    public event TriggerHandler EndTurnTrigger;
-
 	    public event TriggerHandler TurnStartTrigger;
-
 	    public event TriggerHandler SummonTrigger;
-
 	    public event TriggerHandler AttackTrigger;
+	    public event TriggerHandler DeathTrigger;
+	    public event TriggerHandler PlayMinionTrigger;
+	    public event TriggerHandler CastSpellTrigger;
+	    public event TriggerHandler SecretRevealedTrigger;
 
-	    public void OnDamageTrigger(IEntity sender)
+	    internal void OnDamageTrigger(IEntity sender)
 	    {
 		    DamageTrigger?.Invoke(sender);
 	    }
 
-	    public void OnHealTrigger(IEntity sender)
+	    internal void OnHealTrigger(IEntity sender)
 	    {
 		    HealTrigger?.Invoke(sender);
 	    }
 
-	    public void OnEndTurnTrigger(IEntity sender)
+	    internal void OnEndTurnTrigger(IEntity sender)
 	    {
 		    EndTurnTrigger?.Invoke(sender);
 	    }
 
-	    public void OnTurnStartTrigger(IEntity sender)
+	    internal void OnTurnStartTrigger(IEntity sender)
 	    {
 		    TurnStartTrigger?.Invoke(sender);
 	    }
 
-	    public void OnSummonTrigger(IEntity sender)
+	    internal void OnSummonTrigger(IEntity sender)
 	    {
 		    SummonTrigger?.Invoke(sender);
 	    }
 
-	    public void OnAttackTrigger(IEntity sender)
+	    internal void OnAttackTrigger(IEntity sender)
 	    {
 		    AttackTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnDeathTrigger(IEntity sender)
+	    {
+		    DeathTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnPlayMinionTrigger(IEntity sender)
+	    {
+		    PlayMinionTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnCastSpellTrigger(IEntity sender)
+	    {
+		    CastSpellTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnSecretRevealedTrigger(IEntity sender)
+	    {
+		    SecretRevealedTrigger?.Invoke(sender);
 	    }
     }
 }

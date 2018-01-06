@@ -30,36 +30,65 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 	    {
+		    if (_entityType == EntityType.CONTROLLER)
+		    {
+			    _enchantmentCard.Powers[0].Aura?.Activate(Controller);
+		    }
+
 		    List<IPlayable> entities = IncludeTask.GetEntites(_entityType, Controller, Source, Target, Playables);
 
-		    foreach (IPlayable entity in entities)
+		    if (Game.History)
 		    {
-
-				Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
-
-			    if (_useScriptTag)
+			    foreach (IPlayable entity in entities)
 			    {
-					enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
+				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+
+				    if (_useScriptTag)
+				    {
+					    enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
+				    }
+
+				    foreach (Power power in _enchantmentCard.Powers)
+				    {
+					    power.Aura?.Activate(enchantment);
+
+					    power.Trigger?.Activate(enchantment);
+
+					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+					    {
+						    ((OngoingEnchant)entity.OngoingEffect).Count++;
+					    }
+					    else
+					    {
+						    power.Enchant?.ActivateTo(entity, enchantment);
+					    }
+
+					    if (power.DeathrattleTask != null)
+					    {
+						    entity.HasDeathrattle = true;
+					    }
+				    }
 			    }
+			}
+		    else
+		    {
+			    foreach (IPlayable entity in entities)
+			    {
+				    foreach (Power power in _enchantmentCard.Powers)
+				    {
+					    power.Aura?.Activate(entity);
 
-				foreach (Power power in _enchantmentCard.Powers)
-				{
-					power.Trigger?.Activate(enchantment);
+					    power.Trigger?.Activate(entity);
 
-					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-					{
-						((OngoingEnchant) entity.OngoingEffect).Count++;
-					}
-					else
-					{
-						power.Enchant?.ActivateTo(entity, enchantment);
-					}
+					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+						    ((OngoingEnchant)entity.OngoingEffect).Count++;
+					    else
+						    power.Enchant?.ActivateTo(entity, null, Number);
 
-					if (power.DeathrattleTask != null)
-					{
-						entity.HasDeathrattle = true;
-					}
-				}
+					    if (power.DeathrattleTask != null)
+						    entity.HasDeathrattle = true;
+				    }
+			    }
 			}
 
 			return TaskState.COMPLETE;

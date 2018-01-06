@@ -875,6 +875,8 @@ namespace SabberStoneCore.Model
 					NumMinionsKilledThisTurn++;
 					minion.Damage = 0;
 
+					TriggerManager.OnDeathTrigger(minion);
+
 					if (History)
 						PowerHistoryBuilder.BlockEnd();
 				}

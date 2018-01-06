@@ -22,18 +22,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class SummonTask : SimpleTask
 	{
-		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false)
+		private readonly bool _addToStack;
+
+		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false, bool addToStack = false)
 		{
 			Card = card;
 			RemoveFromStack = removeFromStack;
 			Side = side;
+			_addToStack = addToStack;
 		}
 
-		public SummonTask(string cardId, SummonSide side)
+		public SummonTask(string cardId, SummonSide side, bool addToStack = false)
 		{
 			Card = Cards.FromId(cardId);
 			RemoveFromStack = false;
 			Side = side;
+			_addToStack = addToStack;
 		}
 
 		public Card Card { get; set; }
@@ -59,6 +63,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Card != null)
 			{
 				summonEntity = Entity.FromCard(Controller, Card) as Minion;
+				if (_addToStack)
+					Playables.Add(summonEntity);
 			}
 			else if (Playables.Count > 0)
 			{

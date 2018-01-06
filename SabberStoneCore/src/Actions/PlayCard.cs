@@ -80,6 +80,7 @@ namespace SabberStoneCore.Actions
 
 					// - OnPlay Phase --> OnPlay Trigger (Illidan)
 					//   (death processing, aura updates)
+					c.Game.TriggerManager.OnCastSpellTrigger(source);
 					OnPlayTrigger.Invoke(c, (Spell)source);
 
 					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
@@ -263,6 +264,7 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				c.Game.TriggerManager.OnPlayMinionTrigger(minion);
 				OnPlayTrigger.Invoke(c, minion);
 
 				// - BattleCry Phase --> Battle Cry Resolves
