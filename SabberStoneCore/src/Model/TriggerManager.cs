@@ -17,9 +17,11 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler SummonTrigger;
 	    public event TriggerHandler AttackTrigger;
 	    public event TriggerHandler DeathTrigger;
-	    public event TriggerHandler PlayMinionTrigger;
+	    public event TriggerHandler PlayCardTrigger;
+		public event TriggerHandler PlayMinionTrigger;
 	    public event TriggerHandler CastSpellTrigger;
 	    public event TriggerHandler SecretRevealedTrigger;
+
 
 	    internal void OnDamageTrigger(IEntity sender)
 	    {
@@ -54,6 +56,11 @@ namespace SabberStoneCore.Model
 	    internal void OnDeathTrigger(IEntity sender)
 	    {
 		    DeathTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnPlayCardTrigger(IEntity sender)
+	    {
+		    PlayCardTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnPlayMinionTrigger(IEntity sender)

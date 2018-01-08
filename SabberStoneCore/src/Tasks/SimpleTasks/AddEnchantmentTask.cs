@@ -32,7 +32,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    {
 		    if (_entityType == EntityType.CONTROLLER)
 		    {
-			    _enchantmentCard.Powers[0].Aura?.Activate(Controller);
+			    if (Game.History)
+			    {
+				    Power power = _enchantmentCard.Powers[0];
+				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
+				    power.Aura?.Activate(enchantment);
+				    power.Trigger?.Activate(enchantment);
+				    return TaskState.COMPLETE;
+			    }
 		    }
 
 		    List<IPlayable> entities = IncludeTask.GetEntites(_entityType, Controller, Source, Target, Playables);

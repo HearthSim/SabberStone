@@ -827,7 +827,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [DS1_178e] Charge (*) - COST:0
 			// - Set: core,
-			// --------------------------------------------------------
+			// ------------------------------------------------d--------
 			// Text: Tundra Rhino grants <b>Charge</b>.
 			// --------------------------------------------------------
 			cards.Add("DS1_178e", new List<Power>
@@ -879,7 +879,7 @@ namespace SabberStoneCore.CardSets.Standard
 				//}
 				new Power
 				{
-					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "NEW1_033O")
+					Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "NEW1_033o")
 				}
 			});
 

@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    Game.Auras.Find(p => p.EnchantmentCardId == _enchantmentCard.Id).Remove();
 
 		    foreach (Effect effect in _enchantmentCard.Powers[0].Enchant?.Effects)
-			    effect.Remove(Target);
+			    effect.Remove(Source is Enchantment ec ? ec.Target : Source);
 
 			ISimpleTask task = _enchantmentCard.Powers[0].Enchant?.TaskToDoWhenThisIsRemoved;
 		    if (task != null)

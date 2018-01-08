@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Model.Entities
 {

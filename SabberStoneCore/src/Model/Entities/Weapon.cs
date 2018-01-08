@@ -47,8 +47,12 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Damage
 		{
-			get { return this[GameTag.DAMAGE]; }
-			set { this[GameTag.DAMAGE] = value; }
+			get => this[GameTag.DAMAGE];
+			set
+			{
+				Game.TriggerManager.OnDamageTrigger(this);
+				this[GameTag.DAMAGE] = value;
+			}
 		}
 
 		public int Durability

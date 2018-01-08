@@ -10,7 +10,7 @@ namespace SabberStoneCore.Enchants
 {
 	public enum AuraType
 	{
-		SELF, ADJACENT, BOARD, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER, ADAPTIVE, TARGET
+		SELF, ADJACENT, BOARD, BOARD_EXCEPT_SOURCE, HAND, OP_HAND, HANDS, CONTROLLER, ADAPTIVE, TARGET, ENRAGE
 	}
 
 	public interface IAura
@@ -27,16 +27,18 @@ namespace SabberStoneCore.Enchants
 		private readonly List<int> _appliedEntityIds = new List<int>();
 		private List<IPlayable> _appliedEntities;
 		private List<IPlayable> _tempList;
-		private bool _on;
+		protected bool _on;
 		private bool _toBeUpdated = true;
 		private readonly Func<IPlayable, int> _adaptivePredicate;
 		private readonly GameTag _adaptiveTag;
+		//private Trigger _removeTrigger;
 		protected Effect[] Effects;
 
 		public readonly Game Game;
 		public readonly AuraType Type;
 		public SelfCondition Condition;
-		public (TriggerType, SelfCondition) RemoveTrigger;
+		public Func<IPlayable, int> Predicate;
+		public (TriggerType Type, SelfCondition Condition) RemoveTrigger;
 		public readonly Card EnchantmentCard;
 		public bool Restless;
 
@@ -101,7 +103,7 @@ namespace SabberStoneCore.Enchants
 
 			var instance = new Aura(this, owner);
 
-			Game.Auras.Add(instance);
+			owner.Game.Auras.Add(instance);
 			owner.OngoingEffect = instance;
 
 			switch (Type)
@@ -109,14 +111,24 @@ namespace SabberStoneCore.Enchants
 				case AuraType.BOARD:
 				case AuraType.BOARD_EXCEPT_SOURCE:
 				case AuraType.ADJACENT:
-					Owner.Controller.BoardZone.Auras.Add(this);
+					owner.Controller.BoardZone.Auras.Add(instance);
 					break;
 				case AuraType.HAND:
-					Owner.Controller.HandZone.Auras.Add(this);
+					owner.Controller.HandZone.Auras.Add(instance);
 					break;
 				case AuraType.OP_HAND:
-					Owner.Controller.Opponent.HandZone.Auras.Add(this);
+					owner.Controller.Opponent.HandZone.Auras.Add(instance);
 					break;
+			}
+
+			if (RemoveTrigger.Type != TriggerType.NONE)
+			{
+				switch (RemoveTrigger.Type)
+				{
+					case TriggerType.CAST_SPELL:
+						Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
+						break;
+				}
 			}
 
 			if (owner.Game.History)
@@ -139,11 +151,6 @@ namespace SabberStoneCore.Enchants
 
 				}
 			}
-		}
-
-		public void Activate(Controller controller)
-		{
-			throw new NotImplementedException();
 		}
 
 		public virtual void Update()
@@ -197,7 +204,7 @@ namespace SabberStoneCore.Enchants
 					case AuraType.OP_HAND:
 						foreach (IPlayable p in Owner.Controller.Opponent.HandZone)
 							Apply(p);
-						break;
+						break;						
 				}
 			}
 			else
@@ -218,6 +225,24 @@ namespace SabberStoneCore.Enchants
 			_on = false;
 			_toBeUpdated = true;
 			Owner.OngoingEffect = null;
+		}
+
+		private void TriggeredRemove(IEntity source)
+		{
+			if (RemoveTrigger.Condition != null && !RemoveTrigger.Condition.Eval((IPlayable)source))
+				return;
+
+			Remove();
+
+			switch (RemoveTrigger.Type)
+			{
+				case TriggerType.CAST_SPELL:
+					Game.TriggerManager.CastSpellTrigger -= TriggeredRemove;
+					return;
+			}
+
+			if (Owner is Enchantment e)
+				e.Remove();
 		}
 
 		public void EntityRemoved(Minion m)
@@ -251,13 +276,145 @@ namespace SabberStoneCore.Enchants
 				if (!Condition.Eval(entity))
 					return;
 
-			for (int i = 0; i < Effects.Length; i++)
-				Effects[i].Apply(entity.AuraEffects);
+			if (Predicate != null)
+			{
+				var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+				effect.Apply(entity.AuraEffects);
+			}
+			else
+				for (int i = 0; i < Effects.Length; i++)
+					Effects[i].Apply(entity.AuraEffects);
 
 			// history
 
 			AppliedEntities.Add(entity);
 			_appliedEntityIds.Add(entity.Id);
+		}
+	}
+
+	public class AdaptiveEffect : Aura
+	{
+		private readonly Func<IPlayable, int> _predicate;
+		private readonly GameTag _tag;
+		private readonly EffectOperator _operator;
+		private int _lastValue;
+
+		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.SELF)
+		{
+			_predicate = predicate;
+			_tag = tag;
+			_operator = @operator;
+		}
+
+		private AdaptiveEffect(AdaptiveEffect prototype, IPlayable owner) : base(prototype, owner)
+		{
+			_predicate = prototype._predicate;
+			_tag = prototype._tag;
+			_operator = prototype._operator;
+		}
+
+		public override void Activate(IPlayable owner)
+		{
+			var instance = new AdaptiveEffect(this, owner);
+		}
+
+		public override void Update()
+		{
+			switch (_operator)
+			{
+				case EffectOperator.ADD:
+				{
+					Owner.AuraEffects[_tag] -= _lastValue;
+					int val = _predicate(Owner);
+					Owner.AuraEffects[_tag] += val;
+					_lastValue = val;
+					return;
+				}
+				case EffectOperator.SUB:
+				{
+					Owner.AuraEffects[_tag] += _lastValue;
+					int val = _predicate(Owner);
+					Owner.AuraEffects[_tag] -= val;
+					_lastValue = val;
+					return;
+				}
+				case EffectOperator.SET:
+					_lastValue += Owner.AuraEffects[_tag];
+					Owner.AuraEffects[_tag] = 0;
+					Owner[_tag] = _predicate(Owner);
+					return;
+			}
+		}
+
+		public override void Remove()
+		{
+			Owner.OngoingEffect = null;
+
+			switch (_operator)
+			{
+				case EffectOperator.ADD:
+					Owner.AuraEffects[_tag] -= _lastValue;
+					return;
+				case EffectOperator.SUB:
+					Owner.AuraEffects[_tag] += _lastValue;
+					return;
+				case EffectOperator.SET:
+					Owner.AuraEffects[_tag] = _lastValue;
+					return;
+			}
+		}
+	}
+
+	public class EnrageEffect : Aura
+	{
+		private bool _enraged;
+
+		public EnrageEffect(AuraType type, params Effect[] effects) : base(type, effects)
+		{
+		}
+
+		public EnrageEffect(AuraType type, string enchantmentId) : base(type, enchantmentId)
+		{
+		}
+
+		protected EnrageEffect(Aura prototype, IPlayable owner) : base(prototype, owner)
+		{
+		}
+
+		public override void Activate(IPlayable owner)
+		{
+			if (owner is Enchantment e)
+				owner = (IPlayable)e.Target;
+
+			base.Activate(owner);
+
+			Restless = true;
+		}
+
+		public override void Update()
+		{
+			var m = Owner as Minion;
+			if (!_enraged)
+			{
+				if (m.Damage == 0) return;
+				Apply(m);
+				_enraged = true;
+			}
+			else
+			{
+				if (m.Damage != 0) return;
+				for (int i = 0; i < Effects.Length; i++)
+					Effects[i].Remove(m.AuraEffects);
+				_enraged = false;
+			}
+
+			if (!_on)
+			{
+				Game.Auras.Remove(this);
+				if (!_enraged) return;
+				for (int i = 0; i < Effects.Length; i++)
+					Effects[i].Remove(m.AuraEffects);
+			}
 		}
 	}
 }

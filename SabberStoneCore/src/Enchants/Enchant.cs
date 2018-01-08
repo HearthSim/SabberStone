@@ -15,8 +15,6 @@ namespace SabberStoneCore.Enchants
 		ADD, SUB, MUL, SET
 	}
 
-
-
 	public struct Effect : IEquatable<Effect>
 	{
 		public readonly GameTag Tag;
@@ -104,6 +102,11 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		public Effect ChangeValue(int newValue)
+		{
+			return new Effect(Tag, Operator, newValue);
+		}
+
 		public bool Equals(Effect other)
 		{
 			return Tag == other.Tag && Operator == other.Operator && Value == other.Value;
@@ -147,17 +150,35 @@ namespace SabberStoneCore.Enchants
 
 		public bool IsOneTurnEffect { get; set; }
 
-		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num = 0)
+		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
 			if (!UseScriptTag)
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Apply(entity);
 			else if (enchantment != null)
-				for (int i = 0; i < Effects.Length; i++)
-					new Effect(Effects[i].Tag, Effects[i].Operator, enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
+			{
+				//for (int i = 0; i < Effects.Length; i++)
+				//	new Effect(Effects[i].Tag, Effects[i].Operator, enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
+				Effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
+
+				if (Effects.Length != 2) return;
+
+				if (enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
+					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).Apply(entity);
+				else
+					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
+			}
 			else
-				for (int i = 0; i < Effects.Length; i++)
-					new Effect(Effects[i].Tag, Effects[i].Operator, num).Apply(entity);
+			{
+				Effects[0].ChangeValue(num1).Apply(entity);
+
+				if (Effects.Length != 2) return;
+
+				if (num2 > 0)
+					Effects[1].ChangeValue(num2).Apply(entity);
+				else
+					Effects[1].ChangeValue(num1).Apply(entity);
+			}
 
 			//if (IsOneTurnEffect)
 			//	enchantment.EffectsToBeRemoved = Effects;
@@ -206,7 +227,7 @@ namespace SabberStoneCore.Enchants
 		public bool ToBeUpdated { get; internal set; }
 		public string EnchantmentCardId => "";
 
-		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num = 0)
+		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
 			var instance = new OngoingEnchant(Effects)
 			{
@@ -233,78 +254,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class AdaptiveEffect : Aura
-	{
-		private readonly Func<IPlayable, int> _predicate;
-		private readonly GameTag _tag;
-		private readonly EffectOperator _operator;
-		private int _lastValue;
-
-		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.SELF)
-		{
-			_predicate = predicate;
-			_tag = tag;
-			_operator = @operator;
-		}
-
-		private AdaptiveEffect(AdaptiveEffect prototype, IPlayable owner) : base (prototype, owner)
-		{
-			_predicate = prototype._predicate;
-			_tag = prototype._tag;
-			_operator = prototype._operator;
-		}
-
-		public override void Activate(IPlayable owner)
-		{
-			var instance = new AdaptiveEffect(this, owner);
-		}
-
-		public override void Update()
-		{
-			switch (_operator)
-			{
-				case EffectOperator.ADD:
-				{
-					Owner.AuraEffects[_tag] -= _lastValue;
-					int val = _predicate(Owner);
-					Owner.AuraEffects[_tag] += val;
-					_lastValue = val;
-					return;
-				}
-				case EffectOperator.SUB:
-				{
-					Owner.AuraEffects[_tag] += _lastValue;
-					int val = _predicate(Owner);
-					Owner.AuraEffects[_tag] -= val;
-					_lastValue = val;
-					return;
-				}
-				case EffectOperator.SET:
-					_lastValue += Owner.AuraEffects[_tag];
-					Owner.AuraEffects[_tag] = 0;
-					Owner[_tag] = _predicate(Owner);
-					return;
-			}
-		}
-
-		public override void Remove()
-		{
-			Owner.OngoingEffect = null;
-
-			switch (_operator)
-			{
-				case EffectOperator.ADD:
-					Owner.AuraEffects[_tag] -= _lastValue;
-					return;
-				case EffectOperator.SUB:
-					Owner.AuraEffects[_tag] += _lastValue;
-					return;
-				case EffectOperator.SET:
-					Owner.AuraEffects[_tag] = _lastValue;
-					return;
-			}
-		}
-	}
+	
 	
 	public class AuraEffects
 	{

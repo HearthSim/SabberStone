@@ -68,6 +68,10 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="source"></param>
 		/// <param name="armor"></param>
 		void GainArmor(IPlayable source, int armor);
+
+		event Action<IEntity> AfterAttackTrigger;
+
+		void OnAfterAttackTrigger();
 	}
 
 	/// <summary>
@@ -285,6 +289,13 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public event Action<IEntity> PreDamageTrigger;
+
+		public event Action<IEntity> AfterAttackTrigger;
+
+		public void OnAfterAttackTrigger()
+		{
+			AfterAttackTrigger?.Invoke(this);
+		}
 	}
 
 	public partial interface ICharacter
@@ -451,17 +462,16 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Damage
 		{
-			get { return this[GameTag.DAMAGE]; }
+			get => NativeTags.TryGetValue(GameTag.DAMAGE, out int value) ? value : 0;
 			set
 			{
-				if (!IsIgnoreDamage && this[GameTag.HEALTH] <= value)
+				if (this[GameTag.HEALTH] <= value)
 				{
 					ToBeDestroyed = true;
 				}
 
 				// don't allow negative values
-				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
-
+				NativeTags[GameTag.DAMAGE] = value < 0 ? 0 : value;
 			}
 		}
 

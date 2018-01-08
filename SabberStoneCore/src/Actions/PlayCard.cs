@@ -56,6 +56,8 @@ namespace SabberStoneCore.Actions
 				//	}
 				//}
 
+				c.Game.TriggerManager.OnPlayCardTrigger(source);
+
 				if (source is Hero hero)
 				{
 					PlayHero.Invoke(c, hero, target);

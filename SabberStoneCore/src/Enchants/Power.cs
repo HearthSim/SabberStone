@@ -23,6 +23,8 @@ namespace SabberStoneCore.Enchants
 
 		public Trigger Trigger { get; set; }
 
+		public Trigger Trigger2 { get; set; }
+
 		public ISimpleTask PowerTask { get; set; }
 
 		public ISimpleTask DeathrattleTask { get; set; }

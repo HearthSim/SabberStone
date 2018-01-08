@@ -12,38 +12,63 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class MathNumberIndexTask : SimpleTask
 	{
-		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation)
+		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation, int resultIndex = 0)
 		{
-			IndexA = indexA;
-			IndexB = indexB;
-			MathOperation = mathOperation;
+			_indexA = indexA;
+			_indexB = indexB;
+			_resultIndex = resultIndex;
+			_mathOperation = mathOperation;
 		}
 
-		public int IndexA { get; set; }
-		public int IndexB { get; set; }
-		public MathOperation MathOperation { get; set; }
+		private readonly int _indexA;
+		private readonly int _indexB;
+		private readonly int _resultIndex;
+		private readonly MathOperation _mathOperation;
 
 		public override TaskState Process()
 		{
-			int numberA = GetIndex(IndexA);
-			int numberB = GetIndex(IndexB);
-			switch (MathOperation)
+			int numberA = GetIndex(_indexA);
+			int numberB = GetIndex(_indexB);
+			int result;
+			switch (_mathOperation)
 			{
 				case MathOperation.ADD:
-					Number += numberA + numberB;
+					result = numberA + numberB;
 					break;
 				case MathOperation.SUB:
-					Number -= numberA - numberB;
+					result = numberA - numberB;
 					break;
 				case MathOperation.MUL:
-					Number *= numberA * numberB;
+					result = numberA * numberB;
 					break;
 				case MathOperation.DIV:
-					Number /= numberA / numberB;
+					result = numberA / numberB;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {MathOperation}");
+					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {_mathOperation}");
 			}
+
+			switch (_resultIndex)
+			{
+				case 0:
+					Number = result;
+					break;
+				case 1:
+					Number1 = result;
+					break;
+				case 2:
+					Number2 = result;
+					break;
+				case 3:
+					Number3 = result;
+					break;
+				case 4:
+					Number4 = result;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {_resultIndex}");
+			}
+
 			return TaskState.COMPLETE;
 		}
 
@@ -51,6 +76,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			switch (index)
 			{
+				case 0:
+					return Number;
 				case 1:
 					return Number1;
 				case 2:
@@ -66,7 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new MathNumberIndexTask(IndexA, IndexB, MathOperation);
+			var clone = new MathNumberIndexTask(_indexA, _indexB, _mathOperation);
 			clone.Copy(this);
 			return clone;
 		}

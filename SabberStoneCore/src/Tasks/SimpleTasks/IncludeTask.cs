@@ -193,19 +193,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.TARGET:
 					if (source is Enchantment e)
 					{
-						result.Add(e.Target);
+						if (e.Target is IPlayable p)
+							result.Add(p);
 						break;
 					}
-					var t = target as IPlayable;
-					if (t != null)
+
+					if (target is IPlayable t)
 					{
 						result.Add(t);
 					}
 					break;
 
 				case EntityType.SOURCE:
-					var s = source as IPlayable;
-					if (s != null)
+					if (source is IPlayable s)
 					{
 						result.Add(s);
 					}

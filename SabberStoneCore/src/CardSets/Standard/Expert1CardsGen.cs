@@ -389,7 +389,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155be")
 				}
 			});
 
@@ -417,7 +417,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_160be")
 				}
 			});
 
@@ -431,7 +431,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_178ae")
 				}
 			});
 
@@ -445,7 +445,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_178be")
 				}
 			});
 
@@ -459,7 +459,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_573ae")
 				}
 			});
 
@@ -1047,17 +1047,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_609", new List<Power>
 			{
-				//new Power
-				//{
-				//	Area = PowerArea.OP_BOARD,
-				//	Activation = PowerActivation.SECRET_OR_QUEST,
-				//	OldTrigger = new TriggerBuilder().Create()
-				//		.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-				//		.TriggerEffect(GameTag.JUST_PLAYED, -1)
-				//		.SingleTask(ComplexTask.Secret(
-				//			new DamageTask(4, EntityType.TARGET, true)))
-				//		.Build()
-				//},
 				new Power
 				{
 					Trigger = new Trigger
@@ -1080,18 +1069,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_610", new List<Power>
 			{
-				//new Power
-				//{
-				//	Area = PowerArea.OP_BOARD_AND_OP_HERO,
-				//	Activation = PowerActivation.SECRET_OR_QUEST,
-				//	OldTrigger = new TriggerBuilder().Create()
-				//		.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-				//		.ApplyConditions(RelaCondition.IsMyHeroAttacked)
-				//		.TriggerEffect(GameTag.ATTACKING, 1)
-				//		.SingleTask(ComplexTask.Secret(
-				//			new DamageTask(2, EntityType.ENEMIES, true)))
-				//		.Build()
-				//},
 				new Power
 				{
 					Trigger = new Trigger
@@ -1115,22 +1092,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_611", new List<Power>
 			{
-				//new Power
-				//{
-				//	InfoCardId = "EX1_611e",
-				//	Area = PowerArea.OP_BOARD,
-				//	Activation = PowerActivation.SECRET_OR_QUEST,
-				//	OldTrigger = new TriggerBuilder().Create()
-				//		.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-				//		.TriggerEffect(GameTag.ATTACKING, 1)
-				//		.SingleTask(ComplexTask.Create(
-				//			new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
-				//			new FlagTask(true, ComplexTask.Secret(
-				//				new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
-				//				new ReturnHandTask(EntityType.TARGET),
-				//				new BuffTask(Buffs.Cost(2), EntityType.TARGET)))))
-				//		.Build()
-				//},
 				new Power
 				{
 					Trigger = new Trigger
@@ -1208,30 +1169,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_536", new List<Power>
 			{
-				//new Power
-				//{
-				//	InfoCardId = "EX1_536e",
-				//	Area = PowerArea.SECRET,
-				//	Activation = PowerActivation.WEAPON,
-				//	OldTrigger = new TriggerBuilder().Create()
-				//		.EnableConditions(SelfCondition.IsThisWeaponEquiped)
-				//		.TriggerEffect(GameTag.REVEALED, 1)
-				//		.SingleTask(ComplexTask.Create(
-				//			new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
-				//			new MathAddTask(1),
-				//			new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON)))
-				//		.Build()
-				//},
-			});
-			new Power
-			{
-				Trigger = new Trigger
+				new Power
 				{
-					TriggerType = TriggerType.SECRET_REVEALED,
-					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new AddEnchantmentTask("EX1_536e", EntityType.WEAPON)
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.SECRET_REVEALED,
+						TriggerSource = TriggerSource.FRIENDLY,
+						SingleTask = new AddEnchantmentTask("EX1_536e", EntityType.WEAPON)
+					}
 				}
-			};
+			});
 		}
 
 		private static void HunterNonCollect(IDictionary<string, List<Power>> cards)
@@ -2354,17 +2301,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					//Area = PowerArea.CONTROLLER,
-					//Activation = PowerActivation.BOARD_ZONE,
-					//OldTrigger = new TriggerBuilder().Create()
-					//	.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-					//	.TriggerEffect(GameTag.TURN_START, 1)
-					//	.SingleTask(ComplexTask.Create(
-					//		new IncludeTask(EntityType.FRIENDS),
-					//		new FilterStackTask(SelfCondition.IsDamaged),
-					//		new RandomTask(1, EntityType.STACK),
-					//		new HealTask(3, EntityType.STACK)))
-					//	.Build()
 					Trigger = new Trigger
 					{
 						TriggerType = TriggerType.TURN_START,
@@ -3043,14 +2979,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
-					PowerTask = new DamageTask(1, EntityType.TARGET)
-				},
-                // Combo
-                new Power
-				{
-					Activation = PowerActivation.BATTLECRY,
-					PowerTask = new DamageTask(2, EntityType.TARGET)
+					PowerTask = new DamageTask(1, EntityType.TARGET),
+					ComboTask = new DamageTask(2, EntityType.TARGET)
 				}
 			});
 		}
@@ -3115,14 +3045,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Aura = new Aura(AuraType.HAND, Effects.ReduceCost(3))
 					{
-						Condition = SelfCondition.IsSpell
+						Condition = SelfCondition.IsSpell,
+						RemoveTrigger = (TriggerType.CAST_SPELL, null)
 					},
-					Trigger = new Trigger
-					{
-						TriggerType = TriggerType.CAST_SPELL,
-						SingleTask = new RemoveEnchantmentTask("EX1_145o"),
-						RemoveAfterTriggered = true
-					}
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_145o")
 				}
 			});
 
@@ -3132,7 +3058,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("EX1_613e", null);
+			cards.Add("EX1_613e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_155ae")
+				}
+			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [NEW1_014e] Disguised (*) - COST:0 
@@ -3140,7 +3072,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("NEW1_014e", null);
+			cards.Add("NEW1_014e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(GameTag.STEALTH, EffectOperator.SET, 1),
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_START,
+						SingleTask = new RemoveEnchantmentTask("NEW1_014e"),
+						RemoveAfterTriggered = true,
+					}
+				}
+			});
 
 			// ----------------------------------------- MINION - ROGUE
 			// [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1] 
@@ -3190,16 +3134,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_258e",
-					Area = PowerArea.HAND_AND_BOARD,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsNotSelf,
-							RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ)))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.PLAY_CARD,
+						Condition = SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ),
+						SingleTask = new AddEnchantmentTask("EX1_258e", EntityType.SOURCE)
+					}
 				}
 			});
 
@@ -3213,13 +3153,11 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Area = PowerArea.CONTROLLER,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(new DrawTask())
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_END,
+						SingleTask = new DrawTask()
+					}
 				}
 			});
 
@@ -3254,17 +3192,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "CS2_038e",
-					Activation = PowerActivation.SPELL,
-					PowerTask = new AddPowerTask(EntityType.MINIONS,
-						new Power
-						{
-							Activation = PowerActivation.DEATHRATTLE,
-							PowerTask = ComplexTask.Create(
-								new CopyTask(EntityType.SOURCE, 1),
-								new SummonTask())
-						})
-				},
+					PowerTask = new AddEnchantmentTask("CS2_038e", EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -3277,11 +3206,14 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "CS2_053e",
 					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new DrawTask(true),
 						new BuffTask(Buffs.Cost(-3), EntityType.STACK))
+				},
+				new Power
+				{
+
 				}
 			});
 
@@ -3302,7 +3234,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new DamageTask(3, EntityType.TARGET, true)
 				}
 			});
@@ -3324,7 +3255,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new DamageTask(5, EntityType.TARGET, true),
 				}
 			});
@@ -3346,7 +3276,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new SilenceTask(EntityType.TARGET),
 						new DamageTask(1, EntityType.TARGET, true)),
@@ -3373,7 +3302,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new EnqueueTask(2, new SummonTask("EX1_tk11", SummonSide.SPELL))
 				}
 			});
@@ -3395,7 +3323,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.OP_MINIONS, 2, true)
 				}
 			});
@@ -3414,7 +3341,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new DamageTask(2, 1, EntityType.OP_MINIONS, true)
 				},
 			});
@@ -3456,7 +3382,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
-			cards.Add("CS2_038e", null);
+			cards.Add("CS2_038e", new List<Power>
+			{
+				new Power
+				{
+					DeathrattleTask = ComplexTask.Create(
+						new CopyTask(EntityType.SOURCE, 1),
+						new SummonTask(SummonSide.DEATHRATTLE))
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [CS2_053e] Far Sight (*) - COST:0 
@@ -3464,7 +3398,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: One of your cards costs (3) less.
 			// --------------------------------------------------------
-			cards.Add("CS2_053e", null);
+			cards.Add("CS2_053e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(
+						Effects.ReduceCost(3),
+						new Effect(GameTag.DISPLAYED_CREATOR, EffectOperator.SET, 1)),
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.PLAY_CARD,
+						TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
+						RemoveAfterTriggered = true,
+					}
+				}
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [EX1_258e] Overloading (*) - COST:0 
@@ -3472,7 +3420,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("EX1_258e", null);
+			cards.Add("EX1_258e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
+				}
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [EX1_tk11] Spirit Wolf (*) - COST:2 [ATK:2/HP:3] 
@@ -3503,16 +3457,13 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "CS2_059o",
-					Area = PowerArea.CONTROLLER,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(ComplexTask.Create(
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_END,
+						SingleTask = ComplexTask.Create(
 							new RandomTask(1, EntityType.MINIONS_NOSOURCE),
-							new BuffTask(Buffs.Health(1), EntityType.STACK)))
-						.Build()
+							new AddEnchantmentTask("CS2_059o", EntityType.STACK))
+					}
 				}
 			});
 
@@ -3531,7 +3482,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = new ManaCrystalEmptyTask(-1)
 				},
 			});
@@ -3549,25 +3499,38 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_304", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "EX1_304e",
+				//	Activation = PowerActivation.BATTLECRY,
+				//	PowerTask = ComplexTask.Create(
+				//		new IncludeTask(EntityType.MINIONS_NOSOURCE),
+				//		new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+				//		new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+				//		new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
+				//		new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
+				//		new MathNumberIndexTask(1, 2, MathOperation.ADD),
+				//		new SetAttackNumberTask(EntityType.SOURCE),
+				//		new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE),
+				//		new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 0, 3),
+				//		new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 1, 4),
+				//		new MathNumberIndexTask(3, 4, MathOperation.ADD),
+				//		new SetHealthNumberTask(EntityType.SOURCE),
+				//		new DestroyTask(EntityType.STACK)),
+				//},
 				new Power
 				{
-					InfoCardId = "EX1_304e",
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = ComplexTask.Create(
 						new IncludeTask(EntityType.MINIONS_NOSOURCE),
 						new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
-						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 						new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
 						new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
 						new MathNumberIndexTask(1, 2, MathOperation.ADD),
-						new SetAttackNumberTask(EntityType.SOURCE),
-						new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE),
 						new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 0, 3),
 						new GetGameTagTask(GameTag.HEALTH, EntityType.STACK, 1, 4),
-						new MathNumberIndexTask(3, 4, MathOperation.ADD),
-						new SetHealthNumberTask(EntityType.SOURCE),
-						new DestroyTask(EntityType.STACK)),
-				},
+						new MathNumberIndexTask(3, 4, MathOperation.ADD, 1),
+						new AddEnchantmentTask("EX1_304e", EntityType.SOURCE, true))
+				}
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -3584,7 +3547,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = ComplexTask.DiscardRandomCard(2),
 				}
 			});
@@ -3602,7 +3564,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = new DamageTask(5, EntityType.HERO),
 				}
 			});
@@ -3621,8 +3582,11 @@ namespace SabberStoneCore.CardSets.Standard
                 // TODO [EX1_315] Summoning Portal && Test: Summoning Portal_EX1_315
                 new Power
 				{
-                    //Activation = null,
-                    //SingleTask = null,
+					Aura = new Aura(AuraType.HAND, Effects.ReduceCost(0))
+					{
+						Condition = SelfCondition.IsMinion,
+						Predicate = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
+					}
                 }
 			});
 
@@ -3776,18 +3740,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_596", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "EX1_596e",
+				//	Activation = PowerActivation.SPELL,
+				//	PowerTask = ComplexTask.Create(
+				//		new ConditionTask(EntityType.TARGET,
+				//			RelaCondition.IsFriendly,
+				//			RelaCondition.IsOther(SelfCondition.IsRace(Race.DEMON))),
+				//		new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET)),
+				//		new FlagTask(false, new DamageTask(2, EntityType.TARGET))
+				//	),
+				//},
 				new Power
 				{
-					InfoCardId = "EX1_596e",
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET,
 							RelaCondition.IsFriendly,
 							RelaCondition.IsOther(SelfCondition.IsRace(Race.DEMON))),
-						new FlagTask(true, new BuffTask(Buffs.AttackHealth(2), EntityType.TARGET)),
-						new FlagTask(false, new DamageTask(2, EntityType.TARGET))
-					),
-				},
+						new FlagTask(true, new AddEnchantmentTask("EX1_596e", EntityType.TARGET)),
+						new FlagTask(false, new DamageTask(2, EntityType.TARGET)))
+				}
 			});
 		}
 
@@ -3799,7 +3772,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("CS2_059o", null);
+			cards.Add("CS2_059o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.Health_N(1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [EX1_304e] Consume (*) - COST:0 
@@ -3807,7 +3786,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("EX1_304e", null);
+			cards.Add("EX1_304e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.AttackHealth_N(0))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [EX1_316e] Power Overwhelming (*) - COST:0 
@@ -3815,15 +3800,33 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has +4/+4, but will die a horrible death at the end of the turn.
 			// --------------------------------------------------------
-			cards.Add("EX1_316e", null);
-
+			cards.Add("EX1_316e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_316e"),
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_END,
+						TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
+						SingleTask = new DestroyTask(EntityType.TARGET)
+					}
+				}
+			});
+			
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [EX1_596e] Demonfire (*) - COST:0 
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: This Demon has +2/+2.
 			// --------------------------------------------------------
-			cards.Add("EX1_596e", null);
+			cards.Add("EX1_596e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_596e")
+				}
+			});
 
 			// --------------------------------------- MINION - WARLOCK
 			// [EX1_317t] Worthless Imp (*) - COST:1 [ATK:1/HP:1] 
@@ -3864,7 +3867,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = new WeaponTask("EX1_398t")
 				},
 			});
@@ -3879,15 +3881,12 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Area = PowerArea.BOARD,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(
-							SelfCondition.IsNotDead,
-							SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new ArmorTask(1))
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.DAMAGE,
+						TriggerSource = TriggerSource.MINIONS,
+						SingleTask = new ArmorTask(1)
+					}
 				}
 			});
 
@@ -3907,11 +3906,13 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_414e",
-					Activation = PowerActivation.BOARD_ZONE,
-					PowerTask =
-						new AuraTask(Auras.SimpleInclSelf(GameTag.ATK, 6, RelaCondition.IsMe(SelfCondition.IsEnraged)),
-							AuraArea.SELF)
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.PREDAMAGE,
+						TriggerSource = TriggerSource.SELF,
+						Condition = SelfCondition.IsUndamaged,
+						SingleTask = new AddEnchantmentTask("EX1_414e", EntityType.SOURCE)
+					}
 				}
 			});
 
@@ -3933,12 +3934,10 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_603e",
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = ComplexTask.Create(
 						new DamageTask(1, EntityType.TARGET),
-						new BuffTask(Buffs.Attack(2), EntityType.TARGET))
-				},
+						new AddEnchantmentTask("EX1_603e", EntityType.TARGET))
+				}
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -3951,15 +3950,14 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_604o",
-					Area = PowerArea.BOARDS,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
-						.Build()
-				}
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.DAMAGE,
+						TriggerSource = TriggerSource.ALL_MINIONS,
+						SingleTask = new AddEnchantmentTask("EX1_604o", EntityType.SOURCE)
+					}
+				},
+
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -3977,9 +3975,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "CS2_104e",
-					Activation = PowerActivation.SPELL,
-					PowerTask = new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET)
+					PowerTask = new AddEnchantmentTask("CS2_104e", EntityType.TARGET)
 				}
 			});
 
@@ -3997,7 +3993,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new DamageTask(2, EntityType.TARGET, true),
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
@@ -4018,7 +4013,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new IncludeTask(EntityType.FRIENDS),
 						new FilterStackTask(SelfCondition.IsDamaged),
@@ -4040,7 +4034,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.ALLMINIONS),
 						new IncludeTask(EntityType.ALLMINIONS, new[] {EntityType.STACK}),
@@ -4061,7 +4054,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
 						new FlagTask(true, new DamageTask(6, EntityType.TARGET, true)),
@@ -4079,17 +4071,11 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_409e",
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
-						new FlagTask(true, ComplexTask.Create(
-							new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
-							new MathAddTask(1),
-							new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON),
-							new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))),
-						new FlagTask(false, new ReplaceWeaponTask("EX1_409t")))
-				},
+						new FlagTask(true, new AddEnchantmentTask("EX1_409e", EntityType.WEAPON)),
+						new FlagTask(false, new WeaponTask("EX1_409t")))
+				}
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -4109,7 +4095,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ARMOR, EntityType.HERO),
 						new DamageNumberTask(EntityType.TARGET, true))
@@ -4130,12 +4115,10 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "EX1_607e",
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new DamageTask(1, EntityType.TARGET),
-						new BuffTask(Buffs.Attack(2), EntityType.TARGET))
-				},
+						new AddEnchantmentTask("EX1_607e", EntityType.TARGET))
+				}
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -4146,13 +4129,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_036", new List<Power>
 			{
-                // TODO [NEW1_036] Commanding Shout && Test: Commanding Shout_NEW1_036
-                new Power
+				new Power
 				{
-					InfoCardId = "NEW1_036e",
-					Activation = PowerActivation.SPELL,
-					PowerTask = null,
-				},
+					PowerTask = ComplexTask.Create(
+						new AddEnchantmentTask("NEW1_036e2", EntityType.CONTROLLER),
+						new AddEnchantmentTask("NEW1_036e", EntityType.MINIONS),
+						new DrawTask())
+				}
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -4166,22 +4149,40 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_411", new List<Power>
 			{
+				//new Power
+				//{
+				//	InfoCardId = "EX1_411e",
+				//	Area = PowerArea.SELF,
+				//	Activation = PowerActivation.WEAPON,
+				//	OldTrigger = new TriggerBuilder().Create()
+				//		.EnableConditions(SelfCondition.IsThisWeaponEquiped)
+				//		.TriggerEffect(GameTag.DAMAGE, 0)
+				//		.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
+				//		.FastExecution(true)
+				//		.SingleTask(ComplexTask.Create(
+				//			new DamageWeaponTask(false, -1),
+				//			new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+				//			new MathSubstractionTask(1),
+				//			new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE)))
+				//		.Build()
+				//},
 				new Power
 				{
-					InfoCardId = "EX1_411e",
-					Area = PowerArea.SELF,
-					Activation = PowerActivation.WEAPON,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsThisWeaponEquiped)
-						.TriggerEffect(GameTag.DAMAGE, 0)
-						.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsHeroProposedDefender(CardType.MINION)))
-						.FastExecution(true)
-						.SingleTask(ComplexTask.Create(
-							new DamageWeaponTask(false, -1),
-							new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
-							new MathSubstractionTask(1),
-							new SetGameTagNumberTask(GameTag.ATK, EntityType.SOURCE)))
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.ATTACK,
+						TriggerSource = TriggerSource.SELF,
+						Condition = SelfCondition.IsHeroProposedDefender(CardType.MINION),
+						FastExecution = true,
+						SingleTask = new AddEnchantmentTask("EX1_411e", EntityType.SOURCE)
+					},
+					Trigger2 = new Trigger
+					{
+						TriggerType = TriggerType.AFTER_ATTACK,
+						TriggerSource = TriggerSource.HERO,
+						FastExecution = true,
+						SingleTask = new AddEnchantmentTask("EX1_411e2", EntityType.SOURCE)
+					}
 				},
 			});
 		}
@@ -4194,7 +4195,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("CS2_104e", null);
+			cards.Add("CS2_104e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("CS2_104e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_409e] Upgraded (*) - COST:0 
@@ -4202,7 +4209,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack and +1 Durability.
 			// --------------------------------------------------------
-			cards.Add("EX1_409e", null);
+			cards.Add("EX1_409e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(
+						Effects.Attack_N(1),
+						new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_411e] Bloodrage (*) - COST:0 
@@ -4210,7 +4225,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: No durability loss.
 			// --------------------------------------------------------
-			cards.Add("EX1_411e", null);
+			cards.Add("EX1_411e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.Immune),
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.AFTER_ATTACK,
+						TriggerSource = TriggerSource.HERO,
+						SingleTask = new RemoveEnchantmentTask("EX1_411e")
+					}
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_411e2] Needs Sharpening (*) - COST:0 
@@ -4218,7 +4245,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Decreased Attack.
 			// --------------------------------------------------------
-			cards.Add("EX1_411e2", null);
+			cards.Add("EX1_411e2", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_414e] Enraged (*) - COST:0 
@@ -4226,7 +4259,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +6 Attack
 			// --------------------------------------------------------
-			cards.Add("EX1_414e", null);
+			cards.Add("EX1_414e", new List<Power>
+			{
+				new Power
+				{
+					Aura = new EnrageEffect(AuraType.TARGET, Effects.Attack_N(6))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_603e] Whipped Into Shape (*) - COST:0 
@@ -4234,7 +4273,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("EX1_603e", null);
+			cards.Add("EX1_603e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_603e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_604o] Berserk (*) - COST:0 
@@ -4242,7 +4287,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("EX1_604o", null);
+			cards.Add("EX1_604o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new OngoingEnchant(Effects.Attack_N(1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [EX1_607e] Inner Rage (*) - COST:0 
@@ -4250,7 +4301,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("EX1_607e", null);
+			cards.Add("EX1_607e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_607e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [NEW1_036e] Commanding Shout (*) - COST:0 
@@ -4261,7 +4318,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_036e", null);
+			cards.Add("NEW1_036e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(GameTag.HEALTH_MINIMUM, EffectOperator.SET, 1),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("NEW1_036e"),
+					Trigger2 = new Trigger
+					{
+						TriggerType = TriggerType.PREDAMAGE,
+						TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
+						FastExecution = true,
+						SingleTask = new FuncPlayablesTask(p =>
+						{
+							var m = p[0] as Minion;
+							if (m.PreDamage >= m.Health)
+								m.PreDamage = m.Health - 1;
+							return p;
+						})
+					}
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [NEW1_036e2] Commanding Shout (*) - COST:0 
@@ -4272,7 +4349,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_036e2", null);
+			cards.Add("NEW1_036e2", new List<Power>
+			{
+				new Power
+				{
+					Aura = new Aura(AuraType.BOARD, "NEW1_036e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("NEW1_036e2")
+				},
+			});
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [EX1_398t] Battle Axe (*) - COST:1 [ATK:2/HP:0] 
@@ -4322,8 +4406,10 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
-					PowerTask = new DamageTask(5, EntityType.ALL_NOSOURCE, true),
+					PowerTask = ComplexTask.Create(
+						new IncludeTask(EntityType.ALL),
+						new FilterStackTask(new SelfCondition(p => p.Card.Name != "Ysera")),
+						new DamageTask(5, EntityType.STACK, true))
 				},
 			});
 
@@ -4341,7 +4427,6 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new ReturnHandTask(EntityType.TARGET),
 				},
 			});
@@ -4360,25 +4445,8 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "DREAM_05e",
-					Area = PowerArea.TARGET,
-					Activation = PowerActivation.SPELL,
-					PowerTask = new BuffTask(Buffs.AttackHealth(5), EntityType.TARGET),
-					OldEnchant = new OldEnchant
-					{
-						TurnsActive = 1,
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsNotSilenced,
-							SelfCondition.IsInZone(Zone.PLAY)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.NUM_TURNS_IN_PLAY] = 0
-						},
-						SingleTask = new DestroyTask(EntityType.TARGET)
-					}
-				},
+					PowerTask = new AddEnchantmentTask("DREAM_05e", EntityType.TARGET)
+				}
 			});
 		}
 
@@ -6588,7 +6656,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("CS2_181e", null);
+			cards.Add("CS2_181e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("CS2_181e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [DREAM_05e] Nightmare (*) - COST:0 
@@ -6596,7 +6670,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: This minion has +5/+5, but will be destroyed soon.
 			// --------------------------------------------------------
-			cards.Add("DREAM_05e", null);
+			cards.Add("DREAM_05e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("DREAM_05e"),
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_START,
+						SingleTask = new DestroyTask(EntityType.TARGET)
+					}
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_001e] Warded (*) - COST:0 
@@ -6615,7 +6700,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_009e", null);
+			cards.Add("EX1_009e", new List<Power>
+			{
+				new Power
+				{
+					Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(5))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_014te] Bananas (*) - COST:0 
@@ -6623,7 +6714,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Has +1/+1.
 			// --------------------------------------------------------
-			cards.Add("EX1_014te", null);
+			cards.Add("EX1_014te", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_014te")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_043e] Hour of Twilight (*) - COST:0 
@@ -6650,7 +6747,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_046e", null);
+			cards.Add("EX1_046e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_046e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_046e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_055o] Empowered (*) - COST:0 
@@ -6685,7 +6789,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("EX1_093e", null);
+			cards.Add("EX1_093e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_093e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_103e] Mrghlglhal (*) - COST:0 
@@ -6693,7 +6803,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("EX1_103e", null);
+			cards.Add("EX1_103e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_103e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_162o] Strength of the Pack (*) - COST:0 
@@ -6701,7 +6817,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack from Dire Wolf Alpha.
 			// --------------------------------------------------------
-			cards.Add("EX1_162o", null);
+			cards.Add("EX1_162o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_162o")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_390e] Enraged (*) - COST:0 
@@ -6712,7 +6834,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_390e", null);
+			cards.Add("EX1_390e", new List<Power>
+			{
+				new Power
+				{
+					Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_393e] Enraged (*) - COST:0 
@@ -6723,7 +6851,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_393e", null);
+			cards.Add("EX1_393e", new List<Power>
+			{
+				new Power
+				{
+					Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_412e] Enraged (*) - COST:0 
@@ -6734,7 +6868,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_412e", null);
+			cards.Add("EX1_412e", new List<Power>
+			{
+				new Power
+				{
+					Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1), Effects.Windfury),
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_507e] Mrgglaargl! (*) - COST:0 
@@ -6742,7 +6882,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack from Murloc Warleader.
 			// --------------------------------------------------------
-			cards.Add("EX1_507e", null);
+			cards.Add("EX1_507e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_507e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_509e] Blarghghl (*) - COST:0 
@@ -6758,7 +6904,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Health set to 15.
 			// --------------------------------------------------------
-			cards.Add("EX1_561e", null);
+			cards.Add("EX1_561e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(GameTag.HEALTH, EffectOperator.SET, 15)
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_570e] Bite (*) - COST:0 
@@ -6769,7 +6921,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_570e", null);
+			cards.Add("EX1_570e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_570e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_570e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_584e] Teachings of the Kirin Tor (*) - COST:0 
@@ -6777,7 +6936,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
-			cards.Add("EX1_584e", null);
+			cards.Add("EX1_584e", new List<Power>
+			{
+				new Power
+				{
+					//Enchant = //
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_590e] Shadows of M'uru (*) - COST:0 
@@ -6796,7 +6961,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_04e", null);
+			cards.Add("KARA_08_04e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("KARA_08_04e"),
+					Trigger = Triggers.OneTurnEffectRemovalTrigger("KARA_08_04e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_017e] Full Belly (*) - COST:0 
@@ -6804,7 +6976,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.  Full of Murloc.
 			// --------------------------------------------------------
-			cards.Add("NEW1_017e", null);
+			cards.Add("NEW1_017e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("NEW1_017e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_018e] Treasure Crazed (*) - COST:0 
@@ -6820,7 +6998,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("NEW1_024o", null);
+			cards.Add("NEW1_024o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(
+						new Effect(GameTag.ATK, EffectOperator.ADD, 1),
+						new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_025e] Bolstered (*) - COST:0 
@@ -6836,7 +7022,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Southsea Captain is granting +1/+1.
 			// --------------------------------------------------------
-			cards.Add("NEW1_027e", null);
+			cards.Add("NEW1_027e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = Enchants.Enchants.GetAutoEnchantFromText("NEW1_027e")
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_029t] Kill Millhouse! (*) - COST:0 
@@ -6844,7 +7036,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Spells cost (0) this turn!
 			// --------------------------------------------------------
-			cards.Add("NEW1_029t", null);
+			cards.Add("NEW1_029t", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_037e] Equipped (*) - COST:0 
@@ -6852,7 +7050,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("NEW1_037e", null);
+			cards.Add("NEW1_037e", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new Enchant(Effects.Attack_N(1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_038o] Growth (*) - COST:0 
@@ -6860,7 +7064,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Gruul is growing...
 			// --------------------------------------------------------
-			cards.Add("NEW1_038o", null);
+			cards.Add("NEW1_038o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
+				}
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [tt_004o] Cannibalize (*) - COST:0 
@@ -6868,7 +7078,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("tt_004o", null);
+			cards.Add("tt_004o", new List<Power>
+			{
+				new Power
+				{
+					Enchant = new OngoingEnchant(Effects.Attack_N(1))
+				}
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CS2_152] Squire (*) - COST:1 [ATK:2/HP:2] 

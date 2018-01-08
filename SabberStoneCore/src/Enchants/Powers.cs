@@ -42,23 +42,23 @@ namespace SabberStoneCore.Enchants
 			// Standard
 			CoreCardsGen.AddAll(_powerDic);
 			Expert1CardsGen.AddAll(_powerDic);
-			GangsCardsGen.AddAll(_powerDic);
-			KaraCardsGen.AddAll(_powerDic);
-			OgCardsGen.AddAll(_powerDic);
-			UngoroCardsGen.AddAll(_powerDic);
-			IcecrownCardsGen.AddAll(_powerDic);
-			LootapaloozaCardsGen.AddAll(_powerDic);
+			//GangsCardsGen.AddAll(_powerDic);
+			//KaraCardsGen.AddAll(_powerDic);
+			//OgCardsGen.AddAll(_powerDic);
+			//UngoroCardsGen.AddAll(_powerDic);
+			//IcecrownCardsGen.AddAll(_powerDic);
+			//LootapaloozaCardsGen.AddAll(_powerDic);
 
 			// Rest
-			HofCardsGen.AddAll(_powerDic);
-			NaxxCardsGen.AddAll(_powerDic);
-			GvgCardsGen.AddAll(_powerDic);
-			BrmCardsGen.AddAll(_powerDic);
-			TgtCardsGen.AddAll(_powerDic);
-			LoeCardsGen.AddAll(_powerDic);
+			//HofCardsGen.AddAll(_powerDic);
+			//NaxxCardsGen.AddAll(_powerDic);
+			//GvgCardsGen.AddAll(_powerDic);
+			//BrmCardsGen.AddAll(_powerDic);
+			//TgtCardsGen.AddAll(_powerDic);
+			//LoeCardsGen.AddAll(_powerDic);
 
 			// Tavern Brawl
-			TbCardsGen.AddAll(_powerDic);
+			//TbCardsGen.AddAll(_powerDic);
 
 			// ****************************************
 			// * DO NOT UNCOMMENT THEM BEFORE REMOVING
@@ -66,12 +66,12 @@ namespace SabberStoneCore.Enchants
 			// * ADV SET!!!
 			// ****************************************
 			// Adventure
-			BrmCardsGenAdv.AddAll(_powerDic);
-			NaxxCardsGenAdv.AddAll(_powerDic);
-			LoeCardsGenAdv.AddAll(_powerDic);
-			KaraCardsGenAdv.AddAll(_powerDic);
-			IcecrownCardsGenAdv.AddAll(_powerDic);
-			LootapaloozaCardsGenAdv.AddAll(_powerDic);
+			//BrmCardsGenAdv.AddAll(_powerDic);
+			//NaxxCardsGenAdv.AddAll(_powerDic);
+			//LoeCardsGenAdv.AddAll(_powerDic);
+			//KaraCardsGenAdv.AddAll(_powerDic);
+			//IcecrownCardsGenAdv.AddAll(_powerDic);
+			//LootapaloozaCardsGenAdv.AddAll(_powerDic);
 		}
 
 		/// <summary>

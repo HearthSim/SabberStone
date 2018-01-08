@@ -24,11 +24,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int this[GameTag t]
 		{
-			get => _tags[t];
+			get => _tags.TryGetValue(t, out int value) ? value : 0;
 			set => _tags[t] = value;
 		}
 
-		public IPlayable Target { get; private set; }
+		public IEntity Target { get; private set; }
 
 		public IPlayable Creator { get; private set; }
 
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public Effect[] EffectsToBeRemoved { get; set; }
 
-		public static Enchantment GetInstance(Controller controller, IPlayable creator, IPlayable target, Card card)
+		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
 			var tags = new Dictionary<GameTag, int>
 			{
@@ -52,7 +52,8 @@ namespace SabberStoneCore.Model.Entities
 				Target = target,
 			};
 
-			target.RemoveEnchantments += instance.Remove;
+			if (target is IPlayable p)
+				p.RemoveEnchantments += instance.Remove;
 
 			controller.Game.IdEntityDic.Add(instance.Id, (IPlayable)instance);
 
@@ -137,9 +138,10 @@ namespace SabberStoneCore.Model.Entities
 				Game.TaskQueue.Enqueue(clone);
 			}
 
-			Powers[0].Trigger?.Remove();
+			ActivatedTrigger?.Remove();
 
-			Target.RemoveEnchantments -= Remove;
+			if (Target is IPlayable p)
+				p.RemoveEnchantments -= Remove;
 		}
 		public ComplexEffects CostEffects { get; }
 		public Trigger ActivatedTrigger { get; set; }

@@ -31,6 +31,8 @@ namespace SabberStoneCore.Actions
 				// end block
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+				source.OnAfterAttackTrigger();
 				return true;
 			};
 

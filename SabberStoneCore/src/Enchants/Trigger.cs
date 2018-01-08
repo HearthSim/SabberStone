@@ -13,7 +13,7 @@ namespace SabberStoneCore.Enchants
 {
 	public enum TriggerType
 	{
-		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, HEAL, ATTACK, SUMMON, PLAY_MINION, CAST_SPELL, SECRET_REVEALED, ICEBLOCK, PREDAMAGE
+		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, HEAL, ATTACK, AFTER_ATTACK, SUMMON, PLAY_CARD, PLAY_MINION, CAST_SPELL, SECRET_REVEALED, ICEBLOCK, PREDAMAGE
 	}
 
 	public enum TriggerSource
@@ -49,7 +49,7 @@ namespace SabberStoneCore.Enchants
 
 	    protected virtual void Process(IEntity source)
 	    {
-			if (IsSecretTrigger && Owner.IsExhausted)
+			if (_secret && Owner.IsExhausted)
 				return;
 
 		    switch (TriggerSource)
@@ -98,9 +98,8 @@ namespace SabberStoneCore.Enchants
 		    ISimpleTask taskInstance = SingleTask.Clone();
 			taskInstance.Game = Game;
 			taskInstance.Controller = Owner.Controller;
-			//taskInstance.Source = Owner;
-		    taskInstance.Source = Owner is Enchantment ec ? Game.History ? ec : ec.Target : Owner;
-			taskInstance.Target = source;
+		    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
+			taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew ? ew.Target : null;
 			taskInstance.IsTrigger = true;
 
 		    if (TriggerType == TriggerType.PREDAMAGE)
@@ -152,6 +151,22 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ATTACK:
 					source.Game.TriggerManager.AttackTrigger += instance.Process;
 					break;
+				case TriggerType.AFTER_ATTACK:
+					switch (TriggerSource)
+					{
+						case TriggerSource.HERO:
+							source.Controller.Hero.AfterAttackTrigger += instance.Process;
+							break;
+						case TriggerSource.SELF:
+							((Minion) source).AfterAttackTrigger += instance.Process;
+							break;
+						case TriggerSource.ENCHANTMENT_TARGET:
+							((Minion) ((Enchantment) source).Target).AfterAttackTrigger += instance.Process;
+							break;
+						default:
+							throw new NotImplementedException();
+					}
+					break;
 				case TriggerType.DEATH:
 					source.Game.TriggerManager.DeathTrigger += instance.Process;
 					break;
@@ -167,6 +182,8 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.PREDAMAGE:
 					if (TriggerSource == TriggerSource.HERO)
 						source.Controller.Hero.PreDamageTrigger += instance.Process;
+					else if (TriggerSource == TriggerSource.SELF)
+						((Minion)source).PreDamageTrigger += instance.Process;
 					break;
 		    }
 	    }
@@ -205,7 +222,12 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.ICEBLOCK:
 				    Owner.Controller.Hero.PreDamageTrigger -= Process;
 				    break;
+				case TriggerType.PREDAMAGE:
+					((Minion)Owner).PreDamageTrigger -= Process;
+					break;
 			}
+
+			Owner.ActivatedTrigger = null;
 	    }
     }
 }
