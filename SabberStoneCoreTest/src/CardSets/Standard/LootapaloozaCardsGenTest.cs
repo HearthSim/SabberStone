@@ -342,10 +342,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DURABILITY = 5
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TwigOfTheWorldTree_LOOT_392()
 		{
-			// TODO TwigOfTheWorldTree_LOOT_392 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -362,8 +361,32 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twig of the World Tree"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twig of the World Tree"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twig of the World Tree"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twig of the World Tree"));
+
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Player1.BaseMana = 0;
+			game.Player2.BaseMana = 0;
+
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
+			Assert.Equal(25, game.CurrentPlayer.Opponent.Hero.Health);
+
+			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
 		}
 
 	}

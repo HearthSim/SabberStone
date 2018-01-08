@@ -214,7 +214,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_392", new List<Enchantment> {
-				// TODO [LOOT_392] Twig of the World Tree && Test: Twig of the World Tree_LOOT_392
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.WEAPON,
@@ -223,7 +222,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new ManaCrystalFullTask(10),
 				},
 			});
 
