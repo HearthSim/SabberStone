@@ -3222,10 +3222,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SewerCrawler_LOOT_069()
 		{
-			// TODO SewerCrawler_LOOT_069 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3242,8 +3241,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sewer Crawler"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Sewer Crawler"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sewer Crawler"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Sewer Crawler"));
+			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card, testCard.Card);
+			Assert.Equal(game.CurrentPlayer.BoardZone[1].Card, Cards.FromId("LOOT_069t"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3260,7 +3261,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_MAX_ATTACK = 1
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ScorpOMatic_LOOT_111()
 		{
 			// TODO ScorpOMatic_LOOT_111 test
@@ -3280,8 +3281,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Scorp-o-matic"));
+			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var elvenArcher = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, elvenArcher, game.CurrentPlayer.Opponent.Hero));
+
+			var frostwolfGrunt = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostwolfGrunt, game.CurrentPlayer.Opponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard1, frostwolfGrunt));
+			Assert.False(frostwolfGrunt.ToBeDestroyed, "Minion with more than 1 attack got destoryed");
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, elvenArcher));
+			Assert.True(elvenArcher.ToBeDestroyed, "Minion with less than 1 attack didn't get destoryed");
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

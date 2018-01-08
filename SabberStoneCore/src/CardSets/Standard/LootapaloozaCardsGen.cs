@@ -2920,11 +2920,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_069", new List<Enchantment> {
-				// TODO [LOOT_069] Sewer Crawler && Test: Sewer Crawler_LOOT_069
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("LOOT_069t", SummonSide.RIGHT),
 				},
 			});
 
@@ -2943,11 +2942,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_111", new List<Enchantment> {
-				// TODO [LOOT_111] Scorp-o-matic && Test: Scorp-o-matic_LOOT_111
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.TARGET),
 				},
 			});
 
