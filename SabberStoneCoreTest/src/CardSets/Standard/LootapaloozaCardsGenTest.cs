@@ -375,7 +375,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			
+
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -2601,10 +2601,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HookedReaver_LOOT_018()
 		{
-			// TODO HookedReaver_LOOT_018 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2621,8 +2620,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Hooked Reaver"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(testCard[GameTag.ATK], testCard.Card.Tags[GameTag.ATK]);
+			Assert.Equal(testCard[GameTag.HEALTH], testCard.Card.Tags[GameTag.HEALTH]);
+			Assert.True(testCard[GameTag.TAUNT] == 0, "Has Taunt with Hero at 30 Health");
+
+			game.CurrentPlayer.Hero.Health = 15;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Equal(testCard2[GameTag.ATK], testCard2.Card.Tags[GameTag.ATK] + 3);
+			Assert.Equal(testCard2[GameTag.HEALTH], testCard2.Card.Tags[GameTag.HEALTH] + 3);
+			Assert.True(testCard2[GameTag.TAUNT] == 1, "Doesn't have Taunt with Hero at 15 Health");
 		}
 
 		// --------------------------------------- MINION - WARLOCK

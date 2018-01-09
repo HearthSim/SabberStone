@@ -2234,12 +2234,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_018", new List<Enchantment> {
-				// TODO [LOOT_018] Hooked Reaver && Test: Hooked Reaver_LOOT_018
 				new Enchantment
 				{
 					InfoCardId = "LOOT_018e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)), new FlagTask(true, ComplexTask.Create(new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE), ComplexTask.Taunt(EntityType.SOURCE)))),
 				},
 			});
 
