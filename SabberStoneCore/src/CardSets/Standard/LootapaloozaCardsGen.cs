@@ -2279,11 +2279,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_368", new List<Enchantment> {
-				// TODO [LOOT_368] Voidlord && Test: Voidlord_LOOT_368
+				//Voidwalker Id: CS2_065
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new EnqueueTask(3, new SummonTask("CS2_065", SummonSide.DEATHRATTLE)),
 				},
 			});
 

@@ -2686,10 +2686,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Voidlord_LOOT_368()
 		{
-			// TODO Voidlord_LOOT_368 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2706,8 +2705,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidlord"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Voidlord"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidlord"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Voidlord"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var twistingNether = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twisting Nether"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, twistingNether));
+			
+			Assert.Equal(3, game.CurrentPlayer.Opponent.BoardZone.Count);
+			var voidwalker = Cards.FromName("Voidwalker");
+			for(int i = 0; i < game.CurrentPlayer.Opponent.BoardZone.Count; i++)
+			{
+				Assert.Equal(voidwalker, game.CurrentPlayer.Opponent.BoardZone[i].Card);
+			}
 		}
 
 		// --------------------------------------- MINION - WARLOCK
