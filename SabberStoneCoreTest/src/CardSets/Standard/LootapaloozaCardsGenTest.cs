@@ -3264,7 +3264,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void ScorpOMatic_LOOT_111()
 		{
-			// TODO ScorpOMatic_LOOT_111 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3342,19 +3341,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EbonDragonsmith_LOOT_118()
 		{
-			// TODO EbonDragonsmith_LOOT_118 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARRIOR,
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Ebon Dragonsmith"),
 				},
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.WARRIOR,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -3362,8 +3360,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ebon Dragonsmith"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ebon Dragonsmith"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ebon Dragonsmith"));
+			var warAxe = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			var reaper = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcanite Reaper"));
+			var yeti = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ebon Dragonsmith"));
+			Assert.Equal(yeti.Cost, yeti.Card.Cost);
+			Assert.True(warAxe.Cost == warAxe.Card.Cost - 2 || reaper.Cost == reaper.Card.Cost - 2, "Weapon Discount Failed. Fiery War Axe Cost:" + warAxe.Cost.ToString() + ". Arcanite Reaper Cost: " + reaper.Cost.ToString());
+			Assert.False(warAxe.Cost == warAxe.Card.Cost - 2 && reaper.Cost == reaper.Card.Cost - 2, "Both Weapons were Discounted");
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3375,19 +3379,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CorrosiveSludge_LOOT_122()
 		{
-			// TODO CorrosiveSludge_LOOT_122 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.WARRIOR,
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Corrosive Sludge"),
 				},
-				Player2HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.WARRIOR,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -3395,8 +3398,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corrosive Sludge"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corrosive Sludge"));
+
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corrosive Sludge"));
+			var yourWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, yourWeapon));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var theirWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, theirWeapon));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+			Assert.False(game.CurrentPlayer.Hero.Weapon.ToBeDestroyed, "Your Weapon was destroyed");
+			Assert.True(game.CurrentPlayer.Opponent.Hero.Weapon == null, "Opponent's Weapon wasn't destroyed");
+			if (game.CurrentPlayer.Opponent.Hero.Weapon != null)
+			{
+				Assert.True(game.CurrentPlayer.Opponent.Hero.Weapon.ToBeDestroyed, "Opponent's Weapon wasn't destroyed");
+			}
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3412,10 +3431,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LoneChampion_LOOT_124()
 		{
-			// TODO LoneChampion_LOOT_124 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3432,8 +3450,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lone Champion"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.True(testCard[GameTag.TAUNT] == 1, "Doesn't have Taunt with a open board");
+			Assert.True(testCard[GameTag.DIVINE_SHIELD] == 1, "Doesn't have Divine Shield with a open board");
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.True(testCard2[GameTag.TAUNT] == 1, "Doesn't have Taunt with no friendly minions");
+			Assert.True(testCard2[GameTag.DIVINE_SHIELD] == 1, "Doesn't have Divine Shield with no friendly minions");
+
+			var testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard3));
+			Assert.False(testCard3[GameTag.TAUNT] == 1, "Has Taunt with friendly minions");
+			Assert.False(testCard3[GameTag.DIVINE_SHIELD] == 1, "Has Divine Shield with friendly minions");
+
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

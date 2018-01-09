@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using System.Linq;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -2972,12 +2973,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_118", new List<Enchantment> {
-				// TODO [LOOT_118] Ebon Dragonsmith && Test: Ebon Dragonsmith_LOOT_118
 				new Enchantment
 				{
 					InfoCardId = "LOOT_118e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new IncludeTask(EntityType.HAND), new FilterStackTask(SelfCondition.IsWeapon), new RandomTask(1, EntityType.STACK), new BuffTask(Buffs.Cost(-2), EntityType.STACK)),
 				},
 			});
 
@@ -2991,11 +2991,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_122", new List<Enchantment> {
-				// TODO [LOOT_122] Corrosive Sludge && Test: Corrosive Sludge_LOOT_122
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.OP_WEAPON),
 				},
 			});
 
@@ -3013,12 +3012,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_124", new List<Enchantment> {
-				// TODO [LOOT_124] Lone Champion && Test: Lone Champion_LOOT_124
 				new Enchantment
 				{
 					InfoCardId = "LOOT_124e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(1)), new FlagTask(true, ComplexTask.Create(ComplexTask.Taunt(EntityType.SOURCE), ComplexTask.DivineShield(EntityType.SOURCE)))),
 				},
 			});
 
