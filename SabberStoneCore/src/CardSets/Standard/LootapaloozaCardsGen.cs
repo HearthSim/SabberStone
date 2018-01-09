@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using System.Linq;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -214,7 +215,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_392", new List<Enchantment> {
-				// TODO [LOOT_392] Twig of the World Tree && Test: Twig of the World Tree_LOOT_392
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.WEAPON,
@@ -223,7 +223,7 @@ namespace SabberStoneCore.CardSets.Standard
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = null,
+					SingleTask = new ManaCrystalFullTask(10),
 				},
 			});
 
@@ -2195,11 +2195,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_013", new List<Enchantment> {
-				// TODO [LOOT_013] Vulgar Homunculus && Test: Vulgar Homunculus_LOOT_013
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.HERO),
 				},
 			});
 
@@ -2213,11 +2212,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_014", new List<Enchantment> {
-				// TODO [LOOT_014] Kobold Librarian && Test: Kobold Librarian_LOOT_014
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DrawTask(),
+				},
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new DamageTask(2, EntityType.HERO),
 				},
 			});
 
@@ -2234,12 +2237,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_018", new List<Enchantment> {
-				// TODO [LOOT_018] Hooked Reaver && Test: Hooked Reaver_LOOT_018
 				new Enchantment
 				{
 					InfoCardId = "LOOT_018e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)), new FlagTask(true, ComplexTask.Create(new BuffTask(Buffs.AttackHealth(3), EntityType.SOURCE), ComplexTask.Taunt(EntityType.SOURCE)))),
 				},
 			});
 
@@ -2921,11 +2923,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_069", new List<Enchantment> {
-				// TODO [LOOT_069] Sewer Crawler && Test: Sewer Crawler_LOOT_069
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new SummonTask("LOOT_069t", SummonSide.RIGHT),
 				},
 			});
 
@@ -2944,11 +2945,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_111", new List<Enchantment> {
-				// TODO [LOOT_111] Scorp-o-matic && Test: Scorp-o-matic_LOOT_111
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.TARGET),
 				},
 			});
 
@@ -2975,12 +2975,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_118", new List<Enchantment> {
-				// TODO [LOOT_118] Ebon Dragonsmith && Test: Ebon Dragonsmith_LOOT_118
 				new Enchantment
 				{
 					InfoCardId = "LOOT_118e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new IncludeTask(EntityType.HAND), new FilterStackTask(SelfCondition.IsWeapon), new RandomTask(1, EntityType.STACK), new BuffTask(Buffs.Cost(-2), EntityType.STACK)),
 				},
 			});
 
@@ -2994,11 +2993,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_122", new List<Enchantment> {
-				// TODO [LOOT_122] Corrosive Sludge && Test: Corrosive Sludge_LOOT_122
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DestroyTask(EntityType.OP_WEAPON),
 				},
 			});
 
@@ -3016,12 +3014,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_124", new List<Enchantment> {
-				// TODO [LOOT_124] Lone Champion && Test: Lone Champion_LOOT_124
 				new Enchantment
 				{
 					InfoCardId = "LOOT_124e",
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = ComplexTask.Create(new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(1)), new FlagTask(true, ComplexTask.Create(ComplexTask.Taunt(EntityType.SOURCE), ComplexTask.DivineShield(EntityType.SOURCE)))),
 				},
 			});
 
