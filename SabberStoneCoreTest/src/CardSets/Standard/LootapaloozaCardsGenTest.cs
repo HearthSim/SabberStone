@@ -2532,10 +2532,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VulgarHomunculus_LOOT_013()
 		{
-			// TODO VulgarHomunculus_LOOT_013 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2552,8 +2551,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vulgar Homunculus"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Vulgar Homunculus"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vulgar Homunculus"));
+			int previousHealth = game.CurrentPlayer.Hero.Health;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Vulgar Homunculus"));
+			Assert.Equal(previousHealth-2, game.CurrentPlayer.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -2565,10 +2566,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KoboldLibrarian_LOOT_014()
 		{
-			// TODO KoboldLibrarian_LOOT_014 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2585,8 +2585,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kobold Librarian"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kobold Librarian"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kobold Librarian"));
+			int previousHealth = game.CurrentPlayer.Hero.Health;
+			int previousCardsInHand = game.CurrentPlayer.HandZone.Count;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kobold Librarian"));
+			Assert.Equal(previousCardsInHand, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(previousHealth - 2, game.CurrentPlayer.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - WARLOCK

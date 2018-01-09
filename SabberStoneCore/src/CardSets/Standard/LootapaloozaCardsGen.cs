@@ -2195,11 +2195,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_013", new List<Enchantment> {
-				// TODO [LOOT_013] Vulgar Homunculus && Test: Vulgar Homunculus_LOOT_013
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DamageTask(2, EntityType.HERO),
 				},
 			});
 
@@ -2213,11 +2212,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_014", new List<Enchantment> {
-				// TODO [LOOT_014] Kobold Librarian && Test: Kobold Librarian_LOOT_014
 				new Enchantment
 				{
 					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
+					SingleTask = new DrawTask(),
+				},
+				new Enchantment
+				{
+					Activation = EnchantmentActivation.BATTLECRY,
+					SingleTask = new DamageTask(2, EntityType.HERO),
 				},
 			});
 
