@@ -1376,7 +1376,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.NextStep = Step.MAIN_BEGIN; // End Mulligan phase.
 
 			// Post MULLIGAN.
-			Assert.Equal(0, game.Triggers.Count);
 			Assert.Equal(31, game.CurrentPlayer.DeckZone.Count); // 30-4(hand)+5 legendaries
 
 			// Malchezaar abides several rules; see https://hearthstone.gamepedia.com/Prince_Malchezaar#Notes

@@ -2,6 +2,7 @@
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
@@ -29,7 +30,6 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CS2_031", new List<Power> {
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
 						ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
@@ -79,24 +79,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_316", new List<Power> {
 				new Power
 				{
-					InfoCardId = "EX1_316e",
-					Area = PowerArea.TARGET,
-					Activation = PowerActivation.SPELL,
-					PowerTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
-					OldEnchant = new OldEnchant
-					{
-						TurnsActive = 0,
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsNotSilenced,
-							SelfCondition.IsInZone(Zone.PLAY)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.NUM_TURNS_IN_PLAY] = 0
-						},
-						SingleTask = new DestroyTask(EntityType.TARGET)
-					}
+					PowerTask = new AddEnchantmentTask("EX1_316e", EntityType.TARGET)
 				}
 			});
 		}
@@ -140,11 +123,17 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_062", new List<Power> {
-				// TODO [EX1_062] Old Murk-Eye && Test: Old Murk-Eye_EX1_062
+				// TODO Test: Old Murk-Eye_EX1_062
 				new Power
 				{
-					//Activation = null,
-					//SingleTask = null,
+					Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
+					{
+						int i = 0;
+						foreach (Minion m in p.Controller.BoardZone)
+							if (m.Race == Race.MURLOC)
+								i++;
+						return i;
+					})
 				}
 			});
 
@@ -182,13 +171,6 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_284", new List<Power> {
 				new Power
 				{
-					Area = PowerArea.HERO,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldEnchant = Auras.SpellPowerDamage(1)
-				},
-				new Power
-				{
-					Activation = PowerActivation.BATTLECRY,
 					PowerTask = new DrawTask()
 				}
 			});
@@ -206,13 +188,12 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_298", new List<Power> {
 				new Power
 				{
-					Area = PowerArea.CONTROLLER,
-					Activation = PowerActivation.BOARD_ZONE,
-					OldTrigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
-						.Build()
+					Trigger = new Trigger
+					{
+						TriggerType = TriggerType.TURN_END,
+						TriggerSource = TriggerSource.FRIENDLY,
+						SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
+					}
 				}
 			});
 

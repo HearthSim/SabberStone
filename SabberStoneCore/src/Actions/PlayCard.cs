@@ -47,14 +47,6 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 				}
 
-				//if (source.Card.Powers != null)
-				//{
-				//	foreach (Power power in source.Card.Powers)
-				//	{
-				//		if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-				//			power.Trigger.Activate(source);
-				//	}
-				//}
 
 				c.Game.TriggerManager.OnPlayCardTrigger(source);
 
@@ -85,7 +77,12 @@ namespace SabberStoneCore.Actions
 					c.Game.TriggerManager.OnCastSpellTrigger(source);
 					OnPlayTrigger.Invoke(c, (Spell)source);
 
-					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
+					//source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
+					if (target != null && target.Id != source.CardTarget)
+					{
+						target = (ICharacter)source.Game.IdEntityDic[source.CardTarget];
+						c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
+					}
 
 					// remove from hand zone
 					if (!RemoveFromZone.Invoke(c, source))
@@ -134,35 +131,16 @@ namespace SabberStoneCore.Actions
 					&& !source.Card.Id.Equals("BRM_010") // OG_044b, using choose one 0 option
 					&& !source.Card.Id.Equals("AT_042")) // OG_044c, using choose one 0 option
 					{
-						if (source.Powers == null)
-							source.Powers = new List<Power>();
-						source.Powers.AddRange(source.ChooseOnePlayables[0].Powers);
-						source.Powers.AddRange(source.ChooseOnePlayables[1].Powers);
+						//if (source.Powers == null)
+						//	source.Powers = new List<Power>();
+						//source.Powers.AddRange(source.ChooseOnePlayables[0].Powers);
+						//source.Powers.AddRange(source.ChooseOnePlayables[1].Powers);
 					}
 					else
 					{
-						source.Powers = subSource.Powers;
+						//source.Powers = subSource.Powers;
 					}
 				}
-
-				// replace powers with the no combo or combo one ..
-				if (source.Combo && !(source is Minion))
-				{
-					if (source.Powers.Count > 1)
-					{
-						source.Powers = new List<Power> { source.Powers[c.IsComboActive ? 1 : 0] };
-					}
-					else if (c.IsComboActive && source.Powers.Count > 0)
-					{
-						source.Powers = new List<Power> { source.Powers[0] };
-					}
-					else
-					{
-						//source.Powers = new List<Power> { };
-						source.Powers = null;
-					}
-				}
-
 				return true;
 			};
 
@@ -314,9 +292,6 @@ namespace SabberStoneCore.Actions
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
-				// trigger Spellbender Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger Spellbender Phase (not implemented)");
-
 				// trigger SpellText Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger SpellText Phase (not implemented)");
 
@@ -333,8 +308,9 @@ namespace SabberStoneCore.Actions
 					c.NumSpellsPlayedThisGame++;
 					if (spell.IsSecret)
 						c.NumSecretsPlayedThisGame++;
-					spell.ActivateTask(PowerActivation.SECRET_OR_QUEST);
+					spell.Powers[0].Trigger.Activate(spell);
 					c.SecretZone.Add(spell);
+					spell.IsExhausted = true;
 				}
 				else
 				{

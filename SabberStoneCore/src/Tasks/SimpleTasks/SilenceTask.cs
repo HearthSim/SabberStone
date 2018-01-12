@@ -21,16 +21,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					var minion = p as Minion;
 					minion.Silence();
-
-					minion.OldEnchants.ForEach(z => z.IsEnabled());
-					minion.Triggers.ForEach(z => z.IsEnabled());
-				});
-
-				Game.AuraUpdate();
-
-				entities.ForEach(p =>
-				{
-					((Minion)p).IsSilenced = false;
 				});
 			}
 			return TaskState.COMPLETE;

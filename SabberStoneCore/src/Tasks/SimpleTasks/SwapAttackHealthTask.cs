@@ -30,18 +30,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				int health = p[GameTag.HEALTH];
 
 				// work around attack buffs
-				p.OldEnchants.ForEach(t =>
-				{
-					if (t.Effects.ContainsKey(GameTag.ATK))
-					{
-						t.Effects.Remove(GameTag.ATK);
-					}
+				//p.OldEnchants.ForEach(t =>
+				//{
+				//	if (t.Effects.ContainsKey(GameTag.ATK))
+				//	{
+				//		t.Effects.Remove(GameTag.ATK);
+				//	}
 
-					if (t.Effects.ContainsKey(GameTag.HEALTH))
-					{
-						t.Effects.Remove(GameTag.HEALTH);
-					}
-				});
+				//	if (t.Effects.ContainsKey(GameTag.HEALTH))
+				//	{
+				//		t.Effects.Remove(GameTag.HEALTH);
+				//	}
+				//});
 
 				target.Health = atk;
 				target.AttackDamage = health;

@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Enchant != null)
 			{
 				// activate enchants on the sources
-				entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.OldEnchants, p));
+				//entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.OldEnchants, p));
 			}
 
 			if (Taunt)

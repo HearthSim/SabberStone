@@ -12,7 +12,7 @@ namespace SabberStonePowerLog
 	class Program
 	{
 		static void Main(string[] args)
-		{
+{
 			var interpreter = new Interpreter(@"C:\Program Files (x86)\Hearthstone\Logs\", "Power.log");
 			List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");

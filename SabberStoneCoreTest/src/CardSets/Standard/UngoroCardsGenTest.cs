@@ -2566,7 +2566,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lurker"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(1, testCard.OldEnchants.Count);
 			Assert.Equal(1, ((Minion)testCard).AttackDamage);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(4, ((Minion)testCard).AttackDamage);
@@ -2830,7 +2829,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Lord"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(1, testCard.OldEnchants.Count);
 			Assert.Equal(1, ((Minion)testCard).AttackDamage);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(5, ((Minion)testCard).AttackDamage);
@@ -4497,7 +4495,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Creeper"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(1, testCard.OldEnchants.Count);
 			Assert.Equal(1, ((Minion)testCard).AttackDamage);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(3, ((Minion)testCard).AttackDamage);

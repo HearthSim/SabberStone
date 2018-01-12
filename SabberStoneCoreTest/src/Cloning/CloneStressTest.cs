@@ -113,5 +113,59 @@ namespace SabberStoneCoreTest.Cloning
 
 			Assert.Equal(game.CurrentPlayer.Name, clone.CurrentPlayer.Name);
 		}
+
+		[Fact]
+		public void CloneAura()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Mana Wyrm"),
+					Cards.FromName("Kirin Tor Mage"),
+					Cards.FromName("Vaporize")
+				},
+				Shuffle = false,
+				FillDecks = true,
+				History = false,
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			PlayCardTask task1 = PlayCardTask.Any(game.CurrentPlayer, "Mana Wyrm");
+			PlayCardTask task2 = PlayCardTask.Any(game.CurrentPlayer, "The Coin");
+
+			game.Process(task1);
+			Game clone = game.Clone();
+			clone.Process(task1);
+			game.Process(task2);
+			clone.Process(task2);
+			Game clone2 = clone.Clone();
+
+			var minion = game.CurrentPlayer.BoardZone[0];
+			var cloneMinion = clone.CurrentPlayer.BoardZone[0];
+			var clone2Minion = clone2.CurrentPlayer.BoardZone[0];
+
+			Assert.Equal(2, minion.AttackDamage);
+			Assert.Equal(2, cloneMinion.AttackDamage);
+			Assert.Equal(2, clone2Minion.AttackDamage);
+
+			clone2.Process(PlayCardTask.Any(game.CurrentPlayer, "Kirin Tor Mage"));
+			Assert.Equal(2, clone2.Auras.Count);
+			Game clone3 = clone2.Clone();
+			var task3 = PlayCardTask.Any(game.CurrentPlayer, "Vaporize");
+			clone3.Process(task3);
+			clone2.Process(task3);
+			Assert.Equal(1, clone2.Auras.Count);
+			Assert.Equal(1, clone3.Auras.Count);
+
+			Assert.Equal(3, clone2Minion.AttackDamage);
+		}
 	}
 }

@@ -103,6 +103,8 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me => me.Game.IdEntityDic.ContainsKey(me.Controller.Hero.ProposedDefender) && me.Game.IdEntityDic[me.Controller.Hero.ProposedDefender].Card.Type == cardType);
 		public static SelfCondition HasLessHandCardsThenOp => new SelfCondition(me => me.Controller.HandZone.Count < me.Controller.Opponent.HandZone.Count);
 
+		public static SelfCondition HasTarget => new SelfCondition(me => me.CardTarget > 0);
+
 		public static SelfCondition AnyNonClassCardInHand(CardClass cardClass)
 			=> new SelfCondition(me => me.Controller.HandZone.Any(p => p.Card.Class != cardClass));
 

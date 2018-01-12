@@ -30,20 +30,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 	    {
+			//	Controller Auras (OTEs)
 		    if (_entityType == EntityType.CONTROLLER)
 		    {
-			    if (Game.History)
+			    Power power = _enchantmentCard.Powers[0];
+				if (Game.History)
 			    {
-				    Power power = _enchantmentCard.Powers[0];
 				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
 				    power.Aura?.Activate(enchantment);
 				    power.Trigger?.Activate(enchantment);
 				    return TaskState.COMPLETE;
 			    }
+
+			    power.Aura?.Activate(Controller.Hero);
+			    power.Trigger?.Activate(Controller.Hero);
+
+			    return TaskState.COMPLETE;
 		    }
 
 		    List<IPlayable> entities = IncludeTask.GetEntites(_entityType, Controller, Source, Target, Playables);
 
+			//	no indicator enchantment entities when History option is off
 		    if (Game.History)
 		    {
 			    foreach (IPlayable entity in entities)
@@ -84,8 +91,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				    foreach (Power power in _enchantmentCard.Powers)
 				    {
 					    power.Aura?.Activate(entity);
-
 					    power.Trigger?.Activate(entity);
+						Enchantment instance = null;
+					    if (power.Aura != null || power.Trigger != null)
+					    {
+						    instance = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+						    power.Aura?.Activate(instance);
+						    power.Trigger?.Activate(instance);
+					    }
 
 					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
 						    ((OngoingEnchant)entity.OngoingEffect).Count++;

@@ -46,6 +46,15 @@ namespace SabberStoneCore.Enchants
 					break;
 				case EffectOperator.SET:
 					entity.NativeTags[Tag] = Value;
+					// experimental implmentation for simulating tricky situations
+					if (Tag == GameTag.ATK)
+						for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
+						{
+							(int id, Effect eff) = entity.Game.OneTurnEffects[i];
+							if (id != entity.Id || eff.Tag != GameTag.ATK) continue;
+
+							entity.Game.OneTurnEffects.Remove((id, eff));
+						}
 					break;
 				default:
 					throw new ArgumentException();
@@ -54,6 +63,12 @@ namespace SabberStoneCore.Enchants
 
 		public void Apply(AuraEffects auraEffects)
 		{
+			if (Tag == GameTag.COST)
+			{
+				auraEffects.AddCostAura(this);
+				return;
+			}
+
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
@@ -62,6 +77,7 @@ namespace SabberStoneCore.Enchants
 				case EffectOperator.SUB:
 					auraEffects[Tag] += Value;
 					return;
+				// TODO: SET Aura
 				case EffectOperator.SET:
 					auraEffects[Tag] = Value;
 					return;
@@ -88,6 +104,17 @@ namespace SabberStoneCore.Enchants
 
 		public void Remove(AuraEffects auraEffects)
 		{
+			if (Tag == GameTag.COST)
+			{
+				auraEffects.RemoveCostAura(this);
+				return;
+			}
+
+			if (Tag == GameTag.HEALTH && Operator == EffectOperator.ADD)
+			{
+				((ICharacter)auraEffects.Owner).Damage -= Value;
+			}
+
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
@@ -147,7 +174,6 @@ namespace SabberStoneCore.Enchants
 			Effects = effects;
 	    }
 
-
 		public bool IsOneTurnEffect { get; set; }
 
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
@@ -180,22 +206,23 @@ namespace SabberStoneCore.Enchants
 					Effects[1].ChangeValue(num1).Apply(entity);
 			}
 
-			//if (IsOneTurnEffect)
-			//	enchantment.EffectsToBeRemoved = Effects;
+			if (!IsOneTurnEffect) return;
+			
+			for (int i = 0; i < Effects.Length; i++)
+				entity.Game.OneTurnEffects.Add((entity.Id, Effects[i]));
 		}
     }
 
 	public class OngoingEnchant : Enchant, IAura
 	{
-		private int _count;
-		private int _lastCount;
+		private int _count = 1;
+		private int _lastCount = 1;
 		private int _targetId;
 		private int _controllerId;
 		private IEntity _target;
 		private Controller _controller;
 
 		public OngoingEnchant(params Effect[] effects) : base(effects) { }
-		private OngoingEnchant() { }
 
 		public int Count
 		{
@@ -229,13 +256,7 @@ namespace SabberStoneCore.Enchants
 
 		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
-			var instance = new OngoingEnchant(Effects)
-			{
-				Game = entity.Game,
-				Target = entity
-			};
-			entity.OngoingEffect = instance;
-			entity.Game.Auras.Add(instance);
+			Clone((IPlayable) entity);
 
 			base.ActivateTo(entity, enchantment);
 		}
@@ -244,91 +265,32 @@ namespace SabberStoneCore.Enchants
 		{
 			if (!ToBeUpdated) return;
 
-			base.ActivateTo(Target, null);
+			int delta = _count - _lastCount;
+
+			for (int i = 0 ; i < delta; i++)
+				base.ActivateTo(Target, null);
+
+			_lastCount = _count;
+
+			ToBeUpdated = false;
 		}
 
 		public void Remove()
 		{
-			Target.OngoingEffect = null;
+			((IPlayable)Target).OngoingEffect = null;
 			Target.Game.Auras.Remove(this);
 		}
-	}
 
-	
-	
-	public class AuraEffects
-	{
-		private int ATK;
-		private int HEALTH;
-		private int COST;
-		private int SPELLPOWER;
-		private int CHARGE;
-
-		private int SPD;
-		private int RESTORE_TO_DAMAGE;
-
-		public int this[GameTag t]
+		public void Clone(IPlayable clone)
 		{
-			get
+			var copy = new OngoingEnchant(Effects)
 			{
-				switch (t)
-				{
-					case GameTag.ATK:
-						return ATK;
-					case GameTag.HEALTH:
-						return HEALTH;
-					case GameTag.CHARGE:
-						return CHARGE;
-					case GameTag.CURRENT_SPELLPOWER:
-						return SPELLPOWER;
-					case GameTag.RESTORE_TO_DAMAGE:
-						return RESTORE_TO_DAMAGE;
-					case GameTag.HERO_POWER_DOUBLE:
-					case GameTag.HEALING_DOUBLE:
-					case GameTag.SPELLPOWER_DOUBLE:
-						return SPD;
-					default:
-						return 0;
-				}
-			}
-			set
-			{
-				switch (t)
-				{
-					case GameTag.ATK:
-						ATK = value;
-						return;
-					case GameTag.HEALTH:
-						HEALTH = value;
-						return;
-					case GameTag.CHARGE:
-						CHARGE = value;
-						return;
-					case GameTag.CURRENT_SPELLPOWER:
-						SPELLPOWER = value;
-						return;
-					case GameTag.RESTORE_TO_DAMAGE:
-						RESTORE_TO_DAMAGE = value;
-						return;
-					case GameTag.HERO_POWER_DOUBLE:
-					case GameTag.HEALING_DOUBLE:
-					case GameTag.SPELLPOWER_DOUBLE:
-						SPD = value;
-						return;
-					default:
-						return;
-				}
-			}
-		}
-
-		public void Update(IPlayable p)
-		{
-			//p[GameTag.ATK] = p.NativeTags[GameTag.ATK] + ATK;
-			//p[GameTag.HEALTH] = p.NativeTags[GameTag.HEALTH] + HEALTH;
-			//p[GameTag.COST] = p.NativeTags[GameTag.COST] + COST;
-			//p[GameTag.SPELLPOWER] = p.NativeTags[GameTag.SPELLPOWER] + SPELLPOWER;
-			//if (p.NativeTags[GameTag.CHARGE] == 0)
-			//	p[GameTag.CHARGE] = CHARGE;
+				Game = clone.Game,
+				Target = clone,
+				IsOneTurnEffect = IsOneTurnEffect,
+			};
+			clone.OngoingEffect = copy;
+			copy.Game.Auras.Add(copy);
 		}
 	}
 

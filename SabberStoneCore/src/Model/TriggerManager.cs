@@ -22,8 +22,9 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler CastSpellTrigger;
 	    public event TriggerHandler SecretRevealedTrigger;
 
+	    public List<TriggerHandler> Triggers;
 
-	    internal void OnDamageTrigger(IEntity sender)
+		internal void OnDamageTrigger(IEntity sender)
 	    {
 		    DamageTrigger?.Invoke(sender);
 	    }

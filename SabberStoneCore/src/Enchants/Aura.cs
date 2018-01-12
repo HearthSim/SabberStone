@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -18,16 +19,210 @@ namespace SabberStoneCore.Enchants
 		string EnchantmentCardId { get; }
 		void Update();
 		void Remove();
+		void Clone(IPlayable clone);
+	}
+
+	public class AuraEffects
+	{
+		private class CostEffect : IEquatable<CostEffect>
+		{ 
+			private readonly Func<int, int> _func;
+
+			public readonly int Hash;
+
+			public CostEffect(Effect e)
+			{ 
+				switch (e.Operator)
+				{
+					case EffectOperator.ADD:
+						_func = p => p + e.Value;
+						Hash = 0;
+						break;
+					case EffectOperator.SUB:
+						_func = p => p >= e.Value ? p - e.Value : 0;
+						Hash = 100;
+						break;
+					case EffectOperator.SET:
+						_func = p => e.Value;
+						Hash = 1000000;
+						break;
+					case EffectOperator.MUL:
+						throw new NotImplementedException();
+				}
+
+				Hash += e.Value;
+			}
+
+			public static int GetHash(Effect e)
+			{
+				return (int)Math.Pow(10, ((int) e.Operator) * 2) + e.Value;
+			}
+
+			public int Apply(int c)
+			{
+				return _func(c);
+			}
+
+			public bool Equals(CostEffect other)
+			{
+				return Hash == other.Hash;
+			}
+			public override bool Equals(object obj)
+			{
+				return Equals(obj as CostEffect);
+			}
+			public override int GetHashCode()
+			{
+				return Hash;
+			}
+		}
+
+		private int ATK;
+		private int HEALTH;
+		private int COST;
+		private int SPELLPOWER;
+		private int CHARGE;
+
+		private int SPD;
+		private int RESTORE_TO_DAMAGE;
+
+		private List<CostEffect> _costEffects;
+		private bool Checker { get; set; }
+
+		public AuraEffects(IEntity owner)
+		{
+			Owner = owner;
+			if (owner is IPlayable)
+				COST = owner.Card[GameTag.COST];
+		}
+
+		public IEntity Owner { get; private set; }
+
+		public int this[GameTag t]
+		{
+			get
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						return ATK;
+					case GameTag.HEALTH:
+						return HEALTH;
+					case GameTag.CHARGE:
+						return CHARGE;
+					case GameTag.CURRENT_SPELLPOWER:
+						return SPELLPOWER;
+					case GameTag.RESTORE_TO_DAMAGE:
+						return RESTORE_TO_DAMAGE;
+					case GameTag.HERO_POWER_DOUBLE:
+					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELLPOWER_DOUBLE:
+						return SPD;
+					case GameTag.COST:
+						return GetCost() - ((Entity) Owner)._data[GameTag.COST];
+					default:
+						return 0;
+				}
+			}
+			set
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						ATK = value;
+						return;
+					case GameTag.HEALTH:
+						HEALTH = value;
+						return;
+					case GameTag.CHARGE:
+						CHARGE = value;
+						return;
+					case GameTag.CURRENT_SPELLPOWER:
+						SPELLPOWER = value;
+						return;
+					case GameTag.RESTORE_TO_DAMAGE:
+						RESTORE_TO_DAMAGE = value;
+						return;
+					case GameTag.HERO_POWER_DOUBLE:
+					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELLPOWER_DOUBLE:
+						SPD = value;
+						return;
+					case GameTag.COST:
+						throw new NotImplementedException();
+					default:
+						return;
+				}
+			}
+		}
+
+		public void AddCostAura(Effect e)
+		{
+			Checker = true;
+
+			if (_costEffects == null)
+				_costEffects = new List<CostEffect>(1);
+
+			_costEffects.Add(new CostEffect(e));
+		}
+
+		public void RemoveCostAura(Effect e)
+		{
+			Checker = true;
+			int hash = CostEffect.GetHash(e);
+			for (int i = 0; i < _costEffects.Count; i++)
+			{
+				if (_costEffects[i].Hash != hash) continue;
+
+				_costEffects.Remove(_costEffects[i]);
+				return;
+			}
+
+			throw new Exception();
+		}
+
+		public int GetCost()
+		{
+			if (_costEffects == null)
+				return COST;
+
+			if (!Checker) return COST;
+
+			int c = Owner.Card[GameTag.COST];
+			for (int i = 0; i < _costEffects.Count; i++)
+				c = _costEffects[i].Apply(c);
+			Debug.WriteLine(c);
+			COST = c;
+			Checker = false;
+
+			return COST;
+		}
+
+		public AuraEffects Clone(IEntity clone)
+		{
+			return new AuraEffects(clone)
+			{
+				ATK = ATK,
+				HEALTH = HEALTH,
+				COST = COST,
+				SPELLPOWER = SPELLPOWER,
+				CHARGE = CHARGE,
+				SPD = SPD,
+				RESTORE_TO_DAMAGE = RESTORE_TO_DAMAGE,
+				Owner = clone,
+				_costEffects = _costEffects != null ? new List<CostEffect>(_costEffects) : null
+			};
+		}
 	}
 
 	public class Aura : IAura
 	{
 		private readonly int _ownerId;
 		private IPlayable _owner;
-		private readonly List<int> _appliedEntityIds = new List<int>();
+		private readonly List<int> _appliedEntityIds;
 		private List<IPlayable> _appliedEntities;
 		private List<IPlayable> _tempList;
-		protected bool _on;
+		protected bool On = true;
 		private bool _toBeUpdated = true;
 		private readonly Func<IPlayable, int> _adaptivePredicate;
 		private readonly GameTag _adaptiveTag;
@@ -69,10 +264,11 @@ namespace SabberStoneCore.Enchants
 			Condition = prototype.Condition;
 			Game = owner.Game;
 			Restless = prototype.Restless;
-			_on = true;
-			_appliedEntityIds = new List<int>();
+			On = prototype.On;
+			_appliedEntityIds = prototype._appliedEntityIds != null ? new List<int>(prototype._appliedEntityIds) : new List<int>();
 			_owner = owner;
 			_ownerId = owner.Id;
+			RemoveTrigger = prototype.RemoveTrigger;
 		}
 
 
@@ -96,7 +292,7 @@ namespace SabberStoneCore.Enchants
 		public string EnchantmentCardId => EnchantmentCard?.Id ?? "";
 
 
-		public virtual void Activate(IPlayable owner)
+		public virtual void Activate(IPlayable owner, bool cloning = false)
 		{
 			if (Effects == null)
 				Effects = EnchantmentCard.Powers[0].Enchant.Effects;
@@ -126,30 +322,29 @@ namespace SabberStoneCore.Enchants
 				switch (RemoveTrigger.Type)
 				{
 					case TriggerType.CAST_SPELL:
-						Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
 						break;
 				}
 			}
 
-			if (owner.Game.History)
+			if (cloning || !owner.Game.History) return;
+
+			switch (Type)
 			{
-				switch (Type)
-				{
-					case AuraType.BOARD_EXCEPT_SOURCE:
-						_tempList = new List<IPlayable>();
-						foreach (Minion minion in (BoardZone)owner.Zone)
+				case AuraType.BOARD_EXCEPT_SOURCE:
+					_tempList = new List<IPlayable>();
+					foreach (Minion minion in (BoardZone)owner.Zone)
+					{
+						if (minion == owner) continue;
+						if (Condition != null && Condition.Eval(minion))
 						{
-							if (minion == owner) continue;
-							if (Condition != null && Condition.Eval(minion))
-							{
-								Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
-							}
-
-							_tempList.Add(minion);
+							Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
 						}
-						break;
 
-				}
+						_tempList.Add(minion);
+					}
+					break;
+
 			}
 		}
 
@@ -157,7 +352,7 @@ namespace SabberStoneCore.Enchants
 		{
 			if (!_toBeUpdated || Type == AuraType.ADAPTIVE) return;
 
-			if (_on)
+			if (On)
 			{
 				if (_tempList != null)
 				{
@@ -211,7 +406,9 @@ namespace SabberStoneCore.Enchants
 			{
 				foreach (IPlayable entity in AppliedEntities)
 					for (int i = 0; i < Effects.Length; i++)
+					{
 						Effects[i].Remove(entity.AuraEffects);
+					}
 
 				Game.Auras.Remove(this);
 			}
@@ -222,7 +419,7 @@ namespace SabberStoneCore.Enchants
 
 		public virtual void Remove()
 		{
-			_on = false;
+			On = false;
 			_toBeUpdated = true;
 			Owner.OngoingEffect = null;
 		}
@@ -290,6 +487,11 @@ namespace SabberStoneCore.Enchants
 			AppliedEntities.Add(entity);
 			_appliedEntityIds.Add(entity.Id);
 		}
+
+		public virtual void Clone(IPlayable clone)
+		{
+			Activate(clone, true);
+		}
 	}
 
 	public class AdaptiveEffect : Aura
@@ -313,9 +515,12 @@ namespace SabberStoneCore.Enchants
 			_operator = prototype._operator;
 		}
 
-		public override void Activate(IPlayable owner)
+		public override void Activate(IPlayable owner, bool cloning = false)
 		{
 			var instance = new AdaptiveEffect(this, owner);
+
+			owner.Game.Auras.Add(instance);
+			owner.OngoingEffect = instance;
 		}
 
 		public override void Update()
@@ -349,6 +554,7 @@ namespace SabberStoneCore.Enchants
 		public override void Remove()
 		{
 			Owner.OngoingEffect = null;
+			Game.Auras.Remove(this);
 
 			switch (_operator)
 			{
@@ -362,6 +568,11 @@ namespace SabberStoneCore.Enchants
 					Owner.AuraEffects[_tag] = _lastValue;
 					return;
 			}
+		}
+
+		public override void Clone(IPlayable clone)
+		{
+			Activate(clone);
 		}
 	}
 
@@ -381,12 +592,12 @@ namespace SabberStoneCore.Enchants
 		{
 		}
 
-		public override void Activate(IPlayable owner)
+		public override void Activate(IPlayable owner, bool cloning = false)
 		{
 			if (owner is Enchantment e)
 				owner = (IPlayable)e.Target;
 
-			base.Activate(owner);
+			base.Activate(owner, cloning);
 
 			Restless = true;
 		}
@@ -408,13 +619,18 @@ namespace SabberStoneCore.Enchants
 				_enraged = false;
 			}
 
-			if (!_on)
+			if (!On)
 			{
 				Game.Auras.Remove(this);
 				if (!_enraged) return;
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Remove(m.AuraEffects);
 			}
+		}
+
+		public override void Clone(IPlayable clone)
+		{
+			Activate(clone, true);
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (t.Activation == Activation)
 					{
-						t.Activate(Controller, p, Target as IPlayable);
+						//t.Activate(Controller, p, Target as IPlayable);
 					}
 				});
 

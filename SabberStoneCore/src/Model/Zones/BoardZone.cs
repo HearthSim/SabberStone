@@ -30,11 +30,15 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IPlayable Remove(IPlayable entity)
 		{
-
 			for (int i = 0; i < Auras.Count; i++)
 				Auras[i].EntityRemoved((Minion) entity);
 
-			entity.ActivatedTrigger?.Remove();
+			//if (entity.OngoingEffect is Aura a)
+			//	a.EntityRemoved((Minion) entity);
+			entity.OngoingEffect?.Remove();
+
+			if (entity[GameTag.SPELLPOWER] > 0)
+				entity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] -= entity[GameTag.SPELLPOWER];
 
 			return base.Remove(entity);
 		}
@@ -57,6 +61,12 @@ namespace SabberStoneCore.Model.Zones
 
 			newEntity.OrderOfPlay = Game.NextOop;
 
+			for (int i = 0; i < Auras.Count; i++)
+				Auras[i].EntityRemoved(oldEntity);
+
+			if (oldEntity[GameTag.SPELLPOWER] > 0)
+				oldEntity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] -= oldEntity[GameTag.SPELLPOWER];
+
 			ActivateAura(newEntity);
 		}
 
@@ -70,7 +80,7 @@ namespace SabberStoneCore.Model.Zones
 				}
 
 			if (entity.Card[GameTag.SPELLPOWER] > 0)
-				entity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] += entity[GameTag.SPELLPOWER];
+				entity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] += entity.Card.Tags[GameTag.SPELLPOWER];
 		}
 	}
 }

@@ -27,13 +27,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				// work around health buffs
-				p.OldEnchants.ForEach(t =>
-				{
-					if (t.Effects.ContainsKey(GameTag.HEALTH))
-					{
-						t.Effects.Remove(GameTag.HEALTH);
-					}
-				});
+				//p.OldEnchants.ForEach(t =>
+				//{
+				//	if (t.Effects.ContainsKey(GameTag.HEALTH))
+				//	{
+				//		t.Effects.Remove(GameTag.HEALTH);
+				//	}
+				//});
 
 				target.Health = Amount;
 				return true;

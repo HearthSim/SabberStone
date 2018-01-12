@@ -38,6 +38,19 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
 				new FlagTask(true, new SummonTask())
 			);
+		//public static ISimpleTask PatchesThePirate
+		//	=> ComplexTask.Create(
+		//		new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
+		//		new IncludeTask(EntityType.SOURCE),
+		//		new FlagTask(true, new FuncPlayablesTask(p =>
+		//		{
+		//			var entity = p[0] as Entity;
+		//			entity.SetNativeGameTag(GameTag.REVEALED, 1);
+
+
+		//			return p;
+		//		}))
+		//	);
 
 		public static ISimpleTask FrostwolfBanner
 			=> ComplexTask.Create(
@@ -224,23 +237,23 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					p[0].Game.OldEnchants.Add(
-							new Enchants.OldEnchant
-							{
-								Game = p[0].Game,
-								Owner = p[0].Controller.Hero,
-								ApplyConditions = new List<RelaCondition>
-								{
-									RelaCondition.IsOther(SelfCondition.IsHeroPower),
-									RelaCondition.IsFriendly
-								},
+					//p[0].Game.OldEnchants.Add(
+					//		new Enchants.OldEnchant
+					//		{
+					//			Game = p[0].Game,
+					//			Owner = p[0].Controller.Hero,
+					//			ApplyConditions = new List<RelaCondition>
+					//			{
+					//				RelaCondition.IsOther(SelfCondition.IsHeroPower),
+					//				RelaCondition.IsFriendly
+					//			},
 
-								Effects = new Dictionary<GameTag, int>
-								{
-									[GameTag.COST] = 0
-								},
-								FixedValueFunc = owner => 1
-							});
+					//			Effects = new Dictionary<GameTag, int>
+					//			{
+					//				[GameTag.COST] = 0
+					//			},
+					//			FixedValueFunc = owner => 0
+					//		});
 					return new List<IPlayable>();
 				}));
 

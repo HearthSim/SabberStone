@@ -30,13 +30,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				// work around attack buffs
-				p.OldEnchants.ForEach(t =>
-				{
-					if (t.Effects.ContainsKey(GameTag.ATK))
-					{
-						t.Effects.Remove(GameTag.ATK);
-					}
-				});
+				//p.OldEnchants.ForEach(t =>
+				//{
+				//	if (t.Effects.ContainsKey(GameTag.ATK))
+				//	{
+				//		t.Effects.Remove(GameTag.ATK);
+				//	}
+				//});
 
 				target.AttackDamage = Amount;
 				return true;

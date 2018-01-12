@@ -70,15 +70,8 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="t">The <see cref="GameTag"/> which value is queried</param>
 		/// <returns></returns>
-		public int this[GameTag t] /*=> Tags.ContainsKey(t) ? Tags[t] : 0;*/
-		{
-			get
-			{
-				if (Tags.TryGetValue(t, out int value))
-					return value;
-				return 0;
-			}
-		}
+		public int this[GameTag t]
+			=> Tags.TryGetValue(t, out int value) ? value : 0;
 
 		/// <summary>
 		/// Indicates if this card occurs in the player's collection. Only collectible

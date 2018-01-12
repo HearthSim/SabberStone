@@ -37,26 +37,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Aura.Activate(source.Card.Id, source.Controller.BoardZone.Enchants, source);
 			}
-			else if (Area == AuraArea.HAND)
-			{
-				Aura.Activate(source.Card.Id, source.Controller.HandZone.Enchants, source);
-			}
-			else if (Area == AuraArea.OP_HAND)
-			{
-				Aura.Activate(source.Card.Id, source.Controller.Opponent.HandZone.Enchants, source);
-			}
-			else if (Area == AuraArea.GAME)
-			{
-				Aura.Activate(source.Card.Id, source.Controller.Game.OldEnchants, source);
-			}
-			else if (Area == AuraArea.SELF)
-			{
-				Aura.Activate(source.Card.Id, source.OldEnchants, source);
-			}
-			else if (Area == AuraArea.HERO)
-			{
-				Aura.Activate(source.Card.Id, source.Controller.Hero.OldEnchants, source);
-			}
+			//else if (Area == AuraArea.HAND)
+			//{
+			//	Aura.Activate(source.Card.Id, source.Controller.HandZone.Enchants, source);
+			//}
+			//else if (Area == AuraArea.OP_HAND)
+			//{
+			//	Aura.Activate(source.Card.Id, source.Controller.Opponent.HandZone.Enchants, source);
+			//}
+			//else if (Area == AuraArea.GAME)
+			//{
+			//	Aura.Activate(source.Card.Id, source.Controller.Game.OldEnchants, source);
+			//}
+			//else if (Area == AuraArea.SELF)
+			//{
+			//	Aura.Activate(source.Card.Id, source.OldEnchants, source);
+			//}
+			//else if (Area == AuraArea.HERO)
+			//{
+			//	Aura.Activate(source.Card.Id, source.Controller.Hero.OldEnchants, source);
+			//}
 			else
 			{
 				throw new NotImplementedException();

@@ -2300,8 +2300,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon3));
 
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
-
-			Assert.Equal(0, game.CurrentPlayer.Hero.Triggers.Count);
 		}
 	}
 

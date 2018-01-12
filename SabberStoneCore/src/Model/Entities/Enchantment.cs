@@ -20,6 +20,9 @@ namespace SabberStoneCore.Model.Entities
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
+
+			if (card.Powers[0].Trigger != null)
+				ActivatedTriggers = new List<Trigger>(1);
 		}
 
 		public int this[GameTag t]
@@ -106,6 +109,8 @@ namespace SabberStoneCore.Model.Entities
 				});
 			}
 
+			if (instance.IsOneTurnActive)
+				instance.Target[GameTag.TAG_ONE_TURN_EFFECT] = 1;
 			//instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			instance.Zone = controller.BoardZone;
 			//	323 = 1
@@ -138,16 +143,17 @@ namespace SabberStoneCore.Model.Entities
 				Game.TaskQueue.Enqueue(clone);
 			}
 
+			//OngoingEffect?.Remove();
 			ActivatedTrigger?.Remove();
 
 			if (Target is IPlayable p)
 				p.RemoveEnchantments -= Remove;
 		}
-		public ComplexEffects CostEffects { get; }
 		public Trigger ActivatedTrigger { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
 		public Action RemoveEnchantments { get; set; }
+		public List<Trigger> ActivatedTriggers { get; }
 	}
 
 	public partial class Enchantment

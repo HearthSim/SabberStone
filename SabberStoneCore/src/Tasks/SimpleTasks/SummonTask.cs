@@ -1,7 +1,8 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -53,7 +54,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (Playables.Count > 0)
 				{
 					var m = Playables[0] as Minion;
-					if (m.Zone == null && m.GetNativeGameTag(Enums.GameTag.ZONE) != 0)
+					if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
 						Playables[0].Controller.GraveyardZone.Add(Playables[0]);
 				}
 				return TaskState.STOP;
@@ -62,7 +63,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Minion summonEntity = null;
 			if (Card != null)
 			{
-				summonEntity = Entity.FromCard(Controller, Card) as Minion;
+				summonEntity = Entity.FromCard(Controller, Card,
+					new Dictionary<GameTag, int>
+					{
+						{GameTag.ZONE, (int)Zone.PLAY},
+						{GameTag.DISPLAYED_CREATOR, Source.Id}
+					}) as Minion;
 				if (_addToStack)
 					Playables.Add(summonEntity);
 			}
@@ -119,7 +125,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new SummonTask(Side, Card, RemoveFromStack);
+			var clone = new SummonTask(Side, Card, RemoveFromStack, _addToStack);
 			clone.Copy(this);
 			return clone;
 		}

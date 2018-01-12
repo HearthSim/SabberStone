@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			IPlayable proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
 
-			proxyCthun.OldEnchants.ForEach(p => p.Activate(p.SourceId, source.OldEnchants, source));
+			//proxyCthun.OldEnchants.ForEach(p => p.Activate(p.SourceId, source.OldEnchants, source));
 
 			source[GameTag.TAUNT] = proxyCthun[GameTag.TAUNT];
 

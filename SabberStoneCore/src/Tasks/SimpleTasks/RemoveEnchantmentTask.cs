@@ -25,10 +25,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    {
 			//	TODO
 		    if (_enchantmentCard.Powers[0].Aura != null)
-			    Game.Auras.Find(p => p.EnchantmentCardId == _enchantmentCard.Id).Remove();
+		    {
+			    ((IPlayable) Source).OngoingEffect?.Remove();
+		    }
 
-		    foreach (Effect effect in _enchantmentCard.Powers[0].Enchant?.Effects)
-			    effect.Remove(Source is Enchantment ec ? ec.Target : Source);
+		    //foreach (Effect effect in _enchantmentCard.Powers[0].Enchant?.Effects)
+			   // effect.Remove(Source is Enchantment ec ? ec.Target : Source);
 
 			ISimpleTask task = _enchantmentCard.Powers[0].Enchant?.TaskToDoWhenThisIsRemoved;
 		    if (task != null)

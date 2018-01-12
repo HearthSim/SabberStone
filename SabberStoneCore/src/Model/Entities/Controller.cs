@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
@@ -432,8 +433,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			var str = new StringBuilder();
 			str.Append($"{Name}[Mana:{RemainingMana}/{OverloadOwed}/{BaseMana}][{OverloadLocked}]");
-			str.Append($"[ENCH {OldEnchants.Count}]");
-			str.Append($"[TRIG {Triggers.Count}]");
+			//str.Append($"[ENCH {OldEnchants.Count}]");
+			//str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
 		}
 	}

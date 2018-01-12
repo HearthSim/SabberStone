@@ -28,13 +28,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (minion != null)
 				{
 					minion.HasDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
-					if (minion.Powers == null)
-						minion.Powers = new System.Collections.Generic.List<Power> { Power };
-					else
-						minion.Powers.Add(Power);
+					//if (minion.Powers == null)
+					//	minion.Powers = new System.Collections.Generic.List<Power> { Power };
+					//else
+					//	minion.Powers.Add(Power);
 					if (Activate)
 					{
-						Power.Activate(Controller, minion);
+						//Power.Activate(Controller, minion);
 					}
 				}
 			});

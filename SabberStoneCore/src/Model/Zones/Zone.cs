@@ -299,6 +299,8 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.Zone = null;
 
+			entity.ActivatedTriggers.Clear();
+
 			return entity;
 		}
 
@@ -369,6 +371,8 @@ namespace SabberStoneCore.Model.Zones
 			Reposition(pos);
 			//entity.ZonePosition = 0;
 			entity.Zone = null;
+
+			entity.ActivatedTriggers.Clear();
 
 			return entity;
 		}

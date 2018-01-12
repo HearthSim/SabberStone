@@ -435,11 +435,11 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
 			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));	// 6/6
 
 			game.CurrentPlayer.UsedMana = 0;
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));	// 7/7
 
 			game.CurrentPlayer.UsedMana = 0;
 
@@ -447,10 +447,10 @@ namespace SabberStoneCoreTest.Basic
 
 			game.CurrentPlayer.UsedMana = 0;
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));	// (7/7), (8/8), (5/4)
 
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));	// (7/3), (8/4)
 
 			game.CurrentPlayer.UsedMana = 0;
 
@@ -461,12 +461,12 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell3));
 
-			Assert.Equal(2, ((ICharacter)minion2).Health);
+			Assert.Equal(2, ((ICharacter)minion2).Health);	// (7/1), (8/2)
 
 			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell4));
 
-			Assert.Equal(1, ((ICharacter)minion2).Health);
+			Assert.Equal(1, ((ICharacter)minion2).Health);	// (7/1)
 			Assert.Equal(Zone.PLAY, ((ICharacter)minion2).Zone.Type);
 		}
 

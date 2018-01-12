@@ -28,7 +28,7 @@ namespace SabberStoneCore.Enchants
 
     public class Trigger
     {
-		public Game Game;
+		public readonly Game Game;
 	    private int _sourceId;
 	    private int _controllerId;
 	    public TriggerActivation TriggerActivation;
@@ -36,20 +36,31 @@ namespace SabberStoneCore.Enchants
 		public TriggerSource TriggerSource;
 		public ISimpleTask SingleTask;
 	    public SelfCondition Condition;
-	    public bool IsSecretTrigger;
-	    private bool _secret => Owner[GameTag.SECRET] == 1;
+	    public bool EitherTurn;
 	    public bool FastExecution;
 	    public bool RemoveAfterTriggered;
 
-
-	    private IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_sourceId]);
+	    private bool IsSecret => Owner[GameTag.SECRET] == 1;
+		private IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_sourceId]);
 	    private IPlayable _owner;
 
-	    // Trigger Condition
+		public Trigger() { }
+	    private Trigger(Trigger prototype, IEntity owner)
+	    {
+			Game = owner.Game;
+			_sourceId = owner.Id;
+		    _controllerId = owner.Controller?.Id ?? prototype._controllerId;
+		    TriggerType = prototype.TriggerType;
+		    TriggerSource = prototype.TriggerSource;
+			Condition = prototype.Condition;
+		    SingleTask = prototype.SingleTask;
+		    FastExecution = prototype.FastExecution;
+			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
+	    }
 
 	    protected virtual void Process(IEntity source)
 	    {
-			if (_secret && Owner.IsExhausted)
+			if (IsSecret && Owner.IsExhausted)
 				return;
 
 		    switch (TriggerSource)
@@ -65,7 +76,7 @@ namespace SabberStoneCore.Enchants
 					if (!(source is Minion)) return;
 					break;
 				case TriggerSource.MINIONS_EXCEPT_SELF:
-					if (!(source is Minion) || source.Id == _sourceId || source.Zone.Type != Zone.PLAY) return;
+					if (!(source is Minion) || source.Controller.Id != _controllerId || source.Id == _sourceId || source.Zone.Type != Zone.PLAY) return;
 					break;
 				case TriggerSource.HERO:
 					if (!(source is Hero) || source.Controller.Id != _controllerId) return;
@@ -77,9 +88,9 @@ namespace SabberStoneCore.Enchants
 
 			switch (TriggerType)
 			{
-				case TriggerType.TURN_START when ((Game)source).CurrentPlayer != Game.ControllerById(_controllerId):
+				case TriggerType.TURN_START when !EitherTurn && source.Id != _controllerId:
 					return;
-				case TriggerType.TURN_END when ((Game)source).CurrentPlayer != Game.ControllerById(_controllerId):
+				case TriggerType.TURN_END when !EitherTurn && source.Id !=_controllerId:
 					return;
 				case TriggerType.DEATH when Owner.Zone is GraveyardZone:
 					return;
@@ -95,42 +106,36 @@ namespace SabberStoneCore.Enchants
 					return;
 		    }
 
-		    ISimpleTask taskInstance = SingleTask.Clone();
-			taskInstance.Game = Game;
-			taskInstance.Controller = Owner.Controller;
-		    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
-			taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew ? ew.Target : null;
-			taskInstance.IsTrigger = true;
-
-		    if (TriggerType == TriggerType.PREDAMAGE)
-			    taskInstance.Number = source[GameTag.PREDAMAGE];
+		    if (Owner.Game != source.Game)
+			    ;
 
 		    if (FastExecution)
-			    Game.TaskQueue.Execute(taskInstance, taskInstance.Controller, Owner, null);
+			    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
 		    else
+		    {
+			    ISimpleTask taskInstance = SingleTask.Clone();
+			    taskInstance.Game = Game;
+			    taskInstance.Controller = Owner.Controller;
+			    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
+			    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew ? ew.Target : null;
+			    taskInstance.IsTrigger = true;
+
+			    if (TriggerType == TriggerType.PREDAMAGE)
+				    taskInstance.Number = source[GameTag.PREDAMAGE];
+
 			    Game.TaskQueue.Enqueue(taskInstance);
+			}
 
 		    if (RemoveAfterTriggered)
 			    Remove();
 	    }
 
-	    public void Activate(IEntity source)
+	    public void Activate(IPlayable source)
 	    {
-		    var instance = new Trigger()
-		    {
-			    Game = source.Game,
-			    _sourceId = source.Id,
-				_controllerId = source.Controller.Id,
-				TriggerType = TriggerType,
-				TriggerSource = TriggerSource,
-				Condition = Condition,
-				SingleTask = SingleTask,
-				FastExecution = FastExecution,
-				RemoveAfterTriggered = RemoveAfterTriggered,
-		    };
+		    var instance = new Trigger(this, source);
 
-			source.ActivatedTrigger = instance;
-
+		    source.ActivatedTriggers.Add(instance);
+		    
 		    switch (TriggerType)
 		    {
 			    case TriggerType.DAMAGE:
@@ -169,6 +174,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.DEATH:
 					source.Game.TriggerManager.DeathTrigger += instance.Process;
+					break;
+				case TriggerType.PLAY_CARD:
+					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
 					break;
 				case TriggerType.PLAY_MINION:
 					source.Game.TriggerManager.PlayMinionTrigger += instance.Process;
@@ -213,6 +221,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.DEATH:
 				    Game.TriggerManager.DeathTrigger -= Process;
 				    break;
+				case TriggerType.PLAY_CARD:
+					Game.TriggerManager.PlayCardTrigger -= Process;
+					break;
 			    case TriggerType.PLAY_MINION:
 				    Game.TriggerManager.PlayMinionTrigger -= Process;
 				    break;
@@ -227,7 +238,7 @@ namespace SabberStoneCore.Enchants
 					break;
 			}
 
-			Owner.ActivatedTrigger = null;
+		    Owner.ActivatedTriggers.Remove(this);
 	    }
     }
 }

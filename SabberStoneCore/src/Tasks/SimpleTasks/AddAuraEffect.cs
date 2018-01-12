@@ -29,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override ISimpleTask Clone()
 	    {
-		    throw new NotImplementedException();
+		    return new AddAuraEffect(_effect, _type);
 	    }
     }
 }
