@@ -2554,7 +2554,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vulgar Homunculus"));
 			int previousHealth = game.CurrentPlayer.Hero.Health;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Vulgar Homunculus"));
-			Assert.Equal(previousHealth-2, game.CurrentPlayer.Hero.Health);
+			Assert.Equal(previousHealth - 2, game.CurrentPlayer.Hero.Health);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -2650,28 +2650,97 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - RECRUIT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PossessedLackey_LOOT_306()
 		{
-			// TODO PossessedLackey_LOOT_306 test
+			List<Card> demonsInDeck = new List<Card>()
+			{
+					Cards.FromName("Dread Infernal"),
+					Cards.FromName("Voidwalker"),
+					Cards.FromName("Succubus"),
+					Cards.FromName("Blood Imp"),
+					Cards.FromName("Doomguard"),
+					Cards.FromName("Pit Lord"),
+					Cards.FromName("Flame Imp"),
+					Cards.FromName("Void Terror")
+			};
+			List<Card> minionsInDeck = new List<Card>()
+			{
+					Cards.FromName("Elven Archer"),
+					Cards.FromName("Ironfur Grizzly"),
+					Cards.FromName("Silverback Patriarch"),
+					Cards.FromName("Magma Rager"),
+					Cards.FromName("Goldshire Footman"),
+					Cards.FromName("Kobold Geomancer"),
+					Cards.FromName("Lord of the Arena"),
+					Cards.FromName("Boulderfist Ogre")
+			};
+			List<Card> player1Deck = new List<Card>();
+			player1Deck.AddRange(minionsInDeck);
+			player1Deck.AddRange(demonsInDeck);
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Possessed Lackey"),
-				},
+				Player1Deck = player1Deck,
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				FillDecksPredictably = false
 			});
+
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Possessed Lackey"));
+			if (game.CurrentPlayer == game.Player2)
+			{
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			}
+
+			foreach (var card in game.CurrentPlayer.HandZone)
+			{
+				if (minionsInDeck.Contains(card.Card))
+				{
+					minionsInDeck.Remove(card.Card);
+				}
+				if (demonsInDeck.Contains(card.Card))
+				{
+					demonsInDeck.Remove(card.Card);
+				}
+			}
+			int notRecruitedDemons = 0;
+			for (int i = 0; i < demonsInDeck.Count; i++)
+			{
+				game.CurrentPlayer.TemporaryMana = 10;
+				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
+				var darkPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+				int previousBoardAmount = game.CurrentPlayer.BoardZone.Count;
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, darkPact, testCard));
+				if (previousBoardAmount < 7)
+				{
+					Assert.Equal(demonsInDeck.Count + minionsInDeck.Count - i - 1, game.CurrentPlayer.DeckZone.Count);
+				}
+				else
+				{
+					Assert.Equal(demonsInDeck.Count + minionsInDeck.Count - i + notRecruitedDemons, game.CurrentPlayer.DeckZone.Count);
+					notRecruitedDemons++;
+				}
+			}
+
+			foreach (var card in game.CurrentPlayer.BoardZone)
+			{
+				if (minionsInDeck.Contains(card.Card))
+				{
+					minionsInDeck.Remove(card.Card);
+					Assert.True(true, "A Non Demon got Recruited");
+				}
+				if (demonsInDeck.Contains(card.Card))
+				{
+					demonsInDeck.Remove(card.Card);
+				}
+			}
+			Assert.True(demonsInDeck.Count == notRecruitedDemons, "Not Every Demon Got Recruited");
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -2711,10 +2780,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			var twistingNether = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twisting Nether"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, twistingNether));
-			
+
 			Assert.Equal(3, game.CurrentPlayer.Opponent.BoardZone.Count);
 			var voidwalker = Cards.FromName("Voidwalker");
-			for(int i = 0; i < game.CurrentPlayer.Opponent.BoardZone.Count; i++)
+			for (int i = 0; i < game.CurrentPlayer.Opponent.BoardZone.Count; i++)
 			{
 				Assert.Equal(voidwalker, game.CurrentPlayer.Opponent.BoardZone[i].Card);
 			}
@@ -2770,10 +2839,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DarkPact_LOOT_017()
 		{
-			// TODO DarkPact_LOOT_017 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2790,8 +2858,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dark Pact"));
+			int previousHealth = game.CurrentPlayer.Hero.Health;
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+			var silverback = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+			var silverback2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silverback));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, silverback));
+			Assert.Equal(previousHealth, game.CurrentPlayer.Hero.Health);
+			Assert.True(silverback.ToBeDestroyed, "Friendly Minion wasn't Destroyed");
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			var pyroblast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pyroblast"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, pyroblast, game.CurrentOpponent.Hero));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			previousHealth = game.CurrentPlayer.Hero.Health;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silverback2));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, silverback2));
+			Assert.Equal(previousHealth+8, game.CurrentPlayer.Hero.Health);
+			Assert.True(silverback2.ToBeDestroyed, "Friendly Minion wasn't Destroyed");
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3135,28 +3222,65 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - RECRUIT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GatherYourParty_LOOT_370()
 		{
-			// TODO GatherYourParty_LOOT_370 test
+			List<Card> minionsInDeck = new List<Card>()
+			{
+					Cards.FromName("Elven Archer"),
+					Cards.FromName("Ironfur Grizzly"),
+					Cards.FromName("Silverback Patriarch"),
+					Cards.FromName("Magma Rager"),
+					Cards.FromName("Goldshire Footman"),
+					Cards.FromName("Kobold Geomancer"),
+					Cards.FromName("Lord of the Arena"),
+					Cards.FromName("Boulderfist Ogre")
+			};
+			List<Card> player1Deck = new List<Card>();
+			player1Deck.AddRange(minionsInDeck);
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARRIOR,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Gather Your Party"),
-				},
+				Player1Deck = player1Deck,
 				Player2HeroClass = CardClass.WARRIOR,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				FillDecksPredictably = false
 			});
+
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gather Your Party"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Gather Your Party"));
+			if (game.CurrentPlayer == game.Player2)
+			{
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			}
+
+			foreach (var card in game.CurrentPlayer.HandZone)
+			{
+				if (minionsInDeck.Contains(card.Card))
+				{
+					minionsInDeck.Remove(card.Card);
+				}
+			}
+
+			for (int i = 0; i < minionsInDeck.Count; i++)
+			{
+				game.CurrentPlayer.TemporaryMana = 10;
+				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gather Your Party"));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+				Assert.Equal(minionsInDeck.Count - i - 1, game.CurrentPlayer.DeckZone.Count);
+			}
+
+			foreach (var card in game.CurrentPlayer.BoardZone)
+			{
+				if (minionsInDeck.Contains(card.Card))
+				{
+					minionsInDeck.Remove(card.Card);
+				}
+			}
+			Assert.True(minionsInDeck.Count == 0, "Not Every Card Got Recruited");
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
@@ -3377,8 +3501,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.WARRIOR,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				FillDecksPredictably = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
