@@ -10,7 +10,7 @@ namespace SabberStoneCoreAi.src.Agent.ExampleAgents
 {
 	class RandomAgent : AbstractAgent
 	{
-		private Random Rnd;
+		private Random Rnd = new Random();
 
 		public override void FinalizeAgent()
 		{
@@ -32,8 +32,9 @@ namespace SabberStoneCoreAi.src.Agent.ExampleAgents
 				List<PlayerTask> options = poGame.CurrentPlayer.Options();
 				option = options[Rnd.Next(options.Count)];
 				poGame.Process(option);
-				turnList.Append(option);
-			} while (poGame.State != State.COMPLETE);
+				turnList.Add(option);
+				break;
+			} while (option.PlayerTaskType != PlayerTaskType.END_TURN);
 			
 			return turnList;
 		}

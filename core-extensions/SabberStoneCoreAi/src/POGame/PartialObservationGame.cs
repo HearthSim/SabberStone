@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SabberStoneCore.CardSets.Standard;
-using SabberStoneCore.Enchants;
+using SabberStoneCore.CardSets.Debug;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCoreAi.Meta;
-
 namespace SabberStoneCoreAi.POGame
 {
 	partial class PartialObservationGame
@@ -21,8 +18,12 @@ namespace SabberStoneCoreAi.POGame
 		public PartialObservationGame(Game game)
 		{
 			this.game = game.Clone();
-			game.Player1.Game = null;
-			game.Player2.Game = null;
+			game.Player1.Game = game;
+			game.Player2.Game = game;
+			prepareOpponent();
+
+			Console.WriteLine("Game Board");
+			Console.WriteLine(game.FullPrint());
 		}
 
 		private void prepareOpponent()
@@ -31,17 +32,19 @@ namespace SabberStoneCoreAi.POGame
 			int nr_hand_cards = game.CurrentOpponent.HandZone.Count;
 
 			game.CurrentOpponent.DeckCards = Decks.DebugDeck;
+
+			//DebugCardsGen.AddAll(game.CurrentOpponent.DeckCards);
 			game.CurrentOpponent.HandZone = new HandZone(game.CurrentOpponent);
 			game.CurrentOpponent.DeckZone = new DeckZone(game.CurrentOpponent);
 
 			for (int i = 0; i < nr_hand_cards; i++)
 			{
-				addCardToZone(game.CurrentOpponent.HandZone, game.CurrentOpponent.DeckCards[0], game.CurrentOpponent);
+				addCardToZone(game.CurrentOpponent.HandZone, game.CurrentOpponent.DeckCards[i], game.CurrentOpponent);
 			}
 
 			for (int i = 0; i < nr_deck_cards; i++)
 			{
-				addCardToZone(game.CurrentOpponent.HandZone, game.CurrentOpponent.DeckCards[0], game.CurrentOpponent);
+				addCardToZone(game.CurrentOpponent.DeckZone, game.CurrentOpponent.DeckCards[nr_hand_cards+i], game.CurrentOpponent);
 			}
 		}
 

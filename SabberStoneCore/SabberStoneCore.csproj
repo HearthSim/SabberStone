@@ -37,7 +37,4 @@
       <LogicalName>SabberStoneCore.Resources.Archive.CARD.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\CardSets\Debug\" />
-  </ItemGroup>
 </Project>
