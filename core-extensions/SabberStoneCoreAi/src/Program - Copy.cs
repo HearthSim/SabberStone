@@ -31,7 +31,7 @@ namespace SabberStoneCoreAi
 				Logging = false
 			};
 
-			var gameHandler = new POGameHandler(gameConfig);
+			var gameHandler = new POGameHandler(gameConfig, debug: true);
 
 			gameHandler.PlayGame();
 			GameStats gameStats = gameHandler.getGameStats();

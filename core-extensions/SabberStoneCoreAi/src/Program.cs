@@ -11,10 +11,8 @@ namespace SabberStoneCoreAi
 
 		private static void Main(string[] args)
 		{
-			/*
-			Console.Write("Test started");
-
-			Console.ReadLine();
+			
+			Console.WriteLine("Setup gameConfig");
 
 			//todo: rename to Main
 			GameConfig gameConfig = new GameConfig
@@ -26,16 +24,18 @@ namespace SabberStoneCoreAi
 				Logging = false
 			};
 
-			var gameHandler = new POGameHandler(gameConfig);
+			Console.WriteLine("Setup POGameHandler");
+			var gameHandler = new POGameHandler(gameConfig, debug:true);
 
+			Console.WriteLine("PlayGame");
 			gameHandler.PlayGame();
 			GameStats gameStats = gameHandler.getGameStats();
 
-			gameStats.printResults();*/
+			gameStats.printResults();
 
+
+			Console.WriteLine("Test successful");
 			Console.ReadLine();
-
-			Console.Write("Test successful");
 		}
 	}
 }

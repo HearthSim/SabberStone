@@ -3125,6 +3125,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GAME_006", null);
 		}
 
+		
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
