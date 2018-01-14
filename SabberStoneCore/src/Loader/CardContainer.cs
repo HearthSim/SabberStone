@@ -34,9 +34,12 @@ namespace SabberStoneCore.Loader
 				if (Powers.Instance.Get.TryGetValue(c.Id, out list))
 				{
 					c.Powers = list;
-					c.Implemented = list == null || c.Powers[0].Activation != PowerActivation.NONE &&
-									(c.Powers[0].PowerTask != null || c.Powers[0].OldEnchant != null ||
-									 c.Powers[0].OldTrigger != null);
+					c.Implemented = list == null ||
+					                (c.Powers[0].PowerTask != null ||
+									 c.Powers[0].DeathrattleTask != null ||
+					                 c.Powers[0].Enchant != null ||
+					                 c.Powers[0].Aura != null ||
+					                 c.Powers[0].Trigger != null);
 				}
 			}
 		}

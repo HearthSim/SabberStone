@@ -65,6 +65,12 @@ namespace SabberStoneCore.Model.Entities
 			CantBeTargetedBySpells = false;
 			//IsImmune = false;
 
+			int sp = this[GameTag.SPELLPOWER];
+			if (sp > 0)
+			{
+				Controller.CurrentSpellPower -= sp;
+				this[GameTag.SPELLPOWER] = 0;
+			}
 			OngoingEffect?.Remove();
 			RemoveEnchantments?.Invoke();
 

@@ -2125,9 +2125,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					InfoCardId = "CFM_063e",
-					Activation = PowerActivation.BATTLECRY,
-					PowerTask = new SwapAttackHealthTask(EntityType.TARGET)
+					PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "CFM_063e")
 				},
 			});
 

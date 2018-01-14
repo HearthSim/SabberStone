@@ -4790,7 +4790,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ironforge Rifleman"));
+			//var testCard = Generic.DrawCard(game.CurrentsPlayer,Cards.FromName("Ironforge Rifleman"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4802,7 +4802,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KoboldGeomancer_CS2_142()
 		{
 			// TODO KoboldGeomancer_CS2_142 test
@@ -4817,7 +4817,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kobold Geomancer"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Kobold Geomancer"));
+			IPlayable testSpell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable remover = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testSpell, game.CurrentOpponent.Hero));
+			Assert.Equal(7, game.CurrentOpponent.Hero.Damage);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, remover, testCard));
+			Assert.Equal(0, game.CurrentPlayer.CurrentSpellPower);
+
+			game.CurrentPlayer.UsedMana = 0;
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kobold Geomancer"));
+			IPlayable testSpell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, silence, testCard2));
+			Assert.Equal(0, game.CurrentPlayer.CurrentSpellPower);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testSpell2, game.CurrentOpponent.Hero));
+			Assert.Equal(13, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

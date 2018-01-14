@@ -252,7 +252,7 @@ namespace SabberStoneCore.Actions
 				//minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 
 				if (minion.Combo && c.IsComboActive)
-					minion.ActivateTask(PowerActivation.POWER, target);
+					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
 					minion.ActivateTask(PowerActivation.POWER, target);
 				// check if [LOE_077] Brann Bronzebeard aura is active
@@ -315,8 +315,10 @@ namespace SabberStoneCore.Actions
 				else
 				{
 					c.NumSpellsPlayedThisGame++;
-					//spell.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
-					spell.ActivateTask(PowerActivation.POWER, target);
+					if (spell.Combo && c.IsComboActive)
+						spell.ActivateTask(PowerActivation.COMBO, target);
+					else
+						spell.ActivateTask(PowerActivation.POWER, target);
 
 					c.GraveyardZone.Add(spell);
 				}
@@ -326,10 +328,9 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
 
 				spell.JustPlayed = false;
+				c.Game.TriggerManager.OnAfterCastTrigger(spell);
 
 				c.Game.DeathProcessingAndAuraUpdate();
-
-
 
 				return true;
 			};

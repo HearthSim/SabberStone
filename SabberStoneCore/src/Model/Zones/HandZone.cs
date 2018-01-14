@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 
@@ -24,8 +25,8 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			//if (applyPowers)
-			//	entity.ApplyPowers(PowerActivation.HAND_ZONE, Zone.HAND);
+			if (entity.Powers?.Count > 0 && entity.Powers[0].Aura is AdaptiveCostEffect e)
+				e.Activate(entity);
 		}
 	}
 }

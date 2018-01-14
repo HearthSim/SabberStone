@@ -53,7 +53,7 @@ namespace SabberStoneCore.Model
 
 		public TriggerManager TriggerManager { get; } = new TriggerManager();
 
-		public readonly List<IAura> Auras = new List<IAura>();
+		public readonly List<IAura> Auras;
 
 		public readonly List<(int entityId, Effect effect)> OneTurnEffects;
 
@@ -239,6 +239,7 @@ namespace SabberStoneCore.Model
 		{
 			_gameConfig = gameConfig;
 			Game = this;
+			Auras = new List<IAura>();
 			GamesEventManager = new GameEventManager(this);
 
 			_players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
@@ -268,6 +269,7 @@ namespace SabberStoneCore.Model
 		{
 			Game = this;
 
+			Auras = new List<IAura>(game.Auras.Count);
 			OneTurnEffects = new List<(int entityId, Effect effect)>(game.OneTurnEffects);
 
 			GamesEventManager = new GameEventManager(this);
@@ -851,9 +853,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void GraveYard()
 		{
-			var heroesBadWeapons = new List<Weapon>();
 			var deadHeroes = new List<Hero>();
-
 
 			foreach (Controller player in _players)
 			{

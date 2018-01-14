@@ -69,8 +69,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="armor"></param>
 		void GainArmor(IPlayable source, int armor);
 
-		event Action<IEntity> AfterAttackTrigger;
-
 		void OnAfterAttackTrigger();
 	}
 
@@ -203,9 +201,12 @@ namespace SabberStoneCore.Model.Entities
 			// added pre damage
 			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : 0;
 
+			PreDamageTrigger?.Invoke(this);
+
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");
+				PreDamage = 0;
 				return 0;
 			}
 
@@ -215,7 +216,6 @@ namespace SabberStoneCore.Model.Entities
 				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
 			}
 
-			PreDamageTrigger?.Invoke(this);
 
 			// final damage is beeing accumulated
 			Damage += PreDamage;
@@ -253,12 +253,12 @@ namespace SabberStoneCore.Model.Entities
 		public void TakeHeal(IPlayable source, int heal)
 		{
 			//	TODO: Power Word: Glory interaction https://hearthstone.gamepedia.com/Healing#Advanced_rules
-			if ((source is Spell || source is HeroPower) && source.Controller[GameTag.HEALING_DOUBLE] > 0)
+			if ((source is Spell || source is HeroPower) && source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE] > 0)
 			{
-				heal *= (int) Math.Pow(2, source.Controller[GameTag.HEALING_DOUBLE]);
+				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE]);
 			}
 
-			if (source.Controller[GameTag.RESTORE_TO_DAMAGE] == 1)
+			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
 				TakeDamage(source, heal);
 				return;

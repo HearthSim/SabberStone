@@ -1556,12 +1556,12 @@ namespace SabberStoneUnitTest.CardSets
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
-			Assert.Equal(1, game.CurrentPlayer.BoardZone.Triggers.Count);
+			//Assert.Equal(1, game.CurrentPlayer.BoardZone.Triggers.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
 			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
-			Assert.Equal(0, game.CurrentOpponent.BoardZone.Triggers.Count);
+			//Assert.Equal(0, game.CurrentOpponent.BoardZone.Triggers.Count);
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 		}
 

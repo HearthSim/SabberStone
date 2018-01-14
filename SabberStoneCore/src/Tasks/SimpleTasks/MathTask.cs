@@ -93,7 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new MathNumberIndexTask(_indexA, _indexB, _mathOperation);
+			var clone = new MathNumberIndexTask(_indexA, _indexB, _mathOperation, _resultIndex);
 			clone.Copy(this);
 			return clone;
 		}

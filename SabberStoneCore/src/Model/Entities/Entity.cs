@@ -72,6 +72,8 @@ namespace SabberStoneCore.Model.Entities
 		AuraEffects AuraEffects { get; set; }
 
 		Dictionary<GameTag, int> NativeTags { get; }
+
+		List<Enchantment> AppliedEnchantments { get; set; }
 	}
 
 	/// <summary>
@@ -147,9 +149,9 @@ namespace SabberStoneCore.Model.Entities
 			_data = new EntityData(entity._data);
 			Id = entity.Id;
 			OrderOfPlay = entity.OrderOfPlay;
-
-
 			AuraEffects = entity.AuraEffects.Clone(this);
+			if (entity.AppliedEnchantments != null && entity.AppliedEnchantments.Count > 0)
+				AppliedEnchantments = new List<Enchantment>(entity.AppliedEnchantments);
 		}
 
 
@@ -208,7 +210,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		public int this[GameTag t]
+		public virtual int this[GameTag t]
 		{
 			get
 			{
@@ -439,6 +441,7 @@ namespace SabberStoneCore.Model.Entities
 		public AuraEffects AuraEffects { get; set; }
 
 		public Dictionary<GameTag, int> NativeTags => _data.Tags;
-		//public Dictionary<GameTag, int> Tags { get; } = new Dictionary<GameTag, int>();
+
+		public List<Enchantment> AppliedEnchantments { get; set; }
 	}
 }

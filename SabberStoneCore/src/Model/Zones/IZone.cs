@@ -25,18 +25,6 @@ namespace SabberStoneCore.Model.Zones
 		int Count { get; }
 
 		/// <summary>
-		/// Gets the list of enchantments attached to this zone.
-		/// </summary>
-		/// <value>The list of enchantments.</value>
-		List<OldEnchant> Enchants { get; }
-
-		/// <summary>
-		/// Gets the list of triggers attacked to this zone.
-		/// </summary>
-		/// <value>The list of triggers.</value>
-		List<OldTrigger> Triggers { get; }
-
-		/// <summary>
 		/// Gets <see cref="List{T}"/> that contains all entities in this zone.
 		/// </summary>
 		/// <value>The set of <see cref="IPlayable"/>.</value>

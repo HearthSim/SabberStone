@@ -2237,8 +2237,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				new Power
 				{
-					Activation = PowerActivation.BATTLECRY,
-					PowerTask = new SwapAttackHealthTask(EntityType.TARGET)
+
 				},
 			});
 

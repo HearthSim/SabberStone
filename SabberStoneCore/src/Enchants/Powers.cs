@@ -50,7 +50,7 @@ namespace SabberStoneCore.Enchants
 			//LootapaloozaCardsGen.AddAll(_powerDic);
 
 			// Rest
-			//HofCardsGen.AddAll(_powerDic);
+			HofCardsGen.AddAll(_powerDic);
 			//NaxxCardsGen.AddAll(_powerDic);
 			//GvgCardsGen.AddAll(_powerDic);
 			//BrmCardsGen.AddAll(_powerDic);

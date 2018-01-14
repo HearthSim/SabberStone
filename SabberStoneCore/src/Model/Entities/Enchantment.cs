@@ -107,13 +107,16 @@ namespace SabberStoneCore.Model.Entities
 						}
 					}
 				});
+
+				instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			}
 
-			if (instance.IsOneTurnActive)
-				instance.Target[GameTag.TAG_ONE_TURN_EFFECT] = 1;
-			//instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
+			//if (instance.IsOneTurnActive)
+			//	instance.Target[GameTag.TAG_ONE_TURN_EFFECT] = 1;
+
 			instance.Zone = controller.BoardZone;
 			//	323 = 1
+
 
 			return instance;
 		}
@@ -148,10 +151,13 @@ namespace SabberStoneCore.Model.Entities
 
 			if (Target is IPlayable p)
 				p.RemoveEnchantments -= Remove;
+
+			Target.AppliedEnchantments.Remove(this);
 		}
 		public Trigger ActivatedTrigger { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
+		public List<Enchantment> AppliedEnchantments { get; set; }
 		public Action RemoveEnchantments { get; set; }
 		public List<Trigger> ActivatedTriggers { get; }
 	}

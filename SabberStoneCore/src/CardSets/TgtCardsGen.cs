@@ -1260,8 +1260,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_016", new List<Power> {
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
-					PowerTask = new SwapAttackHealthTask(EntityType.ALLMINIONS)
+					PowerTask = new SwapAttackHealthTask(EntityType.ALLMINIONS, "AT_016e")
 				},
 			});
 

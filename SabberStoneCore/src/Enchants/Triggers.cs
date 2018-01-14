@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -9,14 +10,28 @@ namespace SabberStoneCore.Enchants
 {
     public static class Triggers
     {
-	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId) => new Trigger
+	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId)
 	    {
-		    TriggerActivation = TriggerActivation.PLAY,
-		    TriggerType = TriggerType.TURN_END,
-		    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
-			RemoveAfterTriggered = true
-	    };
+		    return new Trigger
+		    {
+			    TriggerActivation = TriggerActivation.PLAY,
+			    TriggerType = TriggerType.TURN_END,
+				EitherTurn = true,
+			    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
+			    RemoveAfterTriggered = true
+		    };
+	    }
 
+	    public static Trigger EnrageTrigger(string enchantmentId)
+	    {
+		    return new Trigger
+		    {
+			    TriggerType = TriggerType.PREDAMAGE,
+			    TriggerSource = TriggerSource.SELF,
+			    Condition = SelfCondition.IsUndamaged,
+			    SingleTask = new AddEnchantmentTask(enchantmentId, EntityType.SOURCE)
+		    };
+	    }
     }
 
 	internal delegate bool Condition(IEntity e);

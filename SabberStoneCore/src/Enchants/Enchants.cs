@@ -52,7 +52,7 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(Effects.Charge);
 		    }
 
-		    if (text.Contains("@<b>Immune</b>"))
+		    if (text.Contains(@"<b>Immune</b>"))
 		    {
 			    effects.Add(Effects.Immune);
 		    }

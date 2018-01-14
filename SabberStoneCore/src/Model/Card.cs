@@ -288,6 +288,5 @@ namespace SabberStoneCore.Model
 				clone.Powers = new List<Power>(Powers);
 			return clone;
 		}
-
 	}
 }

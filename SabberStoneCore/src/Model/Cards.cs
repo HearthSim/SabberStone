@@ -46,7 +46,7 @@ namespace SabberStoneCore.Model
 			// wild
 			//CardSet.BRM,
 			//CardSet.GVG,
-			//CardSet.HOF,
+			CardSet.HOF,
 			//CardSet.NAXX,
 			//CardSet.LOE,
 			//CardSet.TGT

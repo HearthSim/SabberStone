@@ -1965,7 +1965,6 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_802", new List<Power> {
 				new Power
 				{
-					Activation = PowerActivation.SPELL,
 					PowerTask = new DamageTask(1, EntityType.ALLMINIONS, true)
 				}
 			});

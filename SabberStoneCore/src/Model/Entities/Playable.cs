@@ -188,7 +188,7 @@ namespace SabberStoneCore.Model.Entities
 			//	Powers = new List<Power>(playable.Powers);
 
 			playable.OngoingEffect?.Clone(this);
-			playable.ActivatedTriggers.ForEach(p => p.Activate(this));
+			playable.ActivatedTriggers?.ForEach(p => p.Activate(this));
 
 			if (playable.ChooseOnePlayables != null)
 			{

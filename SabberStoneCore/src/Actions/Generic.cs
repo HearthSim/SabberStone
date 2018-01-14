@@ -18,17 +18,20 @@ namespace SabberStoneCore.Actions
 			{
 				if (applySpellDmg)
 				{
-					amount += ((Spell)source).ReceveivesDoubleSpellDamage
-						? source.Controller.Hero.SpellPowerDamage * 2
-						: source.Controller.Hero.SpellPowerDamage;
-					if (source.Controller[GameTag.SPELLPOWER_DOUBLE] > 0)
-						amount *= (int)Math.Pow(2, source.Controller[GameTag.SPELLPOWER_DOUBLE]);
+					//amount += ((Spell)source).ReceveivesDoubleSpellDamage
+					//	? source.Controller.Hero.SpellPowerDamage * 2
+					//	: source.Controller.Hero.SpellPowerDamage;
+					amount += ((Spell) source).ReceveivesDoubleSpellDamage
+						? source.Controller.CurrentSpellPower * 2
+						: source.Controller.CurrentSpellPower;
+					if (source.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE] > 0)
+						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE]);
 				}
 				else if (source is HeroPower)
 				{
 					amount += source.Controller.Hero.HeroPowerDamage;
-					if (source.Controller[GameTag.HERO_POWER_DOUBLE] > 0)
-						amount *= (int) Math.Pow(2, source.Controller[GameTag.HERO_POWER_DOUBLE]);
+					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
+						amount *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
 				return target.TakeDamage(source, amount);
 			};
@@ -177,7 +180,6 @@ namespace SabberStoneCore.Actions
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				oldMinion.Controller.SetasideZone.Add(oldMinion);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
 				return true;
 			};

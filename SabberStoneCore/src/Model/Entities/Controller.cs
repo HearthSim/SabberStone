@@ -118,6 +118,14 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public Controller Opponent => Game.Player1 == this ? Game.Player2 : Game.Player1;
 
+		public readonly ControllerAuraEffects ControllerAuraEffects;
+
+		public override int this[GameTag t]
+		{
+			get => base[t] + ControllerAuraEffects[t];
+			set => base[t] = value;
+		}
+
 		/// <summary>
 		/// Create a new controller instance.
 		/// </summary>
@@ -145,6 +153,8 @@ namespace SabberStoneCore.Model.Entities
 			Name = name;
 
 			ControlledZones = new ControlledZones(Game, this);
+
+			ControllerAuraEffects = new ControllerAuraEffects();
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
@@ -181,6 +191,8 @@ namespace SabberStoneCore.Model.Entities
 				Choice = new Choice(this);
 				Choice.Stamp(controller.Choice);
 			}
+
+			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 		}
 
 		/// <summary>
@@ -768,8 +780,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraEndTurnEffect
 		{
-			get { return this[GameTag.EXTRA_END_TURN_EFFECT] == 1; }
-			set { this[GameTag.EXTRA_END_TURN_EFFECT] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
 		}
 
 		/// <summary>
@@ -791,5 +803,21 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.CHOOSE_BOTH] == 1; }
 			set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
 		}
+
+		/// <summary>
+		/// Amount of current Spell Damage bonus for this Controller.
+		/// </summary>
+		public int CurrentSpellPower
+		{
+			get => _currentSpellPower;
+			set
+			{
+				_currentSpellPower = value;
+				if (Game.History)
+					this[GameTag.CURRENT_SPELLPOWER] = value;
+			}
+		}
+
+		private int _currentSpellPower;
 	}
 }

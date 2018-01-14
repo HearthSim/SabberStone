@@ -766,7 +766,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
 			Assert.True(game.CurrentPlayer.Hero.Health == 29 || game.CurrentOpponent.BoardZone.Count == 1);
-			Assert.Equal(0, game.CurrentOpponent.BoardZone.Triggers.Count);
+			//Assert.Equal(0, game.CurrentOpponent.BoardZone.Triggers.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Misdirection"));
@@ -1650,7 +1650,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vaporize"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Triggers.Count);
+			//Assert.Equal(1, game.CurrentOpponent.BoardZone.Triggers.Count);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -1659,7 +1659,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion, game.CurrentOpponent.Hero));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Triggers.Count);
+			//Assert.Equal(0, game.CurrentPlayer.BoardZone.Triggers.Count);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1740,10 +1740,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.Equal(3, ((Minion)testCard1).AttackDamage);
-			Assert.Equal(3, ((Minion)testCard1).Health);
-			Assert.Equal(5, ((Minion)testCard2).AttackDamage);
-			Assert.Equal(5, ((Minion)testCard2).Health);
+			Assert.Equal(7, ((Minion)testCard1).AttackDamage);
+			Assert.Equal(7, ((Minion)testCard1).Health);
+			Assert.Equal(7, ((Minion)testCard2).AttackDamage);
+			Assert.Equal(7, ((Minion)testCard2).Health);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1849,6 +1849,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ice Block"));
 			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kirin Tor Mage"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
+			Assert.Equal(1, game.Auras.Count);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			Assert.Equal(0, game.Auras.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -2833,11 +2840,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, betrayal, minion1));
 			Assert.Equal(1, ((Minion) minion2).Health);
 
-			IPlayable spiritLash = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
-			game.CurrentPlayer.Hero.Damage = 20;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, spiritLash));
-			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal(8, game.CurrentPlayer.Hero.Damage);
+			////	lifesteal interaction
+			//IPlayable spiritLash = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Lash"));
+			//game.CurrentPlayer.Hero.Damage = 20;
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, spiritLash));
+			//Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			//Assert.Equal(8, game.CurrentPlayer.Hero.Damage);
+			game.CurrentPlayer.Hero.Damage = 8;
 
 			IPlayable thalnos = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Smite"));
@@ -3898,7 +3907,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unbound Elemental"));
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
-			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ancestral Knowledge"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Feral Spirit"));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
@@ -4788,7 +4797,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Your minions can't be reduced below 1 Health this turn. Draw a card.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CommandingShout_NEW1_036()
 		{
 			// TODO CommandingShout_NEW1_036 test
@@ -4804,6 +4813,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Commanding Shout"));
+			Assert.False(true);
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -5725,7 +5735,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodmage Thalnos"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
 
 			Assert.Equal(1, game.CurrentPlayer[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 
@@ -7595,14 +7605,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// - REQ_NONSELF_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FacelessManipulator_EX1_564()
 		{
-			// TODO FacelessManipulator_EX1_564 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -7610,7 +7619,36 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Manipulator"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Faceless Manipulator"));
+
+			Minion target = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			Minion raidLeader = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raid Leader"));
+			Spell blessing = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blessing of Kings"));
+			Spell frostBolt = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, target));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, raidLeader));
+			Assert.Equal((2, 1), (target.AttackDamage, target.Health));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, blessing, target));
+			Assert.Equal((6, 5), (target.AttackDamage, target.Health));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostBolt, target));
+			Assert.Equal((6, 2), (target.AttackDamage, target.Health));
+			Assert.True(target.IsFrozen);
+
+			game.CurrentPlayer.UsedMana = 0;
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, target, 0));
+
+			Minion test = game.CurrentPlayer.BoardZone[0];
+			Assert.Equal(1, target.ZonePosition);
+
+			Assert.Equal((6, 2), (test.AttackDamage, test.Health));
+			Assert.True(test.IsFrozen);
+
+			Spell frostBolt2 = (Spell)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostbolt"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostBolt2, raidLeader));
+
+			Assert.Equal(5, test.AttackDamage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -7747,7 +7785,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, null, 1));
-			Assert.Equal(2, game.CurrentPlayer.Hero.SpellPowerDamage);
+			Assert.Equal(2, game.CurrentPlayer.CurrentSpellPower);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

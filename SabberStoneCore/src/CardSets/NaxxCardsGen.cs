@@ -716,8 +716,10 @@ namespace SabberStoneCore.CardSets
 				// TODO [FP1_030e] Necrotic Aura && Test: Necrotic Aura_FP1_030e
 				new Power
 				(
-					//Activation = null,
-					//SingleTask = null,
+					//Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+					//{
+
+					//}
 				)
 			});
 

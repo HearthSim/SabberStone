@@ -35,7 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (Area == AuraArea.BOARD)
 			{
-				Aura.Activate(source.Card.Id, source.Controller.BoardZone.Enchants, source);
+				//Aura.Activate(source.Card.Id, source.Controller.BoardZone.Enchants, source);
 			}
 			//else if (Area == AuraArea.HAND)
 			//{

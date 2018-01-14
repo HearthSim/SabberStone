@@ -20,9 +20,9 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler PlayCardTrigger;
 		public event TriggerHandler PlayMinionTrigger;
 	    public event TriggerHandler CastSpellTrigger;
+	    public event TriggerHandler AfterCastTrigger;
 	    public event TriggerHandler SecretRevealedTrigger;
 
-	    public List<TriggerHandler> Triggers;
 
 		internal void OnDamageTrigger(IEntity sender)
 	    {
@@ -72,6 +72,11 @@ namespace SabberStoneCore.Model
 	    internal void OnCastSpellTrigger(IEntity sender)
 	    {
 		    CastSpellTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnAfterCastTrigger(IEntity sender)
+	    {
+		    AfterCastTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnSecretRevealedTrigger(IEntity sender)

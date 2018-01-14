@@ -8,12 +8,13 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
 	public enum TriggerType
 	{
-		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, HEAL, ATTACK, AFTER_ATTACK, SUMMON, PLAY_CARD, PLAY_MINION, CAST_SPELL, SECRET_REVEALED, ICEBLOCK, PREDAMAGE
+		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, HEAL, ATTACK, AFTER_ATTACK, SUMMON, PLAY_CARD, PLAY_MINION, CAST_SPELL, AFTER_CAST, SECRET_REVEALED, ICEBLOCK, PREDAMAGE,
 	}
 
 	public enum TriggerSource
@@ -40,15 +41,17 @@ namespace SabberStoneCore.Enchants
 	    public bool FastExecution;
 	    public bool RemoveAfterTriggered;
 
-	    private bool IsSecret => Owner[GameTag.SECRET] == 1;
-		private IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_sourceId]);
-	    private IPlayable _owner;
+	    private bool _isSecret;
+		//private IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_sourceId]);
+	    private IPlayable Owner;
+	    //private IPlayable _owner;
 
 		public Trigger() { }
 	    private Trigger(Trigger prototype, IEntity owner)
 	    {
 			Game = owner.Game;
 			_sourceId = owner.Id;
+		    Owner = (IPlayable)owner;
 		    _controllerId = owner.Controller?.Id ?? prototype._controllerId;
 		    TriggerType = prototype.TriggerType;
 		    TriggerSource = prototype.TriggerSource;
@@ -56,11 +59,12 @@ namespace SabberStoneCore.Enchants
 		    SingleTask = prototype.SingleTask;
 		    FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
+		    _isSecret = prototype.Game == null ? owner.Card[GameTag.SECRET] == 1 : prototype._isSecret;
 	    }
 
 	    protected virtual void Process(IEntity source)
 	    {
-			if (IsSecret && Owner.IsExhausted)
+			if (_isSecret && Owner.IsExhausted)
 				return;
 
 		    switch (TriggerSource)
@@ -75,6 +79,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerSource.ALL_MINIONS:
 					if (!(source is Minion)) return;
 					break;
+				case TriggerSource.MINIONS:
+					if (!(source is Minion) || source.Controller.Id != _controllerId) return;
+					break;
 				case TriggerSource.MINIONS_EXCEPT_SELF:
 					if (!(source is Minion) || source.Controller.Id != _controllerId || source.Id == _sourceId || source.Zone.Type != Zone.PLAY) return;
 					break;
@@ -86,14 +93,20 @@ namespace SabberStoneCore.Enchants
 					break;
 		    }
 
+			bool extra = false;
+
 			switch (TriggerType)
 			{
+				case TriggerType.PLAY_CARD when source.Id == Owner.Id:
+				case TriggerType.SUMMON when source.Id == Owner.Id:
 				case TriggerType.TURN_START when !EitherTurn && source.Id != _controllerId:
+				case TriggerType.DEATH when Owner.ToBeDestroyed:
 					return;
-				case TriggerType.TURN_END when !EitherTurn && source.Id !=_controllerId:
-					return;
-				case TriggerType.DEATH when Owner.Zone is GraveyardZone:
-					return;
+				case TriggerType.TURN_END:
+					if (!EitherTurn && source.Id != _controllerId) return;
+					if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)
+						extra = true;
+					break;
 				case TriggerType.ICEBLOCK:
 					var h = source as Hero;
 					if (h.PreDamage < h.Health) return;
@@ -102,12 +115,10 @@ namespace SabberStoneCore.Enchants
 
 		    if (Condition != null)
 		    {
-				if (!Condition.Eval((IPlayable)source))
+			    IPlayable s = source as IPlayable ?? Owner;
+			    if (!Condition.Eval(s))
 					return;
 		    }
-
-		    if (Owner.Game != source.Game)
-			    ;
 
 		    if (FastExecution)
 			    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
@@ -126,6 +137,26 @@ namespace SabberStoneCore.Enchants
 			    Game.TaskQueue.Enqueue(taskInstance);
 			}
 
+		    if (extra)
+		    {
+			    if (FastExecution)
+				    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
+			    else
+			    {
+				    ISimpleTask taskInstance = SingleTask.Clone();
+				    taskInstance.Game = Game;
+				    taskInstance.Controller = Owner.Controller;
+				    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
+				    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew ? ew.Target : null;
+				    taskInstance.IsTrigger = true;
+
+				    if (TriggerType == TriggerType.PREDAMAGE)
+					    taskInstance.Number = source[GameTag.PREDAMAGE];
+
+				    Game.TaskQueue.Enqueue(taskInstance);
+			    }
+			}
+
 		    if (RemoveAfterTriggered)
 			    Remove();
 	    }
@@ -139,7 +170,12 @@ namespace SabberStoneCore.Enchants
 		    switch (TriggerType)
 		    {
 			    case TriggerType.DAMAGE:
-				    source.Game.TriggerManager.DamageTrigger += instance.Process;
+					if (TriggerSource == TriggerSource.SELF)
+					{
+						((Minion)source).PreDamageTrigger += instance.Process;
+						break;
+					}
+					source.Game.TriggerManager.DamageTrigger += instance.Process;
 				    break;
 				case TriggerType.HEAL:
 					source.Game.TriggerManager.HealTrigger += instance.Process;
@@ -183,6 +219,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.CAST_SPELL:
 					source.Game.TriggerManager.CastSpellTrigger += instance.Process;
+					break;
+				case TriggerType.AFTER_CAST:
+					source.Game.TriggerManager.AfterCastTrigger += instance.Process;
 					break;
 				case TriggerType.ICEBLOCK:
 					source.Controller.Hero.PreDamageTrigger += instance.Process;
@@ -230,11 +269,17 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.CAST_SPELL:
 				    Game.TriggerManager.CastSpellTrigger -= Process;
 				    break;
-			    case TriggerType.ICEBLOCK:
+			    case TriggerType.AFTER_CAST:
+				    Game.TriggerManager.AfterCastTrigger -= Process;
+				    break;
+				case TriggerType.ICEBLOCK:
 				    Owner.Controller.Hero.PreDamageTrigger -= Process;
 				    break;
 				case TriggerType.PREDAMAGE:
-					((Minion)Owner).PreDamageTrigger -= Process;
+					if (TriggerSource == TriggerSource.HERO)
+						Owner.Controller.Hero.PreDamageTrigger -= Process;
+					else if (TriggerSource == TriggerSource.SELF)
+						((Minion)Owner).PreDamageTrigger -= Process;
 					break;
 			}
 

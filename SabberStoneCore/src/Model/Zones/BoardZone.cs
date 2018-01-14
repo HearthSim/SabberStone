@@ -30,15 +30,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IPlayable Remove(IPlayable entity)
 		{
-			for (int i = 0; i < Auras.Count; i++)
-				Auras[i].EntityRemoved((Minion) entity);
-
-			//if (entity.OngoingEffect is Aura a)
-			//	a.EntityRemoved((Minion) entity);
-			entity.OngoingEffect?.Remove();
-
-			if (entity[GameTag.SPELLPOWER] > 0)
-				entity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] -= entity[GameTag.SPELLPOWER];
+			RemoveAura(entity);
 
 			return base.Remove(entity);
 		}
@@ -57,16 +49,16 @@ namespace SabberStoneCore.Model.Zones
 			newEntity.ZonePosition = pos;
 			newEntity.SetNativeGameTag(GameTag.ZONE, (int)Type);
 			newEntity.Zone = this;
-			oldEntity.Zone = null;
 
+			// Remove old Entity
+			RemoveAura(oldEntity);
+
+			for (int j = oldEntity.ActivatedTriggers.Count - 1; j >= 0; j--)
+				oldEntity.ActivatedTriggers[j].Remove();
+			Controller.SetasideZone.Add(oldEntity);
+
+			// Add new Entity
 			newEntity.OrderOfPlay = Game.NextOop;
-
-			for (int i = 0; i < Auras.Count; i++)
-				Auras[i].EntityRemoved(oldEntity);
-
-			if (oldEntity[GameTag.SPELLPOWER] > 0)
-				oldEntity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] -= oldEntity[GameTag.SPELLPOWER];
-
 			ActivateAura(newEntity);
 		}
 
@@ -80,7 +72,18 @@ namespace SabberStoneCore.Model.Zones
 				}
 
 			if (entity.Card[GameTag.SPELLPOWER] > 0)
-				entity.Controller.Hero.AuraEffects[GameTag.CURRENT_SPELLPOWER] += entity.Card.Tags[GameTag.SPELLPOWER];
+				entity.Controller.CurrentSpellPower += entity.Card.Tags[GameTag.SPELLPOWER];
+		}
+
+		private void RemoveAura(IPlayable entity)
+		{
+			for (int i = 0; i < Auras.Count; i++)
+				Auras[i].EntityRemoved((Minion)entity);
+
+			entity.OngoingEffect?.Remove();
+
+			if (entity[GameTag.SPELLPOWER] > 0)
+				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
 		}
 	}
 }

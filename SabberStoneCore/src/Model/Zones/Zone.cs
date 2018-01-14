@@ -46,10 +46,6 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public abstract int Count { get; }
 
-		public List<OldEnchant> Enchants { get; } = new List<OldEnchant>();
-
-		public List<OldTrigger> Triggers { get; } = new List<OldTrigger>();
-
 		public List<IPlayable> GetAll => this.Cast<IPlayable>().ToList();
 
 		/// <summary>
@@ -131,10 +127,10 @@ namespace SabberStoneCore.Model.Zones
 				ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
 			}
 			list.ForEach(p => str.Append(p.Hash(ignore)));
-			str.Append($"][EN:{Enchants.Count}");
-			Enchants.ForEach(p => str.Append(p.Hash));
-			str.Append($"][TR:{Triggers.Count}");
-			Triggers.ForEach(p => str.Append(p.Hash));
+			//str.Append($"][EN:{Enchants.Count}");
+			//Enchants.ForEach(p => str.Append(p.Hash));
+			//str.Append($"][TR:{Triggers.Count}");
+			//Triggers.ForEach(p => str.Append(p.Hash));
 			str.Append("]");
 			return str.ToString();
 		}
@@ -162,8 +158,8 @@ namespace SabberStoneCore.Model.Zones
 				string mStr = m != null ? $"[{m.AttackDamage}/{m.Health}]" : (w != null ? $"[{w.AttackDamage}/{w.Durability}]" : "");
 				str.Append($"[P{p.ZonePosition}]{mStr}[C{p.Cost}]{p}|");
 			}
-			str.Append($"[ENCH {Enchants.Count}]");
-			str.Append($"[TRIG {Triggers.Count}]");
+			//str.Append($"[ENCH {Enchants.Count}]");
+			//str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
 		}
 	}
@@ -215,8 +211,8 @@ namespace SabberStoneCore.Model.Zones
 				copy.Zone = this;
 			}
 
-			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
+			//zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
+			//zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
 		}
 
 		public override IEnumerator<IPlayable> GetEnumerator()
@@ -299,7 +295,8 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.Zone = null;
 
-			entity.ActivatedTriggers.Clear();
+			for (int j = entity.ActivatedTriggers.Count - 1; j >= 0; j--)
+				entity.ActivatedTriggers[j].Remove();
 
 			return entity;
 		}
@@ -313,9 +310,6 @@ namespace SabberStoneCore.Model.Zones
 				Entities[_count] = copy;
 				_count++;
 			}
-
-			zone.Enchants.ForEach(p => Enchants.Add(p.Copy(p.SourceId, Game, p.Turn, Enchants, p.Owner, p.RemoveTriggers)));
-			zone.Triggers.ForEach(p => Triggers.Add(p.Copy(p.SourceId, Game, p.Turn, Triggers, p.Owner)));
 		}
 
 		public override IEnumerator<T> GetEnumerator()
@@ -372,7 +366,8 @@ namespace SabberStoneCore.Model.Zones
 			//entity.ZonePosition = 0;
 			entity.Zone = null;
 
-			entity.ActivatedTriggers.Clear();
+			for (int j = entity.ActivatedTriggers.Count - 1; j >= 0; j--)
+				entity.ActivatedTriggers[j].Remove();
 
 			return entity;
 		}

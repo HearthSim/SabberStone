@@ -1,4 +1,6 @@
-﻿using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -8,54 +10,49 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <summary>
 		///  Changes the attack attribute of the given entity.
 		/// </summary>
-		public SwapAttackHealthTask(EntityType entityType)
+		public SwapAttackHealthTask(EntityType entityType, string enchantmentId)
 		{
 			Type = entityType;
+			_enchantmentCard = Cards.FromId(enchantmentId);
+		}
+
+		private SwapAttackHealthTask(EntityType entityType, Card card)
+		{
+			Type = entityType;
+			_enchantmentCard = card;
 		}
 
 		public EntityType Type { get; set; }
 
+		private readonly Card _enchantmentCard;
+
 		public override TaskState Process()
 		{
 			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.TrueForAll(p =>
+			foreach (IPlayable p in entities)
 			{
-				var target = p as Minion;
-				if (target == null)
+				var m = p as Minion;
+
+				int atk = m.AttackDamage;
+				int health = m.Health;
+
+				if (Game.History)
 				{
-					return false;
+					Enchantment instance = Enchantment.GetInstance(Controller, (IPlayable) Source, p, _enchantmentCard);
+					instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = atk;
+					instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = health;
 				}
 
-				int atk = p[GameTag.ATK];
-				int health = p[GameTag.HEALTH];
-
-				// work around attack buffs
-				//p.OldEnchants.ForEach(t =>
-				//{
-				//	if (t.Effects.ContainsKey(GameTag.ATK))
-				//	{
-				//		t.Effects.Remove(GameTag.ATK);
-				//	}
-
-				//	if (t.Effects.ContainsKey(GameTag.HEALTH))
-				//	{
-				//		t.Effects.Remove(GameTag.HEALTH);
-				//	}
-				//});
-
-				target.Health = atk;
-				target.AttackDamage = health;
-				return true;
-			});
+				new Effect(GameTag.ATK, EffectOperator.SET, health).Apply(p);
+				new Effect(GameTag.HEALTH, EffectOperator.SET, atk).Apply(p);
+			}
 
 			return TaskState.COMPLETE;
 		}
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new SwapAttackHealthTask(Type);
-			clone.Copy(this);
-			return clone;
+			return new SwapAttackHealthTask(Type, _enchantmentCard);
 		}
 	}
 }

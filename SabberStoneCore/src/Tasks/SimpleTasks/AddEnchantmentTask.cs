@@ -52,66 +52,61 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			//	no indicator enchantment entities when History option is off
 		    if (Game.History)
-		    {
 			    foreach (IPlayable entity in entities)
 			    {
-				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
 
 				    if (_useScriptTag)
-				    {
-					    enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
-				    }
+					{
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = Number1;
+					}
+
+					if (entity.AppliedEnchantments != null)
+					    entity.AppliedEnchantments.Add(enchantment);
+				    else
+					    entity.AppliedEnchantments = new List<Enchantment> {enchantment};
 
 				    foreach (Power power in _enchantmentCard.Powers)
 				    {
 					    power.Aura?.Activate(enchantment);
-
 					    power.Trigger?.Activate(enchantment);
 
 					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-					    {
-						    ((OngoingEnchant)entity.OngoingEffect).Count++;
-					    }
+						    ((OngoingEnchant) entity.OngoingEffect).Count++;
 					    else
-					    {
 						    power.Enchant?.ActivateTo(entity, enchantment);
-					    }
 
 					    if (power.DeathrattleTask != null)
-					    {
 						    entity.HasDeathrattle = true;
-					    }
+
+					    ISimpleTask task = power.Enchant?.TaskToDoWhenThisIsApplied;
 				    }
 			    }
-			}
 		    else
-		    {
 			    foreach (IPlayable entity in entities)
-			    {
-				    foreach (Power power in _enchantmentCard.Powers)
-				    {
-					    power.Aura?.Activate(entity);
-					    power.Trigger?.Activate(entity);
+					foreach (Power power in _enchantmentCard.Powers)
+					{
+						power.Aura?.Activate(entity);
+						power.Trigger?.Activate(entity);
 						Enchantment instance = null;
-					    if (power.Aura != null || power.Trigger != null)
-					    {
-						    instance = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
-						    power.Aura?.Activate(instance);
-						    power.Trigger?.Activate(instance);
-					    }
+						if (power.Aura != null || power.Trigger != null)
+						{
+							instance = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
+							power.Aura?.Activate(instance);
+							power.Trigger?.Activate(instance);
+						}
 
-					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-						    ((OngoingEnchant)entity.OngoingEffect).Count++;
-					    else
-						    power.Enchant?.ActivateTo(entity, null, Number);
+						if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+							((OngoingEnchant) entity.OngoingEffect).Count++;
+						else
+							power.Enchant?.ActivateTo(entity, null, Number);
 
-					    if (power.DeathrattleTask != null)
-						    entity.HasDeathrattle = true;
-				    }
-			    }
-			}
+						if (power.DeathrattleTask != null)
+							entity.HasDeathrattle = true;
+					}
 
-			return TaskState.COMPLETE;
+		    return TaskState.COMPLETE;
 	    }
 
 		public override ISimpleTask Clone()
