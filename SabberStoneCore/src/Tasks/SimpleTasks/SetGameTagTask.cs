@@ -4,12 +4,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SetGameTagTask : SimpleTask
 	{
-		public SetGameTagTask(GameTag tag, int amount, EntityType entityType, bool ignoreDamage = false)
+		public SetGameTagTask(GameTag tag, int amount, EntityType entityType)
 		{
 			Tag = tag;
 			Amount = amount;
 			Type = entityType;
-			IgnoreDamage = ignoreDamage;
 		}
 
 		public GameTag Tag { get; set; }
@@ -18,23 +17,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
-		public bool IgnoreDamage { get; set; }
-
 		public override TaskState Process()
 		{
 			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
 			entities.ForEach(p =>
 			{
-				if (IgnoreDamage)
-				{
-					p.IsIgnoreDamage = true;
-					p[Tag] = Amount;
-					p.IsIgnoreDamage = false;
-				}
-				else
-				{
-					p[Tag] = Amount;
-				}
+				p[Tag] = Amount;
 			});
 
 			return TaskState.COMPLETE;
@@ -42,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new SetGameTagTask(Tag, Amount, Type, IgnoreDamage);
+			var clone = new SetGameTagTask(Tag, Amount, Type);
 			clone.Copy(this);
 			return clone;
 		}

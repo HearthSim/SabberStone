@@ -24,15 +24,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 	    {
 			//	TODO
-		    if (_enchantmentCard.Powers[0].Aura != null)
+		    if (_enchantmentCard.Power.Aura != null)
 		    {
 			    ((IPlayable) Source).OngoingEffect?.Remove();
 		    }
 
-		    //foreach (Effect effect in _enchantmentCard.Powers[0].Enchant?.Effects)
-			   // effect.Remove(Source is Enchantment ec ? ec.Target : Source);
+		    if (_enchantmentCard[Enums.GameTag.TAG_ONE_TURN_EFFECT] != 1)
+				foreach (Effect effect in _enchantmentCard.Power.Enchant?.Effects)
+					effect.Remove(Source is Enchantment ec ? ec.Target : Source);
 
-			ISimpleTask task = _enchantmentCard.Powers[0].Enchant?.TaskToDoWhenThisIsRemoved;
+			ISimpleTask task = _enchantmentCard.Power.Enchant?.TaskToDoWhenThisIsRemoved;
 		    if (task != null)
 			    Game.TaskQueue.Execute(task, Controller, (IPlayable)Source, (IPlayable)Target);
 

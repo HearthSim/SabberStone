@@ -55,7 +55,7 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.SPELL:
 						if (RemoveFromZone(c, playable))
 						{
-							PlaySpell.Invoke(c, (Spell)playable, null);
+							PlaySpell.Invoke(c, (Spell)playable, null, 0);
 						}
 						break;
 

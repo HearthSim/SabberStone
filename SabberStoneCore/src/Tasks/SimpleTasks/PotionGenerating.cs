@@ -63,14 +63,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[1]);
 			//baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
 			baseCard.Text = spell1.Text + "\n" + spell2.Text;
-			baseCard.Powers = new List<Power>();
-			baseCard.Powers.AddRange(spell1.Powers);
-			spell1.PlayRequirements.ToList().ForEach(p =>
-			{
-				if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-					baseCard.PlayRequirements.Add(p.Key, p.Value);
-			});
-			baseCard.Powers.AddRange(spell2.Powers);
+			//baseCard.Powers = new List<Power>();
+			//baseCard.Powers.AddRange(spell1.Powers);
+			//spell1.PlayRequirements.ToList().ForEach(p =>
+			//{
+			//	if (!baseCard.PlayRequirements.ContainsKey(p.Key))
+			//		baseCard.PlayRequirements.Add(p.Key, p.Value);
+			//});
+			//baseCard.Powers.AddRange(spell2.Powers);
 			spell2.PlayRequirements.ToList().ForEach(p =>
 			{
 				if (!baseCard.PlayRequirements.ContainsKey(p.Key))

@@ -12,17 +12,29 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler DamageTrigger;
 	    public event TriggerHandler HealTrigger;
+
 	    public event TriggerHandler EndTurnTrigger;
 	    public event TriggerHandler TurnStartTrigger;
+
 	    public event TriggerHandler SummonTrigger;
+
 	    public event TriggerHandler AttackTrigger;
+
 	    public event TriggerHandler DeathTrigger;
+
 	    public event TriggerHandler PlayCardTrigger;
+
 		public event TriggerHandler PlayMinionTrigger;
+	    public event TriggerHandler AfterPlayMinionTrigger;
+
 	    public event TriggerHandler CastSpellTrigger;
 	    public event TriggerHandler AfterCastTrigger;
+
 	    public event TriggerHandler SecretRevealedTrigger;
 
+	    //public List<Trigger> DamageDealtTriggers = new LinkedList<Trigger>
+	    //public List<Trigger> PlayCardTriggers = new List<Trigger>();
+	    //public List<Trigger> SummonTriggers = new List<Trigger>();
 
 		internal void OnDamageTrigger(IEntity sender)
 	    {
@@ -31,22 +43,26 @@ namespace SabberStoneCore.Model
 
 	    internal void OnHealTrigger(IEntity sender)
 	    {
-		    HealTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.HEAL);
+			HealTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnEndTurnTrigger(IEntity sender)
 	    {
-		    EndTurnTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.TURN_END);
+			EndTurnTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnTurnStartTrigger(IEntity sender)
 	    {
-		    TurnStartTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.TURN_START);
+			TurnStartTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnSummonTrigger(IEntity sender)
 	    {
-		    SummonTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.SUMMON);
+			SummonTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnAttackTrigger(IEntity sender)
@@ -56,17 +72,24 @@ namespace SabberStoneCore.Model
 
 	    internal void OnDeathTrigger(IEntity sender)
 	    {
-		    DeathTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.DEATH);
+			DeathTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnPlayCardTrigger(IEntity sender)
 	    {
-		    PlayCardTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.PLAY_CARD);
+			PlayCardTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnPlayMinionTrigger(IEntity sender)
 	    {
 		    PlayMinionTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnAfterPlayMinionTrigger(IEntity sender)
+	    {
+		    AfterPlayMinionTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnCastSpellTrigger(IEntity sender)
@@ -81,7 +104,8 @@ namespace SabberStoneCore.Model
 
 	    internal void OnSecretRevealedTrigger(IEntity sender)
 	    {
-		    SecretRevealedTrigger?.Invoke(sender);
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.SECRET_REVEALED);
+			SecretRevealedTrigger?.Invoke(sender);
 	    }
     }
 }

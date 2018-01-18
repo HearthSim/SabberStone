@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
@@ -77,6 +78,7 @@ namespace SabberStoneCore.Actions
 				target.IsDefending = true;
 
 				// Invoke onAttackTrigger
+				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
 				source.Game.TriggerManager.OnAttackTrigger(source);
 
 				c.Game.DeathProcessingAndAuraUpdate();

@@ -138,7 +138,8 @@ namespace SabberStoneCore.Enchants
 		{
 			if (!Checker) return COST;
 
-			int c = Owner[GameTag.COST];
+			if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
+				Owner.Card.Tags.TryGetValue(GameTag.COST, out c);
 			for (int i = 0; i < _costEffects?.Count; i++)
 				c = _costEffects[i].Apply(c);
 			COST = c;

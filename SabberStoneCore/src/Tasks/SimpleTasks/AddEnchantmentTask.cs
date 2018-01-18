@@ -33,11 +33,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//	Controller Auras (OTEs)
 		    if (_entityType == EntityType.CONTROLLER)
 		    {
-			    Power power = _enchantmentCard.Powers[0];
+			    Power power = _enchantmentCard.Power;
 				if (Game.History)
 			    {
 				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
-				    power.Aura?.Activate(enchantment);
+				    if (Controller.AppliedEnchantments != null)
+					    Controller.AppliedEnchantments.Add(enchantment);
+				    else
+					    Controller.AppliedEnchantments = new List<Enchantment> { enchantment };
+					power.Aura?.Activate(enchantment);
 				    power.Trigger?.Activate(enchantment);
 				    return TaskState.COMPLETE;
 			    }
@@ -67,44 +71,49 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				    else
 					    entity.AppliedEnchantments = new List<Enchantment> {enchantment};
 
-				    foreach (Power power in _enchantmentCard.Powers)
-				    {
-					    power.Aura?.Activate(enchantment);
-					    power.Trigger?.Activate(enchantment);
+					//foreach (Power power in _enchantmentCard.Powers)
+					//{
+					Power power = _enchantmentCard.Power;
 
-					    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-						    ((OngoingEnchant) entity.OngoingEffect).Count++;
-					    else
-						    power.Enchant?.ActivateTo(entity, enchantment);
+					power.Aura?.Activate(enchantment);
+					power.Trigger?.Activate(enchantment);
 
-					    if (power.DeathrattleTask != null)
-						    entity.HasDeathrattle = true;
+					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+						((OngoingEnchant) entity.OngoingEffect).Count++;
+					else
+						power.Enchant?.ActivateTo(entity, enchantment);
 
-					    ISimpleTask task = power.Enchant?.TaskToDoWhenThisIsApplied;
-				    }
+					if (power.DeathrattleTask != null)
+						entity.HasDeathrattle = true;
+
+					//ISimpleTask task = power.Enchant?.TaskToDoWhenThisIsApplied;
+				    //}
 			    }
 		    else
 			    foreach (IPlayable entity in entities)
-					foreach (Power power in _enchantmentCard.Powers)
+				{
+					Power power = entity.Card.Power;
+
+					power.Aura?.Activate(entity);
+					power.Trigger?.Activate(entity);
+					Enchantment instance = null;
+					if (power.Aura != null || power.Trigger != null)
 					{
-						power.Aura?.Activate(entity);
-						power.Trigger?.Activate(entity);
-						Enchantment instance = null;
-						if (power.Aura != null || power.Trigger != null)
-						{
-							instance = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
-							power.Aura?.Activate(instance);
-							power.Trigger?.Activate(instance);
-						}
-
-						if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-							((OngoingEnchant) entity.OngoingEffect).Count++;
-						else
-							power.Enchant?.ActivateTo(entity, null, Number);
-
-						if (power.DeathrattleTask != null)
-							entity.HasDeathrattle = true;
+						instance = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+						power.Aura?.Activate(instance);
+						power.Trigger?.Activate(instance);
 					}
+
+					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+						((OngoingEnchant)entity.OngoingEffect).Count++;
+					else
+						power.Enchant?.ActivateTo(entity, null, Number);
+
+					if (power.DeathrattleTask != null)
+						entity.HasDeathrattle = true;
+				}
+
+			
 
 		    return TaskState.COMPLETE;
 	    }

@@ -21,7 +21,7 @@ namespace SabberStoneCore.Model.Entities
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
 
-			if (card.Powers[0].Trigger != null)
+			if (card.Power.Trigger != null)
 				ActivatedTriggers = new List<Trigger>(1);
 		}
 
@@ -135,9 +135,9 @@ namespace SabberStoneCore.Model.Entities
 			//		EffectsToBeRemoved[i].Remove(Target);
 			//}
 
-			if (Powers[0].DeathrattleTask != null && Target.Zone is GraveyardZone)
+			if (Power.DeathrattleTask != null && Target.Zone is GraveyardZone)
 			{
-				ISimpleTask clone = Powers[0].DeathrattleTask.Clone();
+				ISimpleTask clone = Power.DeathrattleTask.Clone();
 				clone.Game = Game;
 				clone.Controller = Controller;
 				clone.Source = Target;
@@ -158,6 +158,13 @@ namespace SabberStoneCore.Model.Entities
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
 		public List<Enchantment> AppliedEnchantments { get; set; }
+
+		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Power Power => Card.Power;
 		public Action RemoveEnchantments { get; set; }
 		public List<Trigger> ActivatedTriggers { get; }
 	}
@@ -220,14 +227,14 @@ namespace SabberStoneCore.Model.Entities
 		public bool HasLifeSteal { get; set; }
 		public IPlayable[] ChooseOnePlayables { get; set; }
 
-		public List<Power> Powers
-		{
-			get => Card.Powers;
-			set
-			{
-				return;
-			}
-		}
+		//public List<Power> Powers
+		//{
+		//	get => Card.Powers;
+		//	set
+		//	{
+		//		return;
+		//	}
+		//}
 		public IPlayable Clone(Controller controller)
 		{
 			throw new NotImplementedException();

@@ -12,10 +12,9 @@ namespace SabberStoneCore.Enchants
     {
 	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId)
 	    {
-		    return new Trigger
+		    return new Trigger(TriggerType.TURN_END)
 		    {
 			    TriggerActivation = TriggerActivation.PLAY,
-			    TriggerType = TriggerType.TURN_END,
 				EitherTurn = true,
 			    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
 			    RemoveAfterTriggered = true
@@ -24,9 +23,8 @@ namespace SabberStoneCore.Enchants
 
 	    public static Trigger EnrageTrigger(string enchantmentId)
 	    {
-		    return new Trigger
+		    return new Trigger(TriggerType.PREDAMAGE)
 		    {
-			    TriggerType = TriggerType.PREDAMAGE,
 			    TriggerSource = TriggerSource.SELF,
 			    Condition = SelfCondition.IsUndamaged,
 			    SingleTask = new AddEnchantmentTask(enchantmentId, EntityType.SOURCE)

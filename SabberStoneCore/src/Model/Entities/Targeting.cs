@@ -22,13 +22,6 @@ namespace SabberStoneCore.Model.Entities
 		///   <c>true</c> if the specified target is valid; otherwise, <c>false</c>.
 		/// </returns>
 		bool IsValidPlayTarget(ICharacter target);
-
-		/// <summary>
-		/// Gets or sets a value indicating whether the target must be an option from the
-		/// 'Choose One' set.
-		/// </summary>
-		/// <value><c>true</c> if 'Choose One' must be assumed; otherwise, <c>false</c>.</value>
-		bool ChooseOne { get; set; }
 	}
 
 	/// <summary>

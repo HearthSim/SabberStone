@@ -196,5 +196,9 @@ namespace SabberStoneCore.Enchants
 				return hashCode;
 			}
 		}
+		public override string ToString()
+		{
+			return $"[{Operator} {Tag} {Value}]";
+		}
 	}
 }

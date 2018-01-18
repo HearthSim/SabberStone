@@ -7,7 +7,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
-    public static class Enchants
+    internal static class Enchants
     {
 	    private static Regex AttackHealth = new Regex(@"[+](\d)[/][+](\d)");
 	    private static Regex Attack = new Regex(@"[+](\d) Attack");

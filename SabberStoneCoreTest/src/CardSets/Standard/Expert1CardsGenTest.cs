@@ -944,7 +944,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void BestialWrath_EX1_549()
 		{
-			// TODO BestialWrath_EX1_549 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1283,7 +1282,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
 			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
-			//Assert.Equal(1, game.CurrentPlayer.Hero.OldEnchants.Count);
+			Assert.False(game.CurrentPlayer.Hero.IsImmune);
 		}
 
 		// ---------------------------------------- WEAPON - HUNTER
@@ -1316,7 +1315,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eaglehorn Bow"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bear Trap"));
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
@@ -1324,8 +1323,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(2, game.CurrentOpponent.Hero.Weapon.Durability);
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.True(game.CurrentOpponent.BoardZone[0].HasTaunt);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(3, game.CurrentOpponent.Hero.Weapon.Durability);
 		}
 	}
@@ -1827,7 +1825,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void KirinTorMage_EX1_612()
 		{
-			// TODO KirinTorMage_EX1_612 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

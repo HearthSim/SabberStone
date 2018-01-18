@@ -24,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Entity.FromCard(Controller, Cards.FromId(CardId)) as Weapon :
 				Playables[0] as Weapon;
 
-			Generic.PlayWeapon.Invoke(Controller, weapon, null);
+			Generic.PlayWeapon.Invoke(Controller, weapon, null, 0);
 
 			return TaskState.COMPLETE;
 		}

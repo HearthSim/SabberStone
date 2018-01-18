@@ -2,8 +2,8 @@
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
 using SabberStoneCore.Model;
-using SabberStoneCore.CardSets.TavernBrawl;
-using SabberStoneCore.CardSets.Adventure;
+//using SabberStoneCore.CardSets.TavernBrawl;
+//using SabberStoneCore.CardSets.Adventure;
 
 namespace SabberStoneCore.Enchants
 {
@@ -29,7 +29,7 @@ namespace SabberStoneCore.Enchants
 		/// Contains all defined powers.
 		/// The index is the CARDID of the card which powers are defined.
 		/// </summary>
-		private readonly Dictionary<string, List<Power>> _powerDic;
+		private readonly Dictionary<string, Power> _powerDic;
 
 		/// <summary>
 		/// Private constructor as per Singleton pattern.
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Enchants
 		private Powers()
 		{
 			_powerDic =
-			new Dictionary<string, List<Power>>();
+			new Dictionary<string, Power>();
 
 			// Standard
 			CoreCardsGen.AddAll(_powerDic);
@@ -83,6 +83,6 @@ namespace SabberStoneCore.Enchants
 		/// 
 		/// </summary>
 		/// <returns></returns>
-		public IReadOnlyDictionary<string, List<Power>> Get => _powerDic;
+		public IReadOnlyDictionary<string, Power> Get => _powerDic;
 	}
 }

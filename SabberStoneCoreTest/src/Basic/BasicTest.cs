@@ -810,6 +810,8 @@ namespace SabberStoneCoreTest.Basic
 				Player1Deck = new List<Card>
 				{
 					Cards.FromName("Violet Teacher"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
 					Cards.FromName("Mindgames"),
 				},
 				Player2HeroClass = CardClass.PALADIN,
@@ -827,8 +829,14 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 
+			Assert.Equal(1, game.CurrentOpponent.DeckZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Violet Teacher"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mindgames"));
+
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card[GameTag.HEALTH], game.CurrentPlayer.BoardZone[0].Health);
 		}
 	}
 }

@@ -64,12 +64,15 @@ namespace SabberStoneCore.Model.Zones
 
 		private static void ActivateAura(IPlayable entity)
 		{
-			if (entity.Powers != null)
-				foreach (Power power in entity.Powers)
-				{
-					power.Trigger?.Activate(entity);
-					power.Aura?.Activate(entity);
-				}
+			//if (entity.Powers != null)
+			//	foreach (Power power in entity.Powers)
+			//	{
+			//		power.Trigger?.Activate(entity);
+			//		power.Aura?.Activate(entity);
+			//	}
+
+			entity.Power?.Trigger?.Activate(entity);
+			entity.Power?.Aura?.Activate(entity);
 
 			if (entity.Card[GameTag.SPELLPOWER] > 0)
 				entity.Controller.CurrentSpellPower += entity.Card.Tags[GameTag.SPELLPOWER];

@@ -111,7 +111,7 @@ namespace SabberStoneCore.Enchants
 		public virtual void Activate(IPlayable owner, bool cloning = false)
 		{
 			if (Effects == null)
-				Effects = EnchantmentCard.Powers[0].Enchant.Effects;
+				Effects = EnchantmentCard.Power.Enchant.Effects;
 
 			var instance = new Aura(this, owner);
 
@@ -139,6 +139,9 @@ namespace SabberStoneCore.Enchants
 				{
 					case TriggerType.CAST_SPELL:
 						owner.Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
+						break;
+					case TriggerType.TURN_END:
+						owner.Game.TriggerManager.EndTurnTrigger += instance.TriggeredRemove;
 						break;
 				}
 			}
@@ -278,8 +281,13 @@ namespace SabberStoneCore.Enchants
 
 		private void TriggeredRemove(IEntity source)
 		{
-			if (RemoveTrigger.Condition != null && !RemoveTrigger.Condition.Eval((IPlayable)source))
-				return;
+			if (RemoveTrigger.Condition != null)
+			{
+				if (source is Controller)
+					source = Owner;
+				if (!RemoveTrigger.Condition.Eval((IPlayable)source))
+					return;
+			}
 
 			Remove();
 		}
@@ -484,8 +492,14 @@ namespace SabberStoneCore.Enchants
 		{
 		}
 
-		public EnrageEffect(AuraType type, string enchantmentId) : base(type, enchantmentId)
+		//public EnrageEffect(AuraType type, string enchantmentId) : base(type, enchantmentId)
+		//{
+		//}
+
+		private EnrageEffect(EnrageEffect prototype, IPlayable owner) : base(prototype, owner)
 		{
+			_enraged = prototype._enraged;
+			Restless = true;			//	can cause performance issue; should replace with heal trigger ?
 		}
 
 		public override void Activate(IPlayable owner, bool cloning = false)
@@ -493,9 +507,10 @@ namespace SabberStoneCore.Enchants
 			if (owner is Enchantment e)
 				owner = (IPlayable)e.Target;
 
-			base.Activate(owner, cloning);
+			var instance = new EnrageEffect(this, owner);
 
-			Restless = true;
+			owner.Game.Auras.Add(instance);
+			owner.OngoingEffect = instance;
 		}
 
 		public override void Update()

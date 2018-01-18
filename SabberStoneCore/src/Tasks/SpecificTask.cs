@@ -273,7 +273,7 @@ namespace SabberStoneCore.Tasks
 							var secondBeasts = new List<Card>();
 							foreach (Card card in all)
 							{
-								if (card.Powers != null)
+								if (card.Power != null)
 									firstBeasts.Add(card);
 								else
 									secondBeasts.Add(card);

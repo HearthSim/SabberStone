@@ -59,35 +59,35 @@ namespace SabberStoneCoreConsole
 
 		private static void GatherTagsUsedByEnchantsOrTriggers()
 		{
-			var gameTagCounts = new Dictionary<GameTag, int>();
-			foreach (Card card in Cards.All)
-			{
-				if (card.Powers != null)
-				{
-					foreach (Power power in card.Powers)
-					{
-						if (power.OldEnchant?.Effects != null)
-						{
-							foreach (KeyValuePair<GameTag, int> keyValue in power.OldEnchant.Effects)
-							{
-								if (gameTagCounts.ContainsKey(keyValue.Key))
-								{
-									gameTagCounts[keyValue.Key] += 1;
-								}
-								else
-								{
-									gameTagCounts[keyValue.Key] = 1;
-								}
-							}
-						}
-					}
-				}
-			}
+			//var gameTagCounts = new Dictionary<GameTag, int>();
+			//foreach (Card card in Cards.All)
+			//{
+			//	if (card.Powers != null)
+			//	{
+			//		foreach (Power power in card.Powers)
+			//		{
+			//			if (power.OldEnchant?.Effects != null)
+			//			{
+			//				foreach (KeyValuePair<GameTag, int> keyValue in power.OldEnchant.Effects)
+			//				{
+			//					if (gameTagCounts.ContainsKey(keyValue.Key))
+			//					{
+			//						gameTagCounts[keyValue.Key] += 1;
+			//					}
+			//					else
+			//					{
+			//						gameTagCounts[keyValue.Key] = 1;
+			//					}
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
 
-			foreach (KeyValuePair<GameTag, int> keyValue in gameTagCounts)
-			{
-				Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
-			}
+			//foreach (KeyValuePair<GameTag, int> keyValue in gameTagCounts)
+			//{
+			//	Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
+			//}
 		}
 
 		static void CloneAdapt()

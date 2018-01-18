@@ -30,16 +30,16 @@ namespace SabberStoneCore.Loader
 			// Add Powers
 			foreach (Card c in Cards.Values)
 			{
-				List<Power> list;
-				if (Powers.Instance.Get.TryGetValue(c.Id, out list))
+				if (Powers.Instance.Get.TryGetValue(c.Id, out Power power))
 				{
-					c.Powers = list;
-					c.Implemented = list == null ||
-					                (c.Powers[0].PowerTask != null ||
-									 c.Powers[0].DeathrattleTask != null ||
-					                 c.Powers[0].Enchant != null ||
-					                 c.Powers[0].Aura != null ||
-					                 c.Powers[0].Trigger != null);
+					c.Power = power;
+					c.Implemented = power == null ||
+					                power.PowerTask != null ||
+					                power.DeathrattleTask != null ||
+					                power.ComboTask != null ||
+					                power.Aura != null ||
+					                power.Trigger != null ||
+					                power.Enchant != null;
 				}
 			}
 		}

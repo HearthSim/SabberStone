@@ -57,7 +57,7 @@ namespace SabberStoneCore.Model
 
 		public readonly List<(int entityId, Effect effect)> OneTurnEffects;
 
-		//public readonly List<Trigger> Triggers = new List<Trigger>();
+		public readonly List<Trigger> Triggers;
 
 		/// <summary>
 		/// Gets or sets the index value for identifying the N-th clone of a game. (0-indexed)
@@ -240,6 +240,7 @@ namespace SabberStoneCore.Model
 			_gameConfig = gameConfig;
 			Game = this;
 			Auras = new List<IAura>();
+			Triggers = new List<Trigger>();
 			GamesEventManager = new GameEventManager(this);
 
 			_players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
@@ -270,6 +271,7 @@ namespace SabberStoneCore.Model
 			Game = this;
 
 			Auras = new List<IAura>(game.Auras.Count);
+			Triggers = new List<Trigger>(game.Triggers.Count);
 			OneTurnEffects = new List<(int entityId, Effect effect)>(game.OneTurnEffects);
 
 			GamesEventManager = new GameEventManager(this);

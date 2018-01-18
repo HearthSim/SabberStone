@@ -7,11 +7,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class PlayCardTask : PlayerTask
 	{
-		public static PlayCardTask Any(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
+		public static PlayCardTask Any(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
 		{
 			return new PlayCardTask(controller, source, target, zonePosition, chooseOne);
 		}
-		public static PlayCardTask Any(Controller controller, string cardName, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
+		public static PlayCardTask Any(Controller controller, string cardName, IEntity target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
 		{
 			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, zonePosition, chooseOne);
 		}
@@ -47,7 +47,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, -1, chooseOne);
 		}
-		private PlayCardTask(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0)
+		private PlayCardTask(Controller controller, IEntity source, IEntity target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
 		{
 			PlayerTaskType = PlayerTaskType.PLAY_CARD;
 			Game = controller.Game;

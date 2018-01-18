@@ -139,7 +139,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasBattleCry
 		{
-			get { return this[GameTag.BATTLECRY] != 0; }
+			get { return Card[GameTag.BATTLECRY] != 0; }
 			set { this[GameTag.BATTLECRY] = value ? 1 : 0; }
 		}
 

@@ -11,27 +11,26 @@ namespace SabberStoneCore.Actions
 	public partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0)
+		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
 		{
-			return PlayCardBlock.Invoke(c, source, target, zonePosition, chooseOne);
+			return PlayCardBlock.Invoke(c, source, target, zonePosition, chooseOne, skipPrePhase);
 		}
 
-		public static Func<Controller, IPlayable, ICharacter, int, int, bool> PlayCardBlock
-			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne)
+		public static Func<Controller, IPlayable, ICharacter, int, int, bool, bool> PlayCardBlock
+			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne, bool skipPrePhase)
 			{
-				if (!PrePlayPhase.Invoke(c, source, target, zonePosition, chooseOne))
-				{
-					return false;
-				}
+				if (!skipPrePhase)
+					if (!PrePlayPhase.Invoke(c, source, target, zonePosition, chooseOne))
+						return false;
+
+				// play block
+				if (c.Game.History)
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
 
 				if (!PayPhase.Invoke(c, source))
 				{
 					return false;
 				}
-
-				// play block
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
 
 				c.NumCardsPlayedThisTurn++;
 
@@ -47,16 +46,16 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 				}
 
-
 				c.Game.TriggerManager.OnPlayCardTrigger(source);
 
 				if (source is Hero hero)
 				{
-					PlayHero.Invoke(c, hero, target);
+					PlayHero.Invoke(c, hero, target, chooseOne);
 				}
 				else if (source is Minion minion)
 				{
-					PlayMinion.Invoke(c, minion, target, zonePosition);
+					Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
+					PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
 				}
 				else if (source is Weapon weapon)
 				{
@@ -67,15 +66,15 @@ namespace SabberStoneCore.Actions
 					if (!RemoveFromZone.Invoke(c, source))
 						return false;
 
-					PlayWeapon.Invoke(c, (Weapon)source, target);
+					PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
 				}
-				else if (source is Spell)
+				else if (source is Spell spell)
 				{
-
 					// - OnPlay Phase --> OnPlay Trigger (Illidan)
 					//   (death processing, aura updates)
-					c.Game.TriggerManager.OnCastSpellTrigger(source);
-					OnPlayTrigger.Invoke(c, (Spell)source);
+					Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
+					c.Game.TriggerManager.OnCastSpellTrigger(spell);
+					OnPlayTrigger.Invoke(c, spell);
 
 					//source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
 					if (target != null && target.Id != source.CardTarget)
@@ -88,7 +87,7 @@ namespace SabberStoneCore.Actions
 					if (!RemoveFromZone.Invoke(c, source))
 						return false;
 
-					PlaySpell.Invoke(c, (Spell)source, target);
+					PlaySpell.Invoke(c, (Spell)source, target, chooseOne);
 				}
 
 				source.CardTarget = -1;
@@ -122,25 +121,6 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-				// copy choose one power to the actual source
-				if (source.ChooseOne)
-				{
-					// [OG_044] Fandral Staghelm, Aura active 
-					if (c.ChooseBoth
-					&& !source.Card.Id.Equals("EX1_165") // OG_044a, using choose one 0 option
-					&& !source.Card.Id.Equals("BRM_010") // OG_044b, using choose one 0 option
-					&& !source.Card.Id.Equals("AT_042")) // OG_044c, using choose one 0 option
-					{
-						//if (source.Powers == null)
-						//	source.Powers = new List<Power>();
-						//source.Powers.AddRange(source.ChooseOnePlayables[0].Powers);
-						//source.Powers.AddRange(source.ChooseOnePlayables[1].Powers);
-					}
-					else
-					{
-						//source.Powers = subSource.Powers;
-					}
-				}
 				return true;
 			};
 
@@ -160,8 +140,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Hero, ICharacter, bool> PlayHero
-			=> delegate (Controller c, Hero hero, ICharacter target)
+		public static Func<Controller, Hero, ICharacter, int, bool> PlayHero
+			=> delegate (Controller c, Hero hero, ICharacter target, int chooseOne)
 			{
 				// remove from hand zone
 				if (!RemoveFromZone.Invoke(c, hero))
@@ -187,11 +167,13 @@ namespace SabberStoneCore.Actions
 
 				c.Hero = hero;
 
-				foreach (Power power in hero.Card.Powers)
-				{
-					if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-						power.Trigger.Activate(hero);
-				}
+				//foreach (Power power in hero.Card.Powers)
+				//{
+				//	if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+				//		power.Trigger.Activate(hero);
+				//}
+				if (hero.Power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+					hero.Power.Trigger.Activate(hero);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
@@ -219,8 +201,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Minion, ICharacter, int, bool> PlayMinion
-			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition)
+		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
+			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
 				// - PreSummon Phase --> PreSummon Trigger (TideCaller)
 				//   (death processing, aura updates)
@@ -254,18 +236,19 @@ namespace SabberStoneCore.Actions
 				if (minion.Combo && c.IsComboActive)
 					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
-					minion.ActivateTask(PowerActivation.POWER, target);
+					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				// check if [LOE_077] Brann Bronzebeard aura is active
-				if (c.ExtraBattlecry)
+				if (c.ExtraBattlecry && minion.HasBattleCry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					minion.ActivateTask(PowerActivation.POWER, target);
+					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				minion.JustPlayed = false;
+				c.Game.TriggerManager.OnAfterPlayMinionTrigger(minion);
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Summon Phase --> After Summon Trigger
@@ -287,8 +270,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Spell, ICharacter, bool> PlaySpell
-			=> delegate (Controller c, Spell spell, ICharacter target)
+		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
+			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
@@ -308,17 +291,21 @@ namespace SabberStoneCore.Actions
 					c.NumSpellsPlayedThisGame++;
 					if (spell.IsSecret)
 						c.NumSecretsPlayedThisGame++;
-					spell.Powers[0].Trigger.Activate(spell);
+					spell.Power.Trigger.Activate(spell);
 					c.SecretZone.Add(spell);
 					spell.IsExhausted = true;
 				}
 				else
 				{
 					c.NumSpellsPlayedThisGame++;
+
+					spell.Power.Trigger?.Activate(spell);
+					spell.Power.Aura?.Activate(spell);
+
 					if (spell.Combo && c.IsComboActive)
 						spell.ActivateTask(PowerActivation.COMBO, target);
 					else
-						spell.ActivateTask(PowerActivation.POWER, target);
+						spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
 
 					c.GraveyardZone.Add(spell);
 				}
@@ -335,19 +322,20 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Weapon, ICharacter, bool> PlayWeapon
-			=> delegate (Controller c, Weapon weapon, ICharacter target)
+		public static Func<Controller, Weapon, ICharacter, int, bool> PlayWeapon
+			=> delegate (Controller c, Weapon weapon, ICharacter target, int chooseOne)
 			{
 				c.Hero.AddWeapon(weapon);
 
-				if (weapon.Powers != null)
-				{
-					foreach (Power power in weapon.Card.Powers)
-					{
-						if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-							power.Trigger.Activate(weapon);
-					}
-				}
+				//if (weapon.Powers != null)
+				//{
+				//	foreach (Power power in weapon.Card.Powers)
+				//	{
+				//		if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
+				//			power.Trigger.Activate(weapon);
+				//	}
+				//}
+				weapon.Card.Power?.Trigger?.Activate(weapon);
 
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");

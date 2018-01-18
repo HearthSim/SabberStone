@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -198,15 +199,22 @@ namespace SabberStoneCore.Model.Entities
 				return 0;
 			}
 
+
 			// added pre damage
 			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : 0;
 
+			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
 			PreDamageTrigger?.Invoke(this);
 
 			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");
 				PreDamage = 0;
+				Game.Triggers.ForEach(p =>
+				{
+					if (p.SequenceType == SequenceType.DamageDealt)
+						p.Validated = false;
+				});
 				return 0;
 			}
 
