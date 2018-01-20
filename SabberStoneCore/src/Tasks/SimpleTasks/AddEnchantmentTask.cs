@@ -34,20 +34,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    if (_entityType == EntityType.CONTROLLER)
 		    {
 			    Power power = _enchantmentCard.Power;
-				if (Game.History)
-			    {
-				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
-				    if (Controller.AppliedEnchantments != null)
-					    Controller.AppliedEnchantments.Add(enchantment);
-				    else
-					    Controller.AppliedEnchantments = new List<Enchantment> { enchantment };
-					power.Aura?.Activate(enchantment);
-				    power.Trigger?.Activate(enchantment);
-				    return TaskState.COMPLETE;
-			    }
-
-			    power.Aura?.Activate(Controller.Hero);
-			    power.Trigger?.Activate(Controller.Hero);
+				Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
+				if (Controller.AppliedEnchantments != null)
+					Controller.AppliedEnchantments.Add(enchantment);
+				else
+					Controller.AppliedEnchantments = new List<Enchantment> { enchantment };
+				power.Aura?.Activate(enchantment);
+				power.Trigger?.Activate(enchantment);
 
 			    return TaskState.COMPLETE;
 		    }
@@ -92,7 +85,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    else
 			    foreach (IPlayable entity in entities)
 				{
-					Power power = entity.Card.Power;
+					Power power = _enchantmentCard.Power;
 
 					power.Aura?.Activate(entity);
 					power.Trigger?.Activate(entity);

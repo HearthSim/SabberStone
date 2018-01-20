@@ -11,8 +11,6 @@ namespace SabberStoneCore.Enchants
 		{
 			private readonly Func<int, int> _func;
 
-			public readonly int Hash;
-
 			public CostEffect(Effect e)
 			{
 				Effect = e;
@@ -45,6 +43,7 @@ namespace SabberStoneCore.Enchants
 		private int HEALTH;
 		private int COST;
 		private int CHARGE;
+		private int WINDFURY;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -81,7 +80,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.HEALTH:
 						return HEALTH;
 					case GameTag.CHARGE:
-						return CHARGE;
+						return CHARGE > 0 ? 1 : 0;
+					case GameTag.WINDFURY:
+						return WINDFURY > 0 ? 1 : 0;
 					case GameTag.COST:
 						return GetCost() - ((Entity) Owner)._data[GameTag.COST];
 					default:
@@ -103,6 +104,12 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.COST:
 						COST = value;
+						return;
+					case GameTag.WINDFURY:
+						WINDFURY = value;
+						return;
+					case GameTag.HEALTH_MINIMUM:
+						Owner.NativeTags[GameTag.HEALTH_MINIMUM] = value;
 						return;
 					default:
 						return;

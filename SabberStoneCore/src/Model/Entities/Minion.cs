@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Entities
 			HasLifeSteal = false;
 			CantBeTargetedByHeroPowers = false;
 			CantBeTargetedBySpells = false;
-			//IsImmune = false;
+			IsImmune = false;
 
 			int sp = this[GameTag.SPELLPOWER];
 			if (sp > 0)
@@ -86,6 +86,12 @@ namespace SabberStoneCore.Model.Entities
 				if (delta > 0)
 					Damage -= delta;
 				this[GameTag.HEALTH] = Card[GameTag.HEALTH];
+			}
+
+			if (NativeTags.TryGetValue(GameTag.CONTROLLER_CHANGED_THIS_TURN, out int v) && v > 0)
+			{
+				Game.TaskQueue.Execute(new ControlTask(EntityType.SOURCE, true), Controller, this, null);
+				this[GameTag.CONTROLLER_CHANGED_THIS_TURN] = 0;
 			}
 
 
@@ -177,6 +183,17 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }
 			set { SetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD, value); }
+		}
+
+		public override bool ToBeDestroyed
+		{
+			get => base.ToBeDestroyed;
+
+			set
+			{
+				base.ToBeDestroyed = value;
+				Game.DeadMinions.Add(OrderOfPlay, this);
+			} 
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

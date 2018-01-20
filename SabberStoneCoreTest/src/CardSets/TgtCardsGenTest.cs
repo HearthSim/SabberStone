@@ -1176,9 +1176,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Aspirant"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(0, game.CurrentPlayer.Hero.SpellPowerDamage);
+			Assert.Equal(0, game.CurrentPlayer.CurrentSpellPower);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
-			Assert.Equal(1, game.CurrentPlayer.Hero.SpellPowerDamage);
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
 		}
 
 		// ------------------------------------------ MINION - MAGE

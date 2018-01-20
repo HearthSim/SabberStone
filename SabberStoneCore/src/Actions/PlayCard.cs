@@ -299,8 +299,8 @@ namespace SabberStoneCore.Actions
 				{
 					c.NumSpellsPlayedThisGame++;
 
-					spell.Power.Trigger?.Activate(spell);
-					spell.Power.Aura?.Activate(spell);
+					spell.Power?.Trigger?.Activate(spell);
+					spell.Power?.Aura?.Activate(spell);
 
 					if (spell.Combo && c.IsComboActive)
 						spell.ActivateTask(PowerActivation.COMBO, target);

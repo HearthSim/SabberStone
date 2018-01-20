@@ -29,6 +29,8 @@ namespace SabberStoneCore.Model.Zones
 			//	e.Activate(entity);
 			if (entity.Power?.Aura is AdaptiveCostEffect e)
 				e.Activate(entity);
+			if (entity.Power?.Trigger?.TriggerActivation == TriggerActivation.HAND)
+				entity.Power.Trigger.Activate(entity);
 		}
 	}
 }

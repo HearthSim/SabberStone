@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			int times = SpellDmg ? Amount + Controller.Hero.SpellPowerDamage : Amount;
+			int times = SpellDmg ? Amount + Controller.CurrentSpellPower : Amount;
 
 			for (int i = 0; i < times; i++)
 			{

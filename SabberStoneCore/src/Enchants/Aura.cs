@@ -73,6 +73,7 @@ namespace SabberStoneCore.Enchants
 			Condition = prototype.Condition;
 			Predicate = prototype.Predicate;
 			RemoveTrigger = prototype.RemoveTrigger;
+			EnchantmentCard = prototype.EnchantmentCard;
 			Restless = prototype.Restless;
 			On = prototype.On;
 			//_appliedEntityIds = prototype._appliedEntityIds != null ? new List<int>(prototype._appliedEntityIds) : new List<int>();
@@ -105,7 +106,6 @@ namespace SabberStoneCore.Enchants
 				return _appliedEntities;
 			}
 		}
-		public string EnchantmentCardId => EnchantmentCard?.Id ?? "";
 
 
 		public virtual void Activate(IPlayable owner, bool cloning = false)
@@ -131,6 +131,10 @@ namespace SabberStoneCore.Enchants
 				case AuraType.OP_HAND:
 					owner.Controller.Opponent.HandZone.Auras.Add(instance);
 					break;
+				case AuraType.HANDS:
+					owner.Controller.HandZone.Auras.Add(instance);
+					owner.Controller.Opponent.HandZone.Auras.Add(instance);
+					break;
 			}
 
 			if (RemoveTrigger.Type != TriggerType.NONE)
@@ -148,6 +152,8 @@ namespace SabberStoneCore.Enchants
 
 			if (cloning || !owner.Game.History) return;
 
+			if (EnchantmentCard == null) return;
+
 			switch (Type)
 			{
 				case AuraType.BOARD_EXCEPT_SOURCE:
@@ -155,10 +161,18 @@ namespace SabberStoneCore.Enchants
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (minion == owner) continue;
-						if (Condition != null && Condition.Eval(minion))
-						{
+						if (Condition == null || Condition.Eval(minion))
 							Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
-						}
+
+						_tempList.Add(minion);
+					}
+					break;
+				case AuraType.BOARD:
+					_tempList = new List<IPlayable>();
+					foreach (Minion minion in (BoardZone)owner.Zone)
+					{
+						if (Condition == null || Condition.Eval(minion))
+							Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
 
 						_tempList.Add(minion);
 					}
@@ -216,6 +230,12 @@ namespace SabberStoneCore.Enchants
 						foreach (IPlayable p in Owner.Controller.Opponent.HandZone)
 							Apply(p);
 						break;
+					case AuraType.HANDS:
+						foreach (IPlayable p in Owner.Controller.HandZone)
+							Apply(p);
+						foreach (IPlayable p in Owner.Controller.Opponent.HandZone)
+							Apply(p);
+						break;
 					case AuraType.WEAPON:
 						if (Owner.Controller.Hero.Weapon == null) break;
 						Apply(Owner.Controller.Hero.Weapon);
@@ -238,6 +258,7 @@ namespace SabberStoneCore.Enchants
 			}
 			else
 			{
+				// Remove effects from applied entities
 				switch (Type)
 				{
 					case AuraType.CONTROLLER:
@@ -253,12 +274,29 @@ namespace SabberStoneCore.Enchants
 						break;
 					default:
 						foreach (IPlayable entity in AppliedEntities)
+						{
+							if (Predicate != null)
+							{
+								var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+								effect.Remove(entity.AuraEffects);
+								continue;
+							}
+
 							for (int i = 0; i < Effects.Length; i++)
 								Effects[i].Remove(entity.AuraEffects);
+						}
+
 						break;
 				}
 
 				Game.Auras.Remove(this);
+
+				// Remove enchantments from applied entities
+				if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
+					foreach (IPlayable entity in AppliedEntities)
+						for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
+							if (entity.AppliedEnchantments[i].Creator.Id == _ownerId)
+								entity.AppliedEnchantments[i].Remove();
 			}
 		}
 
@@ -332,7 +370,18 @@ namespace SabberStoneCore.Enchants
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Apply(entity.AuraEffects);
 
-			// history
+			if (EnchantmentCard != null)
+			{
+				if (Game.History || EnchantmentCard.Power.Trigger != null)
+				{
+					Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, EnchantmentCard);
+					EnchantmentCard.Power.Trigger?.Activate(instance);
+					if (entity.AppliedEnchantments == null)
+						entity.AppliedEnchantments = new List<Enchantment> {instance};
+					else
+						entity.AppliedEnchantments.Add(instance);
+				}
+			}
 
 			AppliedEntities.Add(entity);
 			_appliedEntityIds.Add(entity.Id);
@@ -487,6 +536,7 @@ namespace SabberStoneCore.Enchants
 	public class EnrageEffect : Aura
 	{
 		private bool _enraged;
+		private IPlayable _target;
 
 		public EnrageEffect(AuraType type, params Effect[] effects) : base(type, effects)
 		{
@@ -499,7 +549,16 @@ namespace SabberStoneCore.Enchants
 		private EnrageEffect(EnrageEffect prototype, IPlayable owner) : base(prototype, owner)
 		{
 			_enraged = prototype._enraged;
-			Restless = true;			//	can cause performance issue; should replace with heal trigger ?
+			Restless = true;            //	can cause performance issue; should replace with heal trigger ?
+			switch (Type)
+			{
+				case AuraType.SELF:
+					_target = owner;
+					break;
+				case AuraType.WEAPON:
+					_target = owner.Controller.Hero.Weapon;
+					break;
+			}
 		}
 
 		public override void Activate(IPlayable owner, bool cloning = false)
@@ -516,26 +575,34 @@ namespace SabberStoneCore.Enchants
 		public override void Update()
 		{
 			var m = Owner as Minion;
-			if (!_enraged)
-			{
-				if (m.Damage == 0) return;
-				Apply(m);
-				_enraged = true;
-			}
-			else
-			{
-				if (m.Damage != 0) return;
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Remove(m.AuraEffects);
-				_enraged = false;
-			}
+
+			if (Type == AuraType.WEAPON)
+				_target = m.Controller.Hero.Weapon;
 
 			if (!On)
 			{
 				Game.Auras.Remove(this);
 				if (!_enraged) return;
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Remove(m.AuraEffects);
+				if (_target != null)
+					for (int i = 0; i < Effects.Length; i++)
+						Effects[i].Remove(_target.AuraEffects);
+			}
+
+			if (!_enraged)
+			{
+				if (m.Damage == 0) return;
+				if (_target != null)
+					for (int i = 0; i < Effects.Length; i++)
+						Effects[i].Apply(_target.AuraEffects);
+				_enraged = true;
+			}
+			else
+			{
+				if (m.Damage != 0) return;
+				if (_target != null)
+					for (int i = 0; i < Effects.Length; i++)
+						Effects[i].Remove(_target.AuraEffects);
+				_enraged = false;
 			}
 		}
 

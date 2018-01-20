@@ -41,6 +41,9 @@ namespace SabberStoneCore.Model
 	{
 		private Controller _currentPlayer;
 
+		//public List<Minion> DeadMinions { get; } = new List<Minion>();
+		public SortedList<int, Minion> DeadMinions { get; } = new SortedList<int, Minion>();
+
 		/// <summary>
 		/// The entityID of the game itself is always 1.
 		/// </summary>
@@ -855,27 +858,18 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void GraveYard()
 		{
-			var deadHeroes = new List<Hero>();
+			if (Player1.Hero.Weapon != null && Player1.Hero.Weapon.ToBeDestroyed)
+				Player1.Hero.RemoveWeapon();
+			if (Player2.Hero.Weapon != null && Player2.Hero.Weapon.ToBeDestroyed)
+				Player2.Hero.RemoveWeapon();
 
-			foreach (Controller player in _players)
+			if (DeadMinions.Count > 0)
 			{
-				// remove dead weapons
-				if (player.Hero.Weapon != null && (player.Hero.Weapon.Durability == 0 || player.Hero.Weapon.ToBeDestroyed))
-					player.Hero.RemoveWeapon();
+				if (History)
+					PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
 
-				// check for dead minions to carry to the graveyard
-				for (int i = player.BoardZone.Count; i > 0;)
+				foreach (Minion minion in DeadMinions.Values)
 				{
-					Minion minion = player.BoardZone[--i];
-					if (!minion.ToBeDestroyed)
-						continue;
-					//	TODO : Issue to be fixed, suspect: SummonTask?
-					if (minion.Zone.Type == Enums.Zone.GRAVEYARD)
-					{
-						player.BoardZone.Remove(minion);
-						return;
-					}
-
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
 
 					minion.LastBoardPosition = minion.ZonePosition;
@@ -884,29 +878,37 @@ namespace SabberStoneCore.Model
 					if (minion.HasDeathrattle)
 						minion.ActivateTask(PowerActivation.DEATHRATTLE);
 
-					if (History)
-						PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
 
 					minion.IsExhausted = false;
-					player.GraveyardZone.Add(minion);
-					player.NumFriendlyMinionsThatDiedThisTurn++;
+					minion.Controller.GraveyardZone.Add(minion);
+					minion.Controller.NumFriendlyMinionsThatDiedThisTurn++;
 					CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
 					NumMinionsKilledThisTurn++;
-					minion.Damage = 0;
+					//minion.Damage = 0;
 
 					TriggerManager.OnDeathTrigger(minion);
-
-					if (History)
-						PowerHistoryBuilder.BlockEnd();
 				}
 
-				// check for dead heroes
-				if (player.Hero.ToBeDestroyed)
-					deadHeroes.Add(player.Hero);
+				if (History)
+					PowerHistoryBuilder.BlockEnd();
+
+				DeadMinions.Clear();
 			}
 
-			if (deadHeroes.Count > 0)
-				deadHeroes.ForEach(p => p.Controller.PlayState = deadHeroes.Count > 1 ? PlayState.TIED : PlayState.LOSING);
+			if (Player1.Hero.ToBeDestroyed)
+			{
+				if (Player2.Hero.ToBeDestroyed)
+				{
+					Player1.PlayState = PlayState.TIED;
+					Player2.PlayState = PlayState.TIED;
+				}
+
+				Player1.PlayState = PlayState.LOSING;
+			}
+			else if (Player2.Hero.ToBeDestroyed)
+			{
+				Player2.PlayState = PlayState.LOSING;
+			}
 		}
 
 		/// <summary>

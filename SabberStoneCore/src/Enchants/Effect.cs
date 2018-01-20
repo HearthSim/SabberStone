@@ -33,6 +33,9 @@ namespace SabberStoneCore.Enchants
 			if (oneTurnEffect)
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
 
+			if (Tag == GameTag.COST)
+				entity.AuraEffects.Checker = true;
+
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
@@ -60,6 +63,12 @@ namespace SabberStoneCore.Enchants
 					{
 						((ICharacter)entity).Health = Value;
 						break;
+					}
+					else if (Tag == GameTag.WINDFURY)
+					{
+						Minion m = entity as Minion;
+						if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
+							m.IsExhausted = false;
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)
@@ -92,6 +101,8 @@ namespace SabberStoneCore.Enchants
 					return;
 				// TODO: SET Aura
 				case EffectOperator.SET:
+					auraEffects[Tag] += Value;
+					return;
 				default:
 					throw new NotImplementedException();
 			}
@@ -124,7 +135,7 @@ namespace SabberStoneCore.Enchants
 					entity[Tag] += Value;
 					return;
 				case EffectOperator.SET:
-					entity[Tag] = 0;
+					entity[Tag] = 0;		// unstable
 					return;
 			}
 		}
@@ -151,7 +162,8 @@ namespace SabberStoneCore.Enchants
 					auraEffects[Tag] += Value;
 					return;
 				case EffectOperator.SET:
-					throw new NotImplementedException();
+					auraEffects[Tag] -= Value;
+					return;
 			}
 		}
 

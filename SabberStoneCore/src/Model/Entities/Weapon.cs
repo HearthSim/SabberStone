@@ -52,6 +52,10 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Game.TriggerManager.OnDamageTrigger(this);
 				this[GameTag.DAMAGE] = value;
+				if (this[GameTag.DURABILITY] <= value)
+				{
+					ToBeDestroyed = true;
+				}
 			}
 		}
 

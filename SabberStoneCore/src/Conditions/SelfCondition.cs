@@ -54,7 +54,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsAttacking => new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsAttacking);
 		public static SelfCondition IsCthun => new SelfCondition(me => me.Card.Id.Equals("OG_280"));
 		public static SelfCondition IsSilverHandRecruit => new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
-		public static SelfCondition IsSpellDmgOnHero => new SelfCondition(me => me.Controller.Hero.SpellPowerDamage > 0);
+		public static SelfCondition IsSpellDmgOnHero => new SelfCondition(me => me.Controller.CurrentSpellPower > 0);
 		public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is ICharacter && ((ICharacter)me).NumAttacksThisTurn == number);
 		public static SelfCondition IsCardId(string cardId) => new SelfCondition(me => me.Card == Cards.FromId(cardId));
 		public static SelfCondition IsNotCardClass(CardClass cardClass) => new SelfCondition(me => me.Card.Class != cardClass);

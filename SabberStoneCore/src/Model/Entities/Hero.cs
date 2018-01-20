@@ -47,12 +47,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public override bool CanAttack => TotalAttackDamage > 0 && base.CanAttack;
 
-		public override bool HasWindfury => base.HasWindfury || Weapon != null && Weapon.HasWindfury;
+		public override bool HasWindfury => Weapon != null && Weapon.HasWindfury;
 
 		public void AddWeapon(Weapon weapon)
 		{
 			RemoveWeapon();
-			//weapon.SetOrderOfPlay("WEAPON");
 			weapon.OrderOfPlay = Game.NextOop;
 			Weapon = weapon;
 			Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
@@ -63,6 +62,8 @@ namespace SabberStoneCore.Model.Entities
 				Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 			}
 			EquippedWeapon = weapon.Id;
+			if (weapon.HasWindfury && IsExhausted && NumAttacksThisTurn == 1)
+				IsExhausted = false;
 		}
 
 		/// <summary>
@@ -83,11 +84,15 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 
+			for (int j = Weapon.ActivatedTriggers.Count - 1; j >= 0; j--)
+				Weapon.ActivatedTriggers[j].Remove();
+			Weapon.OngoingEffect?.Remove();
+
 			ClearWeapon();
 		}
 
 		/// <summary>
-		/// Clears wepon information on Hero.
+		/// Clears weapon information on Hero.
 		/// </summary>
 		public void ClearWeapon()
 		{
@@ -105,7 +110,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			var str = new StringBuilder();
 			string mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
-			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{SpellPowerDamage}]");
+			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{Controller.CurrentSpellPower}]");
 			//str.Append($"[ENCH {OldEnchants.Count}]");
 			//str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
@@ -118,7 +123,7 @@ namespace SabberStoneCore.Model.Entities
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public int SpellPowerDamage => this[GameTag.CURRENT_SPELLPOWER];
+		//public int SpellPowerDamage => this[GameTag.CURRENT_SPELLPOWER];
 
 		public int EquippedWeapon
 		{

@@ -177,10 +177,18 @@ namespace SabberStoneCore.Enchants
 					source.Game.TriggerManager.AfterCastTrigger += instance.Process;
 					break;
 				case TriggerType.PREDAMAGE:
-					if (TriggerSource == TriggerSource.HERO)
-						source.Controller.Hero.PreDamageTrigger += instance.Process;
-					else if (TriggerSource == TriggerSource.SELF)
-						((Minion)source).PreDamageTrigger += instance.Process;
+					switch (TriggerSource)
+					{
+						case TriggerSource.HERO:
+							source.Controller.Hero.PreDamageTrigger += instance.Process;
+							break;
+						case TriggerSource.SELF:
+							((Minion)source).PreDamageTrigger += instance.Process;
+							break;
+						case TriggerSource.ENCHANTMENT_TARGET:
+							((Minion) ((Enchantment) source).Target).PreDamageTrigger += instance.Process;
+							break;
+					}
 					break;
 				case TriggerType.SECRET_REVEALED:
 					source.Game.TriggerManager.SecretRevealedTrigger += instance.Process;
@@ -203,7 +211,7 @@ namespace SabberStoneCore.Enchants
 			    ISimpleTask taskInstance = SingleTask.Clone();
 			    taskInstance.Game = Game;
 			    taskInstance.Controller = Owner.Controller;
-			    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
+			    taskInstance.Source = Owner is Enchantment ec ? ec : Owner;
 			    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
 			    taskInstance.IsTrigger = true;
 

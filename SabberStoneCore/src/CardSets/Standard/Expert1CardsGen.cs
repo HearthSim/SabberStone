@@ -1985,11 +1985,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion has switched controllers this turn.
 			// --------------------------------------------------------
 			cards.Add("EX1_334e", new Power {
-				Enchant = new Enchant(Effects.Charge)
+				Enchant = new Enchant(Effects.Charge, new Effect(GameTag.CONTROLLER_CHANGED_THIS_TURN, EffectOperator.SET, 1)),
+				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					TaskToDoWhenThisIsRemoved = new ControlTask(EntityType.TARGET, true),
-				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_334e")
+					EitherTurn = true,
+					SingleTask = ComplexTask.Create(
+						new RemoveEnchantmentTask("EX1_334e"),
+						new ControlTask(EntityType.TARGET, true))
+				}
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -2727,14 +2730,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------- MINION - WARLOCK
 			// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4] 
 			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
+			// ---------------------------------------------c-----------
 			// Text: Your minions cost (2) less, but not less than (1).
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_315", new Power {
-				// TODO Test: Summoning Portal_EX1_315
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(0))
 				{
 					Condition = SelfCondition.IsMinion,
@@ -3145,7 +3147,6 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_036", new Power {
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("NEW1_036e2", EntityType.CONTROLLER),
-					new AddEnchantmentTask("NEW1_036e", EntityType.MINIONS),
 					new DrawTask())
 			});
 
@@ -3161,17 +3162,12 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_411", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
-					TriggerSource = TriggerSource.SELF,
-					Condition = SelfCondition.IsHeroProposedDefender(CardType.MINION),
+					TriggerSource = TriggerSource.HERO,
+					Condition = SelfCondition.IsProposedDefender(CardType.MINION),
 					FastExecution = true,
 					SingleTask = new AddEnchantmentTask("EX1_411e", EntityType.SOURCE)
 				},
-				Trigger2 = new Trigger(TriggerType.AFTER_ATTACK)
-				{
-					TriggerSource = TriggerSource.HERO,
-					FastExecution = true,
-					SingleTask = new AddEnchantmentTask("EX1_411e2", EntityType.SOURCE)
-				}
+
 			});
 
 		}
@@ -3211,7 +3207,10 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new RemoveEnchantmentTask("EX1_411e")
+					FastExecution = true,
+					SingleTask = ComplexTask.Create(
+						new RemoveEnchantmentTask("EX1_411e"),
+						new AddEnchantmentTask("EX1_411e2", EntityType.WEAPON))
 				}
 			});
 
@@ -3275,19 +3274,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_036e", new Power {
-				Enchant = new Enchant(GameTag.HEALTH_MINIMUM, EffectOperator.SET, 1),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("NEW1_036e"),
-				Trigger2 = new Trigger(TriggerType.PREDAMAGE)
+				Enchant = new Enchant(GameTag.HEALTH_MINIMUM, EffectOperator.SET, 1)
+				{
+					IsOneTurnEffect = true,
+				},
+				Trigger = new Trigger(TriggerType.PREDAMAGE)
 				{
 					TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
 					FastExecution = true,
-					SingleTask = new FuncPlayablesTask(p =>
-					{
-						var m = p[0] as Minion;
-						if (m.PreDamage >= m.Health)
-							m.PreDamage = m.Health - 1;
-						return p;
-					})
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.TARGET),
+						new FuncPlayablesTask(p =>
+						{
+							var m = p[0] as Minion;
+							if (m.PreDamage >= m.Health)
+								m.PreDamage = m.Health - 1;
+							return p;
+						}))
 				}
 			});
 
@@ -4019,7 +4022,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_076", new Power {
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(1))
 				{
-					Condition = SelfCondition.MinionsPlayedThisTurn(0)
+					Condition = SelfCondition.MinionsPlayedThisTurn(0),
+					Restless = true
 				}
 			});
 

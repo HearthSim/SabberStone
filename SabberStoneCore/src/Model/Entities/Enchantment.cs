@@ -37,8 +37,6 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 
-		public Effect[] EffectsToBeRemoved { get; set; }
-
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
 			var tags = new Dictionary<GameTag, int>
@@ -115,6 +113,7 @@ namespace SabberStoneCore.Model.Entities
 			//	instance.Target[GameTag.TAG_ONE_TURN_EFFECT] = 1;
 
 			instance.Zone = controller.BoardZone;
+			instance.OrderOfPlay = controller.Game.NextOop;
 			//	323 = 1
 
 
@@ -129,12 +128,6 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.ZONE] = (int)Enums.Zone.REMOVEDFROMGAME;
 			}
 
-			//if (EffectsToBeRemoved != null)
-			//{
-			//	for (int i = 0; i < EffectsToBeRemoved.Length; i++)
-			//		EffectsToBeRemoved[i].Remove(Target);
-			//}
-
 			if (Power.DeathrattleTask != null && Target.Zone is GraveyardZone)
 			{
 				ISimpleTask clone = Power.DeathrattleTask.Clone();
@@ -146,27 +139,34 @@ namespace SabberStoneCore.Model.Entities
 				Game.TaskQueue.Enqueue(clone);
 			}
 
-			//OngoingEffect?.Remove();
-			ActivatedTrigger?.Remove();
+			OngoingEffect?.Remove();
+			if (ActivatedTriggers != null)
+				for (int i = ActivatedTriggers.Count - 1; i >= 0; i--)
+					ActivatedTriggers[i].Remove();
 
 			if (Target is IPlayable p)
 				p.RemoveEnchantments -= Remove;
 
 			Target.AppliedEnchantments.Remove(this);
 		}
-		public Trigger ActivatedTrigger { get; set; }
+
 		public AuraEffects AuraEffects { get; set; }
 		public Dictionary<GameTag, int> NativeTags { get; }
 		public List<Enchantment> AppliedEnchantments { get; set; }
 
-		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
-		{
-			throw new NotImplementedException();
-		}
-
 		public Power Power => Card.Power;
 		public Action RemoveEnchantments { get; set; }
 		public List<Trigger> ActivatedTriggers { get; }
+
+		public void Reset()
+		{
+			_tags.Clear();
+		}
+
+		public override string ToString()
+		{
+			return $"'{Card.Name}[{Id}]'";
+		}
 	}
 
 	public partial class Enchantment
@@ -177,11 +177,26 @@ namespace SabberStoneCore.Model.Entities
 		public Card Card { get; }
 		public Controller Controller { get; set; }
 		public IZone Zone { get; set; }
-
-		public void Reset()
-		{
-			_tags.Clear();
-		}
+		public IAura OngoingEffect { get; set; }
+		public IEnumerable<ICharacter> ValidPlayTargets { get; }
+		public bool ChooseOne { get; set; }
+		public bool IsPlayable { get; }
+		public bool IsPlayableByPlayer { get; }
+		public bool IsPlayableByCardReq { get; }
+		public bool IsIgnoreDamage { get; set; }
+		public bool Combo { get; }
+		public int Cost { get; set; }
+		public int NumTurnsInPlay { get; set; }
+		public bool ToBeDestroyed { get; set; }
+		public int CardTarget { get; set; }
+		public int ZonePosition { get; set; }
+		public bool JustPlayed { get; set; }
+		public bool IsSummoned { get; set; }
+		public bool IsExhausted { get; set; }
+		public int Overload { get; set; }
+		public bool HasDeathrattle { get; set; }
+		public bool HasLifeSteal { get; set; }
+		public IPlayable[] ChooseOnePlayables { get; set; }
 
 		public void Stamp(Entity entity)
 		{
@@ -193,48 +208,21 @@ namespace SabberStoneCore.Model.Entities
 			throw new NotImplementedException();
 		}
 
-		public List<OldEnchant> OldEnchants { get; }
-		public IAura OngoingEffect { get; set; }
-		public List<OldTrigger> Triggers { get; }
-		public IEnumerable<ICharacter> ValidPlayTargets { get; }
 		public bool IsValidPlayTarget(ICharacter target)
 		{
 			throw new NotImplementedException();
 		}
 
-		public bool ChooseOne { get; set; }
-		public bool IsPlayable { get; }
-		public bool IsPlayableByPlayer { get; }
-		public bool IsPlayableByCardReq { get; }
-		public bool IsIgnoreDamage { get; set; }
-		public bool Combo { get; }
-		public int Cost { get; set; }
-		public int NumTurnsInPlay { get; set; }
 		public void Destroy()
 		{
 			throw new NotImplementedException();
 		}
 
-		public bool ToBeDestroyed { get; set; }
+		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		{
+			throw new NotImplementedException();
+		}
 
-		public int CardTarget { get; set; }
-		public int ZonePosition { get; set; }
-		public bool JustPlayed { get; set; }
-		public bool IsSummoned { get; set; }
-		public bool IsExhausted { get; set; }
-		public int Overload { get; set; }
-		public bool HasDeathrattle { get; set; }
-		public bool HasLifeSteal { get; set; }
-		public IPlayable[] ChooseOnePlayables { get; set; }
-
-		//public List<Power> Powers
-		//{
-		//	get => Card.Powers;
-		//	set
-		//	{
-		//		return;
-		//	}
-		//}
 		public IPlayable Clone(Controller controller)
 		{
 			throw new NotImplementedException();

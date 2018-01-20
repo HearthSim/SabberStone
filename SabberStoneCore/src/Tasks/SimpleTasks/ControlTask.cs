@@ -20,6 +20,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
 			{
+				if (p.Zone.Type != Zone.PLAY)
+					return;
+
 				if ((!Opposite && Controller.BoardZone.IsFull) || (Opposite && Controller.Opponent.BoardZone.IsFull))
 				{
 					p.Destroy();

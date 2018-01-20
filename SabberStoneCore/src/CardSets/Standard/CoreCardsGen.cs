@@ -627,7 +627,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Tundra Rhino grants <b>Charge</b>.
 			// --------------------------------------------------------
 			cards.Add("DS1_178e", new Power {
-				Enchant = GetAutoEnchantFromText("DS1_175o")
+				Enchant = GetAutoEnchantFromText("DS1_178e")
 			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
@@ -1831,9 +1831,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_011", new Power {
-				PowerTask = new AddEnchantmentTask("CS2_103e2", EntityType.TARGET)
-			});
+			cards.Add("NEW1_011", null);
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_103] Charge - COST:1 
@@ -1849,8 +1847,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_103", new Power {
-				PowerTask = new AddEnchantmentTask("CS2_105e", EntityType.HERO)
+			cards.Add("CS2_103", new Power
+			{
+				PowerTask = new AddEnchantmentTask("CS2_103e2", EntityType.TARGET)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1859,9 +1858,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Give your hero +4_Attack this turn.
 			// --------------------------------------------------------
-			cards.Add("CS2_105", new Power {
-				PowerTask = new DestroyTask(EntityType.TARGET)
+			cards.Add("CS2_105", new Power
+			{
+				PowerTask = new AddEnchantmentTask("CS2_105e", EntityType.HERO)
 			});
+			
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_108] Execute - COST:2 
@@ -1875,9 +1876,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_108", new Power {
-				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.OP_MINIONS, 2, true)
+			cards.Add("CS2_108", new Power
+			{
+				PowerTask = new DestroyTask(EntityType.TARGET)
 			});
+			
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CS2_114] Cleave - COST:2 
@@ -1890,8 +1893,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 2
 			// --------------------------------------------------------
-			cards.Add("CS2_114", new Power {
-				PowerTask = new DamageTask(1, EntityType.ALLMINIONS, true)
+			cards.Add("CS2_114", new Power
+			{
+				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.OP_MINIONS, 2, true)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1900,10 +1904,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to ALL_minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("EX1_400", new Power {
-				PowerTask = ComplexTask.Create(
-					new ArmorTask(5),
-					new DrawTask())
+			cards.Add("EX1_400", new Power
+			{
+				PowerTask = new DamageTask(1, EntityType.ALLMINIONS, true)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1913,7 +1916,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Gain 5 Armor.
 			//       Draw a card.
 			// --------------------------------------------------------
-			cards.Add("EX1_606", null);
+			cards.Add("EX1_606", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new ArmorTask(5),
+					new DrawTask())
+			});
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0] 
@@ -2480,7 +2488,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("CS2_074e", null);
+			cards.Add("CS2_074e", new Power
+			{
+				Enchant = GetAutoEnchantFromText("CS2_074e")
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CS2_122e] Enhanced (*) - COST:0 
@@ -2488,7 +2499,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Raid Leader is granting this minion +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("CS2_122e", null);
+			cards.Add("CS2_122e", new Power
+			{
+				Enchant = GetAutoEnchantFromText("CS2_122e")
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CS2_222o] Might of Stormwind (*) - COST:0 

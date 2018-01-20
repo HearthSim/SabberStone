@@ -271,7 +271,7 @@ namespace SabberStoneCore.Model.Entities
 				TakeDamage(source, heal);
 				return;
 			}
-			// we don't heal undamaged entities
+			// we don't heal undamaged entitiesd
 			if (Damage == 0)
 			{
 				return;
@@ -396,7 +396,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character has windfury.
 		/// </summary>
-		bool HasWindfury { get; set; }
+		bool HasWindfury { get; }
 
 		/// <summary>
 		/// Character can't be targeted by spells.

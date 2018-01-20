@@ -388,7 +388,7 @@ namespace SabberStoneCore.Model.Entities
 			//set => SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0);
 		}
 
-		public bool ToBeDestroyed
+		public virtual bool ToBeDestroyed
 		{
 			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
 			//get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
