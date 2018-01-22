@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model.Entities;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DestroyTask : SimpleTask
 	{
@@ -12,8 +14,10 @@
 		public override TaskState Process()
 		{
 
-			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p => { p?.Destroy(); });
+			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p => { p?.Destroy(); });
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+				p.Destroy();
 
 			return TaskState.COMPLETE;
 		}

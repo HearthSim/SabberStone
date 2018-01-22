@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using System.Collections;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Controller.BoardZone.IsFull)
 				return TaskState.STOP;
 
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ToList();
 
 			if (entities.Count < 1)
 			{
@@ -54,7 +55,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.OnRandomHappened(true);
 
 			int space = Controller.BoardZone.MaxSize - Controller.BoardZone.Count;
-			if (space < Playables.Count)
+			if (space < entities.Count)
 				Playables = Playables.Take(space).ToList();
 
 			entities.ForEach(p =>

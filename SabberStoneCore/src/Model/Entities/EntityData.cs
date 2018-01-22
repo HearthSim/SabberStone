@@ -93,9 +93,10 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (Tags.TryGetValue(t, out int value))
 					return value;
-				else if (Card.Tags.TryGetValue(t, out value))
-					return value;
-				return 0;
+
+				Card.Tags.TryGetValue(t, out value);
+				return value;
+				//return 0;
 			}
 			set { Tags[t] = value; }
 		}

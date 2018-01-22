@@ -45,7 +45,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    return TaskState.COMPLETE;
 		    }
 
-		    List<IPlayable> entities = IncludeTask.GetEntites(_entityType, Controller, Source, Target, Playables);
+		    //List<IPlayable> entities = IncludeTask.GetEntities(_entityType, Controller, Source, Target, Playables);
+		    IEnumerable<IPlayable> entities = IncludeTask.GetEntities(_entityType, Controller, Source, Target, Playables);
 
 			//	no indicator enchantment entities when History option is off
 		    if (Game.History)
@@ -84,30 +85,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    }
 		    else
 			    foreach (IPlayable entity in entities)
-				{
-					Power power = _enchantmentCard.Power;
+			    {
+				    Power power = _enchantmentCard.Power;
 
-					power.Aura?.Activate(entity);
-					power.Trigger?.Activate(entity);
-					Enchantment instance = null;
-					if (power.Aura != null || power.Trigger != null)
-					{
-						instance = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
-						power.Aura?.Activate(instance);
-						power.Trigger?.Activate(instance);
-					}
+				    power.Aura?.Activate(entity);
+				    power.Trigger?.Activate(entity);
+				    Enchantment instance = null;
+				    if (power.Aura != null || power.Trigger != null)
+				    {
+					    instance = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
+					    power.Aura?.Activate(instance);
+					    power.Trigger?.Activate(instance);
+				    }
 
-					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-						((OngoingEnchant)entity.OngoingEffect).Count++;
-					else
-						power.Enchant?.ActivateTo(entity, null, Number);
+				    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+					    ((OngoingEnchant) entity.OngoingEffect).Count++;
+				    else
+					    power.Enchant?.ActivateTo(entity, null, Number);
 
-					if (power.DeathrattleTask != null)
-						entity.HasDeathrattle = true;
-				}
-
-			
-
+				    if (power.DeathrattleTask != null)
+					    entity.HasDeathrattle = true;
+			    }
 		    return TaskState.COMPLETE;
 	    }
 

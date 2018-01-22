@@ -571,20 +571,27 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 1, 0));
 
-			Characters.ForEach(p =>
-			{
-				p.NumTurnsInPlay++;
-				p.NumAttacksThisTurn = 0;
-			});
 
-			Heroes.ForEach(p =>
+			for (int i = 0; i < 2; ++i)
 			{
-				p.Controller.NumCardsDrawnThisTurn = 0;
-				p.Controller.NumCardsPlayedThisTurn = 0;
-				p.Controller.NumMinionsPlayedThisTurn = 0;
-				p.Controller.NumOptionsPlayedThisTurn = 0;
-				p.Controller.NumFriendlyMinionsThatDiedThisTurn = 0;
-			});
+				Controller c = _players[i];
+
+				c.BoardZone.ForEach(p =>
+				{
+					p.NumTurnsInPlay++;
+					((Minion) p).NumAttacksThisTurn = 0;
+				});
+
+				c.Hero.NumTurnsInPlay++;
+				c.Hero.NumAttacksThisTurn = 0;
+
+				c.NumCardsDrawnThisTurn = 0;
+				c.NumCardsPlayedThisTurn = 0;
+				c.NumMinionsPlayedThisTurn = 0;
+				c.NumOptionsPlayedThisTurn = 0;
+				c.NumFriendlyMinionsThatDiedThisTurn = 0;
+			}
+			
 
 			CurrentPlayer.Hero.IsExhausted = false;
 			if (CurrentPlayer.Hero.Weapon != null)
@@ -696,7 +703,7 @@ namespace SabberStoneCore.Model
 			DeathProcessingAndAuraUpdate();
 
 			// move forward if game isn't won by any player now!
-			NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
+			NextStep = _players[0].PlayState == PlayState.PLAYING && _players[1].PlayState == PlayState.PLAYING
 				? Step.MAIN_ACTION
 				: Step.FINAL_WRAPUP;
 
@@ -878,13 +885,13 @@ namespace SabberStoneCore.Model
 					if (minion.HasDeathrattle)
 						minion.ActivateTask(PowerActivation.DEATHRATTLE);
 
-
-					minion.IsExhausted = false;
 					minion.Controller.GraveyardZone.Add(minion);
 					minion.Controller.NumFriendlyMinionsThatDiedThisTurn++;
 					CurrentPlayer.NumMinionsPlayerKilledThisTurn++;
 					NumMinionsKilledThisTurn++;
+
 					//minion.Damage = 0;
+					//minion.IsExhausted = false;
 
 					TriggerManager.OnDeathTrigger(minion);
 				}
@@ -1024,7 +1031,7 @@ namespace SabberStoneCore.Model
 			str.AppendLine(Player2.HandZone.FullPrint());
 			return str.ToString();
 		}
-
+		
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -1119,7 +1126,12 @@ namespace SabberStoneCore.Model
 		public Step NextStep
 		{
 			get { return (Step)GetNativeGameTag(GameTag.NEXT_STEP); }
-			set { this[GameTag.NEXT_STEP] = (int)value; }
+			//set { this[GameTag.NEXT_STEP] = (int)value; }
+			set
+			{
+				this[GameTag.NEXT_STEP] = (int)value;
+				GamesEventManager.NextStepEvent(this, (Step)value);
+			}
 		}
 
 		/// <summary>

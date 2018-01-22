@@ -20,17 +20,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			if (entities.Count != 1)
-			{
-				return TaskState.STOP;
-			}
+			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//if (entities.Count != 1)
+			//{
+			//	return TaskState.STOP;
+			//}
 
-			int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
+			//int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
+
+			var entity = (Entity) IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).GetEnumerator().Current;
+			int num = entity.GetNativeGameTag(Tag);
 
 			if (SelfBuffs)
 			{
 				//entities[0].OldEnchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
+				num += entity.AuraEffects[Tag];
 			}
 
 			switch (_index)

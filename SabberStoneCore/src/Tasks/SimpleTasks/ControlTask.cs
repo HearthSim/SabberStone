@@ -18,15 +18,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
+			//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				if (p.Zone.Type != Zone.PLAY)
-					return;
+					continue;//return;
 
 				if ((!Opposite && Controller.BoardZone.IsFull) || (Opposite && Controller.Opponent.BoardZone.IsFull))
 				{
 					p.Destroy();
-					return;
+					continue;//return;
 				}
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
@@ -34,7 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", !Game.Logging? "":$"{Controller.Name} is taking control of {p}.");
 
 				removedEntity.Controller.BoardZone.Add(removedEntity);
-			});
+			};
 
 			return TaskState.COMPLETE;
 		}

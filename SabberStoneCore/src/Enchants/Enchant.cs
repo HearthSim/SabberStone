@@ -72,10 +72,8 @@ namespace SabberStoneCore.Enchants
 		private int _count = 1;
 		private int _lastCount = 1;
 		private int _targetId;
-		private int _controllerId;
 		private bool _toBeUpdated;
 		private IEntity _target;
-		private Controller _controller;
 
 		public OngoingEnchant(params Effect[] effects) : base(effects) { }
 
@@ -97,17 +95,6 @@ namespace SabberStoneCore.Enchants
 				_target = value;
 			}
 		}
-		public Controller Controller
-		{
-			get => _controller ?? (_controller = Game.ControllerById(_controllerId));
-			set
-			{
-				_controllerId = Controller.Id;
-				_controller = Controller;
-			}
-		}
-
-		public string EnchantmentCardId => "";
 
 		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{

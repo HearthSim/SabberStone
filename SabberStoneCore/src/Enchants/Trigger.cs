@@ -35,12 +35,12 @@ namespace SabberStoneCore.Enchants
     public class Trigger
     {
 		public readonly Game Game;
-	    private int _sourceId;
-	    private int _controllerId;
-	    public TriggerActivation TriggerActivation;
-	    public readonly TriggerType TriggerType;
+	    private readonly int _sourceId;
+	    private readonly int _controllerId;
+	    private readonly TriggerType TriggerType;
+		private readonly SequenceType SequenceType;
+		public TriggerActivation TriggerActivation;
 		public TriggerSource TriggerSource;
-		public readonly SequenceType SequenceType;
 		public ISimpleTask SingleTask;
 	    public SelfCondition Condition;
 	    public bool EitherTurn;
@@ -111,7 +111,8 @@ namespace SabberStoneCore.Enchants
 		{
 			var instance = new Trigger(this, source);
 
-			source.ActivatedTriggers.Add(instance);
+			source.ActivatedTrigger = instance;
+
 			source.Game.Triggers.Add(instance);
 
 			switch (TriggerType)
@@ -295,8 +296,8 @@ namespace SabberStoneCore.Enchants
 					break;
 			}
 
-		    Owner.ActivatedTriggers.Remove(this);
-		    Owner.Game.Triggers.Remove(this);
+			Owner.ActivatedTrigger = null;
+			Owner.Game.Triggers.Remove(this);
 	    }
 
 	    public static void ValidateTriggers(Game game, IEntity source, SequenceType type)
@@ -311,6 +312,15 @@ namespace SabberStoneCore.Enchants
 		    for (int i = 0; i < game.Triggers.Count; i++)
 			    if (game.Triggers[i].TriggerType == type)
 				    game.Triggers[i].Validate(source);
+		}
+
+	    public static void Invalidate(Game game, SequenceType type)
+	    {
+		    game.Triggers.ForEach(p =>
+		    {
+			    if (p.SequenceType == type)
+				    p.Validated = false;
+		    });
 		}
 
 	    private void Validate(IEntity source)

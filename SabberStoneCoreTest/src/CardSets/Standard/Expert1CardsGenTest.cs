@@ -1854,6 +1854,37 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(1, game.Auras.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(0, game.Auras.Count);
+
+			// History = false
+			var game2 = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Ice Block")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = false,
+				History = false,
+			});
+			game2.StartGame();
+			game2.Player1.BaseMana = 3;
+			game2.Player2.BaseMana = 10;
+			IPlayable testCard3 = Generic.DrawCard(game2.CurrentPlayer, Cards.FromName("Kirin Tor Mage"));
+			game2.Process(PlayCardTask.Any(game2.CurrentPlayer, testCard3));
+			game2.Process(PlayCardTask.Any(game2.CurrentPlayer, "Ice Barrier"));
+			Assert.Equal(1, game2.CurrentPlayer.SecretZone.Count);
+			game2.Process(PlayCardTask.Any(game2.CurrentPlayer, "Ice Block"));
+			Assert.Equal(1, game2.CurrentPlayer.SecretZone.Count);
+			game2.Process(EndTurnTask.Any(game2.CurrentPlayer));
+
+			IPlayable testCard4 = Generic.DrawCard(game2.CurrentPlayer, Cards.FromName("Kirin Tor Mage"));
+			game2.Process(PlayCardTask.Any(game2.CurrentPlayer, testCard4));
+			Assert.Equal(1, game2.Auras.Count);
+			game2.Process(EndTurnTask.Any(game2.CurrentPlayer));
+			Assert.Equal(0, game2.Auras.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE

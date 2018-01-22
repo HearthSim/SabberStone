@@ -36,22 +36,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 
-			if (entities.Count == 0)
-			{
+			//if (entities.Count == 0)
+			//{
+			//	return TaskState.STOP;
+			//}
+
+			IEnumerable<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			if (!entities.Any())
 				return TaskState.STOP;
-			}
 
 			var source = (IPlayable)Source;
 
-			//Flag = entities.TrueForAll(p =>
-			//	SelfConditions.ToList().TrueForAll(c => c.Eval(p)) &&
-			//	RelaConditions.ToList().TrueForAll(c => c.Eval(source, p)));
-
 			int i;
 			Flag = true;
-			//Flag = SelfConditions.Length != 0 || RelaConditions.Length != 0;
 			foreach (IPlayable p in entities)
 			{
 				for (i = 0; i < SelfConditions.Length; i++)

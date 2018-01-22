@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Actions;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,8 +22,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables)
-				.ForEach(p => Generic.TransformBlock.Invoke(p.Controller, Card, p as Minion));
+			foreach(IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+				Generic.TransformBlock.Invoke(p.Controller, Card, p as Minion);
 
 			return TaskState.COMPLETE;
 		}

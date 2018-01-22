@@ -4805,7 +4805,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void KoboldGeomancer_CS2_142()
 		{
-			// TODO KoboldGeomancer_CS2_142 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

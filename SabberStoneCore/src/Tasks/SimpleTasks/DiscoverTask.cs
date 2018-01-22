@@ -330,7 +330,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							int n = Controller.DeckZone.Count >= 3 ? 3 : Controller.DeckZone.Count;
 							for (int i = 0; i < n; i++)
 							{
-								IPlayable item = Controller.DeckZone[0];
+								IPlayable item = Controller.DeckZone.TopCard;
 								Generic.RemoveFromZone(Controller, item);
 								Controller.SetasideZone.Add(item);
 								cards.Add(item.Card);

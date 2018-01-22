@@ -201,7 +201,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (Amount == 0)
 			{
-				Number -= IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).First()[Tag];
+				Number -= IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).First()[Tag];
 			}
 			else
 			{

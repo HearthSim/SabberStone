@@ -1,37 +1,37 @@
-﻿using SabberStoneCore.Enchants;
-using SabberStoneCore.Model.Entities;
+﻿//using SabberStoneCore.Enchants;
+//using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Tasks.SimpleTasks
-{
+//namespace SabberStoneCore.Tasks.SimpleTasks
+//{
 
-	public class BuffHealthNumberTask : SimpleTask
-	{
-		public BuffHealthNumberTask(EntityType type)
-		{
-			Type = type;
-		}
+//	public class BuffHealthNumberTask : SimpleTask
+//	{
+//		public BuffHealthNumberTask(EntityType type)
+//		{
+//			Type = type;
+//		}
 
-		public EntityType Type { get; set; }
+//		public EntityType Type { get; set; }
 
-		public override TaskState Process()
-		{
-			var source = Source as IPlayable;
-			if (source == null || Number == 0)
-			{
-				return TaskState.STOP;
-			}
+//		public override TaskState Process()
+//		{
+//			var source = Source as IPlayable;
+//			if (source == null || Number == 0)
+//			{
+//				return TaskState.STOP;
+//			}
 
-			var buff = new BuffTask(Buffs.Health(Number), Type, null);
-			buff.Copy(this);
+//			var buff = new BuffTask(Buffs.Health(Number), Type, null);
+//			buff.Copy(this);
 
-			return buff.Process();
-		}
+//			return buff.Process();
+//		}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new BuffHealthNumberTask(Type);
-			clone.Copy(this);
-			return clone;
-		}
-	}
-}
+//		public override ISimpleTask Clone()
+//		{
+//			var clone = new BuffHealthNumberTask(Type);
+//			clone.Copy(this);
+//			return clone;
+//		}
+//	}
+//}

@@ -91,7 +91,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool ReceveivesDoubleSpellDamage
 		{
-			get { return this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] == 1; }
+			get { return Card[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] == 1; }
 			set { this[GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS] = value ? 1 : 0; }
 		}
 

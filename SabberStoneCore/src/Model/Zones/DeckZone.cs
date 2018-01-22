@@ -10,8 +10,7 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class DeckZone : LimitedZone<IPlayable>
 	{
-		public int StartingCards { get; set; } = 30;
-
+		public const int StartingCards = 30;
 
 		public DeckZone(Controller controller)
 		{
@@ -22,13 +21,15 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.DECK;
 		}
 
-
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition);
 
-
+			if (entity.Power?.Trigger?.TriggerActivation == Enchants.TriggerActivation.DECK)
+				entity.Power.Trigger.Activate(entity);
 		}
+
+		public IPlayable TopCard => Entities[_count - 1];
 
 		public void Fill(List<string> excludeIds = null)
 		{

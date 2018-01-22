@@ -84,8 +84,7 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 
-			for (int j = Weapon.ActivatedTriggers.Count - 1; j >= 0; j--)
-				Weapon.ActivatedTriggers[j].Remove();
+			Weapon.ActivatedTrigger?.Remove();
 			Weapon.OngoingEffect?.Remove();
 
 			ClearWeapon();

@@ -25,8 +25,6 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			//if (entity.Powers?.Count > 0 && entity.Powers[0].Aura is AdaptiveCostEffect e)
-			//	e.Activate(entity);
 			if (entity.Power?.Aura is AdaptiveCostEffect e)
 				e.Activate(entity);
 			if (entity.Power?.Trigger?.TriggerActivation == TriggerActivation.HAND)

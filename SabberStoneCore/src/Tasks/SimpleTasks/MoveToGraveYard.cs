@@ -15,13 +15,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				p.Controller.GraveyardZone.Add(p.Zone.Remove(p));
 				if (p[GameTag.SECRET] == 1 && p[GameTag.REVEALED] == 1)
 					Game.TriggerManager.OnSecretRevealedTrigger(p);
-			});
+			};
 			return TaskState.COMPLETE;
 		}
 

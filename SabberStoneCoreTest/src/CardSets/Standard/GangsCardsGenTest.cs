@@ -2173,7 +2173,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, testCard));
 			Assert.Equal(1, game.CurrentOpponent.DeckZone.Count);
-			Assert.Equal("CFM_324t", game.CurrentOpponent.DeckZone[0].Card.Id);
+			Assert.Equal("CFM_324t", game.CurrentOpponent.DeckZone.TopCard.Card.Id);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

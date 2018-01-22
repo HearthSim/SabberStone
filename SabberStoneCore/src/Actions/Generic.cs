@@ -18,9 +18,6 @@ namespace SabberStoneCore.Actions
 			{
 				if (applySpellDmg)
 				{
-					//amount += ((Spell)source).ReceveivesDoubleSpellDamage
-					//	? source.Controller.Hero.SpellPowerDamage * 2
-					//	: source.Controller.Hero.SpellPowerDamage;
 					amount += ((Spell) source).ReceveivesDoubleSpellDamage
 						? source.Controller.CurrentSpellPower * 2
 						: source.Controller.CurrentSpellPower;

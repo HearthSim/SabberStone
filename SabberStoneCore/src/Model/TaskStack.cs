@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using System;
+using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,11 +29,12 @@ namespace SabberStoneCore.Model
 
 		public void Stamp(TaskStack taskStack)
 		{
+			//Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
 			Playables = new List<IPlayable>();
-			Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
-			CardIds = taskStack.CardIds;
+			CardIds = new List<string>();
 			Flag = taskStack.Flag;
-			Numbers = new List<int>(taskStack.Numbers).ToArray();
+			Numbers = new int[5];
+			Array.Copy(taskStack.Numbers, Numbers, 5);
 		}
 	}
 }

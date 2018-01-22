@@ -311,6 +311,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.CAST_SPELL:
 					Game.TriggerManager.CastSpellTrigger -= TriggeredRemove;
 					return;
+				case TriggerType.TURN_END:
+					Game.TriggerManager.EndTurnTrigger -= TriggeredRemove;
+					break;
 			}
 
 			if (Owner is Enchantment e)

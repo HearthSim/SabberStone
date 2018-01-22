@@ -24,14 +24,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    if (Game.History)
 			    tags.Add(GameTag.PREMIUM, target[GameTag.PREMIUM]);
 
-
 		    Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags);
 
-		    //target.ActivatedTriggers.ForEach(p => p.Activate(copy));
-		    //target.OngoingEffect.Clone(copy);
-
-		    var triggers = new List<Trigger>(target.ActivatedTriggers);
-		    var aura = target.OngoingEffect;
+		    Trigger trigger = target.ActivatedTrigger;
+		    IAura aura = target.OngoingEffect;
 
 		    // LINKED_ENTITY
 		    source.Controller.BoardZone.Replace(source, copy);
@@ -66,7 +62,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-		    triggers.ForEach(t => t.Activate(copy));
+
+		    trigger?.Activate(copy);
 		    aura?.Clone(copy);
 
 			return TaskState.COMPLETE;

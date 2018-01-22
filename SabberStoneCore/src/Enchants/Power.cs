@@ -9,13 +9,7 @@ namespace SabberStoneCore.Enchants
 	{
 		public string InfoCardId { get; set; } = null;
 
-		public PowerArea Area { get; set; } = PowerArea.NONE;
-
 		public PowerActivation Activation { get; set; } = PowerActivation.NONE;
-
-		public OldEnchant OldEnchant { get; set; }
-
-		public OldTrigger OldTrigger { get; set; }
 
 		public Aura Aura { get; set; }
 
@@ -23,15 +17,11 @@ namespace SabberStoneCore.Enchants
 
 		public Trigger Trigger { get; set; }
 
-		public Trigger Trigger2 { get; set; }
-
 		public ISimpleTask PowerTask { get; set; }
 
 		public ISimpleTask DeathrattleTask { get; set; }
 
 		public ISimpleTask ComboTask { get; set; }
-
-		public bool RemoveAfterActivation { get; set; } = false;
 
 		//public void Activate(Controller controller, IPlayable source, IPlayable target = null)
 		//{

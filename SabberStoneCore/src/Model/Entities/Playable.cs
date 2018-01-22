@@ -161,7 +161,7 @@ namespace SabberStoneCore.Model.Entities
 
 		IAura OngoingEffect { get; set; }
 
-		List<Trigger> ActivatedTriggers { get; }
+		Trigger ActivatedTrigger { get; set; }
 	}
 
 	/// <summary>
@@ -196,7 +196,7 @@ namespace SabberStoneCore.Model.Entities
 			//	Powers = new List<Power>(playable.Powers);
 
 			playable.OngoingEffect?.Clone(this);
-			playable.ActivatedTriggers?.ForEach(p => p.Activate(this));
+			playable.ActivatedTrigger?.Activate(this);
 
 			if (playable.ChooseOnePlayables != null)
 			{
@@ -490,7 +490,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public IAura OngoingEffect { get; set; }
 
-		public List<Trigger> ActivatedTriggers { get; } = new List<Trigger>();
+		public Trigger ActivatedTrigger { get; set; }
 
 		public override void Reset()
 		{

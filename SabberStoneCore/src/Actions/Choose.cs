@@ -245,7 +245,7 @@ namespace SabberStoneCore.Actions
 						mulliganList.ForEach(p =>
 						{
 							// drawing a new one
-							IPlayable playable = c.DeckZone.Remove(c.DeckZone[0]);
+							IPlayable playable = c.DeckZone.Remove(c.DeckZone.TopCard);
 
 							if (AddHandPhase.Invoke(c, playable))
 							{

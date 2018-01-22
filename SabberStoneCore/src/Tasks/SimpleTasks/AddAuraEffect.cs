@@ -20,10 +20,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override TaskState Process()
 	    {
-		    List<IPlayable> entities = IncludeTask.GetEntites(_type, Controller, Source, Target, Playables);
+		    //List<IPlayable> entities = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
 
-		    for (int i = 0; i < entities.Count; i++)
-			    _effect.Apply(entities[i].AuraEffects);
+		    //for (int i = 0; i < entities.Count; i++)
+			   // _effect.Apply(entities[i].AuraEffects);
+
+		    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
+			    _effect.Apply(p.AuraEffects);
 
 		    return TaskState.COMPLETE;
 	    }

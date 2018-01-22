@@ -29,10 +29,8 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.HeroPower.Id, "", 0, target?.Id ?? 0));
 
-				string targtTxt = target != null ? $" targeting {target}" : "";
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{targtTxt}.");
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
 
-				//c.Hero.HeroPower.ApplyPowers(PowerActivation.SPELL, Zone.PLAY, target);
 				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target);
 
 				c.Hero.HeroPower.IsExhausted = true;

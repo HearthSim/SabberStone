@@ -143,23 +143,23 @@ namespace SabberStoneCore.Tasks
 				}));
 		}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
-		{
-			return Create(
-				new IncludeTask(type),
-				new FilterStackTask(list),
-				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
-		}
+		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
+		//{
+		//	return Create(
+		//		new IncludeTask(type),
+		//		new FilterStackTask(list),
+		//		new RandomTask(1, EntityType.STACK),
+		//		new BuffTask(buff, EntityType.STACK));
+		//}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
-		{
-			return Create(
-				new IncludeTask(type),
-				new FilterStackTask(EntityType.SOURCE, list),
-				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
-		}
+		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
+		//{
+		//	return Create(
+		//		new IncludeTask(type),
+		//		new FilterStackTask(EntityType.SOURCE, list),
+		//		new RandomTask(1, EntityType.STACK),
+		//		new BuffTask(buff, EntityType.STACK));
+		//}
 
 		public static ISimpleTask SummonRandomMinion(EntityType type, params RelaCondition[] list)
 		{

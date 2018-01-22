@@ -136,6 +136,10 @@ namespace SabberStoneCore.Model.Entities
 			_data = new EntityData(card, tags);
 			Id = _data.Tags[GameTag.ENTITY_ID];
 			AuraEffects = new AuraEffects(this);
+
+			if (game == null) return;
+			_history = game.History;
+			_logging = game.Logging;
 		}
 
 		/// <summary>
@@ -203,10 +207,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
-		/// This is the call for a gametag value. At this point triggers
-		/// and enchants come into play.
-		/// Gets are looking for active enchants on that game tag.
-		/// Sets are looking for active triggers on that game tag.
+		/// This is the call for a gametag value.
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
@@ -222,11 +223,13 @@ namespace SabberStoneCore.Model.Entities
 			}
 			set
 			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value}");
+				if (_logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value}");
+				if (_history && (int)t < 1000)
+					if (value + AuraEffects[t] != this[t])
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
 
-				Game.OnEntityChanged(this, t, 0, value);
-
-				_data[t] = value > 0 ? value : 0;
+				_data.Tags[t] = value;
 			}
 		}
 
@@ -363,10 +366,10 @@ namespace SabberStoneCore.Model.Entities
 
 	public partial class Entity
 	{
+		private readonly bool _history;
+		private readonly bool _logging;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
-		//public int Id => _data[GameTag.ENTITY_ID];
 		public int Id { get; }
 
 		public bool TurnStart

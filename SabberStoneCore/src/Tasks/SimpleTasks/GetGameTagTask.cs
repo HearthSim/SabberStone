@@ -20,7 +20,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			//List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables
+			var entities =
+				new List<Model.Entities.IPlayable>(IncludeTask.GetEntities(Type, Controller, Source, Target, Playables));
 			if (entities.Count == 0)
 			{
 				return TaskState.STOP;

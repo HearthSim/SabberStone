@@ -38,39 +38,7 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
 				new FlagTask(true, new SummonTask())
 			);
-		//public static ISimpleTask PatchesThePirate
-		//	=> ComplexTask.Create(
-		//		new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
-		//		new IncludeTask(EntityType.SOURCE),
-		//		new FlagTask(true, new FuncPlayablesTask(p =>
-		//		{
-		//			var entity = p[0] as Entity;
-		//			entity.SetNativeGameTag(GameTag.REVEALED, 1);
 
-
-		//			return p;
-		//		}))
-		//	);
-
-		public static ISimpleTask FrostwolfBanner
-			=> ComplexTask.Create(
-				new CountTask(EntityType.MINIONS_NOSOURCE),
-				new BuffAttackHealthNumberTask(EntityType.SOURCE)
-			);
-
-		public static ISimpleTask AnimalCompanion
-			=> ComplexTask.Create(
-				new IncludeTask(EntityType.SOURCE),
-				new FuncPlayablesTask(list =>
-				{
-					var result = new List<IPlayable>();
-					Controller controller = list[0].Controller;
-					List<string> entourage = list[0].Card.Entourage;
-					entourage.ForEach(p => result.Add(Entity.FromCard(controller, Cards.FromId(p))));
-					return result;
-				}),
-				new RandomTask(1, EntityType.STACK),
-				new SummonTask());
 
 		public static ISimpleTask TotemicCall
 			=> ComplexTask.Create(

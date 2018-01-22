@@ -37,8 +37,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Amount < 1 && RandAmount < 1)
 				return TaskState.STOP;
 
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				int randAmount = 0;
 				if (RandAmount > 0)
@@ -57,7 +58,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					Controller.Hero.TakeHeal((Source as IPlayable), damage);
 				}
-			});
+			};
 			return TaskState.COMPLETE;
 		}
 

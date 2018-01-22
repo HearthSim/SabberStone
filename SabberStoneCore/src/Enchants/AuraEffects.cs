@@ -122,9 +122,9 @@ namespace SabberStoneCore.Enchants
 			Checker = true;
 
 			if (_costEffects == null)
-				_costEffects = new List<CostEffect>(1);
-
-			_costEffects.Add(new CostEffect(e));
+				_costEffects = new List<CostEffect>{ new CostEffect(e) };
+			else
+				_costEffects.Add(new CostEffect(e));
 		}
 
 		public void RemoveCostAura(Effect e)
@@ -167,6 +167,7 @@ namespace SabberStoneCore.Enchants
 				COST = COST,
 				CHARGE = CHARGE,
 				Owner = clone,
+				Checker = Checker,
 				_costEffects = _costEffects != null ? new List<CostEffect>(_costEffects) : null
 			};
 		}
@@ -231,6 +232,9 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						_extraEndTurnEffect = value;
+						return;
+					case GameTag.HERO_POWER_DISABLED:
+						_heroPowerDisabled = value;
 						return;
 					default:
 						return;

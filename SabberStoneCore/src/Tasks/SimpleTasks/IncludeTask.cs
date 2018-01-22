@@ -150,11 +150,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (AddFlag)
 			{
-				Playables.AddRange(RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
+				Playables.AddRange(RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
 			}
 			else
 			{
-				Playables = RemoveEntities(GetEntites(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray);
+				Playables = RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray).ToList();
 			}
 			return TaskState.COMPLETE;
 		}
@@ -166,7 +166,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return clone;
 		}
 
-		private List<IPlayable> RemoveEntities(List<IPlayable> boardGetAll, IEnumerable<EntityType> exceptArray)
+		private IEnumerable<IPlayable> RemoveEntities(IEnumerable<IPlayable> boardGetAll, IEnumerable<EntityType> exceptArray)
 		{
 			if (exceptArray == null)
 			{
@@ -175,216 +175,220 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var exceptListEntities = new List<IPlayable>();
 			foreach (EntityType excludeType in exceptArray)
 			{
-				exceptListEntities.AddRange(GetEntites(excludeType, Controller, Source, Target, Playables));
+				exceptListEntities.AddRange(GetEntities(excludeType, Controller, Source, Target, Playables));
 			}
 			return boardGetAll.Except(exceptListEntities).ToList();
 		}
 
-		public static List<IPlayable> GetEntites(EntityType type, Controller controller, IEntity source, IEntity target, List<IPlayable> stack)
+		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source, IEntity target, List<IPlayable> stack)
 		{
-			var result = new List<IPlayable>();
-
 			switch (type)
 			{
-				case EntityType.STACK:
-					result = stack;
-					break;
-
 				case EntityType.TARGET:
 					if (source is Enchantment e)
 					{
-						if (e.Target is IPlayable p)
-							result.Add(p);
-						break;
+						yield return (IPlayable)e.Target;
+						yield break;
 					}
-
-					if (target is IPlayable t)
-					{
-						result.Add(t);
-					}
-					break;
-
+					if (target is IPlayable p)
+						yield return p;
+					yield break;
 				case EntityType.SOURCE:
-					if (source is IPlayable s)
-					{
-						result.Add(s);
-					}
-					break;
-
+					yield return (IPlayable)source;
+					yield break;
 				case EntityType.HERO:
-					result.Add(controller.Hero);
-					break;
-
-				case EntityType.HEROES:
-					result.Add(controller.Hero);
-					result.Add(controller.Opponent.Hero);
-					break;
-
+					yield return c.Hero;
+					yield break;
 				case EntityType.HERO_POWER:
-					result.Add(controller.Hero.HeroPower);
-					break;
-
+					yield return c.Hero.HeroPower;
+					yield break;
 				case EntityType.OP_HERO_POWER:
-					result.Add(controller.Opponent.Hero.HeroPower);
-					break;
-
-				case EntityType.WEAPON:
-					if (controller.Hero.Weapon != null)
-					{
-						result.Add(controller.Hero.Weapon);
-					}
-					break;
-
+					yield return c.Opponent.Hero.HeroPower;
+					yield break;
 				case EntityType.HAND:
-					result.AddRange(controller.HandZone);
-					break;
-
+					for (int i = 0; i < c.HandZone.Count; i++)
+						yield return c.HandZone[i];
+					yield break;
 				case EntityType.HAND_NOSOURCE:
-					result.AddRange(controller.HandZone);
-					result.Remove(source as IPlayable);
-					break;
-
+					for (int i = 0; i < c.HandZone.Count; i++)
+					{
+						if (c.HandZone[i] != source)
+							yield return c.HandZone[i];
+					}
+					yield break;
 				case EntityType.DECK:
-					result.AddRange(controller.DeckZone);
+					for (int i = 0; i < c.DeckZone.Count; i++)
+						yield return c.DeckZone[i];
 					break;
-
+				case EntityType.SECRETS:
+					for (int i = 0; i < c.SecretZone.Count; i++)
+						yield return c.SecretZone[i];
+					yield break;
 				case EntityType.MINIONS:
-					if (controller.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.BoardZone);
-					}
-					break;
-
+					for (int i = 0; i < c.BoardZone.Count; i++)
+						yield return c.BoardZone[i];
+					yield break;
 				case EntityType.MINIONS_NOSOURCE:
-					if (controller.BoardZone.Count > 0)
+					for (int i = 0; i < c.BoardZone.Count; i++)
 					{
-						result.AddRange(controller.BoardZone);
-					}
-					result.Remove(source as IPlayable);
-					break;
-
-				case EntityType.GRAVEYARD:
-					if (controller.GraveyardZone.Count > 0)
-					{
-						result.AddRange(controller.GraveyardZone);
+						if (c.BoardZone[i] != source)
+							yield return c.BoardZone[i];
 					}
 					break;
-
 				case EntityType.FRIENDS:
-					result.Add(controller.Hero);
-					if (controller.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.BoardZone);
-					}
-					break;
-
+					yield return c.Hero;
+					for (int i = 0; i < c.BoardZone.Count; i++)
+						yield return c.BoardZone[i];
+					yield break;
 				case EntityType.OP_HERO:
-					result.Add(controller.Opponent.Hero);
-					break;
-
-				case EntityType.OP_WEAPON:
-					if (controller.Opponent.Hero.Weapon != null)
-					{
-						result.Add(controller.Opponent.Hero.Weapon);
-					}
-					break;
-
+					yield return c.Opponent.Hero;
+					yield break;
 				case EntityType.OP_HAND:
-					result.AddRange(controller.Opponent.HandZone);
-					break;
-
+					foreach (IPlayable t in c.Opponent.HandZone)
+						yield return t;
+					yield break;
 				case EntityType.OP_DECK:
-					result.AddRange(controller.Opponent.DeckZone);
-					break;
-
-				case EntityType.OP_MINIONS:
-					if (controller.Opponent.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					break;
-
+					foreach (IPlayable t in c.Opponent.DeckZone)
+						yield return t;
+					yield break;
 				case EntityType.OP_SECRETS:
-					if (controller.Opponent.SecretZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.SecretZone);
-					}
-					break;
-
+					foreach (IPlayable t in c.Opponent.SecretZone)
+						yield return t;
+					yield break;
+				case EntityType.OP_MINIONS:
+					foreach (IPlayable t in c.Opponent.BoardZone)
+						yield return t;
+					yield break;
 				case EntityType.ENEMIES:
-					result.Add(controller.Opponent.Hero);
-					if (controller.Opponent.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					break;
-
+					yield return c.Opponent.Hero;
+					foreach (IPlayable t in c.Opponent.BoardZone)
+						yield return t;
+					yield break;
 				case EntityType.ENEMIES_NOTARGET:
-					result.Add(controller.Opponent.Hero);
-					if (controller.Opponent.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					result.Remove(target as IPlayable);
-					break;
-
+					foreach (IPlayable t in c.Opponent.BoardZone)
+						if (t != target)
+							yield return t;
+					yield break;
 				case EntityType.ALL:
-					result.Add(controller.Hero);
-					result.Add(controller.Opponent.Hero);
-					if (controller.Opponent.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					if (controller.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.BoardZone);
-					}
-					break;
-
+					yield return c.Hero;
+					for (int i = 0; i < c.BoardZone.Count; i++)
+						yield return c.BoardZone[i];
+					yield return c.Opponent.Hero;
+					foreach (IPlayable t in c.Opponent.DeckZone)
+						yield return t;
+					yield break;
 				case EntityType.ALL_NOSOURCE:
-					result.Add(controller.Hero);
-					result.Add(controller.Opponent.Hero);
-					if (controller.Opponent.BoardZone.Count > 0)
-						result.AddRange(controller.Opponent.BoardZone);
-					if (controller.BoardZone.Count > 0)
-						result.AddRange(controller.BoardZone);
-					result.Remove(source as IPlayable);
-					break;
+					if (source.Controller == c)
+					{
+						if (source.Zone.Type == Enums.Zone.PLAY)
+						{
+							yield return c.Hero;
+							for (int i = 0; i < c.BoardZone.Count; i++)
+							{
+								if (c.BoardZone[i] != source)
+									yield return c.BoardZone[i];
+							}
 
+							yield return c.Opponent.Hero;
+							foreach (IPlayable t in c.Opponent.DeckZone)
+								yield return t;
+							yield break;
+						}
+
+						if (source is Hero)
+						{
+							for (int i = 0; i < c.BoardZone.Count; i++)
+								yield return c.BoardZone[i];
+							yield return c.Opponent.Hero;
+							foreach (IPlayable t in c.Opponent.DeckZone)
+								yield return t;
+							yield break;
+						}
+
+						yield break;
+					}
+					else
+					{
+						if (source.Zone.Type == Enums.Zone.PLAY)
+						{
+							yield return c.Hero;
+							for (int i = 0; i < c.BoardZone.Count; i++)
+								yield return c.BoardZone[i];
+							yield return c.Opponent.Hero;
+							foreach (IPlayable t in c.Opponent.DeckZone)
+							{
+								if (t != source)
+									yield return t;
+							}
+							yield break;
+						}
+
+						if (source is Hero)
+						{
+							yield return c.Hero;
+							for (int i = 0; i < c.BoardZone.Count; i++)
+								yield return c.BoardZone[i];
+							foreach (IPlayable t in c.Opponent.DeckZone)
+								yield return t;
+							yield break;
+						}
+
+						yield break;
+					}
+				case EntityType.WEAPON:
+					yield return c.Hero.Weapon;
+					yield break;
+				case EntityType.OP_WEAPON:
+					yield return c.Opponent.Hero.Weapon;
+					yield break;
+				case EntityType.STACK:
+					for (int i = 0; i < stack.Count; i++)
+						yield return stack[i];
+					yield break;
 				case EntityType.ALLMINIONS:
-					if (controller.Opponent.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					if (controller.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.BoardZone);
-					}
-					break;
-
+					for (int i = 0; i < c.BoardZone.Count; i++)
+						yield return c.BoardZone[i];
+					foreach (IPlayable t in c.Opponent.DeckZone)
+						yield return t;
+					yield break;
 				case EntityType.ALLMINIONS_NOSOURCE:
-					if (controller.Opponent.BoardZone.Count > 0)
+					if (source.Controller == c)
 					{
-						result.AddRange(controller.Opponent.BoardZone);
-					}
-					if (controller.BoardZone.Count > 0)
-					{
-						result.AddRange(controller.BoardZone);
-					}
-					result.Remove(source as IPlayable);
-					break;
+						for (int i = 0; i < c.BoardZone.Count; i++)
+						{
+							if (c.BoardZone[i] != source)
+								yield return c.BoardZone[i];
+						}
+						foreach (IPlayable t in c.Opponent.DeckZone)
+							yield return t;
 
+						yield break;
+					}
+					else
+					{
+						for (int i = 0; i < c.BoardZone.Count; i++)
+							yield return c.BoardZone[i];
+						foreach (IPlayable t in c.Opponent.DeckZone)
+						{
+							if (t != source)
+								yield return t;
+						}
+						yield break;
+					}
+				case EntityType.GRAVEYARD:
+					for (int i = 0; i < c.GraveyardZone.Count; i++)
+						yield return c.GraveyardZone[i];
+					yield break;
+				case EntityType.HEROES:
+					yield return c.Hero;
+					yield return c.Opponent.Hero;
+					yield break;
 				case EntityType.TOPCARDFROMDECK:
-					if (controller.DeckZone.Count > 0)
-					{
-						result.Add(controller.DeckZone[0]);
-					}
-					break;
-
+					yield return c.DeckZone.TopCard;
+					yield break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new NotImplementedException();
 			}
-			return result;
 		}
 	}
 }

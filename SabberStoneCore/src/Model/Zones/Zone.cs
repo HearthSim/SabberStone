@@ -282,7 +282,10 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			int pos = Array.IndexOf((Array)Entities, entity);
+			int pos;
+			for (pos = _count - 1; pos >= 0; --pos)
+				if (Entities[pos].Equals(entity)) break;
+
 			Entities[pos] = default(T);
 
 			int i;
@@ -291,12 +294,12 @@ namespace SabberStoneCore.Model.Zones
 
 			Entities[i] = default(T);
 
+
 			_count--;
 
 			entity.Zone = null;
 
-			for (int j = entity.ActivatedTriggers.Count - 1; j >= 0; j--)
-				entity.ActivatedTriggers[j].Remove();
+			entity.ActivatedTrigger?.Remove();
 
 			return entity;
 		}
@@ -316,6 +319,12 @@ namespace SabberStoneCore.Model.Zones
 		{
 			for (int i = 0; i < _count; i++)
 				yield return Entities[i];
+		}
+
+		public void ForEach(Action<IPlayable> action)
+		{
+			for (int i = 0; i < _count; ++i)
+				action(Entities[i]);
 		}
 	}
 
@@ -366,8 +375,7 @@ namespace SabberStoneCore.Model.Zones
 			//entity.ZonePosition = 0;
 			entity.Zone = null;
 
-			for (int j = entity.ActivatedTriggers.Count - 1; j >= 0; j--)
-				entity.ActivatedTriggers[j].Remove();
+			entity.ActivatedTrigger?.Remove();
 
 			return entity;
 		}

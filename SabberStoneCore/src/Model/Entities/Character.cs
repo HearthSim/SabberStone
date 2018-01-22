@@ -199,30 +199,25 @@ namespace SabberStoneCore.Model.Entities
 				return 0;
 			}
 
+			int armor = hero?.Armor ?? 0;
 
 			// added pre damage
-			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : 0;
+			PreDamage = hero == null ? damage : armor < damage ? damage - armor : 0;
 
 			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
 			PreDamageTrigger?.Invoke(this);
 
-			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
+			if (this.IsImmune)
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");
 				PreDamage = 0;
-				Game.Triggers.ForEach(p =>
-				{
-					if (p.SequenceType == SequenceType.DamageDealt)
-						p.Validated = false;
-				});
+				Trigger.Invalidate(Game, SequenceType.DamageDealt);
 				return 0;
 			}
 
 			// remove armor first from hero ....
-			if (hero != null && hero.Armor > 0)
-			{
-				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
-			}
+			if (armor > 0)
+				hero.Armor = armor < damage ? 0 : armor - damage;
 
 
 			// final damage is beeing accumulated
@@ -446,7 +441,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Armor
 		{
-			get { return this[GameTag.ARMOR]; }
+			get
+			{
+				NativeTags.TryGetValue(GameTag.ARMOR, out int value);
+				return value;
+			}
 			set { this[GameTag.ARMOR] = value; }
 		}
 

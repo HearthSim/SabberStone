@@ -193,6 +193,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
+			_currentSpellPower = controller._currentSpellPower;
 		}
 
 		/// <summary>

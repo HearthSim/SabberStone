@@ -1,4 +1,6 @@
-﻿using SabberStoneCore.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -17,8 +19,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntites(TypeA, Controller, Source, Target, Playables);
-			System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntites(TypeB, Controller, Source, Target, Playables);
+			//System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables);
+			//System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables);
+			List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables).ToList();
+			List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables).ToList();
 			if (typeA.Count != 1 || typeB.Count != 1)
 			{
 				return TaskState.STOP;

@@ -20,9 +20,6 @@ namespace SabberStoneCore.Model.Entities
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
-
-			if (card.Power.Trigger != null)
-				ActivatedTriggers = new List<Trigger>(1);
 		}
 
 		public int this[GameTag t]
@@ -116,6 +113,8 @@ namespace SabberStoneCore.Model.Entities
 			instance.OrderOfPlay = controller.Game.NextOop;
 			//	323 = 1
 
+			controller.Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
+				!controller.Game.Logging ? "" : $"Enchantment {card} created by {creator} is added to {target}.");
 
 			return instance;
 		}
@@ -140,14 +139,16 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			OngoingEffect?.Remove();
-			if (ActivatedTriggers != null)
-				for (int i = ActivatedTriggers.Count - 1; i >= 0; i--)
-					ActivatedTriggers[i].Remove();
+			ActivatedTrigger?.Remove();
+
 
 			if (Target is IPlayable p)
 				p.RemoveEnchantments -= Remove;
 
 			Target.AppliedEnchantments.Remove(this);
+
+			Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
+				!Game.Logging ? "" : $"Enchantment {this} is removed from {Target}.");
 		}
 
 		public AuraEffects AuraEffects { get; set; }
@@ -156,7 +157,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public Power Power => Card.Power;
 		public Action RemoveEnchantments { get; set; }
-		public List<Trigger> ActivatedTriggers { get; }
+		public Trigger ActivatedTrigger { get; set; }
 
 		public void Reset()
 		{

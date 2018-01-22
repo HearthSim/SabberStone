@@ -53,8 +53,7 @@ namespace SabberStoneCore.Model.Zones
 			// Remove old Entity
 			RemoveAura(oldEntity);
 
-			for (int j = oldEntity.ActivatedTriggers.Count - 1; j >= 0; j--)
-				oldEntity.ActivatedTriggers[j].Remove();
+			oldEntity.ActivatedTrigger?.Remove();
 			Controller.SetasideZone.Add(oldEntity);
 
 			// Add new Entity
@@ -85,7 +84,7 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.OngoingEffect?.Remove();
 
-			if (entity[GameTag.SPELLPOWER] > 0)
+			if (entity.Controller.CurrentSpellPower > 0 && entity[GameTag.SPELLPOWER] > 0)
 				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
 		}
 	}

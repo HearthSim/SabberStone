@@ -285,6 +285,7 @@ namespace SabberStoneCore.Actions
 					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"Spell {spell} has been countred.");
 					spell.JustPlayed = false;
 					c.GraveyardZone.Add(spell);
+					Trigger.Invalidate(c.Game, SequenceType.PlaySpell);
 				}
 				else if (spell.IsSecret || spell.IsQuest)
 				{

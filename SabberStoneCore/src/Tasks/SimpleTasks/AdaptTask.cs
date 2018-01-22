@@ -23,7 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 		{
 			ChoiceAction choiceAction = ChoiceAction.ADAPT;
-			var targets = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
+			var targets = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
 
 			if (!targets.Any())
 				return TaskState.STOP;

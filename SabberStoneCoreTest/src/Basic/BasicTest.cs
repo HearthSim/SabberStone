@@ -7,6 +7,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCoreTest.Basic
 {
@@ -128,7 +129,7 @@ namespace SabberStoneCoreTest.Basic
 
 			game.Player1.DeckZone.Fill();
 
-			Assert.Equal(game.Player1.DeckZone.Count, game.Player1.DeckZone.StartingCards); // Filling didn't matched max card size for deck
+			Assert.Equal(game.Player1.DeckZone.Count, DeckZone.StartingCards); // Filling didn't matched max card size for deck
 		}
 
 		[Fact]

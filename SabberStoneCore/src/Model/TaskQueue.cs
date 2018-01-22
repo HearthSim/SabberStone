@@ -10,7 +10,8 @@ namespace SabberStoneCore.Model
 {
 	public class TaskQueue
 	{
-		public List<ISimpleTask> TaskList = new List<ISimpleTask>();
+		//public List<ISimpleTask> TaskList = new List<ISimpleTask>();
+		public Queue<ISimpleTask> TaskList = new Queue<ISimpleTask>();
 
 		public int Count => TaskList.Count;
 
@@ -25,18 +26,23 @@ namespace SabberStoneCore.Model
 
 		public void Stamp(TaskQueue taskQueue)
 		{
-			TaskList = new List<ISimpleTask>();
-			taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
+			//TaskList = new List<ISimpleTask>();
+			//taskQueue.TaskList.ForEach(p => TaskList.Add(p.Clone()));
+			TaskList = new Queue<ISimpleTask>(taskQueue.TaskList.Count);
+			foreach (ISimpleTask task in taskQueue.TaskList)
+				TaskList.Enqueue(task.Clone());
+			foreach (ISimpleTask task in TaskList)
+				task.Game = Game;
 			if (taskQueue.CurrentTask != null)
 			{
 				CurrentTask = taskQueue.CurrentTask.Clone();
 				CurrentTask.Game = Game;
 			}
-			TaskList.ForEach(p =>
-			{
-				p.Game = Game;
-				//p.Reset();
-			});
+			//TaskList.ForEach(p =>
+			//{
+			//	p.Game = Game;
+			//	//p.Reset();
+			//});
 		}
 
 		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target)
@@ -75,14 +81,17 @@ namespace SabberStoneCore.Model
 			// TODO reset task from previous uses .. maybee need to clone it?
 			//task.Reset();
 
-			TaskList.Add(task);
+			//TaskList.Add(task);
+			TaskList.Enqueue(task);
 		}
 
 		public TaskState Process()
 		{
-			CurrentTask = FirstByOrderOfPlay(TaskList);
+			//CurrentTask = FirstByOrderOfPlay(TaskList);
 
-			TaskList.Remove(CurrentTask);
+			//TaskList.Remove(CurrentTask);
+
+			CurrentTask = TaskList.Dequeue();
 
 			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
 										$"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");

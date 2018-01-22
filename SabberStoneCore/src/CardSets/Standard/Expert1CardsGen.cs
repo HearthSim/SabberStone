@@ -1125,7 +1125,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_012", new Power {
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
-					Condition = SelfCondition.IsMyTurn,
+					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("NEW1_012o", EntityType.SOURCE)
 				}
 			});

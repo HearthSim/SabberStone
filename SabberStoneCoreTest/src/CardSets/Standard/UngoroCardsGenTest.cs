@@ -2978,7 +2978,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explore Un'Goro"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal("UNG_922t1", game.CurrentPlayer.DeckZone[0].Card.Id);
+			Assert.Equal("UNG_922t1", game.CurrentPlayer.DeckZone.TopCard.Card.Id);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
