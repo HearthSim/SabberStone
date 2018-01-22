@@ -9,22 +9,29 @@ namespace SabberStoneCore.Enchants
 		ADD, SUB, MUL, SET
 	}
 
+	/// <summary>
+	/// Represents an effect of <see cref="Aura"/>s or <see cref="Enchantment"/> cards.
+	/// </summary>
 	public struct Effect : IEquatable<Effect>
 	{
 		public readonly GameTag Tag;
 		public readonly EffectOperator Operator;
 		public readonly int Value;
 
-
+		/// <summary>
+		/// Create a new Effect. An Effect is consist of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
+		/// </summary>
+		/// <param name="tag">The <see cref="GameTag"/> to be affected.</param>
 		public Effect(GameTag tag, EffectOperator @operator, int value)
 		{
 			Tag = tag;
 			Operator = @operator;
 			Value = value;
-
 		}
 
-
+		/// <summary>
+		/// Apply this effect to the target entity.
+		/// </summary>
 		public void Apply(IEntity entity, bool oneTurnEffect = false)
 		{
 			if (!entity.NativeTags.ContainsKey(Tag))
@@ -83,6 +90,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Apply this effect to the target as an aura effect.
+		/// </summary>
 		public void Apply(AuraEffects auraEffects)
 		{
 			if (Tag == GameTag.COST)
@@ -108,6 +118,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Apply this effect to the target controller as an aura effect.
+		/// </summary>
 		public void Apply(ControllerAuraEffects auraEffects)
 		{
 			switch (Operator)
@@ -124,6 +137,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Remove this effect from the target entity.
+		/// </summary>
 		public void Remove(IEntity entity)
 		{
 			switch (Operator)
@@ -140,6 +156,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Remove ths aura effect from the target entity.
+		/// </summary>
 		public void Remove(AuraEffects auraEffects)
 		{
 			if (Tag == GameTag.COST)
@@ -183,6 +202,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Creates a new Effect having changed amount of <see cref="Value"/>.
+		/// </summary>
 		public Effect ChangeValue(int newValue)
 		{
 			return new Effect(Tag, Operator, newValue);

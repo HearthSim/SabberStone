@@ -3231,7 +3231,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +6 Attack
 			// --------------------------------------------------------
 			cards.Add("EX1_414e", new Power {
-				Aura = new EnrageEffect(AuraType.TARGET, Effects.Attack_N(6))
+				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(6))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

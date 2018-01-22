@@ -14,8 +14,6 @@ namespace SabberStoneCore.Enchants
 		public Game Game;
 	    public readonly Effect[] Effects;
 	    public bool UseScriptTag;
-	    public ISimpleTask TaskToDoWhenThisIsApplied;
-	    public ISimpleTask TaskToDoWhenThisIsRemoved;
 		
 	    public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
@@ -67,6 +65,9 @@ namespace SabberStoneCore.Enchants
 		}
     }
 
+	/// <summary>
+	/// Implementation of a kind of enchantment that its effect gradually grows due to some triggers.
+	/// </summary>
 	public class OngoingEnchant : Enchant, IAura
 	{
 		private int _count = 1;

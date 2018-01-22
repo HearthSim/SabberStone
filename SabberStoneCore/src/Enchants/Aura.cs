@@ -9,29 +9,53 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Enchants
 {
+	/// <summary>
+	/// Aura types. Indicates the range of auras. 
+	/// </summary>
 	public enum AuraType
 	{
+		/// <summary> This type of aura only affects the source of the aura. </summary>
 		SELF,
+		/// <summary> This type of aura affects the minions adjacent to the source of the aura. </summary>
 		ADJACENT,
+		/// <summary> This type of aura affects all friendly minions. </summary>
 		BOARD,
+		/// <summary> This type of aura affects all friendly minions except the source of the aura. </summary>
 		BOARD_EXCEPT_SOURCE,
+		/// <summary> This type of aura affects all entities in the hand of the source's controller. </summary>
 		HAND,
+		/// <summary> This type of aura affects all entities in the hand of the opponent of the source's controller. </summary>
 		OP_HAND,
+		/// <summary> This type of aura affects all entities in the both player's hand. </summary>
 		HANDS,
+		/// <summary> This type of aura only affects the controller of the source of the aura. </summary>
 		CONTROLLER,
+		/// <summary> This type of aura affects the both controllers. </summary>
 		CONTROLLERS,
+		/// <summary> This type of aura affects the weapon of the source's controller. </summary>
+		WEAPON,
+
 		ADAPTIVE,
-		TARGET,
-		WEAPON
 	}
 
+	/// <summary>
+	/// Interface for effects of enchantments that should be updated during <see cref="Game.AuraUpdate"/>.
+	/// </summary>
 	public interface IAura
 	{
+		/// <summary> Update this effect to apply the effect to recently modified entities. </summary>
 		void Update();
+		/// <summary> Remove this effect from the game to stop affecting entities. </summary>
 		void Remove();
+
 		void Clone(IPlayable clone);
 	}
 
+	/// <summary>
+	/// Auras can affect entities and changes the applied entities' ATK, COST, etc. 
+	/// Aura must be activated first to affect entities. 
+	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate"/>.
+	/// </summary>
 	public class Aura : IAura
 	{
 		private readonly int _ownerId;
@@ -51,6 +75,8 @@ namespace SabberStoneCore.Enchants
 		public Func<IPlayable, int> Predicate;
 		public (TriggerType Type, SelfCondition Condition) RemoveTrigger;
 		public readonly Card EnchantmentCard;
+
+		/// <summary> True if this aura should check the condition of the applied entities every time. </summary>
 		public bool Restless;
 
 
@@ -107,7 +133,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-
+		/// <summary>
+		/// Create new Aura instance to the owner's Game.
+		/// </summary>
 		public virtual void Activate(IPlayable owner, bool cloning = false)
 		{
 			if (Effects == null)
@@ -345,6 +373,9 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Apply this aura's effect(s) to the target entity.
+		/// </summary>
 		protected void Apply(IPlayable entity)
 		{
 			if (_appliedEntityIds.Contains(entity.Id))
@@ -396,9 +427,11 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	/// <summary>
+	/// Effects of this kind of Auras are influenced by other factors in game, in real time. e.g. Lightspawn, Southsea Deckhand.
+	/// </summary>
 	public class AdaptiveEffect : Aura
 	{
-		//private readonly Func<IPlayable, int> _predicate;
 		private readonly GameTag _tag;
 		private readonly EffectOperator _operator;
 		private int _lastValue;
@@ -477,6 +510,9 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	/// <summary>
+	/// Implementation of the specific effects of varying cost. e.g. Giants
+	/// </summary>
 	public class AdaptiveCostEffect : Aura
 	{
 		private EffectOperator _operator;
@@ -536,6 +572,9 @@ namespace SabberStoneCore.Enchants
 
 	}
 
+	/// <summary>
+	/// Implementation of the Enrage effect.
+	/// </summary>
 	public class EnrageEffect : Aura
 	{
 		private bool _enraged;

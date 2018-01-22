@@ -28,12 +28,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				foreach (Effect effect in _enchantmentCard.Power.Enchant?.Effects)
 					effect.Remove(Source is Enchantment ec ? ec.Target : Source);
 
-			// Process the task to do when this enchantment is removed
-		    ISimpleTask task = _enchantmentCard.Power.Enchant?.TaskToDoWhenThisIsRemoved;
-		    if (task != null)
-			    Game.TaskQueue.Execute(task, Controller, (IPlayable)Source, (IPlayable)Target);
-
-
 			// Remove the enchantment entity
 		    if (Source is Enchantment e)
 			    e.Remove();
