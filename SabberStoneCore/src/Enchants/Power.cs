@@ -9,8 +9,6 @@ namespace SabberStoneCore.Enchants
 	{
 		public string InfoCardId { get; set; } = null;
 
-		public PowerActivation Activation { get; set; } = PowerActivation.NONE;
-
 		public Aura Aura { get; set; }
 
 		public Enchant Enchant { get; set; }

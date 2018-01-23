@@ -274,7 +274,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_571", new Power {
-				Activation = PowerActivation.SPELL,
 				PowerTask = new EnqueueTask(3, new SummonTask("EX1_158t", SummonSide.SPELL)),
 			});
 
@@ -292,7 +291,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_578", new Power {
-				Activation = PowerActivation.SPELL,
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.HERO),
 					new DamageNumberTask(EntityType.TARGET))

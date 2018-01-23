@@ -25,7 +25,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (entity.Power?.Trigger?.TriggerActivation == Enchants.TriggerActivation.DECK)
+			if (entity.Power?.Trigger?.TriggerActivation == TriggerActivation.DECK)
 				entity.Power.Trigger.Activate(entity);
 		}
 

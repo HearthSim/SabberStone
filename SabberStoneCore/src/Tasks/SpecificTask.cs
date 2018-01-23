@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
 					var spell = (Spell) Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
 					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
-					spell.ActivateTask(PowerActivation.SECRET_OR_QUEST);
+					spell.ActivateTask();
 					controller.SecretZone.Add(spell);
 					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();

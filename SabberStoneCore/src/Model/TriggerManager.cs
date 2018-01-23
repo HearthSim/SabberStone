@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
 {

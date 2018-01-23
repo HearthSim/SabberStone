@@ -12,67 +12,57 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
-	public enum TriggerType
-	{
-		NONE, TURN_END, TURN_START, DEATH, INSPIRE, DAMAGE, PREDAMAGE, HEAL, ATTACK, AFTER_ATTACK, SUMMON, PLAY_CARD, PLAY_MINION, AFTER_PLAY_MINION, CAST_SPELL, AFTER_CAST, SECRET_REVEALED,
-	}
-
-	public enum TriggerSource
-	{
-		ALL, FRIENDLY, ENEMY, SELF, MINIONS, MINIONS_EXCEPT_SELF, OP_MINIONS, ALL_MINIONS, HERO, OP_HERO, ENCHANTMENT_TARGET
-	}
-
-	public enum TriggerActivation
-	{
-		PLAY, HAND, DECK
-	}
-
-	public enum SequenceType
-	{
-		None, PlayCard, PlayMinion, PlaySpell, Summon, DamageDealt, Attack
-	}
-
     public class Trigger
     {
 		public readonly Game Game;
 	    private readonly int _sourceId;
 	    private readonly int _controllerId;
-	    private readonly TriggerType TriggerType;
-		private readonly SequenceType SequenceType;
+	    private readonly TriggerType _triggerType;
+		private readonly SequenceType _sequenceType;
 		public TriggerActivation TriggerActivation;
 		public TriggerSource TriggerSource;
+		/// <summary>
+		/// Task to do when this effect is triggered.
+		/// </summary>
 		public ISimpleTask SingleTask;
+
+	    /// <summary> Additional condition for trigger sources </summary>
 	    public SelfCondition Condition;
-	    public bool EitherTurn;
+		/// <summary> 
+		/// This option is only meaningful when this the type of this trigger is <see cref="TriggerType.TURN_END"/> or <see cref="TriggerType.TURN_START"/>.
+		/// </summary>
+		/// <value>	<see cref="true"/> means the effect can be triggered at both player's turn.</value>
+		public bool EitherTurn;
 	    public bool FastExecution;
+		/// <value> <see cref="true"/> means this trigger will be immediately disposed after triggered.</value>
 	    public bool RemoveAfterTriggered;
 
-	    private bool _isSecret;
+	    private readonly bool _isSecret;
 		//private IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_sourceId]);
 	    private IPlayable Owner;
 	    //private IPlayable _owner;
 
 	    public Trigger(TriggerType type)
 	    {
-			TriggerType = type;
+			_triggerType = type;
 
 		    switch (type)
 		    {
 			    case TriggerType.PLAY_MINION:
 			    case TriggerType.AFTER_PLAY_MINION:
-				    SequenceType = SequenceType.PlayMinion;
+				    _sequenceType = SequenceType.PlayMinion;
 					return;
 			    case TriggerType.CAST_SPELL:
 			    case TriggerType.AFTER_CAST:
-				    SequenceType = SequenceType.PlaySpell;
+				    _sequenceType = SequenceType.PlaySpell;
 					return;
 			    case TriggerType.DAMAGE:
 				case TriggerType.PREDAMAGE:
-				    SequenceType = SequenceType.DamageDealt;
+				    _sequenceType = SequenceType.DamageDealt;
 					return;
 			    case TriggerType.ATTACK:
 			    case TriggerType.AFTER_ATTACK:
-				    SequenceType = SequenceType.Attack;
+				    _sequenceType = SequenceType.Attack;
 					Validated = true;
 					return;
 				case TriggerType.NONE:
@@ -95,18 +85,23 @@ namespace SabberStoneCore.Enchants
 			_sourceId = owner.Id;
 		    Owner = (IPlayable)owner;
 		    _controllerId = owner.Controller?.Id ?? prototype._controllerId;
-		    TriggerType = prototype.TriggerType;
-		    SequenceType = prototype.SequenceType;
+		    _triggerType = prototype._triggerType;
+		    _sequenceType = prototype._sequenceType;
 		    TriggerSource = prototype.TriggerSource;
 			Condition = prototype.Condition;
 		    SingleTask = prototype.SingleTask;
-		    FastExecution = prototype.FastExecution;
+		    EitherTurn = prototype.EitherTurn;
+			FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
 		    _isSecret = prototype.Game == null ? owner.Card[GameTag.SECRET] == 1 : prototype._isSecret;
 	    }
 
 		public bool Validated { get; set; }
 
+		/// <summary>
+		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
+		/// </summary>
+		/// <param name="source"></param>
 		public void Activate(IPlayable source)
 		{
 			var instance = new Trigger(this, source);
@@ -115,7 +110,7 @@ namespace SabberStoneCore.Enchants
 
 			source.Game.Triggers.Add(instance);
 
-			switch (TriggerType)
+			switch (_triggerType)
 			{
 				case TriggerType.DAMAGE:
 					if (TriggerSource == TriggerSource.SELF)
@@ -199,7 +194,7 @@ namespace SabberStoneCore.Enchants
 
 		private void Process(IEntity source)
 	    {
-		    if (TriggerType == TriggerType.AFTER_ATTACK)
+		    if (_triggerType == TriggerType.AFTER_ATTACK)
 			    Validate(source);
 
 			if (!Validated)
@@ -216,7 +211,7 @@ namespace SabberStoneCore.Enchants
 			    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
 			    taskInstance.IsTrigger = true;
 
-			    if (TriggerType == TriggerType.PREDAMAGE)
+			    if (_triggerType == TriggerType.PREDAMAGE)
 				    taskInstance.Number = source[GameTag.PREDAMAGE];
 
 			    Game.TaskQueue.Enqueue(taskInstance);
@@ -248,9 +243,12 @@ namespace SabberStoneCore.Enchants
 			Validated = false;
 	    }
 
+		/// <summary>
+		/// Remove this object from the Game and unsubscribe from the related event.
+		/// </summary>
 	    public void Remove()
 	    {
-			switch (TriggerType)
+			switch (_triggerType)
 		    {
 				case TriggerType.DAMAGE:
 					Game.TriggerManager.DamageTrigger -= Process;
@@ -300,17 +298,20 @@ namespace SabberStoneCore.Enchants
 			Owner.Game.Triggers.Remove(this);
 	    }
 
+		/// <summary>
+		/// Checks triggers related to the current Sequence at once before the Sequence starts.
+		/// </summary>
 	    public static void ValidateTriggers(Game game, IEntity source, SequenceType type)
 	    {
 			for (int i = 0; i < game.Triggers.Count; i++)
-				if (game.Triggers[i].SequenceType == type)
+				if (game.Triggers[i]._sequenceType == type)
 					game.Triggers[i].Validate(source);
 	    }
 
 	    public static void ValidateTriggers(Game game, IEntity source, TriggerType type)
 	    {
 		    for (int i = 0; i < game.Triggers.Count; i++)
-			    if (game.Triggers[i].TriggerType == type)
+			    if (game.Triggers[i]._triggerType == type)
 				    game.Triggers[i].Validate(source);
 		}
 
@@ -318,7 +319,7 @@ namespace SabberStoneCore.Enchants
 	    {
 		    game.Triggers.ForEach(p =>
 		    {
-			    if (p.SequenceType == type)
+			    if (p._sequenceType == type)
 				    p.Validated = false;
 		    });
 		}
@@ -357,7 +358,7 @@ namespace SabberStoneCore.Enchants
 
 		    bool extra = false;
 
-		    switch (TriggerType)
+		    switch (_triggerType)
 		    {
 			    case TriggerType.PLAY_CARD when source.Id == Owner.Id:
 			    case TriggerType.SUMMON when source.Id == Owner.Id:

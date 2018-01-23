@@ -1725,7 +1725,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("CS2_063", new Power {
-				Activation = PowerActivation.SPELL,
 				PowerTask = new AddEnchantmentTask("CS2_063e", EntityType.TARGET)
 			});
 

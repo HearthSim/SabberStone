@@ -78,7 +78,6 @@ namespace SabberStoneCore.Model.Entities
 
 			if (Weapon.HasDeathrattle)
 			{
-				//Weapon.ApplyPowers(PowerActivation.DEATHRATTLE, Enums.Zone.GRAVEYARD);
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 			}
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");

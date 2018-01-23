@@ -230,7 +230,7 @@ namespace SabberStoneCore.Model.Entities
 		//public List<Power> Powers => Card.Powers;
 		public Power Power => Card.Power;
 
-		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		public void ActivateTask(PowerActivation activation = PowerActivation.POWER, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
 		{
 			if (ChooseOne)
 			{
