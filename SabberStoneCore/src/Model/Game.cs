@@ -209,7 +209,7 @@ namespace SabberStoneCore.Model
 		/// Gets the dictionary containing all generated entities for this game.
 		/// </summary>
 		/// <value><see cref="IPlayable"/></value>
-		public Dictionary<int, IPlayable> IdEntityDic { get; private set; } = new Dictionary<int, IPlayable>();
+		public Dictionary<int, IPlayable> IdEntityDic { get; private set; }
 
 		/// <summary>
 		/// Gets the dictionary containing all generated choice sets for this game.
@@ -240,6 +240,7 @@ namespace SabberStoneCore.Model
 				[GameTag.CARDTYPE] = (int)CardType.GAME
 			})
 		{
+			IdEntityDic = new Dictionary<int, IPlayable>(75);
 			_gameConfig = gameConfig;
 			Game = this;
 			Auras = new List<IAura>();
@@ -271,6 +272,7 @@ namespace SabberStoneCore.Model
 		/// <summary> A copy constructor. </summary>
 		private Game(Game game, bool logging = false) : base(null, game)
 		{
+			IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
 			Game = this;
 
 			Auras = new List<IAura>(game.Auras.Count);
@@ -408,6 +410,12 @@ namespace SabberStoneCore.Model
 		public void StartGame()
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
+
+			if (!_gameConfig.Shuffle)
+			{
+				_gameConfig.Player1Deck?.Reverse();
+				_gameConfig.Player2Deck?.Reverse();
+			}
 
 			// setting up the decks ...
 			_gameConfig.Player1Deck?.ForEach(p =>
@@ -1142,6 +1150,26 @@ namespace SabberStoneCore.Model
 		{
 			get { return this[GameTag.NUM_MINIONS_KILLED_THIS_TURN]; }
 			set { this[GameTag.NUM_MINIONS_KILLED_THIS_TURN] = value; }
+		}
+
+		/// <summary>
+		/// The entityID of the character which wants to attack, by entering the
+		/// next combat phase.
+		/// </summary>
+		public int ProposedAttacker
+		{
+			get => this[GameTag.PROPOSED_ATTACKER];
+			set => this[GameTag.PROPOSED_ATTACKER] = value;
+		}
+
+		/// <summary>
+		/// The entityID of the character which has to defend during the next
+		/// combat phase.
+		/// </summary>
+		public int ProposedDefender
+		{
+			get => this[GameTag.PROPOSED_DEFENDER];
+			set => this[GameTag.PROPOSED_DEFENDER] = value;
 		}
 
 		/// <summary>Gets the heroes.</summary>

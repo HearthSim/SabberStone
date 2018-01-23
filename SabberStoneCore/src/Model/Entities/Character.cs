@@ -330,7 +330,7 @@ namespace SabberStoneCore.Model.Entities
 		int BaseHealth { get; }
 
 		/// <summary>
-		/// This character is currently attacking another character.
+		/// This character is currently attacking another characteaftr.
 		/// </summary>
 		bool IsAttacking { get; set; }
 
@@ -478,7 +478,7 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// don't allow negative values
-				NativeTags[GameTag.DAMAGE] = value < 0 ? 0 : value;
+				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
 			}
 		}
 

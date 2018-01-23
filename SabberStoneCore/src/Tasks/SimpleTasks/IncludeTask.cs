@@ -180,7 +180,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return boardGetAll.Except(exceptListEntities).ToList();
 		}
 
-		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source, IEntity target, List<IPlayable> stack)
+		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
+			IEntity target, List<IPlayable> stack)
 		{
 			switch (type)
 			{
@@ -206,30 +207,30 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					yield return c.Opponent.Hero.HeroPower;
 					yield break;
 				case EntityType.HAND:
-					for (int i = 0; i < c.HandZone.Count; i++)
+					for (int i = c.HandZone.Count - 1; i >= 0; i--)
 						yield return c.HandZone[i];
 					yield break;
 				case EntityType.HAND_NOSOURCE:
-					for (int i = 0; i < c.HandZone.Count; i++)
+					for (int i = c.HandZone.Count - 1; i >= 0; i--)
 					{
 						if (c.HandZone[i] != source)
 							yield return c.HandZone[i];
 					}
 					yield break;
 				case EntityType.DECK:
-					for (int i = 0; i < c.DeckZone.Count; i++)
+					for (int i = c.DeckZone.Count - 1; i >= 0; i--)
 						yield return c.DeckZone[i];
 					break;
 				case EntityType.SECRETS:
-					for (int i = 0; i < c.SecretZone.Count; i++)
+					for (int i = c.SecretZone.Count - 1; i >= 0; i--)
 						yield return c.SecretZone[i];
 					yield break;
 				case EntityType.MINIONS:
-					for (int i = 0; i < c.BoardZone.Count; i++)
+					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.BoardZone[i];
 					yield break;
 				case EntityType.MINIONS_NOSOURCE:
-					for (int i = 0; i < c.BoardZone.Count; i++)
+					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 					{
 						if (c.BoardZone[i] != source)
 							yield return c.BoardZone[i];
@@ -237,45 +238,58 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 				case EntityType.FRIENDS:
 					yield return c.Hero;
-					for (int i = 0; i < c.BoardZone.Count; i++)
+					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.BoardZone[i];
 					yield break;
 				case EntityType.OP_HERO:
 					yield return c.Opponent.Hero;
 					yield break;
 				case EntityType.OP_HAND:
-					foreach (IPlayable t in c.Opponent.HandZone)
-						yield return t;
+					for (int i = c.Opponent.HandZone.Count - 1; i >= 0; i--)
+						yield return c.Opponent.HandZone[i];
 					yield break;
 				case EntityType.OP_DECK:
-					foreach (IPlayable t in c.Opponent.DeckZone)
-						yield return t;
+					for (int i = c.Opponent.DeckZone.Count - 1; i >= 0; i--)
+						yield return c.Opponent.DeckZone[i];
 					yield break;
 				case EntityType.OP_SECRETS:
-					foreach (IPlayable t in c.Opponent.SecretZone)
-						yield return t;
+					for (int i = 0; i < c.Opponent.SecretZone.Count; i++)
+						yield return c.Opponent.SecretZone[i];
 					yield break;
 				case EntityType.OP_MINIONS:
-					foreach (IPlayable t in c.Opponent.BoardZone)
-						yield return t;
+					for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ENEMIES:
 					yield return c.Opponent.Hero;
-					foreach (IPlayable t in c.Opponent.BoardZone)
-						yield return t;
+					for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ENEMIES_NOTARGET:
-					foreach (IPlayable t in c.Opponent.BoardZone)
-						if (t != target)
-							yield return t;
+					if (target is Minion)
+					{
+						yield return c.Opponent.Hero;
+						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+						{
+							IPlayable t = c.Opponent.BoardZone[i];
+							if (t != target)
+								yield return t;
+						}
+					}
+					else
+					{
+						for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+							yield return c.Opponent.BoardZone[i];
+						yield break;
+					}
 					yield break;
 				case EntityType.ALL:
 					yield return c.Hero;
-					for (int i = 0; i < c.BoardZone.Count; i++)
+					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.BoardZone[i];
 					yield return c.Opponent.Hero;
-					foreach (IPlayable t in c.Opponent.DeckZone)
-						yield return t;
+					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ALL_NOSOURCE:
 					if (source.Controller == c)
@@ -283,25 +297,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						if (source.Zone.Type == Enums.Zone.PLAY)
 						{
 							yield return c.Hero;
-							for (int i = 0; i < c.BoardZone.Count; i++)
+							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 							{
 								if (c.BoardZone[i] != source)
 									yield return c.BoardZone[i];
 							}
 
 							yield return c.Opponent.Hero;
-							foreach (IPlayable t in c.Opponent.DeckZone)
-								yield return t;
+							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+								yield return c.Opponent.BoardZone[i];
 							yield break;
 						}
 
 						if (source is Hero)
 						{
-							for (int i = 0; i < c.BoardZone.Count; i++)
+							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 								yield return c.BoardZone[i];
 							yield return c.Opponent.Hero;
-							foreach (IPlayable t in c.Opponent.DeckZone)
-								yield return t;
+							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+								yield return c.Opponent.BoardZone[i];
 							yield break;
 						}
 
@@ -312,71 +326,77 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						if (source.Zone.Type == Enums.Zone.PLAY)
 						{
 							yield return c.Hero;
-							for (int i = 0; i < c.BoardZone.Count; i++)
+							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 								yield return c.BoardZone[i];
 							yield return c.Opponent.Hero;
-							foreach (IPlayable t in c.Opponent.DeckZone)
+							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
 							{
+								IPlayable t = c.Opponent.BoardZone[i];
 								if (t != source)
 									yield return t;
 							}
+
 							yield break;
 						}
 
 						if (source is Hero)
 						{
 							yield return c.Hero;
-							for (int i = 0; i < c.BoardZone.Count; i++)
+							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 								yield return c.BoardZone[i];
-							foreach (IPlayable t in c.Opponent.DeckZone)
-								yield return t;
+							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+								yield return c.Opponent.BoardZone[i];
 							yield break;
 						}
 
 						yield break;
 					}
 				case EntityType.WEAPON:
-					yield return c.Hero.Weapon;
+					if (c.Hero.Weapon != null)
+						yield return c.Hero.Weapon;
 					yield break;
 				case EntityType.OP_WEAPON:
-					yield return c.Opponent.Hero.Weapon;
+					if (c.Opponent.Hero.Weapon != null)
+						yield return c.Opponent.Hero.Weapon;
 					yield break;
 				case EntityType.STACK:
 					for (int i = 0; i < stack.Count; i++)
 						yield return stack[i];
 					yield break;
 				case EntityType.ALLMINIONS:
-					for (int i = 0; i < c.BoardZone.Count; i++)
+					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.BoardZone[i];
-					foreach (IPlayable t in c.Opponent.DeckZone)
-						yield return t;
+					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ALLMINIONS_NOSOURCE:
 					if (source.Controller == c)
 					{
-						for (int i = 0; i < c.BoardZone.Count; i++)
+						for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 						{
 							if (c.BoardZone[i] != source)
 								yield return c.BoardZone[i];
 						}
-						foreach (IPlayable t in c.Opponent.DeckZone)
-							yield return t;
+						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
+							yield return c.Opponent.BoardZone[i];
 
 						yield break;
 					}
 					else
 					{
-						for (int i = 0; i < c.BoardZone.Count; i++)
+						for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 							yield return c.BoardZone[i];
-						foreach (IPlayable t in c.Opponent.DeckZone)
+						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
 						{
+							IPlayable t = c.Opponent.BoardZone[i];
 							if (t != source)
 								yield return t;
 						}
+
 						yield break;
 					}
 				case EntityType.GRAVEYARD:
-					for (int i = 0; i < c.GraveyardZone.Count; i++)
+					for (int i = c.GraveyardZone.Count - 1; i >= 0; i--)
 						yield return c.GraveyardZone[i];
 					yield break;
 				case EntityType.HEROES:
@@ -384,7 +404,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					yield return c.Opponent.Hero;
 					yield break;
 				case EntityType.TOPCARDFROMDECK:
-					yield return c.DeckZone.TopCard;
+					if (c.DeckZone.Count > 0)
+						yield return c.DeckZone.TopCard;
 					yield break;
 				default:
 					throw new NotImplementedException();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
@@ -17,14 +18,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var list = new List<IPlayable>();
+			var list = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
 			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
-			{
-				if (p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p))
-					list.Add(p);
-			};
 			Playables = list;
 			return TaskState.COMPLETE;
 		}

@@ -369,7 +369,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_308", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
-					Condition = 
+					TriggerSource = TriggerSource.SELF,
+					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					SingleTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE)
 				}
 			});
 
@@ -393,9 +395,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_309", new Power {
-				// TODO [OG_309] Princess Huhuran && Test: Princess Huhuran_OG_309
-				//PowerTask = null,
-				//Trigger = null,
+				//PowerTask = new 
 			});
 
 			// ---------------------------------------- MINION - HUNTER

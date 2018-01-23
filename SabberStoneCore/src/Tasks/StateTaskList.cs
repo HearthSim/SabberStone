@@ -16,6 +16,11 @@ namespace SabberStoneCore.Tasks
 		private int _position = 0;
 		//public ISimpleTask CurrentTask => this[_position].CurrentTask;
 
+		private StateTaskList(int capacity) : base(capacity)
+		{
+			
+		}
+
 		public Game Game { get; set; }
 		private int _controllerId;
 		public Controller Controller
@@ -121,7 +126,7 @@ namespace SabberStoneCore.Tasks
 
 		public ISimpleTask Clone()
 		{
-			var cloneList = new StateTaskList<ISimpleTask>();
+			var cloneList = new StateTaskList<ISimpleTask>(Count);
 			cloneList.Copy(this);
 			ForEach(p => cloneList.Add(p.Clone()));
 			return cloneList;
@@ -136,7 +141,7 @@ namespace SabberStoneCore.Tasks
 
 		public static StateTaskList<ISimpleTask> Chain(params ISimpleTask[] list)
 		{
-			var newList = new StateTaskList<ISimpleTask>();
+			var newList = new StateTaskList<ISimpleTask>(list.Length);
 			newList.AddRange(list);
 			return newList;
 		}

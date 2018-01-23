@@ -65,8 +65,10 @@ namespace SabberStoneCore.Actions
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
 				// TODO need to be manipulated for 50% chance to attack  someone else 
-				source.ProposedAttacker = source.Id;
-				source.ProposedDefender = target.Id;
+				//source.ProposedAttacker = source.Id;
+				//source.ProposedDefender = target.Id;
+				c.Game.ProposedAttacker = source.Id;
+				c.Game.ProposedDefender = target.Id;
 
 				return true;
 			};
@@ -95,9 +97,10 @@ namespace SabberStoneCore.Actions
 			{
 				var hero = source as Hero;
 				var minion = source as Minion;
-				source.ProposedAttacker = source.Id;
+				//source.ProposedAttacker = source.Id;
+				c.Game.ProposedAttacker = source.Id;
 				IPlayable proposedDefender;
-				if (!c.Game.IdEntityDic.TryGetValue(source.ProposedDefender, out proposedDefender))
+				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out proposedDefender))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":"target wasn't found by proposed defender call.");
 					source.IsAttacking = false;

@@ -34,6 +34,14 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 
+		/// <summary>
+		/// Creates and adds a new Enchantment entity to the given Controller's Game.
+		/// </summary>
+		/// <param name="controller">The controller of the enchantment.</param>
+		/// <param name="creator">The entity who creates the enchantment.</param>
+		/// <param name="target">The entity who is subjected to the enchantment.</param>
+		/// <param name="card">The card from which the enchantment must be derived.</param>
+		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
 			var tags = new Dictionary<GameTag, int>

@@ -124,7 +124,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_016", new Power {
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new ControlTask(EntityType.STACK))
 			});

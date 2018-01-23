@@ -223,26 +223,6 @@ namespace SabberStoneCore.Enchants
 			    Game.TaskQueue.Enqueue(taskInstance);
 			}
 
-		 //   if (extra)
-		 //   {
-			//    if (FastExecution)
-			//	    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
-			//    else
-			//    {
-			//	    ISimpleTask taskInstance = SingleTask.Clone();
-			//	    taskInstance.Game = Game;
-			//	    taskInstance.Controller = Owner.Controller;
-			//	    taskInstance.Source = Owner is Enchantment ec ? (Game.History ? ec : ec.Target) : Owner;
-			//	    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew ? ew.Target : null;
-			//	    taskInstance.IsTrigger = true;
-
-			//	    if (TriggerType == TriggerType.PREDAMAGE)
-			//		    taskInstance.Number = source[GameTag.PREDAMAGE];
-
-			//	    Game.TaskQueue.Enqueue(taskInstance);
-			//    }
-			//}
-
 		    if (RemoveAfterTriggered)
 			    Remove();
 
@@ -274,7 +254,23 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ATTACK:
 					Game.TriggerManager.AttackTrigger -= Process;
 					break;
-			    case TriggerType.DEATH:
+				case TriggerType.AFTER_ATTACK:
+					switch (TriggerSource)
+					{
+						case TriggerSource.HERO:
+							Owner.Controller.Hero.AfterAttackTrigger -= Process;
+							break;
+						case TriggerSource.SELF:
+							((Minion)Owner).AfterAttackTrigger -= Process;
+							break;
+						case TriggerSource.ENCHANTMENT_TARGET:
+							((Minion)((Enchantment)Owner).Target).AfterAttackTrigger -= Process;
+							break;
+						default:
+							throw new NotImplementedException();
+					}
+					break;
+				case TriggerType.DEATH:
 				    Game.TriggerManager.DeathTrigger -= Process;
 				    break;
 				case TriggerType.PLAY_CARD:
@@ -283,6 +279,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.PLAY_MINION:
 				    Game.TriggerManager.PlayMinionTrigger -= Process;
 				    break;
+				case TriggerType.AFTER_PLAY_MINION:
+					Game.TriggerManager.AfterPlayMinionTrigger -= Process;
+					break;
 			    case TriggerType.CAST_SPELL:
 				    Game.TriggerManager.CastSpellTrigger -= Process;
 				    break;

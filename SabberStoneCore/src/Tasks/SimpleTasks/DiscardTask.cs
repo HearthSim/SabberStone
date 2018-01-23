@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Actions;
+﻿using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -16,6 +17,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 			//entities.ForEach(p => Generic.DiscardBlock.Invoke(Controller, p));
+			var debug = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ToList();
+
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 				Generic.DiscardBlock.Invoke(Controller, p);
 			return TaskState.COMPLETE;

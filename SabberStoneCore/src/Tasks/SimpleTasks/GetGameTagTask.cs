@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -21,9 +22,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 		{
 			//List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables
-			var entities =
-				new List<Model.Entities.IPlayable>(IncludeTask.GetEntities(Type, Controller, Source, Target, Playables));
-			if (entities.Count == 0)
+			var test = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			var entities = test.ToList();
+			if (entities == null || entities.Count == 0)
 			{
 				return TaskState.STOP;
 			}

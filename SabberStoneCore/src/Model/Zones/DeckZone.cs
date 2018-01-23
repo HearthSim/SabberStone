@@ -51,7 +51,8 @@ namespace SabberStoneCore.Model.Zones
 
 				Controller.DeckCards.Add(card);
 
-				Entity.FromCard(Controller, card, null, this);
+				IPlayable entity = Entity.FromCard(Controller, card);
+				Add(entity, 0);
 
 				cardsToAdd--;
 			}
