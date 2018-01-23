@@ -9,16 +9,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RitualTask : SimpleTask
 	{
-
-		public RitualTask(OldEnchant enchant = null, bool taunt = false)
+		public RitualTask(string enchantmentId = "")
 		{
-			Enchant = enchant;
-			Taunt = taunt;
+			_enchantmentCard = Cards.FromId(enchantmentId);
 		}
 
-		public OldEnchant Enchant { get; set; }
+		private RitualTask(Card enchantmentCard)
+		{
+			_enchantmentCard = enchantmentCard;
+		}
 
-		public bool Taunt { get; set; }
+		private readonly Card _enchantmentCard;
 
 		public override TaskState Process()
 		{
@@ -43,15 +44,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			entities.AddRange(Controller.BoardZone.Where(p => p.Card.Id.Equals("OG_280")));
 			entities.AddRange(Controller.HandZone.Where(p => p.Card.Id.Equals("OG_280")));
 
-			if (Enchant != null)
+			if (_enchantmentCard != null)
 			{
-				// activate enchants on the sources
-				//entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.OldEnchants, p));
-			}
-
-			if (Taunt)
-			{
-				entities.ForEach(p => p[GameTag.TAUNT] = 1);
+				entities.ForEach(p =>
+				{
+					Enchantment enchantment =
+						Game.History ? Enchantment.GetInstance(Controller, (IPlayable) Source, p, _enchantmentCard) : null;
+					_enchantmentCard.Power.Enchant.ActivateTo(p, enchantment);
+				});
 			}
 
 			return TaskState.COMPLETE;
@@ -59,8 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RitualTask(Enchant, Taunt);
-			clone.Copy(this);
+			var clone = new RitualTask(_enchantmentCard);
 			return clone;
 		}
 	}

@@ -8,7 +8,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets.Ad
+namespace SabberStoneCore.CardSets.Standard
 {
 	public class IcecrownCardsGen
 	{

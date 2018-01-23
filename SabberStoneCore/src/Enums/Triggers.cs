@@ -44,9 +44,7 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered when a secret is activated. </summary>
 		SECRET_REVEALED
 	}
-	/// <summary>
-	/// Indicates which entities can trigger the effect.
-	/// </summary>
+
 	public enum TriggerSource
 	{
 		ALL,
@@ -62,9 +60,6 @@ namespace SabberStoneCore.Enums
 		ENCHANTMENT_TARGET
 	}
 
-	/// <summary>
-	/// Indicates the Zone at which the effect is triggered.
-	/// </summary>
 	public enum TriggerActivation
 	{
 		PLAY,

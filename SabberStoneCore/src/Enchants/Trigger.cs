@@ -19,7 +19,13 @@ namespace SabberStoneCore.Enchants
 	    private readonly int _controllerId;
 	    private readonly TriggerType _triggerType;
 		private readonly SequenceType _sequenceType;
+	    /// <summary>
+	    /// Indicates the Zone at which the effect is triggered.
+	    /// </summary>
 		public TriggerActivation TriggerActivation;
+	    /// <summary>
+	    /// Indicates which entities can trigger the effect.
+	    /// </summary>
 		public TriggerSource TriggerSource;
 		/// <summary>
 		/// Task to do when this effect is triggered.
