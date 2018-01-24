@@ -35,10 +35,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    {
 			    Power power = _enchantmentCard.Power;
 				Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, Controller, _enchantmentCard);
-				if (Controller.AppliedEnchantments != null)
-					Controller.AppliedEnchantments.Add(enchantment);
-				else
-					Controller.AppliedEnchantments = new List<Enchantment> { enchantment };
 				power.Aura?.Activate(enchantment);
 				power.Trigger?.Activate(enchantment);
 
@@ -52,36 +48,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    if (Game.History)
 			    foreach (IPlayable entity in entities)
 			    {
-				    Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
+				    Power power = _enchantmentCard.Power;
 
-				    if (_useScriptTag)
+					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
+					{
+						((OngoingEnchant)entity.OngoingEffect).Count++;
+						continue;
+					}
+
+					Enchantment enchantment = Enchantment.GetInstance(Controller, (IPlayable)Source, entity, _enchantmentCard);
+
+					if (_useScriptTag)
 					{
 						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
 						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = Number1;
 					}
 
-					if (entity.AppliedEnchantments != null)
-					    entity.AppliedEnchantments.Add(enchantment);
-				    else
-					    entity.AppliedEnchantments = new List<Enchantment> {enchantment};
-
-					//foreach (Power power in _enchantmentCard.Powers)
-					//{
-					Power power = _enchantmentCard.Power;
-
 					power.Aura?.Activate(enchantment);
 					power.Trigger?.Activate(enchantment);
-
-					if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
-						((OngoingEnchant) entity.OngoingEffect).Count++;
-					else
-						power.Enchant?.ActivateTo(entity, enchantment);
+					power.Enchant?.ActivateTo(entity, enchantment);
 
 					if (power.DeathrattleTask != null)
 						entity.HasDeathrattle = true;
-
-					//ISimpleTask task = power.Enchant?.TaskToDoWhenThisIsApplied;
-				    //}
 			    }
 		    else
 			    foreach (IPlayable entity in entities)

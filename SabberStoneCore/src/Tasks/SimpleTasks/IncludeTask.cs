@@ -150,7 +150,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (AddFlag)
 			{
+				var before = Playables.Count;
 				Playables.AddRange(RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
+				if (Playables.Count <= before)
+					;
 			}
 			else
 			{

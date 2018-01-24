@@ -301,6 +301,7 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.ActivatedTrigger?.Remove();
 
+
 			return entity;
 		}
 
@@ -376,6 +377,8 @@ namespace SabberStoneCore.Model.Zones
 			entity.Zone = null;
 
 			entity.ActivatedTrigger?.Remove();
+			for (int j = 0; j < Auras.Count; j++)
+				Auras[j].EntityRemoved(entity);
 
 			return entity;
 		}

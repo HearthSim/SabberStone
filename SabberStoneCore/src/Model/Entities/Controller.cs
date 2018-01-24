@@ -194,6 +194,13 @@ namespace SabberStoneCore.Model.Entities
 
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 			_currentSpellPower = controller._currentSpellPower;
+			controller.AppliedEnchantments?.ForEach(p =>
+			{
+				if (AppliedEnchantments == null)
+					AppliedEnchantments = new List<Enchantment>(controller.AppliedEnchantments.Count);
+
+				AppliedEnchantments.Add((Enchantment) p.Clone(this));
+			});
 		}
 
 		/// <summary>

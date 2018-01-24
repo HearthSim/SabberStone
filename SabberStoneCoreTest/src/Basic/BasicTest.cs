@@ -667,6 +667,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Vaporize"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Ice Barrier"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
@@ -674,23 +675,28 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Freezing Trap"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
 			Assert.Equal(6, game.CurrentPlayer.Hero.Armor);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Explosive Trap"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Freezing Trap"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
 			Assert.Equal(4, game.CurrentPlayer.Hero.Armor);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Misdirection"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.Hero));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);

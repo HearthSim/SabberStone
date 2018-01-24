@@ -192,19 +192,23 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="playable">The source <see cref="T:SabberStoneCore.Model.Entities.Playable`1" /></param>
 		protected Playable(Controller controller, Playable<T> playable) : base(controller, playable)
 		{
-			//if (playable.Powers != null)
-			//	Powers = new List<Power>(playable.Powers);
+			controller.Game.IdEntityDic.Add(playable.Id, this);
 
 			playable.OngoingEffect?.Clone(this);
 			playable.ActivatedTrigger?.Activate(this);
+			playable.AppliedEnchantments?.ForEach(p =>
+			{
+				if (AppliedEnchantments == null)
+					AppliedEnchantments = new List<Enchantment>(playable.AppliedEnchantments.Count);
+				
+				AppliedEnchantments.Add((Enchantment) p.Clone(controller));
+			});
 
 			if (playable.ChooseOnePlayables != null)
 			{
 				ChooseOnePlayables = new IPlayable[2];
 				Array.Copy(playable.ChooseOnePlayables, ChooseOnePlayables, 2);
 			}
-
-			controller.Game.IdEntityDic.Add(playable.Id, this);
 		}
 
 		/// <summary>

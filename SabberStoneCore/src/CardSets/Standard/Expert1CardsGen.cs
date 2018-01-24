@@ -894,7 +894,6 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
-							new SetGameTagTask(GameTag.PROPOSED_DEFENDER, 0, EntityType.TARGET),
 							new ReturnHandTask(EntityType.TARGET),
 							new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.ADD, 2), EntityType.TARGET))))
 				}
@@ -2609,6 +2608,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
 					RemoveAfterTriggered = true,
+					SingleTask = new RemoveEnchantmentTask("CS2_053e")
 				}
 			});
 
@@ -2876,7 +2876,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("CS2_059o", new Power {
-				Enchant = new OngoingEnchant(Effects.Health_N(1))
+				//Enchant = new OngoingEnchant(Effects.Health_N(1))
+				Enchant = new Enchant(Effects.Health_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -4394,7 +4395,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_507", new Power {
-				Aura = new Aura(AuraType.BOARD, "EX1_507e")
+				Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "EX1_507e")
 				{
 					Condition = SelfCondition.IsRace(Race.MURLOC)
 				}
@@ -4877,6 +4878,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_027", new Power {
 				Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "NEW1_027e")
+				{
+					Condition = SelfCondition.IsRace(Race.PIRATE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5059,7 +5063,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_004e", new Power {
-				Enchant = new OngoingEnchant(Effects.Health_N(1))
+				//Enchant = new OngoingEnchant(Effects.Health_N(1))
+				Enchant = new Enchant(Effects.Health_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5388,7 +5393,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_037e", new Power {
-				Enchant = new OngoingEnchant(Effects.Attack_N(1))
+				//Enchant = new OngoingEnchant(Effects.Attack_N(1))
+				Enchant = new Enchant(Effects.Attack_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

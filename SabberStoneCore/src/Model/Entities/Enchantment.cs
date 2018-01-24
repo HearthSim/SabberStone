@@ -14,12 +14,26 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private readonly Dictionary<GameTag, int> _tags;
 
-		private Enchantment(Game game, Card card, Dictionary<GameTag, int> tags)
+		private Enchantment(Controller controller, Card card, Dictionary<GameTag, int> tags)
 		{
-			Game = game;
+			Game = controller.Game;
+			Controller = controller;
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
+		}
+
+		private Enchantment(Controller c, Enchantment e)
+		{
+			Game = c.Game;
+			Controller = c;
+			Card = e.Card;
+			Id = e.Id;
+			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
+			Creator = Game.IdEntityDic[e.Creator.Id];
+			e.OngoingEffect?.Clone(this);
+			e.ActivatedTrigger?.Activate(this);
+			Game.IdEntityDic.Add(Id, this);
 		}
 
 		public int this[GameTag t]
@@ -51,15 +65,19 @@ namespace SabberStoneCore.Model.Entities
 				{GameTag.ENTITY_ID, controller.Game.NextId}
 			};
 
-			var instance = new Enchantment(controller.Game, card, tags)
+			var instance = new Enchantment(controller, card, tags)
 			{
-				Controller = controller,
 				Creator = creator,
 				Target = target,
 			};
 
 			if (target is IPlayable p)
 				p.RemoveEnchantments += instance.Remove;
+
+			if (target.AppliedEnchantments == null)
+				target.AppliedEnchantments = new List<Enchantment> {instance};
+			else
+				target.AppliedEnchantments.Add(instance);
 
 			controller.Game.IdEntityDic.Add(instance.Id, (IPlayable)instance);
 
@@ -127,6 +145,11 @@ namespace SabberStoneCore.Model.Entities
 			return instance;
 		}
 
+		public IPlayable Clone(Controller controller)
+		{
+			return new Enchantment(controller, this);
+		}
+
 		public void Remove()
 		{
 			if (Game.History)
@@ -171,6 +194,9 @@ namespace SabberStoneCore.Model.Entities
 		{
 			_tags.Clear();
 		}
+
+
+
 
 		public override string ToString()
 		{
@@ -228,11 +254,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
-		{
-			throw new NotImplementedException();
-		}
-
-		public IPlayable Clone(Controller controller)
 		{
 			throw new NotImplementedException();
 		}

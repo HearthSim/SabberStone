@@ -4,6 +4,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Actions
 {
@@ -84,7 +85,7 @@ namespace SabberStoneCore.Actions
 				source.Game.TriggerManager.OnAttackTrigger(source);
 
 				c.Game.DeathProcessingAndAuraUpdate();
-				if (source.IsDead || target.IsDead)
+				if ((source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", !c.Game.Logging? "":"Oh shizzle, something died to the shizzeling of triggering ...");
 					return false;
@@ -136,7 +137,7 @@ namespace SabberStoneCore.Actions
 				}
 
 				// destroy target if attacker is poisonous
-				if (targetDamaged && targetHero == null && (minion != null && minion.Poisonous || hero?.Weapon != null && hero.Weapon.Poisonous))
+				if (targetDamaged && targetHero == null && (minion != null && minion.Poisonous || hero?.Weapon != null && hero.Weapon.Poisonous) && !target.ToBeDestroyed)
 				{
 					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"poisonous attacker has destroyed target.");
 					target.Destroy();
@@ -162,7 +163,7 @@ namespace SabberStoneCore.Actions
 					}
 
 					// destroy source if defender is poisonous
-					if (sourceDamaged && targetMinion != null && targetMinion.Poisonous)
+					if (sourceDamaged && targetMinion != null && targetMinion.Poisonous && !source.ToBeDestroyed)
 					{
 						source.Destroy();
 					}

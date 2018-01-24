@@ -29,12 +29,6 @@ namespace SabberStoneCore.Enchants
 
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
-			//if (!IsOneTurnEffect)
-			//	for (int i = 0; i < Effects.Length; i++)
-			//		entity.Game.OneTurnEffects.Add((entity.Id, Effects[i]));
-
-
-
 			if (!UseScriptTag)
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Apply(entity, IsOneTurnEffect);

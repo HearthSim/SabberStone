@@ -243,7 +243,7 @@ namespace SabberStoneCore.Enchants
 							if (Math.Abs(pos - AppliedEntities[i].ZonePosition) == 1) continue;
 
 							for (int j = 0; j < Effects.Length; j++)
-								Effects[i].Remove(AppliedEntities[i].AuraEffects);
+								Effects[j].Remove(AppliedEntities[i].AuraEffects);
 						}
 						if (pos > 0)
 							Apply(Owner.Controller.BoardZone[pos - 1]);
@@ -289,6 +289,21 @@ namespace SabberStoneCore.Enchants
 				// Remove effects from applied entities
 				switch (Type)
 				{
+					case AuraType.ADJACENT:
+					case AuraType.BOARD:
+					case AuraType.BOARD_EXCEPT_SOURCE:
+						Owner.Controller.BoardZone.Auras.Remove(this);
+						break;
+					case AuraType.HAND:
+						Owner.Controller.HandZone.Auras.Remove(this);
+						break;
+					case AuraType.OP_HAND:
+						Owner.Controller.Opponent.HandZone.Auras.Remove(this);
+						break;
+					case AuraType.HANDS:
+						Owner.Controller.HandZone.Auras.Remove(this);
+						Owner.Controller.Opponent.HandZone.Auras.Remove(this);
+						break;
 					case AuraType.CONTROLLER:
 						for (int i = 0; i < Effects.Length; i++)
 							Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
@@ -300,21 +315,22 @@ namespace SabberStoneCore.Enchants
 							Effects[i].Remove(Owner.Controller.Opponent.ControllerAuraEffects);
 						}
 						break;
-					default:
-						foreach (IPlayable entity in AppliedEntities)
-						{
-							if (Predicate != null)
-							{
-								var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
-								effect.Remove(entity.AuraEffects);
-								continue;
-							}
+				}
 
-							for (int i = 0; i < Effects.Length; i++)
-								Effects[i].Remove(entity.AuraEffects);
+				if (Type != AuraType.CONTROLLER || Type != AuraType.CONTROLLERS)
+				{
+					foreach (IPlayable entity in AppliedEntities)
+					{
+						if (Predicate != null)
+						{
+							var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+							effect.Remove(entity.AuraEffects);
+							continue;
 						}
 
-						break;
+						for (int i = 0; i < Effects.Length; i++)
+							Effects[i].Remove(entity.AuraEffects);
+					}
 				}
 
 				Game.Auras.Remove(this);
@@ -361,7 +377,7 @@ namespace SabberStoneCore.Enchants
 			Remove();
 		}
 
-		public void EntityRemoved(Minion m)
+		public void EntityRemoved(IPlayable m)
 		{
 			if (AppliedEntities.Remove(m))
 			{
@@ -387,8 +403,6 @@ namespace SabberStoneCore.Enchants
 
 				_appliedEntityIds.Remove(entity.Id);
 				AppliedEntities.Remove(entity);
-
-				return;
 			}
 
 			if (Condition != null)
@@ -410,10 +424,6 @@ namespace SabberStoneCore.Enchants
 				{
 					Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, EnchantmentCard);
 					EnchantmentCard.Power.Trigger?.Activate(instance);
-					if (entity.AppliedEnchantments == null)
-						entity.AppliedEnchantments = new List<Enchantment> {instance};
-					else
-						entity.AppliedEnchantments.Add(instance);
 				}
 			}
 

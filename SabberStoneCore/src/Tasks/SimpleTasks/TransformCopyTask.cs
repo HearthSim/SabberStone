@@ -33,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    source.Controller.BoardZone.Replace(source, copy);
 
 			// Copy Enchantments
-			if (Game.History)
+			if (Game.History && target.AppliedEnchantments != null)
 		    {
 			    foreach (Enchantment e in target.AppliedEnchantments)
 			    {
@@ -55,6 +55,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.CONTROLLER:
 					case GameTag.ZONE:
 					case GameTag.ZONE_POSITION:
+					case GameTag.CREATOR:
+					case GameTag.PREMIUM:
 						continue;
 					default:
 						copy.NativeTags.Add(kvp.Key, kvp.Value);
@@ -62,9 +64,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-
-		    trigger?.Activate(copy);
-		    aura?.Clone(copy);
+			if (aura != null && copy.OngoingEffect == null)
+				aura?.Clone(copy);
 
 			return TaskState.COMPLETE;
 	    }

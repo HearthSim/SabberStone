@@ -206,6 +206,9 @@ namespace SabberStoneCore.Enchants
 			if (!Validated)
 				return;
 
+		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
+			    !Game.Logging ? "" : $"{Owner}'s {_triggerType} Trigger is triggered by {source}.");
+
 		    if (FastExecution)
 			    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
 		    else
@@ -289,10 +292,20 @@ namespace SabberStoneCore.Enchants
 				    Game.TriggerManager.AfterCastTrigger -= Process;
 				    break;
 				case TriggerType.PREDAMAGE:
-					if (TriggerSource == TriggerSource.HERO)
-						Owner.Controller.Hero.PreDamageTrigger -= Process;
-					else if (TriggerSource == TriggerSource.SELF)
-						((Minion)Owner).PreDamageTrigger -= Process;
+					switch (TriggerSource)
+					{
+						case TriggerSource.HERO:
+							Owner.Controller.Hero.PreDamageTrigger -= Process;
+							break;
+						case TriggerSource.SELF:
+							((Minion)Owner).PreDamageTrigger -= Process;
+							break;
+						case TriggerSource.ENCHANTMENT_TARGET:
+							((Minion)((Enchantment)Owner).Target).PreDamageTrigger -= Process;
+							break;
+						default:
+							throw new NotImplementedException();
+					}
 					break;
 				case TriggerType.SECRET_REVEALED:
 					Game.TriggerManager.SecretRevealedTrigger -= Process;
@@ -300,7 +313,10 @@ namespace SabberStoneCore.Enchants
 			}
 
 			Owner.ActivatedTrigger = null;
-			Owner.Game.Triggers.Remove(this);
+			Game.Triggers.Remove(this);
+
+		    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger",
+			    !Game.Logging ? "" : $"{Owner}'s {_triggerType} Trigger is removed.");
 	    }
 
 		/// <summary>

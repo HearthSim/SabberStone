@@ -29,11 +29,11 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			//CloneSameSame();
+			CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			Console.WriteLine(Cards.Statistics());
+			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();
@@ -881,7 +881,7 @@ namespace SabberStoneCoreConsole
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			int total = 100;
+			int total = 10000;
 			for (int i = 0; i < total && flag; i++)
 			{
 				var game = new Game(new GameConfig
@@ -897,25 +897,36 @@ namespace SabberStoneCoreConsole
 				{
 					List<PlayerTask> options = game.CurrentPlayer.Options();
 					PlayerTask option = options[Rnd.Next(options.Count)];
-					game.Process(option);
 					try
 					{
-						Game cloneGame = game.Clone();
-						string str1 = game.Hash();
-						string str2 = cloneGame.Hash();
-						flag &= str1.Equals(str2);
+						game.Process(option);
 					}
 					catch (Exception e)
 					{
+						ShowLog(game, LogLevel.DEBUG);
 						Console.WriteLine(e.Message);
-						flag = false;
+						Console.WriteLine(e.StackTrace);
+						Console.ReadKey();
 					}
-					if (!flag)
-					{
-						Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
-						ShowLog(game, LogLevel.VERBOSE);
-						break;
-					}
+
+					//try
+					//{
+					//	Game cloneGame = game.Clone();
+					//	string str1 = game.Hash();
+					//	string str2 = cloneGame.Hash();
+					//	flag &= str1.Equals(str2);
+					//}
+					//catch (Exception e)
+					//{
+					//	Console.WriteLine(e.Message);
+					//	flag = false;
+					//}
+					//if (!flag)
+					//{
+					//	Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
+					//	ShowLog(game, LogLevel.DEBUG);
+					//	break;
+					//}
 				}
 
 				ProgressBar(i, total);

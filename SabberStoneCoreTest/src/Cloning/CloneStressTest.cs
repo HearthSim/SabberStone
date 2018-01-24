@@ -49,6 +49,7 @@ namespace SabberStoneCoreTest.Cloning
 					}
 				}
 			}
+
 			Assert.True(flag);
 		}
 
@@ -68,13 +69,19 @@ namespace SabberStoneCoreTest.Cloning
 			Game clone = game.Clone();
 			Assert.Equal(game.Hash(), clone.Hash());
 
-			SabberStoneCore.Model.Entities.IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
-			SabberStoneCore.Model.Entities.IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			SabberStoneCore.Model.Entities.IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			SabberStoneCore.Model.Entities.IPlayable spell1 =
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			SabberStoneCore.Model.Entities.IPlayable minion1 =
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			SabberStoneCore.Model.Entities.IPlayable spell2 =
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
 
-			SabberStoneCore.Model.Entities.IPlayable cSpell1 = Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Lightning Bolt"));
-			SabberStoneCore.Model.Entities.IPlayable cSpell2 = Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Lightning Bolt"));
-			SabberStoneCore.Model.Entities.IPlayable cMinion1 = Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			SabberStoneCore.Model.Entities.IPlayable cSpell1 =
+				Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			SabberStoneCore.Model.Entities.IPlayable cSpell2 =
+				Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Lightning Bolt"));
+			SabberStoneCore.Model.Entities.IPlayable cMinion1 =
+				Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentOpponent.Hero));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
@@ -84,7 +91,7 @@ namespace SabberStoneCoreTest.Cloning
 			clone.Process(PlayCardTask.SpellTarget(clone.CurrentPlayer, cSpell2, clone.CurrentOpponent.Hero));
 			clone.Process(PlayCardTask.SpellTarget(clone.CurrentPlayer, cSpell1, clone.CurrentOpponent.Hero));
 
-			GameTag[] ignored = new GameTag[] { GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID };
+			GameTag[] ignored = new GameTag[] {GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
 
 			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
 		}
@@ -166,6 +173,60 @@ namespace SabberStoneCoreTest.Cloning
 			Assert.Equal(1, clone3.Auras.Count);
 
 			Assert.Equal(3, clone2Minion.AttackDamage);
+		}
+
+		[Fact]
+		public void CloneAura2()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Sorcerer's Apprentice"),
+					Cards.FromName("Counterspell")
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Sorcerer's Apprentice"),
+					Cards.FromName("Counterspell"),
+					Cards.FromName("Vaporize")
+				},
+				Shuffle = false,
+				FillDecks = true,
+				History = false,
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Sorcerer's Apprentice"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Sorcerer's Apprentice"));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(2, game.Auras.Count);
+			Assert.Equal(2, game.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(2, game.CurrentOpponent.HandZone[0].Cost);
+			Assert.Equal(2, game.CurrentOpponent.HandZone[1].Cost);
+
+			Game clone = game.Clone();
+
+			Assert.Equal(2, clone.Auras.Count);
+			Assert.Equal(2, clone.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(2, clone.CurrentOpponent.HandZone[0].Cost);
+			Assert.Equal(2, clone.CurrentOpponent.HandZone[1].Cost);
+
+			clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, clone.CurrentPlayer.BoardZone[0],
+				clone.CurrentOpponent.BoardZone[0]));
+
+			Assert.Equal(0, clone.Auras.Count);
+			Assert.Equal(3, clone.CurrentPlayer.HandZone[0].Cost);
+			Assert.Equal(3, clone.CurrentOpponent.HandZone[0].Cost);
+			Assert.Equal(3, clone.CurrentOpponent.HandZone[1].Cost);
 		}
 	}
 }

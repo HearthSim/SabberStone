@@ -29,6 +29,7 @@ namespace SabberStoneCoreTest.Basic
 		{
 			var game = new Game(new GameConfig
 			{
+				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player1Deck = new List<Card>
 				{
@@ -38,10 +39,15 @@ namespace SabberStoneCoreTest.Basic
 					Cards.FromName("Sorcerer's Apprentice"),
 					Cards.FromName("Sorcerer's Apprentice"),
 					Cards.FromName("Backstab")
-				}
+				},
+				FillDecks = false,
+				Shuffle = false
 			});
 			game.Player1.BaseMana = 10;
 			game.StartGame();
+
+			Generic.Draw(game.CurrentPlayer);
+			Generic.Draw(game.CurrentPlayer);
 
 			IPlayable eviscerate1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eviscerate"));
 			IPlayable eviscerate2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eviscerate"));
@@ -57,9 +63,9 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(1, eviscerate2.Cost);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Preparation"));
 			Assert.Equal(0, eviscerate2.Cost);
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "SI:7 Agent"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "SI:7 Agent", game.CurrentPlayer.BoardZone[0]));
 			Assert.Equal(0, eviscerate2.Cost);
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Backstab"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Backstab", game.CurrentPlayer.BoardZone[0]));
 			Assert.Equal(2, eviscerate2.Cost);
 
 		}

@@ -110,6 +110,7 @@ namespace SabberStoneCore.Tasks
 				// execution
 				if (task.Process() != TaskState.COMPLETE)
 					break;
+				
 
 				// move over in queue
 				Game = task.Game;

@@ -13,7 +13,9 @@ namespace SabberStoneCore.Model
 		//public List<ISimpleTask> TaskList = new List<ISimpleTask>();
 		public Queue<ISimpleTask> TaskList = new Queue<ISimpleTask>();
 
-		public int Count => TaskList.Count;
+		public readonly Queue<ISimpleTask> CurrentEventTasks = new Queue<ISimpleTask>();
+
+		public int Count => (CurrentTask?.State == TaskState.RUNNING || CurrentEventTasks.Count > 0) ? CurrentEventTasks.Count : TaskList.Count;
 
 		public Game Game { get; set; }
 
@@ -82,7 +84,10 @@ namespace SabberStoneCore.Model
 			//task.Reset();
 
 			//TaskList.Add(task);
-			TaskList.Enqueue(task);
+			if (CurrentTask?.State == TaskState.RUNNING)
+				CurrentEventTasks.Enqueue(task);
+			else
+				TaskList.Enqueue(task);
 		}
 
 		public TaskState Process()
@@ -91,7 +96,7 @@ namespace SabberStoneCore.Model
 
 			//TaskList.Remove(CurrentTask);
 
-			CurrentTask = TaskList.Dequeue();
+			CurrentTask = CurrentEventTasks.Count > 0 ? CurrentEventTasks.Dequeue() : TaskList.Dequeue();
 
 			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"LazyTask[{CurrentTask.Source}]: '{CurrentTask.GetType().Name}' is processed!" +
 										$"'{CurrentTask.Source.Card.Text?.Replace("\n", " ")}'");
@@ -115,6 +120,9 @@ namespace SabberStoneCore.Model
 			//    Log.Info($"Parallel-threading splits '{CurrentTask.Splits.Count}' starting now! [Info: {Game.Splits.Count}]");
 			//    Game.Splits = CurrentTask.Splits;                
 			//}
+
+			CurrentTask = null;
+
 			return success;
 		}
 

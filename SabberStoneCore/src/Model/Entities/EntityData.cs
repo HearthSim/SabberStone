@@ -145,6 +145,7 @@ namespace SabberStoneCore.Model.Entities
 			Tags.Remove(GameTag.BATTLECRY);
 			Tags.Remove(GameTag.SILENCED);
 			Tags.Remove(GameTag.NUM_ATTACKS_THIS_TURN);
+			Tags.Remove(GameTag.NUM_TURNS_IN_PLAY);
 		}
 	}
 }

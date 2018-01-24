@@ -52,8 +52,10 @@ namespace SabberStoneCore.Model.Zones
 
 			// Remove old Entity
 			RemoveAura(oldEntity);
-
+			for (int i = 0; i < Auras.Count; i++)
+				Auras[i].EntityRemoved(oldEntity);
 			oldEntity.ActivatedTrigger?.Remove();
+
 			Controller.SetasideZone.Add(oldEntity);
 
 			// Add new Entity
@@ -63,13 +65,6 @@ namespace SabberStoneCore.Model.Zones
 
 		private static void ActivateAura(IPlayable entity)
 		{
-			//if (entity.Powers != null)
-			//	foreach (Power power in entity.Powers)
-			//	{
-			//		power.Trigger?.Activate(entity);
-			//		power.Aura?.Activate(entity);
-			//	}
-
 			entity.Power?.Trigger?.Activate(entity);
 			entity.Power?.Aura?.Activate(entity);
 
@@ -77,11 +72,8 @@ namespace SabberStoneCore.Model.Zones
 				entity.Controller.CurrentSpellPower += entity.Card.Tags[GameTag.SPELLPOWER];
 		}
 
-		private void RemoveAura(IPlayable entity)
+		private static void RemoveAura(IPlayable entity)
 		{
-			for (int i = 0; i < Auras.Count; i++)
-				Auras[i].EntityRemoved((Minion)entity);
-
 			entity.OngoingEffect?.Remove();
 
 			if (entity.Controller.CurrentSpellPower > 0 && entity[GameTag.SPELLPOWER] > 0)

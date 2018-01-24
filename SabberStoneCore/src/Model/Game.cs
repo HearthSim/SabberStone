@@ -932,7 +932,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
-			for (int i = 0; i < Auras.Count; i++)
+			for (int i = Auras.Count - 1; i >= 0; i--)
 				Auras[i].Update();
 		}
 

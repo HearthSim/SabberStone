@@ -91,6 +91,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> RemoveFromZone
 			=> delegate (Controller c, IPlayable playable)
 			{
+				if (playable.Zone == null)
+					;
 				playable.Zone.Remove(playable);
 				return true;
 			};
@@ -178,6 +180,29 @@ namespace SabberStoneCore.Actions
 					newMinion.IsExhausted = true;
 
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
+				return true;
+			};
+
+		public static Func<bool, ICharacter, ICharacter, bool> PoisonousBlock
+			=> delegate(bool history, ICharacter source, ICharacter target)
+			{
+				if (source[GameTag.POISONOUS] != 1)
+					return false;
+
+				if (history)
+				{
+					source.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, "", -1,
+						0)); //	SubOption = -1, TriggerKeyWord = POISONOUS
+					//[DebugPrintPower] META_DATA - Meta=TARGET Data = 0 Info=1
+					//[DebugPrintPower] Info[0] = [entityName=Goldshire Footman id=47 zone=PLAY zonePos=1 cardId=CS1_042 player=2]
+				}
+
+				target.ToBeDestroyed = true;
+
+
+				if (history)
+					source.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
 				return true;
 			};
 	}
