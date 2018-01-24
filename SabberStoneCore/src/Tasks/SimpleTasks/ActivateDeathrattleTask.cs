@@ -6,7 +6,6 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	// TODO
     public class ActivateDeathrattleTask : SimpleTask
     {
 	    private readonly EntityType _type;
@@ -22,6 +21,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
 		    {
 			    p.ActivateTask(Enums.PowerActivation.DEATHRATTLE);
+			    p.AppliedEnchantments?.ForEach(e =>
+			    {
+				    if (e.Power.DeathrattleTask == null) return;
+				    ISimpleTask clone = e.Power.DeathrattleTask.Clone();
+				    clone.Game = Game;
+				    clone.Controller = Controller;
+				    clone.Source = Target;
+				    clone.Target = null;
+
+				    Game.TaskQueue.Enqueue(clone);
+			    });
 		    }
 
 		    return TaskState.STOP;
@@ -29,7 +39,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override ISimpleTask Clone()
 	    {
-		    throw new NotImplementedException();
+		    return new ActivateDeathrattleTask(_type);
 	    }
     }
 }

@@ -96,6 +96,11 @@ namespace SabberStoneCore.Enchants
 			return new Effect(GameTag.HEALTH, EffectOperator.SET, n);
 		}
 
+		internal static Effect[] SetAttackHealth(int n)
+		{
+			return new[] {SetAttack(n), SetMaxHealth(n)};
+		}
+
 		internal static Effect ReduceCost(int n)
 		{
 			return new Effect(GameTag.COST, EffectOperator.SUB, n);

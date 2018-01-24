@@ -60,6 +60,9 @@ namespace SabberStoneCore.Model
 		/// <value>The entity Id.</value>
 		public int LastChoice { get; set; }
 
+		/// <summary>Gets or sets the card of enchantment that must be applied after the entity is chosen.</summary>
+		public Card EnchantmentCard { get; set; }
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public void Stamp(Choice choice)

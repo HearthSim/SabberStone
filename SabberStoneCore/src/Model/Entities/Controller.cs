@@ -107,6 +107,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool DragonInHand => HandZone.Any(p => p.Card.Race == Race.DRAGON);
 
+		public int NumTotemSummonedThisGame { get; set; }
+
 		/// <summary>
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.

@@ -199,6 +199,18 @@ namespace SabberStoneCore.Actions
 						throw new NotImplementedException();
 				}
 
+				if (c.Choice.EnchantmentCard != null)
+				{
+					var task = new AddEnchantmentTask(c.Choice.EnchantmentCard, EntityType.TARGET)
+					{
+						Game = c.Game,
+						Controller = c,
+						Source = c.Game.IdEntityDic[c.Choice.SourceId],
+						Target = playable,
+					};
+					task.Process();
+				}
+
 				// set displayed creator at least for discover
 				//playable[GameTag.DISPLAYED_CREATOR] = c.LastCardPlayed;
 
@@ -293,8 +305,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Power, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Power power)
+		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard)
 			{
 				//if (c.Choice != null)
 				//{
@@ -312,7 +324,7 @@ namespace SabberStoneCore.Actions
 							{GameTag.DISPLAYED_CREATOR, source.Id }
 						});
 					// add after discover power
-					if (power != null)
+					if (enchantmentCard != null)
 					{
 						if (choiceEntity.Powers == null)
 							choiceEntity.Powers = new List<Power> { power };

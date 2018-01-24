@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -78,10 +76,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				    power.Aura?.Activate(entity);
 				    power.Trigger?.Activate(entity);
-				    Enchantment instance = null;
-				    if (power.Aura != null || power.Trigger != null)
+				    if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
 				    {
-					    instance = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
+					    Enchantment instance = Enchantment.GetInstance(Controller, (IPlayable) Source, entity, _enchantmentCard);
 					    power.Aura?.Activate(instance);
 					    power.Trigger?.Activate(instance);
 				    }
@@ -89,7 +86,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				    if (power.Enchant is OngoingEnchant && entity.OngoingEffect != null)
 					    ((OngoingEnchant) entity.OngoingEffect).Count++;
 				    else
-					    power.Enchant?.ActivateTo(entity, null, Number);
+					    power.Enchant?.ActivateTo(entity, null, Number, Number1);
 
 				    if (power.DeathrattleTask != null)
 					    entity.HasDeathrattle = true;

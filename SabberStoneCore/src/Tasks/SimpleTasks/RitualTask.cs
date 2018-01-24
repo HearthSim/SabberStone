@@ -9,17 +9,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RitualTask : SimpleTask
 	{
-		public RitualTask(string enchantmentId = "")
+		public RitualTask(string enchantmentId = "", bool useScriptTag = false)
 		{
 			_enchantmentCard = Cards.FromId(enchantmentId);
+			_useScriptTag = useScriptTag;
 		}
 
-		private RitualTask(Card enchantmentCard)
+		private RitualTask(Card enchantmentCard, bool useScriptTag)
 		{
 			_enchantmentCard = enchantmentCard;
+			_useScriptTag = useScriptTag;
 		}
 
 		private readonly Card _enchantmentCard;
+		private readonly bool _useScriptTag;
 
 		public override TaskState Process()
 		{
@@ -50,7 +53,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					Enchantment enchantment =
 						Game.History ? Enchantment.GetInstance(Controller, (IPlayable) Source, p, _enchantmentCard) : null;
-					_enchantmentCard.Power.Enchant.ActivateTo(p, enchantment);
+					if (_useScriptTag && Game.History)
+					{
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = Number1;
+					}
+					_enchantmentCard.Power.Enchant.ActivateTo(p, enchantment, Number, Number1);
 				});
 			}
 
@@ -59,7 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RitualTask(_enchantmentCard);
+			var clone = new RitualTask(_enchantmentCard, _useScriptTag);
 			return clone;
 		}
 	}

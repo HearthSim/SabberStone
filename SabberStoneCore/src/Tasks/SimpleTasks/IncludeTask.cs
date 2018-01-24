@@ -150,10 +150,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (AddFlag)
 			{
-				var before = Playables.Count;
 				Playables.AddRange(RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
-				if (Playables.Count <= before)
-					;
 			}
 			else
 			{
@@ -256,16 +253,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						yield return c.Opponent.DeckZone[i];
 					yield break;
 				case EntityType.OP_SECRETS:
-					for (int i = 0; i < c.Opponent.SecretZone.Count; i++)
+					for (int i = c.Opponent.SecretZone.Count - 1; i >= 0; i--)
 						yield return c.Opponent.SecretZone[i];
 					yield break;
 				case EntityType.OP_MINIONS:
-					for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ENEMIES:
 					yield return c.Opponent.Hero;
-					for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
 						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ENEMIES_NOTARGET:
@@ -281,7 +278,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					else
 					{
-						for (int i = 0; i < c.Opponent.BoardZone.Count; i++)
+						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
 							yield return c.Opponent.BoardZone[i];
 						yield break;
 					}
