@@ -225,7 +225,6 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DS1h_292", new Power {
 				PowerTask = new DamageTask(2, EntityType.OP_HERO, false)
 			});
-
 		}
 
 		private static void Druid(IDictionary<string, Power> cards)

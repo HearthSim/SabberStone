@@ -82,7 +82,7 @@ namespace SabberStoneCore.Model
 				}
 			}
 			LastChoice = choice.LastChoice;
-			
+			EnchantmentCard = choice.EnchantmentCard;
 		}
 
 		public string FullPrint()

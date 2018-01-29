@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -12,9 +12,9 @@ namespace SabberStoneCore.Model.Entities
 {
 	public partial class Enchantment : IPlayable
 	{
-		private readonly Dictionary<GameTag, int> _tags;
+		private readonly IDictionary<GameTag, int> _tags;
 
-		private Enchantment(Controller controller, Card card, Dictionary<GameTag, int> tags)
+		private Enchantment(Controller controller, Card card, IDictionary<GameTag, int> tags)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -58,7 +58,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
-			var tags = new Dictionary<GameTag, int>
+			var tags = new EntityData.Data
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
 				{GameTag.CONTROLLER, controller.PlayerId},
@@ -88,47 +88,50 @@ namespace SabberStoneCore.Model.Entities
 					Entity = new PowerHistoryEntity
 					{
 						Id = instance.Id,
-						Tags = tags
+						Tags = tags.ToDictionary(k => k.Key, k => k.Value)
 					}
 				});
 
-				controller.Game.PowerHistory.Add(new PowerHistoryShowEntity
+				if (!(target.Zone is DeckZone))
 				{
-					Entity = new PowerHistoryEntity
+					controller.Game.PowerHistory.Add(new PowerHistoryShowEntity
 					{
-						Id = instance.Id,
-						Name = instance.Card.Name,
-						Tags = new Dictionary<GameTag, int>
+						Entity = new PowerHistoryEntity
 						{
-							{GameTag.CONTROLLER, controller.PlayerId},
-							{GameTag.CARDTYPE, (int) CardType.ENCHANTMENT},
-							{GameTag.PREMIUM, creator[GameTag.PREMIUM]},
-							{GameTag.ATTACHED, target.Id},
-							{GameTag.DAMAGE, 0},
-							{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
-							{GameTag.ENTITY_ID, instance.Id},
-							{GameTag.SILENCE, 0},
-							{GameTag.WINDFURY, 0},
-							{GameTag.TAUNT, 0},
-							{GameTag.STEALTH, 0},
-							{GameTag.DIVINE_SHIELD, 0},
-							{GameTag.CHARGE, 0},
-							{GameTag.FROZEN, 0},
-							{GameTag.ZONE_POSITION, 0},
-							{GameTag.NUM_ATTACKS_THIS_TURN, 0},
-							{GameTag.CREATOR, creator.Id},
-							{GameTag.FORCED_PLAY, 0},
-							{GameTag.TO_BE_DESTROYED, 0},
-							{GameTag.POISONOUS, 0},
-							{GameTag.CUSTOM_KEYWORD_EFFECT, 0},
-							{GameTag.EXTRA_ATTACKS_THIS_TURN, 0},
-							{GameTag.TAG_LAST_KNOWN_ATK_IN_HAND, 0},
-							//	479
-							{GameTag.LIFESTEAL, 0}
+							Id = instance.Id,
+							Name = instance.Card.Name,
+							Tags = new Dictionary<GameTag, int>
+							{
+								{GameTag.CONTROLLER, controller.PlayerId},
+								{GameTag.CARDTYPE, (int) CardType.ENCHANTMENT},
+								{GameTag.PREMIUM, creator[GameTag.PREMIUM]},
+								{GameTag.ATTACHED, target.Id},
+								{GameTag.DAMAGE, 0},
+								{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
+								{GameTag.ENTITY_ID, instance.Id},
+								{GameTag.SILENCE, 0},
+								{GameTag.WINDFURY, 0},
+								{GameTag.TAUNT, 0},
+								{GameTag.STEALTH, 0},
+								{GameTag.DIVINE_SHIELD, 0},
+								{GameTag.CHARGE, 0},
+								{GameTag.FROZEN, 0},
+								{GameTag.ZONE_POSITION, 0},
+								{GameTag.NUM_ATTACKS_THIS_TURN, 0},
+								{GameTag.CREATOR, creator.Id},
+								{GameTag.FORCED_PLAY, 0},
+								{GameTag.TO_BE_DESTROYED, 0},
+								{GameTag.POISONOUS, 0},
+								{GameTag.CUSTOM_KEYWORD_EFFECT, 0},
+								{GameTag.EXTRA_ATTACKS_THIS_TURN, 0},
+								{GameTag.TAG_LAST_KNOWN_ATK_IN_HAND, 0},
+								//	479
+								{GameTag.LIFESTEAL, 0}
+							}
 						}
-					}
-				});
-
+					});
+				}
+				
 				instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			}
 
@@ -183,7 +186,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public AuraEffects AuraEffects { get; set; }
-		public Dictionary<GameTag, int> NativeTags { get; }
+		public IDictionary<GameTag, int> NativeTags { get; }
 		public List<Enchantment> AppliedEnchantments { get; set; }
 
 		public Power Power => Card.Power;
@@ -194,9 +197,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			_tags.Clear();
 		}
-
-
-
 
 		public override string ToString()
 		{

@@ -64,7 +64,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Card != null)
 			{
 				summonEntity = Entity.FromCard(Controller, Card,
-					new Dictionary<GameTag, int>
+					new EntityData.Data
 					{
 						{GameTag.ZONE, (int)Zone.PLAY},
 						{GameTag.DISPLAYED_CREATOR, Source.Id}

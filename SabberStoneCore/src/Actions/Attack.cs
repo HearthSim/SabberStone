@@ -99,7 +99,7 @@ namespace SabberStoneCore.Actions
 				var hero = source as Hero;
 				var minion = source as Minion;
 				//source.ProposedAttacker = source.Id;
-				c.Game.ProposedAttacker = source.Id;
+				//c.Game.ProposedAttacker = source.Id;
 				IPlayable proposedDefender;
 				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out proposedDefender))
 				{

@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -91,8 +92,6 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> RemoveFromZone
 			=> delegate (Controller c, IPlayable playable)
 			{
-				if (playable.Zone == null)
-					;
 				playable.Zone.Remove(playable);
 				return true;
 			};
@@ -180,6 +179,54 @@ namespace SabberStoneCore.Actions
 					newMinion.IsExhausted = true;
 
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
+				return true;
+			};
+
+		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool> AddEnchantmentBlock
+			=> delegate(Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2)
+			{
+				Power power = enchantmentCard.Power;
+
+				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect != null)
+				{
+					((OngoingEnchant)(entity.OngoingEffect)).Count++;
+					return true;
+				}
+
+				if (c.Game.History)
+				{
+					Enchantment enchantment = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+
+					if (num1 > 0)
+					{
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+						if (num2 > 0)
+							enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
+					}
+
+					power.Aura?.Activate(enchantment);
+					power.Trigger?.Activate(enchantment);
+					power.Enchant?.ActivateTo(target, enchantment);
+
+					if (power.DeathrattleTask != null)
+						((IPlayable)target).HasDeathrattle = true;
+				}
+				else
+				{
+					if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
+					{
+						Enchantment instance = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+						power.Aura?.Activate(instance);
+						power.Trigger?.Activate(instance);
+					}
+
+					//	no indicator enchantment entities when History option is off
+					power.Enchant?.ActivateTo(target, null, num1, num2);
+
+					if (power.DeathrattleTask != null)
+						((IPlayable)target).HasDeathrattle = true;
+				}
+
 				return true;
 			};
 

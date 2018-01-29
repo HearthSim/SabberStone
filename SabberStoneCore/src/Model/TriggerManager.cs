@@ -9,8 +9,9 @@ namespace SabberStoneCore.Model
 {
     public class TriggerManager
     {
-	    public delegate void TriggerHandler(IEntity sender);
+	    public delegate void TriggerHandler(IEntity sender, int number = 0);
 
+	    public event TriggerHandler DealDamageTrigger;
 	    public event TriggerHandler DamageTrigger;
 	    public event TriggerHandler HealTrigger;
 
@@ -33,9 +34,13 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler SecretRevealedTrigger;
 
-	    //public List<Trigger> DamageDealtTriggers = new LinkedList<Trigger>
-	    //public List<Trigger> PlayCardTriggers = new List<Trigger>();
-	    //public List<Trigger> SummonTriggers = new List<Trigger>();
+	    public event TriggerHandler ZoneTrigger;
+		
+	    internal void OnDealDamageTrigger(IEntity sender, int number)
+	    {
+		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.DEAL_DAMAGE);
+		    DealDamageTrigger?.Invoke(sender, number);
+	    }
 
 		internal void OnDamageTrigger(IEntity sender)
 	    {
@@ -107,6 +112,11 @@ namespace SabberStoneCore.Model
 	    {
 		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.SECRET_REVEALED);
 			SecretRevealedTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnZoneTrigger(IEntity sender)
+	    {
+		    ZoneTrigger?.Invoke(sender);
 	    }
     }
 }

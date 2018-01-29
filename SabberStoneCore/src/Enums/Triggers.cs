@@ -17,6 +17,8 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered when a player uses Hero Power. </summary>
 		INSPIRE,
 		/// <summary> The effect will be triggered when a character is damaged. </summary>
+		DEAL_DAMAGE,
+		/// <summary> The effect will be triggered when a spell or a character deals damages. </summary>
 		DAMAGE,
 		/// <summary> 
 		/// effect will be triggered when a character gets Predamage. 
@@ -42,7 +44,9 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered after a spell is played. </summary>
 		AFTER_CAST,
 		/// <summary> The effect will be triggered when a secret is activated. </summary>
-		SECRET_REVEALED
+		SECRET_REVEALED,
+
+		ZONE
 	}
 
 	public enum TriggerSource
@@ -64,7 +68,8 @@ namespace SabberStoneCore.Enums
 	{
 		PLAY,
 		HAND,
-		DECK
+		DECK,
+		HAND_OR_PLAY
 	}
 
 	public enum SequenceType

@@ -26,6 +26,8 @@ namespace SabberStoneCore.Model.Zones
 			entity.OrderOfPlay = Game.NextOop;
 
 			ActivateAura(entity);
+
+			Game.TriggerManager.OnZoneTrigger(entity);
 		}
 
 		public override IPlayable Remove(IPlayable entity)

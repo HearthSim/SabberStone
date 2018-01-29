@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -7,6 +9,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using static SabberStoneCore.Tasks.SimpleTasks.RitualTask;
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -24,14 +27,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("OG_006b", null);
-
+			cards.Add("OG_006b", new Power {
+				PowerTask = new SummonTask("OG_006a", SummonSide.SPELL),
+			});
 		}
 
 		private static void Druid(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5] 
+			// [OG_044] Fandral Staghelmh - COST:4 [ATK:3/HP:5] 
 			// - Set: og, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your <b>Choose One</b> cards and powers have both effects combined.
@@ -115,7 +119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_293", new Power {
-				PowerTask = new RitualTask("OG_293e")
+				PowerTask = new RitualTask(3)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -203,7 +207,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_047e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_047e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_047e"),
+				Trigger = Triggers.OneTurnEffectRemovalTrigger("OG_047e")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -258,7 +263,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Give your hero +4 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("OG_047a", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_048e")
+				PowerTask = new AddEnchantmentTask("OG_047e", EntityType.HERO)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -508,7 +513,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_087", new Power {
-				// TODO [OG_087] Servant of Yogg-Saron && Test: Servant of Yogg-Saron_OG_087
+				// TODO Test: Servant of Yogg-Saron_OG_087
 				PowerTask = new CastRandomSpellTask(c => c.Cost < 6)
 			});
 
@@ -556,7 +561,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new RitualTask("OG_303e")
+					SingleTask = new RitualTask(1)
 				}
 			});
 
@@ -638,7 +643,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_221", new Power {
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new RandomTask(1, EntityType.STACK),
 					new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
@@ -844,10 +849,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_334", new Power {
-				// TODO
 				Trigger = new Trigger(TriggerType.HEAL)
 				{
-					SingleTask = new RitualTask("")
+					SingleTask = new RitualTask(1)
 				}
 			});
 
@@ -992,12 +996,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_282", new Power {
-				// TODO [OG_282] Blade of C'Thun && Test: Blade of C'Thun_OG_282
 				InfoCardId = "OG_282e",
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET, 0, 1),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 2),
+					new MathNumberIndexTask(1, 2, MathOperation.SUB, 1),
 					new DestroyTask(EntityType.TARGET),
-					new RitualTask("OG_282e"))
+					new RitualTask(RitualType.Blade))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1143,7 +1149,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_080d", new Power {
-				PowerTask = new AddEnchantmentTask("OG_080de", EntityType.TARGET)
+				PowerTask = new AddEnchantmentTask("OG_080ee", EntityType.TARGET)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1161,7 +1167,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080e", new Power {
-				PowerTask = new AddEnchantmentTask("OG_080ee", EntityType.TARGET)
+				PowerTask = new AddEnchantmentTask("OG_080de", EntityType.TARGET)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1235,14 +1241,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_209", new Power {
-				// TODO [OG_209] Hallazeal the Ascended && Test: Hallazeal the Ascended_OG_209
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
 				{
-					Condition = new SelfCondition(p =>
-					{
-						IPlayable damageSource = p.Game.IdEntityDic[p[GameTag.LAST_AFFECTED_BY]];
-						return damageSource is Spell &&  
-					})
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsSpell,
+					FastExecution = true,
+					SingleTask = new HealNumberTask(EntityType.HERO)
 				}
 			});
 
@@ -1275,8 +1279,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_023", new Power {
-				// TODO [OG_023] Primal Fusion && Test: Primal Fusion_OG_023
-				InfoCardId = "OG_023t",
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsRace(Race.TOTEM)),
@@ -1396,10 +1398,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_121", new Power {
-				// TODO [OG_121] Cho'gall && Test: Cho'gall_OG_121
-				InfoCardId = "OG_121e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("OG_121e", EntityType.CONTROLLER)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1426,12 +1425,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_302", new Power {
-				// TODO [OG_302] Usher of Souls && Test: Usher of Souls_OG_302
-				InfoCardId = "OG_302e",
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new RitualTask("OG_302e")
+					SingleTask = new RitualTask(1)
 				}
 			});
 
@@ -1466,10 +1463,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Replace your Hero Power and Warlock cards with another class's. The cards cost (1) less.
 			// --------------------------------------------------------
 			cards.Add("OG_118", new Power {
-				// TODO [OG_118] Renounce Darkness && Test: Renounce Darkness_OG_118
-				InfoCardId = "OG_118e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SpecificTask.RenonunceDarkness()
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -1601,7 +1595,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_315", new Power {
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
-					new FlagTask(true, new AddEnchantmentTask("OG_315e", EntityType.WEAPON))
+					new FlagTask(true, new AddEnchantmentTask("OG_315e", EntityType.WEAPON)))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1743,10 +1737,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_102", new Power {
-				// TODO [OG_102] Darkspeaker && Test: Darkspeaker_OG_102
 				InfoCardId = "OG_102e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+					new GetGameTagTask(GameTag.HEALTH, EntityType.SOURCE, 0, 1),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.SOURCE, 0, 2),
+					new MathNumberIndexTask(1, 2, MathOperation.SUB, 1),
+					new GetGameTagTask(GameTag.ATK, EntityType.TARGET, 0, 2),
+					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET, 0, 3),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 4),
+					new MathNumberIndexTask(3, 4, MathOperation.SUB, 3),
+					new AddEnchantmentTask("OG_102e", EntityType.TARGET),
+					new MathMultiplyTask(0),
+					new MathNumberIndexTask(3, 0, MathOperation.ADD, 1),
+					new MathNumberIndexTask(2, 0, MathOperation.ADD),
+					new AddEnchantmentTask("OG_102e", EntityType.SOURCE))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1760,9 +1765,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_122", new Power {
-				// TODO [OG_122] Mukla, Tyrant of the Vale && Test: Mukla, Tyrant of the Vale_OG_122
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1797,9 +1800,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_131", new Power {
-				// TODO [OG_131] Twin Emperor Vek'lor && Test: Twin Emperor Vek'lor_OG_131
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RitualTask(),
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunGameTag(GameTag.ATK, 10, RelaSign.GEQ)),
+					new FlagTask(true, new SummonTask("OG_131", SummonSide.RIGHT)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1816,9 +1820,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_133", new Power {
-				// TODO [OG_133] N'Zoth, the Corruptor && Test: N'Zoth, the Corruptor_OG_133
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.GRAVEYARD),
+					new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
+					new SummonCopyTask(EntityType.STACK, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1831,10 +1836,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
+			
 			cards.Add("OG_134", new Power {
 				// TODO [OG_134] Yogg-Saron, Hope's End && Test: Yogg-Saron, Hope's End_OG_134
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagControllerTask(GameTag.NUM_SPELLS_PLAYED_THIS_GAME),
+					new EnqueueNumberTask(ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced),
+						new FlagTask(true, new CastRandomSpellTask()))))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1845,31 +1854,24 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Cost by (1).
 			// --------------------------------------------------------
 			cards.Add("OG_138", new Power {
-				// TODO [OG_138] Nerubian Prophet && Test: Nerubian Prophet_OG_138
-				InfoCardId = "OG_138e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = new AddEnchantmentTask("OG_138e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_141] Faceless Behemoth - COST:10 [ATK:10/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_141", new Power {
-				// TODO [OG_141] Faceless Behemoth && Test: Faceless Behemoth_OG_141
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_141", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_142] Eldritch Horror - COST:8 [ATK:6/HP:10] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_142", new Power {
-				// TODO [OG_142] Eldritch Horror && Test: Eldritch Horror_OG_142
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_142", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_145] Psych-o-Tron - COST:5 [ATK:3/HP:4] 
@@ -1882,11 +1884,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("OG_145", new Power {
-				// TODO [OG_145] Psych-o-Tron && Test: Psych-o-Tron_OG_145
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_145", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_147] Corrupted Healbot - COST:5 [ATK:6/HP:6] 
@@ -1898,9 +1896,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_147", new Power {
-				// TODO [OG_147] Corrupted Healbot && Test: Corrupted Healbot_OG_147
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new HealTask(8, EntityType.OP_HERO)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1913,10 +1909,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150", new Power {
-				// TODO [OG_150] Aberrant Berserker && Test: Aberrant Berserker_OG_150
-				InfoCardId = "OG_150e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.EnrageTrigger("OG_150e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1929,9 +1922,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_151", new Power {
-				// TODO [OG_151] Tentacle of N'Zoth && Test: Tentacle of N'Zoth_OG_151
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new DamageTask(1, EntityType.ALLMINIONS)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1943,11 +1934,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_152", new Power {
-				// TODO [OG_152] Grotesque Dragonhawk && Test: Grotesque Dragonhawk_OG_152
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_152", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_153] Bog Creeper - COST:7 [ATK:6/HP:8] 
@@ -1958,11 +1945,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_153", new Power {
-				// TODO [OG_153] Bog Creeper && Test: Bog Creeper_OG_153
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_153", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_156] Bilefin Tidehunter - COST:2 [ATK:2/HP:1] 
@@ -1977,9 +1960,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_156", new Power {
-				// TODO [OG_156] Bilefin Tidehunter && Test: Bilefin Tidehunter_OG_156
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("OG_156a", SummonSide.RIGHT)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1992,10 +1973,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_158", new Power {
-				// TODO [OG_158] Zealous Initiate && Test: Zealous Initiate_OG_158
-				InfoCardId = "OG_158e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RandomTask(1, EntityType.MINIONS),
+					new AddEnchantmentTask("OG_158e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2008,9 +1988,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_161", new Power {
-				// TODO [OG_161] Corrupted Seer && Test: Corrupted Seer_OG_161
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.ALLMINIONS),
+					new FilterStackTask(SelfCondition.IsNotRace(Race.MURLOC)),
+					new DamageTask(2, EntityType.STACK)),
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2028,9 +2009,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_162", new Power {
-				// TODO [OG_162] Disciple of C'Thun && Test: Disciple of C'Thun_OG_162
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(2, EntityType.TARGET),
+					new RitualTask(2))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2041,9 +2022,26 @@ namespace SabberStoneCore.CardSets.Standard
 			//       at the end of your turn, merge them into 'The Ancient One'.
 			// --------------------------------------------------------
 			cards.Add("OG_173", new Power {
-				// TODO [OG_173] Blood of The Ancient One && Test: Blood of The Ancient One_OG_173
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					Condition = new SelfCondition(p => p.Controller.BoardZone.Count(m => m.Card.Id == "OG_173") > 1),
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.MINIONS),
+						new FilterStackTask(SelfCondition.IsCardId("OG_173")),
+						new CountTask(EntityType.STACK),
+						new FuncPlayablesTask(p =>
+						{
+							if (p.Count < 2)
+								return p;
+							Controller c = p[0].Controller;
+							p.ForEach(q => q.Destroy());
+							c.Game.GraveYard();
+							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
+							Generic.SummonBlock.Invoke(c, ancientOne, c.BoardZone.Count);
+							return p;
+						}))
+
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2063,10 +2061,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("OG_174", new Power {
-				// TODO [OG_174] Faceless Shambler && Test: Faceless Shambler_OG_174
 				InfoCardId = "OG_174e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
+					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET, 0, 1),
+					new AddEnchantmentTask("OG_174e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2076,10 +2075,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, set this minion's Attack to 7.
 			// --------------------------------------------------------
 			cards.Add("OG_200", new Power {
-				// TODO [OG_200] Validated Doomsayer && Test: Validated Doomsayer_OG_200
-				InfoCardId = "OG_200e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new AddEnchantmentTask("OG_200e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2091,21 +2090,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("OG_247", new Power {
-				// TODO [OG_247] Twisted Worgen && Test: Twisted Worgen_OG_247
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_247", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_248] Am'gam Rager - COST:3 [ATK:1/HP:5] 
 			// - Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_248", new Power {
-				// TODO [OG_248] Am'gam Rager && Test: Am'gam Rager_OG_248
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_248", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_249] Infested Tauren - COST:4 [ATK:2/HP:3] 
@@ -2119,9 +2110,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_249", new Power {
-				// TODO [OG_249] Infested Tauren && Test: Infested Tauren_OG_249
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("OG_249a", SummonSide.DEATHRATTLE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2137,10 +2126,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("OG_254", new Power {
-				// TODO [OG_254] Eater of Secrets && Test: Eater of Secrets_OG_254
-				InfoCardId = "OG_254e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_SECRETS),
+					new AddEnchantmentTask("OG_254e", EntityType.SOURCE, true),
+					new MoveToGraveYard(EntityType.OP_SECRETS))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2154,9 +2143,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_255", new Power {
-				// TODO [OG_255] Doomcaller && Test: Doomcaller_OG_255
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RitualTask(2),
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsCthunDead),
+					new FlagTask(true, new AddCardTo("OG_280", EntityType.DECK)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2169,10 +2159,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_256", new Power {
-				// TODO [OG_256] Spawn of N'Zoth && Test: Spawn of N'Zoth_OG_256
-				InfoCardId = "OG_256e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new AddEnchantmentTask("OG_256e", EntityType.MINIONS)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2182,10 +2169,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, double this minion's Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_271", new Power {
-				// TODO [OG_271] Scaled Nightmare && Test: Scaled Nightmare_OG_271
-				InfoCardId = "OG_271e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new AddEnchantmentTask("OG_271e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2198,9 +2185,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_272", new Power {
-				// TODO [OG_272] Twilight Summoner && Test: Twilight Summoner_OG_272
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("OG_272t", SummonSide.DEATHRATTLE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2213,10 +2198,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_280", new Power {
-				// TODO [OG_280] C'Thun && Test: C'Thun_OG_280
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("OG_280", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
+					new EnqueueNumberTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1))),
+				Trigger = new Trigger(TriggerType.ZONE)
+				{
+					TriggerActivation = TriggerActivation.HAND_OR_PLAY,
+					TriggerSource = TriggerSource.SELF,
+					RemoveAfterTriggered = true,
+					FastExecution = true,
+					SingleTask = new CopyCthun()
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2230,10 +2224,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_281", new Power {
-				// TODO [OG_281] Beckoner of Evil && Test: Beckoner of Evil_OG_281
-				InfoCardId = "OG_281e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RitualTask(2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2250,9 +2241,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_283", new Power {
-				// TODO [OG_283] C'Thun's Chosen && Test: C'Thun's Chosen_OG_283
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RitualTask(2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2265,14 +2254,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAUNT = 1
-			// - BATTLECRY = 1
+			// - BATTLECRY = 1a
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_284", new Power {
-				// TODO [OG_284] Twilight Geomancer && Test: Twilight Geomancer_OG_284
-				InfoCardId = "OG_284e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RitualTask(RitualType.Taunt)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2285,9 +2271,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_286", new Power {
-				// TODO [OG_286] Twilight Elder && Test: Twilight Elder_OG_286
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new RitualTask(1)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2297,10 +2284,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, put a 10-Cost minion from your deck into your hand.
 			// --------------------------------------------------------
 			cards.Add("OG_290", new Power {
-				// TODO [OG_290] Ancient Harbinger && Test: Ancient Harbinger_OG_290
-				InfoCardId = "OG_290e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsBaseTagValue(GameTag.COST, 10)),
+						new RandomTask(1, EntityType.STACK),
+						new RemoveFromDeck(EntityType.STACK),
+						new AddStackTo(EntityType.HAND))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2313,9 +2305,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_295", new Power {
-				// TODO [OG_295] Cult Apothecary && Test: Cult Apothecary_OG_295
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_MINIONS),
+					new MathMultiplyTask(2),
+					new HealNumberTask(EntityType.HERO))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2328,10 +2321,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_300", new Power {
-				// TODO [OG_300] The Boogeymonster && Test: The Boogeymonster_OG_300
-				InfoCardId = "OG_300e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.SELF,
+					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					SingleTask = new AddEnchantmentTask("OG_300e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2345,9 +2340,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_317", new Power {
-				// TODO [OG_317] Deathwing, Dragonlord && Test: Deathwing, Dragonlord_OG_317
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
+					new SummonStackTask(removeFromZone: true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2363,9 +2359,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_318", new Power {
-				// TODO [OG_318] Hogger, Doom of Elwynn && Test: Hogger, Doom of Elwynn_OG_318
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DAMAGE)
+				{
+					TriggerSource = TriggerSource.SELF,
+					SingleTask = new SummonTask("OG_318t", SummonSide.RIGHT)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2379,10 +2377,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_320", new Power {
-				// TODO [OG_320] Midnight Drake && Test: Midnight Drake_OG_320
-				InfoCardId = "OG_320e",
-				//PowerTask = null,
-				//Trigger = null,
+				//	not really uses ScriptTag
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.HAND_NOSOURCE),
+					new AddEnchantmentTask("OG_320e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2396,10 +2394,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_321", new Power {
-				// TODO [OG_321] Crazed Worshipper && Test: Crazed Worshipper_OG_321
+				// TODO Test: Crazed Worshipper_OG_321
 				InfoCardId = "OG_321e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DAMAGE)
+				{
+					TriggerSource = TriggerSource.SELF,
+					SingleTask = new RitualTask(1)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2409,9 +2410,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your weapons cost (2) less.
 			// --------------------------------------------------------
 			cards.Add("OG_322", new Power {
-				// TODO [OG_322] Blackwater Pirate && Test: Blackwater Pirate_OG_322
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
+				{
+					Condition = SelfCondition.IsWeapon
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2424,20 +2426,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_323", new Power {
-				// TODO [OG_323] Polluted Hoarder && Test: Polluted Hoarder_OG_323
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new DrawTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_326] Duskboar - COST:2 [ATK:4/HP:1] 
 			// - Race: beast, Set: og, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("OG_326", new Power {
-				// TODO [OG_326] Duskboar && Test: Duskboar_OG_326
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_326", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_327] Squirming Tentacle - COST:3 [ATK:2/HP:4] 
@@ -2448,11 +2444,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("OG_327", new Power {
-				// TODO [OG_327] Squirming Tentacle && Test: Squirming Tentacle_OG_327
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_327", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_337] Cyclopian Horror - COST:4 [ATK:3/HP:3] 
@@ -2465,10 +2457,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_337", new Power {
-				// TODO [OG_337] Cyclopian Horror && Test: Cyclopian Horror_OG_337
-				InfoCardId = "OG_337e",
-				//PowerTask = null,
-				//Trigger = null,
+				// not really uses scripttag
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_MINIONS),
+					new AddEnchantmentTask("OG_337e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2481,9 +2473,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_338", new Power {
-				// TODO [OG_338] Nat, the Darkfisher && Test: Nat, the Darkfisher_OG_338
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					EitherTurn = true,
+					Condition = SelfCondition.IsOpTurn,
+					SingleTask = ComplexTask.Create(
+						new ChanceTask(),
+						new DrawOpTask())
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2497,10 +2494,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("OG_339", new Power {
-				// TODO [OG_339] Skeram Cultist && Test: Skeram Cultist_OG_339
-				InfoCardId = "OG_339e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RitualTask(2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2516,11 +2510,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("OG_340", new Power {
-				// TODO [OG_340] Soggoth the Slitherer && Test: Soggoth the Slitherer_OG_340
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_340", null);
 
 		}
 
@@ -2577,7 +2567,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [OG_080ee] Briarthorn (*) - COST:0 
+			// [OG_080ee] BriarthorTn (*) - COST:0 
 			// - Set: og, 
 			// --------------------------------------------------------
 			// Text: +3 Attack.
@@ -2593,9 +2583,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Swapped stats.
 			// --------------------------------------------------------
 			cards.Add("OG_102e", new Power {
-				// TODO [OG_102e] Power Transfer && Test: Power Transfer_OG_102e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.SetAttackHealth(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2619,9 +2610,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - Set: og, 
 			// --------------------------------------------------------
 			cards.Add("OG_118e", new Power {
-				// TODO [OG_118e] Renounce Darkness Deck Ench && Test: Renounce Darkness Deck Ench_OG_118e
-				//PowerTask = null,
-				//Trigger = null,
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2631,9 +2619,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Cost reduced.
 			// --------------------------------------------------------
 			cards.Add("OG_118f", new Power {
-				// TODO [OG_118f] New Calling && Test: New Calling_OG_118f
-				//PowerTask = null,
-				//Trigger = null,
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2643,9 +2628,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your next spell costs Health instead of Mana.
 			// --------------------------------------------------------
 			cards.Add("OG_121e", new Power {
-				// TODO [OG_121e] Dark Power && Test: Dark Power_OG_121e
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.SPELLS_COST_HEALTH, EffectOperator.SET, 1))
+				{
+					RemoveTrigger = (TriggerType.CAST_SPELL, null)
+				},
+				Trigger = Triggers.OneTurnEffectRemovalTrigger("OG_121e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2667,9 +2654,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Reduced Cost.
 			// --------------------------------------------------------
 			cards.Add("OG_138e", new Power {
-				// TODO [OG_138e] Will of the Vizier && Test: Will of the Vizier_OG_138e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.ReduceCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2682,9 +2667,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150e", new Power {
-				// TODO [OG_150e] Enraged && Test: Enraged_OG_150e
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2704,9 +2687,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copying stats.
 			// --------------------------------------------------------
 			cards.Add("OG_174e", new Power {
-				// TODO [OG_174e] Faceless && Test: Faceless_OG_174e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.SetAttack(0), Effects.SetMaxHealth(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2736,9 +2720,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack set to 7.
 			// --------------------------------------------------------
 			cards.Add("OG_200e", new Power {
-				// TODO [OG_200e] Doom Free && Test: Doom Free_OG_200e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.SetAttack(7))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2771,9 +2753,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("OG_254e", new Power {
-				// TODO [OG_254e] Secretly Sated && Test: Secretly Sated_OG_254e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.AttackHealth_N(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2793,9 +2776,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack increased.
 			// --------------------------------------------------------
 			cards.Add("OG_271e", new Power {
-				// TODO [OG_271e] Terrifying Visage && Test: Terrifying Visage_OG_271e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2805,9 +2786,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Stats.
 			// --------------------------------------------------------
 			cards.Add("OG_281e", new Power {
-				// TODO [OG_281e] Fanatic Devotion && Test: Fanatic Devotion_OG_281e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2842,9 +2821,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_290e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_290e")
-			});
+			cards.Add("OG_290e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_291e] Flickering Darkness (*) - COST:0 
@@ -2872,9 +2849,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +5/+5.
 			// --------------------------------------------------------
-			cards.Add("OG_293e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_293e")
-			});
+			cards.Add("OG_293e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_293f] Dark Guardian (*) - COST:0 
@@ -2895,9 +2870,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("OG_300e", new Power {
-				// TODO [OG_300e] Tasty! && Test: Tasty!_OG_300e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2906,11 +2879,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("OG_302e", new Power {
-				// TODO [OG_302e] Soul Power && Test: Soul Power_OG_302e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_302e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_303e] Sorcerous Devotion (*) - COST:0 
@@ -2918,9 +2887,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_303e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_303e")
-			});
+			cards.Add("OG_303e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_311e] Beacon of Hope (*) - COST:0 
@@ -2969,9 +2936,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_320e", new Power {
-				// TODO [OG_320e] Hour of Corruption && Test: Hour of Corruption_OG_320e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.Attack_N(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2980,9 +2948,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("OG_321e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_321e")
-			});
+			cards.Add("OG_321e", null);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_337e] Eve of Destruction (*) - COST:0 
@@ -2991,9 +2957,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Stats increased.
 			// --------------------------------------------------------
 			cards.Add("OG_337e", new Power {
-				// TODO [OG_337e] Eve of Destruction && Test: Eve of Destruction_OG_337e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.Health_N(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3050,11 +3017,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_279", new Power {
-				// TODO [OG_279] C'Thun && Test: C'Thun_OG_279
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("OG_279", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [OG_318t] Gnoll (*) - COST:2 [ATK:2/HP:2] 

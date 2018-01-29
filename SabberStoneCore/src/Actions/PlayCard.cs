@@ -32,6 +32,10 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
+				// remove from hand zone
+				if (!RemoveFromZone.Invoke(c, source))
+					return false;
+
 				c.NumCardsPlayedThisTurn++;
 
 				c.LastCardPlayed = source.Id;
@@ -46,48 +50,49 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 				}
 
-				c.Game.TriggerManager.OnPlayCardTrigger(source);
-
-				if (source is Hero hero)
+				switch (source)
 				{
-					PlayHero.Invoke(c, hero, target, chooseOne);
-				}
-				else if (source is Minion minion)
-				{
-					Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
-					PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
-				}
-				else if (source is Weapon weapon)
-				{
-					// - OnPlay Phase --> OnPlay Trigger (Illidan)
-					//   (death processing, aura updates)
-					OnPlayTrigger.Invoke(c, weapon);
+					case Hero hero:
+						PlayHero.Invoke(c, hero, target, chooseOne);
+						break;
+					case Minion minion:
+						Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
+						PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
+						break;
+					case Weapon weapon:
+						// - OnPlay Phase --> OnPlay Trigger (Illidan)
+						//   (death processing, aura updates)
+						OnPlayTrigger.Invoke(c, weapon);
 
-					if (!RemoveFromZone.Invoke(c, source))
-						return false;
+						PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
+						break;
+					case Spell spell:
+						// - OnPlay Phase --> OnPlay Trigger (Illidan)
+						//   (death processing, aura updates)
+						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
+						c.Game.TriggerManager.OnCastSpellTrigger(spell);
+						OnPlayTrigger.Invoke(c, spell);
 
-					PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
-				}
-				else if (source is Spell spell)
-				{
-					// - OnPlay Phase --> OnPlay Trigger (Illidan)
-					//   (death processing, aura updates)
-					Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
-					c.Game.TriggerManager.OnCastSpellTrigger(spell);
-					OnPlayTrigger.Invoke(c, spell);
+						if (spell.IsCountered)
+						{
+							c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"Spell {spell} has been countred.");
+							//spell.JustPlayed = false;
+							c.GraveyardZone.Add(spell);
+							Trigger.Invalidate(c.Game, SequenceType.PlaySpell);
+							break;
+						}
+						if (target != null && target.Id != spell.CardTarget)
+						{
+							target = (ICharacter)source.Game.IdEntityDic[source.CardTarget];
+							c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
+						}
 
-					//source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
-					if (target != null && target.Id != source.CardTarget)
-					{
-						target = (ICharacter)source.Game.IdEntityDic[source.CardTarget];
-						c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
-					}
+						PlaySpell.Invoke(c, spell, target, chooseOne);
 
-					// remove from hand zone
-					if (!RemoveFromZone.Invoke(c, source))
-						return false;
-
-					PlaySpell.Invoke(c, (Spell)source, target, chooseOne);
+						c.NumSpellsPlayedThisGame++;
+						if (spell.IsSecret)
+							c.NumSecretsPlayedThisGame++;
+						break;
 				}
 
 				source.CardTarget = -1;
@@ -131,6 +136,12 @@ namespace SabberStoneCore.Actions
 				int cost = source.Cost;
 				if (cost > 0)
 				{
+					if (c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					{
+						c.Hero.TakeDamage(c.Hero, cost);
+						return true;
+					}
+
 					int tempUsed = Math.Min(c.TemporaryMana, cost);
 					c.TemporaryMana -= tempUsed;
 					c.UsedMana += cost - tempUsed;
@@ -195,7 +206,7 @@ namespace SabberStoneCore.Actions
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
-				hero.JustPlayed = false;
+				//hero.JustPlayed = false;
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
@@ -204,16 +215,6 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
 			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
-				// - PreSummon Phase --> PreSummon Trigger (TideCaller)
-				//   (death processing, aura updates)
-
-				// remove from hand zone
-				if (!RemoveFromZone.Invoke(c, minion))
-					return false;
-
-				if (!minion.HasCharge)
-					minion.IsExhausted = true;
-
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
@@ -221,6 +222,8 @@ namespace SabberStoneCore.Actions
 				//   (death processing, aura updates)
 				c.BoardZone.Add(minion, zonePosition);
 
+				if (!minion.HasCharge)
+					minion.IsExhausted = true;
 
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -247,7 +250,7 @@ namespace SabberStoneCore.Actions
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
-				minion.JustPlayed = false;
+				//minion.JustPlayed = false;
 				c.Game.TriggerManager.OnAfterPlayMinionTrigger(minion);
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -280,26 +283,15 @@ namespace SabberStoneCore.Actions
 
 				spell[GameTag.ZONE] = (int)Zone.PLAY;
 
-				if (spell.IsCountered)
+
+				if (spell.IsSecret || spell.IsQuest)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"Spell {spell} has been countred.");
-					spell.JustPlayed = false;
-					c.GraveyardZone.Add(spell);
-					Trigger.Invalidate(c.Game, SequenceType.PlaySpell);
-				}
-				else if (spell.IsSecret || spell.IsQuest)
-				{
-					c.NumSpellsPlayedThisGame++;
-					if (spell.IsSecret)
-						c.NumSecretsPlayedThisGame++;
 					spell.Power.Trigger.Activate(spell);
 					c.SecretZone.Add(spell);
 					spell.IsExhausted = true;
 				}
 				else
 				{
-					c.NumSpellsPlayedThisGame++;
-
 					spell.Power?.Trigger?.Activate(spell);
 					spell.Power?.Aura?.Activate(spell);
 
@@ -315,11 +307,10 @@ namespace SabberStoneCore.Actions
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
 
-				spell.JustPlayed = false;
+				//spell.JustPlayed = false;
 				c.Game.TriggerManager.OnAfterCastTrigger(spell);
 
 				c.Game.DeathProcessingAndAuraUpdate();
-
 				return true;
 			};
 
@@ -328,16 +319,7 @@ namespace SabberStoneCore.Actions
 			{
 				c.Hero.AddWeapon(weapon);
 
-				//if (weapon.Powers != null)
-				//{
-				//	foreach (Power power in weapon.Card.Powers)
-				//	{
-				//		if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-				//			power.Trigger.Activate(weapon);
-				//	}
-				//}
 				weapon.Card.Power?.Trigger?.Activate(weapon);
-
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
@@ -349,7 +331,7 @@ namespace SabberStoneCore.Actions
 
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
-				weapon.JustPlayed = false;
+				//weapon.JustPlayed = false;
 
 				return true;
 			};
@@ -357,7 +339,8 @@ namespace SabberStoneCore.Actions
 		private static Action<Controller, IPlayable> OnPlayTrigger
 			=> delegate (Controller c, IPlayable playable)
 			{
-				playable.JustPlayed = true;
+				//playable.JustPlayed = true;
+				c.Game.TriggerManager.OnPlayCardTrigger(playable);
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}

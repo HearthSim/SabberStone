@@ -34,6 +34,7 @@ namespace SabberStoneCore.Enchants
 
 	    /// <summary> Additional condition for trigger sources </summary>
 	    public SelfCondition Condition;
+
 		/// <summary> 
 		/// This option is only meaningful when this the type of this trigger is <see cref="TriggerType.TURN_END"/> or <see cref="TriggerType.TURN_START"/>.
 		/// </summary>
@@ -72,7 +73,8 @@ namespace SabberStoneCore.Enchants
 					Validated = true;
 					return;
 				case TriggerType.NONE:
-			    case TriggerType.TURN_END:
+				case TriggerType.DEAL_DAMAGE:
+				case TriggerType.TURN_END:
 			    case TriggerType.TURN_START:
 			    case TriggerType.DEATH:
 			    case TriggerType.INSPIRE:
@@ -80,6 +82,7 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.SUMMON:
 			    case TriggerType.PLAY_CARD:
 			    case TriggerType.SECRET_REVEALED:
+				case TriggerType.ZONE:
 					return;
 			    default:
 				    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -107,9 +110,20 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
 		/// </summary>
-		/// <param name="source"></param>
-		public void Activate(IPlayable source)
+		public void Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY)
 		{
+			if (source.ActivatedTrigger != null)
+				return;
+
+			if (activation != TriggerActivation)
+			{
+				if (TriggerActivation != TriggerActivation.HAND_OR_PLAY)
+					return;
+
+				if (activation == TriggerActivation.DECK)
+					return;
+			}
+
 			var instance = new Trigger(this, source);
 
 			source.ActivatedTrigger = instance;
@@ -118,6 +132,9 @@ namespace SabberStoneCore.Enchants
 
 			switch (_triggerType)
 			{
+				case TriggerType.DEAL_DAMAGE:
+					source.Game.TriggerManager.DealDamageTrigger += instance.Process;
+					break;
 				case TriggerType.DAMAGE:
 					if (TriggerSource == TriggerSource.SELF)
 					{
@@ -195,22 +212,30 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.SECRET_REVEALED:
 					source.Game.TriggerManager.SecretRevealedTrigger += instance.Process;
 					break;
+				case TriggerType.ZONE:
+					source.Game.TriggerManager.ZoneTrigger += instance.Process;
+					break;
 			}
 		}
 
-		private void Process(IEntity source)
+		private void Process(IEntity source, int number = 0)
 	    {
-		    if (_triggerType == TriggerType.AFTER_ATTACK)
+		    if (_triggerType == TriggerType.AFTER_ATTACK || _triggerType == TriggerType.ZONE)
 			    Validate(source);
 
 			if (!Validated)
 				return;
 
+		    ProcessInternal(source, number);
+	    }
+
+	    private void ProcessInternal(IEntity source, int number)
+	    {
 		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{Owner}'s {_triggerType} Trigger is triggered by {source}.");
 
 		    if (FastExecution)
-			    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source);
+			    Game.TaskQueue.Execute(SingleTask, Owner.Controller, Owner, (IPlayable)source, number);
 		    else
 		    {
 			    ISimpleTask taskInstance = SingleTask.Clone();
@@ -219,18 +244,16 @@ namespace SabberStoneCore.Enchants
 			    taskInstance.Source = Owner is Enchantment ec ? ec : Owner;
 			    taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
 			    taskInstance.IsTrigger = true;
-
-			    if (_triggerType == TriggerType.PREDAMAGE)
-				    taskInstance.Number = source[GameTag.PREDAMAGE];
+				taskInstance.Number = number;
 
 			    Game.TaskQueue.Enqueue(taskInstance);
-			}
+		    }
 
 		    if (RemoveAfterTriggered)
 			    Remove();
 
-			Validated = false;
-	    }
+		    Validated = false;
+		}
 
 		/// <summary>
 		/// Remove this object from the Game and unsubscribe from the related event.
@@ -239,6 +262,9 @@ namespace SabberStoneCore.Enchants
 	    {
 			switch (_triggerType)
 		    {
+				case TriggerType.DEAL_DAMAGE:
+					Game.TriggerManager.DealDamageTrigger -= Process;
+					break;
 				case TriggerType.DAMAGE:
 					Game.TriggerManager.DamageTrigger -= Process;
 					break;
@@ -310,7 +336,16 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.SECRET_REVEALED:
 					Game.TriggerManager.SecretRevealedTrigger -= Process;
 					break;
-			}
+				case TriggerType.ZONE:
+					Game.TriggerManager.ZoneTrigger -= Process;
+					break;
+			    case TriggerType.NONE:
+				    break;
+			    case TriggerType.INSPIRE:
+				    break;
+			    default:
+				    throw new ArgumentOutOfRangeException();
+		    }
 
 			Owner.ActivatedTrigger = null;
 			Game.Triggers.Remove(this);
@@ -377,7 +412,7 @@ namespace SabberStoneCore.Enchants
 				    break;
 		    }
 
-		    bool extra = false;
+		    //bool extra = false;
 
 		    switch (_triggerType)
 		    {
@@ -388,8 +423,8 @@ namespace SabberStoneCore.Enchants
 				    return;
 			    case TriggerType.TURN_END:
 				    if (!EitherTurn && source.Id != _controllerId) return;
-				    if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)
-					    extra = true;
+				    //if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)
+					   // extra = true;
 				    break;
 		    }
 

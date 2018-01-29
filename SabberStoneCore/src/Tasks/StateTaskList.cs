@@ -36,7 +36,7 @@ namespace SabberStoneCore.Tasks
 			set { _sourceId = value.Id; }
 		}
 
-		private int _targetId;
+		private int _targetId = -1;
 		public IEntity Target
 		{
 			get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }

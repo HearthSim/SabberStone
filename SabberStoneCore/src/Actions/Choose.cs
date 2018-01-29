@@ -318,19 +318,11 @@ namespace SabberStoneCore.Actions
 				choices.ForEach(p =>
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, p,
-						new Dictionary<GameTag, int>
+						new EntityData.Data
 						{
 							{GameTag.CREATOR, source.Id},
 							{GameTag.DISPLAYED_CREATOR, source.Id }
 						});
-					// add after discover power
-					if (enchantmentCard != null)
-					{
-						if (choiceEntity.Powers == null)
-							choiceEntity.Powers = new List<Power> { power };
-						else
-							choiceEntity.Powers.Add(power);
-					}
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);
 				});
@@ -341,7 +333,8 @@ namespace SabberStoneCore.Actions
 					ChoiceAction = action,
 					Choices = choicesIds,
 					SourceId = source.Id,
-					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>()
+					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>(),
+					EnchantmentCard = enchantmentCard
 				};
 
 				if (c.Choice != null)

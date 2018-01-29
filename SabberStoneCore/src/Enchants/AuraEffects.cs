@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
@@ -113,7 +114,7 @@ namespace SabberStoneCore.Enchants
 						WINDFURY = value;
 						return;
 					case GameTag.HEALTH_MINIMUM:
-						Owner.NativeTags[GameTag.HEALTH_MINIMUM] = value;
+						Owner[GameTag.HEALTH_MINIMUM] = value;
 						return;
 					default:
 						return;
@@ -175,6 +176,18 @@ namespace SabberStoneCore.Enchants
 			return COST > 0 ? COST : 0;
 		}
 
+		public void ResetCost()
+		{
+			if (_costEffects == null && AdaptiveCostEffect == null && !Owner.NativeTags.ContainsKey(GameTag.COST)) return;
+
+			_costEffects = null;
+			Owner.NativeTags.Remove(GameTag.COST);
+			AdaptiveCostEffect?.Remove();
+			COST = Owner.Card[GameTag.COST];
+			if (Owner.Game.History)
+				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, COST));
+		}
+
 		public AuraEffects Clone(IEntity clone)
 		{
 			return new AuraEffects()
@@ -213,6 +226,7 @@ namespace SabberStoneCore.Enchants
 		private int _restoreToDamage;
 		private int _extraBattecry;
 		private int _chooseBoth;
+		private int _spells_cost_health;
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
 
@@ -232,6 +246,8 @@ namespace SabberStoneCore.Enchants
 						return _restoreToDamage >= 1 ? 1 : 0;
 					case GameTag.CHOOSE_BOTH:
 						return _chooseBoth >= 1 ? 1 : 0;
+					case GameTag.SPELLS_COST_HEALTH:
+						return _spells_cost_health >= 1 ? 1 : 0;
 					case GameTag.EXTRA_BATTLECRY:
 						return _extraBattecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
@@ -259,6 +275,9 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.CHOOSE_BOTH:
 						_chooseBoth = value;
+						return;
+					case GameTag.SPELLS_COST_HEALTH:
+						_spells_cost_health = value;
 						return;
 					case GameTag.EXTRA_BATTLECRY:
 						_extraBattecry = value;

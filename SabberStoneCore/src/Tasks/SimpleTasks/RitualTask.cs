@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -9,20 +10,37 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RitualTask : SimpleTask
 	{
-		public RitualTask(string enchantmentId = "", bool useScriptTag = false)
+		public enum RitualType
 		{
-			_enchantmentCard = Cards.FromId(enchantmentId);
-			_useScriptTag = useScriptTag;
+			Check,
+			Buff,
+			Taunt,
+			Blade
 		}
 
-		private RitualTask(Card enchantmentCard, bool useScriptTag)
+		public RitualTask(RitualType type = RitualType.Check)
 		{
-			_enchantmentCard = enchantmentCard;
-			_useScriptTag = useScriptTag;
+			_type = type;
 		}
 
-		private readonly Card _enchantmentCard;
-		private readonly bool _useScriptTag;
+		public RitualTask(int amount)
+		{
+			_type = RitualType.Buff;
+			_amount = amount;
+		}
+
+		private RitualTask(RitualType type, int amount)
+		{
+			_type = type;
+			_amount = amount;
+		}
+
+		private readonly RitualType _type;
+		private readonly int _amount;
+
+		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
 
 		public override TaskState Process()
 		{
@@ -34,32 +52,54 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// effect ??) that copies the additional effect to c'thuns in your 
 			// hand and board that aren't silenced
 
+			IPlayable proxyCthun;
 			if (!Controller.SeenCthun)
 			{
-				IPlayable proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
+				proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
 				Controller.SetasideZone.Add(proxyCthun);
 				Controller.ProxyCthun = proxyCthun.Id;
 				Controller.SeenCthun = true;
 			}
+			else
+				proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
 
-			var entities = new List<IPlayable> { Game.IdEntityDic[Controller.ProxyCthun] };
+			var entities = new List<IPlayable> {proxyCthun};
 			entities.AddRange(Controller.BoardZone.Where(p => p.Card.Id.Equals("OG_280")));
 			entities.AddRange(Controller.HandZone.Where(p => p.Card.Id.Equals("OG_280")));
 
-			if (_enchantmentCard != null)
+			switch (_type)
 			{
-				entities.ForEach(p =>
-				{
-					Enchantment enchantment =
-						Game.History ? Enchantment.GetInstance(Controller, (IPlayable) Source, p, _enchantmentCard) : null;
-					if (_useScriptTag && Game.History)
+				case RitualType.Buff:
+					if (proxyCthun.OngoingEffect == null)
 					{
-						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = Number;
-						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = Number1;
+						entities.ForEach(p =>
+						{
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
+
+							((OngoingEnchant) p.OngoingEffect).Count += (_amount - 1);
+						});
+						break;
 					}
-					_enchantmentCard.Power.Enchant.ActivateTo(p, enchantment, Number, Number1);
-				});
+
+					entities.ForEach(p => ((OngoingEnchant) p.OngoingEffect).Count += _amount);
+					break;
+
+				case RitualType.Taunt:
+					if (proxyCthun[GameTag.TAUNT] == 1) break;
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, TauntEnchantmentCard, (IPlayable)Source, p, 0, 0);
+					});
+					break;
+
+				case RitualType.Blade:
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, BladeofCThunEnchantmentCard, (IPlayable) Source, p, Number,
+							Number1);
+					});
+					break;
 			}
 
 			return TaskState.COMPLETE;
@@ -67,7 +107,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RitualTask(_enchantmentCard, _useScriptTag);
+			var clone = new RitualTask(_type, _amount);
 			return clone;
 		}
 	}

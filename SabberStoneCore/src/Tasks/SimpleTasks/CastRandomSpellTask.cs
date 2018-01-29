@@ -24,8 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override TaskState Process()
 	    {
-		    List<Card> cards;
-			if (_condition != null && !CachedCardLists.TryGetValue(Source.Card.AssetId, out cards))
+			if (_condition != null && !CachedCardLists.TryGetValue(Source.Card.AssetId, out List<Card> cards))
 		    {
 			    cards = Cards.FormatTypeCards(Game.FormatType)
 				    .Where(c => c.Type == CardType.SPELL && _condition(c)).ToList();
@@ -40,19 +39,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    Card randCard = cards[Random.Next(cards.Count)];
 
-			var spellToCast = (Spell) Entity.FromCard(Controller, randCard);
+			var spellToCast = (Spell) Entity.FromCard(Source.Controller, randCard);
 
 			ICharacter randTarget = null;
 		    if (randCard.RequiresTarget)
-			    randTarget = randCard.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
+			{
+				randTarget = randCard.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
 				    ? (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALLMINIONS, Source.Controller, null, null, null))
 				    : (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, Source.Controller, null, null, null));
+				spellToCast.CardTarget = randTarget.Id;
+			}
 
-		    int randChooseOne = Random.Next(1, 3);
+			int randChooseOne = Random.Next(1, 3);
 
-
-			spellToCast.CardTarget = randTarget.Id;
 		    Generic.PlaySpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
+
+		    while (Source.Controller.Choice != null)
+		    {
+			    Generic.ChoicePick.Invoke(Source.Controller, Random.Next(Source.Controller.Choice.Choices.Count));
+		    }
 
 		    Game.OnRandomHappened(true);
 
@@ -61,7 +66,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override ISimpleTask Clone()
 	    {
-		    throw new NotImplementedException();
+		    return new CastRandomSpellTask(_condition);
 	    }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SabberStoneCore.Enums;
@@ -7,6 +8,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Tasks
 {
@@ -112,7 +115,7 @@ namespace SabberStoneCore.Tasks
 					//activeSecrets.Add(p[0].Card.Id);
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
-					var spell = (Spell) Entity.FromCard(controller, Util.Choose<Card>(cardsList.ToList()));
+					var spell = (Spell) Entity.FromCard(controller, Util.Choose(cardsList.ToList()));
 					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
 					spell.ActivateTask();
 					controller.SecretZone.Add(spell);
@@ -154,31 +157,31 @@ namespace SabberStoneCore.Tasks
 					IEntity source = p[0];
 					Controller controller = p[0].Controller;
 					Controller opponent = p[0].Controller.Opponent;
-					if (GlimmerrootMemory1 == null)
+					if (_glimmerrootMemory1 == null)
 					{
 						lock (locker)
 						{
 							var opClassCards = new List<Card>();
-							GlimmerrootMemory2 = new HashSet<int>();
-							GlimmerrootMemory3 = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList().AsReadOnly();
+							_glimmerrootMemory2 = new HashSet<int>();
+							_glimmerrootMemory3 = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList().AsReadOnly();
 							foreach (Card card in opponent.DeckCards)
 							{
 								if (card.Class != opponent.BaseClass)
 									continue;
-								if (GlimmerrootMemory2.Contains(card.AssetId))
+								if (_glimmerrootMemory2.Contains(card.AssetId))
 									continue;
 								opClassCards.Add(card);
-								GlimmerrootMemory2.Add(card.AssetId);
+								_glimmerrootMemory2.Add(card.AssetId);
 							}
-							GlimmerrootMemory1 = opClassCards.AsReadOnly();
+							_glimmerrootMemory1 = opClassCards.AsReadOnly();
 						}
 					}
 
-					var result = new List<Card> { Util.Choose(GlimmerrootMemory1) };
+					var result = new List<Card> { Util.Choose(_glimmerrootMemory1) };
 					while (result.Count < 3)
 					{
-						Card pick = Util.Choose(GlimmerrootMemory3);
-						if (GlimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick))
+						Card pick = Util.Choose(_glimmerrootMemory3);
+						if (_glimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick))
 							continue;
 						result.Add(pick);
 					}
@@ -194,9 +197,9 @@ namespace SabberStoneCore.Tasks
 					controller.Game.OnRandomHappened(true);
 					return p;
 				}));
-		private static ReadOnlyCollection<Card> GlimmerrootMemory1;
-		private static HashSet<int> GlimmerrootMemory2;
-		private static ReadOnlyCollection<Card> GlimmerrootMemory3;
+		private static ReadOnlyCollection<Card> _glimmerrootMemory1;
+		private static HashSet<int> _glimmerrootMemory2;
+		private static ReadOnlyCollection<Card> _glimmerrootMemory3;
 		private static readonly object locker = new object();
 
 
@@ -232,7 +235,7 @@ namespace SabberStoneCore.Tasks
 				{
 					Controller controller = p[0].Controller;
 
-					if (firstBeastsMemory == null)
+					if (_firstBeastsMemory == null)
 					{
 						lock (locker)
 						{
@@ -247,8 +250,8 @@ namespace SabberStoneCore.Tasks
 									secondBeasts.Add(card);
 							}
 
-							firstBeastsMemory = firstBeasts.AsReadOnly();
-							secondBeastsMemory = secondBeasts.AsReadOnly();
+							_firstBeastsMemory = firstBeasts.AsReadOnly();
+							_secondBeastsMemory = secondBeasts.AsReadOnly();
 						}
 					}
 
@@ -257,8 +260,8 @@ namespace SabberStoneCore.Tasks
 					var first = new List<Card>();
 					var second = new List<Card>();
 					int numToSelect = 3;
-					int numLeft = firstBeastsMemory.Count;
-					foreach (Card item in firstBeastsMemory)
+					int numLeft = _firstBeastsMemory.Count;
+					foreach (Card item in _firstBeastsMemory)
 					{
 						double prob = numToSelect / (double)numLeft;
 						if (Util.Random.NextDouble() < prob)
@@ -271,8 +274,8 @@ namespace SabberStoneCore.Tasks
 						numLeft--;
 					}
 					numToSelect = 3;
-					numLeft = secondBeastsMemory.Count;
-					foreach (Card item in secondBeastsMemory)
+					numLeft = _secondBeastsMemory.Count;
+					foreach (Card item in _secondBeastsMemory)
 					{
 						double prob = numToSelect / (double)numLeft;
 						if (Util.Random.NextDouble() < prob)
@@ -293,8 +296,147 @@ namespace SabberStoneCore.Tasks
 
 					return p;
 				}));
-		private static ReadOnlyCollection<Card> firstBeastsMemory;
-		private static ReadOnlyCollection<Card> secondBeastsMemory;
+		private static ReadOnlyCollection<Card> _firstBeastsMemory;
+		private static ReadOnlyCollection<Card> _secondBeastsMemory;
+
+
+		public class RenonunceDarkness : SimpleTask
+		{
+			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
+			private static readonly Effect CostReduceEffect = Effects.ReduceCost(1);
+
+			public override TaskState Process()
+			{
+				// get a new class
+				CardClass randClass = 0;
+				do
+				{
+					randClass = (CardClass) Random.Next(2, 11);
+				} while (randClass == CardClass.WARLOCK);
+					
+				// replace Hero Power
+				Card heroPowerCard = null;
+				switch (randClass)
+				{
+					case CardClass.DRUID:
+						heroPowerCard = Cards.FromId("CS2_017");
+						break;
+					case CardClass.HUNTER:
+						heroPowerCard = Cards.FromId("DS1h_292");
+						break;
+					case CardClass.MAGE:
+						heroPowerCard = Cards.FromId("CS2_034");
+						break;
+					case CardClass.PALADIN:
+						heroPowerCard = Cards.FromId("CS2_101");
+						break;
+					case CardClass.PRIEST:
+						heroPowerCard = Cards.FromId("CS1h_001");
+						break;
+					case CardClass.ROGUE:
+						heroPowerCard = Cards.FromId("CS2_083b");
+						break;
+					case CardClass.SHAMAN:
+						heroPowerCard = Cards.FromId("CS2_049");
+						break;
+					case CardClass.WARRIOR:
+						heroPowerCard = Cards.FromId("CS2_102");
+						break;
+				}
+				HeroPower heroPower =
+					(HeroPower) Entity.FromCard(Controller, heroPowerCard, new EntityData.Data
+					{
+						{GameTag.CREATOR, Source.Id},
+						{GameTag.ZONE, (int)Zone.PLAY}
+					});
+				Controller.SetasideZone.Add(Controller.Hero.HeroPower);
+				Controller.Hero.HeroPower = heroPower;
+
+				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass).ToList();
+
+				// replace cards in hand
+				for (int i = 0; i < Controller.HandZone.Count; i++)
+				{
+					IPlayable entity = Controller.HandZone[i];
+					if (entity.Card.Class != CardClass.WARLOCK) continue;
+					Controller.HandZone.Remove(entity);
+					Controller.SetasideZone.Add(entity);
+					var tags = new EntityData.Data
+					{
+						{GameTag.ZONE_POSITION, i + 1},
+					};
+					if (Game.History)
+						tags.Add(GameTag.CREATOR, Source.Id);
+					IPlayable newEntity = Entity.FromCard(Controller, Util.Choose(cards), tags, Controller.HandZone, -1, i);
+					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, Source.Id);
+					CostReduceEffect.Apply(newEntity.AuraEffects);
+				}
+
+				// replace cards in deck
+				for (int i = Controller.DeckZone.Count - 1; i >= 0; i--)
+				{
+					IPlayable entity = Controller.DeckZone[i];
+					if (entity.Card.Class != CardClass.WARLOCK) continue;
+
+					var tags = new EntityData.Data
+					{
+						{GameTag.ZONE, (int) Zone.DECK},
+						{GameTag.CONTROLLER, Controller.PlayerId},
+						{GameTag.ENTITY_ID, Controller.Game.NextId}
+					};
+
+					Card randCard = Util.Choose(cards);
+					IPlayable newEntity = null;
+					switch (randCard.Type)
+					{
+						case CardType.MINION:
+							newEntity = new Minion(Controller, randCard, tags);
+							break;
+						case CardType.SPELL:
+							newEntity = new Spell(Controller, randCard, tags);
+							break;
+						case CardType.WEAPON:
+							newEntity = new Weapon(Controller, randCard, tags);
+							break;
+						case CardType.HERO:
+							newEntity = new Hero(Controller, randCard, tags);
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+
+					Game.IdEntityDic.Add(newEntity.Id, newEntity);
+
+					if (Game.History)
+					{
+						Game.PowerHistory.Add(new PowerHistoryFullEntity
+						{
+							Entity = new PowerHistoryEntity
+							{
+								Id = newEntity.Id,
+								Name = "",
+								Tags = new Dictionary<GameTag, int>(tags)
+							}
+						});
+
+						Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
+					}
+
+					Controller.DeckZone.Remove(entity);
+					Controller.SetasideZone.Add(entity);
+					Controller.DeckZone.Add(newEntity, i);
+
+					CostReduceEffect.Apply(newEntity.AuraEffects);
+				}
+
+				return TaskState.COMPLETE;
+			}
+
+			public override ISimpleTask Clone()
+			{
+				return new RenonunceDarkness();
+			}
+		}
 	}
 }
 

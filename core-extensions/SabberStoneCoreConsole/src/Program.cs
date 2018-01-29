@@ -889,7 +889,9 @@ namespace SabberStoneCoreConsole
 					StartPlayer = 1,
 					Player1HeroClass = classes[Rnd.Next(classes.Length)],
 					Player2HeroClass = classes[Rnd.Next(classes.Length)],
-					FillDecks = true
+					FillDecks = true,
+					History = false,
+					Logging = false
 				});
 				game.StartGame();
 
@@ -897,17 +899,17 @@ namespace SabberStoneCoreConsole
 				{
 					List<PlayerTask> options = game.CurrentPlayer.Options();
 					PlayerTask option = options[Rnd.Next(options.Count)];
-					try
-					{
+					//try
+					//{
 						game.Process(option);
-					}
-					catch (Exception e)
-					{
-						ShowLog(game, LogLevel.DEBUG);
-						Console.WriteLine(e.Message);
-						Console.WriteLine(e.StackTrace);
-						Console.ReadKey();
-					}
+					//}
+					//catch (Exception e)
+					//{
+					//	ShowLog(game, LogLevel.DEBUG);
+					//	Console.WriteLine(e.Message);
+					//	Console.WriteLine(e.StackTrace);
+					//	Console.ReadKey();
+					//}
 
 					//try
 					//{

@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 
 			Minion source = (Minion)Source;
-		    var tags = new Dictionary<GameTag, int>
+		    var tags = new EntityData.Data
 		    {
 			    {GameTag.CREATOR, Source.Id},
 		    };
@@ -47,7 +47,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 		    }
 
-			foreach (KeyValuePair<GameTag, int> kvp in target.NativeTags)
+			foreach (KeyValuePair<GameTag, int> kvp in target._data.Tags)
 			{
 				switch (kvp.Key)
 				{
@@ -59,7 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.PREMIUM:
 						continue;
 					default:
-						copy.NativeTags.Add(kvp.Key, kvp.Value);
+						copy._data.Tags.Add(kvp.Key, kvp.Value);
 						break;
 				}
 			}

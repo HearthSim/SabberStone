@@ -47,13 +47,14 @@ namespace SabberStoneCore.Model
 			//});
 		}
 
-		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target)
+		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target, int number = 0)
 		{
 			ISimpleTask clone = task.Clone();
 			clone.Game = controller.Game;
 			clone.Controller = controller;
 			clone.Source = source;
 			clone.Target = target;
+			clone.Number = number;
 			Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !Game.Logging? "":$"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
 					 $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
 

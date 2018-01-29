@@ -233,7 +233,7 @@ namespace SabberStoneCore.Model
 		/// <param name="gameConfig">The game configuration.</param>
 		/// <param name="setupHeroes"></param>
 		public Game(GameConfig gameConfig, bool setupHeroes = true)
-			: base(null, Card.CardGame, new Dictionary<GameTag, int>
+			: base(null, Card.CardGame, new EntityData.Data
 			{
 				[GameTag.ENTITY_ID] = GAME_ENTITYID,
 				[GameTag.ZONE] = (int)Enums.Zone.PLAY,
@@ -511,7 +511,7 @@ namespace SabberStoneCore.Model
 					// 4th card for second player
 					Generic.Draw(p);
 
-					IPlayable coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new Dictionary<GameTag, int>()
+					IPlayable coin = FromCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"), new EntityData.Data
 					{
 						[GameTag.ZONE] = (int)Enums.Zone.HAND,
 						[GameTag.CARDTYPE] = (int)CardType.SPELL,

@@ -17,7 +17,7 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.RemoveEnchantments?.Invoke();
 
-			entity.Reset();
+			//entity.Reset();
 		}
 	}
 }

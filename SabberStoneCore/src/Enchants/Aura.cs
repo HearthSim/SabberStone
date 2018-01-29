@@ -209,10 +209,18 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		/// <summary>
+		/// Apply this aura to the target entities or remove this aura if the owner is nullified.
+		/// </summary>
 		public virtual void Update()
 		{
 			if (!_toBeUpdated) return;
 
+			UpdateInternal();
+		}
+
+		private void UpdateInternal()
+		{
 			if (On)
 			{
 				if (_tempList != null)
@@ -223,6 +231,8 @@ namespace SabberStoneCore.Enchants
 
 						Apply(minion);
 					}
+
+					_tempList = null;
 				}
 
 				switch (Type)
@@ -285,65 +295,68 @@ namespace SabberStoneCore.Enchants
 					_toBeUpdated = false;
 			}
 			else
-			{
-				// Remove effects from applied entities
-				switch (Type)
-				{
-					case AuraType.ADJACENT:
-					case AuraType.BOARD:
-					case AuraType.BOARD_EXCEPT_SOURCE:
-						Owner.Controller.BoardZone.Auras.Remove(this);
-						break;
-					case AuraType.HAND:
-						Owner.Controller.HandZone.Auras.Remove(this);
-						break;
-					case AuraType.OP_HAND:
-						Owner.Controller.Opponent.HandZone.Auras.Remove(this);
-						break;
-					case AuraType.HANDS:
-						Owner.Controller.HandZone.Auras.Remove(this);
-						Owner.Controller.Opponent.HandZone.Auras.Remove(this);
-						break;
-					case AuraType.CONTROLLER:
-						for (int i = 0; i < Effects.Length; i++)
-							Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
-						break;
-					case AuraType.CONTROLLERS:
-						for (int i = 0; i < Effects.Length; i++)
-						{
-							Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
-							Effects[i].Remove(Owner.Controller.Opponent.ControllerAuraEffects);
-						}
-						break;
-				}
-
-				if (Type != AuraType.CONTROLLER || Type != AuraType.CONTROLLERS)
-				{
-					foreach (IPlayable entity in AppliedEntities)
-					{
-						if (Predicate != null)
-						{
-							var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
-							effect.Remove(entity.AuraEffects);
-							continue;
-						}
-
-						for (int i = 0; i < Effects.Length; i++)
-							Effects[i].Remove(entity.AuraEffects);
-					}
-				}
-
-				Game.Auras.Remove(this);
-
-				// Remove enchantments from applied entities
-				if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
-					foreach (IPlayable entity in AppliedEntities)
-						for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
-							if (entity.AppliedEnchantments[i].Creator.Id == _ownerId)
-								entity.AppliedEnchantments[i].Remove();
-			}
+				RemoveInternal();
 		}
 
+		private void RemoveInternal()
+		{
+			// Remove effects from applied entities
+			switch (Type)
+			{
+				case AuraType.ADJACENT:
+				case AuraType.BOARD:
+				case AuraType.BOARD_EXCEPT_SOURCE:
+					Owner.Controller.BoardZone.Auras.Remove(this);
+					break;
+				case AuraType.HAND:
+					Owner.Controller.HandZone.Auras.Remove(this);
+					break;
+				case AuraType.OP_HAND:
+					Owner.Controller.Opponent.HandZone.Auras.Remove(this);
+					break;
+				case AuraType.HANDS:
+					Owner.Controller.HandZone.Auras.Remove(this);
+					Owner.Controller.Opponent.HandZone.Auras.Remove(this);
+					break;
+				case AuraType.CONTROLLER:
+					for (int i = 0; i < Effects.Length; i++)
+						Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
+					break;
+				case AuraType.CONTROLLERS:
+					for (int i = 0; i < Effects.Length; i++)
+					{
+						Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
+						Effects[i].Remove(Owner.Controller.Opponent.ControllerAuraEffects);
+					}
+					break;
+			}
+
+			if (Type != AuraType.CONTROLLER || Type != AuraType.CONTROLLERS)
+			{
+				foreach (IPlayable entity in AppliedEntities)
+				{
+					if (Predicate != null)
+					{
+						var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+						effect.Remove(entity.AuraEffects);
+						continue;
+					}
+
+					for (int i = 0; i < Effects.Length; i++)
+						Effects[i].Remove(entity.AuraEffects);
+				}
+			}
+
+			Game.Auras.Remove(this);
+
+			// Remove enchantments from applied entities
+			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
+				foreach (IPlayable entity in AppliedEntities)
+					for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
+						if (entity.AppliedEnchantments[i].Creator.Id == _ownerId)
+							entity.AppliedEnchantments[i].Remove();
+		}
+	
 		public virtual void Remove()
 		{
 			On = false;
@@ -364,7 +377,7 @@ namespace SabberStoneCore.Enchants
 				e.Remove();
 		}
 
-		private void TriggeredRemove(IEntity source)
+		private void TriggeredRemove(IEntity source, int number = 0)
 		{
 			if (RemoveTrigger.Condition != null)
 			{
@@ -540,6 +553,8 @@ namespace SabberStoneCore.Enchants
 
 		public override void Activate(IPlayable owner, bool cloning = false)
 		{
+			if (!(owner.Zone is HandZone)) return;
+
 			var instance = new AdaptiveCostEffect(this, owner);
 
 			owner.AuraEffects.AdaptiveCostEffect = instance;

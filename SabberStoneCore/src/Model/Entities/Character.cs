@@ -87,7 +87,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
-		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
+		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags)
 			: base(controller, card, tags) { }
 
 		/// <summary>
@@ -138,9 +138,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				//if (Controller.CalculatingOptions && Controller.VATCache != null)
-				//	return Controller.VATCache;
-
 				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
 				var allTargetsTaunt = new List<ICharacter>(2);
@@ -164,9 +161,6 @@ namespace SabberStoneCore.Model.Entities
 				if (!CantAttackHeroes)
 					allTargets.Add(Controller.Opponent.Hero);
 
-				//if (Controller.CalculatingOptions)
-				//	Controller.VATCache = allTargets;
-
 				return allTargets;
 			}
 		}
@@ -188,9 +182,7 @@ namespace SabberStoneCore.Model.Entities
 			bool fatigue = hero != null && this == source;
 
 			if (fatigue)
-			{
 				hero.Fatigue = damage;
-			}
 
 			if (minion != null && minion.HasDivineShield)
 			{
@@ -202,10 +194,11 @@ namespace SabberStoneCore.Model.Entities
 			int armor = hero?.Armor ?? 0;
 
 			// added pre damage
-			PreDamage = hero == null ? damage : armor < damage ? damage - armor : 0;
+			int preDamage = hero == null ? damage : armor < damage ? damage - armor : 0;
+			PreDamage = preDamage;
 
 			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
-			PreDamageTrigger?.Invoke(this);
+			PreDamageTrigger?.Invoke(this, preDamage);
 
 			if (this.IsImmune)
 			{
@@ -221,12 +214,12 @@ namespace SabberStoneCore.Model.Entities
 
 
 			// final damage is beeing accumulated
-			Damage += PreDamage;
+			Damage += preDamage;
 
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			// check if there was damage done
-			int tookDamage = PreDamage;
+			int tookDamage = preDamage;
 
 			// reset predamage
 			PreDamage = 0;
@@ -235,6 +228,7 @@ namespace SabberStoneCore.Model.Entities
 
 			// broadcast damaging trigger
 			Game.TriggerManager.OnDamageTrigger(this);
+			Game.TriggerManager.OnDealDamageTrigger(source, preDamage);
 
 			return tookDamage;
 		}
@@ -291,9 +285,9 @@ namespace SabberStoneCore.Model.Entities
 			Armor += armor;
 		}
 
-		public event Action<IEntity> PreDamageTrigger;
+		public event TriggerManager.TriggerHandler PreDamageTrigger;
 
-		public event Action<IEntity> AfterAttackTrigger;
+		public event TriggerManager.TriggerHandler AfterAttackTrigger;
 
 		public void OnAfterAttackTrigger()
 		{
@@ -553,12 +547,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			//get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
 			get
 			{
-				if (_data.Tags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value))
-					return value;
-				return 0;
+				NativeTags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
+				return value;
 			}
 			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
 		}

@@ -22,7 +22,7 @@ namespace SabberStoneCore.Model
 		public static CardSet[] StandardSets { get; } = {
 			CardSet.CORE,
 			CardSet.EXPERT1,
-			//CardSet.OG,
+			CardSet.OG,
 			//CardSet.KARA,
 			//CardSet.GANGS,
 			//CardSet.UNGORO,
@@ -37,7 +37,7 @@ namespace SabberStoneCore.Model
 			// standard
 			CardSet.CORE,
 			CardSet.EXPERT1,
-			//CardSet.OG,
+			CardSet.OG,
 			//CardSet.KARA,
 			//CardSet.GANGS,
 			//CardSet.UNGORO,

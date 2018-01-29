@@ -137,7 +137,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="id">Entity ID of this controller.</param>
 		public Controller(Game game, string name, int playerId, int id)
 			: base(game, Card.CardPlayer,
-			new Dictionary<GameTag, int>
+			new EntityData.Data
 			{
 				//[GameTag.HERO_ENTITY] = heroId,
 				[GameTag.MAXHANDSIZE] = 10,
@@ -196,6 +196,7 @@ namespace SabberStoneCore.Model.Entities
 
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 			_currentSpellPower = controller._currentSpellPower;
+			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
 			controller.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -223,7 +224,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="powerCard">The heropower card to derive the hero power entity from.</param>
 		/// <param name="tags">The inherited tags</param>
 		/// <param name="id">The entity id to assign to the generated HERO entity</param>
-		public void AddHeroAndPower(Card heroCard, Card powerCard = null, Dictionary<GameTag, int> tags = null, int id = -1)
+		public void AddHeroAndPower(Card heroCard, Card powerCard = null, IDictionary<GameTag, int> tags = null, int id = -1)
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
@@ -246,7 +247,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
-				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+				new EntityData.Data { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
 		}
 
@@ -780,8 +781,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraBattlecry
 		{
-			get { return this[GameTag.EXTRA_BATTLECRY] == 1; }
-			set { this[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
 		}
 
 		/// <summary>
@@ -790,7 +791,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraEndTurnEffect
 		{
-			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 1;
+			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 0;
 			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
 		}
 
@@ -799,8 +800,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool HeroPowerDisabled
 		{
-			get { return this[GameTag.HERO_POWER_DISABLED] == 1; }
-			set { this[GameTag.HERO_POWER_DISABLED] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.HERO_POWER_DISABLED] == 1;
+			set => ControllerAuraEffects[GameTag.HERO_POWER_DISABLED] = value ? 1 : 0;
 		}
 
 		/// <summary>
@@ -810,8 +811,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ChooseBoth
 		{
-			get { return this[GameTag.CHOOSE_BOTH] == 1; }
-			set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.CHOOSE_BOTH] == 1;
+			set => ControllerAuraEffects[GameTag.CHOOSE_BOTH] = value ? 1 : 0;
 		}
 
 		/// <summary>
