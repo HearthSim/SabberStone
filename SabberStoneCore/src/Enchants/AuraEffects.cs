@@ -49,6 +49,7 @@ namespace SabberStoneCore.Enchants
 		private int COST;
 		private int CHARGE;
 		private int WINDFURY;
+		private int IMMUNE;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -90,6 +91,8 @@ namespace SabberStoneCore.Enchants
 						return WINDFURY > 0 ? 1 : 0;
 					case GameTag.COST:
 						return GetCost() - ((Entity) Owner)._data[GameTag.COST];
+					case GameTag.IMMUNE:
+						return IMMUNE;
 					default:
 						return 0;
 				}
@@ -115,6 +118,9 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.HEALTH_MINIMUM:
 						Owner[GameTag.HEALTH_MINIMUM] = value;
+						return;
+					case GameTag.IMMUNE:
+						IMMUNE = value;
 						return;
 					default:
 						return;

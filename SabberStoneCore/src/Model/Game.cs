@@ -453,6 +453,8 @@ namespace SabberStoneCore.Model
 			// first turn
 			Turn = 1;
 
+			TriggerManager.OnGameStartTrigger();
+
 			// set next step
 			NextStep = Step.BEGIN_FIRST;
 		}

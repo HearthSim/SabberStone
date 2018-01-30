@@ -69,9 +69,6 @@ namespace SabberStoneCore.Enchants
 					return;
 			    case TriggerType.ATTACK:
 			    case TriggerType.AFTER_ATTACK:
-				    _sequenceType = SequenceType.Attack;
-					Validated = true;
-					return;
 				case TriggerType.NONE:
 				case TriggerType.DEAL_DAMAGE:
 				case TriggerType.TURN_END:
@@ -83,6 +80,8 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.PLAY_CARD:
 			    case TriggerType.SECRET_REVEALED:
 				case TriggerType.ZONE:
+				case TriggerType.GAME_START:
+				case TriggerType.DISCARD:
 					return;
 			    default:
 				    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -128,7 +127,8 @@ namespace SabberStoneCore.Enchants
 
 			source.ActivatedTrigger = instance;
 
-			source.Game.Triggers.Add(instance);
+			if (_sequenceType != SequenceType.None)
+				source.Game.Triggers.Add(instance);
 
 			switch (_triggerType)
 			{
@@ -215,13 +215,19 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ZONE:
 					source.Game.TriggerManager.ZoneTrigger += instance.Process;
 					break;
+				case TriggerType.DISCARD:
+					source.Game.TriggerManager.DiscardTrigger += instance.Process;
+					break;
+				case TriggerType.GAME_START:
+					source.Game.TriggerManager.GameStartTrigger += instance.Process;
+					break;
 			}
 		}
 
 		private void Process(IEntity source, int number = 0)
-	    {
-		    if (_triggerType == TriggerType.AFTER_ATTACK || _triggerType == TriggerType.ZONE)
-			    Validate(source);
+		{
+			if (_sequenceType == SequenceType.None)
+				Validate(source);
 
 			if (!Validated)
 				return;
@@ -343,6 +349,12 @@ namespace SabberStoneCore.Enchants
 				    break;
 			    case TriggerType.INSPIRE:
 				    break;
+				case TriggerType.DISCARD:
+					Game.TriggerManager.DiscardTrigger -= Process;
+					break;
+				case TriggerType.GAME_START:
+					Game.TriggerManager.GameStartTrigger -= Process;
+					break;
 			    default:
 				    throw new ArgumentOutOfRangeException();
 		    }

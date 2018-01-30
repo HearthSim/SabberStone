@@ -35,10 +35,13 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler SecretRevealedTrigger;
 
 	    public event TriggerHandler ZoneTrigger;
+
+	    public event TriggerHandler DiscardTrigger;
+
+	    public event TriggerHandler GameStartTrigger;
 		
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.DEAL_DAMAGE);
 		    DealDamageTrigger?.Invoke(sender, number);
 	    }
 
@@ -49,25 +52,21 @@ namespace SabberStoneCore.Model
 
 	    internal void OnHealTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.HEAL);
 			HealTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnEndTurnTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.TURN_END);
 			EndTurnTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnTurnStartTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.TURN_START);
 			TurnStartTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnSummonTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.SUMMON);
 			SummonTrigger?.Invoke(sender);
 	    }
 
@@ -78,13 +77,11 @@ namespace SabberStoneCore.Model
 
 	    internal void OnDeathTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.DEATH);
 			DeathTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnPlayCardTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.PLAY_CARD);
 			PlayCardTrigger?.Invoke(sender);
 	    }
 
@@ -110,13 +107,22 @@ namespace SabberStoneCore.Model
 
 	    internal void OnSecretRevealedTrigger(IEntity sender)
 	    {
-		    Trigger.ValidateTriggers(sender.Game, sender, TriggerType.SECRET_REVEALED);
 			SecretRevealedTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnZoneTrigger(IEntity sender)
 	    {
 		    ZoneTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnDiscardTrigger(IEntity sender)
+	    {
+		    DiscardTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnGameStartTrigger()
+	    {
+		    GameStartTrigger?.Invoke(null);
 	    }
     }
 }

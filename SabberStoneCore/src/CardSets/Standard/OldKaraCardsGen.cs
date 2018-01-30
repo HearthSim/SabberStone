@@ -990,7 +990,7 @@
 //					Area = PowerArea.GAME,
 //					Activation = PowerActivation.DECK_ZONE,
 //					OldTrigger = new TriggerBuilder().Create()
-//                        .EnableConditions(SelfCondition.IsInZone(Zone.DECK))
+//						.EnableConditions(SelfCondition.IsInZone(Zone.DECK))
 //                        //.ApplyConditions(RelaCondition.IsMe(SelfCondition.IsStep(Step.MAIN_BEGIN)))
 //                        .TriggerEffect(GameTag.STEP, 0)
 //						.MaxExecution(1)

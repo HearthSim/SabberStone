@@ -25,8 +25,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (entity.Power?.Trigger?.TriggerActivation == TriggerActivation.DECK)
-				entity.Power.Trigger.Activate(entity);
+			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
 		}
 
 		public IPlayable TopCard => Entities[_count - 1];

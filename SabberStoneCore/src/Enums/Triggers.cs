@@ -46,7 +46,11 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered when a secret is activated. </summary>
 		SECRET_REVEALED,
 
-		ZONE
+		ZONE,
+
+		DISCARD,
+
+		GAME_START
 	}
 
 	public enum TriggerSource

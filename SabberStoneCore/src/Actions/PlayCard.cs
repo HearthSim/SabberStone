@@ -32,7 +32,10 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
+
 				// remove from hand zone
+				if (source is Spell)
+					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
 				if (!RemoveFromZone.Invoke(c, source))
 					return false;
 
@@ -319,6 +322,7 @@ namespace SabberStoneCore.Actions
 			{
 				c.Hero.AddWeapon(weapon);
 
+				weapon.Card.Power?.Aura?.Activate(weapon);
 				weapon.Card.Power?.Trigger?.Activate(weapon);
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");

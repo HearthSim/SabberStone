@@ -36,6 +36,8 @@ namespace SabberStoneCore.Enchants
 		WEAPON,
 
 		ADAPTIVE,
+
+		HERO
 	}
 
 	/// <summary>
@@ -288,6 +290,9 @@ namespace SabberStoneCore.Enchants
 							Effects[i].Apply(Owner.Controller.ControllerAuraEffects);
 							Effects[i].Apply(Owner.Controller.Opponent.ControllerAuraEffects);
 						}
+						break;
+					case AuraType.HERO:
+						Apply(Owner.Controller.Hero);
 						break;
 				}
 

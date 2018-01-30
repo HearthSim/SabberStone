@@ -12,805 +12,478 @@ namespace SabberStoneCore.CardSets.Standard
 {
 	public class KaraCardsGen
 	{
-		private static void Heroes(IDictionary<string, Power> cards)
+		private static void Druid(IDictionary<string, Power> cards)
 		{
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_00_01] Prince Malchezaar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39753
-			// --------------------------------------------------------
-			cards.Add("KARA_00_01", new Power {
-				// TODO [KARA_00_01] Prince Malchezaar && Test: Prince Malchezaar_KARA_00_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_00_01H] Prince Malchezaar (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40080
-			// --------------------------------------------------------
-			cards.Add("KARA_00_01H", new Power {
-				// TODO [KARA_00_01H] Prince Malchezaar && Test: Prince Malchezaar_KARA_00_01H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// -------------------------------------------- HERO - MAGE
-			// [KARA_00_03] Medivh (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40081
-			// --------------------------------------------------------
-			cards.Add("KARA_00_03", new Power {
-				// TODO [KARA_00_03] Medivh && Test: Medivh_KARA_00_03
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_00_03c] Medivh (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			cards.Add("KARA_00_03c", new Power {
-				// TODO [KARA_00_03c] Medivh && Test: Medivh_KARA_00_03c
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// -------------------------------------------- HERO - MAGE
-			// [KARA_00_03H] Medivh (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39756
-			// --------------------------------------------------------
-			cards.Add("KARA_00_03H", new Power {
-				// TODO [KARA_00_03H] Medivh && Test: Medivh_KARA_00_03H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_04_01h] The Crone (*) - COST:0 [ATK:0/HP:30] 
+			// ----------------------------------------- MINION - DRUID
+			// [KAR_065] Menagerie Warden - COST:6 [ATK:5/HP:5] 
 			// - Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39281
+			// Text: <b>Battlecry:</b> Choose a friendly Beast. Summon a_copy of it.
 			// --------------------------------------------------------
-			cards.Add("KARA_04_01h", new Power {
-				// TODO [KARA_04_01h] The Crone && Test: The Crone_KARA_04_01h
-				//PowerTask = null,
-				//Trigger = null,
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_WITH_RACE = 20
+			// --------------------------------------------------------
+			cards.Add("KAR_065", new Power {
+				PowerTask = ComplexTask.Create(
+					new CopyTask(EntityType.TARGET, 1),
+					new SummonTask())
 			});
 
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_04_01heroic] The Crone (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: kara, 
+			// ----------------------------------------- MINION - DRUID
+			// [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2] 
+			// - Race: beast, Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39281
-			// --------------------------------------------------------
-			cards.Add("KARA_04_01heroic", new Power {
-				// TODO [KARA_04_01heroic] The Crone && Test: The Crone_KARA_04_01heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("KAR_300", null);
 
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_05_01b] Kindly Grandmother (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: kara, Rarity: common
+			// ------------------------------------------ SPELL - DRUID
+			// [KAR_075] Moonglade Portal - COST:6 
+			// - Set: kara, Rarity: rare
 			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39298
+			// Text: Restore #6 Health. Summon a random
+			//       6-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01b", new Power {
-				// TODO [KARA_05_01b] Kindly Grandmother && Test: Kindly Grandmother_KARA_05_01b
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_05_01h] Big Bad Wolf (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: kara, Rarity: common
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39298
-			// --------------------------------------------------------
-			cards.Add("KARA_05_01h", new Power {
-				// TODO [KARA_05_01h] Big Bad Wolf && Test: Big Bad Wolf_KARA_05_01h
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_05_01hheroic] Big Bad Wolf (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: kara, Rarity: common
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40266
-			// --------------------------------------------------------
-			cards.Add("KARA_05_01hheroic", new Power {
-				// TODO [KARA_05_01hheroic] Big Bad Wolf && Test: Big Bad Wolf_KARA_05_01hheroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_06_02] Julianne (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39563
-			// --------------------------------------------------------
-			cards.Add("KARA_06_02", new Power {
-				// TODO [KARA_06_02] Julianne && Test: Julianne_KARA_06_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_06_02heroic] Julianne (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40276
-			// --------------------------------------------------------
-			cards.Add("KARA_06_02heroic", new Power {
-				// TODO [KARA_06_02heroic] Julianne && Test: Julianne_KARA_06_02heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_07_01] Curator (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39641
-			// --------------------------------------------------------
-			cards.Add("KARA_07_01", new Power {
-				// TODO [KARA_07_01] Curator && Test: Curator_KARA_07_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_07_01heroic] Curator (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39641
-			// --------------------------------------------------------
-			cards.Add("KARA_07_01heroic", new Power {
-				// TODO [KARA_07_01heroic] Curator && Test: Curator_KARA_07_01heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_08_01] Netherspite (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39680
-			// --------------------------------------------------------
-			cards.Add("KARA_08_01", new Power {
-				// TODO [KARA_08_01] Netherspite && Test: Netherspite_KARA_08_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_08_01H] Netherspite (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40062
-			// --------------------------------------------------------
-			cards.Add("KARA_08_01H", new Power {
-				// TODO [KARA_08_01H] Netherspite && Test: Netherspite_KARA_08_01H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_09_01] Terestian Illhoof (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39645
-			// --------------------------------------------------------
-			cards.Add("KARA_09_01", new Power {
-				// TODO [KARA_09_01] Terestian Illhoof && Test: Terestian Illhoof_KARA_09_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_09_01heroic] Terestian Illhoof (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39645
-			// --------------------------------------------------------
-			cards.Add("KARA_09_01heroic", new Power {
-				// TODO [KARA_09_01heroic] Terestian Illhoof && Test: Terestian Illhoof_KARA_09_01heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_09_02] Curator (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39645
-			// --------------------------------------------------------
-			cards.Add("KARA_09_02", new Power {
-				// TODO [KARA_09_02] Curator && Test: Curator_KARA_09_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_11_01] Nightbane (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39667
-			// --------------------------------------------------------
-			cards.Add("KARA_11_01", new Power {
-				// TODO [KARA_11_01] Nightbane && Test: Nightbane_KARA_11_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_11_01heroic] Nightbane (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39667
-			// --------------------------------------------------------
-			cards.Add("KARA_11_01heroic", new Power {
-				// TODO [KARA_11_01heroic] Nightbane && Test: Nightbane_KARA_11_01heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// -------------------------------------------- HERO - MAGE
-			// [KARA_12_01] Shade of Aran (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39669
-			// --------------------------------------------------------
-			cards.Add("KARA_12_01", new Power {
-				// TODO [KARA_12_01] Shade of Aran && Test: Shade of Aran_KARA_12_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// -------------------------------------------- HERO - MAGE
-			// [KARA_12_01H] Shade of Aran (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40107
-			// --------------------------------------------------------
-			cards.Add("KARA_12_01H", new Power {
-				// TODO [KARA_12_01H] Shade of Aran && Test: Shade of Aran_KARA_12_01H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - WARRIOR
-			// [KARA_13_01] Nazra Wildaxe (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 39771
-			// --------------------------------------------------------
-			cards.Add("KARA_13_01", new Power {
-				// TODO [KARA_13_01] Nazra Wildaxe && Test: Nazra Wildaxe_KARA_13_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - WARRIOR
-			// [KARA_13_01H] Nazra Wildaxe (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40733
-			// --------------------------------------------------------
-			cards.Add("KARA_13_01H", new Power {
-				// TODO [KARA_13_01H] Nazra Wildaxe && Test: Nazra Wildaxe_KARA_13_01H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_13_06] Prince Malchezaar (*) - COST:0 [ATK:0/HP:30] 
-			// - Race: demon, Set: kara, 
-			// --------------------------------------------------------
-			// Entourage: KAR_073, KAR_075, KAR_076, KAR_077, KAR_091
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40563
-			// --------------------------------------------------------
-			cards.Add("KARA_13_06", new Power {
-				// TODO [KARA_13_06] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------------- HERO - NEUTRAL
-			// [KARA_13_06H] Prince Malchezaar (*) - COST:0 [ATK:0/HP:30] 
-			// - Race: demon, Set: kara, 
-			// --------------------------------------------------------
-			// Entourage: KAR_073, KAR_075, KAR_076, KAR_077, KAR_091
-			// --------------------------------------------------------
-			// GameTag:
-			// - HERO_POWER = 40763
-			// --------------------------------------------------------
-			cards.Add("KARA_13_06H", new Power {
-				// TODO [KARA_13_06H] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06H
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_075", new Power {
+				PowerTask = ComplexTask.Create(
+					new HealTask(6, EntityType.TARGET),
+					ComplexTask.SummonRandomMinion(GameTag.COST, 6))
 			});
 
 		}
 
-		private static void HeroPowers(IDictionary<string, Power> cards)
+		private static void Hunter(IDictionary<string, Power> cards)
 		{
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_00_02] Legion (*) - COST:2 
-			// - Set: kara, 
+			// ---------------------------------------- MINION - HUNTER
+			// [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 
+			// - Race: beast, Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Summon a 6/6 Abyssal.
+			// Text: <b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_02", new Power {
-				// TODO [KARA_00_02] Legion && Test: Legion_KARA_00_02
-				//PowerTask = null,
-				//Trigger = null,
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_005", new Power {
+				DeathrattleTask = new SummonTask("KAR_005a", SummonSide.DEATHRATTLE)
 			});
 
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_00_02H] Legion (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Summon a 6/6 Abyssal.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_02H", new Power {
-				// TODO [KARA_00_02H] Legion && Test: Legion_KARA_00_02H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_00_04] Brilliance (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Draw 3 cards.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_04", new Power {
-				// TODO [KARA_00_04] Brilliance && Test: Brilliance_KARA_00_04
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_00_04H] Brilliance (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Draw 3 cards.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_04H", new Power {
-				// TODO [KARA_00_04H] Brilliance && Test: Brilliance_KARA_00_04H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_04_02hp] Twister (*) - COST:0 
+			// ---------------------------------------- MINION - HUNTER
+			// [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4] 
 			// - Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Deal 100 damage. Can't be used if Dorothee is alive.
+			// Text: Your <b>Secrets</b> cost (0).
 			// --------------------------------------------------------
-			cards.Add("KARA_04_02hp", new Power {
-				// TODO [KARA_04_02hp] Twister && Test: Twister_KARA_04_02hp
-				//PowerTask = null,
-				//Trigger = null,
+			// RefTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_006", new Power {
+				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				{
+					Condition = SelfCondition.IsSecret
+				}
 			});
 
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_05_01hp] Trembling (*) - COST:0 
-			// - Set: kara, Rarity: common
+			// ----------------------------------------- SPELL - HUNTER
+			// [KAR_004] Cat Trick - COST:2 
+			// - Set: kara, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Passive Hero Power</b> Enemy minions are 1/1 and cost (1).
+			// Text: <b>Secret:</b> After your opponent casts a spell, summon a 4/2 Panther with <b>Stealth</b>.
 			// --------------------------------------------------------
 			// GameTag:
-			// - HIDE_STATS = 1
+			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01hp", new Power {
-				// TODO [KARA_05_01hp] Trembling && Test: Trembling_KARA_05_01hp
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_05_01hpheroic] Trembling (*) - COST:0 
-			// - Set: kara, Rarity: common
+			// RefTag:
+			// - STEALTH = 1
 			// --------------------------------------------------------
-			// Text: <b>Passive Hero Power</b> Minions cost (1). Enemy minions are 1/1.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_05_01hpheroic", new Power {
-				// TODO [KARA_05_01hpheroic] Trembling && Test: Trembling_KARA_05_01hpheroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_06_03hp] True Love (*) - COST:4 
-			// - Set: kara, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       If you don't have Romulo, summon him.
-			// --------------------------------------------------------
-			// Entourage: KARA_06_01
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_06_03hp", new Power {
-				// TODO [KARA_06_03hp] True Love && Test: True Love_KARA_06_03hp
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_06_03hpheroic] True Love (*) - COST:0 
-			// - Set: kara, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       If you don't have Romulo, summon him.
-			// --------------------------------------------------------
-			// Entourage: KARA_06_01
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_06_03hpheroic", new Power {
-				// TODO [KARA_06_03hpheroic] True Love && Test: True Love_KARA_06_03hpheroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_07_02] Gallery Protection (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Passive Hero Power</b>
-			//       Your hero has <b>Taunt</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_07_02", new Power {
-				// TODO [KARA_07_02] Gallery Protection && Test: Gallery Protection_KARA_07_02
-				InfoCardId = "KARA_07_02e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_08_02] Nether Rage (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Give your hero +3 Attack this turn.
-			// --------------------------------------------------------
-			// Entourage: KARA_08_06, KARA_08_08
-			// --------------------------------------------------------
-			// GameTag:
-			// - AI_MUST_PLAY = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02", new Power {
-				// TODO [KARA_08_02] Nether Rage && Test: Nether Rage_KARA_08_02
-				InfoCardId = "KARA_08_02e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_08_02H] Nether Rage (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Give your hero +8 Attack this turn.
-			// --------------------------------------------------------
-			// Entourage: KARA_08_06, KARA_08_08
-			// --------------------------------------------------------
-			// GameTag:
-			// - AI_MUST_PLAY = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02H", new Power {
-				// TODO [KARA_08_02H] Nether Rage && Test: Nether Rage_KARA_08_02H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_09_04] Dark Pact (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Passive Hero Power</b>
-			//       Only Icky Imps can damage Illhoof!
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_04", new Power {
-				// TODO [KARA_09_04] Dark Pact && Test: Dark Pact_KARA_09_04
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_11_02] Manastorm (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Passive Hero Power</b>
-			//       Players start with 10 Mana Crystals.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_11_02", new Power {
-				// TODO [KARA_11_02] Manastorm && Test: Manastorm_KARA_11_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_12_02] Ley Lines (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]<b>Passive Hero Power</b>
-			//       Both players have
-			//       <b>Spell Damage +3</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_02", new Power {
-				// TODO [KARA_12_02] Ley Lines && Test: Ley Lines_KARA_12_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_12_02H] Ley Lines (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]<b>Passive Hero Power</b>
-			//       Both players have
-			//       <b>Spell Damage +5</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_02H", new Power {
-				// TODO [KARA_12_02H] Ley Lines && Test: Ley Lines_KARA_12_02H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - WARRIOR
-			// [KARA_13_02] The Horde (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]<b>Hero Power</b>
-			//       Summon a 3/2 Orc.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_02", new Power {
-				// TODO [KARA_13_02] The Horde && Test: The Horde_KARA_13_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - WARRIOR
-			// [KARA_13_02H] The Horde (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]<b>Hero Power</b>
-			//       Summon a 3/3 Orc
-			//       with <b>Charge</b>.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_02H", new Power {
-				// TODO [KARA_13_02H] The Horde && Test: The Horde_KARA_13_02H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_13_13] Legion (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Summon a 6/6 Abyssal.
-			// --------------------------------------------------------
-			// GameTag:
-			// - AI_MUST_PLAY = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_13_13", new Power {
-				// TODO [KARA_13_13] Legion && Test: Legion_KARA_13_13
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [KARA_13_13H] Legion (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
-			//       Summon two 6/6 Abyssals.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_13H", new Power {
-				// TODO [KARA_13_13H] Legion && Test: Legion_KARA_13_13H
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_004", new Power {
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.ENEMY,
+					SingleTask = ComplexTask.Secret(
+						new SummonTask("KAR_004a", SummonSide.SPELL))
+				}
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
+		private static void HunterNonCollect(IDictionary<string, Power> cards)
+		{
+			// ---------------------------------------- MINION - HUNTER
+			// [KAR_004a] Cat in a Hat (*) - COST:3 [ATK:4/HP:2] 
+			// - Race: beast, Fac: horde, Set: kara, 
+			// --------------------------------------------------------
+			// Text: <b>Stealth</b>
+			// --------------------------------------------------------
+			// GameTag:
+			// - STEALTH = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_004a", null);
+
+			// ---------------------------------------- MINION - HUNTER
+			// [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2] 
+			// - Race: beast, Set: kara, 
+			// --------------------------------------------------------
+			cards.Add("KAR_005a", null);
+
+		}
+
+		private static void Mage(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [KARA_00_08] Archmage's Apprentice (*) - COST:2 [ATK:2/HP:4] 
-			// - Set: kara, 
+			// [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1] 
+			// - Set: kara, Rarity: rare
 			// --------------------------------------------------------
-			// Text: Whenever you cast a spell, shuffle a copy of it into your deck.
+			// Text: <b>Battlecry:</b> Add a random Mage spell to your hand.
 			// --------------------------------------------------------
-			cards.Add("KARA_00_08", new Power {
-				// TODO [KARA_00_08] Archmage's Apprentice && Test: Archmage's Apprentice_KARA_00_08
-				//PowerTask = null,
-				//Trigger = null,
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_009", new Power {
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+					new AddStackTo(EntityType.HAND))
+			});
+
+			// ------------------------------------------ MINION - MAGE
+			// [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, deal 3 damage.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_092", new Power {
+				PowerTask = new DamageTask(3, EntityType.TARGET)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_05] Archmage's Insight (*) - COST:3 
-			// - Set: kara, 
+			// [KAR_076] Firelands Portal - COST:7 
+			// - Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// Text: Your spells cost (0) this turn.
+			// Text: Deal $5 damage. Summon a random
+			//       5-Cost minion. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("KARA_00_05", new Power {
-				// TODO [KARA_00_05] Archmage's Insight && Test: Archmage's Insight_KARA_00_05
-				InfoCardId = "KARA_00_05e",
-				//PowerTask = null,
-				//Trigger = null,
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("KAR_076", new Power {
+				PowerTask = ComplexTask.Create(
+					new DamageTask(5, EntityType.TARGET),
+					ComplexTask.SummonRandomMinion(GameTag.COST, 5)),
 			});
 
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_06] Arcane Power (*) - COST:2 
+		}
+
+		private static void Paladin(IDictionary<string, Power> cards)
+		{
+			// --------------------------------------- MINION - PALADIN
+			// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> If you're holding a Dragon, summon two 1/1 Whelps.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_010", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new FlagTask(true, ComplexTask.Create(
+						new SummonTask("KAR_010a", SummonSide.LEFT),
+						new SummonTask("KAR_010a", SummonSide.RIGHT)))),
+			});
+
+			// --------------------------------------- MINION - PALADIN
+			// [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: [x]<b>Battlecry:</b> <b>Discover</b> a spell.
+			//       Restore Health to your hero
+			//       equal to its Cost.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - DISCOVER = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_057", new Power {
+				PowerTask = new DiscoverTask(DiscoverType.SPELL, "")
+			});
+
+			// ---------------------------------------- SPELL - PALADIN
+			// [KAR_077] Silvermoon Portal - COST:4 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give a minion +2/+2. Summon a random
+			//       2-Cost minion.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("KAR_077", new Power {
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("KAR_077e", EntityType.TARGET),
+					ComplexTask.SummonRandomMinion(GameTag.COST, 2))
+			});
+
+		}
+
+		private static void PaladinNonCollect(IDictionary<string, Power> cards)
+		{
+			// --------------------------------------- MINION - PALADIN
+			// [KAR_010a] Whelp (*) - COST:1 [ATK:1/HP:1] 
+			// - Race: dragon, Set: kara, 
+			// --------------------------------------------------------
+			cards.Add("KAR_010a", null);
+
+		}
+
+		private static void Priest(IDictionary<string, Power> cards)
+		{
+			// ---------------------------------------- MINION - PRIEST
+			// [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6] 
+			// - Fac: neutral, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, restore 3 Health to
+			//       your hero.
+			// --------------------------------------------------------
+			cards.Add("KAR_035", new Power {
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new HealTask(3, EntityType.HERO)
+				}
+			});
+
+			// ---------------------------------------- MINION - PRIEST
+			// [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon a friendly minion that died this game.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_204", new Power {
+				PowerTask = ComplexTask.SummonRandomMinionThatDied()
+			});
+
+			// ----------------------------------------- SPELL - PRIEST
+			// [KAR_013] Purify - COST:2 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Silence</b> a friendly minion. Draw a card.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - SILENCE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_013", new Power {
+				PowerTask = ComplexTask.Create(
+					new SilenceTask(EntityType.TARGET),
+					new DrawTask()),
+			});
+
+		}
+
+		private static void Rogue(IDictionary<string, Power> cards)
+		{
+			// ----------------------------------------- MINION - ROGUE
+			// [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1] 
+			// - Race: pirate, Fac: neutral, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Add a random class card to your hand <i>(from your opponent's class).</i>
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_069", new Power {
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(EntityType.OP_HERO),
+					new AddStackTo(EntityType.HAND))
+			});
+
+			// ----------------------------------------- MINION - ROGUE
+			// [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: [x]<b>Battlecry:</b> If you're holding
+			//       any non-Rogue class cards,
+			//       _reduce their Cost by (2).
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_070", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.AnyNonClassCardInHand(CardClass.ROGUE)),
+					new FlagTask(true, ComplexTask.Create(
+						new IncludeTask(EntityType.HAND),
+						new FilterStackTask(SelfCondition.IsNotCardClass(CardClass.ROGUE)),
+						new AddAuraEffect(Effects.ReduceCost(2), EntityType.STACK))))
+			});
+
+			// ----------------------------------------- MINION - ROGUE
+			// [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Add a 3/2 weapon to your hand.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_094", new Power {
+				DeathrattleTask = new AddCardTo("KAR_094a", EntityType.HAND)
+			});
+
+		}
+
+		private static void RogueNonCollect(IDictionary<string, Power> cards)
+		{
+			// ----------------------------------------- WEAPON - ROGUE
+			// [KAR_094a] Sharp Fork (*) - COST:3 [ATK:3/HP:0] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: You have <b>Spell Damage</b> +5 this turn.
+			// GameTag:
+			// - DURABILITY = 2
+			// --------------------------------------------------------
+			cards.Add("KAR_094a", null);
+
+		}
+
+		private static void Shaman(IDictionary<string, Power> cards)
+		{
+			// ---------------------------------------- MINION - SHAMAN
+			// [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, summon a random basic_Totem.
+			// --------------------------------------------------------
+			cards.Add("KAR_021", new Power {
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.SOURCE),
+						new FuncPlayablesTask(list =>
+						{
+							Controller controller = list[0].Controller;
+							string[] basicTotem = 
+							{
+								"CS2_050",
+								"CS2_051",
+								"CS2_052",
+								"NEW1_009"
+							};
+							return new List<IPlayable>
+							{
+								Entity.FromCard(controller, Cards.FromId(Util.Choose(basicTotem)))
+							};
+						}),
+						new SummonTask())
+				}
+			});
+
+			// ----------------------------------------- SPELL - SHAMAN
+			// [KAR_073] Maelstrom Portal - COST:2 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Deal_$1_damage to_all_enemy_minions. Summon_a_random
+			//       1-Cost minion. @spelldmg
+			// --------------------------------------------------------
+			cards.Add("KAR_073", new Power {
+				PowerTask = ComplexTask.Create(
+					new DamageTask(1, EntityType.OP_MINIONS, true),
+					ComplexTask.SummonRandomMinion(GameTag.COST, 1))
+			});
+
+			// ---------------------------------------- WEAPON - SHAMAN
+			// [KAR_063] Spirit Claws - COST:2 [ATK:1/HP:0] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: [x]Has +2 Attack while you
+			//       have <b>Spell Damage</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DURABILITY = 3
 			// --------------------------------------------------------
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_06", new Power {
-				// TODO [KARA_00_06] Arcane Power && Test: Arcane Power_KARA_00_06
-				InfoCardId = "KARA_00_06e",
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_063", new Power {
+				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.CurrentSpellPower > 0 ? 2 : 0)
 			});
 
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_07] Astral Portal (*) - COST:1 
-			// - Set: kara, 
+		}
+
+		private static void Warlock(IDictionary<string, Power> cards)
+		{
+			// --------------------------------------- MINION - WARLOCK
+			// [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3] 
+			// - Race: demon, Set: kara, Rarity: common
 			// --------------------------------------------------------
-			// Text: Summon a random <b>Legendary</b> minion.
+			// Text: Whenever you discard a card, draw a card.
+			// --------------------------------------------------------
+			cards.Add("KAR_089", new Power {
+				Trigger = new Trigger(TriggerType.DISCARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new DrawTask()
+				}
+			});
+
+			// --------------------------------------- MINION - WARLOCK
+			// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: If you discard this minion, summon it.
+			// --------------------------------------------------------
+			// GameTag:
+			// - InvisibleDeathrattle = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_205", new Power {
+				Trigger = new Trigger(TriggerType.DISCARD)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					TriggerSource = TriggerSource.SELF,
+					SingleTask = new SummonTask("KAR_205", SummonSide.DEFAULT)
+				}
+			});
+
+			// ---------------------------------------- SPELL - WARLOCK
+			// [KAR_025] Kara Kazham! - COST:5 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Summon a 1/1 Candle, 2/2 Broom, and 3/3 Teapot.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_00_07", new Power {
-				// TODO [KARA_00_07] Astral Portal && Test: Astral Portal_KARA_00_07
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_09] Mage Armor (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Gain 10 Armor.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_09", new Power {
-				// TODO [KARA_00_09] Mage Armor && Test: Mage Armor_KARA_00_09
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_10] Mysterious Rune (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Put 5 random Mage <b>Secrets</b> into the battlefield.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_00_10", new Power {
-				// TODO [KARA_00_10] Mysterious Rune && Test: Mysterious Rune_KARA_00_10
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_00_11] Evocation (*) - COST:0 
-			// - Fac: neutral, Set: kara, 
-			// --------------------------------------------------------
-			// Text: Gain 5 Mana Crystals this turn only.
-			// --------------------------------------------------------
-			cards.Add("KARA_00_11", new Power {
-				// TODO [KARA_00_11] Evocation && Test: Evocation_KARA_00_11
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_12_03] Flame Wreath (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When an enemy attacks, deal 5 damage to all other enemies.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// - ImmuneToSpellpower = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_03", new Power {
-				// TODO [KARA_12_03] Flame Wreath && Test: Flame Wreath_KARA_12_03
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [KARA_12_03H] Flame Wreath (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When an enemy attacks, deal 10 damage to all other enemies.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// - ImmuneToSpellpower = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_12_03H", new Power {
-				// TODO [KARA_12_03H] Flame Wreath && Test: Flame Wreath_KARA_12_03H
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_025", new Power {
+				PowerTask = ComplexTask.Create(
+					new SummonTask("KAR_025a", SummonSide.SPELL),
+					new SummonTask("KAR_025b", SummonSide.SPELL),
+					new SummonTask("KAR_025c", SummonSide.SPELL))
 			});
 
 		}
@@ -818,43 +491,76 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, Power> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [KARA_00_02a] Abyssal (*) - COST:6 [ATK:6/HP:6] 
-			// - Race: demon, Set: kara, 
+			// [KAR_025a] Candle (*) - COST:1 [ATK:1/HP:1] 
+			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_00_02a", new Power {
-				// TODO [KARA_00_02a] Abyssal && Test: Abyssal_KARA_00_02a
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("KAR_025a", null);
 
 			// --------------------------------------- MINION - WARLOCK
-			// [KARA_09_08] Kil'rek (*) - COST:4 [ATK:2/HP:6] 
-			// - Race: demon, Set: kara, 
+			// [KAR_025b] Broom (*) - COST:2 [ATK:2/HP:2] 
+			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_08", new Power {
-				// TODO [KARA_09_08] Kil'rek && Test: Kil'rek_KARA_09_08
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("KAR_025b", null);
 
 			// --------------------------------------- MINION - WARLOCK
-			// [KARA_09_08_heroic] Kil'rek (*) - COST:4 [ATK:4/HP:8] 
-			// - Race: demon, Set: kara, 
+			// [KAR_025c] Teapot (*) - COST:3 [ATK:3/HP:3] 
+			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
+			cards.Add("KAR_025c", null);
+
+		}
+
+		private static void Warrior(IDictionary<string, Power> cards)
+		{
+			// ---------------------------------------- SPELL - WARRIOR
+			// [KAR_026] Protect the King! - COST:3 
+			// - Set: kara, Rarity: rare
 			// --------------------------------------------------------
-			// GameTag:
+			// Text: For each enemy minion, summon a 1/1 Pawn with <b>Taunt</b>.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINIMUM_ENEMY_MINIONS = 1
+			// - REQ_NUM_MINION_SLOTS = 1
+			// --------------------------------------------------------
+			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_09_08_heroic", new Power {
-				// TODO [KARA_09_08_heroic] Kil'rek && Test: Kil'rek_KARA_09_08_heroic
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_026", new Power {
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_MINIONS),
+					new EnqueueNumberTask(new SummonTask("KAR_026t", SummonSide.SPELL)))
+			});
+
+			// ---------------------------------------- SPELL - WARRIOR
+			// [KAR_091] Ironforge Portal - COST:5 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Gain 4 Armor.
+			//       Summon a random
+			//       4-Cost minion.
+			// --------------------------------------------------------
+			cards.Add("KAR_091", new Power {
+				PowerTask = ComplexTask.Create(
+					new ArmorTask(4),
+					ComplexTask.SummonRandomMinion(GameTag.COST, 4))
+			});
+
+			// --------------------------------------- WEAPON - WARRIOR
+			// [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Unlimited attacks each turn. Can't attack heroes.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DURABILITY = 4
+			// --------------------------------------------------------
+			cards.Add("KAR_028", new Power {
+				Aura = new Aura(AuraType.HERO, new Effect(GameTag.CANNOT_ATTACK_HEROES, EffectOperator.SET, 1)),
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO)
+				}
 			});
 
 		}
@@ -862,28 +568,362 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, Power> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [KARA_13_03] Orc Warrior (*) - COST:2 [ATK:3/HP:2] 
+			// [KAR_026t] Pawn (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_13_03", new Power {
-				// TODO [KARA_13_03] Orc Warrior && Test: Orc Warrior_KARA_13_03
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - WARRIOR
-			// [KARA_13_03H] Orc Warrior (*) - COST:2 [ATK:3/HP:3] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>
+			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
 			// GameTag:
-			// - CHARGE = 1
+			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_03H", new Power {
-				// TODO [KARA_13_03H] Orc Warrior && Test: Orc Warrior_KARA_13_03H
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_026t", null);
+
+		}
+
+		private static void Neutral(IDictionary<string, Power> cards)
+		{
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Taunt</b>
+			// --------------------------------------------------------
+			// GameTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_011", null);
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Draw a card.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_029", new Power {
+				DeathrattleTask = new DrawTask()
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3] 
+			// - Race: beast, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon a
+			//       1/3 Spider.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_030a", new Power {
+				PowerTask = new SummonTask("KAR_030", SummonSide.RIGHT)
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6] 
+			// - Race: dragon, Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> If you're holding a Dragon, destroy an enemy minion with 3 or less Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_NONSELF_TARGET = 0
+			// - REQ_ENEMY_TARGET = 0
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_MAX_ATTACK = 3
+			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
+			// --------------------------------------------------------
+			cards.Add("KAR_033", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new FlagTask(true, new DestroyTask(EntityType.TARGET)))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1] 
+			// - Race: elemental, Fac: neutral, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, give this minion
+			//       +1 Health.
+			// --------------------------------------------------------
+			cards.Add("KAR_036", new Power {
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new AddEnchantmentTask("KAR_036e", EntityType.SOURCE)
+				}
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1
+			//       and <b>Taunt</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_037", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
+					new FlagTask(true, ComplexTask.Create(
+						new AddEnchantmentTask("KAR_037t", EntityType.SOURCE),
+						ComplexTask.Taunt(EntityType.SOURCE))))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3] 
+			// - Set: kara, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Destroy a minion. <b>Deathrattle:</b> Resummon it.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DEATHRATTLE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("KAR_041", new Power {
+				InfoCardId = "KAR_041e",
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+					new DestroyTask(EntityType.TARGET),
+					new SetGameTagNumberTask(GameTag.MOAT_LURKER_MINION, EntityType.SOURCE)),
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new FuncPlayablesTask(p =>
+					{
+						int id = p[0][GameTag.MOAT_LURKER_MINION];
+						if (id == 0)
+							return new List<IPlayable>();
+
+						IPlayable originalTarget = p[0].Game.IdEntityDic[id];
+						return new List<IPlayable>
+							{Entity.FromCard(originalTarget.Controller, originalTarget.Card)};
+					}),
+					new SummonTask(SummonSide.DEATHRATTLE))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_044] Moroes - COST:3 [ATK:1/HP:1] 
+			// - Set: kara, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Stealth</b>
+			//       At the end of your turn, summon a 1/1 Steward.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - STEALTH = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_044", new Power {
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new SummonTask("KAR_044a", SummonSide.RIGHT)
+				}
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_061] The Curator - COST:7 [ATK:4/HP:6] 
+			// - Race: mechanical, Set: kara, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Taunt</b>
+			//       <b>Battlecry:</b> Draw a Beast, Dragon, and Murloc from your deck.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - TAUNT = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_061", new Power {
+				PowerTask = ComplexTask.Create(
+					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.BEAST)),
+					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DRAGON)),
+					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> If you're holding a Dragon, <b>Discover</b>
+			//       a Dragon.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - DISCOVER = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_062", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new FlagTask(true, new DiscoverTask(DiscoverType.DRAGON)))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_095] Zoobot - COST:3 [ATK:3/HP:3] 
+			// - Race: mechanical, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_095", new Power {
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.BEAST)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_095e", EntityType.STACK),
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_095e", EntityType.STACK),
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_095e", EntityType.STACK))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6] 
+			// - Race: demon, Set: kara, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: [x]When the game starts,
+			//       add 5 extra <b>Legendary</b>
+			//       minions to your deck.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_096", new Power {
+				Trigger = new Trigger(TriggerType.GAME_START)
+				{
+					TriggerActivation = TriggerActivation.DECK,
+					RemoveAfterTriggered = true,
+					SingleTask = ComplexTask.Create(
+						new RandomMinionTask(GameTag.RARITY, (int) Rarity.LEGENDARY, 5, RelaSign.EQ, true, true),
+						new AddStackTo(EntityType.DECK))
+				}
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7] 
+			// - Set: kara, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Equip Atiesh, Greatstaff of the Guardian.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_097", new Power {
+				PowerTask = new WeaponTask("KAR_097t")
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_114] Barnes - COST:4 [ATK:3/HP:4] 
+			// - Set: kara, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon a 1/1 copy of a random minion in your deck.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_114", new Power {
+				InfoCardId = "KAR_114e",
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+					new FlagTask(true, ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsMinion),
+						new RandomTask(1, EntityType.STACK),
+						new CopyTask(EntityType.STACK, 1),
+						new AddEnchantmentTask("KAR_114e", EntityType.STACK),
+						new SummonTask())))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4] 
+			// - Fac: neutral, Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_702", new Power {
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.BEAST)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_702e", EntityType.STACK),
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_702e", EntityType.STACK),
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+					new RandomTask(1, EntityType.STACK),
+					new AddEnchantmentTask("KAR_702e", EntityType.STACK))
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon a 0/5 minion with <b>Taunt</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_710", new Power {
+				PowerTask = new SummonTask("KAR_710m", SummonSide.RIGHT)
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8] 
+			// - Set: kara, Rarity: epic
+			// --------------------------------------------------------
+			// Text: [x]Costs (1) less for each spell
+			//       you've cast this game.
+			// --------------------------------------------------------
+			cards.Add("KAR_711", new Power {
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSpellsPlayedThisGame)
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 
+			// - Set: kara, Rarity: common
+			// --------------------------------------------------------
+			// Text: During your turn, your hero is <b>Immune</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - AURA = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - IMMUNE = 1
+			// --------------------------------------------------------
+			cards.Add("KAR_712", new Power {
+				Aura = new Aura(AuraType.HERO, Effects.Immune)
+				{
+					Condition = SelfCondition.IsMyTurn,
+					Restless = true
+				},
 			});
 
 		}
@@ -891,663 +931,102 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_00_05e] Insightful (*) - COST:0 
+			// [KAR_036e] Eating (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: Your spells cost (0).
+			// Text: Increased Health.
 			// --------------------------------------------------------
-			// GameTag:
-			// - TAG_ONE_TURN_EFFECT = 1
+			cards.Add("KAR_036e", new Power {
+				Enchant = new OngoingEnchant(Effects.Health_N(1))
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [KAR_037t] Secrets of Karazhan (*) - COST:0 
+			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_00_05e", new Power {
-				// TODO [KARA_00_05e] Insightful && Test: Insightful_KARA_00_05e
+			// Text: +1/+1 and <b>Taunt</b>.
+			// --------------------------------------------------------
+			cards.Add("KAR_037t", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_037t")
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [KAR_041e] Moat Lurker (*) - COST:0 
+			// - Set: kara, 
+			// --------------------------------------------------------
+			// Text: Destroyed {0}.
+			// --------------------------------------------------------
+			cards.Add("KAR_041e", new Power {
+				// TODO [KAR_041e] Moat Lurker && Test: Moat Lurker_KAR_041e
 				//PowerTask = null,
 				//Trigger = null,
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_00_06e] Arcanely Powerful (*) - COST:0 
+			// [KAR_077e] Silver Might (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: +5 Spell Damage.
+			// Text: +2/+2.
 			// --------------------------------------------------------
-			// GameTag:
-			// - TAG_ONE_TURN_EFFECT = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - SPELLPOWER = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_00_06e", new Power {
-				// TODO [KARA_00_06e] Arcanely Powerful && Test: Arcanely Powerful_KARA_00_06e
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_077e", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_077e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_05_01e] Trembling Before the Wolf (*) - COST:0 
+			// [KAR_095e] Well Fed (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: Shrunk to a 1/1.
+			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("KARA_05_01e", new Power {
-				// TODO [KARA_05_01e] Trembling Before the Wolf && Test: Trembling Before the Wolf_KARA_05_01e
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_095e", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_095e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_06_01e] Death-Marked Love (*) - COST:0 
+			// [KAR_114e] Incredible Impression (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: Julianne is <b>immune</b>.
+			// Text: Attack and Health set to 1.
 			// --------------------------------------------------------
-			cards.Add("KARA_06_01e", new Power {
-				// TODO [KARA_06_01e] Death-Marked Love && Test: Death-Marked Love_KARA_06_01e
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_114e", new Power {
+				Enchant = new Enchant(Effects.SetAttackHealth(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_07_02e] Protecting the Gallery (*) - COST:0 
+			// [KAR_702e] A Simple Trick (*) - COST:0 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KARA_07_02e", new Power {
-				// TODO [KARA_07_02e] Protecting the Gallery && Test: Protecting the Gallery_KARA_07_02e
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_02e] Nether Rage (*) - COST:0 
-			// - Set: kara, 
+			// Text: +2/+2.
 			// --------------------------------------------------------
-			// Text: +3 Attack.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02e", new Power {
-				// TODO [KARA_08_02e] Nether Rage && Test: Nether Rage_KARA_08_02e
-				InfoCardId = "KARA_08_02eH",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_02eH] Nether Rage (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: +8 Attack.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_02eH", new Power {
-				// TODO [KARA_08_02eH] Nether Rage && Test: Nether Rage_KARA_08_02eH
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_03e] Nether Breath (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Health changed to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_03e", new Power {
-				// TODO [KARA_08_03e] Nether Breath && Test: Nether Breath_KARA_08_03e
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_06e2] Blue Beam (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Only take 1 damage at a time.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_06e2", new Power {
-				// TODO [KARA_08_06e2] Blue Beam && Test: Blue Beam_KARA_08_06e2
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_08e2] Red Beam (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Has <b>Windfury</b>.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_08e2", new Power {
-				// TODO [KARA_08_08e2] Red Beam && Test: Red Beam_KARA_08_08e2
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_13_11e] Enfeeble (*) - COST:0 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Health changed to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_11e", new Power {
-				// TODO [KARA_13_11e] Enfeeble && Test: Enfeeble_KARA_13_11e
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_702e", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_702e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_04_01] Dorothee (*) - COST:4 [ATK:0/HP:10] 
+			// [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3] 
+			// - Race: beast, Set: kara, 
+			// --------------------------------------------------------
+			cards.Add("KAR_030", null);
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_044a] Steward (*) - COST:1 [ATK:1/HP:1] 
+			// - Fac: neutral, Set: kara, 
+			// --------------------------------------------------------
+			cards.Add("KAR_044a", null);
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [KAR_710m] Animated Shield (*) - COST:2 [ATK:0/HP:5] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			// Text: Minions to the left have <b>Charge</b>. Minions to the right have <b>Taunt</b>.
+			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
-			// RefTag:
+			// GameTag:
 			// - TAUNT = 1
-			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_04_01", new Power {
-				// TODO [KARA_04_01] Dorothee && Test: Dorothee_KARA_04_01
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_04_05] Flying Monkey (*) - COST:3 [ATK:4/HP:2] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_04_05", new Power {
-				// TODO [KARA_04_05] Flying Monkey && Test: Flying Monkey_KARA_04_05
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_04_05h] Flying Monkey (*) - COST:3 [ATK:5/HP:2] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_04_05h", new Power {
-				// TODO [KARA_04_05h] Flying Monkey && Test: Flying Monkey_KARA_04_05h
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_06_01] Romulo (*) - COST:4 [ATK:4/HP:2] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Julianne is <b>Immune</b>.
-			// --------------------------------------------------------
-			// RefTag:
-			// - IMMUNE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_06_01", new Power {
-				// TODO [KARA_06_01] Romulo && Test: Romulo_KARA_06_01
-				InfoCardId = "KARA_06_01e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_06_01heroic] Romulo (*) - COST:3 [ATK:4/HP:2] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Julianne is <b>Immune</b>.
-			// --------------------------------------------------------
-			// RefTag:
-			// - IMMUNE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_06_01heroic", new Power {
-				// TODO [KARA_06_01heroic] Romulo && Test: Romulo_KARA_06_01heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_08_06] Blue Portal (*) - COST:1 [ATK:0/HP:1] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: The character in the blue beam only takes 1 damage at a time.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// - UNTOUCHABLE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_08_06", new Power {
-				// TODO [KARA_08_06] Blue Portal && Test: Blue Portal_KARA_08_06
-				InfoCardId = "KARA_08_06e2",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_08_08] Red Portal (*) - COST:11 [ATK:0/HP:1] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: The character in the red beam has <b>Windfury</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - HIDE_STATS = 1
-			// - UNTOUCHABLE = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - WINDFURY = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_08_08", new Power {
-				// TODO [KARA_08_08] Red Portal && Test: Red Portal_KARA_08_08
-				InfoCardId = "KARA_08_08e2",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_09_03a] Icky Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Resummon this minion and Illhoof loses 2 Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DEATHRATTLE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_03a", new Power {
-				// TODO [KARA_09_03a] Icky Imp && Test: Icky Imp_KARA_09_03a
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [KARA_09_03a_heroic] Icky Imp (*) - COST:1 [ATK:2/HP:2] 
-			// - Race: demon, Set: kara, 
-			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Resummon this minion and Illhoof loses 2 Health.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DEATHRATTLE = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_03a_heroic", new Power {
-				// TODO [KARA_09_03a_heroic] Icky Imp && Test: Icky Imp_KARA_09_03a_heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_03] Murloc Escaping! (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Murloc.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_03", new Power {
-				// TODO [KARA_07_03] Murloc Escaping! && Test: Murloc Escaping!_KARA_07_03
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_03heroic] Murlocs Escaping! (*) - COST:1 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon two random Murlocs.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_03heroic", new Power {
-				// TODO [KARA_07_03heroic] Murlocs Escaping! && Test: Murlocs Escaping!_KARA_07_03heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_05] Stampeding Beast! (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Beast.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_05", new Power {
-				// TODO [KARA_07_05] Stampeding Beast! && Test: Stampeding Beast!_KARA_07_05
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_05heroic] Stampeding Beast! (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Beast.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_05heroic", new Power {
-				// TODO [KARA_07_05heroic] Stampeding Beast! && Test: Stampeding Beast!_KARA_07_05heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_06] Demons Loose! (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Demon.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_06", new Power {
-				// TODO [KARA_07_06] Demons Loose! && Test: Demons Loose!_KARA_07_06
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_06heroic] Demons Loose! (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Demon.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_06heroic", new Power {
-				// TODO [KARA_07_06heroic] Demons Loose! && Test: Demons Loose!_KARA_07_06heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_07] Haywire Mech! (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Mech.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_07", new Power {
-				// TODO [KARA_07_07] Haywire Mech! && Test: Haywire Mech!_KARA_07_07
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_07heroic] Haywire Mech! (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Mech.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_07heroic", new Power {
-				// TODO [KARA_07_07heroic] Haywire Mech! && Test: Haywire Mech!_KARA_07_07heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_08] Dragons Free! (*) - COST:6 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Dragon.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_08", new Power {
-				// TODO [KARA_07_08] Dragons Free! && Test: Dragons Free!_KARA_07_08
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_07_08heroic] Dragons Free! (*) - COST:5 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon a random Dragon.
-			// --------------------------------------------------------
-			cards.Add("KARA_07_08heroic", new Power {
-				// TODO [KARA_07_08heroic] Dragons Free! && Test: Dragons Free!_KARA_07_08heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_08_03] Nether Breath (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]Change the Health of
-			//       all enemy minions to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_03", new Power {
-				// TODO [KARA_08_03] Nether Breath && Test: Nether Breath_KARA_08_03
-				InfoCardId = "KARA_08_03e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_08_03H] Nether Breath (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: [x]Change the Health of
-			//       all enemy minions to 1.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_03H", new Power {
-				// TODO [KARA_08_03H] Nether Breath && Test: Nether Breath_KARA_08_03H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_08_04] Empowerment (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Give your hero +8 Attack this turn.
-			// --------------------------------------------------------
-			cards.Add("KARA_08_04", new Power {
-				// TODO [KARA_08_04] Empowerment && Test: Empowerment_KARA_08_04
-				InfoCardId = "KARA_08_04e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_08_05] Terrifying Roar (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Return an enemy minion to your opponent's hand.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINIMUM_ENEMY_MINIONS = 1
-			// - REQ_TARGET_TO_PLAY = 0
-			// - REQ_MINION_TARGET = 0
-			// - REQ_ENEMY_TARGET = 0
-			// --------------------------------------------------------
-			cards.Add("KARA_08_05", new Power {
-				// TODO [KARA_08_05] Terrifying Roar && Test: Terrifying Roar_KARA_08_05
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_08_05H] Terrifying Roar (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Return an enemy minion to your opponent's hand.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINIMUM_ENEMY_MINIONS = 1
-			// - REQ_TARGET_TO_PLAY = 0
-			// - REQ_ENEMY_TARGET = 0
-			// - REQ_MINION_TARGET = 0
-			// --------------------------------------------------------
-			cards.Add("KARA_08_05H", new Power {
-				// TODO [KARA_08_05H] Terrifying Roar && Test: Terrifying Roar_KARA_08_05H
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_03] Many Imps! (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon 2 Icky Imps.
-			// --------------------------------------------------------
-			cards.Add("KARA_09_03", new Power {
-				// TODO [KARA_09_03] Many Imps! && Test: Many Imps!_KARA_09_03
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_03heroic] Many Imps! (*) - COST:2 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon 2 Icky Imps.
-			// --------------------------------------------------------
-			cards.Add("KARA_09_03heroic", new Power {
-				// TODO [KARA_09_03heroic] Many Imps! && Test: Many Imps!_KARA_09_03heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_05] Summon Kil'rek (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon Kil'rek.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_05", new Power {
-				// TODO [KARA_09_05] Summon Kil'rek && Test: Summon Kil'rek_KARA_09_05
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_05heroic] Summon Kil'rek (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Summon Kil'rek.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("KARA_09_05heroic", new Power {
-				// TODO [KARA_09_05heroic] Summon Kil'rek && Test: Summon Kil'rek_KARA_09_05heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_06] Shadow Volley (*) - COST:6 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Deal $3 damage to all non-Demon minions. @spelldmg
-			// --------------------------------------------------------
-			cards.Add("KARA_09_06", new Power {
-				// TODO [KARA_09_06] Shadow Volley && Test: Shadow Volley_KARA_09_06
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_06heroic] Shadow Volley (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Deal $3 damage to all non-Demon minions. @spelldmg
-			// --------------------------------------------------------
-			cards.Add("KARA_09_06heroic", new Power {
-				// TODO [KARA_09_06heroic] Shadow Volley && Test: Shadow Volley_KARA_09_06heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_07] Steal Life (*) - COST:6 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Deal $5 damage. Restore #5 Health to your hero. @spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("KARA_09_07", new Power {
-				// TODO [KARA_09_07] Steal Life && Test: Steal Life_KARA_09_07
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_09_07heroic] Steal Life (*) - COST:4 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Deal $5 damage. Restore #5 Health to your hero. @spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("KARA_09_07heroic", new Power {
-				// TODO [KARA_09_07heroic] Steal Life && Test: Steal Life_KARA_09_07heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_13_11] Shadow Bolt Volley (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Deal $4 damage to three random enemies. @spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINIMUM_ENEMY_MINIONS = 2
-			// --------------------------------------------------------
-			cards.Add("KARA_13_11", new Power {
-				// TODO [KARA_13_11] Shadow Bolt Volley && Test: Shadow Bolt Volley_KARA_13_11
-				InfoCardId = "KARA_13_11e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_13_12] Demonic Presence (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Draw 2 cards.
-			//       Gain 10 Armor.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_12", new Power {
-				// TODO [KARA_13_12] Demonic Presence && Test: Demonic Presence_KARA_13_12
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------------- SPELL - NEUTRAL
-			// [KARA_13_12H] Demonic Presence (*) - COST:3 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// Text: Draw 3 cards.
-			//       Gain 10 Armor.
-			// --------------------------------------------------------
-			cards.Add("KARA_13_12H", new Power {
-				// TODO [KARA_13_12H] Demonic Presence && Test: Demonic Presence_KARA_13_12H
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("KAR_710m", null);
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [KARA_05_02] Big Bad Claws (*) - COST:3 [ATK:4/HP:0] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - DURABILITY = 2
-			// --------------------------------------------------------
-			cards.Add("KARA_05_02", new Power {
-				// TODO [KARA_05_02] Big Bad Claws && Test: Big Bad Claws_KARA_05_02
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- WEAPON - NEUTRAL
-			// [KARA_05_02heroic] Big Bad Claws (*) - COST:2 [ATK:4/HP:0] 
-			// - Set: kara, 
-			// --------------------------------------------------------
-			// GameTag:
-			// - DURABILITY = 2
-			// --------------------------------------------------------
-			cards.Add("KARA_05_02heroic", new Power {
-				// TODO [KARA_05_02heroic] Big Bad Claws && Test: Big Bad Claws_KARA_05_02heroic
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- WEAPON - NEUTRAL
-			// [KARA_13_26] Atiesh (*) - COST:3 [ATK:1/HP:0] 
+			// [KAR_097t] Atiesh (*) - COST:3 [ATK:1/HP:0] 
 			// - Set: kara, 
 			// --------------------------------------------------------
 			// Text: [x]After you cast a spell,
@@ -1559,21 +1038,36 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("KARA_13_26", new Power {
-				// TODO [KARA_13_26] Atiesh && Test: Atiesh_KARA_13_26
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("KAR_097t", new Power {
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.TAG_LAST_KNOWN_COST_IN_HAND, EntityType.TARGET),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask(),
+						new DamageWeaponTask(false))
+				}
 			});
-
 		}
 
 		public static void AddAll(Dictionary<string, Power> cards)
 		{
-			Heroes(cards);
-			HeroPowers(cards);
-			MageNonCollect(cards);
+			Druid(cards);
+			Hunter(cards);
+			HunterNonCollect(cards);
+			Mage(cards);
+			Paladin(cards);
+			PaladinNonCollect(cards);
+			Priest(cards);
+			Rogue(cards);
+			RogueNonCollect(cards);
+			Shaman(cards);
+			Warlock(cards);
 			WarlockNonCollect(cards);
+			Warrior(cards);
 			WarriorNonCollect(cards);
+			Neutral(cards);
 			NeutralNonCollect(cards);
 		}
 	}
