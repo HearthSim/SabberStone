@@ -84,8 +84,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsCountered
 		{
-			get { return this[GameTag.COUNTER] == 1; }
-			set { this[GameTag.COUNTER] = value ? 1 : 0; }
+			get { return this[GameTag.CANT_PLAY] == 1; }
+			set { this[GameTag.CANT_PLAY] = value ? 1 : 0; }
 		}
 
 		public bool ReceveivesDoubleSpellDamage

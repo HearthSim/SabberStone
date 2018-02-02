@@ -109,12 +109,16 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.CHARGE:
 						CHARGE = value;
+						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] < 1)
+							Owner[GameTag.EXHAUSTED] = 0;
 						return;
 					case GameTag.COST:
 						COST = value;
 						return;
 					case GameTag.WINDFURY:
 						WINDFURY = value;
+						if (value > 0 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 1)
+							Owner[GameTag.EXHAUSTED] = 0;
 						return;
 					case GameTag.HEALTH_MINIMUM:
 						Owner[GameTag.HEALTH_MINIMUM] = value;

@@ -8,14 +8,23 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static Func<Controller, ICharacter, ICharacter, bool> AttackBlock
-			=> delegate (Controller c, ICharacter source, ICharacter target)
+		public static Func<Controller, ICharacter, ICharacter, bool, bool> AttackBlock
+			=> delegate (Controller c, ICharacter source, ICharacter target, bool skipPrePhase)
 			{
-				if (!PreAttackPhase.Invoke(c, source, target))
+				if (skipPrePhase)
+				{
+					if (c.Game.History)
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
+
+					c.Game.ProposedAttacker = source.Id;
+					c.Game.ProposedDefender = target.Id;
+				}
+				else if (!PreAttackPhase.Invoke(c, source, target))
 					return false;
+
 				if (!OnAttackTrigger.Invoke(c, source, target))
 				{
 					// end block
@@ -35,6 +44,10 @@ namespace SabberStoneCore.Actions
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				source.OnAfterAttackTrigger();
+				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.NextStep = Step.MAIN_ACTION;
+
 				return true;
 			};
 
@@ -83,7 +96,7 @@ namespace SabberStoneCore.Actions
 				// Invoke onAttackTrigger
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
 				source.Game.TriggerManager.OnAttackTrigger(source);
-
+				c.Game.ProcessTasks();
 				c.Game.DeathProcessingAndAuraUpdate();
 				if ((source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{

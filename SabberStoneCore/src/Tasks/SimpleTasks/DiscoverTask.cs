@@ -45,6 +45,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private static ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>> CachedDiscoverySets = new ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>>();
 
+		private readonly Card _enchantmentCard;
+		private readonly ISimpleTask _taskTodo;
+
 		public DiscoverTask(DiscoverType discoverType, string enchantmentId = null)
 		{
 			DiscoverType = discoverType;
@@ -52,15 +55,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				_enchantmentCard = Cards.FromId(enchantmentId);
 		}
 
-		private DiscoverTask(DiscoverType type, Card enchantmentCard)
+		public DiscoverTask(DiscoverType discoverType, ISimpleTask afterDiscoverTask)
+		{
+			DiscoverType = discoverType;
+			_taskTodo = afterDiscoverTask;
+		}
+
+		private DiscoverTask(DiscoverType type, Card enchantmentCard, ISimpleTask afterDiscoverTask)
 		{
 			DiscoverType = type;
 			_enchantmentCard = enchantmentCard;
+			_taskTodo = afterDiscoverTask;
 		}
 
 		public DiscoverType DiscoverType { get; set; }
-
-		private readonly Card _enchantmentCard;
 
 		public override TaskState Process()
 		{
@@ -122,7 +130,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 			else
 			{
-				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard);
+				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard, _taskTodo);
 			}
 
 			return TaskState.COMPLETE;
@@ -146,7 +154,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Game cloneGame = Game.Clone();
 				Controller cloneController = cloneGame.ControllerById(Controller.Id);
-				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
+				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null, _taskTodo);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
 			});
 
@@ -505,7 +513,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new DiscoverTask(DiscoverType, _enchantmentCard);
+			var clone = new DiscoverTask(DiscoverType, _enchantmentCard, _taskTodo);
 			clone.Copy(this);
 			return clone;
 		}

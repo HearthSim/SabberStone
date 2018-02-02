@@ -6,21 +6,21 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class HeroAttackTask : PlayerTask
 	{
-		public static HeroAttackTask Any(Controller controller, IEntity target)
+		public static HeroAttackTask Any(Controller controller, IEntity target, bool skipPrePhase = false)
 		{
-			return new HeroAttackTask(controller, target);
+			return new HeroAttackTask(controller, target, skipPrePhase);
 		}
-		private HeroAttackTask(Controller controller, IEntity target)
+		private HeroAttackTask(Controller controller, IEntity target, bool skipPrePhase)
 		{
 			PlayerTaskType = PlayerTaskType.HERO_ATTACK;
 			Game = controller.Game;
 			Controller = controller;
 			Target = target;
+			SkipPrePhase = skipPrePhase;
 		}
 		public override TaskState Process()
 		{
-			bool success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target as ICharacter);
-			Controller.Game.NextStep = Step.MAIN_CLEANUP;
+			bool success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target as ICharacter, SkipPrePhase);
 			return TaskState.COMPLETE;
 		}
 

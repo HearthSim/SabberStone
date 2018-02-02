@@ -29,7 +29,8 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			CloneSameSame();
+			SecretActivation();
+			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
@@ -55,6 +56,49 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Finished! Press key now.");
 			Console.ReadKey();
+		}
+
+		private static void SecretActivation()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.HUNTER,
+				Player2HeroClass = CardClass.ROGUE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap")); // Spawns 3
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, minion1));
+
+			//Assert.Equal(4, game.CurrentOpponent.BoardZone.Count);
+			//if (game.CurrentPlayer.BoardZone.Count == 0)
+			//{
+			//	// Minion was destroyed, so it's moved to graveyard with tags reset.
+			//	Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count);
+			//	Assert.Equal(game.CurrentOpponent.Hero.BaseHealth, game.CurrentOpponent.Hero.Health);
+			//	Assert.Equal(game.CurrentPlayer.Hero.BaseHealth - 2, game.CurrentPlayer.Hero.Health);
+			//}
+			//else
+			//{
+			//	// Minion was NOT destroyed, so it continued it's attack.
+			//	Assert.Equal(0, game.CurrentPlayer.GraveyardZone.Count);
+			//	Assert.Equal(game.CurrentOpponent.Hero.BaseHealth - 1, game.CurrentOpponent.Hero.Health);
+			//	Assert.Equal(game.CurrentPlayer.Hero.BaseHealth - 3, game.CurrentPlayer.Hero.Health);
+			//}
+
+			ShowLog(game, LogLevel.DEBUG);
 		}
 
 		private static void GatherTagsUsedByEnchantsOrTriggers()

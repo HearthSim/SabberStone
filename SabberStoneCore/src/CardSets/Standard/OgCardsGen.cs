@@ -679,7 +679,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_310", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.PRE_SUMMON)
 				{
 					Condition = SelfCondition.IsHealth(1, RelaSign.EQ),
 					SingleTask = ComplexTask.DivineShield(EntityType.TARGET)

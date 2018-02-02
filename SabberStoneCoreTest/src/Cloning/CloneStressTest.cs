@@ -136,7 +136,7 @@ namespace SabberStoneCoreTest.Cloning
 					Cards.FromName("Vaporize")
 				},
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				History = false,
 			});
 			game.Player1.BaseMana = 10;
@@ -195,7 +195,7 @@ namespace SabberStoneCoreTest.Cloning
 					Cards.FromName("Vaporize")
 				},
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				History = false,
 			});
 			game.Player1.BaseMana = 10;

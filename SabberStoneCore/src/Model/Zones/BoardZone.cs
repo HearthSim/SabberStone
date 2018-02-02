@@ -23,6 +23,9 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
+			if (entity[GameTag.CHARGE] != 1)
+				entity.IsExhausted = true;
+
 			entity.OrderOfPlay = Game.NextOop;
 
 			ActivateAura(entity);

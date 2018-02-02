@@ -46,7 +46,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public abstract int Count { get; }
 
-		public List<IPlayable> GetAll => this.Cast<IPlayable>().ToList();
+		List<IPlayable> IZone.GetAll => this.Cast<IPlayable>().ToList();
 
 		/// <summary>
 		/// Gets a random entity in this zone.
@@ -305,6 +305,22 @@ namespace SabberStoneCore.Model.Zones
 			return entity;
 		}
 
+		public T[] GetAll()
+		{
+			var array = new T[_count];
+			Array.Copy((Array) Entities, array, _count);
+			return array;
+		}
+
+		public T[] GetAll(Func<T, bool> predicate)
+		{
+			var list = new List<T>(_count);
+			for (int i = 0; i < _count; ++i)
+				if (predicate(Entities[i]))
+					list.Add(Entities[i]);
+			return list.ToArray();
+		}
+
 		public override void Stamp(Zone<T> zone)
 		{
 			foreach (T entity in zone)
@@ -322,7 +338,7 @@ namespace SabberStoneCore.Model.Zones
 				yield return Entities[i];
 		}
 
-		public void ForEach(Action<IPlayable> action)
+		public void ForEach(Action<T> action)
 		{
 			for (int i = 0; i < _count; ++i)
 				action(Entities[i]);

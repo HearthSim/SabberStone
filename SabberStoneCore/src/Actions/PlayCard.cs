@@ -8,7 +8,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
@@ -32,7 +32,6 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-
 				// remove from hand zone
 				if (source is Spell)
 					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
@@ -49,9 +48,7 @@ namespace SabberStoneCore.Actions
 
 				// target is beeing set onto this gametag
 				if (target != null)
-				{
 					source.CardTarget = target.Id;
-				}
 
 				switch (source)
 				{
@@ -66,29 +63,21 @@ namespace SabberStoneCore.Actions
 						// - OnPlay Phase --> OnPlay Trigger (Illidan)
 						//   (death processing, aura updates)
 						OnPlayTrigger.Invoke(c, weapon);
-
 						PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
 						break;
 					case Spell spell:
+						if (c.Game.History)
+						{
+							if (spell.IsSecret || spell.IsQuest)
+								spell[GameTag.ZONE] = (int)Zone.SECRET;
+							else
+								spell[GameTag.ZONE] = (int)Zone.PLAY;
+						}
 						// - OnPlay Phase --> OnPlay Trigger (Illidan)
 						//   (death processing, aura updates)
 						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
 						c.Game.TriggerManager.OnCastSpellTrigger(spell);
 						OnPlayTrigger.Invoke(c, spell);
-
-						if (spell.IsCountered)
-						{
-							c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"Spell {spell} has been countred.");
-							//spell.JustPlayed = false;
-							c.GraveyardZone.Add(spell);
-							Trigger.Invalidate(c.Game, SequenceType.PlaySpell);
-							break;
-						}
-						if (target != null && target.Id != spell.CardTarget)
-						{
-							target = (ICharacter)source.Game.IdEntityDic[source.CardTarget];
-							c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
-						}
 
 						PlaySpell.Invoke(c, spell, target, chooseOne);
 
@@ -98,7 +87,10 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				source.CardTarget = -1;
+				if (target != null)
+					source.CardTarget = -1;
+
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumOptionsPlayedThisTurn++;
 
@@ -221,14 +213,12 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
-				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
-				//   (death processing, aura updates)
 				c.BoardZone.Add(minion, zonePosition);
 
-				if (!minion.HasCharge)
-					minion.IsExhausted = true;
-
-				c.Game.DeathProcessingAndAuraUpdate();
+				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
+				//   (death processing, aura updates)
+				c.Game.TriggerManager.OnPreSummonTrigger(minion);
+				c.Game.ProcessTasks();
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
@@ -237,8 +227,6 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				//minion.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
-
 				if (minion.Combo && c.IsComboActive)
 					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
@@ -249,17 +237,18 @@ namespace SabberStoneCore.Actions
 				{
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
-				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.ProcessTasks();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//minion.JustPlayed = false;
 				c.Game.TriggerManager.OnAfterPlayMinionTrigger(minion);
-				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.ProcessTasks();
 
 				// - After Summon Phase --> After Summon Trigger
 				//   (death processing, aura updates)
 				AfterSummonTrigger.Invoke(c, minion);
+				c.Game.ProcessTasks();
 
 				c.NumMinionsPlayedThisTurn++;
 
@@ -284,36 +273,49 @@ namespace SabberStoneCore.Actions
 				// trigger SpellText Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger SpellText Phase (not implemented)");
 
-				spell[GameTag.ZONE] = (int)Zone.PLAY;
-
-
-				if (spell.IsSecret || spell.IsQuest)
+				// check the spell is countered
+				if (spell.IsCountered)
 				{
-					spell.Power.Trigger.Activate(spell);
-					c.SecretZone.Add(spell);
-					spell.IsExhausted = true;
+					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"Spell {spell} has been countred.");
+					c.GraveyardZone.Add(spell);
 				}
 				else
 				{
-					spell.Power?.Trigger?.Activate(spell);
-					spell.Power?.Aura?.Activate(spell);
+					// check the spell is bent
+					if (target != null && target.Id != spell.CardTarget)
+					{
+						target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
+						c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
+					}
 
-					if (spell.Combo && c.IsComboActive)
-						spell.ActivateTask(PowerActivation.COMBO, target);
+					if (spell.IsSecret || spell.IsQuest)
+					{
+						spell.Power.Trigger.Activate(spell);
+						c.SecretZone.Add(spell);
+						spell.IsExhausted = true;
+					}
 					else
-						spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
+					{
+						spell.Power?.Trigger?.Activate(spell);
+						spell.Power?.Aura?.Activate(spell);
 
-					c.GraveyardZone.Add(spell);
+						if (spell.Combo && c.IsComboActive)
+							spell.ActivateTask(PowerActivation.COMBO, target);
+						else
+							spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
+
+						c.GraveyardZone.Add(spell);
+					}
+
+					// process power tasks
+					c.Game.ProcessTasks();
 				}
-				c.Game.DeathProcessingAndAuraUpdate();
-
+				
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
-
-				//spell.JustPlayed = false;
 				c.Game.TriggerManager.OnAfterCastTrigger(spell);
+				c.Game.ProcessTasks();
 
-				c.Game.DeathProcessingAndAuraUpdate();
 				return true;
 			};
 
@@ -329,13 +331,12 @@ namespace SabberStoneCore.Actions
 
 				// activate battlecry
 				weapon.ActivateTask(PowerActivation.POWER, target);
-				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.ProcessTasks();
 
 				c.NumWeaponsPlayedThisGame++;
 
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
-				//weapon.JustPlayed = false;
 
 				return true;
 			};
@@ -345,7 +346,7 @@ namespace SabberStoneCore.Actions
 			{
 				//playable.JustPlayed = true;
 				c.Game.TriggerManager.OnPlayCardTrigger(playable);
-				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.ProcessTasks();
 			};
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

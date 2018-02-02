@@ -589,7 +589,7 @@ namespace SabberStoneCore.Model
 				c.BoardZone.ForEach(p =>
 				{
 					p.NumTurnsInPlay++;
-					((Minion) p).NumAttacksThisTurn = 0;
+					p.NumAttacksThisTurn = 0;
 				});
 
 				c.Hero.NumTurnsInPlay++;
@@ -607,18 +607,12 @@ namespace SabberStoneCore.Model
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = false;
 			CurrentPlayer.Hero.HeroPower.IsExhausted = false;
-
-			foreach (Minion e in CurrentPlayer.BoardZone)
-			{
-				e.IsSummoned = false;
-				e.IsExhausted = false;
-			}
+			CurrentPlayer.BoardZone.ForEach(m => m.IsExhausted = false);
 
 			// De-activate combo buff
 			CurrentPlayer.IsComboActive = false;
 
-			for (int i = 0; i < CurrentPlayer.SecretZone.Count; i++)
-				CurrentPlayer.SecretZone[i].IsExhausted = true;
+			CurrentPlayer.SecretZone.ForEach(s => s.IsExhausted = true);
 
 			CurrentPlayer.NumMinionsPlayerKilledThisTurn = 0;
 			CurrentOpponent.NumMinionsPlayerKilledThisTurn = 0;
@@ -628,6 +622,8 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.NumElementalsPlayedLastTurn = CurrentPlayer.NumElementalsPlayedThisTurn;
 			CurrentPlayer.NumElementalsPlayedThisTurn = 0;
+
+			MainRessources();
 
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
@@ -642,7 +638,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainStartTriggers()
 		{
-			CurrentPlayer.TurnStart = true;
+			//CurrentPlayer.TurnStart = true;
 
 			TriggerManager.OnTurnStartTrigger(CurrentPlayer);
 
@@ -655,7 +651,8 @@ namespace SabberStoneCore.Model
 				PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 			// set next step
-			NextStep = Step.MAIN_RESOURCE;
+			//NextStep = Step.MAIN_RESOURCE;
+			NextStep = Step.MAIN_START;
 		}
 
 		/// <summary>
@@ -677,8 +674,8 @@ namespace SabberStoneCore.Model
 			CurrentPlayer.OverloadLocked = CurrentPlayer.OverloadOwed;
 			CurrentPlayer.OverloadOwed = 0;
 
-			// set next step
-			NextStep = Step.MAIN_DRAW;
+			//// set next step
+			//NextStep = Step.MAIN_DRAW;
 		}
 
 		/// <summary>
@@ -696,8 +693,8 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-			// set next step
-			NextStep = Step.MAIN_START;
+			//// set next step
+			//NextStep = Step.MAIN_START;
 		}
 
 		/// <summary>
@@ -706,19 +703,14 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainStart()
 		{
+			MainDraw();
+
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
 					 $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
-
 			DeathProcessingAndAuraUpdate();
 
-			// move forward if game isn't won by any player now!
-			NextStep = _players[0].PlayState == PlayState.PLAYING && _players[1].PlayState == PlayState.PLAYING
-				? Step.MAIN_ACTION
-				: Step.FINAL_WRAPUP;
-
-			// set next step
-			//NextStep = Step.MAIN_CLEANUP;
+			NextStep = Step.MAIN_ACTION;
 		}
 
 		/// <summary>
@@ -732,9 +724,28 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 4, 0);
 
-			CurrentPlayer.TurnStart = false;
+			//CurrentPlayer.TurnStart = false;
 
 			TriggerManager.OnEndTurnTrigger(CurrentPlayer);
+			ProcessTasks();
+			DeathProcessingAndAuraUpdate();
+
+			if (History)
+				PowerHistoryBuilder.BlockEnd();
+
+			// set next step
+			//NextStep = Step.MAIN_NEXT;
+			NextStep = Step.MAIN_CLEANUP;
+		}
+
+		/// <summary>
+		/// Part of the state machine.
+		/// Runs when STATE = RUNNING &amp;&amp; NEXTSTEP = MAIN_CLEANUP
+		/// </summary>
+		public void MainCleanUp()
+		{
+			if (History)
+				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
 
 			//	Removing one-turn-effects
 			foreach ((int id, Effect eff) in OneTurnEffects)
@@ -744,15 +755,11 @@ namespace SabberStoneCore.Model
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = true;
 
-			DeathProcessingAndAuraUpdate();
-
-			foreach (Spell secret in CurrentPlayer.SecretZone)
-				secret.IsExhausted = false;
+			CurrentPlayer.SecretZone.ForEach(p => p.IsExhausted = false);
 
 			if (History)
 				PowerHistoryBuilder.BlockEnd();
 
-			// set next step
 			NextStep = Step.MAIN_NEXT;
 		}
 
@@ -772,19 +779,12 @@ namespace SabberStoneCore.Model
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 
 			// don't have summoning sickness (or do have Charge) and have not attacked
 			// that turn.
-			//CurrentPlayer.BoardZone.GetAll.ForEach(p =>
-			//{
-			//	var minion = p as Minion;
-			//	if (minion != null && minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
-			//	{
-			//		minion.IsFrozen = false;
-			//	}
-			//});
-			foreach (Minion minion in CurrentPlayer.BoardZone)
+			CurrentPlayer.BoardZone.ForEach(m =>
 			{
-				if (minion.IsFrozen && minion.NumAttacksThisTurn == 0 && (!minion.IsSummoned || minion.HasCharge))
-					minion.IsFrozen = false;
-			}
+				if (m.IsFrozen && m.NumAttacksThisTurn == 0 && !m.IsExhausted)
+					m.IsFrozen = false;
+			});
+
 			if (CurrentPlayer.Hero.IsFrozen && CurrentPlayer.Hero.NumAttacksThisTurn == 0)
 			{
 				CurrentPlayer.Hero.IsFrozen = false;
@@ -803,26 +803,6 @@ namespace SabberStoneCore.Model
 
 			// set next step
 			NextStep = Step.MAIN_READY;
-		}
-
-		/// <summary>
-		/// Part of the state machine.
-		/// Runs when STATE = RUNNING &amp;&amp; NEXTSTEP = MAIN_CLEANUP
-		/// </summary>
-		public void MainCleanUp()
-		{
-			if (History)
-				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
-
-			DeathProcessingAndAuraUpdate();
-
-			if (History)
-				PowerHistoryBuilder.BlockEnd();
-
-			// move forward if game isn't won by any player now!
-			NextStep = _players.ToList().TrueForAll(p => p.PlayState == PlayState.PLAYING)
-				? Step.MAIN_ACTION
-				: Step.FINAL_WRAPUP;
 		}
 
 		/// <summary>
@@ -903,6 +883,8 @@ namespace SabberStoneCore.Model
 					//minion.Damage = 0;
 					//minion.IsExhausted = false;
 
+					// should remove tags of dead cards for faster cloning
+
 					TriggerManager.OnDeathTrigger(minion);
 				}
 
@@ -921,10 +903,14 @@ namespace SabberStoneCore.Model
 				}
 
 				Player1.PlayState = PlayState.LOSING;
+
+				NextStep = Step.FINAL_WRAPUP;
 			}
 			else if (Player2.Hero.ToBeDestroyed)
 			{
 				Player2.PlayState = PlayState.LOSING;
+
+				NextStep = Step.FINAL_WRAPUP;
 			}
 		}
 
@@ -939,6 +925,22 @@ namespace SabberStoneCore.Model
 		}
 
 		/// <summary>
+		/// Process enqueued tasks.
+		/// </summary>
+		internal void ProcessTasks()
+		{
+			while (TaskQueue.Count > 0)
+			{
+				if (TaskQueue.Process() != TaskState.COMPLETE)
+				{
+					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Something really bad happend during proccessing, please analyze!");
+				}
+
+				//GraveYard();
+			}
+		}
+
+		/// <summary>
 		/// Checks for entities which are pending to be destroyed and updated 
 		/// active auras accordingly.
 		/// </summary>
@@ -946,18 +948,9 @@ namespace SabberStoneCore.Model
 		{
 			GraveYard();
 
+			ProcessTasks();
+
 			AuraUpdate();
-
-			while (TaskQueue.Count > 0)
-			{
-				if (TaskQueue.Process() != TaskState.COMPLETE)
-				{
-					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Something really bad happend during proccessing, please analyze!");
-				}
-				GraveYard();
-
-				AuraUpdate();
-			}
 		}
 
 		/// <summary>

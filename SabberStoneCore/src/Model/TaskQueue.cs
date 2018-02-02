@@ -15,7 +15,7 @@ namespace SabberStoneCore.Model
 
 		public readonly Queue<ISimpleTask> CurrentEventTasks = new Queue<ISimpleTask>();
 
-		public int Count => (CurrentTask?.State == TaskState.RUNNING || CurrentEventTasks.Count > 0) ? CurrentEventTasks.Count : TaskList.Count;
+		public int Count => (CurrentTask != null || CurrentEventTasks.Count > 0) ? CurrentEventTasks.Count : TaskList.Count;
 
 		public Game Game { get; set; }
 
@@ -85,7 +85,7 @@ namespace SabberStoneCore.Model
 			//task.Reset();
 
 			//TaskList.Add(task);
-			if (CurrentTask?.State == TaskState.RUNNING)
+			if (CurrentTask != null)
 				CurrentEventTasks.Enqueue(task);
 			else
 				TaskList.Enqueue(task);

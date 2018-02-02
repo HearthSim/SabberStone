@@ -56,7 +56,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    while (Source.Controller.Choice != null)
 		    {
-			    Generic.ChoicePick.Invoke(Source.Controller, Random.Next(Source.Controller.Choice.Choices.Count));
+			    Generic.ChoicePick.Invoke(Source.Controller, Util.Choose(Source.Controller.Choice.Choices));
 		    }
 
 		    Game.OnRandomHappened(true);

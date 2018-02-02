@@ -199,6 +199,7 @@ namespace SabberStoneCore.Model.Entities
 
 			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
 			PreDamageTrigger?.Invoke(this, preDamage);
+			Game.ProcessTasks();
 
 			if (this.IsImmune)
 			{
@@ -229,6 +230,7 @@ namespace SabberStoneCore.Model.Entities
 			// broadcast damaging trigger
 			Game.TriggerManager.OnDamageTrigger(this);
 			Game.TriggerManager.OnDealDamageTrigger(source, preDamage);
+			Game.ProcessTasks();
 
 			return tookDamage;
 		}
@@ -271,7 +273,8 @@ namespace SabberStoneCore.Model.Entities
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
 			Damage -= amount;
 
-			source.Game.TriggerManager.OnHealTrigger(this);
+			Game.TriggerManager.OnHealTrigger(this);
+			Game.ProcessTasks();
 		}
 
 		/// <summary>
@@ -386,6 +389,11 @@ namespace SabberStoneCore.Model.Entities
 		/// Character has windfury.
 		/// </summary>
 		bool HasWindfury { get; }
+
+		/// <summary>
+		/// Character has stealth.
+		/// </summary>
+		bool HasStealth { get; }
 
 		/// <summary>
 		/// Character can't be targeted by spells.
@@ -523,8 +531,12 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsFrozen
 		{
-			get { return this[GameTag.FROZEN] == 1; }
-			set { this[GameTag.FROZEN] = value ? 1 : 0; }
+			get
+			{
+				NativeTags.TryGetValue(GameTag.FROZEN, out int value);
+				return value == 1;
+			}
+			set => NativeTags[GameTag.FROZEN] = value ? 1 : 0;
 		}
 
 		public bool IsSilenced
@@ -543,6 +555,12 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.WINDFURY] == 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
+		public bool HasStealth
+		{
+			get { return this[GameTag.STEALTH] == 1; }
+			set { this[GameTag.STEALTH] = value ? 1 : 0; }
 		}
 
 		public int NumAttacksThisTurn

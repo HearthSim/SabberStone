@@ -8,6 +8,7 @@ namespace SabberStoneCore.Enums
 	public enum TriggerType
 	{
 		NONE,
+
 		/// <summary> The effect will be triggered at the end of turn. </summary>
 		TURN_END,
 		/// <summary> The effect will be triggered at the start of turn. </summary>
@@ -31,7 +32,9 @@ namespace SabberStoneCore.Enums
 		ATTACK,
 		/// <summary> The effect will be triggered after an attack action is ended. </summary>
 		AFTER_ATTACK,
-		/// <summary> The effect will be triggered a minion is summoned. </summary>
+		/// <summary> The effect will be triggered whenever a minion is summoned </summary>
+		PRE_SUMMON,
+		/// <summary> The effect will be triggered after a minion is summoned. </summary>
 		SUMMON,
 		/// <summary> The effect will be triggered when a player plays a card. </summary>
 		PLAY_CARD,

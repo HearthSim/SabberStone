@@ -193,7 +193,7 @@ namespace SabberStoneCore.Tasks
 						result[i] = result[j];
 						result[j] = temp;
 					}
-					Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.GLIMMERROOT, result, null);
+				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.GLIMMERROOT, result, null, null);
 					controller.Game.OnRandomHappened(true);
 					return p;
 				}));
@@ -290,9 +290,9 @@ namespace SabberStoneCore.Tasks
 
 
 					Generic.CreateChoiceCards.Invoke(controller, p[0], null, ChoiceType.GENERAL,
-						ChoiceAction.BUILDABEAST, first, null);
+						ChoiceAction.BUILDABEAST, first, null, null);
 					Generic.CreateChoiceCards.Invoke(controller, p[0], null, ChoiceType.GENERAL,
-						ChoiceAction.BUILDABEAST, second, null);
+						ChoiceAction.BUILDABEAST, second, null, null);
 
 					return p;
 				}));
@@ -378,53 +378,14 @@ namespace SabberStoneCore.Tasks
 					IPlayable entity = Controller.DeckZone[i];
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 
-					var tags = new EntityData.Data
-					{
-						{GameTag.ZONE, (int) Zone.DECK},
-						{GameTag.CONTROLLER, Controller.PlayerId},
-						{GameTag.ENTITY_ID, Controller.Game.NextId}
-					};
-
 					Card randCard = Util.Choose(cards);
-					IPlayable newEntity = null;
-					switch (randCard.Type)
-					{
-						case CardType.MINION:
-							newEntity = new Minion(Controller, randCard, tags);
-							break;
-						case CardType.SPELL:
-							newEntity = new Spell(Controller, randCard, tags);
-							break;
-						case CardType.WEAPON:
-							newEntity = new Weapon(Controller, randCard, tags);
-							break;
-						case CardType.HERO:
-							newEntity = new Hero(Controller, randCard, tags);
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
+					IPlayable newEntity = Entity.FromCard(Controller, randCard, null, Controller.DeckZone);
+					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, Source.Id);
 
-					Game.IdEntityDic.Add(newEntity.Id, newEntity);
-
-					if (Game.History)
-					{
-						Game.PowerHistory.Add(new PowerHistoryFullEntity
-						{
-							Entity = new PowerHistoryEntity
-							{
-								Id = newEntity.Id,
-								Name = "",
-								Tags = new Dictionary<GameTag, int>(tags)
-							}
-						});
-
-						Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
-					}
+					//Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
 
 					Controller.DeckZone.Remove(entity);
 					Controller.SetasideZone.Add(entity);
-					Controller.DeckZone.Add(newEntity, i);
 
 					CostReduceEffect.Apply(newEntity.AuraEffects);
 				}

@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 				case ChoiceType.GENERAL:
 					Generic.ChoicePick.Invoke(Controller, Choices[0]);
 					Controller.NumOptionsPlayedThisTurn++;
-					Controller.Game.NextStep = Step.MAIN_CLEANUP;
+					Game.DeathProcessingAndAuraUpdate();
 					return TaskState.COMPLETE;
 
 				case ChoiceType.INVALID:

@@ -315,7 +315,20 @@ namespace SabberStoneCore.Model.Entities
 			// add power history full entity 
 			if (controller.Game.History)
 			{
-				controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
+				if (zone is DeckZone)
+				{
+					controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
+					{
+						Entity = new PowerHistoryEntity
+						{
+							Id = result.Id,
+							Name = "",
+							Tags = new Dictionary<GameTag, int>(tags)
+						}
+					});
+				}
+				else
+					controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 			}
 
 			// add entity to the appropriate zone if it was given

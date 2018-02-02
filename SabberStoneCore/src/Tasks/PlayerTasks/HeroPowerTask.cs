@@ -6,23 +6,23 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class HeroPowerTask : PlayerTask
 	{
-		public static HeroPowerTask Any(Controller controller, IEntity target = null)
+		public static HeroPowerTask Any(Controller controller, IEntity target = null, bool skipPrePhase = false)
 		{
-			return new HeroPowerTask(controller, target);
+			return new HeroPowerTask(controller, target, skipPrePhase);
 		}
 
-		private HeroPowerTask(Controller controller, IEntity target)
+		private HeroPowerTask(Controller controller, IEntity target, bool skipPrePhase)
 		{
 			PlayerTaskType = PlayerTaskType.HERO_POWER;
 			Game = controller.Game;
 			Controller = controller;
 			Target = target;
+			SkipPrePhase = skipPrePhase;
 		}
 
 		public override TaskState Process()
 		{
-			bool success = Generic.HeroPower(Controller, Target as ICharacter);
-			Controller.Game.NextStep = Step.MAIN_CLEANUP;
+			bool success = Generic.HeroPower(Controller, Target as ICharacter, SkipPrePhase);
 			return TaskState.COMPLETE;
 		}
 

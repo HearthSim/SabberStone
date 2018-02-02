@@ -34,6 +34,12 @@ namespace SabberStoneCore.Model.Entities
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			Game.IdEntityDic.Add(Id, this);
+
+			if (c.Game.History)
+			{
+				Zone = c.BoardZone;
+				_tags = new EntityData.Data((EntityData.Data) e._tags);
+			}
 		}
 
 		public int this[GameTag t]
@@ -185,10 +191,6 @@ namespace SabberStoneCore.Model.Entities
 				!Game.Logging ? "" : $"Enchantment {this} is removed from {Target}.");
 		}
 
-		public AuraEffects AuraEffects { get; set; }
-		public IDictionary<GameTag, int> NativeTags { get; }
-		public List<Enchantment> AppliedEnchantments { get; set; }
-
 		public Power Power => Card.Power;
 		public Action RemoveEnchantments { get; set; }
 		public Trigger ActivatedTrigger { get; set; }
@@ -232,6 +234,9 @@ namespace SabberStoneCore.Model.Entities
 		public bool HasDeathrattle { get; set; }
 		public bool HasLifeSteal { get; set; }
 		public IPlayable[] ChooseOnePlayables { get; set; }
+		public AuraEffects AuraEffects { get; set; }
+		public IDictionary<GameTag, int> NativeTags { get; }
+		public List<Enchantment> AppliedEnchantments { get; set; }
 
 		public void Stamp(Entity entity)
 		{

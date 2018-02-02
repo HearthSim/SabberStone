@@ -18,6 +18,7 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler EndTurnTrigger;
 	    public event TriggerHandler TurnStartTrigger;
 
+	    public event TriggerHandler PreSummonTrigger;
 	    public event TriggerHandler SummonTrigger;
 
 	    public event TriggerHandler AttackTrigger;
@@ -63,6 +64,11 @@ namespace SabberStoneCore.Model
 	    internal void OnTurnStartTrigger(IEntity sender)
 	    {
 			TurnStartTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnPreSummonTrigger(IEntity sender)
+	    {
+		    PreSummonTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnSummonTrigger(IEntity sender)

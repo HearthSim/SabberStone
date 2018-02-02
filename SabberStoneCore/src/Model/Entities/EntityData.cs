@@ -234,7 +234,8 @@ namespace SabberStoneCore.Model.Entities
 				5999471,
 				7199369
 			};
-			private const int _initSize = 7;
+
+			private const int _initSize = 23;
 
 			private int[] _buckets;
 			private int _size = _initSize;
@@ -282,7 +283,7 @@ namespace SabberStoneCore.Model.Entities
 						return _buckets[i + 1];
 					throw new KeyNotFoundException();
 				}
-				set => InsertOrOverWrite(key, value);
+				set => InsertOrOverwrite(key, value);
 			}
 
 			public void Add(GameTag key, int value)
@@ -334,11 +335,12 @@ namespace SabberStoneCore.Model.Entities
 
 			private void Insert(GameTag t, int value)
 			{
+				//if (_count > (_size >> 2) * 3)
+				//	Resize();
 				if (_count == _size)
 					Resize();
 
-				int k = (int)t;
-
+				int k = (int) t;
 				int slotIndex = (k % _size) << 1;
 				for (int i = slotIndex; i < _buckets.Length; i += 2)
 				{
@@ -361,7 +363,7 @@ namespace SabberStoneCore.Model.Entities
 				throw new ArgumentOutOfRangeException();
 			}
 
-			private void InsertOrOverWrite(GameTag t, int value)
+			private void InsertOrOverwrite(GameTag t, int value)
 			{
 				int index = Search(t);
 				if (index >= 0)
@@ -380,10 +382,10 @@ namespace SabberStoneCore.Model.Entities
 				int slotIndex = (k % _size) << 1;
 				for (int i = slotIndex; i < _buckets.Length; i += 2)
 				{
-					if (_buckets[i] < 0)
-						return -1;
 					if (_buckets[i] == k)
 						return i;
+					if (_buckets[i] < 0)
+						return -1;
 				}
 				for (int i = 0; i < slotIndex; i += 2)
 				{
@@ -392,8 +394,39 @@ namespace SabberStoneCore.Model.Entities
 					if (_buckets[i] == k)
 						return i;
 				}
+
 				return -1;
 			}
+
+			//private int Search(GameTag t)
+			//{
+			//	int k = (int)t;
+			//	int h = (k % _size) << 1;
+			//	unsafe
+			//	{
+			//		fixed (int* arr = _buckets)
+			//		{
+			//			if (arr[h] == k) return h;
+			//			if (arr[h] < 0) return -1;
+			//			int i = h + 2;
+			//			while (i < _buckets.Length && arr[i] >= 0)
+			//			{
+			//				if (arr[i] == k) return i;
+			//				i += 2;
+			//			}
+			//			if (i <= _buckets.Length || h == 0) return -1;
+			//			if (arr[0] == k) return 0;
+			//			if (arr[0] < 0) return -1;
+			//			int j = 2;
+			//			while (j < h && arr[j] >= 0)
+			//			{
+			//				if (arr[j] == k) return j;
+			//				j += 2;
+			//			}
+			//		}
+			//	}
+			//	return -1;
+			//}
 
 			private void Resize()
 			{
@@ -405,7 +438,11 @@ namespace SabberStoneCore.Model.Entities
 
 				for (int i = 0; i < _buckets.Length; i += 2)
 				{
+					//if (_buckets[i] < 0)
+					//	continue;
+
 					bool flag = false;
+					
 					int newIndex = (_buckets[i] % newSize) << 1;
 
 					for (int j = newIndex; j < newbuckets.Length; j += 2)

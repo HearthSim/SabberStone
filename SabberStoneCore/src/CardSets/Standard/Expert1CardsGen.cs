@@ -274,7 +274,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_571", new Power {
-				PowerTask = new EnqueueTask(3, new SummonTask("EX1_158t", SummonSide.SPELL)),
+				PowerTask = new SummonTask("EX1_158t", 3)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -750,7 +750,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.ALL, new EntityType[] { EntityType.TARGET, EntityType.HERO }),
 						new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
 						new ConditionTask(EntityType.STACK, SelfCondition.IsInZone(Zone.PLAY)),
-						new FlagTask(true, new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY))),
+						new FlagTask(true, new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead)),
 						new FlagTask(true, ComplexTask.Secret(
 							new RandomTask(1, EntityType.STACK),
 							new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK))))
@@ -842,7 +842,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
 					Condition = SelfCondition.IsProposedDefender(CardType.MINION),
-					SingleTask = ComplexTask.Secret(new EnqueueTask(3, new SummonTask("EX1_554t", SummonSide.SPELL)))
+					SingleTask = ComplexTask.Secret(new SummonTask("EX1_554t", 3))
 				}
 			});
 
@@ -1193,7 +1193,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_287", new Power {
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
-					SingleTask = ComplexTask.Secret(new SetGameTagTask(GameTag.COUNTER, 1, EntityType.TARGET)),
+					SingleTask = ComplexTask.Secret(new SetGameTagTask(GameTag.CANT_PLAY, 1, EntityType.TARGET)),
 					FastExecution = true,
 				}
 			});
@@ -1229,9 +1229,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_294", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					SingleTask = ComplexTask.Secret(
-						new CopyTask(EntityType.TARGET, 1),
-						new SummonTask(SummonSide.SPELL))
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+						new FlagTask(true, ComplexTask.Secret(
+							new CopyTask(EntityType.TARGET, 1),
+							new SummonTask(SummonSide.SPELL))))
+
+
 				}
 			});
 
@@ -1290,15 +1294,13 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.HasTarget,
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
-						new FlagTask(false, ComplexTask.Secret(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull, SelfCondition.IsTagValue(GameTag.CANT_PLAY, 0)),
+						new FlagTask(true, ComplexTask.Secret(
 							new SummonTask("tt_010a", SummonSide.DEFAULT, true),
 							new IncludeTask(EntityType.SOURCE, null, true),
 							new IncludeTask(EntityType.TARGET, null, true),
 							new FuncPlayablesTask(p =>
 							{
-								if (p[1][GameTag.COUNTER] == 1)
-									return p;
 								p[2].CardTarget = p[0].Id;
 								return p;
 							}))))

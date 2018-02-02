@@ -1911,19 +1911,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable water = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Water Elemental"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, water));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, water));
 			Assert.True(game.Player2.Hero.IsFrozen);
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sen'jin Shieldmasta"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.True(game.Player2.Hero.IsFrozen);
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, water, minion2));
 			Assert.True(((Minion)minion2).IsFrozen);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.True(game.Player2.Hero.IsFrozen);
 			Assert.True(((Minion)minion2).IsFrozen);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.False(game.Player2.Hero.IsFrozen);
 			Assert.False(((Minion)minion2).IsFrozen);
 		}

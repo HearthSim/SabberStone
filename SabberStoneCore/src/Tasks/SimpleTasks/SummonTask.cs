@@ -22,15 +22,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	}
 
 	public class SummonTask : SimpleTask
-	{
+	{ 
 		private readonly bool _addToStack;
+		private readonly int _amount = 1;
 
-		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false, bool addToStack = false)
+		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false, bool addToStack = false, int amount = 1)
 		{
 			Card = card;
 			RemoveFromStack = removeFromStack;
 			Side = side;
 			_addToStack = addToStack;
+			_amount = amount;
 		}
 
 		public SummonTask(string cardId, SummonSide side, bool addToStack = false)
@@ -41,6 +43,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_addToStack = addToStack;
 		}
 
+		public SummonTask(string cardId, int amount)
+		{
+			Card = Cards.FromId(cardId);
+			_amount = amount;
+		}
+
 		public Card Card { get; set; }
 
 		public bool RemoveFromStack { get; set; }
@@ -49,83 +57,86 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			if (Controller.BoardZone.IsFull)
+			for (int i = 0; i < _amount; ++i)
 			{
-				if (Playables.Count > 0)
+				if (Controller.BoardZone.IsFull)
 				{
-					var m = Playables[0] as Minion;
-					if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
-						Playables[0].Controller.GraveyardZone.Add(Playables[0]);
-				}
-				return TaskState.STOP;
-			}
-
-			Minion summonEntity = null;
-			if (Card != null)
-			{
-				summonEntity = Entity.FromCard(Controller, Card,
-					new EntityData.Data
+					if (Playables.Count > 0)
 					{
-						{GameTag.ZONE, (int)Zone.PLAY},
-						{GameTag.DISPLAYED_CREATOR, Source.Id}
-					}) as Minion;
-				if (_addToStack)
-					Playables.Add(summonEntity);
-			}
-			else if (Playables.Count > 0)
-			{
-				summonEntity = Playables[0] as Minion;
-				if (RemoveFromStack)
-				{
-					Playables.Remove(summonEntity);
+						var m = Playables[0] as Minion;
+						if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
+							Playables[0].Controller.GraveyardZone.Add(Playables[0]);
+					}
+					return TaskState.STOP;
 				}
-			}
 
-			if (summonEntity == null)
-				return TaskState.STOP;
+				Minion summonEntity = null;
+				if (Card != null)
+				{
+					summonEntity = Entity.FromCard(Controller, Card,
+						new EntityData.Data
+						{
+							{GameTag.ZONE, (int)Zone.PLAY},
+							{GameTag.DISPLAYED_CREATOR, Source.Id}
+						}) as Minion;
+					if (_addToStack)
+						Playables.Add(summonEntity);
+				}
+				else if (Playables.Count > 0)
+				{
+					summonEntity = Playables[0] as Minion;
+					if (RemoveFromStack)
+					{
+						Playables.Remove(summonEntity);
+					}
+				}
 
-			int summonPosition = -1;
-			switch (Side)
-			{
-				case SummonSide.LEFT:
-					if (Source.Zone.Type == Enums.Zone.PLAY)
-						summonPosition = ((Minion)Source).ZonePosition;
-					else
+				if (summonEntity == null)
+					return TaskState.STOP;
+
+				int summonPosition = -1;
+				switch (Side)
+				{
+					case SummonSide.LEFT:
+						if (Source.Zone.Type == Enums.Zone.PLAY)
+							summonPosition = ((Minion)Source).ZonePosition;
+						else
+							summonPosition = ((Minion)Source).LastBoardPosition;
+						break;
+					case SummonSide.RIGHT:
+						if (Source.Zone.Type == Enums.Zone.PLAY)
+							summonPosition = ((Minion)Source).ZonePosition + 1;
+						else
+							summonPosition = ((Minion)Source).LastBoardPosition;
+						break;
+					case SummonSide.DEATHRATTLE:
 						summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.RIGHT:
-					if (Source.Zone.Type == Enums.Zone.PLAY)
-						summonPosition = ((Minion)Source).ZonePosition + 1;
-					else
-						summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.DEATHRATTLE:
-					summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.NUMBER:
-					summonPosition = Number - 1;
-					break;
-				case SummonSide.SPELL:
-					summonPosition = -1;
-					break;
-				case SummonSide.DEFAULT:
-					summonPosition = -1;
-					break;
+						break;
+					case SummonSide.NUMBER:
+						summonPosition = Number - 1;
+						break;
+					case SummonSide.SPELL:
+						summonPosition = -1;
+						break;
+					case SummonSide.DEFAULT:
+						summonPosition = -1;
+						break;
+				}
+
+				if (summonPosition > Controller.BoardZone.Count)
+				{
+					summonPosition = Controller.BoardZone.Count;
+				}
+
+				bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, summonPosition);
 			}
-
-			if (summonPosition > Controller.BoardZone.Count)
-			{
-				summonPosition = Controller.BoardZone.Count;
-			}
-
-			bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, summonPosition);
-
+			
 			return TaskState.COMPLETE;
 		}
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new SummonTask(Side, Card, RemoveFromStack, _addToStack);
+			var clone = new SummonTask(Side, Card, RemoveFromStack, _addToStack, _amount);
 			clone.Copy(this);
 			return clone;
 		}

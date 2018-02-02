@@ -7,21 +7,20 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static bool HeroPower(Controller c, ICharacter target = null)
+		public static bool HeroPower(Controller c, ICharacter target = null, bool skipPrePhase = false)
 		{
-			return HeroPowerBlock.Invoke(c, target);
+			return HeroPowerBlock.Invoke(c, target, skipPrePhase);
 		}
 
-		public static Func<Controller, ICharacter, bool> HeroPowerBlock
-			=> delegate (Controller c, ICharacter target)
+		public static Func<Controller, ICharacter, bool, bool> HeroPowerBlock
+			=> delegate (Controller c, ICharacter target, bool skipPrePhase)
 			{
-				if (!c.Hero.HeroPower.IsPlayable || !c.Hero.HeroPower.IsValidPlayTarget(target))
-				{
-					return false;
-				}
+				if (!skipPrePhase)
+					if (!c.Hero.HeroPower.IsPlayable || !c.Hero.HeroPower.IsValidPlayTarget(target))
+						return false;
 
 				PayPhase.Invoke(c, c.Hero.HeroPower);
 
@@ -32,6 +31,8 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
 
 				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target);
+				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.Hero.HeroPower.IsExhausted = true;
 				c.HeroPowerActivationsThisTurn++;

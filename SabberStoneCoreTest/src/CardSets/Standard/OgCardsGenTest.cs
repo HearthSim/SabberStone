@@ -4415,6 +4415,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 					var spellToCast = (Spell) Entity.FromCard(Source.Controller, _spellCard);
 
+					spellToCast.CardTarget = Source.Id;
+
 					Generic.PlaySpell.Invoke(Source.Controller, spellToCast, (ICharacter)Source, 0);
 
 					NumSpellCasted++;

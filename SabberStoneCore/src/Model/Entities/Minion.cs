@@ -155,12 +155,6 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.INSPIRE] = value ? 1 : 0; }
 		}
 
-		public bool HasStealth
-		{
-			get { return this[GameTag.STEALTH] == 1; }
-			set { this[GameTag.STEALTH] = value ? 1 : 0; }
-		}
-
 		public bool IsEnraged
 		{
 			get { return this[GameTag.ENRAGED] == 1; }

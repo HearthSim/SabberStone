@@ -69,5 +69,52 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(2, eviscerate2.Cost);
 
 		}
+
+		[Fact]
+		public static void AuraTimingTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.HUNTER,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Stormwind Champion")
+				},
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Fiery Bat")
+				},
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.StartGame();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stormwind Champion"));
+			game.CurrentPlayer.BoardZone[0].Damage = 4;
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fiery Bat"));
+			game.CurrentPlayer.BoardZone[0].IsExhausted = false;
+
+			while (true)
+			{
+				Game clone = game.Clone();
+
+				clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, clone.CurrentPlayer.BoardZone[0],
+					clone.CurrentOpponent.BoardZone[0]));
+
+				if (clone.CurrentOpponent.Hero.Damage == 7)
+					continue;
+
+				Assert.Equal(1, clone.CurrentOpponent.BoardZone.Count);
+				Assert.Equal(1, clone.CurrentOpponent.BoardZone[0].AttackDamage);
+				Assert.Equal(1, clone.CurrentOpponent.BoardZone[0].Health);
+				break;
+			}
+		}
 	}
 }

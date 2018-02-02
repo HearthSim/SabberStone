@@ -76,6 +76,7 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.DEATH:
 			    case TriggerType.INSPIRE:
 			    case TriggerType.HEAL:
+				case TriggerType.PRE_SUMMON:
 			    case TriggerType.SUMMON:
 			    case TriggerType.PLAY_CARD:
 			    case TriggerType.SECRET_REVEALED:
@@ -154,6 +155,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.TURN_START:
 					source.Game.TriggerManager.TurnStartTrigger += instance.Process;
+					break;
+				case TriggerType.PRE_SUMMON:
+					source.Game.TriggerManager.PreSummonTrigger += instance.Process;
 					break;
 				case TriggerType.SUMMON:
 					source.Game.TriggerManager.SummonTrigger += instance.Process;
@@ -283,6 +287,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.TURN_START:
 				    Game.TriggerManager.TurnStartTrigger -= Process;
 				    break;
+				case TriggerType.PRE_SUMMON:
+					Game.TriggerManager.PreSummonTrigger -= Process;
+					break;
 				case TriggerType.SUMMON:
 				    Game.TriggerManager.SummonTrigger -= Process;
 				    break;
@@ -390,7 +397,14 @@ namespace SabberStoneCore.Enchants
 			    if (p._sequenceType == type)
 				    p.Validated = false;
 		    });
-		}
+
+		    if (game.TaskQueue.Count <= 0) return;
+		    if (game.TaskQueue.CurrentEventTasks.Count > 0)
+			    game.TaskQueue.CurrentEventTasks.Clear();
+		    else if
+			   (game.TaskQueue.TaskList.Count > 0)
+			    game.TaskQueue.TaskList.Clear();
+	    }
 
 	    private void Validate(IEntity source)
 	    {

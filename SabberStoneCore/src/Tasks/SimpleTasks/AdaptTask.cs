@@ -51,7 +51,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				totAdaptCards.Remove(adaptCard);
 			}
 
-			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null);
+			bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null, null);
 			if (!success)
 				return TaskState.STOP;
 			return TaskState.COMPLETE;

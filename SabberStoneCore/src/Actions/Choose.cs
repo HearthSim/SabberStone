@@ -7,10 +7,11 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<Controller, int, bool> ChoicePick
@@ -211,6 +212,17 @@ namespace SabberStoneCore.Actions
 					task.Process();
 				}
 
+				if (c.Choice.AfterChooseTask != null)
+				{
+					ISimpleTask clone = c.Choice.AfterChooseTask.Clone();
+					clone.Game = c.Game;
+					clone.Controller = c;
+					clone.Source = c.Game.IdEntityDic[playable[GameTag.CREATOR]];
+					clone.Target = playable;
+
+					c.Game.TaskQueue.Enqueue(clone);
+				}
+
 				// set displayed creator at least for discover
 				//playable[GameTag.DISPLAYED_CREATOR] = c.LastCardPlayed;
 
@@ -305,8 +317,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard)
+		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, ISimpleTask, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard, ISimpleTask taskToDo)
 			{
 				//if (c.Choice != null)
 				//{
@@ -334,7 +346,8 @@ namespace SabberStoneCore.Actions
 					Choices = choicesIds,
 					SourceId = source.Id,
 					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>(),
-					EnchantmentCard = enchantmentCard
+					EnchantmentCard = enchantmentCard,
+					AfterChooseTask = taskToDo
 				};
 
 				if (c.Choice != null)

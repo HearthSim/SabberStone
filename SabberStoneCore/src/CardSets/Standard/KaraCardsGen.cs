@@ -222,7 +222,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_057", new Power {
-				PowerTask = new DiscoverTask(DiscoverType.SPELL, "")
+				PowerTask = new DiscoverTask(DiscoverType.SPELL,
+					ComplexTask.Create(
+						new GetGameTagTask(GameTag.COST, EntityType.TARGET),
+						new HealNumberTask(EntityType.HERO)))
 			});
 
 			// ---------------------------------------- SPELL - PALADIN

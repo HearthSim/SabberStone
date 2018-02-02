@@ -768,7 +768,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_027", new Power {
-				PowerTask = new EnqueueTask(2, new SummonTask("CS2_mirror", SummonSide.SPELL), false)
+				PowerTask = new SummonTask("CS2_mirror", 2)
 			});
 
 			// ------------------------------------------- SPELL - MAGE

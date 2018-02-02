@@ -56,7 +56,7 @@ namespace SabberStonePowerLog
 					string debugType = matchLogRgx.Groups[4].Value;
 					string content = matchLogRgx.Groups[5].Value;
 
-					if (!classType.Equals("GameState")) //|| !debugType.Equals("DebugPrintPower"))
+					if (!classType.Equals("GameState") || debugType.Equals("DebugPrintOptions"))
 						continue;
 
 					string contentLine = content.Trim();

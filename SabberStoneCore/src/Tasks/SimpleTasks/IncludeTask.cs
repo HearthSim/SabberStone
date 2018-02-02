@@ -183,6 +183,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
 			IEntity target, List<IPlayable> stack)
 		{
+			return type == EntityType.STACK ? stack : GetEntitiesInternal(type, c, source, target);
+		}
+
+		private static IEnumerable<IPlayable> GetEntitiesInternal(EntityType type, Controller c, IEntity source, IEntity target)
+		{
 			switch (type)
 			{
 				case EntityType.TARGET:
@@ -358,10 +363,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.OP_WEAPON:
 					if (c.Opponent.Hero.Weapon != null)
 						yield return c.Opponent.Hero.Weapon;
-					yield break;
-				case EntityType.STACK:
-					for (int i = 0; i < stack.Count; i++)
-						yield return stack[i];
 					yield break;
 				case EntityType.ALLMINIONS:
 					for (int i = c.BoardZone.Count - 1; i >= 0; i--)

@@ -118,7 +118,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// The opponent player instance.
 		/// </summary>
-		public Controller Opponent => Game.Player1 == this ? Game.Player2 : Game.Player1;
+		public Controller Opponent => _opponent ?? (_opponent = Game.Player1 == this ? Game.Player2 : Game.Player1);
 
 		public readonly ControllerAuraEffects ControllerAuraEffects;
 
@@ -830,5 +830,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		private int _currentSpellPower;
+		private Controller _opponent;
 	}
 }
