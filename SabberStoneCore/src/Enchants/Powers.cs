@@ -42,7 +42,7 @@ namespace SabberStoneCore.Enchants
 			// Standard
 			CoreCardsGen.AddAll(_powerDic);
 			Expert1CardsGen.AddAll(_powerDic);
-			//GangsCardsGen.AddAll(_powerDic);
+			GangsCardsGen.AddAll(_powerDic);
 			KaraCardsGen.AddAll(_powerDic);
 			OgCardsGen.AddAll(_powerDic);
 			//UngoroCardsGen.AddAll(_powerDic);

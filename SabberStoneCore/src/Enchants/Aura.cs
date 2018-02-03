@@ -37,7 +37,9 @@ namespace SabberStoneCore.Enchants
 
 		ADAPTIVE,
 
-		HERO
+		HERO,
+
+		HEROPOWER
 	}
 
 	/// <summary>
@@ -294,6 +296,9 @@ namespace SabberStoneCore.Enchants
 					case AuraType.HERO:
 						Apply(Owner.Controller.Hero);
 						break;
+					case AuraType.HEROPOWER:
+						Apply(Owner.Controller.Hero.HeroPower);
+						break;
 				}
 
 				if (!Restless)
@@ -410,7 +415,7 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Apply this aura's effect(s) to the target entity.
 		/// </summary>
-		protected void Apply(IPlayable entity)
+		private void Apply(IPlayable entity)
 		{
 			if (_appliedEntityIds.Contains(entity.Id))
 			{

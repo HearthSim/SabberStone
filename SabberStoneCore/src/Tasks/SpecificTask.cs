@@ -193,7 +193,7 @@ namespace SabberStoneCore.Tasks
 						result[i] = result[j];
 						result[j] = temp;
 					}
-				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.GLIMMERROOT, result, null, null);
+					Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.GLIMMERROOT, result, null, null);
 					controller.Game.OnRandomHappened(true);
 					return p;
 				}));
@@ -203,30 +203,57 @@ namespace SabberStoneCore.Tasks
 		private static readonly object locker = new object();
 
 
-		public static ISimpleTask RazaTheChained
+		public static ISimpleTask Doppelgangster
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					//p[0].Game.OldEnchants.Add(
-					//		new Enchants.OldEnchant
-					//		{
-					//			Game = p[0].Game,
-					//			Owner = p[0].Controller.Hero,
-					//			ApplyConditions = new List<RelaCondition>
-					//			{
-					//				RelaCondition.IsOther(SelfCondition.IsHeroPower),
-					//				RelaCondition.IsFriendly
-					//			},
+					IPlayable s = p[0];
+					Controller c = s.Controller;
+					Minion left = null;
+					Minion right = null;
+					int space = c.BoardZone.MaxSize - c.BoardZone.Count;
+					switch (s.Card.Id)
+					{
+						case "CFM_668":
+							if (space > 0)
+								left = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t"));
+							if (space > 1)
+								right = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t2"));
+							break;
+						case "CFM_668t":
+							if (space > 0)
+								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t2"));
+							if (space > 1)
+								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
+							break;
+						case "CFM_668t2":
+							if (space > 0)
+								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t"));
+							if (space > 1)
+								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
+							break;
+						default:
+							throw new NotImplementedException();
+					}
+					if (left != null)
+					{
+						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
+						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, left, left, e.Card));
+						left[GameTag.ATK] = s[GameTag.ATK];
+						left[GameTag.HEALTH] = s[GameTag.HEALTH];
 
-					//			Effects = new Dictionary<GameTag, int>
-					//			{
-					//				[GameTag.COST] = 0
-					//			},
-					//			FixedValueFunc = owner => 0
-					//		});
-					return new List<IPlayable>();
-				}));
+						if (right != null)
+						{
+							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
+							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, right, right, e.Card));
+							right[GameTag.ATK] = s[GameTag.ATK];
+							right[GameTag.HEALTH] = s[GameTag.HEALTH];
+						}
+					}
+					return null;
+				})
+			);
 
 		public static ISimpleTask BuildABeast
 			=> ComplexTask.Create(

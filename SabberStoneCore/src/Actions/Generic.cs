@@ -223,9 +223,6 @@ namespace SabberStoneCore.Actions
 
 					//	no indicator enchantment entities when History option is off
 					power.Enchant?.ActivateTo(target, null, num1, num2);
-
-					if (power.DeathrattleTask != null)
-						((IPlayable)target).HasDeathrattle = true;
 				}
 
 				return true;

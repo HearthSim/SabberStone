@@ -35,7 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_amount = amount;
 		}
 
-		public SummonTask(string cardId, SummonSide side, bool addToStack = false)
+		public SummonTask(string cardId, SummonSide side = SummonSide.DEFAULT, bool addToStack = false)
 		{
 			Card = Cards.FromId(cardId);
 			RemoveFromStack = false;

@@ -40,6 +40,8 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler DiscardTrigger;
 
 	    public event TriggerHandler GameStartTrigger;
+
+	    public event TriggerHandler DrawTrigger;
 		
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
@@ -129,6 +131,11 @@ namespace SabberStoneCore.Model
 	    internal void OnGameStartTrigger()
 	    {
 		    GameStartTrigger?.Invoke(null);
+	    }
+
+	    internal void OnDrawTrigger(IEntity sender)
+	    {
+		    DrawTrigger?.Invoke(sender);
 	    }
     }
 }

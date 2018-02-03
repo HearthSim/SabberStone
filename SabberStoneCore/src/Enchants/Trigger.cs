@@ -83,6 +83,7 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ZONE:
 				case TriggerType.GAME_START:
 				case TriggerType.DISCARD:
+				case TriggerType.DRAW:
 					return;
 			    default:
 				    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -225,6 +226,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.GAME_START:
 					source.Game.TriggerManager.GameStartTrigger += instance.Process;
 					break;
+				case TriggerType.DRAW:
+					source.Game.TriggerManager.DrawTrigger += instance.Process;
+					break;
 			}
 		}
 
@@ -361,6 +365,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.GAME_START:
 					Game.TriggerManager.GameStartTrigger -= Process;
+					break;
+				case TriggerType.DRAW:
+					Game.TriggerManager.DrawTrigger -= Process;
 					break;
 			    default:
 				    throw new ArgumentOutOfRangeException();

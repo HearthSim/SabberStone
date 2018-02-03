@@ -303,6 +303,11 @@ namespace SabberStoneCore.Model.Entities
 					//tags[GameTag.RARITY] = card[GameTag.RARITY];
 					//tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = card[GameTag.COST];
 					result = new HeroPower(controller, card, tags);
+					controller.AppliedEnchantments?.ForEach(p =>
+					{
+						if (p.OngoingEffect is Aura a)
+							a.ToBeUpdated = true;
+					});
 					break;
 
 				default:

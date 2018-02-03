@@ -20,6 +20,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//entities.ForEach(p =>
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
+				if (p.Zone.Type == Zone.DECK)
+					continue;
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Controller = Controller;
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck", !Game.Logging? "":$"{Controller.Name} is taking control of {p} and shuffled into his deck.");

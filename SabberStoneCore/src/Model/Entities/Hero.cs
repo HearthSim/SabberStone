@@ -21,6 +21,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <value><see cref="Entities.Weapon"/></value>
 		public Weapon Weapon { get; set; }
 
+		public List<Aura> Auras { get; }
+
 		/// <summary>Initializes a new instance of the <see cref="Hero"/> class.</summary>
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
@@ -29,6 +31,7 @@ namespace SabberStoneCore.Model.Entities
 		public Hero(Controller controller, Card card, IDictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
+			Auras = new List<Aura>();
 			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Hero", !Game.Logging? "":$"{card.Name} ({card.Class}) was created.");
 		}
 
@@ -37,7 +40,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="hero">The source <see cref="T:SabberStoneCore.Model.Entities.Hero" />.</param>
-		private Hero(Controller controller, Hero hero) : base(controller, hero) { }
+		private Hero(Controller controller, Hero hero) : base(controller, hero)
+		{
+			Auras = new List<Aura>(hero.Auras.Count);
+		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 

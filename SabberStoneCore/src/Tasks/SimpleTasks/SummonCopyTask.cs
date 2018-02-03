@@ -13,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonCopyTask : SimpleTask
 	{
 		/// <summary>
-		/// Summons a copy of the choosen entitytype.
+		/// Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
 		/// <param name="randomFlag"><c>true</c> if the copies need to be summoned
@@ -22,6 +22,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Type = type;
 			RandomFlag = randomFlag;
+		}
+
+		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
+		{
+			_side = side;
 		}
 
 		/// <summary>
@@ -33,6 +38,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// If there are multiple entities to summon it will randomly summon them.
 		/// </summary>
 		public bool RandomFlag { get; set; }
+
+		private readonly SummonSide _side;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -61,7 +68,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			entities.ForEach(p =>
 			{
 				// clone task here
-				var task = new SummonTask(SummonSide.DEFAULT, p.Card)
+				var task = new SummonTask(_side, p.Card)
 				{
 					Game = Controller.Game,
 					Controller = Controller,

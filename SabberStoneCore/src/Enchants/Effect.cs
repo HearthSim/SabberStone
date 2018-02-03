@@ -148,7 +148,7 @@ namespace SabberStoneCore.Enchants
 					entity[Tag] -= Value;
 					return;
 				case EffectOperator.SUB:
-					entity[Tag] += Value;
+					entity[Tag] = entity.NativeTags[Tag] + Value;
 					return;
 				case EffectOperator.SET:
 					entity[Tag] = 0;		// unstable

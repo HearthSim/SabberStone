@@ -39,7 +39,7 @@ namespace SabberStoneCore.Model
 			CardSet.EXPERT1,
 			CardSet.OG,
 			CardSet.KARA,
-			//CardSet.GANGS,
+			CardSet.GANGS,
 			//CardSet.UNGORO,
 			//CardSet.ICECROWN,
 			//CardSet.LOOTAPALOOZA,

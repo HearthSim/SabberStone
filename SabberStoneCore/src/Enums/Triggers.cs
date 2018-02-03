@@ -53,7 +53,9 @@ namespace SabberStoneCore.Enums
 
 		DISCARD,
 
-		GAME_START
+		GAME_START,
+
+		DRAW
 	}
 
 	public enum TriggerSource
