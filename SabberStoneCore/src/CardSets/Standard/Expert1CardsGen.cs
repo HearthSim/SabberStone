@@ -1005,7 +1005,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_549o", new Power {
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_549o"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_549o")
 			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
@@ -1332,7 +1331,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_295o", new Power {
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_295o"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_295o")
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -1349,8 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.IsSecret,
 					RemoveTrigger = (TriggerType.CAST_SPELL, SelfCondition.IsSecret)
-				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_612o")
+				}
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -2308,8 +2305,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
-				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_145o")
+				}
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -3306,7 +3302,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_036e2", new Power {
 				Aura = new Aura(AuraType.BOARD, "NEW1_036e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("NEW1_036e2")
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -5126,7 +5121,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_046e", new Power {
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_046e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_046e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5280,8 +5274,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_570e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_570e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("EX1_570e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_570e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5317,8 +5310,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("KARA_08_04e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KARA_08_04e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("KARA_08_04e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KARA_08_04e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -44,7 +44,8 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler DrawTrigger;
 
 	    public event TriggerHandler TargetTrigger;
-		
+
+
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
 		    DealDamageTrigger?.Invoke(sender, number);

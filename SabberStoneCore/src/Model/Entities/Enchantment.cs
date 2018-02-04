@@ -21,6 +21,8 @@ namespace SabberStoneCore.Model.Entities
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
+			if (IsOneTurnActive)
+				Game.OneTurnEffectEnchantments.Add(this);
 		}
 
 		private Enchantment(Controller c, Enchantment e)
@@ -141,8 +143,11 @@ namespace SabberStoneCore.Model.Entities
 				instance[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			}
 
-			//if (instance.IsOneTurnActive)
-			//	instance.Target[GameTag.TAG_ONE_TURN_EFFECT] = 1;
+			if (card[GameTag.TAG_ONE_TURN_EFFECT] == 1)
+			{
+				controller.Game.OneTurnEffectEnchantments.Add(instance);
+
+			}
 
 			instance.Zone = controller.BoardZone;
 			instance.OrderOfPlay = controller.Game.NextOop;
@@ -189,6 +194,9 @@ namespace SabberStoneCore.Model.Entities
 				p.RemoveEnchantments -= Remove;
 
 			Target.AppliedEnchantments.Remove(this);
+
+			if (IsOneTurnActive)
+				Game.OneTurnEffectEnchantments.Remove(this);
 
 			Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
 				!Game.Logging ? "" : $"Enchantment {this} is removed from {Target}.");

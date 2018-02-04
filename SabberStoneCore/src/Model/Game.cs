@@ -60,6 +60,8 @@ namespace SabberStoneCore.Model
 
 		public readonly List<(int entityId, Effect effect)> OneTurnEffects;
 
+		public readonly List<Enchantment> OneTurnEffectEnchantments;
+
 		public readonly List<Trigger> Triggers;
 
 		/// <summary>
@@ -267,6 +269,7 @@ namespace SabberStoneCore.Model
 			TaskStack = new TaskStack(this);
 
 			OneTurnEffects = new List<(int, Effect)>();
+			OneTurnEffectEnchantments = new List<Enchantment>();
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -278,6 +281,7 @@ namespace SabberStoneCore.Model
 			Auras = new List<IAura>(game.Auras.Count);
 			Triggers = new List<Trigger>(game.Triggers.Count);
 			OneTurnEffects = new List<(int entityId, Effect effect)>(game.OneTurnEffects);
+			OneTurnEffectEnchantments = new List<Enchantment>(game.OneTurnEffectEnchantments.Count);
 
 			GamesEventManager = new GameEventManager(this);
 
@@ -453,8 +457,6 @@ namespace SabberStoneCore.Model
 			// first turn
 			Turn = 1;
 
-			TriggerManager.OnGameStartTrigger();
-
 			// set next step
 			NextStep = Step.BEGIN_FIRST;
 		}
@@ -568,6 +570,9 @@ namespace SabberStoneCore.Model
 
 			// and a coin
 			//Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
+
+			TriggerManager.OnGameStartTrigger();
+			ProcessTasks();
 
 			NextStep = Step.MAIN_READY;
 		}
@@ -751,6 +756,8 @@ namespace SabberStoneCore.Model
 			foreach ((int id, Effect eff) in OneTurnEffects)
 				eff.Remove(IdEntityDic[id]);
 			OneTurnEffects.Clear();
+			for (int i = OneTurnEffectEnchantments.Count - 1; i >= 0; --i)
+				OneTurnEffectEnchantments.Remove(OneTurnEffectEnchantments[i]);
 
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = true;
@@ -953,9 +960,9 @@ namespace SabberStoneCore.Model
 
 			GraveYard();	// Death Creation Step
 
-			ProcessTasks();	// Death Resolution Phase
+			ProcessTasks(); // Death Resolution Phase
 
-			// Aura Update (Other) step(Not implemented)
+			AuraUpdate();	// Aura Update (Other) step(Not implemented)
 		}
 
 		/// <summary>

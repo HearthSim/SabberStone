@@ -375,7 +375,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_005o", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_005o"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_005o")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -399,7 +398,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_011o", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_011o"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_011o")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -413,7 +411,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_017o", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_017o"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_017o")
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -1541,7 +1538,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_045e", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_045e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_045e")
 			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
@@ -1555,7 +1551,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_046e", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_046e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_046e")
 			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
@@ -1971,7 +1966,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_105e", new Power {
 				Enchant = GetAutoEnchantFromText("CS2_105e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CS2_105e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

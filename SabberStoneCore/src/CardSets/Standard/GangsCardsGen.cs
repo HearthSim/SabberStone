@@ -588,8 +588,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
-				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CFM_687e")
+				}
 			});
 
 		}
@@ -960,8 +959,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 3)
 				{
 					IsOneTurnEffect = true
-				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("CFM_661e")
+				}
 			});
 
 			// ---------------------------------------- MINION - PRIEST

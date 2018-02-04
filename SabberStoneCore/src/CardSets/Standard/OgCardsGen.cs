@@ -207,8 +207,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_047e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_047e"),
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("OG_047e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_047e")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID

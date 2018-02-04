@@ -30,6 +30,7 @@ namespace SabberStoneCore.Actions
 					// end block
 					if (c.Game.History)
 						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					c.Game.DeathProcessingAndAuraUpdate();
 					return false;
 				}
 				if (!AttackPhase.Invoke(c, source))
@@ -37,6 +38,7 @@ namespace SabberStoneCore.Actions
 					// end block
 					if (c.Game.History)
 						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					c.Game.DeathProcessingAndAuraUpdate();
 					return false;
 				}
 				// end block
@@ -95,7 +97,7 @@ namespace SabberStoneCore.Actions
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
 				source.Game.TriggerManager.OnAttackTrigger(source);
 				c.Game.ProcessTasks();
-				if ((source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
+				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", !c.Game.Logging? "":"Oh shizzle, something died to the shizzeling of triggering ...");
 					return false;
