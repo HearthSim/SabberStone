@@ -183,7 +183,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
 			IEntity target, List<IPlayable> stack)
 		{
-			return type == EntityType.STACK ? stack : GetEntitiesInternal(type, c, source, target);
+			switch (type)
+			{
+				case EntityType.STACK:
+					return stack;
+				case EntityType.HAND:
+					return c.HandZone;
+				case EntityType.DECK:
+					return c.DeckZone;
+				case EntityType.MINIONS:
+					return c.BoardZone;
+				case EntityType.SECRETS:
+					return c.SecretZone;
+				case EntityType.GRAVEYARD:
+					return c.GraveyardZone;
+				case EntityType.OP_HAND:
+					return c.Opponent.BoardZone;
+				case EntityType.OP_DECK:
+					return c.Opponent.DeckZone;
+				case EntityType.OP_MINIONS:
+					return c.Opponent.BoardZone;
+				case EntityType.OP_SECRETS:
+					return c.Opponent.SecretZone;
+				default:
+					return GetEntitiesInternal(type, c, source, target);
+			}
 		}
 
 		private static IEnumerable<IPlayable> GetEntitiesInternal(EntityType type, Controller c, IEntity source, IEntity target)
@@ -211,28 +235,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.OP_HERO_POWER:
 					yield return c.Opponent.Hero.HeroPower;
 					yield break;
-				case EntityType.HAND:
-					for (int i = c.HandZone.Count - 1; i >= 0; i--)
-						yield return c.HandZone[i];
-					yield break;
 				case EntityType.HAND_NOSOURCE:
 					for (int i = c.HandZone.Count - 1; i >= 0; i--)
 					{
 						if (c.HandZone[i] != source)
 							yield return c.HandZone[i];
 					}
-					yield break;
-				case EntityType.DECK:
-					for (int i = c.DeckZone.Count - 1; i >= 0; i--)
-						yield return c.DeckZone[i];
-					break;
-				case EntityType.SECRETS:
-					for (int i = c.SecretZone.Count - 1; i >= 0; i--)
-						yield return c.SecretZone[i];
-					yield break;
-				case EntityType.MINIONS:
-					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.BoardZone[i];
 					yield break;
 				case EntityType.MINIONS_NOSOURCE:
 					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
@@ -248,22 +256,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					yield break;
 				case EntityType.OP_HERO:
 					yield return c.Opponent.Hero;
-					yield break;
-				case EntityType.OP_HAND:
-					for (int i = c.Opponent.HandZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.HandZone[i];
-					yield break;
-				case EntityType.OP_DECK:
-					for (int i = c.Opponent.DeckZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.DeckZone[i];
-					yield break;
-				case EntityType.OP_SECRETS:
-					for (int i = c.Opponent.SecretZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.SecretZone[i];
-					yield break;
-				case EntityType.OP_MINIONS:
-					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.BoardZone[i];
 					yield break;
 				case EntityType.ENEMIES:
 					yield return c.Opponent.Hero;
@@ -396,10 +388,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 						yield break;
 					}
-				case EntityType.GRAVEYARD:
-					for (int i = c.GraveyardZone.Count - 1; i >= 0; i--)
-						yield return c.GraveyardZone[i];
-					yield break;
 				case EntityType.HEROES:
 					yield return c.Hero;
 					yield return c.Opponent.Hero;

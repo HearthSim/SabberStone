@@ -305,14 +305,14 @@ namespace SabberStoneCore.Model.Zones
 			return entity;
 		}
 
-		public T[] GetAll()
+		public virtual T[] GetAll()
 		{
 			var array = new T[_count];
 			Array.Copy((Array) Entities, array, _count);
 			return array;
 		}
 
-		public T[] GetAll(Func<T, bool> predicate)
+		public virtual T[] GetAll(Func<T, bool> predicate)
 		{
 			var list = new List<T>(_count);
 			for (int i = 0; i < _count; ++i)

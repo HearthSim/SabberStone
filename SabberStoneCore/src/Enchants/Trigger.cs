@@ -55,6 +55,10 @@ namespace SabberStoneCore.Enchants
 
 		    switch (type)
 		    {
+				case TriggerType.PLAY_CARD:
+				case TriggerType.AFTER_PLAY_CARD:
+					_sequenceType = SequenceType.PlayCard;
+					break;
 			    case TriggerType.PLAY_MINION:
 			    case TriggerType.AFTER_PLAY_MINION:
 				    _sequenceType = SequenceType.PlayMinion;
@@ -67,27 +71,6 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.PREDAMAGE:
 				    _sequenceType = SequenceType.DamageDealt;
 					return;
-			    case TriggerType.ATTACK:
-			    case TriggerType.AFTER_ATTACK:
-				case TriggerType.NONE:
-				case TriggerType.DEAL_DAMAGE:
-				case TriggerType.TURN_END:
-			    case TriggerType.TURN_START:
-			    case TriggerType.DEATH:
-			    case TriggerType.INSPIRE:
-			    case TriggerType.HEAL:
-				case TriggerType.SUMMON:
-			    case TriggerType.AFTER_SUMMON:
-			    case TriggerType.PLAY_CARD:
-			    case TriggerType.SECRET_REVEALED:
-				case TriggerType.ZONE:
-				case TriggerType.GAME_START:
-				case TriggerType.DISCARD:
-				case TriggerType.DRAW:
-				case TriggerType.TARGET:
-					return;
-			    default:
-				    throw new ArgumentOutOfRangeException(nameof(type), type, null);
 		    }
 	    }
 	    private Trigger(Trigger prototype, IEntity owner)
@@ -188,6 +171,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.PLAY_CARD:
 					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
+					break;
+				case TriggerType.AFTER_PLAY_CARD:
+					source.Game.TriggerManager.AfterPlayCardTrigger += instance.Process;
 					break;
 				case TriggerType.PLAY_MINION:
 					source.Game.TriggerManager.PlayMinionTrigger += instance.Process;
@@ -326,7 +312,10 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.PLAY_CARD:
 					Game.TriggerManager.PlayCardTrigger -= Process;
 					break;
-			    case TriggerType.PLAY_MINION:
+			    case TriggerType.AFTER_PLAY_CARD:
+					Game.TriggerManager.AfterPlayCardTrigger -= Process;
+					break;
+				case TriggerType.PLAY_MINION:
 				    Game.TriggerManager.PlayMinionTrigger -= Process;
 				    break;
 				case TriggerType.AFTER_PLAY_MINION:

@@ -97,7 +97,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: [x]<b>Choose One -</b> Summon a
 			//       2/2 Slime; or Gain an
 			//       empty Mana Crystal.
-			// --------------------------------------------------------
+			// -------------------------------------------------------d-
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
@@ -2562,7 +2562,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = new RemoveEnchantmentTask("OG_080de"),
 					RemoveAfterTriggered = true,
-				}
+				}f
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

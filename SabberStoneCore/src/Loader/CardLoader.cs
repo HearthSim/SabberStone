@@ -166,10 +166,18 @@ namespace SabberStoneCore.Loader
 						}
 					}
 
-					if (tag.GameTag == GameTag.SECRET)
-						c.IsSecret = true;
-					else if (tag.GameTag == GameTag.QUEST)
-						c.IsQuest = true;
+					switch (tag.GameTag)
+					{
+						case GameTag.SECRET:
+							c.IsSecret = true;
+							break;
+						case GameTag.QUEST:
+							c.IsQuest = true;
+							break;
+						case GameTag.UNTOUCHABLE:
+							c.Untouchable = true;
+							break;
+					}
 				}
 
 				foreach (Tag tag in card.ReferenzTag)

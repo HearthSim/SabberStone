@@ -38,6 +38,8 @@ namespace SabberStoneCore.Enums
 		AFTER_SUMMON,
 		/// <summary> The effect will be triggered when a player plays a card. </summary>
 		PLAY_CARD,
+		/// <summary> The effect will be triggered after a player plays a card. </summary>
+		AFTER_PLAY_CARD,
 		/// <summary> The effect will be triggered when a player plays a Minion card. </summary>
 		PLAY_MINION,
 		/// <summary> The effect will be triggered after a minion is played. </summary>

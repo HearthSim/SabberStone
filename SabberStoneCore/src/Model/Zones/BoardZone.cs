@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enchants;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
@@ -36,7 +37,6 @@ namespace SabberStoneCore.Model.Zones
 		public override IPlayable Remove(IPlayable entity)
 		{
 			RemoveAura(entity);
-
 			return base.Remove(entity);
 		}
 

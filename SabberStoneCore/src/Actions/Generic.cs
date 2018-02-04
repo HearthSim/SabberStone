@@ -125,7 +125,7 @@ namespace SabberStoneCore.Actions
 				c.GraveyardZone.Add(discard);
 
 				c.LastCardDiscarded = discard.Id;
-
+				c.Game.ProcessTasks();
 				return true;
 			};
 

@@ -3965,7 +3965,7 @@
 //				{
 //					InfoCardId = "UNG_999t13e",
 //					Activation = PowerActivation.SPELL,
-//					PowerTask = new SetGameTagTask(GameTag.POISONOUS, 1, EntityType.TARGET)
+//					PowerTask = new SetGameTagTask(GameTasg.POISONOUS, 1, EntityType.TARGET)
 //				},
 //			});
 
@@ -4149,10 +4149,10 @@
 //			Druid(cards);
 //			DruidNonCollect(cards);
 //			Hunter(cards);
-//			HunterNonCollect(cards);
+//			HunterNonCollect(cards);r
 //			Mage(cards);
 //			MageNonCollect(cards);
-//			Paladin(cards);
+//			Paladin(cards); d
 //			PaladinNonCollect(cards);
 //			Priest(cards);
 //			PriestNonCollect(cards);

@@ -68,6 +68,8 @@ namespace SabberStoneCore.Model
 
 		public bool IsQuest { get; internal set; }
 
+		public bool Untouchable { get; internal set; }
+
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.
 		/// <seealso cref="Tags"/>

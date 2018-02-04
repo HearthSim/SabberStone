@@ -10,6 +10,7 @@ namespace SabberStoneCore.Enchants
     internal static class Enchants
     {
 	    private static Regex AttackHealth = new Regex(@"[+](\d)[/][+](\d)");
+	    private static Regex SetAttackHealth = new Regex(@"(\d)[/](\d)");
 	    private static Regex Attack = new Regex(@"[+](\d) Attack");
 	    private static Regex Health = new Regex(@"[+](\d) Health");
 
@@ -22,6 +23,7 @@ namespace SabberStoneCore.Enchants
 		    Match attackHealth = AttackHealth.Match(text);
 		    Match attack = Attack.Match(text);
 		    Match health = Health.Match(text);
+		    Match set = SetAttackHealth.Match(text);
 
 			if (attackHealth.Success)
 			{
@@ -36,6 +38,12 @@ namespace SabberStoneCore.Enchants
 		    {
 			    effects.Add(Effects.Health_N(Int32.Parse(health.Groups[1].Value)));
 		    }
+			else if
+				(set.Success)
+			{
+				effects.Add(Effects.SetAttack(Int32.Parse(set.Groups[1].Value)));
+				effects.Add(Effects.SetMaxHealth(Int32.Parse(set.Groups[2].Value)));
+			}
 
 		    if (text.Contains(@"<b>Taunt</b>"))
 		    {
@@ -57,7 +65,17 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(Effects.Immune);
 		    }
 
-		    if (text.Contains("this turn"))
+		    if (text.Contains(@"<b>Divine Shield</b>"))
+		    {
+			    effects.Add(new Effect(GameTag.DIVINE_SHIELD, EffectOperator.SET, 1));
+		    }
+
+		    if (text.Contains(@"<b>Poisonous</b>"))
+		    {
+			    effects.Add(new Effect(GameTag.POISONOUS, EffectOperator.SET, 1));
+		    }
+
+			if (text.Contains("this turn"))
 		    {
 				oneTurn = true;
 		    }

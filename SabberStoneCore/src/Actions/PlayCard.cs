@@ -183,11 +183,14 @@ namespace SabberStoneCore.Actions
 					//hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 					hero.ActivateTask(PowerActivation.POWER, target);
 				}
+				c.Game.ProcessTasks();
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//hero.JustPlayed = false;
+				c.Game.TriggerManager.OnAfterPlayCardTrigger(hero);
+				c.Game.ProcessTasks();
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
@@ -247,6 +250,7 @@ namespace SabberStoneCore.Actions
 
 				// - After Summon Phase --> After Summon Trigger
 				//   (death processing, aura updates)
+				c.Game.TriggerManager.OnAfterPlayCardTrigger(minion);
 				AfterSummonTrigger.Invoke(c, minion);
 				c.Game.ProcessTasks();
 
@@ -335,6 +339,7 @@ namespace SabberStoneCore.Actions
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
 				c.Game.TriggerManager.OnAfterCastTrigger(spell);
+				c.Game.TriggerManager.OnAfterPlayCardTrigger(spell);
 				c.Game.ProcessTasks();
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -368,6 +373,8 @@ namespace SabberStoneCore.Actions
 
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
+				c.Game.TriggerManager.OnAfterPlayCardTrigger(weapon);
+				c.Game.ProcessTasks();
 
 				return true;
 			};

@@ -4,27 +4,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DestroyTask : SimpleTask
 	{
-		public DestroyTask(EntityType entityType)
-		{
-			Type = entityType;
-		}
+		private EntityType _type;
+		private readonly bool _forcedDeathPhase;
 
-		public EntityType Type { get; set; }
+		public DestroyTask(EntityType entityType, bool forcedDeathPhase = false)
+		{
+			_type = entityType;
+			_forcedDeathPhase = false;
+		}
 
 		public override TaskState Process()
 		{
-
-			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
-			//entities.ForEach(p => { p?.Destroy(); });
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
 				p.Destroy();
+
+			if (_forcedDeathPhase)
+			{
+				Game.DeathProcessingAndAuraUpdate();
+			}
 
 			return TaskState.COMPLETE;
 		}
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new DestroyTask(Type);
+			var clone = new DestroyTask(_type, _forcedDeathPhase);
 			clone.Copy(this);
 			return clone;
 		}
