@@ -33,9 +33,9 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered after an attack action is ended. </summary>
 		AFTER_ATTACK,
 		/// <summary> The effect will be triggered whenever a minion is summoned </summary>
-		PRE_SUMMON,
-		/// <summary> The effect will be triggered after a minion is summoned. </summary>
 		SUMMON,
+		/// <summary> The effect will be triggered after a minion is summoned. </summary>
+		AFTER_SUMMON,
 		/// <summary> The effect will be triggered when a player plays a card. </summary>
 		PLAY_CARD,
 		/// <summary> The effect will be triggered when a player plays a Minion card. </summary>
@@ -55,7 +55,9 @@ namespace SabberStoneCore.Enums
 
 		GAME_START,
 
-		DRAW
+		DRAW,
+
+		TARGET
 	}
 
 	public enum TriggerSource

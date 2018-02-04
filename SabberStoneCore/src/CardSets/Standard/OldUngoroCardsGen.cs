@@ -561,7 +561,7 @@
 //			// --------------------------------------------------------
 //			cards.Add("UNG_919", new List<Power>
 //			{
-//                new Power
+//				new Power
 //				{
 //					Area = PowerArea.OP_BOARD,
 //					Activation = PowerActivation.BOARD_ZONE,
@@ -585,7 +585,7 @@
 //							}),
 //							new SetGameTagTask(GameTag.AUTOATTACK, 0, EntityType.SOURCE)))
 //						.Build()
-//                }
+//				}
 //			});
 
 //			// ----------------------------------------- SPELL - HUNTER
@@ -1444,7 +1444,7 @@
 //			// --------------------------------------------------------
 //			cards.Add("UNG_035", new List<Power>
 //			{
-//                new Power
+//				new Power
 //				{
 //					Activation = PowerActivation.BATTLECRY,
 //					PowerTask = SpecificTask.CuriousGlimmerroot

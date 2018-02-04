@@ -67,7 +67,6 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(0, eviscerate2.Cost);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Backstab", game.CurrentPlayer.BoardZone[0]));
 			Assert.Equal(2, eviscerate2.Cost);
-
 		}
 
 		[Fact]
@@ -116,5 +115,9 @@ namespace SabberStoneCoreTest.Basic
 				break;
 			}
 		}
+
+		// Umbra + Doppelgangster + Val'anyr test
+
+		// AuraUpdate(others) test
 	}
 }

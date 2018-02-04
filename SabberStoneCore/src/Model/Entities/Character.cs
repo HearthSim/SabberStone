@@ -197,6 +197,12 @@ namespace SabberStoneCore.Model.Entities
 			int preDamage = hero == null ? damage : armor < damage ? damage - armor : 0;
 			PreDamage = preDamage;
 
+			// Damage event is created
+			// Validate all damage triggers
+			// Collect all the tasks and sort them by order of play
+			// Death phase and aura update is not emerge here
+
+			// Predamage triggers
 			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
 			PreDamageTrigger?.Invoke(this, preDamage);
 			Game.ProcessTasks();
@@ -227,7 +233,7 @@ namespace SabberStoneCore.Model.Entities
 
 			LastAffectedBy = source.Id;
 
-			// broadcast damaging trigger
+			// on-damage triggers
 			Game.TriggerManager.OnDamageTrigger(this);
 			Game.TriggerManager.OnDealDamageTrigger(source, preDamage);
 			Game.ProcessTasks();
@@ -273,6 +279,8 @@ namespace SabberStoneCore.Model.Entities
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
 			Damage -= amount;
 
+			// Heal event created
+			// Process gathered tasks
 			Game.TriggerManager.OnHealTrigger(this);
 			Game.ProcessTasks();
 		}

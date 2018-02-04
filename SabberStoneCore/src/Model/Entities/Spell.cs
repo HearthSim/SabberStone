@@ -78,9 +78,11 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public bool IsAffectedBySpellpower => this[GameTag.AFFECTED_BY_SPELL_POWER] == 1;
 
-		public bool IsSecret => Card[GameTag.SECRET] == 1;
+		//public bool IsSecret => Card[GameTag.SECRET] == 1;
+		public bool IsSecret => Card.IsSecret;
 
-		public bool IsQuest => Card[GameTag.QUEST] == 1;
+		//public bool IsQuest => Card[GameTag.QUEST] == 1;
+		public bool IsQuest => Card.IsQuest;
 
 		public bool IsCountered
 		{

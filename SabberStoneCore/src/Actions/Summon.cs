@@ -34,7 +34,7 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, Minion minion)
 			{
 				//minion.IsSummoned = true;
-				c.Game.TriggerManager.OnSummonTrigger(minion);
+				c.Game.TriggerManager.OnAfterSummonTrigger(minion);
 				c.Game.ProcessTasks();
 
 				if (minion.Race == Race.TOTEM)

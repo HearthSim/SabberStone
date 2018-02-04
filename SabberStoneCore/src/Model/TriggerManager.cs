@@ -18,8 +18,8 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler EndTurnTrigger;
 	    public event TriggerHandler TurnStartTrigger;
 
-	    public event TriggerHandler PreSummonTrigger;
 	    public event TriggerHandler SummonTrigger;
+	    public event TriggerHandler AfterSummonTrigger;
 
 	    public event TriggerHandler AttackTrigger;
 
@@ -42,6 +42,8 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler GameStartTrigger;
 
 	    public event TriggerHandler DrawTrigger;
+
+	    public event TriggerHandler TargetTrigger;
 		
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
@@ -68,14 +70,14 @@ namespace SabberStoneCore.Model
 			TurnStartTrigger?.Invoke(sender);
 	    }
 
-	    internal void OnPreSummonTrigger(IEntity sender)
-	    {
-		    PreSummonTrigger?.Invoke(sender);
-	    }
-
 	    internal void OnSummonTrigger(IEntity sender)
 	    {
-			SummonTrigger?.Invoke(sender);
+		    SummonTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnAfterSummonTrigger(IEntity sender)
+	    {
+			AfterSummonTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnAttackTrigger(IEntity sender)
@@ -136,6 +138,11 @@ namespace SabberStoneCore.Model
 	    internal void OnDrawTrigger(IEntity sender)
 	    {
 		    DrawTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnTargetTrigger(IEntity sender)
+	    {
+		    TargetTrigger?.Invoke(sender);
 	    }
     }
 }

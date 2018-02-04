@@ -21,7 +21,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [OG_006b] The Tidal Hand (*) - COST:2 
 			// - Set: og, 
 			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
+			// Text: <b>Hero Power</b>b
 			//       Summon a 1/1 Silver Hand Murloc.
 			// --------------------------------------------------------
 			// PlayReq:
@@ -129,7 +129,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After you summon a minion, give it +1/+1.
 			// --------------------------------------------------------
 			cards.Add("OG_313", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.MINIONS_EXCEPT_SELF,
 					SingleTask = new AddEnchantmentTask("OG_313e", EntityType.TARGET)
@@ -679,7 +679,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_310", new Power {
-				Trigger = new Trigger(TriggerType.PRE_SUMMON)
+				Trigger = new Trigger(TriggerType.SUMMON)
 				{
 					Condition = SelfCondition.IsHealth(1, RelaSign.EQ),
 					SingleTask = ComplexTask.DivineShield(EntityType.TARGET)
@@ -1380,7 +1380,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//        gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_113", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.MINIONS_EXCEPT_SELF,
 					SingleTask = new AddEnchantmentTask("OG_113e", EntityType.SOURCE)
@@ -2035,7 +2035,7 @@ namespace SabberStoneCore.CardSets.Standard
 								return p;
 							Controller c = p[0].Controller;
 							p.ForEach(q => q.Destroy());
-							c.Game.GraveYard();
+							c.Game.GraveYard();	// forced death phase
 							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
 							Generic.SummonBlock.Invoke(c, ancientOne, c.BoardZone.Count);
 							return p;

@@ -66,19 +66,7 @@ namespace SabberStoneCore.Actions
 						PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
 						break;
 					case Spell spell:
-						if (c.Game.History)
-						{
-							if (spell.IsSecret || spell.IsQuest)
-								spell[GameTag.ZONE] = (int)Zone.SECRET;
-							else
-								spell[GameTag.ZONE] = (int)Zone.PLAY;
-						}
-						// - OnPlay Phase --> OnPlay Trigger (Illidan)
-						//   (death processing, aura updates)
 						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
-						c.Game.TriggerManager.OnCastSpellTrigger(spell);
-						OnPlayTrigger.Invoke(c, spell);
-
 						PlaySpell.Invoke(c, spell, target, chooseOne);
 
 						c.NumSpellsPlayedThisGame++;
@@ -89,8 +77,6 @@ namespace SabberStoneCore.Actions
 
 				if (target != null)
 					source.CardTarget = -1;
-
-				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumOptionsPlayedThisTurn++;
 
@@ -217,16 +203,29 @@ namespace SabberStoneCore.Actions
 
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
 				//   (death processing, aura updates)
-				c.Game.TriggerManager.OnPreSummonTrigger(minion);
-				c.Game.ProcessTasks();
+				// not Implemented
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
 				c.Game.TriggerManager.OnPlayMinionTrigger(minion);
 				OnPlayTrigger.Invoke(c, minion);
 
+				// - Summon Resolution Step (Work in Process)
+				c.Game.TriggerManager.OnSummonTrigger(minion);
+				c.Game.ProcessTasks();
+
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
+
+				// Noggenfogger here
+				if (target != null)
+				{
+					c.Game.TriggerManager.OnTargetTrigger(minion);
+					c.Game.ProcessTasks();
+					if (minion.CardTarget != target.Id)
+						target = (ICharacter) c.Game.IdEntityDic[minion.CardTarget];
+				}
+
 				if (minion.Combo && c.IsComboActive)
 					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
@@ -238,6 +237,7 @@ namespace SabberStoneCore.Actions
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
 				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
@@ -249,6 +249,8 @@ namespace SabberStoneCore.Actions
 				//   (death processing, aura updates)
 				AfterSummonTrigger.Invoke(c, minion);
 				c.Game.ProcessTasks();
+
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumMinionsPlayedThisTurn++;
 
@@ -268,6 +270,19 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
 			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
+				if (c.Game.History)
+				{
+					if (spell.IsSecret || spell.IsQuest)
+						spell[GameTag.ZONE] = (int)Zone.SECRET;
+					else
+						spell[GameTag.ZONE] = (int)Zone.PLAY;
+				}
+
+				// - OnPlay Phase --> OnPlay Trigger (Illidan)
+				//   (death processing, aura updates)
+				c.Game.TriggerManager.OnCastSpellTrigger(spell);
+				OnPlayTrigger.Invoke(c, spell);
+
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
 				// trigger SpellText Phase
@@ -281,11 +296,16 @@ namespace SabberStoneCore.Actions
 				}
 				else
 				{
-					// check the spell is bent
-					if (target != null && target.Id != spell.CardTarget)
+					// check Spellbender and Mayor Noggenfogger
+					if (target != null)
 					{
-						target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
-						c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : "trigger Spellbender Phase");
+						c.Game.TriggerManager.OnTargetTrigger(spell);
+						c.Game.ProcessTasks();
+						if (target.Id != spell.CardTarget)
+						{
+							target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
+							c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"trigger Spellbender Phase. Target of {spell} is changed to {target}.");
+						}
 					}
 
 					if (spell.IsSecret || spell.IsQuest)
@@ -309,12 +329,14 @@ namespace SabberStoneCore.Actions
 
 					// process power tasks
 					c.Game.ProcessTasks();
+					c.Game.DeathProcessingAndAuraUpdate();
 				}
 				
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
 				c.Game.TriggerManager.OnAfterCastTrigger(spell);
 				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};
@@ -329,9 +351,18 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
+				if (target != null)
+				{
+					c.Game.TriggerManager.OnTargetTrigger(weapon);
+					c.Game.ProcessTasks();
+					if (target.Id != weapon.CardTarget)
+						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
+				}
+
 				// activate battlecry
 				weapon.ActivateTask(PowerActivation.POWER, target);
 				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				c.NumWeaponsPlayedThisGame++;
 
@@ -347,6 +378,7 @@ namespace SabberStoneCore.Actions
 				//playable.JustPlayed = true;
 				c.Game.TriggerManager.OnPlayCardTrigger(playable);
 				c.Game.ProcessTasks();
+				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

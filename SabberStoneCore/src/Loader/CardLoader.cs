@@ -165,6 +165,11 @@ namespace SabberStoneCore.Loader
 								break;
 						}
 					}
+
+					if (tag.GameTag == GameTag.SECRET)
+						c.IsSecret = true;
+					else if (tag.GameTag == GameTag.QUEST)
+						c.IsQuest = true;
 				}
 
 				foreach (Tag tag in card.ReferenzTag)

@@ -319,8 +319,8 @@ namespace SabberStoneCore.Model.Entities
 				int index = Search(key);
 				if (index < 0)
 					return false;
-				_buckets[index++] = -1;
-				_buckets[index] = -1;
+				_buckets[index] = 0;
+				//_buckets[index] = 0;
 				--_count;
 				return true;
 			}
@@ -344,7 +344,7 @@ namespace SabberStoneCore.Model.Entities
 				int slotIndex = (k % _size) << 1;
 				for (int i = slotIndex; i < _buckets.Length; i += 2)
 				{
-					if (_buckets[i] >= 0) continue;
+					if (_buckets[i] > 0) continue;
 					_buckets[i] = k;
 					_buckets[i + 1] = value;
 					++_count;
@@ -353,7 +353,7 @@ namespace SabberStoneCore.Model.Entities
 
 				for (int i = 0; i < slotIndex; i += 2)
 				{
-					if (_buckets[i] >= 0) continue;
+					if (_buckets[i] > 0) continue;
 					_buckets[i] = k;
 					_buckets[i + 1] = value;
 					++_count;

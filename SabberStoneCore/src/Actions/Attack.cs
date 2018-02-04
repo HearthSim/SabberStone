@@ -79,8 +79,6 @@ namespace SabberStoneCore.Actions
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
 				// TODO need to be manipulated for 50% chance to attack  someone else 
-				//source.ProposedAttacker = source.Id;
-				//source.ProposedDefender = target.Id;
 				c.Game.ProposedAttacker = source.Id;
 				c.Game.ProposedDefender = target.Id;
 
@@ -97,7 +95,6 @@ namespace SabberStoneCore.Actions
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
 				source.Game.TriggerManager.OnAttackTrigger(source);
 				c.Game.ProcessTasks();
-				c.Game.DeathProcessingAndAuraUpdate();
 				if ((source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", !c.Game.Logging? "":"Oh shizzle, something died to the shizzeling of triggering ...");
@@ -109,12 +106,12 @@ namespace SabberStoneCore.Actions
 		private static Func<Controller, ICharacter, bool> AttackPhase
 			=> delegate (Controller c, ICharacter source)
 			{
+				c.Game.TriggerManager.OnTargetTrigger(source);
+				c.Game.ProcessTasks();
+				
 				var hero = source as Hero;
 				var minion = source as Minion;
-				//source.ProposedAttacker = source.Id;
-				//c.Game.ProposedAttacker = source.Id;
-				IPlayable proposedDefender;
-				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out proposedDefender))
+				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out IPlayable proposedDefender))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":"target wasn't found by proposed defender call.");
 					source.IsAttacking = false;

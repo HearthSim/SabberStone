@@ -6,6 +6,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
 using System.Text;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Model.Entities
@@ -160,6 +161,7 @@ namespace SabberStoneCore.Model.Entities
 			Id = entity.Id;
 			OrderOfPlay = entity.OrderOfPlay;
 			AuraEffects = entity.AuraEffects.Clone(this);
+			//_toBeDestroyed = entity._toBeDestroyed;
 		}
 
 
@@ -337,7 +339,10 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			// add entity to the appropriate zone if it was given
-			zone?.Add(result, zonePos);
+			if (zone is BoardZone)
+				Generic.SummonBlock.Invoke(controller, (Minion)result, zonePos);
+			else
+				zone?.Add(result, zonePos);
 
 			if (result.ChooseOne)
 			{
@@ -407,18 +412,12 @@ namespace SabberStoneCore.Model.Entities
 			this[GameTag.TURN_START] = 0;
 		}
 
-		public bool Combo => GetNativeGameTag(GameTag.COMBO) == 1;
+		public bool Combo => Card[GameTag.COMBO] == 1;
 
-		public bool ChooseOne
-		{
-			get => Card[GameTag.CHOOSE_ONE] == 1;
-			//set => SetNativeGameTag(GameTag.CHOOSE_ONE, value ? 1 : 0);
-		}
+		public bool ChooseOne => Card[GameTag.CHOOSE_ONE] == 1;
 
 		public virtual bool ToBeDestroyed
 		{
-			//get { return GetNativeGameTag(GameTag.TO_BE_DESTROYED) == 1; }
-			//get => _data.Tags.ContainsKey(GameTag.TO_BE_DESTROYED);
 			get => _toBeDestroyed;
 			set
 			{

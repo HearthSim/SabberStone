@@ -42,7 +42,6 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new SummonTask())
 			);
 
-
 		public static ISimpleTask TotemicCall
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.HERO),
@@ -105,49 +104,107 @@ namespace SabberStoneCore.Tasks
 				new ReplaceHeroPower()
 			);
 
-		public static ISimpleTask RandomHunterSecretPlay
-			=> ComplexTask.Create(
-				new IncludeTask(EntityType.TARGET),
-				new FuncPlayablesTask(p =>
-				{
-					Controller controller = p[0].Controller;
-					var activeSecrets = controller.SecretZone.Select(secret => secret.Card.Id).ToList();
-					//activeSecrets.Add(p[0].Card.Id);
-					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
-					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
-					var spell = (Spell) Entity.FromCard(controller, Util.Choose(cardsList.ToList()));
-					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
-					spell.ActivateTask();
-					controller.SecretZone.Add(spell);
-					controller.Game.OnRandomHappened(true);
-					return new List<IPlayable>();
-				})
-			);
-
-		public static ISimpleTask Simulacrum
-			=> ComplexTask.Create(
-				new IncludeTask(EntityType.HAND),
-				new FilterStackTask(SelfCondition.IsMinion),
-				new FuncPlayablesTask(list =>
-				{
-					if (!list.Any())
-						return new List<IPlayable>();
-					int minCost = list.Min(p => p.Cost);
-					list.Where(p => p.Cost == minCost).ToList();
-					return list.Where(p => p.Cost == minCost).ToList();
-				}),
-				new RandomTask(1, EntityType.STACK),
-				new CopyTask(EntityType.STACK, 1),
-				new AddStackTo(EntityType.HAND));
-
-		public static ISimpleTask Frostmourne
+		public static ISimpleTask Doppelgangster
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					return p[0].Controller.Opponent.GraveyardZone.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
-				}),
-				new SummonCopyTask(EntityType.STACK));
+					IPlayable s = p[0];
+					Controller c = s.Controller;
+					Minion left = null;
+					Minion right = null;
+					int space = c.BoardZone.MaxSize - c.BoardZone.Count;
+					switch (s.Card.Id)
+					{
+						case "CFM_668":
+							if (space > 0)
+								left = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t"));
+							if (space > 1)
+								right = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t2"));
+							break;
+						case "CFM_668t":
+							if (space > 0)
+								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t2"));
+							if (space > 1)
+								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
+							break;
+						case "CFM_668t2":
+							if (space > 0)
+								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t"));
+							if (space > 1)
+								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
+							break;
+						default:
+							throw new NotImplementedException();
+					}
+					if (left != null)
+					{
+						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
+						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, left, left, e.Card));
+						left[GameTag.ATK] = s[GameTag.ATK];
+						left[GameTag.HEALTH] = s[GameTag.HEALTH];
+
+						if (right != null)
+						{
+							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
+							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, right, right, e.Card));
+							right[GameTag.ATK] = s[GameTag.ATK];
+							right[GameTag.HEALTH] = s[GameTag.HEALTH];
+						}
+					}
+					return null;
+				})
+			);
+
+		public static ISimpleTask MayorNoggenfogger =>
+			ComplexTask.Create(
+				new IncludeTask(EntityType.TARGET),
+				new FuncPlayablesTask(list =>
+				{
+					IPlayable p = list[0];
+					int boardCount = p.Controller.BoardZone.Count;
+					int opBoardCount = p.Controller.Opponent.BoardZone.Count;
+
+					if (p is ICharacter c && c.IsAttacking)
+					{
+						int index = Util.Random.Next(opBoardCount + 1);
+						c.Game.ProposedDefender = index == opBoardCount
+							? c.Controller.Opponent.Hero.Id
+							: c.Controller.Opponent.BoardZone[index].Id;
+						return null;
+					}
+
+					if (p.Card.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET))
+					{
+						int index = Util.Random.Next(boardCount + opBoardCount);
+						if (index < boardCount)
+						{
+							p.CardTarget = p.Controller.BoardZone[index].Id;
+							return null;
+						}
+
+						index -= boardCount;
+						p.CardTarget = p.Controller.Opponent.BoardZone[index].Id;
+						return null;
+					}
+
+					int all = boardCount + opBoardCount + 2;
+					int i = Util.Random.Next(all);
+					if (i < boardCount)
+					{
+						p.CardTarget = p.Controller.BoardZone[i].Id;
+						return null;
+					}
+					i -= boardCount;
+					if (i < opBoardCount)
+					{
+						p.CardTarget = p.Controller.Opponent.BoardZone[i].Id;
+						return null;
+					}
+					i -= opBoardCount;
+					p.CardTarget = i == 0 ? p.Controller.Hero.Id : p.Controller.Opponent.Hero.Id;
+					return null;
+				}));
 
 		public static ISimpleTask CuriousGlimmerroot
 			=> ComplexTask.Create(
@@ -201,59 +258,6 @@ namespace SabberStoneCore.Tasks
 		private static HashSet<int> _glimmerrootMemory2;
 		private static ReadOnlyCollection<Card> _glimmerrootMemory3;
 		private static readonly object locker = new object();
-
-
-		public static ISimpleTask Doppelgangster
-			=> ComplexTask.Create(
-				new IncludeTask(EntityType.SOURCE),
-				new FuncPlayablesTask(p =>
-				{
-					IPlayable s = p[0];
-					Controller c = s.Controller;
-					Minion left = null;
-					Minion right = null;
-					int space = c.BoardZone.MaxSize - c.BoardZone.Count;
-					switch (s.Card.Id)
-					{
-						case "CFM_668":
-							if (space > 0)
-								left = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t"));
-							if (space > 1)
-								right = (Minion) Entity.FromCard(c, Cards.FromId("CFM_668t2"));
-							break;
-						case "CFM_668t":
-							if (space > 0)
-								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t2"));
-							if (space > 1)
-								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
-							break;
-						case "CFM_668t2":
-							if (space > 0)
-								left = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668t"));
-							if (space > 1)
-								right = (Minion)Entity.FromCard(c, Cards.FromId("CFM_668"));
-							break;
-						default:
-							throw new NotImplementedException();
-					}
-					if (left != null)
-					{
-						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
-						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, left, left, e.Card));
-						left[GameTag.ATK] = s[GameTag.ATK];
-						left[GameTag.HEALTH] = s[GameTag.HEALTH];
-
-						if (right != null)
-						{
-							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
-							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, right, right, e.Card));
-							right[GameTag.ATK] = s[GameTag.ATK];
-							right[GameTag.HEALTH] = s[GameTag.HEALTH];
-						}
-					}
-					return null;
-				})
-			);
 
 		public static ISimpleTask BuildABeast
 			=> ComplexTask.Create(
@@ -326,6 +330,49 @@ namespace SabberStoneCore.Tasks
 		private static ReadOnlyCollection<Card> _firstBeastsMemory;
 		private static ReadOnlyCollection<Card> _secondBeastsMemory;
 
+		public static ISimpleTask RandomHunterSecretPlay
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.TARGET),
+				new FuncPlayablesTask(p =>
+				{
+					Controller controller = p[0].Controller;
+					var activeSecrets = controller.SecretZone.Select(secret => secret.Card.Id).ToList();
+					//activeSecrets.Add(p[0].Card.Id);
+					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
+					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
+					var spell = (Spell)Entity.FromCard(controller, Util.Choose(cardsList.ToList()));
+					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
+					spell.ActivateTask();
+					controller.SecretZone.Add(spell);
+					controller.Game.OnRandomHappened(true);
+					return new List<IPlayable>();
+				})
+			);
+
+		public static ISimpleTask Simulacrum
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.HAND),
+				new FilterStackTask(SelfCondition.IsMinion),
+				new FuncPlayablesTask(list =>
+				{
+					if (!list.Any())
+						return new List<IPlayable>();
+					int minCost = list.Min(p => p.Cost);
+					list.Where(p => p.Cost == minCost).ToList();
+					return list.Where(p => p.Cost == minCost).ToList();
+				}),
+				new RandomTask(1, EntityType.STACK),
+				new CopyTask(EntityType.STACK, 1),
+				new AddStackTo(EntityType.HAND));
+
+		public static ISimpleTask Frostmourne
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					return p[0].Controller.Opponent.GraveyardZone.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
+				}),
+				new SummonCopyTask(EntityType.STACK));
 
 		public class RenonunceDarkness : SimpleTask
 		{
@@ -425,6 +472,8 @@ namespace SabberStoneCore.Tasks
 				return new RenonunceDarkness();
 			}
 		}
+
+
 	}
 }
 

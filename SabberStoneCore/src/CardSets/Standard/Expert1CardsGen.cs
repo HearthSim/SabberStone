@@ -1623,7 +1623,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 5
 			// --------------------------------------------------------
 			cards.Add("EX1_366", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = ComplexTask.Create(
@@ -4410,7 +4410,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_509", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsRace(Race.MURLOC),
@@ -4762,7 +4762,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       to a random enemy.
 			// --------------------------------------------------------
 			cards.Add("NEW1_019", new Power {
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.MINIONS_EXCEPT_SELF,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)

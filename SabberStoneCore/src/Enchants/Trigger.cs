@@ -76,14 +76,15 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.DEATH:
 			    case TriggerType.INSPIRE:
 			    case TriggerType.HEAL:
-				case TriggerType.PRE_SUMMON:
-			    case TriggerType.SUMMON:
+				case TriggerType.SUMMON:
+			    case TriggerType.AFTER_SUMMON:
 			    case TriggerType.PLAY_CARD:
 			    case TriggerType.SECRET_REVEALED:
 				case TriggerType.ZONE:
 				case TriggerType.GAME_START:
 				case TriggerType.DISCARD:
 				case TriggerType.DRAW:
+				case TriggerType.TARGET:
 					return;
 			    default:
 				    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -157,11 +158,11 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.TURN_START:
 					source.Game.TriggerManager.TurnStartTrigger += instance.Process;
 					break;
-				case TriggerType.PRE_SUMMON:
-					source.Game.TriggerManager.PreSummonTrigger += instance.Process;
-					break;
 				case TriggerType.SUMMON:
 					source.Game.TriggerManager.SummonTrigger += instance.Process;
+					break;
+				case TriggerType.AFTER_SUMMON:
+					source.Game.TriggerManager.AfterSummonTrigger += instance.Process;
 					break;
 				case TriggerType.ATTACK:
 					source.Game.TriggerManager.AttackTrigger += instance.Process;
@@ -229,6 +230,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.DRAW:
 					source.Game.TriggerManager.DrawTrigger += instance.Process;
 					break;
+				case TriggerType.TARGET:
+					source.Game.TriggerManager.TargetTrigger += instance.Process;
+					break;
 			}
 		}
 
@@ -291,11 +295,11 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.TURN_START:
 				    Game.TriggerManager.TurnStartTrigger -= Process;
 				    break;
-				case TriggerType.PRE_SUMMON:
-					Game.TriggerManager.PreSummonTrigger -= Process;
-					break;
 				case TriggerType.SUMMON:
-				    Game.TriggerManager.SummonTrigger -= Process;
+					Game.TriggerManager.SummonTrigger -= Process;
+					break;
+				case TriggerType.AFTER_SUMMON:
+				    Game.TriggerManager.AfterSummonTrigger -= Process;
 				    break;
 				case TriggerType.ATTACK:
 					Game.TriggerManager.AttackTrigger -= Process;
@@ -368,6 +372,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.DRAW:
 					Game.TriggerManager.DrawTrigger -= Process;
+					break;
+				case TriggerType.TARGET:
+					Game.TriggerManager.TargetTrigger -= Process;
 					break;
 			    default:
 				    throw new ArgumentOutOfRangeException();
@@ -450,7 +457,7 @@ namespace SabberStoneCore.Enchants
 		    switch (_triggerType)
 		    {
 			    case TriggerType.PLAY_CARD when source.Id == Owner.Id:
-			    case TriggerType.SUMMON when source.Id == Owner.Id:
+			    case TriggerType.AFTER_SUMMON when source.Id == Owner.Id:
 			    case TriggerType.TURN_START when !EitherTurn && source.Id != _controllerId:
 			    case TriggerType.DEATH when Owner.ToBeDestroyed:
 				    return;

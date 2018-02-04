@@ -305,7 +305,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_336", new Power
 			{
-				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_336e")
+				DeathrattleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_336e")
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -779,7 +779,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_020", new Power
 			{
-				// TODO [CFM_020] Raza the Chained && Test: Raza the Chained_CFM_020
 				InfoCardId = "CFM_020e",
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
@@ -1228,7 +1227,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_324", new Power
 			{
-				PowerTask = new AddCardTo("CFM_324t", EntityType.DECK)
+				DeathrattleTask = new AddCardTo("CFM_324t", EntityType.DECK)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1460,7 +1459,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_900", new Power
 			{
-				Trigger = new Trigger(TriggerType.SUMMON)
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new DamageTask(5, EntityType.HERO)
@@ -1574,7 +1573,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_755", new Power
 			{
-				// TODO [CFM_755] Grimestreet Pawnbroker && Test: Grimestreet Pawnbroker_CFM_755
 				InfoCardId = "CFM_755e",
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -1770,7 +1768,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_064", new Power
 			{
-				Trigger = new Trigger(TriggerType.SUMMON)	// PRESUMMON
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)	// PRESUMMON
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -1823,7 +1821,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_120", new Power
 			{
-				PowerTask = new HealTask(4, EntityType.HEROES)
+				DeathrattleTask = new HealTask(4, EntityType.HEROES)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1891,7 +1889,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_341", new Power
 			{
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 					new DamageNumberTask(EntityType.ENEMIES))
 			});
@@ -2271,8 +2269,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CFM_670", new Power
 			{
 				// TODO [CFM_670] Mayor Noggenfogger && Test: Mayor Noggenfogger_CFM_670
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TARGET)
+				{
+					SingleTask = SpecificTask.MayorNoggenfogger
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2293,8 +2293,14 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CFM_672", new Power
 			{
 				// TODO [CFM_672] Madam Goya && Test: Madam Goya_CFM_672
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck()),
+					new FlagTask(true, ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new RandomTask(1, EntityType.STACK),
+					new MoveToDeck(EntityType.TARGET),
+					new SummonTask())))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

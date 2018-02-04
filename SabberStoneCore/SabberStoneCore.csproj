@@ -6,7 +6,7 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>

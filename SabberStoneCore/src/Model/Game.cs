@@ -852,6 +852,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Move destroyed entities from <see cref="Zone.PLAY"/> <see cref="Zone{T}"/> into 
 		/// <see cref="Zone.GRAVEYARD"/>
+		/// <para></para>
+		/// Death Creation Step (Death event is created but not resolved here)
 		/// </summary>
 		public void GraveYard()
 		{
@@ -885,6 +887,7 @@ namespace SabberStoneCore.Model
 
 					// should remove tags of dead cards for faster cloning
 
+					// Death event created
 					TriggerManager.OnDeathTrigger(minion);
 				}
 
@@ -935,8 +938,6 @@ namespace SabberStoneCore.Model
 				{
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Something really bad happend during proccessing, please analyze!");
 				}
-
-				//GraveYard();
 			}
 		}
 
@@ -946,11 +947,15 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void DeathProcessingAndAuraUpdate()
 		{
-			GraveYard();
-
-			ProcessTasks();
-
+			//Inter-Phase steps
+			
 			AuraUpdate();
+
+			GraveYard();	// Death Creation Step
+
+			ProcessTasks();	// Death Resolution Phase
+
+			// Aura Update (Other) step(Not implemented)
 		}
 
 		/// <summary>
