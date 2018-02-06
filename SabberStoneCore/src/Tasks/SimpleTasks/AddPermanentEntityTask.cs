@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    {
 		    Minion permanent = (Minion) Entity.FromCard(Controller, _card);
 
-			
+		    return TaskState.COMPLETE;
 	    }
 
 	    public override ISimpleTask Clone()

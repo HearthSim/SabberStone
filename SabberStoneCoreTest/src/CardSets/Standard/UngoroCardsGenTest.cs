@@ -210,7 +210,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.True(game.CurrentPlayer.ChooseBoth);
 
 			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shellshifter"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3, 2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard3));
 			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasTaunt);
 			Assert.True(((Minion)game.CurrentPlayer.BoardZone[3]).HasStealth);
@@ -334,7 +334,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EarthenScales_UNG_108()
 		{
 			// TODO EarthenScales_UNG_108 test
@@ -350,6 +350,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Earthen Scales"));
+
+			var minion = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.ProcessCard("Earthen Scales", minion);
+			Assert.Equal(2, minion.AttackDamage);
+			Assert.Equal(2, minion.Health);
+			Assert.Equal(2, game.CurrentPlayer.Hero.Armor);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -629,16 +635,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
+			//IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swamp King Dred"));
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			IPlayable dirtyRat = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, dirtyRat));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			//IPlayable dirtyRat = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dirty Rat"));
+			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, dirtyRat));
+			//Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			//Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1468,8 +1474,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[2]).AttackDamage);
+			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[2]).Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1527,6 +1533,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Radiant Elemental"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Nova"));
+			game.AuraUpdate();
 			Assert.Equal(4, spell.Cost);
 		}
 
@@ -1914,7 +1921,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SherazinCorpseFlower_UNG_065()
 		{
 			// TODO SherazinCorpseFlower_UNG_065 test
@@ -1929,7 +1936,67 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sherazin, Corpse Flower"));
+			var testCard = game.ProcessCard<Minion>("Sherazin, Corpse Flower", null, true);
+			game.ProcessCard("Eviscerate", testCard, true);
+
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(game.CurrentPlayer.BoardZone[0].Card.Untouchable);
+			Minion seed = game.CurrentPlayer.BoardZone[0];
+			// https://hearthstone.gamepedia.com/Permanent
+			// 1. Permanents cannot be targeted by effects and attacks
+			// 2. and also by random effects like Arcane Missiles
+			// 3. Permanents are not susceptible to any kind of effect, including Area of Effect, such as Deathwing, DOOM! or Brawl.
+			// 4. Permanents take up a place on the battlefield like regular minions, and count toward the 7 minion limit.
+			// 5. Permanents are not affected by positional effects
+			//    but still take up a spot for the purposes of determining adjacent minions,
+			//    effectively blocking their effects without consequence.
+
+			// 1
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Eviscerate"));
+			int count = game.CurrentPlayer.HandZone.Count;
+			int mana = game.CurrentPlayer.RemainingMana;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell, seed));
+			Assert.Equal(count, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(mana, game.CurrentPlayer.RemainingMana);
+			game.EndTurn();
+
+			Minion boar = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, boar, seed));
+			Assert.True(boar.CanAttack);
+
+			// 2
+			for (int i = 0; i < 30; ++i)
+			{
+				Game clone = game.Clone();
+				clone.ProcessCard("Arcane Missiles");
+				Assert.Equal(3, clone.CurrentOpponent.Hero.Damage);
+			}
+
+			// 3 & 4
+			game.ProcessCard("Deathwing", null, true);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.False(seed.ToBeDestroyed);
+			game.ProcessCard("Flamestrike", null, true);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.False(seed.ToBeDestroyed);
+			game.ProcessCard("Swipe", game.CurrentOpponent.Hero, true);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+			Assert.False(seed.ToBeDestroyed);
+			game.EndTurn();
+
+			// 5
+			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.ProcessCard("Dire Wolf Alpha");	// pos 1
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1, null, 0));	// put on the left side of the seed
+			Assert.Equal(1, minion1.AttackDamage);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
+			Assert.Equal(2, minion2.AttackDamage);
+
+			Assert.Equal(3, seed[GameTag.TAG_SCRIPT_DATA_NUM_1]);
+			game.ProcessCard("Sinister Strike");
+
+			Assert.Equal("UNG_065", game.CurrentPlayer.BoardZone[1].Card.Id);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

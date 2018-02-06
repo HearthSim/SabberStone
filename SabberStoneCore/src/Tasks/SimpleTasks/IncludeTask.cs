@@ -31,10 +31,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		///  All cards in the player's hand
 		/// </summary>
 		HAND,
-		/// <summary>
-		///  All cards in the player's hand except the source
-		/// </summary>
-		HAND_NOSOURCE,
+		///// <summary>
+		/////  All cards in the player's hand except the source
+		///// </summary>
+		//HAND_NOSOURCE,
 		/// <summary>
 		///  All cards in the player's deck
 		/// </summary>
@@ -177,7 +177,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				exceptListEntities.AddRange(GetEntities(excludeType, Controller, Source, Target, Playables));
 			}
-			return boardGetAll.Except(exceptListEntities).ToList();
+			return boardGetAll.Except(exceptListEntities);
 		}
 
 		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
@@ -188,23 +188,141 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.STACK:
 					return stack;
 				case EntityType.HAND:
-					return c.HandZone;
+					return c.HandZone.GetAll();
 				case EntityType.DECK:
-					return c.DeckZone;
+					return c.DeckZone.GetAll();
 				case EntityType.MINIONS:
-					return c.BoardZone;
+					return c.BoardZone.GetAll();
 				case EntityType.SECRETS:
-					return c.SecretZone;
+					return c.SecretZone.GetAll();
 				case EntityType.GRAVEYARD:
 					return c.GraveyardZone;
 				case EntityType.OP_HAND:
-					return c.Opponent.BoardZone;
+					return c.Opponent.HandZone.GetAll();
 				case EntityType.OP_DECK:
-					return c.Opponent.DeckZone;
+					return c.Opponent.DeckZone.GetAll();
 				case EntityType.OP_MINIONS:
-					return c.Opponent.BoardZone;
+					return c.Opponent.BoardZone.GetAll();
 				case EntityType.OP_SECRETS:
-					return c.Opponent.SecretZone;
+					return c.Opponent.SecretZone.GetAll();
+
+				case EntityType.MINIONS_NOSOURCE:
+					return c.BoardZone.GetAll(p => p != source);
+				case EntityType.ALLMINIONS_NOSOURCE:
+				{
+					if (source.Controller == c)
+					{
+						Minion[] board = c.BoardZone.GetAll(p => p != source);
+						Minion[] array = new Minion[board.Length + c.Opponent.BoardZone.Count];
+						board.CopyTo(array, 0);
+						c.Opponent.BoardZone.GetAll().CopyTo(array, board.Length);
+						return array;
+					}
+					else
+					{
+						Minion[] board = c.Opponent.BoardZone.GetAll(p => p != source);
+						Minion[] array = new Minion[board.Length + c.BoardZone.CountExceptUntouchables];
+						board.CopyTo(array, 0);
+						c.BoardZone.GetAll().CopyTo(array, board.Length);
+						return array;
+					}
+				}
+				case EntityType.ENEMIES:
+				{
+					var arr = new ICharacter[c.Opponent.BoardZone.CountExceptUntouchables + 1];
+					arr[0] = c.Opponent.Hero;
+					c.Opponent.BoardZone.CopyTo(arr, 1);
+					return arr;
+				}
+				case EntityType.TARGET:
+					return target == null ? new IPlayable[0] : new [] {(IPlayable)target};
+				case EntityType.SOURCE:
+					return new[] {(IPlayable)source};
+				case EntityType.HERO:
+					return new[] {c.Hero};
+				case EntityType.HERO_POWER:
+					return new[] {c.Hero.HeroPower};
+				case EntityType.OP_HERO_POWER:
+					return new[] {c.Opponent.Hero.HeroPower};
+				case EntityType.FRIENDS:
+				{
+					var arr = new ICharacter[c.BoardZone.CountExceptUntouchables + 1];
+					arr[0] = c.Hero;
+					c.BoardZone.CopyTo(arr, 1);
+					return arr;
+				}
+				case EntityType.OP_HERO:
+					return new[] {c.Opponent.Hero};
+				case EntityType.ENEMIES_NOTARGET:
+					if (target is Hero)
+						return c.Opponent.BoardZone.GetAll();
+					else
+					{
+						if (c.Opponent.BoardZone.Count > 1)
+						{
+							var arr = new ICharacter[c.Opponent.BoardZone.Count];
+							arr[0] = c.Opponent.Hero;
+							Minion[] temp = c.Opponent.BoardZone.GetAll(p => p != target);
+							Array.Copy(temp, 0, arr, 1, temp.Length);
+							return arr;
+						}
+
+						return new[] {c.Opponent.Hero};
+					}
+				case EntityType.ALL:
+				{
+					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables + 2];
+					c.BoardZone.CopyTo(arr, 0);
+					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.Count);
+					arr[arr.Length - 2] = c.Hero;
+					arr[arr.Length - 1] = c.Opponent.Hero;
+					return arr;
+				}
+				case EntityType.ALL_NOSOURCE:
+				{
+					if (source.Zone == null) throw new NotImplementedException();
+
+					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables + 1];
+					if (source.Zone == c.BoardZone)
+					{
+						c.BoardZone.GetAll(p => p != source).CopyTo(arr, 0);
+						c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables - 1);
+						arr[arr.Length - 2] = c.Hero;
+						arr[arr.Length - 1] = c.Opponent.Hero;
+					}
+					else if (source.Zone == c.Opponent.BoardZone)
+					{
+						c.BoardZone.CopyTo(arr, 0);
+						c.Opponent.BoardZone.GetAll(p => p != source).CopyTo(arr, c.BoardZone.CountExceptUntouchables);
+						arr[arr.Length - 2] = c.Hero;
+						arr[arr.Length - 1] = c.Opponent.Hero;
+					}
+					else
+					{
+						c.BoardZone.CopyTo(arr, 0);
+						c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
+						arr[arr.Length - 2] = c.Hero;
+						arr[arr.Length - 1] = c.Opponent.Hero;
+					}
+					return arr;
+				}
+				case EntityType.WEAPON:
+					return c.Hero.Weapon == null ? new IPlayable[0] : new[] {c.Hero.Weapon};
+				case EntityType.OP_WEAPON:
+					return c.Opponent.Hero.Weapon == null ? new IPlayable[0] : new[] {c.Opponent.Hero.Weapon};
+				case EntityType.ALLMINIONS:
+				{
+					var arr = new Minion[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables];
+					c.BoardZone.CopyTo(arr, 0);
+					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
+					return arr;
+				}
+				case EntityType.HEROES:
+					return new[] {c.Hero, c.Opponent.Hero};
+				case EntityType.TOPCARDFROMDECK:
+					return c.DeckZone.Count > 0 ? new[] {c.DeckZone.TopCard} : new IPlayable[0];
+				case EntityType.CONTROLLER:
+					throw new NotImplementedException();
 				default:
 					return GetEntitiesInternal(type, c, source, target);
 			}
@@ -235,19 +353,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.OP_HERO_POWER:
 					yield return c.Opponent.Hero.HeroPower;
 					yield break;
-				case EntityType.HAND_NOSOURCE:
-					for (int i = c.HandZone.Count - 1; i >= 0; i--)
-					{
-						if (c.HandZone[i] != source)
-							yield return c.HandZone[i];
-					}
-					yield break;
 				case EntityType.MINIONS_NOSOURCE:
 					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
 					{
 						if (c.BoardZone[i] != source)
 							yield return c.BoardZone[i];
 					}
+
+					//c.BoardZone.GetAll(p => p != source);
 					break;
 				case EntityType.FRIENDS:
 					yield return c.Hero;

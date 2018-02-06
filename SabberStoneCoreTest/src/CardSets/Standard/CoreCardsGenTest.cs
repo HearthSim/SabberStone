@@ -5874,14 +5874,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			int totHealth = 0;
-			game.CurrentPlayer.BoardZone.ToList().ForEach(p => totHealth += p.Health);
+			game.CurrentPlayer.BoardZone.ForEach(p => totHealth += p.Health);
 
 			Assert.Equal(3, totHealth);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			int nowHealth = 0;
-			game.CurrentOpponent.BoardZone.ToList().ForEach(p => nowHealth += p.Health);
+			game.CurrentOpponent.BoardZone.ForEach(p => nowHealth += p.Health);
 
 			Assert.Equal(totHealth + game.CurrentOpponent.BoardZone.Count, nowHealth);
 		}

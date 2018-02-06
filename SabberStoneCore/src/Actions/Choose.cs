@@ -80,6 +80,9 @@ namespace SabberStoneCore.Actions
 
 					case ChoiceAction.ADAPT:
 						c.Choice.TargetIds.ForEach(p =>
+							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
+						);
+						c.Choice.TargetIds.ForEach(p =>
 						{
 							IPlayable target = c.Game.IdEntityDic[p];
 							playable.Powers.ForEach(t => t.Activate(c, playable, target));
@@ -317,8 +320,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, ISimpleTask, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard, ISimpleTask taskToDo)
+		public static Func<Controller, IEntity, IEnumerable<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, ISimpleTask, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, IEnumerable<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard, ISimpleTask taskToDo)
 			{
 				//if (c.Choice != null)
 				//{

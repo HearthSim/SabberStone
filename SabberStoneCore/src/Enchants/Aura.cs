@@ -242,13 +242,14 @@ namespace SabberStoneCore.Enchants
 				switch (Type)
 				{
 					case AuraType.BOARD:
-						foreach (Minion minion in Owner.Controller.BoardZone)
-							Apply(minion);
+						Owner.Controller.BoardZone.ForEach(Apply);
 						break;
 					case AuraType.BOARD_EXCEPT_SOURCE:
-						foreach (Minion minion in Owner.Controller.BoardZone)
+						Owner.Controller.BoardZone.ForEach(minion =>
+						{
 							if (minion != Owner)
 								Apply(minion);
+						});
 						return;
 					case AuraType.ADJACENT:
 						int pos = Owner.ZonePosition;
@@ -265,18 +266,14 @@ namespace SabberStoneCore.Enchants
 							Apply(Owner.Controller.BoardZone[pos + 1]);
 						break;
 					case AuraType.HAND:
-						foreach (IPlayable p in Owner.Controller.HandZone)
-							Apply(p);
+						Owner.Controller.HandZone.ForEach(Apply);
 						break;
 					case AuraType.OP_HAND:
-						foreach (IPlayable p in Owner.Controller.Opponent.HandZone)
-							Apply(p);
+						Owner.Controller.Opponent.HandZone.ForEach(Apply);
 						break;
 					case AuraType.HANDS:
-						foreach (IPlayable p in Owner.Controller.HandZone)
-							Apply(p);
-						foreach (IPlayable p in Owner.Controller.Opponent.HandZone)
-							Apply(p);
+						Owner.Controller.HandZone.ForEach(Apply);
+						Owner.Controller.Opponent.HandZone.ForEach(Apply);
 						break;
 					case AuraType.WEAPON:
 						if (Owner.Controller.Hero.Weapon == null) break;

@@ -48,7 +48,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>Disables all special effects on this minion.
 		/// It's not possible to undo a silence!
 		/// </summary>
-		public void Silence()
+		public virtual void Silence()
 		{
 			HasTaunt = false;
 			IsFrozen = false;
@@ -178,8 +178,6 @@ namespace SabberStoneCore.Model.Entities
 			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }
 			set { SetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD, value); }
 		}
-
-		public bool IsPermanent => Card.Untouchable;
 
 		public override bool ToBeDestroyed
 		{

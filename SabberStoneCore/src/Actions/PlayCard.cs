@@ -50,6 +50,7 @@ namespace SabberStoneCore.Actions
 				if (target != null)
 					source.CardTarget = target.Id;
 
+				Trigger.ValidateTriggers(c.Game, source, SequenceType.PlayCard);
 				switch (source)
 				{
 					case Hero hero:
@@ -202,6 +203,7 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
+				c.NumMinionsPlayedThisTurn++;
 				c.BoardZone.Add(minion, zonePosition);
 
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
@@ -255,8 +257,6 @@ namespace SabberStoneCore.Actions
 				c.Game.ProcessTasks();
 
 				c.Game.DeathProcessingAndAuraUpdate();
-
-				c.NumMinionsPlayedThisTurn++;
 
 				switch (minion.Race)
 				{

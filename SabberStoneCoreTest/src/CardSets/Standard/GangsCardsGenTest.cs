@@ -811,22 +811,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ManicSoulcaster_CFM_660()
 		{
-			// TODO ManicSoulcaster_CFM_660 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Manic Soulcaster"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Manic Soulcaster"));
+
+			Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
+			IPlayable minion = game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard(testCard, minion);
+			Assert.Equal(1, game.CurrentPlayer.DeckZone.Count);
+			Assert.Equal(game.CurrentPlayer.DeckZone[0].Card.Id, minion.Card.Id);
+			Assert.NotEqual(game.CurrentPlayer.DeckZone[0].Id, minion.Id);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -842,10 +847,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Cryomancer_CFM_671()
 		{
-			// TODO Cryomancer_CFM_671 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -857,7 +861,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Cryomancer"));
+
+			game.ProcessCard("Freezing Potion", game.CurrentOpponent.Hero);
+			Minion testCard = (Minion) game.ProcessCard("Cryomancer");
+			Assert.Equal(7, testCard.AttackDamage);
+			Assert.Equal(7, testCard.Health);
+
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -966,22 +975,34 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GetawayKodo_CFM_800()
 		{
-			// TODO GetawayKodo_CFM_800 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Getaway Kodo"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Getaway Kodo"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+			Minion minion1 = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion minion2 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			Minion minion3 = game.ProcessCard<Minion>("Dalaran Mage");
+			game.EndTurn();
+
+			int count = game.CurrentOpponent.HandZone.Count;
+			game.ProcessCard("Flamestrike");
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(count + 1, game.CurrentOpponent.HandZone.Count);
+			IPlayable returnedCard = game.CurrentOpponent.HandZone[count];
+			Assert.Equal(returnedCard.Card.Id, minion1.Card.Id);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -2658,7 +2679,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void HobartGrapplehammer_CFM_643()
 		{
-			// TODO HobartGrapplehammer_CFM_643 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2778,10 +2798,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AlleyArmorsmith_CFM_756()
 		{
-			// TODO AlleyArmorsmith_CFM_756 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2794,6 +2813,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Alley Armorsmith"));
+
+			var testCard = game.ProcessCard<Minion>("Alley Armorsmith");
+			game.EndTurn();
+
+			IPlayable minion = game.ProcessCard("Stonetusk Boar");
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, testCard));
+
+			Assert.Equal(2, game.CurrentOpponent.Hero.Armor);
+
+			game.EndTurn();
+
+			game.ProcessCard("Rampage", testCard);
+			Assert.Equal(5, testCard.AttackDamage);
+
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
+			Assert.Equal(7, game.CurrentPlayer.Hero.Armor);
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR

@@ -1426,10 +1426,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HeraldVolazj_OG_316()
 		{
-			// TODO HeraldVolazj_OG_316 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1441,7 +1440,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Herald Volazj"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Herald Volazj"));
+			Minion minion1 = game.ProcessCard<Minion>("Bloodfen Raptor", null, true);
+			Minion minion2 = game.ProcessCard<Minion>("Soggoth the Slitherer", null, true);
+			game.ProcessCard("Herald Volazj");
+
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card.Id, game.CurrentPlayer.BoardZone[3].Card.Id);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[3].AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[3].Health);
+			Assert.Equal(game.CurrentPlayer.BoardZone[1].Card.Id, game.CurrentPlayer.BoardZone[4].Card.Id);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[4].AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[4].Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

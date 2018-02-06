@@ -757,7 +757,7 @@ namespace SabberStoneCore.Model
 				eff.Remove(IdEntityDic[id]);
 			OneTurnEffects.Clear();
 			for (int i = OneTurnEffectEnchantments.Count - 1; i >= 0; --i)
-				OneTurnEffectEnchantments.Remove(OneTurnEffectEnchantments[i]);
+				OneTurnEffectEnchantments[i].Remove();
 
 			if (CurrentPlayer.Hero.Weapon != null)
 				CurrentPlayer.Hero.Weapon.IsExhausted = true;

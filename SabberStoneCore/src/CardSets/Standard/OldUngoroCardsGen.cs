@@ -1350,7 +1350,7 @@
 //			// - ADAPT = 1
 //			// --------------------------------------------------------
 //			cards.Add("UNG_954t1", new List<Power>
-//			{
+//			{s
 //				new Power
 //				{
 //					Activation = PowerActivation.BATTLECRY,

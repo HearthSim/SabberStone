@@ -15,7 +15,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    _type = type;
 	    }
 
-
 	    public override TaskState Process()
 	    {
 		    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))

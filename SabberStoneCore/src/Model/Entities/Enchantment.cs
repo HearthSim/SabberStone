@@ -21,8 +21,6 @@ namespace SabberStoneCore.Model.Entities
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
-			if (IsOneTurnActive)
-				Game.OneTurnEffectEnchantments.Add(this);
 		}
 
 		private Enchantment(Controller c, Enchantment e)
@@ -36,6 +34,8 @@ namespace SabberStoneCore.Model.Entities
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			Game.IdEntityDic.Add(Id, this);
+			if (e.IsOneTurnActive)
+				c.Game.OneTurnEffectEnchantments.Add(this);
 
 			if (c.Game.History)
 			{

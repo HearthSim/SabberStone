@@ -899,11 +899,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			// player 1 draws and plays explosive Trap and Cat Trick
 			IPlayable explosiveTrap = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Explosive Trap"));
-			//IPlayable catTrick = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
+			IPlayable catTrick = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cat Trick"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, explosiveTrap));
-			//game.Process(PlayCardTask.Spell(game.CurrentPlayer, catTrick));
-			//Assert.Equal(2, game.CurrentPlayer.SecretZone.Count);
-			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, catTrick));
+			Assert.Equal(2, game.CurrentPlayer.SecretZone.Count);
 
 			// player 1 draws and plays WorgenInfiltrator_EX1_010 (stealth)
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Worgen Infiltrator"));

@@ -831,10 +831,9 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
 					new FilterStackTask(SelfCondition.IsMinion),
-					new FlagTask(true, ComplexTask.Create(
-						new CopyTask(EntityType.STACK, 1),
-						new AddEnchantmentTask("OG_316k", EntityType.STACK),
-						new SummonTask())))
+					new CopyTask(EntityType.STACK, 1),
+					new AddEnchantmentTask("OG_316k", EntityType.STACK),
+					new SummonStackTask())
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -2023,7 +2022,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_173", new Power {
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					Condition = new SelfCondition(p => p.Controller.BoardZone.Count(m => m.Card.Id == "OG_173") > 1),
+					Condition = new SelfCondition(p => p.Controller.BoardZone.GetAll(m => m.Card.Id == "OG_173").Length > 1),
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.MINIONS),
 						new FilterStackTask(SelfCondition.IsCardId("OG_173")),
@@ -2378,7 +2377,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_320", new Power {
 				//	not really uses ScriptTag
 				PowerTask = ComplexTask.Create(
-					new CountTask(EntityType.HAND_NOSOURCE),
+					new CountTask(EntityType.HAND),
 					new AddEnchantmentTask("OG_320e", EntityType.SOURCE, true))
 			});
 
@@ -2562,7 +2561,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = new RemoveEnchantmentTask("OG_080de"),
 					RemoveAfterTriggered = true,
-				}f
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

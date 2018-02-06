@@ -162,7 +162,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private List<Card>[] Discovery(DiscoverType discoverType, out ChoiceAction choiceAction)
 		{
-
 			if (!CachedDiscoverySets.TryGetValue(discoverType, out Tuple<List<Card>[], ChoiceAction> result))
 			{
 				switch (discoverType)

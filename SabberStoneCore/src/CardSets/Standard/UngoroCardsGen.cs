@@ -614,8 +614,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_027", new Power {
-				// TODO: Actual mechanic could be different (return this as sth?)
-				DeathrattleTask = new AddCardTo("UNG_027t2", EntityType.HAND)
+				DeathrattleTask = ComplexTask.Create(
+					new MoveToSetaside(EntityType.SOURCE),
+					new AddCardTo("UNG_027t2", EntityType.HAND))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -779,7 +780,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_027t2", new Power {
-				DeathrattleTask = new AddCardTo("UNG_027t4", EntityType.HAND)
+				DeathrattleTask = ComplexTask.Create(
+					new MoveToSetaside(EntityType.SOURCE),
+					new AddCardTo("UNG_027t4", EntityType.HAND))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -910,8 +913,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_952", new Power {
-				// TODO [UNG_952] Spikeridged Steed && Test: Spikeridged Steed_UNG_952
-				InfoCardId = "UNG_952e",
 				PowerTask = new AddEnchantmentTask("UNG_952e", EntityType.TARGET)
 			});
 
@@ -980,7 +981,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_950", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
-					SingleTask = new SummonTask("CS2_10t", 2)
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new SummonTask("CS2_101t", 2)
 				}
 			});
 
@@ -1341,7 +1343,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_065", new Power {
-				// TODO: transform
 				DeathrattleTask = new SummonTask("UNG_065t", SummonSide.DEATHRATTLE)
 			});
 
@@ -1407,8 +1408,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_823", new Power {
-				// TODO [UNG_823] Envenom Weapon && Test: Envenom Weapon_UNG_823
-				InfoCardId = "UNG_823e",
 				PowerTask = new AddEnchantmentTask("UNG_823e", EntityType.WEAPON)
 			});
 
@@ -1477,10 +1476,12 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.TAG_SCRIPT_DATA_NUM_1, 2, RelaSign.LEQ)),
 						new FlagTask(true, ComplexTask.Create(
-							new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+							new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),			// and also CUSTOM_KEYWORD_EFFECT and ATK
 							new MathAddTask(1),
 							new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE))),
-						new FlagTask(false, new TransformTask("UNG_065", EntityType.SOURCE)))
+						new FlagTask(false, ComplexTask.Create(
+							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 4, EntityType.SOURCE),
+							new TransformTask("UNG_065", EntityType.SOURCE))))
 				}
 			});
 
@@ -1553,7 +1554,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_202", new Power {
-				// TODO [UNG_202] Fire Plume Harbinger && Test: Fire Plume Harbinger_UNG_202
 				InfoCardId = "UNG_202e",
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -3070,9 +3070,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("UNG_807e", new Power {
-				// TODO [UNG_807e] Overfull Belly && Test: Overfull Belly_UNG_807e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.AttackHealth_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3087,8 +3085,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_823e", new Power {
 				// TODO [UNG_823e] Envenomed && Test: Envenomed_UNG_823e
 				InfoCardId = "UNG_823ed",
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("UNG_823e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3301,9 +3298,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add 5 <b>Journey to Un'Goro</b> cards to your hand.
 			// --------------------------------------------------------
 			cards.Add("UNG_851t1", new Power {
-				// TODO [UNG_851t1] Un'Goro Pack && Test: Un'Goro Pack_UNG_851t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.UngoroPack
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

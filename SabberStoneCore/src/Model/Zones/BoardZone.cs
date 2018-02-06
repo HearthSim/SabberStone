@@ -18,8 +18,6 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.PLAY;
 		}
 
-		//public override bool IsFull => Entities[MaxSize - 1] != null;
-
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition);
@@ -84,5 +82,18 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Controller.CurrentSpellPower > 0 && entity[GameTag.SPELLPOWER] > 0)
 				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
 		}
+
+		//public BoardZone Clone(Controller c)
+		//{
+		//	var clone = new BoardZone(c);
+		//	clone._hasUntouchables = _hasUntouchables;
+		//	clone._untouchableCount = _untouchableCount;
+
+		//	for (int i = 0; i < _count; ++i)
+		//	{
+		//		var copy = 
+		//		clone.Add(Entities[i]);
+		//	}
+		//}
 	}
 }

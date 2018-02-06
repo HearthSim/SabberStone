@@ -56,7 +56,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsSilverHandRecruit => new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
 		public static SelfCondition IsSpellDmgOnHero => new SelfCondition(me => me.Controller.CurrentSpellPower > 0);
 		public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is ICharacter && ((ICharacter)me).NumAttacksThisTurn == number);
-		public static SelfCondition IsCardId(string cardId) => new SelfCondition(me => me.Card == Cards.FromId(cardId));
+		public static SelfCondition IsCardId(string cardId) => new SelfCondition(me => me.Card.Id == cardId);
 		public static SelfCondition IsNotCardClass(CardClass cardClass) => new SelfCondition(me => me.Card.Class != cardClass);
 
 		public static SelfCondition MinionsPlayedThisTurn(int number) => new SelfCondition(me => me.Controller.NumMinionsPlayedThisTurn == number);
@@ -133,6 +133,18 @@ namespace SabberStoneCore.Conditions
 					relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] == amount)
 				 || relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] >= amount)
 				 || relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount));
+
+		public static SelfCondition HasOp(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
+			=> new SelfCondition(me =>
+				   relaSign == RelaSign.EQ &&
+				   (me.Controller.Opponent.BoardZone.Any(p => p[tag] == amount)
+				    || me.Controller.Opponent.Hero[tag] == amount)
+				|| relaSign == RelaSign.GEQ &&
+				   me.Controller.Opponent.BoardZone.Any(p => p[tag] >= amount
+					|| me.Controller.Opponent.Hero[tag] >= amount)
+				|| relaSign == RelaSign.LEQ &&
+				   me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount
+				    || me.Controller.Opponent.Hero[tag] <= amount));
 
 		public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>

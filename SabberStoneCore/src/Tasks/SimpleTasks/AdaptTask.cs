@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
@@ -23,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 		{
 			ChoiceAction choiceAction = ChoiceAction.ADAPT;
-			var targets = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Select(p => p as IEntity).ToList();
+			IEnumerable<IPlayable> targets = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 
 			if (!targets.Any())
 				return TaskState.STOP;

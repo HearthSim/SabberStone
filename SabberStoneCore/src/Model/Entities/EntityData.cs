@@ -333,6 +333,7 @@ namespace SabberStoneCore.Model.Entities
 					_buckets[i] = -1;
 			}
 
+			// TODO: check duplicate
 			private void Insert(GameTag t, int value)
 			{
 				//if (_count > (_size >> 2) * 3)

@@ -141,7 +141,7 @@ namespace SabberStoneCore.Model.Entities
 				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
 				var allTargetsTaunt = new List<ICharacter>(2);
-				foreach (Minion minion in Controller.Opponent.BoardZone)
+				foreach (Minion minion in Controller.Opponent.BoardZone.GetAll())
 				{
 					if (!minion.HasStealth)
 					{
@@ -207,6 +207,8 @@ namespace SabberStoneCore.Model.Entities
 			PreDamageTrigger?.Invoke(this, preDamage);
 			Game.ProcessTasks();
 
+			// reflect changes from tasks
+			preDamage = PreDamage;
 			if (this.IsImmune)
 			{
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");

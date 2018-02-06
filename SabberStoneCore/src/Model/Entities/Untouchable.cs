@@ -5,20 +5,31 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
 {
-    public class Untouchable : Minion
+    public class Untouchable : Minion	// Permanent entities
     {
 	    public Untouchable(Controller controller, Card card, IDictionary<GameTag, int> tags) : base(controller, card, tags) { }
 
 		private Untouchable(Controller c, Untouchable u) : base(c, u) { }
 
-		public override IPlayable Clone(Controller controller)
-		{
-			return new Untouchable(controller, this);
-		}
+	    public override int this[GameTag t]
+	    {
+		    get => base[t];
+		    set
+		    {
+				if (this[GameTag.UNTOUCHABLE] == 1 && t != GameTag.UNTOUCHABLE)
+					return;
 
-		public override bool CanAttack => false;
+				base[t] = value;	
+		    }
+	    }
+
+	    public override bool CanAttack => false;
 
 	    public override bool ToBeDestroyed => false;
+
+	    public override void Destroy()
+	    {
+	    }
 
 		public override bool IsValidAttackTarget(ICharacter target)
 		{
@@ -29,5 +40,10 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return false;
 		}
+
+	    public override IPlayable Clone(Controller controller)
+	    {
+		    return new Untouchable(controller, this);
+	    }
 	}
 }

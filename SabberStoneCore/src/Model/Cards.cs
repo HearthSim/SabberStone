@@ -24,8 +24,8 @@ namespace SabberStoneCore.Model
 			CardSet.EXPERT1,
 			CardSet.OG,
 			CardSet.KARA,
-			//CardSet.GANGS,
-			//CardSet.UNGORO,
+			CardSet.GANGS,
+			CardSet.UNGORO,
 			//CardSet.ICECROWN,
 			//CardSet.LOOTAPALOOZA
 		};
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Model
 			CardSet.OG,
 			CardSet.KARA,
 			CardSet.GANGS,
-			//CardSet.UNGORO,
+			CardSet.UNGORO,
 			//CardSet.ICECROWN,
 			//CardSet.LOOTAPALOOZA,
 			// wild
@@ -209,7 +209,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
-			return Data.Cards.ContainsKey(cardId) ? Data.Cards[cardId] : null;
+			return Data.Cards[cardId];
 		}
 
 		/// <summary>

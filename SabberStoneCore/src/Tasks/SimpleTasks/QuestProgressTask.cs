@@ -30,6 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				task.Game = Game;
 				task.Controller = Controller;
 				task.Source = Source;
+				task.Target = null;
 
 				Game.TaskQueue.TaskList.Enqueue(task);
 			}

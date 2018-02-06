@@ -47,6 +47,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				randTarget = randCard.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
 				    ? (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALLMINIONS, Source.Controller, null, null, null))
 				    : (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, Source.Controller, null, null, null));
+
 				spellToCast.CardTarget = randTarget.Id;
 			}
 

@@ -472,7 +472,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CFM_671", new Power
 			{
 				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.FROZEN, 1)),
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOp(GameTag.FROZEN, 1)),
 					new FlagTask(true, new AddEnchantmentTask("CFM_671e", EntityType.SOURCE))),
 			});
 
@@ -727,7 +727,8 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = ComplexTask.Secret(
 						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+						new AddStackTo(EntityType.HAND)),
+					RemoveAfterTriggered = true
 				}
 			});
 

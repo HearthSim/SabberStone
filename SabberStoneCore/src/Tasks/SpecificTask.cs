@@ -259,6 +259,62 @@ namespace SabberStoneCore.Tasks
 		private static ReadOnlyCollection<Card> _glimmerrootMemory3;
 		private static readonly object locker = new object();
 
+		public static ISimpleTask UngoroPack
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(p =>
+				{
+					Controller controller = p[0].Controller;
+					int space = controller.MaxHandSize - controller.HandZone.Count;
+					if (space >= 5)
+						space = 5;
+					else if (space == 0)
+						return null;
+					//var pack = new List<IPlayable>(space);
+
+					if (_ungoroPackMemory == null)
+					{
+						lock (locker)
+						{
+							var dic = new Dictionary<Rarity, Card[]>(4);
+							var ungCards = Cards.All.Where(c => c.Set == CardSet.UNGORO && !c.IsQuest).ToArray();
+							dic.Add(Rarity.COMMON, ungCards.Where(c => c.Rarity == Rarity.COMMON).ToArray());
+							dic.Add(Rarity.RARE, ungCards.Where(c => c.Rarity == Rarity.RARE).ToArray());
+							dic.Add(Rarity.EPIC, ungCards.Where(c => c.Rarity == Rarity.EPIC).ToArray());
+							dic.Add(Rarity.LEGENDARY, ungCards.Where(c => c.Rarity == Rarity.LEGENDARY).ToArray());
+							_ungoroPackMemory = new ReadOnlyDictionary<Rarity, Card[]>(dic);
+						}
+					}
+
+					for (int i = 0; i < space; ++i)
+					{
+						var tags = new EntityData.Data
+						{
+							{GameTag.CREATOR, p[0].Id}
+						};
+						Rarity rarity;
+						double rnd = Util.Random.NextDouble();
+
+						// empirical result
+						if (rnd < 0.19)
+							rarity = Rarity.LEGENDARY;
+						else if (rnd < 0.43)
+							rarity = Rarity.EPIC;
+						else if (rnd < 0.71)
+							rarity = Rarity.RARE;
+						else
+							rarity = Rarity.COMMON;
+
+						Card[] cards = _ungoroPackMemory[rarity];
+						Card pick = cards[Util.Random.Next(cards.Length)];
+						IPlayable entity = Entity.FromCard(controller, pick, tags, controller.HandZone);
+						entity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, p[0].Id);
+						//pack.Add(entity);
+					}
+					return null;
+				}));
+		private static ReadOnlyDictionary<Rarity, Card[]> _ungoroPackMemory;
+
 		public static ISimpleTask BuildABeast
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
