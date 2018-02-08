@@ -38,19 +38,6 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, new RemoveFromDeck(EntityType.SOURCE)),
 				new FlagTask(true, new SummonTask())
 			);
-		//public static ISimpleTask PatchesThePirate
-		//	=> ComplexTask.Create(
-		//		new ConditionTask(EntityType.HERO, SelfCondition.IsNotBoardFull),
-		//		new IncludeTask(EntityType.SOURCE),
-		//		new FlagTask(true, new FuncPlayablesTask(p =>
-		//		{
-		//			var entity = p[0] as Entity;
-		//			entity.SetNativeGameTag(GameTag.REVEALED, 1);
-
-
-		//			return p;
-		//		}))
-		//	);
 
 		public static ISimpleTask FrostwolfBanner
 			=> ComplexTask.Create(
@@ -251,7 +238,7 @@ namespace SabberStoneCore.Tasks
 								{
 									[GameTag.COST] = 0
 								},
-								FixedValueFunc = owner => 0
+								FixedValueFunc = owner => 1
 							});
 					return new List<IPlayable>();
 				}));

@@ -4865,7 +4865,7 @@ namespace SabberStoneUnitTest.CardSets
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
-		// [ICC_705] Bonemare - COST:7 [ATK:5/HP:5] 
+		// [ICC_705] Bonemare - COST:8 [ATK:5/HP:5] 
 		// - Set: icecrown, Rarity: common
 		// --------------------------------------------------------
 		// Text: <b>Battlecry:</b> Give a friendly minion +4/+4 and <b>Taunt</b>.
@@ -4874,9 +4874,9 @@ namespace SabberStoneUnitTest.CardSets
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
 		// PlayReq:
+		// - REQ_TARGET_IF_AVAILABLE = 0
 		// - REQ_MINION_TARGET = 0
 		// - REQ_FRIENDLY_TARGET = 0
-		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
 		// RefTag:
 		// - TAUNT = 1

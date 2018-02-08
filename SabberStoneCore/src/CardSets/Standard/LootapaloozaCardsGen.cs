@@ -3158,7 +3158,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_149] Corridor Creeper - COST:7 [ATK:5/HP:5] 
+			// [LOOT_149] Corridor Creeper - COST:7 [ATK:2/HP:5] 
 			// - Race: beast, Fac: neutral, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less whenever a minion dies while this is_in_your hand.

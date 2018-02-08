@@ -934,12 +934,12 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, List<Enchantment>> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [CFM_020] Raza the Chained - COST:5 [ATK:5/HP:5]
+			// [CFM_020] Raza the Chained - COST:5 [ATK:5/HP:5] 
 			// - Set: gangs, Rarity: legendary
 			// --------------------------------------------------------
-			// Text: [x]  <b>Battlecry:</b> If your deck has
+			// Text: [x]  <b>Battlecry:</b> If your deck has  
 			//       no duplicates, your Hero
-			//        Power costs (0) this game.
+			//        Power costs (1) this game.
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -2402,17 +2402,15 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CFM_637] Patches the Pirate - COST:1 [ATK:1/HP:1]
+			// [CFM_637] Patches the Pirate - COST:1 [ATK:1/HP:1] 
 			// - Race: pirate, Set: gangs, Rarity: legendary
 			// --------------------------------------------------------
-			// Text: [x]<b>Charge</b>
-			//       After you play a Pirate,
+			// Text: [x]After you play a Pirate,
 			//       summon this minion
 			//       from your deck.
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
-			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CFM_637", new List<Enchantment>
 			{
