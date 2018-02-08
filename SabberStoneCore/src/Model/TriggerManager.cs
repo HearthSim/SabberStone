@@ -14,6 +14,7 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler DealDamageTrigger;
 	    public event TriggerHandler DamageTrigger;
 	    public event TriggerHandler HealTrigger;
+	    public event TriggerHandler LoseDivineShield;
 
 	    public event TriggerHandler EndTurnTrigger;
 	    public event TriggerHandler TurnStartTrigger;
@@ -57,9 +58,14 @@ namespace SabberStoneCore.Model
 		    DamageTrigger?.Invoke(sender);
 	    }
 
-	    internal void OnHealTrigger(IEntity sender)
+	    internal void OnHealTrigger(IEntity sender, int number)
 	    {
-			HealTrigger?.Invoke(sender);
+			HealTrigger?.Invoke(sender, number);
+	    }
+
+	    internal void OnLoseDivineShield(IEntity sender)
+	    {
+		    LoseDivineShield?.Invoke(sender);
 	    }
 
 	    internal void OnEndTurnTrigger(IEntity sender)

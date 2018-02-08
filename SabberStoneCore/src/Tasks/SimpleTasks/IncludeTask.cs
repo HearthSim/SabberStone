@@ -128,6 +128,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		TOPCARDFROMDECK,
 		/// <summary>
+		/// The top card from the opponent's deck
+		/// </summary>
+		OP_TOPDECK,
+		/// <summary>
 		/// The Controller entity of the player
 		/// </summary>
 		CONTROLLER
@@ -321,194 +325,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return new[] {c.Hero, c.Opponent.Hero};
 				case EntityType.TOPCARDFROMDECK:
 					return c.DeckZone.Count > 0 ? new[] {c.DeckZone.TopCard} : new IPlayable[0];
-				case EntityType.CONTROLLER:
-					throw new NotImplementedException();
-				default:
-					return GetEntitiesInternal(type, c, source, target);
-			}
-		}
+				case EntityType.OP_TOPDECK:
+					return c.Opponent.DeckZone.Count > 0 ? new[] {c.Opponent.DeckZone.TopCard} : new IPlayable[0];
 
-		private static IEnumerable<IPlayable> GetEntitiesInternal(EntityType type, Controller c, IEntity source, IEntity target)
-		{
-			switch (type)
-			{
-				case EntityType.TARGET:
-					if (source is Enchantment e)
-					{
-						yield return (IPlayable)e.Target;
-						yield break;
-					}
-					if (target is IPlayable p)
-						yield return p;
-					yield break;
-				case EntityType.SOURCE:
-					yield return (IPlayable)source;
-					yield break;
-				case EntityType.HERO:
-					yield return c.Hero;
-					yield break;
-				case EntityType.HERO_POWER:
-					yield return c.Hero.HeroPower;
-					yield break;
-				case EntityType.OP_HERO_POWER:
-					yield return c.Opponent.Hero.HeroPower;
-					yield break;
-				case EntityType.MINIONS_NOSOURCE:
-					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-					{
-						if (c.BoardZone[i] != source)
-							yield return c.BoardZone[i];
-					}
-
-					//c.BoardZone.GetAll(p => p != source);
-					break;
-				case EntityType.FRIENDS:
-					yield return c.Hero;
-					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.BoardZone[i];
-					yield break;
-				case EntityType.OP_HERO:
-					yield return c.Opponent.Hero;
-					yield break;
-				case EntityType.ENEMIES:
-					yield return c.Opponent.Hero;
-					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.BoardZone[i];
-					yield break;
-				case EntityType.ENEMIES_NOTARGET:
-					if (target is Minion)
-					{
-						yield return c.Opponent.Hero;
-						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						{
-							IPlayable t = c.Opponent.BoardZone[i];
-							if (t != target)
-								yield return t;
-						}
-					}
-					else
-					{
-						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-							yield return c.Opponent.BoardZone[i];
-						yield break;
-					}
-					yield break;
-				case EntityType.ALL:
-					yield return c.Hero;
-					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.BoardZone[i];
-					yield return c.Opponent.Hero;
-					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.BoardZone[i];
-					yield break;
-				case EntityType.ALL_NOSOURCE:
-					if (source.Controller == c)
-					{
-						if (source.Zone.Type == Enums.Zone.PLAY)
-						{
-							yield return c.Hero;
-							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-							{
-								if (c.BoardZone[i] != source)
-									yield return c.BoardZone[i];
-							}
-
-							yield return c.Opponent.Hero;
-							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.Opponent.BoardZone[i];
-							yield break;
-						}
-
-						if (source is Hero)
-						{
-							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.BoardZone[i];
-							yield return c.Opponent.Hero;
-							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.Opponent.BoardZone[i];
-							yield break;
-						}
-
-						yield break;
-					}
-					else
-					{
-						if (source.Zone.Type == Enums.Zone.PLAY)
-						{
-							yield return c.Hero;
-							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.BoardZone[i];
-							yield return c.Opponent.Hero;
-							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-							{
-								IPlayable t = c.Opponent.BoardZone[i];
-								if (t != source)
-									yield return t;
-							}
-
-							yield break;
-						}
-
-						if (source is Hero)
-						{
-							yield return c.Hero;
-							for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.BoardZone[i];
-							for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-								yield return c.Opponent.BoardZone[i];
-							yield break;
-						}
-
-						yield break;
-					}
-				case EntityType.WEAPON:
-					if (c.Hero.Weapon != null)
-						yield return c.Hero.Weapon;
-					yield break;
-				case EntityType.OP_WEAPON:
-					if (c.Opponent.Hero.Weapon != null)
-						yield return c.Opponent.Hero.Weapon;
-					yield break;
-				case EntityType.ALLMINIONS:
-					for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.BoardZone[i];
-					for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						yield return c.Opponent.BoardZone[i];
-					yield break;
-				case EntityType.ALLMINIONS_NOSOURCE:
-					if (source.Controller == c)
-					{
-						for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-						{
-							if (c.BoardZone[i] != source)
-								yield return c.BoardZone[i];
-						}
-						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-							yield return c.Opponent.BoardZone[i];
-
-						yield break;
-					}
-					else
-					{
-						for (int i = c.BoardZone.Count - 1; i >= 0; i--)
-							yield return c.BoardZone[i];
-						for (int i = c.Opponent.BoardZone.Count - 1; i >= 0; i--)
-						{
-							IPlayable t = c.Opponent.BoardZone[i];
-							if (t != source)
-								yield return t;
-						}
-
-						yield break;
-					}
-				case EntityType.HEROES:
-					yield return c.Hero;
-					yield return c.Opponent.Hero;
-					yield break;
-				case EntityType.TOPCARDFROMDECK:
-					if (c.DeckZone.Count > 0)
-						yield return c.DeckZone.TopCard;
-					yield break;
 				default:
 					throw new NotImplementedException();
 			}

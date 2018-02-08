@@ -20,7 +20,7 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered when a character is damaged. </summary>
 		DEAL_DAMAGE,
 		/// <summary> The effect will be triggered when a spell or a character deals damages. </summary>
-		DAMAGE,
+		TAKE_DAMAGE,
 		/// <summary> 
 		/// effect will be triggered when a character gets Predamage. 
 		/// This event happens just before the character is actually damaged.
@@ -28,6 +28,8 @@ namespace SabberStoneCore.Enums
 		PREDAMAGE,
 		/// <summary> The effect will be triggered when characters are healed. </summary>
 		HEAL,
+		/// <summary> The effect will be triggered when a minion loses its Divine Shield </summary>
+		LOSE_DIVINE_SHIELD,
 		/// <summary> The effect will be triggered when characters attack. </summary>
 		ATTACK,
 		/// <summary> The effect will be triggered after an attack action is ended. </summary>

@@ -24,7 +24,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//entities.ForEach(p =>
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
+				if (Tag == GameTag.DIVINE_SHIELD && Amount == 0 && p[GameTag.DIVINE_SHIELD] != 0)
+					Game.TriggerManager.OnLoseDivineShield(p);
 				p[Tag] = Amount;
+
 			};
 
 			return TaskState.COMPLETE;

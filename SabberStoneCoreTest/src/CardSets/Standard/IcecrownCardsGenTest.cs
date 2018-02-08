@@ -10,7 +10,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SabberStoneUnitTest.CardSets
+namespace SabberStoneCoreTest.CardSets.Standard
 {
 	public class HeroesIcecrownTest
 	{
@@ -1988,7 +1988,7 @@ namespace SabberStoneUnitTest.CardSets
 		// --------------------------------------------------------
 		// Text: Whenever your hero is healed, deal that much damage to a random enemy minion.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Blackguard_ICC_245()
 		{
 			// TODO Blackguard_ICC_245 test
@@ -2003,7 +2003,14 @@ namespace SabberStoneUnitTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blackguard"));
+			
+			game.ProcessCard("Blackguard");
+			game.CurrentPlayer.Hero.Damage = 6;
+			game.EndTurn();
+			Minion target = game.ProcessCard<Minion>("War Golem");
+			game.EndTurn();
+			game.ProcessCard("Holy Light", game.CurrentPlayer.Hero);
+			Assert.Equal(1, target.Health);
 		}
 
 		// --------------------------------------- MINION - PALADIN

@@ -2949,7 +2949,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
 			// --------------------------------------------------------
 			cards.Add("EX1_402", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new ArmorTask(1)
@@ -2999,7 +2999,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a minion takes damage, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_604", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.ALL_MINIONS,
 					SingleTask = new AddEnchantmentTask("EX1_604o", EntityType.SOURCE)
@@ -3648,7 +3648,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, draw a_card.
 			// --------------------------------------------------------
 			cards.Add("EX1_007", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new DrawTask()

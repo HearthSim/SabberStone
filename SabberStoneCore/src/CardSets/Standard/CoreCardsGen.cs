@@ -2413,7 +2413,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, gain +3_Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_399", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE),

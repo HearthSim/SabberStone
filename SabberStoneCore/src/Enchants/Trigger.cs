@@ -67,7 +67,7 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.AFTER_CAST:
 				    _sequenceType = SequenceType.PlaySpell;
 					return;
-			    case TriggerType.DAMAGE:
+			    case TriggerType.TAKE_DAMAGE:
 				case TriggerType.PREDAMAGE:
 				    _sequenceType = SequenceType.DamageDealt;
 					return;
@@ -121,7 +121,7 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.DEAL_DAMAGE:
 					source.Game.TriggerManager.DealDamageTrigger += instance.Process;
 					break;
-				case TriggerType.DAMAGE:
+				case TriggerType.TAKE_DAMAGE:
 					if (TriggerSource == TriggerSource.SELF)
 					{
 						if (source is Minion m)
@@ -269,7 +269,7 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.DEAL_DAMAGE:
 					Game.TriggerManager.DealDamageTrigger -= Process;
 					break;
-				case TriggerType.DAMAGE:
+				case TriggerType.TAKE_DAMAGE:
 					Game.TriggerManager.DamageTrigger -= Process;
 					break;
 			    case TriggerType.HEAL:

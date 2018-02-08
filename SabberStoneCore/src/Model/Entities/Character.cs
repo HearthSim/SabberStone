@@ -283,7 +283,7 @@ namespace SabberStoneCore.Model.Entities
 
 			// Heal event created
 			// Process gathered tasks
-			Game.TriggerManager.OnHealTrigger(this);
+			Game.TriggerManager.OnHealTrigger(this, amount);
 			Game.ProcessTasks();
 		}
 

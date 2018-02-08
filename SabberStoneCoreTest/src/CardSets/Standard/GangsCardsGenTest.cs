@@ -4195,22 +4195,38 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Wrathion_CFM_806()
 		{
-			// TODO Wrathion_CFM_806 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Faerie Dragon"),
+					Cards.FromName("Wisp")
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				FillDecksPredictably = true,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Wrathion"));
+
+			game.ProcessCard("Wrathion");
+			Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.Hero.Damage);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

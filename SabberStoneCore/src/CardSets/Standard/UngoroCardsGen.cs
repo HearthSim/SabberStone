@@ -2528,7 +2528,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, deal 3 damage to_your hero.
 			// --------------------------------------------------------
 			cards.Add("UNG_087", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new DamageTask(3, EntityType.HERO)

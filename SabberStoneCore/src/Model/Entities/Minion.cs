@@ -151,7 +151,18 @@ namespace SabberStoneCore.Model.Entities
 		public bool HasDivineShield
 		{
 			get { return this[GameTag.DIVINE_SHIELD] == 1; }
-			set { this[GameTag.DIVINE_SHIELD] = value ? 1 : 0; }
+			set
+			{
+				if (!value)
+				{
+					if (this[GameTag.DIVINE_SHIELD] == 1)
+						Game.TriggerManager.OnLoseDivineShield(this);
+					this[GameTag.DIVINE_SHIELD] = 0;
+					return;
+				}
+
+				this[GameTag.DIVINE_SHIELD] = 1;
+			}
 		}
 
 		public bool HasBattleCry

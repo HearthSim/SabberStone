@@ -2398,7 +2398,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.STACK, SelfCondition.IsRace(Race.DRAGON)),
-					new DrawTask())
+					new DrawTask(true))
 
 			});
 

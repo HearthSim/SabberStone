@@ -75,6 +75,11 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(new Effect(GameTag.POISONOUS, EffectOperator.SET, 1));
 		    }
 
+		    if (text.Contains(@"<b>Lifesteal</b>"))
+		    {
+			    effects.Add(Effects.Lifesteal);
+		    }
+
 			if (text.Contains("this turn"))
 		    {
 				oneTurn = true;
@@ -131,5 +136,7 @@ namespace SabberStoneCore.Enchants
 		internal static Effect Charge => new Effect(GameTag.CHARGE, EffectOperator.SET, 1);
 
 		internal static Effect Immune => new Effect(GameTag.IMMUNE, EffectOperator.SET, 1);
+
+		internal static Effect Lifesteal => new Effect(GameTag.LIFESTEAL, EffectOperator.SET, 1);
 	}
 }

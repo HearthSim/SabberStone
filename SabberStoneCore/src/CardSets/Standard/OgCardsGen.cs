@@ -2357,7 +2357,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_318", new Power {
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new SummonTask("OG_318t", SummonSide.RIGHT)
@@ -2394,7 +2394,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_321", new Power {
 				// TODO Test: Crazed Worshipper_OG_321
 				InfoCardId = "OG_321e",
-				Trigger = new Trigger(TriggerType.DAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new RitualTask(1)
