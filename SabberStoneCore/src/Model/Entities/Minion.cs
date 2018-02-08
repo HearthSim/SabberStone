@@ -133,8 +133,19 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public bool HasCharge
 		{
-			get { return this[GameTag.CHARGE] == 1; }
-			set { this[GameTag.CHARGE] = value ? 1 : 0; }
+			get => this[GameTag.CHARGE] == 1;
+			set
+			{
+				if (value)
+				{
+					if (IsExhausted && NumAttacksThisTurn == 0)
+						IsExhausted = false;
+					this[GameTag.CHARGE] = 1;
+					return;
+				}
+
+				this[GameTag.CHARGE] = 0;
+			}
 		}
 
 		public bool HasDivineShield
@@ -173,10 +184,12 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
 		}
 
+		public bool Untouchable => Card.Untouchable;
+
 		public int LastBoardPosition
 		{
 			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }
-			set { SetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD, value); }
+			set { this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] = value; }
 		}
 
 		public override bool ToBeDestroyed

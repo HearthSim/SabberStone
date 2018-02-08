@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
@@ -8,15 +9,27 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class BoardZone : PositioningZone<Minion>
 	{
-		public BoardZone(Controller controller)
+		private int _untouchableCount;
+		private bool _hasUntouchables;
+
+		public BoardZone(Controller controller) : base(7)
 		{
 			Game = controller.Game;
 			Controller = controller;
 			//MaxSize = Game.MAX_MINIONS_ON_BOARD;
-			MaxSize = 7;
-			Entities = new Minion[MaxSize];
 			Type = Zone.PLAY;
 		}
+
+		private BoardZone(Controller c, BoardZone zone) : base(c, zone)
+		{
+			Type = Zone.PLAY;
+
+			_hasUntouchables = zone.HasUntouchables;
+			_untouchableCount = zone._untouchableCount;
+		}
+
+		public int CountExceptUntouchables => _count - _untouchableCount;
+		public bool HasUntouchables => _hasUntouchables;
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
@@ -30,11 +43,19 @@ namespace SabberStoneCore.Model.Zones
 			ActivateAura(entity);
 
 			Game.TriggerManager.OnZoneTrigger(entity);
+
+			if (entity.Card.Untouchable)
+			{
+				++_untouchableCount;
+				_hasUntouchables = true;
+			}
 		}
 
 		public override IPlayable Remove(IPlayable entity)
 		{
 			RemoveAura(entity);
+			if (entity.Card.Untouchable && --_untouchableCount == 0)
+				_hasUntouchables = false;
 			return base.Remove(entity);
 		}
 
@@ -50,7 +71,7 @@ namespace SabberStoneCore.Model.Zones
 			int pos = oldEntity.ZonePosition;
 			Entities[pos] = newEntity;
 			newEntity.ZonePosition = pos;
-			newEntity.SetNativeGameTag(GameTag.ZONE, (int)Type);
+			newEntity[GameTag.ZONE] = (int)Type;
 			newEntity.Zone = this;
 
 			// Remove old Entity
@@ -64,6 +85,8 @@ namespace SabberStoneCore.Model.Zones
 			// Add new Entity
 			newEntity.OrderOfPlay = Game.NextOop;
 			ActivateAura(newEntity);
+
+			Auras.ForEach(p => p.ToBeUpdated = true);
 		}
 
 		private static void ActivateAura(IPlayable entity)
@@ -83,17 +106,40 @@ namespace SabberStoneCore.Model.Zones
 				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
 		}
 
-		//public BoardZone Clone(Controller c)
-		//{
-		//	var clone = new BoardZone(c);
-		//	clone._hasUntouchables = _hasUntouchables;
-		//	clone._untouchableCount = _untouchableCount;
+		public override Minion[] GetAll()
+		{
+			return HasUntouchables ? GetAll(null) : base.GetAll();
+		}
 
-		//	for (int i = 0; i < _count; ++i)
-		//	{
-		//		var copy = 
-		//		clone.Add(Entities[i]);
-		//	}
-		//}
+		public override Minion[] GetAll(Func<Minion, bool> predicate)
+		{
+			if (_hasUntouchables)
+			{
+				if (predicate == null)
+					predicate = p => !p.Card.Untouchable;
+				else
+				{
+					Func<Minion, bool> predicate1 = predicate;
+					predicate = p => predicate1(p) && !p.Card.Untouchable;
+				}
+			}
+			return base.GetAll(predicate);
+		}
+
+		internal override void CopyTo(Array destination, int index)
+		{
+			if (_hasUntouchables)
+			{
+				Array.Copy(GetAll(null), 0, destination, index, _count - _untouchableCount);
+				return;
+			}
+
+			base.CopyTo(destination, index);
+		}
+
+		public BoardZone Clone(Controller c)
+		{
+			return new BoardZone(c, this);
+		}
 	}
 }

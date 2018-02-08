@@ -12,12 +12,15 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public const int StartingCards = 30;
 
-		public DeckZone(Controller controller)
+		public DeckZone(Controller controller) : base(60)
 		{
 			Game = controller.Game;
 			Controller = controller;
-			MaxSize = 60;
-			Entities = new IPlayable[MaxSize];
+			Type = Zone.DECK;
+		}
+
+		private DeckZone(Controller c, DeckZone zone) : base(c, zone)
+		{
 			Type = Zone.DECK;
 		}
 
@@ -72,6 +75,11 @@ namespace SabberStoneCore.Model.Zones
 				Entities[i] = Entities[r];
 				Entities[r] = temp;
 			}
+		}
+
+		public DeckZone Clone(Controller c)
+		{
+			return new DeckZone(c, this);
 		}
 	}
 }

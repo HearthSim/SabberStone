@@ -1089,11 +1089,8 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="Controller"/></value>
 		public Controller FirstPlayer
 		{
-			get
-			{
-				return Player1[GameTag.FIRST_PLAYER] == 1 ? Player1 : Player2[GameTag.FIRST_PLAYER] == 1 ? Player2 : null;
-			}
-			set { value[GameTag.FIRST_PLAYER] = 1; }
+			get => Player1[GameTag.FIRST_PLAYER] == 1 ? Player1 : Player2[GameTag.FIRST_PLAYER] == 1 ? Player2 : null;
+			set => value[GameTag.FIRST_PLAYER] = 1;
 		}
 
 		/// <summary>
@@ -1102,14 +1099,13 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="Controller"/></value>
 		public Controller CurrentPlayer
 		{
-			//get => _currentPlayer ?? (_currentPlayer = Player1[GameTag.CURRENT_PLAYER] == 1 ? Player1 : Player2);
 			get => _currentPlayer;
 			private set
 			{
 				_currentPlayer = value;
 				if (!History) return;
-				value.Opponent.SetNativeGameTag(GameTag.CURRENT_PLAYER, 0);
-				value.SetNativeGameTag(GameTag.CURRENT_PLAYER, 1);
+				value.Opponent[GameTag.CURRENT_PLAYER] = 0;
+				value[GameTag.CURRENT_PLAYER] = 1;
 			}
 		}
 

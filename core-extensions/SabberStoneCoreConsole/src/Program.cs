@@ -29,7 +29,6 @@ namespace SabberStoneCoreConsole
 			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
-			SecretActivation();
 			//CloneSameSame();
 			//OptionsTest();
 			//GameMulliganTest();
@@ -43,6 +42,7 @@ namespace SabberStoneCoreConsole
 			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
+			TortollanPrimalist();
 
 			//TestLoader.GetGameTags();
 			//var test = TestLoader.Load();
@@ -58,48 +58,7 @@ namespace SabberStoneCoreConsole
 			Console.ReadKey();
 		}
 
-		private static void SecretActivation()
-		{
-			while (true)
-			{
-				var game = new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.HUNTER,
-					Player2HeroClass = CardClass.ROGUE,
-					FillDecks = true,
-					FillDecksPredictably = true
-				});
-				game.StartGame();
-				game.Player1.BaseMana = 10;
-				game.Player2.BaseMana = 10;
-
-				try
-				{
-					IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
-					game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
-					IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap")); // Spawns 3
-					game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-					game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-					IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-					game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-					game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion2, minion1));
-				}
-				catch (Exception e)
-				{
-					ShowLog(game, LogLevel.DEBUG);
-					Console.WriteLine(e.StackTrace);
-					Console.WriteLine(e.Message);
-				}
-
-				if (game.CurrentPlayer.BoardZone.Count != 0)
-				{
-					ShowLog(game, LogLevel.DEBUG);
-					break;
-				}
-			}
-		}
+		
 
 		private static void GatherTagsUsedByEnchantsOrTriggers()
 		{
@@ -914,6 +873,27 @@ namespace SabberStoneCoreConsole
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 
+			ShowLog(game, LogLevel.VERBOSE);
+		}
+
+		public static void TortollanPrimalist()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>() { },
+				Player2HeroClass = CardClass.DRUID,
+				Player2Deck = new List<Card>() { },
+				FillDecks = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tortollan Primalist"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			ShowLog(game, LogLevel.VERBOSE);
 		}
 

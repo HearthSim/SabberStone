@@ -56,9 +56,25 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.SPELL:
 						if (RemoveFromZone(c, playable))
 						{
-							PlaySpell.Invoke(c, (Spell)playable, null, 0);
+							ICharacter randTarget = null;
+							if (playable.Card.RequiresTarget)
+							{
+								randTarget = playable.Card.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
+									? (ICharacter)Util.RandomElement(IncludeTask.GetEntities(EntityType.ALLMINIONS, c, null, null, null))
+									: (ICharacter)Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, c, null, null, null));
+
+								playable.CardTarget = randTarget.Id;
+
+								c.Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpell",
+									!c.Game.Logging ? "" : $"{playable}'s target is randomly selected to {randTarget}");
+							}
+							PlaySpell.Invoke(c, (Spell)playable, randTarget, 0);
+
 						}
 						break;
+
+					case ChoiceAction.SPELL_RANDOM:
+
 
 					case ChoiceAction.SUMMON:
 						if (!c.BoardZone.IsFull && RemoveFromZone(c, playable))
@@ -190,7 +206,7 @@ namespace SabberStoneCore.Actions
 							firstCard.Text = secondCard.Text + "\n" + firstCard.Text;
 
 							IPlayable zombeast = Entity.FromCard(c, firstCard);
-							((Entity)zombeast).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, ((Entity)playable).GetNativeGameTag(GameTag.DISPLAYED_CREATOR));
+							zombeast[GameTag.DISPLAYED_CREATOR] = playable.NativeTags[GameTag.DISPLAYED_CREATOR];
 
 							AddHandPhase.Invoke(c, zombeast);
 							break;

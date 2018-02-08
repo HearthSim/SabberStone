@@ -552,7 +552,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool IsSilenced
 		{
 			get { return GetNativeGameTag(GameTag.SILENCED) == 1; }
-			set { SetNativeGameTag(GameTag.SILENCED, value ? 1 : 0); }
+			set { this[GameTag.SILENCED] = value ? 1 : 0; }
 		}
 
 		public bool HasTaunt
@@ -580,7 +580,7 @@ namespace SabberStoneCore.Model.Entities
 				NativeTags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
 				return value;
 			}
-			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
+			set => this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 		}
 
 		public int PreDamage

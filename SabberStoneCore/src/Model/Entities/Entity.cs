@@ -205,13 +205,13 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="tag"></param>
 		/// <param name="value"></param>
-		public void SetNativeGameTag(GameTag tag, int value)
-		{
-			_data[tag] = value;
+		//public void SetNativeGameTag(GameTag tag, int value)
+		//{
+		//	_data[tag] = value;
 
-			if (Game.History && (int)tag < 1000)
-				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
-		}
+		//	if (Game.History && (int)tag < 1000)
+		//		Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, tag, value));
+		//}
 
 		/// <summary>
 		/// This is the call for a gametag value.

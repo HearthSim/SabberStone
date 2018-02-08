@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using SabberStoneCore.Enums;
 
@@ -257,9 +258,33 @@ namespace SabberStoneCore.Model.Entities
 			{
 				_buckets = new int[data._buckets.Length];
 				//data._buckets.CopyTo(_buckets, 0);
-				Buffer.BlockCopy(data._buckets, 0, _buckets, 0, data._size << 3);
+				//Buffer.BlockCopy(data._buckets, 0, _buckets, 0, data._size << 3);
+				//Array.Copy(data._buckets, _buckets, _buckets.Length);
+				data.Copy(_buckets);
 				_size = data._size;
 				_count = data._count;
+			}
+
+			private unsafe void Copy(int[] dst)
+			{
+				fixed (int* srcPtr = _buckets, dstPtr = dst)
+				{
+					int* srcEndPtr = srcPtr + dst.Length;
+					long* s = (long*)srcPtr;
+					long* d = (long*)dstPtr;
+
+					while (s + 2 <= srcEndPtr)
+					{
+						*d = *s;
+						d++;
+						s++;
+						*d = *s;
+						d++;
+						s++;
+					}
+
+					*d ^= *s;
+				}
 			}
 
 			public void Clear()
@@ -278,8 +303,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				get
 				{
-					int i = Search(key);
-					if (i >= 0)
+					if (Search((int) key, out int i))
 						return _buckets[i + 1];
 					throw new KeyNotFoundException();
 				}
@@ -289,6 +313,7 @@ namespace SabberStoneCore.Model.Entities
 			public void Add(GameTag key, int value)
 			{
 				Insert(key, value);
+				//InsertOrOverwrite(key, value);
 			}
 
 			public void Add(KeyValuePair<GameTag, int> item)
@@ -298,15 +323,14 @@ namespace SabberStoneCore.Model.Entities
 
 			public bool ContainsKey(GameTag key)
 			{
-				return Search(key) >= 0;
+				return SearchIndex(key) >= 0;
 			}
 
 			public bool TryGetValue(GameTag key, out int value)
 			{
-				int index = Search(key);
-				if (index >= 0)
+				if (Search((int) key, out int i))
 				{
-					value = _buckets[++index];
+					value = _buckets[i + 1];
 					return true;
 				}
 
@@ -316,11 +340,10 @@ namespace SabberStoneCore.Model.Entities
 
 			public bool Remove(GameTag key)
 			{
-				int index = Search(key);
+				int index = SearchIndex(key);
 				if (index < 0)
 					return false;
 				_buckets[index] = 0;
-				//_buckets[index] = 0;
 				--_count;
 				return true;
 			}
@@ -341,7 +364,7 @@ namespace SabberStoneCore.Model.Entities
 				if (_count == _size)
 					Resize();
 
-				int k = (int) t;
+				int k = (int)t;
 				int slotIndex = (k % _size) << 1;
 				for (int i = slotIndex; i < _buckets.Length; i += 2)
 				{
@@ -364,20 +387,29 @@ namespace SabberStoneCore.Model.Entities
 				throw new ArgumentOutOfRangeException();
 			}
 
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			private void InsertOrOverwrite(GameTag t, int value)
 			{
-				int index = Search(t);
-				if (index >= 0)
+				if (Search((int) t, out int i))
 				{
-					_buckets[index] = (int)t;
-					_buckets[index + 1] = value;
+					_buckets[i] = (int)t;
+					_buckets[i + 1] = value;
 					return;
 				}
 
+				if (i >= 0)
+				{
+					_count++;
+					_buckets[i] = (int)t;
+					_buckets[i + 1] = value;
+					return;
+				}
+
+				Resize();
 				Insert(t, value);
 			}
 
-			private int Search(GameTag t)
+			private int SearchIndex(GameTag t)
 			{
 				int k = (int)t;
 				int slotIndex = (k % _size) << 1;
@@ -399,35 +431,23 @@ namespace SabberStoneCore.Model.Entities
 				return -1;
 			}
 
-			//private int Search(GameTag t)
-			//{
-			//	int k = (int)t;
-			//	int h = (k % _size) << 1;
-			//	unsafe
-			//	{
-			//		fixed (int* arr = _buckets)
-			//		{
-			//			if (arr[h] == k) return h;
-			//			if (arr[h] < 0) return -1;
-			//			int i = h + 2;
-			//			while (i < _buckets.Length && arr[i] >= 0)
-			//			{
-			//				if (arr[i] == k) return i;
-			//				i += 2;
-			//			}
-			//			if (i <= _buckets.Length || h == 0) return -1;
-			//			if (arr[0] == k) return 0;
-			//			if (arr[0] < 0) return -1;
-			//			int j = 2;
-			//			while (j < h && arr[j] >= 0)
-			//			{
-			//				if (arr[j] == k) return j;
-			//				j += 2;
-			//			}
-			//		}
-			//	}
-			//	return -1;
-			//}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			private bool Search(int k, out int i)
+			{
+				int h = (k % _size) << 1;
+				for (i = h; i < _buckets.Length; i += 2)
+				{
+					if (_buckets[i] == k) return true;
+					if (_buckets[i] < 0) return false;
+				}
+				for (i = 0; i < h; i += 2)
+				{
+					if (_buckets[i] < 0) return false;
+					if (_buckets[i] == k) return true;
+				}
+				i = -1;
+				return false;
+			}
 
 			private void Resize()
 			{
@@ -439,11 +459,8 @@ namespace SabberStoneCore.Model.Entities
 
 				for (int i = 0; i < _buckets.Length; i += 2)
 				{
-					//if (_buckets[i] < 0)
-					//	continue;
-
 					bool flag = false;
-					
+
 					int newIndex = (_buckets[i] % newSize) << 1;
 
 					for (int j = newIndex; j < newbuckets.Length; j += 2)
@@ -508,7 +525,7 @@ namespace SabberStoneCore.Model.Entities
 
 			public bool Contains(KeyValuePair<GameTag, int> item)
 			{
-				int index = Search(item.Key);
+				int index = SearchIndex(item.Key);
 				return index >= 0 && _buckets[index] == item.Value;
 			}
 

@@ -29,7 +29,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			using(IEnumerator<IPlayable> e = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).GetEnumerator())
 			{
-				((Entity) e.Current)?.SetNativeGameTag(Tag, Value);
+				if (e.Current != null)
+					e.Current[Tag] = Value;
 			}
 
 			return TaskState.COMPLETE;

@@ -17,21 +17,6 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Controller : Entity
 	{
 		/// <summary>
-		/// Name of the player.
-		/// </summary>
-		public string Name { get; }
-
-		/// <summary>
-		/// Initial cards that are in the deck of the controller.
-		/// </summary>
-		public List<Card> DeckCards { get; internal set; } = new List<Card>();
-
-		/// <summary>
-		/// Base class of the controller.
-		/// </summary>
-		public CardClass BaseClass { get; internal set; }
-
-		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
 		public ControlledZones ControlledZones;
@@ -74,6 +59,26 @@ namespace SabberStoneCore.Model.Entities
 		/// Unpicked entities will remain in the setaside zone.
 		/// </summary>
 		public SetasideZone SetasideZone;
+
+		public readonly ControllerAuraEffects ControllerAuraEffects;
+
+		public List<int> DiscardedEntities;
+
+		/// <summary>
+		/// Name of the player.
+		/// </summary>
+		public string Name { get; }
+
+		/// <summary>
+		/// Initial cards that are in the deck of the controller.
+		/// </summary>
+		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+
+		/// <summary>
+		/// Base class of the controller.
+		/// </summary>
+		public CardClass BaseClass { get; internal set; }
+
 
 		/// <summary>
 		/// The hero entity representing this player.
@@ -120,8 +125,6 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public Controller Opponent => _opponent ?? (_opponent = Game.Player1 == this ? Game.Player2 : Game.Player1);
 
-		public readonly ControllerAuraEffects ControllerAuraEffects;
-
 		public override int this[GameTag t]
 		{
 			get => base[t] + ControllerAuraEffects[t];
@@ -154,9 +157,18 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Name = name;
 
-			ControlledZones = new ControlledZones(Game, this);
+			DeckZone = new DeckZone(this);
+			BoardZone = new BoardZone(this);
+			HandZone = new HandZone(this);
+			SecretZone = new SecretZone(this);
+			GraveyardZone = new GraveyardZone(this);
+			SetasideZone = new SetasideZone(this);
+
+			ControlledZones = new ControlledZones(this);
 
 			ControllerAuraEffects = new ControllerAuraEffects();
+
+			DiscardedEntities = new List<int>();
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
@@ -169,13 +181,12 @@ namespace SabberStoneCore.Model.Entities
 		private Controller(Game game, Controller controller) : base(game, controller)
 		{
 			Name = controller.Name;
-			ControlledZones = new ControlledZones(Game, this);
-			SetasideZone.Stamp(controller.SetasideZone);
-			BoardZone.Stamp(controller.BoardZone);
-			DeckZone.Stamp(controller.DeckZone);
-			HandZone.Stamp(controller.HandZone);
-			GraveyardZone.Stamp(controller.GraveyardZone);
-			SecretZone.Stamp(controller.SecretZone);
+			SetasideZone = controller.SetasideZone.Clone(this);
+			DeckZone = controller.DeckZone.Clone(this);
+			HandZone = controller.HandZone.Clone(this);
+			GraveyardZone = controller.GraveyardZone.Clone(this);
+			SecretZone = controller.SecretZone.Clone(this);
+			BoardZone = controller.BoardZone.Clone(this);
 
 			DeckCards = controller.DeckCards;
 			BaseClass = controller.BaseClass;
@@ -194,9 +205,11 @@ namespace SabberStoneCore.Model.Entities
 				Choice.Stamp(controller.Choice);
 			}
 
+			ControlledZones = new ControlledZones(this);
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 			_currentSpellPower = controller._currentSpellPower;
 			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
+			DiscardedEntities = new List<int>(controller.DiscardedEntities);
 			controller.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -249,46 +262,6 @@ namespace SabberStoneCore.Model.Entities
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new EntityData.Data { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
-		}
-
-		/// <summary>
-		/// Copy data from the provided argument into this object.
-		/// </summary>
-		/// <param name="controller"></param>
-		public void Stamp(Controller controller)
-		{
-			SetasideZone.Stamp(controller.SetasideZone);
-			BoardZone.Stamp(controller.BoardZone);
-			DeckZone.Stamp(controller.DeckZone);
-			HandZone.Stamp(controller.HandZone);
-			GraveyardZone.Stamp(controller.GraveyardZone);
-			SecretZone.Stamp(controller.SecretZone);
-
-			DeckCards.AddRange(controller.DeckCards);
-			BaseClass = controller.BaseClass;
-			base.Stamp(controller);
-
-			//Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
-			//Hero.Stamp(controller.Hero);
-			Hero = (Hero) controller.Hero.Clone(this);
-
-			//Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
-			//Hero.Power.Stamp(controller.Hero.Power);
-			Hero.HeroPower = (HeroPower) controller.Hero.HeroPower.Clone(this);
-
-			if (controller.Hero.Weapon != null)
-			{
-				//Hero.Weapon =
-				//	FromCard(this, controller.Hero.Weapon.Card, null, null, controller.Hero.Weapon.Id) as Weapon;
-				//Hero.Weapon.Stamp(controller.Hero.Weapon);
-				Hero.Weapon = (Weapon) controller.Hero.Weapon.Clone(this);
-			}
-
-			if (controller.Choice != null)
-			{
-				Choice = new Choice(this);
-				Choice.Stamp(controller.Choice);
-			}
 		}
 
 		/// <summary>
@@ -533,7 +506,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.RESOURCES]; }
 			//set { this[GameTag.RESOURCES] = value; }
 			get { return GetNativeGameTag(GameTag.RESOURCES); }
-			set { SetNativeGameTag(GameTag.RESOURCES, value); }
+			set { this[GameTag.RESOURCES] = value; }
 		}
 
 		/// <summary>
@@ -546,7 +519,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.RESOURCES_USED]; }
 			//set { this[GameTag.RESOURCES_USED] = value; }
 			get { return GetNativeGameTag(GameTag.RESOURCES_USED); }
-			set { SetNativeGameTag(GameTag.RESOURCES_USED, value); }
+			set { this[GameTag.RESOURCES_USED] = value; }
 		}
 
 		/// <summary>
@@ -557,7 +530,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.TEMP_RESOURCES]; }
 			//set { this[GameTag.TEMP_RESOURCES] = value; }
 			get { return GetNativeGameTag(GameTag.TEMP_RESOURCES); }
-			set { SetNativeGameTag(GameTag.TEMP_RESOURCES, value); }
+			set { this[GameTag.TEMP_RESOURCES] = value; }
 		}
 
 		/// <summary>
@@ -570,7 +543,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.COMBO_ACTIVE] == 1; }
 			//set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
 			get { return GetNativeGameTag(GameTag.COMBO_ACTIVE) == 1; }
-			set { SetNativeGameTag(GameTag.COMBO_ACTIVE, value ? 1 : 0); }
+			set { this[GameTag.COMBO_ACTIVE] =  value ? 1 : 0; }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -689,6 +662,8 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
 		}
 
+		public int NumDiscardedThisGame => DiscardedEntities.Count;
+
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 
@@ -724,7 +699,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.OVERLOAD_LOCKED]; }
 			//set { this[GameTag.OVERLOAD_LOCKED] = value; }
 			get { return GetNativeGameTag(GameTag.OVERLOAD_LOCKED); }
-			set { SetNativeGameTag(GameTag.OVERLOAD_LOCKED, value); }
+			set { this[GameTag.OVERLOAD_LOCKED] = value; }
 		}
 
 		/// <summary>

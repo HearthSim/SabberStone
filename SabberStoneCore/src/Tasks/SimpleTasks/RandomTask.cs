@@ -57,7 +57,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			Playables = entities.ToList();
+
+			Playables = entities is List<IPlayable> list ? list : entities.ToList();
 
 			return TaskState.COMPLETE;
 		}

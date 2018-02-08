@@ -162,15 +162,17 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(list =>
 				{
 					IPlayable p = list[0];
-					int boardCount = p.Controller.BoardZone.Count;
-					int opBoardCount = p.Controller.Opponent.BoardZone.Count;
+					int boardCount = p.Controller.BoardZone.CountExceptUntouchables;
+					int opBoardCount = p.Controller.Opponent.BoardZone.CountExceptUntouchables;
 
 					if (p is ICharacter c && c.IsAttacking)
 					{
 						int index = Util.Random.Next(opBoardCount + 1);
 						c.Game.ProposedDefender = index == opBoardCount
 							? c.Controller.Opponent.Hero.Id
-							: c.Controller.Opponent.BoardZone[index].Id;
+							: c.Controller.Opponent.BoardZone.HasUntouchables
+								? c.Controller.Opponent.BoardZone.GetAll(null)[index].Id
+								: c.Controller.Opponent.BoardZone[index].Id;
 						return null;
 					}
 
@@ -179,12 +181,12 @@ namespace SabberStoneCore.Tasks
 						int index = Util.Random.Next(boardCount + opBoardCount);
 						if (index < boardCount)
 						{
-							p.CardTarget = p.Controller.BoardZone[index].Id;
+							p.CardTarget = p.Controller.BoardZone.HasUntouchables ? p.Controller.BoardZone.GetAll(null)[index].Id : p.Controller.BoardZone[index].Id;
 							return null;
 						}
 
 						index -= boardCount;
-						p.CardTarget = p.Controller.Opponent.BoardZone[index].Id;
+						p.CardTarget = p.Controller.Opponent.BoardZone.HasUntouchables ? p.Controller.Opponent.BoardZone.GetAll(null)[index].Id : p.Controller.Opponent.BoardZone[index].Id;
 						return null;
 					}
 
@@ -192,13 +194,17 @@ namespace SabberStoneCore.Tasks
 					int i = Util.Random.Next(all);
 					if (i < boardCount)
 					{
-						p.CardTarget = p.Controller.BoardZone[i].Id;
+						p.CardTarget = p.Controller.BoardZone.HasUntouchables
+							? p.Controller.BoardZone.GetAll(null)[i].Id
+							: p.Controller.BoardZone[i].Id;
 						return null;
 					}
 					i -= boardCount;
 					if (i < opBoardCount)
 					{
-						p.CardTarget = p.Controller.Opponent.BoardZone[i].Id;
+						p.CardTarget = p.Controller.Opponent.BoardZone.HasUntouchables
+							? p.Controller.Opponent.BoardZone.GetAll(null)[i].Id
+							: p.Controller.Opponent.BoardZone[i].Id;
 						return null;
 					}
 					i -= opBoardCount;
@@ -206,6 +212,7 @@ namespace SabberStoneCore.Tasks
 					return null;
 				}));
 
+		// TODO
 		public static ISimpleTask CuriousGlimmerroot
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
@@ -528,8 +535,6 @@ namespace SabberStoneCore.Tasks
 				return new RenonunceDarkness();
 			}
 		}
-
-
 	}
 }
 

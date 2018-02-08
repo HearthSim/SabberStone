@@ -124,6 +124,7 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging? "":$"{discard} is beeing discarded.");
 				c.GraveyardZone.Add(discard);
 
+				c.DiscardedEntities.Add(discard.Id);
 				c.LastCardDiscarded = discard.Id;
 				c.Game.ProcessTasks();
 				return true;

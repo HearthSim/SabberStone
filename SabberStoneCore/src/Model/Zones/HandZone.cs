@@ -10,13 +10,16 @@ namespace SabberStoneCore.Model.Zones
 	/// </summary>
 	public class HandZone : PositioningZone<IPlayable>
 	{ 
-		public HandZone(Controller controller)
+		public HandZone(Controller controller) : base(10)
 		{
 			Game = controller.Game;
 			Controller = controller;
 			//MaxSize = Controller.MaxHandSize;
-			MaxSize = 10;
-			Entities = new IPlayable[MaxSize];
+			Type = Zone.HAND;
+		}
+
+		private HandZone(Controller c, HandZone zone) : base(c, zone)
+		{
 			Type = Zone.HAND;
 		}
 
@@ -36,6 +39,11 @@ namespace SabberStoneCore.Model.Zones
 		{
 			entity.AuraEffects.ResetCost();
 			return base.Remove(entity);
+		}
+
+		public HandZone Clone(Controller c)
+		{
+			return new HandZone(c, this);
 		}
 	}
 }

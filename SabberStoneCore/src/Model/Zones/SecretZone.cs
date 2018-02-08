@@ -14,6 +14,18 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
+		public SecretZone(Controller controller) : base(5)
+		{
+			Game = controller.Game;
+			Controller = controller;
+			Type = Zone.SECRET;
+		}
+
+		private SecretZone(Controller c, SecretZone zone) : base(c, zone)
+		{
+			Quest = (Spell) zone.Quest?.Clone(c);
+			Type = Zone.SECRET;
+		}
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
@@ -23,7 +35,7 @@ namespace SabberStoneCore.Model.Zones
 					throw new ZoneException($"Another quest is already in play");
 
 				Quest = (Spell)entity;
-				Quest.SetNativeGameTag(GameTag.ZONE, (int)Type);
+				Quest[GameTag.ZONE] = (int)Type;
 				Quest.Zone = this;
 
 				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
@@ -38,21 +50,17 @@ namespace SabberStoneCore.Model.Zones
 			entity.OrderOfPlay = Game.NextOop;
 		}
 
-		public SecretZone(Controller controller)
-		{
-			Game = controller.Game;
-			Controller = controller;
-			MaxSize = 5;
-			Entities = new Spell[MaxSize];
-			Type = Zone.SECRET;
-		}
-
 		public override IEnumerator<Spell> GetEnumerator()
 		{
 			for (int i = 0; i < _count; i++)
 				yield return Entities[i];
 			if (Quest != null)
 				yield return Quest;
+		}
+
+		public SecretZone Clone(Controller c)
+		{
+			return new SecretZone(c, this);
 		}
 	}
 }

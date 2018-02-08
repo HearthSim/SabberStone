@@ -249,7 +249,7 @@ namespace SabberStoneCore.Model.Entities
 					return;
 				}
 
-				if (chooseOne > 0)
+				if (!Controller.ChooseBoth && chooseOne > 0)
 				{
 					ChooseOnePlayables[chooseOne - 1].ActivateTask(activation, target, chooseOne, this);
 					return;
@@ -518,14 +518,12 @@ namespace SabberStoneCore.Model.Entities
 
 		public int ZonePosition
 		{
-			//get { return this[GameTag.ZONE_POSITION] - 1; }
-			//set { this[GameTag.ZONE_POSITION] = value + 1; }
 			get
 			{
 				NativeTags.TryGetValue(GameTag.ZONE_POSITION, out int value);
 				return value - 1;
 			}
-			set { SetNativeGameTag(GameTag.ZONE_POSITION, value + 1); }
+			set => this[GameTag.ZONE_POSITION] = value + 1;
 		}
 
 		public bool JustPlayed

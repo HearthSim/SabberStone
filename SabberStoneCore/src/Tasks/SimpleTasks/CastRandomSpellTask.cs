@@ -39,7 +39,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    Card randCard = cards[Random.Next(cards.Count)];
 
-			var spellToCast = (Spell) Entity.FromCard(Source.Controller, randCard);
+			Spell spellToCast = (Spell) Target ?? (Spell) Entity.FromCard(Source.Controller, randCard);
 
 			ICharacter randTarget = null;
 		    if (randCard.RequiresTarget)
@@ -49,6 +49,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				    : (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, Source.Controller, null, null, null));
 
 				spellToCast.CardTarget = randTarget.Id;
+
+				Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
+					!Game.Logging ? "" : $"{spellToCast}'s target is randomly selected to {randTarget}");
 			}
 
 			int randChooseOne = Random.Next(1, 3);

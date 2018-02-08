@@ -11,6 +11,11 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.GRAVEYARD;
 		}
 
+		private GraveyardZone(Controller c, GraveyardZone zone) : base(c, zone)
+		{
+			Type = Zone.GRAVEYARD;
+		}
+
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition, applyPowers);
@@ -18,6 +23,11 @@ namespace SabberStoneCore.Model.Zones
 			entity.RemoveEnchantments?.Invoke();
 
 			//entity.Reset();
+		}
+
+		public GraveyardZone Clone(Controller c)
+		{
+			return new GraveyardZone(c, this);
 		}
 	}
 }

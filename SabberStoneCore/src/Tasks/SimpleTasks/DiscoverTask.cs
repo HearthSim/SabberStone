@@ -18,6 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		BASIC_TOTEM,
 		MINION,
 		DECK_MINION,
+		SPELL_RANDOM,
 		SPELL,
 		DEATHRATTLE,
 		ONE_COST,
@@ -72,8 +73,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			ChoiceAction choiceAction = ChoiceAction.INVALID;
-			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out choiceAction);
+			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out ChoiceAction choiceAction);
 
 			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
 			if (cardsToDiscover.Length == 2)
@@ -404,6 +404,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case DiscoverType.SPELL:
 						{
 							choiceAction = ChoiceAction.HAND;
+							List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
+							var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+							CachedDiscoverySets.TryAdd(discoverType, output);
+							return listArray;
+						}
+
+					case DiscoverType.SPELL_RANDOM:
+						{
+							choiceAction = ChoiceAction.SPELL;
 							List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
 							var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
 							CachedDiscoverySets.TryAdd(discoverType, output);
