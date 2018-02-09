@@ -98,11 +98,6 @@ namespace SabberStoneCore.Actions
 						c.Choice.TargetIds.ForEach(p =>
 							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
 						);
-						c.Choice.TargetIds.ForEach(p =>
-						{
-							IPlayable target = c.Game.IdEntityDic[p];
-							playable.Powers.ForEach(t => t.Activate(c, playable, target));
-						});
 						// Need to move the chosen adaptation to the Graveyard
 						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE)
 						{

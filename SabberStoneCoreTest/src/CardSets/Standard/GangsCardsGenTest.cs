@@ -3445,10 +3445,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			else
 			{
 				Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
-				//Assert.Equal(1, game.CurrentPlayer.BoardZone.Triggers.Count);
 				game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 				Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-				Assert.Equal(0, game.CurrentPlayer.BoardZone.Triggers.Count);
 			}
 		}
 
