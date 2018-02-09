@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -81,6 +82,8 @@ namespace SabberStoneCore.Model.Entities
 	/// <typeparam name="T">Subclass of entity.</typeparam>
 	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
 	{
+		private bool _lifestealChecker;
+
 		/// <summary>
 		/// Build a new character from the provided data.
 		/// </summary>
@@ -197,15 +200,11 @@ namespace SabberStoneCore.Model.Entities
 			int preDamage = hero == null ? damage : armor < damage ? damage - armor : 0;
 			PreDamage = preDamage;
 
-			// Damage event is created
-			// Validate all damage triggers
-			// Collect all the tasks and sort them by order of play
-			// Death phase and aura update is not emerge here
+
 
 			// Predamage triggers
-			Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
+			//Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
 			PreDamageTrigger?.Invoke(this, preDamage);
-			Game.ProcessTasks();
 
 			// reflect changes from tasks
 			preDamage = PreDamage;
@@ -235,10 +234,26 @@ namespace SabberStoneCore.Model.Entities
 
 			LastAffectedBy = source.Id;
 
+			// Damage event is created
+			// Collect all the tasks and sort them by order of play
+			// Death phase and aura update is not emerge here
+
 			// on-damage triggers
 			Game.TriggerManager.OnDamageTrigger(this);
 			Game.TriggerManager.OnDealDamageTrigger(source, preDamage);
 			Game.ProcessTasks();
+			if (source.HasLifeSteal && !_lifestealChecker)
+			{
+				if (_history)
+					Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
+				Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "TakeDamage", !_logging ? "" : $"lifesteal source {source} has damaged target for {preDamage}.");
+				source.Controller.Hero.TakeHeal(source, preDamage);
+				if (_history)
+					Game.PowerHistory.Add(new PowerHistoryBlockEnd());
+
+				if (source.Controller.Hero.ToBeDestroyed && source.Controller.Hero.Health > 0)
+					source.Controller.Hero.ToBeDestroyed = false;
+			}
 
 			return tookDamage;
 		}
@@ -267,7 +282,9 @@ namespace SabberStoneCore.Model.Entities
 
 			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
+				_lifestealChecker = true;
 				TakeDamage(source, heal);
+				_lifestealChecker = false;
 				return;
 			}
 			// we don't heal undamaged entitiesd
@@ -285,6 +302,9 @@ namespace SabberStoneCore.Model.Entities
 			// Process gathered tasks
 			Game.TriggerManager.OnHealTrigger(this, amount);
 			Game.ProcessTasks();
+
+			if (this is Hero)
+				Controller.AmountHeroHealedThisTurn += amount;
 		}
 
 		/// <summary>
@@ -563,7 +583,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public virtual bool HasWindfury
 		{
-			get { return this[GameTag.WINDFURY] == 1; }
+			get { return this[GameTag.WINDFURY] >= 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
 		}
 

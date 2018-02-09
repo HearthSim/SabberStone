@@ -133,7 +133,7 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public bool HasCharge
 		{
-			get => this[GameTag.CHARGE] == 1;
+			get => this[GameTag.CHARGE] >= 1;
 			set
 			{
 				if (value)

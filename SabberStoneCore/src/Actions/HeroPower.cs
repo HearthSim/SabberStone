@@ -10,13 +10,13 @@ namespace SabberStoneCore.Actions
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static bool HeroPower(Controller c, ICharacter target = null, bool skipPrePhase = false)
+		public static bool HeroPower(Controller c, ICharacter target = null, int chooseOne = 0, bool skipPrePhase = false)
 		{
-			return HeroPowerBlock.Invoke(c, target, skipPrePhase);
+			return HeroPowerBlock.Invoke(c, target, chooseOne, skipPrePhase);
 		}
 
-		public static Func<Controller, ICharacter, bool, bool> HeroPowerBlock
-			=> delegate (Controller c, ICharacter target, bool skipPrePhase)
+		public static Func<Controller, ICharacter, int, bool, bool> HeroPowerBlock
+			=> delegate (Controller c, ICharacter target, int chooseOne, bool skipPrePhase)
 			{
 				if (!skipPrePhase)
 					if (!c.Hero.HeroPower.IsPlayable || !c.Hero.HeroPower.IsValidPlayTarget(target))
@@ -30,16 +30,21 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
 
-				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target);
+				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				c.Game.ProcessTasks();
 				c.Game.DeathProcessingAndAuraUpdate();
+
+				if (c.Game.History)
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				c.Hero.HeroPower.IsExhausted = true;
 				c.HeroPowerActivationsThisTurn++;
 				c.NumTimesHeroPowerUsedThisGame++;
 
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				c.Game.TriggerManager.OnInspireTrigger(target);
+				c.Game.ProcessTasks();
+
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};

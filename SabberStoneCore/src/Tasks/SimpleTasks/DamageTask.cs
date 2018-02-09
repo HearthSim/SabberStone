@@ -52,12 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", !Controller.Game.Logging? "":$"Amount is {amount} damage of {Source}.");
 
-				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, SpellDmg);
-
-				if ((Source as IPlayable).HasLifeSteal)
-				{
-					Controller.Hero.TakeHeal((Source as IPlayable), damage);
-				}
+				Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, SpellDmg);
 			};
 			return TaskState.COMPLETE;
 		}

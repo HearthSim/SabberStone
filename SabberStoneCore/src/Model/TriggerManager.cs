@@ -47,6 +47,8 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler TargetTrigger;
 
+	    public event TriggerHandler InspireTrigger;
+
 
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
@@ -156,6 +158,11 @@ namespace SabberStoneCore.Model
 	    internal void OnTargetTrigger(IEntity sender)
 	    {
 		    TargetTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnInspireTrigger(IEntity sender)
+	    {
+		    InspireTrigger?.Invoke(sender);
 	    }
     }
 }

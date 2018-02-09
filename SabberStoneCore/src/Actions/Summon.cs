@@ -25,6 +25,8 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", !c.Game.Logging? "":$"Summon Minion {minion} to Board of {c.Name}.");
 				c.BoardZone.Add(minion, zonePosition);
 
+				c.Game.AuraUpdate();
+
 				// add summon block show entity 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));

@@ -10,7 +10,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public DestroyTask(EntityType entityType, bool forcedDeathPhase = false)
 		{
 			_type = entityType;
-			_forcedDeathPhase = false;
+			_forcedDeathPhase = forcedDeathPhase;
 		}
 
 		public override TaskState Process()

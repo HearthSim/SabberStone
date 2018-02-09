@@ -55,6 +55,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public override bool HasWindfury => Weapon != null && Weapon.HasWindfury;
 
+		public override bool HasLifeSteal => Weapon?.HasLifeSteal ?? false;
+
 		public void AddWeapon(Weapon weapon)
 		{
 			RemoveWeapon();
@@ -86,6 +88,8 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 			}
+
+			Game.TriggerManager.OnDeathTrigger(Weapon);
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 

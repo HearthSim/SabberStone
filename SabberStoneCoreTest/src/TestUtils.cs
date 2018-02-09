@@ -65,5 +65,10 @@ namespace SabberStoneCoreTest
 	    {
 		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
 	    }
+
+	    public static void PlayHeroPower(this Game game, IPlayable target = null, int chooseOne = 0, bool asZeroCost = false)
+	    {
+		    game.Process(HeroPowerTask.Any(game.CurrentPlayer, target, chooseOne, asZeroCost));
+	    }
     }
 }

@@ -1425,7 +1425,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_302", new Power {
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new RitualTask(1)
 				}
 			});

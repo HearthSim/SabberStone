@@ -41,6 +41,20 @@ namespace SabberStoneCore.Model.Zones
 			return base.Remove(entity);
 		}
 
+		/// <summary>
+		/// Replaces an entity in the given position internally. (i.e. not creates any history packets)
+		/// </summary>
+		internal void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
+		{
+			oldEntity.OngoingEffect?.Remove();
+			oldEntity.ActivatedTrigger?.Remove();
+			Entities[oldEntity.ZonePosition] = newEntity;
+			newEntity.Zone = this;
+			if (newEntity.Power?.Aura is AdaptiveCostEffect e)
+				e.Activate(newEntity);
+			newEntity.Power?.Trigger?.Activate(newEntity, TriggerActivation.HAND);
+		}
+
 		public HandZone Clone(Controller c)
 		{
 			return new HandZone(c, this);

@@ -46,7 +46,7 @@ namespace SabberStoneCore.Enchants
 			KaraCardsGen.AddAll(_powerDic);
 			OgCardsGen.AddAll(_powerDic);
 			UngoroCardsGen.AddAll(_powerDic);
-			//IcecrownCardsGen.AddAll(_powerDic);
+			IcecrownCardsGen.AddAll(_powerDic);
 			//LootapaloozaCardsGen.AddAll(_powerDic);
 
 			// Rest

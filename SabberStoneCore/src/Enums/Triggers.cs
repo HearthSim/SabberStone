@@ -52,16 +52,18 @@ namespace SabberStoneCore.Enums
 		AFTER_CAST,
 		/// <summary> The effect will be triggered when a secret is activated. </summary>
 		SECRET_REVEALED,
-
+		/// <summary> The effect will be triggered when an entity enters any types of zone. </summary>
 		ZONE,
-
+		/// <summary> The effect will be triggered when a card is discarded from hand. </summary>
 		DISCARD,
-
+		/// <summary> The effect will be triggered when a game begins. </summary>
 		GAME_START,
-
+		/// <summary> The effect will be triggered when a card is drawed. </summary>
 		DRAW,
+		/// <summary> The effect will be triggered when a card is targeted by an attacking minion or a played card. </summary>
+		TARGET,
 
-		TARGET
+		CUSTOMTRIGGER_SHADOW_REFLECTION	// should make as inherited class ?...
 	}
 
 	public enum TriggerSource
@@ -76,7 +78,9 @@ namespace SabberStoneCore.Enums
 		ALL_MINIONS,
 		HERO,
 		OP_HERO,
-		ENCHANTMENT_TARGET
+		ENCHANTMENT_TARGET,
+		WEAPON,
+		HERO_POWER
 	}
 
 	public enum TriggerActivation

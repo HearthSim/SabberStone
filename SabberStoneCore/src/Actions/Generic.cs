@@ -218,6 +218,12 @@ namespace SabberStoneCore.Actions
 					if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
 					{
 						Enchantment instance = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+						if (num1 > 0)
+						{
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+							if (num2 > 0)
+								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
+						}
 						power.Aura?.Activate(instance);
 						power.Trigger?.Activate(instance);
 					}

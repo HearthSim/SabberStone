@@ -845,5 +845,27 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card[GameTag.HEALTH], game.CurrentPlayer.BoardZone[0].Health);
 		}
+
+		[Fact]
+		public void LifestealAuchenaiTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+
+			game.ProcessCard("Auchenai Soulpriest", asZeroCost: true);
+			Minion lifestealAttacker = game.ProcessCard<Minion>("Acolyte of Agony", asZeroCost: true);
+			lifestealAttacker.HasCharge = true;
+
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, lifestealAttacker, game.CurrentOpponent.Hero));
+
+			Assert.Equal(3, game.CurrentPlayer.Hero.Damage);
+		}
 	}
 }

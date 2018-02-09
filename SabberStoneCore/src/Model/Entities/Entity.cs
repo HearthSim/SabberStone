@@ -30,7 +30,7 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the card from which this entity was derived from.</summary>
 		/// <value>The card object.</value>
-		Card Card { get; }
+		Card Card { get; set; }
 
 		/// <summary>Gets or sets the owner of this entity, the controller who played the entity.</summary>
 		/// <value>The controller/owner object.</value>
@@ -120,7 +120,11 @@ namespace SabberStoneCore.Model.Entities
 
 		/// <summary>Gets the card from which this entity was derived from.</summary>
 		/// <value>The card object.</value>
-		public Card Card => _data.Card;
+		public Card Card
+		{
+			get => _data.Card;
+			set => _data.Card = value;
+		}
 
 		/// <summary>Get all enchantments hooked onto this entity.</summary>
 		/// <value>
@@ -341,6 +345,8 @@ namespace SabberStoneCore.Model.Entities
 			// add entity to the appropriate zone if it was given
 			if (zone is BoardZone)
 				Generic.SummonBlock.Invoke(controller, (Minion)result, zonePos);
+			else if (zone is HandZone hand)
+				Generic.AddHandPhase.Invoke(controller, result);
 			else
 				zone?.Add(result, zonePos);
 
@@ -395,8 +401,8 @@ namespace SabberStoneCore.Model.Entities
 
 	public partial class Entity
 	{
-		private readonly bool _history;
-		private readonly bool _logging;
+		protected readonly bool _history;
+		protected readonly bool _logging;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public int Id { get; }

@@ -4,6 +4,7 @@ using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
@@ -30,6 +31,17 @@ namespace SabberStoneCore.Enchants
 			    SingleTask = new AddEnchantmentTask(enchantmentId, EntityType.SOURCE)
 		    };
 	    }
+
+	    public static Trigger ShadowReflectionTrigger	//	should make this as inherited class ?...
+		    => new Trigger(TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION)
+		    {
+			    SingleTask = ComplexTask.Create(
+				    new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.Step == Step.MAIN_END)),
+				    new FlagTask(true, ComplexTask.Create(
+						    new RemoveEnchantmentTask("ICC_827e"),
+							new MoveToSetaside(EntityType.TARGET))),
+				    new FlagTask(false, new ChangeEntityTask()))
+		    };
     }
 
 	internal delegate bool Condition(IEntity e);

@@ -4647,7 +4647,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_595", new Power {
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new DrawTask()
 				}
 			});
@@ -4988,6 +4988,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("tt_004", new Power {
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
+					TriggerSource = TriggerSource.ALL_MINIONS,
 					SingleTask = new AddEnchantmentTask("tt_004o", EntityType.SOURCE)
 				}
 			});

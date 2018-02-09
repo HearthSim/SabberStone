@@ -428,14 +428,22 @@ namespace SabberStoneCore.Tasks
 				new CopyTask(EntityType.STACK, 1),
 				new AddStackTo(EntityType.HAND));
 
-		public static ISimpleTask Frostmourne
+		public static ISimpleTask DeathsShadow
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
-				new FuncPlayablesTask(p =>
+				new FuncPlayablesTask(list =>
 				{
-					return p[0].Controller.Opponent.GraveyardZone.Where(c => c[GameTag.LAST_AFFECTED_BY] == p[0].Id).ToList();
+					IPlayable p = list[0];
+					if (p.Controller.HandZone.IsFull)
+						return new List<IPlayable>(0);
+					IPlayable entity = Entity.FromCard(p.Controller, Cards.FromId("ICC_827t"),
+						new EntityData.Data
+						{
+							{GameTag.CREATOR, p.Id}
+						}, p.Controller.HandZone);
+					return new List<IPlayable> {entity};
 				}),
-				new SummonCopyTask(EntityType.STACK));
+				new AddEnchantmentTask("ICC_827e", EntityType.STACK));
 
 		public class RenonunceDarkness : SimpleTask
 		{

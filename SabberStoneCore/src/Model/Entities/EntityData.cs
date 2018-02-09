@@ -79,7 +79,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// The card which was used to create this instance.
 		/// </summary>
-		public Card Card { get; }
+		public Card Card { get; set; }
 
 		/// <summary>
 		/// The container with tags used to create this instance.

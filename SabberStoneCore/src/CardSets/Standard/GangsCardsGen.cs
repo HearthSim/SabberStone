@@ -724,7 +724,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Secret(
 						new CopyTask(EntityType.TARGET, 1),
 						new AddStackTo(EntityType.HAND)),
@@ -2163,7 +2163,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new AddEnchantmentTask("CFM_658e", EntityType.SOURCE)
 				}
 			});

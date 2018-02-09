@@ -20,14 +20,6 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.PLAY;
 		}
 
-		private BoardZone(Controller c, BoardZone zone) : base(c, zone)
-		{
-			Type = Zone.PLAY;
-
-			_hasUntouchables = zone.HasUntouchables;
-			_untouchableCount = zone._untouchableCount;
-		}
-
 		public int CountExceptUntouchables => _count - _untouchableCount;
 		public bool HasUntouchables => _hasUntouchables;
 
@@ -137,9 +129,18 @@ namespace SabberStoneCore.Model.Zones
 			base.CopyTo(destination, index);
 		}
 
-		public BoardZone Clone(Controller c)
+		public void Stamp(BoardZone zone)
 		{
-			return new BoardZone(c, this);
+			zone._hasUntouchables = _hasUntouchables;
+			zone._untouchableCount = _untouchableCount;
+			zone._count = _count;
+
+			for (int i = 0; i < _count; ++i)
+			{
+				Minion copy = (Minion) Entities[i].Clone(zone.Controller);
+				copy.Zone = zone;
+				zone.Entities[i] = copy;
+			}
 		}
 	}
 }

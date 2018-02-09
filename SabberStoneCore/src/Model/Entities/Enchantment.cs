@@ -182,6 +182,7 @@ namespace SabberStoneCore.Model.Entities
 				clone.Controller = Controller;
 				clone.Source = Target;
 				clone.Target = null;
+				clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
 
 				Game.TaskQueue.Enqueue(clone);
 			}
@@ -222,7 +223,7 @@ namespace SabberStoneCore.Model.Entities
 		public int Id { get; }
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }
-		public Card Card { get; }
+		public Card Card { get; set; }
 		public Controller Controller { get; set; }
 		public IZone Zone { get; set; }
 		public IAura OngoingEffect { get; set; }
@@ -248,6 +249,7 @@ namespace SabberStoneCore.Model.Entities
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags { get; }
 		public List<Enchantment> AppliedEnchantments { get; set; }
+		public List<int> Memory { get; set; }
 
 		public void Stamp(Entity entity)
 		{

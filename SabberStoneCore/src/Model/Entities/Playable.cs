@@ -162,6 +162,8 @@ namespace SabberStoneCore.Model.Entities
 		IAura OngoingEffect { get; set; }
 
 		Trigger ActivatedTrigger { get; set; }
+
+		List<int> Memory { get; set; }
 	}
 
 	/// <summary>
@@ -180,8 +182,6 @@ namespace SabberStoneCore.Model.Entities
 		protected Playable(Controller controller, Card card, IDictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
-			//if (Card.Powers != null)
-			//	Powers = new List<Power>(Card.Powers);
 		}
 
 		/// <inheritdoc />
@@ -209,6 +209,9 @@ namespace SabberStoneCore.Model.Entities
 				ChooseOnePlayables = new IPlayable[2];
 				Array.Copy(playable.ChooseOnePlayables, ChooseOnePlayables, 2);
 			}
+
+			if (playable.Memory?.Count > 0)
+				Memory = new List<int>(playable.Memory);
 		}
 
 		/// <summary>
@@ -242,7 +245,8 @@ namespace SabberStoneCore.Model.Entities
 				    && !Card.Id.Equals("EX1_165")	// OG_044a, using choose one 0 option
 				    && !Card.Id.Equals("BRM_010")	// OG_044b, using choose one 0 option
 				    && !Card.Id.Equals("AT_042")	// OG_044c, using choose one 0 option
-					&& !Card.Id.Equals("UNG_101"))	// UG_101t3
+					&& !Card.Id.Equals("UNG_101")	// UNG_101t3
+					&& !Card.Id.Equals("ICC_051"))	// ICC_051t3
 				{
 					ChooseOnePlayables[0].ActivateTask(activation, target, chooseOne, this);
 					ChooseOnePlayables[1].ActivateTask(activation, target, chooseOne, this);
@@ -504,6 +508,8 @@ namespace SabberStoneCore.Model.Entities
 			base.Reset();
 			OngoingEffect?.Remove();
 		}
+
+		public List<int> Memory { get; set; }
 	}
 
 
@@ -556,9 +562,9 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
 		}
 
-		public bool HasLifeSteal
+		public virtual bool HasLifeSteal
 		{
-			get { return this[GameTag.LIFESTEAL] == 1; }
+			get { return this[GameTag.LIFESTEAL] >= 1; }
 			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
 	}

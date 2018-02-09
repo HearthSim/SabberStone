@@ -150,24 +150,25 @@ namespace SabberStoneCore.Enchants
 			owner.Game.Auras.Add(instance);
 			owner.OngoingEffect = instance;
 
-			switch (Type)
-			{
-				case AuraType.BOARD:
-				case AuraType.BOARD_EXCEPT_SOURCE:
-				case AuraType.ADJACENT:
-					owner.Controller.BoardZone.Auras.Add(instance);
-					break;
-				case AuraType.HAND:
-					owner.Controller.HandZone.Auras.Add(instance);
-					break;
-				case AuraType.OP_HAND:
-					owner.Controller.Opponent.HandZone.Auras.Add(instance);
-					break;
-				case AuraType.HANDS:
-					owner.Controller.HandZone.Auras.Add(instance);
-					owner.Controller.Opponent.HandZone.Auras.Add(instance);
-					break;
-			}
+			if (!cloning)
+				switch (Type)
+				{
+					case AuraType.BOARD:
+					case AuraType.BOARD_EXCEPT_SOURCE:
+					case AuraType.ADJACENT:
+						owner.Controller.BoardZone.Auras.Add(instance);
+						break;
+					case AuraType.HAND:
+						owner.Controller.HandZone.Auras.Add(instance);
+						break;
+					case AuraType.OP_HAND:
+						owner.Controller.Opponent.HandZone.Auras.Add(instance);
+						break;
+					case AuraType.HANDS:
+						owner.Controller.HandZone.Auras.Add(instance);
+						owner.Controller.Opponent.HandZone.Auras.Add(instance);
+						break;
+				}
 
 			if (RemoveTrigger.Type != TriggerType.NONE)
 			{
@@ -578,7 +579,7 @@ namespace SabberStoneCore.Enchants
 				case EffectOperator.SUB:
 					return value - Predicate(Owner);
 				case EffectOperator.SET:
-					return value;
+					return Predicate(Owner);
 				case EffectOperator.MUL:
 					return value * Predicate(Owner);
 			}

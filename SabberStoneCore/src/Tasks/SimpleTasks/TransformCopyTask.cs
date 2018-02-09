@@ -10,6 +10,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
     public class TransformCopyTask : SimpleTask
     {
+	    private readonly bool _addToStack;
+
+	    public TransformCopyTask(bool addToStack = false)
+	    {
+		    _addToStack = addToStack;
+	    }
+
 	    public override TaskState Process()
 	    {
 			Minion target = (Minion)Target;
@@ -67,12 +74,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (aura != null && copy.OngoingEffect == null)
 				aura?.Clone(copy);
 
+		    if (_addToStack)
+			    Playables = new List<IPlayable> {copy};
+
 			return TaskState.COMPLETE;
 	    }
 
 		public override ISimpleTask Clone()
-	    {
-			return this;
-	    }
+		{
+			return new TransformCopyTask(_addToStack);
+		}
     }
 }

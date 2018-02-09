@@ -50,6 +50,7 @@ namespace SabberStoneCore.Enchants
 		private int CHARGE;
 		private int WINDFURY;
 		private int IMMUNE;
+		private int LIFESTEAL;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -93,6 +94,8 @@ namespace SabberStoneCore.Enchants
 						return GetCost() - ((Entity) Owner)._data[GameTag.COST];
 					case GameTag.IMMUNE:
 						return IMMUNE;
+					case GameTag.LIFESTEAL:
+						return LIFESTEAL;
 					default:
 						return 0;
 				}
@@ -126,6 +129,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.IMMUNE:
 						IMMUNE = value;
 						return;
+					case GameTag.LIFESTEAL:
+						LIFESTEAL = value;
+						return;
 					default:
 						return;
 				}
@@ -150,6 +156,8 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		public void RemoveCostAura(Effect e)
 		{
+			if (_costEffects == null)
+				return;
 			Checker = true;
 			for (int i = 0; i < _costEffects.Count; i++)
 			{

@@ -136,10 +136,6 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Hero, ICharacter, int, bool> PlayHero
 			=> delegate (Controller c, Hero hero, ICharacter target, int chooseOne)
 			{
-				// remove from hand zone
-				if (!RemoveFromZone.Invoke(c, hero))
-					return false;
-
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !c.Game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
 
@@ -157,16 +153,12 @@ namespace SabberStoneCore.Actions
 				hero.Weapon = oldHero.Weapon;
 				c.SetasideZone.Add(oldHero.HeroPower);
 				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+				hero.HeroPower.Power?.Trigger?.Activate(hero.HeroPower);
+				if (hero.HeroPower.IsPassiveHeroPower)	// Valeera, ad hoc for now; Maybe revisit here for Bosses
+					hero.HeroPower.ActivateTask();
 
 				c.Hero = hero;
-
-				//foreach (Power power in hero.Card.Powers)
-				//{
-				//	if (power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-				//		power.Trigger.Activate(hero);
-				//}
-				if (hero.Power.Trigger?.TriggerActivation == TriggerActivation.PLAY)
-					hero.Power.Trigger.Activate(hero);
+				hero.Power?.Trigger?.Activate(hero);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
@@ -174,14 +166,11 @@ namespace SabberStoneCore.Actions
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				//hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
-				hero.ActivateTask(PowerActivation.POWER, target);
+				hero.ActivateTask(PowerActivation.POWER, target, chooseOne);
 
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
-				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					//hero.ApplyPowers(PowerActivation.BATTLECRY, Zone.PLAY, target);
 					hero.ActivateTask(PowerActivation.POWER, target);
 				}
 				c.Game.ProcessTasks();

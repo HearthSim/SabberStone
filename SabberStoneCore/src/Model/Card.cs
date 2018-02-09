@@ -162,7 +162,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Requires a target if available
 		/// </summary>
-		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
+		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE) ||
+		                                         PlayRequirements.ContainsKey(PlayReq.REQ_DRAG_TO_PLAY);
 
 		/// <summary>
 		/// Requires a target if available and dragon in hand

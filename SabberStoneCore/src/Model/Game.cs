@@ -605,6 +605,8 @@ namespace SabberStoneCore.Model
 				c.NumMinionsPlayedThisTurn = 0;
 				c.NumOptionsPlayedThisTurn = 0;
 				c.NumFriendlyMinionsThatDiedThisTurn = 0;
+				if (c.AmountHeroHealedThisTurn > 0)
+					c.AmountHeroHealedThisTurn = 0;
 			}
 			
 
@@ -971,24 +973,6 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public Game Clone(bool logging = false)
 		{
-			//GameConfig gameConfig = _gameConfig.Clone();
-			//gameConfig.Logging = logging;
-			//var game = new Game(gameConfig, false)
-			//{
-			//	CloneIndex = $"{CloneIndex}[{NextCloneIndex++}]"
-			//};
-			//game.Player1.Stamp(Player1);
-			//game.Player2.Stamp(Player2);
-			//game.Stamp(this);
-
-			//game.TaskStack.Stamp(TaskStack);
-			//game.TaskQueue.Stamp(TaskQueue);
-
-			//// set indexer to avoid conflicts ...
-			//game.SetIndexer(_idIndex, _oopIndex);
-
-			//return game;
-
 			return new Game(this, logging);
 		}
 

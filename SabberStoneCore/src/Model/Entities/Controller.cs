@@ -181,12 +181,13 @@ namespace SabberStoneCore.Model.Entities
 		private Controller(Game game, Controller controller) : base(game, controller)
 		{
 			Name = controller.Name;
+			BoardZone = new BoardZone(this);
 			SetasideZone = controller.SetasideZone.Clone(this);
 			DeckZone = controller.DeckZone.Clone(this);
 			HandZone = controller.HandZone.Clone(this);
 			GraveyardZone = controller.GraveyardZone.Clone(this);
 			SecretZone = controller.SecretZone.Clone(this);
-			BoardZone = controller.BoardZone.Clone(this);
+			controller.BoardZone.Stamp(BoardZone);
 
 			DeckCards = controller.DeckCards;
 			BaseClass = controller.BaseClass;
@@ -663,6 +664,12 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public int NumDiscardedThisGame => DiscardedEntities.Count;
+
+		public int AmountHeroHealedThisTurn
+		{
+			get => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN];
+			set => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN] = value;
+		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

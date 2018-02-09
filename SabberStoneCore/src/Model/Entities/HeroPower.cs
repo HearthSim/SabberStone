@@ -41,7 +41,10 @@ namespace SabberStoneCore.Model.Entities
 		/// a result for the current state of the game.
 		/// </summary>
 		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
-		public override bool IsPlayableByPlayer => !IsExhausted && !Controller.HeroPowerDisabled && base.IsPlayableByPlayer;
+		public override bool IsPlayableByPlayer =>
+			!IsExhausted && !Controller.HeroPowerDisabled && base.IsPlayableByPlayer && !IsPassiveHeroPower;
+
+		public bool IsPassiveHeroPower => Card[GameTag.HIDE_STATS] == 1;
 
 		public override IPlayable Clone(Controller controller)
 		{
