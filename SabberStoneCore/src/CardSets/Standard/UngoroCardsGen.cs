@@ -1845,6 +1845,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new FuncPlayablesTask(p =>
 					{
 						Controller c = p[0].Controller;
+						if (c.DiscardedEntities.Count == 0)
+							return new List<IPlayable>(0);
 						return new List<IPlayable> {Entity.FromCard(c, c.Game.IdEntityDic[Util.Choose(c.DiscardedEntities)].Card)};
 					}),
 					new SummonTask())

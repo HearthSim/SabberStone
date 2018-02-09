@@ -2291,13 +2291,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_672", new Power
 			{
-				// TODO [CFM_672] Madam Goya && Test: Madam Goya_CFM_672
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck()),
 					new FlagTask(true, ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
+					new RemoveFromDeck(EntityType.STACK),
 					new MoveToDeck(EntityType.TARGET),
 					new SummonTask())))
 			});
@@ -2610,7 +2610,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_020e", new Power
 			{
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

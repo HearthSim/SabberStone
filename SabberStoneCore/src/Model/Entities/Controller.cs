@@ -181,6 +181,16 @@ namespace SabberStoneCore.Model.Entities
 		private Controller(Game game, Controller controller) : base(game, controller)
 		{
 			Name = controller.Name;
+
+			Hero = (Hero)controller.Hero.Clone(this);
+
+			Hero.HeroPower = (HeroPower)controller.Hero.HeroPower.Clone(this);
+
+			if (controller.Hero.Weapon != null)
+			{
+				Hero.Weapon = (Weapon)controller.Hero.Weapon.Clone(this);
+			}
+
 			BoardZone = new BoardZone(this);
 			SetasideZone = controller.SetasideZone.Clone(this);
 			DeckZone = controller.DeckZone.Clone(this);
@@ -191,14 +201,6 @@ namespace SabberStoneCore.Model.Entities
 
 			DeckCards = controller.DeckCards;
 			BaseClass = controller.BaseClass;
-
-			Hero = (Hero) controller.Hero.Clone(this);
-			Hero.HeroPower = (HeroPower) controller.Hero.HeroPower.Clone(this);
-
-			if (controller.Hero.Weapon != null)
-			{
-				Hero.Weapon = (Weapon)controller.Hero.Weapon.Clone(this);
-			}
 
 			if (controller.Choice != null)
 			{

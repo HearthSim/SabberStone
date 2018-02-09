@@ -303,7 +303,7 @@ namespace SabberStoneCore.Actions
 
 					if (spell.IsSecret || spell.IsQuest)
 					{
-						spell.Power.Trigger.Activate(spell);
+						spell.Power.Trigger?.Activate(spell);
 						c.SecretZone.Add(spell);
 						spell.IsExhausted = true;
 					}

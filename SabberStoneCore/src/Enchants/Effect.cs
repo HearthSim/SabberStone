@@ -142,6 +142,13 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		public void Remove(IEntity entity)
 		{
+			// TODO
+			if (Tag == GameTag.COST)
+			{
+				if (!entity.NativeTags.ContainsKey(GameTag.COST))
+					return;
+			}
+
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
@@ -169,7 +176,8 @@ namespace SabberStoneCore.Enchants
 
 			if (Tag == GameTag.HEALTH && Operator == EffectOperator.ADD)
 			{
-				((ICharacter)auraEffects.Owner).Damage -= Value;
+				//((ICharacter)auraEffects.Owner).Damage -= Value;
+				auraEffects.Owner[GameTag.DAMAGE] -= Value;
 			}
 
 			switch (Operator)

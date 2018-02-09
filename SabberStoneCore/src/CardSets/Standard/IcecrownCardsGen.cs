@@ -483,7 +483,10 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					Condition = new SelfCondition(p =>
+					{
+						return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
+					}),
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p => p.Game.ProposedDefender),
 						new MemoryTask(EntityType.SOURCE),
@@ -491,11 +494,16 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				DeathrattleTask = new MemoryTask(EntityType.SOURCE, (s, mem) =>
 				{
+					if (mem == null)
+						return;
 					foreach (int id in mem)
 					{
 						if (s.Controller.BoardZone.IsFull)
 							return;
-						Entity.FromCard(s.Controller, s.Game.IdEntityDic[id].Card, null, s.Controller.BoardZone);
+						Card card = s.Game.IdEntityDic[id].Card;
+						if (card.Type == CardType.HERO)
+							return;
+						Entity.FromCard(s.Controller, card, null, s.Controller.BoardZone);
 					}
 				})
 			});

@@ -209,6 +209,8 @@ namespace SabberStoneCore.Model.Entities
 
 			set
 			{
+				if (base.ToBeDestroyed == value)
+					return;
 				base.ToBeDestroyed = value;
 				Game.DeadMinions.Add(OrderOfPlay, this);
 			} 

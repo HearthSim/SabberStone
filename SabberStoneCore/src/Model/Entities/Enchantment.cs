@@ -13,6 +13,8 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Enchantment : IPlayable
 	{
 		private readonly IDictionary<GameTag, int> _tags;
+		private int _creatorId;
+		private IPlayable _creator;
 
 		private Enchantment(Controller controller, Card card, IDictionary<GameTag, int> tags)
 		{
@@ -30,7 +32,7 @@ namespace SabberStoneCore.Model.Entities
 			Card = e.Card;
 			Id = e.Id;
 			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
-			Creator = Game.IdEntityDic[e.Creator.Id];
+			_creatorId = e._creatorId;
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			Game.IdEntityDic.Add(Id, this);
@@ -52,7 +54,15 @@ namespace SabberStoneCore.Model.Entities
 
 		public IEntity Target { get; private set; }
 
-		public IPlayable Creator { get; private set; }
+		public IPlayable Creator
+		{
+			get => _creator ?? (_creator = Game.IdEntityDic[_creatorId]);
+			private set
+			{
+				_creatorId = value.Id;
+				_creator = value;
+			}
+		}
 
 		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 

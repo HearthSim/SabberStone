@@ -33,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    }
 			else if (!CachedCardLists.TryGetValue(0, out cards))
 			{
-				cards = Cards.FormatTypeCards(Game.FormatType).Where(c => c.Type == CardType.SPELL).ToList();
+				cards = Cards.FormatTypeCards(Game.FormatType).Where(c => c.Type == CardType.SPELL && !c.IsQuest).ToList();
 				CachedCardLists.TryAdd(0, cards);
 			}
 
@@ -43,12 +43,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			ICharacter randTarget = null;
 		    if (randCard.RequiresTarget)
-			{
-				randTarget = randCard.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
-				    ? (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALLMINIONS, Source.Controller, null, null, null))
-				    : (ICharacter) Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, Source.Controller, null, null, null));
+		    {
+			    List<ICharacter> targets = (List<ICharacter>)spellToCast.ValidPlayTargets;
 
-				spellToCast.CardTarget = randTarget.Id;
+				randTarget = targets.Count > 0 ? Util.RandomElement(spellToCast.ValidPlayTargets) : null;
+
+			    spellToCast.CardTarget = randTarget?.Id ?? -1;
 
 				Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
 					!Game.Logging ? "" : $"{spellToCast}'s target is randomly selected to {randTarget}");

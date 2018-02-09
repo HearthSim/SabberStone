@@ -32,6 +32,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    {
 			    if (_action != null)
 			    {
+					if (p.Memory == null)
+						break;
 				    _action(p, p.Memory);
 					continue;
 			    }

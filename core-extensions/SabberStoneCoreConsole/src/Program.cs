@@ -26,6 +26,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			Console.WriteLine(Cards.Statistics());
+			StabilityTest.CloneStabilityTest();
 
 			//BasicBuffTest();
 			//CardsTest();
@@ -46,6 +47,8 @@ namespace SabberStoneCoreConsole
 			//QuestDrawFirstTest();
 			TortollanPrimalist();
 
+			
+
 			//TestLoader.GetGameTags();
 			//var test = TestLoader.Load();
 			//Console.WriteLine(test.Count());
@@ -60,7 +63,6 @@ namespace SabberStoneCoreConsole
 			Console.ReadKey();
 		}
 
-		
 
 		private static void GatherTagsUsedByEnchantsOrTriggers()
 		{

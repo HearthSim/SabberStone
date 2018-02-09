@@ -71,6 +71,8 @@ namespace SabberStoneCore.Model.Zones
 			for (int i = 0; i < Auras.Count; i++)
 				Auras[i].EntityRemoved(oldEntity);
 			oldEntity.ActivatedTrigger?.Remove();
+			if (oldEntity.Card.Untouchable && --_untouchableCount == 0)
+				_hasUntouchables = false;
 
 			Controller.SetasideZone.Add(oldEntity);
 

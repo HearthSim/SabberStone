@@ -4028,7 +4028,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_FRIENDLY_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MadamGoya_CFM_672()
 		{
 			// TODO MadamGoya_CFM_672 test
@@ -4036,14 +4036,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Arcane Missiles"),
+					Cards.FromName("Arcane Missiles"),
+					Cards.FromName("Arcane Missiles"),
+					Cards.FromName("Arcane Missiles"),
+					Cards.FromName("Wisp"),
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Madam Goya"));
+
+
+			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Madam Goya", target);
+			Assert.Equal("Wisp", game.CurrentPlayer.BoardZone[1].Card.Name);
+			Assert.Equal(1, game.CurrentPlayer.DeckZone.Count);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.DeckZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -262,7 +262,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						return c.Opponent.BoardZone.GetAll();
 					else
 					{
-						if (c.Opponent.BoardZone.Count > 1)
+						if (c.Opponent.BoardZone.Count > 0)
 						{
 							var arr = new ICharacter[c.Opponent.BoardZone.Count];
 							arr[0] = c.Opponent.Hero;
@@ -277,7 +277,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables + 2];
 					c.BoardZone.CopyTo(arr, 0);
-					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.Count);
+					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
 					arr[arr.Length - 2] = c.Hero;
 					arr[arr.Length - 1] = c.Opponent.Hero;
 					return arr;
