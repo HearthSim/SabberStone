@@ -931,7 +931,6 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = new AddEnchantmentTask("DS1_188e", EntityType.HERO)
-					//SingleTask = new AddAuraEffect(Effects.Immune, EntityType.HERO)
 				}
 			});
 

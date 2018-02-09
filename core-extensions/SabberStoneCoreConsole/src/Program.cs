@@ -25,6 +25,8 @@ namespace SabberStoneCoreConsole
 		{
 			Console.WriteLine("Start Test!");
 
+			Console.WriteLine(Cards.Statistics());
+
 			//BasicBuffTest();
 			//CardsTest();
 			//WhileCardTest();

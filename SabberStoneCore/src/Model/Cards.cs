@@ -27,7 +27,7 @@ namespace SabberStoneCore.Model
 			CardSet.GANGS,
 			CardSet.UNGORO,
 			CardSet.ICECROWN,
-			//CardSet.LOOTAPALOOZA
+			CardSet.LOOTAPALOOZA
 		};
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model
 			CardSet.GANGS,
 			CardSet.UNGORO,
 			CardSet.ICECROWN,
-			//CardSet.LOOTAPALOOZA,
+			CardSet.LOOTAPALOOZA,
 			// wild
 			//CardSet.BRM,
 			//CardSet.GVG,

@@ -133,7 +133,7 @@
 //					InfoCardId = "LOOT_047e",
 //					Activation = PowerActivation.SPELL,
 //					PowerTask = ComplexTask.Create(
-//						new BuffTask(Buffs.Health(3), EntityType.TARGET), 
+//						new BuffTask(Buffs.Health(3), EntityType.TARGET),
 //						new ArmorTask(3))
 //				},
 //			});

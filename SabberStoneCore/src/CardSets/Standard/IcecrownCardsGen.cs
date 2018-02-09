@@ -46,7 +46,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_827", new Power {
-				// TODO [ICC_827] Valeera the Hollow && Test: Valeera the Hollow_ICC_827
 				PowerTask = new AddEnchantmentTask("ICC_827e3", EntityType.HERO)
 			});
 
@@ -1353,7 +1352,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_858", new Power {
-				// TODO [ICC_858] Bolvar, Fireblood && Test: Bolvar, Fireblood_ICC_858
 				Trigger = new Trigger(TriggerType.LOSE_DIVINE_SHIELD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -1389,8 +1387,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_244", new Power {
-				// TODO [ICC_244] Desperate Stand && Test: Desperate Stand_ICC_244
-				InfoCardId = "ICC_244e",
 				PowerTask = new AddEnchantmentTask("ICC_244e", EntityType.TARGET)
 			});
 
@@ -1836,7 +1832,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - IMMUNE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_850", new Power {
-				// TODO [ICC_850] Shadowblade && Test: Shadowblade_ICC_850
 				InfoCardId = "ICC_850e",
 				PowerTask = new AddEnchantmentTask("ICC_850e", EntityType.HERO)
 			});
@@ -1901,7 +1896,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Always copy your last played card.
 			// --------------------------------------------------------
 			cards.Add("ICC_827e", new Power {
-				// TODO [ICC_827e] Shadow Reflection && Test: Shadow Reflection_ICC_827e
 				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1),
 				Trigger = Triggers.ShadowReflectionTrigger
 			});
@@ -2384,7 +2378,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Gain 10 Armor. Reduce the Cost of minions in your opponent's hand by (2).
 			// --------------------------------------------------------
 			cards.Add("ICC_837", new Power {
-				// TODO [ICC_837] Bring It On! && Test: Bring It On!_ICC_837
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(10),
 					new IncludeTask(EntityType.OP_HAND),
@@ -2809,7 +2802,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - IMMUNE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_467", new Power {
-				// TODO [ICC_467] Deathspeaker && Test: Deathspeaker_ICC_467
 				PowerTask = new AddEnchantmentTask("ICC_467e", EntityType.TARGET)
 			});
 
@@ -2820,7 +2812,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion attacks, deal 2 damage to_the enemy hero.
 			// --------------------------------------------------------
 			cards.Add("ICC_468", new Power {
-				// TODO [ICC_468] Wretched Tiller && Test: Wretched Tiller_ICC_468
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
@@ -3503,7 +3494,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +1/+1.
 			// --------------------------------------------------------
 			cards.Add("ICC_851e", new Power {
-				// TODO [ICC_851e] Keleseth's Blessing && Test: Keleseth's Blessing_ICC_851e
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_851e")
 			});
 
@@ -3514,7 +3504,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 3/3.
 			// --------------------------------------------------------
 			cards.Add("ICC_852e", new Power {
-				// TODO [ICC_852e] Taldaram's Visage && Test: Taldaram's Visage_ICC_852e
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_852e")
 			});
 
