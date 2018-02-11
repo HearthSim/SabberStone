@@ -27,17 +27,30 @@ namespace SabberStoneCoreConsole
 					Shuffle = false,
 					SkipMulligan = true,
 					History = false,
-					Logging = false,
+					Logging = true,
 				};
 			    var game = new Game(config);
 				game.StartGame();
 
-				do
+				try
 				{
-					List<PlayerTask> options = game.CurrentPlayer.Options();
-					game.Process(options[rnd.Next(options.Count)]);
-					game = game.Clone();
-				} while (game.State != State.COMPLETE);
+					do
+					{
+						List<PlayerTask> options = game.CurrentPlayer.Options();
+						PlayerTask lastOption = options[rnd.Next(options.Count)];
+						game.Process(lastOption);
+						game = game.Clone(true);
+					} while (game.State != State.COMPLETE);
+				}
+				catch (Exception e)
+				{
+					Program.ShowLog(game, LogLevel.DEBUG);
+					Console.WriteLine(e.StackTrace);
+					Console.WriteLine(e.Message);
+					Console.WriteLine(e.Source);
+					Console.WriteLine(e.TargetSite);
+				}
+
 
 				if (i % (TESTCOUNT / 10) == 0)
 					Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");

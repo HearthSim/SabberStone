@@ -180,9 +180,9 @@ namespace SabberStoneCore.Conditions
 
 
 		public static SelfCondition IsBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
-			=> new SelfCondition(me => relaSign == RelaSign.EQ && me.Controller.BoardZone.Count == value
-									|| relaSign == RelaSign.GEQ && me.Controller.BoardZone.Count >= value
-									|| relaSign == RelaSign.LEQ && me.Controller.BoardZone.Count <= value);
+			=> new SelfCondition(me => relaSign == RelaSign.EQ && me.Controller.BoardZone.CountExceptUntouchables == value
+									|| relaSign == RelaSign.GEQ && me.Controller.BoardZone.CountExceptUntouchables >= value
+									|| relaSign == RelaSign.LEQ && me.Controller.BoardZone.CountExceptUntouchables <= value);
 
 		public static SelfCondition IsOpBoardCount(int value, RelaSign relaSign = RelaSign.EQ)
 		{

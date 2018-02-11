@@ -62,6 +62,7 @@ namespace SabberStoneCore.Model
 			if (controller.Game.History)
 				controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
+			CurrentTask = clone;
 			clone.Process();
 
 			if (controller.Game.History)

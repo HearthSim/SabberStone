@@ -2992,8 +2992,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_852", new Power {
 				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),
+					new FlagTask(true, ComplexTask.Create(
 					new TransformCopyTask(true),
-					new AddEnchantmentTask("ICC_852e", EntityType.STACK))
+					new AddEnchantmentTask("ICC_852e", EntityType.STACK))))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

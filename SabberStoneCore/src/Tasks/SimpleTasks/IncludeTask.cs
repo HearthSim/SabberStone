@@ -217,9 +217,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (source.Controller == c)
 					{
 						Minion[] board = c.BoardZone.GetAll(p => p != source);
-						Minion[] array = new Minion[board.Length + c.Opponent.BoardZone.Count];
+						Minion[] array = new Minion[board.Length + c.Opponent.BoardZone.CountExceptUntouchables];
 						board.CopyTo(array, 0);
-						c.Opponent.BoardZone.GetAll().CopyTo(array, board.Length);
+						c.Opponent.BoardZone.CopyTo(array, board.Length);
 						return array;
 					}
 					else
@@ -227,7 +227,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						Minion[] board = c.Opponent.BoardZone.GetAll(p => p != source);
 						Minion[] array = new Minion[board.Length + c.BoardZone.CountExceptUntouchables];
 						board.CopyTo(array, 0);
-						c.BoardZone.GetAll().CopyTo(array, board.Length);
+						c.BoardZone.CopyTo(array, board.Length);
 						return array;
 					}
 				}

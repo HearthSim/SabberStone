@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -151,24 +152,7 @@ namespace SabberStoneCore.Enchants
 			owner.OngoingEffect = instance;
 
 			if (!cloning)
-				switch (Type)
-				{
-					case AuraType.BOARD:
-					case AuraType.BOARD_EXCEPT_SOURCE:
-					case AuraType.ADJACENT:
-						owner.Controller.BoardZone.Auras.Add(instance);
-						break;
-					case AuraType.HAND:
-						owner.Controller.HandZone.Auras.Add(instance);
-						break;
-					case AuraType.OP_HAND:
-						owner.Controller.Opponent.HandZone.Auras.Add(instance);
-						break;
-					case AuraType.HANDS:
-						owner.Controller.HandZone.Auras.Add(instance);
-						owner.Controller.Opponent.HandZone.Auras.Add(instance);
-						break;
-				}
+				instance.AddToZone();
 
 			if (RemoveTrigger.Type != TriggerType.NONE)
 			{
@@ -214,6 +198,29 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void AddToZone()
+		{
+			switch (Type)
+			{
+				case AuraType.BOARD:
+				case AuraType.BOARD_EXCEPT_SOURCE:
+				case AuraType.ADJACENT:
+					Owner.Controller.BoardZone.Auras.Add(this);
+					break;
+				case AuraType.HAND:
+					Owner.Controller.HandZone.Auras.Add(this);
+					break;
+				case AuraType.OP_HAND:
+					Owner.Controller.Opponent.HandZone.Auras.Add(this);
+					break;
+				case AuraType.HANDS:
+					Owner.Controller.HandZone.Auras.Add(this);
+					Owner.Controller.Opponent.HandZone.Auras.Add(this);
+					break;
+			}
+		}
+
 		/// <summary>
 		/// Apply this aura to the target entities or remove this aura if the owner is nullified.
 		/// </summary>
@@ -232,7 +239,7 @@ namespace SabberStoneCore.Enchants
 				{
 					for (int i = 0; i < _tempList.Count; i++)
 					{
-						var minion = _tempList[i];
+						IPlayable minion = _tempList[i];
 
 						Apply(minion);
 					}

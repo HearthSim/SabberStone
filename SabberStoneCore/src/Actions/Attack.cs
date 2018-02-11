@@ -33,6 +33,7 @@ namespace SabberStoneCore.Actions
 					c.Game.DeathProcessingAndAuraUpdate();
 					return false;
 				}
+				Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				if (!AttackPhase.Invoke(c, source))
 				{
 					// end block

@@ -1078,7 +1078,7 @@ namespace SabberStoneCoreConsole
 			totCards.OrderBy(o => o.Id).ToList().ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 		}
 
-		private static void ShowLog(Game game, LogLevel level)
+		internal static void ShowLog(Game game, LogLevel level)
 		{
 			var str = new StringBuilder();
 			while (game.Logs.Count > 0)

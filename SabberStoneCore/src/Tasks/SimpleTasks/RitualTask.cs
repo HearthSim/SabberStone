@@ -81,8 +81,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						});
 						break;
 					}
-
-					entities.ForEach(p => ((OngoingEnchant) p.OngoingEffect).Count += _amount);
+					entities.ForEach(p =>
+					{
+						if (p[GameTag.SILENCED] == 1)
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
+						
+						((OngoingEnchant) p.OngoingEffect).Count += _amount;
+					});
 					break;
 
 				case RitualType.Taunt:

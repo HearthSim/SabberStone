@@ -15,7 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     {
 		private readonly Func<Card, bool> _condition;
 
-	    private static ConcurrentDictionary<int, List<Card>> CachedCardLists = new ConcurrentDictionary<int, List<Card>>();
+	    private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists = new ConcurrentDictionary<int, Card[]>();
 
 	    public CastRandomSpellTask(Func<Card, bool> condition = null)
 	    {
@@ -24,20 +24,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	    public override TaskState Process()
 	    {
-			if (_condition != null && !CachedCardLists.TryGetValue(Source.Card.AssetId, out List<Card> cards))
+			if (_condition != null && !CachedCardLists.TryGetValue(Source.Card.AssetId, out Card[] cards))
 		    {
 			    cards = Cards.FormatTypeCards(Game.FormatType)
-				    .Where(c => c.Type == CardType.SPELL && _condition(c)).ToList();
+				    .Where(c => c.Type == CardType.SPELL && _condition(c)).ToArray();
 
 			    CachedCardLists.TryAdd(Source.Card.AssetId, cards);
 		    }
 			else if (!CachedCardLists.TryGetValue(0, out cards))
 			{
-				cards = Cards.FormatTypeCards(Game.FormatType).Where(c => c.Type == CardType.SPELL && !c.IsQuest).ToList();
+				cards = Cards.FormatTypeCards(Game.FormatType).Where(c => c.Type == CardType.SPELL && !c.IsQuest).ToArray();
 				CachedCardLists.TryAdd(0, cards);
 			}
 
-		    Card randCard = cards[Random.Next(cards.Count)];
+		    Card randCard = cards[Random.Next(cards.Length)];
 
 			Spell spellToCast = (Spell) Target ?? (Spell) Entity.FromCard(Source.Controller, randCard);
 
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    {
 			    List<ICharacter> targets = (List<ICharacter>)spellToCast.ValidPlayTargets;
 
-				randTarget = targets.Count > 0 ? Util.RandomElement(spellToCast.ValidPlayTargets) : null;
+				randTarget = targets.Count > 0 ? Util.RandomElement(targets) : null;
 
 			    spellToCast.CardTarget = randTarget?.Id ?? -1;
 
@@ -56,9 +56,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			int randChooseOne = Random.Next(1, 3);
 
-		    Generic.PlaySpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
+			//Generic.PlaySpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
 
-		    while (Source.Controller.Choice != null)
+			Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
+				!Game.Logging ? "" : $"{Source} casted {Controller}'s {spellToCast}.");
+
+		    Game.TaskQueue.Execute(spellToCast.Power.PowerTask, Source.Controller, spellToCast, randTarget, randChooseOne);
+		    Game.DeathProcessingAndAuraUpdate();
+
+			while (Source.Controller.Choice != null)
 		    {
 			    Generic.ChoicePick.Invoke(Source.Controller, Util.Choose(Source.Controller.Choice.Choices));
 		    }

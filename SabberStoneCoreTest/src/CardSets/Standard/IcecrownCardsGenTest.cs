@@ -5221,7 +5221,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void PrinceTaldaram_ICC_852()
 		{
-			// TODO PrinceTaldaram_ICC_852 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,

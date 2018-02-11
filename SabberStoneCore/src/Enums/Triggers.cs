@@ -99,6 +99,7 @@ namespace SabberStoneCore.Enums
 		PlaySpell,
 		Summon,
 		DamageDealt,
-		Attack
+		Attack,
+		Target,
 	}
 }

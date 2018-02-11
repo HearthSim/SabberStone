@@ -162,7 +162,7 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(list =>
 				{
 					IPlayable p = list[0];
-					int boardCount = p.Controller.BoardZone.CountExceptUntouchables;
+					//int boardCount = p.Controller.BoardZone.CountExceptUntouchables;
 					int opBoardCount = p.Controller.Opponent.BoardZone.CountExceptUntouchables;
 
 					if (p is ICharacter c && c.IsAttacking)
@@ -176,39 +176,7 @@ namespace SabberStoneCore.Tasks
 						return null;
 					}
 
-					if (p.Card.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET))
-					{
-						int index = Util.Random.Next(boardCount + opBoardCount);
-						if (index < boardCount)
-						{
-							p.CardTarget = p.Controller.BoardZone.HasUntouchables ? p.Controller.BoardZone.GetAll(null)[index].Id : p.Controller.BoardZone[index].Id;
-							return null;
-						}
-
-						index -= boardCount;
-						p.CardTarget = p.Controller.Opponent.BoardZone.HasUntouchables ? p.Controller.Opponent.BoardZone.GetAll(null)[index].Id : p.Controller.Opponent.BoardZone[index].Id;
-						return null;
-					}
-
-					int all = boardCount + opBoardCount + 2;
-					int i = Util.Random.Next(all);
-					if (i < boardCount)
-					{
-						p.CardTarget = p.Controller.BoardZone.HasUntouchables
-							? p.Controller.BoardZone.GetAll(null)[i].Id
-							: p.Controller.BoardZone[i].Id;
-						return null;
-					}
-					i -= boardCount;
-					if (i < opBoardCount)
-					{
-						p.CardTarget = p.Controller.Opponent.BoardZone.HasUntouchables
-							? p.Controller.Opponent.BoardZone.GetAll(null)[i].Id
-							: p.Controller.Opponent.BoardZone[i].Id;
-						return null;
-					}
-					i -= opBoardCount;
-					p.CardTarget = i == 0 ? p.Controller.Hero.Id : p.Controller.Opponent.Hero.Id;
+					p.CardTarget = Util.Choose((List<ICharacter>) p.ValidPlayTargets).Id;
 					return null;
 				}));
 

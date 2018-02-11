@@ -1288,9 +1288,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("tt_010", new Power {
-				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				Trigger = new Trigger(TriggerType.TARGET)
 				{
-					Condition = SelfCondition.HasTarget,
+					Condition = SelfCondition.IsSpell,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull, SelfCondition.IsTagValue(GameTag.CANT_PLAY, 0)),
 						new FlagTask(true, ComplexTask.Secret(
@@ -1505,7 +1505,7 @@ namespace SabberStoneCore.CardSets.Standard
 						int diffHands = controller.Opponent.HandZone.Count - controller.HandZone.Count;
 						return diffHands > 0 ? diffHands : 0;
 					}),
-					new EnqueueNumberTask(new DrawTask())),
+					new DrawNumberTask())
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -3051,7 +3051,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.FRIENDS),
 					new FilterStackTask(SelfCondition.IsDamaged),
 					new CountTask(EntityType.STACK),
-					new EnqueueNumberTask(new DrawTask()))
+					new DrawNumberTask())
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -4458,7 +4458,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
 					new MathSubstractionTask(GameTag.DAMAGE, EntityType.OP_WEAPON),
 					new DestroyTask(EntityType.OP_WEAPON),
-					new EnqueueNumberTask(new DrawTask()))
+					new DrawNumberTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

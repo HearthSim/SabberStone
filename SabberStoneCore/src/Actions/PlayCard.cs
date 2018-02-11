@@ -48,7 +48,10 @@ namespace SabberStoneCore.Actions
 
 				// target is beeing set onto this gametag
 				if (target != null)
+				{
 					source.CardTarget = target.Id;
+					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
+				}
 
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.PlayCard);
 				switch (source)

@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -23,6 +24,9 @@ namespace SabberStoneCore.Actions
 						return false;
 
 				PayPhase.Invoke(c, c.Hero.HeroPower);
+
+				if (target != null)
+					Trigger.ValidateTriggers(c.Game, c.Hero.HeroPower, SequenceType.Target);
 
 				// play block
 				if (c.Game.History)

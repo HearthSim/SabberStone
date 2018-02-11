@@ -351,7 +351,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Earthen Scales"));
 
-			var minion = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion minion = game.ProcessCard<Minion>("Stonetusk Boar");
 			game.ProcessCard("Earthen Scales", minion);
 			Assert.Equal(2, minion.AttackDamage);
 			Assert.Equal(2, minion.Health);
@@ -1935,7 +1935,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = game.ProcessCard<Minion>("Sherazin, Corpse Flower", null, true);
+			Minion testCard = game.ProcessCard<Minion>("Sherazin, Corpse Flower", null, true);
 			game.ProcessCard("Eviscerate", testCard, true);
 
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
@@ -2811,7 +2811,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lakkari Sacrifice"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lakkari Sacrifice"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
 			game.ProcessCard("Soulfire", game.CurrentOpponent.Hero, true);

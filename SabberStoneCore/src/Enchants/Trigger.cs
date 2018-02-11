@@ -67,6 +67,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.AFTER_CAST:
 				    _sequenceType = SequenceType.PlaySpell;
 					return;
+				case TriggerType.TARGET:
+					_sequenceType = SequenceType.Target;
+					return;
 				case TriggerType.TURN_END:
 					FastExecution = true;
 					return;

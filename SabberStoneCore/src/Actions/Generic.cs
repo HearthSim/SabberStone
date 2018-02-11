@@ -235,6 +235,7 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
+		// TODO: Posionous Block
 		public static Func<bool, ICharacter, ICharacter, bool> PoisonousBlock
 			=> delegate(bool history, ICharacter source, ICharacter target)
 			{

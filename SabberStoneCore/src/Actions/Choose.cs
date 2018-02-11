@@ -59,11 +59,11 @@ namespace SabberStoneCore.Actions
 							ICharacter randTarget = null;
 							if (playable.Card.RequiresTarget)
 							{
-								randTarget = playable.Card.PlayRequirements.ContainsKey(PlayReq.REQ_MINION_TARGET)
-									? (ICharacter)Util.RandomElement(IncludeTask.GetEntities(EntityType.ALLMINIONS, c, null, null, null))
-									: (ICharacter)Util.RandomElement(IncludeTask.GetEntities(EntityType.ALL, c, null, null, null));
+								List<ICharacter> targets = (List<ICharacter>)playable.ValidPlayTargets;
 
-								playable.CardTarget = randTarget.Id;
+								randTarget = targets.Count > 0 ? Util.RandomElement(targets) : null;
+
+								playable.CardTarget = randTarget?.Id ?? -1;
 
 								c.Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpell",
 									!c.Game.Logging ? "" : $"{playable}'s target is randomly selected to {randTarget}");

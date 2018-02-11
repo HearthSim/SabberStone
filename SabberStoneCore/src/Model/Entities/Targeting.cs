@@ -286,10 +286,14 @@ namespace SabberStoneCore.Model.Entities
 						}
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-						if (!Controller.DragonInHand)
+						if (Card.Race == Race.DRAGON)
 						{
-							return false;
+							IPlayable[] dragons = Controller.HandZone.GetAll(p => p.Card.Race == Race.DRAGON);
+							if (dragons.Length == 1 && dragons[0] == this)
+								return false;
 						}
+						else if (!Controller.DragonInHand)
+							return false;
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
 						if (Controller.NumElementalsPlayedLastTurn < 1)

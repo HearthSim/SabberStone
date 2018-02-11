@@ -5,9 +5,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawTask : SimpleTask
 	{
+		private readonly bool _toStack;
+		private readonly int _count;
+		private readonly bool _useNumber;
+
 		public DrawTask(bool toStack = false, int count = 1)
 		{
-			ToStack = toStack;
+			_toStack = toStack;
 			_count = count;
 		}
 
@@ -15,12 +19,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 		}
 
-		public bool ToStack { get; set; }
-		private readonly int _count;
 
 		public override TaskState Process()
 		{
 			//Model.Entities.IPlayable drawedCard = Generic.Draw(Controller);
+
 			var cards = new IPlayable[_count];
 			for (int i = 0; i < _count; i++)
 				cards[i] = Generic.Draw(Controller);
@@ -30,7 +33,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.COMPLETE;
 			}
 
-			if (ToStack)
+			if (_toStack)
 			{
 				Playables.Add(cards[0]);
 			}
@@ -40,7 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new DrawTask(ToStack, _count);
+			var clone = new DrawTask(_toStack, _count);
 			clone.Copy(this);
 			return clone;
 		}

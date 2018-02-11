@@ -295,6 +295,11 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer = game.CurrentPlayer.Id == 2 ? _players[0] : _players[1];
 
+			Auras.ForEach(p =>
+			{
+				if (p is Aura a)
+					a.AddToZone();
+			});
 
 			TaskStack = new TaskStack(this);
 			TaskStack.Stamp(game.TaskStack);
@@ -357,6 +362,26 @@ namespace SabberStoneCore.Model
 			// make sure that we only use task for this game ...
 			gameTask.Game = this;
 			gameTask.Process();
+
+			// check dead heroes here again (TODO)
+			if (Player1.Hero.ToBeDestroyed)
+			{
+				if (Player2.Hero.ToBeDestroyed)
+				{
+					Player1.PlayState = PlayState.TIED;
+					Player2.PlayState = PlayState.TIED;
+				}
+
+				Player1.PlayState = PlayState.LOSING;
+
+				NextStep = Step.FINAL_WRAPUP;
+			}
+			else if (Player2.Hero.ToBeDestroyed)
+			{
+				Player2.PlayState = PlayState.LOSING;
+
+				NextStep = Step.FINAL_WRAPUP;
+			}
 
 			// add power and buff tag changes
 			//if (false)
