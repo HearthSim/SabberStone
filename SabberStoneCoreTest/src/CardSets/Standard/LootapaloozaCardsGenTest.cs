@@ -3919,7 +3919,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(3, testCard.Card.Cost - testCard.Cost);
 
 
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corridor Creeper"));
+			Game clone = game.Clone();
+			Assert.NotNull(clone.CurrentPlayer.HandZone.Last().ActivatedTrigger);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

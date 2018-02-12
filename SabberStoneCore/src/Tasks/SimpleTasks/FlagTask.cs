@@ -23,7 +23,7 @@
 			TaskToDo.Source = Source;
 			TaskToDo.Target = Target;
 			TaskToDo.Playables = Playables;
-			TaskToDo.CardIds = CardIds;
+			//TaskToDo.CardIds = CardIds;
 			TaskToDo.Flag = Flag;
 			TaskToDo.Number = Number;
 			TaskToDo.Number1 = Number1;

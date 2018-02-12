@@ -638,6 +638,7 @@
 
 
 		// more or less guessed gametags
+		HEADCRACK_COMBO = 298,
 		RESTORE_TO_DAMAGE = 326,
 		CONTROLLER_CHANGED_THIS_TURN = 333,	//	Potion of Madness, Shadow Madness, Embrace Darkness
 		EXTRA_BATTLECRY = 411, //ControllerTag, true/false Bronzebard Extra Battlecry
@@ -646,6 +647,7 @@
 		MOAT_LURKER_MINION = 468,
 		TAG_LAST_KNOWN_ATK_IN_HAND = 479, // ???
 		EXTRA_END_TURN_EFFECT = 755, // ???
+		AMOUNT_HERO_HEALED_THIS_TURN = 821,
 
 		NUM_SPELLS_PLAYED_THIS_GAME = 1001,
 		NUM_SECRETS_PLAYED_THIS_GAME = 1002,

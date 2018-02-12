@@ -75,12 +75,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Menagerie Warden"));
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
+			IPlayable beast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, beast));
+			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, beast));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(minion.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
-			Assert.Equal(minion.Card.Id, game.CurrentPlayer.BoardZone[2].Card.Id);
+			Assert.Equal(beast.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
+			Assert.Equal(beast.Card.Id, game.CurrentPlayer.BoardZone[2].Card.Id);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -845,22 +845,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - InvisibleDeathrattle = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SilverwareGolem_KAR_205()
 		{
-			// TODO SilverwareGolem_KAR_205 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true,
+				FillDecks = false,
+				Shuffle = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silverware Golem"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Silverware Golem"));
+			IPlayable soulFire = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soulfire"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, soulFire, game.CurrentOpponent.Hero));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("KAR_205", game.CurrentPlayer.BoardZone[0].Card.Id);
 		}
 	}
 
@@ -1175,7 +1179,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MoatLurker_KAR_041()
 		{
 			// TODO MoatLurker_KAR_041 test
@@ -1190,7 +1194,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moat Lurker"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Moat Lurker"));
+			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moat Lurker"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, minion));
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			game.CurrentPlayer.UsedMana = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, testCard));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -1376,7 +1389,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.NextStep = Step.MAIN_BEGIN; // End Mulligan phase.
 
 			// Post MULLIGAN.
-			Assert.Equal(0, game.Triggers.Count);
 			Assert.Equal(31, game.CurrentPlayer.DeckZone.Count); // 30-4(hand)+5 legendaries
 
 			// Malchezaar abides several rules; see https://hearthstone.gamepedia.com/Prince_Malchezaar#Notes
@@ -1423,7 +1435,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.True(game.CurrentPlayer.Hero.Weapon != null);
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
-			Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Triggers.Count);
+			//Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Triggers.Count);
 			game.CurrentPlayer.UsedMana = 0;
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, game.CurrentOpponent.Hero));
@@ -1431,8 +1443,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(4, game.CurrentPlayer.BoardZone.Last().Cost);
 			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
 			IPlayable apprentice = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sorcerer's Apprentice"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, apprentice));
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, apprentice));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, game.CurrentOpponent.Hero));
 			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Last().Cost);
@@ -1479,10 +1491,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MenagerieMagician_KAR_702()
 		{
-			// TODO MenagerieMagician_KAR_702 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1494,7 +1505,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Menagerie Magician"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Menagerie Magician"));
+			IPlayable beast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable dragon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Faerie Dragon"));
+			IPlayable murloc = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, beast));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, dragon));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, murloc));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+			Assert.Equal(3, beast[GameTag.ATK]);
+			Assert.Equal(5, dragon[GameTag.ATK]);
+			Assert.Equal(4, murloc[GameTag.ATK]);
+			Assert.Equal(3, beast[GameTag.HEALTH]);
+			Assert.Equal(4, dragon[GameTag.HEALTH]);
+			Assert.Equal(3, murloc[GameTag.HEALTH]);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -1586,7 +1612,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.True(game.CurrentPlayer.Hero.IsImmune);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.False(game.CurrentPlayer.Hero.IsImmune);
+			Assert.False(game.CurrentOpponent.Hero.IsImmune);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.True(game.CurrentPlayer.Hero.IsImmune);
 		}

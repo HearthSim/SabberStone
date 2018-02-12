@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using System.Collections;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonCopyTask : SimpleTask
 	{
 		/// <summary>
-		/// Summons a copy of the choosen entitytype.
+		/// Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
 		/// <param name="randomFlag"><c>true</c> if the copies need to be summoned
@@ -21,6 +22,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Type = type;
 			RandomFlag = randomFlag;
+		}
+
+		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
+		{
+			_side = side;
 		}
 
 		/// <summary>
@@ -33,6 +39,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		public bool RandomFlag { get; set; }
 
+		private readonly SummonSide _side;
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
@@ -40,7 +48,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Controller.BoardZone.IsFull)
 				return TaskState.STOP;
 
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ToList();
 
 			if (entities.Count < 1)
 			{
@@ -54,13 +62,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.OnRandomHappened(true);
 
 			int space = Controller.BoardZone.MaxSize - Controller.BoardZone.Count;
-			if (space < Playables.Count)
+			if (space < entities.Count)
 				Playables = Playables.Take(space).ToList();
 
 			entities.ForEach(p =>
 			{
 				// clone task here
-				var task = new SummonTask(SummonSide.DEFAULT, p.Card)
+				var task = new SummonTask(_side, p.Card)
 				{
 					Game = Controller.Game,
 					Controller = Controller,

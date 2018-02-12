@@ -18,6 +18,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
+			Controller.Game.Step = Enums.Step.MAIN_END;
 			Controller.Game.MainEnd();
 			return TaskState.COMPLETE;
 		}

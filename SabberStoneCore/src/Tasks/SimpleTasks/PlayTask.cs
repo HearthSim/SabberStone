@@ -32,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						if (p is Spell && (p.Zone == null || Generic.RemoveFromZone(Controller, p)))
 						{
-							bool success = Generic.PlaySpell.Invoke(Controller, (Spell)p, null);
+							bool success = Generic.PlaySpell.Invoke(Controller, (Spell)p, null, 0);
 						}
 					});
 					return TaskState.COMPLETE;

@@ -22,7 +22,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
+			//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				var target = p as ICharacter;
 				if (target != null)
@@ -37,7 +38,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					target.IsIgnoreDamage = false;
 				}
-			});
+			};
 
 			return TaskState.COMPLETE;
 		}

@@ -68,7 +68,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					});
 					break;
 				case EntityType.OP_HERO_POWER:
-					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.Power.Card.Id)));
+					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.HeroPower.Card.Id)));
 					break;
 				case EntityType.WEAPON:
 					var weapon = Controller.Hero.Weapon as Weapon;

@@ -7,10 +7,11 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<Controller, int, bool> ChoicePick
@@ -55,9 +56,25 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.SPELL:
 						if (RemoveFromZone(c, playable))
 						{
-							PlaySpell.Invoke(c, (Spell)playable, null);
+							ICharacter randTarget = null;
+							if (playable.Card.RequiresTarget)
+							{
+								List<ICharacter> targets = (List<ICharacter>)playable.ValidPlayTargets;
+
+								randTarget = targets.Count > 0 ? Util.RandomElement(targets) : null;
+
+								playable.CardTarget = randTarget?.Id ?? -1;
+
+								c.Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpell",
+									!c.Game.Logging ? "" : $"{playable}'s target is randomly selected to {randTarget}");
+							}
+							PlaySpell.Invoke(c, (Spell)playable, randTarget, 0);
+
 						}
 						break;
+
+					case ChoiceAction.SPELL_RANDOM:
+
 
 					case ChoiceAction.SUMMON:
 						if (!c.BoardZone.IsFull && RemoveFromZone(c, playable))
@@ -79,10 +96,8 @@ namespace SabberStoneCore.Actions
 
 					case ChoiceAction.ADAPT:
 						c.Choice.TargetIds.ForEach(p =>
-						{
-							IPlayable target = c.Game.IdEntityDic[p];
-							playable.Enchantments.ForEach(t => t.Activate(c, playable, target));
-						});
+							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
+						);
 						// Need to move the chosen adaptation to the Graveyard
 						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE)
 						{
@@ -186,7 +201,7 @@ namespace SabberStoneCore.Actions
 							firstCard.Text = secondCard.Text + "\n" + firstCard.Text;
 
 							IPlayable zombeast = Entity.FromCard(c, firstCard);
-							((Entity)zombeast).SetNativeGameTag(GameTag.DISPLAYED_CREATOR, ((Entity)playable).GetNativeGameTag(GameTag.DISPLAYED_CREATOR));
+							zombeast[GameTag.DISPLAYED_CREATOR] = playable.NativeTags[GameTag.DISPLAYED_CREATOR];
 
 							AddHandPhase.Invoke(c, zombeast);
 							break;
@@ -197,6 +212,29 @@ namespace SabberStoneCore.Actions
 
 					default:
 						throw new NotImplementedException();
+				}
+
+				if (c.Choice.EnchantmentCard != null)
+				{
+					var task = new AddEnchantmentTask(c.Choice.EnchantmentCard, EntityType.TARGET)
+					{
+						Game = c.Game,
+						Controller = c,
+						Source = c.Game.IdEntityDic[c.Choice.SourceId],
+						Target = playable,
+					};
+					task.Process();
+				}
+
+				if (c.Choice.AfterChooseTask != null)
+				{
+					ISimpleTask clone = c.Choice.AfterChooseTask.Clone();
+					clone.Game = c.Game;
+					clone.Controller = c;
+					clone.Source = c.Game.IdEntityDic[playable[GameTag.CREATOR]];
+					clone.Target = playable;
+
+					c.Game.TaskQueue.Enqueue(clone);
 				}
 
 				// set displayed creator at least for discover
@@ -245,7 +283,7 @@ namespace SabberStoneCore.Actions
 						mulliganList.ForEach(p =>
 						{
 							// drawing a new one
-							IPlayable playable = c.DeckZone.Remove(c.DeckZone[0]);
+							IPlayable playable = c.DeckZone.Remove(c.DeckZone.TopCard);
 
 							if (AddHandPhase.Invoke(c, playable))
 							{
@@ -293,8 +331,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, List<IEntity>, ChoiceType, ChoiceAction, List<Card>, Enchantment, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, List<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Enchantment enchantment)
+		public static Func<Controller, IEntity, IEnumerable<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, ISimpleTask, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, IEnumerable<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard, ISimpleTask taskToDo)
 			{
 				//if (c.Choice != null)
 				//{
@@ -306,19 +344,11 @@ namespace SabberStoneCore.Actions
 				choices.ForEach(p =>
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, p,
-						new Dictionary<GameTag, int>
+						new EntityData.Data
 						{
 							{GameTag.CREATOR, source.Id},
 							{GameTag.DISPLAYED_CREATOR, source.Id }
 						});
-					// add after discover enchantment
-					if (enchantment != null)
-					{
-						if (choiceEntity.Enchantments == null)
-							choiceEntity.Enchantments = new List<Enchantment> { enchantment };
-						else
-							choiceEntity.Enchantments.Add(enchantment);
-					}
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);
 				});
@@ -329,7 +359,9 @@ namespace SabberStoneCore.Actions
 					ChoiceAction = action,
 					Choices = choicesIds,
 					SourceId = source.Id,
-					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>()
+					TargetIds = targets != null ? targets.Select(p => p.Id).ToList() : new List<int>(),
+					EnchantmentCard = enchantmentCard,
+					AfterChooseTask = taskToDo
 				};
 
 				if (c.Choice != null)

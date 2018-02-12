@@ -1,58 +1,58 @@
-﻿using System.Collections.Generic;
-using SabberStoneCore.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	internal class Triggers
+    public static class Triggers
+    {
+	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId)
+	    {
+		    return new Trigger(TriggerType.TURN_END)
+		    {
+			    TriggerActivation = TriggerActivation.PLAY,
+				EitherTurn = true,
+			    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
+			    RemoveAfterTriggered = true
+		    };
+	    }
+
+	    public static Trigger EnrageTrigger(string enchantmentId)
+	    {
+		    return new Trigger(TriggerType.PREDAMAGE)
+		    {
+			    TriggerSource = TriggerSource.SELF,
+			    Condition = SelfCondition.IsUndamaged,
+			    SingleTask = new AddEnchantmentTask(enchantmentId, EntityType.SOURCE)
+		    };
+	    }
+
+	    public static Trigger ShadowReflectionTrigger	//	should make this as inherited class ?...
+		    => new Trigger(TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION)
+		    {
+			    SingleTask = ComplexTask.Create(
+				    new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.Step == Step.MAIN_END)),
+				    new FlagTask(true, ComplexTask.Create(
+						    new RemoveEnchantmentTask("ICC_827e"),
+							new MoveToSetaside(EntityType.TARGET))),
+				    new FlagTask(false, new ChangeEntityTask()))
+		    };
+    }
+
+	internal delegate bool Condition(IEntity e);
+
+	internal static class Conditions
 	{
-		public static Trigger Inspire(ISimpleTask task)
+		internal static Condition IsRace(Race race)
 		{
-			return new TriggerBuilder().Create()
-				.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-				.TriggerEffect(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, 1)
-				.SingleTask(task)
-				.Build();
+			return e => e is Minion m && m.Race == race;
 		}
 
-		public static Trigger FriendlySpellTargetingMe(ISimpleTask task)
-		{
-			return new TriggerBuilder().Create()
-				.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-				.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell), RelaCondition.IsTargetingMe, RelaCondition.IsFriendly)
-				.FastExecution(true)
-				.TriggerEffect(GameTag.JUST_PLAYED, 1)
-				.SingleTask(task)
-				.Build();
-		}
-
-		public static Trigger MinionAttacksAndTarget(params ISimpleTask[] list)
-		{
-			var taskList = new List<ISimpleTask>
-			{
-				new IncludeTask(EntityType.SOURCE),
-				new FuncPlayablesTask(p =>
-				{
-					var result = new List<IPlayable>();
-					var minion = p[0] as Minion;
-					if (minion == null)
-						return result;
-					var target = minion.Game.IdEntityDic[minion.ProposedDefender] as ICharacter;
-					if (target != null)
-						result.Add(target);
-					return result;
-				})
-			};
-			taskList.AddRange(list);
-
-			return new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, -1)
-						.SingleTask(StateTaskList<ISimpleTask>.Chain(taskList.ToArray()))
-						.Build();
-		}
+		internal static Condition IsMyTurn => e => e.Game.CurrentPlayer == e.Controller;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -10,7 +11,7 @@ namespace SabberStoneCore.Actions
 	/// Container of game logic functionality, which is invoked by processing a selected option
 	/// through <see cref="Game.Process(Tasks.PlayerTask)"/>.
 	/// </summary>
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static Func<IPlayable, ICharacter, int, bool, int> DamageCharFunc
@@ -18,17 +19,17 @@ namespace SabberStoneCore.Actions
 			{
 				if (applySpellDmg)
 				{
-					amount += ((Spell)source).ReceveivesDoubleSpellDamage
-						? source.Controller.Hero.SpellPowerDamage * 2
-						: source.Controller.Hero.SpellPowerDamage;
-					if (source.Controller[GameTag.SPELLPOWER_DOUBLE] > 0)
-						amount *= (int)Math.Pow(2, source.Controller[GameTag.SPELLPOWER_DOUBLE]);
+					amount += ((Spell) source).ReceveivesDoubleSpellDamage
+						? source.Controller.CurrentSpellPower * 2
+						: source.Controller.CurrentSpellPower;
+					if (source.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE] > 0)
+						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE]);
 				}
 				else if (source is HeroPower)
 				{
 					amount += source.Controller.Hero.HeroPowerDamage;
-					if (source.Controller[GameTag.HERO_POWER_DOUBLE] > 0)
-						amount *= (int) Math.Pow(2, source.Controller[GameTag.HERO_POWER_DOUBLE]);
+					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
+						amount *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
 				return target.TakeDamage(source, amount);
 			};
@@ -118,12 +119,16 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> DiscardBlock
 			=> delegate (Controller c, IPlayable playable)
 			{
+				c.Game.TaskQueue.StartEvent();
+				c.Game.TriggerManager.OnDiscardTrigger(playable);
 				IPlayable discard = c.HandZone.Remove(playable);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging? "":$"{discard} is beeing discarded.");
 				c.GraveyardZone.Add(discard);
 
+				c.DiscardedEntities.Add(discard.Id);
 				c.LastCardDiscarded = discard.Id;
-
+				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 				return true;
 			};
 
@@ -154,7 +159,7 @@ namespace SabberStoneCore.Actions
 			{
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging? "":$"adding to deck {playable}.");
 
-				// don't activate enchantments when shuffling cards back into the deck
+				// don't activate powers when shuffling cards back into the deck
 				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1), false);
 
 				// add hide entity 
@@ -167,23 +172,92 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Card, Minion, bool> TransformBlock
 			=> delegate (Controller c, Card card, Minion oldMinion)
 			{
-				var newMinion = Entity.FromCard(c, card) as Minion;
-				if (newMinion == null)
+				if (!(Entity.FromCard(c, card) is Minion newMinion))
 				{
 					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"missing final tranformation.");
 					return false;
 				}
+
+				c.BoardZone.Replace(oldMinion, newMinion);
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				//newMinion.ApplyEnchantments(EnchantmentActivation.SETASIDE_ZONE, Zone.SETASIDE);
-				newMinion.ApplyEnchantments(EnchantmentActivation.BOARD_ZONE, Zone.PLAY);
-				newMinion.ApplyEnchantments(EnchantmentActivation.HAND_ZONE, Zone.HAND);
-				newMinion.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
+				return true;
+			};
 
-				IPlayable oldEntity = oldMinion.Zone.Replace(oldMinion, newMinion);
-				oldMinion.Controller.SetasideZone.Add(oldEntity);
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldEntity} got transformed into {newMinion}.");
+		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool> AddEnchantmentBlock
+			=> delegate(Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2)
+			{
+				Power power = enchantmentCard.Power;
+
+				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect != null)
+				{
+					((OngoingEnchant)(entity.OngoingEffect)).Count++;
+					return true;
+				}
+
+				if (c.Game.History)
+				{
+					Enchantment enchantment = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+
+					if (num1 > 0)
+					{
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+						if (num2 > 0)
+							enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
+					}
+
+					power.Aura?.Activate(enchantment);
+					power.Trigger?.Activate(enchantment);
+					power.Enchant?.ActivateTo(target, enchantment);
+
+					if (power.DeathrattleTask != null)
+						((IPlayable)target).HasDeathrattle = true;
+				}
+				else
+				{
+					if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
+					{
+						Enchantment instance = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+						if (num1 > 0)
+						{
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+							if (num2 > 0)
+								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
+						}
+						power.Aura?.Activate(instance);
+						power.Trigger?.Activate(instance);
+					}
+
+					//	no indicator enchantment entities when History option is off
+					power.Enchant?.ActivateTo(target, null, num1, num2);
+				}
+
+				return true;
+			};
+
+		// TODO: Posionous Block
+		public static Func<bool, ICharacter, ICharacter, bool> PoisonousBlock
+			=> delegate(bool history, ICharacter source, ICharacter target)
+			{
+				if (source[GameTag.POISONOUS] != 1)
+					return false;
+
+				if (history)
+				{
+					source.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, "", -1,
+						0)); //	SubOption = -1, TriggerKeyWord = POISONOUS
+					//[DebugPrintPower] META_DATA - Meta=TARGET Data = 0 Info=1
+					//[DebugPrintPower] Info[0] = [entityName=Goldshire Footman id=47 zone=PLAY zonePos=1 cardId=CS1_042 player=2]
+				}
+
+				target.ToBeDestroyed = true;
+
+
+				if (history)
+					source.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
 				return true;
 			};
 	}

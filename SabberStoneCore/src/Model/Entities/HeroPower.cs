@@ -14,7 +14,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>
 		/// <param name="tags">The tags.</param>
-		public HeroPower(Controller controller, Card card, Dictionary<GameTag, int> tags)
+		public HeroPower(Controller controller, Card card, IDictionary<GameTag, int> tags)
 			: base(controller, card, tags)
 		{
 			Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "HeroPower", !Game.Logging? "":$"{this} ({ Card.Class}) was created.");
@@ -41,7 +41,10 @@ namespace SabberStoneCore.Model.Entities
 		/// a result for the current state of the game.
 		/// </summary>
 		/// <value><c>true</c> if this entity is playable; otherwise, <c>false</c>.</value>
-		public override bool IsPlayableByPlayer => !IsExhausted && !Controller.HeroPowerDisabled && base.IsPlayableByPlayer;
+		public override bool IsPlayableByPlayer =>
+			!IsExhausted && !Controller.HeroPowerDisabled && base.IsPlayableByPlayer && !IsPassiveHeroPower;
+
+		public bool IsPassiveHeroPower => Card[GameTag.HIDE_STATS] == 1;
 
 		public override IPlayable Clone(Controller controller)
 		{

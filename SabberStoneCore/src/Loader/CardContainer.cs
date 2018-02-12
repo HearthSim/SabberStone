@@ -27,16 +27,19 @@ namespace SabberStoneCore.Loader
 			// Set cards (without behaviours)
 			Cards = (from c in cards select new { Key = c.Id, Value = c }).ToDictionary(x => x.Key, x => x.Value);
 
-			// Add enchantments
+			// Add Powers
 			foreach (Card c in Cards.Values)
 			{
-				List<Enchantment> list;
-				if (Enchantments.Instance.Get.TryGetValue(c.Id, out list))
+				if (Powers.Instance.Get.TryGetValue(c.Id, out Power power))
 				{
-					c.Enchantments = list;
-					c.Implemented = list == null || c.Enchantments[0].Activation != EnchantmentActivation.NONE &&
-									(c.Enchantments[0].SingleTask != null || c.Enchantments[0].Enchant != null ||
-									 c.Enchantments[0].Trigger != null);
+					c.Power = power;
+					c.Implemented = power == null ||
+					                power.PowerTask != null ||
+					                power.DeathrattleTask != null ||
+					                power.ComboTask != null ||
+					                power.Aura != null ||
+					                power.Trigger != null ||
+					                power.Enchant != null;
 				}
 			}
 		}

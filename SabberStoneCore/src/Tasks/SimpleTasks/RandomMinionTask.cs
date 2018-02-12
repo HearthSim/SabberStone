@@ -106,7 +106,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					list.Remove(card);
 
 					// check for deck rules
-					if (MaxInDeckFlag && Controller.DeckCards.Where(p => p.Id == card.Id).Count() >= card.MaxAllowedInDeck)
+					if (MaxInDeckFlag && Controller.DeckCards.Count(p => p.Id == card.Id) >= card.MaxAllowedInDeck)
 						continue;
 
 					randomMinions.Add(Entity.FromCard(Controller, card));

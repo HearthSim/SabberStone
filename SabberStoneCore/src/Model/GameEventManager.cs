@@ -24,13 +24,13 @@ namespace SabberStoneCore.Model
 
 		private void EntityChangedEvent(object sender, GameTag t, int oldValue, int newValue)
 		{
-			var entity = (Entity)sender;
+			//var entity = (Entity)sender;
 			//_game.Dump("EntityChangedEvent", $"{sender} - {t}, old: {oldValue}, new: {newValue}");
 
 
 			if (t == GameTag.NEXT_STEP)
 			{
-				NextStepEvent(entity as Game, (Step)newValue);
+				NextStepEvent(sender as Game, (Step)newValue);
 			}
 		}
 

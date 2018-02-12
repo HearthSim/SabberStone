@@ -10,26 +10,28 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class DeckZone : LimitedZone<IPlayable>
 	{
-		public int StartingCards { get; set; } = 30;
+		public const int StartingCards = 30;
 
-
-		public DeckZone(Controller controller)
+		public DeckZone(Controller controller) : base(60)
 		{
 			Game = controller.Game;
 			Controller = controller;
-			MaxSize = 60;
-			Entities = new IPlayable[MaxSize];
 			Type = Zone.DECK;
 		}
 
+		private DeckZone(Controller c, DeckZone zone) : base(c, zone)
+		{
+			Type = Zone.DECK;
+		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			base.Add(entity, zonePosition);
 
-			if (applyEnchantment)
-				entity.ApplyEnchantments(EnchantmentActivation.DECK_ZONE, Zone.DECK);
+			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
 		}
+
+		public IPlayable TopCard => Entities[_count - 1];
 
 		public void Fill(List<string> excludeIds = null)
 		{
@@ -51,7 +53,8 @@ namespace SabberStoneCore.Model.Zones
 
 				Controller.DeckCards.Add(card);
 
-				Entity.FromCard(Controller, card, null, this);
+				IPlayable entity = Entity.FromCard(Controller, card);
+				Add(entity, 0);
 
 				cardsToAdd--;
 			}
@@ -72,6 +75,11 @@ namespace SabberStoneCore.Model.Zones
 				Entities[i] = Entities[r];
 				Entities[r] = temp;
 			}
+		}
+
+		public DeckZone Clone(Controller c)
+		{
+			return new DeckZone(c, this);
 		}
 	}
 }

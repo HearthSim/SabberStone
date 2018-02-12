@@ -25,18 +25,6 @@ namespace SabberStoneCore.Model.Zones
 		int Count { get; }
 
 		/// <summary>
-		/// Gets the list of enchantments attached to this zone.
-		/// </summary>
-		/// <value>The list of enchantments.</value>
-		List<Enchant> Enchants { get; }
-
-		/// <summary>
-		/// Gets the list of triggers attacked to this zone.
-		/// </summary>
-		/// <value>The list of triggers.</value>
-		List<Trigger> Triggers { get; }
-
-		/// <summary>
 		/// Gets <see cref="List{T}"/> that contains all entities in this zone.
 		/// </summary>
 		/// <value>The set of <see cref="IPlayable"/>.</value>
@@ -47,10 +35,10 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
-		/// <param name="applyEnchantments"><c>true</c> if all zone changing enchantments have to be
+		/// <param name="applyPowers"><c>true</c> if all zone changing powers have to be
 		/// executed, <c>false</c> otherwise.</param>
 		/// <returns>The entity</returns>
-		void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantments = true);
+		void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true);
 
 		/// <summary>
 		/// Removes the specified entity from this zone.
@@ -58,14 +46,6 @@ namespace SabberStoneCore.Model.Zones
 		/// <param name="entity">The entity.</param>
 		/// <returns>The entity.</returns>
 		IPlayable Remove(IPlayable entity);
-
-		/// <summary>
-		/// Replaces the specified entity with another one.
-		/// </summary>
-		/// <param name="oldEntity">The old entity.</param>
-		/// <param name="newEntity">The new entity.</param>
-		/// <returns>The old entity</returns>
-		IPlayable Replace(IPlayable oldEntity, IPlayable newEntity);
 
 		/// <summary>
 		/// Returns a string which contains a hash unique to this zone object.

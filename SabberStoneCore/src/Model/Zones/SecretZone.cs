@@ -14,19 +14,31 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
-
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyEnchantment = true)
+		public SecretZone(Controller controller) : base(5)
 		{
-			if (entity.Card[GameTag.QUEST] == 1)
+			Game = controller.Game;
+			Controller = controller;
+			Type = Zone.SECRET;
+		}
+
+		private SecretZone(Controller c, SecretZone zone) : base(c, zone)
+		{
+			Quest = (Spell) zone.Quest?.Clone(c);
+			Type = Zone.SECRET;
+		}
+
+		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		{
+			if (entity.Card.IsQuest)
 			{
 				if (Quest != null)
 					throw new ZoneException($"Another quest is already in play");
 
 				Quest = (Spell)entity;
-				Quest.SetNativeGameTag(GameTag.ZONE, (int)Type);
+				Quest[GameTag.ZONE] = (int)Type;
 				Quest.Zone = this;
 
-				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Quest {entity} has been added to zone '{Type}'.");
 
 				entity.OrderOfPlay = Game.NextOop;
 
@@ -34,17 +46,10 @@ namespace SabberStoneCore.Model.Zones
 			}
 
 			base.Add(entity, zonePosition);
+			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? ""
+				: $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'."); 
 
 			entity.OrderOfPlay = Game.NextOop;
-		}
-
-		public SecretZone(Controller controller)
-		{
-			Game = controller.Game;
-			Controller = controller;
-			MaxSize = 5;
-			Entities = new Spell[MaxSize];
-			Type = Zone.SECRET;
 		}
 
 		public override IEnumerator<Spell> GetEnumerator()
@@ -53,6 +58,11 @@ namespace SabberStoneCore.Model.Zones
 				yield return Entities[i];
 			if (Quest != null)
 				yield return Quest;
+		}
+
+		public SecretZone Clone(Controller c)
+		{
+			return new SecretZone(c, this);
 		}
 	}
 }

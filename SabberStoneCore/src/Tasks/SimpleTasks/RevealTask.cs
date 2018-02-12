@@ -29,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				SuccessJoustTask.Source = Source;
 				SuccessJoustTask.Target = Target;
 				SuccessJoustTask.Playables = Playables;
-				SuccessJoustTask.CardIds = CardIds;
+				//SuccessJoustTask.CardIds = CardIds;
 				SuccessJoustTask.Flag = Flag;
 				SuccessJoustTask.Number = Number;
 				SuccessJoustTask.Number1 = Number1;
@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				FailedJoustTask.Source = Source;
 				FailedJoustTask.Target = Target;
 				FailedJoustTask.Playables = Playables;
-				FailedJoustTask.CardIds = CardIds;
+				//FailedJoustTask.CardIds = CardIds;
 				FailedJoustTask.Flag = Flag;
 				FailedJoustTask.Number = Number;
 				FailedJoustTask.Number1 = Number1;

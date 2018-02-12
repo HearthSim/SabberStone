@@ -1,68 +1,72 @@
-﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Model.Entities;
+﻿//using SabberStoneCore.Enums;
+//using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Tasks.SimpleTasks
-{
-	public class GetNativeGameTagTask : SimpleTask
-	{
-		public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs, int numberIndex = 0)
-		{
-			Tag = tag;
-			Type = entityType;
-			SelfBuffs = selfBuffs;
-			_index = numberIndex;
-		}
+//namespace SabberStoneCore.Tasks.SimpleTasks
+//{
+//	public class GetNativeGameTagTask : SimpleTask
+//	{
+//		public GetNativeGameTagTask(GameTag tag, EntityType entityType, bool selfBuffs, int numberIndex = 0)
+//		{
+//			Tag = tag;
+//			Type = entityType;
+//			SelfBuffs = selfBuffs;
+//			_index = numberIndex;
+//		}
 
-		public GameTag Tag { get; set; }
-		public EntityType Type { get; set; }
-		public bool SelfBuffs { get; set; }
-		private readonly int _index;
+//		public GameTag Tag { get; set; }
+//		public EntityType Type { get; set; }
+//		public bool SelfBuffs { get; set; }
+//		private readonly int _index;
 
-		public override TaskState Process()
-		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			if (entities.Count != 1)
-			{
-				return TaskState.STOP;
-			}
+//		public override TaskState Process()
+//		{
+//			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+//			//if (entities.Count != 1)
+//			//{
+//			//	return TaskState.STOP;
+//			//}
 
-			int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
+//			//int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
 
-			if (SelfBuffs)
-			{
-				entities[0].Enchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
-			}
+//			var entity = (Entity) IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).GetEnumerator().Current;
+//			int num = entity.GetNativeGameTag(Tag);
 
-			switch (_index)
-			{
-				case 0:
-					Number = num;
-					break;
-				case 1:
-					Number1 = num;
-					break;
-				case 2:
-					Number2 = num;
-					break;
-				case 3:
-					Number3 = num;
-					break;
-				case 4:
-					Number4 = num;
-					break;
-				default:
-					Number = num;
-					break;
-			}
+//			if (SelfBuffs)
+//			{
+//				//entities[0].OldEnchants.ForEach(p => num = p.Apply((Entity)entities[0], Tag, num));
+//				num += entity.AuraEffects[Tag];
+//			}
 
-			return TaskState.COMPLETE;
-		}
+//			switch (_index)
+//			{
+//				case 0:
+//					Number = num;
+//					break;
+//				case 1:
+//					Number1 = num;
+//					break;
+//				case 2:
+//					Number2 = num;
+//					break;
+//				case 3:
+//					Number3 = num;
+//					break;
+//				case 4:
+//					Number4 = num;
+//					break;
+//				default:
+//					Number = num;
+//					break;
+//			}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs, _index);
-			clone.Copy(this);
-			return clone;
-		}
-	}
-}
+//			return TaskState.COMPLETE;
+//		}
+
+//		public override ISimpleTask Clone()
+//		{
+//			var clone = new GetNativeGameTagTask(Tag, Type, SelfBuffs, _index);
+//			clone.Copy(this);
+//			return clone;
+//		}
+//	}
+//}

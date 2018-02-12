@@ -22,8 +22,13 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask Create(params ISimpleTask[] list)
 		{
-			return StateTaskList<ISimpleTask>.Chain(list);
+			return StateTaskList.Chain(list);
 		}
+
+		internal static ISimpleTask GetRandomEntourageCardToHand
+			=> Create(
+				new RandomEntourageTask(),
+				new AddStackTo(EntityType.HAND));
 
 		
 		internal static ISimpleTask LifeSteal(EntityType entityType)
@@ -57,7 +62,20 @@ namespace SabberStoneCore.Tasks
 			=> new SetGameTagTask(GameTag.POISONOUS, 1, entityType);
 
 		public static ISimpleTask Charge(EntityType entityType)
-			=> new SetGameTagTask(GameTag.CHARGE, 1, entityType);
+			=> Create(
+				new SetGameTagTask(GameTag.CHARGE, 1, entityType),
+				new IncludeTask(entityType),
+				new FuncPlayablesTask(list =>
+				{
+					list.ForEach(p =>
+					{
+						Minion m = p as Minion;
+						if (m.NumAttacksThisTurn == 0 && m.IsExhausted)
+							m.IsExhausted = false;
+					});
+					return null;
+				})
+			);
 
 		public static ISimpleTask Stealth(EntityType entityType)
 			=> new SetGameTagTask(GameTag.STEALTH, 1, entityType);
@@ -76,6 +94,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
 			=> Create(
 				new SplitTask(targets, type),
+				new FilterStackTask(SelfCondition.IsNotDead),
 				new RandomTask(targets, EntityType.STACK),
 				//new RandomTask(targets, type),
 				new DamageTask(amount, EntityType.STACK, spellDmg));
@@ -143,22 +162,32 @@ namespace SabberStoneCore.Tasks
 				}));
 		}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
+		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
+		//{
+		//	return Create(
+		//		new IncludeTask(type),
+		//		new FilterStackTask(list),
+		//		new RandomTask(1, EntityType.STACK),
+		//		new BuffTask(buff, EntityType.STACK));
+		//}
+
+		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
+		//{
+		//	return Create(
+		//		new IncludeTask(type),
+		//		new FilterStackTask(EntityType.SOURCE, list),
+		//		new RandomTask(1, EntityType.STACK),
+		//		new BuffTask(buff, EntityType.STACK));
+		//}
+
+		public static ISimpleTask BuffRandomMinion(EntityType type, string enchantmentId, params SelfCondition[] list)
 		{
 			return Create(
 				new IncludeTask(type),
+				new FilterStackTask(SelfCondition.IsMinion),
 				new FilterStackTask(list),
 				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
-		}
-
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params RelaCondition[] list)
-		{
-			return Create(
-				new IncludeTask(type),
-				new FilterStackTask(EntityType.SOURCE, list),
-				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
+				new AddEnchantmentTask(enchantmentId, EntityType.STACK));
 		}
 
 		public static ISimpleTask SummonRandomMinion(EntityType type, params RelaCondition[] list)
@@ -263,8 +292,7 @@ namespace SabberStoneCore.Tasks
 			var secretList = list.ToList();
 			secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
 			secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
-			var checkIsOpponentTurnTask = new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn);
-			return Create(checkIsOpponentTurnTask, new FlagTask(true, StateTaskList<ISimpleTask>.Chain(secretList.ToArray())));
+			return StateTaskList.Chain(secretList.ToArray());
 		}
 
 		public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
@@ -274,21 +302,22 @@ namespace SabberStoneCore.Tasks
 				new SummonTask());
 		}
 
-		public static ISimpleTask RecursiveSpellTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
+		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{
-			var taskList = tasks.ToList();
-			taskList.Add(repeatCondition);
-			taskList.Add(
+			ISimpleTask[] taskList = new ISimpleTask[tasks.Length + 2];
+			tasks.CopyTo(taskList, 0);
+			taskList[tasks.Length] = repeatCondition;
+			taskList[tasks.Length + 1] = 
 				new FlagTask(true,
 					new EnqueueTask(1, Create(
 						new IncludeTask(EntityType.SOURCE),
 						new FuncPlayablesTask(p =>
-						{
-							p[0].ApplyEnchantments(EnchantmentActivation.SPELL, Zone.GRAVEYARD);
-							return p;
-						}
-				)))));
-			return StateTaskList<ISimpleTask>.Chain(taskList.ToArray());
+							{
+								p[0].ActivateTask(PowerActivation.POWER);
+								return new List<IPlayable>();
+							}
+				))));
+			return StateTaskList.Chain(taskList);
 		}
 	}
 }

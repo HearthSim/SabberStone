@@ -17,20 +17,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			int times = SpellDmg ? Amount + Controller.Hero.SpellPowerDamage : Amount;
+			int times = SpellDmg ? Amount + Controller.CurrentSpellPower : Amount;
 
 			for (int i = 0; i < times; i++)
 			{
 				// clone task here
 				ISimpleTask clone = Task.Clone();
-				clone.ResetState();
+				//clone.ResetState();
 				clone.Game = Controller.Game;
 				clone.Controller = Controller;
 				clone.Source = Source as IPlayable;
 				clone.Target = Target as IPlayable;
 
-				Controller.Game.TaskQueue.Enqueue(clone);
-				Controller.Game.TaskQueue.Enqueue(
+				Controller.Game.TaskQueue.EnqueueBase(clone);
+				Controller.Game.TaskQueue.EnqueueBase(
 					new ClearStackTask
 					{
 						Game = Controller.Game,

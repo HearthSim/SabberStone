@@ -16,7 +16,7 @@ namespace SabberStoneCore.Tasks
 		IEntity Target { get; set; }
 
 		List<IPlayable> Playables { get; set; }
-		List<string> CardIds { get; set; }
+		//List<string> CardIds { get; set; }
 		bool Flag { get; set; }
 		int Number { get; set; }
 		int Number1 { get; set; }
@@ -31,14 +31,14 @@ namespace SabberStoneCore.Tasks
 
 		TaskState Process();
 
-		void ResetState();
+		//void ResetState();
 
 		bool IsTrigger { get; set; }
 	}
 
 	public abstract class SimpleTask : ISimpleTask
 	{
-		internal static Random Random = new Random();
+		internal static Random Random => Util.Random;
 
 		public TaskState State { get; set; } = TaskState.READY;
 
@@ -72,11 +72,11 @@ namespace SabberStoneCore.Tasks
 			get { return Game.TaskStack.Playables; }
 			set { Game.TaskStack.Playables = value; }
 		}
-		public List<string> CardIds
-		{
-			get { return Game.TaskStack.CardIds; }
-			set { Game.TaskStack.CardIds = value; }
-		}
+		//public List<string> CardIds
+		//{
+		//	get { return Game.TaskStack.CardIds; }
+		//	set { Game.TaskStack.CardIds = value; }
+		//}
 		//public bool Flag { get; set; }
 		public bool Flag
 		{
@@ -148,82 +148,4 @@ namespace SabberStoneCore.Tasks
 
 		public bool IsTrigger { get; set; }
 	}
-
-	public enum PlayerTaskType
-	{
-		CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
-	}
-
-	public class PlayerTask : ISimpleTask
-	{
-		public TaskState State { get; set; } = TaskState.READY;
-		//public ISimpleTask CurrentTask => this;
-
-		public PlayerTaskType PlayerTaskType { get; set; }
-		public Game Game { get; set; }
-		private int _controllerId;
-		public Controller Controller
-		{
-			get { return Game.ControllerById(_controllerId); }
-			set { _controllerId = value.Id; }
-		}
-		private int _sourceId;
-		public IEntity Source
-		{
-			get { return Game.IdEntityDic[_sourceId]; }
-			set { _sourceId = value.Id; }
-		}
-		private int _targetId;
-		public IEntity Target
-		{
-			get { return _targetId > 0 ? Game.IdEntityDic[_targetId] : null; }
-			set { _targetId = value?.Id ?? -1; }
-		}
-		public List<IPlayable> Playables { get; set; }
-		public List<string> CardIds { get; set; }
-		public bool Flag { get; set; } = false;
-		public int Number { get; set; } = 0;
-		public int Number1 { get; set; } = 0;
-		public int Number2 { get; set; } = 0;
-		public int Number3 { get; set; } = 0;
-		public int Number4 { get; set; } = 0;
-
-		public int ZonePosition { get; set; } = -1;
-		public int ChooseOne { get; set; }
-
-		//public List<Game> Splits { get; set; } = new List<Game>();
-		//public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
-
-		public virtual List<ISimpleTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
-		{
-			Game = game;
-			Controller = controller;
-			Source = source;
-			Target = target;
-			return new List<ISimpleTask> { this };
-		}
-
-		public virtual TaskState Process()
-		{
-			return TaskState.COMPLETE;
-		}
-
-		public ISimpleTask Clone()
-		{
-			throw new NotImplementedException();
-		}
-
-		public virtual string FullPrint()
-		{
-			return "PlayerTask";
-		}
-
-		public void ResetState()
-		{
-			State = TaskState.READY;
-		}
-
-		public bool IsTrigger { get; set; }
-	}
-
 }

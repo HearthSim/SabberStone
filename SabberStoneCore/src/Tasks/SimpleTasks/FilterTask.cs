@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using SabberStoneCore.Conditions;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
@@ -10,72 +11,65 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private FilterStackTask(EntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)
 		{
-			Type = type;
-			SelfConditions = selfConditions;
-			RelaConditions = relaConditions;
+			_type = type;
+			_selfConditions = selfConditions;
+			_relaConditions = relaConditions;
 		}
 
 		public FilterStackTask(params SelfCondition[] selfConditions)
 		{
-			SelfConditions = selfConditions;
+			_selfConditions = selfConditions;
 		}
 
 		public FilterStackTask(EntityType type, params RelaCondition[] relaConditions)
 		{
-			Type = type;
-			RelaConditions = relaConditions;
+			_type = type;
+			_relaConditions = relaConditions;
 		}
 
-		public EntityType Type { get; set; }
-
-		public SelfCondition[] SelfConditions { get; set; }
-
-		public RelaCondition[] RelaConditions { get; set; }
+		private readonly EntityType _type;
+		private readonly SelfCondition[] _selfConditions;
+		private readonly RelaCondition[] _relaConditions;
 
 		public override TaskState Process()
 		{
-			if (RelaConditions != null)
+			if (_relaConditions != null)
 			{
-				List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+				IEnumerable<IPlayable> temp = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
+				List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
 
 				if (entities.Count != 1)
 					return TaskState.STOP;
 
-				//Playables = Playables
-				//	.Where(p1 => RelaConditions.ToList().TrueForAll(p2 => p2.Eval(entities[0], p1)))
-				//	.ToList();
 				var filtered = new List<IPlayable>();
 				foreach (IPlayable p in Playables)
 				{
 					bool flag = true;
-					for (int i = 0; i < RelaConditions.Length; i++)
-						flag = flag && RelaConditions[i].Eval(entities[0], p);
+					for (int i = 0; i < _relaConditions.Length; i++)
+						flag = flag && _relaConditions[i].Eval(entities[0], p);
 					if (flag)
 						filtered.Add(p);
 				}
-				Playables = new List<IPlayable>(filtered);
+				Playables = filtered;
 			}
 
-			if (SelfConditions != null)
+			if (_selfConditions != null)
 			{
-				//var selfConditionList = SelfConditions.Where(x => x != null).ToList();
-				//Playables = Playables
-				//	.Where(p1 => selfConditionList.TrueForAll(p2 => p2.Eval(p1)))
-				//	.ToList();
 				var filtered = new List<IPlayable>();
 				foreach (IPlayable p in Playables)
 				{
 					bool flag = true;
-					for (int i = 0; i < SelfConditions.Length; i++)
+					for (int i = 0; i < _selfConditions.Length; i++)
 					{
-						if (SelfConditions[i] != null)
-							flag = flag && SelfConditions[i].Eval(p);
+						if (_selfConditions[i] != null)
+							flag = flag && _selfConditions[i].Eval(p);
 					}
 
 					if (flag)
 						filtered.Add(p);
 				}
-				Playables = new List<IPlayable>(filtered);
+
+				Playables = filtered;
 			}
 
 			return TaskState.COMPLETE;
@@ -83,7 +77,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new FilterStackTask(Type, SelfConditions, RelaConditions);
+			var clone = new FilterStackTask(_type, _selfConditions, _relaConditions);
 			clone.Copy(this);
 			return clone;
 		}

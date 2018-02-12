@@ -22,12 +22,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			var source = Source as IPlayable;
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
+			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				var target = p as ICharacter;
 				target?.TakeHeal(source, Amount);
-			});
+			};
 
 			return TaskState.COMPLETE;
 		}

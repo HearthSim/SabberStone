@@ -15,14 +15,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
+			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
-				var minion = p as Minion;
-				if (minion == null)
-					return;
+				if (!(p is Minion minion))
+					continue;
 				minion.HasStealth = false;
-			});
+			};
 
 			return TaskState.COMPLETE;
 		}

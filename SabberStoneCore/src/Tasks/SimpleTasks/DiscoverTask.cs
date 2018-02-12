@@ -18,6 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		BASIC_TOTEM,
 		MINION,
 		DECK_MINION,
+		SPELL_RANDOM,
 		SPELL,
 		DEATHRATTLE,
 		ONE_COST,
@@ -45,20 +46,34 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private static ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>> CachedDiscoverySets = new ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>>();
 
-		public DiscoverTask(DiscoverType discoverType, Enchantment enchantment = null)
+		private readonly Card _enchantmentCard;
+		private readonly ISimpleTask _taskTodo;
+
+		public DiscoverTask(DiscoverType discoverType, string enchantmentId = null)
 		{
 			DiscoverType = discoverType;
-			Enchantment = enchantment;
+			if (enchantmentId != null)
+				_enchantmentCard = Cards.FromId(enchantmentId);
+		}
+
+		public DiscoverTask(DiscoverType discoverType, ISimpleTask afterDiscoverTask)
+		{
+			DiscoverType = discoverType;
+			_taskTodo = afterDiscoverTask;
+		}
+
+		private DiscoverTask(DiscoverType type, Card enchantmentCard, ISimpleTask afterDiscoverTask)
+		{
+			DiscoverType = type;
+			_enchantmentCard = enchantmentCard;
+			_taskTodo = afterDiscoverTask;
 		}
 
 		public DiscoverType DiscoverType { get; set; }
 
-		public Enchantment Enchantment { get; set; }
-
 		public override TaskState Process()
 		{
-			ChoiceAction choiceAction = ChoiceAction.INVALID;
-			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out choiceAction);
+			List<Card>[] cardsToDiscover = Discovery(DiscoverType, out ChoiceAction choiceAction);
 
 			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
 			if (cardsToDiscover.Length == 2)
@@ -115,7 +130,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 			else
 			{
-				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, Enchantment);
+				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard, _taskTodo);
 			}
 
 			return TaskState.COMPLETE;
@@ -139,7 +154,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Game cloneGame = Game.Clone();
 				Controller cloneController = cloneGame.ControllerById(Controller.Id);
-				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null);
+				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null, _taskTodo);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
 			});
 
@@ -147,7 +162,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private List<Card>[] Discovery(DiscoverType discoverType, out ChoiceAction choiceAction)
 		{
-
 			if (!CachedDiscoverySets.TryGetValue(discoverType, out Tuple<List<Card>[], ChoiceAction> result))
 			{
 				switch (discoverType)
@@ -330,7 +344,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							int n = Controller.DeckZone.Count >= 3 ? 3 : Controller.DeckZone.Count;
 							for (int i = 0; i < n; i++)
 							{
-								IPlayable item = Controller.DeckZone[0];
+								IPlayable item = Controller.DeckZone.TopCard;
 								Generic.RemoveFromZone(Controller, item);
 								Controller.SetasideZone.Add(item);
 								cards.Add(item.Card);
@@ -390,6 +404,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case DiscoverType.SPELL:
 						{
 							choiceAction = ChoiceAction.HAND;
+							List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
+							var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+							CachedDiscoverySets.TryAdd(discoverType, output);
+							return listArray;
+						}
+
+					case DiscoverType.SPELL_RANDOM:
+						{
+							choiceAction = ChoiceAction.SPELL;
 							List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
 							var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
 							CachedDiscoverySets.TryAdd(discoverType, output);
@@ -498,7 +521,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new DiscoverTask(DiscoverType, Enchantment);
+			var clone = new DiscoverTask(DiscoverType, _enchantmentCard, _taskTodo);
 			clone.Copy(this);
 			return clone;
 		}
