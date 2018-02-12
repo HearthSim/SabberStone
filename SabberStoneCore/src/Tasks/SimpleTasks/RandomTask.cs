@@ -53,7 +53,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						Game.Splits.Add(clone);
 					});
 				}
-				Game.TaskQueue.TaskList.Clear();
+				//Game.TaskQueue.TaskList.Clear();
+				Game.TaskQueue.ClearCurrentEvent();
 				return TaskState.STOP;
 			}
 

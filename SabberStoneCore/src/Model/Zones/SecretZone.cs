@@ -29,7 +29,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
-			if (entity.Card[GameTag.QUEST] == 1)
+			if (entity.Card.IsQuest)
 			{
 				if (Quest != null)
 					throw new ZoneException($"Another quest is already in play");
@@ -38,7 +38,7 @@ namespace SabberStoneCore.Model.Zones
 				Quest[GameTag.ZONE] = (int)Type;
 				Quest.Zone = this;
 
-				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'.");
+				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Quest {entity} has been added to zone '{Type}'.");
 
 				entity.OrderOfPlay = Game.NextOop;
 
@@ -46,6 +46,8 @@ namespace SabberStoneCore.Model.Zones
 			}
 
 			base.Add(entity, zonePosition);
+			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? ""
+				: $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'."); 
 
 			entity.OrderOfPlay = Game.NextOop;
 		}

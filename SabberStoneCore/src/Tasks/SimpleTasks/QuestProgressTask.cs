@@ -32,7 +32,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				task.Source = Source;
 				task.Target = null;
 
-				Game.TaskQueue.TaskList.Enqueue(task);
+				Game.TaskQueue.EnqueueBase(task);
 			}
 
 			return TaskState.COMPLETE;

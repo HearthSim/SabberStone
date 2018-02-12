@@ -289,6 +289,14 @@ namespace SabberStoneCore.Enchants
 					Game.TriggerManager.DealDamageTrigger -= Process;
 					break;
 				case TriggerType.TAKE_DAMAGE:
+					if (TriggerSource == TriggerSource.SELF)
+					{
+						if (Owner is Minion m)
+							m.PreDamageTrigger -= Process;
+						else
+							throw new NotImplementedException();
+						break;
+					}
 					Game.TriggerManager.DamageTrigger -= Process;
 					break;
 			    case TriggerType.HEAL:
@@ -428,12 +436,15 @@ namespace SabberStoneCore.Enchants
 				    p.Validated = false;
 		    });
 
-		    if (game.TaskQueue.Count <= 0) return;
-		    if (game.TaskQueue.CurrentEventTasks.Count > 0)
-			    game.TaskQueue.CurrentEventTasks.Clear();
-		    else if
-			   (game.TaskQueue.TaskList.Count > 0)
-			    game.TaskQueue.TaskList.Clear();
+			//if (game.TaskQueue.Count <= 0) return;
+			//if (game.TaskQueue.CurrentEventTasks.Count > 0)
+			// game.TaskQueue.CurrentEventTasks.Clear();
+			//else if
+			//(game.TaskQueue.TaskList.Count > 0)
+			// game.TaskQueue.TaskList.Clear();
+
+			if (game.TaskQueue.IsEmpty) return;
+		    game.TaskQueue.ClearCurrentEvent();
 	    }
 
 	    private void Validate(IEntity source)

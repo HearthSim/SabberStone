@@ -262,9 +262,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						return c.Opponent.BoardZone.GetAll();
 					else
 					{
-						if (c.Opponent.BoardZone.Count > 0)
+						if (c.Opponent.BoardZone.CountExceptUntouchables > 1)
 						{
-							var arr = new ICharacter[c.Opponent.BoardZone.Count];
+							var arr = new ICharacter[c.Opponent.BoardZone.CountExceptUntouchables];
 							arr[0] = c.Opponent.Hero;
 							Minion[] temp = c.Opponent.BoardZone.GetAll(p => p != target);
 							Array.Copy(temp, 0, arr, 1, temp.Length);

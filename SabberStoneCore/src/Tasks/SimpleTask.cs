@@ -16,7 +16,7 @@ namespace SabberStoneCore.Tasks
 		IEntity Target { get; set; }
 
 		List<IPlayable> Playables { get; set; }
-		List<string> CardIds { get; set; }
+		//List<string> CardIds { get; set; }
 		bool Flag { get; set; }
 		int Number { get; set; }
 		int Number1 { get; set; }
@@ -31,7 +31,7 @@ namespace SabberStoneCore.Tasks
 
 		TaskState Process();
 
-		void ResetState();
+		//void ResetState();
 
 		bool IsTrigger { get; set; }
 	}
@@ -72,11 +72,11 @@ namespace SabberStoneCore.Tasks
 			get { return Game.TaskStack.Playables; }
 			set { Game.TaskStack.Playables = value; }
 		}
-		public List<string> CardIds
-		{
-			get { return Game.TaskStack.CardIds; }
-			set { Game.TaskStack.CardIds = value; }
-		}
+		//public List<string> CardIds
+		//{
+		//	get { return Game.TaskStack.CardIds; }
+		//	set { Game.TaskStack.CardIds = value; }
+		//}
 		//public bool Flag { get; set; }
 		public bool Flag
 		{

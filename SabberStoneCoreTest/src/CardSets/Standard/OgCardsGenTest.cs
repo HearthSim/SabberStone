@@ -4452,7 +4452,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				if (Source.Card.Id != "OG_134") return TaskState.STOP;
 
-				var task = StateTaskList<ISimpleTask>.Chain(
+				var task = StateTaskList.Chain(
 					_spells
 						.Select(s => new CastSingleSpell(s)
 						{

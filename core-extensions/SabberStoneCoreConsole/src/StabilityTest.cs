@@ -32,27 +32,27 @@ namespace SabberStoneCoreConsole
 			    var game = new Game(config);
 				game.StartGame();
 
-				try
-				{
+				//try
+				//{
 					do
 					{
+						game = game.Clone(true);
 						List<PlayerTask> options = game.CurrentPlayer.Options();
 						PlayerTask lastOption = options[rnd.Next(options.Count)];
 						game.Process(lastOption);
-						game = game.Clone(true);
 					} while (game.State != State.COMPLETE);
-				}
-				catch (Exception e)
-				{
-					Program.ShowLog(game, LogLevel.DEBUG);
-					Console.WriteLine(e.StackTrace);
-					Console.WriteLine(e.Message);
-					Console.WriteLine(e.Source);
-					Console.WriteLine(e.TargetSite);
-				}
+				//} catch (Exception e)
+				//{
+				//	Program.ShowLog(game, LogLevel.DEBUG);
+				//	Console.WriteLine(e.Message);
+				//	Console.WriteLine(e.Source);
+				//	Console.WriteLine(e.TargetSite);
+				//	Console.WriteLine(e.StackTrace);
+				//	break;
+				//}
 
 
-				if (i % (TESTCOUNT / 10) == 0)
+			if (i % (TESTCOUNT / 10) == 0)
 					Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
 			}
 	    }

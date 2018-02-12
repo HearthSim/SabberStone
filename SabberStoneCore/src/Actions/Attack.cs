@@ -46,8 +46,12 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
+				c.Game.TaskQueue.StartEvent();
 				source.OnAfterAttackTrigger();
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
+
 				c.Game.DeathProcessingAndAuraUpdate();
 				c.Game.NextStep = Step.MAIN_ACTION;
 
@@ -96,8 +100,10 @@ namespace SabberStoneCore.Actions
 
 				// Invoke onAttackTrigger
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
+				c.Game.TaskQueue.StartEvent();
 				source.Game.TriggerManager.OnAttackTrigger(source);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", !c.Game.Logging? "":"Oh shizzle, something died to the shizzeling of triggering ...");
@@ -109,9 +115,11 @@ namespace SabberStoneCore.Actions
 		private static Func<Controller, ICharacter, bool> AttackPhase
 			=> delegate (Controller c, ICharacter source)
 			{
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnTargetTrigger(source);
 				c.Game.ProcessTasks();
-				
+				c.Game.TaskQueue.EndEvent();
+
 				var hero = source as Hero;
 				var minion = source as Minion;
 				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out IPlayable proposedDefender))

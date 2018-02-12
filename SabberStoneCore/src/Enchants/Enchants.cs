@@ -14,6 +14,11 @@ namespace SabberStoneCore.Enchants
 	    private static Regex Attack = new Regex(@"[+](\d) Attack");
 	    private static Regex Health = new Regex(@"[+](\d) Health");
 
+		/// <summary>
+		/// Generate proper <see cref="Enchant"/> from the text of the given card.
+		/// </summary>
+		/// <param name="cardId"></param>
+		/// <returns></returns>
 	    public static Enchant GetAutoEnchantFromText(string cardId)
 	    {
 			string text = Cards.FromId(cardId).Text;

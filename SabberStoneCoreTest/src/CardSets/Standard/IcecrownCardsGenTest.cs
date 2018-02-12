@@ -4296,12 +4296,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion testCard = game.ProcessCard<Minion>("Grave Shambler");
 			game.ProcessCard("Assassin's Blade", null, true);
 			game.ProcessCard("Assassin's Blade", null, true);
+			Assert.Equal(5, testCard.AttackDamage);
+			game.ProcessCard("Malkorok", null, true);
+			Assert.Equal(6, testCard.AttackDamage);
 			game.ProcessCard("Assassin's Blade", null, true);
+			Assert.Equal(7, testCard.AttackDamage);
 			game.ProcessCard("Assassin's Blade", null, true);
-			game.ProcessCard("Assassin's Blade", null, true);
+			Assert.Equal(8, testCard.AttackDamage);
 			game.PlayHeroPower();
-
 			Assert.Equal(9, testCard.AttackDamage);
+
 			Assert.Equal(9, testCard.Health);
 		}
 

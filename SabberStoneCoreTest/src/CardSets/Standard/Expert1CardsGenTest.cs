@@ -1283,6 +1283,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion));
 			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
 			Assert.False(game.CurrentPlayer.Hero.IsImmune);
+
+			Game clone = game.Clone();
 		}
 
 		// ---------------------------------------- WEAPON - HUNTER
@@ -1687,21 +1689,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spellbender"));
+			game.ProcessCard("Knife Juggler");
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			IPlayable buff = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blessing of Kings"));
-			var minion = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable buff = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blessing of Might"));
+			var minion = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion));
+
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, buff, minion));
 
-			Assert.Equal(1, minion.AttackDamage);
-			Assert.Equal(1, minion.Health);
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 
-			Minion spellBender = game.CurrentOpponent.BoardZone[0];
-			Assert.Equal(5, spellBender.AttackDamage);
-			Assert.Equal(7, spellBender.Health);
+			Assert.Equal(3, minion.AttackDamage);
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+
+			Minion spellBender = game.CurrentOpponent.BoardZone[1];
+			Assert.Equal(4, spellBender.AttackDamage);
+			Assert.Equal(3, spellBender.Health);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -8142,6 +8146,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			Assert.Equal(24, testCard.Cost);
+
+			Game clone = game.Clone();
+			Assert.Equal(24, clone.CurrentPlayer.HandZone.Last().Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

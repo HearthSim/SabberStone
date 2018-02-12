@@ -192,6 +192,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="playable">The source <see cref="T:SabberStoneCore.Model.Entities.Playable`1" /></param>
 		protected Playable(Controller controller, Playable<T> playable) : base(controller, playable)
 		{
+			if (Card.Name == "Corridor Creeper") ;
+
 			controller.Game.IdEntityDic.Add(playable.Id, this);
 
 			playable.OngoingEffect?.Clone(this);

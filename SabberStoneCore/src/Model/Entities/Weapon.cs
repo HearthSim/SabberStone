@@ -50,7 +50,7 @@ namespace SabberStoneCore.Model.Entities
 			get => this[GameTag.DAMAGE];
 			set
 			{
-				Game.TriggerManager.OnDamageTrigger(this);
+				//Game.TriggerManager.OnDamageTrigger(this);
 				this[GameTag.DAMAGE] = value;
 				if (this[GameTag.DURABILITY] <= value)
 				{

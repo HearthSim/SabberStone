@@ -64,10 +64,7 @@ namespace SabberStoneCore.Actions
 						PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
 						break;
 					case Weapon weapon:
-						// - OnPlay Phase --> OnPlay Trigger (Illidan)
-						//   (death processing, aura updates)
-						OnPlayTrigger.Invoke(c, weapon);
-						PlayWeapon.Invoke(c, (Weapon)source, target, chooseOne);
+						PlayWeapon.Invoke(c, weapon, target, chooseOne);
 						break;
 					case Spell spell:
 						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
@@ -165,25 +162,31 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				OnPlayTrigger.Invoke(c, hero);
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				hero.ActivateTask(PowerActivation.POWER, target, chooseOne);
-
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				{
 					hero.ActivateTask(PowerActivation.POWER, target);
 				}
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//hero.JustPlayed = false;
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnAfterPlayCardTrigger(hero);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
@@ -204,25 +207,30 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnPlayMinionTrigger(minion);
 				OnPlayTrigger.Invoke(c, minion);
 
 				// - Summon Resolution Step (Work in Process)
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnSummonTrigger(minion);
 				c.Game.ProcessTasks();
-
-				// - BattleCry Phase --> Battle Cry Resolves
-				//   (death processing, aura updates)
+				c.Game.TaskQueue.EndEvent();
 
 				// Noggenfogger here
 				if (target != null)
 				{
+					c.Game.TaskQueue.StartEvent();
 					c.Game.TriggerManager.OnTargetTrigger(minion);
 					c.Game.ProcessTasks();
+					c.Game.TaskQueue.EndEvent();
 					if (minion.CardTarget != target.Id)
-						target = (ICharacter) c.Game.IdEntityDic[minion.CardTarget];
+						target = (ICharacter)c.Game.IdEntityDic[minion.CardTarget];
 				}
 
+				// - BattleCry Phase --> Battle Cry Resolves
+				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				if (minion.Combo && c.IsComboActive)
 					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
@@ -234,19 +242,25 @@ namespace SabberStoneCore.Actions
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//minion.JustPlayed = false;
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnAfterPlayMinionTrigger(minion);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 
 				// - After Summon Phase --> After Summon Trigger
 				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnAfterPlayCardTrigger(minion);
 				AfterSummonTrigger.Invoke(c, minion);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 
 				c.Game.DeathProcessingAndAuraUpdate();
 
@@ -276,13 +290,11 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnCastSpellTrigger(spell);
 				OnPlayTrigger.Invoke(c, spell);
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
-
-				// trigger SpellText Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger SpellText Phase (not implemented)");
 
 				// check the spell is countered
 				if (spell.IsCountered)
@@ -295,8 +307,10 @@ namespace SabberStoneCore.Actions
 					// check Spellbender and Mayor Noggenfogger
 					if (target != null)
 					{
+						c.Game.TaskQueue.StartEvent();
 						c.Game.TriggerManager.OnTargetTrigger(spell);
 						c.Game.ProcessTasks();
+						c.Game.TaskQueue.EndEvent();
 						if (target.Id != spell.CardTarget)
 						{
 							target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
@@ -304,6 +318,7 @@ namespace SabberStoneCore.Actions
 						}
 					}
 
+					c.Game.TaskQueue.StartEvent();
 					if (spell.IsSecret || spell.IsQuest)
 					{
 						spell.Power.Trigger?.Activate(spell);
@@ -325,14 +340,19 @@ namespace SabberStoneCore.Actions
 
 					// process power tasks
 					c.Game.ProcessTasks();
+					c.Game.TaskQueue.EndEvent();
+
 					c.Game.DeathProcessingAndAuraUpdate();
 				}
 				
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnAfterCastTrigger(spell);
 				c.Game.TriggerManager.OnAfterPlayCardTrigger(spell);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
@@ -341,32 +361,60 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Weapon, ICharacter, int, bool> PlayWeapon
 			=> delegate (Controller c, Weapon weapon, ICharacter target, int chooseOne)
 			{
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
+				//Weapon oldWeapon = c.Hero.Weapon;
+
+				//if (oldWeapon != null)
+				//	c.Hero.Weapon = null;
+
 				c.Hero.AddWeapon(weapon);
+
+				// - OnPlay Phase --> OnPlay Trigger (Illidan)
+				//   (death processing, aura updates)
+				c.Game.TaskQueue.StartEvent();
+				OnPlayTrigger.Invoke(c, weapon);
 
 				weapon.Card.Power?.Aura?.Activate(weapon);
 				weapon.Card.Power?.Trigger?.Activate(weapon);
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
 				if (target != null)
 				{
+					c.Game.TaskQueue.StartEvent();
 					c.Game.TriggerManager.OnTargetTrigger(weapon);
 					c.Game.ProcessTasks();
+					c.Game.TaskQueue.EndEvent();
 					if (target.Id != weapon.CardTarget)
 						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
 				}
 
 				// activate battlecry
+				if (c.Game.History)
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, weapon.Id, "", -1, 0));
+
+				c.Game.TaskQueue.StartEvent();
 				weapon.ActivateTask(PowerActivation.POWER, target);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
+				c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+				//if (oldWeapon != null)
+				//	//TODO
+
 				c.Game.DeathProcessingAndAuraUpdate();
+
 
 				c.NumWeaponsPlayedThisGame++;
 
 				// trigger After Play Phase
 				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnAfterPlayCardTrigger(weapon);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
+				c.Game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};
@@ -377,6 +425,8 @@ namespace SabberStoneCore.Actions
 				//playable.JustPlayed = true;
 				c.Game.TriggerManager.OnPlayCardTrigger(playable);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}

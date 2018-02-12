@@ -119,6 +119,7 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> DiscardBlock
 			=> delegate (Controller c, IPlayable playable)
 			{
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnDiscardTrigger(playable);
 				IPlayable discard = c.HandZone.Remove(playable);
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging? "":$"{discard} is beeing discarded.");
@@ -127,6 +128,7 @@ namespace SabberStoneCore.Actions
 				c.DiscardedEntities.Add(discard.Id);
 				c.LastCardDiscarded = discard.Id;
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 				return true;
 			};
 

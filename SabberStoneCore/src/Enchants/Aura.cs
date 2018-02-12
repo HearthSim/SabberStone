@@ -261,16 +261,21 @@ namespace SabberStoneCore.Enchants
 						return;
 					case AuraType.ADJACENT:
 						int pos = Owner.ZonePosition;
-						for (int i = 0; i < AppliedEntities.Count; i++)
+						for (int i = AppliedEntities.Count - 1; i >= 0; i--)
 						{
-							if (Math.Abs(pos - AppliedEntities[i].ZonePosition) == 1) continue;
+							IPlayable entity = AppliedEntities[i];
+
+							if (entity.Zone == Owner.Zone && Math.Abs(pos - entity.ZonePosition) == 1) continue;
 
 							for (int j = 0; j < Effects.Length; j++)
-								Effects[j].Remove(AppliedEntities[i].AuraEffects);
+								Effects[j].Remove(entity.AuraEffects);
+
+							_appliedEntityIds.Remove(entity.Id);
+							_appliedEntities.Remove(entity);
 						}
 						if (pos > 0)
 							Apply(Owner.Controller.BoardZone[pos - 1]);
-						if (pos < Owner.Controller.BoardZone.Count - 1)
+						if (pos < Owner.Controller.BoardZone.Count - 1 && Owner.Controller.BoardZone.Count > pos)
 							Apply(Owner.Controller.BoardZone[pos + 1]);
 						break;
 					case AuraType.HAND:
@@ -422,6 +427,9 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		private void Apply(IPlayable entity)
 		{
+			if (entity == null)
+				throw new ArgumentNullException();
+
 			if (_appliedEntityIds.Contains(entity.Id))
 			{
 				if (!Restless || Condition.Eval(entity)) return;

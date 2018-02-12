@@ -60,8 +60,10 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging? "":$"{c.Name} draws {playable}");
 
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnDrawTrigger(playable);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 				c.NumCardsDrawnThisTurn++;
 				c.LastCardDrawn = playable.Id;
 

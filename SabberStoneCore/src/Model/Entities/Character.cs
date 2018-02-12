@@ -239,9 +239,11 @@ namespace SabberStoneCore.Model.Entities
 			// Death phase and aura update is not emerge here
 
 			// on-damage triggers
+			Game.TaskQueue.StartEvent();
 			Game.TriggerManager.OnDamageTrigger(this);
 			Game.TriggerManager.OnDealDamageTrigger(source, preDamage);
 			Game.ProcessTasks();
+			Game.TaskQueue.EndEvent();
 			if (source.HasLifeSteal && !_lifestealChecker)
 			{
 				if (_history)
@@ -300,8 +302,10 @@ namespace SabberStoneCore.Model.Entities
 
 			// Heal event created
 			// Process gathered tasks
+			Game.TaskQueue.StartEvent();
 			Game.TriggerManager.OnHealTrigger(this, amount);
 			Game.ProcessTasks();
+			Game.TaskQueue.EndEvent();
 
 			if (this is Hero)
 				Controller.AmountHeroHealedThisTurn += amount;

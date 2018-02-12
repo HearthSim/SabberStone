@@ -45,7 +45,7 @@ namespace SabberStoneCoreConsole
 			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
-			TortollanPrimalist();
+			//TortollanPrimalist();
 
 			
 
@@ -1115,7 +1115,7 @@ namespace SabberStoneCoreConsole
 
 					Console.ForegroundColor = foreground;
 
-					string logStr = $"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
+					string logStr = $"{logEntry.TimeStamp.ToLongTimeString()} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
 					str.Append(logStr + "\n");
 					Console.WriteLine(logStr);
 				}

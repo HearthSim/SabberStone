@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Tasks
 {
@@ -9,168 +11,324 @@ namespace SabberStoneCore.Tasks
 		READY, RUNNING, COMPLETE, STOP
 	}
 
-	public class StateTaskList<T> : List<T>, ISimpleTask where T : ISimpleTask
+	//public class StateTaskList : List<ISimpleTask>, ISimpleTask
+	//{
+	//	public TaskState State { get; set; } = TaskState.READY;
+
+	//	private int _position = 0;
+	//	//public ISimpleTask CurrentTask => this[_position].CurrentTask;
+
+	//	private StateTaskList(int capacity) : base(capacity)
+	//	{
+			
+	//	}
+
+	//	public Game Game { get; set; }
+	//	private int _controllerId;
+	//	public Controller Controller
+	//	{
+	//		get { return Game.ControllerById(_controllerId); }
+	//		set { _controllerId = value.Id; }
+	//	}
+
+	//	private int _sourceId;
+	//	public IEntity Source
+	//	{
+	//		get { return Game.IdEntityDic[_sourceId]; }
+	//		set { _sourceId = value.Id; }
+	//	}
+
+	//	private int _targetId = -1;
+	//	public IEntity Target
+	//	{
+	//		get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
+	//		set { _targetId = value?.Id ?? -1; }
+	//	}
+
+	//	public List<IPlayable> Playables
+	//	{
+	//		get { return Game.TaskStack.Playables; }
+	//		set { Game.TaskStack.Playables = value; }
+	//	}
+	//	public List<string> CardIds
+	//	{
+	//		get { return Game.TaskStack.CardIds; }
+	//		set { Game.TaskStack.CardIds = value; }
+	//	}
+	//	public bool Flag
+	//	{
+	//		get { return Game.TaskStack.Flag; }
+	//		set { Game.TaskStack.Flag = value; }
+	//	}
+	//	public int Number
+	//	{
+	//		get { return Game.TaskStack.Numbers[0]; }
+	//		set { Game.TaskStack.Numbers[0] = value; }
+	//	}
+	//	public int Number1
+	//	{
+	//		get { return Game.TaskStack.Numbers[1]; }
+	//		set { Game.TaskStack.Numbers[1] = value; }
+	//	}
+	//	public int Number2
+	//	{
+	//		get { return Game.TaskStack.Numbers[2]; }
+	//		set { Game.TaskStack.Numbers[2] = value; }
+	//	}
+	//	public int Number3
+	//	{
+	//		get { return Game.TaskStack.Numbers[3]; }
+	//		set { Game.TaskStack.Numbers[3] = value; }
+	//	}
+	//	public int Number4
+	//	{
+	//		get { return Game.TaskStack.Numbers[4]; }
+	//		set { Game.TaskStack.Numbers[4] = value; }
+	//	}
+	//	public TaskState Process()
+	//	{
+	//		// at the start move over initial parameters ...
+	//		if (State == TaskState.READY)
+	//		{
+	//			Playables = Playables ?? new List<IPlayable>();
+	//			CardIds = CardIds ?? new List<string>();
+	//		}
+
+	//		State = TaskState.RUNNING;
+	//		for (_position = 0; _position < Count && State == TaskState.RUNNING; _position++)
+	//		{
+	//			ISimpleTask task = this[_position];
+	//			if (task.State == TaskState.COMPLETE)
+	//				continue;
+
+	//			task.Game = Game;
+	//			task.Controller = Controller;
+	//			task.Source = Source;
+	//			task.Target = Target;
+	//			//task.Playables = Playables;
+	//			//task.Flag = Flag;
+	//			//task.Number = Number;
+
+	//			// execution
+	//			if (task.Process() != TaskState.COMPLETE)
+	//				break;
+				
+
+	//			// move over in queue
+	//			Game = task.Game;
+	//			Controller = task.Controller;
+	//			Source = task.Source;
+	//			Target = task.Target;
+	//			//Playables = task.Playables;
+	//			//Flag = task.Flag;
+	//			//Number = task.Number;
+	//		}
+
+	//		return TaskState.COMPLETE;
+	//	}
+
+	//	public ISimpleTask Clone()
+	//	{
+	//		var cloneList = new StateTaskList(Count);
+	//		cloneList.Copy(this);
+	//		ForEach(p => cloneList.Add(p.Clone()));
+	//		return cloneList;
+	//	}
+
+	//	public void ResetState()
+	//	{
+	//		State = TaskState.READY;
+	//	}
+
+	//	public bool IsTrigger { get; set; }
+
+	//	public static StateTaskList Chain(params ISimpleTask[] list)
+	//	{
+	//		var newList = new StateTaskList(list.Length);
+	//		newList.AddRange(list);
+	//		return newList;
+	//	}
+
+	//	public void Copy(ISimpleTask task)
+	//	{
+	//		State = task.State;
+
+	//		if (task.Game == null)
+	//			return;
+
+	//		Game = task.Game;
+	//		Controller = task.Controller;
+	//		Source = task.Source;
+	//		Target = task.Target;
+
+	//		Playables = task.Playables;
+	//		//CardIds = task.CardIds;
+	//		Flag = task.Flag;
+	//		Number = task.Number;
+	//		Number1 = task.Number1;
+	//		Number2 = task.Number2;
+	//		Number3 = task.Number3;
+	//		Number4 = task.Number4;
+
+	//		//Splits = task.Splits;
+	//		//Sets = task.Sets;
+	//	}
+
+	//}
+
+
+	public class StateTaskList : ISimpleTask
 	{
+		public TaskStack Stack { private get; set; }
+		private readonly IReadOnlyList<ISimpleTask> _tasks;
+
+		private StateTaskList(ISimpleTask[] list)
+		{
+			var tasks = new ISimpleTask[list.Length];
+
+			for (int i = 0; i < list.Length; ++i)
+				tasks[i] = list[i].Clone();
+
+			_tasks = tasks;
+		}
+
 		public TaskState State { get; set; } = TaskState.READY;
 
-		private int _position = 0;
-		//public ISimpleTask CurrentTask => this[_position].CurrentTask;
-
-		private StateTaskList(int capacity) : base(capacity)
+		public Game Game
 		{
-			
-		}
+			get => Stack.Game;
+			set
+			{
+				if (Stack == null)
+				{
+					Stack = new TaskStack(value);
+					return;
+				}
 
-		public Game Game { get; set; }
-		private int _controllerId;
+				Stack.Game = value;
+			} 
+		}
 		public Controller Controller
 		{
-			get { return Game.ControllerById(_controllerId); }
-			set { _controllerId = value.Id; }
+			get => Stack.Controller;
+			set => Stack.Controller = value;
 		}
-
-		private int _sourceId;
 		public IEntity Source
 		{
-			get { return Game.IdEntityDic[_sourceId]; }
-			set { _sourceId = value.Id; }
+			get => Stack.Source;
+			set => Stack.Source = value;
 		}
-
-		private int _targetId = -1;
 		public IEntity Target
 		{
-			get { return _targetId > -1 ? Game.IdEntityDic[_targetId] : null; }
-			set { _targetId = value?.Id ?? -1; }
+			get => Stack.Target;
+			set => Stack.Target = value;
 		}
-
 		public List<IPlayable> Playables
 		{
-			get { return Game.TaskStack.Playables; }
-			set { Game.TaskStack.Playables = value; }
-		}
-		public List<string> CardIds
-		{
-			get { return Game.TaskStack.CardIds; }
-			set { Game.TaskStack.CardIds = value; }
+			get => Stack.Playables;
+			set => Stack.Playables = value;
 		}
 		public bool Flag
 		{
-			get { return Game.TaskStack.Flag; }
-			set { Game.TaskStack.Flag = value; }
+			get => Stack.Flag;
+			set => Stack.Flag = value;
 		}
 		public int Number
 		{
-			get { return Game.TaskStack.Numbers[0]; }
-			set { Game.TaskStack.Numbers[0] = value; }
+			get => Stack.Numbers[0];
+			set => Stack.Numbers[0] = value;
 		}
 		public int Number1
 		{
-			get { return Game.TaskStack.Numbers[1]; }
-			set { Game.TaskStack.Numbers[1] = value; }
+			get => Stack.Numbers[1];
+			set => Stack.Numbers[1] = value;
 		}
 		public int Number2
 		{
-			get { return Game.TaskStack.Numbers[2]; }
-			set { Game.TaskStack.Numbers[2] = value; }
+			get => Stack.Numbers[2];
+			set => Stack.Numbers[2] = value;
 		}
 		public int Number3
 		{
-			get { return Game.TaskStack.Numbers[3]; }
-			set { Game.TaskStack.Numbers[3] = value; }
+			get => Stack.Numbers[3];
+			set => Stack.Numbers[3] = value;
 		}
 		public int Number4
 		{
-			get { return Game.TaskStack.Numbers[4]; }
-			set { Game.TaskStack.Numbers[4] = value; }
+			get => Stack.Numbers[4];
+			set => Stack.Numbers[4] = value;
 		}
+		public bool IsTrigger { get; set; }
+
 		public TaskState Process()
 		{
-			// at the start move over initial parameters ...
-			if (State == TaskState.READY)
-			{
-				Playables = Playables ?? new List<IPlayable>();
-				CardIds = CardIds ?? new List<string>();
-			}
+			if (Stack == null)
+				throw new NullReferenceException("Stack can't be null.");
 
 			State = TaskState.RUNNING;
-			for (_position = 0; _position < Count && State == TaskState.RUNNING; _position++)
+			TaskStack temp = Game.TaskStack;
+			Game.TaskStack = Stack;
+			for (int i = 0; i < _tasks.Count; ++i)
 			{
-				ISimpleTask task = this[_position];
-				if (task.State == TaskState.COMPLETE)
-					continue;
+				ISimpleTask current = _tasks[i];
+				if (current is StateTaskList stacklist)
+					stacklist.Stack = Stack;
+				else
+				{
+					current.Game = Game;    
+					current.Controller = Controller;
+					current.Source = Source;
+					current.Target = Target;
+				}
 
-				task.Game = Game;
-				task.Controller = Controller;
-				task.Source = Source;
-				task.Target = Target;
-				//task.Playables = Playables;
-				//task.Flag = Flag;
-				//task.Number = Number;
 
-				// execution
-				if (task.Process() != TaskState.COMPLETE)
+				if (current.Process() != TaskState.COMPLETE)
 					break;
-				
-
-				// move over in queue
-				Game = task.Game;
-				Controller = task.Controller;
-				Source = task.Source;
-				Target = task.Target;
-				//Playables = task.Playables;
-				//Flag = task.Flag;
-				//Number = task.Number;
 			}
 
+			State = TaskState.COMPLETE;
+
+			Game.TaskStack = temp;
 			return TaskState.COMPLETE;
 		}
 
+
+		public static StateTaskList Chain(params ISimpleTask[] list)
+		{
+			return new StateTaskList(list);
+		}
+
+		//	public void Copy(ISimpleTask task)
+		//	{
+		//		State = task.State;
+
+		//		if (task.Game == null)
+		//			return;
+
+		//		Game = task.Game;
+		//		Controller = task.Controller;
+		//		Source = task.Source;
+		//		Target = task.Target;
+
+		//		Playables = task.Playables;
+		//		//CardIds = task.CardIds;
+		//		Flag = task.Flag;
+		//		Number = task.Number;
+		//		Number1 = task.Number1;
+		//		Number2 = task.Number2;
+		//		Number3 = task.Number3;
+		//		Number4 = task.Number4;
+
+		//		//Splits = task.Splits;
+		//		//Sets = task.Sets;
+		//	}
+
 		public ISimpleTask Clone()
 		{
-			var cloneList = new StateTaskList<ISimpleTask>(Count);
-			cloneList.Copy(this);
-			ForEach(p => cloneList.Add(p.Clone()));
-			return cloneList;
+			return new StateTaskList((ISimpleTask[])_tasks)
+			{
+				Game = Stack?.Game
+			};
 		}
-
-		public void ResetState()
-		{
-			State = TaskState.READY;
-		}
-
-		public bool IsTrigger { get; set; }
-
-		public static StateTaskList<ISimpleTask> Chain(params ISimpleTask[] list)
-		{
-			var newList = new StateTaskList<ISimpleTask>(list.Length);
-			newList.AddRange(list);
-			return newList;
-		}
-
-		public void Copy(ISimpleTask task)
-		{
-			State = task.State;
-
-			if (task.Game == null)
-				return;
-
-			Game = task.Game;
-			Controller = task.Controller;
-			Source = task.Source;
-			Target = task.Target;
-
-			Playables = task.Playables;
-			CardIds = task.CardIds;
-			Flag = task.Flag;
-			Number = task.Number;
-			Number1 = task.Number1;
-			Number2 = task.Number2;
-			Number3 = task.Number3;
-			Number4 = task.Number4;
-
-			//Splits = task.Splits;
-			//Sets = task.Sets;
-		}
-
 	}
 }

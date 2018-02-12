@@ -927,7 +927,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - IMMUNE = 1
 			// --------------------------------------------------------
 			cards.Add("DS1_188", new Power {
-				Trigger = new Trigger(TriggerType.ATTACK)
+				Trigger = new Trigger(TriggerType.TARGET)
 				{
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = new AddEnchantmentTask("DS1_188e", EntityType.HERO)
@@ -1272,6 +1272,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_594", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
+					TriggerSource = TriggerSource.OP_MINIONS,
 					Condition = SelfCondition.IsProposedDefender(CardType.HERO),
 					FastExecution = true,
 					SingleTask = ComplexTask.Secret(new DestroyTask(EntityType.TARGET))
@@ -1290,7 +1291,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("tt_010", new Power {
 				Trigger = new Trigger(TriggerType.TARGET)
 				{
-					Condition = SelfCondition.IsSpell,
+					Condition = new SelfCondition(p => p is Spell && p.Game.IdEntityDic[p.CardTarget] is Minion),
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull, SelfCondition.IsTagValue(GameTag.CANT_PLAY, 0)),
 						new FlagTask(true, ComplexTask.Secret(
@@ -3156,7 +3157,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_411", new Power {
-				Trigger = new Trigger(TriggerType.ATTACK)
+				Trigger = new Trigger(TriggerType.TARGET)
 				{
 					TriggerSource = TriggerSource.HERO,
 					Condition = SelfCondition.IsProposedDefender(CardType.MINION),

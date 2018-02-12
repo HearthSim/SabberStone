@@ -32,8 +32,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				clone.Source = Source as IPlayable;
 				clone.Target = Target as IPlayable;
 
-				Controller.Game.TaskQueue.TaskList.Enqueue(clone);
-				Controller.Game.TaskQueue.TaskList.Enqueue(
+				Controller.Game.TaskQueue.EnqueueBase(clone);
+				Controller.Game.TaskQueue.EnqueueBase(
 					new ClearStackTask
 					{
 						Game = Controller.Game,

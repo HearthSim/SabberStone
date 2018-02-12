@@ -34,8 +34,11 @@ namespace SabberStoneCore.Actions
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
 
+				c.Game.TaskQueue.StartEvent();
 				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 
 				if (c.Game.History)
@@ -45,8 +48,10 @@ namespace SabberStoneCore.Actions
 				c.HeroPowerActivationsThisTurn++;
 				c.NumTimesHeroPowerUsedThisGame++;
 
+				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnInspireTrigger(target);
 				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 
 				c.Game.DeathProcessingAndAuraUpdate();
 

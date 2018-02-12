@@ -61,7 +61,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				if (Controller.BoardZone.IsFull)
 				{
-					if (Playables.Count > 0)
+					if (Card == null && Playables.Count > 0)
 					{
 						var m = Playables[0] as Minion;
 						if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)

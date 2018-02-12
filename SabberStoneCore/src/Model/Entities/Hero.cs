@@ -64,11 +64,6 @@ namespace SabberStoneCore.Model.Entities
 			Weapon = weapon;
 			Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			Weapon[GameTag.ZONE_POSITION] = 0;
-			if (Game.History)
-			{
-				Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, Weapon.Id, "", -1, 0));
-				Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-			}
 			EquippedWeapon = weapon.Id;
 			if (weapon.HasWindfury && IsExhausted && NumAttacksThisTurn == 1)
 				IsExhausted = false;
@@ -88,8 +83,8 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 			}
-
 			Game.TriggerManager.OnDeathTrigger(Weapon);
+
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 

@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask Create(params ISimpleTask[] list)
 		{
-			return StateTaskList<ISimpleTask>.Chain(list);
+			return StateTaskList.Chain(list);
 		}
 
 		internal static ISimpleTask GetRandomEntourageCardToHand
@@ -292,7 +292,7 @@ namespace SabberStoneCore.Tasks
 			var secretList = list.ToList();
 			secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
 			secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
-			return StateTaskList<ISimpleTask>.Chain(secretList.ToArray());
+			return StateTaskList.Chain(secretList.ToArray());
 		}
 
 		public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
@@ -304,9 +304,10 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{
-			var taskList = tasks.ToList();
-			taskList.Add(repeatCondition);
-			taskList.Add(
+			ISimpleTask[] taskList = new ISimpleTask[tasks.Length + 2];
+			tasks.CopyTo(taskList, 0);
+			taskList[tasks.Length] = repeatCondition;
+			taskList[tasks.Length + 1] = 
 				new FlagTask(true,
 					new EnqueueTask(1, Create(
 						new IncludeTask(EntityType.SOURCE),
@@ -315,8 +316,8 @@ namespace SabberStoneCore.Tasks
 								p[0].ActivateTask(PowerActivation.POWER);
 								return new List<IPlayable>();
 							}
-				)))));
-			return StateTaskList<ISimpleTask>.Chain(taskList.ToArray());
+				))));
+			return StateTaskList.Chain(taskList);
 		}
 	}
 }

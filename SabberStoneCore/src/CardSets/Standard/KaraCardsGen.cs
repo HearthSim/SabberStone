@@ -711,10 +711,11 @@ namespace SabberStoneCore.CardSets.Standard
 							return new List<IPlayable>();
 
 						IPlayable originalTarget = p[0].Game.IdEntityDic[id];
-						return new List<IPlayable>
-							{Entity.FromCard(originalTarget.Controller, originalTarget.Card)};
-					}),
-					new SummonTask(SummonSide.DEATHRATTLE))
+						if (originalTarget.Controller.BoardZone.IsFull)
+							return null;
+						Entity.FromCard(originalTarget.Controller, originalTarget.Card, null, originalTarget.Controller.BoardZone);
+						return null;
+					}))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
