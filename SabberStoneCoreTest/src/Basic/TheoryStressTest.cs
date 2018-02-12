@@ -140,8 +140,30 @@ namespace SabberStoneCoreTest.Basic
 			clone.ProcessCard("Assassinate", clone.CurrentPlayer.BoardZone[3]);
 		}
 
+		[Fact]
+		public static void JaraxxusRepentance()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player2HeroClass = CardClass.WARLOCK,
+				FillDecks = true,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.ProcessCard("Repentance");
+			game.EndTurn();
+
+			game.ProcessCard("Lord Jaraxxus");
+			Assert.NotEqual(1, game.CurrentPlayer.Hero.Health);
+		}
+
 			// Umbra + Doppelgangster + Val'anyr test
 
 			// AuraUpdate(others) test
-		}
+	}
 }
