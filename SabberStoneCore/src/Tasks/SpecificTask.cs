@@ -44,26 +44,30 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask TotemicCall
 			=> ComplexTask.Create(
-				new IncludeTask(EntityType.HERO),
-				new FuncPlayablesTask(list =>
+				new FuncNumberTask(p =>
 				{
-					var result = new List<IPlayable>();
-					Controller controller = list[0].Controller;
-					List<string> entourage = controller.Hero.HeroPower.Card.Entourage;
-					var notContained = new List<string>();
-					var idsOnBoard = controller.BoardZone.Select(p => p.Card.Id).ToList();
-					entourage.ForEach(p =>
+					Minion[] minions = p.Controller.BoardZone.GetAll();
+					var notContained = new List<Card>(4);
+					for (int i = 0; i < p.Card.Entourage.Length; i++)
 					{
-						if (!idsOnBoard.Contains(p))
+						string id = p.Card.Entourage[i];
+						bool flag = false;
+						for (int j = 0; j < minions.Length; j++)
 						{
-							notContained.Add(p);
+							Minion m = minions[j];
+							if (id == m.Card.Id)
+							{
+								flag = true;
+								break;
+							}
 						}
-					});
-					notContained.ForEach(p => result.Add(Entity.FromCard(controller, Cards.FromId(p))));
-					return result;
-				}),
-				new RandomTask(1, EntityType.STACK),
-				new SummonTask());
+						if (!flag)
+							notContained.Add(Cards.FromId(id));
+					}
+					Entity.FromCard(p.Controller, notContained[Util.Random.Next(notContained.Count)],
+						null, p.Controller.BoardZone);
+					return 0;
+				}));
 
 		public static ISimpleTask Betrayal
 			=> ComplexTask.Create(

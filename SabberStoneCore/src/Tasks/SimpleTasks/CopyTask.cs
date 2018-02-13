@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -8,11 +9,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class CopyTask : SimpleTask
 	{
-		public CopyTask(EntityType type, int amount, bool opposite = false)
+		private readonly Zone _zoneType;
+
+		public CopyTask(EntityType type, int amount, bool opposite = false, Zone zoneType = Zone.INVALID)
 		{
 			Type = type;
 			Amount = amount;
 			Opposite = opposite;
+			_zoneType = zoneType;
 		}
 
 		public EntityType Type { get; set; }
@@ -61,9 +65,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						for (int i = 0; i < Amount; i++)
 						{
+							// TODO
 							result.Add(Opposite ?
-								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id)) :
-								Entity.FromCard(Controller, Cards.FromId(p.Card.Id)));
+								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, p.Controller.ControlledZones[_zoneType]) :
+								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, Controller.ControlledZones[_zoneType]));
 						}
 					});
 					break;
@@ -91,7 +96,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new CopyTask(Type, Amount, Opposite);
+			var clone = new CopyTask(Type, Amount, Opposite, _zoneType);
 			clone.Copy(this);
 			return clone;
 		}

@@ -30,7 +30,6 @@ namespace SabberStoneCore.Tasks
 				new RandomEntourageTask(),
 				new AddStackTo(EntityType.HAND));
 
-		
 		internal static ISimpleTask LifeSteal(EntityType entityType)
 			=> new SetGameTagTask(GameTag.LIFESTEAL, 1, entityType);
 
@@ -161,24 +160,6 @@ namespace SabberStoneCore.Tasks
 					return null;
 				}));
 		}
-
-		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
-		//{
-		//	return Create(
-		//		new IncludeTask(type),
-		//		new FilterStackTask(list),
-		//		new RandomTask(1, EntityType.STACK),
-		//		new BuffTask(buff, EntityType.STACK));
-		//}
-
-		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
-		//{
-		//	return Create(
-		//		new IncludeTask(type),
-		//		new FilterStackTask(EntityType.SOURCE, list),
-		//		new RandomTask(1, EntityType.STACK),
-		//		new BuffTask(buff, EntityType.STACK));
-		//}
 
 		public static ISimpleTask BuffRandomMinion(EntityType type, string enchantmentId, params SelfCondition[] list)
 		{

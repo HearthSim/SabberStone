@@ -251,7 +251,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
 				str.Append($"{tab}\t// Text: {card.Text.Replace("\n", $"\n{tab}\t//       ")}\n");
 			}
-			if (card.Entourage != null && card.Entourage.Count > 0)
+			if (card.Entourage != null && card.Entourage.Length > 0)
 			{
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
 				str.AppendLine($"{tab}\t// Entourage: {String.Join(", ", card.Entourage)}");

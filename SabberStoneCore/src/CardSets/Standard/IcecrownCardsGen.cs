@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -254,9 +255,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_829p", new Power {
-				// TODO [ICC_829p] The Four Horsemen && Test: The Four Horsemen_ICC_829p
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.TotemicCall,
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = new SelfCondition(p =>
+					{
+						if (p.Controller.BoardZone.Count < 4)
+							return false;
+						string[] boards = p.Controller.BoardZone.Select(m => m.Card.Id).OrderBy(x => x).ToArray();
+						for (int i = 0; i < boards.Length - 3; i++)
+							if (boards[i] == "ICC_829t2")
+								return boards[i + 3] == "ICC_829t5";
+						return false;
+					}),
+					SingleTask = new DestroyTask(EntityType.OP_HERO)
+				}
 			});
 
 			// ------------------------------------ HERO_POWER - PRIEST
@@ -1462,11 +1476,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t2", new Power {
-				// TODO [ICC_829t2] Deathlord Nazgrim && Test: Deathlord Nazgrim_ICC_829t2
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_829t2", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t3] Thoras Trollbane (*) - COST:2 [ATK:2/HP:2] 
@@ -1475,11 +1485,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t3", new Power {
-				// TODO [ICC_829t3] Thoras Trollbane && Test: Thoras Trollbane_ICC_829t3
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_829t3", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t4] Inquisitor Whitemane (*) - COST:2 [ATK:2/HP:2] 
@@ -1488,11 +1494,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t4", new Power {
-				// TODO [ICC_829t4] Inquisitor Whitemane && Test: Inquisitor Whitemane_ICC_829t4
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_829t4", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t5] Darion Mograine (*) - COST:2 [ATK:2/HP:2] 
@@ -1501,11 +1503,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t5", new Power {
-				// TODO [ICC_829t5] Darion Mograine && Test: Darion Mograine_ICC_829t5
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_829t5", null);
 
 			// --------------------------------------- WEAPON - PALADIN
 			// [ICC_829t] Grave Vengeance (*) - COST:8 [ATK:5/HP:0] 
@@ -1580,9 +1578,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_215", new Power {
-				// TODO [ICC_215] Archbishop Benedictus && Test: Archbishop Benedictus_ICC_215
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.OP_DECK),
+					new CopyTask(EntityType.STACK, 1, false, Zone.DECK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1745,9 +1743,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_811", new Power {
-				// TODO [ICC_811] Lilian Voss && Test: Lilian Voss_ICC_811
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsSpell),
+					new ChangeEntityTask())
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -2011,9 +2010,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
-				// TODO [ICC_090] Snowfury Giant && Test: Snowfury Giant_ICC_090
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.OverloadThisGame)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2029,9 +2026,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_289", new Power {
-				// TODO [ICC_289] Moorabi && Test: Moorabi_ICC_289
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.FROZEN)
+				{
+					TriggerSource = TriggerSource.ALL_MINIONS_EXCEPT_SELF,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.HAND))
+				}
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -2099,12 +2100,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_236", new Power {
-				// TODO [ICC_236] Ice Breaker && Test: Ice Breaker_ICC_236
-				//Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
-				//{
-				//	TriggerSource = TriggerSource.SELF,
-				//	Condition = 
-				//}
+				// TODO: Should change all similar effects
+				// Actual log says the source of damage is the equipped weapon, not hero
+				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
+				{
+					TriggerSource = TriggerSource.HERO,
+					// Don't like this condtion too... should make fields for proposed entities?
+					Condition = new SelfCondition(p =>
+					{
+						IPlayable target = p.Game.IdEntityDic[p.Game.ProposedDefender];
+						return target[GameTag.FROZEN] > 0;
+					}),
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.SOURCE),
+						new FuncPlayablesTask(p =>
+							new List<IPlayable> { p[0].Game.IdEntityDic[p[0].Game.ProposedDefender]}),
+						new DestroyTask(EntityType.STACK))
+				}
 			});
 
 		}
@@ -2430,9 +2442,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("ICC_834w", new Power {
-				// TODO [ICC_834w] Shadowmourne && Test: Shadowmourne_ICC_834w
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					Condition = SelfCondition.IsProposedDefender(CardType.MINION),
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = ComplexTask.Create(
+						new FuncNumberTask(p =>
+						{
+							Minion target = (Minion) p.Game.IdEntityDic[p.Game.ProposedDefender];
+							foreach (Minion adjacent in target.GetAdjacentMinions())
+								adjacent.TakeDamage(p, p.Controller.Hero.AttackDamage);
+							return 0;
+						}))
+				}
 			});
 
 		}
@@ -2954,12 +2976,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_812", new Power {
 				// TODO [ICC_812] Meat Wagon && Test: Meat Wagon_ICC_812
-				//DeathrattleTask = ComplexTask.Create(
-				//	new IncludeTask(EntityType.SOURCE),
-				//	new FuncPlayablesTask(p =>
-				//	{
-				//		int atk = 
-				//	}))
+				//Trigger = new Trigger(TriggerType.DEATH)
+				//{
+
+				//}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3117,7 +3137,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_904", new Power {
-				// TODO [ICC_904] Wicked Skeleton && Test: Wicked Skeleton_ICC_904
+				// TODO Test: Wicked Skeleton_ICC_904
 				PowerTask = ComplexTask.Create(
 					new GetGameTagGameTask(GameTag.NUM_MINIONS_KILLED_THIS_TURN),
 					new AddEnchantmentTask("ICC_904e", EntityType.SOURCE, true))

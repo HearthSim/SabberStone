@@ -62,6 +62,8 @@ namespace SabberStoneCore.Enums
 		DRAW,
 		/// <summary> The effect will be triggered when a card is targeted by an attacking minion or a played card. </summary>
 		TARGET,
+		/// <summary> The effect will be triggered when a entity is frozen. </summary>
+		FROZEN,
 
 		CUSTOMTRIGGER_SHADOW_REFLECTION	// should make as inherited class ?...
 	}
@@ -76,6 +78,7 @@ namespace SabberStoneCore.Enums
 		MINIONS_EXCEPT_SELF,
 		OP_MINIONS,
 		ALL_MINIONS,
+		ALL_MINIONS_EXCEPT_SELF,
 		HERO,
 		OP_HERO,
 		ENCHANTMENT_TARGET,

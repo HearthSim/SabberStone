@@ -227,6 +227,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.INSPIRE:
 					source.Game.TriggerManager.InspireTrigger += instance.Process;
 					break;
+				case TriggerType.FROZEN:
+					source.Game.TriggerManager.FreezeTrigger += instance.Process;
+					break;
 
 				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
@@ -267,7 +270,7 @@ namespace SabberStoneCore.Enchants
 			    taskInstance.Source = Owner is Enchantment ec ? ec : Owner;
 				taskInstance.Target = source is IPlayable ? source : Owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
 			    taskInstance.IsTrigger = true;
-				taskInstance.Number = number;
+				taskInstance.Number = number;	// TODO
 
 			    Game.TaskQueue.Enqueue(taskInstance);
 		    }
@@ -394,6 +397,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.INSPIRE:
 					Game.TriggerManager.InspireTrigger -= Process;
 					break;
+				case TriggerType.FROZEN:
+					Game.TriggerManager.FreezeTrigger -= Process;
+					break;
 
 			    case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 				    Game.TriggerManager.PlayCardTrigger -= Process;
@@ -470,6 +476,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerSource.MINIONS_EXCEPT_SELF:
 				    if (!(source is Minion) || source.Controller.Id != _controllerId || source.Id == _sourceId ||
 				        source.Zone.Type != Zone.PLAY) return;
+					break;
+				case TriggerSource.ALL_MINIONS_EXCEPT_SELF:
+					if (!(source is Minion) || source == Owner) return;
 				    break;
 			    case TriggerSource.HERO:
 				    if (!(source is Hero) || source.Controller.Id != _controllerId) return;

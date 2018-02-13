@@ -24,10 +24,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//entities.ForEach(p =>
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
-				if (Tag == GameTag.DIVINE_SHIELD && Amount == 0 && p[GameTag.DIVINE_SHIELD] != 0)
-					Game.TriggerManager.OnLoseDivineShield(p);
 				p[Tag] = Amount;
 
+				if (Tag == GameTag.DIVINE_SHIELD && Amount == 0 && p[GameTag.DIVINE_SHIELD] != 0)
+					Game.TriggerManager.OnLoseDivineShield(p);
+				else if
+					(Tag == GameTag.FROZEN && Amount == 1)
+					Game.TriggerManager.OnFreezeTrigger(p);
+				
 			};
 
 			return TaskState.COMPLETE;

@@ -114,7 +114,12 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> PayPhase
 			=> delegate (Controller c, IPlayable source)
 			{
-				c.OverloadOwed += source.Overload;
+				if (source.Card.HasOverload)
+				{
+					c.OverloadOwed += source.Overload;
+					c.OverloadThisGame += source.Overload;
+				}
+					
 				int cost = source.Cost;
 				if (cost > 0)
 				{

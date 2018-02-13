@@ -49,6 +49,8 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler InspireTrigger;
 
+	    public event TriggerHandler FreezeTrigger;
+
 
 	    internal void OnDealDamageTrigger(IEntity sender, int number)
 	    {
@@ -163,6 +165,11 @@ namespace SabberStoneCore.Model
 	    internal void OnInspireTrigger(IEntity sender)
 	    {
 		    InspireTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnFreezeTrigger(IEntity sender)
+	    {
+		    FreezeTrigger?.Invoke(sender);
 	    }
     }
 }

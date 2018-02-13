@@ -289,7 +289,7 @@ namespace SabberStoneCore.Model.Entities
 				_lifestealChecker = false;
 				return;
 			}
-			// we don't heal undamaged entitiesd
+			// we don't heal undamaged entities
 			if (Damage == 0)
 			{
 				return;
@@ -570,7 +570,18 @@ namespace SabberStoneCore.Model.Entities
 				NativeTags.TryGetValue(GameTag.FROZEN, out int value);
 				return value == 1;
 			}
-			set => NativeTags[GameTag.FROZEN] = value ? 1 : 0;
+			set
+			{
+				if (value)
+				{
+					Game.TriggerManager.OnFreezeTrigger(this);
+					NativeTags[GameTag.FROZEN] = 1;
+				}
+				else
+				{
+					NativeTags[GameTag.FROZEN] = 0;
+				}
+			}
 		}
 
 		public bool IsSilenced

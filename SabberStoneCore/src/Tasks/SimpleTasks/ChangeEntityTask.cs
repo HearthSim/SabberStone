@@ -4,27 +4,41 @@ using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	internal enum ChangeType { RANDOM_SAME_TYPE, OP_CLASS, }
+
+	// Work in process
+	// Codes should be cleand up and be merged into Generic.ChangeEntityBlock
     public class ChangeEntityTask : SimpleTask
     {
-	    //private readonly EntityType _type;
-
-	    public ChangeEntityTask(/*EntityType type*/)
+	    public ChangeEntityTask()
 	    {
 		    //_type = type;
 	    }
 
 	    public override TaskState Process()
 	    {
-		    //foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
-		    //{
+		    if (!(Source is Enchantment e))
+		    {
+				// Implementation of Lilian Voss
+			    IReadOnlyList<Card> randCards = RandomCardTask.GetCardList(Source, CardType.SPELL, Controller.Opponent.HeroClass);
+				foreach (IPlayable p in Playables)
+			    {
+				    if (!(p.Zone is HandZone)) throw new NotImplementedException();
 
-		    //}
+				    Card pick = Util.Choose(randCards);
 
-		    if (!(Source is Enchantment e)) throw new NotImplementedException();
+					p.Card = pick;
+
+					p[GameTag.DISPLAYED_CREATOR] = Source.Id;
+			    }
+
+				return TaskState.COMPLETE;
+		    }
 
 			IEntity target = Target;
 			IEntity previous = e.Target;
