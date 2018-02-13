@@ -30,7 +30,6 @@ namespace SabberStoneCore.Tasks
 				new RandomEntourageTask(),
 				new AddStackTo(EntityType.HAND));
 
-		
 		internal static ISimpleTask LifeSteal(EntityType entityType)
 			=> new SetGameTagTask(GameTag.LIFESTEAL, 1, entityType);
 
@@ -162,24 +161,6 @@ namespace SabberStoneCore.Tasks
 				}));
 		}
 
-		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params SelfCondition[] list)
-		//{
-		//	return Create(
-		//		new IncludeTask(type),
-		//		new FilterStackTask(list),
-		//		new RandomTask(1, EntityType.STACK),
-		//		new BuffTask(buff, EntityType.STACK));
-		//}
-
-		//public static ISimpleTask BuffRandomMinion(EntityType type, OldEnchant buff, params RelaCondition[] list)
-		//{
-		//	return Create(
-		//		new IncludeTask(type),
-		//		new FilterStackTask(EntityType.SOURCE, list),
-		//		new RandomTask(1, EntityType.STACK),
-		//		new BuffTask(buff, EntityType.STACK));
-		//}
-
 		public static ISimpleTask BuffRandomMinion(EntityType type, string enchantmentId, params SelfCondition[] list)
 		{
 			return Create(
@@ -309,14 +290,12 @@ namespace SabberStoneCore.Tasks
 			taskList[tasks.Length] = repeatCondition;
 			taskList[tasks.Length + 1] = 
 				new FlagTask(true,
-					new EnqueueTask(1, Create(
-						new IncludeTask(EntityType.SOURCE),
-						new FuncPlayablesTask(p =>
-							{
-								p[0].ActivateTask(PowerActivation.POWER);
-								return new List<IPlayable>();
-							}
-				))));
+				new FuncNumberTask(p =>
+				{
+					p.ActivateTask(PowerActivation.POWER);
+					return 0;
+				}
+				));
 			return StateTaskList.Chain(taskList);
 		}
 	}

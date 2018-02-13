@@ -94,10 +94,66 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.CONTROLLER_CHANGED_THIS_TURN] = 0;
 			}
 
+			if (_history)
+				if (Card[GameTag.TRIGGER_VISUAL] == 1)
+					this[GameTag.TRIGGER_VISUAL] = 0;
 
 			IsSilenced = true;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", !Game.Logging? "":$"{this} got silenced!");
+		}
+
+		/// <summary>
+		/// Gets the Minions adjacent to this Minion in order from left to right.
+		/// </summary>
+		/// <param name="includeUntouchables">true if the result should contain Untouchable entities.</param>
+		public Minion[] GetAdjacentMinions(bool includeUntouchables = false)
+		{
+			int pos = ZonePosition;
+
+			if (includeUntouchables)
+			{
+				if (pos > 0)
+				{
+					if (pos < Controller.BoardZone.Count - 1)
+					{
+						var arr = new Minion[2];
+						arr[0] = Controller.BoardZone[pos - 1];
+						arr[1] = Controller.BoardZone[pos + 1];
+						return arr;
+					}
+					return new[] { Controller.BoardZone[pos - 1] };
+				}
+				return pos < Controller.BoardZone.Count - 1 ?
+					new[] { Controller.BoardZone[pos + 1] } :
+					new Minion[0];
+			}
+
+
+			if (pos > 0)
+			{
+				Minion left;
+				Minion right;
+				if (pos < Controller.BoardZone.Count - 1)
+				{
+					left = Controller.BoardZone[pos - 1];
+					right = Controller.BoardZone[pos + 1];
+					return left.Untouchable
+						? (right.Untouchable ? new Minion[0] : new[] {right})
+						: (right.Untouchable ? new[] {left} : new[] {left, right});
+				}
+
+				left = Controller.BoardZone[pos - 1];
+				return left.Untouchable ? new Minion[0] : new [] {left};
+			}
+
+			if (pos < Controller.BoardZone.Count - 1)
+			{
+				Minion r = Controller.BoardZone[pos + 1];
+				return r.Untouchable ? new Minion[0] : new[] {r};
+			}
+
+			return new Minion[0];
 		}
 
 		/// <summary>

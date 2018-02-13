@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model
 		/// For example Ysera, the dragon which produces on DREAM card after your turn,
 		/// has entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
 		/// </summary>
-		public List<string> Entourage { get; set; }
+		public string[] Entourage { get; set; }
 
 		/// <summary>
 		/// Properties set on this instance.
@@ -137,16 +137,15 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// True if this card will incur Overload when played.
-		///
 		/// Overload is an effect that locks mana crystals.
 		/// Locked mana crystals can't be spent during one turn.
 		/// </summary>
-		public bool HasOverload => this[GameTag.OVERLOAD] == 1;
+		public bool HasOverload { get; internal set; }
 
 		/// <summary>
 		/// The amount of overload incurred by this card when played.
 		/// </summary>
-		public int Overload => this[GameTag.OVERLOAD_OWED];
+		public int Overload { get; internal set; }
 
 		/// <summary>
 		/// Returns to which multi class group this card belongs.

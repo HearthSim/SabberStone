@@ -10,7 +10,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 
 			var source = Source as IPlayable;
-			if (source == null || source.Card.Entourage.Count < 1)
+			if (source == null || source.Card.Entourage.Length < 1)
 			{
 				return TaskState.STOP;
 			}

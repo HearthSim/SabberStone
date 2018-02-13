@@ -10,7 +10,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardTask : SimpleTask
 	{
-		private static readonly ConcurrentDictionary<int, List<Card>> CachedCardLists = new ConcurrentDictionary<int, List<Card>>();
+		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists = new ConcurrentDictionary<int, Card[]>();
 
 		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, List<GameTag> gameTagFilter, bool opposite)
 		{
@@ -96,20 +96,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 
-			if (!CachedCardLists.TryGetValue(Source.Card.AssetId, out List<Card> cardsList))
-			{
-				cardsList = cards.Where(p =>
-				(CardType == CardType.INVALID || p.Type == CardType) &&
-				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
-				(CardSet == CardSet.INVALID || p.Set == CardSet) &&
-				(Race == Race.INVALID || p.Race == Race) &&
-				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))) &&
-				(p[GameTag.QUEST] == 0)).ToList();
-
-				CachedCardLists.TryAdd(Source.Card.AssetId, cardsList);
-			}
+			IReadOnlyList<Card> cardsList = GetCardList(Source, CardType, CardClass, CardSet, Race, GameTagFilter);
 
 
 			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
@@ -118,6 +106,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
+		}
+
+		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID, List<GameTag> gameTagFilter = null)
+		{
+			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+
+			if (!CachedCardLists.TryGetValue(source.Card.AssetId, out Card[] cardsList))
+			{
+				cardsList = cards.Where(p =>
+					(cardType == CardType.INVALID || p.Type == cardType) &&
+					(cardClass == CardClass.INVALID || p.Class == cardClass) &&
+					(cardSet == CardSet.INVALID || p.Set == cardSet) &&
+					(race == Race.INVALID || p.Race == race) &&
+					(gameTagFilter == null || gameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))) &&
+					(p[GameTag.QUEST] == 0)).ToArray();
+
+				CachedCardLists.TryAdd(source.Card.AssetId, cardsList);
+			}
+			return cardsList;
 		}
 
 		public override ISimpleTask Clone()

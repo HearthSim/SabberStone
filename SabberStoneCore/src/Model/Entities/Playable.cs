@@ -110,7 +110,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Playable is overloading mana.
 		/// </summary>
-		int Overload { get; set; }
+		int Overload { get; }
 
 		/// <summary>
 		/// Playable has deathrattle.
@@ -192,8 +192,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="playable">The source <see cref="T:SabberStoneCore.Model.Entities.Playable`1" /></param>
 		protected Playable(Controller controller, Playable<T> playable) : base(controller, playable)
 		{
-			if (Card.Name == "Corridor Creeper") ;
-
 			controller.Game.IdEntityDic.Add(playable.Id, this);
 
 			playable.OngoingEffect?.Clone(this);
@@ -404,7 +402,9 @@ namespace SabberStoneCore.Model.Entities
 							{
 								var ids = Controller.BoardZone.Select(p => p.Card.Id).ToList();
 								bool containsAll = true;
-								Card.Entourage.ForEach(p => containsAll &= ids.Contains(p));
+								for (int i = 0; i < Card.Entourage.Length; i++)
+									containsAll &= ids.Contains(Card.Entourage[i]);
+
 								if (containsAll)
 								{
 									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"All ready all entourageing cards summoned.");
@@ -552,11 +552,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.EXHAUSTED] = value ? 1 : 0; }
 		}
 
-		public int Overload
-		{
-			get { return this[GameTag.OVERLOAD]; }
-			set { this[GameTag.OVERLOAD] = value; }
-		}
+		public int Overload => Card.Overload;
 
 		public bool HasDeathrattle
 		{

@@ -202,6 +202,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Uther of the Ebon Blade"));
 			Assert.NotNull(game.CurrentPlayer.Hero.Weapon);
 			Assert.Equal("ICC_829t", game.CurrentPlayer.Hero.Weapon.Card.Id);
+
+			game.CurrentPlayer.UsedMana = 0;
+			game.PlayHeroPower();
+			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
+			game.PlayHeroPower();
+			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
+			game.PlayHeroPower();
+			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
+			game.PlayHeroPower();
+
+			Assert.Equal(PlayState.WON, game.CurrentPlayer.PlayState);
 		}
 
 		// ------------------------------------------ HERO - PRIEST
@@ -446,7 +457,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ARMOR = 5
 		// - HERO_POWER = 45585
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ScourgelordGarrosh_ICC_834()
 		{
 			// TODO ScourgelordGarrosh_ICC_834 test
@@ -462,6 +473,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scourgelord Garrosh"));
+
+			game.ProcessCard("Scourgelord Garrosh");
+			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			Assert.Equal("ICC_834h", game.CurrentPlayer.Hero.HeroPower.Card.Id);
+			Assert.Equal("ICC_834w", game.CurrentPlayer.Hero.Weapon.Card.Id);
+			game.EndTurn();
+
+			game.ProcessCard("Am'gam Rager");
+			game.ProcessCard("Am'gam Rager");
+			game.ProcessCard("Am'gam Rager");
+			game.EndTurn();
+
+			Assert.Equal(3, game.CurrentOpponent.BoardZone.Count);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.BoardZone[1]));
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
 		}
 
 	}
@@ -2343,10 +2370,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArchbishopBenedictus_ICC_215()
 		{
-			// TODO ArchbishopBenedictus_ICC_215 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2358,7 +2384,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Archbishop Benedictus"));
+
+			Assert.Equal(26, game.CurrentPlayer.DeckZone.Count);
+			int opDeckCount = game.CurrentOpponent.DeckZone.Count;
+
+			game.ProcessCard("Archbishop Benedictus");
+			Assert.Equal(26 + opDeckCount, game.CurrentPlayer.DeckZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2678,7 +2709,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LilianVoss_ICC_811()
 		{
 			// TODO LilianVoss_ICC_811 test
@@ -2686,13 +2717,25 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+
+			for (int i = 0; i < 9; i++)
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Preparation"));
+
+			game.ProcessCard("Lilian Voss");
+
+			for (int i = 0; i < 9; i++)
+			{
+				Assert.Equal(CardClass.PRIEST, game.CurrentPlayer.HandZone[i].Card.Class);
+				Assert.Equal(CardType.SPELL, game.CurrentPlayer.HandZone[i].Card.Type);
+			}
+
+
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lilian Voss"));
 		}
 
@@ -3025,10 +3068,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - OVERLOAD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SnowfuryGiant_ICC_090()
 		{
-			// TODO SnowfuryGiant_ICC_090 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3040,7 +3082,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowfury Giant"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowfury Giant"));
+
+			game.ProcessCard("Feral Spirit");
+			Assert.Equal(9, testCard.Cost);
+			game.ProcessCard("Lava Burst", game.CurrentOpponent.Hero);
+			Assert.Equal(7, testCard.Cost);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -3055,10 +3102,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Moorabi_ICC_289()
 		{
-			// TODO Moorabi_ICC_289 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3070,7 +3116,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Moorabi"));
+			IPlayable testCard = game.ProcessCard("Moorabi", null, true);
+			IPlayable raptor = game.ProcessCard("Bloodfen Raptor", null, true);
+			game.ProcessCard("Ice Lance", testCard);
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.ProcessCard("Ice Lance", raptor);
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(raptor.Card.Id, game.CurrentPlayer.HandZone.Last().Card.Id);
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN
@@ -3180,10 +3232,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void IceBreaker_ICC_236()
 		{
-			// TODO IceBreaker_ICC_236 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3196,6 +3247,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Breaker"));
+
+			game.ProcessCard("Ice Breaker");
+			game.EndTurn();
+			Minion minion1 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			Minion minion2 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			game.EndTurn();
+
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion1));
+			Assert.False(minion1.IsDead);
+
+			game.ProcessCard("Ice Lance", minion2);
+			Assert.True(minion2.IsFrozen);
+			game.CurrentPlayer.Hero.IsExhausted = false;
+			game.Process(HeroAttackTask.Any(game.CurrentPlayer, minion2));
+			Assert.True(minion2.IsDead);
 		}
 
 	}
@@ -3357,10 +3423,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Deal $1 damage to all minions. If any die, cast this again. *spelldmg
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Defile_ICC_041()
 		{
-			// TODO Defile_ICC_041 test
+
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3372,7 +3438,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Defile"));
+
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[1].Health);
+
+			game.ProcessCard("Bloodfen Raptor", null, true);	// 2
+			game.ProcessCard("Ironfur Grizzly", null, true);	// 3
+			game.ProcessCard("Dalaran Mage", null, true);		// 4
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Eggnapper", null, true);
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
