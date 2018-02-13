@@ -2204,9 +2204,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Deal $1 damage to all minions. If any die, cast this again. @spelldmg
 			// --------------------------------------------------------
 			cards.Add("ICC_041", new Power {
-				// TODO [ICC_041] Defile && Test: Defile_ICC_041
-				//PowerTask = null,
-				//Trigger = null,h
+				PowerTask = ComplexTask.RecursiveTask(
+					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.DeadMinions.Count > 0)),
+					new FuncNumberTask(p =>
+					{
+						p.Game.DeathProcessingAndAuraUpdate();
+						return 0;
+					}),
+					new DamageTask(1, EntityType.ALLMINIONS, true))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK

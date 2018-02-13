@@ -3357,10 +3357,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Deal $1 damage to all minions. If any die, cast this again. *spelldmg
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Defile_ICC_041()
 		{
-			// TODO Defile_ICC_041 test
+
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3372,7 +3372,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Defile"));
+
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[1].Health);
+
+			game.ProcessCard("Bloodfen Raptor", null, true);	// 2
+			game.ProcessCard("Ironfur Grizzly", null, true);	// 3
+			game.ProcessCard("Dalaran Mage", null, true);		// 4
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Eggnapper", null, true);
+			game.ProcessCard("Defile", null, true);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

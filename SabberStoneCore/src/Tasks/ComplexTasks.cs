@@ -309,14 +309,12 @@ namespace SabberStoneCore.Tasks
 			taskList[tasks.Length] = repeatCondition;
 			taskList[tasks.Length + 1] = 
 				new FlagTask(true,
-					new EnqueueTask(1, Create(
-						new IncludeTask(EntityType.SOURCE),
-						new FuncPlayablesTask(p =>
-							{
-								p[0].ActivateTask(PowerActivation.POWER);
-								return new List<IPlayable>();
-							}
-				))));
+				new FuncNumberTask(p =>
+				{
+					p.ActivateTask(PowerActivation.POWER);
+					return 0;
+				}
+				));
 			return StateTaskList.Chain(taskList);
 		}
 	}
