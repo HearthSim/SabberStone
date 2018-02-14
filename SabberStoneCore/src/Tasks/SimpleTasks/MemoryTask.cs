@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Model.Entities;
 
@@ -52,4 +53,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    return new MemoryTask(_type, _action);
 	    }
     }
+
+	public class MemoryToNumbersTask : SimpleTask
+	{
+		private readonly EntityType _type;
+
+		/// <summary>
+		/// Copies the memory of the given entity to the stack.
+		/// </summary>
+		/// <param name="type"></param>
+		public MemoryToNumbersTask(EntityType type)
+		{
+			_type = type;
+		}
+
+		public override TaskState Process()
+		{
+			IEnumerable<IPlayable> entityList = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
+			if (entityList.Count() != 1) throw new NotImplementedException();
+
+			IPlayable entity = entityList.First();
+
+			entity.Memory.CopyTo(Game.TaskStack.Numbers);
+
+			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			return new MemoryToNumbersTask(_type);
+		}
+	}
 }
