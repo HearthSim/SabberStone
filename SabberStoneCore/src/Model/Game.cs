@@ -902,6 +902,9 @@ namespace SabberStoneCore.Model
 				{
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
 
+					// Death event created
+					TriggerManager.OnDeathTrigger(minion);
+
 					minion.LastBoardPosition = minion.ZonePosition;
 					minion.Zone.Remove(minion);
 
@@ -917,9 +920,6 @@ namespace SabberStoneCore.Model
 					//minion.IsExhausted = false;
 
 					// should remove tags of dead cards for faster cloning
-
-					// Death event created
-					TriggerManager.OnDeathTrigger(minion);
 				}
 
 				if (History)

@@ -205,10 +205,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.CurrentPlayer.UsedMana = 0;
 			game.PlayHeroPower();
+			Assert.Equal(State.RUNNING, game.State);
 			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 			game.PlayHeroPower();
+			Assert.Equal(State.RUNNING, game.State);
 			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 			game.PlayHeroPower();
+			Assert.Equal(State.RUNNING, game.State);
 			game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 			game.PlayHeroPower();
 
@@ -460,7 +463,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void ScourgelordGarrosh_ICC_834()
 		{
-			// TODO ScourgelordGarrosh_ICC_834 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4335,22 +4337,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FurnacefireColossus_ICC_096()
 		{
-			// TODO FurnacefireColossus_ICC_096 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Shadowblade"),		// 3/2
+					Cards.FromName("Shadowblade"),		// 3/2
+					Cards.FromName("Shadowblade"),		// 3/2
+					Cards.FromName("Assassin's Blade")	// 3/4
+				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecksPredictably = true,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Furnacefire Colossus"));
+			Minion testCard = game.ProcessCard<Minion>("Furnacefire Colossus");
+
+			Assert.Equal(0, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(18, testCard.AttackDamage);
+			Assert.Equal(16, testCard.Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5223,22 +5236,38 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MeatWagon_ICC_812()
 		{
-			// TODO MeatWagon_ICC_812 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Bloodfen Raptor"),
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Meat Wagon"));
+
+			IPlayable testCard = game.ProcessCard("Meat Wagon", null, true);
+			game.ProcessCard("Raid Leader", null, true);
+
+			game.ProcessCard("Fireball", testCard);
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone.Last().Card.Name);
+
+
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

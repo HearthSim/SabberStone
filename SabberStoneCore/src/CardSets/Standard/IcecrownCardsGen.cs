@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -2689,10 +2690,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_096", new Power {
-				// TODO [ICC_096] Furnacefire Colossus && Test: Furnacefire Colossus_ICC_096
 				InfoCardId = "ICC_096e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsWeapon),
+					new FuncPlayablesTask(p =>
+					{
+						p.ForEach(w =>
+						{
+							p[0].Game.TaskStack.Numbers[0] += w[GameTag.ATK];
+							p[0].Game.TaskStack.Numbers[1] += w[GameTag.DURABILITY];
+						});
+						return p;
+					}),
+					new DiscardTask(EntityType.STACK),
+					new AddEnchantmentTask("ICC_096e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2975,11 +2987,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_812", new Power {
-				// TODO [ICC_812] Meat Wagon && Test: Meat Wagon_ICC_812
-				//Trigger = new Trigger(TriggerType.DEATH)
-				//{
-
-				//}
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new IncludeTask(EntityType.DECK, null, true),
+					new FuncPlayablesTask(list =>
+					{
+						int atk = list[0][GameTag.ATK];
+						return list.Where(p => p is Minion && p[GameTag.ATK] < atk).ToList();
+					}),
+					new RandomTask(1, EntityType.STACK),
+					new SummonTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3312,9 +3329,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_096e", new Power {
-				// TODO [ICC_096e] Me Bigger && Test: Me Bigger_ICC_096e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.AttackHealth_N(0))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

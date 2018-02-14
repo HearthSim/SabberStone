@@ -184,7 +184,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return boardGetAll.Except(exceptListEntities);
 		}
 
-		public static IEnumerable<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
+		public static IList<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
 			IEntity target, List<IPlayable> stack)
 		{
 			switch (type)
@@ -200,7 +200,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.SECRETS:
 					return c.SecretZone.GetAll();
 				case EntityType.GRAVEYARD:
-					return c.GraveyardZone;
+					return c.GraveyardZone.ToArray();
 				case EntityType.OP_HAND:
 					return c.Opponent.HandZone.GetAll();
 				case EntityType.OP_DECK:
