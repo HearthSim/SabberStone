@@ -7,7 +7,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly bool _toStack;
 		private readonly int _count;
-		private readonly bool _useNumber;
 
 		public DrawTask(bool toStack = false, int count = 1)
 		{
