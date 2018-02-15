@@ -2277,7 +2277,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.CurrentPlayer.UsedMana = 0;
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal(0, game.Minions.Count);
+			Assert.Empty(game.Minions);
 			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
 		}
 

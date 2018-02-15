@@ -1322,7 +1322,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Potion of Madness"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard3, minion1));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, minion2));
-			Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Where(p => p.Card.Type == CardType.MINION).Count());
+			Assert.Single(game.CurrentPlayer.GraveyardZone.Where(p => p.Card.Type == CardType.MINION));
 			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));

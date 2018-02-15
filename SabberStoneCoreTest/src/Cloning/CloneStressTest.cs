@@ -169,8 +169,8 @@ namespace SabberStoneCoreTest.Cloning
 			var task3 = PlayCardTask.Any(game.CurrentPlayer, "Vaporize");
 			clone3.Process(task3);
 			clone2.Process(task3);
-			Assert.Equal(1, clone2.Auras.Count);
-			Assert.Equal(1, clone3.Auras.Count);
+			Assert.Single(clone2.Auras);
+			Assert.Single(clone3.Auras);
 
 			Assert.Equal(3, clone2Minion.AttackDamage);
 		}
@@ -223,7 +223,7 @@ namespace SabberStoneCoreTest.Cloning
 			clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, clone.CurrentPlayer.BoardZone[0],
 				clone.CurrentOpponent.BoardZone[0]));
 
-			Assert.Equal(0, clone.Auras.Count);
+			Assert.Empty(clone.Auras);
 			Assert.Equal(3, clone.CurrentPlayer.HandZone[0].Cost);
 			Assert.Equal(3, clone.CurrentOpponent.HandZone[0].Cost);
 			Assert.Equal(3, clone.CurrentOpponent.HandZone[1].Cost);

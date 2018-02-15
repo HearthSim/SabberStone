@@ -1856,9 +1856,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kirin Tor Mage"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
-			Assert.Equal(1, game.Auras.Count);
+			Assert.Single(game.Auras);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.Equal(0, game.Auras.Count);
+			Assert.Empty(game.Auras);
 
 			// History = false
 			var game2 = new Game(new GameConfig
@@ -1887,9 +1887,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable testCard4 = Generic.DrawCard(game2.CurrentPlayer, Cards.FromName("Kirin Tor Mage"));
 			game2.Process(PlayCardTask.Any(game2.CurrentPlayer, testCard4));
-			Assert.Equal(1, game2.Auras.Count);
+			Assert.Single(game2.Auras);
 			game2.Process(EndTurnTask.Any(game2.CurrentPlayer));
-			Assert.Equal(0, game2.Auras.Count);
+			Assert.Empty(game2.Auras);
 		}
 
 		// ------------------------------------------ MINION - MAGE
