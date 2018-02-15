@@ -11,7 +11,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     {
 		private readonly Effect _effect;
 		private readonly EntityType _type;
-		private readonly TriggerType _removeTrigger;
 
 	    public AddAuraEffect(Effect effect, EntityType entityType)
 	    {
