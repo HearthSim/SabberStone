@@ -4121,7 +4121,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GravelsnoutKnight_LOOT_154()
 		{
 			// TODO GravelsnoutKnight_LOOT_154 test
@@ -4142,7 +4142,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gravelsnout Knight"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Gravelsnout Knight"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Gravelsnout Knight"));
+
+			Assert.Single(game.CurrentOpponent.BoardZone);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone[0].Cost);
+
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
