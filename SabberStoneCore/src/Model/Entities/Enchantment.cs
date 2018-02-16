@@ -89,15 +89,12 @@ namespace SabberStoneCore.Model.Entities
 				Target = target,
 			};
 
-			if (target is IPlayable p)
-				p.RemoveEnchantments += instance.Remove;
-
 			if (target.AppliedEnchantments == null)
 				target.AppliedEnchantments = new List<Enchantment> {instance};
 			else
 				target.AppliedEnchantments.Add(instance);
 
-			controller.Game.IdEntityDic.Add(instance.Id, (IPlayable)instance);
+			controller.Game.IdEntityDic.Add(instance.Id, instance);
 
 			if (controller.Game.History)
 			{
@@ -154,10 +151,8 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			if (card[GameTag.TAG_ONE_TURN_EFFECT] == 1)
-			{
 				controller.Game.OneTurnEffectEnchantments.Add(instance);
 
-			}
 
 			instance.Zone = controller.BoardZone;
 			instance.OrderOfPlay = controller.Game.NextOop;
@@ -200,10 +195,6 @@ namespace SabberStoneCore.Model.Entities
 			OngoingEffect?.Remove();
 			ActivatedTrigger?.Remove();
 
-
-			if (Target is IPlayable p)
-				p.RemoveEnchantments -= Remove;
-
 			Target.AppliedEnchantments.Remove(this);
 
 			if (IsOneTurnActive)
@@ -214,7 +205,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public Power Power => Card.Power;
-		public Action RemoveEnchantments { get; set; }
 		public Trigger ActivatedTrigger { get; set; }
 
 		public void Reset()

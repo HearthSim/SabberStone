@@ -107,6 +107,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Shadow Reflection", game.CurrentPlayer.HandZone[4].Card.Name);
 			game.ProcessCard("Bloodfen Raptor");
 			Assert.Equal("Bloodfen Raptor", game.CurrentPlayer.HandZone[4].Card.Name);
+			game.ProcessCard("Stonetusk Boar");
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.HandZone[4].Card.Name);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone.Last().Card.Name);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Last().AppliedEnchantments.Count);
+
 
 
 			Assert.True(game.CurrentPlayer.HandZone[4] is Minion);

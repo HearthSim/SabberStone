@@ -72,7 +72,10 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.SPELLPOWER] = 0;
 			}
 			OngoingEffect?.Remove();
-			RemoveEnchantments?.Invoke();
+
+			if (AppliedEnchantments != null)
+				for (int i = AppliedEnchantments.Count - 1; i >= 0; i--)
+					AppliedEnchantments[i].Remove();
 
 			AttackDamage = Card[GameTag.ATK];
 			if (Health > Card[GameTag.HEALTH])

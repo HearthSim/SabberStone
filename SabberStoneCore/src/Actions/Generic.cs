@@ -4,6 +4,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Actions
 {
@@ -19,7 +20,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (applySpellDmg)
 				{
-					amount += ((Spell) source).ReceveivesDoubleSpellDamage
+					amount += ((Spell)source).ReceveivesDoubleSpellDamage
 						? source.Controller.CurrentSpellPower * 2
 						: source.Controller.CurrentSpellPower;
 					if (source.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE] > 0)
@@ -29,7 +30,7 @@ namespace SabberStoneCore.Actions
 				{
 					amount += source.Controller.Hero.HeroPowerDamage;
 					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
-						amount *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
+						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
 				return target.TakeDamage(source, amount);
 			};
@@ -49,13 +50,13 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.BaseMana + amount > c.MaxResources)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging? "":$"{c.Name} is already capped in {c.MaxResources} mana crystals.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is already capped in {c.MaxResources} mana crystals.");
 					c.UsedMana += c.MaxResources - c.BaseMana;
 					c.BaseMana = c.MaxResources;
 				}
 				else if (c.BaseMana + amount < 0)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging? "":$"{c.Name} is back to minimum of 0 mana crystals.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is back to minimum of 0 mana crystals.");
 					c.BaseMana = 0;
 				}
 				else
@@ -81,7 +82,7 @@ namespace SabberStoneCore.Actions
 				// reset minion
 				minion.Reset();
 
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReturnToHandBlock", !c.Game.Logging? "":$"{c.Name} gets {minion} returned.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReturnToHandBlock", !c.Game.Logging ? "" : $"{c.Name} gets {minion} returned.");
 
 				if (!AddHandPhase.Invoke(c, minion))
 					return false;
@@ -101,7 +102,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (c.HandZone.IsFull)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging? "":$"Hand ist full. Card {playable} drawn is burnt to graveyard.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging ? "" : $"Hand ist full. Card {playable} drawn is burnt to graveyard.");
 					c.GraveyardZone.Add(playable);
 					return false;
 				}
@@ -110,7 +111,7 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History && playable != null)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(playable));
 
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging? "":$"adding to hand {playable}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "AddHandPhase", !c.Game.Logging ? "" : $"adding to hand {playable}.");
 				c.HandZone.Add(playable);
 
 				return true;
@@ -122,7 +123,7 @@ namespace SabberStoneCore.Actions
 				c.Game.TaskQueue.StartEvent();
 				c.Game.TriggerManager.OnDiscardTrigger(playable);
 				IPlayable discard = c.HandZone.Remove(playable);
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging? "":$"{discard} is beeing discarded.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscardBlock", !c.Game.Logging ? "" : $"{discard} is beeing discarded.");
 				c.GraveyardZone.Add(discard);
 
 				c.DiscardedEntities.Add(discard.Id);
@@ -148,7 +149,7 @@ namespace SabberStoneCore.Actions
 				IPlayable card = c.DeckZone.Random;
 				IPlayable cardOp = c.Opponent.DeckZone.Random;
 				bool success = card.Cost > cardOp.Cost;
-				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging? "":$"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
+				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging ? "" : $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 
 				// TODO shuffle deck .... or ... just let it be?
 				return success ? card : null;
@@ -157,7 +158,7 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> ShuffleIntoDeck
 			=> delegate (Controller c, IPlayable playable)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging? "":$"adding to deck {playable}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging ? "" : $"adding to deck {playable}.");
 
 				// don't activate powers when shuffling cards back into the deck
 				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1), false);
@@ -174,7 +175,7 @@ namespace SabberStoneCore.Actions
 			{
 				if (!(Entity.FromCard(c, card) is Minion newMinion))
 				{
-					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"missing final tranformation.");
+					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging ? "" : $"missing final tranformation.");
 					return false;
 				}
 
@@ -182,12 +183,12 @@ namespace SabberStoneCore.Actions
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;
 
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging? "":$"{oldMinion} got transformed into {newMinion}.");
+				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging ? "" : $"{oldMinion} got transformed into {newMinion}.");
 				return true;
 			};
 
 		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool> AddEnchantmentBlock
-			=> delegate(Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2)
+			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2)
 			{
 				Power power = enchantmentCard.Power;
 
@@ -212,6 +213,9 @@ namespace SabberStoneCore.Actions
 					power.Trigger?.Activate(enchantment);
 					power.Enchant?.ActivateTo(target, enchantment);
 
+					if (power.Enchant?.RemoveWhenPlayed ?? false)
+						Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
+
 					if (power.DeathrattleTask != null)
 						((IPlayable)target).HasDeathrattle = true;
 				}
@@ -228,13 +232,67 @@ namespace SabberStoneCore.Actions
 						}
 						power.Aura?.Activate(instance);
 						power.Trigger?.Activate(instance);
+
+						if (power.Enchant?.RemoveWhenPlayed ?? false)
+							Enchant.RemoveWhenPlayedTrigger.Activate(instance);
 					}
 
 					//	no indicator enchantment entities when History option is off
 					power.Enchant?.ActivateTo(target, null, num1, num2);
 				}
-
 				return true;
+			};
+
+		public static Func<Controller, IPlayable, Card, IPlayable> ChangeEntityBlock
+			=> delegate(Controller c, IPlayable p, Card newCard)
+			{
+				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
+					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
+
+				if (!(p.Zone is HandZone hand))
+					throw new InvalidOperationException();
+
+				p.ActivatedTrigger?.Remove();
+				p.OngoingEffect?.Remove();
+
+				// TODO: PowerHistoryChangeEntity
+				// send tag variations and the id of the new Card
+				// Tag.REAL_TIME_TRANSFORM = 0
+
+				if (p.Card.Type == newCard.Type)
+					p.Card = newCard;
+				else
+				{
+					IPlayable entity;
+					switch (newCard.Type)
+					{
+						case CardType.MINION:
+							entity = new Minion(c, newCard, p.NativeTags);
+							break;
+						case CardType.SPELL:
+							entity = new Spell(c, newCard, p.NativeTags);
+							break;
+						case CardType.HERO:
+							entity = new Hero(c, newCard, p.NativeTags);
+							break;
+						case CardType.WEAPON:
+							entity = new Weapon(c, newCard, p.NativeTags);
+							break;
+						default:
+							throw new ArgumentNullException();
+					}
+					hand.ChangeEntity(p, entity);
+					c.Game.IdEntityDic[p.Id] = entity;
+					p = entity;
+				}
+
+				p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
+				if (p.Power?.Aura is AdaptiveCostEffect e)
+					e.Activate(p);
+
+				// Not sure C'Thun from Shifter Zerus will have Proxy's buffs
+
+				return p;
 			};
 
 		// TODO: Posionous Block

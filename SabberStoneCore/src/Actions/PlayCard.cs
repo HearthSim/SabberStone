@@ -67,12 +67,7 @@ namespace SabberStoneCore.Actions
 						PlayWeapon.Invoke(c, weapon, target, chooseOne);
 						break;
 					case Spell spell:
-						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
 						PlaySpell.Invoke(c, spell, target, chooseOne);
-
-						c.NumSpellsPlayedThisGame++;
-						if (spell.IsSecret)
-							c.NumSecretsPlayedThisGame++;
 						break;
 				}
 
@@ -285,6 +280,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
 			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
+				Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
+
 				if (c.Game.History)
 				{
 					if (spell.IsSecret || spell.IsQuest)
@@ -323,31 +320,7 @@ namespace SabberStoneCore.Actions
 						}
 					}
 
-					c.Game.TaskQueue.StartEvent();
-					if (spell.IsSecret || spell.IsQuest)
-					{
-						spell.Power.Trigger?.Activate(spell);
-						c.SecretZone.Add(spell);
-						spell.IsExhausted = true;
-					}
-					else
-					{
-						spell.Power?.Trigger?.Activate(spell);
-						spell.Power?.Aura?.Activate(spell);
-
-						if (spell.Combo && c.IsComboActive)
-							spell.ActivateTask(PowerActivation.COMBO, target);
-						else
-							spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
-
-						c.GraveyardZone.Add(spell);
-					}
-
-					// process power tasks
-					c.Game.ProcessTasks();
-					c.Game.TaskQueue.EndEvent();
-
-					c.Game.DeathProcessingAndAuraUpdate();
+					CastSpell.Invoke(c, spell, target, chooseOne);
 				}
 				
 				// trigger After Play Phase
@@ -359,6 +332,12 @@ namespace SabberStoneCore.Actions
 				c.Game.TaskQueue.EndEvent();
 
 				c.Game.DeathProcessingAndAuraUpdate();
+
+				c.NumSpellsPlayedThisGame++;
+				if (spell.IsSecret)
+					c.NumSecretsPlayedThisGame++;
+				if (spell.Cost >= 5)
+					c.NumSpellCostOver5CastedThisGame++;
 
 				return true;
 			};

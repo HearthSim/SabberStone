@@ -20,7 +20,9 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition, applyPowers);
 
-			entity.RemoveEnchantments?.Invoke();
+			if (entity.AppliedEnchantments != null)
+				for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
+					entity.AppliedEnchantments[i].Remove();
 
 			//entity.Reset();
 		}

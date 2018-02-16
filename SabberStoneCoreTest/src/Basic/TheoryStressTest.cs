@@ -162,8 +162,10 @@ namespace SabberStoneCoreTest.Basic
 			Assert.NotEqual(1, game.CurrentPlayer.Hero.Health);
 		}
 
-			// Umbra + Doppelgangster + Val'anyr test
+		// Umbra + Doppelgangster + Val'anyr test
 
-			// AuraUpdate(others) test
+		// AuraUpdate(others) test
+
+		// Snipe will trigger on the sheep made by Potion of Polymorph if Snipe was played second.
 	}
 }

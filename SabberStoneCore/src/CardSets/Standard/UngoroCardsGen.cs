@@ -692,7 +692,7 @@ namespace SabberStoneCore.CardSets.Standard
 				InfoCardId = "UNG_028e",
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
-					Condition = new SelfCondition(p => p[GameTag.CREATOR] != 0),
+					Condition = SelfCondition.IsNotStartInDeck,
 					SingleTask = new QuestProgressTask("UNG_028t")
 				}
 			});
@@ -2214,10 +2214,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_929", new Power {
-				// TODO [UNG_929] Molten Blade && Test: Molten Blade_UNG_929
-				InfoCardId = "UNG_929e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Molten Blade_UNG_929
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.Create(
+						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON),
+						new AddEnchantmentTask("UNG_929e", EntityType.SOURCE))
+				}
 			});
 
 		}
@@ -2231,9 +2235,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transforming into random weapons.
 			// --------------------------------------------------------
 			cards.Add("UNG_929e", new Power {
-				// TODO [UNG_929e] Magmic && Test: Magmic_UNG_929e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.SHIFTING_WEAPON, EffectOperator.SET, 1)
+				{
+					RemoveWhenPlayed = true
+				},
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON)
+				}
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -3120,7 +3129,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("OG_121e")
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new RemoveEnchantmentTask()
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3143,7 +3155,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask("OG_080de"),
+					SingleTask = new RemoveEnchantmentTask(),
 					RemoveAfterTriggered = true,
 				}
 			});

@@ -157,8 +157,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		IPlayable Clone(Controller controller);
 
-		Action RemoveEnchantments { get; set; }
-
 		IAura OngoingEffect { get; set; }
 
 		Trigger ActivatedTrigger { get; set; }
@@ -498,8 +496,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public abstract IPlayable Clone(Controller controller);
-
-		public Action RemoveEnchantments { get; set; }
 
 		public IAura OngoingEffect { get; set; }
 
