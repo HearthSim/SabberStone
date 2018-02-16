@@ -2003,8 +2003,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arrogant Crusader"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0], game.CurrentOpponent.BoardZone[0]));
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count());
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+			Assert.Single(game.CurrentOpponent.BoardZone);
 			Assert.Equal("ICC_900t", game.CurrentOpponent.BoardZone[0].Card.Id);
 		}
 
@@ -2457,7 +2457,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal(1, game.CurrentPlayer.Choice.Choices.Count);
+			Assert.Single(game.CurrentPlayer.Choice.Choices);
 			Assert.Equal(8, game.CurrentPlayer.GraveyardZone.Count);
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
@@ -2909,11 +2909,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "N'Zoth's First Mate"));
 			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
 			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
-			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count());
+			Assert.Single(game.CurrentPlayer.BoardZone);
 			Assert.Equal(3, game.CurrentPlayer.HandZone.Count());
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Doomerang", game.CurrentPlayer.BoardZone[0]));
 			Assert.Null(game.CurrentPlayer.Hero.Weapon);
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Empty(game.CurrentPlayer.BoardZone);
 			Assert.Equal(3, game.CurrentPlayer.HandZone.Count());
 			Assert.Equal("OG_058", game.CurrentPlayer.HandZone[2].Card.Id);
 		}
@@ -4205,12 +4205,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Vryghoul"));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.BoardZone[0]));
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count());
+			Assert.Single(game.CurrentOpponent.BoardZone);
 			Assert.Equal("ICC_900t", game.CurrentOpponent.BoardZone[0].Card.Id);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Empty(game.CurrentPlayer.BoardZone);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4672,11 +4672,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
-			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count());
+			Assert.Single(game.CurrentPlayer.BoardZone);
 			Assert.Equal(26, game.CurrentPlayer.DeckZone.Count());
 			IPlayable doomPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t3"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, doomPact));
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count());
+			Assert.Empty(game.CurrentPlayer.BoardZone);
 			Assert.Equal(25, game.CurrentPlayer.DeckZone.Count());
 		}
 
@@ -5714,7 +5714,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
 			Assert.Equal(2, game.CurrentPlayer.DeckZone.Count());
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stonetusk Boar"));
-			Assert.Equal(0, game.CurrentPlayer.DeckZone.Count());
+			Assert.Empty(game.CurrentPlayer.DeckZone);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

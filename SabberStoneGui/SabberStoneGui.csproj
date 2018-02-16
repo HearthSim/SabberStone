@@ -157,6 +157,8 @@
   <!-- Fallback target in case Default targets aren't imported -->
   <Target Name="Build">
   </Target>
+  <Target Name="_IsProjectRestoreSupported">
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition=" '$(TravisBuild)' == '' " />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
