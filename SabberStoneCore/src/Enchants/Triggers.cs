@@ -11,18 +11,18 @@ namespace SabberStoneCore.Enchants
 {
     public static class Triggers
     {
-	    public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId)
-	    {
-		    return new Trigger(TriggerType.TURN_END)
-		    {
-			    TriggerActivation = TriggerActivation.PLAY,
-				EitherTurn = true,
-			    SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
-			    RemoveAfterTriggered = true
-		    };
-	    }
+		//public static Trigger OneTurnEffectRemovalTrigger(string enchantmentCardId)
+		//{
+		//	return new Trigger(TriggerType.TURN_END)
+		//	{
+		//		TriggerActivation = TriggerActivation.PLAY,
+		//		EitherTurn = true,
+		//		SingleTask = new RemoveEnchantmentTask(enchantmentCardId),
+		//		RemoveAfterTriggered = true
+		//	};
+		//}
 
-	    public static Trigger EnrageTrigger(string enchantmentId)
+		public static Trigger EnrageTrigger(string enchantmentId)
 	    {
 		    return new Trigger(TriggerType.PREDAMAGE)
 		    {
@@ -32,27 +32,15 @@ namespace SabberStoneCore.Enchants
 		    };
 	    }
 
-	    public static Trigger ShadowReflectionTrigger	//	should make this as inherited class ?...
-		    => new Trigger(TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION)
-		    {
-			    SingleTask = ComplexTask.Create(
-				    new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.Step == Step.MAIN_END)),
-				    new FlagTask(true, ComplexTask.Create(
-						    new RemoveEnchantmentTask("ICC_827e"),
+		public static Trigger ShadowReflectionTrigger   //	should make this as inherited class ?...
+			=> new Trigger(TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION)
+			{
+				SingleTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.Step == Step.MAIN_END)),
+					new FlagTask(true, ComplexTask.Create(
+							new RemoveEnchantmentTask(),
 							new MoveToSetaside(EntityType.TARGET))),
-				    new FlagTask(false, new ChangeEntityTask()))
-		    };
-    }
-
-	internal delegate bool Condition(IEntity e);
-
-	internal static class Conditions
-	{
-		internal static Condition IsRace(Race race)
-		{
-			return e => e is Minion m && m.Race == race;
-		}
-
-		internal static Condition IsMyTurn => e => e.Game.CurrentPlayer == e.Controller;
+					new FlagTask(false, SpecificTask.ShadowReflection))
+			};
 	}
 }

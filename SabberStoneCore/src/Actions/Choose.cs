@@ -68,8 +68,7 @@ namespace SabberStoneCore.Actions
 								c.Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpell",
 									!c.Game.Logging ? "" : $"{playable}'s target is randomly selected to {randTarget}");
 							}
-							PlaySpell.Invoke(c, (Spell)playable, randTarget, 0);
-
+							CastSpell.Invoke(c, (Spell)playable, randTarget, 0);
 						}
 						break;
 

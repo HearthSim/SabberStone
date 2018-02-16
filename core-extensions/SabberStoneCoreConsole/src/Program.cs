@@ -26,7 +26,8 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			Console.WriteLine(Cards.Statistics());
-			StabilityTest.CloneStabilityTest();
+			//StabilityTest.CloneStabilityTest();
+			EntityChangeTest();
 
 			//BasicBuffTest();
 			//CardsTest();
@@ -95,6 +96,35 @@ namespace SabberStoneCoreConsole
 			//{
 			//	Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
 			//}
+		}
+
+		static void EntityChangeTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.DRUID,
+				FillDecks = true
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			IPlayable molten = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Molten Blade"));
+			for (int i = 0; i < 5; i++)
+			{
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+				Console.WriteLine($"{molten.Card.Name}");
+			}
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, molten));
+
+			if (game.CurrentPlayer.Hero.Weapon == null || molten.AppliedEnchantments.Find(p => p.Card.Id == "UNG_929e") != null)
+			{
+				Console.WriteLine("Something goes wrong!");
+			}
 		}
 
 		static void CloneAdapt()

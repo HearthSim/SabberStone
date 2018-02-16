@@ -943,7 +943,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask("EX1_334e"),
+						new RemoveEnchantmentTask(),
 						new ControlTask(EntityType.TARGET, true))
 				}
 			});

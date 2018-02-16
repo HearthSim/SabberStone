@@ -46,13 +46,10 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		internal void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
 		{
-			oldEntity.OngoingEffect?.Remove();
-			oldEntity.ActivatedTrigger?.Remove();
 			Entities[oldEntity.ZonePosition] = newEntity;
 			newEntity.Zone = this;
-			if (newEntity.Power?.Aura is AdaptiveCostEffect e)
-				e.Activate(newEntity);
-			newEntity.Power?.Trigger?.Activate(newEntity, TriggerActivation.HAND);
+			for (int i = 0; i < Auras.Count; i++)
+				Auras[i].EntityRemoved(oldEntity);
 		}
 
 		public HandZone Clone(Controller c)

@@ -64,7 +64,7 @@ namespace SabberStoneCore.CardSets
 				Enchant = new Enchant(GameTag.STEALTH, EffectOperator.SET, 1),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask("EX1_128e"),
+					SingleTask = new RemoveEnchantmentTask(),
 					RemoveAfterTriggered = true,
 				}
 			});

@@ -1747,7 +1747,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsSpell),
-					new ChangeEntityTask())
+					new ChangeEntityTask(EntityType.STACK, CardType.SPELL, opClass: true))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1906,6 +1906,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_827e", new Power {
 				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1),
 				Trigger = Triggers.ShadowReflectionTrigger
+
+				// Trigger 1 : PlayCard => ChangeEntity
+				// Trigger 2 : PlayCard => Self? => Dispose
+				// Trigger 3 : EndTurn => RemoveEnchantment, MoveToSetaside
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1918,7 +1922,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask("OG_080de"),
+					SingleTask = new RemoveEnchantmentTask(),
 					RemoveAfterTriggered = true,
 				}
 			});
@@ -2913,7 +2917,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_702", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE }),
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new [] { GameTag.DEATHRATTLE }),
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -3532,10 +3536,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of the next turn, lose control of this minion.
 			// --------------------------------------------------------
 			cards.Add("ICC_849e", new Power {
+				//Enchant = new Enchant(GameTag.CONTROLLER_CHANGED_THIS_TURN, EffectOperator.SET, 1),
+				// 333, 887 = Controller.PlayerId ?
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask("ICC_849e"),
+						new RemoveEnchantmentTask(),
 						new ControlTask(EntityType.TARGET))
 				}
 			});

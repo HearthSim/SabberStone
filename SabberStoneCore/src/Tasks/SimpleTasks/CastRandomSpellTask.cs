@@ -60,9 +60,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			int randChooseOne = Random.Next(1, 3);
 
-		    Game.TaskQueue.StartEvent();
-			Generic.PlaySpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
-		    Game.TaskQueue.EndEvent();
+			Generic.CastSpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
 
 			Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
 				!Game.Logging ? "" : $"{Source} casted {Controller}'s {spellToCast}.");

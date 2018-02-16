@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -263,9 +265,20 @@ namespace SabberStoneCore.CardSets.Standard
 			//       this attacks.
 			// --------------------------------------------------------
 			cards.Add("LOOT_078", new Power {
-				// TODO [LOOT_078] Cave Hydra && Test: Cave Hydra_LOOT_078
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Cave Hydra_LOOT_078
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					Condition = SelfCondition.IsProposedDefender(CardType.MINION),
+					TriggerSource = TriggerSource.SELF,
+					SingleTask = ComplexTask.Create(
+						new FuncNumberTask(p =>
+						{
+							Minion target = (Minion)p.Game.IdEntityDic[p.Game.ProposedDefender];
+							foreach (Minion adjacent in target.GetAdjacentMinions())
+								adjacent.TakeDamage(p, ((Minion)p).AttackDamage);
+							return 0;
+						}))
+				}
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -333,9 +346,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_079", new Power {
-				// TODO [LOOT_079] Wandering Monster && Test: Wandering Monster_LOOT_079
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.ATTACK)
+				{
+					Condition = SelfCondition.IsProposedDefender(CardType.HERO),
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
+						new FlagTask(true, ComplexTask.Secret(
+						new RandomMinionTask(GameTag.COST, 3),
+						new SummonTask(),
+						new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK))))
+				}
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -368,9 +388,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_217", new Power {
-				// TODO [LOOT_217] To My Side! && Test: To My Side!_LOOT_217
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoMinionInDeck),
+					new FlagTask(true, ComplexTask.Create(
+						new RandomEntourageTask(2),
+						new SummonStackTask())),
+					new FlagTask(false, ComplexTask.Create(
+						new RandomEntourageTask(),
+						new SummonTask())))
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -380,9 +405,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Destroy your opponent's left and right-most minions.
 			// --------------------------------------------------------
 			cards.Add("LOOT_522", new Power {
-				// TODO [LOOT_522] Crushing Walls && Test: Crushing Walls_LOOT_522
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new FuncPlayablesTask(p =>
+					{
+						BoardZone board = p[0].Controller.Opponent.BoardZone;
+						if (board.Count == 0)
+							return new List<IPlayable>(0);
+						if (board.Count < 3)
+							return board.GetAll().Cast<IPlayable>().ToList();
+
+						var list = new List<IPlayable>(2);
+						if (!board[0].Untouchable)
+							list.Add(board[0]);
+						if (!board[board.Count - 1].Untouchable)
+							list.Add(board[board.Count - 1]);
+
+						return list;
+					}),
+					new DestroyTask(EntityType.STACK))
 			});
 
 			// ---------------------------------------- WEAPON - HUNTER
@@ -397,9 +438,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_085", new Power {
-				// TODO [LOOT_085] Rhok'delar && Test: Rhok'delar_LOOT_085
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoMinionInDeck),
+					new FlagTask(true, ComplexTask.Create(
+						new FuncNumberTask(p => p.Controller.HandZone.Count),
+						new MathNumberIndexTask(0, 1, MathOperation.ADD, 1),
+						new FuncNumberTask(p => p.Controller.MaxHandSize),
+						new MathNumberIndexTask(0, 1, MathOperation.SUB),
+						new EnqueueNumberTask(
+							ComplexTask.Create(
+								new RandomCardTask(CardType.SPELL, CardClass.HUNTER),
+								new AddStackTo(EntityType.HAND))))))
 			});
 
 			// ---------------------------------------- WEAPON - HUNTER
@@ -480,9 +529,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you cast a spell, gain Armor equal to its_Cost.
 			// --------------------------------------------------------
 			cards.Add("LOOT_231", new Power {
-				// TODO [LOOT_231] Arcane Artificer && Test: Arcane Artificer_LOOT_231
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.TAG_LAST_KNOWN_COST_IN_HAND, EntityType.TARGET),
+						new ArmorTask())
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -496,9 +549,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_535", new Power {
+				// TODO side?
 				// TODO [LOOT_535] Dragoncaller Alanna && Test: Dragoncaller Alanna_LOOT_535
-				//PowerTask = null,
-				//Trigger = null,
+				//PowerTask = ComplexTask.Create(
+				//	new FuncNumberTask(p => p.Controller.NumSpellCostOver5CastedThisGame),
+				//	new )
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -511,9 +566,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_537", new Power {
-				// TODO [LOOT_537] Leyline Manipulator && Test: Leyline Manipulator_LOOT_537
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsNotStartInDeck),
+					new AddAuraEffect(Effects.ReduceCost(2), EntityType.STACK))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -527,9 +583,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_101", new Power {
-				// TODO [LOOT_101] Explosive Runes && Test: Explosive Runes_LOOT_101
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					SingleTask = SpecificTask.ExplosiveRunes
+				}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -560,10 +617,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 73 = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_104", new Power {
-				// TODO [LOOT_104] Shifting Scroll && Test: Shifting Scroll_LOOT_104
-				InfoCardId = "LOOT_104e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Shifting Scroll_LOOT_104
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = ComplexTask.Create(
+						new AddEnchantmentTask("LOOT_104e", EntityType.SOURCE),
+						new ChangeEntityTask(EntityType.SOURCE, CardType.SPELL, CardClass.MAGE))
+				}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -588,9 +648,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_172", new Power {
-				// TODO [LOOT_172] Dragon's Fury && Test: Dragon's Fury_LOOT_172
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO RevealCardBlock
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FilterStackTask(SelfCondition.IsSpell),
+					new RandomTask(1, EntityType.STACK),
+					new GetGameTagTask(GameTag.COST, EntityType.STACK),
+					new DamageNumberTask(EntityType.ALLMINIONS, true))
 			});
 
 			// ------------------------------------------ WEAPON - MAGE
@@ -622,9 +686,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transforming into random Mage spells.
 			// --------------------------------------------------------
 			cards.Add("LOOT_104e", new Power {
-				// TODO [LOOT_104e] Shifting && Test: Shifting_LOOT_104e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.SHIFTING, EffectOperator.SET, 1)
+				{
+					RemoveWhenPlayed = true
+				},
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.SPELL, CardClass.MAGE)
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -1963,8 +2032,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_043", new Power {
 				// TODO [LOOT_043] Lesser Amethyst Spellstone && Test: Lesser Amethyst Spellstone_LOOT_043
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(3, EntityType.TARGET, true),
+				//Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
+				//{
+				//	TriggerSource = TriggerSource.FRIENDLY,
+				//	Condition = new SelfCondition(p =>
+				//	{
+				//		IPlayable source = p.Game.IdEntityDic[p[GameTag.LAST_AFFECTED_BY]];
+				//		if (source is HeroPower) return false;
+				//		if (source.Controller ==)
+				//	}),
+				//	SingleTask = new ChangeEntityTask("LOOT_043t2")
+
+				//}
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -1977,9 +2057,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 890 = 10
 			// --------------------------------------------------------
 			cards.Add("LOOT_417", new Power {
-				// TODO [LOOT_417] Cataclysm && Test: Cataclysm_LOOT_417
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Cataclysm_LOOT_417
+				PowerTask = ComplexTask.Create(
+					new DestroyTask(EntityType.ALL),
+					new DiscardTask(EntityType.HAND))
 			});
 
 			// --------------------------------------- WEAPON - WARLOCK
