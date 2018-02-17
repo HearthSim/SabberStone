@@ -1861,10 +1861,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_018e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -3335,10 +3332,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_096e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3407,10 +3401,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_450e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3525,10 +3516,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("ICC_841e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3585,10 +3573,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_904e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

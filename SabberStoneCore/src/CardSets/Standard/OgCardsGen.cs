@@ -227,10 +227,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("OG_051e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -2537,10 +2534,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("OG_023t", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2585,10 +2579,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Swapped stats.
 			// --------------------------------------------------------
 			cards.Add("OG_102e", new Power {
-				Enchant = new Enchant(Effects.SetAttackHealth(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2697,10 +2688,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copying stats.
 			// --------------------------------------------------------
 			cards.Add("OG_174e", new Power {
-				Enchant = new Enchant(Effects.SetAttack(0), Effects.SetMaxHealth(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2763,10 +2751,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("OG_254e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2809,10 +2794,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_282e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2946,10 +2928,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("OG_320e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2967,10 +2946,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Stats increased.
 			// --------------------------------------------------------
 			cards.Add("OG_337e", new Power {
-				Enchant = new Enchant(Effects.Health_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

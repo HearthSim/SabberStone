@@ -1971,10 +1971,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack is equal to its Health.
 			// --------------------------------------------------------
 			cards.Add("CS1_129e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET, 0)
-				{
-					UseScriptTag = true
-				}
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET) 
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -2318,10 +2315,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("EX1_613e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				},
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -2331,9 +2325,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
 			cards.Add("NEW1_014e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
+				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
+				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					UseScriptTag = true
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
 				}
 			});
 
@@ -2888,10 +2884,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("EX1_304e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -5098,10 +5091,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_043e", new Power {
-				Enchant = new Enchant(Effects.Health_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5151,12 +5141,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack and Health have been swapped by Crazed Alchemist.
 			// --------------------------------------------------------
 			cards.Add("EX1_059e", new Power {
-				Enchant = new Enchant(
-					new Effect(GameTag.ATK, EffectOperator.SET, 0),
-					new Effect(GameTag.HEALTH, EffectOperator.SET, 0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5298,10 +5283,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion has consumed Divine Shields and has increased Attack and Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_590e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5334,10 +5316,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_018e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -34,6 +34,16 @@ namespace SabberStoneCore.Enchants
 			Effects = effects;
 	    }
 
+		/// <summary>
+		/// Create an Enchant using Number value in the stack
+		/// </summary>
+		public Enchant(GameTag tag, EffectOperator @operator)
+		{
+			Effects = new[] {new Effect(tag, @operator, 0)};
+			UseScriptTag = true;
+		}
+
+
 		public bool IsOneTurnEffect { get; set; }
 
 		public bool RemoveWhenPlayed { get; set; }
