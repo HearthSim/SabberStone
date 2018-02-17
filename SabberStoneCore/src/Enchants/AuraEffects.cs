@@ -191,7 +191,9 @@ namespace SabberStoneCore.Enchants
 			if (AdaptiveCostEffect != null)
 				COST = AdaptiveCostEffect.Apply(COST);
 
-			return COST > 0 ? COST : 0;
+			if (COST < 0)
+				COST = 0;
+			return COST;
 		}
 
 		public void ResetCost()

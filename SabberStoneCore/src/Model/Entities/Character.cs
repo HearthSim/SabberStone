@@ -71,6 +71,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="armor"></param>
 		void GainArmor(IPlayable source, int armor);
 
+		event TriggerManager.TriggerHandler AfterAttackTrigger;
 		void OnAfterAttackTrigger();
 	}
 
@@ -203,7 +204,7 @@ namespace SabberStoneCore.Model.Entities
 
 
 			// Predamage triggers
-			//Trigger.ValidateTriggers(Game, this, SequenceType.DamageDealt);
+			Game.TaskStack.SetDamageMetaData(source, this);
 			PreDamageTrigger?.Invoke(this, preDamage);
 
 			// reflect changes from tasks

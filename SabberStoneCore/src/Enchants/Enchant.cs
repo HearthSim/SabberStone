@@ -6,13 +6,22 @@ using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
 	public class Enchant
 	{
-		public Game Game;
-	    public readonly Effect[] Effects;
+		public static readonly Trigger RemoveWhenPlayedTrigger =
+			new Trigger(TriggerType.PLAY_CARD)
+			{
+				TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
+				SingleTask = new RemoveEnchantmentTask(),
+				RemoveAfterTriggered = true,
+				IsAncillaryTrigger = true,
+			};
+
+		public readonly Effect[] Effects;
 	    public bool UseScriptTag;
 		
 	    public Enchant(GameTag tag, EffectOperator @operator, int value)
@@ -25,7 +34,19 @@ namespace SabberStoneCore.Enchants
 			Effects = effects;
 	    }
 
+		/// <summary>
+		/// Create an Enchant using Number value in the stack
+		/// </summary>
+		public Enchant(GameTag tag, EffectOperator @operator)
+		{
+			Effects = new[] {new Effect(tag, @operator, 0)};
+			UseScriptTag = true;
+		}
+
+
 		public bool IsOneTurnEffect { get; set; }
+
+		public bool RemoveWhenPlayed { get; set; }
 
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
@@ -34,8 +55,6 @@ namespace SabberStoneCore.Enchants
 					Effects[i].Apply(entity, IsOneTurnEffect);
 			else if (enchantment != null)
 			{
-				//for (int i = 0; i < Effects.Length; i++)
-				//	new Effect(Effects[i].Tag, Effects[i].Operator, enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity);
 				Effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
 
 				if (Effects.Length != 2) return;
@@ -60,10 +79,13 @@ namespace SabberStoneCore.Enchants
     }
 
 	/// <summary>
-	/// Implementation of a kind of enchantment that its effect gradually grows due to some triggers.
+	/// Implementation of a kind of enchantment that its effect gradually grows due to a trigger.
+	/// OngoingEnchant is narrowly used when the source of the trigger and 
+	/// the target of the Enchantment is identical. (e.g. Mana Wyrm)
 	/// </summary>
 	public class OngoingEnchant : Enchant, IAura
 	{
+		public Game Game;
 		private int _count = 1;
 		private int _lastCount = 1;
 		private int _targetId;

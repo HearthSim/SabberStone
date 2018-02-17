@@ -14,12 +14,35 @@ namespace SabberStoneCore.Enchants
 	    private static Regex Attack = new Regex(@"[+](\d) Attack");
 	    private static Regex Health = new Regex(@"[+](\d) Health");
 
+	    public static readonly Enchant AddAttackScriptTag =
+		    new Enchant(GameTag.ATK, EffectOperator.ADD);
+	    public static readonly Enchant AddHealthScriptTag =
+		    new Enchant(GameTag.HEALTH, EffectOperator.ADD, 0)
+		    {
+			    UseScriptTag = true
+		    };
+	    public static readonly Enchant SetAttackScriptTag =
+		    new Enchant(GameTag.ATK, EffectOperator.SET, 0)
+		    {
+			    UseScriptTag = true
+		    };
+		public static readonly Enchant AddAttackHealthScriptTag =
+		    new Enchant(Effects.AttackHealth_N(0))
+		    {
+			    UseScriptTag = true
+		    };
+	    public static readonly Enchant SetAttackHealthScriptTag =
+		    new Enchant(Effects.SetAttackHealth(0))
+		    {
+			    UseScriptTag = true
+		    };
+
 		/// <summary>
 		/// Generate proper <see cref="Enchant"/> from the text of the given card.
 		/// </summary>
 		/// <param name="cardId"></param>
 		/// <returns></returns>
-	    public static Enchant GetAutoEnchantFromText(string cardId)
+		public static Enchant GetAutoEnchantFromText(string cardId)
 	    {
 			string text = Cards.FromId(cardId).Text;
 		    var effects = new List<Effect>();
@@ -95,6 +118,8 @@ namespace SabberStoneCore.Enchants
 				IsOneTurnEffect = oneTurn
 		    };
 	    }
+
+
     }
 
 	internal static class Effects

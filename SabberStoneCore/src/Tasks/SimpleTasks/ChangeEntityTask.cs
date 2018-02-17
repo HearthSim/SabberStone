@@ -9,86 +9,76 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	internal enum ChangeType { RANDOM_SAME_TYPE, OP_CLASS, }
-
 	// Work in process
 	// Codes should be cleand up and be merged into Generic.ChangeEntityBlock
     public class ChangeEntityTask : SimpleTask
     {
-	    public ChangeEntityTask()
+	    private readonly EntityType _type;
+		private readonly CardType _cardType;
+		private CardClass _cardClass;
+	    private readonly bool _opClass;
+	    private readonly bool _useRandomCard;
+		private readonly Card _card;
+
+
+
+		public ChangeEntityTask(EntityType type, CardType cardType, CardClass cardClass = CardClass.INVALID, bool opClass = false)
 	    {
-		    //_type = type;
+			_type = type;
+			_cardType = cardType;
+			_cardClass = cardClass;
+			_opClass = opClass;
+			_useRandomCard = true;
+	    }
+
+	    public ChangeEntityTask(string cardId)
+	    {
+		    _card = Cards.FromId(cardId);
+	    }
+
+	    private ChangeEntityTask(EntityType et, CardType ct, CardClass cc, bool oc, Card c)
+	    {
+			_type = et;
+			_cardType = ct;
+			_cardClass = cc;
+			_opClass = oc;
+		    _useRandomCard = ct != CardType.INVALID;
+			_card = c;
 	    }
 
 	    public override TaskState Process()
 	    {
-		    if (!(Source is Enchantment e))
-		    {
-				// Implementation of Lilian Voss
-			    IReadOnlyList<Card> randCards = RandomCardTask.GetCardList(Source, CardType.SPELL, Controller.Opponent.HeroClass);
-				foreach (IPlayable p in Playables)
-			    {
-				    if (!(p.Zone is HandZone)) throw new NotImplementedException();
+			if (_opClass)
+				_cardClass = Controller.Opponent.HeroClass;
 
+		    if (_useRandomCard)
+		    {
+			    IReadOnlyList<Card> randCards = RandomCardTask.GetCardList(Source, _cardType, _cardClass);
+			    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
+			    {
 				    Card pick = Util.Choose(randCards);
 
-					p.Card = pick;
+				    Generic.ChangeEntityBlock.Invoke(Controller, p, pick);
 
-					p[GameTag.DISPLAYED_CREATOR] = Source.Id;
+				    //TODO p[GameTag.DISPLAYED_CREATOR] = Source.Id;
 			    }
 
-				return TaskState.COMPLETE;
-		    }
-
-			IEntity target = Target;
-			IEntity previous = e.Target;
-
-			if (!(previous.Zone is HandZone hand)) throw new NotImplementedException();
-
-			e.Remove();
-		    // PowerHistoryChangeEntity ( ... ) send variations of tags, CardId of the target
-		    if (previous.Card.Type == target.Card.Type)
-		    {
-				previous.Card = target.Card;	// TODO
-		    }
-		    else
-		    {
-				IPlayable entity = null;
-			    switch (target.Card.Type)
-			    {
-					case CardType.MINION:
-						entity = new Minion(Controller, target.Card, previous.NativeTags);
-						break;
-					case CardType.SPELL:
-						entity = new Spell(Controller, target.Card, previous.NativeTags);
-						break;
-					case CardType.HERO:
-						entity = new Hero(Controller, target.Card, previous.NativeTags);
-						break;
-					case CardType.WEAPON:
-						entity = new Weapon(Controller, target.Card, previous.NativeTags);
-						break;
-					default:
-						throw new ArgumentNullException();
-				}
-
-			    hand.ChangeEntity((IPlayable)previous, entity);
-			    Game.IdEntityDic[previous.Id] = entity;
-				previous = entity;
+			    return TaskState.COMPLETE;
 			}
 
-		    if (previous[GameTag.DISPLAYED_CREATOR] == 0)
-			    previous[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;
-			Generic.AddEnchantmentBlock(Controller, e.Card, e, previous, 0, 0);
+		    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
+		    {
+			    Generic.ChangeEntityBlock.Invoke(Controller, p, _card);
 
-		    // TODO choose ones
+			    // TODO p[GameTag.DISPLAYED_CREATOR] = Source.Id;
+		    }
 
-		    return TaskState.COMPLETE;
+			return TaskState.COMPLETE;
 	    }
 
 		public override ISimpleTask Clone()
 		{
-			return new ChangeEntityTask();
+			return new ChangeEntityTask(_type, _cardType, _cardClass, _opClass, _card);
 		}
     }
 }

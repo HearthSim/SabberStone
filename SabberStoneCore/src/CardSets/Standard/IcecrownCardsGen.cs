@@ -1347,7 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_801", new Power {
-				PowerTask = ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion)
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1747,7 +1747,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsSpell),
-					new ChangeEntityTask())
+					new ChangeEntityTask(EntityType.STACK, CardType.SPELL, opClass: true))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1819,11 +1819,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_233", new Power {
 				PowerTask = ComplexTask.Create(
-					new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
-					new DamageNumberTask(EntityType.TARGET),
-					new CopyTask(EntityType.WEAPON, 1),
-					new MoveWeaponToSetaside(),
-					new AddStackTo(EntityType.HAND))
+					new IncludeTask(EntityType.WEAPON),
+					new IncludeTask(EntityType.TARGET, null, true),
+					new FuncPlayablesTask(list =>
+					{
+						var source = (Weapon) list[0];
+						var target = (Minion) list[1];
+						target.TakeDamage(source, source.AttackDamage);
+						source.Controller.Hero.ClearWeapon();
+						Generic.AddHandPhase(source.Controller, source);
+						return null;
+					}))
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1855,10 +1861,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_018e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1906,6 +1909,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_827e", new Power {
 				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1),
 				Trigger = Triggers.ShadowReflectionTrigger
+
+				// Trigger 1 : PlayCard => ChangeEntity
+				// Trigger 2 : PlayCard => Self? => Dispose
+				// Trigger 3 : EndTurn => RemoveEnchantment, MoveToSetaside
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1918,7 +1925,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask("OG_080de"),
+					SingleTask = new RemoveEnchantmentTask(),
 					RemoveAfterTriggered = true,
 				}
 			});
@@ -2083,9 +2090,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 Murlocs from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_089", new Power {
-				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsRace(Race.MURLOC))
 			});
 
 			// ---------------------------------------- WEAPON - SHAMAN
@@ -2392,9 +2397,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 weapons from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_281", new Power {
-				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsWeapon),
-					ComplexTask.DrawFromDeck(SelfCondition.IsWeapon))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsWeapon)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2913,7 +2916,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_702", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new List<GameTag>() { GameTag.DEATHRATTLE }),
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new [] { GameTag.DEATHRATTLE }),
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -3329,10 +3332,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_096e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3401,10 +3401,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_450e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3519,10 +3516,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("ICC_841e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3532,10 +3526,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of the next turn, lose control of this minion.
 			// --------------------------------------------------------
 			cards.Add("ICC_849e", new Power {
+				//Enchant = new Enchant(GameTag.CONTROLLER_CHANGED_THIS_TURN, EffectOperator.SET, 1),
+				// 333, 887 = Controller.PlayerId ?
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask("ICC_849e"),
+						new RemoveEnchantmentTask(),
 						new ControlTask(EntityType.TARGET))
 				}
 			});
@@ -3577,10 +3573,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("ICC_904e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

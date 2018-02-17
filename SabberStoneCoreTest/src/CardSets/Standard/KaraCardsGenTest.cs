@@ -1399,10 +1399,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var allPlayables = new List<IPlayable>();
 			allPlayables.AddRange(game.CurrentPlayer.DeckZone);
 			allPlayables.AddRange(game.CurrentPlayer.HandZone);
-			var legendaries = allPlayables.Where(p => p.Card.Rarity == Rarity.LEGENDARY).ToList();
+			var legendaries = allPlayables.Where(p => p.Card.Rarity == Rarity.LEGENDARY && p.Id > 68).ToList();
 			// Added legendaries MUST belong to the CardClass of the deck or the MultiClassGroup.
-			Assert.False(legendaries.Any(p => p.Card.Class != CardClass.NEUTRAL &&
-				p.Card.Class != CardClass.MAGE && p.Card.MultiClassGroup != (int)MultiClassGroup.KABAL));
+			Assert.DoesNotContain(legendaries, p => p.Card.Class != CardClass.NEUTRAL &&
+				p.Card.Class != CardClass.MAGE && p.Card.MultiClassGroup != (int)MultiClassGroup.KABAL);
 			// No duplicate legendaries are allowed!
 			Assert.Equal(legendaries.Count, legendaries.Distinct().Count());
 		}

@@ -858,7 +858,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_609", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					SingleTask = ComplexTask.Secret(new DamageTask(4, EntityType.TARGET, true))
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new FlagTask(true, ComplexTask.Secret(
+							new DamageTask(4, EntityType.TARGET, true))))
 				}
 			});
 
@@ -969,7 +972,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new RemoveEnchantmentTask("DS1_188e")
+					SingleTask = new RemoveEnchantmentTask()
 				}
 			});
 
@@ -1228,7 +1231,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 							new CopyTask(EntityType.TARGET, 1),
 							new SummonTask(SummonSide.SPELL))))
@@ -1968,10 +1971,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack is equal to its Health.
 			// --------------------------------------------------------
 			cards.Add("CS1_129e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET, 0)
-				{
-					UseScriptTag = true
-				}
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET) 
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -1986,7 +1986,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask("EX1_334e"),
+						new RemoveEnchantmentTask(),
 						new ControlTask(EntityType.TARGET, true))
 				}
 			});
@@ -2315,10 +2315,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("EX1_613e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				},
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -2328,9 +2325,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
 			cards.Add("NEW1_014e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
+				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
+				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					UseScriptTag = true
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
 				}
 			});
 
@@ -2606,7 +2605,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
 					RemoveAfterTriggered = true,
-					SingleTask = new RemoveEnchantmentTask("CS2_053e")
+					SingleTask = new RemoveEnchantmentTask()
 				}
 			});
 
@@ -2824,8 +2823,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_317", new Power {
 				//	TODO
 				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)))
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DEMON)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DEMON)))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2885,10 +2884,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("EX1_304e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -3206,7 +3202,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.HERO,
 					FastExecution = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask("EX1_411e"),
+						new RemoveEnchantmentTask(),
 						new AddEnchantmentTask("EX1_411e2", EntityType.WEAPON))
 				}
 			});
@@ -5095,10 +5091,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_043e", new Power {
-				Enchant = new Enchant(Effects.Health_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5148,12 +5141,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack and Health have been swapped by Crazed Alchemist.
 			// --------------------------------------------------------
 			cards.Add("EX1_059e", new Power {
-				Enchant = new Enchant(
-					new Effect(GameTag.ATK, EffectOperator.SET, 0),
-					new Effect(GameTag.HEALTH, EffectOperator.SET, 0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5295,10 +5283,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion has consumed Divine Shields and has increased Attack and Health.
 			// --------------------------------------------------------
 			cards.Add("EX1_590e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5331,10 +5316,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("NEW1_018e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

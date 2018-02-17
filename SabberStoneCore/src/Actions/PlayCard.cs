@@ -60,28 +60,20 @@ namespace SabberStoneCore.Actions
 						PlayHero.Invoke(c, hero, target, chooseOne);
 						break;
 					case Minion minion:
-						Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
 						PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
 						break;
 					case Weapon weapon:
 						PlayWeapon.Invoke(c, weapon, target, chooseOne);
 						break;
 					case Spell spell:
-						Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
 						PlaySpell.Invoke(c, spell, target, chooseOne);
-
-						c.NumSpellsPlayedThisGame++;
-						if (spell.IsSecret)
-							c.NumSecretsPlayedThisGame++;
 						break;
 				}
 
-				if (target != null)
-					source.CardTarget = -1;
-
 				c.NumOptionsPlayedThisTurn++;
 
-				c.IsComboActive = true;
+				if (!c.IsComboActive)
+					c.IsComboActive = true;
 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
@@ -200,6 +192,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
 			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
+				Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
+
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
@@ -285,6 +279,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
 			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
+				Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
+
 				if (c.Game.History)
 				{
 					if (spell.IsSecret || spell.IsQuest)
@@ -323,30 +319,7 @@ namespace SabberStoneCore.Actions
 						}
 					}
 
-					c.Game.TaskQueue.StartEvent();
-					if (spell.IsSecret || spell.IsQuest)
-					{
-						spell.Power.Trigger?.Activate(spell);
-						c.SecretZone.Add(spell);
-						spell.IsExhausted = true;
-					}
-					else
-					{
-						spell.Power?.Trigger?.Activate(spell);
-						spell.Power?.Aura?.Activate(spell);
-
-						if (spell.Combo && c.IsComboActive)
-							spell.ActivateTask(PowerActivation.COMBO, target);
-						else
-							spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
-
-						c.GraveyardZone.Add(spell);
-					}
-
-					// process power tasks
-					c.Game.ProcessTasks();
-					c.Game.TaskQueue.EndEvent();
-
+					CastSpell.Invoke(c, spell, target, chooseOne);
 					c.Game.DeathProcessingAndAuraUpdate();
 				}
 				
@@ -359,6 +332,12 @@ namespace SabberStoneCore.Actions
 				c.Game.TaskQueue.EndEvent();
 
 				c.Game.DeathProcessingAndAuraUpdate();
+
+				c.NumSpellsPlayedThisGame++;
+				if (spell.IsSecret)
+					c.NumSecretsPlayedThisGame++;
+				if (spell.Cost >= 5)
+					c.NumSpellCostOver5CastedThisGame++;
 
 				return true;
 			};

@@ -1582,7 +1582,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.NotNull(game.CurrentPlayer.Choice);
 			IEnumerable<IPlayable> choices = game.CurrentPlayer.Choice.Choices.Select(i => game.IdEntityDic[i]);
-			Assert.True(choices.Select(p => p.Card.Name).Contains("Power Word: Shield"));
+			Assert.Contains("Power Word: Shield", choices.Select(p => p.Card.Name));
 			Assert.True(choices.All(p => p.Card.Class == CardClass.PRIEST));
 		}
 
@@ -3884,7 +3884,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable devilsoar = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Charged Devilsaur"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, devilsoar));
-			Assert.Equal(1, game.CurrentPlayer.Options().Where(option => option is MinionAttackTask).Count());
+			Assert.Single(game.CurrentPlayer.Options().Where(option => option is MinionAttackTask));
 			Assert.Equal(hoarder, game.CurrentPlayer.Options().Where(option => option is MinionAttackTask).Cast<MinionAttackTask>().First().Target);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));

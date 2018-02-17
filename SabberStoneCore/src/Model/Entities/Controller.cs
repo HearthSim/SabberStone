@@ -114,6 +114,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumTotemSummonedThisGame { get; set; }
 
+		public int NumSpellCostOver5CastedThisGame { get; set; }
+
 		/// <summary>
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
@@ -212,6 +214,7 @@ namespace SabberStoneCore.Model.Entities
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 			_currentSpellPower = controller._currentSpellPower;
 			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
+			NumSpellCostOver5CastedThisGame = controller.NumSpellCostOver5CastedThisGame;
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
 			controller.AppliedEnchantments?.ForEach(p =>
 			{

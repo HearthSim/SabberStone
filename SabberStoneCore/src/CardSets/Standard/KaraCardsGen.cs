@@ -750,9 +750,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("KAR_061", new Power {
 				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.BEAST)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DRAGON)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.BEAST)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DRAGON)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.MURLOC)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -417,6 +417,56 @@ namespace SabberStoneCore.Tasks
 				}),
 				new AddEnchantmentTask("ICC_827e", EntityType.STACK));
 
+		public static ISimpleTask ShadowReflection
+			=> ComplexTask.Create(
+				new IncludeTask(EntityType.SOURCE),
+				new IncludeTask(EntityType.TARGET, null, true),
+				new FuncPlayablesTask(pList =>
+				{
+					Enchantment e = pList[0] as Enchantment;
+					if (pList[1][GameTag.VALEERASHADOW] == 1)
+					{
+						e.Remove();
+						pList[1][GameTag.VALEERASHADOW] = 0;
+						return null;
+					}
+					IPlayable previous = (IPlayable) e.Target;
+					e.Remove();
+
+					IPlayable newEntity = Generic.ChangeEntityBlock.Invoke(e.Controller, previous, pList[1].Card);
+
+					if (newEntity[GameTag.DISPLAYED_CREATOR] == 0)
+						newEntity[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;
+
+					Generic.AddEnchantmentBlock(e.Controller, e.Card, e, newEntity, 0, 0);
+
+					// TODO choose ones
+
+					return null;
+				}));
+
+		public static ISimpleTask ExplosiveRunes
+			=> ComplexTask.Create(
+				new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+				new FlagTask(true, ComplexTask.Secret(
+					new IncludeTask(EntityType.SOURCE),
+					new IncludeTask(EntityType.TARGET, null, true),
+					new FuncPlayablesTask(list =>
+					{
+						var target = (Minion) list[1];
+						int health = target.Health;
+						int amount = 6 + target.Controller.CurrentSpellPower;
+						amount *= (int) Math.Pow(2, target.Controller.ControllerAuraEffects[GameTag.SPELLPOWER_DOUBLE]);
+						if (health >= amount)
+						{
+							Generic.DamageCharFunc(list[0], target, 6, true);
+							return null;
+						}
+						target.TakeDamage(list[0], health);
+						target.Controller.Hero.TakeDamage(list[0], amount - health);
+						return null;
+					}))));
+
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");

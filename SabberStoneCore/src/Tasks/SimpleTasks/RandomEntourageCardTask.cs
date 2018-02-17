@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -6,17 +7,48 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomEntourageTask : SimpleTask
 	{
+		private readonly int _count;
+		
+		public RandomEntourageTask(int count = 0)
+		{
+			_count = count;
+		}
+		 
 		public override TaskState Process()
 		{
-
 			var source = Source as IPlayable;
 			if (source == null || source.Card.Entourage.Length < 1)
 			{
 				return TaskState.STOP;
 			}
 
-			IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
-			Playables = new List<IPlayable> { randomCard };
+			if (_count > 0)
+			{
+				if (_count > source.Card.Entourage.Length)
+					throw new System.ArgumentOutOfRangeException();
+
+				var ids = new string[_count];
+				int i = 0;
+				do
+				{
+					string pick = Util.Choose(source.Card.Entourage);
+					if (Array.IndexOf(ids, pick) > -1)
+						continue;
+					ids[i] = pick;
+					i++;
+				} while (i != _count);
+
+				var list = new List<IPlayable>(_count);
+				for (int j = 0; j < _count; j++)
+					list.Add(Entity.FromCard(Controller, Cards.FromId(ids[j])));
+
+				Playables = list;
+			}
+			else
+			{
+				IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
+				Playables = new List<IPlayable> { randomCard };
+			}
 
 			Game.OnRandomHappened(true);
 
@@ -25,7 +57,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RandomEntourageTask();
+			var clone = new RandomEntourageTask(_count);
 			clone.Copy(this);
 			return clone;
 		}

@@ -8,6 +8,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChangeAttackingTargetTask : SimpleTask
 	{
+		/// <param name="typA">The attacker</param>
+		/// <param name="typB">New Defender</param>
 		public ChangeAttackingTargetTask(EntityType typA, EntityType typB)
 		{
 			TypeA = typA;

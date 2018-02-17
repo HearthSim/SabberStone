@@ -374,8 +374,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_913", new Power {
-				PowerTask = new EnqueueTask(2,
-					ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion)
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -433,9 +432,11 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							var source = (ICharacter)plist[0];
 							var target = (ICharacter)plist[1];
-							Actions.Generic.AttackBlock.Invoke(source.Controller, source, target, true);
+							if (target.Card.Untouchable)
+								return null;
+							Generic.AttackBlock.Invoke(source.Controller, source, target, true);
 							source.Controller.NumOptionsPlayedThisTurn--;
-							return plist;
+							return null;
 						}))
 				}
 			});
@@ -584,7 +585,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_020", new Power {
-				PowerTask = ComplexTask.DrawFromDeck(SelfCondition.IsSecret)
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsSecret)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -692,7 +693,8 @@ namespace SabberStoneCore.CardSets.Standard
 				InfoCardId = "UNG_028e",
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
-					Condition = new SelfCondition(p => p[GameTag.CREATOR] != 0),
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsNotStartInDeck,
 					SingleTask = new QuestProgressTask("UNG_028t")
 				}
 			});
@@ -1454,10 +1456,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("UNG_063e", new Power {
-				Enchant = new Enchant(Effects.AttackHealth_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -2214,10 +2213,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_929", new Power {
-				// TODO [UNG_929] Molten Blade && Test: Molten Blade_UNG_929
-				InfoCardId = "UNG_929e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Molten Blade_UNG_929
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.Create(
+						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON),
+						new AddEnchantmentTask("UNG_929e", EntityType.SOURCE))
+				}
 			});
 
 		}
@@ -2231,9 +2234,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transforming into random weapons.
 			// --------------------------------------------------------
 			cards.Add("UNG_929e", new Power {
-				// TODO [UNG_929e] Magmic && Test: Magmic_UNG_929e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.SHIFTING_WEAPON, EffectOperator.SET, 1)
+				{
+					RemoveWhenPlayed = true
+				},
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON)
+				}
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2831,8 +2839,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_843", new Power {
 				// TODO [UNG_843] The Voraxx && Test: The Voraxx_UNG_843
-				//PowerTask = null,
-				//Trigger = null
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new SummonTask("UNG_999t2t1", SummonSide.RIGHT, true),
+						new IncludeTask(EntityType.TARGET, null, true),
+						new FuncPlayablesTask(list =>
+						{
+							Generic.CastSpell(list[1].Controller, (Spell)list[1], (ICharacter)list[0], 0);
+							return null;
+						}))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3120,7 +3138,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				},
-				Trigger = Triggers.OneTurnEffectRemovalTrigger("OG_121e")
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new RemoveEnchantmentTask()
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3143,7 +3164,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask("OG_080de"),
+					SingleTask = new RemoveEnchantmentTask(),
 					RemoveAfterTriggered = true,
 				}
 			});
