@@ -210,12 +210,12 @@ namespace SabberStoneCore.Tasks
 				new SummonTask());
 		}
 
-		public static ISimpleTask DrawFromDeck(params SelfCondition[] list)
+		public static ISimpleTask DrawFromDeck(int amount, params SelfCondition[] list)
 		{
 			return Create(
 				new IncludeTask(EntityType.DECK),
 				new FilterStackTask(list),
-				new RandomTask(1, EntityType.STACK),
+				new RandomTask(amount, EntityType.STACK),
 				new DrawStackTask());
 		}
 

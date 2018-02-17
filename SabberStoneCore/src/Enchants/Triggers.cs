@@ -42,5 +42,14 @@ namespace SabberStoneCore.Enchants
 							new MoveToSetaside(EntityType.TARGET))),
 					new FlagTask(false, SpecificTask.ShadowReflection))
 			};
-	}
+
+	    public static readonly Trigger RevealUnidentifiedItem
+		    = new Trigger(TriggerType.ZONE)
+		    {
+			    TriggerActivation = TriggerActivation.HAND,
+			    TriggerSource = TriggerSource.SELF,
+			    RemoveAfterTriggered = true,
+			    SingleTask = new ChangeUnidentifiedTask()
+		    };
+    }
 }

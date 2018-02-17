@@ -374,8 +374,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_913", new Power {
-				PowerTask = new EnqueueTask(2,
-					ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion)
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -433,9 +432,11 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							var source = (ICharacter)plist[0];
 							var target = (ICharacter)plist[1];
-							Actions.Generic.AttackBlock.Invoke(source.Controller, source, target, true);
+							if (target.Card.Untouchable)
+								return null;
+							Generic.AttackBlock.Invoke(source.Controller, source, target, true);
 							source.Controller.NumOptionsPlayedThisTurn--;
-							return plist;
+							return null;
 						}))
 				}
 			});
@@ -584,7 +585,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_020", new Power {
-				PowerTask = ComplexTask.DrawFromDeck(SelfCondition.IsSecret)
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsSecret)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -692,6 +693,7 @@ namespace SabberStoneCore.CardSets.Standard
 				InfoCardId = "UNG_028e",
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
+					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsNotStartInDeck,
 					SingleTask = new QuestProgressTask("UNG_028t")
 				}
@@ -2840,8 +2842,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_843", new Power {
 				// TODO [UNG_843] The Voraxx && Test: The Voraxx_UNG_843
-				//PowerTask = null,
-				//Trigger = null
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new SummonTask("UNG_999t2t1", SummonSide.RIGHT, true),
+						new IncludeTask(EntityType.TARGET, null, true),
+						new FuncPlayablesTask(list =>
+						{
+							Generic.CastSpell(list[1].Controller, (Spell)list[1], (ICharacter)list[0], 0);
+							return null;
+						}))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

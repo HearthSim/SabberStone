@@ -34,8 +34,6 @@ namespace SabberStoneCore.Actions
 			    // process power tasks
 			    c.Game.ProcessTasks();
 			    c.Game.TaskQueue.EndEvent();
-
-			    c.Game.DeathProcessingAndAuraUpdate();
 		    };
     }
 }

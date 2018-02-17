@@ -896,10 +896,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// --------------------------------------------------------
 			cards.Add("LOOT_286", new Power {
-				// TODO [LOOT_286] Unidentified Maul && Test: Unidentified Maul_LOOT_286
+				// TODO Test: Unidentified Maul_LOOT_286
 				InfoCardId = "LOOT_286t3e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.RevealUnidentifiedItem
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1004,9 +1003,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_286t1", new Power {
-				// TODO [LOOT_286t1] Champion's Maul && Test: Champion's Maul_LOOT_286t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("CS2_101t", 2)
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1020,9 +1017,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_286t2", new Power {
-				// TODO [LOOT_286t2] Sacred Maul && Test: Sacred Maul_LOOT_286t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Taunt(EntityType.MINIONS)
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1036,10 +1031,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_286t3", new Power {
-				// TODO [LOOT_286t3] Blessed Maul && Test: Blessed Maul_LOOT_286t3
-				InfoCardId = "LOOT_286t3e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_286t3e", EntityType.MINIONS)
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1053,9 +1045,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_286t4", new Power {
-				// TODO [LOOT_286t4] Purifier's Maul && Test: Purifier's Maul_LOOT_286t4
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.DivineShield(EntityType.MINIONS)
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1160,9 +1150,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_008", new Power {
-				// TODO [LOOT_008] Psychic Scream && Test: Psychic Scream_LOOT_008
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.ALLMINIONS),
+					new MoveToDeck(EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1198,10 +1188,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_278", new Power {
-				// TODO [LOOT_278] Unidentified Elixir && Test: Unidentified Elixir_LOOT_278p
-				InfoCardId = "LOOT_278e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_278e", EntityType.TARGET),
+				Trigger = Triggers.RevealUnidentifiedItem
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1284,11 +1272,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [LOOT_209t] Dragon Spirit (*) - COST:5 [ATK:5/HP:5] 
 			// - Race: dragon, Set: lootapalooza, 
 			// --------------------------------------------------------
-			cards.Add("LOOT_209t", new Power {
-				// TODO [LOOT_209t] Dragon Spirit && Test: Dragon Spirit_LOOT_209t
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("LOOT_209t", null);
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [LOOT_278t1] Elixir of Life (*) - COST:3 
@@ -1301,10 +1285,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t1", new Power {
-				// TODO [LOOT_278t1] Elixir of Life && Test: Elixir of Life_LOOT_278t1
-				InfoCardId = "LOOT_278t1e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_278t1e", EntityType.TARGET)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1318,10 +1299,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t2", new Power {
-				// TODO [LOOT_278t2] Elixir of Purity && Test: Elixir of Purity_LOOT_278t2
-				InfoCardId = "LOOT_278t2e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_278t2e", EntityType.TARGET)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1335,10 +1313,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t3", new Power {
-				// TODO [LOOT_278t3] Elixir of Shadows && Test: Elixir of Shadows_LOOT_278t3
-				InfoCardId = "LOOT_278t3e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("LOOT_278t3e", EntityType.TARGET),
+					new CopyTask(EntityType.TARGET, 1),
+					new AddEnchantmentTask("LOOT_278t3e2", EntityType.STACK),
+					new SummonTask())
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1354,10 +1333,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t4", new Power {
-				// TODO [LOOT_278t4] Elixir of Hope && Test: Elixir of Hope_LOOT_278t4
-				InfoCardId = "LOOT_278t4e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_278t4e", EntityType.TARGET)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1405,8 +1381,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_026", new Power {
 				// TODO [LOOT_026] Fal'dorei Strider && Test: Fal'dorei Strider_LOOT_026
-				//PowerTask = null,
-				//Trigger = null,
+				// Not sure this implementatio would work in servers
+				PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_026e", EntityType.DECK))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1419,9 +1395,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_033", new Power {
-				// TODO [LOOT_033] Cavern Shinyfinder && Test: Cavern Shinyfinder_LOOT_033
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Cavern Shinyfinder_LOOT_033
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsWeapon)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1434,10 +1409,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_165", new Power {
-				// TODO [LOOT_165] Sonya Shadowdancer && Test: Sonya Shadowdancer_LOOT_165
-				InfoCardId = "LOOT_165e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DEATH)
+				{
+					TriggerSource = TriggerSource.MINIONS,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddEnchantmentTask("LOOT_165e", EntityType.STACK),
+						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 1), EntityType.STACK),
+						new AddStackTo(EntityType.HAND))
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1454,9 +1434,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_211", new Power {
-				// TODO [LOOT_211] Elven Minstrel && Test: Elven Minstrel_LOOT_211
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Elven Minstrel_LOOT_211
+				ComboTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsMinion)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1469,10 +1448,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_412", new Power {
-				// TODO [LOOT_412] Kobold Illusionist && Test: Kobold Illusionist_LOOT_412
-				InfoCardId = "LOOT_412e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new CopyTask(EntityType.STACK, 1),
+					new AddEnchantmentTask("LOOT_412e", EntityType.STACK),
+					new SummonTask())
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1486,10 +1467,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_204", new Power {
-				// TODO [LOOT_204] Cheat Death && Test: Cheat Death_LOOT_204
-				InfoCardId = "LOOT_204e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Cheat Death_LOOT_204
+				Trigger = new Trigger(TriggerType.DEATH)
+				{
+					TriggerSource = TriggerSource.MINIONS,
+					SingleTask = ComplexTask.Secret(
+						new ReturnHandTask(EntityType.TARGET),
+						new AddEnchantmentTask("LOOT_204e", EntityType.TARGET))
+				}
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1502,9 +1487,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_210", new Power {
-				// TODO [LOOT_210] Sudden Betrayal && Test: Sudden Betrayal_LOOT_210
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.ATTACK)
+				{
+					Condition = SelfCondition.IsProposedDefender(CardType.HERO),
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsBoardCount(1)),
+						new FlagTask(false, ComplexTask.Secret(
+							new IncludeTask(EntityType.OP_MINIONS),
+							new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+							new RandomTask(1, EntityType.STACK),
+							new AttackTask(EntityType.TARGET, EntityType.STACK))))
+				}
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1517,10 +1510,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_214", new Power {
-				// TODO [LOOT_214] Evasion && Test: Evasion_LOOT_214
-				InfoCardId = "LOOT_214e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = ComplexTask.Secret(
+						new AddEnchantmentTask("LOOT_214e", EntityType.HERO))
+				} 
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1600,9 +1595,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_026e", new Power {
-				// TODO [LOOT_026e] Spider Ambush! && Test: Spider Ambush!_LOOT_026e
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: Built-in TOPDECK mechanics
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_026t"),
+					new DrawTask()),
+				Trigger = new Trigger(TriggerType.DRAW)
+				{
+					TriggerSource = TriggerSource.SELF,
+					RemoveAfterTriggered = true,
+					SingleTask = ComplexTask.Create(
+						new SummonTask("LOOT_026t"),
+						new MoveToGraveYard(EntityType.SOURCE),
+						new DrawTask())
+				}
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1674,10 +1679,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_358", new Power {
-				// TODO [LOOT_358] Grumble, Worldshaker && Test: Grumble, Worldshaker_LOOT_358
 				InfoCardId = "LOOT_358e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS_NOSOURCE),
+					new ReturnHandTask(EntityType.STACK),
+					new AddEnchantmentTask("LOOT_358e", EntityType.STACK))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1726,9 +1732,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_060", new Power {
-				// TODO [LOOT_060] Crushing Hand && Test: Crushing Hand_LOOT_060
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(8, EntityType.TARGET)
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1992,9 +1996,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415", new Power {
-				// TODO [LOOT_415] Rin, the First Disciple && Test: Rin, the First Disciple_LOOT_415
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new AddCardTo("LOOT_415t1", EntityType.HAND)
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2075,9 +2077,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_420", new Power {
-				// TODO [LOOT_420] Skull of the Man'ari && Test: Skull of the Man'ari_LOOT_420
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.HAND),
+						new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+						new RandomTask(1, EntityType.STACK),
+						new SummonTask())
+				}
 			});
 
 		}
@@ -2125,9 +2132,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t6", new Power {
-				// TODO [LOOT_415t6] Azari, the Devourer && Test: Azari, the Devourer_LOOT_415t6
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: Should check the real log file
+				PowerTask = new MoveToGraveYard(EntityType.OP_DECK)
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2163,9 +2169,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_043t3", new Power {
-				// TODO [LOOT_043t3] Greater Amethyst Spellstone && Test: Greater Amethyst Spellstone_LOOT_043t3
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(7, EntityType.TARGET)
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2178,9 +2182,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t1", new Power {
-				// TODO [LOOT_415t1] The First Seal && Test: The First Seal_LOOT_415t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_415t1t"),
+					new AddCardTo("LOOT_415t2", EntityType.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2194,9 +2198,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t2", new Power {
-				// TODO [LOOT_415t2] The Second Seal && Test: The Second Seal_LOOT_415t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_415t2t"),
+					new AddCardTo("LOOT_415t3", EntityType.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2209,9 +2213,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t3", new Power {
-				// TODO [LOOT_415t3] The Third Seal && Test: The Third Seal_LOOT_415t3
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_415t3t"),
+					new AddCardTo("LOOT_415t4", EntityType.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2225,9 +2229,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t4", new Power {
-				// TODO [LOOT_415t4] The Fourth Seal && Test: The Fourth Seal_LOOT_415t4
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_415t4t"),
+					new AddCardTo("LOOT_415t5", EntityType.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2242,9 +2246,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t5", new Power {
-				// TODO [LOOT_415t5] The Final Seal && Test: The Final Seal_LOOT_415t5
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("LOOT_415t5t"),
+					new AddCardTo("LOOT_415t6", EntityType.HAND))
 			});
 
 		}
@@ -2258,9 +2262,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the start of your turn, attack a random enemy.
 			// --------------------------------------------------------
 			cards.Add("LOOT_041", new Power {
-				// TODO [LOOT_041] Kobold Barbarian && Test: Kobold Barbarian_LOOT_041
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.OP_MINIONS),
+						new RandomTask(1, EntityType.STACK),
+						new AttackTask(EntityType.SOURCE, EntityType.STACK))
+				}
 			});
 			
 			// --------------------------------------- MINION - WARRIOR
@@ -2274,9 +2282,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_365", new Power {
-				// TODO [LOOT_365] Gemstudded Golem && Test: Gemstudded Golem_LOOT_365
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveEffect(
+					GameTag.CANT_ATTACK,
+					EffectOperator.SET,
+					p => p.Controller.Hero.Armor > 4 ? 0 : 1)
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2289,9 +2298,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_367", new Power {
-				// TODO [LOOT_367] Drywhisker Armorer && Test: Drywhisker Armorer_LOOT_367
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Drywhisker Armorer_LOOT_367
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_MINIONS),
+					new MathMultiplyTask(2),
+					new ArmorTask())
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2304,9 +2315,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_519", new Power {
-				// TODO [LOOT_519] Geosculptor Yip && Test: Geosculptor Yip_LOOT_519
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = ComplexTask.Create(
+						new FuncNumberTask(p => p.Controller.Hero.Armor > 10 ? 10 : p.Controller.Hero.Armor),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask())
+				}
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2331,9 +2346,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Entourage: LOOT_285t, LOOT_285t2, LOOT_285t3, LOOT_285t4
 			// --------------------------------------------------------
 			cards.Add("LOOT_285", new Power {
-				// TODO [LOOT_285] Unidentified Shield && Test: Unidentified Shield_LOOT_285
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Unidentified Shield_LOOT_285
+				PowerTask = new ArmorTask(5),
+				Trigger = Triggers.RevealUnidentifiedItem
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2343,9 +2358,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Spend all your Armor. Deal that much damage to all minions.
 			// --------------------------------------------------------
 			cards.Add("LOOT_364", new Power {
-				// TODO [LOOT_364] Reckless Flurry && Test: Reckless Flurry_LOOT_364
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Reckless Flurry_LOOT_364
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ARMOR, EntityType.HERO),
+					new SetGameTagTask(GameTag.ARMOR, 0, EntityType.HERO),
+					new DamageNumberTask(EntityType.OP_MINIONS))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2371,9 +2388,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// --------------------------------------------------------
 			cards.Add("LOOT_044", new Power {
-				// TODO [LOOT_044] Bladed Gauntlet && Test: Bladed Gauntlet_LOOT_044
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Bladed Gauntlet_LOOT_044
+				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.SET, p => p.Controller.Hero.Armor)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -2390,9 +2406,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_380", new Power {
-				// TODO [LOOT_380] Woecleaver && Test: Woecleaver_LOOT_380
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Woecleaver_LOOT_380
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new RecruitTask()
+				}
 			});
 
 		}
@@ -2787,7 +2806,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_154", new Power {
-				// TODO [LOOT_154] Gravelsnout Knight && Test: Gravelsnout Knight_LOOT_154
 				PowerTask = ComplexTask.Create(
 					new RandomMinionTask(GameTag.COST, 1, opponent: true),
 					new SummonOpTask())
@@ -2826,11 +2844,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_167", new Power {
-				// TODO [LOOT_167] Fungalmancer && Test: Fungalmancer_LOOT_167
-				InfoCardId = "LOOT_167e",
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_167", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS_NOSOURCE),
+					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new AddEnchantmentTask("LOOT_167e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2887,21 +2906,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_233", new Power {
-				// TODO [LOOT_233] Cursed Disciple && Test: Cursed Disciple_LOOT_233
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_233", new Power
+			{
+				DeathrattleTask = new SummonTask("LOOT_233t", 1)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOOT_258] Dire Mole - COST:1 [ATK:1/HP:3] 
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("LOOT_258", new Power {
-				// TODO [LOOT_258] Dire Mole && Test: Dire Mole_LOOT_258
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("LOOT_258", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOOT_291] Shroom Brewer - COST:4 [ATK:4/HP:4] 
@@ -2915,10 +2929,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_291", new Power {
-				// TODO [LOOT_291] Shroom Brewer && Test: Shroom Brewer_LOOT_291
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_291", new Power
+			{
+				PowerTask = new HealTask(4, EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2932,11 +2945,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_315", new Power {
-				// TODO [LOOT_315] Trogg Gloomeater && Test: Trogg Gloomeater_LOOT_315
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("LOOT_315", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOOT_347] Kobold Apprentice - COST:3 [ATK:2/HP:1] 
@@ -2947,10 +2956,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_347", new Power {
-				// TODO [LOOT_347] Kobold Apprentice && Test: Kobold Apprentice_LOOT_347
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_347", new Power
+			{
+				PowerTask = new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3010,10 +3018,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_383", new Power {
-				// TODO [LOOT_383] Hungry Ettin && Test: Hungry Ettin_LOOT_383
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_383", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new RandomMinionTask(GameTag.COST, 2, opponent: true),
+					new SummonOpTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3025,10 +3034,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_388", new Power {
-				// TODO [LOOT_388] Fungal Enchanter && Test: Fungal Enchanter_LOOT_388
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_388", new Power
+			{
+				PowerTask = new HealTask(2, EntityType.FRIENDS)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3042,8 +3050,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_389", new Power {
 				// TODO [LOOT_389] Rummaging Kobold && Test: Rummaging Kobold_LOOT_389
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.GRAVEYARD),
+					new FilterStackTask(SelfCondition.IsWeapon, SelfCondition.IsDead),
+					new RandomTask(1, EntityType.STACK),
+					new CopyTask(EntityType.STACK, 1),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3053,10 +3065,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, summon a random
 			//       1-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("LOOT_394", new Power {
-				// TODO [LOOT_394] Shrieking Shroom && Test: Shrieking Shroom_LOOT_394
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_394", new Power
+			{
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = ComplexTask.Create(
+						new RandomMinionTask(GameTag.COST, 1),
+						new SummonTask())
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3079,9 +3095,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, cast a spell from your deck <i>(targets chosen randomly)</i>.
 			// --------------------------------------------------------
 			cards.Add("LOOT_414", new Power {
-				// TODO [LOOT_414] Grand Archivist && Test: Grand Archivist_LOOT_414
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsSpell, SelfCondition.HasProperTargetsInBoard),
+						new RandomTask(1, EntityType.STACK),
+						new RemoveFromDeck(EntityType.STACK),
+						new PlayTask(PlayType.SPELL, true))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3100,9 +3122,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_516", new Power {
-				// TODO [LOOT_516] Zola the Gorgon && Test: Zola the Gorgon_LOOT_516
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Zola the Gorgon_LOOT_516
+				PowerTask = ComplexTask.Create(
+					new CopyTask(EntityType.TARGET, 1),
+					new SetGameTagTask(GameTag.PREMIUM, 1, EntityType.STACK),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3155,10 +3179,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_529", new Power {
-				// TODO [LOOT_529] Void Ripper && Test: Void Ripper_LOOT_529
-				InfoCardId = "LOOT_529e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Void Ripper_LOOT_529
+				PowerTask = new SwapAttackHealthTask(EntityType.ALL_NOSOURCE, "LOOT_529e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3377,7 +3399,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_214e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOOT_214e")
+				Enchant = new Enchant(Effects.Immune)
+				{
+					IsOneTurnEffect = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3415,7 +3440,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOOT_278t1e")
 			});
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// -------------------------z--------- ENCHANTMENT - NEUTRAL
 			// [LOOT_278t2e] Pure (*) - COST:0 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
@@ -3483,9 +3508,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("LOOT_358e", new Power {
-				// TODO [LOOT_358e] Grumbly Tumbly && Test: Grumbly Tumbly_LOOT_358e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

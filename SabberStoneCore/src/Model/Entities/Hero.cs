@@ -88,9 +88,6 @@ namespace SabberStoneCore.Model.Entities
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");
 			Controller.GraveyardZone.Add(Weapon);
 
-			Weapon.ActivatedTrigger?.Remove();
-			Weapon.OngoingEffect?.Remove();
-
 			ClearWeapon();
 		}
 
@@ -99,6 +96,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public void ClearWeapon()
 		{
+			Weapon.ActivatedTrigger?.Remove();
+			Weapon.OngoingEffect?.Remove();
+			if (Weapon.AppliedEnchantments != null && Weapon[GameTag.KEEP_ENCHANTMENTS] != 1)
+				for (int i = Weapon.AppliedEnchantments.Count - 1; i >= 0; i--)
+					Weapon.AppliedEnchantments[i].Remove();
 			Weapon = null;
 			EquippedWeapon = 0;
 		}
