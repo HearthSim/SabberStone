@@ -2425,10 +2425,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack was swapped.
 			// --------------------------------------------------------
 			cards.Add("LOOT_528e", new Power {
-				Enchant = new Enchant(Effects.SetAttack(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.SetAttackScriptTag
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -3588,9 +3585,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack and Health have been swapped.
 			// --------------------------------------------------------
 			cards.Add("LOOT_529e", new Power {
-				// TODO [LOOT_529e] Void Shift && Test: Void Shift_LOOT_529e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

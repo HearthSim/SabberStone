@@ -1175,10 +1175,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion has double Health.
 			// --------------------------------------------------------
 			cards.Add("CS2_236e", new Power {
-				Enchant = new Enchant(GameTag.HEALTH, EffectOperator.ADD, 0)
-				{
-					UseScriptTag = true
-				}
+				Enchant = AddHealthScriptTag
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -2513,10 +2510,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("CS2_226e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0), Effects.Health_N(0))
-				{
-					UseScriptTag = true
-				}
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
