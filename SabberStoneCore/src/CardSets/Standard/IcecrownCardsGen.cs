@@ -1347,7 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_801", new Power {
-				PowerTask = ComplexTask.DrawFromDeck(SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion)
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1819,11 +1819,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_233", new Power {
 				PowerTask = ComplexTask.Create(
-					new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
-					new DamageNumberTask(EntityType.TARGET),
-					new CopyTask(EntityType.WEAPON, 1),
-					new MoveWeaponToSetaside(),
-					new AddStackTo(EntityType.HAND))
+					new IncludeTask(EntityType.WEAPON),
+					new IncludeTask(EntityType.TARGET, null, true),
+					new FuncPlayablesTask(list =>
+					{
+						var source = (Weapon) list[0];
+						var target = (Minion) list[1];
+						target.TakeDamage(source, source.AttackDamage);
+						source.Controller.Hero.ClearWeapon();
+						Generic.AddHandPhase(source.Controller, source);
+						return null;
+					}))
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -2087,9 +2093,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 Murlocs from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_089", new Power {
-				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.MURLOC)))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsRace(Race.MURLOC))
 			});
 
 			// ---------------------------------------- WEAPON - SHAMAN
@@ -2396,9 +2400,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 2 weapons from your deck.
 			// --------------------------------------------------------
 			cards.Add("ICC_281", new Power {
-				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsWeapon),
-					ComplexTask.DrawFromDeck(SelfCondition.IsWeapon))
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsWeapon)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR

@@ -60,7 +60,6 @@ namespace SabberStoneCore.Actions
 						PlayHero.Invoke(c, hero, target, chooseOne);
 						break;
 					case Minion minion:
-						Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
 						PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
 						break;
 					case Weapon weapon:
@@ -71,12 +70,10 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				if (target != null)
-					source.CardTarget = -1;
-
 				c.NumOptionsPlayedThisTurn++;
 
-				c.IsComboActive = true;
+				if (!c.IsComboActive)
+					c.IsComboActive = true;
 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
@@ -195,6 +192,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
 			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
+				Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
+
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
@@ -321,6 +320,7 @@ namespace SabberStoneCore.Actions
 					}
 
 					CastSpell.Invoke(c, spell, target, chooseOne);
+					c.Game.DeathProcessingAndAuraUpdate();
 				}
 				
 				// trigger After Play Phase

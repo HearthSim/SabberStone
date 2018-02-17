@@ -18,10 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			var list = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
-			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
-
-			Playables = list;
+			Playables = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
 			return TaskState.COMPLETE;
 		}
 

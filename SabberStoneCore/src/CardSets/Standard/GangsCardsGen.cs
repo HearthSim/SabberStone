@@ -555,7 +555,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 						new TransformTask("CFM_621_m5", EntityType.TARGET))))
 				}
@@ -743,11 +743,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_905", new Power
 			{
-				PowerTask =
-					new EnqueueTask(3,
-						ComplexTask.DrawFromDeck(SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsMinion))
+				PowerTask = ComplexTask.DrawFromDeck(3, SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsMinion)
 			});
-
 		}
 
 		private static void PaladinNonCollect(IDictionary<string, Power> cards)

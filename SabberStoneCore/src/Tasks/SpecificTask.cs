@@ -447,7 +447,7 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask ExplosiveRunes
 			=> ComplexTask.Create(
-				new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+				new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 				new FlagTask(true, ComplexTask.Secret(
 					new IncludeTask(EntityType.SOURCE),
 					new IncludeTask(EntityType.TARGET, null, true),

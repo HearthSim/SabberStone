@@ -13,7 +13,7 @@ namespace SabberStoneCore.Conditions
 	public class SelfCondition
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static readonly SelfCondition IsDead = new SelfCondition(me => me is ICharacter && me.ToBeDestroyed);
+		public static readonly SelfCondition IsDead = new SelfCondition(me => me.ToBeDestroyed);
 		public static readonly SelfCondition IsNotImmune = new SelfCondition(me => me is ICharacter && !((ICharacter)me).IsImmune);
 		public static readonly SelfCondition IsSilenced = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsSilenced);
 		public static readonly SelfCondition IsBoardFull = new SelfCondition(me => me.Controller.BoardZone.IsFull);
@@ -92,6 +92,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsRemaningManaFull = new SelfCondition(me => me.Controller.RemainingMana == 10);
 
 		public static readonly SelfCondition IsNotDead = new SelfCondition(me => me is ICharacter && !me.ToBeDestroyed);
+		public static readonly SelfCondition IsNotUntouchable = new SelfCondition(me => !me.Card.Untouchable);
 		public static readonly SelfCondition IsNotSilenced = new SelfCondition(me => me is ICharacter && !((ICharacter)me).IsSilenced);
 		public static readonly SelfCondition IsNotBoardFull = new SelfCondition(me => !me.Controller.BoardZone.IsFull);
 		public static readonly SelfCondition IsDurabilityOkay = new SelfCondition(me => me is Weapon && ((Weapon)me).Durability > 0);
@@ -191,6 +192,9 @@ namespace SabberStoneCore.Conditions
 												|| relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Count >= value
 												|| relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Count <= value);
 		}
+
+		public static readonly SelfCondition HasProperTargetsInBoard =
+			new SelfCondition(me => !me.Card.RequiresTarget || me.ValidPlayTargets.Any());
 
 		public static readonly SelfCondition IsHeroLethalPreDamaged
 			= new SelfCondition(me =>

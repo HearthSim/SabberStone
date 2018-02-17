@@ -859,7 +859,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 							new DamageTask(4, EntityType.TARGET, true))))
 				}
@@ -1231,7 +1231,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 							new CopyTask(EntityType.TARGET, 1),
 							new SummonTask(SummonSide.SPELL))))
@@ -2827,8 +2827,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_317", new Power {
 				//	TODO
 				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)),
-					ComplexTask.DrawFromDeck(SelfCondition.IsRace(Race.DEMON)))
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DEMON)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DEMON)))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
