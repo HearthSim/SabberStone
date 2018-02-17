@@ -53,7 +53,7 @@ namespace SabberStoneCore.Enchants
 			HofCardsGen.AddAll(_powerDic);
 			//NaxxCardsGen.AddAll(_powerDic);
 			//GvgCardsGen.AddAll(_powerDic);
-			//BrmCardsGen.AddAll(_powerDic);
+			BrmCardsGen.AddAll(_powerDic);
 			//TgtCardsGen.AddAll(_powerDic);
 			//LoeCardsGen.AddAll(_powerDic);
 

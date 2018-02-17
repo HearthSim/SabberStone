@@ -2,13 +2,11 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.CardSets.Undefined
+namespace SabberStoneCore.CardSets
 {
 	public class BrmCardsGen
 	{
@@ -468,9 +466,12 @@ namespace SabberStoneCore.CardSets.Undefined
 			cards.Add("BRM_019", new Power {
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
-					Condition = SelfCondition.IsNotDead,
+					//Condition = SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0),
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = new SummonTask("BRM_019", SummonSide.RIGHT)
+					SingleTask = ComplexTask.Create(
+                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
+                        new FlagTask(true,
+                        new SummonTask("BRM_019", SummonSide.RIGHT)))
 				}
 			});
 
@@ -621,9 +622,12 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_031", new Power {
-				// TODO [BRM_031] Chromaggus && Test: Chromaggus_BRM_031
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DRAW)
+				{
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.HAND))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -680,10 +684,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("BRM_012e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(0))
-				{
-					UseScriptTag = true
-				},
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

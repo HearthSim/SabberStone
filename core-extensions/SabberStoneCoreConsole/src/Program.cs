@@ -30,7 +30,7 @@ namespace SabberStoneCoreConsole
 			EntityChangeTest();
 
 			//BasicBuffTest();
-			//CardsTest();
+			CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -856,15 +856,17 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
+				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Silence"),
-					Cards.FromName("Power Word: Shield"),
-					Cards.FromName("Murloc Tinyfin"),
-					Cards.FromName("Power Word: Shield")
+					Cards.FromName("Grim Patron")
 				},
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Reckless Rocketeer"),
+				},
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -872,14 +874,16 @@ namespace SabberStoneCoreConsole
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Grim Patron"));
+			IPlayable grim = game.CurrentPlayer.BoardZone[0] as Minion;
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			IPlayable boar = game.CurrentPlayer.BoardZone[0] as Minion;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Reckless Rocketeer"));
+			IPlayable rocke = game.CurrentPlayer.BoardZone[1] as Minion;
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, boar, grim));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, rocke, grim));
+
 			ShowLog(game, LogLevel.VERBOSE);
 
 			Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
