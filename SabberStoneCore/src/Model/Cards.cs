@@ -44,7 +44,7 @@ namespace SabberStoneCore.Model
 			CardSet.ICECROWN,
 			CardSet.LOOTAPALOOZA,
 			// wild
-			//CardSet.BRM,
+			CardSet.BRM,
 			//CardSet.GVG,
 			CardSet.HOF,
 			//CardSet.NAXX,

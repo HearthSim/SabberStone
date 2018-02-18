@@ -846,7 +846,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HungryDragon_BRM_026()
 		{
 			// TODO HungryDragon_BRM_026 test
@@ -862,6 +862,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Hungry Dragon"));
+
+			game.ProcessCard("Hungry Dragon");
+
+			Assert.Single(game.CurrentOpponent.BoardZone);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone[0].Cost);
+			Assert.Equal(game.CurrentOpponent, game.CurrentOpponent.BoardZone[0].Controller);
+			Assert.Equal(game.CurrentOpponent.PlayerId, game.CurrentOpponent.BoardZone[0][GameTag.CONTROLLER]);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
