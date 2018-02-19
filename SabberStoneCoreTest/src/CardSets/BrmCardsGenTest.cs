@@ -753,6 +753,11 @@ namespace SabberStoneCoreTest.CardSets
 			//Assert.Equal(1, game.CurrentPlayer.HandZone.Triggers.Count);
 			Assert.Equal(4, ((Minion)testCard).AttackDamage);
 			Assert.Equal(8, ((Minion)testCard).Health);
+
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.ProcessCard("Power Word: Shield", target);
+			Assert.Equal(4, ((Minion)testCard).AttackDamage);
+			Assert.Equal(8, ((Minion)testCard).Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

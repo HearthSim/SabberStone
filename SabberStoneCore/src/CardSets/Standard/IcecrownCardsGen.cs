@@ -498,10 +498,11 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					Condition = new SelfCondition(p =>
-					{
-						return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
-					}),
+					//Condition = new SelfCondition(p =>
+					//{
+					//	return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
+					//}),
+					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p => p.Game.ProposedDefender),
 						new MemoryTask(EntityType.SOURCE),
@@ -1056,11 +1057,12 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_200", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
-					Condition = new SelfCondition(p =>
-					{
-						IPlayable target = p.Game.IdEntityDic[p.Game.ProposedDefender];
-						return target is Minion && target.Controller != p.Controller;
-					}),
+					//Condition = new SelfCondition(p =>
+					//{
+					//	IPlayable target = p.Game.IdEntityDic[p.Game.ProposedDefender];
+					//	return target is Minion && target.Controller != p.Controller;
+					//}),
+					Condition = SelfCondition.IsEventTargetIs(CardType.MINION),
 					SingleTask = ComplexTask.Secret(
 						new SummonTask("EX1_170"))
 				}
@@ -1783,7 +1785,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_201", new Power {
 				PowerTask = ComplexTask.RecursiveTask(
-					new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleMinion),
+					new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleCard),
 					new DrawTask(true))
 			});
 
@@ -2108,20 +2110,26 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_236", new Power {
 				// TODO: Should change all similar effects
 				// Actual log says the source of damage is the equipped weapon, not hero
+				//Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
+				//{
+				//	TriggerSource = TriggerSource.HERO,
+				//	// Don't like this condtion too... should make fields for proposed entities?
+				//	Condition = new SelfCondition(p =>
+				//	{
+				//		IPlayable target = p.Game.IdEntityDic[p.Game.ProposedDefender];
+				//		return target[GameTag.FROZEN] > 0;
+				//	}),
+				//	SingleTask = ComplexTask.Create(
+				//		new IncludeTask(EntityType.SOURCE),
+				//		new FuncPlayablesTask(p =>
+				//			new List<IPlayable> { p[0].Game.IdEntityDic[p[0].Game.ProposedDefender]}),
+				//		new DestroyTask(EntityType.STACK))
+				//}
 				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
 				{
 					TriggerSource = TriggerSource.HERO,
-					// Don't like this condtion too... should make fields for proposed entities?
-					Condition = new SelfCondition(p =>
-					{
-						IPlayable target = p.Game.IdEntityDic[p.Game.ProposedDefender];
-						return target[GameTag.FROZEN] > 0;
-					}),
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.SOURCE),
-						new FuncPlayablesTask(p =>
-							new List<IPlayable> { p[0].Game.IdEntityDic[p[0].Game.ProposedDefender]}),
-						new DestroyTask(EntityType.STACK))
+					Condition = new SelfCondition(p => p.Game.CurrentEventData.EventTarget[GameTag.FROZEN] > 0),
+					SingleTask = new DestroyTask(EntityType.EVENT_TARGET)
 				}
 			});
 
@@ -2333,11 +2341,10 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
+					Condition = SelfCondition.IsNotDead,
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
-						new FlagTask(true, ComplexTask.Create(
 						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
-						new SummonTask())))
+						new SummonTask())
 				}
 			});
 
@@ -2353,10 +2360,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
-						new FlagTask(true,
-						new SummonTask("ICC_900t")))
+					Condition = SelfCondition.IsNotDead,
+					SingleTask = new SummonTask("ICC_900t")
 				}
 			});
 
@@ -2453,7 +2458,8 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p =>
 						{
-							Minion target = (Minion) p.Game.IdEntityDic[p.Game.ProposedDefender];
+							//Minion target = (Minion) p.Game.IdEntityDic[p.Game.ProposedDefender];
+							Minion target = (Minion) p.Game.CurrentEventData.EventTarget;
 							foreach (Minion adjacent in target.GetAdjacentMinions())
 								adjacent.TakeDamage(p, p.Controller.Hero.AttackDamage);
 							return 0;

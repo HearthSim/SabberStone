@@ -34,6 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    public ChangeEntityTask(string cardId)
 	    {
 		    _card = Cards.FromId(cardId);
+		    _type = EntityType.SOURCE;
 	    }
 
 	    private ChangeEntityTask(EntityType et, CardType ct, CardClass cc, bool oc, Card c)

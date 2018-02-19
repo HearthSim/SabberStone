@@ -9,7 +9,7 @@ using SabberStoneCore.Tasks;
 namespace SabberStoneCore.Model
 {
 	public class TaskQueue
-	{ 
+	{	
 		private readonly Game _game;
 		private readonly Stack<Queue<ISimpleTask>> _eventStack;
 		private readonly Queue<ISimpleTask> _baseQueue;
@@ -136,8 +136,18 @@ namespace SabberStoneCore.Model
 		}
 	}
 
-	//public struct StackForTasks
-	//{
-	//	public
-	//}
+
+	internal class EventMetaData
+	{
+		public IPlayable EventSource;
+		public IPlayable EventTarget;
+		public int EventNumber;
+
+		public EventMetaData(IPlayable source, IPlayable target, int number = 0)
+		{
+			EventSource = source;
+			EventTarget = target;
+			EventNumber = number;
+		}
+	}
 }

@@ -584,10 +584,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LesserEmeraldSpellstone_LOOT_080()
 		{
-			// TODO LesserEmeraldSpellstone_LOOT_080 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -604,8 +603,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Emerald Spellstone"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Emerald Spellstone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Emerald Spellstone"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Emerald Spellstone"));
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Emerald Spellstone"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, skipPrePhase: true));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Twisting Nether", null, true);
+			game.ProcessCard("Freezing Trap", null, true);
+			Assert.Equal("Emerald Spellstone", testCard2.Card.Name);
+			Assert.Equal("Emerald Spellstone", testCard3.Card.Name);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, skipPrePhase: true));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Twisting Nether", null, true);
+			game.ProcessCard("Explosive Trap", null, true);
+			Assert.Equal("Greater Emerald Spellstone", testCard3.Card.Name);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard3, skipPrePhase: true));
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -985,18 +1003,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAG_SCRIPT_DATA_NUM_2 = 2
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LesserRubySpellstone_LOOT_103()
 		{
-			// TODO LesserRubySpellstone_LOOT_103 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Lesser Ruby Spellstone"),
-				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
 				FillDecks = true,
@@ -1005,8 +1018,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Ruby Spellstone"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Ruby Spellstone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Ruby Spellstone"));
+
+			game.ProcessCard("Arcane Artificer");
+			Assert.Equal("Lesser Ruby Spellstone", testCard.Card.Name);
+			game.ProcessCard("Arcane Artificer");
+			Assert.Equal("Ruby Spellstone", testCard.Card.Name);
+
+			game.ProcessCard("Arcane Artificer");
+			Assert.Equal("Ruby Spellstone", testCard.Card.Name);
+			game.ProcessCard("Arcane Artificer");
+			Assert.Equal("Greater Ruby Spellstone", testCard.Card.Name);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1347,10 +1369,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - HEALTH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LesserPearlSpellstone_LOOT_091()
 		{
-			// TODO LesserPearlSpellstone_LOOT_091 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1367,8 +1388,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Pearl Spellstone"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Pearl Spellstone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Pearl Spellstone"));
+
+			game.CurrentPlayer.Hero.Damage = 10;
+			game.ProcessCard("Benevolent Djinn");
+			game.EndTurn();
+			Assert.Equal("Pearl Spellstone", testCard.Card.Name);
+			game.EndTurn();
+			game.EndTurn();
+			Assert.Equal("Greater Pearl Spellstone", testCard.Card.Name);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -1868,10 +1896,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAG_SCRIPT_DATA_NUM_2 = 4
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LesserDiamondSpellstone_LOOT_507()
 		{
-			// TODO LesserDiamondSpellstone_LOOT_507 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1888,8 +1915,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Diamond Spellstone"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Diamond Spellstone"));
+
+			int i = 0;
+			do
+			{
+				if (game.CurrentPlayer.DeckZone[i] is Minion m)
+					game.CurrentPlayer.BoardZone.Add(game.CurrentPlayer.DeckZone.Remove(m));
+				i++;
+			} while (!game.CurrentPlayer.BoardZone.IsFull && i < 26);
+
+			game.ProcessCard("Twisting Nether", null, true);
+			game.ProcessCard("Twisting Nether", null, true);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Diamond Spellstone"));
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.NotEqual(game.CurrentPlayer.BoardZone[0].Card.Id, game.CurrentPlayer.BoardZone[1].Card.Id);
 		}
 
 		// ---------------------------------------- WEAPON - PRIEST
@@ -2220,7 +2261,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void Evasion_LOOT_214()
 		{
-			// TODO Evasion_LOOT_214 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3098,18 +3138,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LesserAmethystSpellstone_LOOT_043()
 		{
-			// TODO LesserAmethystSpellstone_LOOT_043 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Lesser Amethyst Spellstone"),
-				},
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
 				FillDecks = true,
@@ -3118,8 +3153,24 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Amethyst Spellstone"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lesser Amethyst Spellstone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Amethyst Spellstone"));
+
+			game.PlayHeroPower();
+
+			// should not react to the HeroPower
+			Assert.NotEqual("Amethyst Spellstone", testCard.Card.Name);
+
+			game.ProcessCard("Vulgar Homunculus");
+			Assert.Equal("Amethyst Spellstone", testCard.Card.Name);
+			game.EndTurn();
+
+			// should not react to opponent's damaging cards
+			game.ProcessCard("Soulfire", game.CurrentOpponent.Hero);
+			Assert.NotEqual("Greater Amethyst Spellstone", testCard.Card.Name);
+			game.EndTurn();
+
+			game.ProcessCard("Vulgar Homunculus");
+			Assert.Equal("Greater Amethyst Spellstone", testCard.Card.Name);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

@@ -1458,10 +1458,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_132", new Power {
-				Trigger = new Trigger(TriggerType.PREDAMAGE)
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = ComplexTask.Secret(
+						new GetEventNumberTask(),
 						new DamageNumberTask(EntityType.OP_HERO, true))
 				}
 			});
@@ -3271,6 +3272,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					IsOneTurnEffect = true,
 				},
+				// Actual Commaning Shout does not use trigger.
+				// Trigger implementation is introduced for performance;
+				// otherwise Sabber have to check Character[GameTag.HEALTH_MINIMUM]
+				// everytime when the character is damaged.
 				Trigger = new Trigger(TriggerType.PREDAMAGE)
 				{
 					TriggerSource = TriggerSource.ENCHANTMENT_TARGET,

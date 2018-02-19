@@ -19,18 +19,18 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, ICharacter, int, int, bool, bool> PlayCardBlock
 			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne, bool skipPrePhase)
 			{
+				// Preplay Phase : check the given source is playable
 				if (!skipPrePhase)
 					if (!PrePlayPhase.Invoke(c, source, target, zonePosition, chooseOne))
 						return false;
 
-				// play block
+				// Start play block
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
 
+				// Pay Phase
 				if (!PayPhase.Invoke(c, source))
-				{
 					return false;
-				}
 
 				// remove from hand zone
 				if (source is Spell)
@@ -39,7 +39,6 @@ namespace SabberStoneCore.Actions
 					return false;
 
 				c.NumCardsPlayedThisTurn++;
-
 				c.LastCardPlayed = source.Id;
 
 				//// show entity
@@ -49,6 +48,7 @@ namespace SabberStoneCore.Actions
 				// target is beeing set onto this gametag
 				if (target != null)
 				{
+					c.Game.CurrentEventData = new EventMetaData(source, target);
 					source.CardTarget = target.Id;
 					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				}
@@ -77,6 +77,8 @@ namespace SabberStoneCore.Actions
 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+				c.Game.CurrentEventData = null;
 
 				return true;
 			};
@@ -133,7 +135,9 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Hero, ICharacter, int, bool> PlayHero
 			=> delegate (Controller c, Hero hero, ICharacter target, int chooseOne)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !c.Game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
+				Game game = c.Game;
+
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
 
 				Hero oldHero = c.Hero;
@@ -159,32 +163,32 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 				OnPlayTrigger.Invoke(c, hero);
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 				hero.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
 				{
 					hero.ActivateTask(PowerActivation.POWER, target);
 				}
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//hero.JustPlayed = false;
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterPlayCardTrigger(hero);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(hero);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};
@@ -192,9 +196,11 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
 			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
-				Trigger.ValidateTriggers(c.Game, minion, SequenceType.PlayMinion);
+				Game game = c.Game;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
+				Trigger.ValidateTriggers(game, minion, SequenceType.PlayMinion);
+
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
 
 				c.NumMinionsPlayedThisTurn++;
@@ -206,30 +212,30 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnPlayMinionTrigger(minion);
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnPlayMinionTrigger(minion);
 				OnPlayTrigger.Invoke(c, minion);
 
 				// - Summon Resolution Step (Work in Process)
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnSummonTrigger(minion);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnSummonTrigger(minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
 				// Noggenfogger here
 				if (target != null)
 				{
-					c.Game.TaskQueue.StartEvent();
-					c.Game.TriggerManager.OnTargetTrigger(minion);
-					c.Game.ProcessTasks();
-					c.Game.TaskQueue.EndEvent();
+					game.TaskQueue.StartEvent();
+					game.TriggerManager.OnTargetTrigger(minion);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
 					if (minion.CardTarget != target.Id)
-						target = (ICharacter)c.Game.IdEntityDic[minion.CardTarget];
+						target = (ICharacter)game.IdEntityDic[minion.CardTarget];
 				}
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 				if (minion.Combo && c.IsComboActive)
 					minion.ActivateTask(PowerActivation.COMBO, target);
 				else
@@ -240,28 +246,28 @@ namespace SabberStoneCore.Actions
 				{
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//minion.JustPlayed = false;
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterPlayMinionTrigger(minion);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayMinionTrigger(minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
 				// - After Summon Phase --> After Summon Trigger
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterPlayCardTrigger(minion);
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(minion);
 				AfterSummonTrigger.Invoke(c, minion);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				switch (minion.Race)
 				{
@@ -279,9 +285,10 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
 			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
-				Trigger.ValidateTriggers(c.Game, spell, SequenceType.PlaySpell);
+				Game game = c.Game;
+				Trigger.ValidateTriggers(game, spell, SequenceType.PlaySpell);
 
-				if (c.Game.History)
+				if (game.History)
 				{
 					if (spell.IsSecret || spell.IsQuest)
 						spell[GameTag.ZONE] = (int)Zone.SECRET;
@@ -291,16 +298,16 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnCastSpellTrigger(spell);
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnCastSpellTrigger(spell);
 				OnPlayTrigger.Invoke(c, spell);
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
 				// check the spell is countered
 				if (spell.IsCountered)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"Spell {spell} has been countred.");
+					game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !game.Logging ? "" : $"Spell {spell} has been countred.");
 					c.GraveyardZone.Add(spell);
 				}
 				else
@@ -308,30 +315,30 @@ namespace SabberStoneCore.Actions
 					// check Spellbender and Mayor Noggenfogger
 					if (target != null)
 					{
-						c.Game.TaskQueue.StartEvent();
-						c.Game.TriggerManager.OnTargetTrigger(spell);
-						c.Game.ProcessTasks();
-						c.Game.TaskQueue.EndEvent();
+						game.TaskQueue.StartEvent();
+						game.TriggerManager.OnTargetTrigger(spell);
+						game.ProcessTasks();
+						game.TaskQueue.EndEvent();
 						if (target.Id != spell.CardTarget)
 						{
 							target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
-							c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging ? "" : $"trigger Spellbender Phase. Target of {spell} is changed to {target}.");
+							game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !game.Logging ? "" : $"trigger Spellbender Phase. Target of {spell} is changed to {target}.");
 						}
 					}
 
 					CastSpell.Invoke(c, spell, target, chooseOne);
-					c.Game.DeathProcessingAndAuraUpdate();
+					game.DeathProcessingAndAuraUpdate();
 				}
 				
 				// trigger After Play Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterCastTrigger(spell);
-				c.Game.TriggerManager.OnAfterPlayCardTrigger(spell);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !game.Logging? "":"trigger After Play Phase");
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterCastTrigger(spell);
+				game.TriggerManager.OnAfterPlayCardTrigger(spell);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				c.NumSpellsPlayedThisGame++;
 				if (spell.IsSecret)
@@ -345,7 +352,9 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Weapon, ICharacter, int, bool> PlayWeapon
 			=> delegate (Controller c, Weapon weapon, ICharacter target, int chooseOne)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
+				Game game = c.Game;
+
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 				//Weapon oldWeapon = c.Hero.Weapon;
 
 				//if (oldWeapon != null)
@@ -355,7 +364,7 @@ namespace SabberStoneCore.Actions
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
-				c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 				OnPlayTrigger.Invoke(c, weapon);
 
 				weapon.Card.Power?.Aura?.Activate(weapon);
@@ -364,41 +373,41 @@ namespace SabberStoneCore.Actions
 
 				if (target != null)
 				{
-					c.Game.TaskQueue.StartEvent();
-					c.Game.TriggerManager.OnTargetTrigger(weapon);
-					c.Game.ProcessTasks();
-					c.Game.TaskQueue.EndEvent();
+					game.TaskQueue.StartEvent();
+					game.TriggerManager.OnTargetTrigger(weapon);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
 					if (target.Id != weapon.CardTarget)
 						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
 				}
 
 				// activate battlecry
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, weapon.Id, "", -1, 0));
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, weapon.Id, "", -1, 0));
 
-				c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 				weapon.ActivateTask(PowerActivation.POWER, target);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				//if (oldWeapon != null)
 				//	//TODO
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 
 				c.NumWeaponsPlayedThisGame++;
 
 				// trigger After Play Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterPlayCardTrigger(weapon);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !game.Logging? "":"trigger After Play Phase");
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(weapon);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};

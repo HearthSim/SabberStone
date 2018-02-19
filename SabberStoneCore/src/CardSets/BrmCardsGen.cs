@@ -468,12 +468,9 @@ namespace SabberStoneCore.CardSets
 			cards.Add("BRM_019", new Power {
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
-					//Condition = SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0),
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
-                        new FlagTask(true,
-                        new SummonTask("BRM_019", SummonSide.RIGHT)))
+					Condition = SelfCondition.IsNotDead,
+					SingleTask = new SummonTask("BRM_019", SummonSide.RIGHT),
 				}
 			});
 
@@ -484,13 +481,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("BRM_020", new Power {
-				// TODO [BRM_020] Dragonkin Sorcerer && Test: Dragonkin Sorcerer_BRM_020
-				//Trigger = new Trigger(TriggerType.CAST_SPELL)
-				//{
-				//	Condition = SelfCondition.TargetIsMe,
-				//	TriggerSource = TriggerSource.FRIENDLY,
-				//	SingleTask = new AddEnchantmentTask("BRM_020e", EntityType.SOURCE)
-				//}
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+					SingleTask = new AddEnchantmentTask("BRM_020e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

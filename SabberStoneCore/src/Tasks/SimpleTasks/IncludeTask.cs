@@ -134,7 +134,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <summary>
 		/// The Controller entity of the player
 		/// </summary>
-		CONTROLLER
+		CONTROLLER,
+		/// <summary>
+		/// The Target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed character)
+		/// </summary>
+		EVENT_TARGET,
+		/// <summary>
+		/// The Source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
+		/// </summary>
+		EVENT_SOURCE
 	}
 
 	public class IncludeTask : SimpleTask
@@ -327,7 +335,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return c.DeckZone.Count > 0 ? new[] {c.DeckZone.TopCard} : new IPlayable[0];
 				case EntityType.OP_TOPDECK:
 					return c.Opponent.DeckZone.Count > 0 ? new[] {c.Opponent.DeckZone.TopCard} : new IPlayable[0];
-
+				case EntityType.EVENT_SOURCE:
+					return c.Game.CurrentEventData != null ? new[] {c.Game.CurrentEventData.EventSource} : new IPlayable[0];
+				case EntityType.EVENT_TARGET:
+					return c.Game.CurrentEventData != null ? new[] { c.Game.CurrentEventData.EventTarget} : new IPlayable[0];
 				default:
 					throw new NotImplementedException();
 			}

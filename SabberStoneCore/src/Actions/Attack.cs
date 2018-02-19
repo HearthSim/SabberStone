@@ -21,6 +21,7 @@ namespace SabberStoneCore.Actions
 
 					c.Game.ProposedAttacker = source.Id;
 					c.Game.ProposedDefender = target.Id;
+					c.Game.CurrentEventData = new EventMetaData(source, target);
 				}
 				else if (!PreAttackPhase.Invoke(c, source, target))
 					return false;
@@ -31,6 +32,7 @@ namespace SabberStoneCore.Actions
 					if (c.Game.History)
 						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 					c.Game.DeathProcessingAndAuraUpdate();
+					c.Game.CurrentEventData = null;
 					return false;
 				}
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
@@ -40,6 +42,7 @@ namespace SabberStoneCore.Actions
 					if (c.Game.History)
 						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 					c.Game.DeathProcessingAndAuraUpdate();
+					c.Game.CurrentEventData = null;
 					return false;
 				}
 				// end block
@@ -53,6 +56,7 @@ namespace SabberStoneCore.Actions
 
 
 				c.Game.DeathProcessingAndAuraUpdate();
+				c.Game.CurrentEventData = null;
 				c.Game.NextStep = Step.MAIN_ACTION;
 
 				return true;
@@ -88,6 +92,7 @@ namespace SabberStoneCore.Actions
 				// TODO need to be manipulated for 50% chance to attack  someone else 
 				c.Game.ProposedAttacker = source.Id;
 				c.Game.ProposedDefender = target.Id;
+				c.Game.CurrentEventData = new EventMetaData(source, target);
 
 				return true;
 			};
@@ -115,25 +120,29 @@ namespace SabberStoneCore.Actions
 		private static Func<Controller, ICharacter, bool> AttackPhase
 			=> delegate (Controller c, ICharacter source)
 			{
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnTargetTrigger(source);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				Game game = c.Game;
+
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnTargetTrigger(source);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
 				var hero = source as Hero;
 				var minion = source as Minion;
-				if (!c.Game.IdEntityDic.TryGetValue(c.Game.ProposedDefender, out IPlayable proposedDefender))
-				{
-					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":"target wasn't found by proposed defender call.");
-					source.IsAttacking = false;
-					source.IsDefending = false;
-					return false;
-				}
+				//if (!game.IdEntityDic.TryGetValue(game.ProposedDefender, out IPlayable proposedDefender))
+				//{
+				//	game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":"target wasn't found by proposed defender call.");
+				//	source.IsAttacking = false;
+				//	source.IsDefending = false;
+				//	return false;
+				//}
 
-				var target = (ICharacter)proposedDefender;
+				//var target = (ICharacter)proposedDefender;
+
+				var target = (ICharacter) game.CurrentEventData.EventTarget;
 
 				// Force the game into MAIN_COMBAT step!
-				c.Game.Step = Step.MAIN_COMBAT;
+				game.Step = Step.MAIN_COMBAT;
 
 				// Save defender's attack as it might change after being damaged (e.g. enrage)
 				var targetHero = target as Hero;
@@ -146,21 +155,21 @@ namespace SabberStoneCore.Actions
 				//// lifesteal attacker
 				//if (targetDamaged && source.HasLifeSteal)
 				//{
-				//	c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"lifesteal attacker has damaged target for {targetRealDamage}.");
+				//	game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"lifesteal attacker has damaged target for {targetRealDamage}.");
 				//	c.Hero.TakeHeal(source, targetRealDamage);
 				//}
 
 				// freeze target if attacker is freezer
 				if (targetDamaged && minion != null && minion.Freeze)
 				{
-					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"freezer attacker has frozen target.");
+					game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"freezer attacker has frozen target.");
 					target.IsFrozen = true;
 				}
 
 				// destroy target if attacker is poisonous
 				if (targetDamaged && targetHero == null && (minion != null && minion.Poisonous || hero?.Weapon != null && hero.Weapon.Poisonous) && !target.ToBeDestroyed)
 				{
-					c.Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"poisonous attacker has destroyed target.");
+					game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"poisonous attacker has destroyed target.");
 					target.Destroy();
 				}
 
@@ -214,11 +223,11 @@ namespace SabberStoneCore.Actions
 				if (source.NumAttacksThisTurn > 0 && !source.HasWindfury ||
 					source.NumAttacksThisTurn > 1 && source.HasWindfury)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"{source} is now exhausted.");
+					game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"{source} is now exhausted.");
 					source.IsExhausted = true;
 				}
 
-				c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !c.Game.Logging? "":$"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
+				game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
 						$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}attacked " +
 						$"{target}[ATK:{target.AttackDamage}/HP:{target.Health}].");
 				return true;

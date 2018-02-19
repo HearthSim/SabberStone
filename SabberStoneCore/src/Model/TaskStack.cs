@@ -7,9 +7,6 @@ namespace SabberStoneCore.Model
 {
 	public class TaskStack
 	{
-		private IPlayable _damageSource;
-		private IPlayable _damageTarget;
-
 		public Game Game { get; set; }
 
 		public Controller Controller { get; set; }
@@ -26,17 +23,17 @@ namespace SabberStoneCore.Model
 			Game = game;
 		}
 
-		public void SetDamageMetaData(IPlayable source, IPlayable target)
-		{
-			_damageSource = source;
-			_damageTarget = target;
-		}
+		//public void SetDamageMetaData(IPlayable source, IPlayable target)
+		//{
+		//	_damageSource = source;
+		//	_damageTarget = target;
+		//}
 
-		public void ResetDamageMetaData()
-		{
-			_damageSource = null;
-			_damageTarget = null;
-		}
+		//public void ResetDamageMetaData()
+		//{
+		//	_damageSource = null;
+		//	_damageTarget = null;
+		//}
 
 		public void Reset()
 		{

@@ -72,6 +72,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
 
+		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
 		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
 		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
 
@@ -103,8 +104,8 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsMyTurn = new SelfCondition(me => me.Controller == me.Game.CurrentPlayer);
 		public static readonly SelfCondition IsSecretOrQuestActive = new SelfCondition(me => me.Zone.Type == Zone.SECRET);
 		public static readonly SelfCondition IsQuestDone = new SelfCondition(me => me[GameTag.QUEST_PROGRESS] == me[GameTag.QUEST_PROGRESS_TOTAL]);
-		public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[me.Game.ProposedDefender].Card.Type == cardType);
-		public static SelfCondition IsHeroProposedDefender(CardType cardType) => new SelfCondition(me => me is Hero && me.Game.IdEntityDic.ContainsKey(me.Game.ProposedDefender) && me.Game.IdEntityDic[me.Game.ProposedDefender].Card.Type == cardType);
+		//public static SelfCondition IsProposedDefender(CardType cardType) => new SelfCondition(me => me is ICharacter && me.Game.IdEntityDic[me.Game.ProposedDefender].Card.Type == cardType);
+		public static SelfCondition IsProposedDefender(CardType cardType) => IsEventTargetIs(cardType);
 
 		public static readonly SelfCondition HasLessHandCardsThenOp = new SelfCondition(me => me.Controller.HandZone.Count < me.Controller.Opponent.HandZone.Count);
 
@@ -206,6 +207,21 @@ namespace SabberStoneCore.Conditions
 				}
 				return hero.PreDamage > 0 && hero.PreDamage >= hero.Health;
 			});
+
+		public static SelfCondition IsEventTargetIs(CardType type)
+		{
+			return new SelfCondition(p => p.Game.CurrentEventData?.EventTarget.Card.Type == type);
+		}
+
+		public static SelfCondition IsEventTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
+		{
+			return new SelfCondition(p => relaSign == RelaSign.EQ ? p.Game.CurrentEventData.EventTarget?[tag] == value :
+				relaSign == RelaSign.GEQ ? p.Game.CurrentEventData.EventTarget?[tag] >= value :
+				p.Game.CurrentEventData.EventTarget?[tag] <= value);
+		}
+
+		public static readonly SelfCondition IsDefenderDead =
+			new SelfCondition(p => p.Game.CurrentEventData?.EventTarget.ToBeDestroyed ?? false);
 
 		public static SelfCondition IsStep(Step step)
 		{
