@@ -10,6 +10,9 @@ using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
+	/// <summary>
+	/// Class to store attributes of the <see cref="Power"/> of an Enchantment Card.
+	/// </summary>
 	public class Enchant
 	{
 		public static readonly Trigger RemoveWhenPlayedTrigger =
@@ -23,8 +26,10 @@ namespace SabberStoneCore.Enchants
 
 		public readonly Effect[] Effects;
 	    public bool UseScriptTag;
-		
-	    public Enchant(GameTag tag, EffectOperator @operator, int value)
+		public bool IsOneTurnEffect;
+		public bool RemoveWhenPlayed;
+
+		public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
 		    Effects = new[] {new Effect(tag, @operator, value)};
 	    }
@@ -35,7 +40,7 @@ namespace SabberStoneCore.Enchants
 	    }
 
 		/// <summary>
-		/// Create an Enchant using Number value in the stack
+		/// Create an Enchant that uses the Number value in the stack.
 		/// </summary>
 		public Enchant(GameTag tag, EffectOperator @operator)
 		{
@@ -43,11 +48,13 @@ namespace SabberStoneCore.Enchants
 			UseScriptTag = true;
 		}
 
-
-		public bool IsOneTurnEffect { get; set; }
-
-		public bool RemoveWhenPlayed { get; set; }
-
+		/// <summary>
+		/// Apply this Enchant's <see cref="Effect"/>s to the given entity.
+		/// </summary>
+		/// <param name="entity">The target entity.</param>
+		/// <param name="enchantment">The indicator <see cref="Enchantment"/> entity. Can be null.</param>
+		/// <param name="num1">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_1.</param>
+		/// <param name="num2">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_2.</param>
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
 			if (!UseScriptTag)

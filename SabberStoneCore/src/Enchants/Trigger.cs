@@ -99,7 +99,7 @@ namespace SabberStoneCore.Enchants
 		public void Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
-				return;
+				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
 			if (activation != TriggerActivation)
 			{
@@ -127,9 +127,14 @@ namespace SabberStoneCore.Enchants
 					if (TriggerSource == TriggerSource.SELF)
 					{
 						if (source is Minion m)
-							m.PreDamageTrigger += instance.Process;
+							m.TakeDamageTrigger += instance.Process;
 						else
 							throw new NotImplementedException();
+						break;
+					}
+					if (TriggerSource == TriggerSource.HERO)
+					{
+						source.Controller.Hero.TakeDamageTrigger += instance.Process;
 						break;
 					}
 					source.Game.TriggerManager.DamageTrigger += instance.Process;
@@ -257,7 +262,10 @@ namespace SabberStoneCore.Enchants
 		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is triggered by {source}.");
 
-		    if (FastExecution)
+		    if (RemoveAfterTriggered)
+			    Remove();
+
+			if (FastExecution)
 			    Game.TaskQueue.Execute(SingleTask, _owner.Controller, _owner,
 				    source is IPlayable ? (IPlayable)source
 										: _owner is Enchantment ew && ew.Target is IPlayable p ? p
@@ -274,9 +282,6 @@ namespace SabberStoneCore.Enchants
 
 			    Game.TaskQueue.Enqueue(taskInstance);
 		    }
-
-		    if (RemoveAfterTriggered)
-			    Remove();
 
 		    Validated = false;
 		}
@@ -295,9 +300,14 @@ namespace SabberStoneCore.Enchants
 					if (TriggerSource == TriggerSource.SELF)
 					{
 						if (_owner is Minion m)
-							m.PreDamageTrigger -= Process;
+							m.TakeDamageTrigger -= Process;
 						else
 							throw new NotImplementedException();
+						break;
+					}
+					if (TriggerSource == TriggerSource.HERO)
+					{
+						_owner.Controller.Hero.TakeDamageTrigger -= Process;
 						break;
 					}
 					Game.TriggerManager.DamageTrigger -= Process;
@@ -494,6 +504,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerSource.HERO_POWER:
 					if (!(source is HeroPower hp) || hp.Controller != source.Controller) return;
 					break;
+				case TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER:
+					if (!(source is Spell) || source.Controller.Id != _controllerId || Game.CurrentEventData.EventTarget != _owner) return;
+					break;
 			}
 
 		    //bool extra = false;
@@ -522,5 +535,10 @@ namespace SabberStoneCore.Enchants
 
 		    Validated = true;
 	    }
+
+		public override string ToString()
+		{
+			return $"{{Owner:{_owner}}}[Type:{_triggerType}]";
+		}
 	}
 }

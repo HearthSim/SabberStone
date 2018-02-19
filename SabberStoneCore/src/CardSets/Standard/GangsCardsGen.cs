@@ -267,7 +267,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Minion),
+					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Minion),
+					Condition = SelfCondition.IsEventTargetIs(CardType.MINION),
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 						new DamageNumberTask(EntityType.OP_HERO))
@@ -1002,7 +1003,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = new SetGameTagTask(GameTag.STEALTH, 1, EntityType.SOURCE)
 				}
 			});
@@ -1241,7 +1243,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Hero),
+					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Hero),
+					Condition = SelfCondition.IsEventTargetIs(CardType.HERO),
 					SingleTask = new TransformMinionTask(EntityType.SOURCE, 2)
 				}
 			});
@@ -1710,7 +1713,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.SELF,
 					Condition = new SelfCondition(
 						p => !p.ToBeDestroyed
-						     && p.Game.IdEntityDic[p.Game.ProposedDefender] is Minion),
+						     && p.Game.CurrentEventData.EventTarget is Minion),
 					SingleTask = new DrawTask()
 				}
 			});
@@ -1910,7 +1913,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
+					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace))
 				}
 			});

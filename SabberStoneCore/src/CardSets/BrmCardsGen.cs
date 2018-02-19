@@ -206,7 +206,7 @@ namespace SabberStoneCore.CardSets
 				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
 					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
 					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
-				PowerTask =ComplexTask.Create(
+				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true))
 			});
 
@@ -450,7 +450,9 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("BRM_015", new Power {
 				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ))),
+					new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
+					new FlagTask(true, new DamageTask(3, EntityType.ALLMINIONS, true)),
+					new FlagTask(false, new DamageTask(1, EntityType.ALLMINIONS, true)))
 			});
 
 		}
@@ -466,12 +468,9 @@ namespace SabberStoneCore.CardSets
 			cards.Add("BRM_019", new Power {
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
-					//Condition = SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0),
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = ComplexTask.Create(
-                        new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotDead),
-                        new FlagTask(true,
-                        new SummonTask("BRM_019", SummonSide.RIGHT)))
+					Condition = SelfCondition.IsNotDead,
+					SingleTask = new SummonTask("BRM_019", SummonSide.RIGHT),
 				}
 			});
 
@@ -482,13 +481,11 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("BRM_020", new Power {
-				// TODO [BRM_020] Dragonkin Sorcerer && Test: Dragonkin Sorcerer_BRM_020
-				//Trigger = new Trigger(TriggerType.CAST_SPELL)
-				//{
-				//	Condition = SelfCondition.TargetIsMe,
-				//	TriggerSource = TriggerSource.FRIENDLY,
-				//	SingleTask = new AddEnchantmentTask("BRM_020e", EntityType.SOURCE)
-				//}
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+					SingleTask = new AddEnchantmentTask("BRM_020e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -543,7 +540,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("BRM_026", new Power {
 				PowerTask = ComplexTask.Create(
-					new RandomMinionTask(GameTag.COST, 1),
+					new RandomMinionTask(GameTag.COST, 1, opponent: true),
 					new SummonOpTask()),
 			});
 
@@ -624,6 +621,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("BRM_031", new Power {
 				Trigger = new Trigger(TriggerType.DRAW)
 				{
+					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, 1),
 						new AddStackTo(EntityType.HAND))
@@ -749,9 +747,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_030t", new Power {
-				// TODO [BRM_030t] Tail Swipe && Test: Tail Swipe_BRM_030t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(4, EntityType.TARGET, true)
 			});
 
 		}

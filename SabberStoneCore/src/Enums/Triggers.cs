@@ -83,7 +83,8 @@ namespace SabberStoneCore.Enums
 		OP_HERO,
 		ENCHANTMENT_TARGET,
 		WEAPON,
-		HERO_POWER
+		HERO_POWER,
+		FRIENDLY_SPELL_CASTED_ON_THE_OWNER
 	}
 
 	public enum TriggerActivation

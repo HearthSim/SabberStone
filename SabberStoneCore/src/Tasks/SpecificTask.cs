@@ -467,6 +467,21 @@ namespace SabberStoneCore.Tasks
 						return null;
 					}))));
 
+		public static ISimpleTask DiamondSpellstone(int i)
+		{
+			return ComplexTask.Create(
+				new IncludeTask(EntityType.GRAVEYARD),
+				new FuncPlayablesTask(list => list
+					.Where(p => p is Minion && p.ToBeDestroyed)
+					.Select(p => p.Card.Id)
+					.Distinct()
+					.OrderBy(p => Util.Random)
+					.Take(i)
+					.Select(p => Entity.FromCard(list[0].Controller, Cards.FromId(p)))
+					.ToList()),
+				new SummonStackTask());
+		}
+
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");

@@ -273,7 +273,8 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new FuncNumberTask(p =>
 						{
-							Minion target = (Minion)p.Game.IdEntityDic[p.Game.ProposedDefender];
+							//Minion target = (Minion)p.Game.IdEntityDic[p.Game.ProposedDefender];
+							Minion target = (Minion)p.Game.CurrentEventData.EventTarget;
 							foreach (Minion adjacent in target.GetAdjacentMinions())
 								adjacent.TakeDamage(p, ((Minion)p).AttackDamage);
 							return 0;
@@ -368,9 +369,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_080", new Power {
-				// TODO [LOOT_080] Lesser Emerald Spellstone && Test: Lesser Emerald Spellstone_LOOT_080
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("LOOT_077t", 2),
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsSecret,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = new ChangeEntityTask("LOOT_080t2"),
+					RemoveAfterTriggered = true
+				}
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -487,10 +494,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_080t2", new Power {
-				// TODO [LOOT_080t2] Emerald Spellstone && Test: Emerald Spellstone_LOOT_080t2
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("LOOT_080t2", new Power
+			{
+				PowerTask = new SummonTask("LOOT_077t", 3),
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsSecret,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = new ChangeEntityTask("LOOT_080t3"),
+					RemoveAfterTriggered = true
+				}
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -499,7 +513,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Summon four 3/3_Wolves.
 			// --------------------------------------------------------
-			cards.Add("LOOT_080t3", new Power {
+			cards.Add("LOOT_080t3", new Power
+			{
 				PowerTask = new SummonTask("LOOT_077t", 4)
 			});
 
@@ -599,9 +614,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_SCRIPT_DATA_NUM_2 = 2
 			// --------------------------------------------------------
 			cards.Add("LOOT_103", new Power {
-				// TODO [LOOT_103] Lesser Ruby Spellstone && Test: Lesser Ruby Spellstone_LOOT_103
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+					new AddStackTo(EntityType.HAND)),
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					Condition = SelfCondition.IsRace(Race.ELEMENTAL),
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_103t1")
+				}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -713,9 +734,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_SCRIPT_DATA_NUM_2 = 2
 			// --------------------------------------------------------
 			cards.Add("LOOT_103t1", new Power {
-				// TODO [LOOT_103t1] Ruby Spellstone && Test: Ruby Spellstone_LOOT_103t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(2, ComplexTask.Create(
+					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+					new AddStackTo(EntityType.HAND))),
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					Condition = SelfCondition.IsRace(Race.ELEMENTAL),
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_103t2")
+					//SingleTask = ComplexTask.Create(
+					//	new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+					//	new NumberConditionTask(0, RelaSign.EQ),    //	is NUM_1 is equal to 0 ?
+					//	new FlagTask(true, new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 1, EntityType.SOURCE)),
+					//	new FlagTask(false, ComplexTask.Create(
+					//		new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+					//		new ChangeEntityTask("LOOT_103t2"))))
+				}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -725,9 +759,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add 3 random Mage spells to your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOT_103t2", new Power {
-				// TODO [LOOT_103t2] Greater Ruby Spellstone && Test: Greater Ruby Spellstone_LOOT_103t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(3, ComplexTask.Create(
+					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+					new AddStackTo(EntityType.HAND)))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -844,9 +878,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_091", new Power {
-				// TODO [LOOT_091] Lesser Pearl Spellstone && Test: Lesser Pearl Spellstone_LOOT_091
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("LOOT_091t"),
+				Trigger = new Trigger(TriggerType.HEAL)
+				{
+					TriggerSource = TriggerSource.HERO,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+						new GetEventNumberTask(1),
+						new MathNumberIndexTask(0, 1, MathOperation.ADD),
+						new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+						new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+						new NumberConditionTask(RelaSign.GEQ),
+						new FlagTask(true, ComplexTask.Create(
+							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+							new ChangeEntityTask("LOOT_091t1"))))
+				}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -972,9 +1019,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_091t1", new Power {
-				// TODO [LOOT_091t1] Pearl Spellstone && Test: Pearl Spellstone_LOOT_091t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("LOOT_091t1t"),
+				Trigger = new Trigger(TriggerType.HEAL)
+				{
+					TriggerSource = TriggerSource.HERO,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+						new GetEventNumberTask(1),
+						new MathNumberIndexTask(0, 1, MathOperation.ADD),
+						new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+						new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+						new NumberConditionTask(RelaSign.GEQ),
+						new FlagTask(true, ComplexTask.Create(
+							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+							new ChangeEntityTask("LOOT_091t2"))))
+				}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -987,9 +1047,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_091t2", new Power {
-				// TODO [LOOT_091t2] Greater Pearl Spellstone && Test: Greater Pearl Spellstone_LOOT_091t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("LOOT_091t2t")
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1219,8 +1277,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_507", new Power {
 				// TODO [LOOT_507] Lesser Diamond Spellstone && Test: Lesser Diamond Spellstone_LOOT_507
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.DiamondSpellstone(2),
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_507t")
+				}
 			});
 
 			// ---------------------------------------- WEAPON - PRIEST
@@ -1346,9 +1408,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_SCRIPT_DATA_NUM_2 = 4
 			// --------------------------------------------------------
 			cards.Add("LOOT_507t", new Power {
-				// TODO [LOOT_507t] Diamond Spellstone && Test: Diamond Spellstone_LOOT_507t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.DiamondSpellstone(3),
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_507t2")
+				}
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1358,9 +1423,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Resurrect 4 different friendly minions.
 			// --------------------------------------------------------
 			cards.Add("LOOT_507t2", new Power {
-				// TODO [LOOT_507t2] Greater Diamond Spellstone && Test: Greater Diamond Spellstone_LOOT_507t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.DiamondSpellstone(4)
 			});
 
 		}
@@ -1535,9 +1598,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_503", new Power {
-				// TODO [LOOT_503] Lesser Onyx Spellstone && Test: Lesser Onyx Spellstone_LOOT_503
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Lesser Onyx Spellstone_LOOT_503
+				PowerTask = ComplexTask.Create(
+					new RandomTask(1, EntityType.OP_MINIONS),
+					new DestroyTask(EntityType.STACK)),
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsDeathrattleCard,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_503t")
+				}
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1627,9 +1697,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_503t", new Power {
-				// TODO [LOOT_503t] Onyx Spellstone && Test: Onyx Spellstone_LOOT_503t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomTask(2, EntityType.OP_MINIONS),
+					new DestroyTask(EntityType.STACK)),
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsDeathrattleCard,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_503t2")
+				}
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1642,9 +1718,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_503t2", new Power {
-				// TODO [LOOT_503t2] Greater Onyx Spellstone && Test: Greater Onyx Spellstone_LOOT_503t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomTask(3, EntityType.OP_MINIONS),
+					new DestroyTask(EntityType.STACK))
 			});
 
 		}
@@ -2033,20 +2109,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_043", new Power {
-				// TODO [LOOT_043] Lesser Amethyst Spellstone && Test: Lesser Amethyst Spellstone_LOOT_043
 				PowerTask = new DamageTask(3, EntityType.TARGET, true),
-				//Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
-				//{
-				//	TriggerSource = TriggerSource.FRIENDLY,
-				//	Condition = new SelfCondition(p =>
-				//	{
-				//		IPlayable source = p.Game.IdEntityDic[p[GameTag.LAST_AFFECTED_BY]];
-				//		if (source is HeroPower) return false;
-				//		if (source.Controller ==)
-				//	}),
-				//	SingleTask = new ChangeEntityTask("LOOT_043t2")
-
-				//}
+				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = new SelfCondition(p => !(p is HeroPower) && p.Game.CurrentEventData.EventTarget == p.Controller.Hero),
+					SingleTask = new ChangeEntityTask("LOOT_043t2")
+				}
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2150,9 +2220,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_043t2", new Power {
-				// TODO [LOOT_043t2] Amethyst Spellstone && Test: Amethyst Spellstone_LOOT_043t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(5, EntityType.TARGET, true),
+				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = new SelfCondition(p => !(p is HeroPower) && p.Game.CurrentEventData.EventTarget == p.Controller.Hero),
+					SingleTask = new ChangeEntityTask("LOOT_043t3")
+				}
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK

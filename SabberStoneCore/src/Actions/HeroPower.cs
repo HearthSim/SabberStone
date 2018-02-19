@@ -19,42 +19,52 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, ICharacter, int, bool, bool> HeroPowerBlock
 			=> delegate (Controller c, ICharacter target, int chooseOne, bool skipPrePhase)
 			{
+				HeroPower heroPower = c.Hero.HeroPower;
+				Game game = c.Game;
+
 				if (!skipPrePhase)
-					if (!c.Hero.HeroPower.IsPlayable || !c.Hero.HeroPower.IsValidPlayTarget(target))
+					if (!heroPower.IsPlayable || !heroPower.IsValidPlayTarget(target))
 						return false;
 
-				PayPhase.Invoke(c, c.Hero.HeroPower);
+				PayPhase.Invoke(c, heroPower);
 
 				if (target != null)
-					Trigger.ValidateTriggers(c.Game, c.Hero.HeroPower, SequenceType.Target);
+				{
+					Trigger.ValidateTriggers(game, heroPower, SequenceType.Target);
+					game.TaskQueue.StartEvent();
+					game.CurrentEventData = new EventMetaData(heroPower, target);
+					game.TriggerManager.OnTargetTrigger(heroPower);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
+				}
 
 				// play block
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, c.Hero.HeroPower.Id, "", 0, target?.Id ?? 0));
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, heroPower.Id, "", 0, target?.Id ?? 0));
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !c.Game.Logging? "":$"Play HeroPower {c.Hero.HeroPower}[{c.Hero.HeroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
+				game.Log(LogLevel.INFO, BlockType.ACTION, "HeroPowerBlock", !game.Logging? "":$"Play HeroPower {heroPower}[{heroPower.Card.Id}]{(target != null ? $" targeting {target}" : "")}.");
 
-				c.Game.TaskQueue.StartEvent();
-				c.Hero.HeroPower.ActivateTask(PowerActivation.POWER, target, chooseOne);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.TaskQueue.StartEvent();
+				heroPower.ActivateTask(PowerActivation.POWER, target, chooseOne);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.DeathProcessingAndAuraUpdate();
 
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-				c.Hero.HeroPower.IsExhausted = true;
+				heroPower.IsExhausted = true;
 				c.HeroPowerActivationsThisTurn++;
 				c.NumTimesHeroPowerUsedThisGame++;
 
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnInspireTrigger(target);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnInspireTrigger(target);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.Game.DeathProcessingAndAuraUpdate();
-
+				game.DeathProcessingAndAuraUpdate();
+				game.CurrentEventData = null;
 				return true;
 			};
 	}

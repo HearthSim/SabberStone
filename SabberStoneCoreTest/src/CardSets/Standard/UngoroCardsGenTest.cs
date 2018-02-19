@@ -4347,14 +4347,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheVoraxx_UNG_843()
 		{
-			// TODO TheVoraxx_UNG_843 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
+				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -4362,7 +4361,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Voraxx"));
+
+			Minion testCard = game.ProcessCard<Minion>("The Voraxx", null, true);
+			game.ProcessCard("Blessing of Kings", testCard, true);
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			Minion plant = game.CurrentPlayer.BoardZone[1];
+			Assert.Equal("Plant", plant.Card.Name);
+			Assert.Equal(5, plant.AttackDamage);
+			Assert.Equal(5, plant.Health);
+
+			game.ProcessCard("Blessing of Kings", plant, true);
+			Assert.Equal(9, plant.AttackDamage);
+			Assert.Equal(9, plant.Health);
+
+			// should not react to spells that targets other minions
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+
+			game.EndTurn();
+
+			game.ProcessCard("Blessing of Kings", testCard);
+			// should not react to opponent's spells
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -2432,7 +2432,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
-					Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Hero),
+					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender] is Hero),
+					Condition = SelfCondition.IsEventTargetIs(CardType.HERO),
 					SingleTask = new AdaptTask(EntityType.SOURCE)
 				}
 			});
@@ -2838,10 +2839,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_843", new Power {
-				// TODO [UNG_843] The Voraxx && Test: The Voraxx_UNG_843
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 					SingleTask = ComplexTask.Create(
 						new SummonTask("UNG_999t2t1", SummonSide.RIGHT, true),
 						new IncludeTask(EntityType.TARGET, null, true),
