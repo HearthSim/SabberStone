@@ -476,6 +476,32 @@ namespace SabberStoneCore.Tasks
 				new SummonStackTask());
 		}
 
+		public static ISimpleTask Kingsbane
+			=> ComplexTask.Create(
+				new FuncNumberTask(p =>
+				{
+					var tags = new EntityData.Data
+					{
+						{GameTag.ATK, p[GameTag.ATK]},
+						{GameTag.POISONOUS, p[GameTag.POISONOUS]},
+						{GameTag.LIFESTEAL, p[GameTag.LIFESTEAL]}
+					};
+					IPlayable newWeapon = Entity.FromCard(p.Controller, p.Card, tags);
+					p.AppliedEnchantments?.ForEach(e =>
+					{
+						Enchantment instance = Enchantment.GetInstance(p.Controller, newWeapon, newWeapon, e.Card);
+						if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+						{
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
+							if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
+								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+						}
+					});
+
+					Generic.ShuffleIntoDeck(p.Controller, newWeapon);
+					return 0;
+				}));
+
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
