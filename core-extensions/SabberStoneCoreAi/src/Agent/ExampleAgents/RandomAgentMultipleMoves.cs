@@ -8,14 +8,9 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.src.Agent.ExampleAgents
 {
-	class RandomAgent : AbstractAgent
+	class RandomAgentMultipleMoves : AbstractAgent
 	{
 		private Random Rnd = new Random();
-
-		public override void InitializeAgent()
-		{
-			Rnd = new Random();
-		}
 
 		public override void FinalizeAgent()
 		{
@@ -31,15 +26,22 @@ namespace SabberStoneCoreAi.src.Agent.ExampleAgents
 		{
 			List<PlayerTask> turnList = new List<PlayerTask>();
 			PlayerTask option;
-			
-			List<PlayerTask> options = poGame.CurrentPlayer.Options();
-			option = options[Rnd.Next(options.Count)];
-			turnList.Add(option);
+
+			do
+			{
+				List<PlayerTask> options = poGame.CurrentPlayer.Options();
+				option = options[Rnd.Next(options.Count)];
+				poGame.Process(option);		//hint: the prediction process can fail due to non-deterministic actions
+				turnList.Add(option);
+			} while (option.PlayerTaskType != PlayerTaskType.END_TURN);
 			
 			return turnList;
 		}
 
-
+		public override void InitializeAgent()
+		{
+			Rnd = new Random();
+		}
 
 		public override void InitializeGame()
 		{

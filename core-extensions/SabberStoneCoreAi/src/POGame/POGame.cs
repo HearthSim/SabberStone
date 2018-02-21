@@ -11,11 +11,11 @@ using SabberStoneCore.Tasks;
 using SabberStoneCoreAi.Meta;
 namespace SabberStoneCoreAi.POGame
 {
-	partial class PartialObservationGame
+	partial class POGame
 	{
 		private Game game;
 			
-		public PartialObservationGame(Game game)
+		public POGame(Game game)
 		{
 			this.game = game.Clone();
 			game.Player1.Game = game;
@@ -107,9 +107,9 @@ namespace SabberStoneCoreAi.POGame
 			game.Process(task);
 		}
 
-		public PartialObservationGame getCopy()
+		public POGame getCopy()
 		{
-			return new PartialObservationGame(game);
+			return new POGame(game);
 		}
 
 
@@ -149,7 +149,7 @@ namespace SabberStoneCoreAi.POGame
 	/// <summary>
 	/// Standard Getters for the current game
 	/// </summary>
-	partial class PartialObservationGame
+	partial class POGame
 	{
 		
 		/// <summary>

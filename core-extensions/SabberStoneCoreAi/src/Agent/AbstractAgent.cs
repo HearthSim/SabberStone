@@ -15,7 +15,7 @@ namespace SabberStoneCoreAi.Agent
 
 		public abstract void InitializeGame();
 
-		public abstract List<PlayerTask> GetMove(PartialObservationGame poGame);
+		public abstract List<PlayerTask> GetMove(POGame.POGame poGame);
 
 		public abstract void FinalizeGame();
 
