@@ -79,6 +79,11 @@ namespace SabberStoneCore.Model.Zones
 			// Add new Entity
 			newEntity.OrderOfPlay = Game.NextOop;
 			ActivateAura(newEntity);
+			if (newEntity.Card.Untouchable)
+			{
+				++_untouchableCount;
+				_hasUntouchables = true;
+			}
 
 			Auras.ForEach(p => p.ToBeUpdated = true);
 		}
@@ -129,6 +134,13 @@ namespace SabberStoneCore.Model.Zones
 			}
 
 			base.CopyTo(destination, index);
+		}
+
+		internal void DecreaseUntouchablesCount()
+		{
+			if (!_hasUntouchables) return;
+			if (--_untouchableCount == 0)
+				_hasUntouchables = false;
 		}
 
 		public void Stamp(BoardZone zone)

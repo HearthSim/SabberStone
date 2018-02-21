@@ -1639,10 +1639,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 851 = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_542", new Power {
-				// TODO [LOOT_542] Kingsbane && Test: Kingsbane_LOOT_542
-				InfoCardId = "LOOT_542e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = SpecificTask.Kingsbane
 			});
 
 		}
@@ -1656,9 +1653,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Getting ready to shuffle in.
 			// --------------------------------------------------------
 			cards.Add("LOOT_542e", new Power {
-				// TODO [LOOT_542e] Kingsbane Shuffle && Test: Kingsbane Shuffle_LOOT_542e
-				//PowerTask = null,
-				//Trigger = null,
+				// Can't find this in logs
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -2971,10 +2966,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_161", new Power {
-				// TODO [LOOT_161] Carnivorous Cube && Test: Carnivorous Cube_LOOT_161
-				InfoCardId = "LOOT_161e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+					new AddEnchantmentTask("LOOT_161e", EntityType.SOURCE, true),
+					new DestroyTask(EntityType.TARGET))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3303,10 +3298,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_526", new Power {
-				// TODO [LOOT_526] The Darkness && Test: The Darkness_LOOT_526
-				InfoCardId = "LOOT_526et",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO [LOOT_526] The Darkness
+				//PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_526t", EntityType.OP_DECK)),
+				//Trigger = new Trigger(TriggerType.ZONE)
+				//{
+				//	//Condition = SelfCondition.IsTagValue(GameTag.SCORE_VALUE_2, 2, RelaSign.LEQ),
+				//	SingleTask = ComplexTask.Create(
+				//		new TransformTask("LOOT_526d", EntityType.SOURCE),
+				//		new AddEnchantmentTask("LOOT_526et", EntityType.CONTROLLER))
+				//}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3486,9 +3486,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Destroyed {0}.
 			// --------------------------------------------------------
 			cards.Add("LOOT_161e", new Power {
-				// TODO [LOOT_161e] Carnivorous Cube && Test: Carnivorous Cube_LOOT_161e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new FuncPlayablesTask(p =>
+						new List<IPlayable> {p[0].Game.IdEntityDic[p[0][GameTag.TAG_SCRIPT_DATA_NUM_1]]}),
+					new CopyTask(EntityType.STACK, 2),
+					new SummonStackTask())
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3720,9 +3723,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
 			cards.Add("LOOT_526et", new Power {
-				// TODO [LOOT_526et] Darkness Candle Detect && Test: Darkness Candle Detect_LOOT_526et
-				//PowerTask = null,
-				//Trigger = null,
+				//Trigger = new Trigger(TriggerType.ZONE)
+				//{
+				//	TriggerSource = TriggerSource.ENEMY,
+				//	Condition = new SelfCondition(p => p.Zone.Type == Zone.HAND && p.Card.Id == "LOOT_526t"),
+				//	SingleTask = ComplexTask.Create(
+				//		new MoveToSetaside(EntityType.TARGET),
+				//		new DrawOpTask())
+				//}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3816,9 +3824,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - IGNORE_HIDE_STATS_FOR_BIG_CARD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_526d", new Power {
-				// TODO [LOOT_526d] The Darkness && Test: The Darkness_LOOT_526d
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO [LOOT_526d] The Darkness
+				//Trigger = new Trigger(TriggerType.DRAW)
+				//{
+				//	TriggerSource = TriggerSource.ENEMY,
+				//	Condition = new SelfCondition(p => p.Card.Id == "LOOT_526t"),
+				//	SingleTask = ComplexTask.Create(
+				//		new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				//		new MathAddTask(1),
+				//		new SetGameTagNumberTask(GameTag.SCORE_VALUE_2, EntityType.SOURCE),
+				//		new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				//		new NumberConditionTask(3, RelaSign.EQ),
+				//		new FlagTask(true, new FuncNumberTask(p =>
+				//		{
+				//			// CHANGE_ENTITY (what??)
+				//			p.Card = Cards.FromId("LOOT_526");
+				//			p[GameTag.SCORE_VALUE_2] = 0;
+				//			p[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+				//			p.Controller.BoardZone.DecreaseUntouchablesCount();
+				//			return 0;
+				//		})))
+				//}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3851,8 +3877,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_526t", new Power {
 				// TODO [LOOT_526t] Darkness Candle && Test: Darkness Candle_LOOT_526t
-				//PowerTask = null,
-				//Trigger = null,
+				//PowerTask =
+				//	//ComplexTask.Create(
+				//	//// ShowEntity
+				//	//new FuncNumberTask(p =>
+				//	//{
+				//	//	Minion[] list = p.Controller.Opponent.BoardZone
+				//	//		.Where(m => m.Card.Id == "LOOT_526d").ToArray();
+				//	//	for (int i = 0; i < list.Length; i++)
+				//	//	{
+				//	//		IPlayable d = list[i];
+				//	//		d[GameTag.TAG_SCRIPT_DATA_NUM_1] += 1;
+				//	//		d[GameTag.SCORE_VALUE_2] += 1;
+				//	//		if (d[GameTag.TAG_SCRIPT_DATA_NUM_1] == d[GameTag.TAG_SCRIPT_DATA_NUM_2])
+				//	//		{
+				//	//			d.Game.TaskQueue.Enqueue()
+				//	//		}
+				//	//	}
+
+				//	//	return 0;
+				//	//}),
+				//	new DrawTask()
+				//	//),
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

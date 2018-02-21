@@ -2415,10 +2415,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DEATHRATTLE = 1
 		// - 851 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Kingsbane_LOOT_542()
 		{
-			// TODO Kingsbane_LOOT_542 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2429,14 +2428,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.ROGUE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kingsbane"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kingsbane"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kingsbane"));
+			game.ProcessCard("Deadly Poison");
+			game.ProcessCard("Deadly Poison");
+			game.ProcessCard("Leeching Poison");
+			var weapon = game.CurrentPlayer.Hero.Weapon;
+			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
+			game.EndTurn();
+
+			IPlayable target = game.ProcessCard("Acidic Swamp Ooze");
+			Assert.Null(game.CurrentOpponent.Hero.Weapon);
+			Assert.Single(game.CurrentOpponent.DeckZone);
+			game.EndTurn();
+
+			Assert.Equal("Kingsbane", game.CurrentPlayer.HandZone[0].Card.Name);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kingsbane"));
+			weapon = game.CurrentPlayer.Hero.Weapon;
+			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
+
+			int damage = game.CurrentPlayer.Hero.Damage;
+
+			game.ProcessCard("Doomerang", target);
+
+			Assert.Equal(damage - 5, game.CurrentPlayer.Hero.Damage);
+			Assert.Single(game.CurrentPlayer.HandZone);
+			Assert.Equal(Zone.HAND, weapon.Zone.Type);
+			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
 		}
 
 	}
@@ -4476,10 +4500,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_FRIENDLY_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CarnivorousCube_LOOT_161()
 		{
-			// TODO CarnivorousCube_LOOT_161 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4497,7 +4520,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Carnivorous Cube"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Carnivorous Cube"));
+
+			IPlayable target = game.ProcessCard("Voidlord", null, true);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Carnivorous Cube", target));
+
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Dark Pact", game.CurrentPlayer.BoardZone[0]);
+
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count(p => p.Card.Name == "Voidlord"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5226,25 +5260,43 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact(Skip = "ignore")]
 		public void TheDarkness_LOOT_526()
 		{
-			// TODO TheDarkness_LOOT_526 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
+				Player1Deck = new List<Card>
 				{
 					Cards.FromName("The Darkness"),
 				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Darkness"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Darkness"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Darkness"));
+
+			Assert.Equal(3, game.CurrentOpponent.DeckZone.Count);		// three candles
+			Assert.True(game.CurrentPlayer.BoardZone.HasUntouchables);	// start dormant
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.CountExceptUntouchables);
+
+			game.EndTurn();
+
+			Assert.Equal(1, game.CurrentPlayer.Hero.Damage);			// take 1 fatigue damage
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+
+			Assert.Equal(1, game.CurrentOpponent.BoardZone.CountExceptUntouchables);
+			Assert.False(game.CurrentOpponent.BoardZone[0].Untouchable);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
