@@ -29,37 +29,33 @@ namespace SabberStoneCoreAi.POGame
 		private static readonly Random Rnd = new Random();
 
 
-		public POGameHandler(GameConfig gameConfig, bool setupHeroes = true, bool debug=false)
-		{
-			this.gameConfig = gameConfig;
-			this.setupHeroes = setupHeroes;
-			player1 = new RandomAgent();
-			player2 = new RandomAgent();
-			gameStats = new GameStats();
-			this.debug = debug;
-		}
-
-		public POGameHandler(GameConfig gameConfig, AbstractAgent player1, AbstractAgent player2, bool setupHeroes = true, bool debug =false)
+		public POGameHandler(GameConfig gameConfig, AbstractAgent player1, AbstractAgent player2,  bool setupHeroes = true, bool debug=false)
 		{
 			this.gameConfig = gameConfig;
 			this.setupHeroes = setupHeroes;
 			this.player1 = player1;
+			player1.InitializeAgent();
+
 			this.player2 = player2;
+			player2.InitializeAgent();
+
 			gameStats = new GameStats();
 			this.debug = debug;
 		}
 
-
 		public void PlayGame(bool addToGameStats=true)
 		{
 			Game game = new Game(gameConfig, setupHeroes);
+			player1.InitializeGame();
+			player2.InitializeGame();
+
 			AbstractAgent currentAgent;
 			Stopwatch currentStopwatch;
-			PartialObservationGame poGame;
+			POGame poGame;
 			Stopwatch[] watches = new[] {new Stopwatch(), new Stopwatch()};
 			
-
 			game.StartGame();
+
 			while (game.State != State.COMPLETE)
 			{
 				if (debug)
@@ -68,7 +64,7 @@ namespace SabberStoneCoreAi.POGame
 				currentAgent = game.CurrentPlayer == game.Player1 ? player1 : player2;
 				Controller currentPlayer = game.CurrentPlayer;
 				currentStopwatch = game.CurrentPlayer == game.Player1 ? watches[0] : watches[1];
-				poGame = new PartialObservationGame(game);
+				poGame = new POGame(game);
 
 				currentStopwatch.Start();
 				List<PlayerTask> playertasks = currentAgent.GetMove(poGame);
@@ -88,6 +84,9 @@ namespace SabberStoneCoreAi.POGame
 
 			if (addToGameStats)
 				gameStats.addGame(game, watches);
+
+			player1.FinalizeGame();
+			player2.FinalizeGame();
 		}
 
 		public void PlayGames(int nr_of_games, bool addToGameStats=true)

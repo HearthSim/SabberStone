@@ -19,7 +19,7 @@ namespace SabberStoneCoreAi.Agent
 			throw new NotImplementedException();
 		}
 
-		public override List<PlayerTask> GetMove(PartialObservationGame poGame)
+		public override List<PlayerTask> GetMove(POGame.POGame poGame)
 		{
 			throw new NotImplementedException();
 		}
