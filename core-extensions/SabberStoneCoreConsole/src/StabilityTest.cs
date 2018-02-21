@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
@@ -31,18 +32,23 @@ namespace SabberStoneCoreConsole
 				};
 			    var game = new Game(config);
 				game.StartGame();
-
+				List<PlayerTask> optionHistory = new List<PlayerTask>();
+				Queue<LogEntry> logs = new Queue<LogEntry>();
 				//try
 				//{
 					do
 					{
+						while (game.Logs.Count > 0)
+							logs.Enqueue(game.Logs.Dequeue());
 						game = game.Clone(true);
 						List<PlayerTask> options = game.CurrentPlayer.Options();
-						PlayerTask lastOption = options[rnd.Next(options.Count)];
-						game.Process(lastOption);
+						PlayerTask option = options[rnd.Next(options.Count)];
+						optionHistory.Add(option);
+						game.Process(option);
 					} while (game.State != State.COMPLETE);
 				//} catch (Exception e)
 				//{
+				//	ShowLog(logs, LogLevel.DEBUG);
 				//	Program.ShowLog(game, LogLevel.DEBUG);
 				//	Console.WriteLine(e.Message);
 				//	Console.WriteLine(e.Source);
@@ -56,5 +62,52 @@ namespace SabberStoneCoreConsole
 					Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
 			}
 	    }
-    }
+
+		private static void ShowLog(Queue<LogEntry> logs, LogLevel level)
+	    {
+		    var str = new StringBuilder();
+		    while (logs.Count > 0)
+		    {
+			    LogEntry logEntry = logs.Dequeue();
+			    if (logEntry.Level <= level)
+			    {
+				    ConsoleColor foreground = ConsoleColor.White;
+				    switch (logEntry.Level)
+				    {
+					    case LogLevel.DUMP:
+						    foreground = ConsoleColor.DarkCyan;
+						    break;
+					    case LogLevel.ERROR:
+						    foreground = ConsoleColor.Red;
+						    break;
+					    case LogLevel.WARNING:
+						    foreground = ConsoleColor.DarkRed;
+						    break;
+					    case LogLevel.INFO:
+						    foreground = logEntry.Location.Equals("Game") ? ConsoleColor.Yellow :
+							    logEntry.Location.StartsWith("Quest") ? ConsoleColor.Cyan :
+							    ConsoleColor.Green;
+						    break;
+					    case LogLevel.VERBOSE:
+						    foreground = ConsoleColor.DarkGreen;
+						    break;
+					    case LogLevel.DEBUG:
+						    foreground = ConsoleColor.DarkGray;
+						    break;
+					    default:
+						    throw new ArgumentOutOfRangeException();
+				    }
+
+				    Console.ForegroundColor = foreground;
+
+				    string logStr = $"{logEntry.TimeStamp.ToLongTimeString()} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
+				    str.Append(logStr + "\n");
+				    Console.WriteLine(logStr);
+			    }
+		    }
+		    Console.ResetColor();
+
+		    File.WriteAllText(Directory.GetCurrentDirectory() + @"\dump.log", str.ToString());
+	    }
+	}
 }

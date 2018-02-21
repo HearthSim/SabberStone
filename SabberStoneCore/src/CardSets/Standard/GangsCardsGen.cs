@@ -1599,7 +1599,9 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = new ArmorTask()
+					SingleTask = ComplexTask.Create(
+						new GetEventNumberTask(),
+						new ArmorTask())
 				}
 			});
 

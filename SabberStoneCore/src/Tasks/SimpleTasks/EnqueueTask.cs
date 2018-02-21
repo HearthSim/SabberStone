@@ -29,15 +29,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				clone.Source = Source as IPlayable;
 				clone.Target = Target as IPlayable;
 
-				Controller.Game.TaskQueue.EnqueueBase(clone);
-				Controller.Game.TaskQueue.EnqueueBase(
-					new ClearStackTask
-					{
-						Game = Controller.Game,
-						Controller = Controller,
-						Source = Source as IPlayable,
-						Target = Target as IPlayable
-					});
+				Controller.Game.TaskQueue.Enqueue(clone);
+				//Controller.Game.TaskQueue.Enqueue(
+				//	new ClearStackTask
+				//	{
+				//		Game = Controller.Game,
+				//		Controller = Controller,
+				//		Source = Source as IPlayable,
+				//		Target = Target as IPlayable
+				//	});
 			}
 			return TaskState.COMPLETE;
 		}

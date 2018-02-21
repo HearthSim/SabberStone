@@ -64,11 +64,15 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public Dictionary<PlayReq, int> PlayRequirements { get; set; }
 
+		public bool ChooseOne { get; internal set; }
+
 		public bool IsSecret { get; internal set; }
 
 		public bool IsQuest { get; internal set; }
 
 		public bool Untouchable { get; internal set; }
+
+		public bool HideStat { get; internal set; }
 
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.

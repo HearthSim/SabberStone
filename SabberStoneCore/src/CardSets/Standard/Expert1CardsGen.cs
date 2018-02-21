@@ -2383,7 +2383,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_258", new Power {
 				Trigger = new Trigger(TriggerType.PLAY_CARD)
 				{
-					Condition = SelfCondition.IsTagValue(GameTag.OVERLOAD, 1, RelaSign.GEQ),
+					Condition = SelfCondition.IsOverloadCard,
 					SingleTask = new AddEnchantmentTask("EX1_258e", EntityType.SOURCE)
 				}
 			});
@@ -2588,7 +2588,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_038e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
+					new CopyTask(EntityType.TARGET, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 
@@ -4908,7 +4908,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_030", new Power {
 				PowerTask = ComplexTask.Create(
-					new DestroyTask(EntityType.ALL),
+					new DestroyTask(EntityType.ALLMINIONS),
 					new DiscardTask(EntityType.HAND))
 			});
 

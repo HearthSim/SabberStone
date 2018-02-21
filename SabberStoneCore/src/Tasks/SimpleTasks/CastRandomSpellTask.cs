@@ -41,12 +41,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    do
 		    {
 			    randCard = cards[Random.Next(cards.Length)];
-		    } while (!randCard.Implemented);
+		    } while (!randCard.Implemented || randCard.HideStat);
 
 		    Spell spellToCast = (Spell)Target ?? (Spell)Entity.FromCard(Source.Controller, randCard);
 
+		    Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
+			    !Game.Logging ? "" : $"{Source} casted {Controller}'s {spellToCast}.");
+
 			ICharacter randTarget = null;
-		    if (randCard.RequiresTarget)
+		    if (randCard.RequiresTarget || randCard.RequiresTargetIfAvailable)
 		    {
 			    List<ICharacter> targets = (List<ICharacter>)spellToCast.ValidPlayTargets;
 
@@ -60,12 +63,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			int randChooseOne = Random.Next(1, 3);
 
+		    if (randCard.HasOverload)
+				Source.Controller.OverloadOwed = randCard.Overload;
+
+			Game.TaskQueue.StartEvent();
 			Generic.CastSpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
 			// forced death processing & AA (Yogg)
 		    spellToCast.Game.DeathProcessingAndAuraUpdate();
-
-			Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
-				!Game.Logging ? "" : $"{Source} casted {Controller}'s {spellToCast}.");
+		    Game.TaskQueue.EndEvent();
 
 
 		    //Game.TaskQueue.Execute(spellToCast.Power.PowerTask, Source.Controller, spellToCast, randTarget, randChooseOne);

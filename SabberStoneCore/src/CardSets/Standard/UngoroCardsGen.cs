@@ -1600,7 +1600,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_211", new Power {
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
-					new FlagTask(true, new DiscoverTask(DiscoverType.ELEMENTAL_INVOCATION)))
+					new FlagTask(true, new DiscoverTask(DiscoverType.ELEMENTAL_INVOCATION, numberOfChoices: 4)))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1634,6 +1634,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_025", new Power {
+				// TODO: Velen
 				PowerTask = new EnqueueTask(15, ComplexTask.DamageRandomTargets(1, EntityType.ALL, 1), true)
 			});
 
@@ -2847,7 +2848,8 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.TARGET, null, true),
 						new FuncPlayablesTask(list =>
 						{
-							Generic.CastSpell(list[1].Controller, (Spell)list[1], (ICharacter)list[0], 0);
+							//Generic.CastSpell(list[1].Controller, (Spell)list[1], (ICharacter)list[0], 0);
+							list[1].ActivateTask(PowerActivation.POWER, list[0]);
 							return null;
 						}))
 				}

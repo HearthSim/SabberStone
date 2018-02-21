@@ -44,7 +44,7 @@ namespace SabberStoneCore.Model.Entities
 		public override bool IsPlayableByPlayer =>
 			!IsExhausted && !Controller.HeroPowerDisabled && base.IsPlayableByPlayer && !IsPassiveHeroPower;
 
-		public bool IsPassiveHeroPower => Card[GameTag.HIDE_STATS] == 1;
+		public bool IsPassiveHeroPower => Card.HideStat;
 
 		public override IPlayable Clone(Controller controller)
 		{

@@ -50,6 +50,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Get the number of entities in this zone.
 		/// </summary>
 		public abstract int Count { get; }
+		public abstract bool IsFull { get; }
 		/// <summary>
 		/// Gets a random entity in this zone.
 		/// </summary>
@@ -163,6 +164,7 @@ namespace SabberStoneCore.Model.Zones
 	public abstract class UnlimitedZone : Zone<IPlayable>
 	{
 		public override int Count => Entities.Count;
+		public override bool IsFull => false;
 
 		protected UnlimitedZone(Controller controller)
 		{
@@ -247,7 +249,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets a value indicating whether this zone is full.
 		/// </summary>
 		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
-		public bool IsFull => _count == MaxSize;
+		public override bool IsFull => _count == MaxSize;
 
 		public override int Count => _count;
 

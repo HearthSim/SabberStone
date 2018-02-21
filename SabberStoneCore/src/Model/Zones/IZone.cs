@@ -25,6 +25,12 @@ namespace SabberStoneCore.Model.Zones
 		int Count { get; }
 
 		/// <summary>
+		/// Gets a value indicating whether this zone is full.
+		/// </summary>
+		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
+		bool IsFull { get; }
+
+		/// <summary>
 		/// Gets <see cref="List{T}"/> that contains all entities in this zone.
 		/// </summary>
 		/// <value>The set of <see cref="IPlayable"/>.</value>

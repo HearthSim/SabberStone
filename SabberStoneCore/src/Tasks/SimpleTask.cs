@@ -147,5 +147,10 @@ namespace SabberStoneCore.Tasks
 		}
 
 		public bool IsTrigger { get; set; }
+
+		public override string ToString()
+		{
+			return GetType().Name;
+		}
 	}
 }

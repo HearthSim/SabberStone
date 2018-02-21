@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -176,7 +178,7 @@ namespace SabberStoneCore.Tasks
 
 	//}
 
-
+	[DebuggerDisplay("{DebuggerDisplay, nq}")]
 	public class StateTaskList : ISimpleTask
 	{
 		public TaskStack Stack { private get; set; }
@@ -329,6 +331,20 @@ namespace SabberStoneCore.Tasks
 			{
 				Game = Stack?.Game
 			};
+		}
+
+		private string DebuggerDisplay
+		{
+			get
+			{
+				var sb = new StringBuilder($"[{Source}]");
+				foreach (var task in _tasks)
+				{
+					sb.Append($"[{task.GetType().Name}]");
+				}
+
+				return sb.ToString();
+			}
 		}
 	}
 }

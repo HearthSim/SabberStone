@@ -331,6 +331,13 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
+				if (Card.HideStat)
+				{
+					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
+						!Game.Logging ? "" : $"{this} isn't playable, because can't play card with HIDE_STAT");
+					return false;
+				}
+
 				// check if player has enough mana to play card
 				if (!(this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
 				    && Controller.RemainingMana < Cost)

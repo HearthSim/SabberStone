@@ -250,7 +250,7 @@ namespace SabberStoneCore.Actions
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
 
 				if (!(p.Zone is HandZone hand))
-					throw new InvalidOperationException();
+					throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
 
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
@@ -286,6 +286,25 @@ namespace SabberStoneCore.Actions
 					p = entity;
 				}
 
+				if (newCard.ChooseOne)
+				{
+					if (p.ChooseOnePlayables == null)
+						p.ChooseOnePlayables = new IPlayable[2];
+
+					EntityData.Data tags = null;
+					if (c.Game.History)
+					{
+						tags = new EntityData.Data
+						{
+							{GameTag.CREATOR, p.Id},
+							{GameTag.PARENT_CARD, p.Id}
+						};
+					}
+
+					p.ChooseOnePlayables[0] = Entity.FromCard(c, Cards.FromId(newCard.Id + "a"), tags, c.SetasideZone);
+					p.ChooseOnePlayables[1] = Entity.FromCard(c, Cards.FromId(newCard.Id + "b"), tags, c.SetasideZone);
+				}
+
 				p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
 				if (p.Power?.Aura is AdaptiveCostEffect e)
 					e.Activate(p);
@@ -294,6 +313,20 @@ namespace SabberStoneCore.Actions
 
 				return p;
 			};
+
+		// Work in progress
+		public static void RevealCardBlock(IPlayable source, IPlayable target)
+		{
+			Game game = source.Game;
+			if (!game.History) return;
+
+			game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.REVEAL_CARD, source.Id, "", 0, target.Id));
+			target.NativeTags[GameTag.REVEALED] = 1;
+			game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(target));
+			game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(target));
+			target[GameTag.REVEALED] = 0;
+			// ShowEntity with Zone = SETASIDE ????
+		}
 
 		// TODO: Posionous Block
 		public static Func<bool, ICharacter, ICharacter, bool> PoisonousBlock

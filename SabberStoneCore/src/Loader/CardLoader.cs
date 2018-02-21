@@ -181,6 +181,12 @@ namespace SabberStoneCore.Loader
 						case GameTag.UNTOUCHABLE:
 							c.Untouchable = true;
 							break;
+						case GameTag.HIDE_STATS:
+							c.HideStat = true;
+							break;
+						case GameTag.CHOOSE_ONE:
+							c.ChooseOne = true;
+							break;
 					}
 				}
 

@@ -87,20 +87,6 @@ namespace SabberStoneCore.Model.Entities
 
 		public event TriggerManager.TriggerHandler TakeDamageTrigger;
 
-		//public event TriggerManager.TriggerHandler DealDamageTrigger;
-		//{
-		//	add
-		//	{
-		//		_damageTrigger += value;
-		//		_numDamageTriggerSubscribers++;
-		//	}
-		//	remove
-		//	{
-		//		_damageTrigger -= value;
-		//		_numDamageTriggerSubscribers--;
-		//	}
-		//}
-
 		public event TriggerManager.TriggerHandler AfterAttackTrigger;
 
 		private bool _lifestealChecker;
@@ -256,17 +242,15 @@ namespace SabberStoneCore.Model.Entities
 			// Collect all the tasks and sort them by order of play
 			// Death phase and aura update are not emerge here
 
-			// on-damage triggers
-			//Game.TriggerManager.OnDamageTrigger(this);
-			//Game.TriggerManager.OnDealDamageTrigger(source, amount);
-
 			// place event related data
 			Game.TaskQueue.StartEvent();
 			EventMetaData temp = Game.CurrentEventData;
 			Game.CurrentEventData = new EventMetaData(source, this, amount);
+
+			// on-damage triggers
 			TakeDamageTrigger?.Invoke(this);
 			Game.TriggerManager.OnDamageTrigger(this);
-			Game.TriggerManager.OnDealDamageTrigger(source, amount);
+			Game.TriggerManager.OnDealDamageTrigger(source);
 			Game.ProcessTasks();
 			Game.TaskQueue.EndEvent();
 			Game.CurrentEventData = temp;
@@ -332,7 +316,7 @@ namespace SabberStoneCore.Model.Entities
 			Game.TaskQueue.StartEvent();
 			EventMetaData temp = Game.CurrentEventData;
 			Game.CurrentEventData = new EventMetaData(source, this, amount);
-			Game.TriggerManager.OnHealTrigger(this, amount);
+			Game.TriggerManager.OnHealTrigger(this);
 			Game.ProcessTasks();
 			Game.TaskQueue.EndEvent();
 			Game.CurrentEventData = temp;
@@ -350,6 +334,11 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} gaining armor for {armor}.");
 			Armor += armor;
+			EventMetaData temp = Game.CurrentEventData;
+			Game.CurrentEventData = new EventMetaData(source, this, armor);
+			Game.TriggerManager.OnArmorTrigger(this);
+			//Game.ProcessTasks();
+			Game.CurrentEventData = temp;
 		}
 
 		public void OnAfterAttackTrigger()

@@ -18,6 +18,11 @@ namespace SabberStoneCore.Model
 		private bool _eventCreated;
 		private int _stackHeight;
 
+		private bool _eventFlag;
+		// Flag = true : current event have not ended yet and no tasks queue in this event;
+		// nothing left in current event
+		public bool IsEmpty => _eventFlag || CurrentQueue.Count == 0; 
+
 		public TaskQueue(Game game)
 		{
 			_game = game;
@@ -27,39 +32,90 @@ namespace SabberStoneCore.Model
 
 		private Queue<ISimpleTask> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
 
-		public bool IsEmpty => _standbyEvent != null || CurrentQueue.Count == 0;
+		//public bool IsEmpty => _standbyEvent != null || CurrentQueue.Count == 0;
 
 		public ISimpleTask CurrentTask { get; private set; }
 
 		public void StartEvent()
 		{
-			_stackHeight++;
-			if (CurrentQueue.Count != 0 && _standbyEvent == null)
-				_standbyEvent = new Lazy<Queue<ISimpleTask>>(() => new Queue<ISimpleTask>());
+			//if (CurrentQueue.Count != 0 && _standbyEvent == null)
+			//	_standbyEvent = new Lazy<Queue<ISimpleTask>>(() => new Queue<ISimpleTask>());
+
+			_eventFlag = true;
+
+			if (_game.Logging)
+			{
+				_stackHeight++;
+				var sb = new StringBuilder("Event Starts");
+				for (int i = 0; i < 10 - _stackHeight; i++)
+					sb.Append("----");
+				_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue", sb.ToString());
+			}
 		}
 
 		public void EndEvent()
 		{
-			_stackHeight--;
-			if (!_eventCreated)
+			if (_game.Logging)
 			{
-				if (_stackHeight != 0) return;
-				_standbyEvent = null;
+				var sb = new StringBuilder("Event Ends--");
+				for (int i = 0; i < 10 - _stackHeight; i++)
+					sb.Append("----");
+				_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue", sb.ToString());
+				_stackHeight--;
+			}
+
+
+			//if (!_eventCreated)
+			//{
+			//	if (_stackHeight != 0) return;
+			//	_standbyEvent = null;
+			//	return;
+			//}
+
+			//if (_eventStack.Peek().Count > 0) ;
+			//_eventStack.Pop();
+			//if (_stackHeight > 0 && _eventStack.Count == 0)
+			//	_standbyEvent = new Lazy<Queue<ISimpleTask>>(() => new Queue<ISimpleTask>());
+			//_eventCreated = false;
+
+			if (_eventFlag)
+			{
+				_eventFlag = false;
 				return;
 			}
-			_eventStack.Pop();
-			if (_stackHeight > 0 && _eventStack.Count == 0)
-				_standbyEvent = new Lazy<Queue<ISimpleTask>>(() => new Queue<ISimpleTask>());
-			_eventCreated = false;
+
+			if (_eventStack.Count > 0)
+			{
+				if (CurrentQueue.Count != 0)
+					;
+
+				_eventStack.Pop();
+			}
+
+			//if (!_eventFlag)
+			//{
+			//	if (_eventStack.Count == 0)
+			//		return;
+			//	_eventStack.Pop();
+			//}
+			//_eventFlag = false;
 		}
 
 		public void Enqueue(ISimpleTask task)
 		{
-			if (_standbyEvent != null)
+			//if (_standbyEvent != null)
+			//{
+			//	_eventStack.Push(_standbyEvent.Value);
+			//	_standbyEvent = null;
+			//	_eventCreated = true;
+			//}
+
+			if (_eventFlag)	// flag = true means Event starts and no tasks queue yet
 			{
-				_eventStack.Push(_standbyEvent.Value);
-				_standbyEvent = null;
-				_eventCreated = true;
+				if (CurrentQueue.Count != 0) // Check if an ongoing event exists
+					_eventStack.Push(new Queue<ISimpleTask>());
+
+				_eventFlag = false;
 			}
 
 			CurrentQueue.Enqueue(task);

@@ -973,7 +973,6 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		internal void ProcessTasks()
 		{
-			//while (TaskQueue.Count > 0)
 			while (!TaskQueue.IsEmpty)
 			{
 				if (TaskQueue.Process() != TaskState.COMPLETE)
@@ -989,7 +988,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void DeathProcessingAndAuraUpdate()
 		{
-			ProcessTasks();	// Process remaining tasks
+			//ProcessTasks();	// Process remaining tasks
 
 			//Inter-Phase steps
 			
@@ -1005,6 +1004,7 @@ namespace SabberStoneCore.Model
 
 			AuraUpdate();	// Aura Update (Other) step(Not implemented)
 		}
+
 
 		/// <summary>
 		/// Performs a deep copy of this game instance and returns the result.

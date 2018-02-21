@@ -309,6 +309,9 @@ namespace SabberStoneCore.Enchants
 					case AuraType.HEROPOWER:
 						Apply(Owner.Controller.Hero.HeroPower);
 						break;
+					case AuraType.SELF:
+						Apply(Owner);
+						break;
 				}
 
 				if (!Restless)
@@ -397,7 +400,7 @@ namespace SabberStoneCore.Enchants
 				e.Remove();
 		}
 
-		private void TriggeredRemove(IEntity source, int number = 0)
+		private void TriggeredRemove(IEntity source)
 		{
 			if (RemoveTrigger.Condition != null)
 			{
@@ -415,6 +418,8 @@ namespace SabberStoneCore.Enchants
 			if (AppliedEntities.Remove(m))
 			{
 				_appliedEntityIds.Remove(m.Id);
+				//for (int i = 0; i < Effects.Length; i++)
+				//	Effects[i].Remove(m.AuraEffects);
 			}
 			else if (m == Owner)
 			{

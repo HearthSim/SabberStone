@@ -235,6 +235,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.FROZEN:
 					source.Game.TriggerManager.FreezeTrigger += instance.Process;
 					break;
+				case TriggerType.ARMOR:
+					source.Game.TriggerManager.ArmorTrigger += instance.Process;
+					break;
 
 				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
@@ -243,7 +246,7 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		private void Process(IEntity source, int number = 0)
+		private void Process(IEntity source)
 		{
 			if (_sequenceType == SequenceType.None)
 				Validate(source);
@@ -251,13 +254,13 @@ namespace SabberStoneCore.Enchants
 			if (!Validated)
 				return;
 
-		    ProcessInternal(source, number);
+		    ProcessInternal(source);
 
 			if (_triggerType == TriggerType.TURN_END && _owner.Controller.ExtraEndTurnEffect)
-				ProcessInternal(source, number);
+				ProcessInternal(source);
 		}
 
-	    private void ProcessInternal(IEntity source, int number)
+	    private void ProcessInternal(IEntity source)
 	    {
 		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is triggered by {source}.");
@@ -269,7 +272,7 @@ namespace SabberStoneCore.Enchants
 			    Game.TaskQueue.Execute(SingleTask, _owner.Controller, _owner,
 				    source is IPlayable ? (IPlayable)source
 										: _owner is Enchantment ew && ew.Target is IPlayable p ? p
-										: null, number);
+										: null);
 		    else
 		    {
 			    ISimpleTask taskInstance = SingleTask.Clone();
@@ -278,7 +281,6 @@ namespace SabberStoneCore.Enchants
 			    taskInstance.Source = _owner is Enchantment ec ? ec : _owner;
 				taskInstance.Target = source is IPlayable ? source : _owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
 			    taskInstance.IsTrigger = true;
-				taskInstance.Number = number;	// TODO
 
 			    Game.TaskQueue.Enqueue(taskInstance);
 		    }
@@ -410,8 +412,11 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.FROZEN:
 					Game.TriggerManager.FreezeTrigger -= Process;
 					break;
+			    case TriggerType.ARMOR:
+				    Game.TriggerManager.ArmorTrigger -= Process;
+				    break;
 
-			    case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
+				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 				    Game.TriggerManager.PlayCardTrigger -= Process;
 				    Game.TriggerManager.EndTurnTrigger -= Process;
 				    break;
@@ -505,7 +510,7 @@ namespace SabberStoneCore.Enchants
 					if (!(source is HeroPower hp) || hp.Controller != source.Controller) return;
 					break;
 				case TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER:
-					if (!(source is Spell) || source.Controller.Id != _controllerId || Game.CurrentEventData.EventTarget != _owner) return;
+					if (!(source is Spell) || source.Controller.Id != _controllerId || Game.CurrentEventData?.EventTarget != _owner) return;
 					break;
 			}
 

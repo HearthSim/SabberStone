@@ -86,6 +86,7 @@ namespace SabberStoneCore.Conditions
 			(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
 		}
 
+		public static readonly SelfCondition IsOverloadCard = new SelfCondition(me => me.Card.HasOverload);
 		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is ICharacter && me[GameTag.TAUNT] > 0);
 		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
 		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.HeroPower.Card.Id.Equals(cardId));

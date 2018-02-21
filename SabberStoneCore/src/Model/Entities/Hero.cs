@@ -75,14 +75,11 @@ namespace SabberStoneCore.Model.Entities
 		public void RemoveWeapon()
 		{
 			if (Weapon == null)
-			{
 				return;
-			}
 
 			if (Weapon.HasDeathrattle)
-			{
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
-			}
+
 			Game.TriggerManager.OnDeathTrigger(Weapon);
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Hero", !Game.Logging? "":$"Butcher's knife incoming to graveyard, say 'gugus' to {Weapon}");

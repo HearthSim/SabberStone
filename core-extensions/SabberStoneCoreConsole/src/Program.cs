@@ -27,10 +27,11 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			EntityChangeTest();
+			//EntityChangeTest();
+			YoggTest();
 
 			//BasicBuffTest();
-			CardsTest();
+			//CardsTest();
 			//WhileCardTest();
 			//CloneStampTest();
 			//CloneSameSame();
@@ -933,6 +934,30 @@ namespace SabberStoneCoreConsole
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
 			ShowLog(game, LogLevel.VERBOSE);
+		}
+
+		public static void YoggTest()
+		{
+			//while (true)
+			//{
+				var game = new Game(new GameConfig
+				{
+					StartPlayer = 1,
+					Player1HeroClass = CardClass.PRIEST,
+					Player2HeroClass = CardClass.DRUID,
+					FillDecks = true,
+				});
+				game.StartGame();
+				game.Player1.BaseMana = 10;
+				game.Player2.BaseMana = 10;
+
+				game.CurrentPlayer.NumSpellsPlayedThisGame = 30;
+
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(@"Yogg-Saron, Hope's End"));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+				ShowLog(game, LogLevel.DEBUG);
+			//}
 		}
 
 		public static void CloneSameSame()
