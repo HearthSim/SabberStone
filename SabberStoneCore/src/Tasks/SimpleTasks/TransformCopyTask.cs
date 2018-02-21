@@ -40,7 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    source.Controller.BoardZone.Replace(source, copy);
 
 			// Copy Enchantments
-			if (Game.History && target.AppliedEnchantments != null)
+			if (target.AppliedEnchantments != null)
 		    {
 			    foreach (Enchantment e in target.AppliedEnchantments)
 			    {
@@ -72,7 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			if (aura != null && copy.OngoingEffect == null)
-				aura?.Clone(copy);
+				aura.Clone(copy);
 
 		    if (_addToStack)
 			    Playables = new List<IPlayable> {copy};

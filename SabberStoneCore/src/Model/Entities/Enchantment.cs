@@ -39,10 +39,15 @@ namespace SabberStoneCore.Model.Entities
 			if (e.IsOneTurnActive)
 				c.Game.OneTurnEffectEnchantments.Add(this);
 
-			if (c.Game.History)
-			{
+			//if (c.Game.History)
+			//{
 				Zone = c.BoardZone;
 				_tags = new EntityData.Data((EntityData.Data) e._tags);
+			//}
+
+			if (Power.Enchant?.RemoveWhenPlayed ?? false)
+			{
+				Enchant.RemoveWhenPlayedTrigger.Activate(this);
 			}
 		}
 
@@ -76,7 +81,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
-			var tags = new EntityData.Data
+			var tags = new EntityData.Data(5)
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
 				{GameTag.CONTROLLER, controller.PlayerId},
@@ -185,9 +190,11 @@ namespace SabberStoneCore.Model.Entities
 				ISimpleTask clone = Power.DeathrattleTask.Clone();
 				clone.Game = Game;
 				clone.Controller = Controller;
-				clone.Source = Target;
-				clone.Target = null;
-				clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
+				clone.Source = this;
+				clone.Target = Target;
+				//clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
+				//if (clone.Number > 0)
+				//	;
 
 				Game.TaskQueue.Enqueue(clone);
 			}

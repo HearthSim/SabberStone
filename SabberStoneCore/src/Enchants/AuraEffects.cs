@@ -51,6 +51,7 @@ namespace SabberStoneCore.Enchants
 		private int WINDFURY;
 		private int IMMUNE;
 		private int LIFESTEAL;
+		private int CANT_BE_TARGETED_BY_SPELLS;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -86,16 +87,19 @@ namespace SabberStoneCore.Enchants
 						return ATK;
 					case GameTag.HEALTH:
 						return HEALTH;
+					case GameTag.COST:
+						return GetCost() - ((Entity)Owner)._data[GameTag.COST];
 					case GameTag.CHARGE:
 						return CHARGE > 0 ? 1 : 0;
 					case GameTag.WINDFURY:
 						return WINDFURY > 0 ? 1 : 0;
-					case GameTag.COST:
-						return GetCost() - ((Entity) Owner)._data[GameTag.COST];
 					case GameTag.IMMUNE:
 						return IMMUNE;
 					case GameTag.LIFESTEAL:
 						return LIFESTEAL;
+					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
+					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
+						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0; 
 					default:
 						return 0;
 				}
@@ -131,6 +135,10 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.LIFESTEAL:
 						LIFESTEAL = value;
+						return;
+					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
+					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
+						CANT_BE_TARGETED_BY_SPELLS = value;
 						return;
 					default:
 						return;

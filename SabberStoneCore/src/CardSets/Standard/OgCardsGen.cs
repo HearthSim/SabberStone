@@ -1208,7 +1208,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("OG_026", new Power {
-				PowerTask = new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0)
+				PowerTask = ComplexTask.Create(
+					new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0),
+					new SetControllerGameTagTask(GameTag.OVERLOAD_OWED, 0))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1242,7 +1244,9 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsSpell,
 					FastExecution = true,
-					SingleTask = new HealNumberTask(EntityType.HERO)
+					SingleTask = ComplexTask.Create(
+						new GetEventNumberTask(),
+						new HealNumberTask(EntityType.HERO))
 				}
 			});
 

@@ -71,11 +71,17 @@ namespace SabberStoneCore.Model.Entities
 				Controller.CurrentSpellPower -= sp;
 				this[GameTag.SPELLPOWER] = 0;
 			}
+
 			OngoingEffect?.Remove();
+			//Controller.BoardZone.Auras.ForEach(aura => aura.EntityRemoved(this));
 
 			if (AppliedEnchantments != null)
 				for (int i = AppliedEnchantments.Count - 1; i >= 0; i--)
+				{
+					if (AppliedEnchantments[i].Creator.Power.Aura != null)
+						continue;
 					AppliedEnchantments[i].Remove();
+				}
 
 			AttackDamage = Card[GameTag.ATK];
 			if (Health > Card[GameTag.HEALTH])

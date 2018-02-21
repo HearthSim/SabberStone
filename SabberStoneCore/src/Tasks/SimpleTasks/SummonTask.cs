@@ -110,7 +110,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							summonPosition = ((Minion)Source).LastBoardPosition;
 						break;
 					case SummonSide.DEATHRATTLE:
-						summonPosition = ((Minion)Source).LastBoardPosition;
+						if (Source is Minion m)
+							summonPosition = m.LastBoardPosition;
+						else if
+							(Source is Enchantment e)
+							summonPosition = ((Minion) e.Target).LastBoardPosition;
 						break;
 					case SummonSide.NUMBER:
 						summonPosition = Number - 1;

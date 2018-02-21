@@ -2332,6 +2332,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+			Assert.Equal(4, game.CurrentPlayer.Choice.Choices.Count);
 			int choice = game.CurrentPlayer.Choice.Choices[0];
 			game.Process(ChooseTask.Pick(game.CurrentPlayer, choice));
 			Assert.Equal(1, game.CurrentPlayer.GraveyardZone.Count); // Invocation must be in graveyard ...

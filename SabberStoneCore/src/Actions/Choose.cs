@@ -57,7 +57,7 @@ namespace SabberStoneCore.Actions
 						if (RemoveFromZone(c, playable))
 						{
 							ICharacter randTarget = null;
-							if (playable.Card.RequiresTarget)
+							if (playable.Card.RequiresTarget || playable.Card.RequiresTargetIfAvailable)
 							{
 								List<ICharacter> targets = (List<ICharacter>)playable.ValidPlayTargets;
 
@@ -68,12 +68,14 @@ namespace SabberStoneCore.Actions
 								c.Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpell",
 									!c.Game.Logging ? "" : $"{playable}'s target is randomly selected to {randTarget}");
 							}
+							if (playable.Card.HasOverload)
+								c.OverloadOwed = playable.Overload;
+
+							c.Game.TaskQueue.StartEvent();
 							CastSpell.Invoke(c, (Spell)playable, randTarget, 0);
+							c.Game.TaskQueue.EndEvent();
 						}
 						break;
-
-					case ChoiceAction.SPELL_RANDOM:
-
 
 					case ChoiceAction.SUMMON:
 						if (!c.BoardZone.IsFull && RemoveFromZone(c, playable))
@@ -242,7 +244,9 @@ namespace SabberStoneCore.Actions
 				//	Start next Choice if any choice is queueing up
 				if (c.Choice.ChoiceQueue.Any())
 				{
-					c.Choice = c.Choice.ChoiceQueue.Dequeue();
+					Choice nextChoice = c.Choice.ChoiceQueue.Dequeue();
+					nextChoice.ChoiceQueue = c.Choice.ChoiceQueue;
+					c.Choice = nextChoice;
 					c.Choice.LastChoice = choice;
 				}
 				else

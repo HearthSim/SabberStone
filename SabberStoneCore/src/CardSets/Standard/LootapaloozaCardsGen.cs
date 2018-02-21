@@ -59,9 +59,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_314", new Power {
-				// TODO [LOOT_314] Grizzled Guardian && Test: Grizzled Guardian_LOOT_314
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)),
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -130,9 +130,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_051", new Power {
-				// TODO [LOOT_051] Lesser Jasper Spellstone && Test: Lesser Jasper Spellstone_LOOT_051
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(2, EntityType.TARGET),
+				Trigger = new Trigger(TriggerType.ARMOR)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
+					FastExecution = true,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdateUsingEventNumber("LOOT_051t1")
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -146,10 +151,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Entourage: LOOT_054d, LOOT_054b, LOOT_054c
 			// --------------------------------------------------------
 			cards.Add("LOOT_054", new Power {
-				// TODO [LOOT_054] Branching Paths && Test: Branching Paths_LOOT_054
-				InfoCardId = "LOOT_054be",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(2, new DiscoverTask(DiscoverType.BRANCHING_PATHS))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -163,9 +165,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_309", new Power {
-				// TODO [LOOT_309] Oaken Summons && Test: Oaken Summons_LOOT_309
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ArmorTask(6),
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)))
 			});
 
 			// ----------------------------------------- WEAPON - DRUID
@@ -204,9 +206,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ARMOR = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_051t1", new Power {
-				// TODO [LOOT_051t1] Jasper Spellstone && Test: Jasper Spellstone_LOOT_051t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(4, EntityType.TARGET),
+				Trigger = new Trigger(TriggerType.ARMOR)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
+					FastExecution = true,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdateUsingEventNumber("LOOT_051t2")
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -297,9 +304,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_511", new Power {
-				// TODO [LOOT_511] Kathrena Winterwisp && Test: Kathrena Winterwisp_LOOT_511
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RecruitTask(SelfCondition.IsRace(Race.BEAST)),
+				DeathrattleTask = new RecruitTask(SelfCondition.IsRace(Race.BEAST))
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -315,10 +321,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_520", new Power {
-				// TODO [LOOT_520] Seeping Oozeling && Test: Seeping Oozeling_LOOT_520
-				InfoCardId = "LOOT_520e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+					new RandomTask(1, EntityType.STACK),
+					new CopyTask(EntityType.STACK, 1, false, Zone.SETASIDE),
+					new MoveToSetaside(EntityType.STACK),
+					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.STACK),
+					new AddEnchantmentTask("LOOT_520e", EntityType.SOURCE, true))
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -641,6 +651,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO Test: Shifting Scroll_LOOT_104
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
+					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.Create(
 						new AddEnchantmentTask("LOOT_104e", EntityType.SOURCE),
 						new ChangeEntityTask(EntityType.SOURCE, CardType.SPELL, CardClass.MAGE))
@@ -907,9 +918,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_093", new Power {
-				// TODO [LOOT_093] Call to Arms && Test: Call to Arms_LOOT_093
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(3,
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ)))
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -1276,11 +1286,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_SCRIPT_DATA_NUM_2 = 4
 			// --------------------------------------------------------
 			cards.Add("LOOT_507", new Power {
-				// TODO [LOOT_507] Lesser Diamond Spellstone && Test: Lesser Diamond Spellstone_LOOT_507
+				// Test: Lesser Diamond Spellstone_LOOT_507
 				PowerTask = SpecificTask.DiamondSpellstone(2),
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_507t")
 				}
 			});
@@ -1412,6 +1423,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_507t2")
 				}
 			});
@@ -1559,7 +1571,7 @@ namespace SabberStoneCore.CardSets.Standard
 							new IncludeTask(EntityType.OP_MINIONS),
 							new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 							new RandomTask(1, EntityType.STACK),
-							new AttackTask(EntityType.TARGET, EntityType.STACK))))
+							new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK))))
 				}
 			});
 
@@ -1602,9 +1614,10 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new DestroyTask(EntityType.STACK)),
-				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				Trigger = new Trigger(TriggerType.PLAY_CARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
 					Condition = SelfCondition.IsDeathrattleCard,
 					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_503t")
 				}
@@ -1703,6 +1716,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
+					TriggerActivation = TriggerActivation.HAND,
 					Condition = SelfCondition.IsDeathrattleCard,
 					SingleTask = ComplexTask.ProgressSpellStoneUpdate("LOOT_503t2")
 				}
@@ -1739,9 +1753,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_062", new Power {
-				// TODO [LOOT_062] Kobold Hermit && Test: Kobold Hermit_LOOT_062
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.BASIC_TOTEM, null, 4)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1788,9 +1800,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_518", new Power {
-				// TODO [LOOT_518] Windshear Stormcaller && Test: Windshear Stormcaller_LOOT_518
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, new SelfCondition(p =>
+					{
+						BoardZone board = p.Controller.BoardZone;
+						if (board.Count < 5) return false;
+						string[] ids = board.Select(x => x.Card.Id).OrderBy(x => x).ToArray();
+						if (!ids.Contains("NEW1_009")) return false;
+						int index = System.Array.IndexOf(ids, "CS2_050");
+						if (index < 0) return false;
+						return ids[index + 2] == "CS2_052";
+					})),
+					new FlagTask(true, new SummonTask("NEW1_010")))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1829,9 +1850,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_064", new Power {
-				// TODO [LOOT_064] Lesser Sapphire Spellstone && Test: Lesser Sapphire Spellstone_LOOT_064
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonCopyTask(EntityType.TARGET),
+				Trigger = new Trigger(TriggerType.PLAY_CARD)
+				{
+					Condition = SelfCondition.IsOverloadCard,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdateUsingEventNumber("LOOT_064t1")
+				}
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1844,10 +1869,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_344", new Power {
-				// TODO [LOOT_344] Primal Talismans && Test: Primal Talismans_LOOT_344
-				InfoCardId = "LOOT_344e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("LOOT_344e", EntityType.MINIONS)
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1860,9 +1882,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_373", new Power {
-				// TODO [LOOT_373] Healing Rain && Test: Healing Rain_LOOT_373
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: Velen
+				PowerTask = new EnqueueTask(12,
+					ComplexTask.Create(
+						new IncludeTask(EntityType.FRIENDS),
+						new FilterStackTask(SelfCondition.IsDamaged),
+						new RandomTask(1, EntityType.STACK),
+						new HealTask(1, EntityType.STACK)))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1878,9 +1904,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_504", new Power {
-				// TODO [LOOT_504] Unstable Evolution && Test: Unstable Evolution_LOOT_504
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new TransformMinionTask(EntityType.TARGET, 1),
+					new AddCardTo("LOOT_504t", EntityType.HAND))
 			});
 
 			// ---------------------------------------- WEAPON - SHAMAN
@@ -1895,9 +1921,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("LOOT_506", new Power {
-				// TODO [LOOT_506] The Runespear && Test: The Runespear_LOOT_506
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: The Runespear_LOOT_506
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new DiscoverTask(DiscoverType.SPELL_RANDOM)
+				}
 			});
 
 		}
@@ -1911,9 +1940,41 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Summon a random basic Totem.
 			// --------------------------------------------------------
 			cards.Add("LOOT_344e", new Power {
-				// TODO [LOOT_344e] Primal Talisman && Test: Primal Talisman_LOOT_344e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.TARGET),
+					new FuncPlayablesTask(list =>
+					{
+						switch (Util.Random.Next(0, 4))
+						{
+							case 0:
+								return new List<IPlayable>
+								{
+									Entity.FromCard(list[0].Controller,
+										Cards.FromId("NEW1_009"))
+								};
+							case 1:
+								return new List<IPlayable>
+								{
+									Entity.FromCard(list[0].Controller,
+										Cards.FromId("CS2_050"))
+								};
+							case 2:
+								return new List<IPlayable>
+								{
+									Entity.FromCard(list[0].Controller,
+										Cards.FromId("CS2_051"))
+								};
+							case 3:
+								return new List<IPlayable>
+								{
+									Entity.FromCard(list[0].Controller,
+										Cards.FromId("CS2_052"))
+								};
+							default:
+								return null;
+						}
+					}),
+					new SummonTask())
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1934,9 +1995,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_064t1", new Power {
-				// TODO [LOOT_064t1] Sapphire Spellstone && Test: Sapphire Spellstone_LOOT_064t1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(2, new SummonCopyTask(EntityType.TARGET)),
+				Trigger = new Trigger(TriggerType.PLAY_CARD)
+				{
+					Condition = SelfCondition.IsOverloadCard,
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.ProgressSpellStoneUpdateUsingEventNumber("LOOT_064t2")
+				}
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1950,9 +2015,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_064t2", new Power {
-				// TODO [LOOT_064t2] Greater Sapphire Spellstone && Test: Greater Sapphire Spellstone_LOOT_064t2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(3, new SummonCopyTask(EntityType.TARGET))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1967,9 +2030,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOT_504t", new Power {
-				// TODO [LOOT_504t] Unstable Evolution && Test: Unstable Evolution_LOOT_504t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new TransformMinionTask(EntityType.TARGET, 1),
+					new AddCardTo("LOOT_504t", EntityType.HAND)),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = ComplexTask.Create(
+						new MoveToSetaside(EntityType.SOURCE)),
+					RemoveAfterTriggered = true
+				}
 			});
 
 		}
@@ -2129,9 +2199,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 890 = 10
 			// --------------------------------------------------------
 			cards.Add("LOOT_417", new Power {
-				// TODO Test: Cataclysm_LOOT_417
 				PowerTask = ComplexTask.Create(
-					new DestroyTask(EntityType.ALL),
+					new DestroyTask(EntityType.ALLMINIONS),
 					new DiscardTask(EntityType.HAND))
 			});
 
@@ -2153,6 +2222,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.HAND),
 						new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
 						new RandomTask(1, EntityType.STACK),
+						new RemoveFromHand(EntityType.STACK),
 						new SummonTask())
 				}
 			});
@@ -2938,9 +3008,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_184", new Power {
-				// TODO [LOOT_184] Silver Vanguard && Test: Silver Vanguard_LOOT_184
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 8))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2952,9 +3020,12 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Hero Powers.
 			// --------------------------------------------------------
 			cards.Add("LOOT_193", new Power {
-				// TODO [LOOT_193] Shimmering Courser && Test: Shimmering Courser_LOOT_193
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.SELF,
+					new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1))
+				{
+					Condition = SelfCondition.IsOpTurn,
+					Restless = true
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2964,9 +3035,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After this minion attacks a hero, add a copy of it to_your hand.
 			// --------------------------------------------------------
 			cards.Add("LOOT_218", new Power {
-				// TODO [LOOT_218] Feral Gibberer && Test: Feral Gibberer_LOOT_218
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.SELF,
+					Condition = SelfCondition.IsEventTargetIs(CardType.HERO),
+					SingleTask = new AddCardTo("LOOT_218", EntityType.HAND)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3045,8 +3119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_357", new Power {
 				// TODO [LOOT_357] Marin the Fox && Test: Marin the Fox_LOOT_357
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonOpTask("LOOT_357l")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3062,9 +3135,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_375", new Power {
-				// TODO [LOOT_375] Guild Recruiter && Test: Guild Recruiter_LOOT_375
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3074,9 +3145,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your hero can't be targeted by spells or Hero_Powers.
 			// --------------------------------------------------------
 			cards.Add("LOOT_382", new Power {
-				// TODO [LOOT_382] Kobold Monk && Test: Kobold Monk_LOOT_382
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.HERO, new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3121,7 +3190,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_389", new Power {
-				// TODO [LOOT_389] Rummaging Kobold && Test: Rummaging Kobold_LOOT_389
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsWeapon, SelfCondition.IsDead),
@@ -3215,9 +3283,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_521", new Power {
-				// TODO [LOOT_521] Master Oakheart && Test: Master Oakheart_LOOT_521
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 1)),
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 2)),
+					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 3)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3251,8 +3320,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_529", new Power {
-				// TODO Test: Void Ripper_LOOT_529
-				PowerTask = new SwapAttackHealthTask(EntityType.ALL_NOSOURCE, "LOOT_529e")
+
+				PowerTask = new SwapAttackHealthTask(EntityType.ALLMINIONS_NOSOURCE, "LOOT_529e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3290,9 +3359,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_540", new Power {
-				// TODO [LOOT_540] Dragonhatcher && Test: Dragonhatcher_LOOT_540
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new RecruitTask(SelfCondition.IsRace(Race.DRAGON))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3550,7 +3620,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t4e", new Power {
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOOT_278t4e"),
-				DeathrattleTask = new ReturnHandTask(EntityType.SOURCE)
+				DeathrattleTask = new ReturnHandTask(EntityType.TARGET)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3638,9 +3708,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
 			cards.Add("LOOT_520e", new Power {
-				// TODO [LOOT_520e] Albino Chameleon && Test: Albino Chameleon_LOOT_520e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new FuncNumberTask(p =>
+				{
+					p.Game.IdEntityDic[p[GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE);
+					return 0;
+				})
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3724,9 +3796,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MULTIPLY_BUFF_VALUE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_357l", new Power {
-				// TODO [LOOT_357l] Master Chest && Test: Master Chest_LOOT_357l
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RandomEntourageTask(),
+					new AddStackTo(EntityType.OP_HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

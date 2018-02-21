@@ -109,11 +109,14 @@ namespace SabberStoneCore.Actions
 				source.Game.TriggerManager.OnAttackTrigger(source);
 				c.Game.ProcessTasks();
 				c.Game.TaskQueue.EndEvent();
-				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY)|| (target.Zone != null && target.Zone.Type != Zone.PLAY))
+				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY) ||
+				    (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger", !c.Game.Logging? "":"Oh shizzle, something died to the shizzeling of triggering ...");
+					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger",
+						!c.Game.Logging ? "" : "Oh shizzle, something died to the shizzeling of triggering ...");
 					return false;
 				}
+
 				return true;
 			};
 

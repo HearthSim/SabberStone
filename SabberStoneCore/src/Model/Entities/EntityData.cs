@@ -164,6 +164,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			private static readonly int[] Primes =
 			{
+				7,
 				11,
 				17,
 				23,
@@ -351,7 +352,7 @@ namespace SabberStoneCore.Model.Entities
 			private void Initialise(int capacity)
 			{
 				int prime = GetPrime(capacity);
-				_buckets = new int[prime];
+				_buckets = new int[prime << 1];
 				for (int i = 0; i < _buckets.Length; i++)
 					_buckets[i] = -1;
 			}

@@ -38,6 +38,7 @@ namespace SabberStoneCore.Model.Zones
 		public override IPlayable Remove(IPlayable entity)
 		{
 			entity.AuraEffects.ResetCost();
+			entity.AppliedEnchantments?.ForEach(p => p.ActivatedTrigger?.Remove());
 			return base.Remove(entity);
 		}
 

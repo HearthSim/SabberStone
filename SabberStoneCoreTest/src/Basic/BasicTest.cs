@@ -867,5 +867,31 @@ namespace SabberStoneCoreTest.Basic
 
 			Assert.Equal(3, game.CurrentPlayer.Hero.Damage);
 		}
+
+		[Fact(Skip = "ignore")]
+		public void WaitChoices()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+
+			game.ProcessCard("Medivh, the Guardian", null, true);
+			game.ProcessCard("Free From Amber", null, true);
+
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+			Assert.Equal(1, game.CurrentPlayer.NumOptionsPlayedThisTurn);
+
+			game.ChooseNthChoice(1);
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(2, game.CurrentPlayer.NumOptionsPlayedThisTurn);
+		}
 	}
 }

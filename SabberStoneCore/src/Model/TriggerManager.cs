@@ -9,7 +9,7 @@ namespace SabberStoneCore.Model
 {
     public class TriggerManager
     {
-	    public delegate void TriggerHandler(IEntity sender, int number = 0);
+	    public delegate void TriggerHandler(IEntity sender);
 
 	    public event TriggerHandler DealDamageTrigger;
 	    public event TriggerHandler DamageTrigger;
@@ -51,10 +51,12 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler FreezeTrigger;
 
+	    public event TriggerHandler ArmorTrigger;
 
-	    internal void OnDealDamageTrigger(IEntity sender, int number)
+
+	    internal void OnDealDamageTrigger(IEntity sender)
 	    {
-		    DealDamageTrigger?.Invoke(sender, number);
+		    DealDamageTrigger?.Invoke(sender);
 	    }
 
 		internal void OnDamageTrigger(IEntity sender)
@@ -62,9 +64,9 @@ namespace SabberStoneCore.Model
 		    DamageTrigger?.Invoke(sender);
 	    }
 
-	    internal void OnHealTrigger(IEntity sender, int number)
+	    internal void OnHealTrigger(IEntity sender)
 	    {
-			HealTrigger?.Invoke(sender, number);
+			HealTrigger?.Invoke(sender);
 	    }
 
 	    internal void OnLoseDivineShield(IEntity sender)
@@ -139,7 +141,9 @@ namespace SabberStoneCore.Model
 
 	    internal void OnZoneTrigger(IEntity sender)
 	    {
-		    ZoneTrigger?.Invoke(sender);
+		    if (ZoneTrigger == null) return;
+		    ZoneTrigger.Invoke(sender);
+		    sender.Game.ProcessTasks();
 	    }
 
 	    internal void OnDiscardTrigger(IEntity sender)
@@ -170,6 +174,11 @@ namespace SabberStoneCore.Model
 	    internal void OnFreezeTrigger(IEntity sender)
 	    {
 		    FreezeTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnArmorTrigger(IEntity sender)
+	    {
+		    ArmorTrigger?.Invoke(sender);
 	    }
     }
 }

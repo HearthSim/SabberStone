@@ -28,6 +28,8 @@ namespace SabberStoneCore.Actions
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
 
+				c.Game.CurrentEventData = new EventMetaData(source, target);
+
 				// Pay Phase
 				if (!PayPhase.Invoke(c, source))
 					return false;
@@ -48,7 +50,6 @@ namespace SabberStoneCore.Actions
 				// target is beeing set onto this gametag
 				if (target != null)
 				{
-					c.Game.CurrentEventData = new EventMetaData(source, target);
 					source.CardTarget = target.Id;
 					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				}
@@ -110,8 +111,10 @@ namespace SabberStoneCore.Actions
 			{
 				if (source.Card.HasOverload)
 				{
-					c.OverloadOwed += source.Overload;
-					c.OverloadThisGame += source.Overload;
+					int amount = source.Overload;
+					c.OverloadOwed += amount;
+					c.OverloadThisGame += amount;
+					c.Game.CurrentEventData.EventNumber = amount;
 				}
 					
 				int cost = source.Cost;
@@ -155,8 +158,6 @@ namespace SabberStoneCore.Actions
 				c.SetasideZone.Add(oldHero.HeroPower);
 				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
 				hero.HeroPower.Power?.Trigger?.Activate(hero.HeroPower);
-				if (hero.HeroPower.IsPassiveHeroPower)	// Valeera, ad hoc for now; Maybe revisit here for Bosses
-					hero.HeroPower.ActivateTask();
 
 				c.Hero = hero;
 				hero.Power?.Trigger?.Activate(hero);
@@ -175,6 +176,8 @@ namespace SabberStoneCore.Actions
 				{
 					hero.ActivateTask(PowerActivation.POWER, target);
 				}
+				if (hero.HeroPower.IsPassiveHeroPower)  // Valeera, ad hoc for now; Maybe revisit here for Bosses
+					hero.HeroPower.ActivateTask();
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
@@ -355,18 +358,19 @@ namespace SabberStoneCore.Actions
 				Game game = c.Game;
 
 				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
-				//Weapon oldWeapon = c.Hero.Weapon;
 
-				//if (oldWeapon != null)
-				//	c.Hero.Weapon = null;
+				//c.Hero.AddWeapon(weapon);
 
-				c.Hero.AddWeapon(weapon);
+				if (game.History)
+					weapon[GameTag.ZONE] = (int) Zone.PLAY;
+
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();
 				OnPlayTrigger.Invoke(c, weapon);
 
+				// not sure... need some test
 				weapon.Card.Power?.Aura?.Activate(weapon);
 				weapon.Card.Power?.Trigger?.Activate(weapon);
 
@@ -381,6 +385,7 @@ namespace SabberStoneCore.Actions
 						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
 				}
 
+				// - Equipping Phase --> Resolve Battlecry, OnDeathTrigger
 				// activate battlecry
 				if (game.History)
 					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, weapon.Id, "", -1, 0));
@@ -392,13 +397,17 @@ namespace SabberStoneCore.Actions
 
 				game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-				//if (oldWeapon != null)
-				//	//TODO
+				// equip new weapon here
+				game.TaskQueue.StartEvent();
+				// destroy old weapon
+				// equip new weapon
+				// weapon's deathrattle task queues up here
+				c.Hero.AddWeapon(weapon);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
+				// deathprocessing;
 				game.DeathProcessingAndAuraUpdate();
-
-
-				c.NumWeaponsPlayedThisGame++;
 
 				// trigger After Play Phase
 				game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !game.Logging? "":"trigger After Play Phase");
@@ -408,6 +417,8 @@ namespace SabberStoneCore.Actions
 				game.TaskQueue.EndEvent();
 
 				game.DeathProcessingAndAuraUpdate();
+
+				c.NumWeaponsPlayedThisGame++;
 
 				return true;
 			};

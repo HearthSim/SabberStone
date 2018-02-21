@@ -219,7 +219,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_827p", new Power {
-				// TODO: Can't play cards with HIDE_STATS
 				PowerTask = SpecificTask.DeathsShadow,
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
@@ -1332,6 +1331,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.OP_MINIONS),
+						new GetEventNumberTask(),
 						new DamageNumberTask(EntityType.STACK))
 				}
 			});
@@ -1457,7 +1457,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
+					new CopyTask(EntityType.TARGET, 1),
 					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
 					new SummonTask(SummonSide.DEATHRATTLE))	
 			});
@@ -1825,6 +1825,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.TARGET, null, true),
 					new FuncPlayablesTask(list =>
 					{
+						if (list.Count < 2)			//	Can Grand Archivist play this ?
+							return null;
 						var source = (Weapon) list[0];
 						var target = (Minion) list[1];
 						target.TakeDamage(source, source.AttackDamage);
@@ -1909,7 +1911,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Always copy your last played card.
 			// --------------------------------------------------------
 			cards.Add("ICC_827e", new Power {
-				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1),
+				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1)
+				{
+					RemoveWhenPlayed = true
+				},
 				Trigger = Triggers.ShadowReflectionTrigger
 
 				// Trigger 1 : PlayCard => ChangeEntity
@@ -3005,6 +3010,7 @@ namespace SabberStoneCore.CardSets.Standard
 						return list.Where(p => p is Minion && p[GameTag.ATK] < atk).ToList();
 					}),
 					new RandomTask(1, EntityType.STACK),
+					new RemoveFromDeck(EntityType.STACK),
 					new SummonTask())
 			});
 
@@ -3369,7 +3375,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_257e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
+					new CopyTask(EntityType.TARGET, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 

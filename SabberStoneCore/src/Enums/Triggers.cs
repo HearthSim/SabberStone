@@ -64,6 +64,8 @@ namespace SabberStoneCore.Enums
 		TARGET,
 		/// <summary> The effect will be triggered when a entity is frozen. </summary>
 		FROZEN,
+		/// <summary> The effect will be triggered when a hero gains armor. </summary>
+		ARMOR,
 
 		CUSTOMTRIGGER_SHADOW_REFLECTION	// should make as inherited class ?...
 	}

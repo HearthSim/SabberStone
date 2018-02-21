@@ -63,13 +63,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					Playables.ForEach(p =>
 					{
+						var zone = p.Controller.ControlledZones[_zoneType];
 						for (int i = 0; i < Amount; i++)
 						{
+							if (zone?.IsFull ?? false)
+								break;
 							// TODO
 							result.Add(Opposite ?
 								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, p.Controller.ControlledZones[_zoneType]) :
 								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, Controller.ControlledZones[_zoneType]));
 						}
+						if (zone?.IsFull ?? false)
+							return;
 					});
 					break;
 				case EntityType.OP_HERO_POWER:

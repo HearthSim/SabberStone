@@ -424,12 +424,6 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(pList =>
 				{
 					Enchantment e = pList[0] as Enchantment;
-					if (pList[1][GameTag.VALEERASHADOW] == 1)
-					{
-						e.Remove();
-						pList[1][GameTag.VALEERASHADOW] = 0;
-						return null;
-					}
 					IPlayable previous = (IPlayable) e.Target;
 					e.Remove();
 

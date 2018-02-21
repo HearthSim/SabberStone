@@ -294,7 +294,21 @@ namespace SabberStoneCore.Tasks
 				new FlagTask(true, Create(
 					new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
 					new ChangeEntityTask(cardId))));
-		} 
+		}
+
+		public static ISimpleTask ProgressSpellStoneUpdateUsingEventNumber(string cardId)
+		{
+			return Create(
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new GetEventNumberTask(1),
+				new MathNumberIndexTask(0, 1, MathOperation.ADD),
+				new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+				new NumberConditionTask(RelaSign.GEQ),
+				new FlagTask(true, Create(
+					new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+					new ChangeEntityTask(cardId))));
+		}
 
 		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{

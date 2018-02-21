@@ -112,7 +112,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone.Last().Card.Name);
-			Assert.Equal(0, game.CurrentPlayer.BoardZone.Last().AppliedEnchantments.Count);
+			Assert.Empty(game.CurrentPlayer.BoardZone.Last().AppliedEnchantments);
 
 
 

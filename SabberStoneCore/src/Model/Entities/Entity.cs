@@ -420,7 +420,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool Combo => Card[GameTag.COMBO] == 1;
 
-		public bool ChooseOne => Card[GameTag.CHOOSE_ONE] == 1;
+		public bool ChooseOne => Card.ChooseOne;
 
 		public virtual bool ToBeDestroyed
 		{
