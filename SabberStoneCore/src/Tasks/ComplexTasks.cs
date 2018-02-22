@@ -219,6 +219,41 @@ namespace SabberStoneCore.Tasks
 				new DrawStackTask());
 		}
 
+		// TODO maybee better implement it with CFM_712_t + int
+		private static readonly IReadOnlyList<string> JadeGolemStr = new []
+		{
+			"CFM_712_t01",
+			"CFM_712_t02",
+			"CFM_712_t03",
+			"CFM_712_t04",
+			"CFM_712_t05",
+			"CFM_712_t06",
+			"CFM_712_t07",
+			"CFM_712_t08",
+			"CFM_712_t09",
+			"CFM_712_t10",
+			"CFM_712_t11",
+			"CFM_712_t12",
+			"CFM_712_t13",
+			"CFM_712_t14",
+			"CFM_712_t15",
+			"CFM_712_t16",
+			"CFM_712_t17",
+			"CFM_712_t18",
+			"CFM_712_t19",
+			"CFM_712_t20",
+			"CFM_712_t21",
+			"CFM_712_t22",
+			"CFM_712_t23",
+			"CFM_712_t24",
+			"CFM_712_t25",
+			"CFM_712_t26",
+			"CFM_712_t27",
+			"CFM_712_t28",
+			"CFM_712_t29",
+			"CFM_712_t30",
+		};
+
 		public static ISimpleTask SummonJadeGolem(SummonSide side)
 		{
 			return Create(
@@ -227,43 +262,9 @@ namespace SabberStoneCore.Tasks
 				{
 					Controller controller = p[0].Controller;
 					int jadeGolem = controller.JadeGolem;
-					controller.JadeGolem++;
-					// TODO maybee better implement it with CFM_712_t + int
-					var jadeGolemStr = new List<string>
-					{
-						"CFM_712_t01",
-						"CFM_712_t02",
-						"CFM_712_t03",
-						"CFM_712_t04",
-						"CFM_712_t05",
-						"CFM_712_t06",
-						"CFM_712_t07",
-						"CFM_712_t08",
-						"CFM_712_t09",
-						"CFM_712_t10",
-						"CFM_712_t11",
-						"CFM_712_t12",
-						"CFM_712_t13",
-						"CFM_712_t14",
-						"CFM_712_t15",
-						"CFM_712_t16",
-						"CFM_712_t17",
-						"CFM_712_t18",
-						"CFM_712_t19",
-						"CFM_712_t20",
-						"CFM_712_t21",
-						"CFM_712_t22",
-						"CFM_712_t23",
-						"CFM_712_t24",
-						"CFM_712_t25",
-						"CFM_712_t26",
-						"CFM_712_t27",
-						"CFM_712_t28",
-						"CFM_712_t29",
-						"CFM_712_t30",
-					};
-					string golemStr = jadeGolem <= jadeGolemStr.Count ? jadeGolemStr[jadeGolem] : jadeGolemStr[29];
-					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(golemStr)) };
+					controller.JadeGolem = jadeGolem + 1;
+					
+					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(jadeGolem < 30 ? JadeGolemStr[jadeGolem] : JadeGolemStr[29])) };
 				}),
 				new SummonTask(side));
 		}

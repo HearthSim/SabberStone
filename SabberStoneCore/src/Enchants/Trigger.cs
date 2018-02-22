@@ -315,7 +315,7 @@ namespace SabberStoneCore.Enchants
 					Game.TriggerManager.DamageTrigger -= Process;
 					break;
 			    case TriggerType.HEAL:
-				    Game.TriggerManager.HealTrigger += Process;
+				    Game.TriggerManager.HealTrigger -= Process;
 				    break;
 				case TriggerType.TURN_END:
 				    Game.TriggerManager.EndTurnTrigger -= Process;

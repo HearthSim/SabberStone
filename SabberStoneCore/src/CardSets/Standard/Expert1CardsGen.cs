@@ -539,7 +539,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Gain 2 Mana Crystals.
 			// --------------------------------------------------------
 			cards.Add("EX1_164a", new Power {
-				PowerTask = new ManaCrystalEmptyTask(2)
+				PowerTask = new ManaCrystalFullTask(2)
 			});
 
 			// ------------------------------------------ SPELL - DRUID

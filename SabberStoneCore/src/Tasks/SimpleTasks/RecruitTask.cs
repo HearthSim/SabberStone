@@ -134,6 +134,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, summonPosition);
 
+			Game.OnRandomHappened(true);
+
 			return TaskState.COMPLETE;
 		}
 

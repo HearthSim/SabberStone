@@ -277,12 +277,12 @@ namespace SabberStoneCore.Model.Entities
 
 			// clone task here
 			ISimpleTask clone = task.Clone();
-			clone.Game = Game;
-			clone.Controller = Controller;
+			clone.Game = source?.Game ?? Game;
+			clone.Controller = source?.Controller ?? Controller;
 			clone.Source = source ?? this;
 			clone.Target = target;
 
-			Game.TaskQueue.Enqueue(clone);
+			clone.Game.TaskQueue.Enqueue(clone);
 		}
 
 		/// <summary>

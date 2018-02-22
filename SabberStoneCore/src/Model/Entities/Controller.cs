@@ -406,26 +406,33 @@ namespace SabberStoneCore.Model.Entities
 
 			if (Hero.HeroPower.IsPlayable)
 			{
-				IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
-				if (targets.Any())
+				if (Hero.HeroPower.ChooseOne)
 				{
-					foreach (ICharacter target in targets)
-						result.Add(HeroPowerTask.Any(this, target));
+					if (ChooseBoth)
+						result.Add(HeroPowerTask.Any(this));
+					else
+					{
+						result.Add(HeroPowerTask.Any(this, null, 1));
+						result.Add(HeroPowerTask.Any(this, null, 2));
+					}
 				}
 				else
 				{
-					result.Add(HeroPowerTask.Any(this));
+					IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
+					if (targets.Any())
+					{
+						foreach (ICharacter target in targets)
+							result.Add(HeroPowerTask.Any(this, target));
+					}
+					else
+					{
+						result.Add(HeroPowerTask.Any(this));
+					}
 				}
 			}
 
-			//CalculatingOptions = false;
-			//VATCache = null;
-
 			return result;
 		}
-
-		//public bool CalculatingOptions { get; set; }
-		//public IEnumerable<ICharacter> VATCache { get; set; }
 
 		/// <summary>
 		/// Returns a string which dumps information about this player.

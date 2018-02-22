@@ -40,6 +40,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			switch (Type)
 			{
 				case EntityType.DECK:
+					if (Controller.DeckZone.IsFull)
+						return TaskState.STOP;
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller, Card);
 					Playable[Enums.GameTag.DISPLAYED_CREATOR] = Source.Id;
@@ -61,6 +63,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_DECK:
+					if (Controller.Opponent.DeckZone.IsFull)
+						return TaskState.STOP;
 					if (Playable == null)
 						Playable = Entity.FromCard(Controller.Opponent, Card);
 					Playable[Enums.GameTag.DISPLAYED_CREATOR] = Source.Id;
