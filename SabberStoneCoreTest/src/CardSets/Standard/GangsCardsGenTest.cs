@@ -204,6 +204,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kun the Forgotten King"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
 			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
+
+			Game clone = game.Clone();
+			Assert.Equal(10, clone.CurrentPlayer.RemainingMana);
 		}
 
 		// ----------------------------------------- MINION - DRUID

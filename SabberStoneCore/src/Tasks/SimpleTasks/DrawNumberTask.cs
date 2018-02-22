@@ -16,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			return this;
+			return new DrawNumberTask();
 		}
 	}
 }

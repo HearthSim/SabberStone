@@ -956,7 +956,7 @@ namespace SabberStoneCoreConsole
 				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(@"Yogg-Saron, Hope's End"));
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
-				ShowLog(game, LogLevel.DEBUG);
+				ShowLog(game, LogLevel.VERBOSE);
 			//}
 		}
 
