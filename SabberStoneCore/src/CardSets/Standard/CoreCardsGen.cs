@@ -2663,7 +2663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 		}
-		
+
 		public static void AddAll(Dictionary<string, Power> cards)
 		{
 			Heroes(cards);
