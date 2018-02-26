@@ -1,38 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SabberStoneCore.Conditions;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.CardSets
+namespace SabberStoneCore.CardSets.Undefined
 {
-	/// <summary>
-	/// The Grand Tournament cardset.
-	/// </summary>
-	public class TgtCardsGen
+	public class TgtCardsGenAdv
 	{
-		private static void HeroPowers(IDictionary<string, List<Enchantment>> cards)
+		private static void HeroPowers(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------ HERO_POWER - SHAMAN
 			// [AT_050t] Lightning Jolt (*) - COST:2 
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
-			//       Deal $2 damage. *spelldmg
+			//       Deal $2 damage. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("AT_050t", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(2, EntityType.TARGET, false)
-				}
+			cards.Add("AT_050t", new Power {
+				// TODO [AT_050t] Lightning Jolt && Test: Lightning Jolt_AT_050t
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------- HERO_POWER - DRUID
@@ -42,14 +37,11 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Gain 2 Armor and +2 Attack this turn.
 			// --------------------------------------------------------
-			cards.Add("AT_132_DRUID", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new ArmorTask(2),
-						new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
-				}
+			cards.Add("AT_132_DRUID", new Power {
+				// TODO [AT_132_DRUID] Dire Shapeshift && Test: Dire Shapeshift_AT_132_DRUID
+				InfoCardId = "AT_132_DRUIDe",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------ HERO_POWER - HUNTER
@@ -57,18 +49,16 @@ namespace SabberStoneCore.CardSets
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
-			//       Deal $3 damage to the enemy hero. *spelldmg
+			//       Deal $3 damage to the enemy hero. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_STEADY_SHOT = 0
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
-			cards.Add("AT_132_HUNTER", new List<Enchantment> {
-			  new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(3, EntityType.OP_HERO, false)
-				}
+			cards.Add("AT_132_HUNTER", new Power {
+				// TODO [AT_132_HUNTER] Ballista Shot && Test: Ballista Shot_AT_132_HUNTER
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// -------------------------------------- HERO_POWER - MAGE
@@ -76,17 +66,15 @@ namespace SabberStoneCore.CardSets
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
-			//       Deal $2 damage. *spelldmg
+			//       Deal $2 damage. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("AT_132_MAGE", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(2, EntityType.TARGET, false)
-				}
+			cards.Add("AT_132_MAGE", new Power {
+				// TODO [AT_132_MAGE] Fireblast Rank 2 && Test: Fireblast Rank 2_AT_132_MAGE
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------- HERO_POWER - PALADIN
@@ -99,12 +87,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("AT_132_PALADIN", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("CS2_101t", SummonSide.SPELL))
-				}
+			cards.Add("AT_132_PALADIN", new Power {
+				// TODO [AT_132_PALADIN] The Silver Hand && Test: The Silver Hand_AT_132_PALADIN
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------ HERO_POWER - PRIEST
@@ -117,12 +103,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("AT_132_PRIEST", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new HealTask(4, EntityType.TARGET)
-				}
+			cards.Add("AT_132_PRIEST", new Power {
+				// TODO [AT_132_PRIEST] Heal && Test: Heal_AT_132_PRIEST
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------- HERO_POWER - ROGUE
@@ -132,12 +116,10 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Equip a 2/2 Weapon.
 			// --------------------------------------------------------
-			cards.Add("AT_132_ROGUE", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new WeaponTask("AT_132_ROGUEt")
-				}
+			cards.Add("AT_132_ROGUE", new Power {
+				// TODO [AT_132_ROGUE] Poisoned Daggers && Test: Poisoned Daggers_AT_132_ROGUE
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------ HERO_POWER - SHAMAN
@@ -150,12 +132,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMAN", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DiscoverTask(DiscoverType.BASIC_TOTEM)
-				}
+			cards.Add("AT_132_SHAMAN", new Power {
+				// TODO [AT_132_SHAMAN] Totemic Slam && Test: Totemic Slam_AT_132_SHAMAN
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------- HERO_POWER - WARLOCK
@@ -165,12 +145,10 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Draw a card.
 			// --------------------------------------------------------
-			cards.Add("AT_132_WARLOCK", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DrawTask()
-				}
+			cards.Add("AT_132_WARLOCK", new Power {
+				// TODO [AT_132_WARLOCK] Soul Tap && Test: Soul Tap_AT_132_WARLOCK
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -180,73 +158,16 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Gain 4 Armor.
 			// --------------------------------------------------------
-			cards.Add("AT_132_WARRIOR", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new ArmorTask(4)
-				}
+			cards.Add("AT_132_WARRIOR", new Power {
+				// TODO [AT_132_WARRIOR] Tank Up! && Test: Tank Up!_AT_132_WARRIOR
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void Druid(IDictionary<string, List<Enchantment>> cards)
+		private static void Druid(IDictionary<string, Power> cards)
 		{
-			// ------------------------------------------ SPELL - DRUID
-			// [AT_037] Living Roots - COST:1 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_037",
-				//CHOOSE_ONE
-				null);
-
-			// ------------------------------------------ SPELL - DRUID
-			// [AT_043] Astral Communion - COST:4 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Gain 10 Mana Crystals. Discard your hand.
-			// --------------------------------------------------------
-			cards.Add("AT_043", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DiscardTask(EntityType.HAND),
-						ComplexTask.ExcessManaCheck,
-						new ManaCrystalFullTask(10))
-				},
-			});
-
-			// ------------------------------------------ SPELL - DRUID
-			// [AT_044] Mulch - COST:3 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Destroy a minion.
-			//       Add a random minion to your opponent's hand.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_044", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DestroyTask(EntityType.TARGET),
-						new RandomCardTask(CardType.MINION, CardClass.INVALID, Race.INVALID, null, true),
-						new AddStackTo(EntityType.OP_HAND))
-				},
-			});
-
 			// ----------------------------------------- MINION - DRUID
 			// [AT_038] Darnassus Aspirant - COST:2 [ATK:2/HP:3] 
 			// - Set: tgt, Rarity: rare
@@ -258,17 +179,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_038", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new ManaCrystalEmptyTask(1)
-				},
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new ManaCrystalEmptyTask(-1)
-				},
+			cards.Add("AT_038", new Power {
+				// TODO [AT_038] Darnassus Aspirant && Test: Darnassus Aspirant_AT_038
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -281,13 +195,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_039", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackTurn(2), EntityType.HERO))
-				}
+			cards.Add("AT_039", new Power {
+				// TODO [AT_039] Savage Combatant && Test: Savage Combatant_AT_039
+				InfoCardId = "AT_039e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -300,17 +212,16 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
 			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("AT_040", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.Health(3), EntityType.TARGET)
-				},
+			cards.Add("AT_040", new Power {
+				// TODO [AT_040] Wildwalker && Test: Wildwalker_AT_040
+				InfoCardId = "AT_040e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -319,25 +230,20 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you summon a Beast, reduce the Cost of this card by (1).
 			// --------------------------------------------------------
-			cards.Add("AT_041", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.HAND_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.HAND))
-						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsRace(Race.BEAST)))
-						.TriggerEffect(GameTag.SUMMONED, 1)
-						.SingleTask(new BuffTask(Buffs.Cost(-1), EntityType.SOURCE))
-						.Build()
-				}
+			cards.Add("AT_041", new Power {
+				// TODO [AT_041] Knight of the Wild && Test: Knight of the Wild_AT_041
+				InfoCardId = "AT_041e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - DRUID
 			// [AT_042] Druid of the Saber - COST:2 [ATK:2/HP:1] 
 			// - Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Choose One -</b> Transform to gain <b>Charge</b>; or +1/+1 and <b>Stealth</b>.
+			// Text: [x]<b>Choose One -</b> Transform
+			//       into a 2/1 with <b>Charge</b>;
+			//       or a 3/2 with <b>Stealth</b>.
 			// --------------------------------------------------------
 			// GameTag:
 			// - CHOOSE_ONE = 1
@@ -346,14 +252,12 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_042", new List<Enchantment> {
-				new Enchantment
-				{
-                    // CHOOSE_ONE, Choose Both option
-                    Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new TransformTask("OG_044c", EntityType.SOURCE)
-				}
+			cards.Add("AT_042", new Power {
+				// TODO [AT_042] Druid of the Saber && Test: Druid of the Saber_AT_042
+				//PowerTask = null,
+				//Trigger = null,
 			});
+
 			// ----------------------------------------- MINION - DRUID
 			// [AT_045] Aviana - COST:9 [ATK:5/HP:5] 
 			// - Set: tgt, Rarity: legendary
@@ -364,93 +268,67 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("AT_045", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = new Enchant
-					{
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced
-						},
-						ApplyConditions = new List<RelaCondition>
-						{
-							RelaCondition.IsOther(SelfCondition.IsMinion)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.COST] = 0
-						},
-						FixedValueFunc = owner => 1
-					}
-				}
+			cards.Add("AT_045", new Power {
+				// TODO [AT_045] Aviana && Test: Aviana_AT_045
+				InfoCardId = "AT_045e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
-		}
-
-		private static void DruidNonCollect(IDictionary<string, List<Enchantment>> cards)
-		{
 			// ------------------------------------------ SPELL - DRUID
-			// [AT_037a] Living Roots (*) - COST:0 
-			// - Set: tgt, 
+			// [AT_037] Living Roots - COST:1 
+			// - Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			// Text: Deal $2 damage. *spelldmg
+			// Text: <b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("AT_037a", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(2, EntityType.TARGET, true)
-				},
+			cards.Add("AT_037", new Power {
+				// TODO [AT_037] Living Roots && Test: Living Roots_AT_037
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ SPELL - DRUID
-			// [AT_037b] Living Roots (*) - COST:0 
-			// - Set: tgt, 
+			// [AT_043] Astral Communion - COST:4 
+			// - Set: tgt, Rarity: epic
 			// --------------------------------------------------------
-			// Text: Summon two 1/1 Saplings.
+			// Text: Gain 10 Mana Crystals. Discard your hand.
 			// --------------------------------------------------------
-			cards.Add("AT_037b", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new SummonTask("AT_037t", SummonSide.SPELL), false)
-				}
+			// GameTag:
+			// - 890 = 10
+			// --------------------------------------------------------
+			cards.Add("AT_043", new Power {
+				// TODO [AT_043] Astral Communion && Test: Astral Communion_AT_043
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ SPELL - DRUID
-			// [AT_042a] Lion Form (*) - COST:0 
-			// - Set: tgt, Rarity: common
+			// [AT_044] Mulch - COST:3 
+			// - Set: tgt, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Charge</b>
+			// Text: Destroy a minion.
+			//       Add a random minion to your opponent's hand.
 			// --------------------------------------------------------
-			cards.Add("AT_042a", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new TransformTask("AT_042t", EntityType.SOURCE)
-				}
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("AT_044", new Power {
+				// TODO [AT_044] Mulch && Test: Mulch_AT_044
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
-			// ------------------------------------------ SPELL - DRUID
-			// [AT_042b] Panther Form (*) - COST:0 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: +1/+1 and <b>Stealth</b>
-			// --------------------------------------------------------
-			cards.Add("AT_042b", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new TransformTask("AT_042t2", EntityType.SOURCE)
-				}
-			});
+		}
 
+		private static void DruidNonCollect(IDictionary<string, Power> cards)
+		{
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [AT_039e] Savage (*) - COST:0 
 			// - Set: tgt, 
@@ -458,9 +336,13 @@ namespace SabberStoneCore.CardSets
 			// Text: +2 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_039e", null);
+			cards.Add("AT_039e", new Power {
+				// TODO [AT_039e] Savage && Test: Savage_AT_039e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [AT_040e] Kindred Spirit (*) - COST:0 
@@ -468,7 +350,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
-			cards.Add("AT_040e", null);
+			cards.Add("AT_040e", new Power {
+				// TODO [AT_040e] Kindred Spirit && Test: Kindred Spirit_AT_040e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [AT_132_DRUIDe] Dire Claws (*) - COST:0 
@@ -477,15 +363,23 @@ namespace SabberStoneCore.CardSets
 			// Text: +2 Attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_132_DRUIDe", null);
+			cards.Add("AT_132_DRUIDe", new Power {
+				// TODO [AT_132_DRUIDe] Dire Claws && Test: Dire Claws_AT_132_DRUIDe
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- MINION - DRUID
 			// [AT_037t] Sapling (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_037t", null);
+			cards.Add("AT_037t", new Power {
+				// TODO [AT_037t] Sapling && Test: Sapling_AT_037t
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- MINION - DRUID
 			// [AT_042t] Sabertooth Lion (*) - COST:2 [ATK:2/HP:1] 
@@ -496,7 +390,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_042t", null);
+			cards.Add("AT_042t", new Power {
+				// TODO [AT_042t] Sabertooth Lion && Test: Sabertooth Lion_AT_042t
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- MINION - DRUID
 			// [AT_042t2] Sabertooth Panther (*) - COST:2 [ATK:3/HP:2] 
@@ -507,7 +405,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("AT_042t2", null);
+			cards.Add("AT_042t2", new Power {
+				// TODO [AT_042t2] Sabertooth Panther && Test: Sabertooth Panther_AT_042t2
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- MINION - DRUID
 			// [OG_044c] Sabertooth Tiger (*) - COST:2 [ATK:3/HP:2] 
@@ -519,100 +421,67 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("OG_044c", null);
+			cards.Add("OG_044c", new Power {
+				// TODO [OG_044c] Sabertooth Tiger && Test: Sabertooth Tiger_OG_044c
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [AT_037a] Living Roots (*) - COST:0 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: Deal $2 damage. @spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("AT_037a", new Power {
+				// TODO [AT_037a] Living Roots && Test: Living Roots_AT_037a
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [AT_037b] Living Roots (*) - COST:0 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: Summon two 1/1 Saplings.
+			// --------------------------------------------------------
+			cards.Add("AT_037b", new Power {
+				// TODO [AT_037b] Living Roots && Test: Living Roots_AT_037b
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [AT_042a] Lion Form (*) - COST:0 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: <b>Charge</b>
+			// --------------------------------------------------------
+			cards.Add("AT_042a", new Power {
+				// TODO [AT_042a] Lion Form && Test: Lion Form_AT_042a
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [AT_042b] Panther Form (*) - COST:0 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: +1/+1 and <b>Stealth</b>
+			// --------------------------------------------------------
+			cards.Add("AT_042b", new Power {
+				// TODO [AT_042b] Panther Form && Test: Panther Form_AT_042b
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Hunter(IDictionary<string, List<Enchantment>> cards)
+		private static void Hunter(IDictionary<string, Power> cards)
 		{
-			// ----------------------------------------- SPELL - HUNTER
-			// [AT_056] Powershot - COST:3 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Deal $2 damage to a minion and the minions next to it. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_056", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DamageTask(2, EntityType.TARGET, true),
-						new IncludeTask(EntityType.OP_MINIONS),
-						new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
-						new DamageTask(2, EntityType.STACK, true))
-				},
-			});
-
-			// ----------------------------------------- SPELL - HUNTER
-			// [AT_060] Bear Trap - COST:2 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> After your hero is attacked, summon a 3/3 Bear with <b>Taunt</b>.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET_OR_QUEST = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("AT_060", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-						.TriggerEffect(GameTag.DEFENDING, 1)
-						.SingleTask(ComplexTask.Secret(
-							new SummonTask("CS2_125", SummonSide.SPELL)))
-						.Build()
-				}
-			});
-
-			// ----------------------------------------- SPELL - HUNTER
-			// [AT_061] Lock and Load - COST:2 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Each time you cast a spell this turn, add a random Hunter card to your hand.
-			// --------------------------------------------------------
-			cards.Add("AT_061", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.SPELL,
-					Trigger = new TriggerBuilder().Create()
-						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsSpell))
-						.TurnsActive(0)
-						.FastExecution(true)
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(ComplexTask.Create(
-							new RandomCardTask(CardType.INVALID, CardClass.HUNTER),
-							new AddStackTo(EntityType.HAND)))
-						.Build()
-				}
-			});
-
-			// ----------------------------------------- SPELL - HUNTER
-			// [AT_062] Ball of Spiders - COST:6 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Summon three 1/1 Webspinners.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_NUM_MINION_SLOTS = 1
-			// --------------------------------------------------------
-			cards.Add("AT_062", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, new SummonTask("FP1_011", SummonSide.SPELL))
-				},
-			});
-
 			// ---------------------------------------- MINION - HUNTER
 			// [AT_010] Ram Wrangler - COST:5 [ATK:3/HP:3] 
 			// - Set: tgt, Rarity: rare
@@ -623,16 +492,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_010", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.BEAST)),
-						new FlagTask(true, ComplexTask.Create(
-							new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
-							new SummonTask()))),
-				},
+			cards.Add("AT_010", new Power {
+				// TODO [AT_010] Ram Wrangler && Test: Ram Wrangler_AT_010
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -645,19 +508,18 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
+			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
-			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_057", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.ImmuneTurn(), EntityType.TARGET)
-				},
+			cards.Add("AT_057", new Power {
+				// TODO [AT_057] Stablemaster && Test: Stablemaster_AT_057
+				InfoCardId = "AT_057o",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -669,12 +531,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_058", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(new DrawStackTask())
-				},
+			cards.Add("AT_058", new Power {
+				// TODO [AT_058] King's Elekk && Test: King's Elekk_AT_058
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -686,15 +546,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_059", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
-						new FlagTask(true, new DamageTask(2, EntityType.OP_HERO))))
-				}
+			cards.Add("AT_059", new Power {
+				// TODO [AT_059] Brave Archer && Test: Brave Archer_AT_059
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -706,19 +561,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_063", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.BOARDS,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(
-							SelfCondition.IsNotDead,
-							SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new DestroyTask(EntityType.TARGET))
-						.Build()
-				}
+			cards.Add("AT_063", new Power {
+				// TODO [AT_063] Acidmaw && Test: Acidmaw_AT_063
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -730,22 +576,77 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_063t", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(new DamageTask(1, EntityType.ALLMINIONS_NOSOURCE))
-						.Build()
-				}
+			cards.Add("AT_063t", new Power {
+				// TODO [AT_063t] Dreadscale && Test: Dreadscale_AT_063t
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - HUNTER
+			// [AT_056] Powershot - COST:3 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Deal $2 damage to a minion and the minions next to it. @spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("AT_056", new Power {
+				// TODO [AT_056] Powershot && Test: Powershot_AT_056
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - HUNTER
+			// [AT_060] Bear Trap - COST:2 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: <b>Secret:</b> After your hero is attacked, summon a 3/3 Bear with <b>Taunt</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("AT_060", new Power {
+				// TODO [AT_060] Bear Trap && Test: Bear Trap_AT_060
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - HUNTER
+			// [AT_061] Lock and Load - COST:2 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Each time you cast a spell this turn, add a random Hunter card to your hand.
+			// --------------------------------------------------------
+			cards.Add("AT_061", new Power {
+				// TODO [AT_061] Lock and Load && Test: Lock and Load_AT_061
+				InfoCardId = "AT_061e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - HUNTER
+			// [AT_062] Ball of Spiders - COST:6 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Summon three 1/1 Webspinners.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_NUM_MINION_SLOTS = 1
+			// --------------------------------------------------------
+			cards.Add("AT_062", new Power {
+				// TODO [AT_062] Ball of Spiders && Test: Ball of Spiders_AT_062
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void HunterNonCollect(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [AT_057o] Groomed (*) - COST:0 
@@ -754,111 +655,31 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Immune</b> this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_057o", null);
+			cards.Add("AT_057o", new Power {
+				// TODO [AT_057o] Groomed && Test: Groomed_AT_057o
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [AT_061e] Lock and Load (*) - COST:0 
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_061e", null);
+			cards.Add("AT_061e", new Power {
+				// TODO [AT_061e] Lock and Load && Test: Lock and Load_AT_061e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, Power> cards)
 		{
-			// ------------------------------------------- SPELL - MAGE
-			// [AT_001] Flame Lance - COST:5 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Deal $8 damage to a minion. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_001", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(8, EntityType.TARGET),
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [AT_002] Effigy - COST:3 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When a friendly minion dies, summon a random minion with the same Cost.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET_OR_QUEST = 1
-			// --------------------------------------------------------
-			cards.Add("AT_002", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
-								.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-								.TriggerEffect(GameTag.TO_BE_DESTROYED, 1)
-								.SingleTask(ComplexTask.Secret(
-									new GetGameTagTask(GameTag.COST, EntityType.TARGET),
-									new RandomMinionNumberTask(GameTag.COST),
-									new SummonTask()))
-								.Build()
-				}
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [AT_004] Arcane Blast - COST:1 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Deal $2 damage to a minion. This spell gets double bonus from <b>Spell Damage</b>. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - RECEIVES_DOUBLE_SPELLDAMAGE_BONUS = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - SPELLPOWER = 1
-			// --------------------------------------------------------
-			cards.Add("AT_004", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(2, EntityType.TARGET, true)
-				},
-			});
-
-			// ------------------------------------------- SPELL - MAGE
-			// [AT_005] Polymorph: Boar - COST:3 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Transform a minion into a 4/2 Boar with <b>Charge</b>.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - CHARGE = 1
-			// --------------------------------------------------------
-			cards.Add("AT_005", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask =  new TransformTask("AT_005t", EntityType.TARGET)
-				}
-			});
-
 			// ------------------------------------------ MINION - MAGE
 			// [AT_003] Fallen Hero - COST:2 [ATK:3/HP:2] 
 			// - Set: tgt, Rarity: rare
@@ -868,13 +689,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - HEROPOWER_DAMAGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_003", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.HeroPowerDamage(1)
-				}
+			cards.Add("AT_003", new Power {
+				// TODO [AT_003] Fallen Hero && Test: Fallen Hero_AT_003
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -886,13 +704,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_006", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new AuraTask(Auras.SpellPowerDamage(1), AuraArea.HERO))
-				}
+			// RefTag:
+			// - SPELLPOWER = 1
+			// --------------------------------------------------------
+			cards.Add("AT_006", new Power {
+				// TODO [AT_006] Dalaran Aspirant && Test: Dalaran Aspirant_AT_006
+				InfoCardId = "AT_006e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -904,22 +723,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_007", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new RandomCardTask(CardType.SPELL, CardClass.INVALID),
-						new AddStackTo(EntityType.HAND))
-				},
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new RandomCardTask(CardType.SPELL, CardClass.INVALID, Race.INVALID, null, true),
-						new AddStackTo(EntityType.OP_HAND))
-				},
-
+			cards.Add("AT_007", new Power {
+				// TODO [AT_007] Spellslinger && Test: Spellslinger_AT_007
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -928,14 +735,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: You can use your Hero Power any number of times.
 			// --------------------------------------------------------
-			cards.Add("AT_008", new List<Enchantment> {
+			cards.Add("AT_008", new Power {
 				// TODO [AT_008] Coldarra Drake && Test: Coldarra Drake_AT_008
-				new Enchantment
-				{
-                    //Area = 
-					//Activation = EnchantmentActivation.BOARD,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -948,17 +751,87 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_009", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new EnqueueTask(3, new AddCardTo("EX1_277", EntityType.HAND)),
-				},
+			cards.Add("AT_009", new Power {
+				// TODO [AT_009] Rhonin && Test: Rhonin_AT_009
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------- SPELL - MAGE
+			// [AT_001] Flame Lance - COST:5 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Deal $8 damage to a minion. @spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("AT_001", new Power {
+				// TODO [AT_001] Flame Lance && Test: Flame Lance_AT_001
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------- SPELL - MAGE
+			// [AT_002] Effigy - COST:3 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Secret:</b> When a friendly minion dies, summon a random minion with the same Cost.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("AT_002", new Power {
+				// TODO [AT_002] Effigy && Test: Effigy_AT_002
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------- SPELL - MAGE
+			// [AT_004] Arcane Blast - COST:1 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Deal $2 damage to a minion. This spell gets double bonus from <b>Spell Damage</b>. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - RECEIVES_DOUBLE_SPELLDAMAGE_BONUS = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - SPELLPOWER = 1
+			// --------------------------------------------------------
+			cards.Add("AT_004", new Power {
+				// TODO [AT_004] Arcane Blast && Test: Arcane Blast_AT_004
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------- SPELL - MAGE
+			// [AT_005] Polymorph: Boar - COST:3 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Transform a minion into a 4/2 Boar with <b>Charge</b>.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - CHARGE = 1
+			// --------------------------------------------------------
+			cards.Add("AT_005", new Power {
+				// TODO [AT_005] Polymorph: Boar && Test: Polymorph: Boar_AT_005
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void MageNonCollect(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [AT_006e] Power of Dalaran (*) - COST:0 
@@ -966,96 +839,16 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Spell Damage.
 			// --------------------------------------------------------
-			cards.Add("AT_006e", null);
+			cards.Add("AT_006e", new Power {
+				// TODO [AT_006e] Power of Dalaran && Test: Power of Dalaran_AT_006e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Paladin(IDictionary<string, List<Enchantment>> cards)
+		private static void Paladin(IDictionary<string, Power> cards)
 		{
-			// ---------------------------------------- SPELL - PALADIN
-			// [AT_073] Competitive Spirit - COST:1 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When your turn starts, give your minions +1/+1.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET_OR_QUEST = 1
-			// --------------------------------------------------------
-			cards.Add("AT_073", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.SECRET_OR_QUEST,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsSecretOrQuestActive)
-						.TriggerEffect(GameTag.TURN_START, 1)
-						.FastExecution(true)
-						.SingleTask(ComplexTask.Create(
-							new ConditionTask(EntityType.MINIONS, SelfCondition.IsInZone(Zone.PLAY)),
-							new FlagTask(true, ComplexTask.Create(
-								new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE),
-								new MoveToGraveYard(EntityType.SOURCE),
-								new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS)))))
-						.Build()
-				}
-			});
-
-			// ---------------------------------------- SPELL - PALADIN
-			// [AT_074] Seal of Champions - COST:3 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a minion
-			//       +3 Attack and <b>Divine Shield</b>.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			// RefTag:
-			// - DIVINE_SHIELD = 1
-			// --------------------------------------------------------
-			cards.Add("AT_074", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new BuffTask(Buffs.Attack(3), EntityType.TARGET),
-						ComplexTask.DivineShield(EntityType.TARGET))
-				},
-			});
-
-			// ---------------------------------------- SPELL - PALADIN
-			// [AT_078] Enter the Coliseum - COST:6 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Destroy all minions except each player's highest Attack minion.
-			// --------------------------------------------------------
-			cards.Add("AT_078", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.ALLMINIONS),
-						new FuncPlayablesTask(p =>
-						{
-							if (!p.Any())
-								return new List<IPlayable>();
-							Controller contrA = p[0].Controller;
-							Controller contrB = p[0].Controller.Opponent;
-							IPlayable maxA = p.Where(t => t.Controller == contrA)
-								.OrderByDescending(x => ((Minion) x).AttackDamage)
-								.FirstOrDefault();
-							IPlayable maxB = p.Where(t => t.Controller == contrB)
-								.OrderByDescending(x => ((Minion) x).AttackDamage)
-								.FirstOrDefault();
-							p.Remove(maxA);
-							p.Remove(maxB);
-							return p;
-						}),
-						new DestroyTask(EntityType.STACK))
-				},
-			});
-
 			// --------------------------------------- MINION - PALADIN
 			// [AT_075] Warhorse Trainer - COST:3 [ATK:2/HP:4] 
 			// - Set: tgt, Rarity: common
@@ -1065,13 +858,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("AT_075", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.BOARD,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.Attack(1, RelaCondition.IsOther(SelfCondition.IsSilverHandRecruit))
-				}
+			cards.Add("AT_075", new Power {
+				// TODO [AT_075] Warhorse Trainer && Test: Warhorse Trainer_AT_075
+				InfoCardId = "AT_075e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1083,15 +874,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_076", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						new RandomMinionTask(GameTag.CARDRACE, (int)Race.MURLOC),
-						new SummonTask()))
-				}
+			cards.Add("AT_076", new Power {
+				// TODO [AT_076] Murloc Knight && Test: Murloc Knight_AT_076
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1104,15 +890,12 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// RefTag:
-			// - SECRET_OR_QUEST = 1
+			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("AT_079", new List<Enchantment> {
+			cards.Add("AT_079", new Power {
 				// TODO [AT_079] Mysterious Challenger && Test: Mysterious Challenger_AT_079
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1126,12 +909,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_081", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SetGameTagTask(GameTag.ATK, 1, EntityType.OP_MINIONS)
-				},
+			cards.Add("AT_081", new Power {
+				// TODO [AT_081] Eadric the Pure && Test: Eadric the Pure_AT_081
+				InfoCardId = "AT_081e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1143,12 +925,59 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_104", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(new HealTask(7, EntityType.HERO))
-				},
+			cards.Add("AT_104", new Power {
+				// TODO [AT_104] Tuskarr Jouster && Test: Tuskarr Jouster_AT_104
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - PALADIN
+			// [AT_073] Competitive Spirit - COST:1 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Secret:</b> When your turn starts, give your minions +1/+1.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("AT_073", new Power {
+				// TODO [AT_073] Competitive Spirit && Test: Competitive Spirit_AT_073
+				InfoCardId = "AT_073e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - PALADIN
+			// [AT_074] Seal of Champions - COST:3 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give a minion
+			//       +3 Attack and <b>Divine Shield</b>.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - DIVINE_SHIELD = 1
+			// --------------------------------------------------------
+			cards.Add("AT_074", new Power {
+				// TODO [AT_074] Seal of Champions && Test: Seal of Champions_AT_074
+				InfoCardId = "AT_074e2",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - PALADIN
+			// [AT_078] Enter the Coliseum - COST:6 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Destroy all minions except each player's highest Attack minion.
+			// --------------------------------------------------------
+			cards.Add("AT_078", new Power {
+				// TODO [AT_078] Enter the Coliseum && Test: Enter the Coliseum_AT_078
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -1161,21 +990,16 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 2
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_077", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(
-						ComplexTask.Create(
-							new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
-							new MathAddTask(1),
-							new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON))),
-				},
+			cards.Add("AT_077", new Power {
+				// TODO [AT_077] Argent Lance && Test: Argent Lance_AT_077
+				InfoCardId = "AT_077e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PaladinNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [AT_074e2] Seal of Champions (*) - COST:0 
@@ -1183,7 +1007,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack and <b>Divine Shield</b>.
 			// --------------------------------------------------------
-			cards.Add("AT_074e2", null);
+			cards.Add("AT_074e2", new Power {
+				// TODO [AT_074e2] Seal of Champions && Test: Seal of Champions_AT_074e2
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [AT_075e] Might of the Hostler (*) - COST:0 
@@ -1191,7 +1019,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Warhorse Trainer is granting this minion +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_075e", null);
+			cards.Add("AT_075e", new Power {
+				// TODO [AT_075e] Might of the Hostler && Test: Might of the Hostler_AT_075e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [AT_081e] Purified (*) - COST:0 
@@ -1199,108 +1031,27 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack changed to 1.
 			// --------------------------------------------------------
-			cards.Add("AT_081e", null);
+			cards.Add("AT_081e", new Power {
+				// TODO [AT_081e] Purified && Test: Purified_AT_081e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Priest(IDictionary<string, List<Enchantment>> cards)
+		private static void Priest(IDictionary<string, Power> cards)
 		{
-			// ----------------------------------------- SPELL - PRIEST
-			// [AT_013] Power Word: Glory - COST:1 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Choose a minion. Whenever it attacks, restore 4 Health to
-			//       your hero.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_013", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.TARGET,
-					Activation = EnchantmentActivation.SPELL,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, 1)
-						.SingleTask(ComplexTask.Create(
-							new HealTask(4, EntityType.HERO)))
-						.Build()
-				}
-			});
-
-			// ----------------------------------------- SPELL - PRIEST
-			// [AT_015] Convert - COST:2 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Put a copy of an enemy minion into your hand.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_ENEMY_TARGET = 0
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_015", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND)),
-				},
-			});
-
-			// ----------------------------------------- SPELL - PRIEST
-			// [AT_016] Confuse - COST:2 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Swap the Attack and Health of all minions.
-			// --------------------------------------------------------
-			cards.Add("AT_016", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new SwapAttackHealthTask(EntityType.ALLMINIONS)
-				},
-			});
-
-			// ----------------------------------------- SPELL - PRIEST
-			// [AT_055] Flash Heal - COST:1 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Restore #5 Health.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_055", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new HealTask(5, EntityType.TARGET),
-				},
-			});
-
 			// ---------------------------------------- MINION - PRIEST
 			// [AT_011] Holy Champion - COST:4 [ATK:3/HP:5] 
 			// - Set: tgt, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever a character is healed, gain +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_011", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.BOARDS_HEROES,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(
-							SelfCondition.IsNotDead,
-							SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.DAMAGE, -1)
-						.SingleTask(new BuffTask(Buffs.Attack(2), EntityType.SOURCE))
-						.Build()
-				}
+			cards.Add("AT_011", new Power {
+				// TODO [AT_011] Holy Champion && Test: Holy Champion_AT_011
+				InfoCardId = "AT_011e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1312,15 +1063,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_012", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						new DamageTask(4, EntityType.HERO),
-						new DamageTask(4, EntityType.OP_HERO)))
-				}
+			cards.Add("AT_012", new Power {
+				// TODO [AT_012] Spawn of Shadows && Test: Spawn of Shadows_AT_012
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1329,25 +1075,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you draw a card, reduce its Cost by (1).
 			// --------------------------------------------------------
-			cards.Add("AT_014", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsNotSelf)
-						.TriggerEffect(GameTag.LAST_CARD_DRAWN, 0)
-						.SingleTask(ComplexTask.Create(
-							new IncludeTask(EntityType.SOURCE),
-							new FuncPlayablesTask(p =>
-							{
-								Controller controller = p[0].Controller;
-								return new List<IPlayable> { controller.Game.IdEntityDic[controller.LastCardDrawn] };
-							}),
-							new BuffTask(Buffs.Cost(-1), EntityType.STACK)))
-						.Build()
-				}
+			cards.Add("AT_014", new Power {
+				// TODO [AT_014] Shadowfiend && Test: Shadowfiend_AT_014
+				InfoCardId = "AT_014e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1360,15 +1092,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_018", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
-						new SummonTask()))
-				}
+			cards.Add("AT_018", new Power {
+				// TODO [AT_018] Confessor Paletress && Test: Confessor Paletress_AT_018
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1383,21 +1110,79 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_116", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
-						new FlagTask(true, ComplexTask.Create(
-							new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
-							ComplexTask.Taunt(EntityType.SOURCE)))),
-				},
+			cards.Add("AT_116", new Power {
+				// TODO [AT_116] Wyrmrest Agent && Test: Wyrmrest Agent_AT_116
+				InfoCardId = "AT_116e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - PRIEST
+			// [AT_013] Power Word: Glory - COST:1 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Choose a minion. Whenever it attacks, restore 4 Health to
+			//       your hero.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("AT_013", new Power {
+				// TODO [AT_013] Power Word: Glory && Test: Power Word: Glory_AT_013
+				InfoCardId = "AT_013e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - PRIEST
+			// [AT_015] Convert - COST:2 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Put a copy of an enemy minion into your hand.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// - REQ_ENEMY_TARGET = 0
+			// --------------------------------------------------------
+			cards.Add("AT_015", new Power {
+				// TODO [AT_015] Convert && Test: Convert_AT_015
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - PRIEST
+			// [AT_016] Confuse - COST:2 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Swap the Attack and Health of all minions.
+			// --------------------------------------------------------
+			cards.Add("AT_016", new Power {
+				// TODO [AT_016] Confuse && Test: Confuse_AT_016
+				InfoCardId = "AT_016e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - PRIEST
+			// [AT_055] Flash Heal - COST:1 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Restore #5 Health.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("AT_055", new Power {
+				// TODO [AT_055] Flash Heal && Test: Flash Heal_AT_055
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void PriestNonCollect(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [AT_014e] Shadowfiended (*) - COST:0 
@@ -1405,7 +1190,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
-			cards.Add("AT_014e", null);
+			cards.Add("AT_014e", new Power {
+				// TODO [AT_014e] Shadowfiended && Test: Shadowfiended_AT_014e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [AT_016e] Confused (*) - COST:0 
@@ -1413,7 +1202,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Swapped Attack and Health.
 			// --------------------------------------------------------
-			cards.Add("AT_016e", null);
+			cards.Add("AT_016e", new Power {
+				// TODO [AT_016e] Confused && Test: Confused_AT_016e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [AT_116e] Bring it on! (*) - COST:0 
@@ -1421,42 +1214,16 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("AT_116e", null);
+			cards.Add("AT_116e", new Power {
+				// TODO [AT_116e] Bring it on! && Test: Bring it on!_AT_116e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, Power> cards)
 		{
-			// ------------------------------------------ SPELL - ROGUE
-			// [AT_033] Burgle - COST:3 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
-			// --------------------------------------------------------
-			cards.Add("AT_033", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, ComplexTask.Create(
-						new RandomCardTask(EntityType.OP_HERO),
-						new AddStackTo(EntityType.HAND))),
-				},
-			});
-
-			// ------------------------------------------ SPELL - ROGUE
-			// [AT_035] Beneath the Grounds - COST:3 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Shuffle 3 Ambushes into your opponent's deck. When drawn, you summon a 4/4 Nerubian.
-			// --------------------------------------------------------
-			cards.Add("AT_035", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(3, new AddCardTo("AT_035t", EntityType.OP_DECK))
-				},
-			});
-
 			// ----------------------------------------- MINION - ROGUE
 			// [AT_028] Shado-Pan Rider - COST:5 [ATK:3/HP:7] 
 			// - Set: tgt, Rarity: common
@@ -1466,13 +1233,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - COMBO = 1
 			// --------------------------------------------------------
-			cards.Add("AT_028", new List<Enchantment> {
-                // Combo
-                new Enchantment
-				{
-					Activation = EnchantmentActivation.COMBO,
-					SingleTask = new BuffTask(Buffs.Attack(3), EntityType.SOURCE)
-				}
+			cards.Add("AT_028", new Power {
+				// TODO [AT_028] Shado-Pan Rider && Test: Shado-Pan Rider_AT_028
+				InfoCardId = "AT_028e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1481,19 +1246,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you equip a weapon, give it +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_029", new List<Enchantment> {
+			cards.Add("AT_029", new Power {
 				// TODO [AT_029] Buccaneer && Test: Buccaneer_AT_029
-				new Enchantment
-				{
-					//Area = EnchantmentArea.HAND,
-					//Activation = EnchantmentActivation.BOARD_ZONE,
-					//Trigger = new TriggerBuilder().Create()
-					//	.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-					//	.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsWeapon))
-					//	.TriggerEffect(GameTag.JUST_PLAYED, 1)
-					//	.SingleTask(new BuffTask(Buffs.WeaponAtk(1), EntityType.TARGET))
-					//	.Build()
-				}
+				InfoCardId = "AT_029e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1508,13 +1265,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("AT_030", new List<Enchantment> {
-                // Combo
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.COMBO,
-					SingleTask = new DamageTask(1, EntityType.TARGET)
-				}
+			cards.Add("AT_030", new Power {
+				// TODO [AT_030] Undercity Valiant && Test: Undercity Valiant_AT_030
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1523,15 +1277,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks a hero, add the Coin to your hand.
 			// --------------------------------------------------------
-			cards.Add("AT_031", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.MinionAttacksAndTarget(
-						new ConditionTask(EntityType.STACK, SelfCondition.IsHero),
-						new FlagTask(true, new AddCardTo("GAME_005", EntityType.HAND)))
-				}
+			cards.Add("AT_031", new Power {
+				// TODO [AT_031] Cutpurse && Test: Cutpurse_AT_031
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1543,14 +1292,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_032", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.PIRATE)),
-						new FlagTask(true, new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))),
-				},
+			cards.Add("AT_032", new Power {
+				// TODO [AT_032] Shady Dealer && Test: Shady Dealer_AT_032
+				InfoCardId = "AT_032e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1562,15 +1308,36 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
+			// - 542 = 1
 			// --------------------------------------------------------
-			cards.Add("AT_036", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.Create(
-						new AddCardTo("AT_036", EntityType.HAND),
-						new SummonTask("AT_036t", SummonSide.DEATHRATTLE))
-				},
+			cards.Add("AT_036", new Power {
+				// TODO [AT_036] Anub'arak && Test: Anub'arak_AT_036
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - ROGUE
+			// [AT_033] Burgle - COST:3 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Add 2 random class cards to your hand <i>(from your opponent's class)</i>.
+			// --------------------------------------------------------
+			cards.Add("AT_033", new Power {
+				// TODO [AT_033] Burgle && Test: Burgle_AT_033
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - ROGUE
+			// [AT_035] Beneath the Grounds - COST:3 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Shuffle 3 Ambushes into your opponent's deck. When drawn, you summon a 4/4 Nerubian.
+			// --------------------------------------------------------
+			cards.Add("AT_035", new Power {
+				// TODO [AT_035] Beneath the Grounds && Test: Beneath the Grounds_AT_035
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1582,45 +1349,28 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("AT_034", new List<Enchantment> {
+			cards.Add("AT_034", new Power {
 				// TODO [AT_034] Poisoned Blade && Test: Poisoned Blade_AT_034
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.WEAPON,
-					SingleTask = null,
-				},
+				InfoCardId = "AT_034e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, Power> cards)
 		{
-			// ------------------------------------------ SPELL - ROGUE
-			// [AT_035t] Ambush! (*) - COST:0 
-			// - Set: tgt, 
-			// --------------------------------------------------------
-			// Text: When you draw this, summon a 4/4 Nerubian for your opponent. Draw a card.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TOPDECK = 1
-			// --------------------------------------------------------
-			cards.Add("AT_035t", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new SummonOpTask("AT_036t"),
-						new DrawTask())
-				},
-			});
-
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [AT_032e] Shady Deals (*) - COST:0 
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_032e", null);
+			cards.Add("AT_032e", new Power {
+				// TODO [AT_032e] Shady Deals && Test: Shady Deals_AT_032e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [AT_034e] Laced (*) - COST:0 
@@ -1628,13 +1378,36 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_034e", null);
+			cards.Add("AT_034e", new Power {
+				// TODO [AT_034e] Laced && Test: Laced_AT_034e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- MINION - ROGUE
 			// [AT_036t] Nerubian (*) - COST:4 [ATK:4/HP:4] 
 			// - Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_036t", null);
+			cards.Add("AT_036t", new Power {
+				// TODO [AT_036t] Nerubian && Test: Nerubian_AT_036t
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ------------------------------------------ SPELL - ROGUE
+			// [AT_035t] Nerubian Ambush! (*) - COST:3 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: Summon a 4/4 Nerubian for your opponent. Draw a card. Cast this when drawn.
+			// --------------------------------------------------------
+			// GameTag:
+			// - TOPDECK = 1
+			// --------------------------------------------------------
+			cards.Add("AT_035t", new Power {
+				// TODO [AT_035t] Nerubian Ambush! && Test: Nerubian Ambush!_AT_035t
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------------- WEAPON - ROGUE
 			// [AT_132_ROGUEt] Poisoned Dagger (*) - COST:1 [ATK:2/HP:0] 
@@ -1643,67 +1416,16 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("AT_132_ROGUEt", null);
+			cards.Add("AT_132_ROGUEt", new Power {
+				// TODO [AT_132_ROGUEt] Poisoned Dagger && Test: Poisoned Dagger_AT_132_ROGUEt
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Shaman(IDictionary<string, List<Enchantment>> cards)
+		private static void Shaman(IDictionary<string, Power> cards)
 		{
-			// ----------------------------------------- SPELL - SHAMAN
-			// [AT_048] Healing Wave - COST:3 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Restore #7 Health. Reveal a minion in each deck. If yours costs more, Restore #14 instead.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_048", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new RevealTask(
-						new HealTask(14, EntityType.TARGET),
-						new HealTask(7, EntityType.TARGET)),
-				},
-			});
-
-			// ----------------------------------------- SPELL - SHAMAN
-			// [AT_051] Elemental Destruction - COST:3 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Deal $4-$5 damage to all minions. <b>Overload:</b> (5). *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - OVERLOAD = 5
-			// - OVERLOAD_OWED = 5
-			// --------------------------------------------------------
-			cards.Add("AT_051", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new DamageTask(4, 1, EntityType.ALLMINIONS, true)
-				},
-			});
-
-			// ----------------------------------------- SPELL - SHAMAN
-			// [AT_053] Ancestral Knowledge - COST:2 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Draw 2 cards. <b>Overload:</b> (2)
-			// --------------------------------------------------------
-			// GameTag:
-			// - OVERLOAD = 2
-			// - OVERLOAD_OWED = 2
-			// --------------------------------------------------------
-			cards.Add("AT_053", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new EnqueueTask(2, new DrawTask())
-				}
-			});
-
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_046] Tuskarr Totemic - COST:3 [ATK:3/HP:2] 
 			// - Set: tgt, Rarity: common
@@ -1713,27 +1435,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_046", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-							new IncludeTask(EntityType.SOURCE),
-							new FuncPlayablesTask(list =>
-							{
-								Controller controller = list[0].Controller;
-								var basicTotem = new List<string>
-								{
-									"CS2_050","CS2_051","CS2_052","NEW1_009"
-								};
-								return new List<IPlayable>
-								{
-									Entity.FromCard(controller, Cards.FromId(Util.Choose<string>(basicTotem)))
-								};
-							}),
-							new SummonTask()
-							)
-				}
+			cards.Add("AT_046", new Power {
+				// TODO [AT_046] Tuskarr Totemic && Test: Tuskarr Totemic_AT_046
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1745,16 +1450,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_047", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.MINIONS),
-						new FilterStackTask(SelfCondition.IsRace(Race.TOTEM)),
-						new CountTask(EntityType.STACK),
-						new BuffAttackHealthNumberTask(EntityType.SOURCE)),
-				},
+			cards.Add("AT_047", new Power {
+				// TODO [AT_047] Draenei Totemcarver && Test: Draenei Totemcarver_AT_047
+				InfoCardId = "AT_047e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1766,13 +1466,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_049", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Attack(2), EntityType.MINIONS, SelfCondition.IsRace(Race.TOTEM)))
-				}
+			cards.Add("AT_049", new Power {
+				// TODO [AT_049] Thunder Bluff Valiant && Test: Thunder Bluff Valiant_AT_049
+				InfoCardId = "AT_049e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1785,7 +1483,11 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD = 1
 			// - OVERLOAD_OWED = 1
 			// --------------------------------------------------------
-			cards.Add("AT_052", null);
+			cards.Add("AT_052", new Power {
+				// TODO [AT_052] Totem Golem && Test: Totem Golem_AT_052
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_054] The Mistcaller - COST:6 [ATK:4/HP:4] 
@@ -1797,16 +1499,56 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_054", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.HAND),
-						new IncludeTask(EntityType.DECK, null, true),
-						new FilterStackTask(SelfCondition.IsMinion),
-						new BuffTask(Buffs.AttackHealth(1), EntityType.STACK)),
-				},
+			cards.Add("AT_054", new Power {
+				// TODO [AT_054] The Mistcaller && Test: The Mistcaller_AT_054
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - SHAMAN
+			// [AT_048] Healing Wave - COST:3 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Restore #7 Health. Reveal a minion in each deck. If yours costs more, Restore #14 instead.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("AT_048", new Power {
+				// TODO [AT_048] Healing Wave && Test: Healing Wave_AT_048
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - SHAMAN
+			// [AT_051] Elemental Destruction - COST:3 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Deal $4-$5 damage to all minions. <b>Overload:</b> (5) @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - OVERLOAD_OWED = 5
+			// --------------------------------------------------------
+			cards.Add("AT_051", new Power {
+				// TODO [AT_051] Elemental Destruction && Test: Elemental Destruction_AT_051
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ----------------------------------------- SPELL - SHAMAN
+			// [AT_053] Ancestral Knowledge - COST:2 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Draw 2 cards. <b>Overload:</b> (2)
+			// --------------------------------------------------------
+			// GameTag:
+			// - OVERLOAD = 2
+			// - OVERLOAD_OWED = 2
+			// --------------------------------------------------------
+			cards.Add("AT_053", new Power {
+				// TODO [AT_053] Ancestral Knowledge && Test: Ancestral Knowledge_AT_053
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- WEAPON - SHAMAN
@@ -1819,17 +1561,15 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 4
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_050", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new ReplaceHeroPower(Cards.FromId("AT_050t"))
-				},
+			cards.Add("AT_050", new Power {
+				// TODO [AT_050] Charged Hammer && Test: Charged Hammer_AT_050
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void ShamanNonCollect(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [AT_047e] Experienced (*) - COST:0 
@@ -1837,7 +1577,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("AT_047e", null);
+			cards.Add("AT_047e", new Power {
+				// TODO [AT_047e] Experienced && Test: Experienced_AT_047e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [AT_049e] Power of the Bluff (*) - COST:0 
@@ -1845,7 +1589,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_049e", null);
+			cards.Add("AT_049e", new Power {
+				// TODO [AT_049e] Power of the Bluff && Test: Power of the Bluff_AT_049e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANa] Healing Totem (*) - COST:0 [ATK:0/HP:2] 
@@ -1853,24 +1601,21 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 1 Health to all friendly minions.
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANa", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(new HealTask(1, EntityType.MINIONS))
-						.Build()
-				}
+			cards.Add("AT_132_SHAMANa", new Power {
+				// TODO [AT_132_SHAMANa] Healing Totem && Test: Healing Totem_AT_132_SHAMANa
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANb] Searing Totem (*) - COST:0 [ATK:1/HP:1] 
 			// - Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANb", null);
+			cards.Add("AT_132_SHAMANb", new Power {
+				// TODO [AT_132_SHAMANb] Searing Totem && Test: Searing Totem_AT_132_SHAMANb
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANc] Stoneclaw Totem (*) - COST:0 [ATK:0/HP:2] 
@@ -1878,7 +1623,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANc", null);
+			cards.Add("AT_132_SHAMANc", new Power {
+				// TODO [AT_132_SHAMANc] Stoneclaw Totem && Test: Stoneclaw Totem_AT_132_SHAMANc
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [AT_132_SHAMANd] Wrath of Air Totem (*) - COST:0 [ATK:0/HP:2] 
@@ -1886,99 +1635,42 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
 			// --------------------------------------------------------
-			cards.Add("AT_132_SHAMANd", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
-				},
+			cards.Add("AT_132_SHAMANd", new Power {
+				// TODO [AT_132_SHAMANd] Wrath of Air Totem && Test: Wrath of Air Totem_AT_132_SHAMANd
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, Power> cards)
 		{
-			// ---------------------------------------- SPELL - WARLOCK
-			// [AT_022] Fist of Jaraxxus - COST:4 
-			// - Set: tgt, Rarity: rare
-			// --------------------------------------------------------
-			// Text: When you play or discard this, deal $4 damage to a random enemy. *spelldmg
-			// --------------------------------------------------------
-			// GameTag:
-			// - InvisibleDeathrattle = 1
-			// --------------------------------------------------------
-			cards.Add("AT_022", new List<Enchantment> {
-				// TODO [AT_022] Fist of Jaraxxus && Test: Fist of Jaraxxus_AT_022
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
-			});
-
-			// ---------------------------------------- SPELL - WARLOCK
-			// [AT_024] Demonfuse - COST:2 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give a Demon +3/+3. Give your opponent a Mana Crystal.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_WITH_RACE = 15
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_024", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new BuffTask(Buffs.AttackHealth(3), EntityType.TARGET),
-						new ManaCrystalEmptyTask(1, true)),
-				},
-			});
-
-			// ---------------------------------------- SPELL - WARLOCK
-			// [AT_025] Dark Bargain - COST:6 
-			// - Set: tgt, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Destroy 2 random enemy minions. Discard 2 random cards.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_MINIMUM_ENEMY_MINIONS = 2
-			// --------------------------------------------------------
-			cards.Add("AT_025", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						ComplexTask.DestroyRandomTargets(2, EntityType.OP_MINIONS),
-						ComplexTask.DiscardRandomCard(2)),
-				},
-			});
-
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_019] Dreadsteed - COST:4 [ATK:1/HP:1] 
 			// - Race: demon, Set: tgt, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Summon a Dreadsteed.
+			// Text: <b>Deathrattle:</b> At the end
+			//        of the turn, summon a Dreadsteed.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_019", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new SummonTask("AT_019", SummonSide.DEATHRATTLE),
-				},
+			cards.Add("AT_019", new Power {
+				// TODO [AT_019] Dreadsteed && Test: Dreadsteed_AT_019
+				InfoCardId = "AT_019e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_020] Fearsome Doomguard - COST:7 [ATK:6/HP:8] 
 			// - Race: demon, Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("AT_020", null);
+			cards.Add("AT_020", new Power {
+				// TODO [AT_020] Fearsome Doomguard && Test: Fearsome Doomguard_AT_020
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - WARLOCK
 			// [AT_021] Tiny Knight of Evil - COST:2 [ATK:3/HP:2] 
@@ -1986,17 +1678,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you discard a card, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_021", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsNotDead, SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.LAST_CARD_DISCARDED, 0)
-						.SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
-						.Build()
-				}
+			cards.Add("AT_021", new Power {
+				// TODO [AT_021] Tiny Knight of Evil && Test: Tiny Knight of Evil_AT_021
+				InfoCardId = "AT_021e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2008,15 +1694,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_023", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						ComplexTask.DestroyRandomTargets(1, EntityType.MINIONS),
-						ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)))
-				}
+			cards.Add("AT_023", new Power {
+				// TODO [AT_023] Void Crusher && Test: Void Crusher_AT_023
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2025,18 +1706,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, also deal that amount to your hero.
 			// --------------------------------------------------------
-			cards.Add("AT_026", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 0)))
-						.TriggerEffect(GameTag.DAMAGE, 1)
-						.SingleTask(new DamageNumberTask(EntityType.HERO))
-						.Build()
-				}
+			cards.Add("AT_026", new Power {
+				// TODO [AT_026] Wrathguard && Test: Wrathguard_AT_026
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2048,18 +1721,67 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_027", new List<Enchantment> {
+			cards.Add("AT_027", new Power {
 				// TODO [AT_027] Wilfred Fizzlebang && Test: Wilfred Fizzlebang_AT_027
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				InfoCardId = "AT_027e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - WARLOCK
+			// [AT_022] Fist of Jaraxxus - COST:4 
+			// - Set: tgt, Rarity: rare
+			// --------------------------------------------------------
+			// Text: When you play or discard this, deal $4 damage to a random enemy. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - InvisibleDeathrattle = 1
+			// --------------------------------------------------------
+			cards.Add("AT_022", new Power {
+				// TODO [AT_022] Fist of Jaraxxus && Test: Fist of Jaraxxus_AT_022
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - WARLOCK
+			// [AT_024] Demonfuse - COST:2 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give a Demon +3/+3. Give your opponent a Mana Crystal.
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_WITH_RACE = 15
+			// --------------------------------------------------------
+			cards.Add("AT_024", new Power {
+				// TODO [AT_024] Demonfuse && Test: Demonfuse_AT_024
+				InfoCardId = "AT_024e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - WARLOCK
+			// [AT_025] Dark Bargain - COST:6 
+			// - Set: tgt, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Destroy 2 random enemy minions. Discard 2 random cards.
+			// --------------------------------------------------------
+			// GameTag:
+			// - 890 = 2
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINIMUM_ENEMY_MINIONS = 2
+			// --------------------------------------------------------
+			cards.Add("AT_025", new Power {
+				// TODO [AT_025] Dark Bargain && Test: Dark Bargain_AT_025
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarlockNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [AT_021e] Felrage (*) - COST:0 
@@ -2067,7 +1789,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("AT_021e", null);
+			cards.Add("AT_021e", new Power {
+				// TODO [AT_021e] Felrage && Test: Felrage_AT_021e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [AT_027e] Master Summoner (*) - COST:0 
@@ -2075,49 +1801,16 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
-			cards.Add("AT_027e", null);
+			cards.Add("AT_027e", new Power {
+				// TODO [AT_027e] Master Summoner && Test: Master Summoner_AT_027e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Warrior(IDictionary<string, List<Enchantment>> cards)
+		private static void Warrior(IDictionary<string, Power> cards)
 		{
-			// ---------------------------------------- SPELL - WARRIOR
-			// [AT_064] Bash - COST:3 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Deal $3 damage.
-			//       Gain 3 Armor. *spelldmg
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("AT_064", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new DamageTask(3, EntityType.TARGET),
-						new ArmorTask(3))
-				},
-			});
-
-			// ---------------------------------------- SPELL - WARRIOR
-			// [AT_068] Bolster - COST:2 
-			// - Set: tgt, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give your <b>Taunt</b> minions +2/+2.
-			// --------------------------------------------------------
-			// RefTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("AT_068", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(2), EntityType.MINIONS, SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
-				},
-			});
-
 			// --------------------------------------- MINION - WARRIOR
 			// [AT_066] Orgrimmar Aspirant - COST:3 [ATK:3/HP:3] 
 			// - Set: tgt, Rarity: common
@@ -2127,13 +1820,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_066", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.WeaponAtk(1), EntityType.WEAPON))
-				}
+			cards.Add("AT_066", new Power {
+				// TODO [AT_066] Orgrimmar Aspirant && Test: Orgrimmar Aspirant_AT_066
+				InfoCardId = "AT_066e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2143,13 +1834,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Also damages the minions next to whomever
 			//       he attacks.
 			// --------------------------------------------------------
-			cards.Add("AT_067", new List<Enchantment> {
+			cards.Add("AT_067", new Power {
 				// TODO [AT_067] Magnataur Alpha && Test: Magnataur Alpha_AT_067
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2165,15 +1853,14 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
-			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("AT_069", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Taunt(EntityType.TARGET),
-				},
+			cards.Add("AT_069", new Power {
+				// TODO [AT_069] Sparring Partner && Test: Sparring Partner_AT_069
+				InfoCardId = "AT_069e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2188,16 +1875,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_071", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
-						new FlagTask(true, ComplexTask.Create(
-							new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
-							ComplexTask.Charge(EntityType.SOURCE)))),
-				},
+			cards.Add("AT_071", new Power {
+				// TODO [AT_071] Alexstrasza's Champion && Test: Alexstrasza's Champion_AT_071
+				InfoCardId = "AT_071e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2211,18 +1893,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_072", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new EnqueueTask(3,ComplexTask.Create(
-						new DrawTask(true),
-						new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
-						new FlagTask(true, ComplexTask.Create(
-							new RemoveFromHand(EntityType.STACK),
-							new SummonTask())))
-						),
-				},
+			cards.Add("AT_072", new Power {
+				// TODO [AT_072] Varian Wrynn && Test: Varian Wrynn_AT_072
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2234,19 +1908,49 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("AT_130", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.HAND_ZONE,
-					SingleTask = new DamageTask(1, EntityType.MINIONS)
-				}
+			cards.Add("AT_130", new Power {
+				// TODO [AT_130] Sea Reaver && Test: Sea Reaver_AT_130
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - WARRIOR
+			// [AT_064] Bash - COST:3 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Deal $3 damage.
+			//       Gain 3 Armor. @spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// --------------------------------------------------------
+			cards.Add("AT_064", new Power {
+				// TODO [AT_064] Bash && Test: Bash_AT_064
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------------- SPELL - WARRIOR
+			// [AT_068] Bolster - COST:2 
+			// - Set: tgt, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give your <b>Taunt</b> minions +2/+2.
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("AT_068", new Power {
+				// TODO [AT_068] Bolster && Test: Bolster_AT_068
+				InfoCardId = "AT_068e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [AT_065] King's Defender - COST:3 [ATK:3/HP:0] 
 			// - Set: tgt, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> If you have a minion with <b>Taunt</b>,  gain +1 Durability.
+			// Text: <b>Battlecry:</b> If you have a minion with <b>Taunt</b>, gain +1 Durability.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 2
@@ -2255,27 +1959,16 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_065", new List<Enchantment> {
-				//new Enchantment
-				//{
-				//	Activation = EnchantmentActivation.WEAPON,
-				//	SingleTask = null,
-				//},
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.MINIONS, SelfCondition.HasBoardMinion(GameTag.TAUNT, 1)),
-						new FlagTask(true, ComplexTask.Create(
-							new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON),
-							new MathAddTask(1),
-							new SetGameTagNumberTask(GameTag.DURABILITY, EntityType.WEAPON))))
-				},
+			cards.Add("AT_065", new Power {
+				// TODO [AT_065] King's Defender && Test: King's Defender_AT_065
+				InfoCardId = "AT_065e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void WarriorNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [AT_066e] Forges of Orgrimmar (*) - COST:0 
@@ -2283,7 +1976,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_066e", null);
+			cards.Add("AT_066e", new Power {
+				// TODO [AT_066e] Forges of Orgrimmar && Test: Forges of Orgrimmar_AT_066e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [AT_068e] Bolstered (*) - COST:0 
@@ -2291,7 +1988,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("AT_068e", null);
+			cards.Add("AT_068e", new Power {
+				// TODO [AT_068e] Bolstered && Test: Bolstered_AT_068e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [AT_069e] Training Complete (*) - COST:0 
@@ -2299,7 +2000,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
-			cards.Add("AT_069e", null);
+			cards.Add("AT_069e", new Power {
+				// TODO [AT_069e] Training Complete && Test: Training Complete_AT_069e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [AT_071e] Alexstrasza's Boon (*) - COST:0 
@@ -2307,11 +2012,15 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Charge</b>.
 			// --------------------------------------------------------
-			cards.Add("AT_071e", null);
+			cards.Add("AT_071e", new Power {
+				// TODO [AT_071e] Alexstrasza's Boon && Test: Alexstrasza's Boon_AT_071e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, Power> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_017] Twilight Guardian - COST:4 [ATK:2/HP:6] 
@@ -2325,16 +2034,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_017", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
-						new FlagTask(true, ComplexTask.Create(
-							new BuffTask(Buffs.Attack(1), EntityType.SOURCE),
-							ComplexTask.Taunt(EntityType.SOURCE)))),
-				},
+			cards.Add("AT_017", new Power {
+				// TODO [AT_017] Twilight Guardian && Test: Twilight Guardian_AT_017
+				InfoCardId = "AT_017e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2348,24 +2052,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_070", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
-					Enchant = new Enchant
-					{
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsInZone(Zone.HAND)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.COST] = 0
-						},
-						ValueFunc = owner => -owner.Controller.BoardZone.Count(p => p.Card.Race == Race.PIRATE)
-					}
-				}
+			cards.Add("AT_070", new Power {
+				// TODO [AT_070] Skycap'n Kragg && Test: Skycap'n Kragg_AT_070
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2374,13 +2064,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: You can use your Hero Power twice a turn.
 			// --------------------------------------------------------
-			cards.Add("AT_080", new List<Enchantment> {
+			cards.Add("AT_080", new Power {
 				// TODO [AT_080] Garrison Commander && Test: Garrison Commander_AT_080
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2392,13 +2079,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_082", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Attack(1), EntityType.SOURCE))
-				}
+			cards.Add("AT_082", new Power {
+				// TODO [AT_082] Lowly Squire && Test: Lowly Squire_AT_082
+				InfoCardId = "AT_082e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2414,13 +2099,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_083", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.WindFuryTurn(), EntityType.SOURCE))
-				}
+			cards.Add("AT_083", new Power {
+				// TODO [AT_083] Dragonhawk Rider && Test: Dragonhawk Rider_AT_083
+				InfoCardId = "AT_083e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2434,15 +2117,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
-			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("AT_084", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.Attack(2), EntityType.TARGET)
-				},
+			cards.Add("AT_084", new Power {
+				// TODO [AT_084] Lance Carrier && Test: Lance Carrier_AT_084
+				InfoCardId = "AT_084e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2454,30 +2136,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("AT_085", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.GAME,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = new Enchant
-					{
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsInZone(Zone.PLAY),
-							SelfCondition.IsNotSilenced
-						},
-						ApplyConditions = new List<RelaCondition>
-						{
-							RelaCondition.IsOther(SelfCondition.IsHeroPower)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.COST] = 0
-						},
-						FixedValueFunc = owner => 1,
-					}
-
-				}
+			cards.Add("AT_085", new Power {
+				// TODO [AT_085] Maiden of the Lake && Test: Maiden of the Lake_AT_085
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2489,17 +2151,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_086", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(
-									new Enchant
-									{
-										TurnsActive = 1,
-										Effects = new Dictionary<GameTag, int> { [GameTag.COST] = 5 }
-									}, EntityType.OP_HERO_POWER)
-				},
+			cards.Add("AT_086", new Power {
+				// TODO [AT_086] Saboteur && Test: Saboteur_AT_086
+				InfoCardId = "AT_086e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2513,7 +2169,11 @@ namespace SabberStoneCore.CardSets
 			// - DIVINE_SHIELD = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_087", null);
+			cards.Add("AT_087", new Power {
+				// TODO [AT_087] Argent Horserider && Test: Argent Horserider_AT_087
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_088] Mogor's Champion - COST:6 [ATK:8/HP:5] 
@@ -2524,22 +2184,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - FORGETFUL = 1
 			// --------------------------------------------------------
-			cards.Add("AT_088", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.ATTACKING, 1)
-						.FastExecution(true)
-						.SingleTask(ComplexTask.Create(
-							new ChanceTask(),
-							new IncludeTask(EntityType.ENEMIES, new [] {EntityType.TARGET}),
-							new RandomTask(1, EntityType.STACK),
-							new ChangeAttackingTargetTask(EntityType.TARGET, EntityType.STACK)))
-						.Build()
-				}
+			cards.Add("AT_088", new Power {
+				// TODO [AT_088] Mogor's Champion && Test: Mogor's Champion_AT_088
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2551,13 +2199,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_089", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.Health(1), EntityType.SOURCE))
-				}
+			cards.Add("AT_089", new Power {
+				// TODO [AT_089] Boneguard Lieutenant && Test: Boneguard Lieutenant_AT_089
+				InfoCardId = "AT_089e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2569,13 +2215,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_090", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackHealth(1), EntityType.MINIONS_NOSOURCE))
-				}
+			cards.Add("AT_090", new Power {
+				// TODO [AT_090] Mukla's Champion && Test: Mukla's Champion_AT_090
+				InfoCardId = "AT_090e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2587,20 +2231,21 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_091", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new HealTask(2, EntityType.HERO))
-				}
+			cards.Add("AT_091", new Power {
+				// TODO [AT_091] Tournament Medic && Test: Tournament Medic_AT_091
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_092] Ice Rager - COST:3 [ATK:5/HP:2] 
-			// - Set: tgt, Rarity: common
+			// - Race: elemental, Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("AT_092", null);
+			cards.Add("AT_092", new Power {
+				// TODO [AT_092] Ice Rager && Test: Ice Rager_AT_092
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_093] Frigid Snobold - COST:4 [ATK:2/HP:6] 
@@ -2611,13 +2256,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("AT_093", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
-				},
+			cards.Add("AT_093", new Power {
+				// TODO [AT_093] Frigid Snobold && Test: Frigid Snobold_AT_093
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2629,12 +2271,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_094", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)
-				},
+			cards.Add("AT_094", new Power {
+				// TODO [AT_094] Flame Juggler && Test: Flame Juggler_AT_094
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2648,7 +2288,11 @@ namespace SabberStoneCore.CardSets
 			// - STEALTH = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("AT_095", null);
+			cards.Add("AT_095", new Power {
+				// TODO [AT_095] Silent Knight && Test: Silent Knight_AT_095
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_096] Clockwork Knight - COST:5 [ATK:5/HP:5] 
@@ -2660,17 +2304,16 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
-			// - REQ_MINION_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 17
-			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("AT_096", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new BuffTask(Buffs.AttackHealth(1), EntityType.TARGET)
-				},
+			cards.Add("AT_096", new Power {
+				// TODO [AT_096] Clockwork Knight && Test: Clockwork Knight_AT_096
+				InfoCardId = "AT_096e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2682,7 +2325,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_097", null);
+			cards.Add("AT_097", new Power {
+				// TODO [AT_097] Tournament Attendee && Test: Tournament Attendee_AT_097
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_098] Sideshow Spelleater - COST:6 [ATK:6/HP:5] 
@@ -2693,14 +2340,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_098", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.OP_HERO_POWER, 1),
-						new ReplaceHeroPower()),
-				},
+			cards.Add("AT_098", new Power {
+				// TODO [AT_098] Sideshow Spelleater && Test: Sideshow Spelleater_AT_098
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2712,13 +2355,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_099", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("AT_099t", SummonSide.RIGHT))
-				}
+			cards.Add("AT_099", new Power {
+				// TODO [AT_099] Kodorider && Test: Kodorider_AT_099
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2730,26 +2370,31 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_100", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new SummonTask("CS2_101t", SummonSide.RIGHT))
-				}
+			cards.Add("AT_100", new Power {
+				// TODO [AT_100] Silver Hand Regent && Test: Silver Hand Regent_AT_100
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_101] Pit Fighter - COST:5 [ATK:5/HP:6] 
 			// - Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("AT_101", null);
+			cards.Add("AT_101", new Power {
+				// TODO [AT_101] Pit Fighter && Test: Pit Fighter_AT_101
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_102] Captured Jormungar - COST:7 [ATK:5/HP:9] 
 			// - Race: beast, Set: tgt, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("AT_102", null);
+			cards.Add("AT_102", new Power {
+				// TODO [AT_102] Captured Jormungar && Test: Captured Jormungar_AT_102
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_103] North Sea Kraken - COST:9 [ATK:9/HP:7] 
@@ -2763,12 +2408,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("AT_103", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new DamageTask(3, EntityType.TARGET)
-				},
+			cards.Add("AT_103", new Power {
+				// TODO [AT_103] North Sea Kraken && Test: North Sea Kraken_AT_103
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2780,12 +2423,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_105", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new DamageTask(3, EntityType.SOURCE)
-				}
+			cards.Add("AT_105", new Power {
+				// TODO [AT_105] Injured Kvaldir && Test: Injured Kvaldir_AT_105
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2798,19 +2439,17 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
-			// - REQ_MINION_TARGET = 0
-			// - REQ_TARGET_WITH_RACE = 15
 			// - REQ_TARGET_IF_AVAILABLE = 0
+			// - REQ_TARGET_WITH_RACE = 15
+			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_106", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new SilenceTask(EntityType.TARGET)
-				},
+			cards.Add("AT_106", new Power {
+				// TODO [AT_106] Light's Champion && Test: Light's Champion_AT_106
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2825,12 +2464,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_108", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(new BuffTask(Buffs.Simple(GameTag.CHARGE, 1), EntityType.SOURCE))
-				},
+			cards.Add("AT_108", new Power {
+				// TODO [AT_108] Armored Warhorse && Test: Armored Warhorse_AT_108
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2844,14 +2481,11 @@ namespace SabberStoneCore.CardSets
 			// - CANT_ATTACK = 1
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_109", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(
-						new BuffTask(Buffs.Simple(GameTag.CANT_ATTACK, -1, true), EntityType.SOURCE))
-				}
+			cards.Add("AT_109", new Power {
+				// TODO [AT_109] Argent Watchman && Test: Argent Watchman_AT_109
+				InfoCardId = "AT_109e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2863,14 +2497,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_110", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(
-						new ReturnHandTask(EntityType.SOURCE))
-				}
+			cards.Add("AT_110", new Power {
+				// TODO [AT_110] Coliseum Manager && Test: Coliseum Manager_AT_110
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2882,14 +2512,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_111", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new HealTask(4, EntityType.HERO),
-						new HealTask(4, EntityType.OP_HERO))
-				},
+			cards.Add("AT_111", new Power {
+				// TODO [AT_111] Refreshment Vendor && Test: Refreshment Vendor_AT_111
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2905,14 +2531,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("AT_112", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(ComplexTask.Create(
-						ComplexTask.Taunt(EntityType.SOURCE),
-						ComplexTask.DivineShield(EntityType.SOURCE))),
-				},
+			cards.Add("AT_112", new Power {
+				// TODO [AT_112] Master Jouster && Test: Master Jouster_AT_112
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2924,13 +2546,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_113", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new AddCardTo("CS2_152", EntityType.HAND))
-				}
+			cards.Add("AT_113", new Power {
+				// TODO [AT_113] Recruiter && Test: Recruiter_AT_113
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2942,7 +2561,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_114", null);
+			cards.Add("AT_114", new Power {
+				// TODO [AT_114] Evil Heckler && Test: Evil Heckler_AT_114
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_115] Fencing Coach - COST:3 [ATK:2/HP:2] 
@@ -2956,13 +2579,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("AT_115", new List<Enchantment> {
+			cards.Add("AT_115", new Power {
 				// TODO [AT_115] Fencing Coach && Test: Fencing Coach_AT_115
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				InfoCardId = "AT_115e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2974,13 +2595,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_117", new List<Enchantment> {
+			cards.Add("AT_117", new Power {
 				// TODO [AT_117] Master of Ceremonies && Test: Master of Ceremonies_AT_117
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				InfoCardId = "AT_117e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2992,14 +2611,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_118", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = ComplexTask.Create(
-						new RandomCardTask(CardType.INVALID, CardClass.PALADIN),
-						new AddStackTo(EntityType.HAND))
-				},
+			cards.Add("AT_118", new Power {
+				// TODO [AT_118] Grand Crusader && Test: Grand Crusader_AT_118
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3011,13 +2626,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_119", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(new BuffTask(Buffs.AttackHealth(2), EntityType.SOURCE))
-				}
+			cards.Add("AT_119", new Power {
+				// TODO [AT_119] Kvaldir Raider && Test: Kvaldir Raider_AT_119
+				InfoCardId = "AT_119e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3026,14 +2639,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each time you used your Hero Power this game.
 			// --------------------------------------------------------
-			cards.Add("AT_120", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.HAND_ZONE,
-					Enchant = Auras.CostFunc(
-						owner => -owner.Controller.NumTimesHeroPowerUsedThisGame)
-				}
+			cards.Add("AT_120", new Power {
+				// TODO [AT_120] Frost Giant && Test: Frost Giant_AT_120
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3045,18 +2654,11 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_121", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HAND_AND_BOARD,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.ApplyConditions(RelaCondition.IsNotSelf, RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.BATTLECRY, 1)))
-						.TriggerEffect(GameTag.JUST_PLAYED, 1)
-						.SingleTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
-						.Build()
-				}
+			cards.Add("AT_121", new Power {
+				// TODO [AT_121] Crowd Favorite && Test: Crowd Favorite_AT_121
+				InfoCardId = "AT_121e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3072,12 +2674,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 4
 			// --------------------------------------------------------
-			cards.Add("AT_122", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new DamageTask(4, EntityType.TARGET)
-				},
+			cards.Add("AT_122", new Power {
+				// TODO [AT_122] Gormok the Impaler && Test: Gormok the Impaler_AT_122
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3094,14 +2694,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_123", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
-						new FlagTask(true, new DamageTask(3, EntityType.ALLMINIONS)))
-				},
+			cards.Add("AT_123", new Power {
+				// TODO [AT_123] Chillmaw && Test: Chillmaw_AT_123
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3113,13 +2709,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_124", new List<Enchantment> {
+			cards.Add("AT_124", new Power {
 				// TODO [AT_124] Bolf Ramshield && Test: Bolf Ramshield_AT_124
-				new Enchantment
-				(
-					//Activation = null,
-					//SingleTask = null,
-				)
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3133,13 +2726,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_125", new List<Enchantment> {
-				new Enchantment
-				{
-					Area =  EnchantmentArea.SELF,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Buffs.Simple(GameTag.CANNOT_ATTACK_HEROES, 1)
-				}
+			cards.Add("AT_125", new Power {
+				// TODO [AT_125] Icehowl && Test: Icehowl_AT_125
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3152,15 +2742,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - INSPIRE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_127", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.Inspire(ComplexTask.Create(
-						new RandomCardTask(CardType.SPELL, CardClass.INVALID),
-						new AddStackTo(EntityType.HAND)))
-				}
+			cards.Add("AT_127", new Power {
+				// TODO [AT_127] Nexus-Champion Saraad && Test: Nexus-Champion Saraad_AT_127
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3173,14 +2758,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_128", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = new RevealTask(ComplexTask.Create(
-						new CopyTask(EntityType.SOURCE, 1),
-						new AddStackTo(EntityType.HAND))),
-				},
+			cards.Add("AT_128", new Power {
+				// TODO [AT_128] The Skeleton Knight && Test: The Skeleton Knight_AT_128
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3195,13 +2776,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("AT_129", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.FriendlySpellTargetingMe(ComplexTask.DivineShield(EntityType.SOURCE))
-				}
+			cards.Add("AT_129", new Power {
+				// TODO [AT_129] Fjola Lightbane && Test: Fjola Lightbane_AT_129
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3213,13 +2791,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_131", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HAND,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = Triggers.FriendlySpellTargetingMe(new DamageTask(3, EntityType.ENEMIES))
-				}
+			cards.Add("AT_131", new Power {
+				// TODO [AT_131] Eydis Darkbane && Test: Eydis Darkbane_AT_131
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3230,14 +2805,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
-			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_132", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = SpecificTask.JusticarTrueheart,
-				},
+			cards.Add("AT_132", new Power {
+				// TODO [AT_132] Justicar Trueheart && Test: Justicar Trueheart_AT_132
+				InfoCardId = "AT_132_DRUIDe",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3249,17 +2822,16 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("AT_133", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new RevealTask(new BuffTask(Buffs.AttackHealth(1), EntityType.SOURCE))
-				},
+			cards.Add("AT_133", new Power {
+				// TODO [AT_133] Gadgetzan Jouster && Test: Gadgetzan Jouster_AT_133
+				InfoCardId = "AT_133e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_011e] Light's Blessing (*) - COST:0 
@@ -3270,7 +2842,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("AT_011e", null);
+			cards.Add("AT_011e", new Power {
+				// TODO [AT_011e] Light's Blessing && Test: Light's Blessing_AT_011e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_013e] Power Word: Glory (*) - COST:0 
@@ -3278,7 +2854,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: When this attacks, restore 4 Health to the hero of the player who buffed it.
 			// --------------------------------------------------------
-			cards.Add("AT_013e", null);
+			cards.Add("AT_013e", new Power {
+				// TODO [AT_013e] Power Word: Glory && Test: Power Word: Glory_AT_013e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_017e] Twilight's Embrace (*) - COST:0 
@@ -3286,7 +2866,23 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("AT_017e", null);
+			cards.Add("AT_017e", new Power {
+				// TODO [AT_017e] Twilight's Embrace && Test: Twilight's Embrace_AT_017e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [AT_019e] Dreadsteed (*) - COST:0 
+			// - Set: tgt, 
+			// --------------------------------------------------------
+			// Text: Summon a Dreadsteed at the end of the turn.
+			// --------------------------------------------------------
+			cards.Add("AT_019e", new Power {
+				// TODO [AT_019e] Dreadsteed && Test: Dreadsteed_AT_019e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_024e] Dark Fusion (*) - COST:0 
@@ -3294,7 +2890,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("AT_024e", null);
+			cards.Add("AT_024e", new Power {
+				// TODO [AT_024e] Dark Fusion && Test: Dark Fusion_AT_024e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_028e] Chi Lance (*) - COST:0 
@@ -3302,7 +2902,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_028e", null);
+			cards.Add("AT_028e", new Power {
+				// TODO [AT_028e] Chi Lance && Test: Chi Lance_AT_028e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_029e] Extra Stabby (*) - COST:0 
@@ -3310,7 +2914,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack
 			// --------------------------------------------------------
-			cards.Add("AT_029e", null);
+			cards.Add("AT_029e", new Power {
+				// TODO [AT_029e] Extra Stabby && Test: Extra Stabby_AT_029e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_041e] Call of the Wild (*) - COST:0 
@@ -3318,7 +2926,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Cost reduced.
 			// --------------------------------------------------------
-			cards.Add("AT_041e", null);
+			cards.Add("AT_041e", new Power {
+				// TODO [AT_041e] Call of the Wild && Test: Call of the Wild_AT_041e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_045e] Empowering Mist (*) - COST:0 
@@ -3326,20 +2938,34 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_045e", null);
+			cards.Add("AT_045e", new Power {
+				// TODO [AT_045e] Empowering Mist && Test: Empowering Mist_AT_045e
+				InfoCardId = "AT_045ee",
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_045ee] Mistcaller Deck Ench (*) - COST:0 
 			// - Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_045ee", null);
+			cards.Add("AT_045ee", new Power {
+				// TODO [AT_045ee] Mistcaller Deck Ench && Test: Mistcaller Deck Ench_AT_045ee
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_065e] King's Defender (*) - COST:0 
 			// - Set: tgt, 
 			// --------------------------------------------------------
 			// Text: +1 Durability.
 			// --------------------------------------------------------
-			cards.Add("AT_065e", null);
+			cards.Add("AT_065e", new Power {
+				// TODO [AT_065e] King's Defender && Test: King's Defender_AT_065e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_073e] Competitive Spirit (*) - COST:0 
@@ -3347,7 +2973,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_073e", null);
+			cards.Add("AT_073e", new Power {
+				// TODO [AT_073e] Competitive Spirit && Test: Competitive Spirit_AT_073e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_077e] Extra Poke (*) - COST:0 
@@ -3355,7 +2985,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Durability.
 			// --------------------------------------------------------
-			cards.Add("AT_077e", null);
+			cards.Add("AT_077e", new Power {
+				// TODO [AT_077e] Extra Poke && Test: Extra Poke_AT_077e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_082e] Training (*) - COST:0 
@@ -3363,7 +2997,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_082e", null);
+			cards.Add("AT_082e", new Power {
+				// TODO [AT_082e] Training && Test: Training_AT_082e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_083e] Dragonhawkery (*) - COST:0 
@@ -3372,9 +3010,13 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Windfury</b> this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_083e", null);
+			cards.Add("AT_083e", new Power {
+				// TODO [AT_083e] Dragonhawkery && Test: Dragonhawkery_AT_083e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_084e] Equipped (*) - COST:0 
@@ -3382,7 +3024,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("AT_084e", null);
+			cards.Add("AT_084e", new Power {
+				// TODO [AT_084e] Equipped && Test: Equipped_AT_084e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_086e] Villainy (*) - COST:0 
@@ -3390,7 +3036,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your Hero Power costs (5) more this turn.
 			// --------------------------------------------------------
-			cards.Add("AT_086e", null);
+			cards.Add("AT_086e", new Power {
+				// TODO [AT_086e] Villainy && Test: Villainy_AT_086e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_089e] Boneguarded (*) - COST:0 
@@ -3398,7 +3048,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("AT_089e", null);
+			cards.Add("AT_089e", new Power {
+				// TODO [AT_089e] Boneguarded && Test: Boneguarded_AT_089e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_090e] Might of the Monkey (*) - COST:0 
@@ -3406,7 +3060,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_090e", null);
+			cards.Add("AT_090e", new Power {
+				// TODO [AT_090e] Might of the Monkey && Test: Might of the Monkey_AT_090e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_096e] Wound Up (*) - COST:0 
@@ -3414,7 +3072,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_096e", null);
+			cards.Add("AT_096e", new Power {
+				// TODO [AT_096e] Wound Up && Test: Wound Up_AT_096e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_109e] Inspired (*) - COST:0 
@@ -3423,9 +3085,13 @@ namespace SabberStoneCore.CardSets
 			// Text: Can attack this turn.
 			// --------------------------------------------------------
 			// GameTag:
-			// - OneTurnEffect = 1
+			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("AT_109e", null);
+			cards.Add("AT_109e", new Power {
+				// TODO [AT_109e] Inspired && Test: Inspired_AT_109e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_115e] Fencing Practice (*) - COST:0 
@@ -3433,7 +3099,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your Hero Power costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("AT_115e", null);
+			cards.Add("AT_115e", new Power {
+				// TODO [AT_115e] Fencing Practice && Test: Fencing Practice_AT_115e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_117e] Ceremony (*) - COST:0 
@@ -3441,7 +3111,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("AT_117e", null);
+			cards.Add("AT_117e", new Power {
+				// TODO [AT_117e] Ceremony && Test: Ceremony_AT_117e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_119e] Inspired (*) - COST:0 
@@ -3449,7 +3123,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("AT_119e", null);
+			cards.Add("AT_119e", new Power {
+				// TODO [AT_119e] Inspired && Test: Inspired_AT_119e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_121e] Huge Ego (*) - COST:0 
@@ -3457,7 +3135,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("AT_121e", null);
+			cards.Add("AT_121e", new Power {
+				// TODO [AT_121e] Huge Ego && Test: Huge Ego_AT_121e
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [AT_133e] Victory! (*) - COST:0 
@@ -3465,7 +3147,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("AT_133e", null);
+			cards.Add("AT_133e", new Power {
+				// TODO [AT_133e] Victory! && Test: Victory!_AT_133e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_005t] Boar (*) - COST:3 [ATK:4/HP:2] 
 			// - Race: beast, Set: tgt, 
@@ -3475,19 +3162,25 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("AT_005t", null);
+			cards.Add("AT_005t", new Power {
+				// TODO [AT_005t] Boar && Test: Boar_AT_005t
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [AT_099t] War Kodo (*) - COST:5 [ATK:3/HP:5] 
 			// - Race: beast, Set: tgt, 
 			// --------------------------------------------------------
-			cards.Add("AT_099t", null);
+			cards.Add("AT_099t", new Power {
+				// TODO [AT_099t] War Kodo && Test: War Kodo_AT_099t
+				//PowerTask = null,
+				//Trigger = null,
+			});
 
 		}
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		public static void AddAll(Dictionary<string, Power> cards)
 		{
 			HeroPowers(cards);
 			Druid(cards);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
@@ -16,6 +17,7 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Controller : Entity
 	{
 		/// <summary>
+<<<<<<< HEAD
 		/// Name of the player.
 		/// </summary>
 		public string Name { get; }
@@ -31,6 +33,8 @@ namespace SabberStoneCore.Model.Entities
 		public CardClass BaseClass { get; internal set; }
 
 		/// <summary>
+=======
+>>>>>>> upstream/master
 		/// Available zones for this player.
 		/// </summary>
 		public ControlledZones ControlledZones;
@@ -74,6 +78,26 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public SetasideZone SetasideZone;
 
+		public readonly ControllerAuraEffects ControllerAuraEffects;
+
+		public List<int> DiscardedEntities;
+
+		/// <summary>
+		/// Name of the player.
+		/// </summary>
+		public string Name { get; }
+
+		/// <summary>
+		/// Initial cards that are in the deck of the controller.
+		/// </summary>
+		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+
+		/// <summary>
+		/// Base class of the controller.
+		/// </summary>
+		public CardClass BaseClass { get; internal set; }
+
+
 		/// <summary>
 		/// The hero entity representing this player.
 		/// </summary>
@@ -106,6 +130,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool DragonInHand => HandZone.Any(p => p.Card.Race == Race.DRAGON);
 
+		public int NumTotemSummonedThisGame { get; set; }
+
+		public int NumSpellCostOver5CastedThisGame { get; set; }
+
 		/// <summary>
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
@@ -115,7 +143,13 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// The opponent player instance.
 		/// </summary>
-		public Controller Opponent => Game.Player1 == this ? Game.Player2 : Game.Player1;
+		public Controller Opponent => _opponent ?? (_opponent = Game.Player1 == this ? Game.Player2 : Game.Player1);
+
+		public override int this[GameTag t]
+		{
+			get => base[t] + ControllerAuraEffects[t];
+			set => base[t] = value;
+		}
 
 		/// <summary>
 		/// Create a new controller instance.
@@ -126,7 +160,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="id">Entity ID of this controller.</param>
 		public Controller(Game game, string name, int playerId, int id)
 			: base(game, Card.CardPlayer,
-			new Dictionary<GameTag, int>
+			new EntityData.Data
 			{
 				//[GameTag.HERO_ENTITY] = heroId,
 				[GameTag.MAXHANDSIZE] = 10,
@@ -143,7 +177,18 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Name = name;
 
-			ControlledZones = new ControlledZones(Game, this);
+			DeckZone = new DeckZone(this);
+			BoardZone = new BoardZone(this);
+			HandZone = new HandZone(this);
+			SecretZone = new SecretZone(this);
+			GraveyardZone = new GraveyardZone(this);
+			SetasideZone = new SetasideZone(this);
+
+			ControlledZones = new ControlledZones(this);
+
+			ControllerAuraEffects = new ControllerAuraEffects();
+
+			DiscardedEntities = new List<int>();
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
@@ -156,30 +201,46 @@ namespace SabberStoneCore.Model.Entities
 		private Controller(Game game, Controller controller) : base(game, controller)
 		{
 			Name = controller.Name;
-			ControlledZones = new ControlledZones(Game, this);
-			SetasideZone.Stamp(controller.SetasideZone);
-			BoardZone.Stamp(controller.BoardZone);
-			DeckZone.Stamp(controller.DeckZone);
-			HandZone.Stamp(controller.HandZone);
-			GraveyardZone.Stamp(controller.GraveyardZone);
-			SecretZone.Stamp(controller.SecretZone);
 
-			DeckCards = controller.DeckCards;
-			BaseClass = controller.BaseClass;
+			Hero = (Hero)controller.Hero.Clone(this);
 
-			Hero = (Hero) controller.Hero.Clone(this);
-			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
+			Hero.HeroPower = (HeroPower)controller.Hero.HeroPower.Clone(this);
 
 			if (controller.Hero.Weapon != null)
 			{
 				Hero.Weapon = (Weapon)controller.Hero.Weapon.Clone(this);
 			}
 
+			BoardZone = new BoardZone(this);
+			SetasideZone = controller.SetasideZone.Clone(this);
+			DeckZone = controller.DeckZone.Clone(this);
+			HandZone = controller.HandZone.Clone(this);
+			GraveyardZone = controller.GraveyardZone.Clone(this);
+			SecretZone = controller.SecretZone.Clone(this);
+			controller.BoardZone.Stamp(BoardZone);
+
+			DeckCards = controller.DeckCards;
+			BaseClass = controller.BaseClass;
+
 			if (controller.Choice != null)
 			{
 				Choice = new Choice(this);
 				Choice.Stamp(controller.Choice);
 			}
+
+			ControlledZones = new ControlledZones(this);
+			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
+			_currentSpellPower = controller._currentSpellPower;
+			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
+			NumSpellCostOver5CastedThisGame = controller.NumSpellCostOver5CastedThisGame;
+			DiscardedEntities = new List<int>(controller.DiscardedEntities);
+			controller.AppliedEnchantments?.ForEach(p =>
+			{
+				if (AppliedEnchantments == null)
+					AppliedEnchantments = new List<Enchantment>(controller.AppliedEnchantments.Count);
+
+				AppliedEnchantments.Add((Enchantment) p.Clone(this));
+			});
 		}
 
 		/// <summary>
@@ -200,14 +261,14 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="powerCard">The heropower card to derive the hero power entity from.</param>
 		/// <param name="tags">The inherited tags</param>
 		/// <param name="id">The entity id to assign to the generated HERO entity</param>
-		public void AddHeroAndPower(Card heroCard, Card powerCard = null, Dictionary<GameTag, int> tags = null, int id = -1)
+		public void AddHeroAndPower(Card heroCard, Card powerCard = null, IDictionary<GameTag, int> tags = null, int id = -1)
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
 			if  (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
-				SetasideZone.MoveTo(Hero.Power, SetasideZone.Count);
+				SetasideZone.MoveTo(Hero.HeroPower, SetasideZone.Count);
 				//Hero[GameTag.EXHAUSTED] = 0;
 				//Hero[GameTag.NUM_ATTACKS_THIS_TURN ] = 0;
 				//Hero[GameTag.DAMAGE] = 0;
@@ -222,49 +283,9 @@ namespace SabberStoneCore.Model.Entities
 			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
-			Hero.Power = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
-				new Dictionary<GameTag, int> { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
+				new EntityData.Data { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
-		}
-
-		/// <summary>
-		/// Copy data from the provided argument into this object.
-		/// </summary>
-		/// <param name="controller"></param>
-		public void Stamp(Controller controller)
-		{
-			SetasideZone.Stamp(controller.SetasideZone);
-			BoardZone.Stamp(controller.BoardZone);
-			DeckZone.Stamp(controller.DeckZone);
-			HandZone.Stamp(controller.HandZone);
-			GraveyardZone.Stamp(controller.GraveyardZone);
-			SecretZone.Stamp(controller.SecretZone);
-
-			DeckCards.AddRange(controller.DeckCards);
-			BaseClass = controller.BaseClass;
-			base.Stamp(controller);
-
-			//Hero = FromCard(this, controller.Hero.Card, null, null, controller.Hero.Id) as Hero;
-			//Hero.Stamp(controller.Hero);
-			Hero = (Hero) controller.Hero.Clone(this);
-
-			//Hero.Power = FromCard(this, controller.Hero.Power.Card, null, null, controller.Hero.Power.Id) as HeroPower;
-			//Hero.Power.Stamp(controller.Hero.Power);
-			Hero.Power = (HeroPower) controller.Hero.Power.Clone(this);
-
-			if (controller.Hero.Weapon != null)
-			{
-				//Hero.Weapon =
-				//	FromCard(this, controller.Hero.Weapon.Card, null, null, controller.Hero.Weapon.Id) as Weapon;
-				//Hero.Weapon.Stamp(controller.Hero.Weapon);
-				Hero.Weapon = (Weapon) controller.Hero.Weapon.Clone(this);
-			}
-
-			if (controller.Choice != null)
-			{
-				Choice = new Choice(this);
-				Choice.Stamp(controller.Choice);
-			}
 		}
 
 		/// <summary>
@@ -280,7 +301,7 @@ namespace SabberStoneCore.Model.Entities
 			str.Append("]");
 			str.Append(base.Hash(ignore));
 			str.Append(Hero.Hash(ignore));
-			str.Append(Hero.Power.Hash(ignore));
+			str.Append(Hero.HeroPower.Hash(ignore));
 			if (Hero.Weapon != null)
 				str.Append(Hero.Weapon.Hash(ignore));
 			str.Append(ControlledZones.Hash(ignore));
@@ -401,28 +422,35 @@ namespace SabberStoneCore.Model.Entities
 					result.Add(HeroAttackTask.Any(this, target));
 			}
 
-			if (Hero.Power.IsPlayable)
+			if (Hero.HeroPower.IsPlayable)
 			{
-				IEnumerable<ICharacter> targets = Hero.Power.GetValidPlayTargets();
-				if (targets.Any())
+				if (Hero.HeroPower.ChooseOne)
 				{
-					foreach (ICharacter target in targets)
-						result.Add(HeroPowerTask.Any(this, target));
+					if (ChooseBoth)
+						result.Add(HeroPowerTask.Any(this));
+					else
+					{
+						result.Add(HeroPowerTask.Any(this, null, 1));
+						result.Add(HeroPowerTask.Any(this, null, 2));
+					}
 				}
 				else
 				{
-					result.Add(HeroPowerTask.Any(this));
+					IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
+					if (targets.Any())
+					{
+						foreach (ICharacter target in targets)
+							result.Add(HeroPowerTask.Any(this, target));
+					}
+					else
+					{
+						result.Add(HeroPowerTask.Any(this));
+					}
 				}
 			}
 
-			//CalculatingOptions = false;
-			//VATCache = null;
-
 			return result;
 		}
-
-		//public bool CalculatingOptions { get; set; }
-		//public IEnumerable<ICharacter> VATCache { get; set; }
 
 		/// <summary>
 		/// Returns a string which dumps information about this player.
@@ -432,8 +460,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			var str = new StringBuilder();
 			str.Append($"{Name}[Mana:{RemainingMana}/{OverloadOwed}/{BaseMana}][{OverloadLocked}]");
-			str.Append($"[ENCH {Enchants.Count}]");
-			str.Append($"[TRIG {Triggers.Count}]");
+			//str.Append($"[ENCH {OldEnchants.Count}]");
+			//str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();
 		}
 	}
@@ -509,7 +537,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.RESOURCES]; }
 			//set { this[GameTag.RESOURCES] = value; }
 			get { return GetNativeGameTag(GameTag.RESOURCES); }
-			set { SetNativeGameTag(GameTag.RESOURCES, value); }
+			set { this[GameTag.RESOURCES] = value; }
 		}
 
 		/// <summary>
@@ -522,7 +550,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.RESOURCES_USED]; }
 			//set { this[GameTag.RESOURCES_USED] = value; }
 			get { return GetNativeGameTag(GameTag.RESOURCES_USED); }
-			set { SetNativeGameTag(GameTag.RESOURCES_USED, value); }
+			set { this[GameTag.RESOURCES_USED] = value; }
 		}
 
 		/// <summary>
@@ -533,11 +561,11 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.TEMP_RESOURCES]; }
 			//set { this[GameTag.TEMP_RESOURCES] = value; }
 			get { return GetNativeGameTag(GameTag.TEMP_RESOURCES); }
-			set { SetNativeGameTag(GameTag.TEMP_RESOURCES, value); }
+			set { this[GameTag.TEMP_RESOURCES] = value; }
 		}
 
 		/// <summary>
-		/// Indicates if combo enchantment effects of next cards should be executed or not.
+		/// Indicates if combo power effects of next cards should be executed or not.
 		/// 
 		/// Combo is active if at least one card has been played this turn.
 		/// </summary>
@@ -546,7 +574,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.COMBO_ACTIVE] == 1; }
 			//set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
 			get { return GetNativeGameTag(GameTag.COMBO_ACTIVE) == 1; }
-			set { SetNativeGameTag(GameTag.COMBO_ACTIVE, value ? 1 : 0); }
+			set { this[GameTag.COMBO_ACTIVE] =  value ? 1 : 0; }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -665,6 +693,14 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
 		}
 
+		public int NumDiscardedThisGame => DiscardedEntities.Count;
+
+		public int AmountHeroHealedThisTurn
+		{
+			get => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN];
+			set => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN] = value;
+		}
+
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 
@@ -700,7 +736,7 @@ namespace SabberStoneCore.Model.Entities
 			//get { return this[GameTag.OVERLOAD_LOCKED]; }
 			//set { this[GameTag.OVERLOAD_LOCKED] = value; }
 			get { return GetNativeGameTag(GameTag.OVERLOAD_LOCKED); }
-			set { SetNativeGameTag(GameTag.OVERLOAD_LOCKED, value); }
+			set { this[GameTag.OVERLOAD_LOCKED] = value; }
 		}
 
 		/// <summary>
@@ -757,8 +793,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraBattlecry
 		{
-			get { return this[GameTag.EXTRA_BATTLECRY] == 1; }
-			set { this[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
 		}
 
 		/// <summary>
@@ -767,8 +803,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraEndTurnEffect
 		{
-			get { return this[GameTag.EXTRA_END_TURN_EFFECT] == 1; }
-			set { this[GameTag.EXTRA_END_TURN_EFFECT] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 0;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
 		}
 
 		/// <summary>
@@ -776,8 +812,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool HeroPowerDisabled
 		{
-			get { return this[GameTag.HERO_POWER_DISABLED] == 1; }
-			set { this[GameTag.HERO_POWER_DISABLED] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.HERO_POWER_DISABLED] == 1;
+			set => ControllerAuraEffects[GameTag.HERO_POWER_DISABLED] = value ? 1 : 0;
 		}
 
 		/// <summary>
@@ -787,8 +823,25 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ChooseBoth
 		{
-			get { return this[GameTag.CHOOSE_BOTH] == 1; }
-			set { this[GameTag.CHOOSE_BOTH] = value ? 1 : 0; }
+			get => ControllerAuraEffects[GameTag.CHOOSE_BOTH] == 1;
+			set => ControllerAuraEffects[GameTag.CHOOSE_BOTH] = value ? 1 : 0;
 		}
+
+		/// <summary>
+		/// Amount of current Spell Damage bonus for this Controller.
+		/// </summary>
+		public int CurrentSpellPower
+		{
+			get => _currentSpellPower;
+			set
+			{
+				_currentSpellPower = value;
+				if (Game.History)
+					this[GameTag.CURRENT_SPELLPOWER] = value;
+			}
+		}
+
+		private int _currentSpellPower;
+		private Controller _opponent;
 	}
 }

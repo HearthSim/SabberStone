@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var minion = Source as Minion;
 			if (minion != null && ScriptTags == null)
 			{
-				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList(), null);
+				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList(), null, null);
 				return TaskState.COMPLETE;
 
 			}
@@ -52,7 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					cardIdList.RemoveAll(p => p == card);
 				}
 
-				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList, null);
+				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList, null, null);
 				return TaskState.COMPLETE;
 			}
 
@@ -63,14 +63,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card spell2 = KazakusPotionSpells.First(p => p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[1]);
 			//baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
 			baseCard.Text = spell1.Text + "\n" + spell2.Text;
-			baseCard.Enchantments = new List<Enchantment>();
-			baseCard.Enchantments.AddRange(spell1.Enchantments);
-			spell1.PlayRequirements.ToList().ForEach(p =>
-			{
-				if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-					baseCard.PlayRequirements.Add(p.Key, p.Value);
-			});
-			baseCard.Enchantments.AddRange(spell2.Enchantments);
+			//baseCard.Powers = new List<Power>();
+			//baseCard.Powers.AddRange(spell1.Powers);
+			//spell1.PlayRequirements.ToList().ForEach(p =>
+			//{
+			//	if (!baseCard.PlayRequirements.ContainsKey(p.Key))
+			//		baseCard.PlayRequirements.Add(p.Key, p.Value);
+			//});
+			//baseCard.Powers.AddRange(spell2.Powers);
 			spell2.PlayRequirements.ToList().ForEach(p =>
 			{
 				if (!baseCard.PlayRequirements.ContainsKey(p.Key))

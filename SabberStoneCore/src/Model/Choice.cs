@@ -3,6 +3,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using System;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Model
 {
@@ -12,7 +13,7 @@ namespace SabberStoneCore.Model
 	public enum ChoiceAction
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL, GLIMMERROOT, BUILDABEAST
+		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL, SPELL_RANDOM, GLIMMERROOT, BUILDABEAST
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -60,6 +61,12 @@ namespace SabberStoneCore.Model
 		/// <value>The entity Id.</value>
 		public int LastChoice { get; set; }
 
+		/// <summary>Gets or sets the card of enchantment that must be applied after the entity is chosen.</summary>
+		public Card EnchantmentCard { get; set; }
+
+		/// <summary>Gets or sets the task that must be done after the entity is chosen.</summary>
+		public ISimpleTask AfterChooseTask { get; set; }
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public void Stamp(Choice choice)
@@ -79,7 +86,7 @@ namespace SabberStoneCore.Model
 				}
 			}
 			LastChoice = choice.LastChoice;
-			
+			EnchantmentCard = choice.EnchantmentCard;
 		}
 
 		public string FullPrint()

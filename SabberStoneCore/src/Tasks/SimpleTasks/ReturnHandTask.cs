@@ -14,17 +14,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			bool success = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).TrueForAll(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
 				var target = p as Minion;
 				if (target == null)
-				{
-					return false;
-				}
-				return Generic.ReturnToHandBlock.Invoke(target.Controller, target);
-			});
+					break;
+				Generic.ReturnToHandBlock.Invoke(target.Controller, target);
+			}
 
-			return TaskState.COMPLETE;
+				return TaskState.COMPLETE;
 		}
 
 		public override ISimpleTask Clone()

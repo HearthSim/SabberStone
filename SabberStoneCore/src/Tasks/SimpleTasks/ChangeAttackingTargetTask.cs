@@ -1,4 +1,6 @@
-﻿using SabberStoneCore.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -6,6 +8,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChangeAttackingTargetTask : SimpleTask
 	{
+		/// <param name="typA">The attacker</param>
+		/// <param name="typB">New Defender</param>
 		public ChangeAttackingTargetTask(EntityType typA, EntityType typB)
 		{
 			TypeA = typA;
@@ -17,8 +21,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntites(TypeA, Controller, Source, Target, Playables);
-			System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntites(TypeB, Controller, Source, Target, Playables);
+			//System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables);
+			//System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables);
+			List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables).ToList();
+			List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables).ToList();
 			if (typeA.Count != 1 || typeB.Count != 1)
 			{
 				return TaskState.STOP;
@@ -32,9 +38,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask", !Game.Logging? "":$"{attacker} target {attacker.ProposedDefender} changed to {newDefender.Id}.");
+				Game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask", !Game.Logging? "":$"{attacker} target {Game.ProposedDefender} changed to {newDefender.Id}.");
 
-			attacker.ProposedDefender = newDefender.Id;
+			Game.ProposedDefender = newDefender.Id;
+			Game.CurrentEventData.EventTarget = newDefender;
 			return TaskState.COMPLETE;
 		}
 

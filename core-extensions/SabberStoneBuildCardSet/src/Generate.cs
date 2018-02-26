@@ -63,11 +63,11 @@ namespace SabberStoneBuildCardSet
 			{
 				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen" + (adventure?"Adv":"");
 				string path = Path + @"\CardSets\";
-				string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGen"+ (adventure?"Adv":"") +"Test";
-				string pathTest = Path + @"\CardSetsTest\";
+				//string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGen"+ (adventure?"Adv":"") +"Test";
+				//string pathTest = Path + @"\CardSetsTest\";
 
 				WriteCardSetFile(cardSet, className, path, values);
-				WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
+				//WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
 			}
 			Console.ReadKey();
 		}
@@ -148,7 +148,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine();
 			}
 
-			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, List<Enchantment>> cards)");
+			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, Power> cards)");
 			str.AppendLine("\t\t{");
 			methods.ForEach(p => str.AppendLine($"\t\t\t{p}(cards);"));
 			str.AppendLine("\t\t}");
@@ -185,7 +185,7 @@ namespace SabberStoneBuildCardSet
 				return null;
 			}
 			var str = new StringBuilder();
-			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, List<Enchantment>> cards)");
+			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, Power> cards)");
 			str.AppendLine("\t\t{");
 			foreach (Card card in valuesOrdered)
 			{
@@ -251,7 +251,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
 				str.Append($"{tab}\t// Text: {card.Text.Replace("\n", $"\n{tab}\t//       ")}\n");
 			}
-			if (card.Entourage != null && card.Entourage.Count > 0)
+			if (card.Entourage != null && card.Entourage.Length > 0)
 			{
 				str.AppendLine($"{tab}\t// --------------------------------------------------------");
 				str.AppendLine($"{tab}\t// Entourage: {String.Join(", ", card.Entourage)}");
@@ -320,41 +320,13 @@ namespace SabberStoneBuildCardSet
 				.Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
 				.Select(p => p.Id).FirstOrDefault();
 
-			var activations = new List<string>();
-			if (card.Type == CardType.SPELL)
-				activations.Add("EnchantmentActivation.SPELL");
-			if (card.Type == CardType.WEAPON)
-				activations.Add("EnchantmentActivation.WEAPON");
-			if (card[GameTag.BATTLECRY] == 1)
-				activations.Add("EnchantmentActivation.BATTLECRY");
-			if (card[GameTag.DEATHRATTLE] == 1)
-				activations.Add("EnchantmentActivation.DEATHRATTLE");
+			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new Power {{");
 
-			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new List<Enchantment> {{");
 			str.AppendLine($"\t\t\t\t// TODO [{card.Id}] {card.Name} && Test: {card.Name}_{card.Id}");
-			if (activations.Count > 0)
-			{
-				activations.ForEach(p =>
-				{
-					str.AppendLine($"\t\t\t\tnew Enchantment");
-					str.AppendLine($"\t\t\t\t{{");
-					if (enchantId != null)
-						str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");
-					str.AppendLine($"\t\t\t\t\tActivation = {p},");
-					str.AppendLine($"\t\t\t\t\tSingleTask = null,");
-					str.AppendLine($"\t\t\t\t}},");
-				});
-			}
-			else
-			{
-				str.AppendLine($"\t\t\t\tnew Enchantment");
-				str.AppendLine($"\t\t\t\t{{");
-				if (enchantId != null)
-					str.AppendLine($"\t\t\t\t\tInfoCardId = \"{enchantId}\",");
-				str.AppendLine($"\t\t\t\t\t//Activation = null,");
-				str.AppendLine($"\t\t\t\t\t//SingleTask = null,");
-				str.AppendLine($"\t\t\t\t}}");
-			}
+			if (enchantId != null)
+				str.AppendLine($"\t\t\t\tInfoCardId = \"{enchantId}\",");
+			str.AppendLine($"\t\t\t\t//PowerTask = null,");
+			str.AppendLine($"\t\t\t\t//Trigger = null,");
 
 			str.AppendLine($"\t\t\t}});\n");
 			return str.ToString();

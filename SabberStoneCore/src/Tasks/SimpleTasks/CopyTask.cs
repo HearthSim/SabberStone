@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -8,11 +9,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class CopyTask : SimpleTask
 	{
-		public CopyTask(EntityType type, int amount, bool opposite = false)
+		private readonly Zone _zoneType;
+
+		public CopyTask(EntityType type, int amount, bool opposite = false, Zone zoneType = Zone.INVALID)
 		{
 			Type = type;
 			Amount = amount;
 			Opposite = opposite;
+			_zoneType = zoneType;
 		}
 
 		public EntityType Type { get; set; }
@@ -59,16 +63,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					Playables.ForEach(p =>
 					{
+						var zone = p.Controller.ControlledZones[_zoneType];
 						for (int i = 0; i < Amount; i++)
 						{
+							if (zone?.IsFull ?? false)
+								break;
+							// TODO
 							result.Add(Opposite ?
-								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id)) :
-								Entity.FromCard(Controller, Cards.FromId(p.Card.Id)));
+								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, p.Controller.ControlledZones[_zoneType]) :
+								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, Controller.ControlledZones[_zoneType]));
 						}
+						if (zone?.IsFull ?? false)
+							return;
 					});
 					break;
 				case EntityType.OP_HERO_POWER:
-					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.Power.Card.Id)));
+					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.HeroPower.Card.Id)));
 					break;
 				case EntityType.WEAPON:
 					var weapon = Controller.Hero.Weapon as Weapon;
@@ -91,7 +101,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new CopyTask(Type, Amount, Opposite);
+			var clone = new CopyTask(Type, Amount, Opposite, _zoneType);
 			clone.Copy(this);
 			return clone;
 		}

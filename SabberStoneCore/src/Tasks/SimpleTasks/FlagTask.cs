@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using System.Diagnostics;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FlagTask : SimpleTask
 	{
@@ -23,7 +25,7 @@
 			TaskToDo.Source = Source;
 			TaskToDo.Target = Target;
 			TaskToDo.Playables = Playables;
-			TaskToDo.CardIds = CardIds;
+			//TaskToDo.CardIds = CardIds;
 			TaskToDo.Flag = Flag;
 			TaskToDo.Number = Number;
 			TaskToDo.Number1 = Number1;
@@ -38,6 +40,11 @@
 			var clone = new FlagTask(CheckFlag, TaskToDo.Clone());
 			clone.Copy(this);
 			return clone;
+		}
+
+		public override string ToString()
+		{
+			return $"[FlagTask][{CheckFlag}:{TaskToDo.GetType().Name}]";
 		}
 	}
 }

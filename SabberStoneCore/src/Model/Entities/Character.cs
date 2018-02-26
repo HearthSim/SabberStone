@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -68,6 +70,9 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="source"></param>
 		/// <param name="armor"></param>
 		void GainArmor(IPlayable source, int armor);
+
+		event TriggerManager.TriggerHandler AfterAttackTrigger;
+		void OnAfterAttackTrigger();
 	}
 
 	/// <summary>
@@ -78,13 +83,23 @@ namespace SabberStoneCore.Model.Entities
 	/// <typeparam name="T">Subclass of entity.</typeparam>
 	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
 	{
+		public event TriggerManager.TriggerHandler PreDamageTrigger;
+
+		public event TriggerManager.TriggerHandler TakeDamageTrigger;
+
+		public event TriggerManager.TriggerHandler AfterAttackTrigger;
+
+		private bool _lifestealChecker;
+		//private int _numDamageTriggerSubscribers;
+		//private TriggerManager.TriggerHandler _damageTrigger;
+
 		/// <summary>
 		/// Build a new character from the provided data.
 		/// </summary>
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
-		protected Character(Controller controller, Card card, Dictionary<GameTag, int> tags)
+		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags)
 			: base(controller, card, tags) { }
 
 		/// <summary>
@@ -135,13 +150,10 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				//if (Controller.CalculatingOptions && Controller.VATCache != null)
-				//	return Controller.VATCache;
-
 				bool tauntFlag = false;
 				var allTargets = new List<ICharacter>(4);
 				var allTargetsTaunt = new List<ICharacter>(2);
-				foreach (Minion minion in Controller.Opponent.BoardZone)
+				foreach (Minion minion in Controller.Opponent.BoardZone.GetAll())
 				{
 					if (!minion.HasStealth)
 					{
@@ -160,9 +172,6 @@ namespace SabberStoneCore.Model.Entities
 
 				if (!CantAttackHeroes)
 					allTargets.Add(Controller.Opponent.Hero);
-
-				//if (Controller.CalculatingOptions)
-				//	Controller.VATCache = allTargets;
 
 				return allTargets;
 			}
@@ -185,9 +194,7 @@ namespace SabberStoneCore.Model.Entities
 			bool fatigue = hero != null && this == source;
 
 			if (fatigue)
-			{
 				hero.Fatigue = damage;
-			}
 
 			if (minion != null && minion.HasDivineShield)
 			{
@@ -196,33 +203,72 @@ namespace SabberStoneCore.Model.Entities
 				return 0;
 			}
 
-			// added pre damage
-			PreDamage = hero == null ? damage : hero.Armor < damage ? damage - hero.Armor : 0;
+			int armor = hero?.Armor ?? 0;
 
-			if (minion != null && minion.IsImmune || hero != null && hero.IsImmune)
+			int amount = hero == null ? damage : armor < damage ? damage - armor : 0;
+
+			// added pre damage
+			PreDamage = amount;
+
+			// Predamage triggers (Ice Block)
+			if (PreDamageTrigger != null)
 			{
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} is immune.");
+				PreDamageTrigger.Invoke(this);
+				amount = PreDamage;
+			}
+			if (IsImmune)
+			{
+				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging ? "" : $"{this} is immune.");
+				PreDamage = 0;
 				return 0;
 			}
 
 			// remove armor first from hero ....
-			if (hero != null && hero.Armor > 0)
-			{
-				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
-			}
+			if (armor > 0)
+				hero.Armor = armor < damage ? 0 : armor - damage;
 
 			// final damage is beeing accumulated
-			Damage += PreDamage;
+			Damage += amount;
 
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
-
-			// check if there was damage done
-			int tookDamage = PreDamage;
 
 			// reset predamage
 			PreDamage = 0;
 
-			return tookDamage;
+			//LastAffectedBy = source.Id;	TODO
+
+
+			// Damage event is created
+			// Collect all the tasks and sort them by order of play
+			// Death phase and aura update are not emerge here
+
+			// place event related data
+			Game.TaskQueue.StartEvent();
+			EventMetaData temp = Game.CurrentEventData;
+			Game.CurrentEventData = new EventMetaData(source, this, amount);
+
+			// on-damage triggers
+			TakeDamageTrigger?.Invoke(this);
+			Game.TriggerManager.OnDamageTrigger(this);
+			Game.TriggerManager.OnDealDamageTrigger(source);
+			Game.ProcessTasks();
+			Game.TaskQueue.EndEvent();
+			Game.CurrentEventData = temp;
+
+			if (source.HasLifeSteal && !_lifestealChecker)
+			{
+				if (_history)
+					Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
+				Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "TakeDamage", !_logging ? "" : $"lifesteal source {source} has damaged target for {amount}.");
+				source.Controller.Hero.TakeHeal(source, amount);
+				if (_history)
+					Game.PowerHistory.Add(new PowerHistoryBlockEnd());
+
+				if (source.Controller.Hero.ToBeDestroyed && source.Controller.Hero.Health > 0)
+					source.Controller.Hero.ToBeDestroyed = false;
+			}
+
+			return amount;
 		}
 
 		/// <summary>
@@ -242,14 +288,16 @@ namespace SabberStoneCore.Model.Entities
 		public void TakeHeal(IPlayable source, int heal)
 		{
 			//	TODO: Power Word: Glory interaction https://hearthstone.gamepedia.com/Healing#Advanced_rules
-			if ((source is Spell || source is HeroPower) && source.Controller[GameTag.HEALING_DOUBLE] > 0)
+			if ((source is Spell || source is HeroPower) && source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE] > 0)
 			{
-				heal *= (int) Math.Pow(2, source.Controller[GameTag.HEALING_DOUBLE]);
+				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE]);
 			}
 
-			if (source.Controller.Hero[GameTag.RESTORE_TO_DAMAGE] == 1)
+			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
+				_lifestealChecker = true;
 				TakeDamage(source, heal);
+				_lifestealChecker = false;
 				return;
 			}
 			// we don't heal undamaged entities
@@ -262,6 +310,19 @@ namespace SabberStoneCore.Model.Entities
 			if (Game.Logging)
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
 			Damage -= amount;
+
+			// Heal event created
+			// Process gathered tasks
+			Game.TaskQueue.StartEvent();
+			EventMetaData temp = Game.CurrentEventData;
+			Game.CurrentEventData = new EventMetaData(source, this, amount);
+			Game.TriggerManager.OnHealTrigger(this);
+			Game.ProcessTasks();
+			Game.TaskQueue.EndEvent();
+			Game.CurrentEventData = temp;
+
+			if (this is Hero)
+				Controller.AmountHeroHealedThisTurn += amount;
 		}
 
 		/// <summary>
@@ -273,6 +334,16 @@ namespace SabberStoneCore.Model.Entities
 		{
 			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} gaining armor for {armor}.");
 			Armor += armor;
+			EventMetaData temp = Game.CurrentEventData;
+			Game.CurrentEventData = new EventMetaData(source, this, armor);
+			Game.TriggerManager.OnArmorTrigger(this);
+			//Game.ProcessTasks();
+			Game.CurrentEventData = temp;
+		}
+
+		public void OnAfterAttackTrigger()
+		{
+			AfterAttackTrigger?.Invoke(this);
 		}
 	}
 
@@ -305,7 +376,7 @@ namespace SabberStoneCore.Model.Entities
 		int BaseHealth { get; }
 
 		/// <summary>
-		/// This character is currently attacking another character.
+		/// This character is currently attacking another characteaftr.
 		/// </summary>
 		bool IsAttacking { get; set; }
 
@@ -366,7 +437,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character has windfury.
 		/// </summary>
-		bool HasWindfury { get; set; }
+		bool HasWindfury { get; }
+
+		/// <summary>
+		/// Character has stealth.
+		/// </summary>
+		bool HasStealth { get; }
 
 		/// <summary>
 		/// Character can't be targeted by spells.
@@ -416,7 +492,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Armor
 		{
-			get { return this[GameTag.ARMOR]; }
+			get
+			{
+				NativeTags.TryGetValue(GameTag.ARMOR, out int value);
+				return value;
+			}
 			set { this[GameTag.ARMOR] = value; }
 		}
 
@@ -440,17 +520,16 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Damage
 		{
-			get { return this[GameTag.DAMAGE]; }
+			get => NativeTags.TryGetValue(GameTag.DAMAGE, out int value) ? value : 0;
 			set
 			{
-				if (!IsIgnoreDamage && this[GameTag.HEALTH] <= value)
+				if (this[GameTag.HEALTH] <= value)
 				{
 					ToBeDestroyed = true;
 				}
 
 				// don't allow negative values
 				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
-
 			}
 		}
 
@@ -501,14 +580,29 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsFrozen
 		{
-			get { return this[GameTag.FROZEN] == 1; }
-			set { this[GameTag.FROZEN] = value ? 1 : 0; }
+			get
+			{
+				NativeTags.TryGetValue(GameTag.FROZEN, out int value);
+				return value == 1;
+			}
+			set
+			{
+				if (value)
+				{
+					Game.TriggerManager.OnFreezeTrigger(this);
+					NativeTags[GameTag.FROZEN] = 1;
+				}
+				else
+				{
+					NativeTags[GameTag.FROZEN] = 0;
+				}
+			}
 		}
 
 		public bool IsSilenced
 		{
 			get { return GetNativeGameTag(GameTag.SILENCED) == 1; }
-			set { SetNativeGameTag(GameTag.SILENCED, value ? 1 : 0); }
+			set { this[GameTag.SILENCED] = value ? 1 : 0; }
 		}
 
 		public bool HasTaunt
@@ -519,20 +613,24 @@ namespace SabberStoneCore.Model.Entities
 
 		public virtual bool HasWindfury
 		{
-			get { return this[GameTag.WINDFURY] == 1; }
+			get { return this[GameTag.WINDFURY] >= 1; }
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
+		public bool HasStealth
+		{
+			get { return this[GameTag.STEALTH] == 1; }
+			set { this[GameTag.STEALTH] = value ? 1 : 0; }
 		}
 
 		public int NumAttacksThisTurn
 		{
-			//get { return GetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN); }
 			get
 			{
-				if (_data.Tags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value))
-					return value;
-				return 0;
+				NativeTags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
+				return value;
 			}
-			set { SetNativeGameTag(GameTag.NUM_ATTACKS_THIS_TURN, value); }
+			set => this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 		}
 
 		public int PreDamage

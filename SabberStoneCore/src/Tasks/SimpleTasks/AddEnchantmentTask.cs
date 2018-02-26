@@ -1,50 +1,52 @@
-﻿using SabberStoneCore.Enchants;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public class AddEnchantmentTask : SimpleTask
-	{
-		public AddEnchantmentTask(EntityType type, Enchantment enchantment, bool activate = false)
-		{
-			Type = type;
-			Enchantment = enchantment;
-			Activate = activate;
+    public class AddEnchantmentTask : SimpleTask
+    {
+	    private readonly Card _enchantmentCard;
+		private readonly EntityType _entityType;
+	    private readonly bool _useScriptTag;
+
+	    public AddEnchantmentTask(Card enchantmentCard, EntityType entityType, bool useScriptTag = false)
+	    {
+		    _enchantmentCard = enchantmentCard;
+		    _entityType = entityType;
+		    _useScriptTag = useScriptTag;
 		}
 
-		public EntityType Type { get; set; }
-
-		public Enchantment Enchantment { get; set; }
-
-		public bool Activate { get; set; }
+	    public AddEnchantmentTask(string enchantmentId, EntityType entityType, bool useScriptTag = false)
+	    {
+		    _enchantmentCard = Cards.FromId(enchantmentId);
+		    _entityType = entityType;
+		    _useScriptTag = useScriptTag;
+	    }
 
 		public override TaskState Process()
-		{
-			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p =>
+	    {
+			//	Controller Auras (OTEs)
+		    if (_entityType == EntityType.CONTROLLER)
 			{
-				var minion = p as Minion;
-				if (minion != null)
-				{
-					minion.HasDeathrattle = Enchantment.Activation == EnchantmentActivation.DEATHRATTLE ? true : false;
-					if (minion.Enchantments == null)
-						minion.Enchantments = new System.Collections.Generic.List<Enchantment> { Enchantment };
-					else
-						minion.Enchantments.Add(Enchantment);
-					if (Activate)
-					{
-						Enchantment.Activate(Controller, minion);
-					}
-				}
-			});
-			return TaskState.COMPLETE;
-		}
+				Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, Controller, 0, 0);
+				return TaskState.COMPLETE;
+			}
+
+		    foreach (IPlayable p in IncludeTask.GetEntities(_entityType, Controller, Source, Target, Playables))
+		    {
+			    Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, p, Number, Number1);
+		    }
+
+		    return TaskState.COMPLETE;
+	    }
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new AddEnchantmentTask(Type, Enchantment, Activate);
-			clone.Copy(this);
+			var clone = new AddEnchantmentTask(_enchantmentCard, _entityType, _useScriptTag);
 			return clone;
 		}
 	}

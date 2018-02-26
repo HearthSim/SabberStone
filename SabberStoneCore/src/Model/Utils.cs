@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model
 	/// <summary>
 	/// Provides helper methods for often used functionality.
 	/// </summary>
-	public class Util
+	public static class Util
 	{
 		/// <summary>The source of randomness.</summary>
 		public static Random Random => ThreadLocalRandom.Instance;

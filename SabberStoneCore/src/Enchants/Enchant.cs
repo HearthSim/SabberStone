@@ -1,288 +1,162 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Conditions;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
 	/// <summary>
-	/// Instance which is attached to an <see cref="Entity"/> and applies it's effects
-	/// to certain <see cref="IPlayable"/>s. The effects manifest by processing
-	/// <see cref="GameTag"/> values within method <see cref="Apply(Entity, GameTag, Int32)"/>
+	/// Class to store attributes of the <see cref="Power"/> of an Enchantment Card.
 	/// </summary>
-	/// <seealso cref="ILazyRemove" />
-	public class Enchant : ILazyRemove
+	public class Enchant
 	{
-		/// <summary>Gets or sets the parent container of this instance.</summary>
-		/// <value>The parent container.</value>
-		public List<Enchant> Parent { get; set; }
+		public static readonly Trigger RemoveWhenPlayedTrigger =
+			new Trigger(TriggerType.PLAY_CARD)
+			{
+				TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
+				SingleTask = new RemoveEnchantmentTask(),
+				RemoveAfterTriggered = true,
+				IsAncillaryTrigger = true,
+			};
 
-		/// <summary>Gets or sets the conditions which must be met in order to enable the enchant.</summary>
-		/// <value>The enable conditions.</value>
-		public List<SelfCondition> EnableConditions { get; set; } = new List<SelfCondition>();
+		public readonly Effect[] Effects;
+	    public bool UseScriptTag;
+		public bool IsOneTurnEffect;
+		public bool RemoveWhenPlayed;
 
-		/// <summary>Gets or sets the conditions which must be met in order for this enchant to have an effect
-		/// on a certain <see cref="IPlayable"/>.</summary>
-		/// <value>The apply conditions.</value>
-		public List<RelaCondition> ApplyConditions { get; set; } = new List<RelaCondition>();
+		public Enchant(GameTag tag, EffectOperator @operator, int value)
+	    {
+		    Effects = new[] {new Effect(tag, @operator, value)};
+	    }
 
-		/// <summary>Gets or sets the ID of the card which invoked this enchant.</summary>
-		/// <value>The card ID of the enchant source.</value>
-		/// <seealso cref="Card.Id"/>
-		public string SourceId { get; set; }
-
-		/// <summary>Gets or sets the game for which this enchant is applicable.</summary>
-		/// <value><see cref="Model.Game"/></value>
-		public Game Game { get; set; }
-
-		private int _ownerId;
-		/// <summary>Gets or sets the entity which owns this enchant.</summary>
-		/// <value><see cref="IPlayable"/></value>
-		public IPlayable Owner
-		{
-			get { return Game.IdEntityDic[_ownerId]; }
-			set { _ownerId = value.Id; }
-		}
-
-		/// <summary>Gets or sets the <see cref="GameTag"/>s which are affected by this enchant.
-		///	In some cases the set value will used to overwrite the matching tag for applicable
-		/// entities during the game;
-		/// </summary>
-		/// <value>The effects.</value>
-		public Dictionary<GameTag, int> Effects { get; set; } = new Dictionary<GameTag, int>();
-
-		/// <summary>Function that produces an integer which simply overwrites the affected
-		/// tags.
-		/// </summary>
-		public Func<IPlayable, int> FixedValueFunc;
-
-		/// <summary>Function that produces an integer which is amended to the original value of the
-		/// affected tags.
-		/// </summary>
-		public Func<IPlayable, int> ValueFunc;
-
-		/// <summary>Gets or sets the amount of turns this enchant is active.</summary>
-		/// <value>The number of active turns.</value>
-		public int TurnsActive { get; set; } = -1;
-
-		/// <summary>Gets or sets the turn number when this enchant was activated.</summary>
-		/// <value>The turn number when activated.</value>
-		public int Turn { get; set; }
-
-		/// <summary>Gets or sets the tags which have to change before this enchant will remove itself.</summary>
-		/// <value>The tags on which this enchant triggers it's removal.</value>
-		public List<GameTag> RemoveTriggerTags { get; set; } = new List<GameTag>();
-
-		/// <summary>Gets or sets the tags and corresponding values for when this enchant removes itself.</summary>
-		/// <value>The remove triggers.</value>
-		internal Dictionary<GameTag, int> RemoveTriggers { get; set; } = new Dictionary<GameTag, int>();
-
-		/// <summary>Gets or sets the task which is executed when the game cleans up this enchant.</summary>
-		/// <value><see cref="ISimpleTask"/></value>
-		/// <seealso cref="Remove"/>
-		public ISimpleTask SingleTask { get; set; }
-
-		/// <summary>Gets or sets the task which is executed when this enchant marks itself for removal.</summary>
-		/// <value><see cref="ISimpleTask"/></value>
-		/// <seealso cref="IsEnabled"/>
-		public ISimpleTask RemovalTask { get; set; }
+	    public Enchant(params Effect[] effects)
+	    {
+			Effects = effects;
+	    }
 
 		/// <summary>
-		/// Initiates removal of the implemented type.
-		/// The instance will remove itself from the game.
+		/// Create an Enchant that uses the Number value in the stack.
 		/// </summary>
-		/// <autogeneratedoc />
+		public Enchant(GameTag tag, EffectOperator @operator)
+		{
+			Effects = new[] {new Effect(tag, @operator, 0)};
+			UseScriptTag = true;
+		}
+
+		/// <summary>
+		/// Apply this Enchant's <see cref="Effect"/>s to the given entity.
+		/// </summary>
+		/// <param name="entity">The target entity.</param>
+		/// <param name="enchantment">The indicator <see cref="Enchantment"/> entity. Can be null.</param>
+		/// <param name="num1">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_1.</param>
+		/// <param name="num2">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_2.</param>
+		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
+		{
+			if (!UseScriptTag)
+				for (int i = 0; i < Effects.Length; i++)
+					Effects[i].Apply(entity, IsOneTurnEffect);
+			else if (enchantment != null)
+			{
+				Effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
+
+				if (Effects.Length != 2) return;
+
+				if (enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
+					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).Apply(entity, IsOneTurnEffect);
+				else
+					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
+			}
+			else
+			{
+				Effects[0].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
+
+				if (Effects.Length != 2) return;
+
+				if (num2 > 0)
+					Effects[1].ChangeValue(num2).Apply(entity, IsOneTurnEffect);
+				else
+					Effects[1].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
+			}
+		}
+    }
+
+	/// <summary>
+	/// Implementation of a kind of enchantment that its effect gradually grows due to a trigger.
+	/// OngoingEnchant is narrowly used when the source of the trigger and 
+	/// the target of the Enchantment is identical. (e.g. Mana Wyrm)
+	/// </summary>
+	public class OngoingEnchant : Enchant, IAura
+	{
+		public Game Game;
+		private int _count = 1;
+		private int _lastCount = 1;
+		private int _targetId;
+		private bool _toBeUpdated;
+		private IEntity _target;
+
+		public OngoingEnchant(params Effect[] effects) : base(effects) { }
+
+		public int Count
+		{
+			get => _count;
+			set
+			{
+				_count = value;
+				_toBeUpdated = true;
+			}
+		}
+		public IEntity Target
+		{
+			get => _target ?? (_target = Game.IdEntityDic[_targetId]);
+			set
+			{
+				_targetId = value.Id;
+				_target = value;
+			}
+		}
+
+		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
+		{
+			Clone((IPlayable) entity);
+
+			base.ActivateTo(entity, enchantment);
+		}
+
+		public void Update()
+		{
+			if (!_toBeUpdated) return;
+
+			int delta = _count - _lastCount;
+
+			for (int i = 0 ; i < delta; i++)
+				base.ActivateTo(Target, null);
+
+			_lastCount = _count;
+
+			_toBeUpdated = false;
+		}
+
 		public void Remove()
 		{
-			if (SingleTask != null)
-			{
-				Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", !Game.Logging? "":"enqueueuing lazy removal task here!");
-
-				// clone task here
-				ISimpleTask clone = SingleTask.Clone();
-				clone.Game = Owner.Controller.Game;
-				clone.Controller = Owner.Controller;
-				clone.Source = Owner;
-				clone.Target = Owner;
-
-				Owner.Controller.Game.TaskQueue.Enqueue(clone);
-			}
-			Parent.Remove(this);
+			((IPlayable)Target).OngoingEffect = null;
+			Target.Game.Auras.Remove(this);
 		}
 
-		/// <summary>Determines whether this enchant is still active.</summary>
-		/// <returns><c>true</c> if this enchant is active; otherwise, <c>false</c>.</returns>
-		/// <autogeneratedoc />
-		public bool IsEnabled()
+		public void Clone(IPlayable clone)
 		{
-			bool flag = true;
-
-			// check if all conditions are still meet
-			for (int i = 0; i < EnableConditions.Count; i++)
+			var copy = new OngoingEnchant(Effects)
 			{
-				flag &= EnableConditions[i].Eval(Owner);
-				if (!flag)
-					break;
-			}
-
-			// check if turn activation is still okay
-			if (flag)
-				flag &= TurnsActive < 0 || Owner.Game.Turn <= Turn + TurnsActive;
-
-			// check if there is any remove trigger activated
-			if (flag)
-			{
-				foreach (KeyValuePair<GameTag, int> kvp in RemoveTriggers)
-				{
-					flag &= Owner.Controller[kvp.Key] <= kvp.Value;
-					if (!flag)
-						break;
-				}
-			}
-
-
-			if (!flag && !Owner.Game.LazyRemoves.Contains(this))
-			{
-				Owner.Game.LazyRemoves.Enqueue(this);
-				// execute removal task here, ex. health rentantion   
-				if (RemovalTask != null)
-				{
-					Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Enchant", !Game.Logging? "":"executing removal task priority here");
-					Owner.Controller.Game.TaskQueue.Execute(RemovalTask, Owner.Controller, Owner, Owner);
-				}
-			}
-
-			return flag;
-		}
-
-		private bool IsApplying(IPlayable target)
-		{
-			bool flag = true;
-
-			for (int i = 0; i < ApplyConditions.Count; i++)
-			{
-				flag &= ApplyConditions[i].Eval(Owner, target);
-				if (!flag)
-					break;
-			}
-
-			return flag;
-		}
-
-		/// <summary>Applies this enchant on the specified entity and tag.
-		///	This method will process the stored data and apply it to the provided
-		///	tag value, when applicable.
-		/// </summary>
-		/// <param name="entity">The entity subject.</param>
-		/// <param name="gameTag">The game tag which must change.</param>
-		/// <param name="value">The value of the corresponding tag. This value is either original (native) or
-		/// could already be the result of another enchant.</param>
-		/// <returns>An updated value for the specified tag.</returns>
-		public int Apply(Entity entity, GameTag gameTag, int value)
-		{
-
-			// only allow enchantments on playable entitys ...
-			var target = entity as IPlayable;
-			//if (target == null && !(entity is Controller))
-			//{
-			//    return value;
-			//}
-
-			if (!Effects.ContainsKey(gameTag))
-			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"GameTag {gameTag} not concerned by this enchanting ...");
-				return value;
-			}
-
-			if (!IsEnabled())
-			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Enchant from {Owner} isn't enabled! {target}");
-				return value;
-			}
-
-			if (!IsApplying(target))
-			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Enchant conditions not meet.");
-				return value;
-			}
-
-			if (FixedValueFunc != null)
-			{
-				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Card[ind.{target.OrderOfPlay}.{target}] got enchanted. Using fixed value func.");
-				return FixedValueFunc.Invoke(Owner);
-			}
-
-			Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Enchant", !Game.Logging? "":$"Card[ind.{target?.OrderOfPlay}.{target}] got enchanted. {gameTag} = {value} + {Effects[gameTag]} variable effect? {ValueFunc != null}");
-
-			// apply variable effects if we have ...
-			int effect = ValueFunc?.Invoke(Owner) ?? Effects[gameTag];
-
-			// TODO find an elegant way for that ... check if gametag is bool
-			if (gameTag == GameTag.CHARGE || gameTag == GameTag.WINDFURY || gameTag == GameTag.IMMUNE)
-			{
-				return (value + effect) == 0 ? 0 : 1;
-			}
-
-			// TODO this is really bad practice
-			if (gameTag == GameTag.BATTLECRY)
-			{
-				return value != 0 ? (value + effect) : 0;
-			}
-
-			int result = value + effect;
-
-			// TODO don't allow negative values for those tags ... for all???
-			if (result < 0) // && (gameTag == GameTag.COST || gameTag == GameTag.ATK))
-			{
-				result = 0;
-			}
-
-			// enchanting value
-			return result;
-
-		}
-
-		/// <summary>Activates this enchant on the specified entity.</summary>
-		/// <param name="sourceId">The source identifier.</param>
-		/// <param name="parent">The parent container.</param>
-		/// <param name="owner">The owner/carrier of this enchant.</param>
-		public void Activate(string sourceId, List<Enchant> parent, IPlayable owner)
-		{
-			parent.Add(Copy(sourceId, owner.Game, owner.Game.Turn, parent, owner, RemoveTriggerTags.ToDictionary(p => p, p => owner.Controller[p])));
-		}
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
-		public string Hash => $"{SourceId}{(TurnsActive > -1 ? $",{Turn}" : "")}";
-
-		public Enchant Copy(string sourceId, Game game, int turn, List<Enchant> parent, IPlayable owner, Dictionary<GameTag, int> removeTriggers)
-		{
-			return new Enchant()
-			{
-				Game = game,
-				Parent = parent,
-				Owner = owner,
-				Turn = turn,
-
-				SourceId = sourceId,
-				EnableConditions = EnableConditions,
-				ApplyConditions = ApplyConditions,
-				SingleTask = SingleTask?.Clone(),
-				RemovalTask = RemovalTask?.Clone(),
-				Effects = new Dictionary<GameTag, int>(Effects),
-				ValueFunc = ValueFunc,
-				FixedValueFunc = FixedValueFunc,
-				TurnsActive = TurnsActive,
-
-				RemoveTriggerTags = new List<GameTag>(RemoveTriggerTags),
-				RemoveTriggers = new Dictionary<GameTag, int>(removeTriggers),
+				Game = clone.Game,
+				Target = clone,
+				IsOneTurnEffect = IsOneTurnEffect,
 			};
+			clone.OngoingEffect = copy;
+			copy.Game.Auras.Add(copy);
 		}
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
-
 }

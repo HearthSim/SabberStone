@@ -1,7 +1,10 @@
-﻿using SabberStoneCore.Model;
+﻿using System.Collections;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -12,7 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonCopyTask : SimpleTask
 	{
 		/// <summary>
-		/// Summons a copy of the choosen entitytype.
+		/// Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
 		/// <param name="randomFlag"><c>true</c> if the copies need to be summoned
@@ -21,6 +24,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Type = type;
 			RandomFlag = randomFlag;
+		}
+
+		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
+		{
+			_side = side;
 		}
 
 		/// <summary>
@@ -33,6 +41,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		public bool RandomFlag { get; set; }
 
+		private readonly SummonSide _side;
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public override TaskState Process()
@@ -40,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Controller.BoardZone.IsFull)
 				return TaskState.STOP;
 
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+			IList<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ToList();
 
 			if (entities.Count < 1)
 			{
@@ -54,22 +64,56 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Game.OnRandomHappened(true);
 
 			int space = Controller.BoardZone.MaxSize - Controller.BoardZone.Count;
-			if (space < Playables.Count)
-				Playables = Playables.Take(space).ToList();
 
-			entities.ForEach(p =>
+			space = entities.Count > space ? space : entities.Count;
+
+			if (entities[0].Zone == null || entities[0].Zone.Type != Enums.Zone.PLAY)
 			{
-				// clone task here
-				var task = new SummonTask(SummonSide.DEFAULT, p.Card)
+				for (int i = 0; i < space; i++)
 				{
-					Game = Controller.Game,
-					Controller = Controller,
-					Source = Source as IPlayable,
-					Target = Target as IPlayable
-				};
+					IPlayable p = entities[i];
 
-				Controller.Game.TaskQueue.Enqueue(task);
-			});
+					// clone task here
+					var task = new SummonTask(_side, p.Card)
+					{
+						Game = Controller.Game,
+						Controller = Controller,
+						Source = Source as IPlayable,
+						Target = Target as IPlayable
+					};
+
+					Controller.Game.TaskQueue.Enqueue(task);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < entities.Count; i++)
+				{
+					if (Controller.BoardZone.IsFull) break;
+
+					Minion target = (Minion)entities[i];
+
+					var tags = new EntityData.Data((EntityData.Data) target.NativeTags);
+
+					IPlayable copy = Entity.FromCard(Controller, target.Card, tags, Controller.BoardZone);
+
+					target.AppliedEnchantments?.ForEach(e =>
+					{
+						Enchantment instance = Enchantment.GetInstance(Controller, copy, copy, e.Card);
+						if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+						{
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
+							if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
+								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+						}
+					});
+
+					if (target.OngoingEffect != null && copy.OngoingEffect == null)
+						target.OngoingEffect.Clone(copy);
+				}
+			}
+
+
 
 			return TaskState.COMPLETE;
 		}

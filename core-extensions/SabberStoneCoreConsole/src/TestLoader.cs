@@ -63,7 +63,7 @@ namespace SabberStoneCoreConsole
 												.Distinct() // avoiding duplicate playrequirment unsure iff it is intended or not ...
 												.ToDictionary(x => x.Req, x => x.Param),
 								Entourage = (from ent in r.Descendants("EntourageCard")
-											 select ent.Attribute("cardID").Value).ToList(),
+											 select ent.Attribute("cardID").Value).ToArray(),
 								ReferenzTag = (from rtag in r.Descendants("ReferencedTag")
 											   select new Tag(
 												   gameTag: (GameTag)Enum.Parse(typeof(GameTag), rtag.Attribute("enumID").Value),

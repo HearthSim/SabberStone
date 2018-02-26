@@ -35,8 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (target.Durability < _amount)
 				_amount = target.Durability;
 
-			//target.Damage += _amount;
-			target.SetNativeGameTag(Enums.GameTag.DAMAGE, target.GetNativeGameTag(Enums.GameTag.DAMAGE) + _amount);
+			target.Damage += _amount;
 
 			return TaskState.COMPLETE;
 		}
