@@ -21,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			int times = SpellDmg ? Number + Controller.Hero.SpellPowerDamage : Number;
+			int times = SpellDmg ? Number + Controller.CurrentSpellPower : Number;
 
 			for (int i = 0; i < times; i++)
 			{
@@ -33,14 +33,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				clone.Target = Target as IPlayable;
 
 				Controller.Game.TaskQueue.Enqueue(clone);
-				Controller.Game.TaskQueue.Enqueue(
-					new ClearStackTask
-					{
-						Game = Controller.Game,
-						Controller = Controller,
-						Source = Source as IPlayable,
-						Target = Target as IPlayable
-					});
+				//Controller.Game.TaskQueue.EnqueueBase(
+				//	new ClearStackTask
+				//	{
+				//		Game = Controller.Game,
+				//		Controller = Controller,
+				//		Source = Source as IPlayable,
+				//		Target = Target as IPlayable
+				//	});
 			}
 			return TaskState.COMPLETE;
 		}

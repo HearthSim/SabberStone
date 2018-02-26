@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -9,16 +10,37 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RitualTask : SimpleTask
 	{
-
-		public RitualTask(Enchant enchant = null, bool taunt = false)
+		public enum RitualType
 		{
-			Enchant = enchant;
-			Taunt = taunt;
+			Check,
+			Buff,
+			Taunt,
+			Blade
 		}
 
-		public Enchant Enchant { get; set; }
+		public RitualTask(RitualType type = RitualType.Check)
+		{
+			_type = type;
+		}
 
-		public bool Taunt { get; set; }
+		public RitualTask(int amount)
+		{
+			_type = RitualType.Buff;
+			_amount = amount;
+		}
+
+		private RitualTask(RitualType type, int amount)
+		{
+			_type = type;
+			_amount = amount;
+		}
+
+		private readonly RitualType _type;
+		private readonly int _amount;
+
+		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
 
 		public override TaskState Process()
 		{
@@ -30,28 +52,59 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// effect ??) that copies the additional effect to c'thuns in your 
 			// hand and board that aren't silenced
 
+			IPlayable proxyCthun;
 			if (!Controller.SeenCthun)
 			{
-				IPlayable proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
+				proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
 				Controller.SetasideZone.Add(proxyCthun);
 				Controller.ProxyCthun = proxyCthun.Id;
 				Controller.SeenCthun = true;
 			}
+			else
+				proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
 
-			var entities = new List<IPlayable> { Game.IdEntityDic[Controller.ProxyCthun] };
-			entities.AddRange(Controller.BoardZone.Where(p => p.Card.Id.Equals("OG_280")));
-			entities.AddRange(Controller.HandZone.Where(p => p.Card.Id.Equals("OG_280")));
+			var entities = new List<IPlayable> {proxyCthun};
+			entities.AddRange(Controller.BoardZone.GetAll(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(Controller.HandZone.GetAll(p => p.Card.Id.Equals("OG_280")));
 
-			if (Enchant != null)
+			switch (_type)
 			{
-				// activate enchants on the sources
-				entities.ForEach(p => Enchant.Activate(Source.Card.Id, p.Enchants, p));
-			}
+				case RitualType.Buff:
+					if (proxyCthun.OngoingEffect == null)
+					{
+						entities.ForEach(p =>
+						{
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
 
-			if (Taunt)
-			{
-				entities.ForEach(p => p[GameTag.TAUNT] = 1);
+							((OngoingEnchant) p.OngoingEffect).Count += (_amount - 1);
+						});
+						break;
+					}
+					entities.ForEach(p =>
+					{
+						if (p[GameTag.SILENCED] == 1)
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
+						
+						((OngoingEnchant) p.OngoingEffect).Count += _amount;
+					});
+					break;
+
+				case RitualType.Taunt:
+					if (proxyCthun[GameTag.TAUNT] == 1) break;
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, TauntEnchantmentCard, (IPlayable)Source, p, 0, 0);
+					});
+					break;
+
+				case RitualType.Blade:
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, BladeofCThunEnchantmentCard, (IPlayable) Source, p, Number,
+							Number1);
+					});
+					break;
 			}
 
 			return TaskState.COMPLETE;
@@ -59,8 +112,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RitualTask(Enchant, Taunt);
-			clone.Copy(this);
+			var clone = new RitualTask(_type, _amount);
 			return clone;
 		}
 	}

@@ -10,17 +10,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardTask : SimpleTask
 	{
-		private static ConcurrentDictionary<int, List<Card>> CachedCardLists = new ConcurrentDictionary<int, List<Card>>();
+		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists = new ConcurrentDictionary<int, Card[]>();
+		private readonly EntityType _type;
+		private readonly CardType _cardType;
+		private readonly CardSet _cardSet;
+		private readonly Race _race;
+		private readonly GameTag[] _gameTagFilter;
+		private readonly bool _opposite;
+		private CardClass _cardClass;
 
-		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, List<GameTag> gameTagFilter, bool opposite)
+		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, GameTag[] gameTagFilter, bool opposite)
 		{
-			Type = type;
-			CardType = cardType;
-			CardClass = cardClass;
-			CardSet = cardSet;
-			Race = race;
-			GameTagFilter = gameTagFilter;
-			Opposite = opposite;
+			_type = type;
+			_cardType = cardType;
+			_cardClass = cardClass;
+			_cardSet = cardSet;
+			_race = race;
+			_gameTagFilter = gameTagFilter;
+			_opposite = opposite;
 		}
 
 		/// <summary>
@@ -30,13 +37,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <param name="opposite">If the card is for the opponent</param>
 		public RandomCardTask(EntityType type, bool opposite = false)
 		{
-			Type = type;
-			CardType = CardType.INVALID;
-			CardSet = CardSet.INVALID;
-			CardClass = CardClass.INVALID;
-			Race = Race.INVALID;
-			GameTagFilter = null;
-			Opposite = opposite;
+			_type = type;
+			_cardType = CardType.INVALID;
+			_cardSet = CardSet.INVALID;
+			_cardClass = CardClass.INVALID;
+			_race = Race.INVALID;
+			_gameTagFilter = null;
+			_opposite = opposite;
 		}
 
 		/// <summary>
@@ -46,15 +53,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <param name="cardClass">Cardclass filter</param>
 		/// <param name="gameTagFilter">GameTags that must be contained in the card</param>
 		/// <param name="opposite">If the card is for the opponent</param>
-		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID, List<GameTag> gameTagFilter = null, bool opposite = false)
+		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID, GameTag[] gameTagFilter = null, bool opposite = false)
 		{
-			Type = EntityType.INVALID;
-			CardType = cardType;
-			CardClass = cardClass;
-			CardSet = CardSet.INVALID;
-			Race = race;
-			GameTagFilter = gameTagFilter;
-			Opposite = opposite;
+			_type = EntityType.INVALID;
+			_cardType = cardType;
+			_cardClass = cardClass;
+			_cardSet = CardSet.INVALID;
+			_race = race;
+			_gameTagFilter = gameTagFilter;
+			_opposite = opposite;
 		}
 
 		/// <summary>
@@ -63,32 +70,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <param name="cardSet">CardSet to choose the random card from.</param>
 		public RandomCardTask(CardSet cardSet)
 		{
-			Type = EntityType.INVALID;
-			CardType = CardType.INVALID;
-			CardClass = CardClass.INVALID;
-			CardSet = cardSet;
-			GameTagFilter = null;
-			Opposite = false;
+			_type = EntityType.INVALID;
+			_cardType = CardType.INVALID;
+			_cardClass = CardClass.INVALID;
+			_cardSet = cardSet;
+			_gameTagFilter = null;
+			_opposite = false;
 		}
-
-		public EntityType Type { get; set; }
-		public CardType CardType { get; set; }
-		public CardClass CardClass { get; set; }
-		public CardSet CardSet { get; set; }
-		public Race Race { get; set; }
-		public List<GameTag> GameTagFilter { get; set; }
-		public bool Opposite { get; set; }
 
 		public override TaskState Process()
 		{
 
-			switch (Type)
+			switch (_type)
 			{
 				case EntityType.HERO:
-					CardClass = Controller.HeroClass;
+					_cardClass = Controller.HeroClass;
 					break;
 				case EntityType.OP_HERO:
-					CardClass = Controller.Opponent.HeroClass;
+					_cardClass = Controller.Opponent.HeroClass;
 					break;
 				case EntityType.INVALID:
 					break;
@@ -96,23 +95,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 
-			if (!CachedCardLists.TryGetValue(Source.Card.AssetId, out List<Card> cardsList))
-			{
-				cardsList = cards.Where(p =>
-				(CardType == CardType.INVALID || p.Type == CardType) &&
-				(CardClass == CardClass.INVALID || p.Class == CardClass) &&
-				(CardSet == CardSet.INVALID || p.Set == CardSet) &&
-				(Race == Race.INVALID || p.Race == Race) &&
-				(GameTagFilter == null || GameTagFilter.TrueForAll(gameTag => p.Tags.ContainsKey(gameTag))) &&
-				(p[GameTag.QUEST] == 0)).ToList();
-
-				CachedCardLists.TryAdd(Source.Card.AssetId, cardsList);
-			}
+			IReadOnlyList<Card> cardsList = GetCardList(Source, _cardType, _cardClass, _cardSet, _race, _gameTagFilter);
 
 
-			IPlayable randomCard = Entity.FromCard(Opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
+			IPlayable randomCard = Entity.FromCard(_opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
 			Playables = new List<IPlayable> { randomCard };
 
 			Game.OnRandomHappened(true);
@@ -120,9 +107,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
+		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID, GameTag[] gameTagFilter = null)
+		{
+			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+
+			if (!CachedCardLists.TryGetValue(source.Card.AssetId, out Card[] cardsList))
+			{
+				cardsList = cards.Where(p =>
+					(cardType == CardType.INVALID || p.Type == cardType) &&
+					(cardClass == CardClass.INVALID || p.Class == cardClass) &&
+					(cardSet == CardSet.INVALID || p.Set == cardSet) &&
+					(race == Race.INVALID || p.Race == race) &&
+					(gameTagFilter == null || Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&
+					(p[GameTag.QUEST] == 0)).ToArray();
+
+				CachedCardLists.TryAdd(source.Card.AssetId, cardsList);
+			}
+			return cardsList;
+		}
+
 		public override ISimpleTask Clone()
 		{
-			var clone = new RandomCardTask(Type, CardType, CardClass, CardSet, Race, GameTagFilter, Opposite);
+			var clone = new RandomCardTask(_type, _cardType, _cardClass, _cardSet, _race, _gameTagFilter, _opposite);
 			clone.Copy(this);
 			return clone;
 		}

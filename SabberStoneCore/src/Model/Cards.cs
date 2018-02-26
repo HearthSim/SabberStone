@@ -45,11 +45,11 @@ namespace SabberStoneCore.Model
 			CardSet.LOOTAPALOOZA,
 			// wild
 			CardSet.BRM,
-			CardSet.GVG,
+			//CardSet.GVG,
 			CardSet.HOF,
-			CardSet.NAXX,
-			CardSet.LOE,
-			CardSet.TGT
+			//CardSet.NAXX,
+			//CardSet.LOE,
+			//CardSet.TGT
 		};
 
 		/// <summary>
@@ -209,7 +209,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
-			return Data.Cards.ContainsKey(cardId) ? Data.Cards[cardId] : null;
+			return Data.Cards[cardId];
 		}
 
 		/// <summary>

@@ -1,4 +1,6 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using System.Linq;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CountTask : SimpleTask
 	{
@@ -11,8 +13,9 @@
 
 		public override TaskState Process()
 		{
-			System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			Number = entities.Count;
+			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//Number = entities.Count;
+			Number = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Count();
 			return TaskState.COMPLETE;
 		}
 

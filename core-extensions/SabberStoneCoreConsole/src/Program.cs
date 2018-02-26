@@ -25,6 +25,11 @@ namespace SabberStoneCoreConsole
 		{
 			Console.WriteLine("Start Test!");
 
+			Console.WriteLine(Cards.Statistics());
+			//StabilityTest.CloneStabilityTest();
+			//EntityChangeTest();
+			YoggTest();
+
 			//BasicBuffTest();
 			//CardsTest();
 			//WhileCardTest();
@@ -33,7 +38,7 @@ namespace SabberStoneCoreConsole
 			//OptionsTest();
 			//GameMulliganTest();
 			//GameSplitTest();
-			Console.WriteLine(Cards.Statistics());
+			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
 			//PowerHistoryTest();
 			//ChooseOneTest();
@@ -42,6 +47,9 @@ namespace SabberStoneCoreConsole
 			//ParallelTest();
 			//CloneAdapt();
 			//QuestDrawFirstTest();
+			//TortollanPrimalist();
+
+			
 
 			//TestLoader.GetGameTags();
 			//var test = TestLoader.Load();
@@ -57,36 +65,66 @@ namespace SabberStoneCoreConsole
 			Console.ReadKey();
 		}
 
+
 		private static void GatherTagsUsedByEnchantsOrTriggers()
 		{
-			var gameTagCounts = new Dictionary<GameTag, int>();
-			foreach (Card card in Cards.All)
+			//var gameTagCounts = new Dictionary<GameTag, int>();
+			//foreach (Card card in Cards.All)
+			//{
+			//	if (card.Powers != null)
+			//	{
+			//		foreach (Power power in card.Powers)
+			//		{
+			//			if (power.OldEnchant?.Effects != null)
+			//			{
+			//				foreach (KeyValuePair<GameTag, int> keyValue in power.OldEnchant.Effects)
+			//				{
+			//					if (gameTagCounts.ContainsKey(keyValue.Key))
+			//					{
+			//						gameTagCounts[keyValue.Key] += 1;
+			//					}
+			//					else
+			//					{
+			//						gameTagCounts[keyValue.Key] = 1;
+			//					}
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
+
+			//foreach (KeyValuePair<GameTag, int> keyValue in gameTagCounts)
+			//{
+			//	Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
+			//}
+		}
+
+		static void EntityChangeTest()
+		{
+			var game = new Game(new GameConfig
 			{
-				if (card.Enchantments != null)
-				{
-					foreach (Enchantment enchantment in card.Enchantments)
-					{
-						if (enchantment.Enchant?.Effects != null)
-						{
-							foreach (KeyValuePair<GameTag, int> keyValue in enchantment.Enchant.Effects)
-							{
-								if (gameTagCounts.ContainsKey(keyValue.Key))
-								{
-									gameTagCounts[keyValue.Key] += 1;
-								}
-								else
-								{
-									gameTagCounts[keyValue.Key] = 1;
-								}
-							}
-						}
-					}
-				}
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.DRUID,
+				FillDecks = true
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			IPlayable molten = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Molten Blade"));
+			for (int i = 0; i < 5; i++)
+			{
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+				game.Process(EndTurnTask.Any(game.CurrentPlayer));
+				Console.WriteLine($"{molten.Card.Name}");
 			}
 
-			foreach (KeyValuePair<GameTag, int> keyValue in gameTagCounts)
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, molten));
+
+			if (game.CurrentPlayer.Hero.Weapon == null || molten.AppliedEnchantments.Find(p => p.Card.Id == "UNG_929e") != null)
 			{
-				Console.WriteLine($"{keyValue.Value} -> {keyValue.Key}");
+				Console.WriteLine("Something goes wrong!");
 			}
 		}
 
@@ -819,15 +857,17 @@ namespace SabberStoneCoreConsole
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
+				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Silence"),
-					Cards.FromName("Power Word: Shield"),
-					Cards.FromName("Murloc Tinyfin"),
-					Cards.FromName("Power Word: Shield")
+					Cards.FromName("Grim Patron")
 				},
-				Player2HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Reckless Rocketeer"),
+				},
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -835,14 +875,16 @@ namespace SabberStoneCoreConsole
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Console.WriteLine(((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Grim Patron"));
+			IPlayable grim = game.CurrentPlayer.BoardZone[0] as Minion;
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
+			IPlayable boar = game.CurrentPlayer.BoardZone[0] as Minion;
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Reckless Rocketeer"));
+			IPlayable rocke = game.CurrentPlayer.BoardZone[1] as Minion;
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, boar, grim));
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, rocke, grim));
+
 			ShowLog(game, LogLevel.VERBOSE);
 
 			Console.WriteLine(game.CurrentOpponent.BoardZone.FullPrint());
@@ -873,6 +915,51 @@ namespace SabberStoneCoreConsole
 			ShowLog(game, LogLevel.VERBOSE);
 		}
 
+		public static void TortollanPrimalist()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>() { },
+				Player2HeroClass = CardClass.DRUID,
+				Player2Deck = new List<Card>() { },
+				FillDecks = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tortollan Primalist"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+			game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[0]));
+			ShowLog(game, LogLevel.VERBOSE);
+		}
+
+		public static void YoggTest()
+		{
+			//while (true)
+			//{
+				var game = new Game(new GameConfig
+				{
+					StartPlayer = 1,
+					Player1HeroClass = CardClass.PRIEST,
+					Player2HeroClass = CardClass.DRUID,
+					FillDecks = true,
+				});
+				game.StartGame();
+				game.Player1.BaseMana = 10;
+				game.Player2.BaseMana = 10;
+
+				game.CurrentPlayer.NumSpellsPlayedThisGame = 30;
+
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(@"Yogg-Saron, Hope's End"));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+				ShowLog(game, LogLevel.VERBOSE);
+			//}
+		}
+
 		public static void CloneSameSame()
 		{
 			CardClass[] classes = new[]
@@ -881,7 +968,7 @@ namespace SabberStoneCoreConsole
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			int total = 100;
+			int total = 10000;
 			for (int i = 0; i < total && flag; i++)
 			{
 				var game = new Game(new GameConfig
@@ -889,7 +976,9 @@ namespace SabberStoneCoreConsole
 					StartPlayer = 1,
 					Player1HeroClass = classes[Rnd.Next(classes.Length)],
 					Player2HeroClass = classes[Rnd.Next(classes.Length)],
-					FillDecks = true
+					FillDecks = true,
+					History = false,
+					Logging = false
 				});
 				game.StartGame();
 
@@ -897,25 +986,36 @@ namespace SabberStoneCoreConsole
 				{
 					List<PlayerTask> options = game.CurrentPlayer.Options();
 					PlayerTask option = options[Rnd.Next(options.Count)];
-					game.Process(option);
-					try
-					{
-						Game cloneGame = game.Clone();
-						string str1 = game.Hash();
-						string str2 = cloneGame.Hash();
-						flag &= str1.Equals(str2);
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine(e.Message);
-						flag = false;
-					}
-					if (!flag)
-					{
-						Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
-						ShowLog(game, LogLevel.VERBOSE);
-						break;
-					}
+					//try
+					//{
+						game.Process(option);
+					//}
+					//catch (Exception e)
+					//{
+					//	ShowLog(game, LogLevel.DEBUG);
+					//	Console.WriteLine(e.Message);
+					//	Console.WriteLine(e.StackTrace);
+					//	Console.ReadKey();
+					//}
+
+					//try
+					//{
+					//	Game cloneGame = game.Clone();
+					//	string str1 = game.Hash();
+					//	string str2 = cloneGame.Hash();
+					//	flag &= str1.Equals(str2);
+					//}
+					//catch (Exception e)
+					//{
+					//	Console.WriteLine(e.Message);
+					//	flag = false;
+					//}
+					//if (!flag)
+					//{
+					//	Console.WriteLine($"{game.Player1} vs. {game.Player2} ... Option {option}");
+					//	ShowLog(game, LogLevel.DEBUG);
+					//	break;
+					//}
 				}
 
 				ProgressBar(i, total);
@@ -1037,7 +1137,7 @@ namespace SabberStoneCoreConsole
 			totCards.OrderBy(o => o.Id).ToList().ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 		}
 
-		private static void ShowLog(Game game, LogLevel level)
+		internal static void ShowLog(Game game, LogLevel level)
 		{
 			var str = new StringBuilder();
 			while (game.Logs.Count > 0)
@@ -1074,7 +1174,7 @@ namespace SabberStoneCoreConsole
 
 					Console.ForegroundColor = foreground;
 
-					string logStr = $"{logEntry.TimeStamp} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
+					string logStr = $"{logEntry.TimeStamp.ToLongTimeString()} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
 					str.Append(logStr + "\n");
 					Console.WriteLine(logStr);
 				}

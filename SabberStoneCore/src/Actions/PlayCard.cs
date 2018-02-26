@@ -8,33 +8,39 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0)
+		public static bool PlayCard(Controller c, IPlayable source, ICharacter target = null, int zonePosition = -1, int chooseOne = 0, bool skipPrePhase = false)
 		{
-			return PlayCardBlock.Invoke(c, source, target, zonePosition, chooseOne);
+			return PlayCardBlock.Invoke(c, source, target, zonePosition, chooseOne, skipPrePhase);
 		}
 
-		public static Func<Controller, IPlayable, ICharacter, int, int, bool> PlayCardBlock
-			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne)
+		public static Func<Controller, IPlayable, ICharacter, int, int, bool, bool> PlayCardBlock
+			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne, bool skipPrePhase)
 			{
-				if (!PrePlayPhase.Invoke(c, source, target, zonePosition, chooseOne))
-				{
-					return false;
-				}
+				// Preplay Phase : check the given source is playable
+				if (!skipPrePhase)
+					if (!PrePlayPhase.Invoke(c, source, target, zonePosition, chooseOne))
+						return false;
 
-				if (!PayPhase.Invoke(c, source))
-				{
-					return false;
-				}
-
-				// play block
+				// Start play block
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
 
-				c.NumCardsPlayedThisTurn++;
+				c.Game.CurrentEventData = new EventMetaData(source, target);
 
+				// Pay Phase
+				if (!PayPhase.Invoke(c, source))
+					return false;
+
+				// remove from hand zone
+				if (source is Spell)
+					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
+				if (!RemoveFromZone.Invoke(c, source))
+					return false;
+
+				c.NumCardsPlayedThisTurn++;
 				c.LastCardPlayed = source.Id;
 
 				//// show entity
@@ -45,50 +51,35 @@ namespace SabberStoneCore.Actions
 				if (target != null)
 				{
 					source.CardTarget = target.Id;
+					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				}
-				if (source is Hero)
+
+				Trigger.ValidateTriggers(c.Game, source, SequenceType.PlayCard);
+				switch (source)
 				{
-					PlayHero.Invoke(c, (Hero)source, target);
+					case Hero hero:
+						PlayHero.Invoke(c, hero, target, chooseOne);
+						break;
+					case Minion minion:
+						PlayMinion.Invoke(c, minion, target, zonePosition, chooseOne);
+						break;
+					case Weapon weapon:
+						PlayWeapon.Invoke(c, weapon, target, chooseOne);
+						break;
+					case Spell spell:
+						PlaySpell.Invoke(c, spell, target, chooseOne);
+						break;
 				}
-				else if (source is Minion)
-				{
-					PlayMinion.Invoke(c, (Minion)source, target, zonePosition);
-				}
-				else if (source is Weapon)
-				{
-					// - OnPlay Phase --> OnPlay Trigger (Illidan)
-					//   (death processing, aura updates)
-					OnPlayTrigger.Invoke(c, (Weapon)source);
-
-					if (!RemoveFromZone.Invoke(c, source))
-						return false;
-
-					PlayWeapon.Invoke(c, (Weapon)source);
-				}
-				else if (source is Spell)
-				{
-
-					// - OnPlay Phase --> OnPlay Trigger (Illidan)
-					//   (death processing, aura updates)
-					OnPlayTrigger.Invoke(c, (Spell)source);
-
-					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source[GameTag.COST];
-
-					// remove from hand zone
-					if (!RemoveFromZone.Invoke(c, source))
-						return false;
-
-					PlaySpell.Invoke(c, (Spell)source, target);
-				}
-
-				source.CardTarget = -1;
 
 				c.NumOptionsPlayedThisTurn++;
 
-				c.IsComboActive = true;
+				if (!c.IsComboActive)
+					c.IsComboActive = true;
 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+				c.Game.CurrentEventData = null;
 
 				return true;
 			};
@@ -112,54 +103,29 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
-				// copy choose one enchantment to the actual source
-				if (source.ChooseOne)
-				{
-					// [OG_044] Fandral Staghelm, Aura active 
-					if (c.ChooseBoth
-					&& !source.Card.Id.Equals("EX1_165") // OG_044a, using choose one 0 option
-					&& !source.Card.Id.Equals("BRM_010") // OG_044b, using choose one 0 option
-					&& !source.Card.Id.Equals("AT_042")) // OG_044c, using choose one 0 option
-					{
-						if (source.Enchantments == null)
-							source.Enchantments = new List<Enchantment>();
-						source.Enchantments.AddRange(source.ChooseOnePlayables[0].Enchantments);
-						source.Enchantments.AddRange(source.ChooseOnePlayables[1].Enchantments);
-					}
-					else
-					{
-						source.Enchantments = subSource.Enchantments;
-					}
-				}
-
-				// replace enchantments with the no combo or combo one ..
-				if (source.Combo && !(source is Minion))
-				{
-					if (source.Enchantments.Count > 1)
-					{
-						source.Enchantments = new List<Enchantment> { source.Enchantments[c.IsComboActive ? 1 : 0] };
-					}
-					else if (c.IsComboActive && source.Enchantments.Count > 0)
-					{
-						source.Enchantments = new List<Enchantment> { source.Enchantments[0] };
-					}
-					else
-					{
-						//source.Enchantments = new List<Enchantment> { };
-						source.Enchantments = null;
-					}
-				}
-
 				return true;
 			};
 
 		public static Func<Controller, IPlayable, bool> PayPhase
 			=> delegate (Controller c, IPlayable source)
 			{
-				c.OverloadOwed += source.Overload;
+				if (source.Card.HasOverload)
+				{
+					int amount = source.Overload;
+					c.OverloadOwed += amount;
+					c.OverloadThisGame += amount;
+					c.Game.CurrentEventData.EventNumber = amount;
+				}
+					
 				int cost = source.Cost;
 				if (cost > 0)
 				{
+					if (c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					{
+						c.Hero.TakeDamage(c.Hero, cost);
+						return true;
+					}
+
 					int tempUsed = Math.Min(c.TemporaryMana, cost);
 					c.TemporaryMana -= tempUsed;
 					c.UsedMana += cost - tempUsed;
@@ -169,14 +135,12 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Hero, ICharacter, bool> PlayHero
-			=> delegate (Controller c, Hero hero, ICharacter target)
+		public static Func<Controller, Hero, ICharacter, int, bool> PlayHero
+			=> delegate (Controller c, Hero hero, ICharacter target, int chooseOne)
 			{
-				// remove from hand zone
-				if (!RemoveFromZone.Invoke(c, hero))
-					return false;
+				Game game = c.Game;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !c.Game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayHero", !game.Logging? "":$"{c.Name} plays Hero {hero} {(target != null ? "with target " + target : "to board")}.");
 
 
 				Hero oldHero = c.Hero;
@@ -191,83 +155,122 @@ namespace SabberStoneCore.Actions
 				//oldHero[GameTag.REVEALED] = 1;
 				//c[GameTag.HERO_ENTITY] = hero.Id;
 				hero.Weapon = oldHero.Weapon;
-				c.SetasideZone.Add(oldHero.Power);
-				hero.Power = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+				c.SetasideZone.Add(oldHero.HeroPower);
+				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+				hero.HeroPower.Power?.Trigger?.Activate(hero.HeroPower);
 
 				c.Hero = hero;
+				hero.Power?.Trigger?.Activate(hero);
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				game.TaskQueue.StartEvent();
 				OnPlayTrigger.Invoke(c, hero);
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
-
+				game.TaskQueue.StartEvent();
+				hero.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				// check if [LOE_077] Brann Bronzebeard aura is active
 				if (c.ExtraBattlecry)
-				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					hero.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+					hero.ActivateTask(PowerActivation.POWER, target);
 				}
-				c.Game.DeathProcessingAndAuraUpdate();
+				if (hero.HeroPower.IsPassiveHeroPower)  // Valeera, ad hoc for now; Maybe revisit here for Bosses
+					hero.HeroPower.ActivateTask();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
-				hero.JustPlayed = false;
-				c.Game.DeathProcessingAndAuraUpdate();
+				//hero.JustPlayed = false;
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(hero);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				game.DeathProcessingAndAuraUpdate();
 
 				return true;
 			};
 
-		public static Func<Controller, Minion, ICharacter, int, bool> PlayMinion
-			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition)
+		public static Func<Controller, Minion, ICharacter, int, int, bool> PlayMinion
+			=> delegate (Controller c, Minion minion, ICharacter target, int zonePosition, int chooseOne)
 			{
-				// - PreSummon Phase --> PreSummon Trigger (TideCaller)
-				//   (death processing, aura updates)
+				Game game = c.Game;
 
-				// remove from hand zone
-				if (!RemoveFromZone.Invoke(c, minion))
-					return false;
+				Trigger.ValidateTriggers(game, minion, SequenceType.PlayMinion);
 
-				if (!minion.HasCharge)
-					minion.IsExhausted = true;
-
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !c.Game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayMinion", !game.Logging? "":$"{c.Name} plays Minion {minion} {(target != null ? "with target " + target : "to board")} " +
 						 $"{(zonePosition > -1 ? "position " + zonePosition : "")}.");
+
+				c.NumMinionsPlayedThisTurn++;
+				c.BoardZone.Add(minion, zonePosition);
 
 				// - PreSummon Phase --> PreSummon Phase Trigger (Tidecaller)
 				//   (death processing, aura updates)
-				c.BoardZone.Add(minion, zonePosition);
-				c.Game.DeathProcessingAndAuraUpdate();
+				// not Implemented
 
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnPlayMinionTrigger(minion);
 				OnPlayTrigger.Invoke(c, minion);
+
+				// - Summon Resolution Step (Work in Process)
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnSummonTrigger(minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				// Noggenfogger here
+				if (target != null)
+				{
+					game.TaskQueue.StartEvent();
+					game.TriggerManager.OnTargetTrigger(minion);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
+					if (minion.CardTarget != target.Id)
+						target = (ICharacter)game.IdEntityDic[minion.CardTarget];
+				}
 
 				// - BattleCry Phase --> Battle Cry Resolves
 				//   (death processing, aura updates)
-				minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+				game.TaskQueue.StartEvent();
 				if (minion.Combo && c.IsComboActive)
-					minion.ApplyEnchantments(EnchantmentActivation.COMBO, Zone.PLAY, target);
+					minion.ActivateTask(PowerActivation.COMBO, target);
+				else
+					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				// check if [LOE_077] Brann Bronzebeard aura is active
-				if (c.ExtraBattlecry)
+				if (c.ExtraBattlecry && minion.HasBattleCry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
-					minion.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY, target);
+					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
-				c.Game.DeathProcessingAndAuraUpdate();
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				game.DeathProcessingAndAuraUpdate();
 
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
-				minion.JustPlayed = false;
-				c.Game.DeathProcessingAndAuraUpdate();
+				//minion.JustPlayed = false;
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayMinionTrigger(minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
 				// - After Summon Phase --> After Summon Trigger
 				//   (death processing, aura updates)
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(minion);
 				AfterSummonTrigger.Invoke(c, minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				c.NumMinionsPlayedThisTurn++;
+				game.DeathProcessingAndAuraUpdate();
 
 				switch (minion.Race)
 				{
@@ -282,70 +285,140 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Spell, ICharacter, bool> PlaySpell
-			=> delegate (Controller c, Spell spell, ICharacter target)
+		public static Func<Controller, Spell, ICharacter, int, bool> PlaySpell
+			=> delegate (Controller c, Spell spell, ICharacter target, int chooseOne)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
+				Game game = c.Game;
+				Trigger.ValidateTriggers(game, spell, SequenceType.PlaySpell);
 
-				// trigger Spellbender Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger Spellbender Phase (not implemented)");
+				if (game.History)
+				{
+					if (spell.IsSecret || spell.IsQuest)
+						spell[GameTag.ZONE] = (int)Zone.SECRET;
+					else
+						spell[GameTag.ZONE] = (int)Zone.PLAY;
+				}
 
-				// trigger SpellText Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger SpellText Phase (not implemented)");
+				// - OnPlay Phase --> OnPlay Trigger (Illidan)
+				//   (death processing, aura updates)
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnCastSpellTrigger(spell);
+				OnPlayTrigger.Invoke(c, spell);
 
-				spell[GameTag.ZONE] = (int)Zone.PLAY;
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !game.Logging? "":$"{c.Name} plays Spell {spell} {(target != null ? "with target " + target.Card : "to board")}.");
 
+				// check the spell is countered
 				if (spell.IsCountered)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":$"Spell {spell} has been countred.");
-					spell.JustPlayed = false;
+					game.Log(LogLevel.INFO, BlockType.ACTION, "PlaySpell", !game.Logging ? "" : $"Spell {spell} has been countred.");
 					c.GraveyardZone.Add(spell);
-				}
-				else if (spell.IsSecret || spell.IsQuest)
-				{
-					c.NumSpellsPlayedThisGame++;
-					if (spell.IsSecret)
-						c.NumSecretsPlayedThisGame++;
-					spell.ApplyEnchantments(EnchantmentActivation.SECRET_OR_QUEST, Zone.PLAY);
-					c.SecretZone.Add(spell);
 				}
 				else
 				{
-					c.NumSpellsPlayedThisGame++;
-					spell.ApplyEnchantments(EnchantmentActivation.SPELL, Zone.PLAY, target);
-					c.GraveyardZone.Add(spell);
+					// check Spellbender and Mayor Noggenfogger
+					if (target != null)
+					{
+						game.TaskQueue.StartEvent();
+						game.TriggerManager.OnTargetTrigger(spell);
+						game.ProcessTasks();
+						game.TaskQueue.EndEvent();
+						if (target.Id != spell.CardTarget)
+						{
+							target = (ICharacter)spell.Game.IdEntityDic[spell.CardTarget];
+							game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !game.Logging ? "" : $"trigger Spellbender Phase. Target of {spell} is changed to {target}.");
+						}
+					}
+
+					CastSpell.Invoke(c, spell, target, chooseOne);
+					game.DeathProcessingAndAuraUpdate();
 				}
-				c.Game.DeathProcessingAndAuraUpdate();
-
+				
 				// trigger After Play Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !c.Game.Logging? "":"trigger After Play Phase");
+				game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlaySpell", !game.Logging? "":"trigger After Play Phase");
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterCastTrigger(spell);
+				game.TriggerManager.OnAfterPlayCardTrigger(spell);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
-				spell.JustPlayed = false;
+				game.DeathProcessingAndAuraUpdate();
 
-				c.Game.DeathProcessingAndAuraUpdate();
-
-
+				c.NumSpellsPlayedThisGame++;
+				if (spell.IsSecret)
+					c.NumSecretsPlayedThisGame++;
+				if (spell.Cost >= 5)
+					c.NumSpellCostOver5CastedThisGame++;
 
 				return true;
 			};
 
-		public static Func<Controller, Weapon, bool> PlayWeapon
-			=> delegate (Controller c, Weapon weapon)
+		public static Func<Controller, Weapon, ICharacter, int, bool> PlayWeapon
+			=> delegate (Controller c, Weapon weapon, ICharacter target, int chooseOne)
 			{
-				c.Hero.AddWeapon(weapon);
+				Game game = c.Game;
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":$"{c.Hero} gets Weapon {c.Hero.Weapon}.");
+				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
+				//c.Hero.AddWeapon(weapon);
+
+				if (game.History)
+					weapon[GameTag.ZONE] = (int) Zone.PLAY;
+
+
+				// - OnPlay Phase --> OnPlay Trigger (Illidan)
+				//   (death processing, aura updates)
+				game.TaskQueue.StartEvent();
+				OnPlayTrigger.Invoke(c, weapon);
+
+				// not sure... need some test
+				weapon.Card.Power?.Aura?.Activate(weapon);
+				weapon.Card.Power?.Trigger?.Activate(weapon);
+
+
+				if (target != null)
+				{
+					game.TaskQueue.StartEvent();
+					game.TriggerManager.OnTargetTrigger(weapon);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
+					if (target.Id != weapon.CardTarget)
+						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
+				}
+
+				// - Equipping Phase --> Resolve Battlecry, OnDeathTrigger
 				// activate battlecry
-				weapon.ApplyEnchantments(EnchantmentActivation.WEAPON, Zone.PLAY);
-				weapon.ApplyEnchantments(EnchantmentActivation.BATTLECRY, Zone.PLAY);
-				c.Game.DeathProcessingAndAuraUpdate();
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, weapon.Id, "", -1, 0));
 
-				c.NumWeaponsPlayedThisGame++;
+				game.TaskQueue.StartEvent();
+				weapon.ActivateTask(PowerActivation.POWER, target);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+
+				// equip new weapon here
+				game.TaskQueue.StartEvent();
+				// destroy old weapon
+				// equip new weapon
+				// weapon's deathrattle task queues up here
+				c.Hero.AddWeapon(weapon);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				// deathprocessing;
+				game.DeathProcessingAndAuraUpdate();
 
 				// trigger After Play Phase
-				c.Game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !c.Game.Logging? "":"trigger After Play Phase");
-				weapon.JustPlayed = false;
+				game.Log(LogLevel.DEBUG, BlockType.ACTION, "PlayWeapon", !game.Logging? "":"trigger After Play Phase");
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterPlayCardTrigger(weapon);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+
+				game.DeathProcessingAndAuraUpdate();
+
+				c.NumWeaponsPlayedThisGame++;
 
 				return true;
 			};
@@ -353,7 +426,11 @@ namespace SabberStoneCore.Actions
 		private static Action<Controller, IPlayable> OnPlayTrigger
 			=> delegate (Controller c, IPlayable playable)
 			{
-				playable.JustPlayed = true;
+				//playable.JustPlayed = true;
+				c.Game.TriggerManager.OnPlayCardTrigger(playable);
+				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
+
 				c.Game.DeathProcessingAndAuraUpdate();
 			};
 	}

@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -36,22 +38,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-
-			if (entities.Count == 0)
-			{
+			IEnumerable<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			if (!entities.Any())
 				return TaskState.STOP;
-			}
 
 			var source = (IPlayable)Source;
 
-			//Flag = entities.TrueForAll(p =>
-			//	SelfConditions.ToList().TrueForAll(c => c.Eval(p)) &&
-			//	RelaConditions.ToList().TrueForAll(c => c.Eval(source, p)));
-
 			int i;
 			Flag = true;
-			//Flag = SelfConditions.Length != 0 || RelaConditions.Length != 0;
 			foreach (IPlayable p in entities)
 			{
 				for (i = 0; i < SelfConditions.Length; i++)
@@ -70,6 +64,56 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var clone = new ConditionTask(Type, SelfConditions, RelaConditions);
 			clone.Copy(this);
 			return clone;
+		}
+	}
+
+	public class NumberConditionTask : SimpleTask
+	{
+		private readonly RelaSign _sign;
+		private readonly int _reference;
+
+		/// <summary>
+		/// Create Task that compares the stored Number and the given reference value.
+		/// </summary>
+		public NumberConditionTask(int referenceValue, RelaSign sign)
+		{
+			_sign = sign;
+			_reference = referenceValue;
+		}
+
+		/// <summary>
+		/// Create Task that compares Number and Number1 in the stack.
+		/// </summary>
+		/// <param name="sign"></param>
+		public NumberConditionTask(RelaSign sign)
+		{
+			_sign = sign;
+			_reference = Int32.MinValue;
+		}
+
+		public override TaskState Process()
+		{
+			if (_reference == Int32.MinValue)
+			{
+				Flag =
+					_sign == RelaSign.GEQ ? Number >= Number1 :
+					_sign == RelaSign.LEQ ? Number <= Number1 :
+					Number == Number1;
+
+				return TaskState.COMPLETE;
+			}
+
+			Flag =
+				_sign == RelaSign.GEQ ? Number >= _reference :
+				_sign == RelaSign.LEQ ? Number <= _reference :
+				Number == _reference;
+
+			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			return new NumberConditionTask(_reference, _sign);
 		}
 	}
 }

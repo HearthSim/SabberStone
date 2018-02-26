@@ -5,7 +5,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
-	public partial class Generic
+	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public static IPlayable DrawCard(Controller c, Card card)
@@ -56,10 +56,14 @@ namespace SabberStoneCore.Actions
 		private static Func<Controller, IPlayable, IPlayable> DrawPhase
 			=> delegate (Controller c, IPlayable cardToDraw)
 			{
-				IPlayable playable = c.DeckZone.Remove(cardToDraw ?? c.DeckZone[0]);
+				IPlayable playable = c.DeckZone.Remove(cardToDraw ?? c.DeckZone.TopCard);
 
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging? "":$"{c.Name} draws {playable}");
 
+				c.Game.TaskQueue.StartEvent();
+				c.Game.TriggerManager.OnDrawTrigger(playable);
+				c.Game.ProcessTasks();
+				c.Game.TaskQueue.EndEvent();
 				c.NumCardsDrawnThisTurn++;
 				c.LastCardDrawn = playable.Id;
 

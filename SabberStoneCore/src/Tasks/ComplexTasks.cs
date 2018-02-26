@@ -22,10 +22,14 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask Create(params ISimpleTask[] list)
 		{
-			return StateTaskList<ISimpleTask>.Chain(list);
+			return StateTaskList.Chain(list);
 		}
 
-		
+		internal static ISimpleTask GetRandomEntourageCardToHand
+			=> Create(
+				new RandomEntourageTask(),
+				new AddStackTo(EntityType.HAND));
+
 		internal static ISimpleTask LifeSteal(EntityType entityType)
 			=> new SetGameTagTask(GameTag.LIFESTEAL, 1, entityType);
 
@@ -57,7 +61,20 @@ namespace SabberStoneCore.Tasks
 			=> new SetGameTagTask(GameTag.POISONOUS, 1, entityType);
 
 		public static ISimpleTask Charge(EntityType entityType)
-			=> new SetGameTagTask(GameTag.CHARGE, 1, entityType);
+			=> Create(
+				new SetGameTagTask(GameTag.CHARGE, 1, entityType),
+				new IncludeTask(entityType),
+				new FuncPlayablesTask(list =>
+				{
+					list.ForEach(p =>
+					{
+						Minion m = p as Minion;
+						if (m.NumAttacksThisTurn == 0 && m.IsExhausted)
+							m.IsExhausted = false;
+					});
+					return null;
+				})
+			);
 
 		public static ISimpleTask Stealth(EntityType entityType)
 			=> new SetGameTagTask(GameTag.STEALTH, 1, entityType);
@@ -76,6 +93,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask DamageRandomTargets(int targets, EntityType type, int amount, bool spellDmg = false)
 			=> Create(
 				new SplitTask(targets, type),
+				new FilterStackTask(SelfCondition.IsNotDead),
 				new RandomTask(targets, EntityType.STACK),
 				//new RandomTask(targets, type),
 				new DamageTask(amount, EntityType.STACK, spellDmg));
@@ -143,22 +161,14 @@ namespace SabberStoneCore.Tasks
 				}));
 		}
 
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params SelfCondition[] list)
+		public static ISimpleTask BuffRandomMinion(EntityType type, string enchantmentId, params SelfCondition[] list)
 		{
 			return Create(
 				new IncludeTask(type),
+				new FilterStackTask(SelfCondition.IsMinion),
 				new FilterStackTask(list),
 				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
-		}
-
-		public static ISimpleTask BuffRandomMinion(EntityType type, Enchant buff, params RelaCondition[] list)
-		{
-			return Create(
-				new IncludeTask(type),
-				new FilterStackTask(EntityType.SOURCE, list),
-				new RandomTask(1, EntityType.STACK),
-				new BuffTask(buff, EntityType.STACK));
+				new AddEnchantmentTask(enchantmentId, EntityType.STACK));
 		}
 
 		public static ISimpleTask SummonRandomMinion(EntityType type, params RelaCondition[] list)
@@ -200,14 +210,49 @@ namespace SabberStoneCore.Tasks
 				new SummonTask());
 		}
 
-		public static ISimpleTask DrawFromDeck(params SelfCondition[] list)
+		public static ISimpleTask DrawFromDeck(int amount, params SelfCondition[] list)
 		{
 			return Create(
 				new IncludeTask(EntityType.DECK),
 				new FilterStackTask(list),
-				new RandomTask(1, EntityType.STACK),
+				new RandomTask(amount, EntityType.STACK),
 				new DrawStackTask());
 		}
+
+		// TODO maybee better implement it with CFM_712_t + int
+		private static readonly IReadOnlyList<string> JadeGolemStr = new []
+		{
+			"CFM_712_t01",
+			"CFM_712_t02",
+			"CFM_712_t03",
+			"CFM_712_t04",
+			"CFM_712_t05",
+			"CFM_712_t06",
+			"CFM_712_t07",
+			"CFM_712_t08",
+			"CFM_712_t09",
+			"CFM_712_t10",
+			"CFM_712_t11",
+			"CFM_712_t12",
+			"CFM_712_t13",
+			"CFM_712_t14",
+			"CFM_712_t15",
+			"CFM_712_t16",
+			"CFM_712_t17",
+			"CFM_712_t18",
+			"CFM_712_t19",
+			"CFM_712_t20",
+			"CFM_712_t21",
+			"CFM_712_t22",
+			"CFM_712_t23",
+			"CFM_712_t24",
+			"CFM_712_t25",
+			"CFM_712_t26",
+			"CFM_712_t27",
+			"CFM_712_t28",
+			"CFM_712_t29",
+			"CFM_712_t30",
+		};
 
 		public static ISimpleTask SummonJadeGolem(SummonSide side)
 		{
@@ -217,43 +262,9 @@ namespace SabberStoneCore.Tasks
 				{
 					Controller controller = p[0].Controller;
 					int jadeGolem = controller.JadeGolem;
-					controller.JadeGolem++;
-					// TODO maybee better implement it with CFM_712_t + int
-					var jadeGolemStr = new List<string>
-					{
-						"CFM_712_t01",
-						"CFM_712_t02",
-						"CFM_712_t03",
-						"CFM_712_t04",
-						"CFM_712_t05",
-						"CFM_712_t06",
-						"CFM_712_t07",
-						"CFM_712_t08",
-						"CFM_712_t09",
-						"CFM_712_t10",
-						"CFM_712_t11",
-						"CFM_712_t12",
-						"CFM_712_t13",
-						"CFM_712_t14",
-						"CFM_712_t15",
-						"CFM_712_t16",
-						"CFM_712_t17",
-						"CFM_712_t18",
-						"CFM_712_t19",
-						"CFM_712_t20",
-						"CFM_712_t21",
-						"CFM_712_t22",
-						"CFM_712_t23",
-						"CFM_712_t24",
-						"CFM_712_t25",
-						"CFM_712_t26",
-						"CFM_712_t27",
-						"CFM_712_t28",
-						"CFM_712_t29",
-						"CFM_712_t30",
-					};
-					string golemStr = jadeGolem <= jadeGolemStr.Count ? jadeGolemStr[jadeGolem] : jadeGolemStr[29];
-					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(golemStr)) };
+					controller.JadeGolem = jadeGolem + 1;
+					
+					return new List<IPlayable> { Entity.FromCard(controller, Cards.FromId(jadeGolem < 30 ? JadeGolemStr[jadeGolem] : JadeGolemStr[29])) };
 				}),
 				new SummonTask(side));
 		}
@@ -263,8 +274,7 @@ namespace SabberStoneCore.Tasks
 			var secretList = list.ToList();
 			secretList.Add(new SetGameTagTask(GameTag.REVEALED, 1, EntityType.SOURCE));
 			secretList.Add(new MoveToGraveYard(EntityType.SOURCE));
-			var checkIsOpponentTurnTask = new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn);
-			return Create(checkIsOpponentTurnTask, new FlagTask(true, StateTaskList<ISimpleTask>.Chain(secretList.ToArray())));
+			return StateTaskList.Chain(secretList.ToArray());
 		}
 
 		public static ISimpleTask SummonRandomMinionNumberTag(GameTag tag)
@@ -274,21 +284,47 @@ namespace SabberStoneCore.Tasks
 				new SummonTask());
 		}
 
-		public static ISimpleTask RecursiveSpellTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
+		public static ISimpleTask ProgressSpellStoneUpdate(string cardId)
 		{
-			var taskList = tasks.ToList();
-			taskList.Add(repeatCondition);
-			taskList.Add(
+			return Create(
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new MathAddTask(1),
+				new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+				new NumberConditionTask(RelaSign.GEQ),
+				new FlagTask(true, Create(
+					new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+					new ChangeEntityTask(cardId))));
+		}
+
+		public static ISimpleTask ProgressSpellStoneUpdateUsingEventNumber(string cardId)
+		{
+			return Create(
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new GetEventNumberTask(1),
+				new MathNumberIndexTask(0, 1, MathOperation.ADD),
+				new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+				new NumberConditionTask(RelaSign.GEQ),
+				new FlagTask(true, Create(
+					new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+					new ChangeEntityTask(cardId))));
+		}
+
+		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
+		{
+			ISimpleTask[] taskList = new ISimpleTask[tasks.Length + 2];
+			tasks.CopyTo(taskList, 0);
+			taskList[tasks.Length] = repeatCondition;
+			taskList[tasks.Length + 1] = 
 				new FlagTask(true,
-					new EnqueueTask(1, Create(
-						new IncludeTask(EntityType.SOURCE),
-						new FuncPlayablesTask(p =>
-						{
-							p[0].ApplyEnchantments(EnchantmentActivation.SPELL, Zone.GRAVEYARD);
-							return p;
-						}
-				)))));
-			return StateTaskList<ISimpleTask>.Chain(taskList.ToArray());
+				new FuncNumberTask(p =>
+				{
+					p.ActivateTask(PowerActivation.POWER);
+					return 0;
+				}
+				));
+			return StateTaskList.Chain(taskList);
 		}
 	}
 }

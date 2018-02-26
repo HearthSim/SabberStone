@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model
 		/// For example Ysera, the dragon which produces on DREAM card after your turn,
 		/// has entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
 		/// </summary>
-		public List<string> Entourage { get; set; }
+		public string[] Entourage { get; set; }
 
 		/// <summary>
 		/// Properties set on this instance.
@@ -64,21 +64,24 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public Dictionary<PlayReq, int> PlayRequirements { get; set; }
 
+		public bool ChooseOne { get; internal set; }
+
+		public bool IsSecret { get; internal set; }
+
+		public bool IsQuest { get; internal set; }
+
+		public bool Untouchable { get; internal set; }
+
+		public bool HideStat { get; internal set; }
+
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.
 		/// <seealso cref="Tags"/>
 		/// </summary>
 		/// <param name="t">The <see cref="GameTag"/> which value is queried</param>
 		/// <returns></returns>
-		public int this[GameTag t] /*=> Tags.ContainsKey(t) ? Tags[t] : 0;*/
-		{
-			get
-			{
-				if (Tags.TryGetValue(t, out int value))
-					return value;
-				return 0;
-			}
-		}
+		public int this[GameTag t]
+			=> Tags.TryGetValue(t, out int value) ? value : 0;
 
 		/// <summary>
 		/// Indicates if this card occurs in the player's collection. Only collectible
@@ -138,16 +141,15 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// True if this card will incur Overload when played.
-		///
 		/// Overload is an effect that locks mana crystals.
 		/// Locked mana crystals can't be spent during one turn.
 		/// </summary>
-		public bool HasOverload => this[GameTag.OVERLOAD] == 1;
+		public bool HasOverload { get; internal set; }
 
 		/// <summary>
 		/// The amount of overload incurred by this card when played.
 		/// </summary>
-		public int Overload => this[GameTag.OVERLOAD_OWED];
+		public int Overload { get; internal set; }
 
 		/// <summary>
 		/// Returns to which multi class group this card belongs.
@@ -163,7 +165,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Requires a target if available
 		/// </summary>
-		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE);
+		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE) ||
+		                                         PlayRequirements.ContainsKey(PlayReq.REQ_DRAG_TO_PLAY);
 
 		/// <summary>
 		/// Requires a target if available and dragon in hand
@@ -201,9 +204,10 @@ namespace SabberStoneCore.Model
 
 		/// <summary>
 		/// Holds a list of Buffs/Debuffs on this card instance.
-		/// <seealso cref="Enchantment"/>
+		/// <seealso cref="Power"/>
 		/// </summary>
-		public List<Enchantment> Enchantments { get; set; } = new List<Enchantment>();
+		//public List<Power> Powers { get; set; } = new List<Power>();
+		public Power Power { get; set; }
 
 		/// <summary>
 		/// True if this card increases it's owners spell damage.
@@ -291,10 +295,9 @@ namespace SabberStoneCore.Model
 			clone.Tags = new Dictionary<GameTag, int>(Tags);
 			clone.RefTags = new Dictionary<GameTag, int>(RefTags);
 			clone.PlayRequirements = new Dictionary<PlayReq, int>(PlayRequirements);
-			if (Enchantments != null)
-				clone.Enchantments = new List<Enchantment>(Enchantments);
+			//if (Powers != null)
+			//	clone.Powers = new List<Power>(Powers);
 			return clone;
 		}
-
 	}
 }

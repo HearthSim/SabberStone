@@ -37,19 +37,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Amount < 1 && RandAmount < 1)
 				return TaskState.STOP;
 
-			List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
-			entities.ForEach(p => {
-				int amount = Amount + (RandAmount > 0 ? Random.Next(0, RandAmount + 1) : 0);
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			{
+				int randAmount = 0;
+				if (RandAmount > 0)
+				{
+					randAmount = Random.Next(0, RandAmount + 1);
+					Game.OnRandomHappened(true);
+				}
+
+				int amount = Amount + randAmount;
 
 				Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", !Controller.Game.Logging? "":$"Amount is {amount} damage of {Source}.");
 
-				int damage = Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, SpellDmg);
-
-				if ((Source as IPlayable).HasLifeSteal)
-				{
-					Controller.Hero.TakeHeal((Source as IPlayable), damage);
-				}
-			});
+				Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, SpellDmg);
+			};
 			return TaskState.COMPLETE;
 		}
 

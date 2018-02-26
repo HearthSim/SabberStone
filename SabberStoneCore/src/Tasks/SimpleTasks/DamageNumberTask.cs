@@ -22,8 +22,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables)
-				.ForEach(p => Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Number, SpellDmg));
+
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+				Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, Number, SpellDmg);
 
 			return TaskState.COMPLETE;
 		}

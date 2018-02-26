@@ -19,11 +19,12 @@ namespace SabberStoneCoreAi.src.Agent
 
 		public override List<PlayerTask> GetMove(SabberStoneCoreAi.POGame.POGame poGame)
 		{
+			return null;
 		}
 
 		public override void InitializeAgent()
 		{
-			Rnd = new Random();
+			Random Rnd = new Random();
 		}
 
 		public override void InitializeGame()

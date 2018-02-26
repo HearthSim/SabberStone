@@ -63,7 +63,7 @@ namespace SabberStoneGui.AsciiVisual
 			char[][] cardAscii = new CardAsciiBuilder().Create()
 				.Name(hero.Card.Name)
 				.Exhausted(hero.IsExhausted)
-				.HeroPowerExhausted(hero.Power.IsExhausted)
+				.HeroPowerExhausted(hero.HeroPower.IsExhausted)
 				.AttackDamage(hero.AttackDamage)
 				.Health(hero.Health)
 				.HeroWeaponAttackDamage(hero.Weapon?.AttackDamage ?? 0)
@@ -77,7 +77,7 @@ namespace SabberStoneGui.AsciiVisual
 			zoneStrArray[0 + x].Append(new string(cardAscii[0]));
 			zoneStrArray[1 + x].Append(new string(cardAscii[1]));
 			zoneStrArray[2 + x].Append(new string(cardAscii[2]));
-			zoneStrArray[3 + x].Append(new string(cardAscii[3]) + " " + hero.Power.Card.AbbreviatedName(7));
+			zoneStrArray[3 + x].Append(new string(cardAscii[3]) + " " + hero.HeroPower.Card.AbbreviatedName(7));
 			zoneStrArray[4 + x].Append(new string(cardAscii[4]));
 			zoneStrArray[turn ? 0 : 5].Append(new string(cardAscii[5]) + " " + (hero.Controller == hero.Game.CurrentPlayer ? " <<==" : "     "));
 			zoneStrArray[0].Append(" ");

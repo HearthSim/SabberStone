@@ -105,7 +105,7 @@ namespace SabberStoneCore.Loader
 												}).Distinct() // avoiding duplicate playrequirment unsure if it is intended or not ...
 												.ToDictionary(x => x.Req, x => x.Param),
 								Entourage = (from ent in r.Descendants("EntourageCard")
-											 select ent.Attribute("cardID").Value).ToList(),
+											 select ent.Attribute("cardID").Value).ToArray(),
 								ReferenzTag = (from rtag in r.Descendants("ReferencedTag")
 											   select new Tag(
 												   gameTag: (GameTag)Enum.Parse(typeof(GameTag), rtag.Attribute("enumID").Value),
@@ -164,6 +164,29 @@ namespace SabberStoneCore.Loader
 								c.Text = tag.TagValue;
 								break;
 						}
+					}
+
+					switch (tag.GameTag)
+					{
+						case GameTag.OVERLOAD:
+							c.HasOverload = true;
+							c.Overload = tag.TagValue;
+							break;
+						case GameTag.SECRET:
+							c.IsSecret = true;
+							break;
+						case GameTag.QUEST:
+							c.IsQuest = true;
+							break;
+						case GameTag.UNTOUCHABLE:
+							c.Untouchable = true;
+							break;
+						case GameTag.HIDE_STATS:
+							c.HideStat = true;
+							break;
+						case GameTag.CHOOSE_ONE:
+							c.ChooseOne = true;
+							break;
 					}
 				}
 

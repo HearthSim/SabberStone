@@ -330,6 +330,27 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 
+	//message PowerHistoryMetaData
+	//{
+	//    repeated int32 info = 2;
+	//    HistoryMeta.Type type = 3;
+	//    int32 data = 4;
+	//}
+	public class PowerHistoryMetaData : IPowerHistoryEntry
+	{
+		public PowerType PowerType => PowerType.META_DATA;
+		public MetaDataType Type { get; set; }
+		public int Data { get; set; }
+		public List<int> Info { get; set; }
+
+		public string Print()
+		{
+			var str = new StringBuilder();
+			str.AppendLine($"{PowerType} Type={Type} Data={Data} Info={string.Join(", ", Info)}");
+			return str.ToString();
+		}
+	}
+
 	//message PowerHistoryEntity
 	//{
 	//    required int32 entity = 1;

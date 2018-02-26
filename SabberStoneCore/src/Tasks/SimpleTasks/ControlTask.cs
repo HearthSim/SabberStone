@@ -18,22 +18,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IncludeTask.GetEntites(Type, Controller, Source, Target, Playables).ForEach(p =>
+			//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
+				if (p.Zone.Type != Zone.PLAY)
+					continue;//return;
+
 				if ((!Opposite && Controller.BoardZone.IsFull) || (Opposite && Controller.Opponent.BoardZone.IsFull))
 				{
 					p.Destroy();
-					return;
+					continue;//return;
 				}
 				IPlayable removedEntity = p.Zone.Remove(p);
-				removedEntity.Controller.SetasideZone.MoveTo(removedEntity, removedEntity.Controller.SetasideZone.Count);
-				removedEntity.Controller.HandZone.Enchants.ForEach(e => e.IsEnabled());
-				removedEntity.Game.AuraUpdate();
 				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
+				removedEntity[GameTag.CONTROLLER] = removedEntity.Controller.PlayerId;
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", !Game.Logging? "":$"{Controller.Name} is taking control of {p}.");
 
-				removedEntity.Controller.BoardZone.Add(removedEntity.Zone.Remove(removedEntity));
-			});
+				removedEntity.Controller.BoardZone.Add(removedEntity);
+			};
 
 			return TaskState.COMPLETE;
 		}

@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.CardSets
 {
-	/// <summary>
-	/// Hall of Fame cardset.
-	/// </summary>
 	public class HofCardsGen
 	{
-		private static void Mage(IDictionary<string, List<Enchantment>> cards)
+		private static void Mage(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [CS2_031] Ice Lance - COST:1 
 			// - Fac: neutral, Set: hof, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. *spelldmg
+			// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead. @spelldmg
 			// --------------------------------------------------------
 			// GameTag:
 			// - FREEZE = 1
@@ -26,19 +26,16 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_031", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
-						ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
-						ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
-				}
+			cards.Add("CS2_031", new Power {
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
+					ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
+					ComplexTask.False(ComplexTask.Freeze(EntityType.TARGET)))
 			});
+
 		}
 
-		private static void Rogue(IDictionary<string, List<Enchantment>> cards)
+		private static void Rogue(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
 			// [EX1_128] Conceal - COST:1 
@@ -49,21 +46,32 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_128", new List<Enchantment> {
-				new Enchantment
-				{
-					InfoCardId = "EX1_128e",
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffStealthTask(EntityType.MINIONS)
-				},
+			cards.Add("EX1_128", new Power {
+				PowerTask = new AddEnchantmentTask("EX1_128e", EntityType.MINIONS)
 			});
+
 		}
 
-		private static void RogueNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void RogueNonCollect(IDictionary<string, Power> cards)
 		{
+			// ------------------------------------ ENCHANTMENT - ROGUE
+			// [EX1_128e] Concealed (*) - COST:0 
+			// - Set: hof, 
+			// --------------------------------------------------------
+			// Text: Stealthed until your next turn.
+			// --------------------------------------------------------
+			cards.Add("EX1_128e", new Power {
+				Enchant = new Enchant(GameTag.STEALTH, EffectOperator.SET, 1),
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
+				}
+			});
+
 		}
 
-		private static void Warlock(IDictionary<string, List<Enchantment>> cards)
+		private static void Warlock(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
 			// [EX1_316] Power Overwhelming - COST:1 
@@ -72,40 +80,36 @@ namespace SabberStoneCore.CardSets
 			// Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
 			// --------------------------------------------------------
 			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
-			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_316", new List<Enchantment> {
-				new Enchantment
+			cards.Add("EX1_316", new Power {
+				PowerTask = new AddEnchantmentTask("EX1_316e", EntityType.TARGET)
+			});
+
+		}
+
+		private static void WarlockNonCollect(IDictionary<string, Power> cards)
+		{
+			// ---------------------------------- ENCHANTMENT - WARLOCK
+			// [EX1_316e] Power Overwhelming (*) - COST:0 
+			// - Fac: neutral, Set: hof, 
+			// --------------------------------------------------------
+			// Text: This minion has +4/+4, but will die a horrible death at the end of the turn.
+			// --------------------------------------------------------
+			cards.Add("EX1_316e", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_316e"),
+				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					InfoCardId = "EX1_316e",
-					Area = EnchantmentArea.TARGET,
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = new BuffTask(Buffs.AttackHealth(4), EntityType.TARGET),
-					Enchant = new Enchant
-					{
-						TurnsActive = 0,
-						EnableConditions = new List<SelfCondition>
-						{
-							SelfCondition.IsNotSilenced,
-							SelfCondition.IsInZone(Zone.PLAY)
-						},
-						Effects = new Dictionary<GameTag, int>
-						{
-							[GameTag.NUM_TURNS_IN_PLAY] = 0
-						},
-						SingleTask = new DestroyTask(EntityType.TARGET)
-					}
+					EitherTurn = true,
+					SingleTask = new DestroyTask(EntityType.TARGET)
 				}
 			});
+
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, List<Enchantment>> cards)
-		{
-		}
-
-		private static void Neutral(IDictionary<string, List<Enchantment>> cards)
+		private static void Neutral(IDictionary<string, Power> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5] 
@@ -119,14 +123,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_016", new List<Enchantment> {
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.DEATHRATTLE,
-					SingleTask = ComplexTask.Create(
-						new RandomTask(1, EntityType.OP_MINIONS),
-						new ControlTask(EntityType.STACK))
-				}
+			cards.Add("EX1_016", new Power {
+				DeathrattleTask = ComplexTask.Create(
+					new RandomTask(1, EntityType.OP_MINIONS),
+					new ControlTask(EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -139,13 +139,15 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_062", new List<Enchantment> {
-				// TODO [EX1_062] Old Murk-Eye && Test: Old Murk-Eye_EX1_062
-				new Enchantment
+			cards.Add("EX1_062", new Power {
+				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+					int i = 0;
+					foreach (Minion m in p.Controller.BoardZone)
+						if (m.Race == Race.MURLOC)
+							i++;
+					return i;
+				})
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -160,37 +162,25 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_112", new List<Enchantment> {
+			cards.Add("EX1_112", new Power {
 				// TODO [EX1_112] Gelbin Mekkatorque && Test: Gelbin Mekkatorque_EX1_112
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4] 
 			// - Race: dragon, Fac: neutral, Set: hof, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Spell Damage +1</b>. <b>Battlecry:</b> Draw a card.
+			// Text: <b>Spell Damage +1</b>
+			//       <b>Battlecry:</b> Draw a card.
 			// --------------------------------------------------------
 			// GameTag:
 			// - SPELLPOWER = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_284", new List<Enchantment> {
-				new Enchantment
-				{
-					Area = EnchantmentArea.HERO,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Enchant = Auras.SpellPowerDamage(1)
-				},
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = new DrawTask()
-				}
+			cards.Add("EX1_284", new Power {
+				PowerTask = new DrawTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -203,16 +193,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_298", new List<Enchantment> {
-				new Enchantment
+			cards.Add("EX1_298", new Power {
+				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					Area = EnchantmentArea.CONTROLLER,
-					Activation = EnchantmentActivation.BOARD_ZONE,
-					Trigger = new TriggerBuilder().Create()
-						.EnableConditions(SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced)
-						.TriggerEffect(GameTag.TURN_START, -1)
-						.SingleTask(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
-						.Build()
+					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
 				}
 			});
 
@@ -225,13 +209,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_016", new List<Enchantment> {
+			cards.Add("NEW1_016", new Power {
 				// TODO [NEW1_016] Captain's Parrot && Test: Captain's Parrot_NEW1_016
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -246,18 +227,15 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001", new List<Enchantment> {
+			cards.Add("PRO_001", new Power {
 				// TODO [PRO_001] Elite Tauren Chieftain && Test: Elite Tauren Chieftain_PRO_001
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.BATTLECRY,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, List<Enchantment>> cards)
+		private static void NeutralNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [Mekka3e] Emboldened! (*) - COST:0 
@@ -265,13 +243,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
-			cards.Add("Mekka3e", new List<Enchantment> {
+			cards.Add("Mekka3e", new Power {
 				// TODO [Mekka3e] Emboldened! && Test: Emboldened!_Mekka3e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -283,13 +258,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - MORPH = 1
 			// --------------------------------------------------------
-			cards.Add("Mekka4e", new List<Enchantment> {
+			cards.Add("Mekka4e", new Power {
 				// TODO [Mekka4e] Transformed && Test: Transformed_Mekka4e
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -298,13 +270,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy this minion and draw 3 cards.
 			// --------------------------------------------------------
-			cards.Add("Mekka1", new List<Enchantment> {
+			cards.Add("Mekka1", new Power {
 				// TODO [Mekka1] Homing Chicken && Test: Homing Chicken_Mekka1
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -313,13 +282,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 6 Health to a damaged character.
 			// --------------------------------------------------------
-			cards.Add("Mekka2", new List<Enchantment> {
+			cards.Add("Mekka2", new Power {
 				// TODO [Mekka2] Repair Bot && Test: Repair Bot_Mekka2
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -328,14 +294,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give a random minion +1/+1.
 			// --------------------------------------------------------
-			cards.Add("Mekka3", new List<Enchantment> {
+			cards.Add("Mekka3", new Power {
 				// TODO [Mekka3] Emboldener 3000 && Test: Emboldener 3000_Mekka3
-				new Enchantment
-				{
-					InfoCardId = "Mekka3e",
-					//Activation = null,
-					//SingleTask = null,
-				}
+				InfoCardId = "Mekka3e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -344,14 +307,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, transform a random minion into a 1/1 Chicken.
 			// --------------------------------------------------------
-			cards.Add("Mekka4", new List<Enchantment> {
+			cards.Add("Mekka4", new Power {
 				// TODO [Mekka4] Poultryizer && Test: Poultryizer_Mekka4
-				new Enchantment
-				{
-					InfoCardId = "Mekka4e",
-					//Activation = null,
-					//SingleTask = null,
-				}
+				InfoCardId = "Mekka4e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -360,26 +320,20 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <i>Hey Chicken!</i>
 			// --------------------------------------------------------
-			cards.Add("Mekka4t", new List<Enchantment> {
+			cards.Add("Mekka4t", new Power {
 				// TODO [Mekka4t] Chicken && Test: Chicken_Mekka4t
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [PRO_001at] Murloc (*) - COST:0 [ATK:1/HP:1] 
 			// - Race: murloc, Set: hof, 
 			// --------------------------------------------------------
-			cards.Add("PRO_001at", new List<Enchantment> {
+			cards.Add("PRO_001at", new Power {
 				// TODO [PRO_001at] Murloc && Test: Murloc_PRO_001at
-				new Enchantment
-				{
-					//Activation = null,
-					//SingleTask = null,
-				}
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -391,31 +345,25 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001a", new List<Enchantment> {
+			cards.Add("PRO_001a", new Power {
 				// TODO [PRO_001a] I Am Murloc && Test: I Am Murloc_PRO_001a
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [PRO_001b] Rogues Do It... (*) - COST:4 
 			// - Set: hof, 
 			// --------------------------------------------------------
-			// Text: Deal $4 damage. Draw a card. *spelldmg
+			// Text: Deal $4 damage. Draw a card. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PRO_001b", new List<Enchantment> {
+			cards.Add("PRO_001b", new Power {
 				// TODO [PRO_001b] Rogues Do It... && Test: Rogues Do It..._PRO_001b
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL
@@ -429,20 +377,15 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001c", new List<Enchantment> {
+			cards.Add("PRO_001c", new Power {
 				// TODO [PRO_001c] Power of the Horde && Test: Power of the Horde_PRO_001c
-				new Enchantment
-				{
-					Activation = EnchantmentActivation.SPELL,
-					SingleTask = null,
-				},
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 		}
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		public static void AddAll(Dictionary<string, Power> cards)
 		{
 			Mage(cards);
 			Rogue(cards);
