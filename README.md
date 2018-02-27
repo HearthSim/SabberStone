@@ -39,8 +39,6 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 * **SabberStoneGui** *(.NET Framework)*
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
-  ![Preview of the GUI project - in Game mode](docs/readme/simpleui.PNG)
-  ![Preview of the GUI project - in Deck creator mode](docs/readme/deckcreator.PNG)
 
 ### Cards Implementation
 
