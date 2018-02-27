@@ -1,6 +1,5 @@
 ﻿using SabberStoneCore.Enums;
 using System.Collections.Generic;
-using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Model.Entities
 {

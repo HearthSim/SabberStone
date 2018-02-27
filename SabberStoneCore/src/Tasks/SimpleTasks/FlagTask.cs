@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace SabberStoneCore.Tasks.SimpleTasks
+﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FlagTask : SimpleTask
 	{

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace SabberStoneCore.Tasks.SimpleTasks
+﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CountTask : SimpleTask
 	{

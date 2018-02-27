@@ -1,5 +1,4 @@
-﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks

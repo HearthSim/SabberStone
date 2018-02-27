@@ -1,5 +1,4 @@
 ﻿using SabberStoneCore.Model.Entities;
-using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

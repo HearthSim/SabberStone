@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Kettle;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants

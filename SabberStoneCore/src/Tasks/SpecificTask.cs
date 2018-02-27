@@ -9,7 +9,6 @@ using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Tasks
 {

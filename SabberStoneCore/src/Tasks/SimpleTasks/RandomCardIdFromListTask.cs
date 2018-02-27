@@ -1,7 +1,4 @@
-﻿using SabberStoneCore.Model;
-using SabberStoneCore.Model.Entities;
-
-namespace SabberStoneCore.Tasks.SimpleTasks
+﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	//public class RandomCardIdFromListTask : SimpleTask
 	//{

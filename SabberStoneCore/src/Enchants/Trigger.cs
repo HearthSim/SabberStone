@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {

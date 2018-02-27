@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks.SimpleTasks;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-using SabberStoneCore.Conditions;
+﻿using SabberStoneCore.Conditions;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
 

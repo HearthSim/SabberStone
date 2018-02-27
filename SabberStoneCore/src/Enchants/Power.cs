@@ -1,7 +1,4 @@
-﻿using System;
-using SabberStoneCore.Tasks;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Enchants
 {

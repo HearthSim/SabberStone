@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

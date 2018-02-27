@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -219,8 +218,6 @@ namespace SabberStoneCore.Actions
 					default:
 						throw new NotImplementedException();
 				}
-
-				if (c.Choice == null) ;
 
 				if (c.Choice.EnchantmentCard != null)
 				{
