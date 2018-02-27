@@ -2,8 +2,6 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -210,8 +208,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_602b", new Power
 			{
-				// TODO [CFM_602b] Jade Idol && Test: Jade Idol_CFM_602b
-				PowerTask = new EnqueueTask(3, new AddCardTo("CFM_602", EntityType.DECK))
+				PowerTask = new AddCardTo("CFM_602", EntityType.DECK, 3)
 			});
 
 		}

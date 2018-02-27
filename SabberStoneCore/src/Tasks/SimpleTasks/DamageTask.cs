@@ -37,9 +37,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Amount < 1 && RandAmount < 1)
 				return TaskState.STOP;
 
-			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
-			//entities.ForEach(p =>
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			IList<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+
+			for (int i = 0; i < entities.Count; i++)
 			{
 				int randAmount = 0;
 				if (RandAmount > 0)
@@ -50,9 +50,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				int amount = Amount + randAmount;
 
-				Controller.Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", !Controller.Game.Logging? "":$"Amount is {amount} damage of {Source}.");
+				Game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask", !Game.Logging? "":$"Amount is {amount} damage of {Source}.");
 
-				Generic.DamageCharFunc.Invoke(Source as IPlayable, p as ICharacter, amount, SpellDmg);
+				Generic.DamageCharFunc.Invoke(Source as IPlayable, entities[i] as ICharacter, amount, SpellDmg);
 			};
 			return TaskState.COMPLETE;
 		}

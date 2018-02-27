@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model;
 

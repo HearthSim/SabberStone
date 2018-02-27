@@ -864,28 +864,53 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void RavenFamiliar_LOOT_170()
 		{
-			// TODO RavenFamiliar_LOOT_170 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
+				Player1Deck = new List<Card>
 				{
 					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Pyroblast"),
+					Cards.FromName("Pyroblast"),
 				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Raven Familiar"),
+					Cards.FromName("Fireball"),
+				},
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Raven Familiar"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Raven Familiar"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Raven Familiar"));
+
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("Pyroblast", game.CurrentPlayer.HandZone.Last().Card.Name);
+
+			game.EndTurn();
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Raven Familiar"));
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("Raven Familiar", game.CurrentPlayer.HandZone.Last().Card.Name);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -2054,10 +2079,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FaldoreiStrider_LOOT_026()
 		{
-			// TODO FaldoreiStrider_LOOT_026 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2068,14 +2092,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.ROGUE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fal'dorei Strider"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fal'dorei Strider"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fal'dorei Strider"));
+
+			game.EndTurn();
+
+			game.EndTurn();
+
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2561,10 +2591,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MurmuringElemental_LOOT_517()
 		{
-			// TODO MurmuringElemental_LOOT_517 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2581,8 +2610,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murmuring Elemental"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murmuring Elemental"));
+
+			game.ProcessCard("Murmuring Elemental");
+
+			Assert.True(game.CurrentPlayer.ExtraBattlecry);
+
+			game.EndTurn();
+
+			Assert.False(game.CurrentOpponent.ExtraBattlecry);
+
+			game.ProcessCard("Murmuring Elemental");
+
+			game.ProcessCard("Elven Archer", game.CurrentOpponent.Hero);
+
+			Assert.Equal(2, game.CurrentOpponent.Hero.Damage);
+
+			Assert.False(game.CurrentPlayer.ExtraBattlecry);
+
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

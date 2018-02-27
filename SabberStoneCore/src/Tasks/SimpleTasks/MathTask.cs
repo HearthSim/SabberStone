@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 
@@ -201,7 +200,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (Amount == 0)
 			{
-				Number -= IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).First()[Tag];
+				Number -= IncludeTask.GetEntities(Type, Controller, Source, Target, Playables)[0][Tag];
 			}
 			else
 			{

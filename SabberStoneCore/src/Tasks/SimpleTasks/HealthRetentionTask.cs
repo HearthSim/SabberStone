@@ -1,53 +1,51 @@
-﻿using SabberStoneCore.Model.Entities;
-
-namespace SabberStoneCore.Tasks.SimpleTasks
+﻿namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public class HealthRetentionTask : SimpleTask
-	{
-		public int Amount { get; set; }
+	//public class HealthRetentionTask : SimpleTask
+	//{
+	//	public int Amount { get; set; }
 
-		public EntityType Type { get; set; }
+	//	public EntityType Type { get; set; }
 
-		public HealthRetentionTask(int amount, EntityType type)
-		{
-			Amount = amount;
-			Type = type;
-		}
+	//	public HealthRetentionTask(int amount, EntityType type)
+	//	{
+	//		Amount = amount;
+	//		Type = type;
+	//	}
 
-		public override TaskState Process()
-		{
-			var source = Source as ICharacter;
-			if (source == null || Amount < 1)
-			{
-				return TaskState.STOP;
-			}
+	//	public override TaskState Process()
+	//	{
+	//		var source = Source as ICharacter;
+	//		if (source == null || Amount < 1)
+	//		{
+	//			return TaskState.STOP;
+	//		}
 
-			//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
-			{
-				var target = p as ICharacter;
-				if (target != null)
-				{
-					//int baseHealth = target.Card.Tags[Enums.GameTag.HEALTH];
-					target.IsIgnoreDamage = true;
+	//		//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
+	//		foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+	//		{
+	//			var target = p as ICharacter;
+	//			if (target != null)
+	//			{
+	//				//int baseHealth = target.Card.Tags[Enums.GameTag.HEALTH];
+	//				target.IsIgnoreDamage = true;
 
-					//if (target.Health >= baseHealth)
-					//	target.Health = baseHealth;
-					//else
-						target.Damage -= Amount;
+	//				//if (target.Health >= baseHealth)
+	//				//	target.Health = baseHealth;
+	//				//else
+	//					target.Damage -= Amount;
 
-					target.IsIgnoreDamage = false;
-				}
-			};
+	//				target.IsIgnoreDamage = false;
+	//			}
+	//		};
 
-			return TaskState.COMPLETE;
-		}
+	//		return TaskState.COMPLETE;
+	//	}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new HealthRetentionTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
-		}
-	}
+	//	public override ISimpleTask Clone()
+	//	{
+	//		var clone = new HealthRetentionTask(Amount, Type);
+	//		clone.Copy(this);
+	//		return clone;
+	//	}
+	//}
 }

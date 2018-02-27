@@ -2,7 +2,6 @@
 using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {

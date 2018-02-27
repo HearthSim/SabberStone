@@ -1,6 +1,5 @@
 ﻿using System;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model
 {

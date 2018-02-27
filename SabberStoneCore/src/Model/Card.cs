@@ -74,6 +74,8 @@ namespace SabberStoneCore.Model
 
 		public bool HideStat { get; internal set; }
 
+		public bool ReceivesDoubleSpelldamageBonus { get; internal set; }
+
 		/// <summary>
 		/// Provides easy access to the value of a specific Tag set on this instance.
 		/// <seealso cref="Tags"/>

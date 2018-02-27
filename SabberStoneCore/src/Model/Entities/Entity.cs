@@ -168,7 +168,6 @@ namespace SabberStoneCore.Model.Entities
 			//_toBeDestroyed = entity._toBeDestroyed;
 		}
 
-
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 		public virtual void Stamp(Entity entity)

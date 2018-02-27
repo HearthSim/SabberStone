@@ -224,6 +224,10 @@ namespace SabberStoneCore.Enchants
 				HEALTH = HEALTH,
 				COST = COST,
 				CHARGE = CHARGE,
+				WINDFURY = WINDFURY,
+				IMMUNE = IMMUNE,
+				LIFESTEAL = LIFESTEAL,
+				CANT_BE_TARGETED_BY_SPELLS = CANT_BE_TARGETED_BY_SPELLS,
 				Owner = clone,
 				Checker = Checker,
 				_costEffects = _costEffects != null ? new List<CostEffect>(_costEffects) : null
@@ -239,6 +243,9 @@ namespace SabberStoneCore.Enchants
 			hash.Append($"{{COST,{COST}}}");
 			hash.Append($"{{CHARGE,{CHARGE}}}");
 			hash.Append($"{{WINDFURY,{WINDFURY}}}");
+			hash.Append($"{{LIFESTEAL,{LIFESTEAL}}}");
+			hash.Append($"{{IMMUNE,{IMMUNE}}}");
+			hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
 			hash.Append("]");
 			return hash.ToString();
 		}
@@ -254,7 +261,7 @@ namespace SabberStoneCore.Enchants
 		private int _restoreToDamage;
 		private int _extraBattecry;
 		private int _chooseBoth;
-		private int _spells_cost_health;
+		private int _spellsCostHealth;
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
 
@@ -275,7 +282,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.CHOOSE_BOTH:
 						return _chooseBoth >= 1 ? 1 : 0;
 					case GameTag.SPELLS_COST_HEALTH:
-						return _spells_cost_health >= 1 ? 1 : 0;
+						return _spellsCostHealth >= 1 ? 1 : 0;
 					case GameTag.EXTRA_BATTLECRY:
 						return _extraBattecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
@@ -305,7 +312,7 @@ namespace SabberStoneCore.Enchants
 						_chooseBoth = value;
 						return;
 					case GameTag.SPELLS_COST_HEALTH:
-						_spells_cost_health = value;
+						_spellsCostHealth = value;
 						return;
 					case GameTag.EXTRA_BATTLECRY:
 						_extraBattecry = value;

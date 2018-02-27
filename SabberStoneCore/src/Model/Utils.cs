@@ -79,6 +79,24 @@ namespace SabberStoneCore.Model
 			};
 		}
 
+		/// <summary>
+		/// Gets N elements from a list of distinct elements by using the default equality comparer.
+		/// The source list must not have any repeated elements.
+		/// </summary>
+		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount) where T : class
+		{
+			T[] result = new T[amount];
+			for (int i = 0; i < amount; i++)
+			{
+				T pick;
+				do
+				{
+					pick = list[Random.Next(list.Count)];
+				} while (result.Contains(pick));
+				result[i] = pick;
+			}
+			return result;
+		}
 	}
 
 	/// <summary>

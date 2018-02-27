@@ -168,12 +168,15 @@ namespace SabberStoneCore.Loader
 
 					switch (tag.GameTag)
 					{
+						case GameTag.SECRET:
+							c.IsSecret = true;
+							break;
 						case GameTag.OVERLOAD:
 							c.HasOverload = true;
 							c.Overload = tag.TagValue;
 							break;
-						case GameTag.SECRET:
-							c.IsSecret = true;
+						case GameTag.CHOOSE_ONE:
+							c.ChooseOne = true;
 							break;
 						case GameTag.QUEST:
 							c.IsQuest = true;
@@ -184,8 +187,8 @@ namespace SabberStoneCore.Loader
 						case GameTag.HIDE_STATS:
 							c.HideStat = true;
 							break;
-						case GameTag.CHOOSE_ONE:
-							c.ChooseOne = true;
+						case GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS:
+							c.ReceivesDoubleSpelldamageBonus = true;
 							break;
 					}
 				}

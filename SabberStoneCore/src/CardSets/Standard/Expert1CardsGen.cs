@@ -3,7 +3,6 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -3718,7 +3717,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_014", new Power {
-				PowerTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.OP_HAND))
+				PowerTask = new AddCardTo("EX1_014t", EntityType.OP_HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -293,7 +293,7 @@ namespace SabberStoneCore.Model.Zones
 
 			int pos;
 			for (pos = _count - 1; pos >= 0; --pos)
-				if (Entities[pos].Equals(entity)) break;
+				if (ReferenceEquals(Entities[pos], (T)entity)) break;
 
 			Entities[pos] = default(T);
 
@@ -348,6 +348,18 @@ namespace SabberStoneCore.Model.Zones
 		{
 			for (int i = 0; i < _count; ++i)
 				action(Entities[i]);
+		}
+
+		public void ForEach<T2>(Action<T, T2> action, T2 arg2)
+		{
+			for (int i = 0; i < _count; ++i)
+				action(Entities[i], arg2);
+		}
+
+		public void ForEach<T2, T3>(Action<T, T2, T3> action, T2 arg2, T3 arg3)
+		{
+			for (int i = 0; i < _count; ++i)
+				action(Entities[i], arg2, arg3);
 		}
 
 		public override IEnumerator<T> GetEnumerator()

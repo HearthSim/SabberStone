@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using SabberStoneCore.Enchants;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Model.Entities
@@ -73,12 +70,13 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			OngoingEffect?.Remove();
+			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
 			//Controller.BoardZone.Auras.ForEach(aura => aura.EntityRemoved(this));
 
 			if (AppliedEnchantments != null)
 				for (int i = AppliedEnchantments.Count - 1; i >= 0; i--)
 				{
-					if (AppliedEnchantments[i].Creator.Power.Aura != null)
+					if (AppliedEnchantments[i].Creator.Power?.Aura != null)
 						continue;
 					AppliedEnchantments[i].Remove();
 				}
@@ -110,6 +108,14 @@ namespace SabberStoneCore.Model.Entities
 			IsSilenced = true;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Minion", !Game.Logging? "":$"{this} got silenced!");
+		}
+
+		public override void Reset()
+		{
+			base.Reset();
+			OngoingEffect?.Remove();
+			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
+			ToBeDestroyed = false;
 		}
 
 		/// <summary>
@@ -277,7 +283,8 @@ namespace SabberStoneCore.Model.Entities
 				if (base.ToBeDestroyed == value)
 					return;
 				base.ToBeDestroyed = value;
-				Game.DeadMinions.Add(OrderOfPlay, this);
+				if (value)
+					Game.DeadMinions.Add(OrderOfPlay, this);
 			} 
 		}
 	}

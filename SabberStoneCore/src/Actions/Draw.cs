@@ -1,7 +1,9 @@
 ﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Actions
 {
@@ -36,7 +38,42 @@ namespace SabberStoneCore.Actions
 				IPlayable playable = DrawPhase.Invoke(c, cardToDraw);
 				//c.NumCardsToDraw--; 
 
-				AddHandPhase.Invoke(c, playable);
+				if (AddHandPhase.Invoke(c, playable))
+				{
+					// DrawTrigger vs TOPDECK ?? not sure which one is first
+
+					if (cardToDraw == null)
+					{
+						c.Game.TaskQueue.StartEvent();
+						c.Game.TriggerManager.OnDrawTrigger(playable);
+						c.Game.ProcessTasks();
+						c.Game.TaskQueue.EndEvent();
+					}
+
+					ISimpleTask clone = playable.Power?.TopdeckTask?.Clone();
+					if (clone != null)
+					{
+						clone.Game = c.Game;
+						clone.Controller = c;
+						clone.Source = playable;
+
+						if (c.Game.History)
+						{
+							// TODO: triggerkeyword: TOPDECK
+							c.Game.PowerHistory.Add(
+								PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, playable.Id, "", 0, 0));
+						}
+
+						c.SetasideZone.Add(c.HandZone.Remove(playable));
+
+						c.Game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
+							!c.Game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
+						clone.Process();
+						if (c.Game.History)
+							c.Game.PowerHistory.Add(
+								PowerHistoryBuilder.BlockEnd());
+					}
+				}
 
 				return playable;
 			};
@@ -58,12 +95,8 @@ namespace SabberStoneCore.Actions
 			{
 				IPlayable playable = c.DeckZone.Remove(cardToDraw ?? c.DeckZone.TopCard);
 
-				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging? "":$"{c.Name} draws {playable}");
+				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging ? "" : $"{c.Name} draws {playable}");
 
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnDrawTrigger(playable);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
 				c.NumCardsDrawnThisTurn++;
 				c.LastCardDrawn = playable.Id;
 

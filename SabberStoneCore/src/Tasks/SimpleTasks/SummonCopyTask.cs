@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using SabberStoneCore.Model;
+﻿using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

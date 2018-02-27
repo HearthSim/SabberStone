@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-using SabberStoneCore.Conditions;
+﻿using SabberStoneCore.Conditions;
 using System.Collections.Generic;
 using SabberStoneCore.Model.Entities;
 
@@ -35,13 +33,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (_relaConditions != null)
 			{
-				IEnumerable<IPlayable> temp = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
-				List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
+				IList<IPlayable> entities = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
 
 				if (entities.Count != 1)
 					return TaskState.STOP;
 
-				var filtered = new List<IPlayable>();
+				var filtered = new List<IPlayable>(entities.Count);
 				foreach (IPlayable p in Playables)
 				{
 					bool flag = true;
@@ -55,7 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_selfConditions != null)
 			{
-				var filtered = new List<IPlayable>();
+				var filtered = new List<IPlayable>(Playables.Count);
 				foreach (IPlayable p in Playables)
 				{
 					bool flag = true;

@@ -9,7 +9,6 @@ using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Tasks
 {
@@ -184,7 +183,7 @@ namespace SabberStoneCore.Tasks
 					return null;
 				}));
 
-		// TODO
+		// TODO The cache should be managed separately when using different decks 
 		public static ISimpleTask CuriousGlimmerroot
 			=> ComplexTask.Create(
 				new IncludeTask(EntityType.SOURCE),
@@ -213,14 +212,25 @@ namespace SabberStoneCore.Tasks
 						}
 					}
 
-					var result = new List<Card> { Util.Choose(_glimmerrootMemory1) };
-					while (result.Count < 3)
+					//var result = new List<Card> { Util.Choose(_glimmerrootMemory1) };
+					//while (result.Count < 3)
+					//{
+					//	Card pick = Util.Choose(_glimmerrootMemory3);
+					//	if (_glimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick))
+					//		continue;
+					//	result.Add(pick);
+					//}
+
+					var result = new Card[3];
+					result[0] = Util.Choose(_glimmerrootMemory1);
+					int count = 1;
+					do
 					{
 						Card pick = Util.Choose(_glimmerrootMemory3);
-						if (_glimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick))
-							continue;
-						result.Add(pick);
-					}
+						if (_glimmerrootMemory2.Contains(pick.AssetId) || result.Contains(pick)) continue;
+						result[count] = pick;
+						count++;
+					} while (count < 3);
 
 					for (int i = 0; i < 3; i++)
 					{
@@ -305,7 +315,11 @@ namespace SabberStoneCore.Tasks
 					{
 						lock (locker)
 						{
-							IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) : Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
+							// In Hearthstone, cards from K & C is not included in the card pool for Build-A-Beast
+							// I am not sure whether Sabber should follow the rule or not ...
+							IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ?
+								Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) :
+								Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
 							var firstBeasts = new List<Card>();
 							var secondBeasts = new List<Card>();
 							foreach (Card card in all)
@@ -323,36 +337,38 @@ namespace SabberStoneCore.Tasks
 
 
 
-					var first = new List<Card>();
-					var second = new List<Card>();
-					int numToSelect = 3;
-					int numLeft = _firstBeastsMemory.Count;
-					foreach (Card item in _firstBeastsMemory)
-					{
-						double prob = numToSelect / (double)numLeft;
-						if (Util.Random.NextDouble() < prob)
-						{
-							first.Add(item);
-							numToSelect--;
-							if (numToSelect == 0)
-								break;
-						}
-						numLeft--;
-					}
-					numToSelect = 3;
-					numLeft = _secondBeastsMemory.Count;
-					foreach (Card item in _secondBeastsMemory)
-					{
-						double prob = numToSelect / (double)numLeft;
-						if (Util.Random.NextDouble() < prob)
-						{
-							second.Add(item);
-							numToSelect--;
-							if (numToSelect == 0)
-								break;
-						}
-						numLeft--;
-					}
+					//var first = new List<Card>();
+					//var second = new List<Card>();
+					//int numToSelect = 3;
+					//int numLeft = _firstBeastsMemory.Count;
+					//foreach (Card item in _firstBeastsMemory)
+					//{
+					//	double prob = numToSelect / (double)numLeft;
+					//	if (Util.Random.NextDouble() < prob)
+					//	{
+					//		first.Add(item);
+					//		numToSelect--;
+					//		if (numToSelect == 0)
+					//			break;
+					//	}
+					//	numLeft--;
+					//}
+					//numToSelect = 3;
+					//numLeft = _secondBeastsMemory.Count;
+					//foreach (Card item in _secondBeastsMemory)
+					//{
+					//	double prob = numToSelect / (double)numLeft;
+					//	if (Util.Random.NextDouble() < prob)
+					//	{
+					//		second.Add(item);
+					//		numToSelect--;
+					//		if (numToSelect == 0)
+					//			break;
+					//	}
+					//	numLeft--;
+					//}
+					Card[] first = _firstBeastsMemory.ChooseNElements(3);
+					Card[] second = _secondBeastsMemory.ChooseNElements(3);
 
 
 					Generic.CreateChoiceCards.Invoke(controller, p[0], null, ChoiceType.GENERAL,
@@ -362,8 +378,8 @@ namespace SabberStoneCore.Tasks
 
 					return p;
 				}));
-		private static ReadOnlyCollection<Card> _firstBeastsMemory;
-		private static ReadOnlyCollection<Card> _secondBeastsMemory;
+		private static IReadOnlyList<Card> _firstBeastsMemory;
+		private static IReadOnlyList<Card> _secondBeastsMemory;
 
 		public static ISimpleTask RandomHunterSecretPlay
 			=> ComplexTask.Create(

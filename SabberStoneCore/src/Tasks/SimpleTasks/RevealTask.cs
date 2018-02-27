@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RevealTask : SimpleTask
 	{
-		public RevealTask(ISimpleTask successJoustTask, ISimpleTask failedJoustTask = null)
+		private readonly CardType _type;
+
+		public RevealTask(ISimpleTask successJoustTask, ISimpleTask failedJoustTask = null, CardType type = CardType.MINION)
 		{
 			SuccessJoustTask = successJoustTask;
 			FailedJoustTask = failedJoustTask;
+			_type = type;
 		}
 
 		public ISimpleTask SuccessJoustTask { get; set; }
@@ -18,7 +23,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IPlayable playable = Generic.JoustBlock.Invoke(Controller);
+			if (Game.History)
+				Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.JOUST, Source.Id, "", 0, 0));
+			IPlayable playable = Generic.JoustBlock.Invoke(Controller, _type);
+			if (Game.History)
+				Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 			if (playable != null)
 			{
 				// add joust card winner to stack
@@ -28,14 +37,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				SuccessJoustTask.Controller = Controller;
 				SuccessJoustTask.Source = Source;
 				SuccessJoustTask.Target = Target;
-				SuccessJoustTask.Playables = Playables;
-				//SuccessJoustTask.CardIds = CardIds;
-				SuccessJoustTask.Flag = Flag;
-				SuccessJoustTask.Number = Number;
-				SuccessJoustTask.Number1 = Number1;
-				SuccessJoustTask.Number2 = Number2;
-				SuccessJoustTask.Number3 = Number3;
-				SuccessJoustTask.Number4 = Number4;
+
 				return SuccessJoustTask.Process();
 			}
 
@@ -45,23 +47,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				FailedJoustTask.Controller = Controller;
 				FailedJoustTask.Source = Source;
 				FailedJoustTask.Target = Target;
-				FailedJoustTask.Playables = Playables;
-				//FailedJoustTask.CardIds = CardIds;
-				FailedJoustTask.Flag = Flag;
-				FailedJoustTask.Number = Number;
-				FailedJoustTask.Number1 = Number1;
-				FailedJoustTask.Number2 = Number2;
-				FailedJoustTask.Number3 = Number3;
-				FailedJoustTask.Number4 = Number4;
+
 				return FailedJoustTask.Process();
 			}
+
+			Game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
 		}
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RevealTask(SuccessJoustTask.Clone(), FailedJoustTask != null ? FailedJoustTask.Clone() : null);
+			var clone = new RevealTask(SuccessJoustTask.Clone(), FailedJoustTask?.Clone(), _type);
 			clone.Copy(this);
 			return clone;
 		}

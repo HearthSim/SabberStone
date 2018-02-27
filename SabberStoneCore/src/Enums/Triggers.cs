@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SabberStoneCore.Enums
+﻿namespace SabberStoneCore.Enums
 {
 	/// <summary> Events in Hearthstone. </summary>
 	public enum TriggerType

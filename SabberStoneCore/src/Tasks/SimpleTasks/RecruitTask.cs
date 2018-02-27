@@ -2,9 +2,7 @@
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using SabberStoneCore.Conditions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks

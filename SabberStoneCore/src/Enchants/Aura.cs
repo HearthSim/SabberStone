@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -158,11 +157,20 @@ namespace SabberStoneCore.Enchants
 			{
 				switch (RemoveTrigger.Type)
 				{
+					case TriggerType.PLAY_MINION:
+						owner.Game.TriggerManager.PlayMinionTrigger += instance.TriggeredRemove;
+						break;
 					case TriggerType.CAST_SPELL:
 						owner.Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
 						break;
 					case TriggerType.TURN_END:
 						owner.Game.TriggerManager.EndTurnTrigger += instance.TriggeredRemove;
+						break;
+					case TriggerType.PLAY_CARD:
+						owner.Game.TriggerManager.PlayCardTrigger += instance.TriggeredRemove;
+						break;
+					case TriggerType.AFTER_PLAY_CARD:
+						owner.Game.TriggerManager.AfterPlayCardTrigger += instance.TriggeredRemove;
 						break;
 				}
 			}
@@ -179,7 +187,10 @@ namespace SabberStoneCore.Enchants
 					{
 						if (minion == owner) continue;
 						if (Condition == null || Condition.Eval(minion))
-							Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+						{
+							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							EnchantmentCard.Power.Trigger?.Activate(e);
+						}
 
 						_tempList.Add(minion);
 					}
@@ -189,7 +200,10 @@ namespace SabberStoneCore.Enchants
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (Condition == null || Condition.Eval(minion))
-							Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+						{
+							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							EnchantmentCard.Power.Trigger?.Activate(e);
+						}
 
 						_tempList.Add(minion);
 					}
@@ -394,6 +408,15 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.TURN_END:
 					Game.TriggerManager.EndTurnTrigger -= TriggeredRemove;
 					break;
+				case TriggerType.PLAY_MINION:
+					Game.TriggerManager.PlayMinionTrigger -= TriggeredRemove;
+					break;
+				case TriggerType.PLAY_CARD:
+					Game.TriggerManager.PlayCardTrigger -= TriggeredRemove;
+					break;
+				case TriggerType.AFTER_PLAY_CARD:
+					Game.TriggerManager.AfterPlayCardTrigger -= TriggeredRemove;
+					break;
 			}
 
 			if (Owner is Enchantment e)
@@ -459,13 +482,10 @@ namespace SabberStoneCore.Enchants
 				for (int i = 0; i < Effects.Length; i++)
 					Effects[i].Apply(entity.AuraEffects);
 
-			if (EnchantmentCard != null)
+			if (EnchantmentCard != null && ((Game.History && _tempList == null) || EnchantmentCard.Power.Trigger != null))
 			{
-				if (Game.History || EnchantmentCard.Power.Trigger != null)
-				{
-					Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, EnchantmentCard);
-					EnchantmentCard.Power.Trigger?.Activate(instance);
-				}
+				Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, EnchantmentCard);
+				EnchantmentCard.Power.Trigger?.Activate(instance);
 			}
 
 			AppliedEntities.Add(entity);
@@ -498,6 +518,7 @@ namespace SabberStoneCore.Enchants
 		{
 			_tag = prototype._tag;
 			_operator = prototype._operator;
+			_lastValue = prototype._lastValue;
 		}
 
 		public override void Activate(IPlayable owner, bool cloning = false)

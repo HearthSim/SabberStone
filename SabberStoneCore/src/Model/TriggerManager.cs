@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model
 {
@@ -142,9 +137,11 @@ namespace SabberStoneCore.Model
 	    internal void OnZoneTrigger(IEntity sender)
 	    {
 		    if (ZoneTrigger == null) return;
+		    sender.Game.TaskQueue.StartEvent();
 		    ZoneTrigger.Invoke(sender);
 		    sender.Game.ProcessTasks();
-	    }
+		    sender.Game.TaskQueue.EndEvent();
+		}
 
 	    internal void OnDiscardTrigger(IEntity sender)
 	    {

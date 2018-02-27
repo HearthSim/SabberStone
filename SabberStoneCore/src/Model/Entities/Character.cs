@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 
@@ -607,8 +606,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasTaunt
 		{
-			get { return this[GameTag.TAUNT] == 1; }
-			set { this[GameTag.TAUNT] = value ? 1 : 0; }
+			get => _data[GameTag.TAUNT] == 1;
+			set => this[GameTag.TAUNT] = value ? 1 : 0;
 		}
 
 		public virtual bool HasWindfury
@@ -619,8 +618,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasStealth
 		{
-			get { return this[GameTag.STEALTH] == 1; }
-			set { this[GameTag.STEALTH] = value ? 1 : 0; }
+			get => _data[GameTag.STEALTH] == 1;
+			set => this[GameTag.STEALTH] = value ? 1 : 0;
 		}
 
 		public int NumAttacksThisTurn

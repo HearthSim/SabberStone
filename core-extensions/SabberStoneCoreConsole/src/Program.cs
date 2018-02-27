@@ -938,8 +938,8 @@ namespace SabberStoneCoreConsole
 
 		public static void YoggTest()
 		{
-			//while (true)
-			//{
+			while (true)
+			{
 				var game = new Game(new GameConfig
 				{
 					StartPlayer = 1,
@@ -957,7 +957,10 @@ namespace SabberStoneCoreConsole
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
 				ShowLog(game, LogLevel.VERBOSE);
-			//}
+
+				if (Console.ReadKey().Key != ConsoleKey.Spacebar)
+					break;
+			}
 		}
 
 		public static void CloneSameSame()
