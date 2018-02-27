@@ -156,7 +156,7 @@ namespace SabberStoneCore.Actions
 				//c[GameTag.HERO_ENTITY] = hero.Id;
 				hero.Weapon = oldHero.Weapon;
 				c.SetasideZone.Add(oldHero.HeroPower);
-				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.FromAssetId(hero[GameTag.HERO_POWER]));
+				hero.HeroPower = (HeroPower) Entity.FromCard(c, Cards.GetHeroPower(hero.Card[GameTag.HERO_POWER]));
 				hero.HeroPower.Power?.Trigger?.Activate(hero.HeroPower);
 
 				c.Hero = hero;

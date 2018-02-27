@@ -179,7 +179,30 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card HeroCard(CardClass cardClass)
 		{
-			return All.FirstOrDefault(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
+			//return All.FirstOrDefault(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO") && c.Class == cardClass);
+			switch (cardClass)
+			{
+				case CardClass.DRUID:
+					return FromId("HERO_06");
+				case CardClass.HUNTER:
+					return FromId("HERO_05");
+				case CardClass.MAGE:
+					return FromId("HERO_08");
+				case CardClass.PALADIN:
+					return FromId("HERO_04");
+				case CardClass.PRIEST:
+					return FromId("HERO_09");
+				case CardClass.ROGUE:
+					return FromId("HERO_03");
+				case CardClass.SHAMAN:
+					return FromId("HERO_02");
+				case CardClass.WARLOCK:
+					return FromId("HERO_07");
+				case CardClass.WARRIOR:
+					return FromId("HERO_01");
+				default:
+					throw new NotImplementedException();
+			}
 		}
 
 		/// <summary>
@@ -189,6 +212,36 @@ namespace SabberStoneCore.Model
 		public static IEnumerable<Card> HeroCards()
 		{
 			return All.Where(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO"));
+		}
+
+		/// <summary>
+		/// Returns matching DK HeroPower Card of given Asset Id using direct mapping.
+		/// </summary>
+		public static Card GetHeroPower(int assetId)
+		{
+			switch (assetId)
+			{
+				case 42982:
+					return FromId("ICC_481p");
+				case 43188:
+					return FromId("ICC_827p");
+				case 43183:
+					return FromId("ICC_828p");
+				case 43013:
+					return FromId("ICC_829p");
+				case 45397:
+					return FromId("ICC_830p");
+				case 43181:
+					return FromId("ICC_831p");
+				case 43182:
+					return FromId("ICC_832p");
+				case 42944:
+					return FromId("ICC_833h");
+				case 45585:
+					return FromId("ICC_834h");
+				default:
+					throw new NotImplementedException();
+			}
 		}
 
 		/// <summary>

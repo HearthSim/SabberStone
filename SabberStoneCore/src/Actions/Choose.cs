@@ -96,6 +96,7 @@ namespace SabberStoneCore.Actions
 						break;
 
 					case ChoiceAction.ADAPT:
+						c.Game.TaskQueue.StartEvent();
 						c.Choice.TargetIds.ForEach(p =>
 							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
 						);
@@ -107,27 +108,31 @@ namespace SabberStoneCore.Actions
 							Source = playable,
 							Target = playable
 						});
-						// Send metadata to the client to hide the card
-						c.Game.PowerHistory.Add(new PowerHistoryMetaData
+						c.Game.TaskQueue.EndEvent();
+						if (c.Game.History)
 						{
-							Type = MetaDataType.SHOW_BIG_CARD,
-							Data = 2,
-							Info = new List<int> { choice }
-						});
-						break;
-
-					case ChoiceAction.TRACKING:
-						if (RemoveFromZone(c, playable))
-						{
-							c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+							// Send metadata to the client to hide the card
+							c.Game.PowerHistory.Add(new PowerHistoryMetaData
 							{
-								Game = c.Game,
-								Controller = c,
-								Source = playable,
-								Target = playable
+								Type = MetaDataType.SHOW_BIG_CARD,
+								Data = 2,
+								Info = new List<int> { choice }
 							});
 						}
 						break;
+
+					//case ChoiceAction.TRACKING:
+					//	if (RemoveFromZone(c, playable))
+					//	{
+					//		c.Game.TaskQueue.Enqueue(new AddCardTo(playable, EntityType.HAND)
+					//		{
+					//			Game = c.Game,
+					//			Controller = c,
+					//			Source = playable,
+					//			Target = playable
+					//		});
+					//	}
+					//	break;
 
 					case ChoiceAction.HEROPOWER:
 						if (RemoveFromZone(c, playable))
@@ -214,6 +219,8 @@ namespace SabberStoneCore.Actions
 					default:
 						throw new NotImplementedException();
 				}
+
+				if (c.Choice == null) ;
 
 				if (c.Choice.EnchantmentCard != null)
 				{
@@ -334,8 +341,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IEntity, IEnumerable<IEntity>, ChoiceType, ChoiceAction, List<Card>, Card, ISimpleTask, bool> CreateChoiceCards
-			=> delegate (Controller c, IEntity source, IEnumerable<IEntity> targets, ChoiceType type, ChoiceAction action, List<Card> choices, Card enchantmentCard, ISimpleTask taskToDo)
+		public static Func<Controller, IEntity, IEnumerable<IEntity>, ChoiceType, ChoiceAction, Card[], Card, ISimpleTask, bool> CreateChoiceCards
+			=> delegate (Controller c, IEntity source, IEnumerable<IEntity> targets, ChoiceType type, ChoiceAction action, Card[] choices, Card enchantmentCard, ISimpleTask taskToDo)
 			{
 				//if (c.Choice != null)
 				//{
@@ -344,7 +351,7 @@ namespace SabberStoneCore.Actions
 				//}
 
 				var choicesIds = new List<int>();
-				choices.ForEach(p =>
+				foreach (Card p in choices)
 				{
 					IPlayable choiceEntity = Entity.FromCard(c, p,
 						new EntityData.Data
@@ -354,7 +361,7 @@ namespace SabberStoneCore.Actions
 						});
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);
-				});
+				};
 
 				var choice = new Choice(c)
 				{

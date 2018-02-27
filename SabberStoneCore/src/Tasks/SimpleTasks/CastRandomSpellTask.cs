@@ -14,12 +14,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     public class CastRandomSpellTask : SimpleTask
     {
 		private readonly Func<Card, bool> _condition;
+	    private readonly bool _phaseShift;
 
 	    private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists = new ConcurrentDictionary<int, Card[]>();
 
-	    public CastRandomSpellTask(Func<Card, bool> condition = null)
+	    public CastRandomSpellTask(Func<Card, bool> condition = null, bool phaseShift = true)
 	    {
 		    _condition = condition;
+		    _phaseShift = phaseShift;
 	    }
 
 	    public override TaskState Process()
@@ -27,15 +29,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (_condition != null && !CachedCardLists.TryGetValue(Source.Card.AssetId, out Card[] cards))
 		    {
 			    cards = Cards.FormatTypeCards(Game.FormatType)
-				    .Where(c => c.Type == CardType.SPELL && _condition(c)).ToArray();
+				    .Where(card => card.Type == CardType.SPELL && _condition(card)).ToArray();
 
 			    CachedCardLists.TryAdd(Source.Card.AssetId, cards);
 		    }
 			else if (!CachedCardLists.TryGetValue(0, out cards))
 			{
-				cards = Cards.FormatTypeCards(Game.FormatType).Where(c => c.Type == CardType.SPELL && !c.IsQuest).ToArray();
+				cards = Cards.FormatTypeCards(Game.FormatType).Where(card => card.Type == CardType.SPELL && !card.IsQuest).ToArray();
 				CachedCardLists.TryAdd(0, cards);
 			}
+
+		    Controller c = Source.Controller;
 
 			Card randCard = null;
 		    do
@@ -43,10 +47,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    randCard = cards[Random.Next(cards.Length)];
 		    } while (!randCard.Implemented || randCard.HideStat);
 
-		    Spell spellToCast = (Spell)Target ?? (Spell)Entity.FromCard(Source.Controller, randCard);
+		    Game.OnRandomHappened(true);
+
+			Spell spellToCast = (Spell)Target ?? (Spell)Entity.FromCard(c, randCard);
 
 		    Game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
-			    !Game.Logging ? "" : $"{Source} casted {Controller}'s {spellToCast}.");
+			    !Game.Logging ? "" : $"{Source} casted {c.Name}'s {spellToCast}.");
+
+		    if (spellToCast.IsSecret && c.SecretZone.IsFull)
+		    {
+				c.GraveyardZone.Add(spellToCast);
+			    return TaskState.COMPLETE;
+		    }
 
 			ICharacter randTarget = null;
 		    if (randCard.RequiresTarget || randCard.RequiresTargetIfAvailable)
@@ -64,31 +76,37 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			int randChooseOne = Random.Next(1, 3);
 
 		    if (randCard.HasOverload)
-				Source.Controller.OverloadOwed = randCard.Overload;
+				c.OverloadOwed = randCard.Overload;
+
+			Choice choiceTemp = c.Choice;
+			c.Choice = null;
 
 			Game.TaskQueue.StartEvent();
-			Generic.CastSpell.Invoke(Source.Controller, spellToCast, randTarget, randChooseOne);
+			Generic.CastSpell.Invoke(c, spellToCast, randTarget, randChooseOne);
 			// forced death processing & AA (Yogg)
-		    spellToCast.Game.DeathProcessingAndAuraUpdate();
+			if (_phaseShift)
+				Game.DeathProcessingAndAuraUpdate();
 		    Game.TaskQueue.EndEvent();
 
 
 		    //Game.TaskQueue.Execute(spellToCast.Power.PowerTask, Source.Controller, spellToCast, randTarget, randChooseOne);
 		    //Game.DeathProcessingAndAuraUpdate();
 
-			while (Source.Controller.Choice != null)
+			while (c.Choice != null)
 		    {
-			    Generic.ChoicePick.Invoke(Source.Controller, Util.Choose(Source.Controller.Choice.Choices));
+			    if (c.Choice.Choices.Count == 0) ;
+
+				Generic.ChoicePick.Invoke(c, Util.Choose(c.Choice.Choices));
 		    }
 
-		    Game.OnRandomHappened(true);
+			c.Choice = choiceTemp;
 
 		    return TaskState.COMPLETE;
 	    }
 
 	    public override ISimpleTask Clone()
 	    {
-		    return new CastRandomSpellTask(_condition);
+		    return new CastRandomSpellTask(_condition, _phaseShift);
 	    }
     }
 }

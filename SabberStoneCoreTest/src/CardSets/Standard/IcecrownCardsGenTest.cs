@@ -1880,14 +1880,32 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - SECRET = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GlacialMysteries_ICC_086()
 		{
-			// TODO GlacialMysteries_ICC_086 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Frozen Clone"),
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Ice Barrier"),
+					Cards.FromName("Mirror Entity"),
+					Cards.FromName("Counterspell"),
+					Cards.FromName("Explosive Runes"),
+					Cards.FromName("Mana Bind"),
+					Cards.FromName("Mana Bind"),
+					Cards.FromName("Potion of Polymorph"),
+					Cards.FromName("Potion of Polymorph"),
+					Cards.FromName("Vaporize"),
+					Cards.FromName("Vaporize")
+				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -1895,7 +1913,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Glacial Mysteries"));
+
+			game.ProcessCard("Glacial Mysteries");
+
+			Assert.Equal(5, game.CurrentPlayer.SecretZone.Count);
+			Assert.Equal(5, game.CurrentPlayer.SecretZone.Select(p => p.Card.Id).Distinct().Count());
 		}
 
 		// ------------------------------------------- SPELL - MAGE

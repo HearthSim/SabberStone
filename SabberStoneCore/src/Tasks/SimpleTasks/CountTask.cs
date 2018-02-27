@@ -15,7 +15,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 			//Number = entities.Count;
-			Number = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Count();
+			Number = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Count;
 			return TaskState.COMPLETE;
 		}
 

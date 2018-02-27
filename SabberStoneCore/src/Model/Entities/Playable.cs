@@ -508,12 +508,6 @@ namespace SabberStoneCore.Model.Entities
 
 		public Trigger ActivatedTrigger { get; set; }
 
-		public override void Reset()
-		{
-			base.Reset();
-			OngoingEffect?.Remove();
-		}
-
 		public List<int> Memory { get; set; }
 	}
 

@@ -539,12 +539,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Battlecry:</b> Reveal a spell in each deck. If yours costs more, draw it.
 			// --------------------------------------------------------
 			// GameTag:
-			// - BATTLECRY = 1
+			// - BATTLECRY = 1d
 			// --------------------------------------------------------
 			cards.Add("LOOT_170", new Power {
-				// TODO [LOOT_170] Raven Familiar && Test: Raven Familiar_LOOT_170
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new RevealTask(new DrawStackTask(), null, CardType.SPELL)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -665,9 +663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Shuffle 5 Scrolls into your deck. When drawn, cast a random spell.
 			// --------------------------------------------------------
 			cards.Add("LOOT_106", new Power {
-				// TODO [LOOT_106] Deck of Wonders && Test: Deck of Wonders_LOOT_106
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddCardTo("LOOT_106t", EntityType.DECK, 5)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -786,9 +782,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_106t", new Power {
-				// TODO [LOOT_106t] Scroll of Wonder && Test: Scroll of Wonder_LOOT_106t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CastRandomSpellTask(phaseShift: false),
+					new DrawTask()),
+				TopdeckTask = ComplexTask.Create(
+					new CastRandomSpellTask(phaseShift: false),
+					new DrawTask())
 			});
 
 		}
@@ -840,7 +839,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_363", new Power {
-				DeathrattleTask = new EnqueueTask(3, new AddCardTo("CS2_101t", EntityType.HAND))
+				DeathrattleTask =  new AddCardTo("CS2_101t", EntityType.HAND, 3)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1455,9 +1454,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_026", new Power {
-				// TODO [LOOT_026] Fal'dorei Strider && Test: Fal'dorei Strider_LOOT_026
 				// Not sure this implementatio would work in servers
-				PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_026e", EntityType.DECK))
+				PowerTask = new AddCardTo("LOOT_026e", EntityType.DECK, 3)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1542,7 +1540,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_204", new Power {
-				// TODO Test: Cheat Death_LOOT_204
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.MINIONS,
@@ -1673,19 +1670,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_026e", new Power {
-				// TODO: Built-in TOPDECK mechanics
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_026t"),
 					new DrawTask()),
-				Trigger = new Trigger(TriggerType.DRAW)
-				{
-					TriggerSource = TriggerSource.SELF,
-					RemoveAfterTriggered = true,
-					SingleTask = ComplexTask.Create(
-						new SummonTask("LOOT_026t"),
-						new MoveToGraveYard(EntityType.SOURCE),
-						new DrawTask())
-				}
+				TopdeckTask = ComplexTask.Create(
+					new SummonTask("LOOT_026t"),
+					new DrawTask())
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1779,10 +1769,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_517", new Power {
-				// TODO [LOOT_517] Murmuring Elemental && Test: Murmuring Elemental_LOOT_517
-				InfoCardId = "LOOT_517e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("LOOT_517e", EntityType.CONTROLLER),
+					new AddEnchantmentTask("LOOT_517e2", EntityType.SOURCE))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2871,7 +2860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_144", new Power {
-				DeathrattleTask = new EnqueueTask(2, new AddCardTo("GAME_005", EntityType.OP_HAND))
+				DeathrattleTask = new AddCardTo("GAME_005", EntityType.OP_HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3686,10 +3675,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your next <b>Battlecry</b> this turn triggers twice.
 			// --------------------------------------------------------
 			cards.Add("LOOT_517e", new Power {
-				// TODO [LOOT_517e] Murmurs && Test: Murmurs_LOOT_517e
-				InfoCardId = "LOOT_517e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = new Enchant(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1)
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1))
+				{
+					RemoveTrigger = (TriggerType.TURN_END, null),
+				},
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = new SelfCondition(p => p.Card.Id != "LOOT_517" && p.Card[GameTag.BATTLECRY] == 1),
+					SingleTask = new RemoveEnchantmentTask()
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3699,9 +3694,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your next <b>Battlecry</b> this turn triggers twice.
 			// --------------------------------------------------------
 			cards.Add("LOOT_517e2", new Power {
-				// TODO [LOOT_517e2] Murmuring && Test: Murmuring_LOOT_517e2
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.CUSTOM_KEYWORD_EFFECT, EffectOperator.SET, 1)
+				{
+					IsOneTurnEffect = true,
+				},
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = new SelfCondition(p => p.Card.Id != "LOOT_517" && p.Card[GameTag.BATTLECRY] == 1),
+					SingleTask = new RemoveEnchantmentTask()
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

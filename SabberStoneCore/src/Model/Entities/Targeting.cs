@@ -313,6 +313,11 @@ namespace SabberStoneCore.Model.Entities
 							return false;
 						}
 						break;
+					case PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET:
+						if (Controller.SecretZone.IsFull)
+							return false;
+						break;
+
 					// implemented in playable ... 
 					case PlayReq.REQ_NUM_MINION_SLOTS:
 					case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:

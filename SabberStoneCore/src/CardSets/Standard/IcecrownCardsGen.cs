@@ -1221,9 +1221,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_086", new Power {
-				// TODO [ICC_086] Glacial Mysteries && Test: Glacial Mysteries_ICC_086
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p =>
+					{
+						Controller c = p.Controller;
+						IPlayable[] entities =c.DeckZone.GetAll(x => x.Card.IsSecret);
+						List<int> ids = c.SecretZone.Select(x => x.Card.AssetId).ToList();
+						for (int i = 0; i < entities.Length; i++)
+						{
+							IPlayable e = entities[i];
+							if (ids.Contains(e.Card.AssetId)) continue;
+
+							c.DeckZone.Remove(e);
+							Generic.CastSpell(c, (Spell) e, null, 0);
+							ids.Add(e.Card.AssetId);
+
+							if (c.SecretZone.IsFull) return 0;
+						}
+						return 0;
+					}))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -1694,7 +1710,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_065", new Power {
-				DeathrattleTask = new EnqueueTask(2, new AddCardTo("ICC_026t", EntityType.HAND))
+				DeathrattleTask = new AddCardTo("ICC_026t", EntityType.HAND, 2)
 			});
 
 			// ----------------------------------------- MINION - ROGUE

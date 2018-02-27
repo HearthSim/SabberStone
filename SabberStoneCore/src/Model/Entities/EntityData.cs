@@ -93,7 +93,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		public int this[GameTag t]
 		{
-			//get { return Tags.ContainsKey(t) ? Tags[t] : (Card.Tags.ContainsKey(t) ? Card[t] : 0); }
 			get
 			{
 				if (Tags.TryGetValue(t, out int value))
@@ -101,7 +100,6 @@ namespace SabberStoneCore.Model.Entities
 
 				Card.Tags.TryGetValue(t, out value);
 				return value;
-				//return 0;
 			}
 			set { Tags[t] = value; }
 		}
@@ -351,10 +349,11 @@ namespace SabberStoneCore.Model.Entities
 
 			private void Initialise(int capacity)
 			{
-				int prime = GetPrime(capacity);
-				_buckets = new int[prime << 1];
+				//int prime = GetPrime(capacity);
+				_buckets = new int[capacity << 1];
 				for (int i = 0; i < _buckets.Length; i++)
 					_buckets[i] = -1;
+				_size = capacity;
 			}
 
 			// TODO: check duplicate
@@ -433,20 +432,77 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			private bool Search(int k, out int i)
+			private bool Search(int k, out int index)
 			{
 				int h = (k % _size) << 1;
-				for (i = h; i < _buckets.Length; i += 2)
+				int i = h;
+				if (_buckets[i] == k)
 				{
-					if (_buckets[i] == k) return true;
-					if (_buckets[i] < 0) return false;
+					index = i;
+					return true;
 				}
-				for (i = 0; i < h; i += 2)
+
+				if (_buckets[i] < 0)
 				{
-					if (_buckets[i] < 0) return false;
-					if (_buckets[i] == k) return true;
+					index = i;
+					return false;
 				}
-				i = -1;
+				i += 2;
+				if (i < _buckets.Length)
+				{
+					if (_buckets[i] == k)
+					{
+						index = i;
+						return true;
+					}
+
+					if (_buckets[i] < 0)
+					{
+						index = i;
+						return false;
+					}
+					for (i += 2; i < _buckets.Length; i += 2)
+					{
+						if (_buckets[i] < 0)
+						{
+							index = i;
+							return false;
+						}
+
+						if (_buckets[i] == k)
+						{
+							index = i;
+							return true;
+						}
+					}
+				}
+
+				if (_buckets[0] < 0)
+				{
+					index = 0;
+					return false;
+				}
+				if (_buckets[0] == k)
+				{
+					index = 0;
+					return true;
+				}
+
+				for (i = 2; i < h; i += 2)
+				{
+					if (_buckets[i] < 0)
+					{
+						index = i;
+						return false;
+					}
+
+					if (_buckets[i] == k)
+					{
+						index = i;
+						return true;
+					}
+				}
+				index = -1;
 				return false;
 			}
 

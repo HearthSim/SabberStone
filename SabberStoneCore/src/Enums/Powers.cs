@@ -11,18 +11,18 @@
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		POWER,
-		BATTLECRY,
+		//BATTLECRY,
 		DEATHRATTLE,
-		WEAPON,
-		SPELL,
-		SECRET_OR_QUEST,
+		//WEAPON,
+		//SPELL,
+		//SECRET_OR_QUEST,
 		COMBO,
 
-		BOARD_ZONE,
-		HAND_ZONE,
-		DECK_ZONE,
-		SETASIDE_ZONE,
-		NONE
+		//BOARD_ZONE,
+		//HAND_ZONE,
+		//DECK_ZONE,
+		//SETASIDE_ZONE,
+		//NONE
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

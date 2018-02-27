@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			var minion = Source as Minion;
 			if (minion != null && ScriptTags == null)
 			{
-				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToList(), null, null);
+				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, minion.Card.Entourage.Select(Cards.FromId).ToArray(), null, null);
 				return TaskState.COMPLETE;
 
 			}
@@ -42,15 +42,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Cost;
 				var cardIdList = KazakusPotionSpells.Where(p =>
 					p[GameTag.TAG_SCRIPT_DATA_NUM_1] < 1000 && p.Cost == cost &&
-					(ScriptTags.Count != 2 || p[GameTag.TAG_SCRIPT_DATA_NUM_1] != ScriptTags[1])).ToList();
+					(ScriptTags.Count != 2 || p[GameTag.TAG_SCRIPT_DATA_NUM_1] != ScriptTags[1])).ToArray();
 
-				var cardList = new List<Card>();
-				while (cardList.Count < 3)
-				{
-					Card card = Util.Choose<Card>(cardIdList);
-					cardList.Add(card);
-					cardIdList.RemoveAll(p => p == card);
-				}
+				//var cardList = new List<Card>();
+				//while (cardList.Count < 3)
+				//{
+				//	Card card = Util.Choose<Card>(cardIdList);
+				//	cardList.Add(card);
+				//	cardIdList.RemoveAll(p => p == card);
+				//}
+
+				Card[] cardList = Util.ChooseNElements(cardIdList, 3);
 
 				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS, cardList, null, null);
 				return TaskState.COMPLETE;

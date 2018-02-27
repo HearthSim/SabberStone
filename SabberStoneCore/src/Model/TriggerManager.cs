@@ -142,9 +142,11 @@ namespace SabberStoneCore.Model
 	    internal void OnZoneTrigger(IEntity sender)
 	    {
 		    if (ZoneTrigger == null) return;
+		    sender.Game.TaskQueue.StartEvent();
 		    ZoneTrigger.Invoke(sender);
 		    sender.Game.ProcessTasks();
-	    }
+		    sender.Game.TaskQueue.EndEvent();
+		}
 
 	    internal void OnDiscardTrigger(IEntity sender)
 	    {

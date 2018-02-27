@@ -87,21 +87,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				totcardsToDiscover.AddRange(cardsToDiscover[1]);
 			}
 
-			var resultCards = new List<Card>();
+			//var resultCards = new List<Card>();
+			var resultCards = new Card[_numberOfChoices];
 
 			// standard discover takes 3 random cards from a set of cards
 			if (cardsToDiscover.Length < 3)
 			{
 				if (_numberOfChoices >= totcardsToDiscover.Count)
 				{
-					resultCards.AddRange(totcardsToDiscover);
+					//resultCards.AddRange(totcardsToDiscover);
+					if (_numberOfChoices != totcardsToDiscover.Count)
+						resultCards = new Card[totcardsToDiscover.Count];
+					totcardsToDiscover.CopyTo(resultCards);
 				}
 				else
 				{
-					while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
+					int count = 0;
+					//while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
+					while (count < 3 && totcardsToDiscover.Count > 0)
 					{
 						Card discoveredCard = Util.Choose(totcardsToDiscover);
-						resultCards.Add(discoveredCard);
+						//resultCards.Add(discoveredCard);
+						resultCards[count] = discoveredCard;
+						count++;
 						// remove all cards matching the discovered one, 
 						// need because class cards are duplicated 4 x times
 						// to have a balance to neutral cards
@@ -115,15 +123,34 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							totcardsToDiscover.RemoveAll(p => p == discoveredCard);
 						}
 					}
+
+					if (count < resultCards.Length)
+					{
+						var newArray = new Card[count];
+						Array.Copy(resultCards, 0, newArray, 0, count);
+						resultCards = newArray;
+					}
 				}
 			}
 			else
 			{
 				// tri-class discover takes one random card from each of the three sets
-				foreach (List<Card> classDiscover in cardsToDiscover)
+				//foreach (List<Card> classDiscover in cardsToDiscover)
+				//{
+				//	resultCards.ForEach(p => classDiscover.Remove(p));
+
+				//	resultCards.Add(Util.Choose<Card>(classDiscover));
+				//}
+
+				for (int i = 0; i < 3; i++)
 				{
-					resultCards.ForEach(p => classDiscover.Remove(p));
-					resultCards.Add(Util.Choose<Card>(classDiscover));
+					Card pick;
+					do
+					{
+						pick = Util.Choose(cardsToDiscover[i]);
+					} while (resultCards.Contains(pick));
+
+					resultCards[i] = pick;
 				}
 			}
 
@@ -133,14 +160,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//    ProcessSplit(cardsToDiscover, choiceAction);
 			//}
 
-			if (resultCards.Count == 0)
+			//if (resultCards.Count == 0)
+			if (resultCards.Length == 0)
 			{
 				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
 					!Game.Logging ? "" : $"Found no potential cards to use for {_discoverType}");
 			}
 			else
 			{
-				bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard, _taskTodo);
+				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard, _taskTodo);
 			}
 
 			return TaskState.COMPLETE;
@@ -164,7 +192,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Game cloneGame = Game.Clone();
 				Controller cloneController = cloneGame.ControllerById(Controller.Id);
-				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToList(), null, _taskTodo);
+				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToArray(), null, _taskTodo);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
 			});
 

@@ -552,7 +552,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_920t1", new Power {
-				PowerTask = new EnqueueTask(15, new AddCardTo("UNG_076t1", EntityType.DECK))
+				PowerTask = new AddCardTo("UNG_076t1", EntityType.DECK, 15)
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -632,7 +632,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_846", new Power {
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
 					new AddStackTo(EntityType.HAND))
 			});
@@ -724,9 +724,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("UNG_948", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new SummonTask())
+				PowerTask = new SummonCopyTask(EntityType.TARGET)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -1357,7 +1355,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add two Razorpetals to_your hand that deal_1 damage.
 			// --------------------------------------------------------
 			cards.Add("UNG_057", new Power {
-				PowerTask = new EnqueueTask(2, new AddCardTo("UNG_057t1", EntityType.HAND))
+				PowerTask = new AddCardTo("UNG_057t1", EntityType.HAND, 2)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1554,7 +1552,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_202", new Power {
-				InfoCardId = "UNG_202e",
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsRace(Race.ELEMENTAL)),
@@ -2876,7 +2873,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_845", new Power {
-				PowerTask = new EnqueueTask(2, new AddCardTo("UNG_809t1", EntityType.HAND))
+				PowerTask = new AddCardTo("UNG_809t1", EntityType.HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3093,6 +3090,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_202e", new Power {
 				Enchant = new Enchant(Effects.ReduceCost(1))
+				{
+					RemoveWhenPlayed = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

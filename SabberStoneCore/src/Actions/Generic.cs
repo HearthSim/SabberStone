@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
@@ -131,23 +132,61 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IPlayable> JoustBlock
-			=> delegate (Controller c)
+		public static Func<Controller, CardType, IPlayable> JoustBlock
+			=> delegate (Controller c, CardType type)
 			{
-				if (c.DeckZone.Count == 0)
+				IPlayable[] stack = c.DeckZone.GetAll(p => p.Card.Type == type);
+				IPlayable[] opStack = c.Opponent.DeckZone.GetAll(p => p.Card.Type == type);
+
+				IPlayable card = stack.Length > 0 ? Util.Choose(stack) : null;
+				IPlayable cardOp = opStack.Length > 0 ? Util.Choose(opStack) : null;
+
+				if (c.Game.History)
 				{
-					return null;
+					// TODO: should create new entities?
+
+					var info = new List<int>();
+					if (card != null)
+					{
+						info.Add(card.Id);
+						card.NativeTags[GameTag.REVEALED] = 1;
+					}
+					if (cardOp != null)
+					{
+						info.Add(cardOp.Id);
+						cardOp.NativeTags[GameTag.REVEALED] = 1;
+					}
+					if (card != null)
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(card));
+					if (cardOp != null)
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(cardOp));
+					if (card != null)
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(card));
+					if (cardOp != null)
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(cardOp));
+					var metaData = new PowerHistoryMetaData()
+					{
+						Type = MetaDataType.JOUST,
+
+						Info = info
+					};
+					c.Game.PowerHistory.Add(metaData);
+					if (card != null)
+					{
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(card));
+						card[GameTag.REVEALED] = 0;
+					}
+					if (cardOp != null)
+					{
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(card));
+						cardOp[GameTag.REVEALED] = 0;
+					}
+
+					// if new entities are created, must be moved to setaside
 				}
 
-				if (c.Opponent.DeckZone.Count == 0)
-				{
-					return null;
-				}
-
-				IPlayable card = c.DeckZone.Random;
-				IPlayable cardOp = c.Opponent.DeckZone.Random;
-				bool success = card.Cost > cardOp.Cost;
-				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging ? "" : $"{c.Name} initiatets joust with {card} {card.Cost} vs. {cardOp.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
+				bool success = (card?.Cost ?? -1) > (cardOp?.Cost ?? -1);
+				c.Game.Log(LogLevel.INFO, BlockType.JOUST, "JoustBlock", !c.Game.Logging ? "" : $"{c.Name} initiatets joust with {card} {card?.Cost} vs. {cardOp?.Cost} {cardOp}, {(success ? "Won" : "Loose")} the joust.");
 
 				// TODO shuffle deck .... or ... just let it be?
 				return success ? card : null;

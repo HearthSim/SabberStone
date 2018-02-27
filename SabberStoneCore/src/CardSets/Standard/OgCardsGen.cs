@@ -1765,7 +1765,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_122", new Power {
-				PowerTask = new EnqueueTask(2, new AddCardTo("EX1_014t", EntityType.HAND))
+				PowerTask = new AddCardTo("EX1_014t", EntityType.HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

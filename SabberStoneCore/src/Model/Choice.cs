@@ -75,7 +75,8 @@ namespace SabberStoneCore.Model
 			ChoiceAction = choice.ChoiceAction;
 			Choices = new List<int>(choice.Choices);
 			SourceId = choice.SourceId;
-			TargetIds = new List<int>(choice.TargetIds);
+			if (choice.TargetIds != null)
+				TargetIds = new List<int>(choice.TargetIds);
 			if (choice.ChoiceQueue.Count != 0)
 			{
 				foreach (Choice item in choice.ChoiceQueue)

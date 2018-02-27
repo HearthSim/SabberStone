@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Zones;
@@ -129,8 +130,17 @@ namespace SabberStoneCore.Model.Entities
 
 		public override int this[GameTag t]
 		{
-			get => base[t] + ControllerAuraEffects[t];
-			set => base[t] = value;
+			get => _data[t] + ControllerAuraEffects[t];
+			set
+			{
+				if (_logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {t} to {value}");
+				if (_history && (int)t < 1000)
+					if (value + ControllerAuraEffects[t] != this[t])
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
+
+				_data.Tags[t] = value;
+			}
 		}
 
 		/// <summary>
@@ -142,7 +152,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="id">Entity ID of this controller.</param>
 		public Controller(Game game, string name, int playerId, int id)
 			: base(game, Card.CardPlayer,
-			new EntityData.Data
+			new EntityData.Data(71)
 			{
 				//[GameTag.HERO_ENTITY] = heroId,
 				[GameTag.MAXHANDSIZE] = 10,

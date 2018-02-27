@@ -532,7 +532,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Look at the top 3 cards of your deck. Draw one and discard the_others.
 			// --------------------------------------------------------
 			cards.Add("DS1_184", new Power {
-				PowerTask = new DiscoverTask(DiscoverType.TRACKING)
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p =>
+					{
+						DeckZone deck = p.Controller.DeckZone;
+						if (deck.IsEmpty) return 0;
+						List<int> ids = new List<int>(3);
+						for (int i = 0; i < 3 && deck.Count != 0; i++)
+						{
+							IPlayable entity = deck.Remove(deck.TopCard);
+							ids.Add(entity.Id);
+							p.Controller.SetasideZone.Add(entity);
+						}
+
+						Actions.Generic.CreateChoice(p.Controller, p,
+							ChoiceType.GENERAL, ChoiceAction.HAND, ids);
+						return 0;
+					}))
 			});
 
 			// ----------------------------------------- SPELL - HUNTER

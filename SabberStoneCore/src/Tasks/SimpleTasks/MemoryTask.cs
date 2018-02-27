@@ -69,8 +69,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override TaskState Process()
 		{
-			IEnumerable<IPlayable> entityList = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
-			if (entityList.Count() != 1) throw new NotImplementedException();
+			IList<IPlayable> entityList = IncludeTask.GetEntities(_type, Controller, Source, Target, Playables);
+			if (entityList.Count != 1) throw new NotImplementedException();
 
 			IPlayable entity = entityList.First();
 
