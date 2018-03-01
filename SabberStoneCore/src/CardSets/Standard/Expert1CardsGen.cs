@@ -2587,7 +2587,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_038e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 
@@ -3527,7 +3527,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = Triggers.EnrageTrigger("CS2_221e")
 			});
 
-			// --------------------------------------- MINION - NEUTRAL
+			// --------------------------------------- MINION - NEUTRALa
 			// [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6] 
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------

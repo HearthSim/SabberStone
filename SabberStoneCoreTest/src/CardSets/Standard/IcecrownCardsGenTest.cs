@@ -113,10 +113,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone.Last().Card.Name);
 			Assert.Empty(game.CurrentPlayer.BoardZone.Last().AppliedEnchantments);
-
-
-
-			Assert.True(game.CurrentPlayer.HandZone[4] is Minion);
 		}
 
 		// ------------------------------------------ HERO - HUNTER

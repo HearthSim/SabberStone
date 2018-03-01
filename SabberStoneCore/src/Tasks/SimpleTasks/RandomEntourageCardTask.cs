@@ -8,10 +8,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RandomEntourageTask : SimpleTask
 	{
 		private readonly int _count;
+		private readonly bool _opponent;
 		
-		public RandomEntourageTask(int count = 0)
+		public RandomEntourageTask(int count = 1, bool opponent = false)
 		{
 			_count = count;
+			_opponent = opponent;
 		}
 		 
 		public override TaskState Process()
@@ -22,7 +24,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			if (_count > 0)
+			if (_count > 1)
 			{
 				if (_count > source.Card.Entourage.Length)
 					throw new System.ArgumentOutOfRangeException();
@@ -40,13 +42,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				var list = new List<IPlayable>(_count);
 				for (int j = 0; j < _count; j++)
-					list.Add(Entity.FromCard(Controller, Cards.FromId(ids[j])));
+					list.Add(Entity.FromCard(_opponent? Controller.Opponent : Controller, Cards.FromId(ids[j])));
 
 				Playables = list;
 			}
 			else
 			{
-				IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
+				IPlayable randomCard = Entity.FromCard(_opponent ? Controller.Opponent : Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
 				Playables = new List<IPlayable> { randomCard };
 			}
 
@@ -57,7 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RandomEntourageTask(_count);
+			var clone = new RandomEntourageTask(_count, _opponent);
 			clone.Copy(this);
 			return clone;
 		}

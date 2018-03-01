@@ -996,9 +996,13 @@ namespace SabberStoneCore.Model
 
 			TaskQueue.StartEvent();
 
-			GraveYard();    // Death Creation Step
+			do
+			{
+				GraveYard();	// Death Creation Step
 
-			ProcessTasks(); // Death Resolution Phase
+				ProcessTasks(); // Death Resolution Phase
+			} while (DeadMinions.Count != 0);
+
 
 			TaskQueue.EndEvent();
 

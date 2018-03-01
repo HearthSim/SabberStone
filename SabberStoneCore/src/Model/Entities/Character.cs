@@ -190,6 +190,9 @@ namespace SabberStoneCore.Model.Entities
 			var hero = this as Hero;
 			var minion = this as Minion;
 
+			if (minion != null && minion.Zone.Type != Enums.Zone.PLAY)
+				return 0;
+
 			bool fatigue = hero != null && this == source;
 
 			if (fatigue)

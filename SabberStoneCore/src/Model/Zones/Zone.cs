@@ -186,6 +186,8 @@ namespace SabberStoneCore.Model.Zones
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
+			if (entity.Controller != Controller)
+				throw new ZoneException("Can't add an opponent's entity to own Zones");
 			MoveTo(entity, zonePosition);
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}'.");
 		}
@@ -253,10 +255,14 @@ namespace SabberStoneCore.Model.Zones
 
 		public override int Count => _count;
 
+		public int FreeSpace => MaxSize - _count;
+
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			if (zonePosition > _count)
 				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
+			if (entity.Controller != Controller)
+				throw new ZoneException("Can't add an opponent's entity to own Zones");
 
 			MoveTo((T)entity, zonePosition < 0 ? _count : zonePosition);
 
