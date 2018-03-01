@@ -1930,7 +1930,17 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					RemoveWhenPlayed = true
 				},
-				Trigger = Triggers.ShadowReflectionTrigger
+				Trigger = new MultiTrigger(
+					new Trigger(TriggerType.PLAY_CARD)
+					{
+						SingleTask = SpecificTask.ShadowReflection
+					},
+					new Trigger(TriggerType.TURN_END)
+					{
+						SingleTask = ComplexTask.Create(
+							new RemoveEnchantmentTask(),
+							new MoveToSetaside(EntityType.TARGET))
+					})
 
 				// Trigger 1 : PlayCard => ChangeEntity
 				// Trigger 2 : PlayCard => Self? => Dispose

@@ -2082,10 +2082,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DragonSoul_LOOT_209()
 		{
-			// TODO DragonSoul_LOOT_209 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2103,7 +2102,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dragon Soul"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dragon Soul"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dragon Soul"));
+
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Dragon Spirit", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal(0, game.CurrentPlayer.Hero.Weapon[GameTag.TAG_SCRIPT_DATA_NUM_1]);
+
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+
+			game.EndTurn();
+			Assert.Equal(0, game.CurrentOpponent.Hero.Weapon[GameTag.TAG_SCRIPT_DATA_NUM_1]);
 		}
 
 	}

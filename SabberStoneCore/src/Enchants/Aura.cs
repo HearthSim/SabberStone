@@ -587,7 +587,7 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class AdaptiveCostEffect : Aura
 	{
-		private EffectOperator _operator;
+		private readonly EffectOperator _operator;
 
 		public AdaptiveCostEffect(EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.ADAPTIVE)
 		{

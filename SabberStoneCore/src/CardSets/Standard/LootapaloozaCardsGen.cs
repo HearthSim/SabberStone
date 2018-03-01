@@ -1307,9 +1307,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("LOOT_209", new Power {
-				// TODO [LOOT_209] Dragon Soul && Test: Dragon Soul_LOOT_209
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new MultiTrigger(
+					new Trigger(TriggerType.CAST_SPELL)
+					{
+						TriggerSource = TriggerSource.FRIENDLY,
+						SingleTask = ComplexTask.Create(
+							new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+							new MathAddTask(1),
+							new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+							new SetGameTagNumberTask(GameTag.CUSTOM_KEYWORD_EFFECT, EntityType.SOURCE),
+							new NumberConditionTask(3, RelaSign.EQ),
+							new FlagTask(true, ComplexTask.Create(
+								new SummonTask("LOOT_209t"),
+								new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+								new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 0, EntityType.SOURCE))))
+					},
+					new Trigger(TriggerType.TURN_END)
+					{
+						SingleTask = ComplexTask.Create(
+							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+							new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 0, EntityType.SOURCE))
+					})
 			});
 
 		}
@@ -2785,8 +2803,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_130", new Power {
 				// TODO [LOOT_130] Arcane Tyrant && Test: Arcane Tyrant_LOOT_130
-				//PowerTask = null,
-				//Trigger = null,
+				//Aura = new AdaptiveCostEffect(EffectOperator.SET, )
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3726,9 +3743,6 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.TARGET, null, true),
 					new FuncPlayablesTask(p =>
 					{
-						if (p.Count < 2)
-							;
-
 						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
 						return null;
 					}))
