@@ -233,6 +233,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ARMOR:
 					source.Game.TriggerManager.ArmorTrigger += instance.Process;
 					break;
+				case TriggerType.EQUIP_WEAPON:
+					source.Game.TriggerManager.EquipWeaponTrigger += instance.Process;
+					break;
 
 				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
@@ -257,7 +260,9 @@ namespace SabberStoneCore.Enchants
 
 	    private void ProcessInternal(IEntity source)
 	    {
-		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
+		    Validated = false;
+
+			Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is triggered by {source}.");
 
 		    if (RemoveAfterTriggered)
@@ -410,6 +415,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.ARMOR:
 				    Game.TriggerManager.ArmorTrigger -= Process;
 				    break;
+				case TriggerType.EQUIP_WEAPON:
+					Game.TriggerManager.EquipWeaponTrigger -= Process;
+					break;
 
 				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
 				    Game.TriggerManager.PlayCardTrigger -= Process;

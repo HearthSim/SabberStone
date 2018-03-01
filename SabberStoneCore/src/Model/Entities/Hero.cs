@@ -66,6 +66,8 @@ namespace SabberStoneCore.Model.Entities
 			EquippedWeapon = weapon.Id;
 			if (weapon.HasWindfury && IsExhausted && NumAttacksThisTurn == 1)
 				IsExhausted = false;
+
+			Game.TriggerManager.OnEquipWeaponTrigger(weapon);
 		}
 
 		/// <summary>

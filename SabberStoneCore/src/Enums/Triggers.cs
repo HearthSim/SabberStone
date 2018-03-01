@@ -62,6 +62,8 @@
 		FROZEN,
 		/// <summary> The effect will be triggered when a hero gains armor. </summary>
 		ARMOR,
+		/// <summary> The effect will be triggered when equips a weapon. </summary>
+		EQUIP_WEAPON,
 
 		CUSTOMTRIGGER_SHADOW_REFLECTION	// should make as inherited class ?...
 	}

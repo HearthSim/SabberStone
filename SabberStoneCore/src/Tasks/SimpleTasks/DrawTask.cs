@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
+using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -22,10 +23,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process()
 		{
 			//Model.Entities.IPlayable drawedCard = Generic.Draw(Controller);
-
+			bool nullFlag = false;
 			var cards = new IPlayable[_count];
 			for (int i = 0; i < _count; i++)
-				cards[i] = Generic.Draw(Controller);
+			{
+				IPlayable draw = Generic.Draw(Controller);
+				if (draw == null)
+					nullFlag = true;
+				cards[i] = draw;
+			}
 
 			if (cards[0] == null)
 			{
@@ -34,7 +40,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_toStack)
 			{
-				Playables.Add(cards[0]);
+				if (nullFlag)
+				{
+					Playables.AddRange(cards.Where(p => p != null));
+				}
+				else
+					Playables.AddRange(cards);
 			}
 
 			return TaskState.COMPLETE;

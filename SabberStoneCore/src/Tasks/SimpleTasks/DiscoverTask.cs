@@ -40,7 +40,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		COST_8_MORE_SUMMON,
 		OP_HERO,
 		DIED_THIS_GAME,
-		BRANCHING_PATHS
+		BRANCHING_PATHS,
+		LEGENDARY_MINIONS
 	}
 	public class DiscoverTask : SimpleTask
 	{
@@ -479,6 +480,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 								Cards.FromId("LOOT_054d")
 							}
 						};
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
+					}
+					case DiscoverType.LEGENDARY_MINIONS:
+					{
+						choiceAction = ChoiceAction.SUMMON;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Rarity == Rarity.LEGENDARY && p.Type == CardType.MINION));
 						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
 						CachedDiscoverySets.TryAdd(discoverType, output);
 						return listArray;

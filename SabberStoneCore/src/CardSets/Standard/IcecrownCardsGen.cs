@@ -1472,7 +1472,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
 					new SummonTask(SummonSide.DEATHRATTLE))	
 			});
@@ -2942,7 +2942,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_702", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new [] { GameTag.DEATHRATTLE }),
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, Rarity.INVALID, new [] { GameTag.DEATHRATTLE }),
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -3390,7 +3390,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_257e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 

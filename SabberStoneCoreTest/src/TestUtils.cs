@@ -87,6 +87,9 @@ namespace SabberStoneCoreTest
 
 	    public static void Kill(this Minion m)
 	    {
+		    if (m.Zone.Type != SabberStoneCore.Enums.Zone.PLAY)
+			    throw new ArgumentException($"{m} is not in the board.");
+
 			m.ToBeDestroyed = true;
 		    m.Game.DeathProcessingAndAuraUpdate();
 	    }

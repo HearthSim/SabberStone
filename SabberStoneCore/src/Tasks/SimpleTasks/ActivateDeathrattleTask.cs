@@ -21,9 +21,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				    if (e.Power.DeathrattleTask == null) return;
 				    ISimpleTask clone = e.Power.DeathrattleTask.Clone();
 				    clone.Game = Game;
-				    clone.Controller = Controller;
-				    clone.Source = e;
-				    clone.Target = e.Target;
+				    clone.Controller = e.Target.Controller;
+				    clone.Source = e.Target;
+				    clone.Target = e;
 
 				    Game.TaskQueue.Enqueue(clone);
 			    });

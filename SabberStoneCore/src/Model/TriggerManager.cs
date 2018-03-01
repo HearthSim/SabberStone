@@ -48,6 +48,9 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler ArmorTrigger;
 
+	    public event TriggerHandler EquipWeaponTrigger;
+
+		public bool HasTargetTrigger => TargetTrigger != null;
 
 	    internal void OnDealDamageTrigger(IEntity sender)
 	    {
@@ -176,6 +179,11 @@ namespace SabberStoneCore.Model
 	    internal void OnArmorTrigger(IEntity sender)
 	    {
 		    ArmorTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnEquipWeaponTrigger(IEntity sender)
+	    {
+		    EquipWeaponTrigger?.Invoke(sender);
 	    }
     }
 }
