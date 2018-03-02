@@ -175,7 +175,7 @@ namespace SabberStoneCore.Enchants
 				return;
 			}
 
-			throw new Exception();
+			throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
 		}
 
 		/// <summary>
@@ -332,6 +332,21 @@ namespace SabberStoneCore.Enchants
 		public ControllerAuraEffects Clone()
 		{
 			return (ControllerAuraEffects)MemberwiseClone();
+		}
+
+		public string Hash()
+		{
+			var sb = new StringBuilder("[CAE:");
+			sb.Append(_timeOut);
+			sb.Append(_spellPowerDouble);
+			sb.Append(_restoreToDamage);
+			sb.Append(_extraBattecry);
+			sb.Append(_chooseBoth);
+			sb.Append(_spellsCostHealth);
+			sb.Append(_extraEndTurnEffect);
+			sb.Append(_heroPowerDisabled);
+			sb.Append("]");
+			return sb.ToString();
 		}
 	}
 }

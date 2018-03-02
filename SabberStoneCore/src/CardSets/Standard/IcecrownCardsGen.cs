@@ -823,7 +823,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Give all minions +2/+2.
 			// --------------------------------------------------------
 			cards.Add("ICC_047a", new Power {
-				PowerTask = new TransformTask("ICC_047t", EntityType.SOURCE)
+				//PowerTask = new TransformTask("ICC_047t", EntityType.SOURCE)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -833,7 +833,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Deal 3 damage to all minions.
 			// --------------------------------------------------------
 			cards.Add("ICC_047b", new Power {
-				PowerTask = new TransformTask("ICC_047t2", EntityType.SOURCE)
+				//PowerTask = new TransformTask("ICC_047t2", EntityType.SOURCE)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -2051,6 +2051,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
 				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.OverloadThisGame)
+				//{
+				//	UpdateTrigger = (TriggerType.PLAY_CARD, TriggerSource.FRIENDLY, SelfCondition.IsCurrentEventNumber(1, RelaSign.GEQ))
+				//}
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2912,7 +2915,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SET, p => p.Controller.AmountHeroHealedThisTurn > 0 ? 0 : p.Cost)
+				Aura = new AdaptiveCostEffect(0, p => p.Controller.AmountHeroHealedThisTurn > 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

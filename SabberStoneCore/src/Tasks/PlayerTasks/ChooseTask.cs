@@ -4,6 +4,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
@@ -44,7 +45,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 					return TaskState.COMPLETE;
 
 				case ChoiceType.GENERAL:
-					Generic.ChoicePick.Invoke(Controller, Choices[0]);
+					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return TaskState.STOP;
 					Controller.NumOptionsPlayedThisTurn++;
 					Game.ProcessTasks();
 					Game.DeathProcessingAndAuraUpdate();

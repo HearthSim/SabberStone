@@ -18,7 +18,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
-				if (p.Zone.Type == Zone.DECK)
+				if (p.Zone?.Type == Zone.DECK)
 					continue;
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Reset();

@@ -2243,10 +2243,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ObsidianShard_UNG_061()
 		{
-			// TODO ObsidianShard_UNG_061 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2258,7 +2257,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Obsidian Shard"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Obsidian Shard"));
+
+			Assert.Equal(4, testCard.Cost);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+
+			Assert.Equal(3, testCard.Cost);
+
+			game.ProcessCard("Eviscerate", game.CurrentOpponent.Hero);
+
+			Assert.Equal(3, testCard.Cost);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+
+			Assert.Equal(2, testCard.Cost);
 		}
 
 	}

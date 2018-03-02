@@ -24,7 +24,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//}
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
-				var minion = p as Minion;
+				if (!(p is Minion minion))
+					continue;
 				minion.Silence();
 			};
 			return TaskState.COMPLETE;

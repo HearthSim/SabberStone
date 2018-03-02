@@ -772,6 +772,8 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistoryBuilder.BlockEnd();
 
+			CurrentPlayer.CardsPlayedThisTurn.Clear();
+
 			// set next step
 			//NextStep = Step.MAIN_NEXT;
 			NextStep = Step.MAIN_CLEANUP;

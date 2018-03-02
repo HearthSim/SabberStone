@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -69,14 +70,14 @@ namespace SabberStoneCore.Enchants
 		private List<IPlayable> _appliedEntities;
 		private List<IPlayable> _tempList;
 		protected bool On = true;
-		private bool _toBeUpdated = true;
+		protected bool _toBeUpdated = true;
 		//private Trigger _removeTrigger;
 		protected Effect[] Effects;
 
 		public readonly Game Game;
 		public readonly AuraType Type;
 		public SelfCondition Condition;
-		public Func<IPlayable, int> Predicate;
+		public Func<IPlayable, int> ValueFunc;
 		public (TriggerType Type, SelfCondition Condition) RemoveTrigger;
 		public readonly Card EnchantmentCard;
 
@@ -101,7 +102,7 @@ namespace SabberStoneCore.Enchants
 			Type = prototype.Type;
 			Effects = prototype.Effects;
 			Condition = prototype.Condition;
-			Predicate = prototype.Predicate;
+			ValueFunc = prototype.ValueFunc;
 			RemoveTrigger = prototype.RemoveTrigger;
 			EnchantmentCard = prototype.EnchantmentCard;
 			Restless = prototype.Restless;
@@ -372,9 +373,9 @@ namespace SabberStoneCore.Enchants
 			{
 				foreach (IPlayable entity in AppliedEntities)
 				{
-					if (Predicate != null)
+					if (ValueFunc != null)
 					{
-						var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+						var effect = new Effect(Effects[0].Tag, Effects[0].Operator, ValueFunc(entity));
 						effect.Remove(entity.AuraEffects);
 						continue;
 					}
@@ -473,9 +474,9 @@ namespace SabberStoneCore.Enchants
 				if (!Condition.Eval(entity))
 					return;
 
-			if (Predicate != null)
+			if (ValueFunc != null)
 			{
-				var effect = new Effect(Effects[0].Tag, Effects[0].Operator, Predicate(entity));
+				var effect = new Effect(Effects[0].Tag, Effects[0].Operator, ValueFunc(entity));
 				effect.Apply(entity.AuraEffects);
 			}
 			else
@@ -495,6 +496,25 @@ namespace SabberStoneCore.Enchants
 		public virtual void Clone(IPlayable clone)
 		{
 			Activate(clone, true);
+			((Aura)clone.OngoingEffect).ToBeUpdated = _toBeUpdated;
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[A:");
+			sb.Append("[O:");
+			sb.Append(_ownerId);
+			sb.Append("]");
+			sb.Append("[T:");
+			sb.Append(Type);
+			sb.Append("]");
+			sb.Append("[AEs:");
+			foreach (int i in _appliedEntityIds)
+				sb.Append($"{{{i}}}");
+			sb.Append("]");
+			sb.Append(On ? "[ON]" : "[OFF]");
+			sb.Append(_toBeUpdated ? "[U]" : "[NU]");
+			return sb.ToString();
 		}
 	}
 
@@ -507,9 +527,9 @@ namespace SabberStoneCore.Enchants
 		private readonly EffectOperator _operator;
 		private int _lastValue;
 
-		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.ADAPTIVE)
+		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> valueFunc) : base(AuraType.ADAPTIVE)
 		{
-			Predicate = predicate;
+			ValueFunc = valueFunc;
 			_tag = tag;
 			_operator = @operator;
 		}
@@ -536,7 +556,7 @@ namespace SabberStoneCore.Enchants
 				case EffectOperator.ADD:
 				{
 					Owner.AuraEffects[_tag] -= _lastValue;
-					int val = Predicate(Owner);
+					int val = ValueFunc(Owner);
 					Owner.AuraEffects[_tag] += val;
 					_lastValue = val;
 					return;
@@ -544,7 +564,7 @@ namespace SabberStoneCore.Enchants
 				case EffectOperator.SUB:
 				{
 					Owner.AuraEffects[_tag] += _lastValue;
-					int val = Predicate(Owner);
+					int val = ValueFunc(Owner);
 					Owner.AuraEffects[_tag] -= val;
 					_lastValue = val;
 					return;
@@ -552,7 +572,7 @@ namespace SabberStoneCore.Enchants
 				case EffectOperator.SET:
 					_lastValue += Owner.AuraEffects[_tag];
 					Owner.AuraEffects[_tag] = 0;
-					Owner[_tag] = Predicate(Owner);
+					Owner[_tag] = ValueFunc(Owner);
 					return;
 			}
 		}
@@ -580,6 +600,14 @@ namespace SabberStoneCore.Enchants
 		{
 			Activate(clone);
 		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[AE:");
+			sb.Append(Owner.Card.Name);
+			sb.Append("]");
+			return sb.ToString();
+		}
 	}
 
 	/// <summary>
@@ -588,41 +616,68 @@ namespace SabberStoneCore.Enchants
 	public class AdaptiveCostEffect : Aura
 	{
 		private readonly EffectOperator _operator;
+		private readonly Predicate<IPlayable> _predicate;
+		private readonly int _value;
 
-		public AdaptiveCostEffect(EffectOperator @operator, Func<IPlayable, int> predicate) : base(AuraType.ADAPTIVE)
+		//public (TriggerType Type, TriggerSource Source, SelfCondition Condition) UpdateTrigger;
+
+		public AdaptiveCostEffect(EffectOperator @operator, Func<IPlayable, int> costFunc) : base(AuraType.ADAPTIVE)
 		{
-			Predicate = predicate;
+			ValueFunc = costFunc;
 			_operator = @operator;
+		}
+
+		/// <summary>
+		/// Creates an Adaptive Cost Effect that sets cost of the target to a specific value
+		/// when the given criterion is satisfied. (e.g. Happy Ghoul, Arcane Tyrant)
+		/// </summary>
+		public AdaptiveCostEffect(int value, Predicate<IPlayable> predicate) : base(AuraType.ADAPTIVE)
+		{
+			_predicate = predicate;
+			_value = value;
 		}
 
 		private AdaptiveCostEffect(AdaptiveCostEffect prototype, IPlayable owner) : base(prototype, owner)
 		{
 			_operator = prototype._operator;
+			//UpdateTrigger = prototype.UpdateTrigger;
+			_predicate = prototype._predicate;
+			_value = prototype._value;
 		}
 
 		public override void Activate(IPlayable owner, bool cloning = false)
 		{
-			if (!(owner.Zone is HandZone)) return;
+			if (!cloning && !(owner.Zone is HandZone)) return;
 
 			var instance = new AdaptiveCostEffect(this, owner);
 
 			owner.AuraEffects.AdaptiveCostEffect = instance;
 			owner.OngoingEffect = instance;
 			owner.Game.Auras.Add(instance);
+
+			//if (UpdateTrigger.Type != TriggerType.NONE)
+			//{
+			//	owner.Game.TriggerManager.AddTrigger(UpdateTrigger.Type, instance.TriggeredUpdate);
+			//}
+			//else
+			//	_toBeUpdated = true;
 		}
 
 		public int Apply(int value)
 		{
+			if (_predicate != null)
+				return _predicate(Owner) ? _value : value;
+
 			switch (_operator)
 			{
 				case EffectOperator.ADD:
-					return value + Predicate(Owner);
+					return value + ValueFunc(Owner);
 				case EffectOperator.SUB:
-					return value - Predicate(Owner);
+					return value - ValueFunc(Owner);
 				case EffectOperator.SET:
-					return Predicate(Owner);
+					return ValueFunc(Owner);
 				case EffectOperator.MUL:
-					return value * Predicate(Owner);
+					return value * ValueFunc(Owner);
 			}
 
 			return 0;
@@ -632,18 +687,52 @@ namespace SabberStoneCore.Enchants
 		{
 			Owner.AuraEffects.AdaptiveCostEffect = null;
 			Owner.OngoingEffect = null;
+			//if (UpdateTrigger.Type != 0)
+			//	Owner.Game.TriggerManager.RemoveTrigger(UpdateTrigger.Type, TriggeredUpdate);
 		}
 
 		public override void Update()
 		{
+			//if (!_toBeUpdated) return;
 			Owner.AuraEffects.Checker = true;
+			//if (UpdateTrigger.Type != TriggerType.NONE)
+			//	_toBeUpdated = false;
 		}
+
+		//private void TriggeredUpdate(IEntity sender)
+		//{
+		//	switch (UpdateTrigger.Source)
+		//	{
+		//		case TriggerSource.ALL:
+		//			break;
+		//		case TriggerSource.FRIENDLY:
+		//			if (sender.Controller != Owner.Controller) return;
+		//			break;
+		//		default:
+		//			throw new NotImplementedException();
+		//	}
+
+		//	if (UpdateTrigger.Condition != null && sender is IPlayable p)
+		//	{
+		//		if (!UpdateTrigger.Condition.Eval(p))
+		//			return;
+		//	}
+
+		//	_toBeUpdated = true;
+		//}
 
 		public override void Clone(IPlayable clone)
 		{
-			Activate(clone);
+			Activate(clone, true);
 		}
 
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[ACE:");
+			sb.Append(Owner.Card.Name);
+			sb.Append("]");
+			return sb.ToString();
+		}
 	}
 
 	/// <summary>
@@ -725,6 +814,14 @@ namespace SabberStoneCore.Enchants
 		public override void Clone(IPlayable clone)
 		{
 			Activate(clone, true);
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[EE:");
+			sb.Append(Owner.Card.Name);
+			sb.Append("]");
+			return sb.ToString();
 		}
 	}
 }

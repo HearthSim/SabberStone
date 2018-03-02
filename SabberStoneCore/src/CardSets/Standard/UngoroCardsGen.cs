@@ -689,12 +689,12 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_028", new Power {
 				// TODO [UNG_028] Open the Waygate && Test: Open the Waygate_UNG_028
 				InfoCardId = "UNG_028e",
-				Trigger = new Trigger(TriggerType.AFTER_CAST)
-				{
-					TriggerSource = TriggerSource.FRIENDLY,
-					Condition = SelfCondition.IsNotStartInDeck,
-					SingleTask = new QuestProgressTask("UNG_028t")
-				}
+				//Trigger = new Trigger(TriggerType.AFTER_CAST)
+				//{
+				//	TriggerSource = TriggerSource.FRIENDLY,
+				//	Condition = SelfCondition.IsNotStartInDeck,
+				//	SingleTask = new QuestProgressTask("UNG_028t")
+				//}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -1450,12 +1450,23 @@ namespace SabberStoneCore.CardSets.Standard
 			//       another class.
 			// --------------------------------------------------------
 			// GameTag:
-			// - DURABILITY = 3
+			// - DURABILITY = 3a
 			// --------------------------------------------------------
 			cards.Add("UNG_061", new Power {
-				// TODO [UNG_061] Obsidian Shard && Test: Obsidian Shard_UNG_061
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: possible performance hit
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				{
+					List<PlayHistoryEntry> history = p.Controller.PlayHistory;
+					CardClass heroClass = p.Controller.HeroClass;
+					int count = 0;
+					for (int i = 0; i < history.Count; i++)
+						if (history[i].SourceCard.Class != heroClass)
+							count++;
+					return count;
+				})
+				//{
+				//	UpdateTrigger = (TriggerType.AFTER_PLAY_CARD, TriggerSource.FRIENDLY, null)
+				//}
 			});
 
 		}

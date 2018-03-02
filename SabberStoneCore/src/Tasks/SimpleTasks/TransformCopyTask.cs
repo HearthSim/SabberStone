@@ -21,6 +21,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 
 			Minion source = (Minion)Source;
+			if (source.Zone?.Type != Zone.PLAY)
+				return TaskState.STOP;
+
 		    var tags = new EntityData.Data
 		    {
 			    {GameTag.CREATOR, Source.Id},

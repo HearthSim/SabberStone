@@ -91,12 +91,12 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
 		/// </summary>
-		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY)
+		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
 				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
-			if (activation != TriggerActivation)
+			if (!cloning && activation != TriggerActivation)
 			{
 				if (TriggerActivation != TriggerActivation.HAND_OR_PLAY)
 					return null;

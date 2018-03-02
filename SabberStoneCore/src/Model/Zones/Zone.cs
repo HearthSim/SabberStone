@@ -120,10 +120,12 @@ namespace SabberStoneCore.Model.Zones
 				ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
 			}
 			list.ForEach(p => str.Append(p.Hash(ignore)));
-			//str.Append($"][EN:{Enchants.Count}");
-			//Enchants.ForEach(p => str.Append(p.Hash));
-			//str.Append($"][TR:{Triggers.Count}");
-			//Triggers.ForEach(p => str.Append(p.Hash));
+			if (this is PositioningZone<T> pZone)
+			{
+				str.Append("[As:");
+				pZone.Auras.OrderBy(p => p.Owner.Id).ToList().ForEach(p => str.Append(p));
+				str.Append("]");
+			}
 			str.Append("]");
 			return str.ToString();
 		}
