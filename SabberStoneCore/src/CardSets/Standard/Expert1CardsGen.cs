@@ -2735,7 +2735,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(0))
 				{
 					Condition = SelfCondition.IsMinion,
-					Predicate = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
+					ValueFunc = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
 				}
 			});
 

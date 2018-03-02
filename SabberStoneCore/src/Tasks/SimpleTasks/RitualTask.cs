@@ -82,10 +82,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					entities.ForEach(p =>
 					{
-						if (p[GameTag.SILENCED] == 1)
+						if (p.OngoingEffect == null)
+						{
 							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
-						
-						((OngoingEnchant) p.OngoingEffect).Count += _amount;
+							((OngoingEnchant)p.OngoingEffect).Count += (_amount - 1);
+						}
+						else
+							((OngoingEnchant)p.OngoingEffect).Count += _amount;
 					});
 					break;
 

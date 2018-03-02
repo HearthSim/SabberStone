@@ -1312,10 +1312,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LynessaSunsorrow_LOOT_216()
 		{
-			// TODO LynessaSunsorrow_LOOT_216 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1334,6 +1333,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lynessa Sunsorrow"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lynessa Sunsorrow"));
+
+			Minion target = game.ProcessCard<Minion>("Lynessa Sunsorrow", null, true);
+			game.ProcessCard("Blessing of Might", target, true);
+			game.ProcessCard("Blessing of Kings", target, true);
+			game.ProcessCard("Blessing of Kings", target, true);
+			game.ProcessCard("Hand of Protection", target, true);
+			game.ProcessCard("Spikeridged Steed", target, true);
+
+			Minion testCard = game.ProcessCard<Minion>("Lynessa Sunsorrow", null, true);
+
+			Assert.Equal(target.AttackDamage, testCard.AttackDamage);
+			Assert.Equal(target.Health, testCard.Health);
+			Assert.Equal(target.HasDivineShield, testCard.HasDivineShield);
+			Assert.Equal(target.HasDeathrattle, testCard.HasDeathrattle);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2082,10 +2095,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DragonSoul_LOOT_209()
 		{
-			// TODO DragonSoul_LOOT_209 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2103,7 +2115,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dragon Soul"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dragon Soul"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dragon Soul"));
+
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Dragon Spirit", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal(0, game.CurrentPlayer.Hero.Weapon[GameTag.TAG_SCRIPT_DATA_NUM_1]);
+
+			game.ProcessCard("Holy Smite", game.CurrentOpponent.Hero);
+
+			game.EndTurn();
+			Assert.Equal(0, game.CurrentOpponent.Hero.Weapon[GameTag.TAG_SCRIPT_DATA_NUM_1]);
 		}
 
 	}
@@ -2658,18 +2683,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.True(game.CurrentPlayer.ExtraBattlecry);
 
+			Game clone = game.Clone();
+
 			game.EndTurn();
+			clone.EndTurn();
 
 			Assert.False(game.CurrentOpponent.ExtraBattlecry);
+			Assert.False(clone.CurrentOpponent.ExtraBattlecry);
 
 			game.ProcessCard("Murmuring Elemental");
 
+			clone = game.Clone();
+
 			game.ProcessCard("Elven Archer", game.CurrentOpponent.Hero);
+			clone.ProcessCard("Elven Archer", clone.CurrentOpponent.Hero);
 
 			Assert.Equal(2, game.CurrentOpponent.Hero.Damage);
+			Assert.Equal(2, clone.CurrentOpponent.Hero.Damage);
 
 			Assert.False(game.CurrentPlayer.ExtraBattlecry);
-
+			Assert.False(clone.CurrentPlayer.ExtraBattlecry);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -4169,7 +4202,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Costs (0) if you've cast a spell that costs (5) or more this turn.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArcaneTyrant_LOOT_130()
 		{
 			// TODO ArcaneTyrant_LOOT_130 test
@@ -4189,8 +4222,35 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Tyrant"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arcane Tyrant"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Tyrant"));
+
+			Assert.Equal(testCard.Cost, testCard.Card.Cost);
+
+			game.ProcessCard("Pyroblast", game.CurrentOpponent.Hero);
+
+			Assert.Equal(0, testCard.Cost);
+
+			Game clone = game.Clone();
+			IPlayable cloneTestCard = clone.CurrentPlayer.HandZone[0];
+			Assert.Equal(0, cloneTestCard.Cost);
+
+			game.EndTurn();
+
+			Assert.Equal(testCard.Cost, testCard.Card.Cost);
+
+			game.ProcessCard("Pyroblast", game.CurrentOpponent.Hero);
+
+			Assert.Equal(testCard.Cost, testCard.Card.Cost);
+
+			game.EndTurn();
+
+			game.ProcessCard("Pyroblast", game.CurrentOpponent.Hero);
+
+			Assert.Equal(0, testCard.Cost);
+
+			game.ProcessCard(testCard);
+
+			Assert.Equal(testCard.Cost, testCard.Card.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5400,7 +5460,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheDarkness_LOOT_526()
 		{
 			var game = new Game(new GameConfig

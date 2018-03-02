@@ -208,6 +208,13 @@ namespace SabberStoneCore.Conditions
 				return hero.PreDamage > 0 && hero.PreDamage >= hero.Health;
 			});
 
+		public static SelfCondition IsCurrentEventNumber(int value, RelaSign relaSign)
+		{
+			return new SelfCondition(p => relaSign == RelaSign.EQ ? p.Game.CurrentEventData.EventNumber == value :
+				relaSign == RelaSign.GEQ ? p.Game.CurrentEventData.EventNumber >= value :
+				p.Game.CurrentEventData.EventNumber <= value);
+		}
+
 		public static SelfCondition IsEventTargetIs(CardType type)
 		{
 			return new SelfCondition(p => p.Game.CurrentEventData?.EventTarget.Card.Type == type);

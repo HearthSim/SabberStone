@@ -210,6 +210,9 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Card, Minion, bool> TransformBlock
 			=> delegate (Controller c, Card card, Minion oldMinion)
 			{
+				if (oldMinion.Zone?.Type != Zone.PLAY)
+					return false;
+
 				if (!(Entity.FromCard(c, card) is Minion newMinion))
 				{
 					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging ? "" : $"missing final tranformation.");

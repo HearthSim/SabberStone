@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -575,7 +576,8 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p =>
 						{
-							int number = Math.Min(p.Controller.NumSpellCostOver5CastedThisGame, p.Controller.BoardZone.FreeSpace);
+							int number = Math.Min(p.Controller.PlayHistory.Count(x => x.SourceCard.Cost >= 5 && x.SourceCard.Type == CardType.SPELL),
+								p.Controller.BoardZone.FreeSpace);
 							return number == 0 ? 0 : number % 2 == 0 ? number / 2 : (number / 2) + 1;
 						}),
 					new EnqueueNumberTask(ComplexTask.Create(
@@ -811,10 +813,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_216", new Power {
+				// TODO Verify with Power.Log
+				// TODO Should revise this implementation
 				// TODO [LOOT_216] Lynessa Sunsorrow && Test: Lynessa Sunsorrow_LOOT_216
 				InfoCardId = "LOOT_216e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.LynessaSunsorrow
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1307,9 +1310,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 3
 			// --------------------------------------------------------
 			cards.Add("LOOT_209", new Power {
-				// TODO [LOOT_209] Dragon Soul && Test: Dragon Soul_LOOT_209
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new MultiTrigger(
+					new Trigger(TriggerType.CAST_SPELL)
+					{
+						TriggerSource = TriggerSource.FRIENDLY,
+						SingleTask = ComplexTask.Create(
+							new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+							new MathAddTask(1),
+							new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+							new SetGameTagNumberTask(GameTag.CUSTOM_KEYWORD_EFFECT, EntityType.SOURCE),
+							new NumberConditionTask(3, RelaSign.EQ),
+							new FlagTask(true, ComplexTask.Create(
+								new SummonTask("LOOT_209t"),
+								new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+								new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 0, EntityType.SOURCE))))
+					},
+					new Trigger(TriggerType.TURN_END)
+					{
+						SingleTask = ComplexTask.Create(
+							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE),
+							new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 0, EntityType.SOURCE))
+					})
 			});
 
 		}
@@ -2784,9 +2805,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if you've cast a spell that costs (5) or more this turn.
 			// --------------------------------------------------------
 			cards.Add("LOOT_130", new Power {
-				// TODO [LOOT_130] Arcane Tyrant && Test: Arcane Tyrant_LOOT_130
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO more effective way ??
+				Aura = new AdaptiveCostEffect(0, p =>
+					p.Controller.CardsPlayedThisTurn.Any(q => q.Type == CardType.SPELL && q.Cost >= 5))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3298,14 +3319,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_526", new Power {
 				// TODO [LOOT_526] The Darkness
-				//PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_526t", EntityType.OP_DECK)),
-				//Trigger = new Trigger(TriggerType.ZONE)
-				//{
-				//	//Condition = SelfCondition.IsTagValue(GameTag.SCORE_VALUE_2, 2, RelaSign.LEQ),
-				//	SingleTask = ComplexTask.Create(
-				//		new TransformTask("LOOT_526d", EntityType.SOURCE),
-				//		new AddEnchantmentTask("LOOT_526et", EntityType.CONTROLLER))
-				//}
+				PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_526t", EntityType.OP_DECK)),
+				Trigger = new Trigger(TriggerType.ZONE)
+				{
+					SingleTask = new TransformTask("LOOT_526d", EntityType.SOURCE)
+					//SingleTask = ComplexTask.Create(
+					//	new TransformTask("LOOT_526d", EntityType.SOURCE),
+					//	new AddEnchantmentTask("LOOT_526et", EntityType.CONTROLLER))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3726,9 +3747,6 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.TARGET, null, true),
 					new FuncPlayablesTask(p =>
 					{
-						if (p.Count < 2)
-							;
-
 						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
 						return null;
 					}))
@@ -3739,14 +3757,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
 			cards.Add("LOOT_526et", new Power {
-				//Trigger = new Trigger(TriggerType.ZONE)
-				//{
-				//	TriggerSource = TriggerSource.ENEMY,
-				//	Condition = new SelfCondition(p => p.Zone.Type == Zone.HAND && p.Card.Id == "LOOT_526t"),
-				//	SingleTask = ComplexTask.Create(
-				//		new MoveToSetaside(EntityType.TARGET),
-				//		new DrawOpTask())
-				//}
+				// TODO ??
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3837,29 +3848,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SCORE_VALUE_1 = 3
 			// - IGNORE_HIDE_STATS_FOR_BIG_CARD = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_526d", new Power {
-				// TODO [LOOT_526d] The Darkness
-				//Trigger = new Trigger(TriggerType.DRAW)
-				//{
-				//	TriggerSource = TriggerSource.ENEMY,
-				//	Condition = new SelfCondition(p => p.Card.Id == "LOOT_526t"),
-				//	SingleTask = ComplexTask.Create(
-				//		new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
-				//		new MathAddTask(1),
-				//		new SetGameTagNumberTask(GameTag.SCORE_VALUE_2, EntityType.SOURCE),
-				//		new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
-				//		new NumberConditionTask(3, RelaSign.EQ),
-				//		new FlagTask(true, new FuncNumberTask(p =>
-				//		{
-				//			// CHANGE_ENTITY (what??)
-				//			p.Card = Cards.FromId("LOOT_526");
-				//			p[GameTag.SCORE_VALUE_2] = 0;
-				//			p[GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
-				//			p.Controller.BoardZone.DecreaseUntouchablesCount();
-				//			return 0;
-				//		})))
-				//}
-			});
+			cards.Add("LOOT_526d", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOOT_998k] Golden Kobold (*) - COST:3 [ATK:6/HP:6] 
@@ -3888,29 +3877,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_526t", new Power {
-				// TODO [LOOT_526t] Darkness Candle && Test: Darkness Candle_LOOT_526t
-				//PowerTask =
-				//	//ComplexTask.Create(
-				//	//// ShowEntity
-				//	//new FuncNumberTask(p =>
-				//	//{
-				//	//	Minion[] list = p.Controller.Opponent.BoardZone
-				//	//		.Where(m => m.Card.Id == "LOOT_526d").ToArray();
-				//	//	for (int i = 0; i < list.Length; i++)
-				//	//	{
-				//	//		IPlayable d = list[i];
-				//	//		d[GameTag.TAG_SCRIPT_DATA_NUM_1] += 1;
-				//	//		d[GameTag.SCORE_VALUE_2] += 1;
-				//	//		if (d[GameTag.TAG_SCRIPT_DATA_NUM_1] == d[GameTag.TAG_SCRIPT_DATA_NUM_2])
-				//	//		{
-				//	//			d.Game.TaskQueue.Enqueue()
-				//	//		}
-				//	//	}
-
-				//	//	return 0;
-				//	//}),
-				//	new DrawTask()
-				//	//),
+				PowerTask = SpecificTask.DarknessCandle,
+				TopdeckTask = SpecificTask.DarknessCandle
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

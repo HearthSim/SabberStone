@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
@@ -193,7 +194,7 @@ namespace SabberStoneCore.Model.Entities
 			controller.Game.IdEntityDic.Add(playable.Id, this);
 
 			playable.OngoingEffect?.Clone(this);
-			playable.ActivatedTrigger?.Activate(this);
+			playable.ActivatedTrigger?.Activate(this, cloning: true);
 			playable.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -509,6 +510,35 @@ namespace SabberStoneCore.Model.Entities
 		public Trigger ActivatedTrigger { get; set; }
 
 		public List<int> Memory { get; set; }
+
+		public override string Hash(params GameTag[] ignore)
+		{
+			if (ActivatedTrigger == null && OngoingEffect == null && Memory == null)
+				return base.Hash(ignore);
+
+			var str = new StringBuilder(base.Hash(ignore));
+			if (ActivatedTrigger != null)
+			{
+				str.Append("[TR:");
+				str.Append(ActivatedTrigger);
+				str.Append("]");
+			}
+
+			if (OngoingEffect != null)
+			{
+				str.Append("[OE:");
+				str.Append(OngoingEffect);
+				str.Append("]");
+			}
+			if (Memory != null && Memory.Count > 0)
+			{
+				str.Append("[MEM:");
+				foreach (int datum in Memory)
+					str.Append($"{{{datum}}}");
+				str.Append("]");
+			}
+			return str.ToString();
+		}
 	}
 
 

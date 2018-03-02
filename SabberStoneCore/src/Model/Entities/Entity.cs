@@ -182,12 +182,14 @@ namespace SabberStoneCore.Model.Entities
 			str.Append(_data.Hash(ignore));
 			str.Append(AuraEffects.Hash());
 			str.Append("[O:");
-			str.Append(OrderOfPlay.ToString());
-			//str.Append($"][EN:{OldEnchants.Count}");
-			//OldEnchants.ForEach(p => str.Append(p.Hash));
-			//str.Append($"][TR:{Triggers.Count}");
-			//Triggers.ForEach(p => str.Append(p.Hash));
+			str.Append(OrderOfPlay);
 			str.Append("]");
+			if (AppliedEnchantments != null && AppliedEnchantments.Count > 0)
+			{
+				str.Append("[EN:");
+				AppliedEnchantments.OrderBy(e => e.Card.Id).ToList().ForEach(e => { str.Append($"{{{e}}}"); });
+				str.Append("]");
+			}
 			return str.ToString();
 		}
 

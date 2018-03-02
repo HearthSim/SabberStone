@@ -5,6 +5,8 @@
 	{
 		NONE,
 
+		MULTITRIGGER,
+
 		/// <summary> The effect will be triggered at the end of turn. </summary>
 		TURN_END,
 		/// <summary> The effect will be triggered at the start of turn. </summary>
@@ -64,8 +66,6 @@
 		ARMOR,
 		/// <summary> The effect will be triggered when equips a weapon. </summary>
 		EQUIP_WEAPON,
-
-		CUSTOMTRIGGER_SHADOW_REFLECTION	// should make as inherited class ?...
 	}
 
 	public enum TriggerSource
@@ -84,7 +84,8 @@
 		ENCHANTMENT_TARGET,
 		WEAPON,
 		HERO_POWER,
-		FRIENDLY_SPELL_CASTED_ON_THE_OWNER
+		FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS
 	}
 
 	public enum TriggerActivation

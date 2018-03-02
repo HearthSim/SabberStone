@@ -63,7 +63,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public readonly ControllerAuraEffects ControllerAuraEffects;
 
-		public List<int> DiscardedEntities;
+		public readonly List<int> DiscardedEntities;
+
+
+		public readonly List<Card> CardsPlayedThisTurn;
+		public readonly List<PlayHistoryEntry> PlayHistory;
 
 		/// <summary>
 		/// Name of the player.
@@ -114,8 +118,6 @@ namespace SabberStoneCore.Model.Entities
 		public bool DragonInHand => HandZone.Any(p => p.Card.Race == Race.DRAGON);
 
 		public int NumTotemSummonedThisGame { get; set; }
-
-		public int NumSpellCostOver5CastedThisGame { get; set; }
 
 		/// <summary>
 		/// The last choice set proposed to this player.
@@ -181,6 +183,9 @@ namespace SabberStoneCore.Model.Entities
 			ControllerAuraEffects = new ControllerAuraEffects();
 
 			DiscardedEntities = new List<int>();
+			CardsPlayedThisTurn = new List<Card>(10);
+			//cardsPlayedThisGame = new List<Card>(30);
+			PlayHistory = new List<PlayHistoryEntry>(30);
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
@@ -223,9 +228,11 @@ namespace SabberStoneCore.Model.Entities
 			ControlledZones = new ControlledZones(this);
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
 			_currentSpellPower = controller._currentSpellPower;
+
+			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
-			NumSpellCostOver5CastedThisGame = controller.NumSpellCostOver5CastedThisGame;
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
+			CardsPlayedThisTurn = new List<Card>(controller.CardsPlayedThisTurn);
 			controller.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -288,10 +295,11 @@ namespace SabberStoneCore.Model.Entities
 		public override string Hash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
-			str.Append("][C:");
-			str.Append($"{Name}");
+			str.Append("[C:");
+			str.Append(Name);
 			str.Append("]");
 			str.Append(base.Hash(ignore));
+			str.Append(ControllerAuraEffects.Hash());
 			str.Append(Hero.Hash(ignore));
 			str.Append(Hero.HeroPower.Hash(ignore));
 			if (Hero.Weapon != null)
@@ -786,7 +794,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool ExtraBattlecry
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] += 1;
 		}
 
 		/// <summary>

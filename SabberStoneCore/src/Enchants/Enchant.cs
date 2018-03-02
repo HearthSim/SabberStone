@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enums;
+﻿using System.Text;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -152,6 +153,15 @@ namespace SabberStoneCore.Enchants
 			};
 			clone.OngoingEffect = copy;
 			copy.Game.Auras.Add(copy);
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[OE:");
+			sb.Append(_target.Card.Name);
+			sb.Append("]");
+			sb.Append(_toBeUpdated ? "[U]" : "[NU]");
+			return sb.ToString();
 		}
 	}
 }

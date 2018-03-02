@@ -689,12 +689,12 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_028", new Power {
 				// TODO [UNG_028] Open the Waygate && Test: Open the Waygate_UNG_028
 				InfoCardId = "UNG_028e",
-				Trigger = new Trigger(TriggerType.AFTER_CAST)
-				{
-					TriggerSource = TriggerSource.FRIENDLY,
-					Condition = SelfCondition.IsNotStartInDeck,
-					SingleTask = new QuestProgressTask("UNG_028t")
-				}
+				//Trigger = new Trigger(TriggerType.AFTER_CAST)
+				//{
+				//	TriggerSource = TriggerSource.FRIENDLY,
+				//	Condition = SelfCondition.IsNotStartInDeck,
+				//	SingleTask = new QuestProgressTask("UNG_028t")
+				//}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -859,10 +859,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 542 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_953", new Power {
+				// TODO Verify with power.log
 				// TODO [UNG_953] Primalfin Champion && Test: Primalfin Champion_UNG_953
-				InfoCardId = "UNG_953e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true))
+				}
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -931,9 +936,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 676 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_954", new Power {
-				// TODO [UNG_954] The Last Kaleidosaur && Test: The Last Kaleidosaur_UNG_954
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS,
+					SingleTask = new QuestProgressTask("UNG_954t1")
+				}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -1029,9 +1036,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Storing spell.
 			// --------------------------------------------------------
 			cards.Add("UNG_953e", new Power {
-				// TODO [UNG_953e] Inspired && Test: Inspired_UNG_953e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.TARGET),
+					new FuncPlayablesTask(list =>
+					{
+						IPlayable t = list[0];
+						return new List<IPlayable>
+						{
+							Entity.FromCard(t.Controller,
+								t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
+									.Card)
+						};
+					}),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1433,12 +1450,23 @@ namespace SabberStoneCore.CardSets.Standard
 			//       another class.
 			// --------------------------------------------------------
 			// GameTag:
-			// - DURABILITY = 3
+			// - DURABILITY = 3a
 			// --------------------------------------------------------
 			cards.Add("UNG_061", new Power {
-				// TODO [UNG_061] Obsidian Shard && Test: Obsidian Shard_UNG_061
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: possible performance hit
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				{
+					List<PlayHistoryEntry> history = p.Controller.PlayHistory;
+					CardClass heroClass = p.Controller.HeroClass;
+					int count = 0;
+					for (int i = 0; i < history.Count; i++)
+						if (history[i].SourceCard.Class != heroClass)
+							count++;
+					return count;
+				})
+				//{
+				//	UpdateTrigger = (TriggerType.AFTER_PLAY_CARD, TriggerSource.FRIENDLY, null)
+				//}
 			});
 
 		}
@@ -1466,19 +1494,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - UNTOUCHABLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_065t", new Power {
-				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
-				{
-					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.TAG_SCRIPT_DATA_NUM_1, 2, RelaSign.LEQ)),
-						new FlagTask(true, ComplexTask.Create(
-							new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),			// and also CUSTOM_KEYWORD_EFFECT and ATK
-							new MathAddTask(1),
-							new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE))),
-						new FlagTask(false, ComplexTask.Create(
-							new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 4, EntityType.SOURCE),
-							new TransformTask("UNG_065", EntityType.SOURCE))))
-				}
+				Trigger = new MultiTrigger(
+					new Trigger(TriggerType.AFTER_PLAY_CARD)
+					{
+						TriggerSource = TriggerSource.FRIENDLY,
+						SingleTask = ComplexTask.Create(
+							new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.TAG_SCRIPT_DATA_NUM_1, 2, RelaSign.LEQ)),
+							new FlagTask(true, ComplexTask.Create(
+								new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),           // and also CUSTOM_KEYWORD_EFFECT and ATK
+								new MathAddTask(1),
+								new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE))),
+							new FlagTask(false, ComplexTask.Create(
+								new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 4, EntityType.SOURCE),
+								new TransformTask("UNG_065", EntityType.SOURCE))))
+					},
+					new Trigger(TriggerType.TURN_END)
+					{
+						SingleTask = new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 0, EntityType.SOURCE)
+					})
 			});
 
 			// ------------------------------------------ SPELL - ROGUE

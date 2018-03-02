@@ -507,6 +507,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CFM_760", new Power
 			{
 				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSecretsPlayedThisGame * 2)
+				//{
+				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
+				//}
 			});
 
 			// ------------------------------------------- SPELL - MAGE

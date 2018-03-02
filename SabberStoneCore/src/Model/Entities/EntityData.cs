@@ -57,19 +57,13 @@ namespace SabberStoneCore.Model.Entities
 			hash.Append("[");
 			hash.Append(Card.Id);
 			hash.Append("][GT:");
-			var keys = Tags.Keys.ToList();
-			keys.Sort();
-			keys.ForEach(p =>
+			foreach (KeyValuePair<GameTag, int> kvp in Tags.OrderBy(p => p.Key))
 			{
-				if (!ignore.Contains(p))
+				if (!ignore.Contains(kvp.Key))
 				{
-					hash.Append("{");
-					hash.Append(p.ToString());
-					hash.Append(",");
-					hash.Append(Tags[p].ToString());
-					hash.Append("}");
+					hash.Append($"{{{kvp.Key},{kvp.Value}}}");
 				}
-			});
+			}
 			hash.Append("]");
 			return hash.ToString();
 		}
@@ -592,10 +586,14 @@ namespace SabberStoneCore.Model.Entities
 					throw new ArgumentOutOfRangeException();
 				if (array.Length - arrayIndex < _count)
 					throw new ArgumentException();
-				for (int i = 0; i < _buckets.Length; i++)
+				int j = arrayIndex;
+				for (int i = 0; i < _buckets.Length; i += 2)
 				{
 					if (_buckets[i] > 0)
-						array[arrayIndex++] = new KeyValuePair<GameTag, int>((GameTag)_buckets[i++], _buckets[i]);
+					{
+						array[j] = new KeyValuePair<GameTag, int>((GameTag)_buckets[i], _buckets[i + 1]);
+						j++;
+					}
 				}
 			}
 
