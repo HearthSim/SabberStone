@@ -93,6 +93,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					var tags = new EntityData.Data((EntityData.Data) target.NativeTags);
 
+					if (target.Controller != Controller)
+						tags[GameTag.CONTROLLER] = Controller.PlayerId;
+
 					IPlayable copy = Entity.FromCard(Controller, target.Card, tags, Controller.BoardZone);
 
 					target.AppliedEnchantments?.ForEach(e =>

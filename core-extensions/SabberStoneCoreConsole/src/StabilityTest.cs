@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
@@ -12,7 +13,7 @@ namespace SabberStoneCoreConsole
 {
     public static class StabilityTest
     {
-	    private const int TESTCOUNT = 100000;
+	    private const int TESTCOUNT = 50000;
 	    private static Random rnd = new Random();
 
 	    public static void CloneStabilityTest()
@@ -74,6 +75,8 @@ namespace SabberStoneCoreConsole
 		    {
 			    int num = System.Environment.ProcessorCount * 2;
 			    var tasks = new Task[num];
+			    var cts = new CancellationTokenSource();
+			    var token = cts.Token;
 			    for (int j = 0; j < tasks.Length; j++)
 			    {
 				    tasks[j] = new Task(() =>
@@ -106,7 +109,7 @@ namespace SabberStoneCoreConsole
 							    //optionHistory.Add(option);
 							    game.Process(option);
 						    } while (game.State != State.COMPLETE);
-					    }
+						}
 					    catch (Exception e)
 					    {
 						    //ShowLog(logs, LogLevel.DEBUG);
@@ -116,10 +119,13 @@ namespace SabberStoneCoreConsole
 						    Console.WriteLine(e.TargetSite);
 						    Console.WriteLine(e.StackTrace);
 						    Console.WriteLine($"LastOption: {option?.FullPrint()}");
+						    cts.Cancel();
 					    }
+					    if (token.IsCancellationRequested)
+						    token.ThrowIfCancellationRequested();
 
-					    System.Threading.Interlocked.Increment(ref i);
-				    });
+						Interlocked.Increment(ref i);
+				    }, token);
 			    }
 
 			    for (int j = 0; j < tasks.Length; j++)

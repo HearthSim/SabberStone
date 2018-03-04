@@ -78,6 +78,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						}
 					}
 					break;
+				case EntityType.EVENT_SOURCE:
+					IPlayable eSource = Game.CurrentEventData?.EventSource;
+					if (eSource == null)
+					{
+						return TaskState.STOP;
+					}
+					for (int i = 0; i < Amount; i++)
+					{
+						result.Add(Opposite ?
+							Entity.FromCard(eSource.Controller.Opponent, Cards.FromId(eSource.Card.Id)) :
+							Entity.FromCard(Controller, Cards.FromId(eSource.Card.Id)));
+					}
+					break;
 				case EntityType.OP_HERO_POWER:
 					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.HeroPower.Card.Id)));
 					break;

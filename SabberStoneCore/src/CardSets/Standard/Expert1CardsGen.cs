@@ -1231,9 +1231,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
-						new FlagTask(true, ComplexTask.Secret(
-							new CopyTask(EntityType.EVENT_SOURCE, 1),
-							new SummonTask(SummonSide.SPELL))))
+						new FlagTask(true, new SummonCopyTask(EntityType.EVENT_SOURCE)))
 
 
 				}
