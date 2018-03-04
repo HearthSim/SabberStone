@@ -434,7 +434,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you summon a Beast, draw a card.
 			// --------------------------------------------------------
 			cards.Add("CS2_237", new Power {
-				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
+				Trigger = new Trigger(TriggerType.SUMMON)
 				{
 					TriggerSource = TriggerSource.MINIONS_EXCEPT_SELF,
 					Condition = SelfCondition.IsRace(Race.BEAST),

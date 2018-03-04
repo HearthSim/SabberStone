@@ -52,6 +52,7 @@ namespace SabberStoneCore.Model
 	    public event TriggerHandler EquipWeaponTrigger;
 
 		public bool HasTargetTrigger => TargetTrigger != null;
+		public bool HasOnSummonTrigger => SummonTrigger != null;
 
 	    internal void OnDealDamageTrigger(IEntity sender)
 	    {

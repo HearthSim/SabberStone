@@ -80,7 +80,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
+						new CopyTask(EntityType.EVENT_SOURCE, 1),
 						new SummonTask())
 				}
 			});

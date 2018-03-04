@@ -458,10 +458,10 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask ExplosiveRunes
 			=> ComplexTask.Create(
-				new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+				new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 				new FlagTask(true, ComplexTask.Secret(
 					new IncludeTask(EntityType.SOURCE),
-					new IncludeTask(EntityType.TARGET, null, true),
+					new IncludeTask(EntityType.EVENT_SOURCE, null, true),
 					new FuncPlayablesTask(list =>
 					{
 						var target = (Minion) list[1];

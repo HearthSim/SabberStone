@@ -425,7 +425,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.ENEMY,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.SOURCE),
-						new IncludeTask(EntityType.TARGET, addFlag: true),
+						new IncludeTask(EntityType.EVENT_SOURCE, addFlag: true),
 						new FuncPlayablesTask(plist =>
 						{
 							var source = (ICharacter)plist[0];
@@ -1406,7 +1406,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, new RelaCondition(
+						new ConditionTask(EntityType.EVENT_SOURCE, new RelaCondition(
 							(source, target) => source[GameTag.QUEST_CONTRIBUTOR] == target.Card.AssetId)),
 						new FlagTask(true, new QuestProgressTask("UNG_067t1")),
 						new FlagTask(false, ComplexTask.Create(

@@ -265,6 +265,8 @@ namespace SabberStoneCore.Actions
 
 				game.DeathProcessingAndAuraUpdate();
 
+				minion = (Minion)game.CurrentEventData.EventSource;
+
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//minion.JustPlayed = false;

@@ -521,6 +521,7 @@ namespace SabberStoneCore.Enchants
 		    switch (_triggerType)
 		    {
 			    case TriggerType.PLAY_CARD when source.Id == _owner.Id:
+				case TriggerType.SUMMON when source == _owner:
 			    case TriggerType.AFTER_SUMMON when source.Id == _owner.Id:
 			    case TriggerType.TURN_START when !EitherTurn && source != _owner.Controller:
 			    case TriggerType.DEATH when _owner.ToBeDestroyed:

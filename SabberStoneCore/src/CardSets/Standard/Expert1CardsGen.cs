@@ -858,7 +858,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 							new DamageTask(4, EntityType.TARGET, true))))
 				}
@@ -1230,9 +1230,9 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 1),
+							new CopyTask(EntityType.EVENT_SOURCE, 1),
 							new SummonTask(SummonSide.SPELL))))
 
 
@@ -1586,7 +1586,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_379", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					SingleTask = ComplexTask.Secret(new AddEnchantmentTask("EX1_379e", EntityType.TARGET))
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new FlagTask(true, ComplexTask.Secret(
+							new AddEnchantmentTask("EX1_379e", EntityType.EVENT_SOURCE))))
 				}
 			});
 
@@ -4405,7 +4408,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_509", new Power {
-				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
+				Trigger = new Trigger(TriggerType.SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsRace(Race.MURLOC),

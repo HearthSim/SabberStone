@@ -27,6 +27,8 @@ namespace SabberStoneCore.Actions
 
 				c.Game.AuraUpdate();
 
+				c.Game.SummonedMinions.Add(minion);
+
 				// add summon block show entity 
 				if (c.Game.History)
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
@@ -36,10 +38,12 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, Minion minion)
 			{
 				//minion.IsSummoned = true;
-				c.Game.TaskQueue.StartEvent();
-				c.Game.TriggerManager.OnAfterSummonTrigger(minion);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				Game game = c.Game;
+
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnAfterSummonTrigger(minion);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
 
 				if (minion.Race == Race.TOTEM)
 					c.NumTotemSummonedThisGame++;
