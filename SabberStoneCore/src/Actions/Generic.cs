@@ -178,7 +178,7 @@ namespace SabberStoneCore.Actions
 					}
 					if (cardOp != null)
 					{
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(card));
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(cardOp));
 						cardOp[GameTag.REVEALED] = 0;
 					}
 
@@ -289,8 +289,8 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
 
-				if (!(p.Zone is HandZone hand))
-					throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
+				//if (!(p.Zone is HandZone hand))
+				//	throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
 
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
@@ -322,7 +322,9 @@ namespace SabberStoneCore.Actions
 						default:
 							throw new ArgumentNullException();
 					}
-					hand.ChangeEntity(p, entity);
+
+					if (p.Zone is HandZone hand)
+						hand.ChangeEntity(p, entity);
 					c.Game.IdEntityDic[p.Id] = entity;
 					p = entity;
 				}

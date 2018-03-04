@@ -1204,10 +1204,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_538", new Power {
-				// TODO [LOOT_538] Temporus && Test: Temporus_LOOT_538
-				InfoCardId = "LOOT_538e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new FuncNumberTask(p =>
+				{
+					p.Controller.TemporusFlag = true;
+					p.Controller.Opponent.TemporusFlag = true;
+					return 0;
+				})
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -3399,9 +3401,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_541", new Power {
-				// TODO [LOOT_541] King Togwaggle && Test: King Togwaggle_LOOT_541
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					SpecificTask.SwapDecks,
+					new AddCardTo("LOOT_541t", EntityType.OP_DECK))
 			});
 
 		}
@@ -3888,9 +3890,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Swap decks with your_opponent.
 			// --------------------------------------------------------
 			cards.Add("LOOT_541t", new Power {
-				// TODO [LOOT_541t] King's Ransom && Test: King's Ransom_LOOT_541t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.SwapDecks
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

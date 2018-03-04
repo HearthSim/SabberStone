@@ -17,6 +17,8 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	public partial class Controller : Entity
 	{
+		private readonly int _playerId;
+
 		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
@@ -119,6 +121,8 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumTotemSummonedThisGame { get; set; }
 
+		public bool TemporusFlag { get; set; }
+
 		/// <summary>
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
@@ -170,6 +174,7 @@ namespace SabberStoneCore.Model.Entities
 			})
 		{
 			Name = name;
+			_playerId = playerId;
 
 			DeckZone = new DeckZone(this);
 			BoardZone = new BoardZone(this);
@@ -227,10 +232,8 @@ namespace SabberStoneCore.Model.Entities
 
 			ControlledZones = new ControlledZones(this);
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
-			_currentSpellPower = controller._currentSpellPower;
 
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
-			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
 			CardsPlayedThisTurn = new List<Card>(controller.CardsPlayedThisTurn);
 			controller.AppliedEnchantments?.ForEach(p =>
@@ -240,6 +243,12 @@ namespace SabberStoneCore.Model.Entities
 
 				AppliedEnchantments.Add((Enchantment) p.Clone(this));
 			});
+
+			// non-tag attributes
+			_playerId = controller._playerId;
+			_currentSpellPower = controller._currentSpellPower;
+			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
+			TemporusFlag = controller.TemporusFlag;
 		}
 
 		/// <summary>
@@ -491,11 +500,7 @@ namespace SabberStoneCore.Model.Entities
 		/// ID of the player, which is a monotone ranking order starting from 1.
 		/// The first player gets PlayerID == 1
 		/// </summary>
-		public int PlayerId
-		{
-			get { return this[GameTag.PLAYER_ID]; }
-			set { this[GameTag.PLAYER_ID] = value; }
-		}
+		public int PlayerId => _playerId;
 
 		/// <summary>
 		/// The EntityID of the selected Hero.

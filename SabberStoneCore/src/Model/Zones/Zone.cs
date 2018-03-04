@@ -26,7 +26,6 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the owner of the zone.
 		/// </summary>
 		/// <value><see cref="SabberStoneCore.Model.Entities.Controller"/></value>
-		protected Controller Controller;
 		protected IList<T> Entities;
 
 		protected Zone() { }
@@ -38,6 +37,7 @@ namespace SabberStoneCore.Model.Zones
 		}
 
 		List<IPlayable> IZone.GetAll => this.Cast<IPlayable>().ToList();
+		public Controller Controller { get; set; }
 		public Zone Type { get; protected set; }
 		/// <summary>
 		/// Gets a value indicating whether this contains entities or not.
@@ -274,6 +274,8 @@ namespace SabberStoneCore.Model.Zones
 		public override void MoveTo(T entity, int zonePosition = -1)
 		{
 			if (entity == null)
+				throw new ZoneException();
+			if (IsFull)
 				throw new ZoneException();
 
 			if (zonePosition < 0)

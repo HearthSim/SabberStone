@@ -540,10 +540,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047", new Power {
-				// TODO [ICC_047] Fatespinner && Test: Fatespinner_ICC_047
-				InfoCardId = "ICC_047e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SetGameTagTask(GameTag.DEATHRATTLE, 1, EntityType.SOURCE),
+				DeathrattleTask = ComplexTask.Create(
+					new DamageTask(3, EntityType.ALLMINIONS),
+					new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -737,7 +737,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047t", new Power {
-				//DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
+				DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -750,7 +750,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047t2", new Power {
-				//DeathrattleTask = new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS)
+				DeathrattleTask = new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -823,7 +823,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Give all minions +2/+2.
 			// --------------------------------------------------------
 			cards.Add("ICC_047a", new Power {
-				//PowerTask = new TransformTask("ICC_047t", EntityType.SOURCE)
+				PowerTask = new ChangeEntityTask("ICC_047t")
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -833,7 +833,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Deal 3 damage to all minions.
 			// --------------------------------------------------------
 			cards.Add("ICC_047b", new Power {
-				//PowerTask = new TransformTask("ICC_047t2", EntityType.SOURCE)
+				PowerTask = new ChangeEntityTask("ICC_047t2")
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -931,6 +931,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_204", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
+					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsSecret,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ)),

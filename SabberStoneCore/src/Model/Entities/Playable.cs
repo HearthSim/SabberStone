@@ -245,7 +245,8 @@ namespace SabberStoneCore.Model.Entities
 				    && !Card.Id.Equals("BRM_010")	// OG_044b, using choose one 0 option
 				    && !Card.Id.Equals("AT_042")	// OG_044c, using choose one 0 option
 					&& !Card.Id.Equals("UNG_101")	// UNG_101t3
-					&& !Card.Id.Equals("ICC_051"))	// ICC_051t3
+					&& !Card.Id.Equals("ICC_051")	// ICC_051t3
+					&& !Card.Id.Equals("ICC_047"))	// using choose one 0 option
 				{
 					ChooseOnePlayables[0].ActivateTask(activation, target, chooseOne, this);
 					ChooseOnePlayables[1].ActivateTask(activation, target, chooseOne, this);
@@ -340,8 +341,9 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// check if player has enough mana to play card
-				if (!(this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
-				    && Controller.RemainingMana < Cost)
+				bool bool1 = (this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1);
+				bool bool2 = (AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1);
+				if ((!bool1 && !bool2) && Controller.RemainingMana < Cost)
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						!Game.Logging ? "" : $"{this} isn't playable, because not enough mana to pay cost.");

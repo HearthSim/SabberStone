@@ -111,7 +111,8 @@ namespace SabberStoneCore.Enchants
 					return;
 				// TODO: SET Aura
 				case EffectOperator.SET:
-					auraEffects[Tag] += Value;
+					auraEffects.Owner[Tag] = 0;
+					auraEffects[Tag] = Value;
 					return;
 				default:
 					throw new NotImplementedException();

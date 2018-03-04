@@ -189,6 +189,8 @@ namespace SabberStoneCore.Model
 
 		internal EventMetaData CurrentEventData { get; set; }
 
+
+
 		private int _idIndex = 4;
 		/// <summary>Gets the next entity identifier.</summary>
 		/// <value>The next entity id.</value>
@@ -795,29 +797,6 @@ namespace SabberStoneCore.Model
 			for (int i = OneTurnEffectEnchantments.Count - 1; i >= 0; --i)
 				OneTurnEffectEnchantments[i].Remove();
 
-			if (CurrentPlayer.Hero.Weapon != null)
-				CurrentPlayer.Hero.Weapon.IsExhausted = true;
-
-			CurrentPlayer.SecretZone.ForEach(p => p.IsExhausted = false);
-
-			if (History)
-				PowerHistoryBuilder.BlockEnd();
-
-			NextStep = Step.MAIN_NEXT;
-		}
-
-		/// <summary>
-		/// Part of the state machine.
-		/// Runs when STATE = RUNNING &amp;&amp; NEXTSTEP = MAIN_NEXT
-		/// </summary>
-		public void MainNext()
-		{
-			if (History)
-				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, Id, "", -1, 0);
-
-			CurrentPlayer.NumTurnsLeft = 0;
-			CurrentOpponent.NumTurnsLeft = 1;
-
 			// After a player ends their turn (just before the next player's Start of
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 
 			// don't have summoning sickness (or do have Charge) and have not attacked
@@ -833,8 +812,51 @@ namespace SabberStoneCore.Model
 				CurrentPlayer.Hero.IsFrozen = false;
 			}
 
-			// set player for next turn ...
-			CurrentPlayer = CurrentOpponent;
+			// Exhausts weapon and secrets
+			if (CurrentPlayer.Hero.Weapon != null)
+				CurrentPlayer.Hero.Weapon.IsExhausted = true;
+			CurrentPlayer.SecretZone.ForEach(p => p.IsExhausted = false);
+
+			if (History)
+				PowerHistoryBuilder.BlockEnd();
+
+			NextStep = Step.MAIN_NEXT;
+		}
+
+		/// <summary>
+		/// Part of the state machine.
+		/// Runs when STATE = RUNNING &amp;&amp; NEXTSTEP = MAIN_NEXT
+		/// </summary>
+		public void MainNext()
+		{
+			if (History)
+				PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Id, "", -1, 0);
+
+			// extra turn effect here
+			if (CurrentPlayer.NumTurnsLeft > 1)
+			{
+				//this[GameTag.EXTRA_TURNS_TAKEN_THIS_GAME]++;
+				//CurrentPlayer[GameTag.EXTRA_TURNS_TAKEN_THIS_GAME]++;
+				//this[GameTag.IS_CURRENT_TURN_AN_EXTRA_TURN] = 1;
+				CurrentPlayer.NumTurnsLeft--;
+			}
+			else if
+				(CurrentOpponent.TemporusFlag)
+			{
+				//this[GameTag.EXTRA_TURNS_TAKEN_THIS_GAME]++;
+				//CurrentOpponent[GameTag.EXTRA_TURNS_TAKEN_THIS_GAME]++;
+				//this[GameTag.IS_CURRENT_TURN_AN_EXTRA_TURN] = 1;
+				CurrentPlayer = CurrentOpponent;
+				CurrentPlayer.NumTurnsLeft = 2;
+				CurrentPlayer.TemporusFlag = false;
+			}
+			else
+			{
+				CurrentPlayer.NumTurnsLeft = 0;
+				CurrentOpponent.NumTurnsLeft = 1;
+				// set player for next turn ...
+				CurrentPlayer = CurrentOpponent;
+			}
 
 			// count next turn
 			Turn++;

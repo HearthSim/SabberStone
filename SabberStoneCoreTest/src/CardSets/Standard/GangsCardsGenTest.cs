@@ -2435,11 +2435,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SeadevilStinger_CFM_699()
 		{
 			// TODO take care of cost health animation
-			// TODO Seadevil Stinger_CFM_699 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2449,12 +2448,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
+			game.Player1.BaseMana = 4;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Seadevil Stinger"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
-			Assert.Equal(0, minion.Cost);
+			game.AuraUpdate();
+			Assert.True(minion.IsPlayableByPlayer);
+			//Assert.Equal(0, minion.Cost);
 			int mana = game.CurrentPlayer.RemainingMana;
 			int health = game.CurrentPlayer.Hero.Health;
 			int cost = minion.Cost;

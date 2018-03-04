@@ -24,7 +24,7 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 50 && flag; i++)
+			for (int i = 0; i < 10 && flag; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -44,29 +44,9 @@ namespace SabberStoneCoreTest.Cloning
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
 
-					if (str1.Length != str1.Length)
-						;
-					for (int j = 0; j < str1.Length; j++)
-					{
-						flag &= (str1[j] == str2[j]);
-						if (!flag)
-						{
-							var sb = new StringBuilder();
-							for (int k = Math.Max(0, j - 10); k < Math.Min(str1.Length, j + 10); k++)
-							{
-								sb.Append(str2[k]);
-							}
-
-							var str = sb.ToString();
-						}
-					}
-
-
 					flag &= str1.Equals(str2);
 					if (!flag)
-					{
 						break;
-					}
 				}
 			}
 
