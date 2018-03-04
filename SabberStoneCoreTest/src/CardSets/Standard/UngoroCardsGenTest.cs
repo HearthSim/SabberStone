@@ -1008,14 +1008,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void OpenTheWaygate_UNG_028()
 		{
-			// TODO OpenTheWaygate_UNG_028 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Fireball")
+				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -1023,7 +1026,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
+
+			game.ProcessCard(testCard);
+			Assert.NotNull(game.CurrentPlayer.SecretZone.Quest);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Quest.QuestProgress);
+			game.ProcessCard(game.CurrentPlayer.HandZone[0], game.CurrentPlayer.Hero);
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Quest.QuestProgress);
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+
+			Assert.Equal("Time Warp", game.CurrentPlayer.HandZone.Last().Card.Name);
+			Controller current = game.CurrentPlayer;
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+			game.EndTurn();
+			Assert.Equal(current, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.NotEqual(current, game.CurrentPlayer);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -2142,13 +2166,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// - QUEST = 1
-		// - QUEST_PROGRESS_TOTAL = 4
+		// - QUEST_PROGRESS_TOTAL = 5
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheCavernsBelow_UNG_067()
 		{
-			// TODO TheCavernsBelow_UNG_067 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2160,7 +2183,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Caverns Below"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Caverns Below"));
+			game.ProcessCard(testCard);
+
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Spell quest = game.CurrentPlayer.SecretZone.Quest;
+			Assert.Equal(1, quest.QuestProgress);
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			Assert.Equal(1, quest.QuestProgress);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Assert.NotEqual("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Assert.Equal("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);
+
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+
+			Assert.True(game.Minions.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
+			Assert.True(game.CurrentPlayer.HandZone.Where(p => p is Minion).Cast<Minion>().ToList()
+				.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

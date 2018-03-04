@@ -1839,10 +1839,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Temporus_LOOT_538()
 		{
-			// TODO Temporus_LOOT_538 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1859,8 +1858,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Temporus"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Temporus"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Temporus"));
+			game.EndTurn();
+			Assert.Equal(game.Player2, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.Equal(game.Player2, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.Equal(game.Player1, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.Equal(game.Player1, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.Equal(game.Player2, game.CurrentPlayer);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -5618,28 +5627,58 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KingTogwaggle_LOOT_541()
 		{
-			// TODO KingTogwaggle_LOOT_541 test
+			var p1Deck = new List<Card>(24);
+			Card wisp = Cards.FromName("Wisp");
+			for (int i = 0; i < 24; i++)
+				p1Deck.Add(wisp);
+			var p2Deck = new List<Card>(24);
+			Card penguin = Cards.FromName("Snowflipper Penguin");
+			for (int i = 0; i < 24; i++)
+				p2Deck.Add(penguin);
+
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("King Togwaggle"),
-				},
+				Player1Deck = p1Deck,
+				Player2Deck = p2Deck,
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("King Togwaggle"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "King Togwaggle"));
+
+			Assert.Equal(20, game.CurrentPlayer.DeckZone.Count);
+			Assert.Equal(20, game.CurrentOpponent.DeckZone.Count);
+
+			game.ProcessCard("King Togwaggle");
+			Assert.Equal(21, game.CurrentOpponent.DeckZone.Count);
+			Assert.Equal(20, game.CurrentPlayer.DeckZone.Count);
+
+			foreach (IPlayable entity in game.CurrentPlayer.DeckZone)
+			{
+				Assert.Equal(penguin, entity.Card);
+				Assert.Equal(game.CurrentPlayer, entity.Controller);
+				Assert.Equal(game.CurrentPlayer.PlayerId, entity[GameTag.CONTROLLER]);
+			}
+
+			game.EndTurn();
+			if (game.CurrentPlayer.HandZone.Last().Card.Id != "LOOT_541t")
+				Generic.Draw(game.CurrentPlayer, game.CurrentPlayer.DeckZone.First(p => p.Card.Id == "LOOT_541t"));
+
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+
+			foreach (IPlayable entity in game.CurrentPlayer.DeckZone)
+			{
+				Assert.Equal(penguin, entity.Card);
+				Assert.Equal(game.CurrentPlayer, entity.Controller);
+				Assert.Equal(game.CurrentPlayer.PlayerId, entity[GameTag.CONTROLLER]);
+			}
 		}
 
 	}

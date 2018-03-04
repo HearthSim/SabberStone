@@ -18,18 +18,17 @@
 				return TaskState.COMPLETE;
 			}
 
-			TaskToDo.Game = Game;
-			TaskToDo.Controller = Controller;
-			TaskToDo.Source = Source;
-			TaskToDo.Target = Target;
-			TaskToDo.Playables = Playables;
-			//TaskToDo.CardIds = CardIds;
-			TaskToDo.Flag = Flag;
-			TaskToDo.Number = Number;
-			TaskToDo.Number1 = Number1;
-			TaskToDo.Number2 = Number2;
-			TaskToDo.Number3 = Number3;
-			TaskToDo.Number4 = Number4;
+			if (TaskToDo is StateTaskList list)
+				list.Stack = Game.TaskStack;
+			else
+			{
+				TaskToDo.Game = Game;
+				TaskToDo.Controller = Controller;
+				TaskToDo.Source = Source;
+				TaskToDo.Target = Target;
+				TaskToDo.Flag = Flag;
+			}
+
 			return TaskToDo.Process();
 		}
 

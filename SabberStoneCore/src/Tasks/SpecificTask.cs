@@ -9,6 +9,7 @@ using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
 {
@@ -575,6 +576,31 @@ namespace SabberStoneCore.Tasks
 					if (p.Zone?.Type != Zone.PLAY)
 						break;
 				}
+
+				return 0;
+			});
+
+		public static ISimpleTask SwapDecks
+			=> new FuncNumberTask(p =>
+			{
+				Controller c = p.Controller;
+				Controller op = c.Opponent;
+
+				DeckZone temp = c.DeckZone;
+				temp.ForEach(x =>
+				{
+					x.Controller = op;
+					x[GameTag.CONTROLLER] = op.PlayerId;
+				});
+				op.DeckZone.ForEach(x =>
+				{
+					x.Controller = c;
+					x[GameTag.CONTROLLER] = c.PlayerId;
+				});
+				c.DeckZone = op.DeckZone;
+				c.DeckZone.Controller = c;
+				op.DeckZone = temp;
+				temp.Controller = op;
 
 				return 0;
 			});

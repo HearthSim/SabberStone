@@ -77,13 +77,20 @@ namespace SabberStoneCore.Conditions
 
 		public static readonly SelfCondition IsCthunDead = new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
-		public static SelfCondition IsInZone(params Zone[] zones)
-		{
-			// entities that don't have a real zone like Heroes are checked on the gametag value
-			return new SelfCondition(me =>
-			(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1) ||
-			(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
-		}
+		//public static SelfCondition IsInZone(params Zone[] zones)
+		//{
+		//	// entities that don't have a real zone like Heroes are checked on the gametag value
+		//	return new SelfCondition(me =>
+		//	(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1) ||
+		//	(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
+		//}
+
+		public static SelfCondition IsInZone(Zone zone) =>
+			new SelfCondition(me =>
+				me.Zone != null
+					? me.Zone.Type == zone
+					: me.NativeTags.TryGetValue(GameTag.ZONE, out int value) && (Zone)value == zone);
+
 
 		public static readonly SelfCondition IsOverloadCard = new SelfCondition(me => me.Card.HasOverload);
 		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is ICharacter && me[GameTag.TAUNT] > 0);

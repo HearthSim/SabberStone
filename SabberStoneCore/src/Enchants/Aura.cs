@@ -40,7 +40,9 @@ namespace SabberStoneCore.Enchants
 
 		HERO,
 
-		HEROPOWER
+		HEROPOWER,
+
+		HAND_AND_BOARD
 	}
 
 	/// <summary>
@@ -183,7 +185,7 @@ namespace SabberStoneCore.Enchants
 			switch (Type)
 			{
 				case AuraType.BOARD_EXCEPT_SOURCE:
-					_tempList = new List<IPlayable>();
+					instance._tempList = new List<IPlayable>();
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (minion == owner) continue;
@@ -193,11 +195,11 @@ namespace SabberStoneCore.Enchants
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
-						_tempList.Add(minion);
+						instance._tempList.Add(minion);
 					}
 					break;
 				case AuraType.BOARD:
-					_tempList = new List<IPlayable>();
+					instance._tempList = new List<IPlayable>();
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (Condition == null || Condition.Eval(minion))
@@ -206,10 +208,34 @@ namespace SabberStoneCore.Enchants
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
-						_tempList.Add(minion);
+						instance._tempList.Add(minion);
 					}
 					break;
+				case AuraType.HAND_AND_BOARD:
+					instance._tempList = new List<IPlayable>();
+					foreach (Minion minion in owner.Controller.BoardZone)
+					{
+						if (Condition == null || Condition.Eval(minion))
+						{
+							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							EnchantmentCard.Power.Trigger?.Activate(e);
+						}
 
+						instance._tempList.Add(minion);
+					}
+					foreach (IPlayable p in owner.Controller.HandZone)
+					{
+						if (!(p is Minion minion)) continue;
+
+						if (Condition == null || Condition.Eval(minion))
+						{
+							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							EnchantmentCard.Power.Trigger?.Activate(e);
+						}
+
+						instance._tempList.Add(minion);
+					}
+					break;
 			}
 		}
 
@@ -233,6 +259,10 @@ namespace SabberStoneCore.Enchants
 					Owner.Controller.HandZone.Auras.Add(this);
 					Owner.Controller.Opponent.HandZone.Auras.Add(this);
 					break;
+				case AuraType.HAND_AND_BOARD:
+					Owner.Controller.HandZone.Auras.Add(this);
+					Owner.Controller.BoardZone.Auras.Add(this);
+					break;
 			}
 		}
 
@@ -253,11 +283,7 @@ namespace SabberStoneCore.Enchants
 				if (_tempList != null)
 				{
 					for (int i = 0; i < _tempList.Count; i++)
-					{
-						IPlayable minion = _tempList[i];
-
-						Apply(minion);
-					}
+						Apply(_tempList[i]);
 
 					_tempList = null;
 				}
@@ -302,6 +328,10 @@ namespace SabberStoneCore.Enchants
 					case AuraType.HANDS:
 						Owner.Controller.HandZone.ForEach(Apply);
 						Owner.Controller.Opponent.HandZone.ForEach(Apply);
+						break;
+					case AuraType.HAND_AND_BOARD:
+						Owner.Controller.HandZone.ForEach(Apply);
+						Owner.Controller.BoardZone.ForEach(Apply);
 						break;
 					case AuraType.WEAPON:
 						if (Owner.Controller.Hero.Weapon == null) break;
@@ -355,6 +385,10 @@ namespace SabberStoneCore.Enchants
 				case AuraType.HANDS:
 					Owner.Controller.HandZone.Auras.Remove(this);
 					Owner.Controller.Opponent.HandZone.Auras.Remove(this);
+					break;
+				case AuraType.HAND_AND_BOARD:
+					Owner.Controller.HandZone.Auras.Remove(this);
+					Owner.Controller.BoardZone.Auras.Remove(this);
 					break;
 				case AuraType.CONTROLLER:
 					for (int i = 0; i < Effects.Length; i++)

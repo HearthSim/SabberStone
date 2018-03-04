@@ -125,7 +125,13 @@ namespace SabberStoneCore.Actions
 				int cost = source.Cost;
 				if (cost > 0)
 				{
-					if (c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					if (source is Spell && c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					{
+						c.Hero.TakeDamage(c.Hero, cost);
+						return true;
+					}
+
+					if (source.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1)
 					{
 						c.Hero.TakeDamage(c.Hero, cost);
 						return true;

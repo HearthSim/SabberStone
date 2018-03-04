@@ -1781,8 +1781,10 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.SOURCE, CardType.MINION),
-						new AddEnchantmentTask("OG_123e", EntityType.SOURCE))
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
+						new FlagTask(true, ComplexTask.Create(
+							new ChangeEntityTask(EntityType.SOURCE, CardType.MINION),
+							new AddEnchantmentTask("OG_123e", EntityType.SOURCE))))
 				}
 			});
 
@@ -2648,7 +2650,10 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.MINION)
+
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
+						new FlagTask(true, new ChangeEntityTask(EntityType.TARGET, CardType.MINION)))
 				}
 			});
 

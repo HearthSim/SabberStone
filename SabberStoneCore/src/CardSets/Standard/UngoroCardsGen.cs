@@ -687,14 +687,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 676 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_028", new Power {
-				// TODO [UNG_028] Open the Waygate && Test: Open the Waygate_UNG_028
-				InfoCardId = "UNG_028e",
-				//Trigger = new Trigger(TriggerType.AFTER_CAST)
-				//{
-				//	TriggerSource = TriggerSource.FRIENDLY,
-				//	Condition = SelfCondition.IsNotStartInDeck,
-				//	SingleTask = new QuestProgressTask("UNG_028t")
-				//}
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsNotStartInDeck,
+					SingleTask = new QuestProgressTask("UNG_028t")
+				}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -804,9 +802,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_028t", new Power {
-				// TODO [UNG_028t] Time Warp && Test: Time Warp_UNG_028t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new ExtraTurnEffectTask()
 			});
 
 		}
@@ -1405,11 +1401,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_067", new Power {
 				// TODO [UNG_067] The Caverns Below && Test: The Caverns Below_UNG_067
-				InfoCardId = "UNG_067t1e",
-				//Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
-				//{
-				//	Condition = ??
-				//}
+				// TODO: use name instead
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, new RelaCondition(
+							(source, target) => source[GameTag.QUEST_CONTRIBUTOR] == target.Card.AssetId)),
+						new FlagTask(true, new QuestProgressTask("UNG_067t1")),
+						new FlagTask(false, ComplexTask.Create(
+							new FuncNumberTask(p => p.Game.CurrentEventData.EventSource.Card.AssetId),
+							new SetGameTagNumberTask(GameTag.QUEST_CONTRIBUTOR, EntityType.SOURCE),
+							new SetGameTagTask(GameTag.QUEST_PROGRESS, 1, EntityType.SOURCE))))
+				}
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1538,10 +1542,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RITUAL = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_067t1", new Power {
-				// TODO [UNG_067t1] Crystal Core && Test: Crystal Core_UNG_067t1
-				InfoCardId = "UNG_067t1e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("UNG_067t1e", EntityType.CONTROLLER)
 			});
 
 		}
@@ -3064,10 +3065,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 758 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_067t1e", new Power {
-				// TODO [UNG_067t1e] Crystallized && Test: Crystallized_UNG_067t1e
-				InfoCardId = "UNG_067t1e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.HAND_AND_BOARD, "UNG_067t1e2")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3080,7 +3078,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 758 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_067t1e2", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("UNG_073e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("UNG_067t1e2")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3090,7 +3088,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Divine Shield</b> and <b>Taunt</b>.
 			// --------------------------------------------------------
 			cards.Add("UNG_070e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("UNG_073e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("UNG_070e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
