@@ -556,9 +556,9 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
-						new TransformTask("CFM_621_m5", EntityType.TARGET))))
+						new TransformTask("CFM_621_m5", EntityType.EVENT_SOURCE))))
 				}
 			});
 

@@ -219,6 +219,11 @@ namespace SabberStoneCore.Actions
 					return false;
 				}
 
+				//oldMinion[GameTag.LINKED_ENTITY] = newMinion.Id;
+				//newMinion[GameTag.LINKED_ENTITY] = oldMinion.Id;
+				if (c.Game.CurrentEventData?.EventSource == oldMinion)
+					c.Game.CurrentEventData.EventSource = newMinion;
+
 				c.BoardZone.Replace(oldMinion, newMinion);
 				if (!newMinion.HasCharge)
 					newMinion.IsExhausted = true;

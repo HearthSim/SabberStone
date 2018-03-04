@@ -36,7 +36,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    Trigger trigger = target.ActivatedTrigger;
 		    IAura aura = target.OngoingEffect;
 
-		    // LINKED_ENTITY
+			// LINKED_ENTITY
+			if (source == Game.CurrentEventData.EventSource)
+				Game.CurrentEventData.EventSource = copy;
 		    source.Controller.BoardZone.Replace(source, copy);
 
 			// Copy Enchantments

@@ -715,6 +715,44 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
+		public void SecretOrderOfPlay2()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				FillDecks = true,
+				History = false,
+				Logging = false
+
+			});
+			game.StartGame();
+
+			game.ProcessCard("Explosive Runes", null, true);
+			game.ProcessCard("Potion of Polymorph", null, true);
+			Assert.Equal(2, game.CurrentPlayer.SecretZone.Count);
+			game.EndTurn();
+
+			Minion target = game.ProcessCard<Minion>("Doomsayer", null, true);
+			Assert.False(target.IsDead);
+			Assert.Equal(Zone.SETASIDE, target.Zone.Type);
+			Assert.Equal(1, target.Health);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Sheep", game.CurrentPlayer.BoardZone[0].Card.Name);
+			game.EndTurn();
+
+			game.ProcessCard("Potion of Polymorph", null, true);
+			game.ProcessCard("Explosive Runes", null, true);
+			game.EndTurn();
+
+			Minion target2 = game.ProcessCard<Minion>("Doomsayer");
+			Assert.False(target2.IsDead);
+			Assert.Equal(Zone.SETASIDE, target2.Zone.Type);
+			Assert.Equal(7, target2.Health);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal(5, game.CurrentPlayer.Hero.Damage);
+		}
+
+		[Fact]
 		public void Aura_LoopBug()
 		{
 			var game = new Game(new GameConfig

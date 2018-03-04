@@ -1202,7 +1202,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 2, true),
+							new CopyTask(EntityType.EVENT_SOURCE, 2, true),
 							new AddStackTo(EntityType.HAND))))
 				}
 			});
@@ -2355,7 +2355,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new DamageTask(1, EntityType.TARGET)
+					SingleTask = new DamageTask(1, EntityType.EVENT_SOURCE)
 				}
 			});
 

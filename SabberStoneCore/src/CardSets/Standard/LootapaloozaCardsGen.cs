@@ -79,9 +79,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new SummonTask())
+					SingleTask = new SummonCopyTask(EntityType.EVENT_SOURCE)
 				}
 			});
 
