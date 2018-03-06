@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -18,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    {
 		    Controller c = /*_opposite ? Controller.Opponent :*/ Controller;
 
-		    if (c[Enums.GameTag.CURRENT_PLAYER] == 1)
+		    if (c == Game.CurrentPlayer)
 			    c.NumTurnsLeft++;
 		    else
 			    throw new NotImplementedException();

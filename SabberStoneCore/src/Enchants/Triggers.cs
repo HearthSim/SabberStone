@@ -1,6 +1,5 @@
 ﻿using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants

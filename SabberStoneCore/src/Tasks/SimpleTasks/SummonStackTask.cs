@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using SabberStoneCore.Actions;
+﻿using SabberStoneCore.Actions;
 using SabberStoneCore.Model.Entities;
 
 
@@ -31,17 +30,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 			}
 
-			int space = Controller.BoardZone.MaxSize - Controller.BoardZone.Count;
-			if (space < Playables.Count)
-				Playables = Playables.Take(space).ToList();
-
-			Playables.ForEach(p =>
+			for (int i = 0; i < Playables.Count && !Controller.BoardZone.IsFull; i++)
 			{
+				IPlayable p = Playables[i];
+
 				if (RemoveFromZone)
 					p.Zone.Remove(p);
+				Generic.SummonBlock(p.Controller, (Minion) p, -1);
+			}
 
-				Generic.SummonBlock.Invoke(Controller, (Minion)p, -1);
-			});
 			return TaskState.COMPLETE;
 		}
 

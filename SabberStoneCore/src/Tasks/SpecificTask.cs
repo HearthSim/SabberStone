@@ -657,7 +657,7 @@ namespace SabberStoneCore.Tasks
 				Controller.SetasideZone.Add(Controller.Hero.HeroPower);
 				Controller.Hero.HeroPower = heroPower;
 
-				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass).ToList();
+				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
 
 				// replace cards in hand
 				for (int i = 0; i < Controller.HandZone.Count; i++)

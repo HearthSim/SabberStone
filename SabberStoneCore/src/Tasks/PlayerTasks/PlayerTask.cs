@@ -24,7 +24,7 @@ namespace SabberStoneCore.Tasks
 			set { _controllerId = value.Id; }
 		}
 		private int _sourceId;
-		public IEntity Source
+		public virtual IEntity Source
 		{
 			get { return Game.IdEntityDic[_sourceId]; }
 			set { _sourceId = value.Id; }
@@ -42,6 +42,9 @@ namespace SabberStoneCore.Tasks
 
 		//public List<Game> Splits { get; set; } = new List<Game>();
 		//public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
+
+		public bool HasSource => _sourceId > 0;
+		public bool HasTarget => _targetId > 0;
 
 		public virtual List<PlayerTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
 		{

@@ -504,16 +504,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.Tags.ContainsKey(GameTag.QUEST)));
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] { classCards.ToList() };
 		}
 
 		private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
 		{
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
-							cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
-							cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
+			return new[] { cardSet[class1].Where(p => (p.Class == class1 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class2].Where(p => (p.Class == class2 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class3].Where(p => (p.Class == class3 || p.MultiClassGroup != 0) && !p.IsQuest).ToList()};
 		}
 
 		private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
@@ -521,7 +521,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
 			CardClass heroClass = Controller.BaseClass != CardClass.NEUTRAL ? Controller.BaseClass : Util.RandomElement(Cards.HeroClasses);
 			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
-			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.Tags.ContainsKey(GameTag.QUEST)));
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] { nonClassCards.ToList(), classCards.ToList() };
 		}
 

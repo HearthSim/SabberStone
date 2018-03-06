@@ -1,7 +1,10 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 
 using Generic = SabberStoneCore.Actions.Generic;
@@ -17,10 +20,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Destroy all minions and summon 2/2 Treants to replace them.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PoisonSeeds_FP1_019()
 		{
-			// TODO PoisonSeeds_FP1_019 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -33,6 +35,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Poison Seeds"));
+
+			game.ProcessCard("Harvest Golem");
+			game.ProcessCard("Harvest Golem");
+			game.ProcessCard("Harvest Golem");
+			game.EndTurn();
+
+			game.ProcessCard("Harvest Golem");
+			game.ProcessCard("Harvest Golem");
+			game.ProcessCard("Poison Seeds");
+
+			Assert.Equal(6, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+			for (int i = 0; i < 3; i++)
+				Assert.Equal("skele21", game.CurrentOpponent.BoardZone[i].Card.Id);
 		}
 	}
 
@@ -79,10 +95,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Duplicate_FP1_018()
 		{
-			// TODO Duplicate_FP1_018 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -95,6 +110,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Duplicate"));
+			game.ProcessCard("Duplicate");
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.EndTurn();
+
+			game.ProcessCard("Frostbolt", target);
+
+			Assert.Empty(game.CurrentOpponent.SecretZone);
+			Assert.Equal(6, game.CurrentOpponent.HandZone.Count);
+			Assert.Equal("Stonetusk Boar", game.CurrentOpponent.HandZone[5].Card.Name);
+			Assert.Equal("Stonetusk Boar", game.CurrentOpponent.HandZone[4].Card.Name);
 		}
 	}
 
@@ -110,10 +135,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Avenge_FP1_020()
 		{
-			// TODO Avenge_FP1_020 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -126,6 +150,23 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Avenge"));
+			game.ProcessCard("Avenge");
+			game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Stonetusk Boar");
+			game.EndTurn();
+
+			game.ProcessCard("Consecration");
+			Assert.Single(game.CurrentOpponent.SecretZone);
+			game.EndTurn();
+
+			IPlayable t1 = game.ProcessCard("Stonetusk Boar");
+			Minion t2 = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.EndTurn();
+
+			game.ProcessCard("Hammer of Wrath", t1);
+			Assert.Empty(game.CurrentOpponent.SecretZone);
+			Assert.Equal(4, t2.AttackDamage);
+			Assert.Equal(3, t2.Health);
 		}
 	}
 
@@ -207,10 +248,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Reincarnate_FP1_025()
 		{
-			// TODO Reincarnate_FP1_025 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -223,6 +263,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Reincarnate"));
+
+			Minion target = game.ProcessCard<Minion>("Cairne Bloodhoof");
+			target.Damage = 3;
+
+			game.ProcessCard("Reincarnate", target);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Baine Bloodhoof", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal("Cairne Bloodhoof", game.CurrentPlayer.BoardZone[1].Card.Name);
+			Assert.Equal(0, game.CurrentPlayer.BoardZone[1].Damage);
 		}
 	}
 
@@ -355,10 +404,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EchoingOoze_FP1_003()
 		{
-			// TODO EchoingOoze_FP1_003 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -371,6 +419,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Echoing Ooze"));
+
+			Minion target = game.ProcessCard<Minion>("Echoing Ooze");
+			game.ProcessCard("Blessing of Kings", target);
+			game.EndTurn();
+
+			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(5, game.CurrentOpponent.BoardZone[0].AttackDamage);
+			Assert.Equal(6, game.CurrentOpponent.BoardZone[0].Health);
+			Assert.Equal(5, game.CurrentOpponent.BoardZone[1].AttackDamage);
+			Assert.Equal(6, game.CurrentOpponent.BoardZone[1].Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -385,14 +443,21 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SECRET_OR_QUEST = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MadScientist_FP1_004()
 		{
-			// TODO MadScientist_FP1_004 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Mirror Entity"),
+				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -400,7 +465,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Mad Scientist"));
+
+			IPlayable testCard = game.ProcessCard("Mad Scientist");
+			game.EndTurn();
+
+			game.ProcessCard("Frostbolt", testCard);
+			Assert.Single(game.CurrentOpponent.SecretZone);
+			game.ProcessCard("Stonetusk Boar");
+
+			Assert.Single(game.CurrentOpponent.BoardZone);
+			Assert.Equal("Stonetusk Boar", game.CurrentOpponent.BoardZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -501,22 +575,37 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Deathlord_FP1_009()
 		{
-			// TODO Deathlord_FP1_009 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
+				StartPlayer = 2,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Deathlord"));
+
+			Minion target = game.ProcessCard<Minion>("Deathlord");
+			game.EndTurn();
+
+
+			target.Kill();
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Wisp", game.CurrentPlayer.BoardZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -585,10 +674,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Kelthuzad_FP1_013()
 		{
-			// TODO Kelthuzad_FP1_013 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -600,7 +688,24 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Kel'Thuzad"));
+
+			game.ProcessCard("Kel'Thuzad", null, true);
+
+			game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Stonetusk Boar");
+			game.EndTurn();
+
+			game.ProcessCard("Arcane Explosion");
+			Assert.Single(game.CurrentOpponent.BoardZone);
+			game.EndTurn();
+
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Hellfire");
+			game.EndTurn();
+
+			Assert.Equal(4, game.CurrentOpponent.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -613,10 +718,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Stalagg_FP1_014()
 		{
-			// TODO Stalagg_FP1_014 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -628,7 +732,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Stalagg"));
+
+			Minion feugen = game.ProcessCard<Minion>("Feugen");
+			feugen.Kill();
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+			Minion stalagg = game.ProcessCard<Minion>("Stalagg");
+			stalagg.Kill();
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Thaddius", game.CurrentPlayer.BoardZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -641,10 +752,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Feugen_FP1_015()
 		{
-			// TODO Feugen_FP1_015 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -656,7 +766,14 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Feugen"));
+
+			Minion stalagg = game.ProcessCard<Minion>("Stalagg");
+			stalagg.Kill();
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+			Minion feugen = game.ProcessCard<Minion>("Feugen");
+			feugen.Kill();
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Thaddius", game.CurrentPlayer.BoardZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -835,22 +952,38 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Loatheb_FP1_030()
 		{
-			// TODO Loatheb_FP1_030 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecksPredictably = true,
+				Shuffle = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Loatheb"));
+
+			game.ProcessCard("Loatheb");
+			game.EndTurn();
+
+			foreach (Spell handSpell in game.CurrentPlayer.HandZone.Where(p => p is Spell).Cast<Spell>())
+			{
+				Assert.Equal(handSpell.Cost, handSpell.Card.Cost + 5);
+			}
+
+			game.EndTurn();
+
+			game.EndTurn();
+
+			foreach (Spell handSpell in game.CurrentPlayer.HandZone.Where(p => p is Spell).Cast<Spell>())
+			{
+				Assert.Equal(handSpell.Cost, handSpell.Card.Cost);
+			}
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

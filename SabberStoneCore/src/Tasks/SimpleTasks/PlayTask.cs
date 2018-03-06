@@ -48,9 +48,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							Game.Log(LogLevel.INFO, BlockType.POWER, "PlayTask",
 								!Game.Logging ? "" : $"{p}'s target is randomly selected to {randTarget}");
 						}
-						if (p is Spell && (p.Zone == null || Generic.RemoveFromZone(Controller, p)))
+						if (p is Spell spell && (p.Zone == null || Generic.RemoveFromZone(Controller, p)))
 						{
-							Generic.CastSpell.Invoke(Controller, (Spell)p, randTarget, 0);
+							Generic.CastSpell.Invoke(Controller, spell, randTarget, 0);
+						}
+
+						while (Controller.Choice != null)
+						{
+							Generic.ChoicePick(Controller, Util.Choose(Controller.Choice.Choices));
 						}
 					});
 					return TaskState.COMPLETE;
